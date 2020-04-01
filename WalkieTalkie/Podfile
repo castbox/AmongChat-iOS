@@ -1,0 +1,122 @@
+source 'git@github.com:CocoaPods/Specs.git'
+source 'git@github.com:castbox/GuruSpecs.git'
+
+def core_pods
+    pod 'RxSwift', '~> 4.3.1'
+end
+
+def ui_pods
+    pod 'SnapKit', '~> 4.2.0'
+    pod 'RxCocoa'
+    pod 'RxGesture'
+    pod 'UIColor_Hex_Swift', '~> 4.2.0'
+end
+
+def firebase_pods
+    # Firebase 推送
+#    pod 'Firebase/Messaging'#, '~> 4.13.0'
+
+    # Firebase Dynamic Links
+    pod 'Firebase/DynamicLinks'#, '~> 4.13.0'
+
+    # Firebase Remote Configure
+    pod 'Firebase/RemoteConfig'#, '~> 4.13.0'
+    
+    # Firestore
+    pod 'Firebase/Firestore'
+    
+#    # Firebase auth
+#    pod 'Firebase/Auth'
+    
+    # log
+    pod 'Firebase/Analytics'
+    
+#    # in app messageing
+#    pod 'Firebase/InAppMessagingDisplay'
+end
+
+# specify the version numbers in case of Podfile.lock missing
+target 'WalkieTalkie' do
+    platform :ios, '10.0'
+    
+    use_frameworks!
+    use_modular_headers!
+
+    # Objective-C Pods
+    pod 'MBProgressHUD', '~> 1.0.0'
+    pod 'DeviceKit'
+    pod 'LYEmptyView'
+    ui_pods
+    firebase_pods
+
+    pod 'Moya'
+    pod 'Moya/RxSwift'
+
+    
+    # Crash 统计
+    pod 'Fabric', '~> 1.9.0'
+    pod 'Crashlytics', '~> 3.12.0'
+#    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.4.1'
+
+    pod 'Adjust', '4.21.0'
+    #pod 'Streamer', :git => 'https://github.com/castbox/Streamer.git', :branch => 'master'
+#    pod 'GuruRater', '~> 0.1.0'
+#    pod 'GuruQueue', '~> 0.2.1'
+    pod 'GuruExtensions', :git => 'https://github.com/castbox/GuruExtensions.git', :branch => 'master'
+    
+    # Swift Pods
+    pod 'R.swift', '~> 5.0.2'
+
+    # UserDefaults
+    pod 'SwiftyUserDefaults', '~> 3.0.1'
+    # 键盘控制
+    pod 'IQKeyboardManagerSwift', '~> 6.2.0'
+    
+    # tip view
+    pod 'EasyTipView', '~> 2.0.4'
+    
+    # RTC (Agora.io)
+    pod 'AgoraRtcEngine_iOS'
+    pod 'AgoraRtm_iOS'
+    
+    pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
+    #https://github.com/realm/SwiftLint
+    pod 'SwiftLint', '0.31.0',        :configurations => ["Debug"]
+    
+    #https://github.com/SwifterSwift/SwifterSwift
+    # SwifterSwift is a collection of over 500 native Swift extensions, with handy methods, syntactic sugar,
+    # and performance improvements for wide range of primitive data types, UIKit and Cocoa classes –over 500 in 1– for iOS, macOS, tvOS, watchOS and Linux.
+    #- Integrate SwiftStdlib extensions only:
+    pod 'SwifterSwift/SwiftStdlib'
+    
+    #- Integrate UIKit extensions only:
+    pod 'SwifterSwift/UIKit'
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        if target.name == 'RxSwift'
+            target.build_configurations.each do |config|
+                if config.name == 'Debug'
+                    config.build_settings['OTHER_SWIFT_FLAGS'] ||= ['-D', 'TRACE_RESOURCES']
+                end
+            end
+        end
+    end
+    
+    # 消除 Pods 警告： https://stackoverflow.com/questions/46722323/project-pods-turn-on-whole-module-optimization
+    installer.pods_project.build_configurations.each do |config|
+        if config.name == 'Release'
+            config.build_settings['SWIFT_COMPILATION_MODE'] = 'wholemodule'
+        end
+    end
+    
+#     installer.pods_project.targets.each do |target|
+#       target.build_configurations.each do |config|
+# #        config.build_settings['ENABLE_BITCODE'] = 'NO'
+#          config.build_settings['ENABLE_BITCODE'] = 'NO'
+#       end
+#     end
+end
+
+install! 'cocoapods', :disable_input_output_paths => true

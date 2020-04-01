@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>476395756522-4ud3toihp8s6i7oeidl9uk85rf5vo0tm.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.476395756522-4ud3toihp8s6i7oeidl9uk85rf5vo0tm</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDa8amE4uEanPql6OuWYEzXk8Z3SqolfXs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>476395756522</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.walkie.talkie</string>
+	<key>PROJECT_ID</key>
+	<string>walkietalkie-a6b37</string>
+	<key>STORAGE_BUCKET</key>
+	<string>walkietalkie-a6b37.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:476395756522:ios:e194edb3089084547cb093</string>
+	<key>DATABASE_URL</key>
+	<string>https://walkietalkie-a6b37.firebaseio.com</string>
+</dict>
+</plist>
