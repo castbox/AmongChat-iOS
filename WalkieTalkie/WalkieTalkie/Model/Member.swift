@@ -17,7 +17,7 @@ struct Member: Codable {
         self.userId = userId
     }
 
-    init(userId: String, name: String, avatarIndex: Int) {
+    init(userId: String, name: String = "", avatarIndex: Int = 0) {
         self.init(userId: userId)
         self.name = name
         self.avatarIndex = avatarIndex

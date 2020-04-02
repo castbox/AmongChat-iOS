@@ -20,7 +20,10 @@ protocol RtcDelegate: class {
     func onAudioMixingStateChanged(isPlaying: Bool)
 
     func onAudioVolumeIndication(uid: UInt, volume: UInt)
+    
+    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason)
 }
+
 //1761995123
 //106274582
 class RtcManager: NSObject {
@@ -108,6 +111,11 @@ class RtcManager: NSObject {
 }
 
 extension RtcManager: AgoraRtcEngineDelegate {
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
+        delegate?.onConnectionChangedTo(state: state, reason: reason)
+    }
+    
     func rtcEngine(_ engine: AgoraRtcEngineKit, didClientRoleChanged oldRole: AgoraClientRole, newRole: AgoraClientRole) {
         print("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
 

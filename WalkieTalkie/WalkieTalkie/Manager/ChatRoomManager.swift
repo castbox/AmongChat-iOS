@@ -7,7 +7,8 @@
 //
 
 import Foundation
-
+import RxSwift
+import RxCocoa
 import AgoraRtcKit
 import AgoraRtmKit
 
@@ -25,6 +26,8 @@ protocol ChatRoomDelegate: class {
     func onAudioMixingStateChanged(isPlaying: Bool)
 
     func onAudioVolumeIndication(userId: String, volume: UInt)
+    
+    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason)
 }
 
 class ChatRoomManager: SeatManager {
@@ -41,10 +44,19 @@ class ChatRoomManager: SeatManager {
         return manager
     }()
     weak var delegate: ChatRoomDelegate?
-
+    
+    private(set) var state: AgoraConnectionStateType = .disconnected {
+        didSet {
+            stateObservable.onNext(state)
+        }
+    }
+    
+    let stateObservable = BehaviorSubject<AgoraConnectionStateType>(value: .disconnected)
+    
     private var mChannelData = ChannelData()
 
     private init() {
+        
     }
 
     func getChannelData() -> ChannelData {
@@ -68,16 +80,17 @@ class ChatRoomManager: SeatManager {
     }
 
     func joinChannel(channelId: String) {
+        Logger.log(.enter_room)
+        leaveChannel()
         mRtmManager.login(Constant.sUserId, { [weak self] (code) in
             guard let `self` = self else {
                 return
             }
             if code == .ok {
-                let member = Member(userId: String(Constant.sUserId), name: Constant.sName, avatarIndex: Constant.sAvatarIndex)
+                let member = Member(userId: String(Constant.sUserId))
                 if let json = member.toJsonString() {
                     self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
                 }
-
                 self.mRtcManager.joinChannel(channelId, Constant.sUserId)
             }
         })
@@ -188,6 +201,11 @@ extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {
         mRtmManager.joinChannel(channelId, nil)
     }
+    
+    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
+        self.state = state
+        delegate?.onConnectionChangedTo(state: state, reason: reason)
+    }
 
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
         if isOnline {
@@ -252,6 +270,7 @@ extension ChatRoomManager: RtmDelegate {
     }
 
     func onMemberJoined(userId: String, attributes: [String: String]) {
+        print("onMemberJoined: \(userId) attributes: \(attributes)")
         for attribute in attributes {
             if AttributeKey.KEY_USER_INFO == attribute.key {
                 if let member = Member.fromJsonString(attribute.value) {

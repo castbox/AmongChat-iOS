@@ -15,6 +15,6 @@ struct Constant {
         userId == String(sUserId)
     }
 
-    static let sName = MemberUtil.getName()
-    static let sAvatarIndex = 0
+//    static let sName = MemberUtil.getName()
+//    static let sAvatarIndex = 0
 }
