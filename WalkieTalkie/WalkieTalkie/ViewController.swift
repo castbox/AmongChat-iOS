@@ -85,13 +85,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        channelName = Defaults[.channelName]
         configureSubview()
         bindSubviewEvent()
-        //
-        channelName = Defaults[.channelName]
         channelTextField.text = channelName
-
-        requestRoomList()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -109,7 +107,7 @@ class ViewController: UIViewController {
             let room = viewModel.previousRoom(channelName) else {
             return
         }
-        joinChannel(room.channel_name)
+        joinChannel(room.name)
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
@@ -117,7 +115,7 @@ class ViewController: UIViewController {
             let room = viewModel.nextRoom(channelName) else {
             return
         }
-        joinChannel(room.channel_name)
+        joinChannel(room.name)
     }
     
     @IBAction func connectChannelAction(_ sender: UIButton) {
@@ -130,32 +128,30 @@ class ViewController: UIViewController {
             //disconnect
             mManager.leaveChannel()
             sender.setImage(R.image.btn_power(), for: .normal)
+            HapticFeedback.Impact.medium()
         } else {
             joinChannel(channelName)
         }
-        HapticFeedback.Impact.medium()
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
         guard let channelName = channelName else {
             return
         }
+        let url = "https://apps.apple.com/app/id1505959099"
         let shareString = """
         #\(channelName) is my Walkie Talkie Channel. Free download to talk with me.
-        Android: https://play.google.com/store/apps/details?id=com.talkie.walkie
         iOS: https://apps.apple.com/app/id1505959099
+        Android: https://play.google.com/store/apps/details?id=com.talkie.walkie
         """
         
         let textToShare = shareString
-        //         let imageToShare = UIImage.init(named: "img_01")
-        //         let urlToShare = NSURL.init(string: "http://www.baidu.com")
-        let items = [textToShare] as [Any]
+        let imageToShare = R.image.share_logo()!
+        let urlToShare = NSURL(string: url)
+        let items = [textToShare, imageToShare, urlToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.completionWithItemsHandler =  { activity, success, items, error in
-//            print(activity)
-//            print(success)
-//            print(items)
-//            print(error)
+
         }
         present(activityVC, animated: true, completion: { () -> Void in
             
@@ -171,6 +167,7 @@ class ViewController: UIViewController {
         }
         channelName = name
         mManager.joinChannel(channelId: name)
+        HapticFeedback.Impact.medium()
     }
     
     func playAudio(type: AudioType, completionHandler: (() -> Void)? = nil) {
@@ -232,7 +229,6 @@ extension ViewController: ChatRoomDelegate {
     func onUserStatusChanged(userId: String, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constant.isMyself(userId) {
-            
             if !muted {
                 if userStatus == .broadcaster {
                     playAudio(type: .begin)
@@ -244,7 +240,9 @@ extension ViewController: ChatRoomDelegate {
                 }
             } else {
                 //已链接，但为上麦，提示上麦说话
-                pushToTalkButton.isHidden = false
+                if mManager.state == .connected {
+                    pushToTalkButton.isHidden = false
+                }
             }
         }
 //        mSeatVC?.reloadItems(userId)
@@ -262,39 +260,83 @@ extension ViewController: ChatRoomDelegate {
 }
 
 extension ViewController: UITextFieldDelegate {
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        sendQueryEvent()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        let checkLength = checkTextLength(textField, shouldChangeCharactersIn: range, replacementString: string)
+        let length = textField.text?.count ?? 0
+        let result = length >= 2 && length <= 8
+        if result {
+            _ = textField.resignFirstResponder()
+        }
+        return result
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if string.rangeOfCharacter(from: .letters) != nil || string.rangeOfCharacter(from: .alphanumerics) != nil || string == ""{
-            searchController.set(textField.text?.uppercased() ?? "")
+        let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-").inverted
+        let filteredString = string.components(separatedBy: set).joined(separator: "")
+        let checkLength = checkTextLength(textField, shouldChangeCharactersIn: range, replacementString: string)
+        if filteredString == string && checkLength {
+//             sendQueryEvent()
             return true
         }else {
             return false
         }
     }
     
+    func checkTextLength(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let limitation = 8
+        let currentLength = textField.text?.count ?? 0 // 当前长度
+        if (range.length + range.location > currentLength){
+            return false
+        }
+        // 禁用启用按钮
+        let newLength = currentLength + string.count - range.length // 加上输入的字符之后的长度
+        return newLength <= limitation
+    }
 }
 
 private extension ViewController {
+    
+    func sendQueryEvent() {
+        if let text = channelTextField.text?.uppercased(),
+            text.count >= 2,
+            text != channelName {
+            searchController.set(query: text)
+        } else {
+            searchController.set(query: "")
+        }
+    }
     
     func updateButtonsEnable() {
         switch mManager.state {
         case .connected:
             speakButton.isEnabled = true
             musicButton.isEnabled = true
-        case .connecting:
-            speakButton.isEnabled = false
-            musicButton.isEnabled = false
-        case .reconnecting:
-            speakButton.isEnabled = false
-            musicButton.isEnabled = false
-        case .disconnected:
-            speakButton.isEnabled = false
-            musicButton.isEnabled = false
-        case .failed:
-            speakButton.isEnabled = false
-            musicButton.isEnabled = false
+            pushToTalkButton.isHidden = false
+//        case .connecting:
+//            speakButton.isEnabled = false
+//            musicButton.isEnabled = false
+//            pushToTalkButton.isHidden = true
+//        case .reconnecting:
+//            speakButton.isEnabled = false
+//            musicButton.isEnabled = false
+//            pushToTalkButton.isHidden = true
+//        case .disconnected:
+//            speakButton.isEnabled = false
+//            musicButton.isEnabled = false
+//            pushToTalkButton.isHidden = true
+//        case .failed:
+//            speakButton.isEnabled = false
+//            musicButton.isEnabled = false
+//            pushToTalkButton.isHidden = true
         default:
             speakButton.isEnabled = false
             musicButton.isEnabled = false
+            pushToTalkButton.isHidden = true
         }
     }
     
@@ -329,39 +371,23 @@ private extension ViewController {
         view.endEditing(true)
     }
     
-    func requestRoomList() {
-        let username = "152962b42c514918b8a15074dd6c0438"
-        let password = "cc0cbe7b82b6447fa6c77e88b187ce14"
-        let loginString = String(format: "%@:%@", username, password)
-        // 填入 loginString，计算 loginData。
-        let loginData = loginString.data(using: String.Encoding.utf8)!
-        // 填入 loginData（使用 Base64 算法编码的 LoginData），计算 base64LoginString，即你要的 Authorization 字段。
-        let base64LoginString = loginData.base64EncodedString()
-        
-        let headers = [
-            "Authorization": "Basic \(base64LoginString)",
-            "Accept": "application/json",
-            "Content-Type": "application/json" ]
-        Alamofire.request("https://api.agora.io/dev/v1/channel/06040a98af684c5f9306350bbce03acb", method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers) .responseJSON { response in
-            if let value = response.result.value as? [String: Any] {
-                //Handle the results as JSON
-                print(value)
-            }
-        }
-    }
-    
     func bindSubviewEvent() {
         viewModel.startListenerList()
+    
+        if channelName.wrappedValue.isEmpty {
+             viewModel.hotRoomsSubject
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] rooms in
+                    self?.channelName = rooms.first?.name
+                    self?.channelTextField.text = rooms.first?.name
+                })
+                .disposed(by: bag)
+        }
         
-//        mManager.stateObservable
-//            .observeOn(MainScheduler.asyncInstance)
-//            .subscribe(onNext: { state in
-//                
-//            })
         speakButton.rx.isHighlighted
             .skip(1)
             .subscribe(onNext: { [weak self] highlighted in
-                print("speakButton is highlighted: \(highlighted)")
+//                print("speakButton is highlighted: \(highlighted)")
                 self?.userStatus = highlighted ? .broadcaster : .audiance
                 self?.updateRole(highlighted)
             })
@@ -380,13 +406,14 @@ private extension ViewController {
             })
             .disposed(by: bag)
         
-//        channelTextField.rx.controlEvent(.editingChanged)
-//            .subscribe(onNext: { [weak self] _ in
-//            })
-//            .disposed(by: bag)
+        channelTextField.rx.controlEvent(.editingChanged)
+            .subscribe(onNext: { [weak self] _ in
+                self?.sendQueryEvent()
+            })
+            .disposed(by: bag)
         
         searchController.selectRoomHandler = { [weak self] room in
-            self?.joinChannel(room.channel_name)
+            self?.joinChannel(room.name)
             self?.hideSearchView()
         }
     }
@@ -433,3 +460,10 @@ extension Collection where Element: StringProtocol {
         return sorted { $0.localizedStandardCompare($1) == result }
     }
 }
+
+extension Optional where Wrapped == String {
+    var wrappedValue: String {
+        return self ?? ""
+    }
+}
+

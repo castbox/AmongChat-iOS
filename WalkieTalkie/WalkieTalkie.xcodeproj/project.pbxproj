@@ -33,10 +33,14 @@
 		FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */; };
 		FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */; };
 		FE126D642434BF8800BEDD60 /* end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE126D612434BF8700BEDD60 /* end.mp3 */; };
-		FE126D652434BF8800BEDD60 /* call.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FE126D622434BF8800BEDD60 /* call.m4a */; };
 		FE126D662434BF8800BEDD60 /* begin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE126D632434BF8800BEDD60 /* begin.mp3 */; };
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
 		FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */; };
+		FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = FE49CEA5243631F100C36EC6 /* EHSMB.TTF */; };
+		FE49CEA72436320200C36EC6 /* EHSMB.TTF in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEA5243631F100C36EC6 /* EHSMB.TTF */; };
+		FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */; };
+		FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */; };
+		FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FE49CEAE2436FD5A00C36EC6 /* call.m4a */; };
 		FE4FDACD24359D7C00CD5E97 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */; };
 		FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDACE2435B93600CD5E97 /* FireStore.swift */; };
 		FE4FDAD12435B97100CD5E97 /* JSONDecoderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD02435B97000CD5E97 /* JSONDecoderExtension.swift */; };
@@ -92,10 +96,13 @@
 		FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableOptionalExtension.swift; sourceTree = "<group>"; };
 		FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
 		FE126D612434BF8700BEDD60 /* end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = end.mp3; sourceTree = "<group>"; };
-		FE126D622434BF8800BEDD60 /* call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.m4a; sourceTree = "<group>"; };
 		FE126D632434BF8800BEDD60 /* begin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = begin.mp3; sourceTree = "<group>"; };
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		FE49CEA5243631F100C36EC6 /* EHSMB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = EHSMB.TTF; sourceTree = "<group>"; };
+		FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
+		FE49CEAE2436FD5A00C36EC6 /* call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.m4a; sourceTree = "<group>"; };
 		FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FE4FDACE2435B93600CD5E97 /* FireStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStore.swift; sourceTree = "<group>"; };
 		FE4FDAD02435B97000CD5E97 /* JSONDecoderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderExtension.swift; sourceTree = "<group>"; };
@@ -182,13 +189,16 @@
 				FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */,
 				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
 				FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */,
+				FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */,
+				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
 				FE126D542434821900BEDD60 /* Manager */,
 				FE126D532434820A00BEDD60 /* Model */,
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
 				FE126D632434BF8800BEDD60 /* begin.mp3 */,
-				FE126D622434BF8800BEDD60 /* call.m4a */,
+				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
 				FE126D612434BF8700BEDD60 /* end.mp3 */,
+				FE49CEA5243631F100C36EC6 /* EHSMB.TTF */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FE4FDADD2435E4AB00CD5E97 /* R.generated.swift */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
@@ -320,10 +330,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
+				FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE126D642434BF8800BEDD60 /* end.mp3 in Resources */,
+				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
-				FE126D652434BF8800BEDD60 /* call.m4a in Resources */,
 				FE126D662434BF8800BEDD60 /* begin.mp3 in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);
@@ -407,7 +418,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE49CEA72436320200C36EC6 /* EHSMB.TTF in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
+				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
 				FE126D1C243461E800BEDD60 /* ViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
@@ -426,6 +439,7 @@
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
 				FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */,
+				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,

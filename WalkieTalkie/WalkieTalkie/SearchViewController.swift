@@ -37,7 +37,8 @@ class SearchViewController: UITableViewController {
             .disposed(by: bag)
     }
     
-    func set(_ query: String) {
+    func set(query: String) {
+        print("query: \(query)")
         viewModel.query(query)
     }
 
@@ -80,13 +81,15 @@ class SearchCell: UITableViewCell {
     @IBOutlet weak var tagLabel: UITextField!
     @IBOutlet weak var nameLabel: UITextField!
     @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var countLabelWidthConstraint: NSLayoutConstraint!
     
     func set(_ room: Room?) {
-        nameLabel.text = room?.channel_name
+        nameLabel.text = room?.name
         if room?.user_count == 0 {
             countLabel.text = nil
         } else {
             countLabel.text = room?.user_count.string
         }
+        countLabelWidthConstraint.constant = countLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: 200, height: 30), limitedToNumberOfLines: 1).size.width
     }
 }

@@ -7,6 +7,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="EHSMB.TTF">
+            <string>ElectronicHighwaySign</string>
+        </array>
+        <array key="lcd_font.ttf">
+            <string>LcdD</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -17,7 +25,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="KG5-nF-seq">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896.00000000000023"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="WVV-5q-sL5">
                                 <rect key="frame" x="70" y="84" width="274" height="427"/>
@@ -37,31 +45,31 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q">
                                         <rect key="frame" x="45" y="45" width="184" height="180"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpb-af-6FM">
-                                                <rect key="frame" x="15" y="34" width="29.5" height="16"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpb-af-6FM">
+                                                <rect key="frame" x="15" y="35.5" width="29.5" height="14"/>
+                                                <fontDescription key="fontDescription" name="LcdD" family="LcdD" pointSize="12"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA3-ly-Qtw">
-                                                <rect key="frame" x="15" y="10" width="76" height="16"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="12"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA3-ly-Qtw">
+                                                <rect key="frame" x="15" y="10" width="116.5" height="17.5"/>
+                                                <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMW-fa-LPT">
-                                                <rect key="frame" x="10" y="120.5" width="16.5" height="34"/>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
+                                                <rect key="frame" x="10" y="122" width="14.5" height="30.5"/>
+                                                <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="26"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM">
-                                                <rect key="frame" x="36.5" y="115" width="137.5" height="45"/>
+                                                <rect key="frame" x="34.5" y="115" width="139.5" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="PKM-fW-ZPX"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="26"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="alphabet" returnKeyType="done"/>
                                                 <connections>
                                                     <outlet property="delegate" destination="BYZ-38-t0r" id="boz-UN-xl7"/>
                                                 </connections>
@@ -165,11 +173,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJx-Nj-5oY">
-                                <rect key="frame" x="53" y="554" width="308" height="193"/>
+                                <rect key="frame" x="-101" y="554" width="616" height="386"/>
                                 <state key="normal" backgroundImage="speak_button_press"/>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-XA-SAp">
-                                <rect key="frame" x="123" y="628.5" width="168" height="44"/>
+                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-XA-SAp">
+                                <rect key="frame" x="123" y="725" width="168" height="44"/>
                                 <color key="backgroundColor" red="0.23137254900000001" green="0.46666666670000001" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Dq5-jQ-4sb"/>
@@ -235,22 +243,28 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKJ-V4-Fl4">
-                                            <rect key="frame" x="36.5" y="6" width="338.5" height="32"/>
+                                            <rect key="frame" x="49" y="6" width="328" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="V9f-g4-HZE"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
+                                            <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="26"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPa-Q9-pgs">
-                                            <rect key="frame" x="10" y="5" width="16.5" height="34"/>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="26"/>
+                                            <rect key="frame" x="10" y="9" width="24" height="26.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="24" id="gWq-Yq-hsO"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="26"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfv-yW-OMu">
-                                            <rect key="frame" x="385" y="12.5" width="19" height="19.5"/>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                            <rect key="frame" x="387" y="14.5" width="17" height="15.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="17" id="nfC-nx-fNF"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="15"/>
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -258,7 +272,7 @@
                                     <color key="backgroundColor" red="0.63529411759999999" green="0.87450980389999999" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="dfv-yW-OMu" firstAttribute="centerY" secondItem="YKJ-V4-Fl4" secondAttribute="centerY" id="0h2-bn-109"/>
-                                        <constraint firstItem="YKJ-V4-Fl4" firstAttribute="leading" secondItem="bPa-Q9-pgs" secondAttribute="trailing" constant="10" id="2DH-ZU-E7A"/>
+                                        <constraint firstItem="YKJ-V4-Fl4" firstAttribute="leading" secondItem="bPa-Q9-pgs" secondAttribute="trailing" constant="15" id="2DH-ZU-E7A"/>
                                         <constraint firstItem="dfv-yW-OMu" firstAttribute="leading" secondItem="YKJ-V4-Fl4" secondAttribute="trailing" constant="10" id="FLh-z0-93G"/>
                                         <constraint firstItem="bPa-Q9-pgs" firstAttribute="centerY" secondItem="YKJ-V4-Fl4" secondAttribute="centerY" id="RiB-ev-6Sg"/>
                                         <constraint firstItem="YKJ-V4-Fl4" firstAttribute="centerY" secondItem="mFv-ih-aox" secondAttribute="centerY" id="dno-YX-eQb"/>
@@ -269,6 +283,7 @@
                                 <color key="backgroundColor" red="0.63529411759999999" green="0.87450980389999999" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="countLabel" destination="dfv-yW-OMu" id="neN-Lg-HBj"/>
+                                    <outlet property="countLabelWidthConstraint" destination="nfC-nx-fNF" id="Emp-Kj-Adb"/>
                                     <outlet property="nameLabel" destination="YKJ-V4-Fl4" id="1Mx-mI-9oK"/>
                                     <outlet property="tagLabel" destination="YKJ-V4-Fl4" id="m2d-Ox-1ga"/>
                                 </connections>

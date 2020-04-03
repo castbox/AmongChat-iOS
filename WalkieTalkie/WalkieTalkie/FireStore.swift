@@ -17,8 +17,8 @@ class FireStore {
     
     /// 根结点名称
     struct Root {
-        static let stat = "stat"
-        static let channel = "channel"
+        static let channels = "channels"
+        static let default_channels = "default_channels"
     }
 //
     static let shared = FireStore()
@@ -57,26 +57,18 @@ class FireStore {
     func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             
-            let ref = self?.db.collection(Root.stat)
-                .document("channel_info")
+            let ref = self?.db.collection(Root.channels)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
                     if let error = error {
                         cdPrint("FireStore Error new: \(error)")
                         observer.onNext([])
                         return
                     } else {
-                        guard let query = query,
-                            let data = query.data(),
-                            let channels = data["channels"] as? [[String: Any]] else {
-                                observer.onNext([])
-                                return
+                        guard let query = query else {
+                            observer.onNext([])
+                            return
                         }
-                        //                    let data = query.documents.map { $0.data() }
-                        var list: [Room] = []
-                        decoderCatcher {
-                            list = try JSONDecoder().decodeAnyData([Room].self, from: channels)
-                        }
-//                        completion(list)
+                        let list = query.toRoomList()
                         observer.onNext(list)
                     }
                 })
@@ -90,25 +82,18 @@ class FireStore {
     func hotChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             
-            let ref = self?.db.collection(Root.channel)
-                .document("default")
+            let ref = self?.db.collection(Root.default_channels)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
                     if let error = error {
                         cdPrint("FireStore Error new: \(error)")
                         observer.onNext([])
                         return
                     } else {
-                        guard let query = query,
-                            let data = query.data(),
-                            let channels = data["hot"] as? [[String: Any]] else {
-                                observer.onNext([])
-                                return
+                        guard let query = query else {
+                            observer.onNext([])
+                            return
                         }
-                        var list: [Room] = []
-                        decoderCatcher {
-                            list = try JSONDecoder().decodeAnyData([Room].self, from: channels)
-                        }
-                        //                        completion(list)
+                        let list = query.toRoomList()
                         observer.onNext(list)
                     }
                 })
@@ -118,6 +103,16 @@ class FireStore {
             }
         })
     }
+}
 
+extension QuerySnapshot {
+    func toRoomList() -> [Room] {
+        return documents.map { snapshot -> Room? in
+            //            print("snapshot: \(snapshot.documentID) \(snapshot.data())")
+            let count = snapshot.data()["user_count"] as? Int ?? 0
+            return Room(name: snapshot.documentID, user_count: count)
+        }
+        .compactMap { $0 }
+    }
 }
 

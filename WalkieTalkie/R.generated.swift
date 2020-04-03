@@ -13,6 +13,7 @@ struct R: Rswift.Validatable {
   fileprivate static let hostingBundle = Bundle(for: R.Class.self)
   
   static func validate() throws {
+    try font.validate()
     try intern.validate()
   }
   
@@ -54,7 +55,24 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 13 images.
+  /// This `R.font` struct is generated, and contains static references to 1 fonts.
+  struct font: Rswift.Validatable {
+    /// Font `ElectronicHighwaySign`.
+    static let electronicHighwaySign = Rswift.FontResource(fontName: "ElectronicHighwaySign")
+    
+    /// `UIFont(name: "ElectronicHighwaySign", size: ...)`
+    static func electronicHighwaySign(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: electronicHighwaySign, size: size)
+    }
+    
+    static func validate() throws {
+      if R.font.electronicHighwaySign(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'ElectronicHighwaySign' could not be loaded, is 'EHSMB.TTF' added to the UIAppFonts array in this targets Info.plist?") }
+    }
+    
+    fileprivate init() {}
+  }
+  
+  /// This `R.image` struct is generated, and contains static references to 14 images.
   struct image {
     /// Image `background`.
     static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
@@ -80,6 +98,8 @@ struct R: Rswift.Validatable {
     static let screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "screen_bg")
     /// Image `screen`.
     static let screen = Rswift.ImageResource(bundle: R.hostingBundle, name: "screen")
+    /// Image `share_logo`.
+    static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
     /// Image `speak_button_press`.
     static let speak_button_press = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_press")
     
@@ -141,6 +161,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "screen_bg", bundle: ..., traitCollection: ...)`
     static func screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.screen_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
+    static func share_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "speak_button_press", bundle: ..., traitCollection: ...)`

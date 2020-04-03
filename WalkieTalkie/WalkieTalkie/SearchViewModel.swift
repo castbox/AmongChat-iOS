@@ -11,14 +11,22 @@ import RxSwift
 import RxCocoa
 
 struct Room: Codable {
-    let channel_name: String
+    let name: String
     let user_count: Int
 }
 
 class SearchViewModel {
     var dataSource: [Room] = []
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
-    let bag = DisposeBag()
+    var hotRoomsSubject = BehaviorSubject<[Room]>(value: [])
+    
+    private var hotRooms: [Room] = [] {
+        didSet {
+            hotRoomsSubject.onNext(hotRooms)
+        }
+    }
+    private let bag = DisposeBag()
+    
     private(set) var queryString: String?
     
     init() {
@@ -27,12 +35,13 @@ class SearchViewModel {
     
     func startListenerList() {
         Observable.combineLatest(FireStore.shared.onlineChannelList(), FireStore.shared.hotChannelList())
-            .map { (onlineRooms, hotRooms) -> [Room] in
+            .map { [weak self] (onlineRooms, hotRooms) -> [Room] in
+                self?.hotRooms = hotRooms
                 var room: [Room] = []
                 room.append(contentsOf: onlineRooms)
                 room.append(contentsOf: hotRooms)
-                room.sort { $0.channel_name.localizedStandardCompare($1.channel_name) == .orderedAscending }
-                return room.filterDuplicates { $0.channel_name }
+                room.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+                return room.filterDuplicates { $0.name }
             }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] list in
@@ -52,13 +61,13 @@ class SearchViewModel {
             return
         }
         let result = dataSource
-            .filter { $0.channel_name.uppercased().contains(string.uppercased()) }
+            .filter { $0.name.uppercased().contains(string.uppercased()) }
         querySourceSubject.onNext(result)
     }
     
     func previousRoom(_ current: String) -> Room? {
         let index = dataSource.firstIndex(where: {
-            $0.channel_name == current
+            $0.name == current
         }) ?? 0
         var previousIndex: Int {
             if index > 0 {
@@ -73,7 +82,7 @@ class SearchViewModel {
     
     func nextRoom(_ current: String) -> Room? {
         let index = dataSource.firstIndex(where: {
-            $0.channel_name == current
+            $0.name == current
         }) ?? 0
         var nextIndex: Int {
             if index < (dataSource.count - 1) {

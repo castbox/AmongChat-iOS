@@ -81,7 +81,9 @@ class ChatRoomManager: SeatManager {
 
     func joinChannel(channelId: String) {
         Logger.log(.enter_room)
-        leaveChannel()
+        if state == .connected {
+            leaveChannel()
+        }
         mRtmManager.login(Constant.sUserId, { [weak self] (code) in
             guard let `self` = self else {
                 return
@@ -91,7 +93,10 @@ class ChatRoomManager: SeatManager {
                 if let json = member.toJsonString() {
                     self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
                 }
-                self.mRtcManager.joinChannel(channelId, Constant.sUserId)
+                self.mRtcManager.joinChannel(channelId, Constant.sUserId) { [weak self] in
+                    //set to audiance
+                    self?.updateRole(false)
+                }
             }
         })
     }
@@ -120,7 +125,7 @@ class ChatRoomManager: SeatManager {
             if index == NSNotFound {
                 index = mChannelData.firstIndexOfEmptySeat()
             }
-            toBroadcaster(myUserId, index)
+//            toBroadcaster(myUserId, index)
         } else {
             if mChannelData.hasAnchor() {
                 return

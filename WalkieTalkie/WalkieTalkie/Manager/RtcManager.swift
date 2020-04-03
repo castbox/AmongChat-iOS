@@ -48,13 +48,14 @@ class RtcManager: NSObject {
         }
     }
 
-    func joinChannel(_ channelId: String, _ userId: UInt) {
+    func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         mRtcEngine?.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             print("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
             self.mUserId = uid
+            completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
         })
     }
@@ -62,9 +63,9 @@ class RtcManager: NSObject {
     func setClientRole(_ role: AgoraClientRole) {
         let result = mRtcEngine?.setClientRole(role)
         if result == 0 {
-            debugPrint("setClientRole: \(role) success")
+            debugPrint("setClientRole: \(role.rawValue) success")
         } else {
-            debugPrint("setClientRole: \(role) failed")
+            debugPrint("setClientRole: \(role.rawValue) failed")
         }
     }
 
@@ -111,8 +112,9 @@ class RtcManager: NSObject {
 }
 
 extension RtcManager: AgoraRtcEngineDelegate {
-    
+
     func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
+        print("connectionChangedTo: \(state.rawValue) reason: \(reason.rawValue)")
         delegate?.onConnectionChangedTo(state: state, reason: reason)
     }
     
