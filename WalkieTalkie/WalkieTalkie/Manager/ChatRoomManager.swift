@@ -88,7 +88,7 @@ class ChatRoomManager: SeatManager {
             guard let `self` = self else {
                 return
             }
-            if code == .ok {
+            if code == .ok || code == .alreadyLogin {
                 let member = Member(userId: String(Constant.sUserId))
                 if let json = member.toJsonString() {
                     self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)

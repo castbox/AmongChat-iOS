@@ -72,45 +72,37 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 14 images.
+  /// This `R.image` struct is generated, and contains static references to 10 images.
   struct image {
-    /// Image `background`.
-    static let background = Rswift.ImageResource(bundle: R.hostingBundle, name: "background")
-    /// Image `btn_call`.
-    static let btn_call = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_call")
+    /// Image `btn_call_off`.
+    static let btn_call_off = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_call_off")
+    /// Image `btn_call_on`.
+    static let btn_call_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_call_on")
     /// Image `btn_down`.
     static let btn_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_down")
     /// Image `btn_power_on`.
     static let btn_power_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_power_on")
     /// Image `btn_power`.
     static let btn_power = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_power")
+    /// Image `btn_share`.
+    static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
-    /// Image `button_big_normal`.
-    static let button_big_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "button_big_normal")
-    /// Image `button_big_press`.
-    static let button_big_press = Rswift.ImageResource(bundle: R.hostingBundle, name: "button_big_press")
-    /// Image `button_normal`.
-    static let button_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "button_normal")
-    /// Image `button_press`.
-    static let button_press = Rswift.ImageResource(bundle: R.hostingBundle, name: "button_press")
-    /// Image `screen_bg`.
-    static let screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "screen_bg")
-    /// Image `screen`.
-    static let screen = Rswift.ImageResource(bundle: R.hostingBundle, name: "screen")
     /// Image `share_logo`.
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
-    /// Image `speak_button_press`.
-    static let speak_button_press = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_press")
+    /// Image `speak_button_nor`.
+    static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
+    /// Image `speak_button_pre`.
+    static let speak_button_pre = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_pre")
     
-    /// `UIImage(named: "background", bundle: ..., traitCollection: ...)`
-    static func background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.background, compatibleWith: traitCollection)
+    /// `UIImage(named: "btn_call_off", bundle: ..., traitCollection: ...)`
+    static func btn_call_off(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_call_off, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "btn_call", bundle: ..., traitCollection: ...)`
-    static func btn_call(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.btn_call, compatibleWith: traitCollection)
+    /// `UIImage(named: "btn_call_on", bundle: ..., traitCollection: ...)`
+    static func btn_call_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_call_on, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "btn_down", bundle: ..., traitCollection: ...)`
@@ -128,39 +120,14 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.btn_power_on, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "btn_share", bundle: ..., traitCollection: ...)`
+    static func btn_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_share, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "btn_up", bundle: ..., traitCollection: ...)`
     static func btn_up(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "button_big_normal", bundle: ..., traitCollection: ...)`
-    static func button_big_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.button_big_normal, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "button_big_press", bundle: ..., traitCollection: ...)`
-    static func button_big_press(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.button_big_press, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "button_normal", bundle: ..., traitCollection: ...)`
-    static func button_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.button_normal, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "button_press", bundle: ..., traitCollection: ...)`
-    static func button_press(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.button_press, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "screen", bundle: ..., traitCollection: ...)`
-    static func screen(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.screen, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "screen_bg", bundle: ..., traitCollection: ...)`
-    static func screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.screen_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
@@ -168,9 +135,14 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "speak_button_press", bundle: ..., traitCollection: ...)`
-    static func speak_button_press(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_button_press, compatibleWith: traitCollection)
+    /// `UIImage(named: "speak_button_nor", bundle: ..., traitCollection: ...)`
+    static func speak_button_nor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_button_nor, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "speak_button_pre", bundle: ..., traitCollection: ...)`
+    static func speak_button_pre(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_button_pre, compatibleWith: traitCollection)
     }
     
     fileprivate init() {}
@@ -254,16 +226,14 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIKit.UIImage(named: "arrowshape.turn.up.right", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'arrowshape.turn.up.right' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "background", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'background' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_call", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_call' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "btn_call_on", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_call_on' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_down", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_down' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_power", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_power' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "btn_share", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_share' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_up", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_up' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "button_normal", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'button_normal' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "button_press", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'button_press' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "screen_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'screen_bg' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "speak_button_press", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_press' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
         if _R.storyboard.main().searchViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'searchViewController' could not be loaded from storyboard 'Main' as 'SearchViewController'.") }

@@ -8,7 +8,7 @@
 
 import UIKit
 import UIColor_Hex_Swift
-import GuruExtensions
+//import GuruExtensions
 import RxSwift
 
 public extension String {
@@ -127,93 +127,93 @@ extension String {
     }
 }
 
-extension Guru where Base == String {
-    
-    typealias Handler = (String)->(String)
-    
-    mutating func replace(with regularExpression: String, options: NSRegularExpression.Options = [.caseInsensitive], handler: Handler?) -> String {
-        do {
-            var string = self.base as NSString
-            let regularExpression = try NSRegularExpression(pattern: regularExpression, options: options)
-            let results = regularExpression.matches(in: self.base, options: [], range: NSMakeRange(0, (self.base as NSString).length))
-            results.reversed().forEach { (result) in
-                let substring = string.substring(with: result.range)
-                guard let replaceString = handler?(substring) else { return }
-                string = string.replacingCharacters(in: result.range, with: replaceString) as NSString
-            }
-            return string as String
-        } catch {
-            return self.base
-        }
-    }
-}
+//extension Guru where Base == String {
+//
+//    typealias Handler = (String)->(String)
+//
+//    mutating func replace(with regularExpression: String, options: NSRegularExpression.Options = [.caseInsensitive], handler: Handler?) -> String {
+//        do {
+//            var string = self.base as NSString
+//            let regularExpression = try NSRegularExpression(pattern: regularExpression, options: options)
+//            let results = regularExpression.matches(in: self.base, options: [], range: NSMakeRange(0, (self.base as NSString).length))
+//            results.reversed().forEach { (result) in
+//                let substring = string.substring(with: result.range)
+//                guard let replaceString = handler?(substring) else { return }
+//                string = string.replacingCharacters(in: result.range, with: replaceString) as NSString
+//            }
+//            return string as String
+//        } catch {
+//            return self.base
+//        }
+//    }
+//}
 
-extension Guru where Base == NSAttributedString {
-    
-    func asyncHighlightedText(keyword: String, attributes: [NSAttributedString.Key: Any], result: @escaping (NSAttributedString)->()) {
-        DispatchQueue.global().async {
-            let attributedText = self.highlightedText(keyword: keyword, attributes: attributes)
-            DispatchQueue.main.async {
-                result(attributedText)
-            }
-        }
-    }
-    
-    func highlightedText(keyword: String, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
-        if keyword.compare(self.base.string) == .orderedSame {
-            return self.base
-        } else {
-            let keywords = keyword.components(separatedBy: [" "])
-            let attributedText = NSMutableAttributedString(attributedString: self.base)
-            guard let rootRange = self.base.string.range(of: self.base.string) else { return attributedText }
-            keywords.forEach { (text) in
-                var occurance: Int = 0
-                var targetRange = Range(uncheckedBounds: (rootRange.lowerBound, rootRange.upperBound))
-                while let range = self.base.string.range(of: text, options: [.caseInsensitive], range: targetRange) {
-                    attributedText.addAttributes(attributes, range: NSRange(range, in: self.base.string))
-                    targetRange = Range(uncheckedBounds: (range.upperBound, rootRange.upperBound))
-                    occurance += 1
-                    if (occurance >= 3) { break }
-                }
-            }
-            return attributedText
-        }
-    }
-}
+//extension Guru where Base == NSAttributedString {
+//
+//    func asyncHighlightedText(keyword: String, attributes: [NSAttributedString.Key: Any], result: @escaping (NSAttributedString)->()) {
+//        DispatchQueue.global().async {
+//            let attributedText = self.highlightedText(keyword: keyword, attributes: attributes)
+//            DispatchQueue.main.async {
+//                result(attributedText)
+//            }
+//        }
+//    }
+//
+//    func highlightedText(keyword: String, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
+//        if keyword.compare(self.base.string) == .orderedSame {
+//            return self.base
+//        } else {
+//            let keywords = keyword.components(separatedBy: [" "])
+//            let attributedText = NSMutableAttributedString(attributedString: self.base)
+//            guard let rootRange = self.base.string.range(of: self.base.string) else { return attributedText }
+//            keywords.forEach { (text) in
+//                var occurance: Int = 0
+//                var targetRange = Range(uncheckedBounds: (rootRange.lowerBound, rootRange.upperBound))
+//                while let range = self.base.string.range(of: text, options: [.caseInsensitive], range: targetRange) {
+//                    attributedText.addAttributes(attributes, range: NSRange(range, in: self.base.string))
+//                    targetRange = Range(uncheckedBounds: (range.upperBound, rootRange.upperBound))
+//                    occurance += 1
+//                    if (occurance >= 3) { break }
+//                }
+//            }
+//            return attributedText
+//        }
+//    }
+//}
 
 
-extension Guru where Base == String {
-    
-    func asyncHighlightedText(keyword: String, attributes: [NSAttributedString.Key: Any], result: @escaping (NSAttributedString)->()) {
-        DispatchQueue.global().async {
-            let attributedText = self.highlightedText(keyword: keyword, attributes: attributes)
-            DispatchQueue.main.async {
-                result(attributedText)
-            }
-        }
-    }
-    
-    func highlightedText(keyword: String, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
-        if keyword.compare(self.base) == .orderedSame {
-            return NSAttributedString(string: self.base, attributes: attributes)
-        } else {
-            let keywords = keyword.components(separatedBy: [" "])
-            let attributedText = NSMutableAttributedString(string: self.base)
-            guard let rootRange = self.base.range(of: self.base) else { return attributedText }
-            keywords.forEach { (text) in
-                var occurance: Int = 0
-                var targetRange = Range(uncheckedBounds: (rootRange.lowerBound, rootRange.upperBound))
-                while let range = self.base.range(of: text, options: [.caseInsensitive], range: targetRange) {
-                    attributedText.addAttributes(attributes, range: NSRange(range, in: self.base))
-                    targetRange = Range(uncheckedBounds: (range.upperBound, rootRange.upperBound))
-                    occurance += 1
-                    if (occurance >= 3) { break }
-                }
-            }
-            return attributedText
-        }
-    }
-}
+//extension Guru where Base == String {
+//    
+//    func asyncHighlightedText(keyword: String, attributes: [NSAttributedString.Key: Any], result: @escaping (NSAttributedString)->()) {
+//        DispatchQueue.global().async {
+//            let attributedText = self.highlightedText(keyword: keyword, attributes: attributes)
+//            DispatchQueue.main.async {
+//                result(attributedText)
+//            }
+//        }
+//    }
+//    
+//    func highlightedText(keyword: String, attributes: [NSAttributedString.Key: Any]) -> NSAttributedString {
+//        if keyword.compare(self.base) == .orderedSame {
+//            return NSAttributedString(string: self.base, attributes: attributes)
+//        } else {
+//            let keywords = keyword.components(separatedBy: [" "])
+//            let attributedText = NSMutableAttributedString(string: self.base)
+//            guard let rootRange = self.base.range(of: self.base) else { return attributedText }
+//            keywords.forEach { (text) in
+//                var occurance: Int = 0
+//                var targetRange = Range(uncheckedBounds: (rootRange.lowerBound, rootRange.upperBound))
+//                while let range = self.base.range(of: text, options: [.caseInsensitive], range: targetRange) {
+//                    attributedText.addAttributes(attributes, range: NSRange(range, in: self.base))
+//                    targetRange = Range(uncheckedBounds: (range.upperBound, rootRange.upperBound))
+//                    occurance += 1
+//                    if (occurance >= 3) { break }
+//                }
+//            }
+//            return attributedText
+//        }
+//    }
+//}
 
 extension Optional where Wrapped == String {
     

@@ -23,6 +23,8 @@ class FireStore {
 //
     static let shared = FireStore()
     
+    static let defaultRoom = Room(name: "WELCOME", user_count: 0)
+    
     lazy var db: Firestore = {
         let db = Firestore.firestore()
         let settings = FirestoreSettings()
@@ -56,7 +58,6 @@ class FireStore {
     
     func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            
             let ref = self?.db.collection(Root.channels)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
                     if let error = error {
@@ -77,11 +78,11 @@ class FireStore {
                 ref?.remove()
             }
         })
+        .startWith([FireStore.defaultRoom])
     }
     
     func hotChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            
             let ref = self?.db.collection(Root.default_channels)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
                     if let error = error {
@@ -102,6 +103,7 @@ class FireStore {
                 ref?.remove()
             }
         })
+        .startWith([FireStore.defaultRoom])
     }
 }
 

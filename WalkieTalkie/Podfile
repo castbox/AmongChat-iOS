@@ -2,7 +2,7 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
 
 def core_pods
-    pod 'RxSwift', '~> 4.3.1'
+    pod 'RxSwift', '5.1.0'
 end
 
 def ui_pods
@@ -49,8 +49,8 @@ target 'WalkieTalkie' do
     ui_pods
     firebase_pods
 
-    pod 'Moya'
-    pod 'Moya/RxSwift'
+#    pod 'Moya'
+#    pod 'Moya/RxSwift'
 
     
     # Crash 统计
@@ -62,7 +62,7 @@ target 'WalkieTalkie' do
     #pod 'Streamer', :git => 'https://github.com/castbox/Streamer.git', :branch => 'master'
 #    pod 'GuruRater', '~> 0.1.0'
 #    pod 'GuruQueue', '~> 0.2.1'
-    pod 'GuruExtensions', :git => 'https://github.com/castbox/GuruExtensions.git', :branch => 'master'
+#    pod 'GuruExtensions', :git => 'https://github.com/castbox/GuruExtensions.git', :branch => 'master'
     
     # Swift Pods
     pod 'R.swift', '~> 5.0.2'

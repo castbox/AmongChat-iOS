@@ -32,8 +32,9 @@
 		FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D592434825900BEDD60 /* KeyCenter.swift */; };
 		FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */; };
 		FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */; };
-		FE126D642434BF8800BEDD60 /* end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE126D612434BF8700BEDD60 /* end.mp3 */; };
-		FE126D662434BF8800BEDD60 /* begin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE126D632434BF8800BEDD60 /* begin.mp3 */; };
+		FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE274D3E243B701B00B6DB88 /* end.mp3 */; };
+		FE274D41243B716600B6DB88 /* begin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE274D40243B716600B6DB88 /* begin.mp3 */; };
+		FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE274D42243B81B400B6DB88 /* R.generated.swift */; };
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
 		FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */; };
 		FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = FE49CEA5243631F100C36EC6 /* EHSMB.TTF */; };
@@ -49,7 +50,6 @@
 		FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */; };
 		FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD82435D0AB00CD5E97 /* Logger.swift */; };
 		FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDADA2435D70A00CD5E97 /* FireLink.swift */; };
-		FE4FDADE2435E4AC00CD5E97 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDADD2435E4AB00CD5E97 /* R.generated.swift */; };
 		FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
@@ -95,8 +95,9 @@
 		FE126D592434825900BEDD60 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableOptionalExtension.swift; sourceTree = "<group>"; };
 		FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
-		FE126D612434BF8700BEDD60 /* end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = end.mp3; sourceTree = "<group>"; };
-		FE126D632434BF8800BEDD60 /* begin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = begin.mp3; sourceTree = "<group>"; };
+		FE274D3E243B701B00B6DB88 /* end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = end.mp3; sourceTree = "<group>"; };
+		FE274D40243B716600B6DB88 /* begin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = begin.mp3; sourceTree = "<group>"; };
+		FE274D42243B81B400B6DB88 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		FE49CEA5243631F100C36EC6 /* EHSMB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = EHSMB.TTF; sourceTree = "<group>"; };
@@ -111,7 +112,6 @@
 		FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 		FE4FDAD82435D0AB00CD5E97 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FE4FDADA2435D70A00CD5E97 /* FireLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireLink.swift; sourceTree = "<group>"; };
-		FE4FDADD2435E4AB00CD5E97 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -195,12 +195,12 @@
 				FE126D532434820A00BEDD60 /* Model */,
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
-				FE126D632434BF8800BEDD60 /* begin.mp3 */,
 				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
-				FE126D612434BF8700BEDD60 /* end.mp3 */,
+				FE274D40243B716600B6DB88 /* begin.mp3 */,
+				FE274D3E243B701B00B6DB88 /* end.mp3 */,
 				FE49CEA5243631F100C36EC6 /* EHSMB.TTF */,
+				FE274D42243B81B400B6DB88 /* R.generated.swift */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
-				FE4FDADD2435E4AB00CD5E97 /* R.generated.swift */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */,
@@ -252,8 +252,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
-				102AEFDD49D57A188D293585 /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
+				102AEFDD49D57A188D293585 /* [CP] Check Pods Manifest.lock */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
@@ -330,12 +330,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
+				FE274D41243B716600B6DB88 /* begin.mp3 in Resources */,
 				FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */,
+				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
-				FE126D642434BF8800BEDD60 /* end.mp3 in Resources */,
 				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
-				FE126D662434BF8800BEDD60 /* begin.mp3 in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -379,12 +379,8 @@
 			);
 			inputFileListPaths = (
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -431,7 +427,6 @@
 				FE4FDAD12435B97100CD5E97 /* JSONDecoderExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
-				FE4FDADE2435E4AC00CD5E97 /* R.generated.swift in Sources */,
 				FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */,
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
@@ -444,6 +439,7 @@
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
+				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
 				FE4FDACD24359D7C00CD5E97 /* SearchViewController.swift in Sources */,
@@ -543,7 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -597,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -614,6 +610,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -621,11 +618,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -636,6 +634,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -643,11 +642,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "WalkieTalkie-DEV";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

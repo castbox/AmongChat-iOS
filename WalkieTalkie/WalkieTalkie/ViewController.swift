@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Alamofire
+//import Alamofire
 import SwifterSwift
 import SnapKit
 import AgoraRtcKit
@@ -27,6 +27,7 @@ enum UserStatus {
     case audiance
     case broadcaster
     case music
+    case end
 }
 
 extension AudioType {
@@ -59,6 +60,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var pushToTalkButton: UIButton!
     @IBOutlet weak var musicButton: UIButton!
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var downButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    
+    private var gradientLayer: CAGradientLayer!
     
     private lazy var searchController: SearchViewController = {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
@@ -90,6 +96,11 @@ class ViewController: UIViewController {
         configureSubview()
         bindSubviewEvent()
         channelTextField.text = channelName
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        gradientLayer.frame = screenContainer.bounds
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -142,7 +153,7 @@ class ViewController: UIViewController {
         let shareString = """
         #\(channelName) is my Walkie Talkie Channel. Free download to talk with me.
         iOS: https://apps.apple.com/app/id1505959099
-        Android: https://play.google.com/store/apps/details?id=com.talkie.walkie
+        Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
         """
         
         let textToShare = shareString
@@ -198,12 +209,6 @@ extension ViewController: ChatRoomDelegate {
 
     func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
         connectStateLabel.text = state.title.uppercased()
-        if state == .connected {
-            powerButton.setImage(R.image.btn_power_on(), for: .normal)
-        } else {
-            powerButton.setImage(R.image.btn_power(), for: .normal)
-        }
-        updateMemberCountLabel()
         updateButtonsEnable()
     }
     
@@ -223,7 +228,7 @@ extension ViewController: ChatRoomDelegate {
 //        num.setTitle(String(mManager.getChannelData().getMemberArray().count), for: .normal)
 //        mSeatVC?.reloadItems(userId)
 //        mMemberVC?.reloadData()
-        updateMemberCountLabel()
+//        updateMemberCountLabel()
     }
 
     func onUserStatusChanged(userId: String, muted: Bool) {
@@ -300,6 +305,36 @@ extension ViewController: UITextFieldDelegate {
 }
 
 private extension ViewController {
+    /// 获取麦克风权限
+    func callinPermission(completion: @escaping ()->()) {
+        weak var welf = self
+        AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
+            if !isOpen {
+                let alertVC = UIAlertController(title: NSLocalizedString("“Cuddle” would like to Access the Microphone", comment: ""),
+                                                message: NSLocalizedString("To do livecast, please switch on microphone permission.", comment: ""),
+                                                preferredStyle: UIAlertController.Style.alert)
+                let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
+                    
+                    if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.openURL(url)
+                    }
+                })
+                
+                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+                    /// do nothing
+                }
+                alertVC.addAction(cancelAction)
+                alertVC.addAction(resetAction)
+                DispatchQueue.main.async {
+                    welf?.present(alertVC, animated: true, completion: nil)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
+        }
+    }
     
     func sendQueryEvent() {
         if let text = channelTextField.text?.uppercased(),
@@ -317,35 +352,19 @@ private extension ViewController {
             speakButton.isEnabled = true
             musicButton.isEnabled = true
             pushToTalkButton.isHidden = false
-//        case .connecting:
-//            speakButton.isEnabled = false
-//            musicButton.isEnabled = false
-//            pushToTalkButton.isHidden = true
-//        case .reconnecting:
-//            speakButton.isEnabled = false
-//            musicButton.isEnabled = false
-//            pushToTalkButton.isHidden = true
-//        case .disconnected:
-//            speakButton.isEnabled = false
-//            musicButton.isEnabled = false
-//            pushToTalkButton.isHidden = true
-//        case .failed:
-//            speakButton.isEnabled = false
-//            musicButton.isEnabled = false
-//            pushToTalkButton.isHidden = true
+            powerButton.setImage(R.image.btn_power_on(), for: .normal)
+            powerButton.setBackgroundImage(UIColor.white.image, for: .normal)
         default:
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
+            powerButton.setImage(R.image.btn_power(), for: .normal)
+            powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
         }
     }
     
-    func updateMemberCountLabel() {
-//        if mManager.state == .connected {
-//            numberLabel.text = mManager.getChannelData().getMemberArray().count.string
-//        } else {
-            numberLabel.text = nil
-//        }
+    func updateMemberCount(with room: Room?) {
+        numberLabel.text = room?.user_count.string
     }
     
     func showSearchView() {
@@ -384,6 +403,20 @@ private extension ViewController {
                 .disposed(by: bag)
         }
         
+        viewModel.dataSourceSubject
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .map { [weak self] rooms -> Room? in
+                guard let `self` = self else {
+                    return nil
+                }
+                return rooms.first(where: { $0.name == self.channelName })
+            }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] room in
+                self?.updateMemberCount(with: room)
+            })
+            .disposed(by: bag)
+        
         speakButton.rx.isHighlighted
             .skip(1)
             .subscribe(onNext: { [weak self] highlighted in
@@ -419,7 +452,20 @@ private extension ViewController {
     }
     
     func configureSubview() {
+        upButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+        downButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+        musicButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+        shareButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+        powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
         
+        gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
+        gradientLayer.colors = [UIColor(hex: 0xb7fc39)?.cgColor, UIColor(hex: 0x8ed951)?.cgColor, UIColor(hex: 0xb7fc39)?.cgColor]//渐变颜色
+        gradientLayer.type = .radial
+        gradientLayer.locations = [0.2,0.5,0.8]//渐变起始位置
+        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
+        screenContainer.layer.insertSublayer(gradientLayer, at: 0)
     }
 }
 
@@ -436,6 +482,8 @@ extension AgoraConnectionStateType {
             return "failed"
         case .reconnecting:
             return "reconnecting"
+        @unknown default:
+            return "failed"
         }
     }
 }
@@ -467,3 +515,8 @@ extension Optional where Wrapped == String {
     }
 }
 
+extension UIColor {
+    var image: UIImage {
+        return UIImage(color: self, size: CGSize(width: 10, height: 10))
+    }
+}

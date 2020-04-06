@@ -161,9 +161,8 @@ PODS:
   - Adjust (4.21.0):
     - Adjust/Core (= 4.21.0)
   - Adjust/Core (4.21.0)
-  - AgoraRtcEngine_iOS (3.0.0)
+  - AgoraRtcEngine_iOS (3.0.0.1)
   - AgoraRtm_iOS (1.2.2)
-  - Alamofire (4.9.1)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
     - BoringSSL-GRPC/Interface (= 0.0.3)
@@ -172,7 +171,7 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.3)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
-  - DeviceKit (3.0.0)
+  - DeviceKit (3.1.0)
   - EasyTipView (2.0.4)
   - Fabric (1.9.0)
   - Firebase/Analytics (6.21.0):
@@ -295,26 +294,10 @@ PODS:
     - gRPC-Core/Interface (= 1.21.0)
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
-  - GuruExtensions (4.0):
-    - GuruExtensions/Foundation (= 4.0)
-    - GuruExtensions/Reactive (= 4.0)
-    - GuruExtensions/UIKit (= 4.0)
-  - GuruExtensions/Foundation (4.0)
-  - GuruExtensions/Reactive (4.0):
-    - RxSwift (~> 4.3.1)
-  - GuruExtensions/UIKit (4.0)
   - IQKeyboardManagerSwift (6.2.1)
   - leveldb-library (1.22)
   - LYEmptyView (1.3.1)
   - MBProgressHUD (1.0.0)
-  - Moya (13.0.1):
-    - Moya/Core (= 13.0.1)
-  - Moya/Core (13.0.1):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.1)
-  - Moya/RxSwift (13.0.1):
-    - Moya/Core
-    - RxSwift (~> 4.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -325,14 +308,16 @@ PODS:
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
-  - Result (4.1.0)
   - Reveal-SDK (4)
-  - RxCocoa (4.3.1):
-    - RxSwift (~> 4.0)
-  - RxGesture (2.0.1):
-    - RxCocoa (~> 4.3.1)
-    - RxSwift (~> 4.3.1)
-  - RxSwift (4.3.1)
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxGesture (3.0.2):
+    - RxCocoa (~> 5.1)
+    - RxSwift (~> 5.1)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
   - SnapKit (4.2.0)
   - SwifterSwift/SwiftStdlib (5.1.0)
   - SwifterSwift/UIKit (5.1.0)
@@ -352,12 +337,9 @@ DEPENDENCIES:
   - Firebase/DynamicLinks
   - Firebase/Firestore
   - Firebase/RemoteConfig
-  - GuruExtensions (from `https://github.com/castbox/GuruExtensions.git`, branch `master`)
   - IQKeyboardManagerSwift (~> 6.2.0)
   - LYEmptyView
   - MBProgressHUD (~> 1.0.0)
-  - Moya
-  - Moya/RxSwift
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
   - RxCocoa
@@ -370,12 +352,11 @@ DEPENDENCIES:
   - UIColor_Hex_Swift (~> 4.2.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - abseil
     - Adjust
     - AgoraRtcEngine_iOS
     - AgoraRtm_iOS
-    - Alamofire
     - BoringSSL-GRPC
     - Crashlytics
     - DeviceKit
@@ -404,16 +385,15 @@ SPEC REPOS:
     - leveldb-library
     - LYEmptyView
     - MBProgressHUD
-    - Moya
     - nanopb
     - PromisesObjC
     - Protobuf
     - R.swift
     - R.swift.Library
-    - Result
     - Reveal-SDK
     - RxCocoa
     - RxGesture
+    - RxRelay
     - RxSwift
     - SnapKit
     - SwifterSwift
@@ -421,25 +401,14 @@ SPEC REPOS:
     - SwiftyUserDefaults
     - UIColor_Hex_Swift
 
-EXTERNAL SOURCES:
-  GuruExtensions:
-    :branch: master
-    :git: https://github.com/castbox/GuruExtensions.git
-
-CHECKOUT OPTIONS:
-  GuruExtensions:
-    :commit: 6e79cbee80522292d08c21c6734dca625cb28e0c
-    :git: https://github.com/castbox/GuruExtensions.git
-
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
-  AgoraRtcEngine_iOS: faaa446c165609e055f7ff56268ccb429e081e57
+  AgoraRtcEngine_iOS: f7fb9870f884dfa91fc3295c6594ea089f38c481
   AgoraRtm_iOS: c6ba986a3af73dd0f02e6e2995ae4fe9c155e6ae
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  DeviceKit: fc3c2bd361a8d68d8a91eb715e453aede57317e5
+  DeviceKit: b9a28acbad6b8dbccf456814b6f95bef17a6654f
   EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: f378c80340dd41c0ad0914af740c021eb282a04b
@@ -461,28 +430,26 @@ SPEC CHECKSUMS:
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
-  GuruExtensions: e4075cb89f85de65d11ed9f541f32cfbb3cda4d9
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   LYEmptyView: b6d418cfa38b78df0cf243f9a9c25ccbdc399922
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  Moya: f4a4b80ff2f8a4ffc208dfb31cd91636622fee6e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
-  RxGesture: 26ede4ed13ffc6336d29dbd9a8dff229bdb72de7
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwifterSwift: a9e8e144832638c2850b43da5feaf9598c6ad65b
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: e9928b0f1a39aaec909b53a7fc83b061fbc141e7
+PODFILE CHECKSUM: 6c6cf8a3e53ef39a5eda8524cd33ad31763aa81b
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.9.1

@@ -16,7 +16,13 @@ struct Room: Codable {
 }
 
 class SearchViewModel {
-    var dataSource: [Room] = []
+    var dataSource: [Room] = [] {
+        didSet {
+            dataSourceSubject.onNext(dataSource)
+        }
+    }
+    
+    var dataSourceSubject = BehaviorSubject<[Room]>(value: [])
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
     var hotRoomsSubject = BehaviorSubject<[Room]>(value: [])
     
@@ -66,6 +72,10 @@ class SearchViewModel {
     }
     
     func previousRoom(_ current: String) -> Room? {
+        guard !dataSource.isEmpty else {
+            return nil
+        }
+        
         let index = dataSource.firstIndex(where: {
             $0.name == current
         }) ?? 0
@@ -81,6 +91,10 @@ class SearchViewModel {
     }
     
     func nextRoom(_ current: String) -> Room? {
+        guard !dataSource.isEmpty else {
+            return nil
+        }
+        
         let index = dataSource.firstIndex(where: {
             $0.name == current
         }) ?? 0
