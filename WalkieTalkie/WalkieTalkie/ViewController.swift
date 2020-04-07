@@ -63,6 +63,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
+    @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
     
     private var gradientLayer: CAGradientLayer!
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
@@ -129,7 +130,10 @@ class ViewController: UIViewController {
             let room = viewModel.previousRoom(channelName) else {
             return
         }
-        joinChannelSubject.onNext(room.name)
+        self.channelName = room.name
+        if mManager.isConnectingState {
+            joinChannelSubject.onNext(room.name)
+        }
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
@@ -137,16 +141,14 @@ class ViewController: UIViewController {
             let room = viewModel.nextRoom(channelName) else {
             return
         }
-        joinChannelSubject.onNext(room.name)
+        self.channelName = room.name
+        if mManager.isConnectingState {
+            joinChannelSubject.onNext(room.name)
+        }
     }
     
     @IBAction func connectChannelAction(_ sender: UIButton) {
-        let connectingState: [AgoraConnectionStateType] = [
-            .connecting,
-            .connected,
-            .reconnecting
-        ]
-        if connectingState.contains(mManager.state) {
+        if mManager.isConnectingState {
             //disconnect
             mManager.leaveChannel()
             HapticFeedback.Impact.medium()
@@ -187,8 +189,10 @@ class ViewController: UIViewController {
            return
         }
         channelName = name
-        mManager.joinChannel(channelId: name)
-        HapticFeedback.Impact.medium()
+        checkMicroPermission { [weak self] in
+            self?.mManager.joinChannel(channelId: name)
+            HapticFeedback.Impact.medium()
+        }
     }
     
     func playAudio(type: AudioType, completionHandler: (() -> Void)? = nil) {
@@ -281,14 +285,15 @@ extension ViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        let checkLength = checkTextLength(textField, shouldChangeCharactersIn: range, replacementString: string)
         let length = textField.text?.count ?? 0
         let result = length >= 2 && length <= 8
         if result {
             _ = textField.resignFirstResponder()
+            joinChannelSubject.onNext(textField.text?.uppercased())
         }
         return result
     }
+    
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-").inverted
@@ -316,12 +321,12 @@ extension ViewController: UITextFieldDelegate {
 
 private extension ViewController {
     /// 获取麦克风权限
-    func callinPermission(completion: @escaping ()->()) {
+    func checkMicroPermission(completion: @escaping ()->()) {
         weak var welf = self
         AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
             if !isOpen {
-                let alertVC = UIAlertController(title: NSLocalizedString("“Cuddle” would like to Access the Microphone", comment: ""),
-                                                message: NSLocalizedString("To do livecast, please switch on microphone permission.", comment: ""),
+                let alertVC = UIAlertController(title: NSLocalizedString("“WalkieTalkie” would like to Access the Microphone", comment: ""),
+                                                message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""),
                                                 preferredStyle: UIAlertController.Style.alert)
                 let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
                     
@@ -458,7 +463,7 @@ private extension ViewController {
         
         channelTextField.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext: { [weak self] _ in
-                self?.joinChannelSubject.onNext(self?.channelTextField.text?.uppercased())
+//                self?.joinChannelSubject.onNext(self?.channelTextField.text?.uppercased())
                 self?.hideSearchView()
             })
             .disposed(by: bag)
@@ -476,6 +481,11 @@ private extension ViewController {
     }
     
     func configureSubview() {
+        if Frame.Height.deviceDiagonalIsMinThan4_7 {
+            upButtonWidthConstraint.constant = 60
+        } else {
+            upButtonWidthConstraint.constant = Frame.Scale.width(80)
+        }
         upButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
         downButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
         musicButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)

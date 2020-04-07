@@ -50,6 +50,16 @@ class ChatRoomManager: SeatManager {
             stateObservable.onNext(state)
         }
     }
+    
+    var isConnectingState: Bool {
+        let connectingState: [AgoraConnectionStateType] = [
+            .connecting,
+            .connected,
+            .reconnecting
+        ]
+        return connectingState.contains(state)
+    }
+    
     //current channel name
     private(set) var channelName: String?
     var role: AgoraClientRole? {
