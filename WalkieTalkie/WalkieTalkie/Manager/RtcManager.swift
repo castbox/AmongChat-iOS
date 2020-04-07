@@ -30,6 +30,9 @@ class RtcManager: NSObject {
     static let shared = RtcManager()
 
     weak var delegate: RtcDelegate?
+    
+    private(set) var role: AgoraClientRole?
+    
     private var mRtcEngine: AgoraRtcEngineKit?
     private var mUserId: UInt = 0
 
@@ -67,6 +70,7 @@ class RtcManager: NSObject {
         } else {
             debugPrint("setClientRole: \(role.rawValue) failed")
         }
+        self.role = role
     }
 
     func muteAllRemoteAudioStreams(_ muted: Bool) {
@@ -108,6 +112,7 @@ class RtcManager: NSObject {
     func leaveChannel() {
         mRtcEngine?.leaveChannel(nil)
         setClientRole(.audience)
+        self.role = nil
     }
 }
 

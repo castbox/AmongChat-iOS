@@ -50,8 +50,13 @@ class ChatRoomManager: SeatManager {
             stateObservable.onNext(state)
         }
     }
+    //current channel name
+    private(set) var channelName: String?
+    var role: AgoraClientRole? {
+        return mRtcManager.role
+    }
     
-    let stateObservable = BehaviorSubject<AgoraConnectionStateType>(value: .disconnected)
+    private let stateObservable = BehaviorSubject<AgoraConnectionStateType>(value: .disconnected)
     
     private var mChannelData = ChannelData()
 
@@ -96,6 +101,7 @@ class ChatRoomManager: SeatManager {
                 self.mRtcManager.joinChannel(channelId, Constant.sUserId) { [weak self] in
                     //set to audiance
                     self?.updateRole(false)
+                    self?.channelName = channelId
                 }
             }
         })

@@ -65,6 +65,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     
     private var gradientLayer: CAGradientLayer!
+    private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
     
     private lazy var searchController: SearchViewController = {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
@@ -82,6 +83,7 @@ class ViewController: UIViewController {
     }
     
     private let bag = DisposeBag()
+    private var hotBag: DisposeBag? = DisposeBag()
     
     var myUserId: String {
         return String(Constant.sUserId)
@@ -95,7 +97,6 @@ class ViewController: UIViewController {
         channelName = Defaults[.channelName]
         configureSubview()
         bindSubviewEvent()
-        channelTextField.text = channelName
     }
     
     override func viewDidLayoutSubviews() {
@@ -108,9 +109,19 @@ class ViewController: UIViewController {
         super.touchesBegan(touches, with: event)
     }
     
+    @IBAction func screenContainerTapped(_ sender: Any) {
+        _ = channelTextField.becomeFirstResponder()
+    }
+    
     @IBAction func playMusicAction(_ sender: Any) {
         userStatus = .music
-        updateRole(true)
+        if let role = mManager.role, role == .broadcaster {
+            playAudio(type: .call) { [weak self] in
+                self?.updateRole(false)
+            }
+        } else {
+            updateRole(true)
+        }
     }
     
     @IBAction func upChannelAction(_ sender: Any) {
@@ -118,7 +129,7 @@ class ViewController: UIViewController {
             let room = viewModel.previousRoom(channelName) else {
             return
         }
-        joinChannel(room.name)
+        joinChannelSubject.onNext(room.name)
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
@@ -126,7 +137,7 @@ class ViewController: UIViewController {
             let room = viewModel.nextRoom(channelName) else {
             return
         }
-        joinChannel(room.name)
+        joinChannelSubject.onNext(room.name)
     }
     
     @IBAction func connectChannelAction(_ sender: UIButton) {
@@ -138,7 +149,6 @@ class ViewController: UIViewController {
         if connectingState.contains(mManager.state) {
             //disconnect
             mManager.leaveChannel()
-            sender.setImage(R.image.btn_power(), for: .normal)
             HapticFeedback.Impact.medium()
         } else {
             joinChannel(channelName)
@@ -173,7 +183,7 @@ class ViewController: UIViewController {
         guard let name = name else {
             return
         }
-        if mManager.state == .connected && name == channelName {
+        if mManager.state == .connected && mManager.channelName == name {
            return
         }
         channelName = name
@@ -358,8 +368,8 @@ private extension ViewController {
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
-            powerButton.setImage(R.image.btn_power(), for: .normal)
             powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+            powerButton.setImage(R.image.btn_power(), for: .normal)
         }
     }
     
@@ -393,15 +403,29 @@ private extension ViewController {
     func bindSubviewEvent() {
         viewModel.startListenerList()
     
-        if channelName.wrappedValue.isEmpty {
+        if channelName.wrappedValue.isEmpty, let bag = hotBag {
              viewModel.hotRoomsSubject
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] rooms in
                     self?.channelName = rooms.first?.name
                     self?.channelTextField.text = rooms.first?.name
+                    self?.hotBag = nil
                 })
                 .disposed(by: bag)
         }
+        
+        joinChannelSubject
+            .filterNil()
+            .filter { !$0.isEmpty }
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { [weak self] name in
+                self?.channelName = name
+            })
+            .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] name in
+                self?.joinChannel(name)
+            })
+            .disposed(by: bag)
         
         viewModel.dataSourceSubject
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
@@ -434,7 +458,7 @@ private extension ViewController {
         
         channelTextField.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext: { [weak self] _ in
-                self?.joinChannel(self?.channelTextField.text?.uppercased())
+                self?.joinChannelSubject.onNext(self?.channelTextField.text?.uppercased())
                 self?.hideSearchView()
             })
             .disposed(by: bag)
