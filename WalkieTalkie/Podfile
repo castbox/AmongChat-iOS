@@ -2,13 +2,13 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
 
 def core_pods
-    pod 'RxSwift', '5.1.0'
+    pod 'RxSwift', '5.1'
 end
 
 def ui_pods
     pod 'SnapKit', '~> 4.2.0'
     pod 'RxCocoa'
-    pod 'RxGesture'
+    pod 'RxGesture', '3.0.2'
     pod 'UIColor_Hex_Swift', '~> 4.2.0'
 end
 
@@ -49,8 +49,8 @@ target 'WalkieTalkie' do
     ui_pods
     firebase_pods
 
-#    pod 'Moya'
-#    pod 'Moya/RxSwift'
+    pod 'Moya'
+    pod 'Moya/RxSwift'
 
     
     # Crash 统计
@@ -73,7 +73,7 @@ target 'WalkieTalkie' do
     pod 'IQKeyboardManagerSwift', '~> 6.2.0'
     
     # tip view
-    pod 'EasyTipView', '~> 2.0.4'
+#    pod 'EasyTipView', '~> 2.0.4'
     
     # RTC (Agora.io)
     pod 'AgoraRtcEngine_iOS'
@@ -91,6 +91,9 @@ target 'WalkieTalkie' do
     
     #- Integrate UIKit extensions only:
     pod 'SwifterSwift/UIKit'
+    
+    pod 'mopub-ios-sdk'
+    pod 'MoPub-AdMob-Adapters', '7.57.0.0'
 end
 
 post_install do |installer|

@@ -44,13 +44,24 @@
 		FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FE49CEAE2436FD5A00C36EC6 /* call.m4a */; };
 		FE4FDACD24359D7C00CD5E97 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */; };
 		FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDACE2435B93600CD5E97 /* FireStore.swift */; };
-		FE4FDAD12435B97100CD5E97 /* JSONDecoderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD02435B97000CD5E97 /* JSONDecoderExtension.swift */; };
 		FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD22435B98D00CD5E97 /* Frame.swift */; };
 		FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD42435B9AE00CD5E97 /* Globe.swift */; };
 		FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */; };
 		FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD82435D0AB00CD5E97 /* Logger.swift */; };
 		FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDADA2435D70A00CD5E97 /* FireLink.swift */; };
 		FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */; };
+		FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */; };
+		FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA58243DB0960059C252 /* ApiManager.swift */; };
+		FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */; };
+		FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */; };
+		FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5B243DB0970059C252 /* Codable.Extension.swift */; };
+		FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5C243DB0970059C252 /* ApiManager.Observable.swift */; };
+		FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5D243DB0970059C252 /* ApiManager.Json.swift */; };
+		FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5E243DB0980059C252 /* ApiManager.Transform.swift */; };
+		FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5F243DB0980059C252 /* Json.swift */; };
+		FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */; };
+		FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */; };
+		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,13 +117,24 @@
 		FE49CEAE2436FD5A00C36EC6 /* call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.m4a; sourceTree = "<group>"; };
 		FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FE4FDACE2435B93600CD5E97 /* FireStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStore.swift; sourceTree = "<group>"; };
-		FE4FDAD02435B97000CD5E97 /* JSONDecoderExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoderExtension.swift; sourceTree = "<group>"; };
 		FE4FDAD22435B98D00CD5E97 /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		FE4FDAD42435B9AE00CD5E97 /* Globe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globe.swift; sourceTree = "<group>"; };
 		FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 		FE4FDAD82435D0AB00CD5E97 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FE4FDADA2435D70A00CD5E97 /* FireLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireLink.swift; sourceTree = "<group>"; };
 		FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Config.swift; sourceTree = "<group>"; };
+		FE8DEA58243DB0960059C252 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Plugin.swift; sourceTree = "<group>"; };
+		FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Api.swift; sourceTree = "<group>"; };
+		FE8DEA5B243DB0970059C252 /* Codable.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.Extension.swift; sourceTree = "<group>"; };
+		FE8DEA5C243DB0970059C252 /* ApiManager.Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Observable.swift; sourceTree = "<group>"; };
+		FE8DEA5D243DB0970059C252 /* ApiManager.Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Json.swift; sourceTree = "<group>"; };
+		FE8DEA5E243DB0980059C252 /* ApiManager.Transform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Transform.swift; sourceTree = "<group>"; };
+		FE8DEA5F243DB0980059C252 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
+		FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.Extension.swift; sourceTree = "<group>"; };
+		FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.Extension.swift; sourceTree = "<group>"; };
+		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,13 +206,13 @@
 				FE126D562434823A00BEDD60 /* MemberUtil.swift */,
 				FE4FDACE2435B93600CD5E97 /* FireStore.swift */,
 				FE4FDAD42435B9AE00CD5E97 /* Globe.swift */,
-				FE4FDAD02435B97000CD5E97 /* JSONDecoderExtension.swift */,
 				FE4FDAD22435B98D00CD5E97 /* Frame.swift */,
 				FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */,
 				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
 				FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */,
 				FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */,
 				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
+				FE8DEA6F243DB0A20059C252 /* ApiManager */,
 				FE126D542434821900BEDD60 /* Manager */,
 				FE126D532434820A00BEDD60 /* Model */,
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
@@ -243,6 +265,25 @@
 				FE126D3D243481BC00BEDD60 /* SeatManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		FE8DEA6F243DB0A20059C252 /* ApiManager */ = {
+			isa = PBXGroup;
+			children = (
+				FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */,
+				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
+				FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */,
+				FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */,
+				FE8DEA5D243DB0970059C252 /* ApiManager.Json.swift */,
+				FE8DEA5C243DB0970059C252 /* ApiManager.Observable.swift */,
+				FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */,
+				FE8DEA5E243DB0980059C252 /* ApiManager.Transform.swift */,
+				FE8DEA5B243DB0970059C252 /* Codable.Extension.swift */,
+				FE8DEA5F243DB0980059C252 /* Json.swift */,
+				FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */,
+				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
+			);
+			path = ApiManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,36 +474,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FE49CEA72436320200C36EC6 /* EHSMB.TTF in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
+				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				FE126D1C243461E800BEDD60 /* ViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
-				FE4FDAD12435B97100CD5E97 /* JSONDecoderExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
+				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */,
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
+				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
 				FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */,
+				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */,
+				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
 				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
+				FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
 				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
+				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
+				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FE4FDACD24359D7C00CD5E97 /* SearchViewController.swift in Sources */,
+				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
+				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
+				FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
@@ -637,7 +689,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -661,7 +713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

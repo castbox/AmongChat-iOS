@@ -1,9 +1,9 @@
 //
-//  JSONDecoderExtension.swift
-//  Runner
+//  JSONDecoder.Extension.swift
+//  Moya-Cuddle
 //
-//  Created by 袁仕崇 on 2020/2/7.
-//  Copyright © 2020 Guru. All rights reserved.
+//  Created by Wilson-Yuan on 2019/12/25.
+//  Copyright © 2019 Guru. All rights reserved.
 //
 
 import Foundation

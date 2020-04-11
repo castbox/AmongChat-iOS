@@ -44,6 +44,18 @@ extension AudioType {
     }
 }
 
+class RoomViewModel {
+    let bag = DisposeBag()
+    
+    func requestEnterRoom() {
+        ApiManager.default.reactiveRequest(.enterRoom)
+            .subscribe(onNext: { _ in
+                
+            })
+            .disposed(by: bag)
+    }
+}
+
 class ViewController: UIViewController {
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var connectStateLabel: UILabel!
@@ -67,14 +79,15 @@ class ViewController: UIViewController {
     
     private var gradientLayer: CAGradientLayer!
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
+    private lazy var viewModel = RoomViewModel()
     
     private lazy var searchController: SearchViewController = {
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
-        controller.viewModel = viewModel
+        controller.viewModel = searchViewModel
         return controller
     }()
     
-    private let viewModel = SearchViewModel()
+    private let searchViewModel = SearchViewModel()
     private var channelName: String? {
         didSet {
             channelTextField.text = channelName
@@ -127,10 +140,11 @@ class ViewController: UIViewController {
     
     @IBAction func upChannelAction(_ sender: Any) {
         guard let channelName = channelName,
-            let room = viewModel.previousRoom(channelName) else {
+            let room = searchViewModel.previousRoom(channelName) else {
             return
         }
         self.channelName = room.name
+        updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
@@ -138,10 +152,11 @@ class ViewController: UIViewController {
     
     @IBAction func downChannelAction(_ sender: Any) {
         guard let channelName = channelName,
-            let room = viewModel.nextRoom(channelName) else {
+            let room = searchViewModel.nextRoom(channelName) else {
             return
         }
         self.channelName = room.name
+        updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
@@ -190,6 +205,7 @@ class ViewController: UIViewController {
         }
         channelName = name
         checkMicroPermission { [weak self] in
+            self?.viewModel.requestEnterRoom()
             self?.mManager.joinChannel(channelId: name)
             HapticFeedback.Impact.medium()
         }
@@ -406,10 +422,10 @@ private extension ViewController {
     }
     
     func bindSubviewEvent() {
-        viewModel.startListenerList()
+        searchViewModel.startListenerList()
     
         if channelName.wrappedValue.isEmpty, let bag = hotBag {
-             viewModel.hotRoomsSubject
+             searchViewModel.hotRoomsSubject
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] rooms in
                     self?.channelName = rooms.first?.name
@@ -432,7 +448,7 @@ private extension ViewController {
             })
             .disposed(by: bag)
         
-        viewModel.dataSourceSubject
+        searchViewModel.dataSourceSubject
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { [weak self] rooms -> Room? in
                 guard let `self` = self else {
