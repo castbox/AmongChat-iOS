@@ -14,6 +14,7 @@ import SwifterSwift
 import SnapKit
 import AgoraRtcKit
 import SwiftyUserDefaults
+import MoPub
 
 //iPhone 106274582
 //Wilson iPhone 1761995123
@@ -77,6 +78,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var toolsView: UIView!
+    @IBOutlet weak var containerTopConstraint: NSLayoutConstraint!
     private var gradientLayer: CAGradientLayer!
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
     private lazy var viewModel = RoomViewModel()
@@ -86,6 +89,7 @@ class ViewController: UIViewController {
         controller.viewModel = searchViewModel
         return controller
     }()
+    private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
     private var channelName: String? {
@@ -516,6 +520,57 @@ private extension ViewController {
         gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
         screenContainer.layer.insertSublayer(gradientLayer, at: 0)
+        
+        adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
+        adView.delegate = self
+        adView.frame = CGRect(x: 10, y: Frame.Height.safeAeraTopHeight + 10, width: Frame.Screen.width - 10 * 2, height: 50)
+        view.addSubview(adView)
+        adView.loadAd(withMaxAdSize: adView.size)
+    }
+}
+
+extension ViewController: MPAdViewDelegate {
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        if let naviVC = self.navigationController {
+            return naviVC
+        } else {
+            return self
+        }
+    }
+
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+//        Logger.Ads.logEvent(.load)
+//        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .banner, event: .rendered, eventTime: Date(), requestTime: Date()))
+//        removeAmazonKeywordsV2(for: view)
+//        adsLoadedSignal.onNext((view, adSize))
+//        Logger.Ads.logEvent(.impl)
+//        makeAwsBid()
+        containerTopConstraint.constant = adView.frame.maxY + 10
+        UIView.springAnimate(animation: { [weak self] in
+            self?.view.layoutIfNeeded()
+        })
+    }
+
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+//        Logger.Ads.logEvent(.nofill)
+//        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .banner, event: .nofill, eventTime: Date(), requestTime: Date()))
+//        removeAmazonKeywordsV2(for: view)
+//        NSLog("mopub: fail to load ads with error: \(error.debugDescription)")
+//        adsLoadedSignal.onNext((nil, .zero))
+//        makeAwsBid()
+    }
+
+    func willPresentModalView(forAd view: MPAdView!) {
+//        showSource = .adModal
+//        Logger.Ads.logEvent(.click)
+    }
+    
+    func willLeaveApplication(fromAd view: MPAdView!) {
+//        Logger.Ads.logEvent(.click)
+//        showSource = .adLeave
+    }
+    
+    func didDismissModalView(forAd view: MPAdView!) {
     }
 }
 

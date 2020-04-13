@@ -8,6 +8,8 @@
 
 import UIKit
 import Firebase
+import MoPub
+import MoPub_AdMob_Adapters
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,8 +22,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RtcManager.shared.initialize()
         RtmManager.shared.initialize()
         FirebaseApp.configure()
+        setupMopub()
+        setupAdmob()
         return true
     }
+    
+    private func setupMopub() {
+        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "3cc10f8823c6428daf3bbf136dfbb761")
+        #if DEBUG
+        config.loggingLevel = .info
+        #endif
+        MoPub.sharedInstance().initializeSdk(with: config, completion: nil)
+    }
+        
+    private func setupAdmob() {
+        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
+        GADMobileAds.sharedInstance().applicationVolume = 0
+        #if DEBUG
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
+        #endif
+    }
+
 
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

@@ -231,6 +231,7 @@
                     <connections>
                         <outlet property="channelTextField" destination="WeD-PF-cDM" id="zCP-7l-2gs"/>
                         <outlet property="connectStateLabel" destination="fA3-ly-Qtw" id="Uo9-ff-LGp"/>
+                        <outlet property="containerTopConstraint" destination="8vz-jk-dLo" id="VQB-g6-JhB"/>
                         <outlet property="downButton" destination="s2v-Ak-Ufd" id="gsq-Bp-iHN"/>
                         <outlet property="musicButton" destination="TbP-Ah-Hra" id="itT-4n-j4u"/>
                         <outlet property="numberLabel" destination="Mpb-af-6FM" id="gZc-P0-trU"/>
@@ -239,6 +240,7 @@
                         <outlet property="screenContainer" destination="8yd-YY-a9Q" id="PLo-Vk-qHA"/>
                         <outlet property="shareButton" destination="nYu-Os-NyD" id="buf-KS-wDr"/>
                         <outlet property="speakButton" destination="XJx-Nj-5oY" id="Rcs-kZ-WwC"/>
+                        <outlet property="toolsView" destination="dYG-ao-Tdh" id="RoK-AI-rSK"/>
                         <outlet property="upButton" destination="7jg-9J-TZa" id="LEM-Pj-nuW"/>
                         <outlet property="upButtonWidthConstraint" destination="Ed1-KH-7Ug" id="1HP-jb-MHT"/>
                     </connections>
@@ -277,7 +279,7 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPa-Q9-pgs">
-                                            <rect key="frame" x="10" y="7" width="20" height="30.5"/>
+                                            <rect key="frame" x="10" y="9" width="20" height="26.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="gWq-Yq-hsO"/>
                                             </constraints>
@@ -286,7 +288,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfv-yW-OMu">
-                                            <rect key="frame" x="387" y="13.5" width="17" height="17.5"/>
+                                            <rect key="frame" x="387" y="14.5" width="17" height="15.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="17" id="nfC-nx-fNF"/>
                                             </constraints>
