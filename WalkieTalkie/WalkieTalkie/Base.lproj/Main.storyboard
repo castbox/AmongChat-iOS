@@ -39,7 +39,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh">
-                                <rect key="frame" x="50" y="84" width="314" height="330"/>
+                                <rect key="frame" x="50" y="124" width="314" height="330"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q">
                                         <rect key="frame" x="10" y="10" width="294" height="130"/>
@@ -118,7 +118,7 @@
                                                     <action selector="upChannelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HGa-Zr-iZd"/>
                                                 </connections>
                                             </button>
-                                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbP-Ah-Hra">
+                                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbP-Ah-Hra" customClass="FrozenButton" customModule="WalkieTalkie" customModuleProvider="target">
                                                 <rect key="frame" x="90" y="0.0" width="80" height="80"/>
                                                 <color key="backgroundColor" white="0.16064968915052816" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -131,9 +131,6 @@
                                                         <real key="value" value="12"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="playMusicAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8yk-Q5-5H7"/>
-                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYu-Os-NyD">
                                                 <rect key="frame" x="90" y="90" width="80" height="80"/>
@@ -215,6 +212,16 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-Mq-pGj">
+                                <rect key="frame" x="104.5" y="688.5" width="205.5" height="128.5"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZT-Mw-FCd">
+                                <rect key="frame" x="47" y="54" width="320" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="BB0-Tt-0sH"/>
+                                    <constraint firstAttribute="width" constant="320" id="gIp-3A-LHF"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.98431372549019602" green="0.73725490196078436" blue="0.019607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -222,24 +229,31 @@
                             <constraint firstItem="1m5-XA-SAp" firstAttribute="centerY" secondItem="XJx-Nj-5oY" secondAttribute="centerY" id="0eE-E6-o1G"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dYG-ao-Tdh" secondAttribute="trailing" constant="50" id="0re-js-gLK"/>
                             <constraint firstItem="1m5-XA-SAp" firstAttribute="centerX" secondItem="XJx-Nj-5oY" secondAttribute="centerX" id="37x-2q-ExU"/>
-                            <constraint firstItem="dYG-ao-Tdh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="8vz-jk-dLo"/>
+                            <constraint firstItem="XJx-Nj-5oY" firstAttribute="top" secondItem="xvW-Mq-pGj" secondAttribute="top" id="3l6-fW-KDD"/>
+                            <constraint firstItem="QZT-Mw-FCd" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Dfh-ZE-uBN"/>
+                            <constraint firstItem="XJx-Nj-5oY" firstAttribute="trailing" secondItem="xvW-Mq-pGj" secondAttribute="trailing" id="KDT-br-OEl"/>
                             <constraint firstItem="dYG-ao-Tdh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="KgP-zT-R0b"/>
+                            <constraint firstItem="dYG-ao-Tdh" firstAttribute="top" secondItem="QZT-Mw-FCd" secondAttribute="bottom" constant="20" id="LOj-Un-k55"/>
+                            <constraint firstItem="QZT-Mw-FCd" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="WWk-PZ-t2M"/>
+                            <constraint firstItem="XJx-Nj-5oY" firstAttribute="bottom" secondItem="xvW-Mq-pGj" secondAttribute="bottom" id="h8B-sI-ifJ"/>
+                            <constraint firstItem="XJx-Nj-5oY" firstAttribute="leading" secondItem="xvW-Mq-pGj" secondAttribute="leading" id="mpp-8g-Hyj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XJx-Nj-5oY" secondAttribute="bottom" constant="45" id="p1Y-hP-Ksi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="adContainer" destination="QZT-Mw-FCd" id="bT0-CB-nxO"/>
                         <outlet property="channelTextField" destination="WeD-PF-cDM" id="zCP-7l-2gs"/>
                         <outlet property="connectStateLabel" destination="fA3-ly-Qtw" id="Uo9-ff-LGp"/>
-                        <outlet property="containerTopConstraint" destination="8vz-jk-dLo" id="VQB-g6-JhB"/>
                         <outlet property="downButton" destination="s2v-Ak-Ufd" id="gsq-Bp-iHN"/>
-                        <outlet property="musicButton" destination="TbP-Ah-Hra" id="itT-4n-j4u"/>
+                        <outlet property="musicButton" destination="TbP-Ah-Hra" id="YRG-eW-EY6"/>
                         <outlet property="numberLabel" destination="Mpb-af-6FM" id="gZc-P0-trU"/>
                         <outlet property="powerButton" destination="L19-kc-srO" id="EbJ-15-QcU"/>
                         <outlet property="pushToTalkButton" destination="1m5-XA-SAp" id="MPj-Jo-TRE"/>
                         <outlet property="screenContainer" destination="8yd-YY-a9Q" id="PLo-Vk-qHA"/>
                         <outlet property="shareButton" destination="nYu-Os-NyD" id="buf-KS-wDr"/>
                         <outlet property="speakButton" destination="XJx-Nj-5oY" id="Rcs-kZ-WwC"/>
+                        <outlet property="speakButtonTrigger" destination="xvW-Mq-pGj" id="Brq-8U-XVq"/>
                         <outlet property="toolsView" destination="dYG-ao-Tdh" id="RoK-AI-rSK"/>
                         <outlet property="upButton" destination="7jg-9J-TZa" id="LEM-Pj-nuW"/>
                         <outlet property="upButtonWidthConstraint" destination="Ed1-KH-7Ug" id="1HP-jb-MHT"/>
