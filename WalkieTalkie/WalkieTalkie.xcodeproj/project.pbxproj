@@ -50,6 +50,7 @@
 		FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD82435D0AB00CD5E97 /* Logger.swift */; };
 		FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDADA2435D70A00CD5E97 /* FireLink.swift */; };
 		FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */; };
+		FE860CD824458F2300087B73 /* BlackOpsOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */; };
 		FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */; };
 		FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA58243DB0960059C252 /* ApiManager.swift */; };
 		FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */; };
@@ -123,6 +124,7 @@
 		FE4FDAD82435D0AB00CD5E97 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FE4FDADA2435D70A00CD5E97 /* FireLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireLink.swift; sourceTree = "<group>"; };
 		FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BlackOpsOne-Regular.ttf"; sourceTree = "<group>"; };
 		FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Config.swift; sourceTree = "<group>"; };
 		FE8DEA58243DB0960059C252 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Plugin.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				FE274D40243B716600B6DB88 /* begin.mp3 */,
 				FE274D3E243B701B00B6DB88 /* end.mp3 */,
 				FE49CEA5243631F100C36EC6 /* EHSMB.TTF */,
+				FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */,
 				FE274D42243B81B400B6DB88 /* R.generated.swift */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
@@ -377,6 +380,7 @@
 				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
+				FE860CD824458F2300087B73 /* BlackOpsOne-Regular.ttf in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);
@@ -689,7 +693,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -713,7 +717,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

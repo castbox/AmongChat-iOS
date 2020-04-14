@@ -55,10 +55,17 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 1 fonts.
+  /// This `R.font` struct is generated, and contains static references to 2 fonts.
   struct font: Rswift.Validatable {
+    /// Font `BlackOpsOne-Regular`.
+    static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
     /// Font `ElectronicHighwaySign`.
     static let electronicHighwaySign = Rswift.FontResource(fontName: "ElectronicHighwaySign")
+    
+    /// `UIFont(name: "BlackOpsOne-Regular", size: ...)`
+    static func blackOpsOneRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: blackOpsOneRegular, size: size)
+    }
     
     /// `UIFont(name: "ElectronicHighwaySign", size: ...)`
     static func electronicHighwaySign(size: CGFloat) -> UIKit.UIFont? {
@@ -66,6 +73,7 @@ struct R: Rswift.Validatable {
     }
     
     static func validate() throws {
+      if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.electronicHighwaySign(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'ElectronicHighwaySign' could not be loaded, is 'EHSMB.TTF' added to the UIAppFonts array in this targets Info.plist?") }
     }
     
@@ -207,6 +215,7 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
       
       static func validate() throws {
+        if UIKit.UIImage(named: "share_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'share_logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

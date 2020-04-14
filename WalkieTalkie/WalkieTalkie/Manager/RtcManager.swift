@@ -35,6 +35,11 @@ class RtcManager: NSObject {
     
     private var mRtcEngine: AgoraRtcEngineKit?
     private var mUserId: UInt = 0
+    //
+    private var unMuteUsers: [UInt] = []
+    private var haveUnmuteUser: Bool {
+        return !unMuteUsers.isEmpty
+    }
 
     private override init() {
         super.init()
@@ -84,8 +89,10 @@ class RtcManager: NSObject {
 
     func startAudioMixing(_ filePath: String?) {
         if let `mRtcEngine` = mRtcEngine, let `filePath` = filePath {
+            let volume = haveUnmuteUser ? 7 : 15
             mRtcEngine.startAudioMixing(filePath, loopback: false, replace: false, cycle: 1)
-            mRtcEngine.adjustAudioMixingVolume(15)
+            mRtcEngine.adjustAudioMixingVolume(volume)
+            mRtcEngine.adjustAudioMixingPublishVolume(volume)
         }
     }
 
@@ -135,13 +142,17 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         print("didJoinedOfUid \(uid)")
-
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
+//        if muted {
+//                   unMuteUsers.removeAll(where: { $0 == uid })
+//               } else {
+                   unMuteUsers.append(uid)
+//               }
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         print("didOfflineOfUid \(uid)")
-
+        unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
     }
 

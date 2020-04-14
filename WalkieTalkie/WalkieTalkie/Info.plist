@@ -42,6 +42,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>EHSMB.TTF</string>
+		<string>BlackOpsOne-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

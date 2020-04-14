@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  WalkieTalkie
 //
-//  Created by 袁仕崇 on 2020/4/1.
+//  Createds by 袁仕崇 on 2020/4/1.
 //  Copyright © 2020 Guru Rain. All rights reserved.
 //
 
@@ -10,12 +10,15 @@ import UIKit
 import Firebase
 import MoPub
 import MoPub_AdMob_Adapters
+import RxSwift
+import RxCocoa
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var mopubInitializeSuccessSubject = BehaviorRelay<Bool>(value: false)
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window?.backgroundColor = UIColor(hex: 0x141414)
@@ -32,7 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if DEBUG
         config.loggingLevel = .info
         #endif
-        MoPub.sharedInstance().initializeSdk(with: config, completion: nil)
+        MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
+            //send notification
+            self?.mopubInitializeSuccessSubject.accept(true)
+        }
     }
         
     private func setupAdmob() {
@@ -98,6 +104,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // not supported yet
             return false
         }
+    }
+}
+
+extension UIApplication {
+    static var appDelegate: AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
     }
 }
 
