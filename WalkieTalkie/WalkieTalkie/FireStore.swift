@@ -18,7 +18,7 @@ class FireStore {
     /// 根结点名称
     struct Root {
         static let channels = "channels"
-        static let default_channels = "default_channels"
+//        static let default_channels = "default_channels"
     }
 //
     static let shared = FireStore()
@@ -81,30 +81,30 @@ class FireStore {
         .startWith([FireStore.defaultRoom])
     }
     
-    func hotChannelList() -> Observable<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            let ref = self?.db.collection(Root.default_channels)
-                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onNext([])
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onNext([])
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                    }
-                })
-            
-            return Disposables.create {
-                ref?.remove()
-            }
-        })
-        .startWith([FireStore.defaultRoom])
-    }
+//    func hotChannelList() -> Observable<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//            let ref = self?.db.collection(Root.default_channels)
+//                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onNext([])
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onNext([])
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                    }
+//                })
+//
+//            return Disposables.create {
+//                ref?.remove()
+//            }
+//        })
+//        .startWith([FireStore.defaultRoom])
+//    }
 }
 
 extension QuerySnapshot {

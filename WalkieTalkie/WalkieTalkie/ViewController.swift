@@ -499,18 +499,7 @@ private extension ViewController {
     
     func bindSubviewEvent() {
         searchViewModel.startListenerList()
-    
-        if channelName.wrappedValue.isEmpty, let bag = hotBag {
-             searchViewModel.hotRoomsSubject
-                .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] rooms in
-                    self?.channelName = rooms.first?.name
-                    self?.channelTextField.text = rooms.first?.name
-                    self?.hotBag = nil
-                })
-                .disposed(by: bag)
-        }
-        
+            
         joinChannelSubject
             .filterNil()
             .filter { !$0.isEmpty }

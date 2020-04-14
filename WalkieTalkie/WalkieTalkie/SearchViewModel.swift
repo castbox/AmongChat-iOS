@@ -24,13 +24,7 @@ class SearchViewModel {
     
     var dataSourceSubject = BehaviorSubject<[Room]>(value: [])
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
-    var hotRoomsSubject = BehaviorSubject<[Room]>(value: [])
-    
-    private var hotRooms: [Room] = [] {
-        didSet {
-            hotRoomsSubject.onNext(hotRooms)
-        }
-    }
+
     private let bag = DisposeBag()
     
     private(set) var queryString: String?
@@ -40,9 +34,8 @@ class SearchViewModel {
     }
     
     func startListenerList() {
-        Observable.combineLatest(FireStore.shared.onlineChannelList(), FireStore.shared.hotChannelList())
-            .map { [weak self] (onlineRooms, hotRooms) -> [Room] in
-                self?.hotRooms = hotRooms
+        FireStore.shared.onlineChannelList()
+            .map { [weak self] onlineRooms -> [Room] in
                 var room: [Room] = []
                 room.append(contentsOf: onlineRooms)
                 room.append(contentsOf: hotRooms)
@@ -53,7 +46,6 @@ class SearchViewModel {
             .subscribe(onNext: { [weak self] list in
                 self?.dataSource.removeAll()
                 self?.dataSource.append(contentsOf: list)
-//                self?.querySourceSubject.
                 self?.query(self?.queryString)
             })
             .disposed(by: bag)
