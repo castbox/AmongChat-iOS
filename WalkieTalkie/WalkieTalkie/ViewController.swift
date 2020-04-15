@@ -239,8 +239,7 @@ class ViewController: UIViewController {
     @IBAction func connectChannelAction(_ sender: UIButton) {
         if mManager.isConnectingState {
             //disconnect
-            mManager.leaveChannel()
-            HapticFeedback.Impact.medium()
+            leaveChannel()
         } else {
             joinChannel(channelName)
         }
@@ -268,6 +267,11 @@ class ViewController: UIViewController {
         present(activityVC, animated: true, completion: { () -> Void in
             
         })
+    }
+    
+    func leaveChannel() {
+        mManager.leaveChannel()
+        HapticFeedback.Impact.medium()
     }
     
     @discardableResult
@@ -314,6 +318,17 @@ class ViewController: UIViewController {
 
 // MARK: - ChatRoomDelegate
 extension ViewController: ChatRoomDelegate {
+    
+    func onJoinChannelFailed(channelId: String?) {
+        //report connect failed
+//        leaveChannel()
+        view.raft.autoShow(.text("Join channel failed, please retry!"))
+    }
+    
+    func onJoinChannelTimeout(channelId: String?) {
+        view.raft.autoShow(.text("Join channel timeout, please retry!"))
+        leaveChannel()
+    }
 
     func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
         connectStateLabel.text = state.title.uppercased()

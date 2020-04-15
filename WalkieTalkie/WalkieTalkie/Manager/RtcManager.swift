@@ -7,11 +7,16 @@
 //
 
 import Foundation
-
 import AgoraRtcKit
+import RxCocoa
+import RxSwift
 
 protocol RtcDelegate: class {
     func onJoinChannelSuccess(channelId: String)
+    
+    func onJoinChannelFailed(channelId: String?)
+    
+    func onJoinChannelTimeout(channelId: String?)
 
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool)
 
@@ -30,13 +35,14 @@ class RtcManager: NSObject {
     static let shared = RtcManager()
 
     weak var delegate: RtcDelegate?
-    
+
+    ///current channel ID
+    private var channelId: String?
     private(set) var role: AgoraClientRole?
-    
-    private var mRtcEngine: AgoraRtcEngineKit?
+    private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
-    //
     private var unMuteUsers: [UInt] = []
+    private var timeoutTimer: SwiftTimer?
     private var haveUnmuteUser: Bool {
         return !unMuteUsers.isEmpty
     }
@@ -46,30 +52,50 @@ class RtcManager: NSObject {
     }
 
     func initialize() {
-        if mRtcEngine == nil {
-            mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
-        }
-        if let `mRtcEngine` = mRtcEngine {
-            mRtcEngine.setChannelProfile(.liveBroadcasting)
-            mRtcEngine.setAudioProfile(.musicHighQuality, scenario: .chatRoomEntertainment)
-            mRtcEngine.enableAudioVolumeIndication(500, smooth: 3, report_vad: false)
-        }
+        mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        mRtcEngine.setChannelProfile(.liveBroadcasting)
+        mRtcEngine.setAudioProfile(.musicHighQuality, scenario: .chatRoomEntertainment)
+        mRtcEngine.enableAudioVolumeIndication(500, smooth: 3, report_vad: false)
     }
 
     func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
-        mRtcEngine?.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
+        let result = mRtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
+            self.channelId = channelId
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
         })
+        //start a time out timer
+        if result != 0 {
+            delegate?.onJoinChannelFailed(channelId: channelId)
+        } else {
+            startTimeoutTimer()
+        }
+    }
+    
+    func startTimeoutTimer() {
+        invalidTimerIfNeed()
+        timeoutTimer = SwiftTimer(interval: .seconds(15), handler: { [weak self] _ in
+            self?.delegate?.onJoinChannelTimeout(channelId: self?.channelId)
+            self?.invalidTimerIfNeed()
+        })
+        timeoutTimer?.start()
+    }
+    
+    func invalidTimerIfNeed() {
+        guard timeoutTimer != nil else {
+            return
+        }
+        timeoutTimer?.cancel()
+        timeoutTimer = nil
     }
 
     func setClientRole(_ role: AgoraClientRole) {
-        let result = mRtcEngine?.setClientRole(role)
+        let result = mRtcEngine.setClientRole(role)
         if result == 0 {
             debugPrint("setClientRole: \(role.rawValue) success")
         } else {
@@ -79,16 +105,16 @@ class RtcManager: NSObject {
     }
 
     func muteAllRemoteAudioStreams(_ muted: Bool) {
-        mRtcEngine?.muteAllRemoteAudioStreams(muted)
+        mRtcEngine.muteAllRemoteAudioStreams(muted)
     }
 
     func muteLocalAudioStream(_ muted: Bool) {
-        mRtcEngine?.muteLocalAudioStream(muted)
+        mRtcEngine.muteLocalAudioStream(muted)
         delegate?.onUserMuteAudio(uid: mUserId, muted: muted)
     }
 
     func startAudioMixing(_ filePath: String?) {
-        if let `mRtcEngine` = mRtcEngine, let `filePath` = filePath {
+        if let `filePath` = filePath {
             let volume = haveUnmuteUser ? 7 : 15
             mRtcEngine.startAudioMixing(filePath, loopback: false, replace: false, cycle: 1)
             mRtcEngine.adjustAudioMixingVolume(volume)
@@ -97,27 +123,25 @@ class RtcManager: NSObject {
     }
 
     func stopAudioMixing() {
-        mRtcEngine?.stopAudioMixing()
+        mRtcEngine.stopAudioMixing()
     }
     
     //second
     func getAudioMixingDuration() -> Int {
-        guard let duration = mRtcEngine?.getAudioMixingDuration() else {
-            return 0
-        }
+        let duration = mRtcEngine.getAudioMixingDuration()
         return Int(duration)
     }
 
     func setVoiceChanger(_ type: Int) {
-        mRtcEngine?.setParameters("{\"che.audio.morph.voice_changer\": \(type)}")
+        mRtcEngine.setParameters("{\"che.audio.morph.voice_changer\": \(type)}")
     }
 
     func setReverbPreset(_ type: Int) {
-        mRtcEngine?.setParameters("{\"che.audio.morph.reverb_preset\": \(type)}")
+        mRtcEngine.setParameters("{\"che.audio.morph.reverb_preset\": \(type)}")
     }
 
     func leaveChannel() {
-        mRtcEngine?.leaveChannel(nil)
+        mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
     }
@@ -125,8 +149,15 @@ class RtcManager: NSObject {
 
 extension RtcManager: AgoraRtcEngineDelegate {
 
+    func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
+        delegate?.onJoinChannelFailed(channelId: channelId)
+    }
+    
     func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
         cdPrint("connectionChangedTo: \(state.rawValue) reason: \(reason.rawValue)")
+        if state == .connected {
+            invalidTimerIfNeed()
+        }
         delegate?.onConnectionChangedTo(state: state, reason: reason)
     }
     

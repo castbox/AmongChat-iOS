@@ -28,6 +28,10 @@ protocol ChatRoomDelegate: class {
     func onAudioVolumeIndication(userId: String, volume: UInt)
     
     func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason)
+    
+    func onJoinChannelFailed(channelId: String?)
+    
+    func onJoinChannelTimeout(channelId: String?)
 }
 
 class ChatRoomManager: SeatManager {
@@ -95,7 +99,6 @@ class ChatRoomManager: SeatManager {
     }
 
     func joinChannel(channelId: String, completionHandler: (() -> Void)?) {
-//        Logger.log(.enter_room)
         if state == .connected {
             leaveChannel()
         }
@@ -114,6 +117,8 @@ class ChatRoomManager: SeatManager {
                     self?.channelName = channelId
                     completionHandler?()
                 }
+            } else if code == .timeout {
+                self.delegate?.onJoinChannelTimeout(channelId: channelId)
             }
         })
     }
@@ -222,6 +227,14 @@ extension ChatRoomManager: MessageManager {
 extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {
         mRtmManager.joinChannel(channelId, nil)
+    }
+    
+    func onJoinChannelFailed(channelId: String?) {
+        delegate?.onJoinChannelFailed(channelId: channelId)
+    }
+    
+    func onJoinChannelTimeout(channelId: String?) {
+        delegate?.onJoinChannelTimeout(channelId: channelId)
     }
     
     func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
