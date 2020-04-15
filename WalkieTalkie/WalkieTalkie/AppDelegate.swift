@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         window?.backgroundColor = UIColor(hex: 0x141414)
         RtcManager.shared.initialize()
-        RtmManager.shared.initialize()
+//        RtmManager.shared.initialize()
         FirebaseApp.configure()
         setupMopub()
         setupAdmob()

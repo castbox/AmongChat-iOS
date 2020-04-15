@@ -5,14 +5,14 @@
 
 import Foundation
 
-import AgoraRtmKit
+//import AgoraRtmKit
 
-protocol MessageManager {
-    func sendOrder(userId: String, orderType: String, content: String?, callback: AgoraRtmSendPeerMessageBlock?)
-
-    func sendMessage(text: String)
-
-    func processMessage(rtmMessage: AgoraRtmMessage)
-
-    func addMessage(message: Message)
-}
+//protocol MessageManager {
+//    func sendOrder(userId: String, orderType: String, content: String?, callback: AgoraRtmSendPeerMessageBlock?)
+//
+//    func sendMessage(text: String)
+//
+//    func processMessage(rtmMessage: AgoraRtmMessage)
+//
+//    func addMessage(message: Message)
+//}
