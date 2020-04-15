@@ -73,12 +73,18 @@
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="naa-cc-bfh">
+                                                <rect key="frame" x="233.5" y="8" width="20" height="20"/>
+                                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </activityIndicatorView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.55686274509803924" green="0.85098039215686272" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstItem="Mpb-af-6FM" firstAttribute="leading" secondItem="naa-cc-bfh" secondAttribute="trailing" constant="8" id="2tM-OA-dbF"/>
                                             <constraint firstItem="WeD-PF-cDM" firstAttribute="leading" secondItem="eMW-fa-LPT" secondAttribute="trailing" constant="10" id="7rY-ny-vRT"/>
                                             <constraint firstItem="fA3-ly-Qtw" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="15" id="Dfm-fW-Jqg"/>
+                                            <constraint firstItem="naa-cc-bfh" firstAttribute="centerY" secondItem="fA3-ly-Qtw" secondAttribute="centerY" id="Rcu-4R-4tc"/>
                                             <constraint firstAttribute="bottom" secondItem="WeD-PF-cDM" secondAttribute="bottom" constant="20" id="TEo-zu-Phe"/>
                                             <constraint firstAttribute="trailing" secondItem="Mpb-af-6FM" secondAttribute="trailing" constant="10" id="VyF-uw-eRe"/>
                                             <constraint firstAttribute="height" constant="130" id="hTf-Rq-z9x"/>
@@ -246,6 +252,7 @@
                         <outlet property="channelTextField" destination="WeD-PF-cDM" id="zCP-7l-2gs"/>
                         <outlet property="connectStateLabel" destination="fA3-ly-Qtw" id="Uo9-ff-LGp"/>
                         <outlet property="downButton" destination="s2v-Ak-Ufd" id="gsq-Bp-iHN"/>
+                        <outlet property="indicator" destination="naa-cc-bfh" id="8ve-bQ-odl"/>
                         <outlet property="musicButton" destination="TbP-Ah-Hra" id="YRG-eW-EY6"/>
                         <outlet property="numberLabel" destination="Mpb-af-6FM" id="gZc-P0-trU"/>
                         <outlet property="powerButton" destination="L19-kc-srO" id="EbJ-15-QcU"/>

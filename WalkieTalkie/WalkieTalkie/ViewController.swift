@@ -146,6 +146,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var toolsView: UIView!
     private var gradientLayer: CAGradientLayer!
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
@@ -273,7 +274,7 @@ class ViewController: UIViewController {
         mManager.leaveChannel()
         HapticFeedback.Impact.medium()
     }
-    
+  
     @discardableResult
     func joinChannel(_ name: String?) -> Bool {
         guard let name = name else {
@@ -288,6 +289,7 @@ class ViewController: UIViewController {
             self.mManager.joinChannel(channelId: name) { [weak self] in
                 self?.viewModel.requestEnterRoom()
             }
+            self.startConnectionAnimation()
             HapticFeedback.Impact.medium()
         }
         return true
@@ -322,11 +324,13 @@ extension ViewController: ChatRoomDelegate {
     func onJoinChannelFailed(channelId: String?) {
         //report connect failed
 //        leaveChannel()
-        view.raft.autoShow(.text("Join channel failed, please retry!"))
+//        view.raft.autoShow(.text("Join channel failed, please retry!"))
+        stopCommectionAnimation()
     }
     
     func onJoinChannelTimeout(channelId: String?) {
         view.raft.autoShow(.text("Join channel timeout, please retry!"))
+        stopCommectionAnimation()
         leaveChannel()
     }
 
@@ -485,6 +489,16 @@ private extension ViewController {
             powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
             powerButton.setImage(R.image.btn_power(), for: .normal)
         }
+        let states: [AgoraConnectionStateType] = [
+            .disconnected,
+            .connected,
+            .failed
+        ]
+        if states.contains(mManager.state) {
+            stopCommectionAnimation()
+        } else {
+            startConnectionAnimation()
+        }
     }
     
     func updateMemberCount(with room: Room?) {
@@ -505,6 +519,14 @@ private extension ViewController {
             make.top.equalTo(screenContainer.snp.bottom).offset(-12)
             make.height.equalTo(300)
         }
+    }
+    
+    func startConnectionAnimation() {
+        indicator.startAnimating()
+    }
+    
+    func stopCommectionAnimation() {
+        indicator.stopAnimating()
     }
     
     func hideSearchView() {
