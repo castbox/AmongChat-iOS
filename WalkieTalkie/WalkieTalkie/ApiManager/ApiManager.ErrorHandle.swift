@@ -41,7 +41,7 @@ private extension ApiManager.ErrorHandle {
         //        case .forceUpgrade:
         //            showForceUpgradeAlert(withMessage: message)
         //        default:
-        //            print("code: \(code)")
+        //            cdPrint("code: \(code)")
         //        }
     }
     

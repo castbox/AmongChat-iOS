@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            FirebaseAnalytics.Analytics.handleOpen(url)
 //        }
         return FireLink.handle(dynamicLink: url) { url in
-            print("url: \(url)")
+            cdPrint("url: \(url)")
         }
     }
 
@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = userActivity.webpageURL else { return false}
 //            return Routes.handle(url)
             return FireLink.handle(dynamicLink: url) { url in
-                print("url: \(url)")
+                cdPrint("url: \(url)")
             }
         default:
             // not supported yet

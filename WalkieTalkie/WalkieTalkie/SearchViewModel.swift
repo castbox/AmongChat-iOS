@@ -35,14 +35,8 @@ class SearchViewModel {
     
     func startListenerList() {
         FireStore.shared.onlineChannelList()
-            .map { [weak self] onlineRooms -> [Room] in
-                var room: [Room] = []
-                room.append(contentsOf: onlineRooms)
-                room.append(contentsOf: hotRooms)
-                room.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-                return room.filterDuplicates { $0.name }
-            }
             .observeOn(MainScheduler.asyncInstance)
+            .map { $0.sorted(by: { $0.name.localizedStandardCompare($1.name) == .orderedAscending }) }
             .subscribe(onNext: { [weak self] list in
                 self?.dataSource.removeAll()
                 self?.dataSource.append(contentsOf: list)

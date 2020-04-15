@@ -94,8 +94,8 @@ class ChatRoomManager: SeatManager {
         delegate?.onSeatUpdated(position: position)
     }
 
-    func joinChannel(channelId: String) {
-        Logger.log(.enter_room)
+    func joinChannel(channelId: String, completionHandler: (() -> Void)?) {
+//        Logger.log(.enter_room)
         if state == .connected {
             leaveChannel()
         }
@@ -112,6 +112,7 @@ class ChatRoomManager: SeatManager {
                     //set to audiance
                     self?.updateRole(false)
                     self?.channelName = channelId
+                    completionHandler?()
                 }
             }
         })
@@ -266,14 +267,14 @@ extension ChatRoomManager: RtmDelegate {
             case AttributeKey.KEY_ANCHOR_ID:
                 let userId = attribute.value
                 if mChannelData.setAnchorId(userId) {
-                    print("onChannelAttributesUpdated \(key) \(userId)")
+                    cdPrint("onChannelAttributesUpdated \(key) \(userId)")
                 }
             default:
                 let index = AttributeKey.indexOfSeatKey(key)
                 if index != NSNotFound {
                     let value = attribute.value
                     if updateSeatArray(index, value) {
-                        print("onChannelAttributesUpdated \(key) \(value)")
+                        cdPrint("onChannelAttributesUpdated \(key) \(value)")
 
                         delegate?.onSeatUpdated(position: index)
                     }
@@ -291,7 +292,7 @@ extension ChatRoomManager: RtmDelegate {
     }
 
     func onMemberJoined(userId: String, attributes: [String: String]) {
-        print("onMemberJoined: \(userId) attributes: \(attributes)")
+        cdPrint("onMemberJoined: \(userId) attributes: \(attributes)")
         for attribute in attributes {
             if AttributeKey.KEY_USER_INFO == attribute.key {
                 if let member = Member.fromJsonString(attribute.value) {

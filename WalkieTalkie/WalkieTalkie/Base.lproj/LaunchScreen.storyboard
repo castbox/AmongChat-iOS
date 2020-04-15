@@ -7,11 +7,6 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="BlackOpsOne-Regular.ttf">
-            <string>BlackOpsOne-Regular</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -34,19 +29,16 @@
                                 <color key="textColor" red="0.36470588235294116" green="0.36470588235294116" blue="0.36470588235294116" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkie Talkie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cV2-iW-iW3">
-                                <rect key="frame" x="137" y="777.5" width="140.5" height="25"/>
-                                <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_name" translatesAutoresizingMaskIntoConstraints="NO" id="Alc-cz-XgW">
+                                <rect key="frame" x="139.5" y="777.5" width="135" height="25"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Alc-cz-XgW" firstAttribute="centerX" secondItem="4xs-CY-7mS" secondAttribute="centerX" id="47z-fD-D7f"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4xs-CY-7mS" secondAttribute="bottom" constant="40" id="8ej-RM-OAR"/>
-                            <constraint firstItem="cV2-iW-iW3" firstAttribute="centerX" secondItem="4xs-CY-7mS" secondAttribute="centerX" id="CrD-b9-xGW"/>
+                            <constraint firstItem="4xs-CY-7mS" firstAttribute="top" secondItem="Alc-cz-XgW" secondAttribute="bottom" constant="5" id="Ppr-mu-kRu"/>
                             <constraint firstItem="OLD-hG-3aT" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.5" id="RCU-sI-fme"/>
-                            <constraint firstItem="4xs-CY-7mS" firstAttribute="top" secondItem="cV2-iW-iW3" secondAttribute="bottom" constant="5" id="UFf-BG-WzI"/>
                             <constraint firstItem="OLD-hG-3aT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jhF-Ue-Evb"/>
                             <constraint firstItem="4xs-CY-7mS" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="jnN-d2-eMX"/>
                         </constraints>
@@ -59,6 +51,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="launch_name" width="135" height="25"/>
         <image name="share_logo" width="80" height="80"/>
     </resources>
 </document>

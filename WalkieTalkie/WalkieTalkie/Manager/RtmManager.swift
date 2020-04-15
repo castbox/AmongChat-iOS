@@ -64,7 +64,7 @@ class RtmManager: NSObject {
         }
 
         mRtmKit?.login(byToken: KeyCenter.RtmToken, user: String(userId), completion: { [weak self] (code) in
-            print("rtm login \(code.rawValue)")
+            cdPrint("rtm login \(code.rawValue)")
 
             self?.mIsLogin = code == .ok
             block?(code)
@@ -75,14 +75,14 @@ class RtmManager: NSObject {
         if let `mRtmKit` = mRtmKit {
             leaveChannel()
 
-            print("joinChannel \(channelId)")
+            cdPrint("joinChannel \(channelId)")
 
             guard let `rtmChannel` = mRtmKit.createChannel(withId: channelId, delegate: self) else {
                 return
             }
             rtmChannel.channelId = channelId
             rtmChannel.join(completion: { [weak self] (code) in
-                print("rtm join \(code.rawValue)")
+                cdPrint("rtm join \(code.rawValue)")
 
                 guard let `self` = self else {
                     return
@@ -102,7 +102,7 @@ class RtmManager: NSObject {
 
     private func getChannelAllAttributes(_ channelId: String) {
         mRtmKit?.getChannelAllAttributes(channelId, completion: { [weak self] (attributeArray, code) in
-            print("getChannelAllAttributes \(code.rawValue)")
+            cdPrint("getChannelAllAttributes \(code.rawValue)")
 
             guard let `self` = self else {
                 return
@@ -145,7 +145,7 @@ class RtmManager: NSObject {
 
     private func getUserAllAttributes(_ userId: String) {
         mRtmKit?.getUserAllAttributes(userId, completion: { [weak self] (rtmAttributes, uid, code) in
-            print("getUserAllAttributes \(code.rawValue)")
+            cdPrint("getUserAllAttributes \(code.rawValue)")
 
             self?.processUserAttributes(userId, rtmAttributes)
         })
@@ -177,7 +177,7 @@ class RtmManager: NSObject {
             attribute.key = key
             attribute.value = value
             mRtmKit.addOrUpdateChannel(mRtmChannel.channelId, attributes: [attribute], options: options(), completion: { (code) in
-                print("addOrUpdateChannelAttributes \(key) \(value) \(code.rawValue)")
+                cdPrint("addOrUpdateChannelAttributes \(key) \(value) \(code.rawValue)")
 
                 block?(code)
             })
@@ -200,7 +200,7 @@ class RtmManager: NSObject {
         if let `content` = content, let mRtmChannel = mRtmChannel {
             let message = AgoraRtmMessage(text: content)
             mRtmChannel.send(message, completion: { (code) in
-                print("sendMessage \(code.rawValue)")
+                cdPrint("sendMessage \(code.rawValue)")
 
                 block?(code)
             })
@@ -211,7 +211,7 @@ class RtmManager: NSObject {
         if let `content` = content, let `mRtmKit` = mRtmKit {
             let message = AgoraRtmMessage(text: content)
             mRtmKit.send(message, toPeer: userId, completion: { (code) in
-                print("sendMessageToPeer \(code.rawValue)")
+                cdPrint("sendMessageToPeer \(code.rawValue)")
 
                 block?(code)
             })
@@ -219,7 +219,7 @@ class RtmManager: NSObject {
     }
 
     func leaveChannel() {
-        print("leaveChannel \(mRtmChannel?.channelId)")
+        cdPrint("leaveChannel \(mRtmChannel?.channelId)")
 
         mRtmChannel?.leave(completion: nil)
         mRtmChannel = nil
@@ -228,7 +228,7 @@ class RtmManager: NSObject {
 
 extension RtmManager: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
-        print("onPeerMessageReceived \(message.text) \(peerId)")
+        cdPrint("onPeerMessageReceived \(message.text) \(peerId)")
 
         delegate?.onMessageReceived(message: message)
     }
@@ -236,27 +236,27 @@ extension RtmManager: AgoraRtmDelegate {
 
 extension RtmManager: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel, attributeUpdate attributes: [AgoraRtmChannelAttribute]) {
-        print("onAttributeUpdate")
+        cdPrint("onAttributeUpdate")
 
         processChannelAttributes(attributes)
     }
 
     func channel(_ channel: AgoraRtmChannel, messageReceived message: AgoraRtmMessage, from member: AgoraRtmMember) {
-        print("onChannelMessageReceived \(message.text) \(member.userId)")
+        cdPrint("onChannelMessageReceived \(message.text) \(member.userId)")
 
         delegate?.onMessageReceived(message: message)
     }
 
     func channel(_ channel: AgoraRtmChannel, memberJoined member: AgoraRtmMember) {
         let userId = member.userId
-        print("onMemberJoined \(userId)")
+        cdPrint("onMemberJoined \(userId)")
 
         getUserAllAttributes(userId)
     }
 
     func channel(_ channel: AgoraRtmChannel, memberLeft member: AgoraRtmMember) {
         let userId = member.userId
-        print("onMemberLeft \(userId)")
+        cdPrint("onMemberLeft \(userId)")
 
         delegate?.onMemberLeft(userId: userId)
     }

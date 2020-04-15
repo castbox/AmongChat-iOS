@@ -355,7 +355,7 @@ PODS:
   - SwifterSwift/SwiftStdlib (5.1.0)
   - SwifterSwift/UIKit (5.1.0)
   - SwiftLint (0.31.0)
-  - SwiftyUserDefaults (3.0.1)
+  - SwiftyUserDefaults (4.0.0)
   - UIColor_Hex_Swift (4.2.0)
 
 DEPENDENCIES:
@@ -384,7 +384,7 @@ DEPENDENCIES:
   - SwifterSwift/SwiftStdlib
   - SwifterSwift/UIKit
   - SwiftLint (= 0.31.0)
-  - SwiftyUserDefaults (~> 3.0.1)
+  - SwiftyUserDefaults (~> 4.0.0)
   - UIColor_Hex_Swift (~> 4.2.0)
 
 SPEC REPOS:
@@ -491,9 +491,9 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwifterSwift: a9e8e144832638c2850b43da5feaf9598c6ad65b
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
-  SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
+  SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: b7d0ce789aeead120328a74fae90074d98fb936f
+PODFILE CHECKSUM: 11e0a6879a8e1bed41bee7bdd97cd3723a3289dd
 
 COCOAPODS: 1.9.1

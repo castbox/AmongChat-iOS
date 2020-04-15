@@ -68,7 +68,7 @@ target 'WalkieTalkie' do
     pod 'R.swift', '~> 5.0.2'
 
     # UserDefaults
-    pod 'SwiftyUserDefaults', '~> 3.0.1'
+    pod 'SwiftyUserDefaults', '~> 4.0.0'
     # 键盘控制
     pod 'IQKeyboardManagerSwift', '~> 6.2.0'
     

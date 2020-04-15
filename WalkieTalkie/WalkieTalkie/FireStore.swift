@@ -110,7 +110,7 @@ class FireStore {
 extension QuerySnapshot {
     func toRoomList() -> [Room] {
         return documents.map { snapshot -> Room? in
-            //            print("snapshot: \(snapshot.documentID) \(snapshot.data())")
+            //            cdPrint("snapshot: \(snapshot.documentID) \(snapshot.data())")
             let count = snapshot.data()["user_count"] as? Int ?? 0
             return Room(name: snapshot.documentID, user_count: count)
         }

@@ -21,7 +21,7 @@ protocol SeatManager: class {
 
 extension SeatManager {
     func toBroadcaster(_ userId: String, _ position: Int) {
-        print("toBroadcaster \(userId) \(position)")
+        cdPrint("toBroadcaster \(userId) \(position)")
 
         let channelData = getChannelData()
         if Constant.isMyself(userId) {
@@ -49,7 +49,7 @@ extension SeatManager {
     }
 
     func toAudience(_ userId: String, _ callback: ((_ success: Bool) -> Void)?) {
-        print("toAudience \(userId)")
+        cdPrint("toAudience \(userId)")
 
         let channelData = getChannelData()
         if Constant.isMyself(userId) {

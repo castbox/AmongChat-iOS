@@ -38,7 +38,7 @@ class SearchViewController: UITableViewController {
     }
     
     func set(query: String) {
-        print("query: \(query)")
+        cdPrint("query: \(query)")
         viewModel.query(query)
     }
 

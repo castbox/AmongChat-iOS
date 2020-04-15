@@ -58,7 +58,7 @@ class RtcManager: NSObject {
 
     func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         mRtcEngine?.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
-            print("rtc join success \(channel) \(uid)")
+            cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
@@ -126,12 +126,12 @@ class RtcManager: NSObject {
 extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
-        print("connectionChangedTo: \(state.rawValue) reason: \(reason.rawValue)")
+        cdPrint("connectionChangedTo: \(state.rawValue) reason: \(reason.rawValue)")
         delegate?.onConnectionChangedTo(state: state, reason: reason)
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didClientRoleChanged oldRole: AgoraClientRole, newRole: AgoraClientRole) {
-        print("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
+        cdPrint("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
@@ -141,7 +141,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
-        print("didJoinedOfUid \(uid)")
+        cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
 //        if muted {
 //                   unMuteUsers.removeAll(where: { $0 == uid })
@@ -151,13 +151,13 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        print("didOfflineOfUid \(uid)")
+        cdPrint("didOfflineOfUid \(uid)")
         unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
-        print("didAudioMuted \(uid) \(muted)")
+        cdPrint("didAudioMuted \(uid) \(muted)")
         delegate?.onUserMuteAudio(uid: uid, muted: muted)
     }
 

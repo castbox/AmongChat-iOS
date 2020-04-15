@@ -165,7 +165,7 @@ class ViewController: UIViewController {
         didSet {
             channelTextField.text = channelName
             //save to cache
-            Defaults[.channelName] = channelName
+            Defaults[.channelName] = channelName ?? ""
         }
     }
     
@@ -280,8 +280,10 @@ class ViewController: UIViewController {
         }
         channelName = name
         checkMicroPermission { [weak self] in
-            self?.viewModel.requestEnterRoom()
-            self?.mManager.joinChannel(channelId: name)
+            guard let `self` = self else { return }
+            self.mManager.joinChannel(channelId: name) { [weak self] in
+                self?.viewModel.requestEnterRoom()
+            }
             HapticFeedback.Impact.medium()
         }
         return true
@@ -539,7 +541,7 @@ private extension ViewController {
             }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] highlighted in
-//                print("speakButton is highlighted: \(highlighted)")
+//                cdPrint("speakButton is highlighted: \(highlighted)")
                 self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
                 self?.userStatus = highlighted ? .broadcaster : .audiance
                 self?.updateRole(highlighted)

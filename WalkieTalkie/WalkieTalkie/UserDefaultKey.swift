@@ -10,6 +10,5 @@ import Foundation
 import SwiftyUserDefaults
 
 extension DefaultsKeys {
-    static let channelName = DefaultsKey<String?>("channelName")
-
+    static let channelName = DefaultsKey<String>.init("channelName", defaultValue: "WELCOME")
 }

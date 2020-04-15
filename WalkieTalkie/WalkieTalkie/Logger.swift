@@ -63,7 +63,7 @@ class Analytics {
 //            #if DEBUG
                 var info = firebaseInfo
                 info["event_name"] = event
-                print("analytics.log.event: \(info)")
+                cdPrint("analytics.log.event: \(info)")
 //            #endif
             
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
@@ -82,7 +82,7 @@ class Analytics {
         firebaseInfo[AnalyticsParameterValue] = value
         facebookInfo["fb_level"] = value
         
-//        print(Analytics)
+//        cdPrint(Analytics)
     }
 //
     static func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
