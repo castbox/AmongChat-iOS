@@ -94,6 +94,8 @@ target 'WalkieTalkie' do
     
     pod 'mopub-ios-sdk'
     pod 'MoPub-AdMob-Adapters', '7.57.0.0'
+    #objc
+    pod 'MBProgressHUD', '~> 1.0.0'
 end
 
 post_install do |installer|
