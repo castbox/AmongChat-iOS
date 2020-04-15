@@ -112,3 +112,89 @@ class Analytics {
         #endif
     }
 }
+
+extension Analytics {
+    enum Location: String {
+        case network
+    }
+    
+    enum Path: String {
+        case facebook
+    }
+    /**
+     NSDictionary *userInfo = @{
+         NSLocalizedDescriptionKey: NSLocalizedString(@"The request failed.", nil),
+         NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The response returned a 404.", nil),
+         NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Does this page exist?", nil),
+         ProductID: @"123456";
+         UserID: @"Jane Smith"
+     };
+
+     NSError *error = [NSError domain:NSSomeErrorDomain
+                               code:-1001
+                               userInfo:userInfo];
+     */
+//    static func record(_ error: Error?, domain: String? = nil, location: Location, path: Path, maybeReason: String? = nil, userInfo: [String: Any]? = nil) {
+//        record(error, domain: domain, location: "\(location)_\(path)", maybeReason: maybeReason, userInfo: userInfo)
+//    }
+    
+//    static func record(_ error: Error?, domain: String? = nil, location: String, maybeReason: String? = nil, userInfo: [String: Any]? = nil) {
+//        guard let error = error else {
+//            return
+//        }
+//        var localizedDescription = error.localizedDescription
+////        var failureReasonErrorKey: String?
+//        var errorDomain: String {
+//            if let domain = domain,
+//                !domain.isEmpty {
+//                return domain
+//            } else {
+//                return "com.cuddle.\(location)"
+//            }
+//        }
+////        var errorReason = maybeReason
+//        var code = 0
+//        var errorUserInfo = userInfo
+//
+//        let reportError = NSError(domain: errorDomain, code: code, userInfo: [
+//            NSLocalizedDescriptionKey: localizedDescription,
+//            NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
+//        ])
+//        Crashlytics.sharedInstance().recordError(reportError, withAdditionalUserInfo: userInfo)
+//    }
+    static func record(_ error: NSError, userInfo: [String: Any]?) {
+        //            guard let error = error else {
+        //                return
+        //            }
+        //            var localizedDescription = error.localizedDescription
+        //    //        var failureReasonErrorKey: String?
+        //            var errorDomain: String {
+        //                if let domain = domain,
+        //                    !domain.isEmpty {
+        //                    return domain
+        //                } else {
+        //                    return "com.cuddle.\(location)"
+        //                }
+        //            }
+        //    //        var errorReason = maybeReason
+        //            var code = 0
+        //            var errorUserInfo = userInfo
+        
+        //            let reportError = NSError(domain: errorDomain, code: code, userInfo: [
+        //                NSLocalizedDescriptionKey: localizedDescription,
+        //                NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
+        //            ])
+        Crashlytics.sharedInstance().recordError(error, withAdditionalUserInfo: userInfo)
+    }
+    
+//    static func record(_ code: Int, userInfo: [String: Any]?) {
+//          
+//           let reportError = NSError(domain: errorDomain, code: code, userInfo: [
+//               NSLocalizedDescriptionKey: localizedDescription,
+//               NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
+//           ])
+//           Crashlytics.sharedInstance().recordError(error, withAdditionalUserInfo: userInfo)
+//       }
+    
+    
+}

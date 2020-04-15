@@ -46,6 +46,21 @@ class RtcManager: NSObject {
     private var haveUnmuteUser: Bool {
         return !unMuteUsers.isEmpty
     }
+    
+    private var isLastmileProbeTesting = false {
+        didSet {
+            if isLastmileProbeTesting {
+                let config = AgoraLastmileProbeConfig()
+                config.probeUplink = true
+                config.probeDownlink = true
+                config.expectedUplinkBitrate = 5000
+                config.expectedDownlinkBitrate = 5000
+                mRtcEngine.startLastmileProbeTest(config)
+            } else {
+                mRtcEngine.stopLastmileProbeTest()
+            }
+        }
+    }
 
     private override init() {
         super.init()
@@ -53,9 +68,12 @@ class RtcManager: NSObject {
 
     func initialize() {
         mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        mRtcEngine.setLogFile(logFilePath())
         mRtcEngine.setChannelProfile(.liveBroadcasting)
         mRtcEngine.setAudioProfile(.musicHighQuality, scenario: .chatRoomEntertainment)
         mRtcEngine.enableAudioVolumeIndication(500, smooth: 3, report_vad: false)
+        //先开始测试
+//        isLastmileProbeTesting = true
     }
 
     func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
@@ -79,7 +97,7 @@ class RtcManager: NSObject {
     
     func startTimeoutTimer() {
         invalidTimerIfNeed()
-        timeoutTimer = SwiftTimer(interval: .seconds(15), handler: { [weak self] _ in
+        timeoutTimer = SwiftTimer(interval: .seconds(60), handler: { [weak self] _ in
             self?.delegate?.onJoinChannelTimeout(channelId: self?.channelId)
             self?.invalidTimerIfNeed()
         })
@@ -145,11 +163,22 @@ class RtcManager: NSObject {
         setClientRole(.audience)
         self.role = nil
     }
+    
+    func logFilePath() -> String {
+        guard let directoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return ""
+        }
+        let fileURL = directoryURL.appendingPathComponent("walkie_talkie.log")
+        cdPrint("logFilePath: \(fileURL.path)")
+        return fileURL.path
+    }
 }
 
 extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
+        let reportError = NSError(domain: "com.talkie.walkie.rtc.connect", code: Int(errorCode.rawValue), userInfo: nil)
+        Analytics.record(reportError, userInfo: nil)
         delegate?.onJoinChannelFailed(channelId: channelId)
     }
     
@@ -203,5 +232,21 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, localAudioMixingStateDidChanged state: AgoraAudioMixingStateCode, errorCode: AgoraAudioMixingErrorCode) {
         delegate?.onAudioMixingStateChanged(isPlaying: state == .playing)
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, lastmileProbeTest result: AgoraLastmileProbeResult) {
+        guard result.state != .complete else {
+            isLastmileProbeTesting = false //close
+            return
+        }
+//        let reportError = NSError(domain: "com.talkie.walkie", code: Int(result.state.rawValue), userInfo: [
+////            NSLocalizedDescriptionKey: "network test",
+////            NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
+//            result.downlinkReport
+//        ])
+    }
+    
+    func rtcEngine(_ engine: AgoraRtcEngineKit, networkQuality uid: UInt, txQuality: AgoraNetworkQuality, rxQuality: AgoraNetworkQuality) {
+        
     }
 }
