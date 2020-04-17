@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		6B147A28675545973D11F32D /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0440049C3E826D3A5A28E7B4 /* Pods_WalkieTalkie.framework */; };
+		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
+		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
+		FE0D1A2524489BF300518793 /* AudioType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2424489BF300518793 /* AudioType.swift */; };
+		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
+		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
 		FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D17243461E800BEDD60 /* AppDelegate.swift */; };
-		FE126D1C243461E800BEDD60 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D1B243461E800BEDD60 /* ViewController.swift */; };
+		FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D1B243461E800BEDD60 /* RoomViewController.swift */; };
 		FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D1D243461E800BEDD60 /* Main.storyboard */; };
 		FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE126D20243461EA00BEDD60 /* Assets.xcassets */; };
 		FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */; };
@@ -79,6 +84,9 @@
 		FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */; };
 		FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */; };
 		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
+		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
+		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
+		FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D42449B69F006454F6 /* NavigationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,9 +103,14 @@
 		0440049C3E826D3A5A28E7B4 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D909EE1BC837D18DC881816 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		CC777A50BBEAB0C77549E07F /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
+		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
+		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
+		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
+		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FE126D14243461E800BEDD60 /* WalkieTalkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalkieTalkie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D17243461E800BEDD60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FE126D1B243461E800BEDD60 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FE126D1B243461E800BEDD60 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		FE126D1E243461E800BEDD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE126D20243461EA00BEDD60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE126D23243461EA00BEDD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -169,6 +182,9 @@
 		FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
+		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
+		FEAD54D42449B69F006454F6 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +223,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FE0D1A1E24488F9B00518793 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */,
+				FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */,
+				FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */,
+				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
+				FE0D1A282448A06200518793 /* UIViewExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FE0D1A1F24488FE100518793 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FE126D552434823A00BEDD60 /* AlertUtil.swift */,
+				FE126D562434823A00BEDD60 /* MemberUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		FE126D0B243461E800BEDD60 = {
 			isa = PBXGroup;
 			children = (
@@ -230,22 +267,14 @@
 		FE126D16243461E800BEDD60 /* WalkieTalkie */ = {
 			isa = PBXGroup;
 			children = (
+				FEAD54D12449B69F006454F6 /* ParentViewController */,
 				FE126D17243461E800BEDD60 /* AppDelegate.swift */,
-				FE126D1B243461E800BEDD60 /* ViewController.swift */,
+				FE126D1B243461E800BEDD60 /* RoomViewController.swift */,
+				FE0D1A2424489BF300518793 /* AudioType.swift */,
+				FE0D1A2224489BCC00518793 /* RoomViewModel.swift */,
 				FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */,
 				FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */,
-				FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */,
-				FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */,
-				FE126D552434823A00BEDD60 /* AlertUtil.swift */,
-				FE126D562434823A00BEDD60 /* MemberUtil.swift */,
 				FE4FDACE2435B93600CD5E97 /* FireStore.swift */,
-				FE4FDAD42435B9AE00CD5E97 /* Globe.swift */,
-				FE4FDAD22435B98D00CD5E97 /* Frame.swift */,
-				FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */,
-				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
-				FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */,
-				FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */,
-				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
 				FE860D522446D23500087B73 /* Earth */,
 				FE860D3D2446D1D700087B73 /* Theme */,
 				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
@@ -296,6 +325,7 @@
 		FE126D542434821900BEDD60 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FE0D1A1F24488FE100518793 /* Utils */,
 				FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */,
 				FE126D3C243481BC00BEDD60 /* MessageManager.swift */,
 				FE126D39243481BC00BEDD60 /* RtcManager.swift */,
@@ -324,9 +354,17 @@
 		FE860D522446D23500087B73 /* Earth */ = {
 			isa = PBXGroup;
 			children = (
+				FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */,
+				FE4FDAD42435B9AE00CD5E97 /* Globe.swift */,
+				FE4FDAD22435B98D00CD5E97 /* Frame.swift */,
+				FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */,
+				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
+				FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */,
+				FE0D1A1E24488F9B00518793 /* Extension */,
 				FE860D502446D23100087B73 /* Settings.swift */,
 				FE860D532446D29E00087B73 /* Knife.swift */,
 				FE860D552446D2A800087B73 /* Core */,
+				FE0D1A2024489BB700518793 /* FrozenButton.swift */,
 			);
 			path = Earth;
 			sourceTree = "<group>";
@@ -359,6 +397,16 @@
 				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
 			);
 			path = ApiManager;
+			sourceTree = "<group>";
+		};
+		FEAD54D12449B69F006454F6 /* ParentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FEAD54D22449B69F006454F6 /* ViewController.swift */,
+				FEAD54D32449B69F006454F6 /* GestureBackable.swift */,
+				FEAD54D42449B69F006454F6 /* NavigationViewController.swift */,
+			);
+			path = ParentViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -556,9 +604,10 @@
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
+				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				FE860D5A2446D2A800087B73 /* PublishValue.swift in Sources */,
-				FE126D1C243461E800BEDD60 /* ViewController.swift in Sources */,
+				FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
 				FE860D4C2446D1D700087B73 /* AnimationDuration.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
@@ -569,11 +618,14 @@
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
+				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE860D512446D23100087B73 /* Settings.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
+				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */,
+				FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */,
 				FE860D5C2446D2A800087B73 /* PublishProperty.swift in Sources */,
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
@@ -586,13 +638,16 @@
 				FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
 				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
+				FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */,
 				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
+				FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
 				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
+				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
@@ -610,6 +665,7 @@
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
+				FE0D1A2524489BF300518793 /* AudioType.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

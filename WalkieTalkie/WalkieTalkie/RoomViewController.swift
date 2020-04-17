@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  RoomViewController.swift
 //  WalkieTalkie
 //
 //  Created by 袁仕崇 on 2020/4/1.
@@ -17,8 +17,6 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 
-//iPhone 106274582
-//Wilson iPhone 1761995123
 enum AudioType: String, CaseIterable {
     case begin
     case end
@@ -32,99 +30,7 @@ enum UserStatus {
     case end
 }
 
-extension AudioType {
-    var name: String {
-        return rawValue
-    }
-    var type: String {
-        switch self {
-        case .end, .begin:
-            return ".mp3"
-        case .call:
-            return ".m4a"
-        }
-    }
-    
-    var path: String? {
-        return Bundle.main.path(forResource: name, ofType: type)
-//                    let soundId: Int32 = 1
-//        //            let filePath = "your filepath"
-//
-//                    // 可以加载多个音效
-//                    
-    }
-    
-    var index: Int32 {
-        switch self {
-        case .end:
-            return 1
-        case .begin:
-            return 2
-        case .call:
-            return 3
-        }
-    }
-}
-
-class RoomViewModel {
-    let bag = DisposeBag()
-    
-    func requestEnterRoom() {
-        ApiManager.default.reactiveRequest(.enterRoom)
-            .subscribe(onNext: { _ in
-                
-            })
-            .disposed(by: bag)
-    }
-}
-
-class FrozenButton: UIButton {
-    private var timer: SwiftTimer?
-    private var previousInterval: TimeInterval = 0
-    var tapHandler: () -> Void = { }
-    
-    let bag = DisposeBag()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        bindSubviewEvent()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        bindSubviewEvent()
-    }
-    
-    func bindSubviewEvent() {
-        self.rx.tap.asDriver()
-            .debounce(.fromSeconds(0.5))
-            .do(onNext: { [weak self] _ in
-                self?.tapHandler()
-                self?.isEnabled = false
-            })
-//            .delay(.seconds(2))
-            .drive(onNext: { [weak self] _ in
-                self?.isEnabled = true
-            })
-            .disposed(by: bag)
-    }
-    
-//    func startTimer() {
-//        timer = SwiftTimer(interval: .seconds(2)) { timer in
-//
-//        }
-//        timer?.start()
-//    }
-    
-//    func canTap() -> Bool {
-//        let time = Date().timeIntervalSince1970
-//        let result = (time - previousInterval) > 2
-//        previousInterval = time
-//        return result
-//    }
-}
-
-class ViewController: UIViewController {
+class RoomViewController: ViewController {
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var speakButtonTrigger: UIView!
     @IBOutlet weak var connectStateLabel: UILabel!
@@ -137,6 +43,7 @@ class ViewController: UIViewController {
     }()
     @IBOutlet weak var channelTextField: UITextField!
     @IBOutlet weak var screenContainer: UIView!
+    @IBOutlet weak var buttonContainer: UIView!
     
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var pushToTalkButton: UIButton!
@@ -144,7 +51,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var toolsView: UIView!
     private var gradientLayer: CAGradientLayer!
@@ -158,6 +65,7 @@ class ViewController: UIViewController {
     }()
     
     @IBOutlet weak var adContainer: UIView!
+
     private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
@@ -177,6 +85,11 @@ class ViewController: UIViewController {
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.isNavigationBarHiddenWhenAppear = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,7 +230,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - ChatRoomDelegate
-extension ViewController: ChatRoomDelegate {
+extension RoomViewController: ChatRoomDelegate {
     
     func onJoinChannelFailed(channelId: String?) {
         //report connect failed
@@ -403,7 +316,7 @@ extension ViewController: ChatRoomDelegate {
     }
 }
 
-extension ViewController: UITextFieldDelegate {
+extension RoomViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         sendQueryEvent()
@@ -444,7 +357,7 @@ extension ViewController: UITextFieldDelegate {
     }
 }
 
-private extension ViewController {
+private extension RoomViewController {
     /// 获取麦克风权限
     func checkMicroPermission(completion: @escaping ()->()) {
         weak var welf = self
@@ -620,16 +533,6 @@ private extension ViewController {
     }
     
     func configureSubview() {
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            upButtonWidthConstraint.constant = 60
-        } else {
-            upButtonWidthConstraint.constant = Frame.Scale.width(80)
-        }
-        upButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
-        downButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
-        musicButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
-        shareButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
-        powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
         
         gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
@@ -639,7 +542,7 @@ private extension ViewController {
         gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
         gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
         screenContainer.layer.insertSublayer(gradientLayer, at: 0)
-        
+        toolsView.roundCorners(topLeft: 17, topRight: 17, bottomLeft: 50, bottomRight: 50)
     }
     
     func loadAdView() {
@@ -651,7 +554,7 @@ private extension ViewController {
     }
 }
 
-extension ViewController: MPAdViewDelegate {
+extension RoomViewController: MPAdViewDelegate {
     func viewControllerForPresentingModalView() -> UIViewController! {
         if let naviVC = self.navigationController {
             return naviVC
