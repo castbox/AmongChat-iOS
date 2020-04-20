@@ -178,7 +178,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
         let reportError = NSError(domain: "com.talkie.walkie.rtc.connect", code: Int(errorCode.rawValue), userInfo: nil)
-        Analytics.record(reportError, userInfo: nil)
+        GuruAnalytics.record(reportError, userInfo: nil)
         delegate?.onJoinChannelFailed(channelId: channelId)
     }
     

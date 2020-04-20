@@ -18,12 +18,18 @@ class FireStore {
     /// 根结点名称
     struct Root {
         static let channels = "channels"
+        static let secrets = "secrets"
 //        static let default_channels = "default_channels"
     }
 //
     static let shared = FireStore()
     
     static let defaultRoom = Room(name: "WELCOME", user_count: 0)
+    
+    let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
+    var secretChannels: [Room] {
+        return secretChannelsSubject.value
+    }
     
     lazy var db: Firestore = {
         let db = Firestore.firestore()
@@ -33,7 +39,7 @@ class FireStore {
         return db
     }()
 
-//    init() {
+    init() {
 //        if let token = Knife.Auth.shared.loginResult.value?.firebase_custom_token {
 //            Auth.auth().signIn(withCustomToken: token) { (user, error) in
 //                if let error = error {
@@ -45,15 +51,14 @@ class FireStore {
 //                }
 //            }
 //        }
-//        // bag map [pid: BagProducts]
-//        createMaps()
-//        // activity map [aid: Activity]
-//        createActivityMap()
-//
-//        #if DEBUG
-////        Firestore.enableLogging(true)
-//        #endif
-//    }
+        #if DEBUG
+//        Firestore.enableLogging(true)
+        #endif
+        
+        _ = secretChannelList()
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .bind(to: secretChannelsSubject)
+    }
 //
     
     func onlineChannelList() -> Observable<[Room]> {
@@ -81,30 +86,30 @@ class FireStore {
         .startWith([FireStore.defaultRoom])
     }
     
-//    func hotChannelList() -> Observable<[Room]> {
-//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-//            let ref = self?.db.collection(Root.default_channels)
-//                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
-//                    if let error = error {
-//                        cdPrint("FireStore Error new: \(error)")
-//                        observer.onNext([])
-//                        return
-//                    } else {
-//                        guard let query = query else {
-//                            observer.onNext([])
-//                            return
-//                        }
-//                        let list = query.toRoomList()
-//                        observer.onNext(list)
-//                    }
-//                })
-//
-//            return Disposables.create {
-//                ref?.remove()
-//            }
-//        })
-//        .startWith([FireStore.defaultRoom])
-//    }
+    func secretChannelList() -> Observable<[Room]> {
+        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+            let ref = self?.db.collection(Root.secrets)
+                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onNext([])
+                        return
+                    } else {
+                        guard let query = query else {
+                            observer.onNext([])
+                            return
+                        }
+                        let list = query.toRoomList()
+                        observer.onNext(list)
+                    }
+                })
+            
+            return Disposables.create {
+                ref?.remove()
+            }
+        })
+        .startWith([FireStore.defaultRoom])
+    }
 }
 
 extension QuerySnapshot {

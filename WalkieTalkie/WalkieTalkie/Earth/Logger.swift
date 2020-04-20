@@ -30,17 +30,39 @@ extension Logger {
     }
     
     static func log(_ eventName: EventName, _ category: Category? = nil, _ itemName: String? = nil, _ value: Int64? = nil, content: String? = nil) {
-        Analytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value, content: content)
+        GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value, content: content)
     }
     
     static func logger(_ eventName: String, _ category: String?, _ itemName: String?, _ value: Int64?, content: String? = nil) {
-        Analytics.log(event: eventName, category: category, name: itemName, value: value, content: content)
+        GuruAnalytics.log(event: eventName, category: category, name: itemName, value: value, content: content)
     }
     //    }
 }
 
+extension Logger {
+    struct Ads {
+        enum AdsEvent {
+            case request
+            case load
+            case nofill
+            case renderFail
+            case rendered
+            case impl
+            case click
+        }
+        
+        static func logEvent(_ event: AdsEvent) {
+            GuruAnalytics.log(event: "ads", category: nil, name: "\(event)", value: nil)
+        }
+        
+        static func logNativeEvent(_ event: AdsEvent) {
+            GuruAnalytics.log(event: "native_ads", category: nil, name: "\(event)", value: nil)
+        }
+    }
+}
 
-class Analytics {
+
+class GuruAnalytics {
     
     static func logScreen(screenName: String) {
         log(event: "screen", category: "screen", name: screenName, value: nil)
@@ -63,7 +85,7 @@ class Analytics {
 //            #if DEBUG
                 var info = firebaseInfo
                 info["event_name"] = event
-                cdPrint("analytics.log.event: \(info)")
+                cdPrint("GuruAnalytics.log.event: \(info)")
 //            #endif
             
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
@@ -82,7 +104,7 @@ class Analytics {
         firebaseInfo[AnalyticsParameterValue] = value
         facebookInfo["fb_level"] = value
         
-//        cdPrint(Analytics)
+//        cdPrint(GuruAnalytics)
     }
 //
     static func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
@@ -95,7 +117,7 @@ class Analytics {
     static func log(property: String, to value: String) {
         
         #if DEBUG
-            cdPrint("analytics.log.proprty: \( [property: value])")
+            cdPrint("GuruAnalytics.log.proprty: \( [property: value])")
         #endif
         
         FirebaseAnalytics.Analytics.setUserProperty(value, forName: property)
@@ -108,12 +130,12 @@ class Analytics {
         Crashlytics.sharedInstance().setUserIdentifier(userID ?? "nil")
         
         #if DEBUG
-        cdPrint("analytics.log.userID: \(userID ?? "")")
+        cdPrint("GuruAnalytics.log.userID: \(userID ?? "")")
         #endif
     }
 }
 
-extension Analytics {
+extension GuruAnalytics {
     enum Location: String {
         case network
     }

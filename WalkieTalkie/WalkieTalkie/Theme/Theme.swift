@@ -29,6 +29,24 @@ extension Theme {
 
 // 所以主题颜色的枚举
 extension Theme {
+    static let mainBgColor = UIColor(hex6: 0x161616)
+    
+    static let mainTintColor = UIColor(hex6: 0xF55B23)
+    
+    static let mainPanelColor = UIColor(hex6: 0x28282A)
+    
+    static let alertTitleColor = UIColor.white.withAlphaComponent(0.87)
+    static let alertBodyColor = UIColor(hex6: 0xFB9448).withAlphaComponent(0.87)
+    static let alertInfoColor = UIColor.white.withAlphaComponent(0.54)
+    
+    static let cellTitleColor = UIColor.white.withAlphaComponent(0.87)
+    static let cellBodyColor = UIColor.white.withAlphaComponent(0.54)
+    static let cellFooterColor = UIColor.white.withAlphaComponent(0.32)
+    
+    static let panelBtnNormalColor = UIColor.white.withAlphaComponent(0.7)
+    
+    static let hintYellow = UIColor(hex6: 0xFFC371)
+
     
     enum Alpha: CGFloat {
         case almostTransparent = 0.18

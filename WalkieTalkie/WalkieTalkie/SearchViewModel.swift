@@ -13,6 +13,51 @@ import RxCocoa
 struct Room: Codable {
     let name: String
     let user_count: Int
+    var joinAt: TimeInterval = Date().timeIntervalSince1970
+    
+    mutating func updateJoinInterval() {
+        joinAt = Date().timeIntervalSince1970
+    }
+    
+    var showName: String? {
+        return name.showName
+    }
+    
+    var isPrivate: Bool {
+        return name.hasPrefix("_")
+    }
+    
+    private enum CodingKeys: String, CodingKey {
+        case name
+        case user_count
+    }
+}
+
+extension String {
+    var showName: String? {
+        if isPrivate {
+            guard let name = split(bySeparator: "_").last else {
+                return self
+            }
+            let start = name.index(name.startIndex, offsetBy: 2)
+            let end = name.endIndex
+            return name.replacingCharacters(in: start ..< end, with: "******")
+        } else {
+            return self
+        }
+    }
+    
+    var publicName: String? {
+        return split(bySeparator: "_").last
+    }
+    
+    var isPrivate: Bool {
+        return hasPrefix("_")
+    }
+    
+    var channelType: ChannelType {
+        return isPrivate ? .private : .public
+    }
 }
 
 class SearchViewModel {
@@ -26,17 +71,38 @@ class SearchViewModel {
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
 
     private let bag = DisposeBag()
+    private var joinedPrivateChannels: [Room] = []
     
     private(set) var queryString: String?
     
     init() {
-
+        
     }
     
     func startListenerList() {
+        let onlineChannelList =
         FireStore.shared.onlineChannelList()
-            .observeOn(MainScheduler.asyncInstance)
             .map { $0.sorted(by: { $0.name.localizedStandardCompare($1.name) == .orderedAscending }) }
+            
+        let secretChannelsSubject =
+            FireStore.shared.secretChannelsSubject
+                .map { [weak self] items -> [Room] in
+                    guard let `self` = self else { return [] }
+                    return items.filter { room -> Bool in
+                        return self.joinedPrivateChannels.contains { $0.name == room.name }
+                    }
+                } //merge the
+                .map { $0.sorted(by: { $0.joinAt > $1.joinAt }) }
+
+                
+        Observable.combineLatest(onlineChannelList, secretChannelsSubject)
+            .map { publicRooms, secretRooms -> [Room] in
+                var rooms = publicRooms
+                rooms.insert(contentsOf: secretRooms, at: 0)
+                cdPrint("[SearchViewModel] publicRooms: \(publicRooms.count) secretRooms: \(secretRooms.count) total: \(rooms.count)")
+                return rooms.filterDuplicates { $0.name }
+            }
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] list in
                 self?.dataSource.removeAll()
                 self?.dataSource.append(contentsOf: list)
@@ -93,6 +159,19 @@ class SearchViewModel {
             }
         }
         return dataSource[nextIndex]
+    }
+    
+    func add(private channelName: String) {
+        guard channelName.isPrivate else {
+            return
+        }
+        if var room = joinedPrivateChannels.first(where: { $0.name == channelName }) {
+            //upate time interval
+            room.updateJoinInterval()
+        } else {
+            joinedPrivateChannels.append(Room(name: channelName, user_count: 1))
+        }
+        
     }
 }
 

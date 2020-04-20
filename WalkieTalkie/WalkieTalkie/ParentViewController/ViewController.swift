@@ -49,7 +49,7 @@ class ViewController: UIViewController {
      */
     private var isFirstToUpdateStatusForStatusBar: Bool = true
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -172,5 +172,40 @@ extension ViewController {
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
+    }
+}
+
+extension ViewController {
+    func shareChannel(name: String?) {
+        guard let channelName = name,
+            let publicName = channelName.publicName else {
+            return
+        }
+        var deepLink: String {
+            if channelName.isPrivate {
+                return "http://walkietalkie.live/?passcode=\(publicName)"
+            }
+            return "http://walkietalkie.live/?channel=\(publicName)"
+        }
+        var prefixString: String {
+            if channelName.isPrivate {
+                return "Passcode: \(publicName)"
+            }
+            return "Channel: \(publicName)"
+        }
+        let shareString = "Input the passcode in walkie talkie app to join my secret channel \n\(prefixString) \nDo you copy? \nHey, your friends are waiting for you, join us now \n\(deepLink) \n\nAndroid: https://play.google.com/store/apps/details?id=walkie.talkie.talk \niOS: https://apps.apple.com/app/id1505959099 \n\nOver and out.\n#WalkieTalkieTalktoFriends"
+        
+        let textToShare = shareString
+        let imageToShare = R.image.share_logo()!
+        let urlToShare = NSURL(string: deepLink)
+        let items = [textToShare, imageToShare, urlToShare] as [Any]
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        activityVC.completionWithItemsHandler =  { activity, success, items, error in
+
+        }
+        present(activityVC, animated: true, completion: { () -> Void in
+            
+        })
+
     }
 }

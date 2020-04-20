@@ -30,6 +30,22 @@ enum UserStatus {
     case end
 }
 
+enum ChannelType {
+    case `public`
+    case `private`
+}
+
+extension ChannelType {
+    var screenColor: UIColor {
+        switch self {
+        case .public:
+            return UIColor(hex: 0xBFFF58)!
+        case .private:
+            return UIColor(hex: 0xC17A00)!
+        }
+    }
+}
+
 class RoomViewController: ViewController {
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var speakButtonTrigger: UIView!
@@ -41,7 +57,10 @@ class RoomViewController: ViewController {
         manager.delegate = self
         return manager
     }()
-    @IBOutlet weak var channelTextField: UITextField!
+    
+    @IBOutlet weak var tagView: UILabel!
+    @IBOutlet weak var lockIconView: UIImageView!
+    @IBOutlet weak var channelTextField: ChannelNameField!
     @IBOutlet weak var screenContainer: UIView!
     @IBOutlet weak var buttonContainer: UIView!
     
@@ -71,13 +90,15 @@ class RoomViewController: ViewController {
     private let searchViewModel = SearchViewModel()
     private var channelName: String? {
         didSet {
-            channelTextField.text = channelName
+            channelTextField.text = channelName?.showName
+            screenContainer.backgroundColor = channelName?.channelType.screenColor
+            lockIconView.isHidden = !(channelName?.isPrivate ?? false)
+            tagView.isHidden = !lockIconView.isHidden
             //save to cache
             Defaults[.channelName] = channelName ?? ""
         }
     }
     
-    private let bag = DisposeBag()
     private var hotBag: DisposeBag? = DisposeBag()
     
     var myUserId: String {
@@ -159,27 +180,27 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        guard let channelName = channelName else {
+        guard let name = channelName else {
             return
         }
-        let url = "https://apps.apple.com/app/id1505959099"
-        let shareString = """
-        #\(channelName) is my Walkie Talkie Channel. Free download to talk with me.
-        iOS: https://apps.apple.com/app/id1505959099
-        Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
-        """
-        
-        let textToShare = shareString
-        let imageToShare = R.image.share_logo()!
-        let urlToShare = NSURL(string: url)
-        let items = [textToShare, imageToShare, urlToShare] as [Any]
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityVC.completionWithItemsHandler =  { activity, success, items, error in
-
+        if name.isPrivate {
+            showShareController(channelName: name)
+        } else {
+            shareChannel(name: name)
         }
-        present(activityVC, animated: true, completion: { () -> Void in
-            
-        })
+    }
+    
+    @IBAction func privateButtonAction(_ sender: Any) {
+        let controller = R.storyboard.main.privateChannelController()
+        controller?.joinChannel = { [weak self] name, autoShare in
+            //join channels
+            self?.joinChannelSubject.onNext(name)
+            //show code
+            if autoShare {
+                self?.showShareController(channelName: name)
+            }
+        }
+        controller?.showModal(in: self)
     }
     
     func leaveChannel() {
@@ -196,6 +217,7 @@ class RoomViewController: ViewController {
            return false
         }
         channelName = name
+        searchViewModel.add(private: name)
         checkMicroPermission { [weak self] in
             guard let `self` = self else { return }
             self.mManager.joinChannel(channelId: name) { [weak self] in
@@ -233,12 +255,7 @@ class RoomViewController: ViewController {
 extension RoomViewController: ChatRoomDelegate {
     
     func onJoinChannelFailed(channelId: String?) {
-        //report connect failed
         Observable.just(())
-//        .observeOn(MainScheduler.asyncInstance)
-//        .do(onNext: { [weak self] _ in
-//            self?.leaveChannel()
-//        })
         .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
         .subscribe(onNext: { [weak self] _ in
             self?.connectStateLabel.text = "OCCOR ERROR"
@@ -316,48 +333,13 @@ extension RoomViewController: ChatRoomDelegate {
     }
 }
 
-extension RoomViewController: UITextFieldDelegate {
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        sendQueryEvent()
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let length = textField.text?.count ?? 0
-        let result = length >= 2 && length <= 8
-        if result {
-            _ = textField.resignFirstResponder()
-            joinChannelSubject.onNext(textField.text?.uppercased())
-        }
-        return result
-    }
-    
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-").inverted
-        let filteredString = string.components(separatedBy: set).joined(separator: "")
-        let checkLength = checkTextLength(textField, shouldChangeCharactersIn: range, replacementString: string)
-        if filteredString == string && checkLength {
-//             sendQueryEvent()
-            return true
-        }else {
-            return false
-        }
-    }
-    
-    func checkTextLength(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let limitation = 8
-        let currentLength = textField.text?.count ?? 0 // 当前长度
-        if (range.length + range.location > currentLength){
-            return false
-        }
-        // 禁用启用按钮
-        let newLength = currentLength + string.count - range.length // 加上输入的字符之后的长度
-        return newLength <= limitation
-    }
-}
-
 private extension RoomViewController {
+    func showShareController(channelName: String) {
+        let controller = R.storyboard.main.privateShareController()
+        controller?.channelName = channelName
+        controller?.showModal(in: self)
+    }
+    
     /// 获取麦克风权限
     func checkMicroPermission(completion: @escaping ()->()) {
         weak var welf = self
@@ -392,7 +374,7 @@ private extension RoomViewController {
     func sendQueryEvent() {
         if let text = channelTextField.text?.uppercased(),
             text.count >= 2,
-            text != channelName {
+            text != channelName?.showName {
             searchController.set(query: text)
         } else {
             searchController.set(query: "")
@@ -519,7 +501,14 @@ private extension RoomViewController {
             self.hideSearchView()
         }
         
-        UIApplication.appDelegate?.mopubInitializeSuccessSubject
+        channelTextField.didBeginEditing = { [weak self] _ in
+            self?.sendQueryEvent()
+        }
+        channelTextField.didReturn = { [weak self] textField in
+            self?.joinChannelSubject.onNext(textField.text?.uppercased())
+        }
+        
+        AdsManager.shared.mopubInitializeSuccessSubject
             .filter { $0 }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
@@ -535,13 +524,13 @@ private extension RoomViewController {
     func configureSubview() {
         
         gradientLayer = CAGradientLayer()
-        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
-        gradientLayer.colors = [UIColor(hex: 0xb7fc39)?.cgColor, UIColor(hex: 0x8ed951)?.cgColor, UIColor(hex: 0xb7fc39)?.cgColor]//渐变颜色
-        gradientLayer.type = .radial
-        gradientLayer.locations = [0.2,0.5,0.8]//渐变起始位置
-        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
-        screenContainer.layer.insertSublayer(gradientLayer, at: 0)
+//        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
+//        gradientLayer.colors = [UIColor(hex: 0xb7fc39)?.cgColor, UIColor(hex: 0x8ed951)?.cgColor, UIColor(hex: 0xb7fc39)?.cgColor]//渐变颜色
+//        gradientLayer.type = .radial
+//        gradientLayer.locations = [0.2,0.5,0.8]//渐变起始位置
+//        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
+//        gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
+//        screenContainer.layer.insertSublayer(gradientLayer, at: 0)
         toolsView.roundCorners(topLeft: 17, topRight: 17, bottomLeft: 50, bottomRight: 50)
     }
     

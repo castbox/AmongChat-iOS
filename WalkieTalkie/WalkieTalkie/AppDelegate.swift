@@ -17,7 +17,6 @@ import RxCocoa
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var mopubInitializeSuccessSubject = BehaviorRelay<Bool>(value: false)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,32 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RtcManager.shared.initialize()
 //        RtmManager.shared.initialize()
         FirebaseApp.configure()
-        setupMopub()
-        setupAdmob()
+        
+        _ = AdsManager.shared
+//        setupMopub()
+//        setupAdmob()
         return true
     }
-    
-    private func setupMopub() {
-        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "3cc10f8823c6428daf3bbf136dfbb761")
-        #if DEBUG
-        config.loggingLevel = .info
-        #endif
-        MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
-            //send notification
-            self?.mopubInitializeSuccessSubject.accept(true)
-        }
-    }
-        
-    private func setupAdmob() {
-        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
-        GADMobileAds.sharedInstance().applicationVolume = 0
-        #if DEBUG
-//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
-        #endif
-    }
-
-
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")

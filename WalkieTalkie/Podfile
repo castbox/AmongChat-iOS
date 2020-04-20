@@ -30,6 +30,7 @@ def firebase_pods
     
     # log
     pod 'Firebase/Analytics'
+    #, '6.1.0'
     
 #    # in app messageing
 #    pod 'Firebase/InAppMessagingDisplay'
@@ -87,15 +88,23 @@ target 'WalkieTalkie' do
     # SwifterSwift is a collection of over 500 native Swift extensions, with handy methods, syntactic sugar,
     # and performance improvements for wide range of primitive data types, UIKit and Cocoa classes –over 500 in 1– for iOS, macOS, tvOS, watchOS and Linux.
     #- Integrate SwiftStdlib extensions only:
-    pod 'SwifterSwift/SwiftStdlib'
+    pod 'SwifterSwift'
     
     #- Integrate UIKit extensions only:
-    pod 'SwifterSwift/UIKit'
+#    pod 'SwifterSwift'
     
     pod 'mopub-ios-sdk'
     pod 'MoPub-AdMob-Adapters', '7.57.0.0'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
+    
+    pod 'CastboxDebuger', '~> 1.3.2'
+    
+    # pod for iap
+    pod 'SwiftyStoreKit'
+    pod 'SwiftyJSON'
+    pod 'SwiftHash'
+    pod 'loady'
 end
 
 post_install do |installer|
