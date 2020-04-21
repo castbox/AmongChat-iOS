@@ -20,7 +20,7 @@ class SearchViewController: UITableViewController {
         }
     }
     private let bag = DisposeBag()
-    
+    private var currentType: ChannelType = .public
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,6 +35,13 @@ class SearchViewController: UITableViewController {
                 self?.dataSource = rooms
             })
             .disposed(by: bag)
+        
+//        tableView.backgroundColor = currentType.screenColor
+    }
+    
+    func setChannel(type: ChannelType?) {
+        self.currentType = type ?? .public
+        tableView.backgroundColor = currentType.screenColor
     }
     
     func set(query: String) {
@@ -57,6 +64,7 @@ class SearchViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
         cell.set(dataSource[indexPath.row])
+        cell.backgroundColor = currentType.screenColor
         return cell
     }
     

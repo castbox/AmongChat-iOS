@@ -129,13 +129,19 @@ class AdsManager: NSObject {
     }
     
     var hasAdAvailableRewardsVideo: Bool {
-        return MPRewardedVideo.hasAdAvailable(forAdUnitID: rewardedVideoId)
+         return MPRewardedVideo.hasAdAvailable(forAdUnitID: rewardedVideoId)
+    }
+    
+    var aviliableRewardVideo: MPRewardedVideoReward? {
+        guard hasAdAvailableRewardsVideo else {
+            return nil
+        }
+        return MPRewardedVideo.availableRewards(forAdUnitID: AdsManager.shared.rewardedVideoId)?.last as? MPRewardedVideoReward
     }
     
     
     static var nativeAdsRefreshInterval: TimeInterval {
         return 120
-        //        TimeInterval(FireRemote.shared.value.nativeRefreshSeconds)
     }
     
     
@@ -233,11 +239,10 @@ class AdsManager: NSObject {
         })
     }
     
-//    func <#name#>(<#parameters#>) {
-//        <#function body#>
-//    }
-    
     func requestRewardVideo() {
+        guard aviliableRewardVideo == nil else {
+            return
+        }
         MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
         MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
     }

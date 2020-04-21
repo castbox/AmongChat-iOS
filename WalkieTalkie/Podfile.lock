@@ -299,6 +299,7 @@ PODS:
     - nanopb (~> 0.3)
   - gRPC-Core/Interface (1.21.0)
   - IQKeyboardManagerSwift (6.2.1)
+  - JLRoutes (2.1)
   - leveldb-library (1.22)
   - loady (1.0.5)
   - LYEmptyView (1.3.1)
@@ -401,6 +402,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - Firebase/RemoteConfig
   - IQKeyboardManagerSwift (~> 6.2.0)
+  - JLRoutes
   - loady
   - LYEmptyView
   - MBProgressHUD (~> 1.0.0)
@@ -454,6 +456,7 @@ SPEC REPOS:
     - "gRPC-C++"
     - gRPC-Core
     - IQKeyboardManagerSwift
+    - JLRoutes
     - leveldb-library
     - loady
     - LYEmptyView
@@ -513,6 +516,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
   gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
+  JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   LYEmptyView: b6d418cfa38b78df0cf243f9a9c25ccbdc399922
@@ -541,6 +545,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: b7e81361808684abf82e8728606c01212fed92fb
+PODFILE CHECKSUM: 5886a0ea66ea9861dcf3d1b5bab6907cdf05860b
 
 COCOAPODS: 1.9.1

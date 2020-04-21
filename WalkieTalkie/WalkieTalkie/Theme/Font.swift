@@ -66,7 +66,7 @@ struct Font {
 extension Font {
     
     static let bigTitle = Font(size: ._34, weight: .bold)
-    static let title = Font(size: ._22, weight: .bold)
+    static let title = Font(size: ._16, weight: .bold)
     static let boldTitle = Font(size: ._20, weight: .bold)
     static let littleTitle = Font(size: ._20, weight: .semibold)
     

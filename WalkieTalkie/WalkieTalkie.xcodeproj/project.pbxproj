@@ -38,8 +38,27 @@
 		FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */; };
 		FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */; };
 		FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE274D3E243B701B00B6DB88 /* end.mp3 */; };
-		FE274D41243B716600B6DB88 /* begin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE274D40243B716600B6DB88 /* begin.mp3 */; };
 		FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE274D42243B81B400B6DB88 /* R.generated.swift */; };
+		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
+		FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */; };
+		FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9EB244DC24300763747 /* AppConfig.swift */; };
+		FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9EE244DCC0200763747 /* URI.Parse.swift */; };
+		FE2AF9F6244DCC0400763747 /* Routes.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F0244DCC0200763747 /* Routes.Handler.swift */; };
+		FE2AF9F7244DCC0400763747 /* URI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F1244DCC0200763747 /* URI.swift */; };
+		FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */; };
+		FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F3244DCC0200763747 /* Routes.swift */; };
+		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
+		FE2AF9FD244DE09100763747 /* cbegin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE2AF9FC244DE09000763747 /* cbegin.mp3 */; };
+		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
+		FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E33244D9C450081F793 /* IAP.Observer.swift */; };
+		FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E34244D9C450081F793 /* IAP.SubscriptionProduct.swift */; };
+		FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */; };
+		FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */; };
+		FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E37244D9C450081F793 /* IAP.Restore.swift */; };
+		FE401E3F244D9C450081F793 /* IAP.Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E38244D9C450081F793 /* IAP.Receipt.swift */; };
+		FE401E42244DA26F0081F793 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE401E44244DA26F0081F793 /* Localizable.strings */; };
+		FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */; };
+		FE401E48244DAD680081F793 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E47244DAD680081F793 /* Scheduler.swift */; };
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
 		FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */; };
 		FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */ = {isa = PBXBuildFile; fileRef = FE49CEA5243631F100C36EC6 /* EHSMB.TTF */; };
@@ -156,9 +175,28 @@
 		FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableOptionalExtension.swift; sourceTree = "<group>"; };
 		FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
 		FE274D3E243B701B00B6DB88 /* end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = end.mp3; sourceTree = "<group>"; };
-		FE274D40243B716600B6DB88 /* begin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = begin.mp3; path = ../Pods/DeviceKit/begin.mp3; sourceTree = "<group>"; };
 		FE274D42243B81B400B6DB88 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		FE2AF9E5244DB0F400763747 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
+		FE2AF9EB244DC24300763747 /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		FE2AF9EE244DCC0200763747 /* URI.Parse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URI.Parse.swift; sourceTree = "<group>"; };
+		FE2AF9F0244DCC0200763747 /* Routes.Handler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.Handler.swift; sourceTree = "<group>"; };
+		FE2AF9F1244DCC0200763747 /* URI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URI.swift; sourceTree = "<group>"; };
+		FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.Constructor.swift; sourceTree = "<group>"; };
+		FE2AF9F3244DCC0200763747 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
+		FE2AF9FA244DDDC700763747 /* URLUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUnit.swift; sourceTree = "<group>"; };
+		FE2AF9FC244DE09000763747 /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cbegin.mp3; path = "../../../walkietalkie-android/walkie-talkie/src/main/assets/cbegin.mp3"; sourceTree = "<group>"; };
 		FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkie.entitlements; sourceTree = "<group>"; };
+		FE401E32244D9C450081F793 /* IAP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
+		FE401E33244D9C450081F793 /* IAP.Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Observer.swift; sourceTree = "<group>"; };
+		FE401E34244D9C450081F793 /* IAP.SubscriptionProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.SubscriptionProduct.swift; sourceTree = "<group>"; };
+		FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.ProductFetcher.swift; sourceTree = "<group>"; };
+		FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.ProductDealer.swift; sourceTree = "<group>"; };
+		FE401E37244D9C450081F793 /* IAP.Restore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Restore.swift; sourceTree = "<group>"; };
+		FE401E38244D9C450081F793 /* IAP.Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Receipt.swift; sourceTree = "<group>"; };
+		FE401E43244DA26F0081F793 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Controller.swift"; sourceTree = "<group>"; };
+		FE401E47244DAD680081F793 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		FE49CEA5243631F100C36EC6 /* EHSMB.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = EHSMB.TTF; sourceTree = "<group>"; };
@@ -265,6 +303,8 @@
 		FE0D1A1E24488F9B00518793 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */,
+				FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */,
 				FE684889244BDC3A00F87AF9 /* UIView.swift */,
 				FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */,
 				FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */,
@@ -319,6 +359,10 @@
 				FE8089C92449E631006A1644 /* PrivateShareController.swift */,
 				FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */,
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
+				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
+				FE2AF9ED244DCC0200763747 /* Routes */,
+				FE401E49244DAD6B0081F793 /* Utils */,
+				FE401E31244D9C450081F793 /* IAP */,
 				FE684888244BDBF100F87AF9 /* FireCore */,
 				FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */,
 				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
@@ -337,9 +381,10 @@
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
 				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
-				FE274D40243B716600B6DB88 /* begin.mp3 */,
 				FE274D3E243B701B00B6DB88 /* end.mp3 */,
+				FE2AF9FC244DE09000763747 /* cbegin.mp3 */,
 				FE49CEA5243631F100C36EC6 /* EHSMB.TTF */,
+				FE401E44244DA26F0081F793 /* Localizable.strings */,
 				FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */,
 				FE274D42243B81B400B6DB88 /* R.generated.swift */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
@@ -388,12 +433,48 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		FE2AF9ED244DCC0200763747 /* Routes */ = {
+			isa = PBXGroup;
+			children = (
+				FE2AF9EE244DCC0200763747 /* URI.Parse.swift */,
+				FE2AF9F0244DCC0200763747 /* Routes.Handler.swift */,
+				FE2AF9F1244DCC0200763747 /* URI.swift */,
+				FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */,
+				FE2AF9F3244DCC0200763747 /* Routes.swift */,
+			);
+			path = Routes;
+			sourceTree = "<group>";
+		};
+		FE401E31244D9C450081F793 /* IAP */ = {
+			isa = PBXGroup;
+			children = (
+				FE401E32244D9C450081F793 /* IAP.swift */,
+				FE401E33244D9C450081F793 /* IAP.Observer.swift */,
+				FE401E34244D9C450081F793 /* IAP.SubscriptionProduct.swift */,
+				FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */,
+				FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */,
+				FE401E37244D9C450081F793 /* IAP.Restore.swift */,
+				FE401E38244D9C450081F793 /* IAP.Receipt.swift */,
+			);
+			path = IAP;
+			sourceTree = "<group>";
+		};
+		FE401E49244DAD6B0081F793 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FE2AF9FA244DDDC700763747 /* URLUnit.swift */,
+				FE401E47244DAD680081F793 /* Scheduler.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		FE68487A244BD46900F87AF9 /* Common */ = {
 			isa = PBXGroup;
 			children = (
 				FE684881244BD80600F87AF9 /* PremiumFreqControl.swift */,
 				FE684878244BD45F00F87AF9 /* DateUtil.swift */,
 				FE68487F244BD72A00F87AF9 /* Settings.swift */,
+				FE2AF9EB244DC24300763747 /* AppConfig.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -586,10 +667,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
-				FE274D41243B716600B6DB88 /* begin.mp3 in Resources */,
 				FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */,
 				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
+				FE2AF9FD244DE09100763747 /* cbegin.mp3 in Resources */,
+				FE401E42244DA26F0081F793 /* Localizable.strings in Resources */,
 				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
 				FE860CD824458F2300087B73 /* BlackOpsOne-Regular.ttf in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
@@ -690,26 +772,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
+				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
+				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */,
 				FE49CEA72436320200C36EC6 /* EHSMB.TTF in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
+				FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
 				FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */,
+				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,
 				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				FE860D5A2446D2A800087B73 /* PublishValue.swift in Sources */,
 				FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
+				FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */,
 				FEAD54DC2449C74F006454F6 /* Modal.swift in Sources */,
 				FE860D4C2446D1D700087B73 /* AnimationDuration.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
+				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
+				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
 				FE684884244BD9F900F87AF9 /* GradientView.swift in Sources */,
@@ -734,8 +823,11 @@
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
+				FE401E39244D9C450081F793 /* IAP.swift in Sources */,
 				FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */,
+				FE2AF9F6244DCC0400763747 /* Routes.Handler.swift in Sources */,
 				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
+				FE401E3F244D9C450081F793 /* IAP.Receipt.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */,
 				FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
@@ -749,12 +841,15 @@
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
+				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
 				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
+				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */,
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
+				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
@@ -764,17 +859,22 @@
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
+				FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE684873244B4D2200F87AF9 /* ChannelNameField.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
+				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */,
 				FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */,
+				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,
+				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FE0D1A2524489BF300518793 /* AudioType.swift in Sources */,
+				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 			);
@@ -813,6 +913,14 @@
 				FE126D23243461EA00BEDD60 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FE401E44244DA26F0081F793 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FE401E43244DA26F0081F793 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -940,7 +1048,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -948,7 +1056,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -965,7 +1073,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -973,7 +1081,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

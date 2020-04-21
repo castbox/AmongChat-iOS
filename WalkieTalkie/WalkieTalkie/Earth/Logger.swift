@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAnalytics
 import Crashlytics
+import StoreKit
 
 class Logger { }
 
@@ -219,4 +220,87 @@ extension GuruAnalytics {
 //       }
     
     
+}
+
+extension Logger {
+    struct IAP {
+        
+        /// 会员落地页展现来源
+        enum ActionSource {
+            
+//            case store
+//            case setting_pro
+//            case lockscreen
+//            case noads
+//            // 通用URI跳转，包含Push和内部广告
+//            case uri
+//            // 通过URI直接购买
+//            case uri_buy
+//            // 播放页移除广告
+//            case remove_ads
+//            // Remote Config配置的自动弹出逻辑
+//            case auto
+            // api控制的首次弹出
+            case first_open
+            case categories
+            case themes
+        }
+        
+        static func logImp(_ source: ActionSource) {
+            GuruAnalytics.log(event: "iap_imp", category: "\(source)", name: nil, value: nil)
+            if source == .first_open {
+                Logger.FirstOpen.logImp()
+            }
+        }
+        
+        static func logClose(_ source: ActionSource) {
+            GuruAnalytics.log(event: "iap_close", category: "\(source)", name: nil, value: nil)
+            if source == .first_open {
+                Logger.FirstOpen.logClose()
+            }
+        }
+        
+        static func logPurchase(productId: String, source: ActionSource) {
+            GuruAnalytics.log(event: "iap_clk", category: productId, name: "\(source)", value: nil)
+            if source == .first_open {
+                Logger.FirstOpen.logClick(productId: productId)
+            }
+        }
+        
+        static func logPurchaseResult(product: SKProduct, source: ActionSource, isSuccess: Bool) {
+            GuruAnalytics.log(event: "iap_ret", category: product.productIdentifier, name: "\(source)", value: isSuccess ? 0 : -1)
+            if source == .first_open {
+                Logger.FirstOpen.logPurchaseResult(productId: product.productIdentifier, isSuccess: isSuccess)
+            }
+        }
+        
+        static func logPurchaseFailByIdentifier(identifier: String, source: ActionSource) {
+            GuruAnalytics.log(event: "iap_ret", category: identifier, name: "\(source)", value: -1)
+            if source == .first_open {
+                Logger.FirstOpen.logPurchaseResult(productId: identifier, isSuccess: false)
+            }
+
+        }
+    }
+    
+}
+
+extension Logger {
+    struct FirstOpen {
+        static func logImp() {
+            GuruAnalytics.log(event: "first_open_iap_imp", category: nil, name: nil, value: nil)
+        }
+        
+        static func logClose() {
+            GuruAnalytics.log(event: "first_open_iap_close", category: nil, name: nil, value: nil)
+        }
+        
+        static func logClick(productId: String) {
+            GuruAnalytics.log(event: "first_open_iap_clk", category: productId, name: nil, value: nil)
+        }
+        
+        static func logPurchaseResult(productId: String, isSuccess: Bool) {
+            GuruAnalytics.log(event: "first_open_iap_ret", category: productId, name: nil, value: isSuccess ? 0 : -1)
+        }
+    }
 }

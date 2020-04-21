@@ -79,6 +79,8 @@ target 'WalkieTalkie' do
     # RTC (Agora.io)
     pod 'AgoraRtcEngine_iOS'
 #    pod 'AgoraRtm_iOS'
+
+    pod 'JLRoutes'
     
     pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
     #https://github.com/realm/SwiftLint

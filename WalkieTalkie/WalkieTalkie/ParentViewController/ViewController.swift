@@ -39,7 +39,7 @@ class ViewController: UIViewController {
         set { setNavigationBarHidden(newValue, animated: false) }
         get { return navigationController!.isNavigationBarHidden }
     }
-    var statusBarStyle: UIStatusBarStyle = .lightContent
+    var statusBarStyle: UIStatusBarStyle = .default
     
     /**
      是否为第一次设置 statusBar hidden 的值
@@ -95,6 +95,8 @@ class ViewController: UIViewController {
         if isStatusBarHiddenWhenAppear == isInitialStatusBarHidden {
             setNeedsStatusBarUpdate()
         }
+        
+        AdsManager.shared.requestRewardVideo()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -151,7 +153,7 @@ class ViewController: UIViewController {
     
     func addCustomBackButton() {
         let button = UIButton(type: .custom)
-//        button.setImage(R.image.xw_actionbar_back(), for: .normal)
+        button.setImage(R.image.backNor(), for: .normal)
         button.frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
         button.addTarget(self, action: #selector(backButtonClick(button:)), for: .touchUpInside)
         let barButtonItem = UIBarButtonItem(customView: button)
@@ -183,9 +185,9 @@ extension ViewController {
         }
         var deepLink: String {
             if channelName.isPrivate {
-                return "http://walkietalkie.live/?passcode=\(publicName)"
+                return "https://walkietalkie.live/?passcode=\(publicName)"
             }
-            return "http://walkietalkie.live/?channel=\(publicName)"
+            return "https://walkietalkie.live/?channel=\(publicName)"
         }
         var prefixString: String {
             if channelName.isPrivate {

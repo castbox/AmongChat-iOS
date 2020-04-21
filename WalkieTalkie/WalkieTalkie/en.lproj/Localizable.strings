@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  WalkieTalkie
+
+  Created by 袁仕崇 on 2020/4/20.
+  Copyright © 2020 Guru Rain. All rights reserved.
+*/
+
+"premium.free.trial" = "TRY IT FREE";
+"premium.skip.trial" = "SKIP TRIAL";
+"premium.priv.categories" = "Unlock all categories";
+"premium.priv.themes" = "Unlock all themes";
+"premium.priv.ads" = "Remove ads";
+"premium.priv.automatically" = "Change theme automatically";
+
+"premium.subscription.terms" = "Subscription Terms:";
+"premium.subscription.detail.free" = "After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+"premium.subscription.detail.normal" = "%@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+
+"settings.title" = "Settings";
+
+"settings.restore.title" = "Restore Purchase";
+"settings.restore.success.title" = "You’re all set";
+"settings.restore.success.body" = "your purchase was successful";
+"settings.restore.fail.title" = "Purchase not found";
+"settings.restore.fail.body" = "No purchases were found on your account";
+"alert.ok" = "Ok";
+"no.ad.alert" = "No ad available, please try again later. ";
+"toast.confirm" = "OK";
+"toast.cancel" = "Cancel";

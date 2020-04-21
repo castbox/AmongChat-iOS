@@ -39,7 +39,7 @@ class PrivateChannelController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         configureSubview()
         bindSubviewEvent()
@@ -66,7 +66,11 @@ class PrivateChannelController: ViewController {
     }
     
     @IBAction func upgradeToProAction(_ sender: Any) {
-        
+        guard let premiun = R.storyboard.main.premiumViewController() else {
+            return
+        }
+        premiun.modalPresentationStyle = .fullScreen
+        present(premiun, animated: true, completion: nil)
     }
 }
 
@@ -103,39 +107,47 @@ extension PrivateChannelController {
     }
     
     func bindSubviewEvent() {
+        let noAdAlertBlock = { [weak self] in
+            let alert = UIAlertController(title: R.string.localizable.noAdAlert(), message: nil, preferredStyle: .alert)
+            alert.addAction(.init(title: R.string.localizable.toastConfirm(), style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
         let isRewardVideoReady =
-        AdsManager.shared.isRewardVideoReadyRelay
-            .asObservable()
-            .filter { $0 }
+            AdsManager.shared.isRewardVideoReadyRelay
+                .asObservable()
+                .filter { $0 }
         let createButtonObservable =
             createButton.rx.tap.asObservable()
                 .do(onNext: { _ in
-                                    
+                    
                 })
-//                .flatMap({ _ -> Observable<Bool> in
-//                    return isRewardVideoReady
-//                })
-        
-//        Observable.zip(createButtonObservable, isRewardVideoReady)
-            .observeOn(MainScheduler.asyncInstance)
-                .filter({ [weak self] _ in
-                    print("\(self?.TAG)- MPRewardedVideos: \(String(describing: MPRewardedVideo.availableRewards(forAdUnitID: AdsManager.shared.rewardedVideoId)))")
-                    guard let `self` = self,
-                        let reward = MPRewardedVideo.availableRewards(forAdUnitID: AdsManager.shared.rewardedVideoId)?.last as? MPRewardedVideoReward else {
-                            return false
-                            
+                
+                //        Observable.zip(createButtonObservable, isRewardVideoReady)
+                .observeOn(MainScheduler.asyncInstance)
+                .flatMap { _ -> Observable<Void> in
+                    guard !Settings.shared.isProValue.value else {
+                        return Observable.just(())
                     }
-                    MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
-                    return true
-                })
-            .flatMap { _ -> Observable<Void> in
-                return AdsManager.shared.rewardVideoShouldReward.asObserver()
-            }
-            .do(onNext: { _ in
-                AdsManager.shared.requestRewardVideo()
-            })
-            .flatMap { _ -> Observable<Void> in
-                return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                    return Observable.just(())
+                        .filter({ [weak self] _ in
+                            guard let `self` = self,
+                                let reward = AdsManager.shared.aviliableRewardVideo else {
+                                    noAdAlertBlock()
+                                    return false
+                            }
+                            MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
+                            return true
+                        })
+                        .flatMap { _ -> Observable<Void> in
+                            return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                    }
+                    .do(onNext: { _ in
+                        AdsManager.shared.requestRewardVideo()
+                    })
+                        .flatMap { _ -> Observable<Void> in
+                            return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                    }
             }
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
@@ -145,10 +157,7 @@ extension PrivateChannelController {
                 self.joinChannel("_\(channelName)", true)
                 self.hideModal()
             })
-            .disposed(by: bag)
-        
-//        confirmButton.rx.tap
-//            .
+                .disposed(by: bag)
     }
     
     func configureSubview() {
@@ -166,6 +175,11 @@ extension PrivateChannelController {
         //设置frame和插入view的layer
         gradientLayer.frame = view.bounds
         proButton.layer.insertSublayer(gradientLayer, at: 0)
+        
+        if Settings.shared.isProValue.value {
+            adIconView.isHidden = true
+            proButton.isHidden = true
+        }
     }
 }
 

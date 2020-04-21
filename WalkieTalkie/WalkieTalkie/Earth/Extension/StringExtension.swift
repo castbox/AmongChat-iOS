@@ -296,3 +296,11 @@ extension String {
         return String(self[self.index(self.startIndex, offsetBy: index)...])
     }
 }
+
+extension String {
+    func firstCharacterUpperCase() -> String? {
+        guard !isEmpty else { return nil }
+        let lowerCasedString = self.lowercased()
+        return lowerCasedString.replacingCharacters(in: lowerCasedString.startIndex...lowerCasedString.startIndex, with: String(lowerCasedString[lowerCasedString.startIndex]).uppercased())
+    }
+}

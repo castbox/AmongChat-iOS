@@ -9,9 +9,16 @@
 import Foundation
 
 extension AudioType {
+    
     var name: String {
-        return rawValue
+        switch self {
+        case .begin:
+            return "cbegin"
+        default:
+            return rawValue
+        }
     }
+    
     var type: String {
         switch self {
         case .end, .begin:

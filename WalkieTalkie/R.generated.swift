@@ -21,10 +21,10 @@ struct R: Rswift.Validatable {
   struct file {
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
-    /// Resource file `begin.mp3`.
-    static let beginMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "begin", pathExtension: "mp3")
     /// Resource file `call.m4a`.
     static let callM4a = Rswift.FileResource(bundle: R.hostingBundle, name: "call", pathExtension: "m4a")
+    /// Resource file `cbegin.mp3`.
+    static let cbeginMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "cbegin", pathExtension: "mp3")
     /// Resource file `end.mp3`.
     static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
     
@@ -34,15 +34,15 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
     
-    /// `bundle.url(forResource: "begin", withExtension: "mp3")`
-    static func beginMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.beginMp3
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
     /// `bundle.url(forResource: "call", withExtension: "m4a")`
     static func callM4a(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.callM4a
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "cbegin", withExtension: "mp3")`
+    static func cbeginMp3(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cbeginMp3
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -80,8 +80,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 27 images.
+  /// This `R.image` struct is generated, and contains static references to 29 images.
   struct image {
+    /// Image `backNor`.
+    static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
     /// Image `btn_call_off`.
     static let btn_call_off = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_call_off")
     /// Image `btn_call_on`.
@@ -122,6 +124,8 @@ struct R: Rswift.Validatable {
     static let icon_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
+    /// Image `icon_setting_diamonds_u`.
+    static let icon_setting_diamonds_u = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds_u")
     /// Image `icon_setting_diamonds`.
     static let icon_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds")
     /// Image `icon_setting_star`.
@@ -136,6 +140,11 @@ struct R: Rswift.Validatable {
     static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
     /// Image `speak_button_pre`.
     static let speak_button_pre = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_pre")
+    
+    /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
+    static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.backNor, compatibleWith: traitCollection)
+    }
     
     /// `UIImage(named: "btn_call_off", bundle: ..., traitCollection: ...)`
     static func btn_call_off(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -247,6 +256,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_setting_diamonds, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_setting_diamonds_u", bundle: ..., traitCollection: ...)`
+    static func icon_setting_diamonds_u(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_setting_diamonds_u, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_setting_star", bundle: ..., traitCollection: ...)`
     static func icon_setting_star(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_setting_star, compatibleWith: traitCollection)
@@ -303,6 +317,226 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
+  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  struct string {
+    /// This `R.string.localizable` struct is generated, and contains static references to 19 localization keys.
+    struct localizable {
+      /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// 
+      /// Locales: en
+      static let premiumSubscriptionDetailNormal = Rswift.StringResource(key: "premium.subscription.detail.normal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// 
+      /// Locales: en
+      static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Cancel
+      /// 
+      /// Locales: en
+      static let toastCancel = Rswift.StringResource(key: "toast.cancel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Change theme automatically
+      /// 
+      /// Locales: en
+      static let premiumPrivAutomatically = Rswift.StringResource(key: "premium.priv.automatically", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: No ad available, please try again later. 
+      /// 
+      /// Locales: en
+      static let noAdAlert = Rswift.StringResource(key: "no.ad.alert", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: No purchases were found on your account
+      /// 
+      /// Locales: en
+      static let settingsRestoreFailBody = Rswift.StringResource(key: "settings.restore.fail.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: OK
+      /// 
+      /// Locales: en
+      static let toastConfirm = Rswift.StringResource(key: "toast.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Ok
+      /// 
+      /// Locales: en
+      static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Purchase not found
+      /// 
+      /// Locales: en
+      static let settingsRestoreFailTitle = Rswift.StringResource(key: "settings.restore.fail.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Remove ads
+      /// 
+      /// Locales: en
+      static let premiumPrivAds = Rswift.StringResource(key: "premium.priv.ads", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Restore Purchase
+      /// 
+      /// Locales: en
+      static let settingsRestoreTitle = Rswift.StringResource(key: "settings.restore.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: SKIP TRIAL
+      /// 
+      /// Locales: en
+      static let premiumSkipTrial = Rswift.StringResource(key: "premium.skip.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Settings
+      /// 
+      /// Locales: en
+      static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Subscription Terms:
+      /// 
+      /// Locales: en
+      static let premiumSubscriptionTerms = Rswift.StringResource(key: "premium.subscription.terms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: TRY IT FREE
+      /// 
+      /// Locales: en
+      static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unlock all categories
+      /// 
+      /// Locales: en
+      static let premiumPrivCategories = Rswift.StringResource(key: "premium.priv.categories", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unlock all themes
+      /// 
+      /// Locales: en
+      static let premiumPrivThemes = Rswift.StringResource(key: "premium.priv.themes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You’re all set
+      /// 
+      /// Locales: en
+      static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: your purchase was successful
+      /// 
+      /// Locales: en
+      static let settingsRestoreSuccessBody = Rswift.StringResource(key: "settings.restore.success.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      
+      /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// 
+      /// Locales: en
+      static func premiumSubscriptionDetailNormal(_ value1: String, _ value2: String) -> String {
+        return String(format: NSLocalizedString("premium.subscription.detail.normal", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// 
+      /// Locales: en
+      static func premiumSubscriptionDetailFree(_ value1: String, _ value2: String) -> String {
+        return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: Cancel
+      /// 
+      /// Locales: en
+      static func toastCancel(_: Void = ()) -> String {
+        return NSLocalizedString("toast.cancel", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Change theme automatically
+      /// 
+      /// Locales: en
+      static func premiumPrivAutomatically(_: Void = ()) -> String {
+        return NSLocalizedString("premium.priv.automatically", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: No ad available, please try again later. 
+      /// 
+      /// Locales: en
+      static func noAdAlert(_: Void = ()) -> String {
+        return NSLocalizedString("no.ad.alert", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: No purchases were found on your account
+      /// 
+      /// Locales: en
+      static func settingsRestoreFailBody(_: Void = ()) -> String {
+        return NSLocalizedString("settings.restore.fail.body", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: OK
+      /// 
+      /// Locales: en
+      static func toastConfirm(_: Void = ()) -> String {
+        return NSLocalizedString("toast.confirm", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Ok
+      /// 
+      /// Locales: en
+      static func alertOk(_: Void = ()) -> String {
+        return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Purchase not found
+      /// 
+      /// Locales: en
+      static func settingsRestoreFailTitle(_: Void = ()) -> String {
+        return NSLocalizedString("settings.restore.fail.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Remove ads
+      /// 
+      /// Locales: en
+      static func premiumPrivAds(_: Void = ()) -> String {
+        return NSLocalizedString("premium.priv.ads", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Restore Purchase
+      /// 
+      /// Locales: en
+      static func settingsRestoreTitle(_: Void = ()) -> String {
+        return NSLocalizedString("settings.restore.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: SKIP TRIAL
+      /// 
+      /// Locales: en
+      static func premiumSkipTrial(_: Void = ()) -> String {
+        return NSLocalizedString("premium.skip.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Settings
+      /// 
+      /// Locales: en
+      static func settingsTitle(_: Void = ()) -> String {
+        return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Subscription Terms:
+      /// 
+      /// Locales: en
+      static func premiumSubscriptionTerms(_: Void = ()) -> String {
+        return NSLocalizedString("premium.subscription.terms", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: TRY IT FREE
+      /// 
+      /// Locales: en
+      static func premiumFreeTrial(_: Void = ()) -> String {
+        return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unlock all categories
+      /// 
+      /// Locales: en
+      static func premiumPrivCategories(_: Void = ()) -> String {
+        return NSLocalizedString("premium.priv.categories", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unlock all themes
+      /// 
+      /// Locales: en
+      static func premiumPrivThemes(_: Void = ()) -> String {
+        return NSLocalizedString("premium.priv.themes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You’re all set
+      /// 
+      /// Locales: en
+      static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
+        return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: your purchase was successful
+      /// 
+      /// Locales: en
+      static func settingsRestoreSuccessBody(_: Void = ()) -> String {
+        return NSLocalizedString("settings.restore.success.body", bundle: R.hostingBundle, comment: "")
+      }
+      
+      fileprivate init() {}
+    }
+    
+    fileprivate init() {}
+  }
+  
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
       try _R.validate()
@@ -344,7 +578,7 @@ struct _R: Rswift.Validatable {
     }
     
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UINavigationController
+      typealias InitialController = NavigationViewController
       
       let bundle = R.hostingBundle
       let name = "Main"
@@ -352,6 +586,7 @@ struct _R: Rswift.Validatable {
       let privateChannelController = StoryboardViewControllerResource<PrivateChannelController>(identifier: "PrivateChannelController")
       let privateShareController = StoryboardViewControllerResource<PrivateShareController>(identifier: "PrivateShareController")
       let searchViewController = StoryboardViewControllerResource<SearchViewController>(identifier: "SearchViewController")
+      let settingViewController = StoryboardViewControllerResource<SettingViewController>(identifier: "SettingViewController")
       
       func premiumViewController(_: Void = ()) -> PremiumViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: premiumViewController)
@@ -369,6 +604,10 @@ struct _R: Rswift.Validatable {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: searchViewController)
       }
       
+      func settingViewController(_: Void = ()) -> SettingViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: settingViewController)
+      }
+      
       static func validate() throws {
         if UIKit.UIImage(named: "btn_call_on", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_call_on' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_down", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_down' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -383,12 +622,11 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_bg' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_setting_diamonds", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_setting_diamonds_u", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds_u' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_star", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_star' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -398,6 +636,7 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().privateChannelController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateChannelController' could not be loaded from storyboard 'Main' as 'PrivateChannelController'.") }
         if _R.storyboard.main().privateShareController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateShareController' could not be loaded from storyboard 'Main' as 'PrivateShareController'.") }
         if _R.storyboard.main().searchViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'searchViewController' could not be loaded from storyboard 'Main' as 'SearchViewController'.") }
+        if _R.storyboard.main().settingViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'settingViewController' could not be loaded from storyboard 'Main' as 'SettingViewController'.") }
       }
       
       fileprivate init() {}

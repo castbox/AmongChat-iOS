@@ -234,7 +234,6 @@ extension DefaultsKeys {
     
     static let userIdKey = DefaultsKey<String?>.init("generated.user.id")
     
-    
     static let debugAdsLogKey = DefaultsKey<Bool>.init("debug.ads.log", defaultValue: false)
     
 }

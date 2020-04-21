@@ -18,52 +18,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    var navigationController: NavigationViewController? {
+        return window?.rootViewController as? NavigationViewController
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window?.backgroundColor = UIColor(hex: 0x141414)
+        setGlobalAppearance()
         RtcManager.shared.initialize()
-//        RtmManager.shared.initialize()
         FirebaseApp.configure()
         
         _ = AdsManager.shared
-//        setupMopub()
-//        setupAdmob()
+        
+        DispatchQueue.global(qos: .background).async {
+            IAP.verifyLocalReceipts()
+            IAP.prefetchProducts()
+//            if Defaults[\.pushEnabledKey] {
+//                PushMgr.shared.reScheduleNotification()
+//            }
+        }
+        
         return true
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        let scheme = url.scheme
-
-//        if scheme == "fb377451879542911" {
-//            // 如果facebook能处理url, 交给facebook处理
-//            // - Returns: YES if the url was intended for the Facebook SDK, NO if not.
-//            // Facebook登录会交给FBSDK处理
-//            if ApplicationDelegate.shared.application(app, open: url, options: options) {
-//                return true
-//            } else {
-//                // 如果facebook不能处理url, 自行处理
-////                let parsedURL = AppLinkURL(url: url)
-//                guard let parsedURL = BFURL(url: url) else { return false }
-//                guard let targetURL = parsedURL.targetQueryParameters["target_url"] as? String else { return false }
-//                Routes.handle(targetURL)
-//            }
-//
-//        } else if scheme == "com.googleusercontent.apps.784083819200-n8hb7qfat2mnlrnk7p3lds56ddai1o5o" {
-//            //google
-//            return GIDSignIn.sharedInstance().handle(url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-//
-//        } else if scheme?.lowercased() == "twitterkit-eephigkjbavfgupdz2y47jnow" {
-//            // twitter
-//            return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
-//        } else if scheme == "cuddlelive" {
-//            let parsedURL = AppLinkURL(url: url)
-//            guard let parsedURL = BFURL(url: url) else { return false }
-//            Routes.handle(parsedURL.targetURL)
-//        } else {
-//            // firebase
-//            FirebaseAnalytics.Analytics.handleOpen(url)
-//        }
+        if Routes.canHandle(url) {
+            return Routes.handle(url)
+        }
         return FireLink.handle(dynamicLink: url) { url in
             cdPrint("url: \(url)")
         }
@@ -74,8 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         switch userActivity.activityType {
         case NSUserActivityTypeBrowsingWeb:
-            guard let url = userActivity.webpageURL else { return false}
-//            return Routes.handle(url)
+            guard let url = userActivity.webpageURL else { return false }
+            if Routes.canHandle(url) {
+                return handle(url)
+            }
             return FireLink.handle(dynamicLink: url) { url in
                 cdPrint("url: \(url)")
             }
@@ -84,11 +69,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
+    
+    func handle(_ uri: URL) -> Bool {
+        guard let params = uri.queryParameters else {
+            return false
+        }
+        let home = URI.Homepage(params)
+        guard let name = home?.channelName,
+            let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+            return false
+        }
+        roomVc.joinChannel(name)
+        return true
+    }
+}
+
+extension AppDelegate {
+    func setGlobalAppearance() {
+        UINavigationBar.appearance().titleTextAttributes = [
+            .foregroundColor: UIColor.black,
+            .font: Font.title.value,
+        ]
+        
+        //设置返回按钮图
+        UINavigationBar.appearance().backIndicatorImage = R.image.backNor()
+        UINavigationBar.appearance().backIndicatorTransitionMaskImage = R.image.backNor()
+        UINavigationBar.appearance().tintColor = UIColor.black
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(color: UIColor.white, size: CGSize(width: 1, height: 1)), for: .default)
+        UINavigationBar.appearance().isTranslucent = false
+        
+//        let normalAttributed: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor(.gray_8e8e93), .font: UIFont(.avenirNext_Regular_10)!]
+//        let selectedAttributed: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor(.blue_007aff), .font: UIFont(.avenirNext_Regular_10)!]
+//        UITabBarItem.appearance().setTitleTextAttributes(normalAttributed, for: .normal)
+//        UITabBarItem.appearance().setTitleTextAttributes(selectedAttributed, for: .selected)
+    }
+
 }
 
 extension UIApplication {
     static var appDelegate: AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
+    
+    static var navigationController: NavigationViewController? {
+        return (shared.delegate as? AppDelegate)?.navigationController
+    }
 }
+
 

@@ -41,7 +41,7 @@ extension ChannelType {
         case .public:
             return UIColor(hex: 0xBFFF58)!
         case .private:
-            return UIColor(hex: 0xC17A00)!
+            return UIColor(hex: 0xFFC800)!
         }
     }
 }
@@ -92,6 +92,7 @@ class RoomViewController: ViewController {
         didSet {
             channelTextField.text = channelName?.showName
             screenContainer.backgroundColor = channelName?.channelType.screenColor
+            searchController.setChannel(type: channelName?.channelType)
             lockIconView.isHidden = !(channelName?.isPrivate ?? false)
             tagView.isHidden = !lockIconView.isHidden
             //save to cache
@@ -208,8 +209,12 @@ class RoomViewController: ViewController {
         HapticFeedback.Impact.medium()
     }
   
+    func joinChannel(_ name: String?) {
+        joinChannelSubject.onNext(name)
+    }
+    
     @discardableResult
-    func joinChannel(_ name: String?) -> Bool {
+    private func _joinChannel(_ name: String?) -> Bool {
         guard let name = name else {
             return false
         }
@@ -437,7 +442,7 @@ private extension RoomViewController {
             })
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
-                self?.joinChannel(name)
+                self?._joinChannel(name)
             })
             .disposed(by: bag)
         
@@ -495,7 +500,7 @@ private extension RoomViewController {
         
         searchController.selectRoomHandler = { [weak self] room in
             guard let `self` = self else { return }
-            if self.joinChannel(room.name) {
+            if self._joinChannel(room.name) {
                 self.updateMemberCount(with: room)
             }
             self.hideSearchView()
@@ -509,6 +514,9 @@ private extension RoomViewController {
         }
         
         AdsManager.shared.mopubInitializeSuccessSubject
+            .filter { _ -> Bool in
+                return !Settings.shared.isProValue.value
+            }
             .filter { $0 }
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
