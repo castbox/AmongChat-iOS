@@ -215,7 +215,6 @@ extension ViewController {
         let shareString =
         """
         Hurry ！use \(prefixString) to join our secret channel.
-        Deeplink
         \(deepLink)
         
         iOS: https://apps.apple.com/us/app/walkie-talkie-talk-to-friends/id1505959099
