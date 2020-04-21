@@ -34,7 +34,9 @@ class PrivateShareController: ViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        shareChannel(name: channelName)
+        shareChannel(name: channelName) { [weak self] in
+            self?.hideModal()
+        }
         Logger.UserAction.log(.share_secret_channel_create, channelName)
     }
 }

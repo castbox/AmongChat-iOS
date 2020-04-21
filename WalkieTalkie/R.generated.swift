@@ -319,7 +319,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 21 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 24 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -337,6 +337,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivAutomatically = Rswift.StringResource(key: "premium.priv.automatically", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Channel does not exist
+      /// 
+      /// Locales: en
+      static let channelNotExist = Rswift.StringResource(key: "channel.not.exist", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Checking
+      /// 
+      /// Locales: en
+      static let channelChecking = Rswift.StringResource(key: "channel.checking", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: No ad available, please try again later. 
       /// 
       /// Locales: en
@@ -353,6 +361,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: PASSCORD
+      /// 
+      /// Locales: en
+      static let inputPasscodePlaceholder = Rswift.StringResource(key: "input.passcode.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Passcode does not exist
       /// 
       /// Locales: en
@@ -434,6 +446,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.priv.automatically", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Channel does not exist
+      /// 
+      /// Locales: en
+      static func channelNotExist(_: Void = ()) -> String {
+        return NSLocalizedString("channel.not.exist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Checking
+      /// 
+      /// Locales: en
+      static func channelChecking(_: Void = ()) -> String {
+        return NSLocalizedString("channel.checking", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: No ad available, please try again later. 
       /// 
       /// Locales: en
@@ -460,6 +486,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func alertOk(_: Void = ()) -> String {
         return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: PASSCORD
+      /// 
+      /// Locales: en
+      static func inputPasscodePlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("input.passcode.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Passcode does not exist

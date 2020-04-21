@@ -195,7 +195,7 @@ extension ViewController {
         loggerScreenDuration()
     }
     
-    func shareChannel(name: String?) {
+    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
         guard let channelName = name,
             let publicName = channelName.publicName else {
             return
@@ -228,8 +228,10 @@ extension ViewController {
 //        let urlToShare = NSURL(string: deepLink)
         let items = [textToShare, imageToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityVC.completionWithItemsHandler =  { activity, success, items, error in
-
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                successHandler?()
+            }
         }
         present(activityVC, animated: true, completion: { () -> Void in
             

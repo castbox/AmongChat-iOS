@@ -89,16 +89,18 @@ class RoomViewController: ViewController {
     private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
-    private var channelName: String? {
+    private var channel: Room = Defaults.validChannel {
         didSet {
-            channelTextField.text = channelName?.showName
-            screenContainer.backgroundColor = channelName?.channelType.screenColor
-            searchController.setChannel(type: channelName?.channelType)
-            lockIconView.isHidden = !(channelName?.isPrivate ?? false)
-            tagView.isHidden = !lockIconView.isHidden
-            //save to cache
-            Defaults[.channelName] = channelName ?? ""
+            updateSubviewStyle()
+//            if channel.isValid {
+            channel.updateJoinInterval()
+            Defaults[\.channel] = channel
+//            }
         }
+    }
+    
+    private var channelName: String {
+        return channel.name
     }
     
     private var hotBag: DisposeBag? = DisposeBag()
@@ -121,9 +123,9 @@ class RoomViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        channelName = Defaults[.channelName]
         configureSubview()
         bindSubviewEvent()
+        updateSubviewStyle()
     }
     
     override func viewDidLayoutSubviews() {
@@ -155,11 +157,10 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func upChannelAction(_ sender: Any) {
-        guard let channelName = channelName,
-            let room = searchViewModel.previousRoom(channelName) else {
+        guard let room = searchViewModel.previousRoom(channelName) else {
             return
         }
-        self.channelName = room.name
+        self.channel = room
         updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -168,11 +169,10 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
-        guard let channelName = channelName,
-            let room = searchViewModel.nextRoom(channelName) else {
+        guard let room = searchViewModel.nextRoom(channelName) else {
             return
         }
-        self.channelName = room.name
+        self.channel = room
         updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -186,19 +186,27 @@ class RoomViewController: ViewController {
             //disconnect
             leaveChannel()
         } else {
-            joinChannel(channelName)
+            //如果和当前存储相同，
+            if channelName.isPrivate {
+                if FireStore.shared.isValidSecretChannel(channelName) { //则检查是否存在
+                    joinChannel(channelName)
+                } else {
+                    //show error
+                    view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                }
+            } else {
+                joinChannel(channelName)
+            }
         }
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        guard let name = channelName else {
-            return
-        }
-        if name.isPrivate {
-            showShareController(channelName: name)
+
+        if channel.isPrivate {
+            showShareController(channelName: channelName)
         } else {
-            Logger.UserAction.log(.share_channel, name)
-            shareChannel(name: name)
+            Logger.UserAction.log(.share_channel, channelName)
+            shareChannel(name: channelName)
         }
     }
     
@@ -233,7 +241,7 @@ class RoomViewController: ViewController {
         if mManager.state == .connected && mManager.channelName == name {
            return false
         }
-        channelName = name
+        channel = Room(name: name, user_count: 0)
         searchViewModel.add(private: name)
         checkMicroPermission { [weak self] in
             guard let `self` = self else { return }
@@ -403,7 +411,7 @@ private extension RoomViewController {
     func sendQueryEvent() {
         if let text = channelTextField.text?.uppercased(),
             text.count >= 2,
-            text != channelName?.showName {
+            text != channelName.showName {
             searchController.set(query: text)
         } else {
             searchController.set(query: "")
@@ -447,6 +455,14 @@ private extension RoomViewController {
         }
     }
     
+    func updateSubviewStyle() {
+        channelTextField.text = channel.showName
+        screenContainer.backgroundColor = channel.name.channelType.screenColor
+        searchController.setChannel(type: channel.name.channelType)
+        lockIconView.isHidden = !channel.isPrivate
+        tagView.isHidden = !lockIconView.isHidden
+    }
+    
     func hideSearchView() {
         searchController.willMove(toParent: nil)
         searchController.removeFromParent()
@@ -462,7 +478,7 @@ private extension RoomViewController {
             .filter { !$0.isEmpty }
             .observeOn(MainScheduler.asyncInstance)
             .do(onNext: { [weak self] name in
-                self?.channelName = name
+                self?.channel = Room(name: name, user_count: 0)
             })
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in

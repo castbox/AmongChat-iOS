@@ -225,7 +225,7 @@ extension PremiumViewController {
                 switch state {
                 case .purchased, .restored:
                     Settings.shared.isProValue.value = true
-                    Defaults[.purchasedItemsKey] = identifier
+                    Defaults[\.purchasedItemsKey] = identifier
                     self?.isPuchasingState.onNext(false)
                     if let s = self?.source {
                         Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
@@ -265,6 +265,6 @@ extension PremiumViewController {
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
         
-        startAnimation()
+//        startAnimation()
     }
 }
