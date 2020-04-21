@@ -35,8 +35,6 @@
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>need camera to take photo</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>need mic to join the room</string>
 	<key>UIAppFonts</key>

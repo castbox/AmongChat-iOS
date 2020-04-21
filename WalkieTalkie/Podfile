@@ -77,7 +77,8 @@ target 'WalkieTalkie' do
 #    pod 'EasyTipView', '~> 2.0.4'
     
     # RTC (Agora.io)
-    pod 'AgoraRtcEngine_iOS'
+#    pod 'AgoraRtcEngine_iOS'
+    pod 'AgoraAudio_iOS'
 #    pod 'AgoraRtm_iOS'
 
     pod 'JLRoutes'

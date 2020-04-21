@@ -161,7 +161,7 @@ PODS:
   - Adjust (4.21.0):
     - Adjust/Core (= 4.21.0)
   - Adjust/Core (4.21.0)
-  - AgoraRtcEngine_iOS (3.0.0.1)
+  - AgoraAudio_iOS (3.0.0.1)
   - Alamofire (5.0.5)
   - BoringSSL-GRPC (0.0.3):
     - BoringSSL-GRPC/Implementation (= 0.0.3)
@@ -392,7 +392,7 @@ PODS:
 
 DEPENDENCIES:
   - Adjust (= 4.21.0)
-  - AgoraRtcEngine_iOS
+  - AgoraAudio_iOS
   - CastboxDebuger (~> 1.3.2)
   - Crashlytics (~> 3.14.0)
   - DeviceKit
@@ -429,7 +429,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - abseil
     - Adjust
-    - AgoraRtcEngine_iOS
+    - AgoraAudio_iOS
     - Alamofire
     - BoringSSL-GRPC
     - Crashlytics
@@ -488,7 +488,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
-  AgoraRtcEngine_iOS: f7fb9870f884dfa91fc3295c6594ea089f38c481
+  AgoraAudio_iOS: 565ce2dcdfced4e0fe78014c6a17ad5770713864
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
@@ -545,6 +545,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 6a1951df1daa19337862b677dd9a4b9bd4c288cd
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: 5886a0ea66ea9861dcf3d1b5bab6907cdf05860b
+PODFILE CHECKSUM: ee21d3f306a3b5ccba355238b4c489d32aba3a53
 
 COCOAPODS: 1.9.1
