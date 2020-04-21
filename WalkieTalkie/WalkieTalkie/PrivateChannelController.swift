@@ -32,6 +32,7 @@ class PrivateChannelController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared.enable = true
+        Logger.PageShow.log(.secret_channel_create_pop_imp)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -55,6 +56,7 @@ class PrivateChannelController: ViewController {
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {
+        Logger.UserAction.log(.enter_secret)
         guard let name = codeField.text else {
             return
         }
@@ -68,15 +70,17 @@ class PrivateChannelController: ViewController {
         }
         //join
         self.joinChannel("_\(name)", false)
-        self.hideModal()
+        dismiss()
     }
     
     @IBAction func upgradeToProAction(_ sender: Any) {
         guard let premiun = R.storyboard.main.premiumViewController() else {
             return
         }
+        premiun.source = .secret_channel_create
         premiun.modalPresentationStyle = .fullScreen
         present(premiun, animated: true, completion: nil)
+        Logger.UserAction.log(.update_pro, "secret_channel_create")
     }
 }
 
@@ -89,6 +93,11 @@ extension PrivateChannelController: UITextFieldDelegate {
 }
 
 extension PrivateChannelController {
+    
+    func dismiss() {
+        Logger.PageShow.log(.secret_channel_create_pop_close)
+        hideModal()
+    }
     
     func isValidChannel(name: String?) -> Bool {
         guard let name = name else {
@@ -117,29 +126,38 @@ extension PrivateChannelController {
     }
     
     func bindSubviewEvent() {
-        let noAdAlertBlock = { [weak self] in
-            let alert = UIAlertController(title: R.string.localizable.noAdAlert(), message: nil, preferredStyle: .alert)
+        let networkNotReachAlertBlock = { [weak self] in
+            let alert = UIAlertController(title: R.string.localizable.networkNotReachable(), message: nil, preferredStyle: .alert)
             alert.addAction(.init(title: R.string.localizable.toastConfirm(), style: .default, handler: nil))
             self?.present(alert, animated: true, completion: nil)
         }
         
-        let isRewardVideoReady =
-            AdsManager.shared.isRewardVideoReadyRelay
-                .asObservable()
-                .filter { $0 }
-        let createButtonObservable =
+//        let isRewardVideoReady =
+//            AdsManager.shared.isRewardVideoReadyRelay
+//                .asObservable()
+//                .filter { $0 }
+//        let createButtonObservable =
             createButton.rx.tap.asObservable()
                 .observeOn(MainScheduler.asyncInstance)
+                .filter { _ -> Bool in
+                    guard Reachability.shared.canReachable else {
+                        networkNotReachAlertBlock()
+                        return false
+                    }
+                    return true
+                }
                 .flatMap { _ -> Observable<Void> in
-                    guard !Settings.shared.isProValue.value else {
+                    Logger.UserAction.log(.create_new)
+                    guard !Settings.shared.isProValue.value,
+                        let reward = AdsManager.shared.aviliableRewardVideo else {
                         return Observable.just(())
                     }
+                    
                     return Observable.just(())
                         .filter({ [weak self] _ in
-                            guard let `self` = self,
-                                let reward = AdsManager.shared.aviliableRewardVideo else {
-                                    noAdAlertBlock()
-                                    return true
+                            guard let `self` = self else {
+//                                    noAdAlertBlock()
+                                return true
                             }
                             MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
                             return true
@@ -148,7 +166,7 @@ extension PrivateChannelController {
                             return AdsManager.shared.rewardVideoShouldReward.asObserver()
                         }
                         .do(onNext: { _ in
-                            AdsManager.shared.requestRewardVideo()
+                            AdsManager.shared.requestRewardVideoIfNeed()
                         })
                             .flatMap { _ -> Observable<Void> in
                                 return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
@@ -160,7 +178,7 @@ extension PrivateChannelController {
                     let channelName = self.createUniqueChannelName()
                     //check if in private channels
                     self.joinChannel("_\(channelName)", true)
-                    self.hideModal()
+                    self.dismiss()
                 })
                 .disposed(by: bag)
     }

@@ -30,7 +30,7 @@ enum UserStatus {
     case end
 }
 
-enum ChannelType {
+enum ChannelType: Int {
     case `public`
     case `private`
 }
@@ -109,6 +109,10 @@ class RoomViewController: ViewController {
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
     
+    override var screenName: Logger.Screen.Node.Start {
+        return .channel
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isNavigationBarHiddenWhenAppear = true
@@ -138,6 +142,7 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
+        Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {
             playAudio(type: .call) { [weak self] in
@@ -146,6 +151,7 @@ class RoomViewController: ViewController {
         } else {
             updateRole(true)
         }
+        Logger.UserAction.log(.channel_up, channelName)
     }
     
     @IBAction func upChannelAction(_ sender: Any) {
@@ -158,6 +164,7 @@ class RoomViewController: ViewController {
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
+        Logger.UserAction.log(.channel_up, room.name)
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
@@ -170,10 +177,12 @@ class RoomViewController: ViewController {
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
+        Logger.UserAction.log(.channel_down, room.name)
     }
     
     @IBAction func connectChannelAction(_ sender: UIButton) {
-        if mManager.isConnectingState {
+        Logger.UserAction.log(.connect, channelName)
+        if mManager.state == .connected {
             //disconnect
             leaveChannel()
         } else {
@@ -188,6 +197,7 @@ class RoomViewController: ViewController {
         if name.isPrivate {
             showShareController(channelName: name)
         } else {
+            Logger.UserAction.log(.share_channel, name)
             shareChannel(name: name)
         }
     }
@@ -203,6 +213,7 @@ class RoomViewController: ViewController {
             }
         }
         controller?.showModal(in: self)
+        Logger.UserAction.log(.secret)
     }
     
     func leaveChannel() {
@@ -424,7 +435,7 @@ private extension RoomViewController {
         guard searchController.view.superview == nil else {
             return
         }
-
+        Logger.UserAction.log(.channel_list)
         searchController.willMove(toParent: self)
         view.addSubview(searchController.view)
         searchController.didMove(toParent: self)
@@ -514,6 +525,7 @@ private extension RoomViewController {
         searchController.selectRoomHandler = { [weak self] room in
             guard let `self` = self else { return }
             if self._joinChannel(room.name) {
+                Logger.UserAction.log(.channel_choice, room.name)
                 self.updateMemberCount(with: room)
             }
             self.hideSearchView()
@@ -524,6 +536,7 @@ private extension RoomViewController {
         }
         channelTextField.didReturn = { [weak self] textField in
             self?.joinChannelSubject.onNext(textField.text?.uppercased())
+            Logger.UserAction.log(.channel_create, textField.text?.uppercased())
         }
         
         AdsManager.shared.mopubInitializeSuccessSubject
@@ -577,6 +590,7 @@ private extension RoomViewController {
         adView.frame = CGRect(x: 0, y: 0, width: 320, height: 50)
         adContainer.addSubview(adView)
         adView.loadAd(withMaxAdSize: adView.size)
+        Logger.Ads.logEvent(.ads_load, .channel)
 //        adView.startAutomaticallyRefreshingContents()
     }
 }
@@ -592,35 +606,27 @@ extension RoomViewController: MPAdViewDelegate {
 
     func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
         cdPrint("[AD]-adViewDidLoadAd")
-//        Logger.Ads.logEvent(.load)
-//        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .banner, event: .rendered, eventTime: Date(), requestTime: Date()))
-//        removeAmazonKeywordsV2(for: view)
-//        adsLoadedSignal.onNext((view, adSize))
-//        Logger.Ads.logEvent(.impl)
-//        makeAwsBid()
+        Logger.Ads.logEvent(.ads_loaded, .channel)
     }
 
     func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
         cdPrint("[AD]-load ad error: \(error.localizedDescription)")
-//        Logger.Ads.logEvent(.nofill)
-//        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .banner, event: .nofill, eventTime: Date(), requestTime: Date()))
-//        removeAmazonKeywordsV2(for: view)
-//        NSLog("mopub: fail to load ads with error: \(error.debugDescription)")
-//        adsLoadedSignal.onNext((nil, .zero))
-//        makeAwsBid()
+        Logger.Ads.logEvent(.ads_failed, .channel)
     }
 
     func willPresentModalView(forAd view: MPAdView!) {
 //        showSource = .adModal
-//        Logger.Ads.logEvent(.click)
+        Logger.Ads.logEvent(.ads_imp, .channel)
     }
     
+    
     func willLeaveApplication(fromAd view: MPAdView!) {
-//        Logger.Ads.logEvent(.click)
+        Logger.Ads.logEvent(.ads_clk, .channel)
 //        showSource = .adLeave
     }
     
     func didDismissModalView(forAd view: MPAdView!) {
+//        Logger.Ads.logEvent(.ads_clk, .channel)
     }
 }
 

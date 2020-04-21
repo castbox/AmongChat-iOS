@@ -15,6 +15,16 @@ class PrivateShareController: ViewController {
     
     var channelName: String?
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Logger.PageShow.log(.secret_channel_share_pop_imp)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Logger.PageShow.log(.secret_channel_share_pop_close)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,6 +35,7 @@ class PrivateShareController: ViewController {
     
     @IBAction func shareButtonAction(_ sender: Any) {
         shareChannel(name: channelName)
+        Logger.UserAction.log(.share_secret_channel_create, channelName)
     }
 }
 

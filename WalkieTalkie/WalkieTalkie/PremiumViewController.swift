@@ -28,6 +28,9 @@ class PremiumViewController: ViewController {
     
     private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
     
+    override var screenName: Logger.Screen.Node.Start {
+        return .premium
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -37,6 +40,20 @@ class PremiumViewController: ViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let s = self.source {
+            Logger.IAP.logImp(s)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let s = self.source {
+            Logger.IAP.logClose(s)
+        }
     }
 
     override func viewDidLoad() {

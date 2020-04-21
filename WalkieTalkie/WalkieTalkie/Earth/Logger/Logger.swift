@@ -42,22 +42,24 @@ extension Logger {
 
 extension Logger {
     struct Ads {
-        enum AdsEvent {
-            case request
-            case load
-            case nofill
-            case renderFail
-            case rendered
-            case impl
-            case click
+        enum AdsEvent: String {
+            case ads_load
+            case ads_loaded
+            case ads_failed
+            case ads_imp
+            case ads_clk
+            case ads_close
+            
+            case rads_load
+            case rads_loaded
+            case rads_failed
+            case rads_imp
+            case rads_clk
+            case rads_close
         }
         
-        static func logEvent(_ event: AdsEvent) {
-            GuruAnalytics.log(event: "ads", category: nil, name: "\(event)", value: nil)
-        }
-        
-        static func logNativeEvent(_ event: AdsEvent) {
-            GuruAnalytics.log(event: "native_ads", category: nil, name: "\(event)", value: nil)
+        static func logEvent(_ event: AdsEvent, _ itemName: Logger.Screen.Node.Start? = nil, value: Int64? = nil) {
+            GuruAnalytics.log(event: event.rawValue, category: nil, name: itemName?.rawValue, value: value)
         }
     }
 }
@@ -226,7 +228,7 @@ extension Logger {
     struct IAP {
         
         /// 会员落地页展现来源
-        enum ActionSource {
+        enum ActionSource: String {
             
 //            case store
 //            case setting_pro
@@ -242,8 +244,8 @@ extension Logger {
 //            case auto
             // api控制的首次弹出
             case first_open
-            case categories
-            case themes
+            case setting
+            case secret_channel_create
         }
         
         static func logImp(_ source: ActionSource) {
@@ -261,21 +263,21 @@ extension Logger {
         }
         
         static func logPurchase(productId: String, source: ActionSource) {
-            GuruAnalytics.log(event: "iap_clk", category: productId, name: "\(source)", value: nil)
+            GuruAnalytics.log(event: "iap_clk", category: source.rawValue, name: productId, value: nil)
             if source == .first_open {
                 Logger.FirstOpen.logClick(productId: productId)
             }
         }
         
         static func logPurchaseResult(product: SKProduct, source: ActionSource, isSuccess: Bool) {
-            GuruAnalytics.log(event: "iap_ret", category: product.productIdentifier, name: "\(source)", value: isSuccess ? 0 : -1)
+            GuruAnalytics.log(event: "iap_ret", category: source.rawValue, name: product.productIdentifier, value: isSuccess ? 1 : 0)
             if source == .first_open {
                 Logger.FirstOpen.logPurchaseResult(productId: product.productIdentifier, isSuccess: isSuccess)
             }
         }
         
         static func logPurchaseFailByIdentifier(identifier: String, source: ActionSource) {
-            GuruAnalytics.log(event: "iap_ret", category: identifier, name: "\(source)", value: -1)
+            GuruAnalytics.log(event: "iap_ret", category: source.rawValue, name: identifier, value: 0)
             if source == .first_open {
                 Logger.FirstOpen.logPurchaseResult(productId: identifier, isSuccess: false)
             }

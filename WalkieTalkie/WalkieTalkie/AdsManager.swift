@@ -84,7 +84,7 @@ class AdsManager: NSObject {
             //send notification
             self?.mopubInitializeSuccessSubject.accept(true)
             //req
-            self?.requestRewardVideo()
+            self?.requestRewardVideoIfNeed()
         }
     }
     
@@ -198,7 +198,7 @@ class AdsManager: NSObject {
     func requestNativeAds() {
         let request = MPNativeAdRequest(adUnitIdentifier: nativeAdUnitId, rendererConfigurations: nativeAdConfigurations)
         request?.targeting = MPNativeAdRequestTargeting()
-        Logger.Ads.logNativeEvent(.request)
+//        Logger.Ads.logNativeEvent(.request)
         nativeLastRequestDate = Date()
         AdsManager.notificationCenter.post(name: Notification.Name.adEvent, object: AdEventInfo(format: .native, event: .request, eventTime: nativeLastRequestDate, requestTime: nativeLastRequestDate))
         request?.start(completionHandler: { [weak self] (req, ad, err) in
@@ -206,7 +206,7 @@ class AdsManager: NSObject {
                 return
             }
             guard let a = ad else {
-                Logger.Ads.logNativeEvent(.nofill)
+//                Logger.Ads.logNativeEvent(.nofill)
                 AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .nofill, eventTime: Date(), requestTime: self.nativeLastRequestDate))
                 self.nativeRefreshEvent.onNext(.never())
                 self.rxAdView.accept(nil)
@@ -216,19 +216,19 @@ class AdsManager: NSObject {
                 return
             }
             AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .load, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-            Logger.Ads.logNativeEvent(.load)
+//            Logger.Ads.logNativeEvent(.load)
             self.nativeAd = a
             do {
                 a.delegate = self
                 let adView = try a.retrieveAdView()
                 self.latestNativeAdView = adView
-                Logger.Ads.logNativeEvent(.rendered)
+//                Logger.Ads.logNativeEvent(.rendered)
                 AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .rendered, eventTime: Date(), requestTime: self.nativeLastRequestDate))
                 self.nativeLastShowDate = Date()
                 self.rxAdView.accept(adView)
                 //                self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
             } catch {
-                Logger.Ads.logNativeEvent(.renderFail)
+//                Logger.Ads.logNativeEvent(.renderFail)
                 AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .renderFail, eventTime: Date(), requestTime: self.nativeLastRequestDate))
                 self.rxAdView.accept(nil)
                 self.showSelection = .banner
@@ -239,10 +239,12 @@ class AdsManager: NSObject {
         })
     }
     
-    func requestRewardVideo() {
-        guard aviliableRewardVideo == nil else {
+    func requestRewardVideoIfNeed() {
+        guard aviliableRewardVideo == nil,
+            !Settings.shared.isProValue.value else {
             return
         }
+        Logger.Ads.logEvent(.rads_load)
         MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
         MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
     }
@@ -365,13 +367,13 @@ extension AdsManager: MPNativeAdDelegate {
     func mopubAd(_ ad: MPMoPubAd, didTrackImpressionWith impressionData: MPImpressionData?) {
         NSLog("native ad impressioned")
         AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .impl, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-        Logger.Ads.logNativeEvent(.impl)
+//        Logger.Ads.logNativeEvent(.impl)
         self.refreshNative(after: .fromSeconds(AdsManager.nativeAdsRefreshInterval))
         //        self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
     }
     
     func willPresentModal(for nativeAd: MPNativeAd!) {
-        Logger.Ads.logNativeEvent(.click)
+//        Logger.Ads.logNativeEvent(.click)
         //        PlayerController.shared.showSource = .adModal
     }
     
@@ -380,7 +382,7 @@ extension AdsManager: MPNativeAdDelegate {
     
     func willLeaveApplication(from nativeAd: MPNativeAd!) {
         NSLog("native ad clicked")
-        Logger.Ads.logNativeEvent(.click)
+//        Logger.Ads.logNativeEvent(.click)
         //        PlayerController.shared.showSource = .adLeave
     }
 }
@@ -391,6 +393,7 @@ extension AdsManager: MPRewardedVideoDelegate {
     func rewardedVideoAdDidLoad(forAdUnitID adUnitID: String!) {
         //reward did load
         isRewardVideoReadyRelay.accept(true)
+        Logger.Ads.logEvent(.rads_loaded)
         cdPrint("[rewarded-ad] rewardedVideoAdDidLoad")
     }
     
@@ -401,29 +404,37 @@ extension AdsManager: MPRewardedVideoDelegate {
     
     func rewardedVideoAdWillAppear(forAdUnitID adUnitID: String!) {
         cdPrint("[rewarded-ad] rewardedVideoAdWillAppear")
+        Logger.Ads.logEvent(.rads_imp)
     }
 
     func rewardedVideoAdDidAppear(forAdUnitID adUnitID: String!) {
         isRewardVideoReadyRelay.accept(false)
         //request new one
-        requestRewardVideo()
+        requestRewardVideoIfNeed()
         cdPrint("[rewarded-ad] rewardedVideoAdDidAppear")
     }
     
     func rewardedVideoAdDidDisappear(forAdUnitID adUnitID: String!) {
         cdPrint("[rewarded-ad] rewardedVideoAdDidDisappear")
         rewardedVideoAdDidDisappear.onNext(())
+        Logger.Ads.logEvent(.rads_close)
     }
 
     func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
         isRewardVideoReadyRelay.accept(false)
         cdPrint("[rewarded-ad] rewardedVideoAdDidFailToLoad: \(error)")
+        Logger.Ads.logEvent(.rads_failed)
     }
     
     func rewardedVideoAdShouldReward(forAdUnitID adUnitID: String!, reward: MPRewardedVideoReward!) {
         //should reward
         rewardVideoShouldReward.onNext(())
         cdPrint("[rewarded-ad] rewardedVideoAdShouldReward")
+    }
+    
+    func rewardedVideoAdDidReceiveTapEvent(forAdUnitID adUnitID: String!) {
+        cdPrint("[rewarded-ad] rewardedVideoAdDidReceiveTapEvent")
+        Logger.Ads.logEvent(.rads_clk)
     }
     
     func rewardedVideoAdDidFailToPlay(forAdUnitID adUnitID: String!, error: Error!) {

@@ -125,6 +125,12 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */; };
+		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
+		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
+		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
+		FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */; };
+		FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */; };
+		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,7 +267,13 @@
 		FEAD54D92449C74F006454F6 /* Modal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.swift; sourceTree = "<group>"; };
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
-		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; };
+		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
+		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
+		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
+		FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+PageShow.swift"; sourceTree = "<group>"; };
+		FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+UserAction.swift"; sourceTree = "<group>"; };
+		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +372,7 @@
 				FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */,
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
 				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
+				FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */,
 				FE2AF9ED244DCC0200763747 /* Routes */,
 				FE401E49244DAD6B0081F793 /* Utils */,
 				FE401E31244D9C450081F793 /* IAP */,
@@ -464,6 +477,7 @@
 			children = (
 				FE2AF9FA244DDDC700763747 /* URLUnit.swift */,
 				FE401E47244DAD680081F793 /* Scheduler.swift */,
+				FED7B606244EDEA500D94F97 /* Reachability.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -521,7 +535,7 @@
 				FE4FDAD42435B9AE00CD5E97 /* Globe.swift */,
 				FE4FDAD22435B98D00CD5E97 /* Frame.swift */,
 				FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */,
-				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
+				FED7B5FD244EC9C500D94F97 /* Logger */,
 				FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */,
 				FE0D1A1E24488F9B00518793 /* Extension */,
 				FE860D532446D29E00087B73 /* Knife.swift */,
@@ -579,6 +593,18 @@
 				FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		FED7B5FD244EC9C500D94F97 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
+				FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */,
+				FED7B600244EC9FB00D94F97 /* LoggerPath.swift */,
+				FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */,
+				FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */,
+			);
+			path = Logger;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -780,9 +806,12 @@
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
+				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
 				FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */,
+				FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
 				FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */,
+				FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */,
 				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,
 				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
@@ -811,6 +840,7 @@
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
+				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */,
@@ -839,6 +869,7 @@
 				FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
+				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
 				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
@@ -854,6 +885,7 @@
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
+				FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */,
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FE4FDACD24359D7C00CD5E97 /* SearchViewController.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,

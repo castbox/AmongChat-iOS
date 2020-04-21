@@ -29,3 +29,4 @@
 "toast.confirm" = "OK";
 "toast.cancel" = "Cancel";
 "private.error.code" = "Passcode does not exist";
+"network.not.reachable" = "Unreachable networking!";

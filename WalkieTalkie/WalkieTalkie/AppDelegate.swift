@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         _ = AdsManager.shared
+        _ = Reachability.shared
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
@@ -79,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
             return false
         }
+        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         roomVc.joinChannel(name)
         return true
     }
@@ -98,11 +100,6 @@ extension AppDelegate {
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().setBackgroundImage(UIImage(color: UIColor.white, size: CGSize(width: 1, height: 1)), for: .default)
         UINavigationBar.appearance().isTranslucent = false
-        
-//        let normalAttributed: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor(.gray_8e8e93), .font: UIFont(.avenirNext_Regular_10)!]
-//        let selectedAttributed: [NSAttributedStringKey: Any] = [.foregroundColor: UIColor(.blue_007aff), .font: UIFont(.avenirNext_Regular_10)!]
-//        UITabBarItem.appearance().setTitleTextAttributes(normalAttributed, for: .normal)
-//        UITabBarItem.appearance().setTitleTextAttributes(selectedAttributed, for: .selected)
     }
 
 }

@@ -13,6 +13,10 @@ class SettingViewController: ViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
     
+    override var screenName: Logger.Screen.Node.Start {
+        return .settings
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,14 +46,7 @@ class SettingContainerTableController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if Settings.shared.isProValue.value {
-            proCell.backgroundColor = UIColor(hex: 0x545454)
-            diamondsIcon.image = R.image.icon_setting_diamonds()
-            diamondsNameLabel.text = "Walkie Talkie PRO"
-        } else {
-            proCell.backgroundColor = UIColor(hex: 0xFFD52E)
-            diamondsIcon.image = R.image.icon_setting_diamonds_u()
-        }
+       updateSubviewStyle()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,12 +67,25 @@ class SettingContainerTableController: UITableViewController {
                 let premiun = R.storyboard.main.premiumViewController() else {
                 return
             }
+            premiun.source = .setting
             premiun.dismissHandler = { [weak self] in
-                self?.tableView.reloadData()
+                self?.updateSubviewStyle()
                 premiun.dismiss(animated: true, completion: nil)
             }
             premiun.modalPresentationStyle = .fullScreen
             present(premiun, animated: true, completion: nil)
+            Logger.UserAction.log(.update_pro, "settings")
+        }
+    }
+    
+    func updateSubviewStyle() {
+        if Settings.shared.isProValue.value {
+            proCell.backgroundColor = UIColor(hex: 0x545454)
+            diamondsIcon.image = R.image.icon_setting_diamonds()
+            diamondsNameLabel.text = "Walkie Talkie PRO"
+        } else {
+            proCell.backgroundColor = UIColor(hex: 0xFFD52E)
+            diamondsIcon.image = R.image.icon_setting_diamonds_u()
         }
     }
     

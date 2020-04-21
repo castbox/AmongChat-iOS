@@ -319,7 +319,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 20 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 21 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -393,6 +393,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivThemes = Rswift.StringResource(key: "premium.priv.themes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unreachable networking!
+      /// 
+      /// Locales: en
+      static let networkNotReachable = Rswift.StringResource(key: "network.not.reachable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -526,6 +530,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumPrivThemes(_: Void = ()) -> String {
         return NSLocalizedString("premium.priv.themes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unreachable networking!
+      /// 
+      /// Locales: en
+      static func networkNotReachable(_: Void = ()) -> String {
+        return NSLocalizedString("network.not.reachable", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You’re all set

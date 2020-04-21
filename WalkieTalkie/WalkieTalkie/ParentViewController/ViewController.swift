@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ScreenLifeLogable {
     var isNavigationBarHiddenWhenAppear = false {
         didSet {
             if isNavigationBarHiddenWhenAppear {
@@ -50,6 +50,12 @@ class ViewController: UIViewController {
     private var isFirstToUpdateStatusForStatusBar: Bool = true
     
     let bag = DisposeBag()
+    
+    var screenLifeStartTime: Date = .init()
+    
+    var screenName: Logger.Screen.Node.Start {
+        return .ios_ignore
+    }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -96,7 +102,9 @@ class ViewController: UIViewController {
             setNeedsStatusBarUpdate()
         }
         
-        AdsManager.shared.requestRewardVideo()
+        AdsManager.shared.requestRewardVideoIfNeed()
+        screenLifeStartTime = Date()
+        loggerScreenShow()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -114,6 +122,7 @@ class ViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        logScreenDurationIfNeed()
     }
 
     override func viewDidLoad() {
@@ -178,6 +187,14 @@ extension ViewController {
 }
 
 extension ViewController {
+    
+    func logScreenDurationIfNeed() {
+        guard screenName != .ios_ignore else {
+            return
+        }
+        loggerScreenDuration()
+    }
+    
     func shareChannel(name: String?) {
         guard let channelName = name,
             let publicName = channelName.publicName else {
@@ -195,11 +212,21 @@ extension ViewController {
             }
             return "Channel: \(publicName)"
         }
-        let shareString = "Input the passcode in walkie talkie app to join my secret channel \n\(prefixString) \nDo you copy? \nHey, your friends are waiting for you, join us now \n\(deepLink) \n\nAndroid: https://play.google.com/store/apps/details?id=walkie.talkie.talk \niOS: https://apps.apple.com/app/id1505959099 \n\nOver and out.\n#WalkieTalkieTalktoFriends"
+        let shareString =
+        """
+        Hurry ！use \(prefixString) to join our secret channel.
+        Deeplink
+        \(deepLink)
+        
+        iOS: https://apps.apple.com/us/app/walkie-talkie-talk-to-friends/id1505959099
+        Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
+        Over and out.
+        #WalkieTalkieTalktoFriends
+        """
         
         let textToShare = shareString
         let imageToShare = R.image.share_logo()!
-        let urlToShare = NSURL(string: deepLink)
+//        let urlToShare = NSURL(string: deepLink)
         let items = [textToShare, imageToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.completionWithItemsHandler =  { activity, success, items, error in
