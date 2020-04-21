@@ -14,7 +14,7 @@ extension IAP {
     
     static let productYear: String = "wt.i.sub.vip.p1y"
     static let productMonth: String = "wt.i.sub.vip.p1m"
-    static let productLifeTime: String = "wt.i.sub.vip"
+    static let productLifeTime: String = "wt.i.iap.vip"
     
     static func prefetchProducts() {
         let productIds = Set([productYear, productMonth, productLifeTime])

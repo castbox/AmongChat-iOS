@@ -70,6 +70,10 @@ class SettingContainerTableController: UITableViewController {
                 let premiun = R.storyboard.main.premiumViewController() else {
                 return
             }
+            premiun.dismissHandler = { [weak self] in
+                self?.tableView.reloadData()
+                premiun.dismiss(animated: true, completion: nil)
+            }
             premiun.modalPresentationStyle = .fullScreen
             present(premiun, animated: true, completion: nil)
         }

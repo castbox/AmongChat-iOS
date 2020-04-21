@@ -28,3 +28,4 @@
 "no.ad.alert" = "No ad available, please try again later. ";
 "toast.confirm" = "OK";
 "toast.cancel" = "Cancel";
+"private.error.code" = "Passcode does not exist";

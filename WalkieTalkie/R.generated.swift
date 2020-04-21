@@ -319,7 +319,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 19 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 20 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -353,6 +353,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Passcode does not exist
+      /// 
+      /// Locales: en
+      static let privateErrorCode = Rswift.StringResource(key: "private.error.code", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -452,6 +456,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func alertOk(_: Void = ()) -> String {
         return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Passcode does not exist
+      /// 
+      /// Locales: en
+      static func privateErrorCode(_: Void = ()) -> String {
+        return NSLocalizedString("private.error.code", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Purchase not found
@@ -631,6 +642,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'Main', but couldn't be loaded.") }
         }
         if _R.storyboard.main().premiumViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'premiumViewController' could not be loaded from storyboard 'Main' as 'PremiumViewController'.") }
         if _R.storyboard.main().privateChannelController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateChannelController' could not be loaded from storyboard 'Main' as 'PrivateChannelController'.") }

@@ -200,7 +200,7 @@ extension ViewController {
         let textToShare = shareString
         let imageToShare = R.image.share_logo()!
         let urlToShare = NSURL(string: deepLink)
-        let items = [textToShare, imageToShare, urlToShare] as [Any]
+        let items = [textToShare, imageToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
         activityVC.completionWithItemsHandler =  { activity, success, items, error in
 

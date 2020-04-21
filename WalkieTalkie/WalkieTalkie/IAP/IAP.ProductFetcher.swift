@@ -104,6 +104,7 @@ extension IAP.Product {
     
     enum Category {
         case sub(free: Period?, renewal: Period) // 比如，免费 7天，$xxx/2月
+        case lifetime
     }
 
     class Period {

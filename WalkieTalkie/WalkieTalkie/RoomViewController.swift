@@ -71,6 +71,7 @@ class RoomViewController: ViewController {
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
 //    @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var toolsView: UIView!
     private var gradientLayer: CAGradientLayer!
@@ -261,20 +262,32 @@ extension RoomViewController: ChatRoomDelegate {
     
     func onJoinChannelFailed(channelId: String?) {
         Observable.just(())
-        .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] _ in
-            self?.connectStateLabel.text = "OCCOR ERROR"
-        })
-        .disposed(by: bag)
+            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
+            .filter { [weak self] _  -> Bool in
+                guard let `self` = self else { return false }
+                return self.mManager.state != .connected
+            }
+            .subscribe(onNext: { [weak self] _ in
+                self?.connectStateLabel.text = "OCCOR ERROR"
+            })
+            .disposed(by: bag)
     }
     
     func onJoinChannelTimeout(channelId: String?) {
         Observable.just(())
             .observeOn(MainScheduler.asyncInstance)
+            .filter { [weak self] _  -> Bool in
+                guard let `self` = self else { return false }
+                return self.mManager.state != .connected
+            }
             .do(onNext: { [weak self] _ in
                 self?.leaveChannel()
             })
             .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
+            .filter { [weak self] _  -> Bool in
+                guard let `self` = self else { return false }
+                return self.mManager.state != .connected
+            }
             .subscribe(onNext: { [weak self] _ in
                 self?.connectStateLabel.text = "TIMEOUT"
             })
@@ -393,12 +406,12 @@ private extension RoomViewController {
             musicButton.isEnabled = true
             pushToTalkButton.isHidden = false
             powerButton.setImage(R.image.btn_power_on(), for: .normal)
-            powerButton.setBackgroundImage(UIColor.white.image, for: .normal)
+            powerButton.setBackgroundImage(R.image.home_btn_bg(), for: .normal)
         default:
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
-            powerButton.setBackgroundImage(UIColor(hex: 0x363636)?.image, for: .normal)
+            powerButton.setBackgroundImage(R.image.home_btn_bg_b(), for: .normal)
             powerButton.setImage(R.image.btn_power(), for: .normal)
         }
     }
@@ -524,12 +537,28 @@ private extension RoomViewController {
             })
             .disposed(by: bag)
         
+        Settings.shared.isProValue.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .filter { $0 }
+            .subscribe(onNext: { [weak self] _ in
+                //remove ad
+                self?.adView?.stopAutomaticallyRefreshingContents()
+                self?.adView?.removeSubviews()
+            })
+            .disposed(by: bag)
+        
         musicButton.tapHandler = { [weak self] in
             self?.playMusicAction()
         }
     }
     
     func configureSubview() {
+        
+        if Frame.Height.deviceDiagonalIsMinThan4_7 {
+            spackButtonBottomConstraint.constant = 45
+        }
+        
+        speakButton.imageView?.contentMode = .scaleAspectFit
         
         gradientLayer = CAGradientLayer()
 //        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
@@ -548,6 +577,7 @@ private extension RoomViewController {
         adView.frame = CGRect(x: 0, y: 0, width: 320, height: 50)
         adContainer.addSubview(adView)
         adView.loadAd(withMaxAdSize: adView.size)
+//        adView.startAutomaticallyRefreshingContents()
     }
 }
 

@@ -15,15 +15,18 @@ import MoPub
 class PrivateChannelController: ViewController {
     let TAG = "PrivateChannelController"
     
+    @IBOutlet weak var channelFieldContainer: UIView!
     @IBOutlet private weak var codeField: ChannelNameField!
     @IBOutlet private weak var proButton: UIButton!
     @IBOutlet private weak var createButton: UIButton!
     @IBOutlet private weak var adIconView: UIImageView!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var errorTipsLabel: UILabel!
+    @IBOutlet weak var dashLineView: UIView!
     
     @IBOutlet private weak var bottomEdgeHeightConstraint: NSLayoutConstraint!
     private var gradientLayer: CAGradientLayer!
-    
+    private let dashLayer = CAShapeLayer()
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +51,7 @@ class PrivateChannelController: ViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         gradientLayer.frame = proButton.bounds
+        addDashdeBorderLayer()
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {
@@ -57,7 +61,9 @@ class PrivateChannelController: ViewController {
         //已存在
         guard !isValidChannel(name: name) else {
             //show hud
-            view.raft.autoShow(.text("Code error"))
+            channelFieldContainer.layer.borderColor = UIColor(hex: 0xD0021B)?.cgColor
+            errorTipsLabel.text = R.string.localizable.privateErrorCode()
+            errorTipsLabel.shake()
             return
         }
         //join
@@ -75,7 +81,11 @@ class PrivateChannelController: ViewController {
 }
 
 extension PrivateChannelController: UITextFieldDelegate {
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        channelFieldContainer.layer.borderColor = UIColor(hex: 0xDCDCDC)?.cgColor
+        errorTipsLabel.text = ""
+        return true
+    }
 }
 
 extension PrivateChannelController {
@@ -119,11 +129,6 @@ extension PrivateChannelController {
                 .filter { $0 }
         let createButtonObservable =
             createButton.rx.tap.asObservable()
-                .do(onNext: { _ in
-                    
-                })
-                
-                //        Observable.zip(createButtonObservable, isRewardVideoReady)
                 .observeOn(MainScheduler.asyncInstance)
                 .flatMap { _ -> Observable<Void> in
                     guard !Settings.shared.isProValue.value else {
@@ -134,29 +139,29 @@ extension PrivateChannelController {
                             guard let `self` = self,
                                 let reward = AdsManager.shared.aviliableRewardVideo else {
                                     noAdAlertBlock()
-                                    return false
+                                    return true
                             }
                             MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
                             return true
                         })
                         .flatMap { _ -> Observable<Void> in
                             return AdsManager.shared.rewardVideoShouldReward.asObserver()
-                    }
-                    .do(onNext: { _ in
-                        AdsManager.shared.requestRewardVideo()
-                    })
-                        .flatMap { _ -> Observable<Void> in
-                            return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                    }
-            }
-            .subscribe(onNext: { [weak self] _ in
-                guard let `self` = self else { return }
-                //create one
-                let channelName = self.createUniqueChannelName()
-                //check if in private channels
-                self.joinChannel("_\(channelName)", true)
-                self.hideModal()
-            })
+                        }
+                        .do(onNext: { _ in
+                            AdsManager.shared.requestRewardVideo()
+                        })
+                            .flatMap { _ -> Observable<Void> in
+                                return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                        }
+                }
+                .subscribe(onNext: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    //create one
+                    let channelName = self.createUniqueChannelName()
+                    //check if in private channels
+                    self.joinChannel("_\(channelName)", true)
+                    self.hideModal()
+                })
                 .disposed(by: bag)
     }
     
@@ -180,6 +185,24 @@ extension PrivateChannelController {
             adIconView.isHidden = true
             proButton.isHidden = true
         }
+    }
+    
+    //绘制虚线边框
+    func addDashdeBorderLayer(){
+        guard dashLayer.superlayer == nil else {
+            return
+        }
+        let path = UIBezierPath(from: CGPoint(x: 0, y: 0), to: CGPoint(x: dashLineView.width, y: 0))
+        dashLayer.bounds = dashLineView.bounds
+        dashLayer.position = dashLineView.bounds.center
+        dashLayer.fillColor = UIColor.clear.cgColor
+        dashLayer.strokeColor = UIColor(hex: 0xDCDCDC)?.cgColor
+        dashLayer.lineWidth = 0.5
+        dashLayer.lineJoin = .round
+        dashLayer.lineDashPattern = [6,6]
+//        let path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 5)
+        dashLayer.path = path.cgPath
+        dashLineView.layer.addSublayer(dashLayer)
     }
 }
 

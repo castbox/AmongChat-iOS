@@ -18,6 +18,7 @@ class PremiumViewController: ViewController {
     @IBOutlet weak var container: UIView!
     @IBOutlet weak var freetrielButton: UIButton!
     
+    @IBOutlet weak var faceView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     var gradientLayer: CAGradientLayer!
@@ -26,6 +27,17 @@ class PremiumViewController: ViewController {
     var dismissHandler: (()->Void)? = nil
     
     private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
+    
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.statusBarStyle = .lightContent
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.statusBarStyle = .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +82,22 @@ class PremiumViewController: ViewController {
 }
 
 extension PremiumViewController {
+    func startAnimation() {
+//        guard shouldStartAnimation else {
+//            return
+//        }
+//        shouldStartAnimation = false
+        let width = faceView.image?.size.width ?? 3880
+        UIView.beginAnimations(nil, context: nil)
+        UIView.setAnimationDuration(100)
+        UIView.setAnimationCurve(.linear)
+        UIView.setAnimationRepeatCount(HUGE)
+        UIView.setAnimationRepeatAutoreverses(true)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        faceView.frame = CGRect(x: 0, y: 0, width: width, height: 60)
+        UIView.commitAnimations()
+    }
+    
     private func setupProduct() {
         IAP.productsValue
             .observeOn(Scheduler.backgroundScheduler)
@@ -206,7 +234,7 @@ extension PremiumViewController {
     }
     
     func configureSubview() {
-        let startColor = UIColor(hex: 0x3023AE)!.alpha(0.57)
+        let startColor = UIColor(hex: 0x3023AE)!
         let middenColor = UIColor(hex: 0x462EB4)!
         let endColor = UIColor(hex: 0xC86DD7)!
         let gradientColors: [CGColor] = [startColor.cgColor, middenColor.cgColor, endColor.cgColor]
@@ -219,5 +247,7 @@ extension PremiumViewController {
         //设置frame和插入view的layer
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        startAnimation()
     }
 }
