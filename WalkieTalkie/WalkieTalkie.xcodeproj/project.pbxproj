@@ -74,6 +74,18 @@
 		FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD82435D0AB00CD5E97 /* Logger.swift */; };
 		FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDADA2435D70A00CD5E97 /* FireLink.swift */; };
 		FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */; };
+		FE630695244FF7DD00CEA651 /* Guide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE630694244FF7DD00CEA651 /* Guide.storyboard */; };
+		FE630699244FF82900CEA651 /* GuideFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE630698244FF82900CEA651 /* GuideFirstView.swift */; };
+		FE63069B244FF85A00CEA651 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE63069A244FF85A00CEA651 /* GuideFirstView.xib */; };
+		FE63069D244FF86700CEA651 /* GuideSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE63069C244FF86700CEA651 /* GuideSecondView.xib */; };
+		FE63069F244FF87A00CEA651 /* GuideSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE63069E244FF87A00CEA651 /* GuideSecondView.swift */; };
+		FE6306A1244FF93E00CEA651 /* GuideThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306A0244FF93E00CEA651 /* GuideThirdView.swift */; };
+		FE6306A3244FF94500CEA651 /* GuideThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE6306A2244FF94500CEA651 /* GuideThirdView.xib */; };
+		FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE6306A4245004CC00CEA651 /* PremiumContainer.xib */; };
+		FE6306A7245005E700CEA651 /* PremiumContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306A6245005E700CEA651 /* PremiumContainer.swift */; };
+		FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306A82450061500CEA651 /* XibLoadableView.swift */; };
+		FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */; };
+		FE6306AD24501CF500CEA651 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306AC24501CF500CEA651 /* GuideViewController.swift */; };
 		FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */; };
 		FE684873244B4D2200F87AF9 /* ChannelNameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684872244B4D2200F87AF9 /* ChannelNameField.swift */; };
 		FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684874244BD2E700F87AF9 /* AdsManager.swift */; };
@@ -217,6 +229,18 @@
 		FE4FDAD82435D0AB00CD5E97 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		FE4FDADA2435D70A00CD5E97 /* FireLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireLink.swift; sourceTree = "<group>"; };
 		FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FE630694244FF7DD00CEA651 /* Guide.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Guide.storyboard; sourceTree = "<group>"; };
+		FE630698244FF82900CEA651 /* GuideFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFirstView.swift; sourceTree = "<group>"; };
+		FE63069A244FF85A00CEA651 /* GuideFirstView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
+		FE63069C244FF86700CEA651 /* GuideSecondView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideSecondView.xib; sourceTree = "<group>"; };
+		FE63069E244FF87A00CEA651 /* GuideSecondView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideSecondView.swift; sourceTree = "<group>"; };
+		FE6306A0244FF93E00CEA651 /* GuideThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideThirdView.swift; sourceTree = "<group>"; };
+		FE6306A2244FF94500CEA651 /* GuideThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideThirdView.xib; sourceTree = "<group>"; };
+		FE6306A4245004CC00CEA651 /* PremiumContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PremiumContainer.xib; sourceTree = "<group>"; };
+		FE6306A6245005E700CEA651 /* PremiumContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumContainer.swift; sourceTree = "<group>"; };
+		FE6306A82450061500CEA651 /* XibLoadableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XibLoadableView.swift; sourceTree = "<group>"; };
+		FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		FE6306AC24501CF500CEA651 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		FE684872244B4D2200F87AF9 /* ChannelNameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelNameField.swift; sourceTree = "<group>"; };
 		FE684874244BD2E700F87AF9 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
@@ -323,6 +347,7 @@
 				FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */,
 				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
 				FE0D1A282448A06200518793 /* UIViewExtension.swift */,
+				FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -370,6 +395,8 @@
 				FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */,
 				FE8089C92449E631006A1644 /* PrivateShareController.swift */,
 				FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */,
+				FE6306A4245004CC00CEA651 /* PremiumContainer.xib */,
+				FE6306A6245005E700CEA651 /* PremiumContainer.swift */,
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
 				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
 				FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */,
@@ -393,6 +420,14 @@
 				FE126D532434820A00BEDD60 /* Model */,
 				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
+				FE6306AC24501CF500CEA651 /* GuideViewController.swift */,
+				FE630694244FF7DD00CEA651 /* Guide.storyboard */,
+				FE63069A244FF85A00CEA651 /* GuideFirstView.xib */,
+				FE630698244FF82900CEA651 /* GuideFirstView.swift */,
+				FE63069C244FF86700CEA651 /* GuideSecondView.xib */,
+				FE63069E244FF87A00CEA651 /* GuideSecondView.swift */,
+				FE6306A0244FF93E00CEA651 /* GuideThirdView.swift */,
+				FE6306A2244FF94500CEA651 /* GuideThirdView.xib */,
 				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
 				FE274D3E243B701B00B6DB88 /* end.mp3 */,
 				FE2AF9FC244DE09000763747 /* cbegin.mp3 */,
@@ -530,6 +565,7 @@
 		FE860D522446D23500087B73 /* Earth */ = {
 			isa = PBXGroup;
 			children = (
+				FE6306A82450061500CEA651 /* XibLoadableView.swift */,
 				FEAD54D82449C74F006454F6 /* Modal */,
 				FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */,
 				FE4FDAD42435B9AE00CD5E97 /* Globe.swift */,
@@ -692,14 +728,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE49CEA6243631F200C36EC6 /* EHSMB.TTF in Resources */,
 				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
+				FE63069B244FF85A00CEA651 /* GuideFirstView.xib in Resources */,
+				FE6306A3244FF94500CEA651 /* GuideThirdView.xib in Resources */,
 				FE2AF9FD244DE09100763747 /* cbegin.mp3 in Resources */,
+				FE63069D244FF86700CEA651 /* GuideSecondView.xib in Resources */,
 				FE401E42244DA26F0081F793 /* Localizable.strings in Resources */,
 				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
 				FE860CD824458F2300087B73 /* BlackOpsOne-Regular.ttf in Resources */,
+				FE630695244FF7DD00CEA651 /* Guide.storyboard in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);
@@ -798,6 +839,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
+				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */,
@@ -806,6 +848,7 @@
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
+				FE6306AD24501CF500CEA651 /* GuideViewController.swift in Sources */,
 				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
 				FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */,
 				FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */,
@@ -818,6 +861,7 @@
 				FE860D5A2446D2A800087B73 /* PublishValue.swift in Sources */,
 				FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
+				FE63069F244FF87A00CEA651 /* GuideSecondView.swift in Sources */,
 				FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */,
 				FEAD54DC2449C74F006454F6 /* Modal.swift in Sources */,
 				FE860D4C2446D1D700087B73 /* AnimationDuration.swift in Sources */,
@@ -851,6 +895,7 @@
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
+				FE6306A7245005E700CEA651 /* PremiumContainer.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
 				FE401E39244D9C450081F793 /* IAP.swift in Sources */,
@@ -863,6 +908,7 @@
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
 				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
 				FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */,
+				FE630699244FF82900CEA651 /* GuideFirstView.swift in Sources */,
 				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
@@ -896,6 +942,7 @@
 				FE684873244B4D2200F87AF9 /* ChannelNameField.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
+				FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */,
 				FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */,
 				FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */,
 				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
@@ -906,6 +953,7 @@
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FE0D1A2524489BF300518793 /* AudioType.swift in Sources */,
+				FE6306A1244FF93E00CEA651 /* GuideThirdView.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
@@ -1080,7 +1128,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1105,7 +1153,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
