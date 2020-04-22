@@ -54,9 +54,14 @@ class GuideThirdView: XibLoadableView, PremiumContainerable {
 //            describeBottomConstraint.constant = describeBottomEdge
             titleBottomConstraint.constant = titleBottomEdge
         }
-        avatarContainerHeightConstraint.constant = Frame.Screen.height - 497 - Frame.Height.safeAeraBottomHeight - Frame.Height.safeAeraTopHeight
-        
-//        scrollView.contentSize = Frame.Screen.bounds.size
+        var avatarContainerHeight: CGFloat {
+            var height = Frame.Screen.height - 497 - Frame.Height.safeAeraBottomHeight - Frame.Height.safeAeraTopHeight
+            if height > 246 {
+                height = 246
+            }
+            return height
+        }
+        avatarContainerHeightConstraint.constant = avatarContainerHeight
     }
     
     required init?(coder aDecoder: NSCoder) {

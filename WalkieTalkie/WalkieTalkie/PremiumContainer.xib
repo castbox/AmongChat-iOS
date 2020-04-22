@@ -32,6 +32,9 @@
                                         <constraint firstAttribute="width" constant="45" id="EVU-Q0-I2B"/>
                                     </constraints>
                                     <state key="normal" image="icon_close"/>
+                                    <connections>
+                                        <action selector="closeButtonAction:" destination="-1" eventType="touchUpInside" id="66E-5h-Or5"/>
+                                    </connections>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8k-GG-SCy">
                                     <rect key="frame" x="27.5" y="160.5" width="66" height="24"/>
@@ -115,6 +118,9 @@
                                             <color key="value" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="lifetimeAction:" destination="-1" eventType="touchUpInside" id="qeL-M6-kCS"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uny-nd-a1S">
                                     <rect key="frame" x="40" y="609.5" width="334" height="44"/>
@@ -136,6 +142,9 @@
                                             <color key="value" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="monthButtonAction:" destination="-1" eventType="touchUpInside" id="Cek-GF-N2e"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fiz-9j-hdQ">
                                     <rect key="frame" x="40" y="668.5" width="334" height="60"/>
@@ -183,6 +192,9 @@ Cg
                                             <integer key="value" value="0"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="skipTrialAction:" destination="-1" eventType="touchUpInside" id="kGR-60-DBg"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s1Q-MG-Vey">
                                     <rect key="frame" x="158" y="748.5" width="98" height="44"/>
@@ -202,6 +214,9 @@ Cg
                                             <real key="value" value="0.0"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="policyButtonAction:" destination="-1" eventType="touchUpInside" id="081-Ul-SmK"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>

@@ -47,7 +47,6 @@ class PremiumContainer: XibLoadableView, PremiumContainerable {
     
     @IBAction func policyButtonAction(_ sender: Any) {
         policyHandler()
-//        open(urlSting: "https://walkietalkie.live/policy.html")
     }
     
     @IBAction func lifetimeAction(_ sender: Any) {
