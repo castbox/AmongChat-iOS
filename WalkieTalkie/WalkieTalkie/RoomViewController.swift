@@ -89,7 +89,7 @@ class RoomViewController: ViewController {
     private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
-    private var channel: Room = Defaults.validChannel {
+    private var channel: Room = Defaults[\.channel] {
         didSet {
             updateSubviewStyle()
 //            if channel.isValid {
@@ -126,6 +126,8 @@ class RoomViewController: ViewController {
         configureSubview()
         bindSubviewEvent()
         updateSubviewStyle()
+        //first page
+        showGuidePageIfNeed()
     }
     
     override func viewDidLayoutSubviews() {
@@ -468,6 +470,16 @@ private extension RoomViewController {
         searchController.removeFromParent()
         searchController.view.removeFromSuperview()
         view.endEditing(true)
+    }
+    
+    func showGuidePageIfNeed() {
+        guard Defaults[\.firstInstall],
+            let guide = R.storyboard.guide.guideViewController() else {
+                return
+        }
+        guide.modalPresentationStyle = .fullScreen
+        present(guide, animated: true, completion: nil)
+        
     }
     
     func bindSubviewEvent() {

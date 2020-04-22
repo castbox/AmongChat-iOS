@@ -80,7 +80,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 29 images.
+  /// This `R.image` struct is generated, and contains static references to 32 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -110,16 +110,22 @@ struct R: Rswift.Validatable {
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
     /// Image `icon_close`.
     static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
+    /// Image `icon_guide_1`.
+    static let icon_guide_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_1")
+    /// Image `icon_guide_2`.
+    static let icon_guide_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_2")
     /// Image `icon_pri_ad`.
     static let icon_pri_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_ad")
     /// Image `icon_pri_join`.
     static let icon_pri_join = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_join")
-    /// Image `icon_pro_bg`.
-    static let icon_pro_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_bg")
     /// Image `icon_pro_persons`.
     static let icon_pro_persons = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_persons")
+    /// Image `icon_pro_select_y`.
+    static let icon_pro_select_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select_y")
     /// Image `icon_pro_select`.
     static let icon_pro_select = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select")
+    /// Image `icon_pro_y`.
+    static let icon_pro_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_y")
     /// Image `icon_pro`.
     static let icon_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro")
     /// Image `icon_room_lock`.
@@ -211,6 +217,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_guide_1", bundle: ..., traitCollection: ...)`
+    static func icon_guide_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_1, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_guide_2", bundle: ..., traitCollection: ...)`
+    static func icon_guide_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_2, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_pri_ad", bundle: ..., traitCollection: ...)`
     static func icon_pri_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_pri_ad, compatibleWith: traitCollection)
@@ -226,11 +242,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_pro, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro_bg", bundle: ..., traitCollection: ...)`
-    static func icon_pro_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_bg, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "icon_pro_persons", bundle: ..., traitCollection: ...)`
     static func icon_pro_persons(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_pro_persons, compatibleWith: traitCollection)
@@ -239,6 +250,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_pro_select", bundle: ..., traitCollection: ...)`
     static func icon_pro_select(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_pro_select, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_pro_select_y", bundle: ..., traitCollection: ...)`
+    static func icon_pro_select_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_pro_select_y, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_pro_y", bundle: ..., traitCollection: ...)`
+    static func icon_pro_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_pro_y, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_room_lock", bundle: ..., traitCollection: ...)`
@@ -289,6 +310,60 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
+  /// This `R.nib` struct is generated, and contains static references to 4 nibs.
+  struct nib {
+    /// Nib `GuideFirstView`.
+    static let guideFirstView = _R.nib._GuideFirstView()
+    /// Nib `GuideSecondView`.
+    static let guideSecondView = _R.nib._GuideSecondView()
+    /// Nib `GuideThirdView`.
+    static let guideThirdView = _R.nib._GuideThirdView()
+    /// Nib `PremiumContainer`.
+    static let premiumContainer = _R.nib._PremiumContainer()
+    
+    /// `UINib(name: "GuideFirstView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFirstView) instead")
+    static func guideFirstView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideFirstView)
+    }
+    
+    /// `UINib(name: "GuideSecondView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideSecondView) instead")
+    static func guideSecondView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideSecondView)
+    }
+    
+    /// `UINib(name: "GuideThirdView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideThirdView) instead")
+    static func guideThirdView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideThirdView)
+    }
+    
+    /// `UINib(name: "PremiumContainer", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.premiumContainer) instead")
+    static func premiumContainer(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.premiumContainer)
+    }
+    
+    static func guideFirstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideFirstView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func guideSecondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideSecondView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func guideThirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideThirdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func premiumContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.premiumContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    fileprivate init() {}
+  }
+  
   /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `SearchCell`.
@@ -297,12 +372,19 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
+    /// Storyboard `Guide`.
+    static let guide = _R.storyboard.guide()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
+    
+    /// `UIStoryboard(name: "Guide", bundle: ...)`
+    static func guide(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.guide)
+    }
     
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
@@ -319,12 +401,16 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 24 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 26 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailNormal = Rswift.StringResource(key: "premium.subscription.detail.normal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: 3 days free trial, then $29.99 / Year
+      /// 
+      /// Locales: en
+      static let premiumTryTitleDes = Rswift.StringResource(key: "premium.try.title.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
@@ -397,6 +483,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Try it FREE
+      /// 
+      /// Locales: en
+      static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -423,6 +513,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailNormal(_ value1: String, _ value2: String) -> String {
         return String(format: NSLocalizedString("premium.subscription.detail.normal", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: 3 days free trial, then $29.99 / Year
+      /// 
+      /// Locales: en
+      static func premiumTryTitleDes(_: Void = ()) -> String {
+        return NSLocalizedString("premium.try.title.des", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -551,6 +648,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Try it FREE
+      /// 
+      /// Locales: en
+      static func premiumTryTitle(_: Void = ()) -> String {
+        return NSLocalizedString("premium.try.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -608,12 +712,122 @@ struct R: Rswift.Validatable {
 struct _R: Rswift.Validatable {
   static func validate() throws {
     try storyboard.validate()
+    try nib.validate()
+  }
+  
+  struct nib: Rswift.Validatable {
+    static func validate() throws {
+      try _GuideFirstView.validate()
+      try _GuideSecondView.validate()
+      try _GuideThirdView.validate()
+      try _PremiumContainer.validate()
+    }
+    
+    struct _GuideFirstView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideFirstView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_guide_1", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_1' is used in nib 'GuideFirstView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _GuideSecondView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideSecondView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_guide_2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_2' is used in nib 'GuideSecondView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _GuideThirdView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideThirdView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in nib 'GuideThirdView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_pro_select_y", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select_y' is used in nib 'GuideThirdView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_pro_y", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_y' is used in nib 'GuideThirdView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideThirdView', but couldn't be loaded.") }
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _PremiumContainer: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "PremiumContainer"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in nib 'PremiumContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in nib 'PremiumContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in nib 'PremiumContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in nib 'PremiumContainer', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'PremiumContainer', but couldn't be loaded.") }
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    fileprivate init() {}
   }
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
+      try guide.validate()
       try launchScreen.validate()
       try main.validate()
+    }
+    
+    struct guide: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let guideViewController = StoryboardViewControllerResource<GuideViewController>(identifier: "GuideViewController")
+      let name = "Guide"
+      
+      func guideViewController(_: Void = ()) -> GuideViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: guideViewController)
+      }
+      
+      static func validate() throws {
+        if #available(iOS 11.0, *) {
+        }
+        if _R.storyboard.guide().guideViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'guideViewController' could not be loaded from storyboard 'Guide' as 'GuideViewController'.") }
+      }
+      
+      fileprivate init() {}
     }
     
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

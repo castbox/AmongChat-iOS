@@ -302,7 +302,7 @@ extension Logger {
         }
         
         static func logPurchaseResult(productId: String, isSuccess: Bool) {
-            GuruAnalytics.log(event: "first_open_iap_ret", category: productId, name: nil, value: isSuccess ? 0 : -1)
+            GuruAnalytics.log(event: "first_open_iap_ret", category: productId, name: nil, value: isSuccess ? 1 : 0)
         }
     }
 }

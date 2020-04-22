@@ -199,13 +199,13 @@ extension DefaultsKeys {
         .init("channelName", defaultValue: "WELCOME")
     }
     
-//    var channel: DefaultsKey<R?> {
-//        .init("test", defaultValue: nil)
-//    }
+    var firstInstall: DefaultsKey<Bool> {
+        .init("first.install", defaultValue: true)
+    }
+    
     var channel: DefaultsKey<Room> {
         .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
     }
-    
     
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
@@ -274,14 +274,14 @@ extension DefaultsKeys {
 }
 
 extension DefaultsAdapter {
-    var validChannel: Room {
-        var channel = Defaults[\.channel]
-//        if !channel.isValid {
-//            channel = .default
-//        }
-//        return Room(name: "_2193129", user_count: 1)
-        return channel
-    }
+//    var validChannel: Room {
+////        var channel = Defaults[\.channel]
+////        if !channel.isValid {
+////            channel = .default
+////        }
+////        return Room(name: "_2193129", user_count: 1)
+//        return Defaults[\.channel]
+//    }
 }
 
 extension CLLocation: DefaultsSerializable {}
