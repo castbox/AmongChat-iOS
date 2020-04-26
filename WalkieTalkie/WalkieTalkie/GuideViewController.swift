@@ -59,8 +59,8 @@ class GuideViewController: ViewController {
     }
     
     @IBAction func continueAction(_ sender: Any) {
-        var index = pageIndex + 1
-        if index >= maxPage {
+        let index = pageIndex + 1
+        if index > maxPage { //last page
             thirdPage.buy(identifier: IAP.productLifeTime)
         } else {
             scrollView.setContentOffset(CGPoint(x: scrollView.width * index.cgFloat, y: 0), animated: true)

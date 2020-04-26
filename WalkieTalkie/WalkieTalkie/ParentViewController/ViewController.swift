@@ -208,16 +208,16 @@ extension ViewController {
         }
         var prefixString: String {
             if channelName.isPrivate {
-                return "Passcode: \(publicName)"
+                return "passcode: \(publicName)"
             }
-            return "Channel: \(publicName)"
+            return "channel: \(publicName)"
         }
         let shareString =
         """
         Hurry ！use \(prefixString) to join our secret channel.
         \(deepLink)
         
-        iOS: https://apps.apple.com/us/app/walkie-talkie-talk-to-friends/id1505959099
+        iOS: https://apps.apple.com/app/id1505959099
         Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
         Over and out.
         #WalkieTalkieTalktoFriends
