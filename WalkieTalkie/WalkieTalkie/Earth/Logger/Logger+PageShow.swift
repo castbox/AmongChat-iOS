@@ -18,7 +18,8 @@ extension Logger {
             case secret_channel_share_pop_imp
             case secret_channel_create_pop_close
             case secret_channel_share_pop_close
-            
+            case tutorial_imp_1
+            case tutorial_imp_2
         }
         
         enum Category: String {

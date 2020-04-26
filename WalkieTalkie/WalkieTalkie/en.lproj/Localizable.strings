@@ -30,3 +30,9 @@
 "toast.cancel" = "Cancel";
 "private.error.code" = "Passcode does not exist";
 "network.not.reachable" = "Unreachable networking!";
+"input.passcode.placeholder" = "PASSCORD";
+"channel.not.exist" = "Channel does not exist";
+"channel.checking" = "Checking";
+"premium.try.title" = "Try it FREE";
+"premium.try.title.des" = "3 days free trial, then $29.99 / Year";
+

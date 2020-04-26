@@ -59,7 +59,32 @@ class FireStore {
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .bind(to: secretChannelsSubject)
     }
-//
+    
+    func isValidSecretChannel(_ name: String?) -> Bool {
+        guard let name = name else {
+            return false
+        }
+        return FireStore.shared.secretChannels.contains(where: { $0.name == name }) //则检查是否存在
+    }
+    
+    func checkIsValidSecretChannel(_ name: String?, completionHandler: @escaping (Bool) -> Void) {
+        db.collection(Root.secrets)
+            .getDocuments(source: .server, completion: { (query, error) in
+                if let error = error {
+                    cdPrint("FireStore Error new: \(error)")
+                    completionHandler(false)
+                    return
+                } else {
+                    guard let query = query else {
+                        completionHandler(false)
+                        return
+                    }
+                    let result = query.toRoomList().contains(where: { $0.name == name })
+                    completionHandler(result)
+                }
+            })
+        
+    }
     
     func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in

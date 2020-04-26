@@ -57,7 +57,7 @@ class PrivateChannelController: ViewController {
     
     @IBAction func confirmButtonAction(_ sender: Any) {
         Logger.UserAction.log(.enter_secret)
-        guard let name = codeField.text else {
+        guard let name = codeField.text?.uppercased() else {
             return
         }
         //已存在
@@ -199,6 +199,11 @@ extension PrivateChannelController {
         gradientLayer.frame = view.bounds
         proButton.layer.insertSublayer(gradientLayer, at: 0)
         
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: UIColor.black.alpha(0.3),
+            .font: Font.caption1.value
+        ]
+        codeField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.inputPasscodePlaceholder(), attributes: attributes)
         if Settings.shared.isProValue.value {
             adIconView.isHidden = true
             proButton.isHidden = true
@@ -231,7 +236,7 @@ extension PrivateChannelController: Modalable {
     }
     
     func height() -> CGFloat {
-        return 420 + Frame.Height.safeAeraBottomHeight
+        return 435 + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {

@@ -14,6 +14,7 @@ struct Frame {
     struct Screen {
         static let width = UIScreen.main.bounds.size.width
         static let height = UIScreen.main.bounds.size.height
+        static let bounds = UIScreen.main.bounds
     }
     
     struct Height {
@@ -57,6 +58,10 @@ struct Frame {
         static var deviceDiagonalIsMinThan4_7: Bool {
             return Device.current.diagonal < 4.7
         }
+        //iphonex
+        static var deviceDiagonalIsMinThan5_8: Bool {
+            return Device.current.diagonal <= 5.8
+        }
     }
     
     /// 比例
@@ -67,7 +72,7 @@ struct Frame {
         }
         /// scale height
         static func height(_ origin: CGFloat) -> CGFloat {
-            return Frame.Screen.height * origin / 667.0
+            return Frame.Screen.height * origin / 812
         }
         /// size rectangle
         static func size(_ originWidth: CGFloat, _ originHeight: CGFloat) -> CGSize {

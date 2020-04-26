@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Guide View Controller-->
+        <scene sceneID="oxz-kk-UUd">
+            <objects>
+                <viewController storyboardIdentifier="GuideViewController" id="dDX-wl-xhG" customClass="GuideViewController" customModule="WalkieTalkie" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m8b-hO-4SY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b4B-cD-flf">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dDX-wl-xhG" id="2nZ-ik-R0c"/>
+                                </connections>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE">
+                                <rect key="frame" x="59.5" y="762" width="295" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="295" id="grO-ef-mxm"/>
+                                    <constraint firstAttribute="height" constant="60" id="opm-EH-NSH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Continue">
+                                    <color key="titleColor" red="0.074509803920000006" green="0.078431372550000003" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="abg-8Y-yTL"/>
+                                </connections>
+                            </button>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-sg-az5">
+                                <rect key="frame" x="187.5" y="720" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </pageControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Df-tw-CcJ">
+                                <rect key="frame" x="168.5" y="896" width="77" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ybj-u9-eyh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                <state key="normal" title="SKIP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="skipAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="lPY-WH-zxE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="b4B-cD-flf" firstAttribute="leading" secondItem="FEE-8P-tGf" secondAttribute="leading" id="57z-Fe-nSo"/>
+                            <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="0Df-tw-CcJ" secondAttribute="bottom" constant="-74" id="BVa-Xu-jOa"/>
+                            <constraint firstItem="0Df-tw-CcJ" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="GEI-oZ-JNy"/>
+                            <constraint firstItem="nqv-l7-gVE" firstAttribute="top" secondItem="4Sb-sg-az5" secondAttribute="bottom" constant="5" id="LDL-ea-qG2"/>
+                            <constraint firstItem="b4B-cD-flf" firstAttribute="top" secondItem="m8b-hO-4SY" secondAttribute="top" id="PjR-ym-Bxd"/>
+                            <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="40" id="PoW-sv-aA9"/>
+                            <constraint firstItem="nqv-l7-gVE" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="PsW-G3-GBH"/>
+                            <constraint firstAttribute="bottom" secondItem="b4B-cD-flf" secondAttribute="bottom" id="SVB-Vs-MAt"/>
+                            <constraint firstItem="b4B-cD-flf" firstAttribute="trailing" secondItem="FEE-8P-tGf" secondAttribute="trailing" id="awW-ha-auo"/>
+                            <constraint firstItem="4Sb-sg-az5" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="vjz-aC-HEd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FEE-8P-tGf"/>
+                    </view>
+                    <connections>
+                        <outlet property="continueButton" destination="nqv-l7-gVE" id="2Mp-eU-bRC"/>
+                        <outlet property="pageControl" destination="4Sb-sg-az5" id="kbB-cy-bto"/>
+                        <outlet property="scrollView" destination="b4B-cD-flf" id="96y-15-WPO"/>
+                        <outlet property="skipButton" destination="0Df-tw-CcJ" id="jNs-Uq-oty"/>
+                        <outlet property="skipButtonBottomConstraint" destination="BVa-Xu-jOa" id="9Qx-OI-FuK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YHX-C2-p1C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-13.043478260869566" y="172.76785714285714"/>
+        </scene>
+    </scenes>
+</document>

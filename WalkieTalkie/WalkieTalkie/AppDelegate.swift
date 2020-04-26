@@ -80,8 +80,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
             return false
         }
-        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-        roomVc.joinChannel(name)
+        guard name.isPrivate else {
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+            roomVc.joinChannel(name)
+            return true
+        }
+        let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
+        FireStore.shared.checkIsValidSecretChannel(name) { result in
+            removeHandler()
+            if result {
+                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                roomVc.joinChannel(name)
+            } else {
+                roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+            }
+        }
         return true
     }
 }
