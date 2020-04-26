@@ -51,7 +51,7 @@ extension IAP {
         switch purchased {
         case let .purchased(_, items):
             Settings.shared.isProValue.value = true
-            Defaults[.purchasedItemsKey] = items.first?.productId
+            Defaults[\.purchasedItemsKey] = items.first?.productId
             completion?(true)
         default:
             Settings.shared.isProValue.value = false

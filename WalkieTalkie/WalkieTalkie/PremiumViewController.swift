@@ -10,8 +10,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import SnapKit
 
 class PremiumViewController: ViewController {
+    
+    enum ContainerStyle {
+        case `default`
+        case guide
+    }
 
     @IBOutlet weak var lifeTimeButton: UIButton!
     @IBOutlet weak var monthButton: UIButton!
@@ -23,7 +29,8 @@ class PremiumViewController: ViewController {
     
     var gradientLayer: CAGradientLayer!
     var source: Logger.IAP.ActionSource?
-    
+    var premiumContainer: PremiumContainerable!
+    var style: ContainerStyle = .default
     var dismissHandler: (()->Void)? = nil
     
     private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
@@ -44,14 +51,14 @@ class PremiumViewController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let s = self.source {
+        if let s = self.source, s != .first_open {
             Logger.IAP.logImp(s)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let s = self.source {
+        if let s = self.source, s != .first_open  {
             Logger.IAP.logClose(s)
         }
     }
@@ -61,12 +68,13 @@ class PremiumViewController: ViewController {
 
         // Do any additional setup after loading the view.
         configureSubview()
+        bindSubviewEvent()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        gradientLayer.frame = view.bounds
-        scrollView.contentInset = .zero
+//        gradientLayer.frame = view.bounds
+//        scrollView.contentInset = .zero
     }
     
     @IBAction func closeButtonAction(_ sender: Any) {
@@ -225,7 +233,7 @@ extension PremiumViewController {
                 switch state {
                 case .purchased, .restored:
                     Settings.shared.isProValue.value = true
-                    Defaults[.purchasedItemsKey] = identifier
+                    Defaults[\.purchasedItemsKey] = identifier
                     self?.isPuchasingState.onNext(false)
                     if let s = self?.source {
                         Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
@@ -250,6 +258,20 @@ extension PremiumViewController {
         }
     }
     
+    func bindSubviewEvent() {
+        premiumContainer.closeHandler = { [weak self] in
+            self?.dismissSelf()
+        }
+        
+        premiumContainer.policyHandler = { [weak self] in
+            self?.open(urlSting: "https://walkietalkie.live/policy.html")
+        }
+        
+        premiumContainer.buyProductHandler = { [weak self] identifier in
+            self?.buy(identifier: identifier)
+        }
+    }
+    
     func configureSubview() {
         let startColor = UIColor(hex: 0x3023AE)!
         let middenColor = UIColor(hex: 0x462EB4)!
@@ -265,6 +287,16 @@ extension PremiumViewController {
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
         
-        startAnimation()
+//        startAnimation()
+        
+        if style == .default {
+            premiumContainer = PremiumContainer()
+        } else {
+            premiumContainer = GuideThirdView()
+        }
+        view.addSubview(premiumContainer)
+        premiumContainer.snp.makeConstraints { maker in
+            maker.left.right.top.bottom.equalToSuperview()
+        }
     }
 }

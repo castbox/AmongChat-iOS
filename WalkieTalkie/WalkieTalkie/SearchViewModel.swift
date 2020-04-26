@@ -9,11 +9,22 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
-struct Room: Codable {
+struct Room: Codable, DefaultsSerializable {
+    static let `default` = Room(name: "WELCOME", user_count: 0)
+    
     let name: String
     let user_count: Int
-    var joinAt: TimeInterval = Date().timeIntervalSince1970
+    var joinAt: TimeInterval
+    
+    init(name: String,
+         user_count: Int,
+         joinAt: TimeInterval = Date().timeIntervalSince1970) {
+        self.name = name
+        self.user_count = user_count
+        self.joinAt = joinAt
+    }
     
     mutating func updateJoinInterval() {
         joinAt = Date().timeIntervalSince1970
@@ -27,10 +38,18 @@ struct Room: Codable {
         return name.hasPrefix("_")
     }
     
-    private enum CodingKeys: String, CodingKey {
-        case name
-        case user_count
-    }
+//    var isValid: Bool {
+//        guard isPrivate else {
+//            return true
+//        }
+//        print("joinAt: \(joinAt) valid: \(joinAt - Date().timeIntervalSince1970 < 30 * 60)")
+//        return joinAt - Date().timeIntervalSince1970 < 30 * 60 //30 minute
+//    }
+    
+//    private enum CodingKeys: String, CodingKey {
+//        case name
+//        case user_count
+//    }
 }
 
 extension String {
@@ -59,6 +78,43 @@ extension String {
         return isPrivate ? .private : .public
     }
 }
+
+//extension UserDefaults {
+//    subscript<T: Codable>(key: DefaultsKey<T?>) -> T? {
+//        get {
+//            guard let data = object(forKey: key._key) as? Data else { return nil }
+//
+//            let decoder = JSONDecoder()
+//            let dictionary = try! decoder.decode([String: T].self, from: data)
+//            return dictionary["top"]
+//        }
+//        set {
+//            guard let value = newValue else { return set(nil, forKey: key._key) }
+//
+//            let encoder = JSONEncoder()
+//            let data = try! encoder.encode(["top": value])
+//            set(data, forKey: key._key)
+//
+//        }
+//    }
+//}
+
+
+//extension Room: DefaultsSerializable {
+//    static var _defaults: ThemeModeBridge { return ThemeModeBridge() }
+//    static var _defaultsArray: ThemeModeBridge { return ThemeModeBridge() }
+//}
+//
+//class ThemeModeBridge: DefaultsBridge<Theme.Mode> {
+//    override func save(key: String, value: Theme.Mode?, userDefaults: UserDefaults) {
+//        userDefaults.set(value?.rawValue, forKey: key)
+//    }
+//
+//    override func get(key: String, userDefaults: UserDefaults) -> Theme.Mode? {
+//        return Theme.Mode(rawValue: userDefaults.integer(forKey: key))
+//    }
+//}
+
 
 class SearchViewModel {
     var dataSource: [Room] = [] {
@@ -188,3 +244,4 @@ extension Array {
         return result
     }
 }
+

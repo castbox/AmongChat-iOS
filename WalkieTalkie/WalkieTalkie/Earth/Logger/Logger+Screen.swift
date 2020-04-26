@@ -20,6 +20,7 @@ extension Logger {
                 case channel
                 case settings
                 case premium
+                case tutorial
                 case secret_channel_create_pop_imp
             }
             

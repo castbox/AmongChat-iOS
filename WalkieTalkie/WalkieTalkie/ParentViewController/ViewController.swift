@@ -195,7 +195,7 @@ extension ViewController {
         loggerScreenDuration()
     }
     
-    func shareChannel(name: String?) {
+    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
         guard let channelName = name,
             let publicName = channelName.publicName else {
             return
@@ -208,16 +208,16 @@ extension ViewController {
         }
         var prefixString: String {
             if channelName.isPrivate {
-                return "Passcode: \(publicName)"
+                return "passcode: \(publicName)"
             }
-            return "Channel: \(publicName)"
+            return "channel: \(publicName)"
         }
         let shareString =
         """
         Hurry ！use \(prefixString) to join our secret channel.
         \(deepLink)
         
-        iOS: https://apps.apple.com/us/app/walkie-talkie-talk-to-friends/id1505959099
+        iOS: https://apps.apple.com/app/id1505959099
         Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
         Over and out.
         #WalkieTalkieTalktoFriends
@@ -228,8 +228,10 @@ extension ViewController {
 //        let urlToShare = NSURL(string: deepLink)
         let items = [textToShare, imageToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityVC.completionWithItemsHandler =  { activity, success, items, error in
-
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            if success {
+                successHandler?()
+            }
         }
         present(activityVC, animated: true, completion: { () -> Void in
             

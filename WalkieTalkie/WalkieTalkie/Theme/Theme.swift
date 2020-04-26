@@ -19,7 +19,7 @@ protocol ThemeBase {
 
 extension Theme {
     // 主题枚举
-    enum Mode: Int {
+    enum Mode: Int, Codable {
         // 白色主题
         case light = 0
         // 黑色主题
@@ -108,7 +108,7 @@ extension Theme {
         var value: UIColor {
             switch self {
             case .main:
-                return UIColor(hex6: 0xFF3556)// cuddle main color
+                return UIColor(hex6: 0xFFD52E)
             case .yellow:
                 return UIColor(hex6: 0xFFD009)
             case .red:
@@ -272,19 +272,25 @@ extension ThemeCompatible {
     }
 }
 
-//
 
 extension Theme.Mode: DefaultsSerializable {
     static var _defaults: ThemeModeBridge { return ThemeModeBridge() }
     static var _defaultsArray: ThemeModeBridge { return ThemeModeBridge() }
 }
 
-class ThemeModeBridge: DefaultsBridge<Theme.Mode> {
-    override func save(key: String, value: Theme.Mode?, userDefaults: UserDefaults) {
+class ThemeModeBridge: DefaultsBridge {
+    func deserialize(_ object: Any) -> Theme.Mode? {
+        guard let value = object as? Int else {
+            return nil
+        }
+        return Theme.Mode(rawValue: value)
+    }
+    
+    func save(key: String, value: Theme.Mode?, userDefaults: UserDefaults) {
         userDefaults.set(value?.rawValue, forKey: key)
     }
-
-    override func get(key: String, userDefaults: UserDefaults) -> Theme.Mode? {
+    
+    func get(key: String, userDefaults: UserDefaults) -> Theme.Mode? {
         return Theme.Mode(rawValue: userDefaults.integer(forKey: key))
     }
 }
