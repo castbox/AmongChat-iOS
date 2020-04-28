@@ -72,6 +72,7 @@ class SecretChannelContainer: XibLoadableView {
             return
         }
         //join
+        _ = codeField.resignFirstResponder()
         self.joinChannel("_\(name)", false)
     }
     
