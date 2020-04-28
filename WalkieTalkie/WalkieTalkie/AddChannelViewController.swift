@@ -167,9 +167,9 @@ extension AddChannelViewController {
         
         //
         dataSource.titles = [R.string.localizable.addChannelSecretTitle(), R.string.localizable.addChannelGlobalTitle()]
-        dataSource.titleSelectedColor = UIColor.theme(.textBlackAlpha(0.32))
+        dataSource.titleSelectedColor = UIColor.theme(.textBlack)
         dataSource.titleNormalFont = R.font.nunitoSemiBold(size: 16)!
-        dataSource.titleNormalColor = UIColor.theme(.textBlack)
+        dataSource.titleNormalColor = UIColor.theme(.textBlackAlpha(0.32))
         dataSource.isTitleColorGradientEnabled = true
         dataSource.isTitleZoomEnabled = true
         dataSource.isItemSpacingAverageEnabled = false

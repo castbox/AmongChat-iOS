@@ -44,6 +44,15 @@ extension ChannelType {
             return UIColor(hex: 0xFFC800)!
         }
     }
+    
+    var screenImage: UIImage? {
+        switch self {
+        case .public:
+            return R.image.icon_screen_bg()
+        case .private:
+            return R.image.icon_screen_s_bg()
+        }
+    }
 }
 
 class RoomViewController: ViewController {
@@ -64,6 +73,7 @@ class RoomViewController: ViewController {
     @IBOutlet weak var screenContainer: UIView!
     @IBOutlet weak var buttonContainer: UIView!
     
+    @IBOutlet weak var screenBackgroundView: UIImageView!
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var pushToTalkButton: UIButton!
     @IBOutlet weak var musicButton: FrozenButton!
@@ -461,6 +471,7 @@ private extension RoomViewController {
     
     func updateSubviewStyle() {
         channelTextField.text = channel.showName
+        screenBackgroundView.image = channel.name.channelType.screenImage
         screenContainer.backgroundColor = channel.name.channelType.screenColor
         searchController.setChannel(type: channel.name.channelType)
         lockIconView.isHidden = !channel.isPrivate

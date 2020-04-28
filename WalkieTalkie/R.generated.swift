@@ -88,7 +88,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 33 images.
+  /// This `R.image` struct is generated, and contains static references to 34 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -140,6 +140,8 @@ struct R: Rswift.Validatable {
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
     /// Image `icon_screen_bg`.
     static let icon_screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg")
+    /// Image `icon_screen_s_bg`.
+    static let icon_screen_s_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_s_bg")
     /// Image `icon_setting_diamonds_u`.
     static let icon_setting_diamonds_u = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds_u")
     /// Image `icon_setting_diamonds`.
@@ -280,6 +282,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_screen_bg", bundle: ..., traitCollection: ...)`
     static func icon_screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_screen_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_s_bg", bundle: ..., traitCollection: ...)`
+    static func icon_screen_s_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_s_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_setting", bundle: ..., traitCollection: ...)`

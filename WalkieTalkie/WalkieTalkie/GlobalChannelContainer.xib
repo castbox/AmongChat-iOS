@@ -41,7 +41,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a channel visible to everyone and chat with them" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ta-de-3ga">
-                            <rect key="frame" x="25" y="63" width="349.5" height="19.5"/>
+                            <rect key="frame" x="25" y="63" width="364" height="19.5"/>
                             <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -116,6 +116,7 @@
                         <constraint firstAttribute="height" constant="435" id="Qbj-cw-fQh"/>
                         <constraint firstItem="CeD-hV-0bC" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" id="SWz-u1-i2X"/>
                         <constraint firstItem="675-xO-rm4" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" constant="50" id="VDb-Q6-9SV"/>
+                        <constraint firstAttribute="trailing" secondItem="8ta-de-3ga" secondAttribute="trailing" constant="25" id="XNE-QC-0n7"/>
                         <constraint firstItem="8ta-de-3ga" firstAttribute="top" secondItem="bXQ-fl-Dwk" secondAttribute="bottom" constant="4.5" id="aEa-6P-0bc"/>
                         <constraint firstItem="CeD-hV-0bC" firstAttribute="top" secondItem="675-xO-rm4" secondAttribute="bottom" constant="31" id="omQ-xH-sff"/>
                         <constraint firstAttribute="trailing" secondItem="675-xO-rm4" secondAttribute="trailing" constant="50" id="qEM-2y-i2c"/>
