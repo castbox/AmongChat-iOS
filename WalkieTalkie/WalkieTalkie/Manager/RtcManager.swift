@@ -203,11 +203,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
-//        if muted {
-//                   unMuteUsers.removeAll(where: { $0 == uid })
-//               } else {
-                   unMuteUsers.append(uid)
-//               }
+        unMuteUsers.append(uid)
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {

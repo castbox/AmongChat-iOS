@@ -14,6 +14,7 @@ protocol Modalable {
     func modalPresentationStyle() -> UIModalPresentationStyle
     func cornerRadius() -> CGFloat
     func coverAlpha() -> CGFloat
+    func canAutoDismiss() -> Bool
 }
 
 extension Modalable {
@@ -22,6 +23,10 @@ extension Modalable {
     }
     func coverAlpha() -> CGFloat {
         return 0.6
+    }
+    
+    func canAutoDismiss() -> Bool {
+        return true
     }
 }
 
@@ -65,8 +70,8 @@ extension Modalable where Self: UIViewController {
         //add cover
         let cover = Modal.Cover(frame: UIScreen.main.bounds)
         cover.tag = coverViewTag
-        cover.onTapped = { [weak self] in
-            guard let `self` = self else { return }
+
+        let dismissBlock: (UIView) -> Void = { cover in
             UIView.animate(withDuration: AnimationDuration.normal.rawValue, animations: { [weak self] in
                 self?.view.frame = CGRect(x: 0.0,
                                           y: Frame.Screen.height,
@@ -79,8 +84,16 @@ extension Modalable where Self: UIViewController {
                     self?.removeFromParent()
                     cover.removeFromSuperview()
             })
-            
         }
+        
+        cover.onTapped = { [weak self] in
+            guard let `self` = self,
+                self.canAutoDismiss() else {
+                    return
+            }
+            dismissBlock(cover)
+        }
+        
         cover.alpha = 0
         container.view.addSubview(cover)
         self.willMove(toParent: container)

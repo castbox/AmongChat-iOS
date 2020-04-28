@@ -33,6 +33,11 @@
 "input.passcode.placeholder" = "PASSCORD";
 "channel.not.exist" = "Channel does not exist";
 "channel.checking" = "Checking";
+"add.channel.secret.title" = "SECRET";
+"add.channel.global.title" = "GLOBAL";
+"add.channel.global.tips.title" = "Create Global Channel";
+"add.channel.global.tips.des" = "Create a channel visible to everyone and chat with them";
+
 "premium.try.title" = "Try it FREE";
 "premium.try.title.des" = "3 days free trial, then $29.99 / Year";
 

@@ -137,6 +137,9 @@ class RoomViewController: ViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard children.isEmpty else {
+            return
+        }
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
@@ -213,8 +216,8 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func privateButtonAction(_ sender: Any) {
-        let controller = R.storyboard.main.privateChannelController()
-        controller?.joinChannel = { [weak self] name, autoShare in
+        let controller = AddChannelViewController()
+        controller.joinChannel = { [weak self] name, autoShare in
             //join channels
             self?.joinChannelSubject.onNext(name)
             //show code
@@ -222,7 +225,7 @@ class RoomViewController: ViewController {
                 self?.showShareController(channelName: name)
             }
         }
-        controller?.showModal(in: self)
+        controller.showModal(in: self)
         Logger.UserAction.log(.secret)
     }
     
@@ -261,7 +264,6 @@ class RoomViewController: ViewController {
         mManager.getRtcManager().startAudioMixing(type.path)
         let duration = mManager.getRtcManager().getAudioMixingDuration()
         timer = SwiftTimer(interval: .milliseconds(duration)) { timer in
-//            self?.mManager.getRtcManager().stopAudioMixing()
             completionHandler?()
         }
         timer?.start()
@@ -597,6 +599,8 @@ private extension RoomViewController {
         
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
             spackButtonBottomConstraint.constant = 45
+        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
+            spackButtonBottomConstraint.constant = 65
         }
         
         speakButton.imageView?.contentMode = .scaleAspectFit

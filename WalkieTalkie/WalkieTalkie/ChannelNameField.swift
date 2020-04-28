@@ -30,11 +30,15 @@ extension ChannelNameField: UITextFieldDelegate {
         didBeginEditing?(textField)
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let length = textField.text?.count ?? 0
         let result = length >= 2 && length <= 8
+        _ = textField.resignFirstResponder()
         if result {
-            _ = textField.resignFirstResponder()
             didReturn?(textField)
         }
         return result

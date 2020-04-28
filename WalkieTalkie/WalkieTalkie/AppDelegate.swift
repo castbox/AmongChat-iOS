@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = AdsManager.shared
         _ = Reachability.shared
+        // 推送服务
+//        FireMessaging.shared.requestPermissionIfNotGranted()
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
