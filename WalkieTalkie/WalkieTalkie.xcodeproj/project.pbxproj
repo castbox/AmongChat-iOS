@@ -99,6 +99,8 @@
 		FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE68488B244BDD0300F87AF9 /* UserProperty.swift */; };
 		FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8572457E03500FD474A /* RxKeyboard.swift */; };
 		FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */; };
+		FE6AF85C24585EA800FD474A /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE6AF85B24585EA700FD474A /* Nunito-Bold.ttf */; };
+		FE6AF85E24585ED300FD474A /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */; };
 		FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72186E2456D696005274CA /* MJMaterialSwitch.swift */; };
 		FE7218712456D900005274CA /* FireMessaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218702456D8FF005274CA /* FireMessaging.swift */; };
 		FE7218752456DA36005274CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7218742456DA36005274CA /* Extension.swift */; };
@@ -108,7 +110,6 @@
 		FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */; };
 		FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7218822456DC35005274CA /* SecretChannelContainer.xib */; };
 		FE7218862456DF57005274CA /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE7218842456DF56005274CA /* Nunito-Regular.ttf */; };
-		FE7218872456DF57005274CA /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE7218852456DF57005274CA /* Nunito-SemiBold.ttf */; };
 		FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089C92449E631006A1644 /* PrivateShareController.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
@@ -265,6 +266,8 @@
 		FE68488B244BDD0300F87AF9 /* UserProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProperty.swift; sourceTree = "<group>"; };
 		FE6AF8572457E03500FD474A /* RxKeyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxKeyboard.swift; sourceTree = "<group>"; };
 		FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewFrameExtension.swift; sourceTree = "<group>"; };
+		FE6AF85B24585EA700FD474A /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
+		FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
 		FE72186E2456D696005274CA /* MJMaterialSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJMaterialSwitch.swift; sourceTree = "<group>"; };
 		FE7218702456D8FF005274CA /* FireMessaging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireMessaging.swift; sourceTree = "<group>"; };
 		FE7218742456DA36005274CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -274,7 +277,6 @@
 		FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalChannelContainer.xib; sourceTree = "<group>"; };
 		FE7218822456DC35005274CA /* SecretChannelContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecretChannelContainer.xib; sourceTree = "<group>"; };
 		FE7218842456DF56005274CA /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
-		FE7218852456DF57005274CA /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
 		FE8089C92449E631006A1644 /* PrivateShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateShareController.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -461,7 +463,8 @@
 				FE2AF9FC244DE09000763747 /* cbegin.mp3 */,
 				FE401E44244DA26F0081F793 /* Localizable.strings */,
 				FE7218842456DF56005274CA /* Nunito-Regular.ttf */,
-				FE7218852456DF57005274CA /* Nunito-SemiBold.ttf */,
+				FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */,
+				FE6AF85B24585EA700FD474A /* Nunito-Bold.ttf */,
 				FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */,
 				FE274D42243B81B400B6DB88 /* R.generated.swift */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
@@ -764,6 +767,8 @@
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
+				FE6AF85E24585ED300FD474A /* Nunito-SemiBold.ttf in Resources */,
+				FE6AF85C24585EA800FD474A /* Nunito-Bold.ttf in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE63069B244FF85A00CEA651 /* GuideFirstView.xib in Resources */,
 				FE6306A3244FF94500CEA651 /* GuideThirdView.xib in Resources */,
@@ -772,7 +777,6 @@
 				FE63069D244FF86700CEA651 /* GuideSecondView.xib in Resources */,
 				FE401E42244DA26F0081F793 /* Localizable.strings in Resources */,
 				FE49CEAF2436FD5B00C36EC6 /* call.m4a in Resources */,
-				FE7218872456DF57005274CA /* Nunito-SemiBold.ttf in Resources */,
 				FE860CD824458F2300087B73 /* BlackOpsOne-Regular.ttf in Resources */,
 				FE630695244FF7DD00CEA651 /* Guide.storyboard in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
@@ -1170,7 +1174,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1195,7 +1199,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

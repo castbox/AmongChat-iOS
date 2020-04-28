@@ -31,6 +31,7 @@
 "private.error.code" = "Passcode does not exist";
 "network.not.reachable" = "Unreachable networking!";
 "input.passcode.placeholder" = "PASSCORD";
+"input.passcode.global.placeholder" = "CHANNEL NAME";
 "channel.not.exist" = "Channel does not exist";
 "channel.checking" = "Checking";
 "add.channel.secret.title" = "SECRET";

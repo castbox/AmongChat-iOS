@@ -64,7 +64,7 @@ struct Frame {
         }
         
         static var deviceDiagonalIsMinThan5_5: Bool {
-            return Device.current.diagonal <= 5.5
+            return Device.current.diagonal < 5.5
         }
         
         //iphonex

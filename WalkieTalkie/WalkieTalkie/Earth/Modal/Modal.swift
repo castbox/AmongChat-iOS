@@ -72,18 +72,20 @@ extension Modalable where Self: UIViewController {
         cover.tag = coverViewTag
 
         let dismissBlock: (UIView) -> Void = { cover in
-            UIView.animate(withDuration: AnimationDuration.normal.rawValue, animations: { [weak self] in
+            let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: { [weak self] in
                 self?.view.frame = CGRect(x: 0.0,
                                           y: Frame.Screen.height,
                                           width: UIScreen.main.bounds.width,
                                           height: UIScreen.main.bounds.height)
                 cover.alpha = 0
-                }, completion: { [weak self] done in
-                    self?.willMove(toParent: nil)
-                    self?.view.removeFromSuperview()
-                    self?.removeFromParent()
-                    cover.removeFromSuperview()
             })
+            transitionAnimator.addCompletion { [weak self] _ in
+                self?.willMove(toParent: nil)
+                self?.view.removeFromSuperview()
+                self?.removeFromParent()
+                cover.removeFromSuperview()
+            }
+            transitionAnimator.startAnimation()
         }
         
         cover.onTapped = { [weak self] in
@@ -104,15 +106,14 @@ extension Modalable where Self: UIViewController {
         }
         
         let coverAlpha = self.coverAlpha()
-        UIView.animate(withDuration: AnimationDuration.normal.rawValue, animations: {
+        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: {
             self.view.frame = CGRect(x: 0.0,
                                      y: height,
                                      width: UIScreen.main.bounds.width,
                                      height: UIScreen.main.bounds.height)
             cover.alpha = coverAlpha > 0 ? coverAlpha : 0.1
-        }, completion: { done in
-            
         })
+        transitionAnimator.startAnimation()
     }
     
     func hideModal(animated: Bool = true, completion: (() -> Void)? = nil) {
