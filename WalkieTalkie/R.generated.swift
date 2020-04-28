@@ -440,7 +440,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 30 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 32 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -478,10 +478,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTipsDes = Rswift.StringResource(key: "add.channel.global.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Create secret channel to chat with your friends
+      /// 
+      /// Locales: en
+      static let addChannelSecretCreateTipsDes = Rswift.StringResource(key: "add.channel.secret.create.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// 
+      /// Locales: en
+      static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: No ad available, please try again later. 
       /// 
       /// Locales: en
@@ -626,11 +634,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.global.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Create secret channel to chat with your friends
+      /// 
+      /// Locales: en
+      static func addChannelSecretCreateTipsDes(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.create.tips.des", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: GLOBAL
       /// 
       /// Locales: en
       static func addChannelGlobalTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// 
+      /// Locales: en
+      static func addChannelSecretTipsDes(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: No ad available, please try again later. 

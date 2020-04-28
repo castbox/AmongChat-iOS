@@ -23,6 +23,8 @@ class SecretChannelContainer: XibLoadableView {
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var errorTipsLabel: UILabel!
     @IBOutlet private weak var dashLineView: UIView!
+    @IBOutlet weak var describeLabel: UILabel!
+    @IBOutlet weak var createDescribeLabel: UILabel!
     
     private var gradientLayer: CAGradientLayer!
     private let dashLayer = CAShapeLayer()
@@ -193,9 +195,6 @@ extension SecretChannelContainer {
     }
     
     func configureSubview() {
-        
-        //        bottomEdgeHeightConstraint.constant = Frame.Height.safeAeraBottomHeight
-        
         let startColor = UIColor(hex: 0x6D95D7)!
         let endColor = UIColor(hex: 0x3023AE)!
         let gradientColors: [CGColor] = [startColor.cgColor, endColor.cgColor]

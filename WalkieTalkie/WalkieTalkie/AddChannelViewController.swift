@@ -199,7 +199,10 @@ extension AddChannelViewController: Modalable {
     }
     
     func height() -> CGFloat {
-        return 446 + Frame.Height.safeAeraBottomHeight
+        let descHeight = R.string.localizable.addChannelSecretTipsDes().boundingRect(with: CGSize(width: Frame.Screen.width - 25 * 2, height: 200), font: R.font.blackOpsOneRegular(size: 14)!, lineSpacing: 0).height
+        let secDescHeight = R.string.localizable.addChannelSecretCreateTipsDes().boundingRect(with: CGSize(width: Frame.Screen.width - 25 * 2, height: 200), font: R.font.blackOpsOneRegular(size: 14)!, lineSpacing: 0).height
+        let contentHeight = max(115 + descHeight + 134 + secDescHeight + secDescHeight + 145, 446)
+        return contentHeight + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {
@@ -216,20 +219,5 @@ extension AddChannelViewController: Modalable {
     
     func canAutoDismiss() -> Bool {
         return shouldDismiss()
-    }
-}
-
-
-extension UIView {
-    var firstResponder: UIView? {
-        guard !isFirstResponder else { return self }
-
-        for subview in subviews {
-            if let firstResponder = subview.firstResponder {
-                return firstResponder
-            }
-        }
-
-        return nil
     }
 }
