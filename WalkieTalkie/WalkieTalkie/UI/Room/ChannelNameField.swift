@@ -9,6 +9,8 @@
 import UIKit
 
 class ChannelNameField: UITextField {
+    private var previousText: String?
+    
     var didBeginEditing: ((UITextField) -> Void)?
     var didReturn: ((UITextField) -> Void)?
     
@@ -27,7 +29,9 @@ class ChannelNameField: UITextField {
 extension ChannelNameField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        didBeginEditing?(textField)
+        previousText = textField.text
+        textField.text = nil
+//        didBeginEditing?(textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

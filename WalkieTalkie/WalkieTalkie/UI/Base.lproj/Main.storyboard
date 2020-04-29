@@ -68,7 +68,7 @@
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="INPUT CHANNEL" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="CREATE NEW" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
                                                 <rect key="frame" x="43.5" y="68.5" width="260.5" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="PKM-fW-ZPX"/>
@@ -1108,7 +1108,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="menu" size="11"/>
+                                                                <font key="NSFont" metaFont="label" size="11"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>

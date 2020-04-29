@@ -323,6 +323,8 @@
 		FECA43AA24597B570075D139 /* Automator.Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Device.swift; sourceTree = "<group>"; };
 		FECA43AB24597B570075D139 /* Automator.Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Analytics.swift; sourceTree = "<group>"; };
 		FECA43B1245987CA0075D139 /* PushSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingController.swift; sourceTree = "<group>"; };
+		FECA43B62459A8A60075D139 /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cbegin.mp3; sourceTree = "<group>"; };
+		FECA43BB2459A8F40075D139 /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cbegin.mp3; path = "../../../../walkietalkie-android/walkie-talkie/src/main/assets/cbegin.mp3"; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -419,67 +421,27 @@
 			children = (
 				FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */,
 				FE126D17243461E800BEDD60 /* AppDelegate.swift */,
-				FE0D1A2424489BF300518793 /* AudioType.swift */,
-				FE126D1B243461E800BEDD60 /* RoomViewController.swift */,
-				FE684872244B4D2200F87AF9 /* ChannelNameField.swift */,
-				FE0D1A2224489BCC00518793 /* RoomViewModel.swift */,
-				FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */,
-				FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */,
-				FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */,
-				FE7218762456DBCF005274CA /* AddChannelViewController.swift */,
-				FE72187C2456DC19005274CA /* SecretChannelContainer.swift */,
-				FE7218822456DC35005274CA /* SecretChannelContainer.xib */,
-				FE72187E2456DC26005274CA /* GlobalChannelContainer.swift */,
-				FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */,
-				FE8089C92449E631006A1644 /* PrivateShareController.swift */,
-				FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */,
-				FE6306A4245004CC00CEA651 /* PremiumContainer.xib */,
-				FE6306A6245005E700CEA651 /* PremiumContainer.swift */,
-				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
-				FECA43B1245987CA0075D139 /* PushSettingController.swift */,
-				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
-				FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */,
+				FECA43B42459A8360075D139 /* UI */,
+				FECA43B32459A7800075D139 /* Guide */,
 				FE2AF9ED244DCC0200763747 /* Routes */,
 				FE401E49244DAD6B0081F793 /* Utils */,
 				FE401E31244D9C450081F793 /* IAP */,
 				FE684888244BDBF100F87AF9 /* FireCore */,
-				FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */,
-				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
-				FE684876244BD3D200F87AF9 /* AdsDebugger.swift */,
-				FE68487B244BD65B00F87AF9 /* NativeAdView.swift */,
-				FE68487D244BD66200F87AF9 /* NativeToMRectAdView.swift */,
+				FECA43B92459A8D30075D139 /* Ads */,
 				FE684885244BDA0C00F87AF9 /* Widge */,
 				FE68487A244BD46900F87AF9 /* Common */,
 				FEAD54D12449B69F006454F6 /* ParentViewController */,
 				FE860D522446D23500087B73 /* Earth */,
 				FE860D3D2446D1D700087B73 /* Theme */,
-				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE8DEA6F243DB0A20059C252 /* ApiManager */,
 				FE126D542434821900BEDD60 /* Manager */,
 				FE126D532434820A00BEDD60 /* Model */,
-				FE126D1D243461E800BEDD60 /* Main.storyboard */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
-				FE6306AC24501CF500CEA651 /* GuideViewController.swift */,
-				FE630694244FF7DD00CEA651 /* Guide.storyboard */,
-				FE63069A244FF85A00CEA651 /* GuideFirstView.xib */,
-				FE630698244FF82900CEA651 /* GuideFirstView.swift */,
-				FE63069C244FF86700CEA651 /* GuideSecondView.xib */,
-				FE63069E244FF87A00CEA651 /* GuideSecondView.swift */,
-				FE6306A0244FF93E00CEA651 /* GuideThirdView.swift */,
-				FE6306A2244FF94500CEA651 /* GuideThirdView.xib */,
-				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
-				FE274D3E243B701B00B6DB88 /* end.mp3 */,
+				FECA43B52459A8A40075D139 /* resource */,
 				FE2AF9FC244DE09000763747 /* cbegin.mp3 */,
-				FE401E44244DA26F0081F793 /* Localizable.strings */,
-				FE7218842456DF56005274CA /* Nunito-Regular.ttf */,
-				FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */,
-				FE6AF85B24585EA700FD474A /* Nunito-Bold.ttf */,
-				FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */,
 				FE274D42243B81B400B6DB88 /* R.generated.swift */,
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
-				FE126D592434825900BEDD60 /* KeyCenter.swift */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
-				FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
 			);
 			path = WalkieTalkie;
@@ -512,6 +474,7 @@
 		FE126D542434821900BEDD60 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FE126D592434825900BEDD60 /* KeyCenter.swift */,
 				FE0D1A1F24488FE100518793 /* Utils */,
 				FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */,
 				FE126D3C243481BC00BEDD60 /* MessageManager.swift */,
@@ -551,6 +514,7 @@
 		FE401E49244DAD6B0081F793 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */,
 				FE6AF8572457E03500FD474A /* RxKeyboard.swift */,
 				FE2AF9FA244DDDC700763747 /* URLUnit.swift */,
 				FE401E47244DAD680081F793 /* Scheduler.swift */,
@@ -573,6 +537,7 @@
 		FE684885244BDA0C00F87AF9 /* Widge */ = {
 			isa = PBXGroup;
 			children = (
+				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
 				FE684883244BD9F900F87AF9 /* GradientView.swift */,
 			);
@@ -684,6 +649,117 @@
 				FECA43AB24597B570075D139 /* Automator.Analytics.swift */,
 			);
 			path = Automator;
+			sourceTree = "<group>";
+		};
+		FECA43B32459A7800075D139 /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				FE6306AC24501CF500CEA651 /* GuideViewController.swift */,
+				FE630694244FF7DD00CEA651 /* Guide.storyboard */,
+				FE63069A244FF85A00CEA651 /* GuideFirstView.xib */,
+				FE630698244FF82900CEA651 /* GuideFirstView.swift */,
+				FE63069C244FF86700CEA651 /* GuideSecondView.xib */,
+				FE63069E244FF87A00CEA651 /* GuideSecondView.swift */,
+				FE6306A0244FF93E00CEA651 /* GuideThirdView.swift */,
+				FE6306A2244FF94500CEA651 /* GuideThirdView.xib */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
+		FECA43B42459A8360075D139 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FE0D1A2424489BF300518793 /* AudioType.swift */,
+				FECA43BC2459AA3D0075D139 /* Room */,
+				FECA43BD2459AA450075D139 /* Search */,
+				FECA43BE2459AA5B0075D139 /* Add */,
+				FE8089C92449E631006A1644 /* PrivateShareController.swift */,
+				FECA43BF2459AA6A0075D139 /* Premium */,
+				FECA43C02459AA7C0075D139 /* Settings */,
+				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
+				FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */,
+				FE126D1D243461E800BEDD60 /* Main.storyboard */,
+				FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		FECA43B52459A8A40075D139 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				FECA43BB2459A8F40075D139 /* cbegin.mp3 */,
+				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
+				FE274D3E243B701B00B6DB88 /* end.mp3 */,
+				FECA43B62459A8A60075D139 /* cbegin.mp3 */,
+				FE401E44244DA26F0081F793 /* Localizable.strings */,
+				FE7218842456DF56005274CA /* Nunito-Regular.ttf */,
+				FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */,
+				FE6AF85B24585EA700FD474A /* Nunito-Bold.ttf */,
+				FE860CD724458F2300087B73 /* BlackOpsOne-Regular.ttf */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
+		FECA43B92459A8D30075D139 /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
+				FE684876244BD3D200F87AF9 /* AdsDebugger.swift */,
+				FE68487B244BD65B00F87AF9 /* NativeAdView.swift */,
+				FE68487D244BD66200F87AF9 /* NativeToMRectAdView.swift */,
+			);
+			path = Ads;
+			sourceTree = "<group>";
+		};
+		FECA43BC2459AA3D0075D139 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				FE126D1B243461E800BEDD60 /* RoomViewController.swift */,
+				FE684872244B4D2200F87AF9 /* ChannelNameField.swift */,
+				FE0D1A2224489BCC00518793 /* RoomViewModel.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
+		FECA43BD2459AA450075D139 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */,
+				FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		FECA43BE2459AA5B0075D139 /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */,
+				FE7218762456DBCF005274CA /* AddChannelViewController.swift */,
+				FE72187C2456DC19005274CA /* SecretChannelContainer.swift */,
+				FE7218822456DC35005274CA /* SecretChannelContainer.xib */,
+				FE72187E2456DC26005274CA /* GlobalChannelContainer.swift */,
+				FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		FECA43BF2459AA6A0075D139 /* Premium */ = {
+			isa = PBXGroup;
+			children = (
+				FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */,
+				FE6306A4245004CC00CEA651 /* PremiumContainer.xib */,
+				FE6306A6245005E700CEA651 /* PremiumContainer.swift */,
+			);
+			path = Premium;
+			sourceTree = "<group>";
+		};
+		FECA43C02459AA7C0075D139 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
+				FECA43B1245987CA0075D139 /* PushSettingController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
