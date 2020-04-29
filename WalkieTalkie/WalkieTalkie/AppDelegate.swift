@@ -17,6 +17,7 @@ import RxCocoa
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var firstOpenPremiumShowed: Bool = false
     
     var navigationController: NavigationViewController? {
         return window?.rootViewController as? NavigationViewController
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window?.backgroundColor = UIColor(hex: 0x141414)
+        
         setGlobalAppearance()
         RtcManager.shared.initialize()
         FirebaseApp.configure()
@@ -33,8 +35,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Reachability.shared
         _ = Automator.shared
         
-        // 推送服务
-        FireMessaging.shared.requestPermissionIfNotGranted()
+        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+            setupInitialView(goRoom: true)
+            firstOpenPremiumShowed = true
+        } else {
+            #if DEBUG
+            setupInitialView(goRoom: false)
+            #else
+            setupInitialView(goRoom: false)
+            #endif
+        }
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
@@ -109,6 +119,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    func setupInitialView(goRoom: Bool) {
+        let rootVc = R.storyboard.main.instantiateInitialViewController()!
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = .black
+        window.makeKeyAndVisible()
+        if goRoom {
+            let guide = R.storyboard.guide.guideViewController()!
+            guide.dismissHandler = { [unowned self] in
+                self.window?.replaceRootViewController(rootVc)
+                // 推送服务
+                FireMessaging.shared.requestPermissionIfNotGranted()
+            }
+            window.rootViewController = guide
+        } else {
+            window.rootViewController = rootVc
+            // 推送服务
+            FireMessaging.shared.requestPermissionIfNotGranted()
+        }
+        self.window = window
+
+    }
+    
     func setGlobalAppearance() {
         UINavigationBar.appearance().titleTextAttributes = [
             .foregroundColor: UIColor.black,
@@ -123,7 +155,16 @@ extension AppDelegate {
         UINavigationBar.appearance().setBackgroundImage(UIImage(color: UIColor.white, size: CGSize(width: 1, height: 1)), for: .default)
         UINavigationBar.appearance().isTranslucent = false
     }
+}
 
+extension AppDelegate {
+    static func handle(uri: String) {
+        guard let url = URL(string: uri) else {
+            return
+        }
+        let result = UIApplication.appDelegate?.handle(url) ?? false
+        print("[AppDelegate] handle url: \(url) result: \(result)")
+    }
 }
 
 extension UIApplication {
@@ -136,9 +177,22 @@ extension UIApplication {
     }
 }
 
+extension UIWindow {
+    func replaceRootViewController(_ vc: UIViewController) {
+        vc.modalTransitionStyle = .flipHorizontal
+        UIView.transition(with: self, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            let oldState = UIView.areAnimationsEnabled
+            UIView.setAnimationsEnabled(false)
+            self.rootViewController = vc
+            UIView.setAnimationsEnabled(oldState)
+        }, completion: nil)
+    }
+}
+
 extension Data {
     var hexString: String {
         let hexString = map { String(format: "%02.2hhx", $0) }.joined()
         return hexString
     }
 }
+
