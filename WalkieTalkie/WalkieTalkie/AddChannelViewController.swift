@@ -168,12 +168,12 @@ extension AddChannelViewController {
         //
         dataSource.titles = [R.string.localizable.addChannelSecretTitle(), R.string.localizable.addChannelGlobalTitle()]
         dataSource.titleSelectedColor = UIColor.theme(.textBlack)
-        dataSource.titleNormalFont = R.font.nunitoSemiBold(size: 16)!
+        dataSource.titleNormalFont = R.font.nunitoBold(size: 16)!
         dataSource.titleNormalColor = UIColor.theme(.textBlackAlpha(0.32))
         dataSource.isTitleColorGradientEnabled = true
         dataSource.isTitleZoomEnabled = true
         dataSource.isItemSpacingAverageEnabled = false
-        dataSource.itemSpacing = 25
+        dataSource.itemSpacing = 30
         
         segmentedView = JXSegmentedView(frame: CGRect(x: 0, y: 56, width: Frame.Screen.width, height: 50))
         segmentedView.backgroundColor = UIColor.theme(.backgroundWhite)
@@ -184,8 +184,8 @@ extension AddChannelViewController {
         segmentedView.defaultSelectedIndex = 0
         
         let lineView = JXSegmentedIndicatorLineView()
-        lineView.indicatorColor = UIColor(hex: 0x6788D3)!
-        lineView.indicatorWidth = 62
+        lineView.indicatorColor = .black
+        lineView.indicatorWidth = 80
 //        segmentedView.innerItemSpacing = 5
         segmentedView.indicators = [lineView]
         segmentedView.listContainer = pagingView.listContainerView

@@ -35,8 +35,6 @@ class SearchViewController: UITableViewController {
                 self?.dataSource = rooms
             })
             .disposed(by: bag)
-        
-//        tableView.backgroundColor = currentType.screenColor
     }
     
     func setChannel(type: ChannelType?) {
@@ -57,7 +55,6 @@ class SearchViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = dataSource.count
-        cdPrint("count: \(count)")
         return count
     }
     

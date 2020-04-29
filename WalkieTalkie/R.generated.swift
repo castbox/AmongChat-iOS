@@ -55,10 +55,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 3 fonts.
+  /// This `R.font` struct is generated, and contains static references to 4 fonts.
   struct font: Rswift.Validatable {
     /// Font `BlackOpsOne-Regular`.
     static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
+    /// Font `Nunito-Bold`.
+    static let nunitoBold = Rswift.FontResource(fontName: "Nunito-Bold")
     /// Font `Nunito-Regular`.
     static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
@@ -67,6 +69,11 @@ struct R: Rswift.Validatable {
     /// `UIFont(name: "BlackOpsOne-Regular", size: ...)`
     static func blackOpsOneRegular(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: blackOpsOneRegular, size: size)
+    }
+    
+    /// `UIFont(name: "Nunito-Bold", size: ...)`
+    static func nunitoBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: nunitoBold, size: size)
     }
     
     /// `UIFont(name: "Nunito-Regular", size: ...)`
@@ -81,6 +88,7 @@ struct R: Rswift.Validatable {
     
     static func validate() throws {
       if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Regular' could not be loaded, is 'Nunito-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-SemiBold' could not be loaded, is 'Nunito-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
@@ -447,7 +455,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 32 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 33 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -461,6 +469,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: CHANNEL NAME
+      /// 
+      /// Locales: en
+      static let inputPasscodeGlobalPlaceholder = Rswift.StringResource(key: "input.passcode.global.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Cancel
       /// 
       /// Locales: en
@@ -597,6 +609,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailFree(_ value1: String, _ value2: String) -> String {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: CHANNEL NAME
+      /// 
+      /// Locales: en
+      static func inputPasscodeGlobalPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("input.passcode.global.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Cancel

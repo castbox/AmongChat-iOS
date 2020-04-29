@@ -12,19 +12,45 @@ import RxCocoa
 import RxSwift
 import MoPub
 
+class WalkieLabel: UILabel {
+    func appendKern(with kern: CGFloat = 0.5) {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: textColor ?? .black,
+            .font: font ?? R.font.nunitoSemiBold(size: 17),
+            .kern: kern,
+        ]
+        let attString = NSAttributedString(string: text ?? "", attributes: attributes)
+        self.attributedText = attString
+    }
+}
+
+class WalkieButton: UIButton {
+    func appendKern(with kern: CGFloat = 0.5) {
+        let attributes: [NSAttributedString.Key : Any] = [
+            .font: titleLabel?.font ?? R.font.nunitoSemiBold(size: 17),
+            .kern: kern,
+        ]
+//        let attString = NSAttributedString(string: title(for: .normal) ?? "", attributes: attributes)
+        setAttributedTitle(NSAttributedString(string: title(for: .normal) ?? "", attributes: attributes), for: .normal)
+    }
+}
+
 class SecretChannelContainer: XibLoadableView {
     
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var channelFieldContainer: UIView!
     @IBOutlet private weak var codeField: ChannelNameField!
-    @IBOutlet private weak var proButton: UIButton!
-    @IBOutlet private weak var createButton: UIButton!
+    @IBOutlet private weak var proButton: WalkieButton!
+    @IBOutlet private weak var createButton: WalkieButton!
     @IBOutlet private weak var adIconView: UIImageView!
     @IBOutlet private weak var confirmButton: UIButton!
     @IBOutlet private weak var errorTipsLabel: UILabel!
     @IBOutlet private weak var dashLineView: UIView!
-    @IBOutlet weak var describeLabel: UILabel!
-    @IBOutlet weak var createDescribeLabel: UILabel!
+    
+    @IBOutlet weak var titleLabel: WalkieLabel!
+    @IBOutlet weak var describeLabel: WalkieLabel!
+    @IBOutlet weak var createTitleLabel: WalkieLabel!
+    @IBOutlet weak var createDescribeLabel: WalkieLabel!
     
     private var gradientLayer: CAGradientLayer!
     private let dashLayer = CAShapeLayer()
@@ -72,6 +98,7 @@ class SecretChannelContainer: XibLoadableView {
             return
         }
         //join
+        _ = codeField.resignFirstResponder()
         self.joinChannel("_\(name)", false)
     }
     
@@ -209,13 +236,24 @@ extension SecretChannelContainer {
         
         let attributes: [NSAttributedString.Key : Any] = [
             .foregroundColor: UIColor.black.alpha(0.3),
-            .font: Font.caption1.value
+            .font: R.font.nunitoSemiBold(size: 15),
+            .kern: 0.5,
         ]
         codeField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.inputPasscodePlaceholder(), attributes: attributes)
         if Settings.shared.isProValue.value {
             adIconView.isHidden = true
             proButton.isHidden = true
         }
+        codeField.defaultTextAttributes = [
+            .kern: 0.5,
+            .font: R.font.nunitoBold(size: 17),
+        ]
+        titleLabel.appendKern()
+        describeLabel.appendKern()
+        createTitleLabel.appendKern()
+        createDescribeLabel.appendKern()
+        createButton.appendKern()
+        proButton.appendKern()
     }
     
     //绘制虚线边框
