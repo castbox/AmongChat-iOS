@@ -14,13 +14,13 @@ end
 
 def firebase_pods
     # Firebase 推送
-#    pod 'Firebase/Messaging'#, '~> 4.13.0'
+    pod 'Firebase/Messaging'
 
     # Firebase Dynamic Links
-    pod 'Firebase/DynamicLinks'#, '~> 4.13.0'
+    pod 'Firebase/DynamicLinks'
 
     # Firebase Remote Configure
-    pod 'Firebase/RemoteConfig'#, '~> 4.13.0'
+    pod 'Firebase/RemoteConfig'
     
     # Firestore
     pod 'Firebase/Firestore'
@@ -108,6 +108,10 @@ target 'WalkieTalkie' do
     pod 'SwiftyJSON'
     pod 'SwiftHash'
     pod 'loady'
+    
+    pod 'JXCategoryView'
+    pod 'JXPagingView/Paging', '2.0.3'
+    pod 'JXSegmentedView'
 end
 
 post_install do |installer|

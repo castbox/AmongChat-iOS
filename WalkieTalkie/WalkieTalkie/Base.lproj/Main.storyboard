@@ -25,12 +25,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJx-Nj-5oY">
-                                <rect key="frame" x="-13" y="422" width="440" height="340"/>
+                                <rect key="frame" x="97" y="592" width="220" height="170"/>
                                 <state key="normal" backgroundImage="speak_button_nor"/>
                                 <state key="highlighted" backgroundImage="speak_button_pre"/>
                             </button>
                             <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-XA-SAp">
-                                <rect key="frame" x="123" y="579.5" width="168" height="25"/>
+                                <rect key="frame" x="123" y="664.5" width="168" height="25"/>
                                 <color key="backgroundColor" red="1" green="0.83529411760000005" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Dq5-jQ-4sb"/>
@@ -42,7 +42,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-Mq-pGj">
-                                <rect key="frame" x="-13" y="422" width="440" height="340"/>
+                                <rect key="frame" x="97" y="592" width="220" height="170"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh">
                                 <rect key="frame" x="40" y="102" width="334" height="351"/>
@@ -50,20 +50,23 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q">
                                         <rect key="frame" x="10" y="10" width="314" height="125"/>
                                         <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="S42-iO-Z48">
+                                                <rect key="frame" x="0.0" y="0.0" width="314" height="125"/>
+                                            </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA3-ly-Qtw">
-                                                <rect key="frame" x="11" y="19.5" width="116.5" height="17.5"/>
+                                                <rect key="frame" x="11" y="19.5" width="123.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMW-fa-LPT">
-                                                <rect key="frame" x="10" y="74.5" width="16" height="33"/>
+                                                <rect key="frame" x="10" y="73.5" width="23.5" height="35"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="28"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="INPUT CHANNEL" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="68.5" width="268" height="45"/>
+                                                <rect key="frame" x="43.5" y="68.5" width="260.5" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="PKM-fW-ZPX"/>
                                                 </constraints>
@@ -71,7 +74,7 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="alphabet" returnKeyType="done"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpb-af-6FM">
-                                                <rect key="frame" x="287" y="16.5" width="17" height="23.5"/>
+                                                <rect key="frame" x="288" y="16.5" width="16" height="25"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -80,18 +83,22 @@
                                                 <rect key="frame" x="9.5" y="78.5" width="25" height="25"/>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.55686274509803924" green="0.85098039215686272" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.13333333333333333" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="S42-iO-Z48" secondAttribute="bottom" id="3s5-3A-m4B"/>
                                             <constraint firstItem="WeD-PF-cDM" firstAttribute="leading" secondItem="eMW-fa-LPT" secondAttribute="trailing" constant="10" id="7rY-ny-vRT"/>
                                             <constraint firstItem="B9z-Gt-x5x" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="9.5" id="AhI-uN-CLq"/>
                                             <constraint firstItem="fA3-ly-Qtw" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="11" id="Dfm-fW-Jqg"/>
+                                            <constraint firstItem="S42-iO-Z48" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" id="QZU-ng-DfM"/>
                                             <constraint firstAttribute="bottom" secondItem="WeD-PF-cDM" secondAttribute="bottom" constant="11.5" id="TEo-zu-Phe"/>
                                             <constraint firstAttribute="trailing" secondItem="Mpb-af-6FM" secondAttribute="trailing" constant="10" id="VyF-uw-eRe"/>
+                                            <constraint firstItem="S42-iO-Z48" firstAttribute="top" secondItem="8yd-YY-a9Q" secondAttribute="top" id="ZQc-kt-2Xp"/>
                                             <constraint firstAttribute="height" constant="125" id="hTf-Rq-z9x"/>
                                             <constraint firstItem="B9z-Gt-x5x" firstAttribute="centerY" secondItem="WeD-PF-cDM" secondAttribute="centerY" id="i03-eP-FJi"/>
                                             <constraint firstItem="fA3-ly-Qtw" firstAttribute="top" secondItem="8yd-YY-a9Q" secondAttribute="top" constant="19.5" id="ivo-be-dZv"/>
                                             <constraint firstItem="eMW-fa-LPT" firstAttribute="centerY" secondItem="WeD-PF-cDM" secondAttribute="centerY" id="m3C-UX-SPR"/>
+                                            <constraint firstAttribute="trailing" secondItem="S42-iO-Z48" secondAttribute="trailing" id="mWz-Fl-7re"/>
                                             <constraint firstItem="eMW-fa-LPT" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="10" id="nFr-2Q-b7u"/>
                                             <constraint firstAttribute="trailing" secondItem="WeD-PF-cDM" secondAttribute="trailing" constant="10" id="qsD-wz-xKg"/>
                                             <constraint firstItem="Mpb-af-6FM" firstAttribute="centerY" secondItem="fA3-ly-Qtw" secondAttribute="centerY" id="spu-r7-pk8"/>
@@ -228,7 +235,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="spD-vg-qR3" secondAttribute="height" multiplier="1:1" id="7Hp-eN-GPC"/>
                                                 </constraints>
-                                                <state key="normal" image="btn_private" backgroundImage="home_btn_bg_b"/>
+                                                <state key="normal" image="btn_add" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -342,6 +349,7 @@
                         <outlet property="numberLabel" destination="Mpb-af-6FM" id="gZc-P0-trU"/>
                         <outlet property="powerButton" destination="L19-kc-srO" id="EbJ-15-QcU"/>
                         <outlet property="pushToTalkButton" destination="1m5-XA-SAp" id="MPj-Jo-TRE"/>
+                        <outlet property="screenBackgroundView" destination="S42-iO-Z48" id="qCg-F1-75z"/>
                         <outlet property="screenContainer" destination="8yd-YY-a9Q" id="PLo-Vk-qHA"/>
                         <outlet property="shareButton" destination="nYu-Os-NyD" id="buf-KS-wDr"/>
                         <outlet property="spackButtonBottomConstraint" destination="p1Y-hP-Ksi" id="rFa-UN-Bgb"/>
@@ -386,7 +394,7 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPa-Q9-pgs">
-                                            <rect key="frame" x="10" y="12.5" width="20" height="19"/>
+                                            <rect key="frame" x="10" y="12" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="gWq-Yq-hsO"/>
                                             </constraints>
@@ -465,7 +473,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkie Talkie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9i-3D-d4d">
-                                <rect key="frame" x="150" y="789.5" width="114.5" height="23.5"/>
+                                <rect key="frame" x="137" y="788" width="140.5" height="25"/>
                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -939,13 +947,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkie Talkie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9F-JV-73G">
-                                                <rect key="frame" x="101" y="161" width="114.5" height="23.5"/>
+                                                <rect key="frame" x="101" y="160" width="140.5" height="25"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pro" translatesAutoresizingMaskIntoConstraints="NO" id="CuV-bT-ntk">
-                                                <rect key="frame" x="227" y="157.5" width="65" height="30"/>
+                                                <rect key="frame" x="253" y="157.5" width="65" height="30"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pro_select" translatesAutoresizingMaskIntoConstraints="NO" id="UBa-M7-TDR">
                                                 <rect key="frame" x="27.5" y="212.5" width="25" height="25"/>
@@ -1067,7 +1075,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="message" size="11"/>
+                                                                <font key="NSFont" metaFont="controlContent" size="11"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -1207,10 +1215,10 @@ Cg
         </scene>
     </scenes>
     <resources>
+        <image name="btn_add" width="30" height="30"/>
         <image name="btn_call_on" width="30" height="30"/>
         <image name="btn_down" width="30" height="30"/>
         <image name="btn_power" width="30" height="30"/>
-        <image name="btn_private" width="30" height="30"/>
         <image name="btn_private_icon" width="90" height="90"/>
         <image name="btn_share" width="30" height="30"/>
         <image name="btn_up" width="30" height="30"/>
@@ -1223,6 +1231,7 @@ Cg
         <image name="icon_pro_persons" width="3881.5" height="135"/>
         <image name="icon_pro_select" width="25" height="25"/>
         <image name="icon_room_lock" width="25" height="25"/>
+        <image name="icon_screen_bg" width="277" height="125"/>
         <image name="icon_setting" width="25" height="25"/>
         <image name="icon_setting_diamonds_u" width="25" height="25"/>
         <image name="icon_setting_star" width="25" height="25"/>

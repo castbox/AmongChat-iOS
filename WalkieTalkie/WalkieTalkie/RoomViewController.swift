@@ -44,6 +44,15 @@ extension ChannelType {
             return UIColor(hex: 0xFFC800)!
         }
     }
+    
+    var screenImage: UIImage? {
+        switch self {
+        case .public:
+            return R.image.icon_screen_bg()
+        case .private:
+            return R.image.icon_screen_s_bg()
+        }
+    }
 }
 
 class RoomViewController: ViewController {
@@ -64,6 +73,7 @@ class RoomViewController: ViewController {
     @IBOutlet weak var screenContainer: UIView!
     @IBOutlet weak var buttonContainer: UIView!
     
+    @IBOutlet weak var screenBackgroundView: UIImageView!
     @IBOutlet weak var powerButton: UIButton!
     @IBOutlet weak var pushToTalkButton: UIButton!
     @IBOutlet weak var musicButton: FrozenButton!
@@ -137,6 +147,9 @@ class RoomViewController: ViewController {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard children.isEmpty else {
+            return
+        }
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
@@ -213,8 +226,8 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func privateButtonAction(_ sender: Any) {
-        let controller = R.storyboard.main.privateChannelController()
-        controller?.joinChannel = { [weak self] name, autoShare in
+        let controller = AddChannelViewController()
+        controller.joinChannel = { [weak self] name, autoShare in
             //join channels
             self?.joinChannelSubject.onNext(name)
             //show code
@@ -222,7 +235,7 @@ class RoomViewController: ViewController {
                 self?.showShareController(channelName: name)
             }
         }
-        controller?.showModal(in: self)
+        controller.showModal(in: self)
         Logger.UserAction.log(.secret)
     }
     
@@ -261,7 +274,6 @@ class RoomViewController: ViewController {
         mManager.getRtcManager().startAudioMixing(type.path)
         let duration = mManager.getRtcManager().getAudioMixingDuration()
         timer = SwiftTimer(interval: .milliseconds(duration)) { timer in
-//            self?.mManager.getRtcManager().stopAudioMixing()
             completionHandler?()
         }
         timer?.start()
@@ -459,6 +471,7 @@ private extension RoomViewController {
     
     func updateSubviewStyle() {
         channelTextField.text = channel.showName
+        screenBackgroundView.image = channel.name.channelType.screenImage
         screenContainer.backgroundColor = channel.name.channelType.screenColor
         searchController.setChannel(type: channel.name.channelType)
         lockIconView.isHidden = !channel.isPrivate
@@ -597,6 +610,8 @@ private extension RoomViewController {
         
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
             spackButtonBottomConstraint.constant = 45
+        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
+            spackButtonBottomConstraint.constant = 65
         }
         
         speakButton.imageView?.contentMode = .scaleAspectFit

@@ -12,5 +12,6 @@ enum AnimationDuration: TimeInterval {
     case instant = 0.01
     case fast = 0.15
     case normal = 0.25
+    case normalSlow = 0.4
     case slow = 0.5
 }

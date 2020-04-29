@@ -39,8 +39,9 @@
 	<string>need mic to join the room</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>EHSMB.TTF</string>
 		<string>BlackOpsOne-Regular.ttf</string>
+		<string>Nunito-SemiBold.ttf</string>
+		<string>Nunito-Bold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

@@ -14,7 +14,7 @@ import MoPub
 
 class PrivateChannelController: ViewController {
     let TAG = "PrivateChannelController"
-    
+
     @IBOutlet weak var channelFieldContainer: UIView!
     @IBOutlet private weak var codeField: ChannelNameField!
     @IBOutlet private weak var proButton: UIButton!
