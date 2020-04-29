@@ -31,8 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = AdsManager.shared
         _ = Reachability.shared
+        _ = Automator.shared
+        
         // 推送服务
-//        FireMessaging.shared.requestPermissionIfNotGranted()
+        FireMessaging.shared.requestPermissionIfNotGranted()
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
@@ -43,6 +45,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let deviceTokenString = deviceToken.hexString
+        cdPrint("didRegisterForRemoteNotificationsWithDeviceToken deviceToken--------------------\(deviceTokenString)")
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -105,7 +112,7 @@ extension AppDelegate {
     func setGlobalAppearance() {
         UINavigationBar.appearance().titleTextAttributes = [
             .foregroundColor: UIColor.black,
-            .font: Font.title.value,
+            .font: R.font.nunitoBold(size: 16),
         ]
         
         //设置返回按钮图
@@ -129,4 +136,9 @@ extension UIApplication {
     }
 }
 
-
+extension Data {
+    var hexString: String {
+        let hexString = map { String(format: "%02.2hhx", $0) }.joined()
+        return hexString
+    }
+}

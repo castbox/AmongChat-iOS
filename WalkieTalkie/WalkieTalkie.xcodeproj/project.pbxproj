@@ -148,6 +148,10 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */; };
+		FECA43AC24597B570075D139 /* Automator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43A924597B570075D139 /* Automator.swift */; };
+		FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AA24597B570075D139 /* Automator.Device.swift */; };
+		FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AB24597B570075D139 /* Automator.Analytics.swift */; };
+		FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43B1245987CA0075D139 /* PushSettingController.swift */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -315,6 +319,10 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		FECA43A924597B570075D139 /* Automator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.swift; sourceTree = "<group>"; };
+		FECA43AA24597B570075D139 /* Automator.Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Device.swift; sourceTree = "<group>"; };
+		FECA43AB24597B570075D139 /* Automator.Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Analytics.swift; sourceTree = "<group>"; };
+		FECA43B1245987CA0075D139 /* PushSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingController.swift; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -428,6 +436,7 @@
 				FE6306A4245004CC00CEA651 /* PremiumContainer.xib */,
 				FE6306A6245005E700CEA651 /* PremiumContainer.swift */,
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
+				FECA43B1245987CA0075D139 /* PushSettingController.swift */,
 				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
 				FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */,
 				FE2AF9ED244DCC0200763747 /* Routes */,
@@ -600,6 +609,7 @@
 		FE860D522446D23500087B73 /* Earth */ = {
 			isa = PBXGroup;
 			children = (
+				FECA43A824597B570075D139 /* Automator */,
 				FE6306A82450061500CEA651 /* XibLoadableView.swift */,
 				FEAD54D82449C74F006454F6 /* Modal */,
 				FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */,
@@ -664,6 +674,16 @@
 				FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		FECA43A824597B570075D139 /* Automator */ = {
+			isa = PBXGroup;
+			children = (
+				FECA43A924597B570075D139 /* Automator.swift */,
+				FECA43AA24597B570075D139 /* Automator.Device.swift */,
+				FECA43AB24597B570075D139 /* Automator.Analytics.swift */,
+			);
+			path = Automator;
 			sourceTree = "<group>";
 		};
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
@@ -906,6 +926,7 @@
 				FE860D4C2446D1D700087B73 /* AnimationDuration.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
+				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
@@ -920,6 +941,7 @@
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
+				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
@@ -935,6 +957,7 @@
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
+				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
 				FE6306A7245005E700CEA651 /* PremiumContainer.swift in Sources */,
@@ -994,6 +1017,7 @@
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
+				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,

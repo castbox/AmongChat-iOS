@@ -13,6 +13,9 @@ import FirebaseInstanceID
 import RxSwift
 
 /// https://firebase.google.com/docs/cloud-messaging/?authuser=0
+fileprivate let defaultHotTopic = "hot"
+//private func print()
+ 
 class FireMessaging: NSObject {
     
     static let shared = FireMessaging()
@@ -21,20 +24,37 @@ class FireMessaging: NSObject {
         super.init()
         /// https://firebase.google.com/docs/cloud-messaging/ios/client?authuser=0
         /// 对于运行 iOS 10 及更高版本的设备，您必须在应用完成启动之前将您的委托对象分配给 UNUserNotificationCenter 对象（以便接收显示通知）和 FIRMessaging 对象（以便接收数据消息）。例如，在 iOS 应用中，您必须在 applicationWillFinishLaunching: 或 applicationDidFinishLaunching: 方法中分配委托对象。
-        Messaging.messaging().shouldEstablishDirectChannel = false
+//        Messaging.messaging().shouldEstablishDirectChannel = false
         Messaging.messaging().delegate = self
+        
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
         }
         
         _ = NotificationCenter.default.rx.notification(UIApplication.willEnterForegroundNotification, object: nil)
-                .asObservable()
-                .subscribe(onNext: { _ in
-                    //如果已获得授权，则直接申请
-                    if self.grantedPushAuthorized {
-                        self.requestPermissionIfNotGranted()
+            .asObservable()
+            .subscribe(onNext: { _ in
+                //如果已获得授权，则直接申请
+                if self.grantedPushAuthorized {
+                    self.requestPermissionIfNotGranted()
+                }
+            })
+        
+        _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+            .filter { $0.0.fcmToken != nil }
+            .map { $0.1 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { value in
+                if value {
+                    Messaging.messaging().subscribe(toTopic: defaultHotTopic) { error in
+                        cdPrint("[Messaging.messaging()] subscribe result: \(error.debugDescription)")
                     }
-                })
+                } else {
+                    Messaging.messaging().unsubscribe(fromTopic: defaultHotTopic) { error in
+                        cdPrint("[Messaging.messaging()] unsubscribe result: \(error.debugDescription)")
+                    }
+                }
+            })
         
     }
     
@@ -48,6 +68,10 @@ class FireMessaging: NSObject {
                 fcmTokenSubject.onNext(self)
             }
         }
+    }
+    
+    var apnsTokenString: String? {
+        Messaging.messaging().apnsToken?.hexString
     }
     
     var grantedPushAuthorized: Bool {

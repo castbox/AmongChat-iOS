@@ -14,6 +14,9 @@
         <array key="EHSMB.TTF">
             <string>ElectronicHighwaySign</string>
         </array>
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Room View Controller-->
@@ -515,7 +518,7 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Rcu-qs-BQ5">
-                            <rect key="frame" x="0.0" y="148" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="191.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         </view>
@@ -532,9 +535,9 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_setting_diamonds_u" translatesAutoresizingMaskIntoConstraints="NO" id="OsS-ZE-YjF">
                                                     <rect key="frame" x="15" y="9.5" width="25" height="25"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkv-C0-bWq">
-                                                    <rect key="frame" x="55" y="12" width="101.5" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade PRO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkv-C0-bWq" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
+                                                    <rect key="frame" x="55" y="10.5" width="109" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -548,19 +551,21 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="z8u-4w-GT9">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="z8u-4w-GT9">
                                         <rect key="frame" x="0.0" y="76.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z8u-4w-GT9" id="6pJ-ue-r24">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_setting_star" translatesAutoresizingMaskIntoConstraints="NO" id="w41-dq-eWV">
                                                     <rect key="frame" x="15" y="9.5" width="25" height="25"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w76-pL-yh7">
-                                                    <rect key="frame" x="55" y="12.5" width="54.5" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w76-pL-yh7" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
+                                                    <rect key="frame" x="55" y="10.5" width="100.5" height="23.5"/>
+                                                    <string key="text">Push Setting
+</string>
+                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -570,6 +575,34 @@
                                                 <constraint firstItem="w41-dq-eWV" firstAttribute="leading" secondItem="6pJ-ue-r24" secondAttribute="leading" constant="15" id="Vsf-Ie-kLE"/>
                                                 <constraint firstItem="w76-pL-yh7" firstAttribute="centerY" secondItem="w41-dq-eWV" secondAttribute="centerY" id="pW7-4d-J2H"/>
                                                 <constraint firstItem="w41-dq-eWV" firstAttribute="centerY" secondItem="6pJ-ue-r24" secondAttribute="centerY" id="rS8-0n-QSb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="gSP-tB-IXK" kind="push" id="WS2-8U-B1E"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="D3R-ni-g7Q">
+                                        <rect key="frame" x="0.0" y="120" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="D3R-ni-g7Q" id="Kvj-oa-vPq">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_setting_star" translatesAutoresizingMaskIntoConstraints="NO" id="9Hi-v2-bhR">
+                                                    <rect key="frame" x="15" y="9.5" width="25" height="25"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XE8-TB-paF" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
+                                                    <rect key="frame" x="55" y="10.5" width="59" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XE8-TB-paF" firstAttribute="leading" secondItem="9Hi-v2-bhR" secondAttribute="trailing" constant="15" id="6Mj-jk-T4T"/>
+                                                <constraint firstItem="9Hi-v2-bhR" firstAttribute="centerY" secondItem="Kvj-oa-vPq" secondAttribute="centerY" id="bu9-uw-OdT"/>
+                                                <constraint firstItem="XE8-TB-paF" firstAttribute="centerY" secondItem="9Hi-v2-bhR" secondAttribute="centerY" id="f02-Ms-Ecn"/>
+                                                <constraint firstItem="9Hi-v2-bhR" firstAttribute="leading" secondItem="Kvj-oa-vPq" secondAttribute="leading" constant="15" id="s5A-8E-o5e"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1075,7 +1108,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="controlContent" size="11"/>
+                                                                <font key="NSFont" metaFont="menu" size="11"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -1212,6 +1245,112 @@ Cg
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3m5-VR-LTu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="115.84821428571428"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="DlY-R4-5kc">
+            <objects>
+                <viewController storyboardIdentifier="PushSettingController" title="Settings" id="gSP-tB-IXK" customClass="PushSettingController" customModule="WalkieTalkie" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E98-36-CDp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="764"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9RN-nt-ajY">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="764"/>
+                                <connections>
+                                    <segue destination="lZ3-N7-56p" kind="embed" id="z0x-gE-YfX"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="axX-EO-Iow" firstAttribute="trailing" secondItem="9RN-nt-ajY" secondAttribute="trailing" id="Ikj-eY-UOn"/>
+                            <constraint firstItem="9RN-nt-ajY" firstAttribute="leading" secondItem="axX-EO-Iow" secondAttribute="leading" id="QWy-JL-re9"/>
+                            <constraint firstItem="axX-EO-Iow" firstAttribute="bottom" secondItem="9RN-nt-ajY" secondAttribute="bottom" id="zzN-uf-tS6"/>
+                            <constraint firstItem="9RN-nt-ajY" firstAttribute="top" secondItem="axX-EO-Iow" secondAttribute="top" id="zzb-Ip-wb3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="axX-EO-Iow"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="cu6-6u-zkw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="etV-TI-1cu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3132" y="-218"/>
+        </scene>
+        <!--Push Setting Container-->
+        <scene sceneID="QyH-3O-sxt">
+            <objects>
+                <tableViewController id="lZ3-N7-56p" customClass="PushSettingContainer" customModule="WalkieTalkie" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hs5-wB-RyL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="764"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="Pbw-4V-GIc">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Ifb-DW-SuW">
+                            <rect key="frame" x="0.0" y="104.5" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        </view>
+                        <sections>
+                            <tableViewSection id="Qdh-kv-qOM">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Glc-UZ-hAy">
+                                        <rect key="frame" x="0.0" y="33" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Glc-UZ-hAy" id="cPw-OR-MeC">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Global Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOG-db-lVp" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
+                                                    <rect key="frame" x="15" y="10.5" width="119" height="23.5"/>
+                                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s7p-Qj-sPz" customClass="MJMaterialSwitch" customModule="WalkieTalkie" customModuleProvider="target">
+                                                    <rect key="frame" x="350" y="7" width="50" height="30"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="HFr-cH-wOK"/>
+                                                        <constraint firstAttribute="width" constant="50" id="UVM-lq-yB2"/>
+                                                    </constraints>
+                                                </view>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-Jt-zm4">
+                                                    <rect key="frame" x="351" y="6.5" width="51" height="31"/>
+                                                    <color key="onTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="thumbTintColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="zOG-db-lVp" firstAttribute="leading" secondItem="cPw-OR-MeC" secondAttribute="leading" constant="15" id="8Bd-73-lPk"/>
+                                                <constraint firstItem="s7p-Qj-sPz" firstAttribute="centerY" secondItem="cPw-OR-MeC" secondAttribute="centerY" id="8eY-k2-Vhh"/>
+                                                <constraint firstItem="s7p-Qj-sPz" firstAttribute="centerY" secondItem="Dr4-Jt-zm4" secondAttribute="centerY" id="LFx-sk-nBc"/>
+                                                <constraint firstItem="zOG-db-lVp" firstAttribute="centerY" secondItem="cPw-OR-MeC" secondAttribute="centerY" id="dXN-AL-k7d"/>
+                                                <constraint firstItem="s7p-Qj-sPz" firstAttribute="trailing" secondItem="Dr4-Jt-zm4" secondAttribute="trailing" id="grZ-Pk-ZWA"/>
+                                                <constraint firstAttribute="trailing" secondItem="s7p-Qj-sPz" secondAttribute="trailing" constant="14" id="k8C-KJ-2hb"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="lZ3-N7-56p" id="Fr4-aL-ZV2"/>
+                            <outlet property="delegate" destination="lZ3-N7-56p" id="7DT-YM-6oA"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="MOW-Ez-LXM"/>
+                    <connections>
+                        <outlet property="switchControl" destination="Dr4-Jt-zm4" id="leq-NR-ppn"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9QN-jU-0IV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3859" y="-234"/>
         </scene>
     </scenes>
     <resources>

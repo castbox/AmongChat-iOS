@@ -13,6 +13,15 @@ import RxSwift
 import MoPub
 
 class WalkieLabel: UILabel {
+    override var text: String? {
+        set {
+            super.text = newValue
+        }
+        get {
+            super.text
+        }
+    }
+    
     func appendKern(with kern: CGFloat = 0.5) {
         let attributes: [NSAttributedString.Key : Any] = [
             .foregroundColor: textColor ?? .black,

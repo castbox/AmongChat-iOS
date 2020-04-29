@@ -1015,6 +1015,7 @@ struct _R: Rswift.Validatable {
       let premiumViewController = StoryboardViewControllerResource<PremiumViewController>(identifier: "PremiumViewController")
       let privateChannelController = StoryboardViewControllerResource<PrivateChannelController>(identifier: "PrivateChannelController")
       let privateShareController = StoryboardViewControllerResource<PrivateShareController>(identifier: "PrivateShareController")
+      let pushSettingController = StoryboardViewControllerResource<PushSettingController>(identifier: "PushSettingController")
       let searchViewController = StoryboardViewControllerResource<SearchViewController>(identifier: "SearchViewController")
       let settingViewController = StoryboardViewControllerResource<SettingViewController>(identifier: "SettingViewController")
       
@@ -1028,6 +1029,10 @@ struct _R: Rswift.Validatable {
       
       func privateShareController(_: Void = ()) -> PrivateShareController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: privateShareController)
+      }
+      
+      func pushSettingController(_: Void = ()) -> PushSettingController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pushSettingController)
       }
       
       func searchViewController(_: Void = ()) -> SearchViewController? {
@@ -1067,6 +1072,7 @@ struct _R: Rswift.Validatable {
         if _R.storyboard.main().premiumViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'premiumViewController' could not be loaded from storyboard 'Main' as 'PremiumViewController'.") }
         if _R.storyboard.main().privateChannelController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateChannelController' could not be loaded from storyboard 'Main' as 'PrivateChannelController'.") }
         if _R.storyboard.main().privateShareController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateShareController' could not be loaded from storyboard 'Main' as 'PrivateShareController'.") }
+        if _R.storyboard.main().pushSettingController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pushSettingController' could not be loaded from storyboard 'Main' as 'PushSettingController'.") }
         if _R.storyboard.main().searchViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'searchViewController' could not be loaded from storyboard 'Main' as 'SearchViewController'.") }
         if _R.storyboard.main().settingViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'settingViewController' could not be loaded from storyboard 'Main' as 'SettingViewController'.") }
       }

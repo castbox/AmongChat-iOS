@@ -54,12 +54,12 @@ class SettingContainerTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 1 {
+        if indexPath.row == 2 {
           //rate us
             rateApp()
         } else if indexPath.row == 0 {
