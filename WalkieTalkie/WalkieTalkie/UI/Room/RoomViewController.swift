@@ -575,9 +575,14 @@ private extension RoomViewController {
         channelTextField.didBeginEditing = { [weak self] _ in
             self?.sendQueryEvent()
         }
-        channelTextField.didReturn = { [weak self] textField in
-            self?.joinChannelSubject.onNext(textField.text?.uppercased())
-            Logger.UserAction.log(.channel_create, textField.text?.uppercased())
+        channelTextField.didReturn = { [weak self] text in
+            guard let text = text else {
+                //offline
+                self?.leaveChannel()
+                return
+            }
+            self?.joinChannelSubject.onNext(text)
+            Logger.UserAction.log(.channel_create, text)
         }
         
         AdsManager.shared.mopubInitializeSuccessSubject
@@ -613,7 +618,7 @@ private extension RoomViewController {
         } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
             spackButtonBottomConstraint.constant = 65
         }
-        
+        channelTextField.enableAutoClear = true
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         gradientLayer = CAGradientLayer()

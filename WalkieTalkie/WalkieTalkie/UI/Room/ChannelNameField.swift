@@ -10,9 +10,12 @@ import UIKit
 
 class ChannelNameField: UITextField {
     private var previousText: String?
+    private var isEndEditingFromDone: Bool = false
     
-    var didBeginEditing: ((UITextField) -> Void)?
-    var didReturn: ((UITextField) -> Void)?
+    var enableAutoClear: Bool = false
+    
+    var didBeginEditing: ((String?) -> Void)?
+    var didReturn: ((String?) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,29 +26,57 @@ class ChannelNameField: UITextField {
         super.init(coder: aDecoder)
         delegate = self
     }
+    
+    private func checkIsValid(_ channelName: String?) -> Bool {
+        guard let name = channelName else {
+            return false
+        }
+        return name.count >= 2 && name.count <= 8
+    }
 
 }
 
 extension ChannelNameField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        previousText = textField.text
-        textField.text = nil
-//        didBeginEditing?(textField)
+        if enableAutoClear {
+            previousText = textField.text
+            textField.text = nil
+        }
+        didBeginEditing?(textField.text)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        let name = textField.text
+        if isEndEditingFromDone {
+            if checkIsValid(name) {
+                didReturn?(textField.text)
+            } else if enableAutoClear {
+                //kickoff
+                didReturn?(nil)
+            }
+            isEndEditingFromDone = false
+        } else {
+            if enableAutoClear, textField.text.isNilOrEmpty {
+                textField.text = previousText
+            } else {
+                //kickoff
+                didReturn?(nil)
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let length = textField.text?.count ?? 0
-        let result = length >= 2 && length <= 8
-        _ = textField.resignFirstResponder()
-        if result {
-            didReturn?(textField)
-        }
-        return result
+//        let length = textField.text?.count ?? 0
+//        let result = length >= 2 && length <= 8
+//        _ = textField.resignFirstResponder()
+//        if result {
+//            didReturn?(textField.text)
+//        } else {
+//
+//        }
+        isEndEditingFromDone = true
+        return checkIsValid(textField.text)
     }
     
     

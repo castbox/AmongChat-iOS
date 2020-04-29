@@ -24,9 +24,9 @@ class GlobalChannelContainer: XibLoadableView {
         super.init(frame: frame)
         
         bottonEdgeHeightConstraint.constant = Frame.Height.safeAeraBottomHeight
-        textField.didReturn = { [weak self] textField in
-            self?.joinChannel(textField.text)
-            Logger.UserAction.log(.channel_create, textField.text?.uppercased())
+        textField.didReturn = { [weak self] text in
+            self?.joinChannel(text)
+            Logger.UserAction.log(.channel_create, text)
         }
         
         let attributes: [NSAttributedString.Key : Any] = [
