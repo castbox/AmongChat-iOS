@@ -69,13 +69,13 @@ extension ChannelNameField: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 //        let length = textField.text?.count ?? 0
 //        let result = length >= 2 && length <= 8
-//        _ = textField.resignFirstResponder()
+        isEndEditingFromDone = true
+        _ = textField.resignFirstResponder()
 //        if result {
 //            didReturn?(textField.text)
 //        } else {
 //
 //        }
-        isEndEditingFromDone = true
         return checkIsValid(textField.text)
     }
     

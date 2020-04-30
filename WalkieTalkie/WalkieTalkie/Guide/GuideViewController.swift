@@ -24,6 +24,8 @@ class GuideViewController: ViewController {
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
     
+    var dismissHandler: (()->Void)? = nil
+
     var maxPage: Int {
         Int(scrollView.contentSize.width / scrollView.width) - 1
     }
@@ -55,7 +57,8 @@ class GuideViewController: ViewController {
     }
     
     @IBAction func skipAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        self.dismissHandler?()
     }
     
     @IBAction func continueAction(_ sender: Any) {
@@ -160,10 +163,10 @@ extension GuideViewController {
         thirdPage.style = .guide
         thirdPage.source = .first_open
         thirdPage.dismissHandler = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
+//            self?.dismiss(animated: true, completion: nil)
+            self?.dismissHandler?()
         }
         thirdPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
-        print("\(thirdPage.view)")
 //        thirdPage.willMove(toParent: self)
         addChild(thirdPage)
         scrollView.addSubview(thirdPage.view)

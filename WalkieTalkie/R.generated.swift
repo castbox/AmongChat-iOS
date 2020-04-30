@@ -455,7 +455,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 33 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 35 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -501,6 +501,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretCreateTipsDes = Rswift.StringResource(key: "add.channel.secret.create.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Enter the Secret Channel?
+      /// 
+      /// Locales: en
+      static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -565,6 +569,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This passcode can enter a secret channel, enter now?
+      /// 
+      /// Locales: en
+      static let enterSecretChannelAlertDesc = Rswift.StringResource(key: "enter.secret.channel.alert.desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Try it FREE
       /// 
       /// Locales: en
@@ -665,6 +673,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretCreateTipsDes(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.create.tips.des", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Enter the Secret Channel?
+      /// 
+      /// Locales: en
+      static func enterSecretChannelAlertTitle(_: Void = ()) -> String {
+        return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: GLOBAL
@@ -777,6 +792,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: This passcode can enter a secret channel, enter now?
+      /// 
+      /// Locales: en
+      static func enterSecretChannelAlertDesc(_: Void = ()) -> String {
+        return NSLocalizedString("enter.secret.channel.alert.desc", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Try it FREE

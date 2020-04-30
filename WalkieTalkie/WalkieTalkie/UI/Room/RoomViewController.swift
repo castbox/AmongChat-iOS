@@ -103,6 +103,7 @@ class RoomViewController: ViewController {
         didSet {
             updateSubviewStyle()
 //            if channel.isValid {
+            self.updateMemberCount(with: channel)
             channel.updateJoinInterval()
             Defaults[\.channel] = channel
 //            }
@@ -136,8 +137,6 @@ class RoomViewController: ViewController {
         configureSubview()
         bindSubviewEvent()
         updateSubviewStyle()
-        //first page
-        showGuidePageIfNeed()
     }
     
     override func viewDidLayoutSubviews() {
@@ -176,7 +175,6 @@ class RoomViewController: ViewController {
             return
         }
         self.channel = room
-        updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
@@ -188,7 +186,6 @@ class RoomViewController: ViewController {
             return
         }
         self.channel = room
-        updateMemberCount(with: room)
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
         }
@@ -385,6 +382,22 @@ extension RoomViewController: ChatRoomDelegate {
 }
 
 private extension RoomViewController {
+    func showCanEnterSecretChannelAlert(_ completionHandler: @escaping (Bool) -> Void) {
+        let alertVC = UIAlertController(title: R.string.localizable.enterSecretChannelAlertTitle(),
+                                        message: R.string.localizable.enterSecretChannelAlertDesc(),
+                                        preferredStyle: UIAlertController.Style.alert)
+        let resetAction = UIAlertAction(title: R.string.localizable.alertOk(), style: .default, handler: { _ in
+            completionHandler(true)
+        })
+        
+        let cancelAction = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { _ in
+            completionHandler(false)
+        }
+        alertVC.addAction(cancelAction)
+        alertVC.addAction(resetAction)
+        present(alertVC, animated: true, completion: nil)
+    }
+    
     func showShareController(channelName: String) {
         let controller = R.storyboard.main.privateShareController()
         controller?.channelName = channelName
@@ -450,7 +463,7 @@ private extension RoomViewController {
     }
     
     func updateMemberCount(with room: Room?) {
-        numberLabel.text = room?.user_count.string
+        numberLabel.text = room?.user_count.string ?? "1"
     }
     
     func showSearchView() {
@@ -484,17 +497,7 @@ private extension RoomViewController {
         searchController.view.removeFromSuperview()
         view.endEditing(true)
     }
-    
-    func showGuidePageIfNeed() {
-        guard Defaults[\.firstInstall],
-            let guide = R.storyboard.guide.guideViewController() else {
-                return
-        }
-        guide.modalPresentationStyle = .fullScreen
-        present(guide, animated: true, completion: nil)
-        
-    }
-    
+
     func bindSubviewEvent() {
         searchViewModel.startListenerList()
             
@@ -503,7 +506,8 @@ private extension RoomViewController {
             .filter { !$0.isEmpty }
             .observeOn(MainScheduler.asyncInstance)
             .do(onNext: { [weak self] name in
-                self?.channel = Room(name: name, user_count: 0)
+                //find
+                self?.channel = FireStore.shared.findValidRoom(with: name)
             })
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
@@ -581,8 +585,24 @@ private extension RoomViewController {
                 self?.leaveChannel()
                 return
             }
-            self?.joinChannelSubject.onNext(text)
-            Logger.UserAction.log(.channel_create, text)
+            let joinChannelBlock: (String?) -> Void = { name in
+                self?.joinChannelSubject.onNext(name)
+                Logger.UserAction.log(.channel_create, name)
+            }
+            //check if in private channel
+            if text.count == PasswordGenerator.shared.totalCount,
+                FireStore.shared.secretChannels.contains(where: { $0.name == "_\(text)"}) {
+                //show text
+                self?.showCanEnterSecretChannelAlert { confirm in
+                    if confirm {
+                        joinChannelBlock("_\(text)")
+                    } else {
+                        joinChannelBlock(text)
+                    }
+                }
+            } else {
+                joinChannelBlock(text)
+            }
         }
         
         AdsManager.shared.mopubInitializeSuccessSubject

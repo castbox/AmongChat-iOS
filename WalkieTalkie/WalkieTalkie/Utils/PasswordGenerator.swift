@@ -58,6 +58,7 @@ class PasswordGenerator {
 //    var lowercase = 3
     var uppercase = 4
     //  var symbols   = 5
+    var totalCount = 8
     
     func generate() -> String {
         var password: [String] = []

@@ -137,7 +137,7 @@ class SearchViewModel {
     
     func startListenerList() {
         let onlineChannelList =
-        FireStore.shared.onlineChannelList()
+        FireStore.shared.publicChannelsSubject
             .map { $0.sorted(by: { $0.name.localizedStandardCompare($1.name) == .orderedAscending }) }
             
         let secretChannelsSubject =

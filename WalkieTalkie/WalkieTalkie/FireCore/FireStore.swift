@@ -31,6 +31,11 @@ class FireStore {
         return secretChannelsSubject.value
     }
     
+    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
+    var publicChannels: [Room] {
+        return publicChannelsSubject.value
+    }
+    
     lazy var db: Firestore = {
         let db = Firestore.firestore()
         let settings = FirestoreSettings()
@@ -40,24 +45,30 @@ class FireStore {
     }()
 
     init() {
-//        if let token = Knife.Auth.shared.loginResult.value?.firebase_custom_token {
-//            Auth.auth().signIn(withCustomToken: token) { (user, error) in
-//                if let error = error {
-//                    cdPrint("fire store auth error: \(error)")
-//                } else {
-//                    if let user = user {
-//                        cdPrint("auth user: \(user)")
-//                    }
-//                }
-//            }
-//        }
         #if DEBUG
-//        Firestore.enableLogging(true)
+        //        Firestore.enableLogging(true)
         #endif
         
         _ = secretChannelList()
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .catchErrorJustReturn([])
             .bind(to: secretChannelsSubject)
+        
+        _ = onlineChannelList()
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .catchErrorJustReturn([])
+            .bind(to: publicChannelsSubject)
+        
+    }
+    
+    func findValidRoom(with name: String) -> Room {
+        var room: Room?
+        if name.isPrivate {
+            room = FireStore.shared.secretChannels.first(where: { $0.name == name })
+        } else {
+            room = FireStore.shared.publicChannels.first(where: { $0.name == name })
+        }
+        return room ?? Room(name: name, user_count: 1)
     }
     
     func isValidSecretChannel(_ name: String?) -> Bool {
