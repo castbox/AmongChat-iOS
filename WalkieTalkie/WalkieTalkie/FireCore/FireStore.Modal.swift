@@ -10,11 +10,11 @@ import Foundation
 
 extension FireStore {
     struct ChannelConfig: Codable {
-        #if DEBUG
-        static let `default` = ChannelConfig(gUserLimit: 2, sSpeakerLimit: 1, sUserLimit: 3, gSpeakerLimit: 1)
-        #else
+//        #if DEBUG
+//        static let `default` = ChannelConfig(gUserLimit: 2, sSpeakerLimit: 1, sUserLimit: 3, gSpeakerLimit: 1)
+//        #else
         static let `default` = ChannelConfig(gUserLimit: 20, sSpeakerLimit: 5, sUserLimit: 50, gSpeakerLimit: 10)
-        #endif
+//        #endif
         
         let gUserLimit: Int
         let sSpeakerLimit: Int

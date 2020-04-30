@@ -50,7 +50,6 @@ class RoomViewController: ViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-//    @IBOutlet weak var upButtonWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var toolsView: UIView!
@@ -550,11 +549,13 @@ private extension RoomViewController {
                 return gesture.state == .began || gesture.state == .changed
             }
             .filter { [weak self] value in
-                guard let `self` = self else { return false }
+                guard let `self` = self else { //talking 状态不能改变
+                        return false
+                }
                 //connecting -> spaak
                 if value { //prepareing to talking
                     //check if connect
-                    if self.mManager.isReachMaxUnmuteUserCount {
+                    if self.mManager.isReachMaxUnmuteUserCount, self.state != .talking {
                         //reach connect
                         self.state = .maxMic
                         return false

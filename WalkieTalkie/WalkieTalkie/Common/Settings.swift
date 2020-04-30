@@ -216,6 +216,10 @@ extension DefaultsKeys {
         .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
     }
     
+    var secretChannels: DefaultsKey<[Room]> {
+        .init("channel", defaultValue: [])
+    }
+    
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
     }

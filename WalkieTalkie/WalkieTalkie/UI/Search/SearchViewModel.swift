@@ -17,13 +17,16 @@ struct Room: Codable, DefaultsSerializable {
     let name: String
     let user_count: Int
     var joinAt: TimeInterval
+    let persistence: Bool
     
     init(name: String,
          user_count: Int,
-         joinAt: TimeInterval = Date().timeIntervalSince1970) {
+         joinAt: TimeInterval = Date().timeIntervalSince1970,
+         persistence: Bool = false) {
         self.name = name
         self.user_count = user_count
         self.joinAt = joinAt
+        self.persistence = persistence
     }
     
     mutating func updateJoinInterval() {
@@ -50,19 +53,6 @@ struct Room: Codable, DefaultsSerializable {
     var isPrivate: Bool {
         return name.hasPrefix("_")
     }
-    
-//    var isValid: Bool {
-//        guard isPrivate else {
-//            return true
-//        }
-//        print("joinAt: \(joinAt) valid: \(joinAt - Date().timeIntervalSince1970 < 30 * 60)")
-//        return joinAt - Date().timeIntervalSince1970 < 30 * 60 //30 minute
-//    }
-    
-//    private enum CodingKeys: String, CodingKey {
-//        case name
-//        case user_count
-//    }
 }
 
 extension String {
@@ -92,43 +82,6 @@ extension String {
     }
 }
 
-//extension UserDefaults {
-//    subscript<T: Codable>(key: DefaultsKey<T?>) -> T? {
-//        get {
-//            guard let data = object(forKey: key._key) as? Data else { return nil }
-//
-//            let decoder = JSONDecoder()
-//            let dictionary = try! decoder.decode([String: T].self, from: data)
-//            return dictionary["top"]
-//        }
-//        set {
-//            guard let value = newValue else { return set(nil, forKey: key._key) }
-//
-//            let encoder = JSONEncoder()
-//            let data = try! encoder.encode(["top": value])
-//            set(data, forKey: key._key)
-//
-//        }
-//    }
-//}
-
-
-//extension Room: DefaultsSerializable {
-//    static var _defaults: ThemeModeBridge { return ThemeModeBridge() }
-//    static var _defaultsArray: ThemeModeBridge { return ThemeModeBridge() }
-//}
-//
-//class ThemeModeBridge: DefaultsBridge<Theme.Mode> {
-//    override func save(key: String, value: Theme.Mode?, userDefaults: UserDefaults) {
-//        userDefaults.set(value?.rawValue, forKey: key)
-//    }
-//
-//    override func get(key: String, userDefaults: UserDefaults) -> Theme.Mode? {
-//        return Theme.Mode(rawValue: userDefaults.integer(forKey: key))
-//    }
-//}
-
-
 class SearchViewModel {
     var dataSource: [Room] = [] {
         didSet {
@@ -140,12 +93,21 @@ class SearchViewModel {
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
 
     private let bag = DisposeBag()
-    private var joinedPrivateChannels: [Room] = []
+    private var joinedPrivateChannels: [Room] = [] {
+        didSet {
+            cdPrint("[SearchViewModel] joinedPrivateChannels: \(joinedPrivateChannels)")
+            let persistenceRooms = joinedPrivateChannels.filter { $0.persistence == true }
+            Defaults[\.secretChannels] = persistenceRooms
+            cdPrint("[SearchViewModel] persistenceRooms: \(persistenceRooms)")
+
+        }
+    }
     
     private(set) var queryString: String?
     
     init() {
-        
+        joinedPrivateChannels = Defaults[\.secretChannels]
+        cdPrint("[SearchViewModel] init joinedPrivateChannels: \(joinedPrivateChannels)")
     }
     
     func startListenerList() {
@@ -161,6 +123,7 @@ class SearchViewModel {
                         return self.joinedPrivateChannels.contains { $0.name == room.name }
                     }
                 } //merge the
+                .debug()
                 .map { $0.sorted(by: { $0.joinAt > $1.joinAt }) }
 
                 
@@ -238,12 +201,13 @@ class SearchViewModel {
             //upate time interval
             room.updateJoinInterval()
         } else {
-            joinedPrivateChannels.append(Room(name: channelName, user_count: 1))
+            var channels = joinedPrivateChannels
+            channels.append(FireStore.shared.findValidRoom(with: channelName))
+            joinedPrivateChannels = channels
         }
         
     }
 }
-
 
 extension Array {
     func filterDuplicates<E: Equatable>(_ filter: (Element) -> E) -> [Element] {

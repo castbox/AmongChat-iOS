@@ -70,6 +70,9 @@ class FireStore {
         //static let channelConfig = "channel_config"
         
         #if DEBUG
+        _ = channelConfigObservalbe()
+            .catchErrorJustReturn(.default)
+            .bind(to: channelConfigSubject)
         #else
         _ = channelConfigObservalbe()
             .catchErrorJustReturn(.default)
@@ -196,7 +199,8 @@ extension QuerySnapshot {
     func toRoomList() -> [Room] {
         return documents.map { snapshot -> Room? in
             let count = snapshot.data()["user_count"] as? Int ?? 0
-            return Room(name: snapshot.documentID, user_count: count)
+            let persistence = snapshot.data()["persistence"] as? Bool ?? false
+            return Room(name: snapshot.documentID, user_count: count, persistence: persistence)
         }
         .compactMap { $0 }
     }
