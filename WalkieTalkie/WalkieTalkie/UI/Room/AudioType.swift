@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum AudioType: String, CaseIterable {
+    case begin
+    case end
+    case call
+}
+
 extension AudioType {
     
     var name: String {

@@ -11,9 +11,6 @@
         <array key="BlackOpsOne-Regular.ttf">
             <string>BlackOpsOne-Regular</string>
         </array>
-        <array key="EHSMB.TTF">
-            <string>ElectronicHighwaySign</string>
-        </array>
         <array key="Nunito-Bold.ttf">
             <string>Nunito-Bold</string>
         </array>
@@ -50,25 +47,25 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh">
                                 <rect key="frame" x="40" y="102" width="334" height="351"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q" customClass="ScreenContainer" customModule="WalkieTalkie" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="314" height="125"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="S42-iO-Z48">
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="S42-iO-Z48">
                                                 <rect key="frame" x="0.0" y="0.0" width="314" height="125"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA3-ly-Qtw">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fA3-ly-Qtw">
                                                 <rect key="frame" x="11" y="19.5" width="123.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="15"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMW-fa-LPT">
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMW-fa-LPT">
                                                 <rect key="frame" x="10" y="73.5" width="23.5" height="35"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="28"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="CREATE NEW" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
+                                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="CREATE NEW" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="WeD-PF-cDM" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
                                                 <rect key="frame" x="43.5" y="68.5" width="260.5" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="PKM-fW-ZPX"/>
@@ -76,14 +73,17 @@
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="alphabet" returnKeyType="done"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpb-af-6FM">
-                                                <rect key="frame" x="288" y="16.5" width="16" height="25"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpb-af-6FM">
+                                                <rect key="frame" x="298.5" y="16.5" width="5.5" height="25"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_room_lock" translatesAutoresizingMaskIntoConstraints="NO" id="B9z-Gt-x5x">
                                                 <rect key="frame" x="9.5" y="78.5" width="25" height="25"/>
+                                            </imageView>
+                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mic" translatesAutoresizingMaskIntoConstraints="NO" id="EH2-mC-fya">
+                                                <rect key="frame" x="249" y="16.5" width="25" height="25"/>
                                             </imageView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.13333333333333333" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
@@ -94,10 +94,12 @@
                                             <constraint firstItem="B9z-Gt-x5x" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="9.5" id="AhI-uN-CLq"/>
                                             <constraint firstItem="fA3-ly-Qtw" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" constant="11" id="Dfm-fW-Jqg"/>
                                             <constraint firstItem="S42-iO-Z48" firstAttribute="leading" secondItem="8yd-YY-a9Q" secondAttribute="leading" id="QZU-ng-DfM"/>
+                                            <constraint firstItem="EH2-mC-fya" firstAttribute="centerY" secondItem="Mpb-af-6FM" secondAttribute="centerY" id="RXR-jb-PTN"/>
                                             <constraint firstAttribute="bottom" secondItem="WeD-PF-cDM" secondAttribute="bottom" constant="11.5" id="TEo-zu-Phe"/>
                                             <constraint firstAttribute="trailing" secondItem="Mpb-af-6FM" secondAttribute="trailing" constant="10" id="VyF-uw-eRe"/>
                                             <constraint firstItem="S42-iO-Z48" firstAttribute="top" secondItem="8yd-YY-a9Q" secondAttribute="top" id="ZQc-kt-2Xp"/>
                                             <constraint firstAttribute="height" constant="125" id="hTf-Rq-z9x"/>
+                                            <constraint firstAttribute="trailing" secondItem="EH2-mC-fya" secondAttribute="trailing" constant="40" id="hgg-ZY-jBY"/>
                                             <constraint firstItem="B9z-Gt-x5x" firstAttribute="centerY" secondItem="WeD-PF-cDM" secondAttribute="centerY" id="i03-eP-FJi"/>
                                             <constraint firstItem="fA3-ly-Qtw" firstAttribute="top" secondItem="8yd-YY-a9Q" secondAttribute="top" constant="19.5" id="ivo-be-dZv"/>
                                             <constraint firstItem="eMW-fa-LPT" firstAttribute="centerY" secondItem="WeD-PF-cDM" secondAttribute="centerY" id="m3C-UX-SPR"/>
@@ -348,6 +350,7 @@
                         <outlet property="connectStateLabel" destination="fA3-ly-Qtw" id="Uo9-ff-LGp"/>
                         <outlet property="downButton" destination="s2v-Ak-Ufd" id="gsq-Bp-iHN"/>
                         <outlet property="lockIconView" destination="B9z-Gt-x5x" id="OvB-5u-0zC"/>
+                        <outlet property="micView" destination="EH2-mC-fya" id="8fh-xy-3Hz"/>
                         <outlet property="musicButton" destination="TbP-Ah-Hra" id="YRG-eW-EY6"/>
                         <outlet property="numberLabel" destination="Mpb-af-6FM" id="gZc-P0-trU"/>
                         <outlet property="powerButton" destination="L19-kc-srO" id="EbJ-15-QcU"/>
@@ -389,7 +392,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKJ-V4-Fl4">
-                                            <rect key="frame" x="35" y="6" width="342" height="32"/>
+                                            <rect key="frame" x="35" y="6" width="369" height="32"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="32" id="V9f-g4-HZE"/>
                                             </constraints>
@@ -405,15 +408,6 @@
                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfv-yW-OMu">
-                                            <rect key="frame" x="387" y="13.5" width="17" height="17.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="17" id="nfC-nx-fNF"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" name="ElectronicHighwaySign" family="Electronic Highway Sign" pointSize="15"/>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_room_lock" translatesAutoresizingMaskIntoConstraints="NO" id="4m8-LC-0jy">
                                             <rect key="frame" x="9.5" y="14.5" width="15" height="15"/>
                                             <constraints>
@@ -423,21 +417,17 @@
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="dfv-yW-OMu" firstAttribute="centerY" secondItem="YKJ-V4-Fl4" secondAttribute="centerY" id="0h2-bn-109"/>
+                                        <constraint firstAttribute="trailing" secondItem="YKJ-V4-Fl4" secondAttribute="trailing" constant="10" id="0cz-Bl-bRl"/>
                                         <constraint firstItem="YKJ-V4-Fl4" firstAttribute="leading" secondItem="bPa-Q9-pgs" secondAttribute="trailing" constant="5" id="2DH-ZU-E7A"/>
-                                        <constraint firstItem="dfv-yW-OMu" firstAttribute="leading" secondItem="YKJ-V4-Fl4" secondAttribute="trailing" constant="10" id="FLh-z0-93G"/>
                                         <constraint firstItem="4m8-LC-0jy" firstAttribute="centerX" secondItem="bPa-Q9-pgs" secondAttribute="centerX" constant="-3" id="Ft9-7R-4A8"/>
                                         <constraint firstItem="bPa-Q9-pgs" firstAttribute="centerY" secondItem="YKJ-V4-Fl4" secondAttribute="centerY" id="RiB-ev-6Sg"/>
                                         <constraint firstItem="YKJ-V4-Fl4" firstAttribute="centerY" secondItem="mFv-ih-aox" secondAttribute="centerY" id="dno-YX-eQb"/>
                                         <constraint firstItem="bPa-Q9-pgs" firstAttribute="centerY" secondItem="4m8-LC-0jy" secondAttribute="centerY" id="ee7-Kn-xqe"/>
-                                        <constraint firstAttribute="trailing" secondItem="dfv-yW-OMu" secondAttribute="trailing" constant="10" id="i2v-zq-ACU"/>
                                         <constraint firstItem="bPa-Q9-pgs" firstAttribute="leading" secondItem="mFv-ih-aox" secondAttribute="leading" constant="10" id="i3A-gU-Lyf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.71764705882352942" green="0.9882352941176471" blue="0.22352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <outlet property="countLabel" destination="dfv-yW-OMu" id="neN-Lg-HBj"/>
-                                    <outlet property="countLabelWidthConstraint" destination="nfC-nx-fNF" id="Emp-Kj-Adb"/>
                                     <outlet property="lockIconView" destination="4m8-LC-0jy" id="cyU-Wh-j9O"/>
                                     <outlet property="nameLabel" destination="YKJ-V4-Fl4" id="1Mx-mI-9oK"/>
                                     <outlet property="tagLabel" destination="YKJ-V4-Fl4" id="m2d-Ox-1ga"/>
@@ -470,28 +460,75 @@
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUp-M0-5V0">
-                                <rect key="frame" x="188.5" y="818" width="37" height="14"/>
+                                <rect key="frame" x="188.5" y="806" width="37" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkie Talkie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D9i-3D-d4d">
-                                <rect key="frame" x="137" y="788" width="140.5" height="25"/>
+                                <rect key="frame" x="137" y="776" width="140.5" height="25"/>
                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8j-7O-rDC">
+                                <rect key="frame" x="159" y="824" width="96" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="tle-jO-Cx9"/>
+                                </constraints>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Items">
+                                            <attributes>
+                                                <color key="NSColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content=" &amp; ">
+                                            <attributes>
+                                                <color key="NSColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                        <fragment content="Policy ">
+                                            <attributes>
+                                                <color key="NSColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="policyAction:" destination="So9-oX-cun" eventType="touchUpInside" id="RnT-wJ-Znt"/>
+                                    <action selector="policyButtonAction:" destination="NfE-67-lW0" eventType="touchUpInside" id="7Fx-ac-rxc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="2hf-w6-jzO" firstAttribute="leading" secondItem="yCI-U6-REy" secondAttribute="leading" id="27b-YU-uVW"/>
                             <constraint firstItem="EUp-M0-5V0" firstAttribute="centerX" secondItem="yCI-U6-REy" secondAttribute="centerX" id="2Gt-GN-xt5"/>
                             <constraint firstItem="yCI-U6-REy" firstAttribute="trailing" secondItem="2hf-w6-jzO" secondAttribute="trailing" id="3tO-qs-b5X"/>
+                            <constraint firstItem="Z8j-7O-rDC" firstAttribute="top" secondItem="EUp-M0-5V0" secondAttribute="bottom" constant="4" id="6UC-lE-YwD"/>
                             <constraint firstItem="EUp-M0-5V0" firstAttribute="top" secondItem="D9i-3D-d4d" secondAttribute="bottom" constant="5" id="M9g-se-EzN"/>
                             <constraint firstItem="2hf-w6-jzO" firstAttribute="top" secondItem="yCI-U6-REy" secondAttribute="top" id="OEg-ve-KRv"/>
-                            <constraint firstItem="yCI-U6-REy" firstAttribute="bottom" secondItem="EUp-M0-5V0" secondAttribute="bottom" constant="30" id="nnS-mj-YRT"/>
+                            <constraint firstItem="Z8j-7O-rDC" firstAttribute="centerX" secondItem="2hf-w6-jzO" secondAttribute="centerX" id="UHZ-3l-T1i"/>
                             <constraint firstItem="D9i-3D-d4d" firstAttribute="centerX" secondItem="EUp-M0-5V0" secondAttribute="centerX" id="oq3-u7-1Bl"/>
                             <constraint firstItem="yCI-U6-REy" firstAttribute="bottom" secondItem="2hf-w6-jzO" secondAttribute="bottom" id="tv8-rN-PFS"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Z8j-7O-rDC" secondAttribute="bottom" id="y1c-hc-pQW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yCI-U6-REy"/>
                     </view>
@@ -558,7 +595,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_setting_star" translatesAutoresizingMaskIntoConstraints="NO" id="w41-dq-eWV">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_push" translatesAutoresizingMaskIntoConstraints="NO" id="w41-dq-eWV">
                                                     <rect key="frame" x="15" y="9.5" width="25" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w76-pL-yh7" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
@@ -1108,7 +1145,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="label" size="11"/>
+                                                                <font key="NSFont" metaFont="message" size="11"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -1364,13 +1401,15 @@ Cg
         <image name="button_press" width="175.5" height="175"/>
         <image name="home_btn_bg_b" width="74" height="74"/>
         <image name="icon_close" width="25" height="25"/>
+        <image name="icon_mic" width="25" height="25"/>
         <image name="icon_pri_ad" width="25" height="25"/>
         <image name="icon_pri_join" width="50" height="50"/>
         <image name="icon_pro" width="65" height="30"/>
         <image name="icon_pro_persons" width="3881.5" height="135"/>
         <image name="icon_pro_select" width="25" height="25"/>
+        <image name="icon_push" width="25" height="25"/>
         <image name="icon_room_lock" width="25" height="25"/>
-        <image name="icon_screen_bg" width="277" height="125"/>
+        <image name="icon_screen_bg" width="23.333333969116211" height="23"/>
         <image name="icon_setting" width="25" height="25"/>
         <image name="icon_setting_diamonds_u" width="25" height="25"/>
         <image name="icon_setting_star" width="25" height="25"/>
