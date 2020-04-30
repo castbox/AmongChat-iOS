@@ -30,8 +30,20 @@ struct Room: Codable, DefaultsSerializable {
         joinAt = Date().timeIntervalSince1970
     }
     
-    var showName: String? {
+    var showName: String {
         return name.showName
+    }
+    
+    var isReachMaxUser: Bool {
+        return FireStore.channelConfig.isReachMaxUser(self)
+    }
+    
+    var userCountForShow: String {
+        if isReachMaxUser {
+            return R.string.localizable.channelUserMax()
+        } else {
+            return user_count.string
+        }
     }
     
     var isPrivate: Bool {
@@ -53,7 +65,7 @@ struct Room: Codable, DefaultsSerializable {
 }
 
 extension String {
-    var showName: String? {
+    var showName: String {
         if isPrivate {
             guard let name = split(bySeparator: "_").last else {
                 return self

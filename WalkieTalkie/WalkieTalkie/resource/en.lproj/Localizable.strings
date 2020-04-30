@@ -46,3 +46,5 @@
 
 "enter.secret.channel.alert.title" = "Enter the Secret Channel?";
 "enter.secret.channel.alert.desc" = "This passcode can enter a secret channel, enter now?";
+"channel.user.max" = "MAX";
+"channel.user.max.state" = "ERROR MAX USERS";

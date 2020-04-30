@@ -87,21 +87,22 @@ class SearchViewController: UITableViewController {
 class SearchCell: UITableViewCell {
     @IBOutlet weak var tagLabel: UITextField!
     @IBOutlet weak var nameLabel: UITextField!
-    @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var tagView: UILabel!
     @IBOutlet weak var lockIconView: UIImageView!
-    @IBOutlet weak var countLabelWidthConstraint: NSLayoutConstraint!
     
     func set(_ room: Room?) {
-        nameLabel.text = room?.showName
-        if room?.user_count == 0 {
-            countLabel.text = nil
-        } else {
-            countLabel.text = room?.user_count.string
+        guard let room = room else {
+            return
         }
-        let isPrivate = room?.name.isPrivate ?? false
+        nameLabel.text = {
+            if room.user_count > 0 {
+                return "\(room.showName)  \(room.userCountForShow)"
+            }
+            return room.showName
+        }()
+        let isPrivate = room.name.isPrivate
         lockIconView.isHidden = !isPrivate
         tagView.isHidden = isPrivate
-        countLabelWidthConstraint.constant = countLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: 200, height: 30), limitedToNumberOfLines: 1).size.width
+//        countLabelWidthConstraint.constant = countLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: 200, height: 30), limitedToNumberOfLines: 1).size.width
     }
 }

@@ -19,9 +19,11 @@ class FireStore {
     struct Root {
         static let channels = "channels"
         static let secrets = "secrets"
-//        static let default_channels = "default_channels"
+        static let settings = "settings"
+        static let channelConfig = "channel_config"
+        //        static let default_channels = "default_channels"
     }
-//
+    //
     static let shared = FireStore()
     
     static let defaultRoom = Room(name: "WELCOME", user_count: 0)
@@ -36,6 +38,11 @@ class FireStore {
         return publicChannelsSubject.value
     }
     
+    let channelConfigSubject = BehaviorRelay<ChannelConfig>(value: .default)
+    static var channelConfig: ChannelConfig {
+        return shared.channelConfigSubject.value
+    }
+    
     lazy var db: Firestore = {
         let db = Firestore.firestore()
         let settings = FirestoreSettings()
@@ -43,7 +50,9 @@ class FireStore {
         db.settings = settings
         return db
     }()
-
+    
+    //    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
+    
     init() {
         #if DEBUG
         //        Firestore.enableLogging(true)
@@ -58,6 +67,14 @@ class FireStore {
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .catchErrorJustReturn([])
             .bind(to: publicChannelsSubject)
+        //static let channelConfig = "channel_config"
+        
+        #if DEBUG
+        #else
+        _ = channelConfigObservalbe()
+            .catchErrorJustReturn(.default)
+            .bind(to: channelConfigSubject)
+        #endif
         
     }
     
@@ -97,6 +114,33 @@ class FireStore {
         
     }
     
+    func channelConfigObservalbe() -> Observable<FireStore.ChannelConfig> {
+        return Observable<FireStore.ChannelConfig>.create({ [weak self] (observer) -> Disposable in
+            self?.db.collection(Root.settings)
+                .document("channel_config")
+                .getDocument(completion: { query, error in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onNext(.default)
+                        return
+                    } else {
+                        guard let query = query, let data = query.data() else {
+                            observer.onNext(.default)
+                            return
+                        }
+                        var config: ChannelConfig?
+                        decoderCatcher {
+                            config = try JSONDecoder().decodeAnyData(FireStore.ChannelConfig.self, from: data)
+                        }
+                        observer.onNext(config ?? .default)
+                        observer.onCompleted()
+                    }
+                })
+            return Disposables.create {
+            }
+        })
+    }
+    
     func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             let ref = self?.db.collection(Root.channels)
@@ -119,7 +163,7 @@ class FireStore {
                 ref?.remove()
             }
         })
-        .startWith([FireStore.defaultRoom])
+            .startWith([FireStore.defaultRoom])
     }
     
     func secretChannelList() -> Observable<[Room]> {
@@ -144,14 +188,13 @@ class FireStore {
                 ref?.remove()
             }
         })
-        .startWith([FireStore.defaultRoom])
+            .startWith([FireStore.defaultRoom])
     }
 }
 
 extension QuerySnapshot {
     func toRoomList() -> [Room] {
         return documents.map { snapshot -> Room? in
-            //            cdPrint("snapshot: \(snapshot.documentID) \(snapshot.data())")
             let count = snapshot.data()["user_count"] as? Int ?? 0
             return Room(name: snapshot.documentID, user_count: count)
         }

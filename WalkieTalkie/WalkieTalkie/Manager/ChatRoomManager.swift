@@ -134,9 +134,13 @@ class ChatRoomManager: SeatManager {
     }
 
     func leaveChannel() {
+        guard channelName != nil else {
+            return
+        }
+        channelName = nil
         mRtcManager.leaveChannel()
-//        mRtmManager.leaveChannel()
         mChannelData.release()
+        HapticFeedback.Impact.medium()
     }
 
 //    private func checkAndBeAnchor() {

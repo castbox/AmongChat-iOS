@@ -36,11 +36,6 @@ extension AudioType {
     
     var path: String? {
         return Bundle.main.path(forResource: name, ofType: type)
-//                    let soundId: Int32 = 1
-//        //            let filePath = "your filepath"
-//
-//                    // 可以加载多个音效
-//
     }
     
     var index: Int32 {

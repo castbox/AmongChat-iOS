@@ -17,12 +17,6 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 
-enum AudioType: String, CaseIterable {
-    case begin
-    case end
-    case call
-}
-
 enum UserStatus {
     case audiance
     case broadcaster
@@ -30,46 +24,22 @@ enum UserStatus {
     case end
 }
 
-enum ChannelType: Int {
-    case `public`
-    case `private`
-}
-
-extension ChannelType {
-    var screenColor: UIColor {
-        switch self {
-        case .public:
-            return UIColor(hex: 0xBFFF58)!
-        case .private:
-            return UIColor(hex: 0xFFC800)!
-        }
-    }
-    
-    var screenImage: UIImage? {
-        switch self {
-        case .public:
-            return R.image.icon_screen_bg()
-        case .private:
-            return R.image.icon_screen_s_bg()
-        }
-    }
-}
-
 class RoomViewController: ViewController {
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var speakButtonTrigger: UIView!
-    @IBOutlet weak var connectStateLabel: UILabel!
     
-    @IBOutlet weak var numberLabel: UILabel!
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
         manager.delegate = self
         return manager
     }()
     
+    @IBOutlet weak var connectStateLabel: UILabel!
     @IBOutlet weak var tagView: UILabel!
     @IBOutlet weak var lockIconView: UIImageView!
     @IBOutlet weak var channelTextField: ChannelNameField!
+    @IBOutlet weak var micView: UIImageView!
+    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var screenContainer: UIView!
     @IBOutlet weak var buttonContainer: UIView!
     
@@ -102,11 +72,9 @@ class RoomViewController: ViewController {
     private var channel: Room = Defaults[\.channel] {
         didSet {
             updateSubviewStyle()
-//            if channel.isValid {
-            self.updateMemberCount(with: channel)
+            updateMemberCount(with: channel)
             channel.updateJoinInterval()
             Defaults[\.channel] = channel
-//            }
         }
     }
     
@@ -238,7 +206,6 @@ class RoomViewController: ViewController {
     
     func leaveChannel() {
         mManager.leaveChannel()
-        HapticFeedback.Impact.medium()
     }
   
     func joinChannel(_ name: String?) {
@@ -253,14 +220,20 @@ class RoomViewController: ViewController {
         if mManager.state == .connected && mManager.channelName == name {
            return false
         }
-        channel = Room(name: name, user_count: 0)
+        channel = FireStore.shared.findValidRoom(with: name)
+        guard !channel.isReachMaxUser else {
+            //离开当前房间
+            leaveChannel()
+            connectStateLabel.text = R.string.localizable.channelUserMaxState()
+            return false
+        }
         searchViewModel.add(private: name)
         checkMicroPermission { [weak self] in
             guard let `self` = self else { return }
             self.mManager.joinChannel(channelId: name) { [weak self] in
+                HapticFeedback.Impact.medium()
                 self?.viewModel.requestEnterRoom()
             }
-            HapticFeedback.Impact.medium()
         }
         return true
     }
@@ -325,7 +298,12 @@ extension RoomViewController: ChatRoomDelegate {
     }
 
     func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
-        connectStateLabel.text = state.title.uppercased()
+        if state == .disconnected,
+            connectStateLabel.text == R.string.localizable.channelUserMaxState() {
+            
+        } else {
+            connectStateLabel.text = state.title.uppercased()
+        }
         updateButtonsEnable()
     }
     
@@ -463,7 +441,15 @@ private extension RoomViewController {
     }
     
     func updateMemberCount(with room: Room?) {
-        numberLabel.text = room?.user_count.string ?? "1"
+        guard let room = room else {
+            numberLabel.text = "1"
+            return
+        }
+        if room.isReachMaxUser {
+            numberLabel.text = "--"
+        } else {
+            numberLabel.text = room.userCountForShow
+        }
     }
     
     func showSearchView() {
