@@ -25,7 +25,10 @@ class SettingViewController: ViewController {
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
     }
     
-
+    @IBAction func policyAction(_ sender: Any) {
+        open(urlSting: "https://walkietalkie.live/policy.html")
+    }
+    
     /*
     // MARK: - Navigation
 
