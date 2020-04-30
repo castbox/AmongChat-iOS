@@ -13,6 +13,8 @@
 		FE0D1A2524489BF300518793 /* AudioType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2424489BF300518793 /* AudioType.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
+		FE11DC2F245AFF6A009B7E08 /* ConnectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */; };
+		FE11DC30245B007B009B7E08 /* cbegin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FECA43B62459A8A60075D139 /* cbegin.mp3 */; };
 		FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D17243461E800BEDD60 /* AppDelegate.swift */; };
 		FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D1B243461E800BEDD60 /* RoomViewController.swift */; };
 		FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D1D243461E800BEDD60 /* Main.storyboard */; };
@@ -182,6 +184,7 @@
 		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectState.swift; sourceTree = "<group>"; };
 		FE126D14243461E800BEDD60 /* WalkieTalkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalkieTalkie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D17243461E800BEDD60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE126D1B243461E800BEDD60 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
@@ -430,6 +433,7 @@
 				FECA43B32459A7800075D139 /* Guide */,
 				FE2AF9ED244DCC0200763747 /* Routes */,
 				FE401E49244DAD6B0081F793 /* Utils */,
+				FE126D542434821900BEDD60 /* Manager */,
 				FE401E31244D9C450081F793 /* IAP */,
 				FE684888244BDBF100F87AF9 /* FireCore */,
 				FECA43B92459A8D30075D139 /* Ads */,
@@ -439,7 +443,6 @@
 				FE860D522446D23500087B73 /* Earth */,
 				FE860D3D2446D1D700087B73 /* Theme */,
 				FE8DEA6F243DB0A20059C252 /* ApiManager */,
-				FE126D542434821900BEDD60 /* Manager */,
 				FE126D532434820A00BEDD60 /* Model */,
 				FE4FDADA2435D70A00CD5E97 /* FireLink.swift */,
 				FECA43B52459A8A40075D139 /* resource */,
@@ -723,6 +726,7 @@
 				FE86A587245AB28D00C35FCA /* ChannelType.swift */,
 				FE0D1A2424489BF300518793 /* AudioType.swift */,
 				FE86A589245AC18200C35FCA /* ScreenContainer.swift */,
+				FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */,
 				FE86A58B245AC19E00C35FCA /* ScreenContainer.xib */,
 			);
 			path = Room;
@@ -874,6 +878,7 @@
 				FE6AF85C24585EA800FD474A /* Nunito-Bold.ttf in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE63069B244FF85A00CEA651 /* GuideFirstView.xib in Resources */,
+				FE11DC30245B007B009B7E08 /* cbegin.mp3 in Resources */,
 				FE6306A3244FF94500CEA651 /* GuideThirdView.xib in Resources */,
 				FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */,
 				FE63069D244FF86700CEA651 /* GuideSecondView.xib in Resources */,
@@ -1024,6 +1029,7 @@
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
+				FE11DC2F245AFF6A009B7E08 /* ConnectState.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,

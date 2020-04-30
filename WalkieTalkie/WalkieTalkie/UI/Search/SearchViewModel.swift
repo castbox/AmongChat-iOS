@@ -35,12 +35,13 @@ struct Room: Codable, DefaultsSerializable {
     }
     
     var isReachMaxUser: Bool {
-        return FireStore.channelConfig.isReachMaxUser(self)
+        return FireStore.channelConfig.isReachMaxUser(self).0
     }
     
     var userCountForShow: String {
+        let (isReachMaxUser, maxCount) = FireStore.channelConfig.isReachMaxUser(self)
         if isReachMaxUser {
-            return R.string.localizable.channelUserMax()
+            return maxCount.string
         } else {
             return user_count.string
         }

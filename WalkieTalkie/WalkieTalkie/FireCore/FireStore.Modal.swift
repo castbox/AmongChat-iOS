@@ -11,7 +11,7 @@ import Foundation
 extension FireStore {
     struct ChannelConfig: Codable {
         #if DEBUG
-        static let `default` = ChannelConfig(gUserLimit: 2, sSpeakerLimit: 1, sUserLimit: 3, gSpeakerLimit: 2)
+        static let `default` = ChannelConfig(gUserLimit: 2, sSpeakerLimit: 1, sUserLimit: 3, gSpeakerLimit: 1)
         #else
         static let `default` = ChannelConfig(gUserLimit: 20, sSpeakerLimit: 5, sUserLimit: 50, gSpeakerLimit: 10)
         #endif
@@ -27,11 +27,11 @@ extension FireStore {
             case gSpeakerLimit = "g_speaker_limit"
         }
         
-        func isReachMaxUser(_ room: Room) -> Bool {
+        func isReachMaxUser(_ room: Room) -> (Bool, Int) {
             if room.isPrivate {
-                return room.user_count < sUserLimit
+                return (room.user_count >= sUserLimit, sUserLimit)
             } else {
-                return room.user_count < gUserLimit
+                return (room.user_count >= gUserLimit, gUserLimit)
             }
         }
         

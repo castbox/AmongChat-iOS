@@ -84,6 +84,12 @@ class RoomViewController: ViewController {
     
     private var hotBag: DisposeBag? = DisposeBag()
     
+    private var state: ConnectState = .disconnected {
+        didSet {
+            updateButtonsEnable()
+        }
+    }
+    
     var myUserId: String {
         return String(Constant.sUserId)
     }
@@ -162,7 +168,7 @@ class RoomViewController: ViewController {
     
     @IBAction func connectChannelAction(_ sender: UIButton) {
         Logger.UserAction.log(.connect, channelName)
-        if mManager.state == .connected {
+        if mManager.isConnectedState {
             //disconnect
             leaveChannel()
         } else {
@@ -217,7 +223,7 @@ class RoomViewController: ViewController {
         guard let name = name else {
             return false
         }
-        if mManager.state == .connected && mManager.channelName == name {
+        if mManager.isConnectedState && mManager.channelName == name {
            return false
         }
         channel = FireStore.shared.findValidRoom(with: name)
@@ -297,14 +303,8 @@ extension RoomViewController: ChatRoomDelegate {
             .disposed(by: bag)
     }
 
-    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
-        if state == .disconnected,
-            connectStateLabel.text == R.string.localizable.channelUserMaxState() {
-            
-        } else {
-            connectStateLabel.text = state.title.uppercased()
-        }
-        updateButtonsEnable()
+    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+        self.state = state
     }
     
     func onSeatUpdated(position: Int) {
@@ -330,12 +330,19 @@ extension RoomViewController: ChatRoomDelegate {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constant.isMyself(userId) {
             if !muted {
-                if userStatus == .broadcaster {
-                    playAudio(type: .begin)
-                    pushToTalkButton.isHidden = true
-                } else if userStatus == .music {
-                    playAudio(type: .call) { [weak self] in
-                        self?.mManager.updateRole(false)
+                //延迟播音
+                mainQueueDispatchAsync(after: 0.4) { [unowned self] in
+                    if self.userStatus == .broadcaster {
+                        self.state = .talking
+                        HapticFeedback.Impact.light()
+                        self.playAudio(type: .begin)
+                        self.pushToTalkButton.isHidden = true
+                    } else if self.userStatus == .music {
+                        self.playAudio(type: .call) { [weak self] in
+                            self?.mManager.updateRole(false)
+                        }
+                    } else {
+                        self.state = .connected
                     }
                 }
             } else {
@@ -424,14 +431,30 @@ private extension RoomViewController {
     }
     
     func updateButtonsEnable() {
-        switch mManager.state {
-        case .connected:
+        print("[RoomViewController] updateButtonsEnable with state: \(state.title)")
+        if state == .disconnected,
+            connectStateLabel.text == R.string.localizable.channelUserMaxState() {
+
+        } else {
+            connectStateLabel.text = state.title.uppercased()
+        }
+        switch state {
+        case .talking:
+            micView.image = R.image.icon_mic()
+            micView.alpha = 1
+        case .maxMic:
+            micView.image = R.image.icon_mic_disable()
+            micView.alpha = 1
+        case .connected, .preparing:
+            micView.image = R.image.icon_mic()
             speakButton.isEnabled = true
             musicButton.isEnabled = true
             pushToTalkButton.isHidden = false
+            micView.alpha = 0.3
             powerButton.setImage(R.image.btn_power_on(), for: .normal)
             powerButton.setBackgroundImage(R.image.home_btn_bg(), for: .normal)
         default:
+            micView.alpha = 0
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
@@ -445,7 +468,8 @@ private extension RoomViewController {
             numberLabel.text = "1"
             return
         }
-        if room.isReachMaxUser {
+        if !mManager.isConnectedState,
+            room.isReachMaxUser {
             numberLabel.text = "--"
         } else {
             numberLabel.text = room.userCountForShow
@@ -525,11 +549,32 @@ private extension RoomViewController {
             .map { gesture -> Bool in
                 return gesture.state == .began || gesture.state == .changed
             }
+            .filter { [weak self] value in
+                guard let `self` = self else { return false }
+                //connecting -> spaak
+                if value { //prepareing to talking
+                    //check if connect
+                    if self.mManager.isReachMaxUnmuteUserCount {
+                        //reach connect
+                        self.state = .maxMic
+                        return false
+                    }
+                } else {
+                    //unmic
+                    if self.state == .maxMic {
+                        self.state = .connected
+                        return false
+                    }
+                }
+                return true
+            }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] highlighted in
 //                cdPrint("speakButton is highlighted: \(highlighted)")
                 self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
+                self?.state = highlighted ? .preparing : .connected
                 self?.userStatus = highlighted ? .broadcaster : .audiance
+                self?.micView.alpha = highlighted ? 1 : 0.3
                 self?.updateRole(highlighted)
             })
             .disposed(by: bag)
@@ -628,13 +673,6 @@ private extension RoomViewController {
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         gradientLayer = CAGradientLayer()
-//        gradientLayer.frame = CGRect.init(x: 0, y: 0, width: 375, height: 100);//CAGradientLayer的控件大小
-//        gradientLayer.colors = [UIColor(hex: 0xb7fc39)?.cgColor, UIColor(hex: 0x8ed951)?.cgColor, UIColor(hex: 0xb7fc39)?.cgColor]//渐变颜色
-//        gradientLayer.type = .radial
-//        gradientLayer.locations = [0.2,0.5,0.8]//渐变起始位置
-//        gradientLayer.startPoint = CGPoint.init(x: 0, y: 0)
-//        gradientLayer.endPoint = CGPoint.init(x: 1, y: 0)
-//        screenContainer.layer.insertSublayer(gradientLayer, at: 0)
         toolsView.roundCorners(topLeft: 17, topRight: 17, bottomLeft: 50, bottomRight: 50)
     }
     
@@ -681,25 +719,6 @@ extension RoomViewController: MPAdViewDelegate {
     
     func didDismissModalView(forAd view: MPAdView!) {
 //        Logger.Ads.logEvent(.ads_clk, .channel)
-    }
-}
-
-extension AgoraConnectionStateType {
-    var title: String {
-        switch self {
-        case .connecting:
-            return "connecting"
-        case .connected:
-            return "connected"
-        case .disconnected:
-            return "disconnected"
-        case .failed:
-            return "failed"
-        case .reconnecting:
-            return "reconnecting"
-        @unknown default:
-            return "failed"
-        }
     }
 }
 
