@@ -61,7 +61,7 @@ class GuideViewController: ViewController {
     @IBAction func continueAction(_ sender: Any) {
         let index = pageIndex + 1
         if index > maxPage { //last page
-            thirdPage.buy(identifier: IAP.productLifeTime)
+            thirdPage.buy(identifier: IAP.productYear)
         } else {
             scrollView.setContentOffset(CGPoint(x: scrollView.width * index.cgFloat, y: 0), animated: true)
         }
@@ -84,11 +84,12 @@ extension GuideViewController: UIScrollViewDelegate {
             startShowSkipButtonTimer()
             let tryAttr: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.systemFont(ofSize: 15, weight: .bold)
+                .font: UIFont.systemFont(ofSize: 14, weight: .bold)
             ]
+            
             let tryDesAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor(hex: 0x6c6c6c),
-                .font: UIFont.systemFont(ofSize: 11)
+                .foregroundColor: UIColor.black.alpha(0.8),
+                .font: UIFont.systemFont(ofSize: 13)
             ]
             let mutableNormalString = NSMutableAttributedString()
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
@@ -174,3 +175,4 @@ extension GuideViewController {
         continueButton.titleLabel?.textAlignment = .center
     }
 }
+

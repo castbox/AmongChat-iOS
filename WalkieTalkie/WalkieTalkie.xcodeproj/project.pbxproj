@@ -48,7 +48,6 @@
 		FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */; };
 		FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F3244DCC0200763747 /* Routes.swift */; };
 		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
-		FE2AF9FD244DE09100763747 /* cbegin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE2AF9FC244DE09000763747 /* cbegin.mp3 */; };
 		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
 		FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E33244D9C450081F793 /* IAP.Observer.swift */; };
 		FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E34244D9C450081F793 /* IAP.SubscriptionProduct.swift */; };
@@ -148,6 +147,7 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */; };
+		FEBC7BD724604CCA00E63E3D /* cbegin.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FEBC7BD624604CCA00E63E3D /* cbegin.mp3 */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -214,7 +214,6 @@
 		FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.Constructor.swift; sourceTree = "<group>"; };
 		FE2AF9F3244DCC0200763747 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		FE2AF9FA244DDDC700763747 /* URLUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUnit.swift; sourceTree = "<group>"; };
-		FE2AF9FC244DE09000763747 /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = cbegin.mp3; path = "../../../walkietalkie-android/walkie-talkie/src/main/assets/cbegin.mp3"; sourceTree = "<group>"; };
 		FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkie.entitlements; sourceTree = "<group>"; };
 		FE401E32244D9C450081F793 /* IAP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
 		FE401E33244D9C450081F793 /* IAP.Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Observer.swift; sourceTree = "<group>"; };
@@ -315,6 +314,7 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		FEBC7BD624604CCA00E63E3D /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cbegin.mp3; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 				FE6306A2244FF94500CEA651 /* GuideThirdView.xib */,
 				FE49CEAE2436FD5A00C36EC6 /* call.m4a */,
 				FE274D3E243B701B00B6DB88 /* end.mp3 */,
-				FE2AF9FC244DE09000763747 /* cbegin.mp3 */,
+				FEBC7BD624604CCA00E63E3D /* cbegin.mp3 */,
 				FE401E44244DA26F0081F793 /* Localizable.strings */,
 				FE7218842456DF56005274CA /* Nunito-Regular.ttf */,
 				FE6AF85D24585ED200FD474A /* Nunito-SemiBold.ttf */,
@@ -769,10 +769,10 @@
 				FE274D3F243B701C00B6DB88 /* end.mp3 in Resources */,
 				FE6AF85E24585ED300FD474A /* Nunito-SemiBold.ttf in Resources */,
 				FE6AF85C24585EA800FD474A /* Nunito-Bold.ttf in Resources */,
+				FEBC7BD724604CCA00E63E3D /* cbegin.mp3 in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
 				FE63069B244FF85A00CEA651 /* GuideFirstView.xib in Resources */,
 				FE6306A3244FF94500CEA651 /* GuideThirdView.xib in Resources */,
-				FE2AF9FD244DE09100763747 /* cbegin.mp3 in Resources */,
 				FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */,
 				FE63069D244FF86700CEA651 /* GuideSecondView.xib in Resources */,
 				FE401E42244DA26F0081F793 /* Localizable.strings in Resources */,
@@ -1174,7 +1174,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1182,7 +1182,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1199,7 +1199,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1207,7 +1207,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
