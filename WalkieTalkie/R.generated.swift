@@ -488,7 +488,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 37 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 38 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -602,6 +602,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Subscribe
+      /// 
+      /// Locales: en
+      static let guideSubscribeTitle = Rswift.StringResource(key: "guide.subscribe.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Subscription Terms:
       /// 
       /// Locales: en
@@ -833,6 +837,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Subscribe
+      /// 
+      /// Locales: en
+      static func guideSubscribeTitle(_: Void = ()) -> String {
+        return NSLocalizedString("guide.subscribe.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Subscription Terms:

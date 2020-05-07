@@ -17,6 +17,7 @@ import MoPub_AdMob_Adapters
 //import FBAudienceNetwork
 import CastboxDebuger
 import SwifterSwift
+import GoogleMobileAds
 
 enum AdsState: Int {
     case preparing = 0
@@ -91,6 +92,7 @@ class AdsManager: NSObject {
     private func setupAdmob() {
         GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
         GADMobileAds.sharedInstance().applicationVolume = 0
+        GADMobileAds.sharedInstance().applicationMuted = true
         #if DEBUG
         //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
         GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
