@@ -61,8 +61,8 @@ class AdsManager: NSObject {
         //        setupAws()
         //        setupFacebook()
         setupAdmob()
-        setupRefresh()
-        setupEventListener()
+//        setupRefresh()
+//        setupEventListener()
 
     }
     
@@ -120,15 +120,15 @@ class AdsManager: NSObject {
     //        #endif
     //    }
     
-    private func setupEventListener() {
-        AdsManager.notificationCenter.rx.notification(.adEvent)
-            .subscribe(onNext: { (noti) in
-                guard let object = noti.object, let info = object as? AdEventInfo else {
-                    return
-                }
-                mlog.debug(info.basicDescription(), context: "ads_event")
-            }).disposed(by: bag)
-    }
+//    private func setupEventListener() {
+//        AdsManager.notificationCenter.rx.notification(.adEvent)
+//            .subscribe(onNext: { (noti) in
+//                guard let object = noti.object, let info = object as? AdEventInfo else {
+//                    return
+//                }
+//                mlog.debug(info.basicDescription(), context: "ads_event")
+//            }).disposed(by: bag)
+//    }
     
     var hasAdAvailableRewardsVideo: Bool {
          return MPRewardedVideo.hasAdAvailable(forAdUnitID: rewardedVideoId)
@@ -150,96 +150,96 @@ class AdsManager: NSObject {
     private var nativeLastShowDate: Date = Date().addingTimeInterval(0 - AdsManager.nativeAdsRefreshInterval)
     private var nativeLastRequestDate: Date = Date()
     
-    func pause() {
-        switch self.showSelection {
-        case .native:
-            stopNativeAdRefresh()
-        case .banner:
-            fallbackBannerView?.stopAutomaticallyRefreshingContents()
-        }
-        stopNativeAdRefresh()
-    }
+//    func pause() {
+//        switch self.showSelection {
+//        case .native:
+//            stopNativeAdRefresh()
+//        case .banner:
+//            fallbackBannerView?.stopAutomaticallyRefreshingContents()
+//        }
+//        stopNativeAdRefresh()
+//    }
     
-    func resume(forceNative: Bool) {
-        if !forceNative, self.showSelection == .banner {
-            fallbackBannerView?.startAutomaticallyRefreshingContents()
-        } else {
-            self.showSelection = .native
-            if forceNative {
-                requestNativeAds()
-            } else {
-                let now = Date()
-                if now.timeIntervalSince(nativeLastShowDate) > AdsManager.nativeAdsRefreshInterval {
-                    requestNativeAds()
-                } else {
-                    let fireTime = AdsManager.nativeAdsRefreshInterval - now.timeIntervalSince(nativeLastShowDate)
-                    refreshNative(after: .milliseconds(Int(1000 * fireTime)))
-                }
-            }
-        }
-    }
+//    func resume(forceNative: Bool) {
+//        if !forceNative, self.showSelection == .banner {
+//            fallbackBannerView?.startAutomaticallyRefreshingContents()
+//        } else {
+//            self.showSelection = .native
+//            if forceNative {
+//                requestNativeAds()
+//            } else {
+//                let now = Date()
+//                if now.timeIntervalSince(nativeLastShowDate) > AdsManager.nativeAdsRefreshInterval {
+//                    requestNativeAds()
+//                } else {
+//                    let fireTime = AdsManager.nativeAdsRefreshInterval - now.timeIntervalSince(nativeLastShowDate)
+//                    refreshNative(after: .milliseconds(Int(1000 * fireTime)))
+//                }
+//            }
+//        }
+//    }
     
-    private func setupRefresh() {
-        nativeRefreshEvent
-            .flatMapLatest({ $0 })
-            .subscribe(onNext: { [unowned self] (a) in
-                self.requestNativeAds()
-            })
-            .disposed(by: bag)
-    }
+//    private func setupRefresh() {
+//        nativeRefreshEvent
+//            .flatMapLatest({ $0 })
+//            .subscribe(onNext: { [unowned self] (a) in
+//                self.requestNativeAds()
+//            })
+//            .disposed(by: bag)
+//    }
     
-    private func stopNativeAdRefresh() {
-        nativeRefreshEvent.onNext(.never())
-    }
+//    private func stopNativeAdRefresh() {
+//        nativeRefreshEvent.onNext(.never())
+//    }
     
     var onNativeRequestFailed: ()->Void = {}
     
     var nativeAd: MPNativeAd?
     var latestNativeAdView: UIView?
     
-    func requestNativeAds() {
-        let request = MPNativeAdRequest(adUnitIdentifier: nativeAdUnitId, rendererConfigurations: nativeAdConfigurations)
-        request?.targeting = MPNativeAdRequestTargeting()
-//        Logger.Ads.logNativeEvent(.request)
-        nativeLastRequestDate = Date()
-        AdsManager.notificationCenter.post(name: Notification.Name.adEvent, object: AdEventInfo(format: .native, event: .request, eventTime: nativeLastRequestDate, requestTime: nativeLastRequestDate))
-        request?.start(completionHandler: { [weak self] (req, ad, err) in
-            guard let `self` = self else {
-                return
-            }
-            guard let a = ad else {
-//                Logger.Ads.logNativeEvent(.nofill)
-                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .nofill, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-                self.nativeRefreshEvent.onNext(.never())
-                self.rxAdView.accept(nil)
-                self.showSelection = .banner
-                self.latestNativeAdView = nil
-                self.onNativeRequestFailed()
-                return
-            }
-            AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .load, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-//            Logger.Ads.logNativeEvent(.load)
-            self.nativeAd = a
-            do {
-                a.delegate = self
-                let adView = try a.retrieveAdView()
-                self.latestNativeAdView = adView
-//                Logger.Ads.logNativeEvent(.rendered)
-                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .rendered, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-                self.nativeLastShowDate = Date()
-                self.rxAdView.accept(adView)
-                //                self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
-            } catch {
-//                Logger.Ads.logNativeEvent(.renderFail)
-                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .renderFail, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-                self.rxAdView.accept(nil)
-                self.showSelection = .banner
-                self.latestNativeAdView = nil
-                self.onNativeRequestFailed()
-                self.nativeRefreshEvent.onNext(.never())
-            }
-        })
-    }
+//    func requestNativeAds() {
+//        let request = MPNativeAdRequest(adUnitIdentifier: nativeAdUnitId, rendererConfigurations: nativeAdConfigurations)
+//        request?.targeting = MPNativeAdRequestTargeting()
+////        Logger.Ads.logNativeEvent(.request)
+//        nativeLastRequestDate = Date()
+//        AdsManager.notificationCenter.post(name: Notification.Name.adEvent, object: AdEventInfo(format: .native, event: .request, eventTime: nativeLastRequestDate, requestTime: nativeLastRequestDate))
+//        request?.start(completionHandler: { [weak self] (req, ad, err) in
+//            guard let `self` = self else {
+//                return
+//            }
+//            guard let a = ad else {
+////                Logger.Ads.logNativeEvent(.nofill)
+//                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .nofill, eventTime: Date(), requestTime: self.nativeLastRequestDate))
+//                self.nativeRefreshEvent.onNext(.never())
+//                self.rxAdView.accept(nil)
+//                self.showSelection = .banner
+//                self.latestNativeAdView = nil
+//                self.onNativeRequestFailed()
+//                return
+//            }
+//            AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .load, eventTime: Date(), requestTime: self.nativeLastRequestDate))
+////            Logger.Ads.logNativeEvent(.load)
+//            self.nativeAd = a
+//            do {
+//                a.delegate = self
+//                let adView = try a.retrieveAdView()
+//                self.latestNativeAdView = adView
+////                Logger.Ads.logNativeEvent(.rendered)
+//                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .rendered, eventTime: Date(), requestTime: self.nativeLastRequestDate))
+//                self.nativeLastShowDate = Date()
+//                self.rxAdView.accept(adView)
+//                //                self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
+//            } catch {
+////                Logger.Ads.logNativeEvent(.renderFail)
+//                AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .renderFail, eventTime: Date(), requestTime: self.nativeLastRequestDate))
+//                self.rxAdView.accept(nil)
+//                self.showSelection = .banner
+//                self.latestNativeAdView = nil
+//                self.onNativeRequestFailed()
+//                self.nativeRefreshEvent.onNext(.never())
+//            }
+//        })
+//    }
     
     func requestRewardVideoIfNeed() {
         guard aviliableRewardVideo == nil,
@@ -251,66 +251,66 @@ class AdsManager: NSObject {
         MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
     }
     
-    private func refreshNative(after interval: RxTimeInterval) {
-        nativeRefreshEvent.onNext(Observable<Int64>.timer(interval, scheduler: MainScheduler.asyncInstance).map({ _ in () }))
-    }
+//    private func refreshNative(after interval: RxTimeInterval) {
+//        nativeRefreshEvent.onNext(Observable<Int64>.timer(interval, scheduler: MainScheduler.asyncInstance).map({ _ in () }))
+//    }
     
     let rxAdView = BehaviorRelay<UIView?>.init(value: nil)
     
-    var nativeAdConfigurations: [MPNativeAdRendererConfiguration] = {
-        //        let configuration = MPNativeAdRendererConfiguration()
-        let settings = MPStaticNativeAdRendererSettings()
-        settings.renderingViewClass = NativeAdView.self
-        
-        let mopubSetting = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
-        
-        //        let facebookSetting = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
-        
-        //        let facebookSetting = FacebookNativeAdRenderer.rendererConfiguration(with: MPStaticNativeAdRendererSettings())
-        
-        let admobSetting = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
-        
-        //        return [facebookSetting]
-        //        return [admobSetting!]
-        //        return [mopubSetting!]
-        //        return []
-        //        return [facebookSetting, admobSetting!, mopubSetting!]
-        return [admobSetting!, mopubSetting!]
-    }()
+//    var nativeAdConfigurations: [MPNativeAdRendererConfiguration] = {
+//        //        let configuration = MPNativeAdRendererConfiguration()
+//        let settings = MPStaticNativeAdRendererSettings()
+//        settings.renderingViewClass = NativeAdView.self
+//
+//        let mopubSetting = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
+//
+//        //        let facebookSetting = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
+//
+//        //        let facebookSetting = FacebookNativeAdRenderer.rendererConfiguration(with: MPStaticNativeAdRendererSettings())
+//
+//        let admobSetting = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
+//
+//        //        return [facebookSetting]
+//        //        return [admobSetting!]
+//        //        return [mopubSetting!]
+//        //        return []
+//        //        return [facebookSetting, admobSetting!, mopubSetting!]
+//        return [admobSetting!, mopubSetting!]
+//    }()
     
-    var nativeAdUnitId: String {
-        return "8646296467d941ef8a01dc548508b0fc"
-        //        return "76a3fefaced247959582d2d2df6f4757"
-    }
-    
-    var compactAdViewId: String {
-        #if DEBUG
-        /// debug ad id
-        //        return "0ac59b0996d947309c33f59d6676399f"
-        /// online ad id
-        return "156615c0b77140bfa9465efe32a6b39b"
-        /// adview with only appmonet
-        //        return "768726ab8d3446448a7ee4329161dcdd"
-        #else
-        return "156615c0b77140bfa9465efe32a6b39b"
-        #endif
-    }
-    
-    var extendedAdViewId: String {
-        #if DEBUG
-        /// aws ad id
-        //        return "2fc098daa08643f8a632323364d8c478"
-        /// debug ad id
-        //        return "2aae44d2ab91424d9850870af33e5af7"
-        /// online ad id
-        //        return "156615c0b77140bfa9465efe32a6b39b"
-        /// adview with only appmonet
-        return "768726ab8d3446448a7ee4329161dcdd"
-        #else
-        return "156615c0b77140bfa9465efe32a6b39b"
-        #endif
-    }
-    
+//    var nativeAdUnitId: String {
+//        return "8646296467d941ef8a01dc548508b0fc"
+//        //        return "76a3fefaced247959582d2d2df6f4757"
+//    }
+//
+//    var compactAdViewId: String {
+//        #if DEBUG
+//        /// debug ad id
+//        //        return "0ac59b0996d947309c33f59d6676399f"
+//        /// online ad id
+//        return "156615c0b77140bfa9465efe32a6b39b"
+//        /// adview with only appmonet
+//        //        return "768726ab8d3446448a7ee4329161dcdd"
+//        #else
+//        return "156615c0b77140bfa9465efe32a6b39b"
+//        #endif
+//    }
+//
+//    var extendedAdViewId: String {
+//        #if DEBUG
+//        /// aws ad id
+//        //        return "2fc098daa08643f8a632323364d8c478"
+//        /// debug ad id
+//        //        return "2aae44d2ab91424d9850870af33e5af7"
+//        /// online ad id
+//        //        return "156615c0b77140bfa9465efe32a6b39b"
+//        /// adview with only appmonet
+//        return "768726ab8d3446448a7ee4329161dcdd"
+//        #else
+//        return "156615c0b77140bfa9465efe32a6b39b"
+//        #endif
+//    }
+//
     var rewardedVideoId: String {
            #if DEBUG
            /// aws ad id
@@ -326,17 +326,17 @@ class AdsManager: NSObject {
            #endif
        }
     
-    func shouldShowInterstitial() -> Bool {
-        guard Settings.shared.isProValue.value == false else { return false }
-        //        let rc = FireRemote.shared.value.interstitialConfig
-        //        guard rc.enable else { return false }
-        //        let now = Date()
-        //        if now.timeIntervalSince(Settings.shared.appInstallDate) < Double(rc.freeMinutes * 60) {
-        return false
-        //        }
-        //        if now.timeIntervalSince(Settings.shared.interstitalLastShowTime) < Double(rc.reloadSeconds) { return false }
-        //        return true
-    }
+//    func shouldShowInterstitial() -> Bool {
+//        guard Settings.shared.isProValue.value == false else { return false }
+//        //        let rc = FireRemote.shared.value.interstitialConfig
+//        //        guard rc.enable else { return false }
+//        //        let now = Date()
+//        //        if now.timeIntervalSince(Settings.shared.appInstallDate) < Double(rc.freeMinutes * 60) {
+//        return false
+//        //        }
+//        //        if now.timeIntervalSince(Settings.shared.interstitalLastShowTime) < Double(rc.reloadSeconds) { return false }
+//        //        return true
+//    }
     
 }
 
@@ -361,33 +361,33 @@ struct AdsConstants {
     #endif
 }
 
-extension AdsManager: MPNativeAdDelegate {
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        return presentingVc!
-    }
-    
-    func mopubAd(_ ad: MPMoPubAd, didTrackImpressionWith impressionData: MPImpressionData?) {
-        NSLog("native ad impressioned")
-        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .impl, eventTime: Date(), requestTime: self.nativeLastRequestDate))
-//        Logger.Ads.logNativeEvent(.impl)
-        self.refreshNative(after: .fromSeconds(AdsManager.nativeAdsRefreshInterval))
-        //        self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
-    }
-    
-    func willPresentModal(for nativeAd: MPNativeAd!) {
-//        Logger.Ads.logNativeEvent(.click)
-        //        PlayerController.shared.showSource = .adModal
-    }
-    
-    func didDismissModal(for nativeAd: MPNativeAd!) {
-    }
-    
-    func willLeaveApplication(from nativeAd: MPNativeAd!) {
-        NSLog("native ad clicked")
-//        Logger.Ads.logNativeEvent(.click)
-        //        PlayerController.shared.showSource = .adLeave
-    }
-}
+//extension AdsManager: MPNativeAdDelegate {
+//    func viewControllerForPresentingModalView() -> UIViewController! {
+//        return presentingVc!
+//    }
+//
+//    func mopubAd(_ ad: MPMoPubAd, didTrackImpressionWith impressionData: MPImpressionData?) {
+//        NSLog("native ad impressioned")
+//        AdsManager.notificationCenter.post(name: .adEvent, object: AdEventInfo(format: .native, event: .impl, eventTime: Date(), requestTime: self.nativeLastRequestDate))
+////        Logger.Ads.logNativeEvent(.impl)
+//        self.refreshNative(after: .fromSeconds(AdsManager.nativeAdsRefreshInterval))
+//        //        self.refreshNative(after: .seconds(FireRemote.shared.value.nativeRefreshSeconds))
+//    }
+//
+//    func willPresentModal(for nativeAd: MPNativeAd!) {
+////        Logger.Ads.logNativeEvent(.click)
+//        //        PlayerController.shared.showSource = .adModal
+//    }
+//
+//    func didDismissModal(for nativeAd: MPNativeAd!) {
+//    }
+//
+//    func willLeaveApplication(from nativeAd: MPNativeAd!) {
+//        NSLog("native ad clicked")
+////        Logger.Ads.logNativeEvent(.click)
+//        //        PlayerController.shared.showSource = .adLeave
+//    }
+//}
 
 extension AdsManager: MPRewardedVideoDelegate {
     
@@ -424,7 +424,7 @@ extension AdsManager: MPRewardedVideoDelegate {
 
     func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
         isRewardVideoReadyRelay.accept(false)
-        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToLoad: \(error)")
+        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToLoad: \(String(describing: error))")
         Logger.Ads.logEvent(.rads_failed)
     }
     
@@ -440,7 +440,7 @@ extension AdsManager: MPRewardedVideoDelegate {
     }
     
     func rewardedVideoAdDidFailToPlay(forAdUnitID adUnitID: String!, error: Error!) {
-        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToPlay: \(error)")
+        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToPlay: \(String(describing: error))")
     }
     
 }
