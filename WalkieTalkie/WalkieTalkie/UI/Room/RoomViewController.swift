@@ -210,6 +210,7 @@ class RoomViewController: ViewController {
     }
     
     func leaveChannel() {
+        UIApplication.shared.isIdleTimerDisabled = false
         mManager.leaveChannel()
     }
   
@@ -238,6 +239,7 @@ class RoomViewController: ViewController {
             self.mManager.joinChannel(channelId: name) { [weak self] in
                 HapticFeedback.Impact.medium()
                 self?.viewModel.requestEnterRoom()
+                UIApplication.shared.isIdleTimerDisabled = true
             }
         }
         return true
@@ -441,12 +443,15 @@ private extension RoomViewController {
         case .talking:
             micView.image = R.image.icon_mic()
             micView.alpha = 1
+            speakButton.alpha = 1
         case .maxMic:
             micView.image = R.image.icon_mic_disable()
             micView.alpha = 1
+            speakButton.alpha = 1
         case .connected, .preparing:
             micView.image = R.image.icon_mic()
             speakButton.isEnabled = true
+            speakButton.alpha = 0.6
             musicButton.isEnabled = true
             pushToTalkButton.isHidden = false
             micView.alpha = 0.3
@@ -454,6 +459,7 @@ private extension RoomViewController {
             powerButton.setBackgroundImage(R.image.home_btn_bg(), for: .normal)
         default:
             micView.alpha = 0
+            speakButton.alpha = 1
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
@@ -573,6 +579,7 @@ private extension RoomViewController {
             .subscribe(onNext: { [weak self] highlighted in
 //                cdPrint("speakButton is highlighted: \(highlighted)")
                 self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
+                self?.speakButton.alpha = highlighted ? 1 : 0.6
                 self?.state = highlighted ? .preparing : .connected
                 self?.userStatus = highlighted ? .broadcaster : .audiance
                 self?.micView.alpha = highlighted ? 1 : 0.3

@@ -64,7 +64,7 @@ class GuideViewController: ViewController {
     @IBAction func continueAction(_ sender: Any) {
         let index = pageIndex + 1
         if index > maxPage { //last page
-            thirdPage.buy(identifier: IAP.productYear)
+            thirdPage.buySelectedProducts()
         } else {
             scrollView.setContentOffset(CGPoint(x: scrollView.width * index.cgFloat, y: 0), animated: true)
         }
@@ -89,14 +89,18 @@ extension GuideViewController: UIScrollViewDelegate {
                 .foregroundColor: UIColor.black,
                 .font: UIFont.systemFont(ofSize: 14, weight: .bold)
             ]
-            
-            let tryDesAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.black.alpha(0.8),
-                .font: UIFont.systemFont(ofSize: 13)
-            ]
+
             let mutableNormalString = NSMutableAttributedString()
-            mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
-            mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
+            if FireStore.shared.isInReviewSubject.value {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
+            } else {
+                let tryDesAttr: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: UIColor.black.alpha(0.7),
+                    .font: UIFont.systemFont(ofSize: 12)
+                ]
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
+            }
 
             continueButton.setAttributedTitle(mutableNormalString, for: .normal)
             if !isFirstShowPage3 {
@@ -150,7 +154,7 @@ extension GuideViewController {
     }
     
     func bindSubviewEvent() {
-        
+
     }
     
     func configureSubview() {

@@ -210,6 +210,14 @@ extension PremiumViewController {
         
     }
     
+    //for
+    func buySelectedProducts() {
+        guard let guideView = premiumContainer as? GuideThirdView else {
+            return
+        }
+        buy(identifier: guideView.selectedProductId)
+    }
+    
     func buy(identifier: String) {
         if let s = self.source {
             Logger.IAP.logPurchase(productId: identifier, source: s)

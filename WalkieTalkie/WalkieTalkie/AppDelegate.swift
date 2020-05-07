@@ -34,7 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
+        _ = FireStore.shared
         
+//        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             setupInitialView(goRoom: true)
             firstOpenPremiumShowed = true

@@ -43,4 +43,12 @@ extension FireStore {
             }
         }
     }
+    
+    struct AppConfig: Codable {
+        let reviewVersion: String?
+        private enum CodingKeys: String, CodingKey {
+            case reviewVersion = "in_review_ios"
+        }
+        
+    }
 }
