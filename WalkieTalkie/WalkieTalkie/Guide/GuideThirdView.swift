@@ -51,6 +51,7 @@ class GuideThirdView: XibLoadableView, PremiumContainerable {
             } else {
                 iapTipsLabel.text = nil
             }
+            didSelectProducts(selectedProductId)
         }
     }
     
@@ -59,6 +60,9 @@ class GuideThirdView: XibLoadableView, PremiumContainerable {
     var policyHandler: () -> Void = { }
     
     var buyProductHandler: (String) -> Void = { _ in }
+    
+    var didSelectProducts: (String) -> Void = { _ in }
+    
     let bag = DisposeBag()
     
     override init(frame: CGRect) {

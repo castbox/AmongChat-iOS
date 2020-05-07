@@ -488,7 +488,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 38 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 39 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -522,6 +522,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelChecking = Rswift.StringResource(key: "channel.checking", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Continue
+      /// 
+      /// Locales: en
+      static let guideContinue = Rswift.StringResource(key: "guide.continue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -697,6 +701,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelChecking(_: Void = ()) -> String {
         return NSLocalizedString("channel.checking", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Continue
+      /// 
+      /// Locales: en
+      static func guideContinue(_: Void = ()) -> String {
+        return NSLocalizedString("guide.continue", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Create Global Channel
