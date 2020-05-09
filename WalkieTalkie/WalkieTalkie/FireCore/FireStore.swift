@@ -51,12 +51,15 @@ class FireStore {
         return db
     }()
     
-    //    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
-    
+//    private (set) var isInReview: Bool = true
+    let isInReviewSubject = BehaviorRelay<Bool>(value: true)
+
     init() {
         #if DEBUG
         //        Firestore.enableLogging(true)
         #endif
+        
+        getAppConfigValue()
         
         _ = secretChannelList()
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
@@ -78,7 +81,31 @@ class FireStore {
             .catchErrorJustReturn(.default)
             .bind(to: channelConfigSubject)
         #endif
-        
+    }
+    
+    func getAppConfigValue() {
+        db.collection(Root.settings)
+            .document("app_config")
+            .getDocument(completion: { [weak self] query, error in
+                if let error = error {
+                    cdPrint("FireStore Error new: \(error)")
+                    //                    observer.onNext(.default)
+                    return
+                } else {
+                    guard let query = query, let data = query.data() else {
+                        //                        observer.onNext(.default)
+                        return
+                    }
+                    var config: AppConfig?
+                    decoderCatcher {
+                        config = try JSONDecoder().decodeAnyData(FireStore.AppConfig.self, from: data)
+                    }
+                    //                    observer.onNext(config ?? .default)
+                    //                    observer.onCompleted()
+                    //                    self.
+                    self?.isInReviewSubject.accept(config?.reviewVersion == Config.appVersion)
+                }
+            })
     }
     
     func findValidRoom(with name: String) -> Room {

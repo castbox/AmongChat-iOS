@@ -18,12 +18,15 @@ class GuideViewController: ViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var skipButtonBottomConstraint: NSLayoutConstraint!
-    private let startIndex = 0
     private var isStartTimer: Bool = false
     private let thirdPage = R.storyboard.main.premiumViewController()!
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
-    
+    private var selectedProductId: String? {
+        didSet {
+            updateContinueButtonTitle()
+        }
+    }
     var dismissHandler: (()->Void)? = nil
 
     var maxPage: Int {
@@ -64,7 +67,7 @@ class GuideViewController: ViewController {
     @IBAction func continueAction(_ sender: Any) {
         let index = pageIndex + 1
         if index > maxPage { //last page
-            thirdPage.buy(identifier: IAP.productLifeTime)
+            thirdPage.buySelectedProducts()
         } else {
             scrollView.setContentOffset(CGPoint(x: scrollView.width * index.cgFloat, y: 0), animated: true)
         }
@@ -80,49 +83,57 @@ extension GuideViewController: UIScrollViewDelegate {
             pageIndex = maxPage
         }
         updateSubviewStatus(pageIndex)
-        if pageIndex == 2 {
-//            continueButton.isHidden = true
-            pageControl.isHidden = true
-//            scrollView.isScrollEnabled = false
-            startShowSkipButtonTimer()
-            let tryAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.black,
-                .font: UIFont.systemFont(ofSize: 15, weight: .bold)
-            ]
-            let tryDesAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor(hex: 0x6c6c6c),
-                .font: UIFont.systemFont(ofSize: 11)
-            ]
-            let mutableNormalString = NSMutableAttributedString()
-            mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
-            mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
-
-            continueButton.setAttributedTitle(mutableNormalString, for: .normal)
-            if !isFirstShowPage3 {
-                isFirstShowPage3 = true
-                Logger.IAP.logImp(.first_open)
-            }
-        }
+        updateContinueButtonTitle()
+        
         if pageIndex == 1, !isFirstShowPage2 {
             isFirstShowPage2 = true
             Logger.PageShow.log(.tutorial_imp_2)
-//            pageIndex =
         }
         pageControl.currentPage = pageIndex
     }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let pageIndex = Int(scrollView.contentOffset.x / scrollView.width)
-//        if pageIndex >= maxPage {
-//            scrollView.isScrollEnabled = false
-//        }
-    }
-//    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-//
-//    }
 }
 
 extension GuideViewController {
+    func updateContinueButtonTitle() {
+        guard pageIndex == 2 else {
+            return
+        }
+        pageControl.isHidden = true
+        startShowSkipButtonTimer()
+        
+        let tryAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: UIFont.systemFont(ofSize: 14, weight: .bold)
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+        if selectedProductId == IAP.productYear {
+            if FireStore.shared.isInReviewSubject.value {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
+            } else {
+                let tryDesAttr: [NSAttributedString.Key: Any] = [
+                    .foregroundColor: UIColor.black.alpha(0.7),
+                    .font: UIFont.systemFont(ofSize: 12)
+                ]
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
+            }
+        } else {
+            mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
+
+        }
+        UIView.setAnimationsEnabled(false)
+        continueButton.setAttributedTitle(mutableNormalString, for: .normal)
+        continueButton.layoutIfNeeded()
+        UIView.setAnimationsEnabled(true)
+        
+        if !isFirstShowPage3 {
+            isFirstShowPage3 = true
+            Logger.IAP.logImp(.first_open)
+        }
+        
+    }
+    
     func updateSubviewStatus(_ pageIndex: Int) {
         if pageIndex == 2 {
 //            continueButton.isHidden = true
@@ -131,6 +142,7 @@ extension GuideViewController {
             startShowSkipButtonTimer()
         }
     }
+    
     func startShowSkipButtonTimer() {
         guard !isStartTimer else {
             return
@@ -140,10 +152,9 @@ extension GuideViewController {
             .delay(.seconds(3), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 self?.skipButtonBottomConstraint.constant = 0
-                self?.view.layoutIfNeeded()
-                UIView.springAnimate(animation: {
-                    
-                })
+                UIView.animate(withDuration: AnimationDuration.normal.rawValue) {
+                    self?.view.layoutIfNeeded()                
+                }
             })
             .disposed(by: bag)
     }
@@ -166,6 +177,9 @@ extension GuideViewController {
 //            self?.dismiss(animated: true, completion: nil)
             self?.dismissHandler?()
         }
+        thirdPage.didSelectProducts = { [weak self] pid in
+            self?.selectedProductId = pid
+        }
         thirdPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
 //        thirdPage.willMove(toParent: self)
         addChild(thirdPage)
@@ -177,3 +191,4 @@ extension GuideViewController {
         continueButton.titleLabel?.textAlignment = .center
     }
 }
+

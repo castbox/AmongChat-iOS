@@ -545,7 +545,7 @@
         <scene sceneID="IBo-2O-TOe">
             <objects>
                 <tableViewController id="9ur-nQ-4vV" customClass="SettingContainerTableController" customModule="WalkieTalkie" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HP1-0a-mQz">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HP1-0a-mQz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1145,7 +1145,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="label" size="11"/>
+                                                                <font key="NSFont" metaFont="toolTip"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>

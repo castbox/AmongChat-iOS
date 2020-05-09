@@ -31,7 +31,8 @@ class PremiumViewController: ViewController {
     var source: Logger.IAP.ActionSource?
     var premiumContainer: PremiumContainerable!
     var style: ContainerStyle = .default
-    var dismissHandler: (()->Void)? = nil
+    var dismissHandler: (() -> Void)?
+    var didSelectProducts: (String) -> Void = { _ in }
     
     private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
     
@@ -210,6 +211,14 @@ extension PremiumViewController {
         
     }
     
+    //for
+    func buySelectedProducts() {
+        guard let guideView = premiumContainer as? GuideThirdView else {
+            return
+        }
+        buy(identifier: guideView.selectedProductId)
+    }
+    
     func buy(identifier: String) {
         if let s = self.source {
             Logger.IAP.logPurchase(productId: identifier, source: s)
@@ -292,7 +301,12 @@ extension PremiumViewController {
         if style == .default {
             premiumContainer = PremiumContainer()
         } else {
-            premiumContainer = GuideThirdView()
+            let guideView = GuideThirdView()
+            guideView.didSelectProducts = { [weak self] pid in
+                self?.didSelectProducts(pid)
+            }
+            didSelectProducts(guideView.selectedProductId)
+            premiumContainer = guideView
         }
         view.addSubview(premiumContainer)
         premiumContainer.snp.makeConstraints { maker in
