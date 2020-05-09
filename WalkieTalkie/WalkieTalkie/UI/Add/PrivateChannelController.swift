@@ -147,7 +147,7 @@ extension PrivateChannelController {
                     return true
                 }
                 .flatMap { _ -> Observable<Void> in
-                    Logger.UserAction.log(.create_new)
+                    Logger.UserAction.log(.create_secret)
                     guard !Settings.shared.isProValue.value,
                         let reward = AdsManager.shared.aviliableRewardVideo else {
                         return Observable.just(())

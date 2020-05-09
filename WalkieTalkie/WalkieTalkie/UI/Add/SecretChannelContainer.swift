@@ -148,11 +148,6 @@ extension SecretChannelContainer {
             self?.viewController?.present(alert, animated: true, completion: nil)
         }
         
-        //        let isRewardVideoReady =
-        //            AdsManager.shared.isRewardVideoReadyRelay
-        //                .asObservable()
-        //                .filter { $0 }
-        //        let createButtonObservable =
         createButton.rx.tap.asObservable()
             .observeOn(MainScheduler.asyncInstance)
             .filter { _ -> Bool in
@@ -163,7 +158,7 @@ extension SecretChannelContainer {
                 return true
         }
         .flatMap { _ -> Observable<Void> in
-            Logger.UserAction.log(.create_new)
+            Logger.UserAction.log(.create_secret)
             guard !Settings.shared.isProValue.value,
                 let reward = AdsManager.shared.aviliableRewardVideo else {
                     return Observable.just(())

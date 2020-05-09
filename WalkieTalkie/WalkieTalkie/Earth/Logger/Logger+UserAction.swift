@@ -15,6 +15,7 @@ extension Logger {
         enum Category: String {
             case channel_list
             case channel_create
+            case channel_create_new
             case channel_choice
             case connect
             case music
@@ -24,7 +25,7 @@ extension Logger {
             case secret
             case channel_up
             case channel_down
-            case create_new
+            case create_secret
             case update_pro
             case enter_secret
         }
