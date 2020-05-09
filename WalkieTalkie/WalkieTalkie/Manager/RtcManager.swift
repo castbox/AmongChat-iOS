@@ -26,7 +26,7 @@ protocol RtcDelegate: class {
 
     func onAudioVolumeIndication(uid: UInt, volume: UInt)
     
-    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason)
+    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason)
 }
 
 //1761995123
@@ -36,12 +36,13 @@ class RtcManager: NSObject {
 
     weak var delegate: RtcDelegate?
 
+    var unMuteUsers: [UInt] = []
+
     ///current channel ID
     private var channelId: String?
     private(set) var role: AgoraClientRole?
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
-    private var unMuteUsers: [UInt] = []
     private var timeoutTimer: SwiftTimer?
     private var haveUnmuteUser: Bool {
         return !unMuteUsers.isEmpty
@@ -187,7 +188,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
         if state == .connected {
             invalidTimerIfNeed()
         }
-        delegate?.onConnectionChangedTo(state: state, reason: reason)
+        delegate?.onConnectionChangedTo(state: ConnectState(state), reason: reason)
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didClientRoleChanged oldRole: AgoraClientRole, newRole: AgoraClientRole) {

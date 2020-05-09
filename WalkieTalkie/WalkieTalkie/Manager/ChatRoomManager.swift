@@ -27,7 +27,7 @@ protocol ChatRoomDelegate: class {
 
     func onAudioVolumeIndication(userId: String, volume: UInt)
     
-    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason)
+    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason)
     
     func onJoinChannelFailed(channelId: String?)
     
@@ -49,28 +49,51 @@ class ChatRoomManager: SeatManager {
 //    }()
     weak var delegate: ChatRoomDelegate?
     
-    private(set) var state: AgoraConnectionStateType = .disconnected {
+    private(set) var state: ConnectState = .disconnected {
         didSet {
             stateObservable.onNext(state)
         }
     }
     
     var isConnectingState: Bool {
-        let connectingState: [AgoraConnectionStateType] = [
+        let connectingState: [ConnectState] = [
             .connecting,
             .connected,
-            .reconnecting
+            .reconnecting,
         ]
         return connectingState.contains(state)
     }
     
-    //current channel name
-    private(set) var channelName: String?
+    var isConnectedState: Bool {
+        let connectingState: [ConnectState] = [
+            .connected,
+            .talking,
+            .maxMic,
+            .preparing,
+        ]
+        return connectingState.contains(state)
+    }
+    
     var role: AgoraClientRole? {
         return mRtcManager.role
     }
     
-    private let stateObservable = BehaviorSubject<AgoraConnectionStateType>(value: .disconnected)
+    var isReachMaxUnmuteUserCount: Bool {
+        guard let name = channelName,
+            !Settings.shared.isProValue.value else { //非会员
+            return false
+        }
+        if name.isPrivate {
+            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.sSpeakerLimit
+        } else {
+            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.gSpeakerLimit
+        }
+    }
+
+    //current channel name
+    private(set) var channelName: String?
+    
+    private let stateObservable = BehaviorSubject<ConnectState>(value: .disconnected)
     
     private var mChannelData = ChannelData()
 
@@ -111,9 +134,10 @@ class ChatRoomManager: SeatManager {
 //                if let json = member.toJsonString() {
 //                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
 //                }
+                self.updateRole(false)
                 self.mRtcManager.joinChannel(channelId, Constant.sUserId) { [weak self] in
                     //set to audiance
-                    self?.updateRole(false)
+//                    self?.updateRole(false)
                     self?.channelName = channelId
                     completionHandler?()
                 }
@@ -134,9 +158,13 @@ class ChatRoomManager: SeatManager {
     }
 
     func leaveChannel() {
+        guard channelName != nil else {
+            return
+        }
+        channelName = nil
         mRtcManager.leaveChannel()
-//        mRtmManager.leaveChannel()
         mChannelData.release()
+        HapticFeedback.Impact.medium()
     }
 
 //    private func checkAndBeAnchor() {
@@ -237,7 +265,7 @@ extension ChatRoomManager: RtcDelegate {
         delegate?.onJoinChannelTimeout(channelId: channelId)
     }
     
-    func onConnectionChangedTo(state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
+    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
         self.state = state
         delegate?.onConnectionChangedTo(state: state, reason: reason)
     }

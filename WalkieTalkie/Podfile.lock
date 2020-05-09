@@ -329,19 +329,19 @@ PODS:
     - Google-Mobile-Ads-SDK (= 7.57.0)
     - mopub-ios-sdk/Core (~> 5.8)
     - mopub-ios-sdk/NativeAds (~> 5.8)
-  - mopub-ios-sdk (5.11.0):
-    - mopub-ios-sdk/MoPubSDK (= 5.11.0)
-  - mopub-ios-sdk/Avid (5.11.0):
+  - mopub-ios-sdk (5.12.1):
+    - mopub-ios-sdk/MoPubSDK (= 5.12.1)
+  - mopub-ios-sdk/Avid (5.12.1):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/Core (5.11.0)
-  - mopub-ios-sdk/Moat (5.11.0):
+  - mopub-ios-sdk/Core (5.12.1)
+  - mopub-ios-sdk/Moat (5.12.1):
     - mopub-ios-sdk/Core
-  - mopub-ios-sdk/MoPubSDK (5.11.0):
+  - mopub-ios-sdk/MoPubSDK (5.12.1):
     - mopub-ios-sdk/Avid
     - mopub-ios-sdk/Core
     - mopub-ios-sdk/Moat
     - mopub-ios-sdk/NativeAds
-  - mopub-ios-sdk/NativeAds (5.11.0):
+  - mopub-ios-sdk/NativeAds (5.12.1):
     - mopub-ios-sdk/Core
   - Moya (14.0.0):
     - Moya/Core (= 14.0.0)
@@ -426,7 +426,7 @@ DEPENDENCIES:
   - LYEmptyView
   - MBProgressHUD (~> 1.0.0)
   - MoPub-AdMob-Adapters (= 7.57.0.0)
-  - mopub-ios-sdk
+  - mopub-ios-sdk (= 5.12.1)
   - Moya
   - Moya/RxSwift
   - R.swift (~> 5.0.2)
@@ -549,7 +549,7 @@ SPEC CHECKSUMS:
   LYEmptyView: b6d418cfa38b78df0cf243f9a9c25ccbdc399922
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MoPub-AdMob-Adapters: caa45d156ca6c22f50b2431d5f9df3fb2c709abf
-  mopub-ios-sdk: 292b8e9a55a2e72a34afc04ec01e85486af46240
+  mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -572,6 +572,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: b8bf6ab904666edb9e6f15dff20d83f3e5da4f87
+PODFILE CHECKSUM: 8267020196f05d8ce2ace2e7e3400b0a496975c4
 
 COCOAPODS: 1.9.1

@@ -19,9 +19,11 @@ class FireStore {
     struct Root {
         static let channels = "channels"
         static let secrets = "secrets"
-//        static let default_channels = "default_channels"
+        static let settings = "settings"
+        static let channelConfig = "channel_config"
+        //        static let default_channels = "default_channels"
     }
-//
+    //
     static let shared = FireStore()
     
     static let defaultRoom = Room(name: "WELCOME", user_count: 0)
@@ -31,6 +33,16 @@ class FireStore {
         return secretChannelsSubject.value
     }
     
+    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
+    var publicChannels: [Room] {
+        return publicChannelsSubject.value
+    }
+    
+    let channelConfigSubject = BehaviorRelay<ChannelConfig>(value: .default)
+    static var channelConfig: ChannelConfig {
+        return shared.channelConfigSubject.value
+    }
+    
     lazy var db: Firestore = {
         let db = Firestore.firestore()
         let settings = FirestoreSettings()
@@ -38,26 +50,72 @@ class FireStore {
         db.settings = settings
         return db
     }()
+    
+//    private (set) var isInReview: Bool = true
+    let isInReviewSubject = BehaviorRelay<Bool>(value: true)
 
     init() {
-//        if let token = Knife.Auth.shared.loginResult.value?.firebase_custom_token {
-//            Auth.auth().signIn(withCustomToken: token) { (user, error) in
-//                if let error = error {
-//                    cdPrint("fire store auth error: \(error)")
-//                } else {
-//                    if let user = user {
-//                        cdPrint("auth user: \(user)")
-//                    }
-//                }
-//            }
-//        }
         #if DEBUG
-//        Firestore.enableLogging(true)
+        //        Firestore.enableLogging(true)
         #endif
+        
+        getAppConfigValue()
         
         _ = secretChannelList()
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .catchErrorJustReturn([])
             .bind(to: secretChannelsSubject)
+        
+        _ = onlineChannelList()
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .catchErrorJustReturn([])
+            .bind(to: publicChannelsSubject)
+        //static let channelConfig = "channel_config"
+        
+        #if DEBUG
+        _ = channelConfigObservalbe()
+            .catchErrorJustReturn(.default)
+            .bind(to: channelConfigSubject)
+        #else
+        _ = channelConfigObservalbe()
+            .catchErrorJustReturn(.default)
+            .bind(to: channelConfigSubject)
+        #endif
+    }
+    
+    func getAppConfigValue() {
+        db.collection(Root.settings)
+            .document("app_config")
+            .getDocument(completion: { [weak self] query, error in
+                if let error = error {
+                    cdPrint("FireStore Error new: \(error)")
+                    //                    observer.onNext(.default)
+                    return
+                } else {
+                    guard let query = query, let data = query.data() else {
+                        //                        observer.onNext(.default)
+                        return
+                    }
+                    var config: AppConfig?
+                    decoderCatcher {
+                        config = try JSONDecoder().decodeAnyData(FireStore.AppConfig.self, from: data)
+                    }
+                    //                    observer.onNext(config ?? .default)
+                    //                    observer.onCompleted()
+                    //                    self.
+                    self?.isInReviewSubject.accept(config?.reviewVersion == Config.appVersion)
+                }
+            })
+    }
+    
+    func findValidRoom(with name: String) -> Room {
+        var room: Room?
+        if name.isPrivate {
+            room = FireStore.shared.secretChannels.first(where: { $0.name == name })
+        } else {
+            room = FireStore.shared.publicChannels.first(where: { $0.name == name })
+        }
+        return room ?? Room(name: name, user_count: 1)
     }
     
     func isValidSecretChannel(_ name: String?) -> Bool {
@@ -86,6 +144,33 @@ class FireStore {
         
     }
     
+    func channelConfigObservalbe() -> Observable<FireStore.ChannelConfig> {
+        return Observable<FireStore.ChannelConfig>.create({ [weak self] (observer) -> Disposable in
+            self?.db.collection(Root.settings)
+                .document("channel_config")
+                .getDocument(completion: { query, error in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onNext(.default)
+                        return
+                    } else {
+                        guard let query = query, let data = query.data() else {
+                            observer.onNext(.default)
+                            return
+                        }
+                        var config: ChannelConfig?
+                        decoderCatcher {
+                            config = try JSONDecoder().decodeAnyData(FireStore.ChannelConfig.self, from: data)
+                        }
+                        observer.onNext(config ?? .default)
+                        observer.onCompleted()
+                    }
+                })
+            return Disposables.create {
+            }
+        })
+    }
+    
     func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             let ref = self?.db.collection(Root.channels)
@@ -108,7 +193,7 @@ class FireStore {
                 ref?.remove()
             }
         })
-        .startWith([FireStore.defaultRoom])
+            .startWith([FireStore.defaultRoom])
     }
     
     func secretChannelList() -> Observable<[Room]> {
@@ -133,16 +218,16 @@ class FireStore {
                 ref?.remove()
             }
         })
-        .startWith([FireStore.defaultRoom])
+            .startWith([FireStore.defaultRoom])
     }
 }
 
 extension QuerySnapshot {
     func toRoomList() -> [Room] {
         return documents.map { snapshot -> Room? in
-            //            cdPrint("snapshot: \(snapshot.documentID) \(snapshot.data())")
             let count = snapshot.data()["user_count"] as? Int ?? 0
-            return Room(name: snapshot.documentID, user_count: count)
+            let persistence = snapshot.data()["persistence"] as? Bool ?? false
+            return Room(name: snapshot.documentID, user_count: count, persistence: persistence)
         }
         .compactMap { $0 }
     }

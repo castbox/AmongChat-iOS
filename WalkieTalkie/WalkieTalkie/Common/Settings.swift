@@ -78,9 +78,18 @@ class Settings {
     
     /// app 主题
     let theme: PublishProperty<Theme.Mode> = {
-        var value = Defaults[\.theme] ?? .light
+        var value = Defaults[\.theme]
         return DynamicProperty.stored(value)
             .didSet({ Defaults[\.theme] = $0.new })
+            .asPublishProperty()
+    }()
+    
+    let isOpenSubscribeHotTopic: PublishProperty<Bool> = {
+        let value = Defaults[\.isOpenSubscribeHotTopicKey]
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                Defaults[\.isOpenSubscribeHotTopicKey] = event.new
+            })
             .asPublishProperty()
     }()
     
@@ -207,6 +216,10 @@ extension DefaultsKeys {
         .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
     }
     
+    var secretChannels: DefaultsKey<[Room]> {
+        .init("channel", defaultValue: [])
+    }
+    
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
     }
@@ -269,6 +282,10 @@ extension DefaultsKeys {
     
     var debugAdsLogKey: DefaultsKey<Bool> {
         .init("debug.ads.log", defaultValue: false)
+    }
+    
+    var isOpenSubscribeHotTopicKey: DefaultsKey<Bool> {
+        .init("subscrbe.hot.topic", defaultValue: true)
     }
     
 }

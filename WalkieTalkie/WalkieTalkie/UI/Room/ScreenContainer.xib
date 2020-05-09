@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="BlackOpsOne-Regular.ttf">
+            <string>BlackOpsOne-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScreenContainer" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="channelTextField" destination="q7C-OU-Xww" id="r47-ut-8oe"/>
+                <outlet property="connectStateLabel" destination="hWG-O7-7C3" id="w4E-bH-yXN"/>
+                <outlet property="lockIconView" destination="Fux-OW-unk" id="gFB-dG-nll"/>
+                <outlet property="micView" destination="Yyx-Zi-Ocj" id="e5x-CB-6dh"/>
+                <outlet property="numberLabel" destination="NSB-yS-cuB" id="zsg-dl-xy8"/>
+                <outlet property="tagView" destination="vNM-f7-Vt5" id="fCh-zA-Ufw"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="273"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63J-cd-JMl">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="273"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-mf-2tx">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="273"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWG-O7-7C3">
+                            <rect key="frame" x="11" y="19.5" width="123.5" height="19"/>
+                            <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="15"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNM-f7-Vt5">
+                            <rect key="frame" x="10" y="73.5" width="23.5" height="35"/>
+                            <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="28"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="CREATE NEW" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="q7C-OU-Xww" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
+                            <rect key="frame" x="43.5" y="68.5" width="360.5" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="bzr-bH-JE2"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="25"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="alphabet" returnKeyType="done"/>
+                        </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSB-yS-cuB">
+                            <rect key="frame" x="398.5" y="16.5" width="5.5" height="25"/>
+                            <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_room_lock" translatesAutoresizingMaskIntoConstraints="NO" id="Fux-OW-unk">
+                            <rect key="frame" x="9.5" y="78.5" width="25" height="25"/>
+                        </imageView>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mic" translatesAutoresizingMaskIntoConstraints="NO" id="Yyx-Zi-Ocj">
+                            <rect key="frame" x="349" y="16.5" width="25" height="25"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.1333333333" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="Fux-OW-unk" firstAttribute="leading" secondItem="63J-cd-JMl" secondAttribute="leading" constant="9.5" id="5h5-lg-XvE"/>
+                        <constraint firstAttribute="trailing" secondItem="nsb-mf-2tx" secondAttribute="trailing" id="BVB-7B-Yxn"/>
+                        <constraint firstAttribute="bottom" secondItem="nsb-mf-2tx" secondAttribute="bottom" id="Cyx-Iy-hq4"/>
+                        <constraint firstItem="hWG-O7-7C3" firstAttribute="leading" secondItem="63J-cd-JMl" secondAttribute="leading" constant="11" id="GI8-2j-2FU"/>
+                        <constraint firstItem="hWG-O7-7C3" firstAttribute="top" secondItem="63J-cd-JMl" secondAttribute="top" constant="19.5" id="Gfz-vI-4eY"/>
+                        <constraint firstItem="NSB-yS-cuB" firstAttribute="centerY" secondItem="hWG-O7-7C3" secondAttribute="centerY" id="JRn-BD-NdY"/>
+                        <constraint firstAttribute="trailing" secondItem="q7C-OU-Xww" secondAttribute="trailing" constant="10" id="Jrw-Tw-tUt"/>
+                        <constraint firstItem="vNM-f7-Vt5" firstAttribute="centerY" secondItem="q7C-OU-Xww" secondAttribute="centerY" id="K69-Wg-63J"/>
+                        <constraint firstAttribute="trailing" secondItem="Yyx-Zi-Ocj" secondAttribute="trailing" constant="40" id="MDW-0y-8m4"/>
+                        <constraint firstItem="Yyx-Zi-Ocj" firstAttribute="centerY" secondItem="NSB-yS-cuB" secondAttribute="centerY" id="VB2-zy-YAN"/>
+                        <constraint firstItem="vNM-f7-Vt5" firstAttribute="leading" secondItem="63J-cd-JMl" secondAttribute="leading" constant="10" id="YRF-cD-stg"/>
+                        <constraint firstItem="Fux-OW-unk" firstAttribute="centerY" secondItem="q7C-OU-Xww" secondAttribute="centerY" id="eXk-QU-LX5"/>
+                        <constraint firstItem="q7C-OU-Xww" firstAttribute="leading" secondItem="vNM-f7-Vt5" secondAttribute="trailing" constant="10" id="ffy-Gp-iXK"/>
+                        <constraint firstItem="nsb-mf-2tx" firstAttribute="top" secondItem="63J-cd-JMl" secondAttribute="top" id="kD8-LT-BaJ"/>
+                        <constraint firstItem="q7C-OU-Xww" firstAttribute="top" secondItem="63J-cd-JMl" secondAttribute="top" constant="68.5" id="lTg-Qn-c8G"/>
+                        <constraint firstItem="nsb-mf-2tx" firstAttribute="leading" secondItem="63J-cd-JMl" secondAttribute="leading" id="rDF-4x-FHn"/>
+                        <constraint firstAttribute="trailing" secondItem="NSB-yS-cuB" secondAttribute="trailing" constant="10" id="uLp-d1-LRU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="63J-cd-JMl" secondAttribute="bottom" id="BHG-fA-JwR"/>
+                <constraint firstItem="63J-cd-JMl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="cJg-rK-0N9"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="63J-cd-JMl" secondAttribute="trailing" id="hpP-gz-WTT"/>
+                <constraint firstItem="63J-cd-JMl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="zUa-gM-afl"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="137.68115942028987" y="-55.245535714285715"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_mic" width="25" height="25"/>
+        <image name="icon_room_lock" width="25" height="25"/>
+        <image name="icon_screen_bg" width="23.333333969116211" height="23"/>
+    </resources>
+</document>
