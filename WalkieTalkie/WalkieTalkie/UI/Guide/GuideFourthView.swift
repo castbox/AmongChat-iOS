@@ -53,14 +53,11 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
     @IBOutlet weak var vipDesLabel: WalkieLabel!
     @IBOutlet weak var tipsLabel: UILabel!
     
-    @IBOutlet weak var iapTipsLabel: UILabel!
-    
     @IBOutlet weak var backgroundIconWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var yearButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var yearButtonLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var yearButtonRightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var freeTryTipsLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var desLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var descLabelLeftConstraint: NSLayoutConstraint!
     @IBOutlet weak var productsContainerRightConstraint: NSLayoutConstraint!
@@ -74,11 +71,6 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
 
     var selectedProductId: String = IAP.productYear {
         didSet {
-            if FireStore.shared.isInReviewSubject.value, selectedProductId == IAP.productYear {
-                iapTipsLabel.text = R.string.localizable.premiumTryTitleDes()
-            } else {
-                iapTipsLabel.text = nil
-            }
             didSelectProducts(selectedProductId)
         }
     }
@@ -99,10 +91,15 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         selectedProductId = IAP.productYear
         
         FireStore.shared.isInReviewSubject
-            .observeOn(MainScheduler.asyncInstance)
             .filter { !$0 }
             .map { !$0 }
-            .bind(to: self.iapTipsLabel.rx.isHidden)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self, self.selectedProductId == IAP.productYear else {
+                    return
+                }
+                self.selectedProductId = IAP.productYear
+            })
             .disposed(by: bag)
         
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
@@ -127,8 +124,6 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         }
             
         if Frame.Height.deviceDiagonalIsMinThan5_5 {
-//            desLabelBottomConstraint.constant = 96
-            freeTryTipsLabelTopConstraint.constant = 14
             desLabelBottomConstraint.constant = Frame.Scale.height(156)
         }
         
@@ -138,6 +133,14 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
             self?.yearButton.isSelected = true
             self?.selectedButton = self?.yearButton
         }
+        
+        IAP.productsValue
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] maps in
+                self?.updateButtonTitles(maps)
+            })
+            .disposed(by: bag)
+        
         vipDesLabel.appendKern()
         yearButton.appendKern()
         monthButton.appendKern()
@@ -175,7 +178,23 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         buyProductHandler(IAP.productMonth)
     }
  
-    func updateselectedButtonStyle() {
-        
+    func updateButtonTitles(_ maps: [String: IAP.Product]) {
+        //button
+        if let product = maps[IAP.productYear]?.skProduct {
+            cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
+            yearButton.setAttributedTitle(nil, for: .normal)
+            yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
+        }
+        if let product = maps[IAP.productMonth]?.skProduct {
+            monthButton.setAttributedTitle(nil, for: .normal)
+            monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
+        }
+        if let product = maps[IAP.productLifeTime]?.skProduct {
+            lifetimeButton.setAttributedTitle(nil, for: .normal)
+            lifetimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
+        }
+        yearButton.appendKern()
+        monthButton.appendKern()
+        lifetimeButton.appendKern()
     }
 }

@@ -14,9 +14,6 @@
         <array key="Nunito-Bold.ttf">
             <string>Nunito-Bold</string>
         </array>
-        <array key="Nunito-SemiBold.ttf">
-            <string>Nunito-SemiBold</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GuideFourthView" customModule="WalkieTalkie" customModuleProvider="target">
@@ -24,8 +21,6 @@
                 <outlet property="backgroundIconWidthConstraint" destination="Afj-eV-N3Z" id="Qjz-Cy-ohh"/>
                 <outlet property="desLabelBottomConstraint" destination="qQR-d5-DAS" id="3TC-w2-uaT"/>
                 <outlet property="descLabelLeftConstraint" destination="RfJ-h2-4n8" id="3wJ-ok-ivp"/>
-                <outlet property="freeTryTipsLabelTopConstraint" destination="0i9-WY-Dek" id="rjD-iA-RtG"/>
-                <outlet property="iapTipsLabel" destination="8YU-j7-lbf" id="OaT-CC-eKv"/>
                 <outlet property="lifetimeButton" destination="ISo-ZB-vRI" id="t7B-WF-0YS"/>
                 <outlet property="monthButton" destination="0Jl-u1-CMT" id="hRb-xR-tpN"/>
                 <outlet property="productsContainerRightConstraint" destination="EWq-9i-qa5" id="aa4-e8-Alg"/>
@@ -93,7 +88,7 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="label" size="11"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                     <tabStops/>
@@ -148,7 +143,7 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="label" size="11"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
@@ -200,7 +195,7 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="label" size="11"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
@@ -407,15 +402,8 @@ Cg
                                 <action selector="closeButtonAction:" destination="-1" eventType="touchUpInside" id="8RY-gW-K9I"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days free trial, then $29.99 / Year" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8YU-j7-lbf">
-                            <rect key="frame" x="120.00000000000001" y="687" width="174.33333333333337" height="15.666666666666629"/>
-                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="11"/>
-                            <color key="textColor" red="0.4392156862745098" green="0.4392156862745098" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="8YU-j7-lbf" firstAttribute="top" secondItem="ExF-Bs-HmG" secondAttribute="bottom" constant="25" id="0i9-WY-Dek"/>
                         <constraint firstItem="Rc1-aB-vz5" firstAttribute="top" secondItem="AS9-om-rTk" secondAttribute="bottom" constant="2" id="2gA-Ph-P3t"/>
                         <constraint firstItem="cgz-9l-nDL" firstAttribute="top" secondItem="AS9-om-rTk" secondAttribute="bottom" constant="9" id="7gZ-ki-u6B"/>
                         <constraint firstAttribute="trailing" secondItem="cgz-9l-nDL" secondAttribute="trailing" constant="52" id="EWq-9i-qa5"/>
@@ -429,7 +417,6 @@ Cg
                         <constraint firstItem="Rc1-aB-vz5" firstAttribute="trailing" secondItem="cgz-9l-nDL" secondAttribute="trailing" multiplier="1.09" id="ghe-ea-MQF"/>
                         <constraint firstItem="cgz-9l-nDL" firstAttribute="leading" secondItem="AS9-om-rTk" secondAttribute="leading" id="jYE-6i-z7X"/>
                         <constraint firstAttribute="bottom" secondItem="ExF-Bs-HmG" secondAttribute="bottom" constant="156" id="qQR-d5-DAS"/>
-                        <constraint firstItem="8YU-j7-lbf" firstAttribute="centerX" secondItem="IDQ-35-XKc" secondAttribute="centerX" id="qRx-df-llL"/>
                         <constraint firstItem="AS9-om-rTk" firstAttribute="top" secondItem="IDQ-35-XKc" secondAttribute="top" constant="90" id="sRX-rd-shS"/>
                         <constraint firstItem="n2c-IT-6UP" firstAttribute="centerX" secondItem="IDQ-35-XKc" secondAttribute="centerX" multiplier="1.4" id="umU-L8-M2l"/>
                         <constraint firstItem="AS9-om-rTk" firstAttribute="leading" secondItem="d5L-4d-iSE" secondAttribute="leading" constant="30" id="vLu-GU-Zom"/>

@@ -24,7 +24,7 @@ class WalkieLabel: UILabel {
                 .kern: kern,
             ]
 //            let mAttribuate = NSMutableAttributedString(attributedString: )
-            self.attributedText =  attrString.applying(attributes: attributes, toOccurrencesOf: attrString.string)
+            self.attributedText = attrString.applying(attributes: attributes, toOccurrencesOf: attrString.string)
         } else {
             let attributes: [NSAttributedString.Key : Any] = [
                 .foregroundColor: textColor ?? .black,

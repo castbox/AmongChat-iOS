@@ -13,7 +13,13 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumContainer" customModule="WalkieTalkie" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumContainer" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="lifeTimeButton" destination="q6p-5A-ssJ" id="U9g-7y-ZKz"/>
+                <outlet property="monthButton" destination="Uny-nd-a1S" id="XJf-de-4c0"/>
+                <outlet property="yearButton" destination="Fiz-9j-hdQ" id="Ubp-Zs-hvl"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -175,7 +181,7 @@ Cg
                                                 <attributes>
                                                     <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="NSColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.77647058823529413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="message" size="11"/>
+                                                    <font key="NSFont" metaFont="controlContent" size="11"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>

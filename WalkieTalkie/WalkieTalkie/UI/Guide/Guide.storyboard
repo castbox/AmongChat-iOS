@@ -7,6 +7,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-SemiBold.ttf">
+            <string>Nunito-SemiBold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Guide View Controller-->
         <scene sceneID="oxz-kk-UUd">
@@ -22,6 +27,12 @@
                                     <outlet property="delegate" destination="dDX-wl-xhG" id="2nZ-ik-R0c"/>
                                 </connections>
                             </scrollView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 days free trial, then $29.99 / Year" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2G-6b-QID">
+                                <rect key="frame" x="119.5" y="730" width="175" height="16"/>
+                                <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="11"/>
+                                <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE" customClass="WalkieButton" customModule="WalkieTalkie" customModuleProvider="target">
                                 <rect key="frame" x="97.5" y="756" width="219" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -67,11 +78,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="leading" secondItem="FEE-8P-tGf" secondAttribute="leading" id="57z-Fe-nSo"/>
+                            <constraint firstItem="nqv-l7-gVE" firstAttribute="top" secondItem="C2G-6b-QID" secondAttribute="bottom" constant="10" id="DKf-ea-z1f"/>
                             <constraint firstItem="pEC-b9-k1H" firstAttribute="top" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="5" id="JZb-Lz-YPv"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="top" secondItem="m8b-hO-4SY" secondAttribute="top" id="PjR-ym-Bxd"/>
                             <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="50" id="PoW-sv-aA9"/>
                             <constraint firstItem="nqv-l7-gVE" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="PsW-G3-GBH"/>
                             <constraint firstAttribute="bottom" secondItem="b4B-cD-flf" secondAttribute="bottom" id="SVB-Vs-MAt"/>
+                            <constraint firstItem="C2G-6b-QID" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Xo5-eh-3Ci"/>
                             <constraint firstItem="pEC-b9-k1H" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Z4K-wH-Pc6"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="trailing" secondItem="FEE-8P-tGf" secondAttribute="trailing" id="awW-ha-auo"/>
                         </constraints>
@@ -81,6 +94,7 @@
                         <outlet property="continueButton" destination="nqv-l7-gVE" id="LDc-TW-h3M"/>
                         <outlet property="continueButtonBottomConstraint" destination="PoW-sv-aA9" id="OBP-wI-8VT"/>
                         <outlet property="continueButtonHeightConstraint" destination="opm-EH-NSH" id="ozr-sH-myW"/>
+                        <outlet property="iapTipsLabel" destination="C2G-6b-QID" id="Twb-L5-OO3"/>
                         <outlet property="privacyButton" destination="pEC-b9-k1H" id="J5R-Vd-NhQ"/>
                         <outlet property="scrollView" destination="b4B-cD-flf" id="96y-15-WPO"/>
                     </connections>
