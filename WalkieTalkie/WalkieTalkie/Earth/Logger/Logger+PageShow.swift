@@ -20,6 +20,7 @@ extension Logger {
             case secret_channel_share_pop_close
             case tutorial_imp_1
             case tutorial_imp_2
+            case tutorial_imp_3
         }
         
         enum Category: String {

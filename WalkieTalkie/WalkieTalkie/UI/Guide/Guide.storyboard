@@ -22,14 +22,14 @@
                                     <outlet property="delegate" destination="dDX-wl-xhG" id="2nZ-ik-R0c"/>
                                 </connections>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE">
-                                <rect key="frame" x="59.5" y="762" width="295" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE" customClass="WalkieButton" customModule="WalkieTalkie" customModuleProvider="target">
+                                <rect key="frame" x="97.5" y="756" width="219" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="295" id="grO-ef-mxm"/>
-                                    <constraint firstAttribute="height" constant="60" id="opm-EH-NSH"/>
+                                    <constraint firstAttribute="width" constant="219" id="grO-ef-mxm"/>
+                                    <constraint firstAttribute="height" constant="56" id="opm-EH-NSH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" red="0.074509803920000006" green="0.078431372550000003" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
@@ -42,55 +42,47 @@
                                     <action selector="continueAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="abg-8Y-yTL"/>
                                 </connections>
                             </button>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-sg-az5">
-                                <rect key="frame" x="187.5" y="720" width="39" height="37"/>
-                                <color key="pageIndicatorTintColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Df-tw-CcJ">
-                                <rect key="frame" x="168.5" y="896" width="77" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEC-b9-k1H">
+                                <rect key="frame" x="127" y="817" width="160" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="ybj-u9-eyh"/>
+                                    <constraint firstAttribute="height" constant="26" id="kyj-0b-bqo"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                <state key="normal" title="SKIP">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Privacy Policy &amp; Terms of Sevice">
+                                            <attributes>
+                                                <color key="NSColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <font key="NSFont" size="11" name="Helvetica"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                <integer key="NSUnderline" value="1"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="skipAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="lPY-WH-zxE"/>
+                                    <action selector="privacyAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="q9D-b0-iz9"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="leading" secondItem="FEE-8P-tGf" secondAttribute="leading" id="57z-Fe-nSo"/>
-                            <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="0Df-tw-CcJ" secondAttribute="bottom" constant="-74" id="BVa-Xu-jOa"/>
-                            <constraint firstItem="0Df-tw-CcJ" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="GEI-oZ-JNy"/>
-                            <constraint firstItem="nqv-l7-gVE" firstAttribute="top" secondItem="4Sb-sg-az5" secondAttribute="bottom" constant="5" id="LDL-ea-qG2"/>
+                            <constraint firstItem="pEC-b9-k1H" firstAttribute="top" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="5" id="JZb-Lz-YPv"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="top" secondItem="m8b-hO-4SY" secondAttribute="top" id="PjR-ym-Bxd"/>
-                            <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="40" id="PoW-sv-aA9"/>
+                            <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="50" id="PoW-sv-aA9"/>
                             <constraint firstItem="nqv-l7-gVE" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="PsW-G3-GBH"/>
                             <constraint firstAttribute="bottom" secondItem="b4B-cD-flf" secondAttribute="bottom" id="SVB-Vs-MAt"/>
+                            <constraint firstItem="pEC-b9-k1H" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Z4K-wH-Pc6"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="trailing" secondItem="FEE-8P-tGf" secondAttribute="trailing" id="awW-ha-auo"/>
-                            <constraint firstItem="4Sb-sg-az5" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="vjz-aC-HEd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FEE-8P-tGf"/>
                     </view>
                     <connections>
-                        <outlet property="continueButton" destination="nqv-l7-gVE" id="2Mp-eU-bRC"/>
-                        <outlet property="pageControl" destination="4Sb-sg-az5" id="kbB-cy-bto"/>
+                        <outlet property="continueButton" destination="nqv-l7-gVE" id="LDc-TW-h3M"/>
+                        <outlet property="continueButtonBottomConstraint" destination="PoW-sv-aA9" id="OBP-wI-8VT"/>
+                        <outlet property="continueButtonHeightConstraint" destination="opm-EH-NSH" id="ozr-sH-myW"/>
+                        <outlet property="privacyButton" destination="pEC-b9-k1H" id="J5R-Vd-NhQ"/>
                         <outlet property="scrollView" destination="b4B-cD-flf" id="96y-15-WPO"/>
-                        <outlet property="skipButton" destination="0Df-tw-CcJ" id="jNs-Uq-oty"/>
-                        <outlet property="skipButtonBottomConstraint" destination="BVa-Xu-jOa" id="9Qx-OI-FuK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YHX-C2-p1C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

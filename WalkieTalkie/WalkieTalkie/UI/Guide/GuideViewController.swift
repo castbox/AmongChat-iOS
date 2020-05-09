@@ -12,14 +12,15 @@ import RxSwift
 import RxCocoa
 
 class GuideViewController: ViewController {
-
-    @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var pageControl: UIPageControl!
+    
+    @IBOutlet weak var continueButton: WalkieButton!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var skipButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var continueButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var privacyButton: UIButton!
+    
     private var isStartTimer: Bool = false
-    private let thirdPage = R.storyboard.main.premiumViewController()!
+    private let fourthPage = R.storyboard.main.premiumViewController()!
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
     private var selectedProductId: String? {
@@ -28,7 +29,7 @@ class GuideViewController: ViewController {
         }
     }
     var dismissHandler: (()->Void)? = nil
-
+    
     var maxPage: Int {
         Int(scrollView.contentSize.width / scrollView.width) - 1
     }
@@ -47,7 +48,7 @@ class GuideViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         configureSubview()
         bindSubviewEvent()
@@ -56,21 +57,24 @@ class GuideViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        thirdPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
+        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 3, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
     }
     
     @IBAction func skipAction(_ sender: Any) {
-//        dismiss(animated: true, completion: nil)
+        //        dismiss(animated: true, completion: nil)
         self.dismissHandler?()
     }
     
     @IBAction func continueAction(_ sender: Any) {
         let index = pageIndex + 1
         if index > maxPage { //last page
-            thirdPage.buySelectedProducts()
+            fourthPage.buySelectedProducts()
         } else {
             scrollView.setContentOffset(CGPoint(x: scrollView.width * index.cgFloat, y: 0), animated: true)
         }
+    }
+    @IBAction func privacyAction(_ sender: Any) {
+        open(urlSting: "https://walkietalkie.live/policy.html")
     }
 }
 
@@ -84,26 +88,26 @@ extension GuideViewController: UIScrollViewDelegate {
         }
         updateSubviewStatus(pageIndex)
         updateContinueButtonTitle()
-        
+        privacyButton.isHidden = pageIndex > 0
         if pageIndex == 1, !isFirstShowPage2 {
             isFirstShowPage2 = true
             Logger.PageShow.log(.tutorial_imp_2)
+        } else if pageIndex == 2 {
+            Logger.PageShow.log(.tutorial_imp_3)
         }
-        pageControl.currentPage = pageIndex
     }
 }
 
 extension GuideViewController {
     func updateContinueButtonTitle() {
-        guard pageIndex == 2 else {
+        guard pageIndex == 3 else {
             return
         }
-        pageControl.isHidden = true
-        startShowSkipButtonTimer()
         
         let tryAttr: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
-            .font: UIFont.systemFont(ofSize: 14, weight: .bold)
+            .font: R.font.nunitoBold(size: 18) ?? Font.bigBody.value,
+            .kern: 0.5
         ]
         
         let mutableNormalString = NSMutableAttributedString()
@@ -111,16 +115,16 @@ extension GuideViewController {
             if FireStore.shared.isInReviewSubject.value {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
             } else {
-                let tryDesAttr: [NSAttributedString.Key: Any] = [
-                    .foregroundColor: UIColor.black.alpha(0.7),
-                    .font: UIFont.systemFont(ofSize: 12)
-                ]
+//                let tryDesAttr: [NSAttributedString.Key: Any] = [
+//                    .foregroundColor: UIColor.black.alpha(0.7),
+//                    .font: UIFont.systemFont(ofSize: 12)
+//                ]
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
-                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
+//                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
             }
         } else {
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
-
+            
         }
         UIView.setAnimationsEnabled(false)
         continueButton.setAttributedTitle(mutableNormalString, for: .normal)
@@ -135,28 +139,10 @@ extension GuideViewController {
     }
     
     func updateSubviewStatus(_ pageIndex: Int) {
-        if pageIndex == 2 {
-//            continueButton.isHidden = true
-            pageControl.isHidden = true
+        if pageIndex == 3 {
+            //            continueButton.isHidden = true
             scrollView.isScrollEnabled = false
-            startShowSkipButtonTimer()
         }
-    }
-    
-    func startShowSkipButtonTimer() {
-        guard !isStartTimer else {
-            return
-        }
-        isStartTimer = true
-        Observable.just(())
-            .delay(.seconds(3), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.skipButtonBottomConstraint.constant = 0
-                UIView.animate(withDuration: AnimationDuration.normal.rawValue) {
-                    self?.view.layoutIfNeeded()                
-                }
-            })
-            .disposed(by: bag)
     }
     
     func bindSubviewEvent() {
@@ -164,6 +150,16 @@ extension GuideViewController {
     }
     
     func configureSubview() {
+        if Frame.Height.deviceDiagonalIsMinThan4_7 {
+            continueButtonHeightConstraint.constant = 44
+            continueButtonBottomConstraint.constant = 25
+            continueButton.cornerRadius = 22
+        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
+            continueButtonBottomConstraint.constant = Frame.Scale.height(50)
+        }
+        
+        continueButton.appendKern()
+        
         let firstPage = GuideFirstView(frame: Frame.Screen.bounds)
         scrollView.addSubview(firstPage)
         
@@ -171,21 +167,25 @@ extension GuideViewController {
         secondPage.x = Frame.Screen.width
         scrollView.addSubview(secondPage)
         
-        thirdPage.style = .guide
-        thirdPage.source = .first_open
-        thirdPage.dismissHandler = { [weak self] in
-//            self?.dismiss(animated: true, completion: nil)
+        let thirdPage = GuideThirdView(frame: Frame.Screen.bounds)
+        thirdPage.x = Frame.Screen.width * 2
+        scrollView.addSubview(thirdPage)
+        
+        fourthPage.style = .guide
+        fourthPage.source = .first_open
+        fourthPage.dismissHandler = { [weak self] in
+            //            self?.dismiss(animated: true, completion: nil)
             self?.dismissHandler?()
         }
-        thirdPage.didSelectProducts = { [weak self] pid in
+        fourthPage.didSelectProducts = { [weak self] pid in
             self?.selectedProductId = pid
         }
-        thirdPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
-//        thirdPage.willMove(toParent: self)
-        addChild(thirdPage)
-        scrollView.addSubview(thirdPage.view)
+        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 3, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
+        //        fourthPage.willMove(toParent: self)
+        addChild(fourthPage)
+        scrollView.addSubview(fourthPage.view)
         
-        scrollView.contentSize = CGSize(width: Frame.Screen.width * 3, height: Frame.Screen.height)
+        scrollView.contentSize = CGSize(width: Frame.Screen.width * 4, height: Frame.Screen.height)
         
         continueButton.titleLabel?.lineBreakMode = .byWordWrapping
         continueButton.titleLabel?.textAlignment = .center

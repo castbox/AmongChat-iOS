@@ -49,6 +49,7 @@
 		FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */; };
 		FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F3244DCC0200763747 /* Routes.swift */; };
 		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
+		FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE392C672466C5AA00A2CCF3 /* KernUI.swift */; };
 		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
 		FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E33244D9C450081F793 /* IAP.Observer.swift */; };
 		FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E34244D9C450081F793 /* IAP.SubscriptionProduct.swift */; };
@@ -99,7 +100,6 @@
 		FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7218822456DC35005274CA /* SecretChannelContainer.xib */; };
 		FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */; };
 		FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC624629A9700CAC554 /* Localizable.strings */; };
-		FE746BCF24629A9800CAC554 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC824629A9800CAC554 /* Nunito-Regular.ttf */; };
 		FE746BD024629A9800CAC554 /* call.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC924629A9800CAC554 /* call.m4a */; };
 		FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE746BCA24629A9800CAC554 /* Nunito-Bold.ttf */; };
 		FE746BD224629A9800CAC554 /* end.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FE746BCB24629A9800CAC554 /* end.mp3 */; };
@@ -107,10 +107,10 @@
 		FE746BDC24629B0500CAC554 /* GuideSecondView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BD424629B0500CAC554 /* GuideSecondView.xib */; };
 		FE746BDD24629B0500CAC554 /* GuideFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BD524629B0500CAC554 /* GuideFirstView.swift */; };
 		FE746BDE24629B0500CAC554 /* Guide.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE746BD624629B0500CAC554 /* Guide.storyboard */; };
-		FE746BDF24629B0500CAC554 /* GuideThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BD724629B0500CAC554 /* GuideThirdView.xib */; };
+		FE746BDF24629B0500CAC554 /* GuideFourthView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BD724629B0500CAC554 /* GuideFourthView.xib */; };
 		FE746BE024629B0500CAC554 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BD824629B0500CAC554 /* GuideViewController.swift */; };
 		FE746BE124629B0500CAC554 /* GuideSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BD924629B0500CAC554 /* GuideSecondView.swift */; };
-		FE746BE224629B0500CAC554 /* GuideThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BDA24629B0500CAC554 /* GuideThirdView.swift */; };
+		FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BDA24629B0500CAC554 /* GuideFourthView.swift */; };
 		FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BDB24629B0500CAC554 /* GuideFirstView.xib */; };
 		FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089C92449E631006A1644 /* PrivateShareController.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
@@ -157,6 +157,9 @@
 		FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AA24597B570075D139 /* Automator.Device.swift */; };
 		FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AB24597B570075D139 /* Automator.Analytics.swift */; };
 		FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43B1245987CA0075D139 /* PushSettingController.swift */; };
+		FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */; };
+		FECFC4FE24666FBD00B10EEE /* GuideThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECFC4FD24666FBD00B10EEE /* GuideThirdView.swift */; };
+		FECFC50024666FD400B10EEE /* GuideThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FF24666FD400B10EEE /* GuideThirdView.xib */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -223,6 +226,7 @@
 		FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.Constructor.swift; sourceTree = "<group>"; };
 		FE2AF9F3244DCC0200763747 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		FE2AF9FA244DDDC700763747 /* URLUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUnit.swift; sourceTree = "<group>"; };
+		FE392C672466C5AA00A2CCF3 /* KernUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernUI.swift; sourceTree = "<group>"; };
 		FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkie.entitlements; sourceTree = "<group>"; };
 		FE401E32244D9C450081F793 /* IAP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.swift; sourceTree = "<group>"; };
 		FE401E33244D9C450081F793 /* IAP.Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Observer.swift; sourceTree = "<group>"; };
@@ -274,7 +278,6 @@
 		FE7218822456DC35005274CA /* SecretChannelContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecretChannelContainer.xib; sourceTree = "<group>"; };
 		FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
 		FE746BC724629A9700CAC554 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
-		FE746BC824629A9800CAC554 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		FE746BC924629A9800CAC554 /* call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.m4a; sourceTree = "<group>"; };
 		FE746BCA24629A9800CAC554 /* Nunito-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Bold.ttf"; sourceTree = "<group>"; };
 		FE746BCB24629A9800CAC554 /* end.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = end.mp3; sourceTree = "<group>"; };
@@ -282,10 +285,10 @@
 		FE746BD424629B0500CAC554 /* GuideSecondView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideSecondView.xib; sourceTree = "<group>"; };
 		FE746BD524629B0500CAC554 /* GuideFirstView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideFirstView.swift; sourceTree = "<group>"; };
 		FE746BD624629B0500CAC554 /* Guide.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Guide.storyboard; sourceTree = "<group>"; };
-		FE746BD724629B0500CAC554 /* GuideThirdView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideThirdView.xib; sourceTree = "<group>"; };
+		FE746BD724629B0500CAC554 /* GuideFourthView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFourthView.xib; sourceTree = "<group>"; };
 		FE746BD824629B0500CAC554 /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		FE746BD924629B0500CAC554 /* GuideSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideSecondView.swift; sourceTree = "<group>"; };
-		FE746BDA24629B0500CAC554 /* GuideThirdView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideThirdView.swift; sourceTree = "<group>"; };
+		FE746BDA24629B0500CAC554 /* GuideFourthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideFourthView.swift; sourceTree = "<group>"; };
 		FE746BDB24629B0500CAC554 /* GuideFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
 		FE8089C92449E631006A1644 /* PrivateShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateShareController.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
@@ -333,6 +336,9 @@
 		FECA43AB24597B570075D139 /* Automator.Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Analytics.swift; sourceTree = "<group>"; };
 		FECA43B1245987CA0075D139 /* PushSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingController.swift; sourceTree = "<group>"; };
 		FECA43B62459A8A60075D139 /* cbegin.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cbegin.mp3; sourceTree = "<group>"; };
+		FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
+		FECFC4FD24666FBD00B10EEE /* GuideThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideThirdView.swift; sourceTree = "<group>"; };
+		FECFC4FF24666FD400B10EEE /* GuideThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideThirdView.xib; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -430,7 +436,6 @@
 				FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */,
 				FE126D17243461E800BEDD60 /* AppDelegate.swift */,
 				FECA43B42459A8360075D139 /* UI */,
-				FECA43B32459A7800075D139 /* Guide */,
 				FE2AF9ED244DCC0200763747 /* Routes */,
 				FE401E49244DAD6B0081F793 /* Utils */,
 				FE126D542434821900BEDD60 /* Manager */,
@@ -547,6 +552,7 @@
 				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
 				FE684883244BD9F900F87AF9 /* GradientView.swift */,
+				FE392C672466C5AA00A2CCF3 /* KernUI.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -671,13 +677,15 @@
 			isa = PBXGroup;
 			children = (
 				FE746BD624629B0500CAC554 /* Guide.storyboard */,
+				FE746BD824629B0500CAC554 /* GuideViewController.swift */,
 				FE746BD524629B0500CAC554 /* GuideFirstView.swift */,
 				FE746BDB24629B0500CAC554 /* GuideFirstView.xib */,
 				FE746BD924629B0500CAC554 /* GuideSecondView.swift */,
 				FE746BD424629B0500CAC554 /* GuideSecondView.xib */,
-				FE746BDA24629B0500CAC554 /* GuideThirdView.swift */,
-				FE746BD724629B0500CAC554 /* GuideThirdView.xib */,
-				FE746BD824629B0500CAC554 /* GuideViewController.swift */,
+				FECFC4FD24666FBD00B10EEE /* GuideThirdView.swift */,
+				FECFC4FF24666FD400B10EEE /* GuideThirdView.xib */,
+				FE746BDA24629B0500CAC554 /* GuideFourthView.swift */,
+				FE746BD724629B0500CAC554 /* GuideFourthView.xib */,
 			);
 			path = Guide;
 			sourceTree = "<group>";
@@ -685,6 +693,7 @@
 		FECA43B42459A8360075D139 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				FECA43B32459A7800075D139 /* Guide */,
 				FECA43BC2459AA3D0075D139 /* Room */,
 				FECA43BD2459AA450075D139 /* Search */,
 				FECA43BE2459AA5B0075D139 /* Add */,
@@ -707,7 +716,7 @@
 				FE746BC524629A9700CAC554 /* en.lproj */,
 				FE746BCB24629A9800CAC554 /* end.mp3 */,
 				FE746BCA24629A9800CAC554 /* Nunito-Bold.ttf */,
-				FE746BC824629A9800CAC554 /* Nunito-Regular.ttf */,
+				FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */,
 				FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */,
 				FECA43B62459A8A60075D139 /* cbegin.mp3 */,
 			);
@@ -883,12 +892,13 @@
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE746BD324629A9800CAC554 /* BlackOpsOne-Regular.ttf in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
+				FECFC50024666FD400B10EEE /* GuideThirdView.xib in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
-				FE746BDF24629B0500CAC554 /* GuideThirdView.xib in Resources */,
+				FE746BDF24629B0500CAC554 /* GuideFourthView.xib in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
+				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
 				FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */,
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
-				FE746BCF24629A9800CAC554 /* Nunito-Regular.ttf in Resources */,
 				FE746BD024629A9800CAC554 /* call.m4a in Resources */,
 				FE11DC30245B007B009B7E08 /* cbegin.mp3 in Resources */,
 				FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */,
@@ -1034,6 +1044,7 @@
 				FE684884244BD9F900F87AF9 /* GradientView.swift in Sources */,
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
+				FECFC4FE24666FBD00B10EEE /* GuideThirdView.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
@@ -1045,6 +1056,7 @@
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
+				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */,
@@ -1090,7 +1102,7 @@
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
-				FE746BE224629B0500CAC554 /* GuideThirdView.swift in Sources */,
+				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE86A588245AB28D00C35FCA /* ChannelType.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
@@ -1298,7 +1310,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1306,7 +1318,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1323,7 +1335,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1331,7 +1343,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

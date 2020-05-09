@@ -12,38 +12,6 @@ import RxCocoa
 import RxSwift
 import MoPub
 
-class WalkieLabel: UILabel {
-    override var text: String? {
-        set {
-            super.text = newValue
-        }
-        get {
-            super.text
-        }
-    }
-    
-    func appendKern(with kern: CGFloat = 0.5) {
-        let attributes: [NSAttributedString.Key : Any] = [
-            .foregroundColor: textColor ?? .black,
-            .font: font ?? R.font.nunitoSemiBold(size: 17),
-            .kern: kern,
-        ]
-        let attString = NSAttributedString(string: text ?? "", attributes: attributes)
-        self.attributedText = attString
-    }
-}
-
-class WalkieButton: UIButton {
-    func appendKern(with kern: CGFloat = 0.5) {
-        let attributes: [NSAttributedString.Key : Any] = [
-            .font: titleLabel?.font ?? R.font.nunitoSemiBold(size: 17),
-            .kern: kern,
-        ]
-//        let attString = NSAttributedString(string: title(for: .normal) ?? "", attributes: attributes)
-        setAttributedTitle(NSAttributedString(string: title(for: .normal) ?? "", attributes: attributes), for: .normal)
-    }
-}
-
 class SecretChannelContainer: XibLoadableView {
     
     @IBOutlet private weak var scrollView: UIScrollView!

@@ -59,10 +59,10 @@ struct R: Rswift.Validatable {
   struct font: Rswift.Validatable {
     /// Font `BlackOpsOne-Regular`.
     static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
+    /// Font `Nunito-Black`.
+    static let nunitoBlack = Rswift.FontResource(fontName: "Nunito-Black")
     /// Font `Nunito-Bold`.
     static let nunitoBold = Rswift.FontResource(fontName: "Nunito-Bold")
-    /// Font `Nunito-Regular`.
-    static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
     static let nunitoSemiBold = Rswift.FontResource(fontName: "Nunito-SemiBold")
     
@@ -71,14 +71,14 @@ struct R: Rswift.Validatable {
       return UIKit.UIFont(resource: blackOpsOneRegular, size: size)
     }
     
+    /// `UIFont(name: "Nunito-Black", size: ...)`
+    static func nunitoBlack(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: nunitoBlack, size: size)
+    }
+    
     /// `UIFont(name: "Nunito-Bold", size: ...)`
     static func nunitoBold(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: nunitoBold, size: size)
-    }
-    
-    /// `UIFont(name: "Nunito-Regular", size: ...)`
-    static func nunitoRegular(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: nunitoRegular, size: size)
     }
     
     /// `UIFont(name: "Nunito-SemiBold", size: ...)`
@@ -88,15 +88,15 @@ struct R: Rswift.Validatable {
     
     static func validate() throws {
       if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
-      if R.font.nunitoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Regular' could not be loaded, is 'Nunito-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-SemiBold' could not be loaded, is 'Nunito-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
     
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 37 images.
+  /// This `R.image` struct is generated, and contains static references to 43 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -124,12 +124,22 @@ struct R: Rswift.Validatable {
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
+    /// Image `icon_close_gray`.
+    static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
     static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
+    /// Image `icon_emoji_hh`.
+    static let icon_emoji_hh = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_emoji_hh")
+    /// Image `icon_emoji_kiss`.
+    static let icon_emoji_kiss = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_emoji_kiss")
     /// Image `icon_guide_1`.
     static let icon_guide_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_1")
     /// Image `icon_guide_2`.
     static let icon_guide_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_2")
+    /// Image `icon_guide_3`.
+    static let icon_guide_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_3")
+    /// Image `icon_guide_4`.
+    static let icon_guide_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4")
     /// Image `icon_mic_disable`.
     static let icon_mic_disable = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic_disable")
     /// Image `icon_mic`.
@@ -164,6 +174,8 @@ struct R: Rswift.Validatable {
     static let icon_setting_star = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_star")
     /// Image `icon_setting`.
     static let icon_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting")
+    /// Image `launch_logo`.
+    static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `share_logo`.
@@ -243,6 +255,21 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_close_gray", bundle: ..., traitCollection: ...)`
+    static func icon_close_gray(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_close_gray, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_emoji_hh", bundle: ..., traitCollection: ...)`
+    static func icon_emoji_hh(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_emoji_hh, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_emoji_kiss", bundle: ..., traitCollection: ...)`
+    static func icon_emoji_kiss(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_emoji_kiss, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_guide_1", bundle: ..., traitCollection: ...)`
     static func icon_guide_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_guide_1, compatibleWith: traitCollection)
@@ -251,6 +278,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_guide_2", bundle: ..., traitCollection: ...)`
     static func icon_guide_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_guide_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_guide_3", bundle: ..., traitCollection: ...)`
+    static func icon_guide_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_3, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_guide_4", bundle: ..., traitCollection: ...)`
+    static func icon_guide_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_4, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_mic", bundle: ..., traitCollection: ...)`
@@ -338,6 +375,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_setting_star, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "launch_logo", bundle: ..., traitCollection: ...)`
+    static func launch_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.launch_logo, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "launch_name", bundle: ..., traitCollection: ...)`
     static func launch_name(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.launch_name, compatibleWith: traitCollection)
@@ -361,12 +403,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 7 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 8 nibs.
   struct nib {
     /// Nib `GlobalChannelContainer`.
     static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
     static let guideFirstView = _R.nib._GuideFirstView()
+    /// Nib `GuideFourthView`.
+    static let guideFourthView = _R.nib._GuideFourthView()
     /// Nib `GuideSecondView`.
     static let guideSecondView = _R.nib._GuideSecondView()
     /// Nib `GuideThirdView`.
@@ -388,6 +432,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFirstView) instead")
     static func guideFirstView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.guideFirstView)
+    }
+    
+    /// `UINib(name: "GuideFourthView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView) instead")
+    static func guideFourthView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideFourthView)
     }
     
     /// `UINib(name: "GuideSecondView", in: bundle)`
@@ -426,6 +476,10 @@ struct R: Rswift.Validatable {
     
     static func guideFirstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.guideFirstView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func guideFourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideFourthView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func guideSecondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -948,6 +1002,7 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _GuideFirstView.validate()
+      try _GuideFourthView.validate()
       try _GuideSecondView.validate()
       try _GuideThirdView.validate()
       try _PremiumContainer.validate()
@@ -983,6 +1038,31 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
+    struct _GuideFourthView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideFourthView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_close_gray", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close_gray' is used in nib 'GuideFourthView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_emoji_hh", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_emoji_hh' is used in nib 'GuideFourthView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_emoji_kiss", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_emoji_kiss' is used in nib 'GuideFourthView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_guide_4", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4' is used in nib 'GuideFourthView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView', but couldn't be loaded.") }
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
     struct _GuideSecondView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "GuideSecondView"
@@ -1008,16 +1088,9 @@ struct _R: Rswift.Validatable {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
-      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
-      }
-      
       static func validate() throws {
-        if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in nib 'GuideThirdView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro_select_y", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select_y' is used in nib 'GuideThirdView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro_y", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_y' is used in nib 'GuideThirdView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_guide_3", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_3' is used in nib 'GuideThirdView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
-          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideThirdView', but couldn't be loaded.") }
         }
       }
       
@@ -1117,8 +1190,8 @@ struct _R: Rswift.Validatable {
       let name = "LaunchScreen"
       
       static func validate() throws {
+        if UIKit.UIImage(named: "launch_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if UIKit.UIImage(named: "launch_name", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_name' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "share_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'share_logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
