@@ -85,6 +85,8 @@ extension Font {
     static let mediumBigTitle = Font(size: ._16, weight: .medium)
     
     static let smallBody = Font(size: ._10, weight: .regular)
+    
+    static let premiumSubscribeTry = Font(size: ._15, weight: .bold)
 //    static let sleepActionTitle = Font(size: ._15, weight: .medium)
 //    static let sleepTimerDesc = Font(size: ._15, weight: .regular)
 //    static let sleepTimer = Font(size: ._44, weight: .bold)

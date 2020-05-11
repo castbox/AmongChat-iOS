@@ -548,7 +548,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailNormal = Rswift.StringResource(key: "premium.subscription.detail.normal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: 3 days free trial, then $29.99 / Year
+      /// en translation: 3 days free trial, then %@ / Year
       /// 
       /// Locales: en
       static let premiumTryTitleDes = Rswift.StringResource(key: "premium.try.title.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -708,11 +708,11 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.normal", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
-      /// en translation: 3 days free trial, then $29.99 / Year
+      /// en translation: 3 days free trial, then %@ / Year
       /// 
       /// Locales: en
-      static func premiumTryTitleDes(_: Void = ()) -> String {
-        return NSLocalizedString("premium.try.title.des", bundle: R.hostingBundle, comment: "")
+      static func premiumTryTitleDes(_ value1: String) -> String {
+        return String(format: NSLocalizedString("premium.try.title.des", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.

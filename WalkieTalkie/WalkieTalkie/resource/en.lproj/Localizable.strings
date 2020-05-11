@@ -42,7 +42,7 @@
 "add.channel.secret.create.tips.des" = "Create secret channel to chat with your friends";
 
 "premium.try.title" = "Try it FREE";
-"premium.try.title.des" = "3 days free trial, then $29.99 / Year";
+"premium.try.title.des" = "3 days free trial, then %@ / Year";
 
 "enter.secret.channel.alert.title" = "Enter the Secret Channel?";
 "enter.secret.channel.alert.desc" = "This passcode can enter a secret channel, enter now?";

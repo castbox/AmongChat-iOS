@@ -18,11 +18,13 @@ class GuideViewController: ViewController {
     @IBOutlet weak var continueButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var continueButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var privacyButton: UIButton!
+    @IBOutlet weak var iapTipsLabel: UILabel!
     
     private var isStartTimer: Bool = false
     private let fourthPage = R.storyboard.main.premiumViewController()!
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
+    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
     private var selectedProductId: String? {
         didSet {
             updateContinueButtonTitle()
@@ -101,9 +103,12 @@ extension GuideViewController: UIScrollViewDelegate {
 extension GuideViewController {
     func updateContinueButtonTitle() {
         guard pageIndex == 3 else {
+            iapTipsLabel.isHidden = true
+//            iapTipsLabel.fadeOut()
             return
         }
-        
+        iapTipsLabel.fadeIn()
+//        iapTipsLabel.isHidden = false
         let tryAttr: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
             .font: R.font.nunitoBold(size: 18) ?? Font.bigBody.value,
@@ -112,6 +117,7 @@ extension GuideViewController {
         
         let mutableNormalString = NSMutableAttributedString()
         if selectedProductId == IAP.productYear {
+            //
             if FireStore.shared.isInReviewSubject.value {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
             } else {
@@ -122,7 +128,9 @@ extension GuideViewController {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
 //                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
             }
+            iapTipsLabel.text = iapTipsLabelText
         } else {
+            iapTipsLabel.text = nil
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
             
         }
@@ -146,7 +154,15 @@ extension GuideViewController {
     }
     
     func bindSubviewEvent() {
-        
+        IAP.productsValue
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] maps in
+                guard let price = maps[IAP.productYear]?.skProduct.localizedPrice else {
+                    return
+                }
+                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+            })
+            .disposed(by: bag)
     }
     
     func configureSubview() {

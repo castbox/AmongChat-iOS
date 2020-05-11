@@ -78,6 +78,8 @@ class RtcManager: NSObject {
     }
 
     func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+        //清除数据
+        unMuteUsers.removeAll()
         let result = mRtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
@@ -160,6 +162,8 @@ class RtcManager: NSObject {
     }
 
     func leaveChannel() {
+        //清除数据
+        unMuteUsers.removeAll()
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
