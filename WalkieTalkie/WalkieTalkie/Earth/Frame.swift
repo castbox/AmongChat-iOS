@@ -20,23 +20,7 @@ struct Frame {
     struct Height {
         
         static var isXStyle: Bool {
-            let xStyleDevices: [Device] = [
-                .iPhoneX,
-                .iPhoneXS,
-                .iPhoneXSMax,
-                .iPhoneXR,
-                .iPhone11,
-                .iPhone11Pro,
-                .iPhone11ProMax,
-                .simulator(.iPhoneX),
-                .simulator(.iPhoneXS),
-                .simulator(.iPhoneXSMax),
-                .simulator(.iPhoneXR),
-                .simulator(.iPhone11),
-                .simulator(.iPhone11Pro),
-                .simulator(.iPhone11ProMax),
-            ]
-            return xStyleDevices.contains(Device.current)
+            return Device.allDevicesWithSensorHousing.contains(Device.current) || Device.allSimulatorDevicesWithSensorHousing.contains(Device.current)
         }
         
         static var safeAeraTopHeight: CGFloat {
@@ -56,21 +40,44 @@ struct Frame {
         }
         
         static var deviceDiagonalIsMinThan4_7: Bool {
-            return Device.current.diagonal < 4.7
-        }
-        
-        static var deviceDiagonalIs4_7: Bool {
-            return Device.current.diagonal == 4.7
+            return deviceDiagonalIsMinThan(4.7)
         }
         
         static var deviceDiagonalIsMinThan5_5: Bool {
-            return Device.current.diagonal < 5.5
+            return deviceDiagonalIsMinThan(5.5)
         }
         
         //iphonex
-        static var deviceDiagonalIsMinThan5_8: Bool {
-            return Device.current.diagonal <= 5.8
+        static var deviceDiagonalIsMinThan6_1: Bool {
+            return deviceDiagonalIsMinThan(6.1)
         }
+        
+        static func deviceDiagonalIsMinThan(_ value: Double) -> Bool {
+            let diagonal = Device.current.diagonal
+            var realDiagonal: Double {
+                guard Device.current.isZoomed ?? false else {
+                    return diagonal
+                }
+                switch diagonal {
+                case 6.8:
+                    return 6.5
+                case 6.5:
+                    return 6.1
+                case 6.1:
+                    return 5.8
+                case 5.5:
+                    return 4.7
+                case 4.7:
+                    return 4
+                case 4:
+                    return 3.5
+                default:
+                    return diagonal
+                }
+            }
+            return realDiagonal < value
+        }
+
     }
     
     /// 比例
