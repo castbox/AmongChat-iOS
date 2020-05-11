@@ -68,7 +68,7 @@ class RoomViewController: ViewController {
     private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
-    private var channel: Room = Defaults[\.channel] {
+    private var channel: Room! {
         didSet {
             updateSubviewStyle()
             updateMemberCount(with: channel)
@@ -107,6 +107,7 @@ class RoomViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        channel = Defaults[\.channel]
         configureSubview()
         bindSubviewEvent()
         updateSubviewStyle()

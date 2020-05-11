@@ -78,7 +78,7 @@ target 'WalkieTalkie' do
     
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
-    pod 'AgoraAudio_iOS'
+    pod 'AgoraAudio_iOS', '3.0.0.2'
 #    pod 'AgoraRtm_iOS'
 
     pod 'JLRoutes'
