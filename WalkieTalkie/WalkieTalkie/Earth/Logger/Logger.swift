@@ -303,6 +303,11 @@ extension Logger {
         
         static func logPurchaseResult(productId: String, isSuccess: Bool) {
             GuruAnalytics.log(event: "first_open_iap_ret", category: productId, name: nil, value: isSuccess ? 1 : 0)
+            if isSuccess {
+                GuruAnalytics.log(event: "first_open_iap_ret_true", category: productId, name: nil, value: nil)
+            } else {
+                GuruAnalytics.log(event: "first_open_iap_ret_false", category: productId, name: nil, value: nil)
+            }
         }
     }
 }

@@ -42,6 +42,7 @@
 		<string>BlackOpsOne-Regular.ttf</string>
 		<string>Nunito-SemiBold.ttf</string>
 		<string>Nunito-Bold.ttf</string>
+		<string>Nunito-Black.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

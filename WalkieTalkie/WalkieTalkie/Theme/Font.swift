@@ -84,11 +84,12 @@ extension Font {
     static let mediumBody = Font(size: ._13, weight: .medium)
     static let mediumBigTitle = Font(size: ._16, weight: .medium)
     
-    /// 小睡眠字体
-    static let sleepItemTitle = Font(size: ._10, weight: .medium)
-    static let sleepActionTitle = Font(size: ._15, weight: .medium)
-    static let sleepTimerDesc = Font(size: ._15, weight: .regular)
-    static let sleepTimer = Font(size: ._44, weight: .bold)
+    static let smallBody = Font(size: ._10, weight: .regular)
+    
+    static let premiumSubscribeTry = Font(size: ._15, weight: .bold)
+//    static let sleepActionTitle = Font(size: ._15, weight: .medium)
+//    static let sleepTimerDesc = Font(size: ._15, weight: .regular)
+//    static let sleepTimer = Font(size: ._44, weight: .bold)
 }
 
 // fixme，重构完即要弃用的

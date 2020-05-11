@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol PremiumContainerable: UIView {
     var closeHandler: () -> Void { get set }
@@ -15,6 +17,11 @@ protocol PremiumContainerable: UIView {
 }
 
 class PremiumContainer: XibLoadableView, PremiumContainerable {
+    @IBOutlet weak var monthButton: UIButton!
+    @IBOutlet weak var lifeTimeButton: UIButton!
+    @IBOutlet weak var yearButton: UIButton!
+    let bag = DisposeBag()
+    
     var gradientLayer: CAGradientLayer!
     
     var closeHandler: () -> Void = {}
@@ -33,11 +40,13 @@ class PremiumContainer: XibLoadableView, PremiumContainerable {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubview()
+        bindSubviewEvent()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configureSubview()
+        bindSubviewEvent()
     }
     
     
@@ -70,6 +79,91 @@ class PremiumContainer: XibLoadableView, PremiumContainerable {
 }
 
 extension PremiumContainer {
+    func bindSubviewEvent() {
+        IAP.productsValue
+            //                    .observeOn(Scheduler.backgroundScheduler)
+            //            .map { (productMap) -> [String: ProductInfo] in
+            //                var newMap = [String: ProductInfo]()
+            //                productMap.forEach({ (key, value) in
+            //                    let price = value.skProduct.localizedPrice
+            //                    var actionDesc: String
+            //                    var termsDesc: String
+            //                    switch value.info.category {
+            //                    case let .sub(free: free, renewal: duration):
+            //                        if free != nil {
+            //                            actionDesc = R.string.localizable.premiumFreeTrial()
+            //                            termsDesc = R.string.localizable.premiumSubscriptionDetailFree(value.skProduct.localizedTitle, price)
+            //
+            //
+            //                        } else {
+            //                            actionDesc = R.string.localizable.premiumFreeTrial()
+            //                            termsDesc = R.string.localizable.premiumSubscriptionDetailNormal(value.skProduct.localizedTitle, price)
+            //                        }
+            //                    }
+            //                    let info = ProductInfo(identifier: value.skProduct.productIdentifier
+            //                        , actionDesc: actionDesc, termsDesc: termsDesc, product: value)
+            //                    newMap[key] = info
+            //                })
+            //                return newMap
+            //        }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] maps in
+                guard let `self` = self else { return }
+                //button
+                if let product = maps[IAP.productYear]?.skProduct {
+                    let paragrph = NSMutableParagraphStyle()
+                    paragrph.alignment = .center
+                    let mutableNormalString = NSMutableAttributedString()
+                    let tryDesAttr: [NSAttributedString.Key: Any] = [
+                        .foregroundColor: "6C6C6C".color(),
+                        .font: UIFont.systemFont(ofSize: 11),
+                        .paragraphStyle: paragrph,
+                    ]
+                    let tryAttr: [NSAttributedString.Key: Any] = [
+                        .foregroundColor: UIColor.black,
+                        .font: Font.premiumSubscribeTry.value,
+                        .kern: 0.5,
+                        .paragraphStyle: paragrph,
+                    ]
+                    mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+                    mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes(product.localizedPrice))", attributes: tryDesAttr))
+                    self.yearButton.setAttributedTitle(mutableNormalString, for: .normal)
+                }
+                if let product = maps[IAP.productMonth]?.skProduct {
+                    self.monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
+                }
+                if let product = maps[IAP.productLifeTime]?.skProduct {
+                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
+                }
+                
+                //            if let product = map[IAP.productMonth]
+                //            {
+                //                self.monthProduct = product
+                //                switch product.product.info.category{
+                //                case let .sub(_, renewal):
+                //                    self.premiumView.buyButtonMonth.setTitle("\(product.product.skProduct.localizedPrice)/\(renewal.asPerDuration())", for: .normal)
+                //                }
+                //
+                //            }
+                //            if let product = map[IAP.productWeek] {
+                //                self.weekProduct = product
+                //                switch product.product.info.category{
+                //                case let .sub(_, renewal):
+                //                    self.premiumView.buyButtonWeek.setTitle("\(product.product.skProduct.localizedPrice)/\(renewal.asPerDuration())", for: .normal)
+                //                }
+                //            }
+                //            if let product = map[IAP.productYear] {
+                //                self.yearProduct = product
+                //                self.currentProduct.accept(product)
+                //            }
+                //
+                //            if self.isPremiumPage(), let text = self.freetrialText() {
+                //                self.actionBtn.setTitle(text, for: .normal)
+                //            }
+            })
+            .disposed(by: bag)
+    }
+    
     func configureSubview() {
         let startColor = UIColor(hex: 0x3023AE)!
         let middenColor = UIColor(hex: 0x462EB4)!

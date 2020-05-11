@@ -213,7 +213,7 @@ extension PremiumViewController {
     
     //for
     func buySelectedProducts() {
-        guard let guideView = premiumContainer as? GuideThirdView else {
+        guard let guideView = premiumContainer as? GuideFourthView else {
             return
         }
         buy(identifier: guideView.selectedProductId)
@@ -224,7 +224,13 @@ extension PremiumViewController {
             Logger.IAP.logPurchase(productId: identifier, source: s)
         }
         
-        let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+        view.isUserInteractionEnabled = false
+        let removeHUDBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
         isPuchasingState.onNext(true)
         IAP.ProductFetcher.fetchProducts(of: [identifier]) { [weak self] (error, productMap) in
             guard let product = productMap[identifier] else {
@@ -301,7 +307,7 @@ extension PremiumViewController {
         if style == .default {
             premiumContainer = PremiumContainer()
         } else {
-            let guideView = GuideThirdView()
+            let guideView = GuideFourthView()
             guideView.didSelectProducts = { [weak self] pid in
                 self?.didSelectProducts(pid)
             }
