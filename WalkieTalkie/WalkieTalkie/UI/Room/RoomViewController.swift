@@ -68,7 +68,7 @@ class RoomViewController: ViewController {
     private var adView: MPAdView!
     
     private let searchViewModel = SearchViewModel()
-    private var channel: Room = Defaults[\.channel] {
+    private var channel: Room! {
         didSet {
             updateSubviewStyle()
             updateMemberCount(with: channel)
@@ -107,6 +107,7 @@ class RoomViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        channel = Defaults[\.channel]
         configureSubview()
         bindSubviewEvent()
         updateSubviewStyle()
@@ -556,7 +557,7 @@ private extension RoomViewController {
             }
             .filter { [weak self] value in
                 guard let `self` = self else { //talking 状态不能改变
-                        return false
+                    return false
                 }
                 //connecting -> spaak
                 if value { //prepareing to talking
@@ -576,8 +577,16 @@ private extension RoomViewController {
                 return true
             }
             .distinctUntilChanged()
+            .debug()
+            .flatMap { value -> Observable<Bool> in
+                guard !value else {
+                    return Observable.just(value)
+                }
+                return Observable.just(value)
+                    .delay(.fromSeconds(0.3), scheduler: MainScheduler.asyncInstance)
+            }
+            .debug()
             .subscribe(onNext: { [weak self] highlighted in
-//                cdPrint("speakButton is highlighted: \(highlighted)")
                 self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
                 self?.speakButton.alpha = highlighted ? 1 : 0.6
                 self?.state = highlighted ? .preparing : .connected

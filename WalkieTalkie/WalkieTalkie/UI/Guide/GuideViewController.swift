@@ -94,7 +94,8 @@ extension GuideViewController: UIScrollViewDelegate {
         if pageIndex == 1, !isFirstShowPage2 {
             isFirstShowPage2 = true
             Logger.PageShow.log(.tutorial_imp_2)
-        } else if pageIndex == 2 {
+        } else if pageIndex == 2, !isFirstShowPage3 {
+            isFirstShowPage3 = true
             Logger.PageShow.log(.tutorial_imp_3)
         }
     }
@@ -161,6 +162,21 @@ extension GuideViewController {
                     return
                 }
                 self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+            })
+            .disposed(by: bag)
+
+        FireStore.shared.onlineChannelList()
+            .debug()
+            .map { items -> Room? in
+                let sortedItems = items.sorted {
+                    $0.user_count > $1.user_count
+                }
+                return sortedItems.first(where: { $0.user_count <= 4 })
+            }
+            .debug()
+            .filterNil()
+            .subscribe(onNext: { room in
+                Defaults[\.channel] = room
             })
             .disposed(by: bag)
     }
