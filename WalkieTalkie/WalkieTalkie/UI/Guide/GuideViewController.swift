@@ -171,7 +171,7 @@ extension GuideViewController {
                 let sortedItems = items.sorted {
                     $0.user_count > $1.user_count
                 }
-                return sortedItems.first(where: { $0.user_count < 4 })
+                return sortedItems.first(where: { $0.user_count <= 4 })
             }
             .debug()
             .filterNil()

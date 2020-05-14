@@ -47,6 +47,7 @@
         _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
             .filter { $0.0.fcmToken != nil }
             .map { $0.1 }
+            .debug()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { value in
                 defaultHotTopic.forEach { topic in
