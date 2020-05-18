@@ -163,6 +163,10 @@ extension GuideViewController {
                     return
                 }
                 self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+                if let text = self?.iapTipsLabel.text,
+                    !text.isEmpty {
+                    self?.iapTipsLabel.text = self?.iapTipsLabelText
+                }
             })
             .disposed(by: bag)
 
