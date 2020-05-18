@@ -85,14 +85,13 @@ class GuruAnalytics {
 
         defer {
             
-//            #if DEBUG
-                var info = firebaseInfo
-                info["event_name"] = event
+            var info = firebaseInfo
+            info["event_name"] = event
+            #if DEBUG
                 cdPrint("GuruAnalytics.log.event: \(info)")
-//            #endif
-            
+            #else
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
-//            AppEvents.logEvent(AppEvents.Name(rawValue: event), parameters: facebookInfo)
+            #endif
         }
         
         firebaseInfo[AnalyticsParameterItemName] = name

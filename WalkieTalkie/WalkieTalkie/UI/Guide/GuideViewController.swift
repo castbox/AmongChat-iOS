@@ -25,7 +25,7 @@ class GuideViewController: ViewController {
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
     private var isFirstShowPage4 = false
-    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
+    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$19.99")
     private var selectedProductId: String? {
         didSet {
             updateContinueButtonTitle()
@@ -130,9 +130,10 @@ extension GuideViewController {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
 //                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
             }
-            iapTipsLabel.text = iapTipsLabelText
+//            iapTipsLabel.text = iapTipsLabelText
+            iapTipsLabel.isHidden = false
         } else {
-            iapTipsLabel.text = nil
+            iapTipsLabel.isHidden = true
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
             
         }
@@ -162,11 +163,11 @@ extension GuideViewController {
                 guard let price = maps[IAP.productYear]?.skProduct.localizedPrice else {
                     return
                 }
-                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
-                if let text = self?.iapTipsLabel.text,
-                    !text.isEmpty {
-                    self?.iapTipsLabel.text = self?.iapTipsLabelText
-                }
+                //                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+                //                if let text = self?.iapTipsLabel.text,
+                //                    !text.isEmpty {
+                self?.iapTipsLabel.text = R.string.localizable.premiumTryTitleDes(price)
+                //                }
             })
             .disposed(by: bag)
 

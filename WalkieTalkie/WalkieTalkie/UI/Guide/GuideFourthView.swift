@@ -12,6 +12,7 @@ import RxCocoa
 
 class GuideProductButton: WalkieButton {
     private var selectedTagLabel: UILabel!
+    private var indicator: UIActivityIndicatorView!
     
     var hasSelected: Bool = false {
         didSet {
@@ -40,6 +41,20 @@ class GuideProductButton: WalkieButton {
             maker.centerY.equalToSuperview()
             maker.left.equalTo(15.5)
         }
+        
+        indicator = UIActivityIndicatorView(style: .gray)
+        indicator.tintColor = .white
+        indicator.hidesWhenStopped = true
+        addSubview(indicator)
+        indicator.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        indicator.startAnimating()
+    }
+    
+    override func setTitle(_ title: String?, for state: UIControl.State) {
+        indicator.stopAnimating()
+        super.setTitle(title, for: state)
     }
 }
 
@@ -129,10 +144,10 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         
         backgroundIconWidthConstraint.constant = Frame.Screen.width - 27 * 2
         
-        mainQueueDispatchAsync(after: 0.5) { [weak self] in
-            self?.yearButton.isSelected = true
-            self?.selectedButton = self?.yearButton
-        }
+//        mainQueueDispatchAsync(after: 0.5) { [weak self] in
+//            self?.yearButton.isSelected = true
+//            self?.selectedButton = self?.yearButton
+//        }
         
         IAP.productsValue
             .observeOn(MainScheduler.asyncInstance)
@@ -184,6 +199,10 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
             cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
             yearButton.setAttributedTitle(nil, for: .normal)
             yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
+            if selectedButton == nil {
+                yearButton.isSelected = true
+                selectedButton = yearButton
+            }
         }
         if let product = maps[IAP.productMonth]?.skProduct {
             monthButton.setAttributedTitle(nil, for: .normal)
