@@ -195,6 +195,9 @@ class Settings {
     
     var userInAGroup: Bool {
         get {
+            #if DEBUG
+            return true
+            #endif
             if let c = userId.unicodeScalars.last {
                 return c.value % 2 == 0
             }
