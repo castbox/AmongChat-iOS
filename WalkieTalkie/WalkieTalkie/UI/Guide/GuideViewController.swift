@@ -24,6 +24,7 @@ class GuideViewController: ViewController {
     private let fourthPage = R.storyboard.main.premiumViewController()!
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
+    private var isFirstShowPage4 = false
     private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
     private var selectedProductId: String? {
         didSet {
@@ -140,8 +141,8 @@ extension GuideViewController {
         continueButton.layoutIfNeeded()
         UIView.setAnimationsEnabled(true)
         
-        if !isFirstShowPage3 {
-            isFirstShowPage3 = true
+        if !isFirstShowPage4 {
+            isFirstShowPage4 = true
             Logger.IAP.logImp(.first_open)
         }
         
