@@ -45,7 +45,7 @@ class ScreenContainer: XibLoadableView {
         super.init(coder: aDecoder)
         bindSubviewEvent()
     }
-    
+
     override var intrinsicContentSize: CGSize {
         let height: CGFloat
 //        isShowSearchPage = true
@@ -174,7 +174,7 @@ extension ScreenContainer {
         searchController.willMove(toParent: superController)
         superController.view.addSubview(searchController.view)
         searchController.didMove(toParent: superController)
-        searchController.view.addCorner(with: 50, corners: [.bottomLeft, .bottomRight])
+//        searchController.view.addCorner(with: 50, corners: [.bottomLeft, .bottomRight])
         searchController.view.snp.makeConstraints { make in
             make.left.width.equalTo(self)
             make.top.equalTo(self).offset(125)
@@ -184,9 +184,10 @@ extension ScreenContainer {
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
 //        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
-        }
+//        UIView.animate(withDuration: 0.4) { [weak self] in
+//            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
+//            self?.searchController.view.roundCorners([.bottomLeft, .bottomRight], radius: 50)
+//        }
     }
     
     func hideSearchView() {
@@ -197,9 +198,9 @@ extension ScreenContainer {
         endEditing(true)
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.roundCorners(.allCorners, radius: 12)
-        }
+//        UIView.animate(withDuration: 0.4) { [weak self] in
+//            self?.roundCorners(.allCorners, radius: 12)
+//        }
 //        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
 //            self?.layoutIfNeeded()
 //        })
