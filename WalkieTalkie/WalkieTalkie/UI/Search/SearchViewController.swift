@@ -28,6 +28,7 @@ class SearchViewController: UITableViewController {
          self.clearsSelectionOnViewWillAppear = true
         tableView.tableHeaderView = UIView()
         tableView.tableFooterView = UIView()
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
         viewModel.querySourceSubject
             .observeOn(MainScheduler.asyncInstance)

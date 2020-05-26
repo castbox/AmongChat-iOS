@@ -26,12 +26,12 @@ class ScreenContainer: XibLoadableView {
     @IBOutlet weak var micView: UIImageView!
     @IBOutlet weak var numberLabel: UILabel!
     
-    
     let searchViewModel = SearchViewModel()
     weak var delegate: ScreenContainerDelegate?
     
     private lazy var searchController: SearchViewController = {
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
+//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
+        let controller = R.storyboard.main.searchViewController()!
         controller.viewModel = searchViewModel
         return controller
     }()
@@ -48,8 +48,9 @@ class ScreenContainer: XibLoadableView {
     
     override var intrinsicContentSize: CGSize {
         let height: CGFloat
+//        isShowSearchPage = true
         if isShowSearchPage {
-            height = 125 + 210
+            height = 125 + 215
         } else {
             height = 125
         }
@@ -64,7 +65,7 @@ class ScreenContainer: XibLoadableView {
     var channel: Room! {
         didSet {
             updateSubviewStyle()
-            //            updateMemberCount(with: channel)
+            updateMemberCount(with: channel)
             channel.updateJoinInterval()
             //            Defaults[\.channel] = channel
         }
@@ -106,7 +107,7 @@ class ScreenContainer: XibLoadableView {
         default:
             micView.alpha = 0
         }
-        connectStateLabel.text = state.title
+        connectStateLabel.text = to.title.uppercased()
         let channelType = channel.name.channelType
         backgroundView.image = channelType.screenImage(with: mManager.isConnectedState)
         innerShadowView.image = channelType.screenInnerShadowImage(with: mManager.isConnectedState)
@@ -171,20 +172,21 @@ extension ScreenContainer {
         }
         Logger.UserAction.log(.channel_list)
         searchController.willMove(toParent: superController)
-        addSubview(searchController.view)
+        superController.view.addSubview(searchController.view)
         searchController.didMove(toParent: superController)
+        searchController.view.addCorner(with: 50, corners: [.bottomLeft, .bottomRight])
         searchController.view.snp.makeConstraints { make in
-            make.left.width.equalToSuperview()
-            make.top.equalTo(125)
-            make.height.equalTo(210)
+            make.left.width.equalTo(self)
+            make.top.equalTo(self).offset(125)
+            make.height.equalTo(200)
         }
         isShowSearchPage = true
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
 //        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
-//        UIView.animate(withDuration: 0.4) { [weak self] in
-//            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
-//        }
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
+        }
     }
     
     func hideSearchView() {
@@ -204,6 +206,7 @@ extension ScreenContainer {
     }
     
     func bindSubviewEvent() {
+        channelTextField.enableAutoClear = true
         searchViewModel.dataSourceSubject
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { [weak self] rooms -> Room? in

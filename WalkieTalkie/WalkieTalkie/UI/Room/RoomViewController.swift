@@ -58,11 +58,11 @@ class RoomViewController: ViewController {
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
     private lazy var viewModel = RoomViewModel()
 
-    private lazy var searchController: SearchViewController = {
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
-        controller.viewModel = searchViewModel
-        return controller
-    }()
+//    private lazy var searchController: SearchViewController = {
+//        let controller = R.storyboard.main.searchViewController()!
+//        controller.viewModel = searchViewModel
+//        return controller
+//    }()
     
     @IBOutlet weak var adContainer: UIView!
 
@@ -90,6 +90,7 @@ class RoomViewController: ViewController {
     
     private var state: ConnectState = .disconnected {
         didSet {
+            cdPrint("state: \(state)")
             updateButtonsEnable()
             screenContainer.update(state: state)
         }
@@ -113,11 +114,8 @@ class RoomViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        channel = Defaults[\.channel]
         configureSubview()
         bindSubviewEvent()
-//        updateSubviewStyle()
-        showSearchView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -341,32 +339,59 @@ extension RoomViewController: ChatRoomDelegate {
     func onUserStatusChanged(userId: String, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constant.isMyself(userId) {
+            NSObject.cancelPreviousPerformRequests(withTarget: self)
             if !muted {
+                perform(#selector(updateState(with:)), with: muted, afterDelay: 0.4)
                 //延迟播音
-                mainQueueDispatchAsync(after: 0.4) { [unowned self] in
-                    if self.userStatus == .broadcaster {
-                        self.state = .talking
-                        HapticFeedback.Impact.light()
-                        self.playAudio(type: .begin)
-                        self.pushToTalkButton.isHidden = true
-                    } else if self.userStatus == .music {
-                        self.playAudio(type: .call) { [weak self] in
-                            self?.mManager.updateRole(false)
-                        }
-                    } else {
-                        self.state = .connected
-                    }
-                }
+//                mainQueueDispatchAsync(after: 0.4) { [unowned self] in
+//                    if self.userStatus == .broadcaster {
+//                        self.state = .talking
+//                        HapticFeedback.Impact.light()
+//                        self.playAudio(type: .begin)
+//                        self.pushToTalkButton.isHidden = true
+//                    } else if self.userStatus == .music {
+//                        self.playAudio(type: .call) { [weak self] in
+//                            self?.mManager.updateRole(false)
+//                        }
+//                    } else {
+//                        self.state = .connected
+//                    }
+//                }
             } else {
-                //已链接，但为上麦，提示上麦说话
-                if mManager.state == .connected {
-                    pushToTalkButton.isHidden = false
-                }
+                perform(#selector(updateState(with:)), with: muted)
+//                //已链接，但为上麦，提示上麦说话
+//                if mManager.state == .connected {
+//                    pushToTalkButton.isHidden = false
+//                }
+//                self.state = .connected
             }
         }
 //        mSeatVC?.reloadItems(userId)
 //        mMemberVC?.reloadRowsByUserId(userId)
         
+    }
+    
+    @objc
+    func updateState(with isMute: Bool) {
+        if isMute {
+            if mManager.state == .connected {
+                pushToTalkButton.isHidden = false
+            }
+            self.state = .connected
+        } else {
+            if self.userStatus == .broadcaster {
+                self.state = .talking
+                HapticFeedback.Impact.medium()
+                self.playAudio(type: .begin)
+                self.pushToTalkButton.isHidden = true
+            } else if self.userStatus == .music {
+                self.playAudio(type: .call) { [weak self] in
+                    self?.mManager.updateRole(false)
+                }
+            } else {
+                self.state = .connected
+            }
+        }
     }
 
     func onAudioMixingStateChanged(isPlaying: Bool) {
@@ -492,21 +517,21 @@ private extension RoomViewController {
 //        }
 //    }
     
-    func showSearchView() {
-        guard searchController.view.superview == nil else {
-            return
-        }
-        Logger.UserAction.log(.channel_list)
-        searchController.willMove(toParent: self)
-        view.addSubview(searchController.view)
-        searchController.didMove(toParent: self)
-        searchController.view.snp.makeConstraints { make in
-            make.width.equalTo(screenContainer.snp.width)
-            make.leading.equalTo(screenContainer.snp.leading)
-            make.top.equalTo(screenContainer.snp.bottom).offset(-12)
-            make.height.equalTo(300)
-        }
-    }
+//    func showSearchView() {
+//        guard searchController.view.superview == nil else {
+//            return
+//        }
+//        Logger.UserAction.log(.channel_list)
+//        searchController.willMove(toParent: self)
+//        view.addSubview(searchController.view)
+//        searchController.didMove(toParent: self)
+//        searchController.view.snp.makeConstraints { make in
+//            make.width.equalTo(screenContainer.snp.width)
+//            make.leading.equalTo(screenContainer.snp.leading)
+//            make.top.equalTo(screenContainer.snp.bottom).offset(-12)
+//            make.height.equalTo(300)
+//        }
+//    }
     
 //    func updateSubviewStyle() {
 //        channelTextField.text = channel.showName
@@ -569,7 +594,7 @@ private extension RoomViewController {
                 guard let `self` = self else { //talking 状态不能改变
                     return false
                 }
-                //connecting -> spaak
+                //connecting -> speak
                 if value { //prepareing to talking
                     //check if connect
                     if self.mManager.isReachMaxUnmuteUserCount, self.state != .talking {
@@ -597,6 +622,9 @@ private extension RoomViewController {
             }
             .debug()
             .subscribe(onNext: { [weak self] highlighted in
+                if highlighted {
+                    HapticFeedback.Impact.light()
+                }
                 self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
                 self?.speakButton.alpha = highlighted ? 1 : 0.6
                 self?.state = highlighted ? .preparing : .connected
@@ -693,6 +721,9 @@ private extension RoomViewController {
     func configureSubview() {
         screenContainer.mManager = mManager
         screenContainer.delegate = self
+        
+        channel = Defaults[\.channel]
+        
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
             spackButtonBottomConstraint.constant = 45
         } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
