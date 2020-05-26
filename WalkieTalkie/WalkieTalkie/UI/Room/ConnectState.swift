@@ -17,6 +17,8 @@ enum ConnectState: Int {
     case maxMic
     case preparing
     case talking
+    case maxUser
+    case timeout
     
 //    case
     init(_ state: AgoraConnectionStateType) {
@@ -43,6 +45,10 @@ extension ConnectState {
             return "PREPARING..."
         case .talking:
             return "talking..."
+        case .maxUser:
+            return R.string.localizable.channelUserMaxState()
+        case .timeout:
+            return "Timeout"
         }
     }
 }

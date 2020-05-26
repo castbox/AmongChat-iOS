@@ -742,8 +742,8 @@
 				FE0D1A2224489BCC00518793 /* RoomViewModel.swift */,
 				FE86A587245AB28D00C35FCA /* ChannelType.swift */,
 				FE0D1A2424489BF300518793 /* AudioType.swift */,
-				FE86A589245AC18200C35FCA /* ScreenContainer.swift */,
 				FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */,
+				FE86A589245AC18200C35FCA /* ScreenContainer.swift */,
 				FE86A58B245AC19E00C35FCA /* ScreenContainer.xib */,
 			);
 			path = Room;

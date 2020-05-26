@@ -110,6 +110,9 @@ target 'WalkieTalkie' do
     pod 'JXCategoryView'
     pod 'JXPagingView/Paging', '2.0.3'
     pod 'JXSegmentedView'
+    
+    #https://github.com/gmarm/BetterSegmentedControl
+    pod 'BetterSegmentedControl'
 end
 
 post_install do |installer|

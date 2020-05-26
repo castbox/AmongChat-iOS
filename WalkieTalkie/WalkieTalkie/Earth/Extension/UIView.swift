@@ -29,5 +29,19 @@ extension UIView {
     class func springAnimate(_ animation: @escaping () -> Void, completion: ((Bool)->Void)? = nil) {
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 10.0, initialSpringVelocity: 10.0, options: .curveEaseInOut, animations: animation, completion: completion)
     }
+    
+    static func propertyAnimation(duration: TimeInterval = AnimationDuration.normal.rawValue,
+                              delay: TimeInterval = 0,
+                              dampingRatio: CGFloat = 0.8,
+                              animation: @escaping () -> Void,
+                              completion: ((Bool) -> Void)? = nil) {
+        let transitionAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: dampingRatio, animations: {
+            animation()
+        })
+        transitionAnimator.addCompletion { _ in
+            completion?(true)
+        }
+        transitionAnimator.startAnimation()
+    }
 }
 

@@ -96,7 +96,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 43 images.
+  /// This `R.image` struct is generated, and contains static references to 49 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -162,6 +162,18 @@ struct R: Rswift.Validatable {
     static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
+    /// Image `icon_screen_bg_g_d`.
+    static let icon_screen_bg_g_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d")
+    /// Image `icon_screen_bg_g_shadow`.
+    static let icon_screen_bg_g_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow")
+    /// Image `icon_screen_bg_g`.
+    static let icon_screen_bg_g = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g")
+    /// Image `icon_screen_bg_o_d`.
+    static let icon_screen_bg_o_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_d")
+    /// Image `icon_screen_bg_o_shadow`.
+    static let icon_screen_bg_o_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow")
+    /// Image `icon_screen_bg_o`.
+    static let icon_screen_bg_o = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o")
     /// Image `icon_screen_bg`.
     static let icon_screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg")
     /// Image `icon_screen_s_bg`.
@@ -348,6 +360,36 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_screen_bg", bundle: ..., traitCollection: ...)`
     static func icon_screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_screen_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g_d", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_d(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_d, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g_shadow", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o_d", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_d(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_d, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o_shadow", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_screen_s_bg", bundle: ..., traitCollection: ...)`
@@ -1129,7 +1171,8 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_mic' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg' is used in nib 'ScreenContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_screen_bg_g_d", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_d' is used in nib 'ScreenContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_screen_bg_g_shadow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_shadow' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
