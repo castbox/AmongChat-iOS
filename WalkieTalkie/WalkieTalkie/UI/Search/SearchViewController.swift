@@ -112,6 +112,11 @@ class SearchCell: UITableViewCell {
         }()
         let isPrivate = room.name.isPrivate
         lockIconView.isHidden = !isPrivate
+        if room.type == .add {
+            tagView.text = "+"
+        } else {
+            tagView.text = "#"
+        }
         tagView.isHidden = isPrivate
 //        countLabelWidthConstraint.constant = countLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: 200, height: 30), limitedToNumberOfLines: 1).size.width
     }

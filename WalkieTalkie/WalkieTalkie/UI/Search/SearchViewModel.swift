@@ -11,77 +11,6 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 
-struct Room: Codable, DefaultsSerializable {
-    static let `default` = Room(name: "WELCOME", user_count: 0)
-    
-    let name: String
-    let user_count: Int
-    var joinAt: TimeInterval
-    let persistence: Bool
-    
-    init(name: String,
-         user_count: Int,
-         joinAt: TimeInterval = Date().timeIntervalSince1970,
-         persistence: Bool = false) {
-        self.name = name
-        self.user_count = user_count
-        self.joinAt = joinAt
-        self.persistence = persistence
-    }
-    
-    mutating func updateJoinInterval() {
-        joinAt = Date().timeIntervalSince1970
-    }
-    
-    var showName: String {
-        return name.showName
-    }
-    
-    var isReachMaxUser: Bool {
-        return FireStore.channelConfig.isReachMaxUser(self).0
-    }
-    
-    var userCountForShow: String {
-        let (isReachMaxUser, maxCount) = FireStore.channelConfig.isReachMaxUser(self)
-        if isReachMaxUser {
-            return maxCount.string
-        } else {
-            return user_count.string
-        }
-    }
-    
-    var isPrivate: Bool {
-        return name.hasPrefix("_")
-    }
-}
-
-extension String {
-    var showName: String {
-        if isPrivate {
-            guard let name = split(bySeparator: "_").last else {
-                return self
-            }
-            let start = name.index(name.startIndex, offsetBy: 2)
-            let end = name.endIndex
-            return name.replacingCharacters(in: start ..< end, with: "******")
-        } else {
-            return self
-        }
-    }
-    
-    var publicName: String? {
-        return split(bySeparator: "_").last
-    }
-    
-    var isPrivate: Bool {
-        return hasPrefix("_")
-    }
-    
-    var channelType: ChannelType {
-        return isPrivate ? .private : .public
-    }
-}
-
 class SearchViewModel {
     var dataSource: [Room] = [] {
         didSet {
@@ -91,7 +20,12 @@ class SearchViewModel {
     
     var dataSourceSubject = BehaviorSubject<[Room]>(value: [])
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
-
+    var mode: Mode = .public {
+        didSet {
+            updateQueryStorce()
+        }
+    }
+    
     private let bag = DisposeBag()
     private var joinedPrivateChannels: [Room] = [] {
         didSet {
@@ -138,20 +72,31 @@ class SearchViewModel {
             .subscribe(onNext: { [weak self] list in
                 self?.dataSource.removeAll()
                 self?.dataSource.append(contentsOf: list)
-                self?.query(self?.queryString)
+                self?.updateQueryStorce()
             })
             .disposed(by: bag)
     }
     
+    private func updateQueryStorce() {
+        query(queryString)
+    }
+    
     func query(_ string: String?) {
         queryString = string
-        guard let string = string,
-            !string.isEmpty else {
-            querySourceSubject.onNext(dataSource)
-            return
+        
+        let mode = self.mode
+        let modeResult = dataSource
+            .filter{ $0.name.channelType == mode.channelType }
+        var result: [Room] = []
+        if let string = string, !string.isEmpty  {
+            result = modeResult
+                .filter { $0.name.uppercased().contains(string.uppercased()) }
+        } else {
+            result = modeResult
         }
-        let result = dataSource
-            .filter { $0.name.uppercased().contains(string.uppercased()) }
+        if mode == .private {
+            result.append(.add)
+        }
         querySourceSubject.onNext(result)
     }
     

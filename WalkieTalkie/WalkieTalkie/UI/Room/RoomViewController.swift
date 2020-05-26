@@ -16,6 +16,7 @@ import AgoraRtcKit
 import SwiftyUserDefaults
 import MoPub
 import RxGesture
+import BetterSegmentedControl
 
 enum UserStatus {
     case audiance
@@ -28,20 +29,7 @@ class RoomViewController: ViewController {
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var speakButtonTrigger: UIView!
     
-    private lazy var mManager: ChatRoomManager = {
-        let manager = ChatRoomManager.shared
-        manager.delegate = self
-        return manager
-    }()
-    
-    @IBOutlet weak var screenBackgroundView: UIImageView!
-    @IBOutlet weak var connectStateLabel: UILabel!
-    @IBOutlet weak var tagView: UILabel!
-    @IBOutlet weak var lockIconView: UIImageView!
-    @IBOutlet weak var channelTextField: ChannelNameField!
-    @IBOutlet weak var micView: UIImageView!
-    @IBOutlet weak var numberLabel: UILabel!
-//    @IBOutlet weak var screenContainer: UIView!
+    @IBOutlet weak var segmentControl: BetterSegmentedControl!
     @IBOutlet weak var screenContainer: ScreenContainer!
     @IBOutlet weak var buttonContainer: UIView!
     
@@ -52,17 +40,17 @@ class RoomViewController: ViewController {
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var toolsView: UIView!
+    
+    private lazy var mManager: ChatRoomManager = {
+        let manager = ChatRoomManager.shared
+        manager.delegate = self
+        return manager
+    }()
     
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
     private lazy var viewModel = RoomViewModel()
 
-//    private lazy var searchController: SearchViewController = {
-//        let controller = R.storyboard.main.searchViewController()!
-//        controller.viewModel = searchViewModel
-//        return controller
-//    }()
     
     @IBOutlet weak var adContainer: UIView!
 
@@ -72,13 +60,15 @@ class RoomViewController: ViewController {
         screenContainer.searchViewModel
     }
     
+    private var mode: Mode {
+        screenContainer.mode
+    }
+    
     private var channel: Room! {
         didSet {
-//            updateSubviewStyle()
-//            updateMemberCount(with: channel)
             screenContainer.channel = channel
             channel.updateJoinInterval()
-            Defaults[\.channel] = channel
+            Defaults.set(channel: channel, mode: mode)
         }
     }
     
@@ -404,21 +394,6 @@ extension RoomViewController: ChatRoomDelegate {
 }
 
 private extension RoomViewController {
-//    func showCanEnterSecretChannelAlert(_ completionHandler: @escaping (Bool) -> Void) {
-//        let alertVC = UIAlertController(title: R.string.localizable.enterSecretChannelAlertTitle(),
-//                                        message: R.string.localizable.enterSecretChannelAlertDesc(),
-//                                        preferredStyle: UIAlertController.Style.alert)
-//        let resetAction = UIAlertAction(title: R.string.localizable.alertOk(), style: .default, handler: { _ in
-//            completionHandler(true)
-//        })
-//        
-//        let cancelAction = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { _ in
-//            completionHandler(false)
-//        }
-//        alertVC.addAction(cancelAction)
-//        alertVC.addAction(resetAction)
-//        present(alertVC, animated: true, completion: nil)
-//    }
     
     func showShareController(channelName: String) {
         let controller = R.storyboard.main.privateShareController()
@@ -503,51 +478,6 @@ private extension RoomViewController {
             powerButton.setImage(R.image.btn_power(), for: .normal)
         }
     }
-    
-//    func updateMemberCount(with room: Room?) {
-//        guard let room = room else {
-//            numberLabel.text = "1"
-//            return
-//        }
-//        if !mManager.isConnectedState,
-//            room.isReachMaxUser {
-//            numberLabel.text = "--"
-//        } else {
-//            numberLabel.text = room.userCountForShow
-//        }
-//    }
-    
-//    func showSearchView() {
-//        guard searchController.view.superview == nil else {
-//            return
-//        }
-//        Logger.UserAction.log(.channel_list)
-//        searchController.willMove(toParent: self)
-//        view.addSubview(searchController.view)
-//        searchController.didMove(toParent: self)
-//        searchController.view.snp.makeConstraints { make in
-//            make.width.equalTo(screenContainer.snp.width)
-//            make.leading.equalTo(screenContainer.snp.leading)
-//            make.top.equalTo(screenContainer.snp.bottom).offset(-12)
-//            make.height.equalTo(300)
-//        }
-//    }
-    
-//    func updateSubviewStyle() {
-//        channelTextField.text = channel.showName
-//        screenBackgroundView.image = channel.name.channelType.screenImage
-//        screenContainer.backgroundColor = channel.name.channelType.screenColor
-//        searchController.setChannel(type: channel.name.channelType)
-//        lockIconView.isHidden = !channel.isPrivate
-//        tagView.isHidden = !lockIconView.isHidden
-//    }
-    
-//    func hideSearchView() {
-//        searchController.willMove(toParent: nil)
-//        searchController.removeFromParent()
-//        searchController.view.removeFromSuperview()
-//        view.endEditing(true)
-//    }
 
     func bindSubviewEvent() {
         searchViewModel.startListenerList()
@@ -565,21 +495,7 @@ private extension RoomViewController {
                 self?._joinChannel(name)
             })
             .disposed(by: bag)
-        
-//        searchViewModel.dataSourceSubject
-//            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-//            .map { [weak self] rooms -> Room? in
-//                guard let `self` = self else {
-//                    return nil
-//                }
-//                return rooms.first(where: { $0.name == self.channelName })
-//            }
-//            .observeOn(MainScheduler.asyncInstance)
-//            .subscribe(onNext: { [weak self] room in
-//                self?.updateMemberCount(with: room)
-//            })
-//            .disposed(by: bag)
-        
+       
         speakButtonTrigger.rx
             .longPressGesture(configuration: { gestureRecognizer, delegate in
                 gestureRecognizer.minimumPressDuration = 0.5
@@ -635,62 +551,19 @@ private extension RoomViewController {
             })
             .disposed(by: bag)
         
-//        channelTextField.rx.controlEvent(.editingDidBegin)
-//            .subscribe(onNext: { [weak self] _ in
-//                self?.showSearchView()
-//            })
-//            .disposed(by: bag)
-//        
-//        channelTextField.rx.controlEvent(.editingDidEnd)
-//            .subscribe(onNext: { [weak self] _ in
-////                self?.joinChannelSubject.onNext(self?.channelTextField.text?.uppercased())
-//                self?.hideSearchView()
-//            })
-//            .disposed(by: bag)
-//        
-//        channelTextField.rx.controlEvent(.editingChanged)
-//            .subscribe(onNext: { [weak self] _ in
-//                self?.sendQueryEvent()
-//            })
-//            .disposed(by: bag)
-        
-//        searchController.selectRoomHandler = { [weak self] room in
-//            guard let `self` = self else { return }
-//            if self._joinChannel(room.name) {
-//                Logger.UserAction.log(.channel_choice, room.name)
-//                self.updateMemberCount(with: room)
-//            }
-//            self.hideSearchView()
-//        }
-        
-//        channelTextField.didBeginEditing = { [weak self] _ in
-//            self?.sendQueryEvent()
-//        }
-//        channelTextField.didReturn = { [weak self] text in
-//            guard let text = text else {
-//                //offline
-//                self?.leaveChannel()
-//                return
-//            }
-//            let joinChannelBlock: (String?) -> Void = { name in
-//                self?.joinChannelSubject.onNext(name)
-//                Logger.UserAction.log(.channel_create, name)
-//            }
-//            //check if in private channel
-//            if text.count == PasswordGenerator.shared.totalCount,
-//                FireStore.shared.secretChannels.contains(where: { $0.name == "_\(text)"}) {
-//                //show text
-//                self?.showCanEnterSecretChannelAlert { confirm in
-//                    if confirm {
-//                        joinChannelBlock("_\(text)")
-//                    } else {
-//                        joinChannelBlock(text)
-//                    }
-//                }
-//            } else {
-//                joinChannelBlock(text)
-//            }
-//        }
+        segmentControl.rx.controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                //正在连接
+                if self.mManager.isConnectedState {
+                    self.leaveChannel()
+                }
+                //已断开
+                //change the style
+                let mode = Mode(index: self.segmentControl.index)
+                self.screenContainer.update(mode: mode)
+            })
+            .disposed(by: bag)
         
         AdsManager.shared.mopubInitializeSuccessSubject
             .filter { _ -> Bool in
@@ -722,8 +595,6 @@ private extension RoomViewController {
         screenContainer.mManager = mManager
         screenContainer.delegate = self
         
-        channel = Defaults[\.channel]
-        
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
             spackButtonBottomConstraint.constant = 45
         } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
@@ -732,7 +603,24 @@ private extension RoomViewController {
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         toolsView.roundCorners(topLeft: 17, topRight: 17, bottomLeft: 50, bottomRight: 50)
+        
+        segmentControl.segments = LabelSegment.segments(
+            withTitles: ["Global", "Secret"],
+//            normalBackgroundColor: "000000".color().alpha(0.2),
+            normalFont: R.font.nunitoBold(size: 14),
+            normalTextColor: UIColor.white.alpha(0.78),
+            selectedBackgroundColor: "221F1F".color(),
+            selectedFont: R.font.nunitoBold(size: 15),
+            selectedTextColor: UIColor.white
+        )
+        let mode = Defaults[\.mode]
+        //update channel
+        channel = Defaults.channel(for: mode)
+        //update style
         screenContainer.updateSubviewStyle()
+        //set index
+        screenContainer.update(mode: mode)
+        segmentControl.setIndex(mode.intValue)
     }
     
     func loadAdView() {
@@ -748,6 +636,13 @@ private extension RoomViewController {
 
 // MARK: ScreenContainerDelegate
 extension RoomViewController: ScreenContainerDelegate {
+    func containerShouldUpdate(channel: Room?) {
+        guard let channel = channel else {
+            return
+        }
+        self.channel = channel
+    }
+    
     func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool {
         if directly {
             return _joinChannel(name)

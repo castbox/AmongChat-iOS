@@ -172,17 +172,17 @@ extension GuideViewController {
             .disposed(by: bag)
 
         FireStore.shared.onlineChannelList()
-            .debug()
+//            .debug()
             .map { items -> Room? in
                 let sortedItems = items.sorted {
                     $0.user_count > $1.user_count
                 }
                 return sortedItems.first(where: { $0.user_count <= 4 })
             }
-            .debug()
+//            .debug()
             .filterNil()
             .subscribe(onNext: { room in
-                Defaults[\.channel] = room
+                Defaults.set(channel: room, mode: .public)
             })
             .disposed(by: bag)
     }

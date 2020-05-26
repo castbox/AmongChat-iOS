@@ -12,6 +12,7 @@ import MoPub
 import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -40,6 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+            //MIGRATE
+            migrateUserDefaults()
+            
             setupInitialView(goRoom: true)
             firstOpenPremiumShowed = true
         } else {
@@ -123,6 +127,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    func migrateUserDefaults() {
+        let room = Defaults[\.channel]
+        let mode = Mode(index: room.isPrivate.int)
+        Defaults.set(channel: room, mode: mode)
+    }
+    
     func setupInitialView(goRoom: Bool) {
         let rootVc = R.storyboard.main.instantiateInitialViewController()!
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -142,7 +152,6 @@ extension AppDelegate {
             FireMessaging.shared.requestPermissionIfNotGranted()
         }
         self.window = window
-
     }
     
     func setGlobalAppearance() {

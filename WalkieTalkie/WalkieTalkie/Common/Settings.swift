@@ -207,6 +207,10 @@ class Settings {
 }
 
 extension DefaultsKeys {
+    var mode: DefaultsKey<Mode> { /// app 主题 {
+        .init("mode", defaultValue: .public)
+    }
+    
     var channelName: DefaultsKey<String> {
         .init("channelName", defaultValue: "WELCOME")
     }
@@ -291,17 +295,19 @@ extension DefaultsKeys {
         .init("subscrbe.hot.topic", defaultValue: true)
     }
     
+    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
+        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
+    }
 }
 
 extension DefaultsAdapter {
-//    var validChannel: Room {
-////        var channel = Defaults[\.channel]
-////        if !channel.isValid {
-////            channel = .default
-////        }
-////        return Room(name: "_2193129", user_count: 1)
-//        return Defaults[\.channel]
-//    }
+    func channel(for mode: Mode) -> Room {
+        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+    }
+    
+    func set(channel: Room?, mode: Mode) {
+        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+    }
 }
 
 extension CLLocation: DefaultsSerializable {}

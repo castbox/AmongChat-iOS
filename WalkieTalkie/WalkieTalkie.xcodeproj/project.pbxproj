@@ -146,6 +146,7 @@
 		FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */; };
 		FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */; };
 		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
+		FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1CE247D47CC00AA2199 /* Room.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
 		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
 		FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D42449B69F006454F6 /* NavigationViewController.swift */; };
@@ -324,6 +325,7 @@
 		FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
+		FE9CB1CE247D47CC00AA2199 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
 		FEAD54D42449B69F006454F6 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -754,6 +756,7 @@
 			children = (
 				FE4FDACC24359D7C00CD5E97 /* SearchViewController.swift */,
 				FE49CEA0243625D700C36EC6 /* SearchViewModel.swift */,
+				FE9CB1CE247D47CC00AA2199 /* Room.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
+				FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				FE86A588245AB28D00C35FCA /* ChannelType.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,

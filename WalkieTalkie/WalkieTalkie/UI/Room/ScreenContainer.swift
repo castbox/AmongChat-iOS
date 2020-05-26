@@ -9,14 +9,48 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 protocol ScreenContainerDelegate: class {
+    func containerShouldUpdate(channel: Room?)
     func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool
     func containerShouldLeaveChannel()
 }
 
-class ScreenContainer: XibLoadableView {
+enum Mode: String, DefaultsSerializable {
+    case `public`
+    case `private`
     
+    init(index: Int) {
+        switch index {
+        case 1:
+            self = .private
+        default:
+            self = .public
+        }
+    }
+    
+    var intValue: Int {
+        switch self {
+        case .public:
+            return 0
+        case .private:
+            return 1
+        }
+    }
+    
+    var channelType: ChannelType {
+        switch self {
+        case .public:
+            return .public
+        case .private:
+            return .private
+        }
+    }
+}
+
+class ScreenContainer: XibLoadableView {
+        
     @IBOutlet weak var backgroundView: UIImageView!
     @IBOutlet weak var innerShadowView: UIImageView!
     @IBOutlet weak var connectStateLabel: UILabel!
@@ -30,12 +64,13 @@ class ScreenContainer: XibLoadableView {
     weak var delegate: ScreenContainerDelegate?
     
     private lazy var searchController: SearchViewController = {
-//        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SearchViewController") as! SearchViewController
         let controller = R.storyboard.main.searchViewController()!
         controller.viewModel = searchViewModel
         return controller
     }()
     private var isShowSearchPage: Bool = false
+    
+    private (set) var mode: Mode = .public
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,17 +81,6 @@ class ScreenContainer: XibLoadableView {
         bindSubviewEvent()
     }
 
-    override var intrinsicContentSize: CGSize {
-        let height: CGFloat
-//        isShowSearchPage = true
-        if isShowSearchPage {
-            height = 125 + 215
-        } else {
-            height = 125
-        }
-        return CGSize(width: Frame.Screen.width - 50 * 2, height: height)
-    }
-    
     private let bag = DisposeBag()
     
     private var state: ConnectState = .disconnected
@@ -75,13 +99,20 @@ class ScreenContainer: XibLoadableView {
         return channel.name
     }
     
-    override func becomeFirstResponder() -> Bool {
-        return channelTextField.becomeFirstResponder()
+    override var intrinsicContentSize: CGSize {
+        let height: CGFloat
+        //        isShowSearchPage = true
+        if isShowSearchPage {
+            height = 125 + 215
+        } else {
+            height = 125
+        }
+        return CGSize(width: Frame.Screen.width - 50 * 2, height: height)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+    
+    override func becomeFirstResponder() -> Bool {
+        return channelTextField.becomeFirstResponder()
     }
     
     func update(state: ConnectState) {
@@ -91,6 +122,31 @@ class ScreenContainer: XibLoadableView {
     
     func updateMicView(alpha: CGFloat) {
         micView.alpha = alpha
+    }
+    
+    func update(mode: Mode) {
+        self.mode = mode
+        searchViewModel.mode = mode
+        Defaults[\.mode] = mode
+        
+        //检查当前频道名称，如果和模式不相符则处理
+        let previousChannel = Defaults.channel(for: mode)
+//        switch mode {
+//        case .public:
+////            if channelName.isPrivate {
+//                //find previous channel
+////            }
+//        case .private:
+//            if !channelName.isPrivate {
+//                //find previous channel
+//                delegate?.containerShouldUpdate(channel: previousChannel)
+//            }
+//        }
+        delegate?.containerShouldUpdate(channel: previousChannel)
+        
+        UIView.transition(with: backgroundView, duration: AnimationDuration.fast.rawValue, options: .transitionCrossDissolve, animations: { [weak self] in
+            self?.backgroundView.image = mode.channelType.screenImage(with: false)
+        })
     }
     
     private func update(state to: ConnectState, old state: ConnectState) {
@@ -116,7 +172,7 @@ class ScreenContainer: XibLoadableView {
     
     func updateMemberCount(with room: Room?) {
         guard let room = room else {
-            numberLabel.text = "1"
+            numberLabel.text = ""
             return
         }
         if !mManager.isConnectedState,
@@ -129,8 +185,8 @@ class ScreenContainer: XibLoadableView {
     
     func updateSubviewStyle() {
         channelTextField.text = channel.showName
-        backgroundView.image = channel.name.channelType.screenImage(with: false)
-        innerShadowView.image = channel.name.channelType.screenInnerShadowImage(with: false)
+        backgroundView.image = mode.channelType.screenImage(with: false)
+        innerShadowView.image = mode.channelType.screenInnerShadowImage(with: false)
         //        backgroundColor = channel.name.channelType.screenColor
         //        searchController.setChannel(type: channel.name.channelType)
         lockIconView.isHidden = !channel.isPrivate

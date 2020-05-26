@@ -264,12 +264,35 @@
                                     <segue destination="So9-oX-cun" kind="show" id="47Y-Mv-78j"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XIU-XL-ivD" customClass="BetterSegmentedControl" customModule="BetterSegmentedControl">
+                                <rect key="frame" x="127" y="50" width="160" height="36"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="PVW-lJ-1Zf"/>
+                                    <constraint firstAttribute="height" constant="36" id="ZWO-tQ-A8N"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="alwaysAnnouncesValue" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="announcesValueImmediately" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="panningDisabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorViewBackgroundColor">
+                                        <color key="value" red="0.13333333333333333" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorViewBorderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="centerX" secondItem="lwK-gc-HYW" secondAttribute="centerX" id="0Du-l0-bN8"/>
                             <constraint firstItem="1m5-XA-SAp" firstAttribute="centerY" secondItem="XJx-Nj-5oY" secondAttribute="centerY" id="0eE-E6-o1G"/>
                             <constraint firstItem="lwK-gc-HYW" firstAttribute="trailing" secondItem="dYG-ao-Tdh" secondAttribute="trailing" constant="40" id="0re-js-gLK"/>
+                            <constraint firstItem="dYG-ao-Tdh" firstAttribute="top" secondItem="XIU-XL-ivD" secondAttribute="bottom" constant="16" id="1Jf-oB-ynz"/>
                             <constraint firstItem="lwK-gc-HYW" firstAttribute="trailing" secondItem="Pek-Uq-QJi" secondAttribute="trailing" constant="5" id="30P-AR-sCV"/>
                             <constraint firstItem="1m5-XA-SAp" firstAttribute="centerX" secondItem="XJx-Nj-5oY" secondAttribute="centerX" id="37x-2q-ExU"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="top" secondItem="xvW-Mq-pGj" secondAttribute="top" id="3l6-fW-KDD"/>
@@ -282,6 +305,7 @@
                             <constraint firstItem="Pek-Uq-QJi" firstAttribute="top" secondItem="lwK-gc-HYW" secondAttribute="top" constant="1.5" id="mB0-7h-Dcv"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="leading" secondItem="xvW-Mq-pGj" secondAttribute="leading" id="mpp-8g-Hyj"/>
                             <constraint firstItem="lwK-gc-HYW" firstAttribute="bottom" secondItem="XJx-Nj-5oY" secondAttribute="bottom" constant="100" id="p1Y-hP-Ksi"/>
+                            <constraint firstItem="XIU-XL-ivD" firstAttribute="centerX" secondItem="dYG-ao-Tdh" secondAttribute="centerX" id="yoC-Qf-njY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lwK-gc-HYW"/>
                     </view>
@@ -295,6 +319,7 @@
                         <outlet property="powerButton" destination="L19-kc-srO" id="EbJ-15-QcU"/>
                         <outlet property="pushToTalkButton" destination="1m5-XA-SAp" id="MPj-Jo-TRE"/>
                         <outlet property="screenContainer" destination="8yd-YY-a9Q" id="fOH-G8-JdM"/>
+                        <outlet property="segmentControl" destination="XIU-XL-ivD" id="w7J-kl-pcL"/>
                         <outlet property="shareButton" destination="nYu-Os-NyD" id="buf-KS-wDr"/>
                         <outlet property="spackButtonBottomConstraint" destination="p1Y-hP-Ksi" id="rFa-UN-Bgb"/>
                         <outlet property="speakButton" destination="XJx-Nj-5oY" id="Rcs-kZ-WwC"/>
@@ -1082,7 +1107,7 @@ Cg
                                                             <attributes>
                                                                 <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                                <font key="NSFont" metaFont="message" size="11"/>
+                                                                <font key="NSFont" metaFont="label" size="11"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
