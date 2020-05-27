@@ -615,7 +615,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 42 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 43 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -773,6 +773,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You only have one secret channel
+      /// 
+      /// Locales: en
+      static let toastSingleSecretChannal = Rswift.StringResource(key: "toast.single.secret.channal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your passcode has no corresponding secret channel, create or join one 
       /// 
       /// Locales: en
@@ -1057,6 +1061,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You only have one secret channel
+      /// 
+      /// Locales: en
+      static func toastSingleSecretChannal(_: Void = ()) -> String {
+        return NSLocalizedString("toast.single.secret.channal", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your passcode has no corresponding secret channel, create or join one 
@@ -1372,7 +1383,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "btn_private_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_private_icon' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_share", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_share' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_up", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_up' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "button_press", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'button_press' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "home_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "home_connect_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_connect_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in storyboard 'Main', but couldn't be loaded.") }

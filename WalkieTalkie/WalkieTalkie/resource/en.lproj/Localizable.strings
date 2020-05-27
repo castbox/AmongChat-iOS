@@ -54,3 +54,4 @@
 "guide.subscribe.title" = "Subscribe";
 "guide.continue" = "Continue";
 "copied" = "Copied";
+"toast.single.secret.channal" = "You only have one secret channel";

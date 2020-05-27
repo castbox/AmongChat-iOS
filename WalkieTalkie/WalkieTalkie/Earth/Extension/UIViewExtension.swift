@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIView{
+extension UIView {
     func roundCorners(topLeft: CGFloat = 0, topRight: CGFloat = 0, bottomLeft: CGFloat = 0, bottomRight: CGFloat = 0) {
         let topLeftRadius = CGSize(width: topLeft, height: topLeft)
         let topRightRadius = CGSize(width: topRight, height: topRight)
@@ -31,7 +31,7 @@ extension UIView {
             let gradientLayer = CAGradientLayer()
             gradientLayer.colors = [fromColor, toColor]
             gradientLayer.opacity = opacity
-            gradientLayer.shadowRadius = 18
+//            gradientLayer.cornerRadius = 18
 
             switch edge {
             case .top:

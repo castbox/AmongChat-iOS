@@ -40,7 +40,7 @@ class RoomViewController: ViewController {
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var toolsView: UIView!
+    @IBOutlet weak var toolsView: RoomToolsView!
     
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
@@ -141,10 +141,16 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func upChannelAction(_ sender: Any) {
+        HapticFeedback.Impact.light()
         guard let room = searchViewModel.previousRoom(channelName) else {
             return
         }
-        HapticFeedback.Impact.light()
+        guard room.name != channel.name else {
+            if mode == .private {
+                view.raft.autoShow(.text(R.string.localizable.toastSingleSecretChannal()))
+            }
+            return
+        }
         self.channel = room
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -153,10 +159,16 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func downChannelAction(_ sender: Any) {
+        HapticFeedback.Impact.light()
         guard let room = searchViewModel.nextRoom(channelName) else {
             return
         }
-        HapticFeedback.Impact.light()
+        guard room.name != channel.name else {
+            if mode == .private {
+                view.raft.autoShow(.text(R.string.localizable.toastSingleSecretChannal()))
+            }
+            return
+        }
         self.channel = room
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -202,17 +214,6 @@ class RoomViewController: ViewController {
         case .public:
             showCreateGlobalChannelController()
         }
-//        let controller = AddChannelViewController()
-//        controller.joinChannel = { [weak self] name, autoShare in
-//            //join channels
-//            self?.joinChannelSubject.onNext(name)
-//            //show code
-//            if autoShare {
-//                self?.showShareController(channelName: name)
-//            }
-//        }
-//        controller.showModal(in: self)
-//        Logger.UserAction.log(.secret)
     }
     
     func leaveChannel() {
@@ -340,39 +341,19 @@ extension RoomViewController: ChatRoomDelegate {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constant.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
+            let value = NSNumber(booleanLiteral: muted)
             if !muted {
-                perform(#selector(updateState(with:)), with: muted, afterDelay: 0.4)
+                perform(#selector(updateIsMuted(_:)), with: value, afterDelay: 0.4)
                 //延迟播音
-//                mainQueueDispatchAsync(after: 0.4) { [unowned self] in
-//                    if self.userStatus == .broadcaster {
-//                        self.state = .talking
-//                        HapticFeedback.Impact.light()
-//                        self.playAudio(type: .begin)
-//                        self.pushToTalkButton.isHidden = true
-//                    } else if self.userStatus == .music {
-//                        self.playAudio(type: .call) { [weak self] in
-//                            self?.mManager.updateRole(false)
-//                        }
-//                    } else {
-//                        self.state = .connected
-//                    }
-//                }
             } else {
-                perform(#selector(updateState(with:)), with: muted)
-//                //已链接，但为上麦，提示上麦说话
-//                if mManager.state == .connected {
-//                    pushToTalkButton.isHidden = false
-//                }
-//                self.state = .connected
+                perform(#selector(updateIsMuted(_:)), with: value)
             }
         }
-//        mSeatVC?.reloadItems(userId)
-//        mMemberVC?.reloadRowsByUserId(userId)
-        
     }
     
     @objc
-    func updateState(with isMute: Bool) {
+    func updateIsMuted(_ value: NSNumber) {
+        let isMute = value.boolValue
         if isMute {
             if mManager.state == .connected {
                 pushToTalkButton.isHidden = false
@@ -427,7 +408,9 @@ extension RoomViewController: ScreenContainerDelegate {
     }
     
     func containerDidUpdate(to mode: Mode) {
-        
+        if segmentControl.index != mode.intValue {
+            segmentControl.setIndex(mode.intValue, animated: true)
+        }
     }
     
     func containerShouldShowCreateView(with alertType: CreateSecretChannelController.AlertType) {
@@ -685,23 +668,16 @@ private extension RoomViewController {
         }
         speakButton.imageView?.contentMode = .scaleAspectFit
         
-        toolsView.roundCorners(topLeft: 17, topRight: 17, bottomLeft: 50, bottomRight: 50)
+        toolsView.addShadow(ofColor: "60521C".color(), radius: 6.5, offset: CGSize(width: 0, height: 1), opacity: 0.31)
         
         segmentControl.segments = LabelSegment.segments(
             withTitles: ["Global", "Secret"],
-//            normalBackgroundColor: "000000".color().alpha(0.2),
             normalFont: R.font.nunitoBold(size: 14),
             normalTextColor: UIColor.white.alpha(0.78),
             selectedBackgroundColor: "221F1F".color(),
             selectedFont: R.font.nunitoBold(size: 15),
             selectedTextColor: UIColor.white
         )
-//        segmentControl.clipsToBounds = false
-//        segmentControl.addInnerShadow(to: [.all], radius: 3, opacity: 0.35, color: UIColor.black.alpha(0.35).cgColor)
-//        segmentControl.addiner
-//        segmentControl.addShadow(ofColor: UIColor.black.alpha(0.35).cgColor, radius: 18, offset: CGSize(width: 0, height: 1), opacity: 0.35)
-//        segmentControl.layer.borderColor = UIColor.black.alpha(0.35).cgColor
-//        segmentControl.layer.borderWidth = 1
         
         let mode = Defaults[\.mode]
         //set index
@@ -714,11 +690,16 @@ private extension RoomViewController {
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
         adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: 320, height: 50)
+        adView.frame = CGRect(x: 0, y: 0, width: 320, height: adContainerHeightConstraint.constant)
         adContainer.addSubview(adView)
-        adView.loadAd(withMaxAdSize: adView.size)
+        adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+//        if adContainerHeightConstraint.constant > 50 {
+//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+//        } else {
+//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSize50Height)
+//        }
         Logger.Ads.logEvent(.ads_load, .channel)
-//        adView.startAutomaticallyRefreshingContents()
+        adView.startAutomaticallyRefreshingContents()
     }
 }
 
@@ -735,7 +716,6 @@ extension Reactive where Base: UIButton {
         return boolObservable
     }
 }
-
 
 extension Collection where Element: StringProtocol {
     public func localizedStandardSorted(_ result: ComparisonResult) -> [Element] {

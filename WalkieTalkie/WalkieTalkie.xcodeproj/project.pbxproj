@@ -151,6 +151,7 @@
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
 		FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */; };
 		FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */; };
+		FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
 		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
 		FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D42449B69F006454F6 /* NavigationViewController.swift */; };
@@ -334,6 +335,7 @@
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
 		FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSecretChannelController.xib; sourceTree = "<group>"; };
+		FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomToolsView.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
 		FEAD54D42449B69F006454F6 /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 				FE86A587245AB28D00C35FCA /* ChannelType.swift */,
 				FE0D1A2424489BF300518793 /* AudioType.swift */,
 				FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */,
+				FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */,
 				FE86A589245AC18200C35FCA /* ScreenContainer.swift */,
 				FE86A58B245AC19E00C35FCA /* ScreenContainer.xib */,
 			);
@@ -1151,6 +1154,7 @@
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
+				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
 				FE86A58A245AC18200C35FCA /* ScreenContainer.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,

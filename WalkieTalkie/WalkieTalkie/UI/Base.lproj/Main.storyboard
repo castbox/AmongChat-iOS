@@ -47,19 +47,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-Mq-pGj">
                                 <rect key="frame" x="97" y="582" width="220" height="170"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh" customClass="RoomToolsView" customModule="WalkieTalkie" customModuleProvider="target">
                                 <rect key="frame" x="40" y="102" width="334" height="351"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fvi-3S-Jjc">
                                         <rect key="frame" x="10" y="150" width="314" height="186"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jg-9J-TZa">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jg-9J-TZa">
                                                 <rect key="frame" x="113" y="0.0" width="88" height="88"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="7jg-9J-TZa" secondAttribute="height" multiplier="1:1" id="hNu-Xz-uaa"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="btn_up" backgroundImage="home_btn_bg_b"/>
-                                                <state key="highlighted" backgroundImage="button_press"/>
+                                                <state key="highlighted" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" red="0.10980392156862745" green="0.10196078431372549" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,13 +79,14 @@
                                                     <action selector="upChannelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HGa-Zr-iZd"/>
                                                 </connections>
                                             </button>
-                                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbP-Ah-Hra" customClass="FrozenButton" customModule="WalkieTalkie" customModuleProvider="target">
+                                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TbP-Ah-Hra" customClass="FrozenButton" customModule="WalkieTalkie" customModuleProvider="target">
                                                 <rect key="frame" x="10" y="0.0" width="88" height="88"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="TbP-Ah-Hra" secondAttribute="height" multiplier="1:1" id="AQh-bY-tKo"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="btn_call_on" backgroundImage="home_btn_bg_b"/>
-                                                <state key="highlighted" backgroundImage="button_press"/>
+                                                <state key="highlighted" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -100,13 +102,14 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYu-Os-NyD">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nYu-Os-NyD">
                                                 <rect key="frame" x="10" y="96" width="90" height="90"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="nYu-Os-NyD" secondAttribute="height" multiplier="1:1" id="lhn-G5-qnp"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="btn_share" backgroundImage="home_btn_bg_b"/>
-                                                <state key="highlighted" backgroundImage="button_press"/>
+                                                <state key="highlighted" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -125,10 +128,11 @@
                                                     <action selector="shareButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vYn-v0-Yjs"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2v-Ak-Ufd">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2v-Ak-Ufd">
                                                 <rect key="frame" x="113" y="98" width="88" height="88"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="btn_down" backgroundImage="home_btn_bg_b"/>
-                                                <state key="highlighted" backgroundImage="button_press"/>
+                                                <state key="highlighted" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -168,12 +172,14 @@
                                                     <action selector="connectChannelAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OgS-vj-BRh"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spD-vg-qR3">
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spD-vg-qR3">
                                                 <rect key="frame" x="216" y="98" width="88" height="88"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="spD-vg-qR3" secondAttribute="height" multiplier="1:1" id="7Hp-eN-GPC"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" image="btn_add" backgroundImage="home_btn_bg_b"/>
+                                                <state key="highlighted" backgroundImage="home_btn_bg_b"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                         <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -220,7 +226,7 @@
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="125" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q" customClass="ScreenContainer" customModule="WalkieTalkie" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="314" height="125"/>
-                                        <color key="backgroundColor" red="0.13333333333333333" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -232,7 +238,7 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.13333333333333333" green="0.12156862745098039" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="8yd-YY-a9Q" firstAttribute="leading" secondItem="dYG-ao-Tdh" secondAttribute="leading" constant="10" id="9nI-fg-EgY"/>
                                     <constraint firstAttribute="trailing" secondItem="8yd-YY-a9Q" secondAttribute="trailing" constant="10" id="L10-PX-OHf"/>
@@ -243,11 +249,6 @@
                                     <constraint firstItem="fvi-3S-Jjc" firstAttribute="leading" secondItem="dYG-ao-Tdh" secondAttribute="leading" constant="10" id="tsf-Je-Yed"/>
                                     <constraint firstItem="fvi-3S-Jjc" firstAttribute="top" secondItem="dYG-ao-Tdh" secondAttribute="top" constant="150" id="yuP-Tc-dCq"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="17"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZT-Mw-FCd">
                                 <rect key="frame" x="47" y="812" width="320" height="50"/>
@@ -328,7 +329,7 @@
                         <outlet property="spackButtonBottomConstraint" destination="p1Y-hP-Ksi" id="rFa-UN-Bgb"/>
                         <outlet property="speakButton" destination="XJx-Nj-5oY" id="Rcs-kZ-WwC"/>
                         <outlet property="speakButtonTrigger" destination="xvW-Mq-pGj" id="Brq-8U-XVq"/>
-                        <outlet property="toolsView" destination="dYG-ao-Tdh" id="RoK-AI-rSK"/>
+                        <outlet property="toolsView" destination="dYG-ao-Tdh" id="fLA-G9-mMR"/>
                         <outlet property="upButton" destination="7jg-9J-TZa" id="LEM-Pj-nuW"/>
                     </connections>
                 </viewController>
@@ -1386,7 +1387,6 @@ Cg
         <image name="btn_private_icon" width="90" height="90"/>
         <image name="btn_share" width="30" height="30"/>
         <image name="btn_up" width="30" height="30"/>
-        <image name="button_press" width="175.5" height="175"/>
         <image name="home_btn_bg_b" width="74" height="74"/>
         <image name="home_connect_btn_bg_b" width="75" height="75"/>
         <image name="icon_close" width="25" height="25"/>

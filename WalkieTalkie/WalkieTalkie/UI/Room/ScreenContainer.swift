@@ -190,7 +190,8 @@ class ScreenContainer: XibLoadableView {
     }
     
     func updateSubviewStyle() {
-        channelTextField.text = channel.showName
+        channelTextField.channel = channel
+//        channelTextField.text = channel.showName
         backgroundView.image = mode.channelType.screenImage(with: false)
         innerShadowView.image = mode.channelType.screenInnerShadowImage(with: false, isShowSearchView: isShowSearchPage)
         //        backgroundColor = channel.name.channelType.screenColor
@@ -356,6 +357,7 @@ extension ScreenContainer {
                 if isInSecretChannel {
                     strongSelf.showCanEnterSecretChannelAlert { confirm in
                         if confirm {
+                            self?.update(mode: .private)
                             joinChannelBlock("_\(text)")
                         } else {
                             joinChannelBlock(text)
@@ -381,7 +383,6 @@ extension ScreenContainer {
         
         channelTextField.rx.controlEvent(.editingDidEnd)
             .subscribe(onNext: { [weak self] _ in
-                //                self?.joinChannelSubject.onNext(self?.channelTextField.text?.uppercased())
                 self?.hideSearchView()
             })
             .disposed(by: bag)

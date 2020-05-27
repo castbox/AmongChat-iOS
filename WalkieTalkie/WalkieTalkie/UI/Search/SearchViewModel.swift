@@ -114,11 +114,14 @@ class SearchViewModel {
     }
     
     func previousRoom(_ current: String) -> Room? {
-        guard let querySource = try? querySourceSubject.value(),
+        guard let querySource = try? querySourceSubject.value()
+            .filter({ $0.type == .default }),
             !querySource.isEmpty else {
             return nil
         }
-        
+        //
+//        let validSource = querySource
+            
         let index = querySource.firstIndex(where: {
             $0.name == current
         }) ?? 0
@@ -134,7 +137,8 @@ class SearchViewModel {
     }
     
     func nextRoom(_ current: String) -> Room? {
-        guard let querySource = try? querySourceSubject.value(),
+        guard let querySource = try? querySourceSubject.value()
+            .filter ({ $0.type == .default }),
             !querySource.isEmpty else {
             return nil
         }

@@ -91,12 +91,12 @@ extension String {
             guard let name = split(bySeparator: "_").last else {
                 return self
             }
-            guard name.count == PasswordGenerator.shared.totalCount else {
-                return name
-            }
-            let start = name.index(name.startIndex, offsetBy: 2)
-            let end = name.endIndex
-            return name.replacingCharacters(in: start ..< end, with: "******")
+//            guard name.count == PasswordGenerator.shared.totalCount else {
+            return name
+//            }
+//            let start = name.index(name.startIndex, offsetBy: 2)
+//            let end = name.endIndex
+//            return name.replacingCharacters(in: start ..< end, with: "******")
         } else {
             return self
         }

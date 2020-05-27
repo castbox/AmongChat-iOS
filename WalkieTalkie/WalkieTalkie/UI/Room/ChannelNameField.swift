@@ -18,6 +18,12 @@ class ChannelNameField: UITextField {
     var didReturn: ((String?) -> Void)?
     var didCancelEdit: ((String?) -> Void)?
     
+    var channel: Room? {
+        didSet {
+            text = channel?.showName
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         delegate = self
