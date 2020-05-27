@@ -16,6 +16,7 @@ class ChannelNameField: UITextField {
     
     var didBeginEditing: ((String?) -> Void)?
     var didReturn: ((String?) -> Void)?
+    var didCancelEdit: ((String?) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,7 +62,8 @@ extension ChannelNameField: UITextFieldDelegate {
                 textField.text = previousText
             } else {
                 //kickoff
-                didReturn?(nil)
+                didCancelEdit?(textField.text)
+//                didReturn?(nil)
             }
         }
     }

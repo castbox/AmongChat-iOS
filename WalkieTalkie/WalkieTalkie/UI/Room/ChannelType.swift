@@ -32,12 +32,12 @@ extension ChannelType {
         }
     }
     
-    func screenInnerShadowImage(with isConnected: Bool) -> UIImage? {
+    func screenInnerShadowImage(with isConnected: Bool, isShowSearchView: Bool = false) -> UIImage? {
         switch self {
         case .public:
-            return isConnected ? R.image.icon_screen_bg_g_shadow() : nil
+            return isConnected ? (isShowSearchView ? R.image.icon_screen_bg_g_shadow_round() : R.image.icon_screen_bg_g_shadow()) : nil
         case .private:
-            return isConnected ? R.image.icon_screen_bg_o_shadow() : nil
+            return isConnected ? (isShowSearchView ? R.image.icon_screen_bg_o_shadow_round() : R.image.icon_screen_bg_o_shadow()) : nil
         }
     }
 }

@@ -224,7 +224,7 @@ extension DefaultsKeys {
     }
     
     var secretChannels: DefaultsKey<[Room]> {
-        .init("channel", defaultValue: [])
+        .init("secret.channels.joined", defaultValue: [])
     }
     
     var isProKey: DefaultsKey<Bool> {

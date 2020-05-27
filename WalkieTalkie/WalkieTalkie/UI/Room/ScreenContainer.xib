@@ -40,19 +40,19 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWG-O7-7C3">
-                            <rect key="frame" x="11" y="19.5" width="116.5" height="17.5"/>
+                            <rect key="frame" x="11" y="19.5" width="123.5" height="19"/>
                             <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="15"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vNM-f7-Vt5">
-                            <rect key="frame" x="10" y="74.5" width="16" height="33"/>
+                            <rect key="frame" x="10" y="73.5" width="23.5" height="35"/>
                             <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="28"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="NEW BINE" placeholder="CREATE NEW" textAlignment="right" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="q7C-OU-Xww" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="36" y="68.5" width="368" height="45"/>
+                            <rect key="frame" x="43.5" y="68.5" width="360.5" height="45"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="45" id="bzr-bH-JE2"/>
                             </constraints>
@@ -60,16 +60,16 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" keyboardType="alphabet" returnKeyType="done"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSB-yS-cuB">
-                            <rect key="frame" x="398" y="16.5" width="6" height="23.5"/>
+                            <rect key="frame" x="398" y="16.5" width="6" height="25"/>
                             <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_room_lock" translatesAutoresizingMaskIntoConstraints="NO" id="Fux-OW-unk">
-                            <rect key="frame" x="9.5" y="78.5" width="25" height="25"/>
+                            <rect key="frame" x="9.5" y="77.5" width="25" height="25"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mic" translatesAutoresizingMaskIntoConstraints="NO" id="Yyx-Zi-Ocj">
-                            <rect key="frame" x="349" y="16" width="25" height="25"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mic" translatesAutoresizingMaskIntoConstraints="NO" id="Yyx-Zi-Ocj">
+                            <rect key="frame" x="349" y="16.5" width="25" height="25"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.1333333333" green="0.1215686275" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -88,7 +88,7 @@
                         <constraint firstItem="Yyx-Zi-Ocj" firstAttribute="centerY" secondItem="NSB-yS-cuB" secondAttribute="centerY" id="VB2-zy-YAN"/>
                         <constraint firstAttribute="trailing" secondItem="Hvf-Il-oM0" secondAttribute="trailing" id="Vuf-FQ-i4k"/>
                         <constraint firstItem="vNM-f7-Vt5" firstAttribute="leading" secondItem="63J-cd-JMl" secondAttribute="leading" constant="10" id="YRF-cD-stg"/>
-                        <constraint firstItem="Fux-OW-unk" firstAttribute="centerY" secondItem="q7C-OU-Xww" secondAttribute="centerY" id="eXk-QU-LX5"/>
+                        <constraint firstItem="Fux-OW-unk" firstAttribute="centerY" secondItem="q7C-OU-Xww" secondAttribute="centerY" constant="-1" id="eXk-QU-LX5"/>
                         <constraint firstItem="q7C-OU-Xww" firstAttribute="leading" secondItem="vNM-f7-Vt5" secondAttribute="trailing" constant="10" id="ffy-Gp-iXK"/>
                         <constraint firstItem="nsb-mf-2tx" firstAttribute="top" secondItem="63J-cd-JMl" secondAttribute="top" id="kD8-LT-BaJ"/>
                         <constraint firstItem="q7C-OU-Xww" firstAttribute="top" secondItem="63J-cd-JMl" secondAttribute="top" constant="68.5" id="lTg-Qn-c8G"/>

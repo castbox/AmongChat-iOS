@@ -15,6 +15,8 @@ protocol ScreenContainerDelegate: class {
     func containerShouldUpdate(channel: Room?)
     func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool
     func containerShouldLeaveChannel()
+    func containerDidUpdate(to mode: Mode)
+    func containerShouldShowCreateView(with alertType: CreateSecretChannelController.AlertType)
 }
 
 enum Mode: String, DefaultsSerializable {
@@ -50,7 +52,7 @@ enum Mode: String, DefaultsSerializable {
 }
 
 class ScreenContainer: XibLoadableView {
-        
+    
     @IBOutlet weak var backgroundView: UIImageView!
     @IBOutlet weak var innerShadowView: UIImageView!
     @IBOutlet weak var connectStateLabel: UILabel!
@@ -72,6 +74,10 @@ class ScreenContainer: XibLoadableView {
     
     private (set) var mode: Mode = .public
     
+    private var searchViewMaxHeight: CGFloat {
+        (Frame.Screen.width - 60 * 2 - 15 * 2) / 3 * 2 + 10 + 15 * 2
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -80,7 +86,7 @@ class ScreenContainer: XibLoadableView {
         super.init(coder: aDecoder)
         bindSubviewEvent()
     }
-
+    
     private let bag = DisposeBag()
     
     private var state: ConnectState = .disconnected
@@ -103,7 +109,7 @@ class ScreenContainer: XibLoadableView {
         let height: CGFloat
         //        isShowSearchPage = true
         if isShowSearchPage {
-            height = 125 + 215
+            height = 125 + searchViewMaxHeight
         } else {
             height = 125
         }
@@ -131,21 +137,15 @@ class ScreenContainer: XibLoadableView {
         
         //检查当前频道名称，如果和模式不相符则处理
         let previousChannel = Defaults.channel(for: mode)
-//        switch mode {
-//        case .public:
-////            if channelName.isPrivate {
-//                //find previous channel
-////            }
-//        case .private:
-//            if !channelName.isPrivate {
-//                //find previous channel
-//                delegate?.containerShouldUpdate(channel: previousChannel)
-//            }
-//        }
         delegate?.containerShouldUpdate(channel: previousChannel)
         
         UIView.transition(with: backgroundView, duration: AnimationDuration.fast.rawValue, options: .transitionCrossDissolve, animations: { [weak self] in
             self?.backgroundView.image = mode.channelType.screenImage(with: false)
+            }, completion: { [weak self] _ in
+                self?.delegate?.containerDidUpdate(to: mode)
+                if previousChannel.type == .empty {
+                    self?.delegate?.containerShouldShowCreateView(with: .emptySecretRooms)
+                }
         })
     }
     
@@ -165,9 +165,15 @@ class ScreenContainer: XibLoadableView {
         }
         connectStateLabel.text = to.title.uppercased()
         let channelType = channel.name.channelType
-        backgroundView.image = channelType.screenImage(with: mManager.isConnectedState)
-        innerShadowView.image = channelType.screenInnerShadowImage(with: mManager.isConnectedState)
-        
+        let isConnectState = mManager.isConnectedState
+        UIView.transition(with: backgroundView, duration: AnimationDuration.fast.rawValue, options: .transitionCrossDissolve, animations: { [weak self] in
+            //            self?.backgroundView.image = mode.channelType.screenImage(with: false)
+            self?.backgroundView.image = channelType.screenImage(with: isConnectState)
+        })
+        UIView.transition(with: innerShadowView, duration: AnimationDuration.fast.rawValue, options: .transitionCrossDissolve, animations: { [weak self] in
+            //            self?.backgroundView.image = mode.channelType.screenImage(with: false)
+            self?.innerShadowView.image = channelType.screenInnerShadowImage(with: isConnectState, isShowSearchView: self?.isShowSearchPage ?? false)
+        })
     }
     
     func updateMemberCount(with room: Room?) {
@@ -186,7 +192,7 @@ class ScreenContainer: XibLoadableView {
     func updateSubviewStyle() {
         channelTextField.text = channel.showName
         backgroundView.image = mode.channelType.screenImage(with: false)
-        innerShadowView.image = mode.channelType.screenInnerShadowImage(with: false)
+        innerShadowView.image = mode.channelType.screenInnerShadowImage(with: false, isShowSearchView: isShowSearchPage)
         //        backgroundColor = channel.name.channelType.screenColor
         //        searchController.setChannel(type: channel.name.channelType)
         lockIconView.isHidden = !channel.isPrivate
@@ -221,6 +227,22 @@ extension ScreenContainer {
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if isShowSearchPage {
+            //            if mManager.isConnectedState {
+            //                innerShadowView.image = R.image
+            //            }
+            UIView.animate(withDuration: 0.4) { [weak self] in
+                self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 40, bottomRight: 40)
+            }
+        } else {
+            UIView.animate(withDuration: 0.4) { [weak self] in
+                self?.roundCorners(.allCorners, radius: 12)
+            }
+        }
+    }
+    
     func showSearchView() {
         guard let superController = viewContainingController(),
             searchController.view.superview == nil else {
@@ -230,20 +252,22 @@ extension ScreenContainer {
         searchController.willMove(toParent: superController)
         superController.view.addSubview(searchController.view)
         searchController.didMove(toParent: superController)
-//        searchController.view.addCorner(with: 50, corners: [.bottomLeft, .bottomRight])
+        //        searchController.view.addCorner(with: 50, corners: [.bottomLeft, .bottomRight])
+        //height
         searchController.view.snp.makeConstraints { make in
             make.left.width.equalTo(self)
             make.top.equalTo(self).offset(125)
-            make.height.equalTo(200)
+            make.height.equalTo(searchViewMaxHeight - 25)
         }
         isShowSearchPage = true
+        innerShadowView.image = mode.channelType.screenInnerShadowImage(with: mManager.isConnectedState, isShowSearchView: true)
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
-//        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
-//        UIView.animate(withDuration: 0.4) { [weak self] in
-//            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
-//            self?.searchController.view.roundCorners([.bottomLeft, .bottomRight], radius: 50)
-//        }
+        //        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            self?.roundCorners(topLeft: 12, topRight: 12, bottomLeft: 50, bottomRight: 50)
+            //            self?.searchController.view.roundCorners([.bottomLeft, .bottomRight], radius: 50)
+        }
     }
     
     func hideSearchView() {
@@ -252,14 +276,12 @@ extension ScreenContainer {
         searchController.removeFromParent()
         searchController.view.removeFromSuperview()
         endEditing(true)
+        innerShadowView.image = mode.channelType.screenInnerShadowImage(with: mManager.isConnectedState, isShowSearchView: false)
         self.invalidateIntrinsicContentSize()
         self.layoutIfNeeded()
-//        UIView.animate(withDuration: 0.4) { [weak self] in
-//            self?.roundCorners(.allCorners, radius: 12)
-//        }
-//        UIView.propertyAnimation(dampingRatio: 1, animation: { [weak self] in
-//            self?.layoutIfNeeded()
-//        })
+        //        UIView.animate(withDuration: 0.4) { [weak self] in
+        //            self?.roundCorners(.allCorners, radius: 12)
+        //        }
     }
     
     func bindSubviewEvent() {
@@ -271,50 +293,83 @@ extension ScreenContainer {
                     return nil
                 }
                 return rooms.first(where: { $0.name == self.channelName })
-            }
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] room in
-                self?.updateMemberCount(with: room)
-            })
+        }
+        .observeOn(MainScheduler.asyncInstance)
+        .subscribe(onNext: { [weak self] room in
+            self?.updateMemberCount(with: room)
+        })
             .disposed(by: bag)
         
         searchController.selectRoomHandler = { [weak self] room in
             guard let `self` = self,
                 let delegate = self.delegate else { return }
+            self.hideSearchView()
+            guard room.type != .add else {
+                //show create
+                delegate.containerShouldShowCreateView(with: .none)
+                return
+            }
             if delegate.containerShouldJoinChannel(name: room.name, directly: true) {
                 Logger.UserAction.log(.channel_choice, room.name)
                 self.updateMemberCount(with: room)
             }
-            self.hideSearchView()
         }
         
         channelTextField.didBeginEditing = { [weak self] _ in
             self?.sendQueryEvent()
         }
+        
+        channelTextField.didCancelEdit = { [weak self] text in
+            guard let strongSelf = self,
+                let text = text else {
+                    //offline
+                    self?.delegate?.containerShouldLeaveChannel()
+                    return
+            }
+            //UPDATE ROOM
+            var channelName: String {
+                if strongSelf.mode == .private {
+                    return "_\(text)"
+                }
+                return text
+            }
+            let room = FireStore.shared.findValidRoom(with: channelName, defaultUserCount: 0)
+            strongSelf.delegate?.containerShouldUpdate(channel: room)
+        }
+        
         channelTextField.didReturn = { [weak self] text in
-            guard let text = text else {
-                //offline
-                self?.delegate?.containerShouldLeaveChannel()
-                return
+            guard let strongSelf = self,
+                let text = text else {
+                    //offline
+                    self?.delegate?.containerShouldLeaveChannel()
+                    return
             }
             let joinChannelBlock: (String?) -> Void = { name in
                 //                self?.joinChannelSubject.onNext(name)
-                _ = self?.delegate?.containerShouldJoinChannel(name: name, directly: false)
+                _ = strongSelf.delegate?.containerShouldJoinChannel(name: name, directly: false)
                 Logger.UserAction.log(.channel_create, name)
             }
-            //check if in private channel
-            if text.count == PasswordGenerator.shared.totalCount,
-                FireStore.shared.secretChannels.contains(where: { $0.name == "_\(text)"}) {
-                //show text
-                self?.showCanEnterSecretChannelAlert { confirm in
-                    if confirm {
-                        joinChannelBlock("_\(text)")
-                    } else {
-                        joinChannelBlock(text)
+            let isInSecretChannel = text.count == PasswordGenerator.shared.totalCount &&
+                FireStore.shared.secretChannels.contains(where: { $0.name == "_\(text)"})
+            
+            if strongSelf.mode == .public {
+                if isInSecretChannel {
+                    strongSelf.showCanEnterSecretChannelAlert { confirm in
+                        if confirm {
+                            joinChannelBlock("_\(text)")
+                        } else {
+                            joinChannelBlock(text)
+                        }
                     }
+                } else {
+                    joinChannelBlock(text)
                 }
             } else {
-                joinChannelBlock(text)
+                guard isInSecretChannel else {
+                    strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
+                    return
+                }
+                joinChannelBlock("_\(text)")
             }
         }
         

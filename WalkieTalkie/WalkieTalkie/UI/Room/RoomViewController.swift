@@ -51,6 +51,7 @@ class RoomViewController: ViewController {
     private var joinChannelSubject = BehaviorSubject<String?>(value: nil)
     private lazy var viewModel = RoomViewModel()
 
+    @IBOutlet weak var adContainerHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var adContainer: UIView!
 
@@ -143,6 +144,7 @@ class RoomViewController: ViewController {
         guard let room = searchViewModel.previousRoom(channelName) else {
             return
         }
+        HapticFeedback.Impact.light()
         self.channel = room
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -154,6 +156,7 @@ class RoomViewController: ViewController {
         guard let room = searchViewModel.nextRoom(channelName) else {
             return
         }
+        HapticFeedback.Impact.light()
         self.channel = room
         if mManager.isConnectingState {
             joinChannelSubject.onNext(room.name)
@@ -173,7 +176,8 @@ class RoomViewController: ViewController {
                     joinChannel(channelName)
                 } else {
                     //show error
-                    view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+//                    view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                    showCreateSecretChannel(with: .errorPasscode)
                 }
             } else {
                 joinChannel(channelName)
@@ -192,17 +196,23 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func privateButtonAction(_ sender: Any) {
-        let controller = AddChannelViewController()
-        controller.joinChannel = { [weak self] name, autoShare in
-            //join channels
-            self?.joinChannelSubject.onNext(name)
-            //show code
-            if autoShare {
-                self?.showShareController(channelName: name)
-            }
+        switch mode {
+        case .private:
+            showCreateSecretChannel()
+        case .public:
+            showCreateGlobalChannelController()
         }
-        controller.showModal(in: self)
-        Logger.UserAction.log(.secret)
+//        let controller = AddChannelViewController()
+//        controller.joinChannel = { [weak self] name, autoShare in
+//            //join channels
+//            self?.joinChannelSubject.onNext(name)
+//            //show code
+//            if autoShare {
+//                self?.showShareController(channelName: name)
+//            }
+//        }
+//        controller.showModal(in: self)
+//        Logger.UserAction.log(.secret)
     }
     
     func leaveChannel() {
@@ -393,7 +403,100 @@ extension RoomViewController: ChatRoomDelegate {
     }
 }
 
+// MARK: ScreenContainerDelegate
+extension RoomViewController: ScreenContainerDelegate {
+    
+    func containerShouldUpdate(channel: Room?) {
+        guard let channel = channel else {
+            return
+        }
+        self.channel = channel
+    }
+    
+    func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool {
+        if directly {
+            return _joinChannel(name)
+        } else {
+            joinChannelSubject.onNext(name)
+            return true
+        }
+    }
+    
+    func containerShouldLeaveChannel() {
+        leaveChannel()
+    }
+    
+    func containerDidUpdate(to mode: Mode) {
+        
+    }
+    
+    func containerShouldShowCreateView(with alertType: CreateSecretChannelController.AlertType) {
+        showCreateSecretChannel(with: alertType)
+    }
+}
+
+extension RoomViewController: MPAdViewDelegate {
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        if let naviVC = self.navigationController {
+            return naviVC
+        } else {
+            return self
+        }
+    }
+
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+        cdPrint("[AD]-adViewDidLoadAd")
+        Logger.Ads.logEvent(.ads_loaded, .channel)
+    }
+
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
+        Logger.Ads.logEvent(.ads_failed, .channel)
+    }
+
+    func willPresentModalView(forAd view: MPAdView!) {
+//        showSource = .adModal
+        Logger.Ads.logEvent(.ads_imp, .channel)
+    }
+    
+    
+    func willLeaveApplication(fromAd view: MPAdView!) {
+        Logger.Ads.logEvent(.ads_clk, .channel)
+//        showSource = .adLeave
+    }
+    
+    func didDismissModalView(forAd view: MPAdView!) {
+//        Logger.Ads.logEvent(.ads_clk, .channel)
+    }
+}
+
+//MARK: Private method
 private extension RoomViewController {
+    
+    func showCreateSecretChannel(with alert: CreateSecretChannelController.AlertType = .none) {
+        CreateSecretChannelController.show(from: self, alert: alert) { [weak self] name, autoShare in
+            //join channels
+            self?.joinChannelSubject.onNext(name)
+            //show code
+            if autoShare {
+                self?.showShareController(channelName: name)
+            }
+        }
+    }
+    
+    func showCreateGlobalChannelController() {
+        let controller = CreateGlobalChannelController()
+        controller.joinChannel = { [weak self] name, autoShare in
+            //join channels
+            self?.joinChannelSubject.onNext(name)
+            //show code
+            if autoShare {
+                self?.showShareController(channelName: name)
+            }
+        }
+        controller.showModal(in: self)
+    }
+        
     
     func showShareController(channelName: String) {
         let controller = R.storyboard.main.privateShareController()
@@ -432,36 +535,14 @@ private extension RoomViewController {
         }
     }
     
-//    func sendQueryEvent() {
-//        if let text = channelTextField.text?.uppercased(),
-//            text.count >= 2,
-//            text != channelName.showName {
-//            searchController.set(query: text)
-//        } else {
-//            searchController.set(query: "")
-//        }
-//    }
-    
     func updateButtonsEnable() {
-        print("[RoomViewController] updateButtonsEnable with state: \(state.title)")
-//        if state == .disconnected,
-//            connectStateLabel.text == R.string.localizable.channelUserMaxState() {
-//
-//        } else {
-//            connectStateLabel.text = state.title.uppercased()
-//        }
+//        print("[RoomViewController] updateButtonsEnable with state: \(state.title)")
         switch state {
         case .talking:
-//            micView.image = R.image.icon_mic()
-//            micView.alpha = 1
             speakButton.alpha = 1
         case .maxMic:
-//            micView.image = R.image.icon_mic_disable()
-//            micView.alpha = 1
             speakButton.alpha = 1
         case .connected, .preparing:
-//            micView.image = R.image.icon_mic()
-//            micView.alpha = 0.3
             speakButton.isEnabled = true
             speakButton.alpha = 0.6
             musicButton.isEnabled = true
@@ -474,7 +555,7 @@ private extension RoomViewController {
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
-            powerButton.setBackgroundImage(R.image.home_btn_bg_b(), for: .normal)
+            powerButton.setBackgroundImage(R.image.home_connect_btn_bg_b(), for: .normal)
             powerButton.setImage(R.image.btn_power(), for: .normal)
         }
     }
@@ -599,6 +680,8 @@ private extension RoomViewController {
             spackButtonBottomConstraint.constant = 45
         } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
             spackButtonBottomConstraint.constant = 65
+        } else {
+            adContainerHeightConstraint.constant = 90
         }
         speakButton.imageView?.contentMode = .scaleAspectFit
         
@@ -613,13 +696,18 @@ private extension RoomViewController {
             selectedFont: R.font.nunitoBold(size: 15),
             selectedTextColor: UIColor.white
         )
+//        segmentControl.clipsToBounds = false
+//        segmentControl.addInnerShadow(to: [.all], radius: 3, opacity: 0.35, color: UIColor.black.alpha(0.35).cgColor)
+//        segmentControl.addiner
+//        segmentControl.addShadow(ofColor: UIColor.black.alpha(0.35).cgColor, radius: 18, offset: CGSize(width: 0, height: 1), opacity: 0.35)
+//        segmentControl.layer.borderColor = UIColor.black.alpha(0.35).cgColor
+//        segmentControl.layer.borderWidth = 1
+        
         let mode = Defaults[\.mode]
-        //update channel
-        channel = Defaults.channel(for: mode)
-        //update style
-        screenContainer.updateSubviewStyle()
         //set index
         screenContainer.update(mode: mode)
+        //update style
+        screenContainer.updateSubviewStyle()
         segmentControl.setIndex(mode.intValue)
     }
     
@@ -631,64 +719,6 @@ private extension RoomViewController {
         adView.loadAd(withMaxAdSize: adView.size)
         Logger.Ads.logEvent(.ads_load, .channel)
 //        adView.startAutomaticallyRefreshingContents()
-    }
-}
-
-// MARK: ScreenContainerDelegate
-extension RoomViewController: ScreenContainerDelegate {
-    func containerShouldUpdate(channel: Room?) {
-        guard let channel = channel else {
-            return
-        }
-        self.channel = channel
-    }
-    
-    func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool {
-        if directly {
-            return _joinChannel(name)
-        } else {
-            joinChannelSubject.onNext(name)
-            return true
-        }
-    }
-    
-    func containerShouldLeaveChannel() {
-        leaveChannel()
-    }
-}
-
-extension RoomViewController: MPAdViewDelegate {
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        if let naviVC = self.navigationController {
-            return naviVC
-        } else {
-            return self
-        }
-    }
-
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        cdPrint("[AD]-adViewDidLoadAd")
-        Logger.Ads.logEvent(.ads_loaded, .channel)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
-        Logger.Ads.logEvent(.ads_failed, .channel)
-    }
-
-    func willPresentModalView(forAd view: MPAdView!) {
-//        showSource = .adModal
-        Logger.Ads.logEvent(.ads_imp, .channel)
-    }
-    
-    
-    func willLeaveApplication(fromAd view: MPAdView!) {
-        Logger.Ads.logEvent(.ads_clk, .channel)
-//        showSource = .adLeave
-    }
-    
-    func didDismissModalView(forAd view: MPAdView!) {
-//        Logger.Ads.logEvent(.ads_clk, .channel)
     }
 }
 

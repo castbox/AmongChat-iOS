@@ -195,10 +195,10 @@ extension ViewController {
         loggerScreenDuration()
     }
     
-    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
-        guard let channelName = name,
+    static func shareTitle(for channelName: String?) -> String? {
+        guard let channelName = channelName,
             let publicName = channelName.publicName else {
-            return
+                return nil
         }
         var deepLink: String {
             if channelName.isPrivate {
@@ -222,8 +222,14 @@ extension ViewController {
         Over and out.
         #WalkieTalkieTalktoFriends
         """
-        
-        let textToShare = shareString
+        return shareString
+    }
+    
+    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
+        guard let textToShare = Self.shareTitle(for: name) else {
+            successHandler?()
+            return
+        }
         let imageToShare = R.image.share_logo()!
 //        let urlToShare = NSURL(string: deepLink)
         let items = [textToShare, imageToShare] as [Any]

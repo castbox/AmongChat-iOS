@@ -10,6 +10,7 @@ import UIKit
 
 class PrivateShareController: ViewController {
 
+    @IBOutlet weak var container: UIView!
     @IBOutlet weak var bottomEdgeConstraint: NSLayoutConstraint!
     @IBOutlet weak var passcodeLabel: UILabel!
     
@@ -25,12 +26,30 @@ class PrivateShareController: ViewController {
         Logger.PageShow.log(.secret_channel_share_pop_close)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let shareString = Self.shareTitle(for: channelName) {
+            shareString.copyToPasteboard()
+            container.raft.autoShow(.text(R.string.localizable.copied()))
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         bottomEdgeConstraint.constant = Frame.Height.safeAeraBottomHeight
         passcodeLabel.text = channelName?.publicName
+    }
+    
+    @IBAction func copyButtonAction(_ sender: Any) {
+        passcodeLabel.text?.copyToPasteboard()
+        container.raft.autoShow(.text(R.string.localizable.copied()))
+    }
+    
+    @IBAction func closeButtonAction(_ sender: Any) {
+        hideModal()
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
@@ -48,7 +67,7 @@ extension PrivateShareController: Modalable {
     }
     
     func height() -> CGFloat {
-        return 285 + Frame.Height.safeAeraBottomHeight
+        return 308 + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {

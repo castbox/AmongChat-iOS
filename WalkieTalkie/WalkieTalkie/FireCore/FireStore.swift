@@ -108,14 +108,14 @@ class FireStore {
             })
     }
     
-    func findValidRoom(with name: String) -> Room {
+    func findValidRoom(with name: String, defaultUserCount: Int = 1) -> Room {
         var room: Room?
         if name.isPrivate {
             room = FireStore.shared.secretChannels.first(where: { $0.name == name })
         } else {
             room = FireStore.shared.publicChannels.first(where: { $0.name == name })
         }
-        return room ?? Room(name: name, user_count: 1)
+        return room ?? Room(name: name, user_count: defaultUserCount)
     }
     
     func isValidSecretChannel(_ name: String?) -> Bool {
@@ -218,7 +218,7 @@ class FireStore {
                 ref?.remove()
             }
         })
-            .startWith([FireStore.defaultRoom])
+        .startWith([])
     }
 }
 

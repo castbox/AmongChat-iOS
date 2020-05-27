@@ -29,10 +29,11 @@ class SearchViewModel {
     private let bag = DisposeBag()
     private var joinedPrivateChannels: [Room] = [] {
         didSet {
-            cdPrint("[SearchViewModel] joinedPrivateChannels: \(joinedPrivateChannels)")
-            let persistenceRooms = joinedPrivateChannels.filter { $0.persistence == true }
-            Defaults[\.secretChannels] = persistenceRooms
-            cdPrint("[SearchViewModel] persistenceRooms: \(persistenceRooms)")
+//            cdPrint("[SearchViewModel] joinedPrivateChannels: \(joinedPrivateChannels)")
+//            let persistenceRooms = joinedPrivateChannels.filter { $0.persistence == true }
+            Defaults[\.secretChannels] = joinedPrivateChannels
+                .sorted(by: { $0.joinAt > $1.joinAt })
+            cdPrint("[SearchViewModel] persistenceRooms: \(Defaults[\.secretChannels])")
 
         }
     }
@@ -41,6 +42,7 @@ class SearchViewModel {
     
     init() {
         joinedPrivateChannels = Defaults[\.secretChannels]
+            .filter { $0.isValidForPrivateChannel }
         cdPrint("[SearchViewModel] init joinedPrivateChannels: \(joinedPrivateChannels)")
     }
     
@@ -51,21 +53,32 @@ class SearchViewModel {
             
         let secretChannelsSubject =
             FireStore.shared.secretChannelsSubject
+                .debug()
                 .map { [weak self] items -> [Room] in
                     guard let `self` = self else { return [] }
                     return items.filter { room -> Bool in
-                        return self.joinedPrivateChannels.contains { $0.name == room.name }
+                        return self.joinedPrivateChannels.contains {
+                            $0.name == room.name
+                        }
                     }
                 } //merge the
-                .debug()
                 .map { $0.sorted(by: { $0.joinAt > $1.joinAt }) }
+                .observeOn(MainScheduler.asyncInstance)
+                .do(onNext: { [weak self] items in
+                    guard !items.isEmpty else {
+                        return
+                    }
+                    self?.joinedPrivateChannels = items
+                })
+//                .debug()
 
                 
         Observable.combineLatest(onlineChannelList, secretChannelsSubject)
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { publicRooms, secretRooms -> [Room] in
                 var rooms = publicRooms
                 rooms.insert(contentsOf: secretRooms, at: 0)
-                cdPrint("[SearchViewModel] publicRooms: \(publicRooms.count) secretRooms: \(secretRooms.count) total: \(rooms.count)")
+//                cdPrint("[SearchViewModel] publicRooms: \(publicRooms.count) secretRooms: \(secretRooms.count) total: \(rooms.count)")
                 return rooms.filterDuplicates { $0.name }
             }
             .observeOn(MainScheduler.asyncInstance)
@@ -101,11 +114,12 @@ class SearchViewModel {
     }
     
     func previousRoom(_ current: String) -> Room? {
-        guard !dataSource.isEmpty else {
+        guard let querySource = try? querySourceSubject.value(),
+            !querySource.isEmpty else {
             return nil
         }
         
-        let index = dataSource.firstIndex(where: {
+        let index = querySource.firstIndex(where: {
             $0.name == current
         }) ?? 0
         var previousIndex: Int {
@@ -113,29 +127,30 @@ class SearchViewModel {
                 return index - 1
             } else {
                 //last index
-                return dataSource.count - 1
+                return querySource.count - 1
             }
         }
-        return dataSource[previousIndex]
+        return querySource[previousIndex]
     }
     
     func nextRoom(_ current: String) -> Room? {
-        guard !dataSource.isEmpty else {
+        guard let querySource = try? querySourceSubject.value(),
+            !querySource.isEmpty else {
             return nil
         }
         
-        let index = dataSource.firstIndex(where: {
+        let index = querySource.firstIndex(where: {
             $0.name == current
         }) ?? 0
         var nextIndex: Int {
-            if index < (dataSource.count - 1) {
+            if index < (querySource.count - 1) {
                 return index + 1
             } else {
                 //first index
                 return 0
             }
         }
-        return dataSource[nextIndex]
+        return querySource[nextIndex]
     }
     
     func add(private channelName: String) {

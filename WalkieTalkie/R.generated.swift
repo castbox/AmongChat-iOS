@@ -96,7 +96,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 49 images.
+  /// This `R.image` struct is generated, and contains static references to 50 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -124,6 +124,8 @@ struct R: Rswift.Validatable {
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
+    /// Image `home_connect_btn_bg_b`.
+    static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -164,20 +166,20 @@ struct R: Rswift.Validatable {
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
     /// Image `icon_screen_bg_g_d`.
     static let icon_screen_bg_g_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d")
+    /// Image `icon_screen_bg_g_shadow_round`.
+    static let icon_screen_bg_g_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow_round")
     /// Image `icon_screen_bg_g_shadow`.
     static let icon_screen_bg_g_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow")
     /// Image `icon_screen_bg_g`.
     static let icon_screen_bg_g = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g")
     /// Image `icon_screen_bg_o_d`.
     static let icon_screen_bg_o_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_d")
+    /// Image `icon_screen_bg_o_shadow_round`.
+    static let icon_screen_bg_o_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow_round")
     /// Image `icon_screen_bg_o_shadow`.
     static let icon_screen_bg_o_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow")
     /// Image `icon_screen_bg_o`.
     static let icon_screen_bg_o = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o")
-    /// Image `icon_screen_bg`.
-    static let icon_screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg")
-    /// Image `icon_screen_s_bg`.
-    static let icon_screen_s_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_s_bg")
     /// Image `icon_setting_diamonds_u`.
     static let icon_setting_diamonds_u = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds_u")
     /// Image `icon_setting_diamonds`.
@@ -260,6 +262,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "home_btn_bg_b", bundle: ..., traitCollection: ...)`
     static func home_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.home_btn_bg_b, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "home_connect_btn_bg_b", bundle: ..., traitCollection: ...)`
+    static func home_connect_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
@@ -357,11 +364,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_room_lock, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_bg", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "icon_screen_bg_g", bundle: ..., traitCollection: ...)`
     static func icon_screen_bg_g(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_screen_bg_g, compatibleWith: traitCollection)
@@ -375,6 +377,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_screen_bg_g_shadow", bundle: ..., traitCollection: ...)`
     static func icon_screen_bg_g_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g_shadow_round", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow_round, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_screen_bg_o", bundle: ..., traitCollection: ...)`
@@ -392,9 +399,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_s_bg", bundle: ..., traitCollection: ...)`
-    static func icon_screen_s_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_s_bg, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_screen_bg_o_shadow_round", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow_round, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_setting", bundle: ..., traitCollection: ...)`
@@ -445,8 +452,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 8 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 10 nibs.
   struct nib {
+    /// Nib `CreateGlobalChannelController`.
+    static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
+    /// Nib `CreateSecretChannelController`.
+    static let createSecretChannelController = _R.nib._CreateSecretChannelController()
     /// Nib `GlobalChannelContainer`.
     static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
@@ -463,6 +474,18 @@ struct R: Rswift.Validatable {
     static let screenContainer = _R.nib._ScreenContainer()
     /// Nib `SecretChannelContainer`.
     static let secretChannelContainer = _R.nib._SecretChannelContainer()
+    
+    /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
+    static func createGlobalChannelController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.createGlobalChannelController)
+    }
+    
+    /// `UINib(name: "CreateSecretChannelController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.createSecretChannelController) instead")
+    static func createSecretChannelController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.createSecretChannelController)
+    }
     
     /// `UINib(name: "GlobalChannelContainer", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.globalChannelContainer) instead")
@@ -510,6 +533,14 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.secretChannelContainer) instead")
     static func secretChannelContainer(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.secretChannelContainer)
+    }
+    
+    static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func createSecretChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.createSecretChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func globalChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -584,7 +615,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 39 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 42 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -622,6 +653,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let guideContinue = Rswift.StringResource(key: "guide.continue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Copied
+      /// 
+      /// Locales: en
+      static let copied = Rswift.StringResource(key: "copied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -646,7 +681,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// en translation: Join secret channel to chat with your friends
       /// 
       /// Locales: en
       static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -734,6 +769,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let networkNotReachable = Rswift.StringResource(key: "network.not.reachable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You don't have any secret channel yet, create or join one
+      /// 
+      /// Locales: en
+      static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your passcode has no corresponding secret channel, create or join one 
+      /// 
+      /// Locales: en
+      static let addChannelSecretErrorPasscode = Rswift.StringResource(key: "add.channel.secret.error.passcode", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -806,6 +849,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("guide.continue", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Copied
+      /// 
+      /// Locales: en
+      static func copied(_: Void = ()) -> String {
+        return NSLocalizedString("copied", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -848,7 +898,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// en translation: Join secret channel to chat with your friends
       /// 
       /// Locales: en
       static func addChannelSecretTipsDes(_: Void = ()) -> String {
@@ -1002,6 +1052,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("network.not.reachable", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: You don't have any secret channel yet, create or join one
+      /// 
+      /// Locales: en
+      static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your passcode has no corresponding secret channel, create or join one 
+      /// 
+      /// Locales: en
+      static func addChannelSecretErrorPasscode(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.error.passcode", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -1050,6 +1114,28 @@ struct _R: Rswift.Validatable {
       try _PremiumContainer.validate()
       try _ScreenContainer.validate()
       try _SecretChannelContainer.validate()
+    }
+    
+    struct _CreateGlobalChannelController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CreateGlobalChannelController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _CreateSecretChannelController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CreateSecretChannelController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
     }
     
     struct _GlobalChannelContainer: Rswift.NibResourceType {
@@ -1288,6 +1374,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "btn_up", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_up' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "button_press", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'button_press' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "home_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "home_connect_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_connect_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in storyboard 'Main', but couldn't be loaded.") }

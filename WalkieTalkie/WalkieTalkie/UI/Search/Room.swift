@@ -14,6 +14,7 @@ struct Room: Codable, DefaultsSerializable {
     enum RoomType: String, DefaultsSerializable, Codable {
         case `default`
         case add //add new
+        case empty
         
         static var _defaults: DefaultsRawRepresentableBridge<RoomType> {
             return DefaultsRawRepresentableBridge<RoomType>()
@@ -25,7 +26,7 @@ struct Room: Codable, DefaultsSerializable {
     }
     
     static let `default` = Room(name: "WELCOME", user_count: 0)
-    static let empty = Room(name: "", user_count: 0)
+    static let empty = Room(name: "", user_count: 0, type: .empty)
     static let add = Room(name: "Create new", user_count: 0, type: .add)
 
     let name: String
@@ -52,6 +53,14 @@ struct Room: Codable, DefaultsSerializable {
     
     mutating func updateJoinInterval() {
         joinAt = Date().timeIntervalSince1970
+    }
+    
+    var isValidForPrivateChannel: Bool {
+        guard isPrivate, !persistence else {
+            return true
+        }
+        let interval = Date().timeIntervalSince1970
+        return (interval - joinAt) < 30 * 60
     }
     
     var showName: String {
@@ -82,7 +91,7 @@ extension String {
             guard let name = split(bySeparator: "_").last else {
                 return self
             }
-            guard !name.isEmpty else {
+            guard name.count == PasswordGenerator.shared.totalCount else {
                 return name
             }
             let start = name.index(name.startIndex, offsetBy: 2)
