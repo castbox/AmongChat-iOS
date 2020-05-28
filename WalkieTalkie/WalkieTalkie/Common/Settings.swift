@@ -306,6 +306,15 @@ extension DefaultsAdapter {
     }
     
     func set(channel: Room?, mode: Mode) {
+        //保护存储错误
+        if mode == .public,
+            channel?.name.isPrivate ?? false {
+            return
+        }
+        if mode == .private,
+        !(channel?.name.isPrivate ?? true) {
+            return
+        }
         Defaults[key: DefaultsKeys.channel(for: mode)] = channel
     }
 }
