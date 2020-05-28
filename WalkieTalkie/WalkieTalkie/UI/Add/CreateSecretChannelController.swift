@@ -32,6 +32,15 @@ class CreateSecretChannelController: ViewController {
         Logger.UserAction.log(.secret)
 
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Logger.PageShow.log(.secret_channel_create_pop_imp)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +67,7 @@ class CreateSecretChannelController: ViewController {
 
 extension CreateSecretChannelController {
     func dismiss() {
-        //        Logger.PageShow.log(.secret_channel_create_pop_close)
+        Logger.PageShow.log(.secret_channel_create_pop_close)
         hideModal()
     }
     

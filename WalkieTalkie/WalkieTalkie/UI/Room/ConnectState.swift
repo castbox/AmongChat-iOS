@@ -27,6 +27,15 @@ enum ConnectState: Int {
 }
 
 extension ConnectState {
+    var isConnectingState: Bool {
+        let connectingState: [ConnectState] = [
+            .connecting,
+            .connected,
+            .reconnecting,
+        ]
+        return connectingState.contains(self)
+    }
+    
     var title: String {
         switch self {
         case .connecting:

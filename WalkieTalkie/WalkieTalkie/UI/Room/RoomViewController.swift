@@ -223,7 +223,9 @@ class RoomViewController: ViewController {
     
     func leaveChannel() {
         UIApplication.shared.isIdleTimerDisabled = false
+        speakButtonTrigger.isUserInteractionEnabled = false
         mManager.leaveChannel()
+        speakButtonTrigger.isUserInteractionEnabled = true
     }
   
     func joinChannel(_ name: String?) {
@@ -645,11 +647,18 @@ private extension RoomViewController {
                 }
                 self.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
                 self.speakButton.alpha = highlighted ? 1 : 0.6
+                let previousState = self.state
                 self.state = highlighted ? .preparing : .connected
                 self.segmentControl.isEnabled = !highlighted
                 self.userStatus = highlighted ? .broadcaster : .audiance
                 self.screenContainer.updateMicView(alpha: highlighted ? 1 : 0.3)
-//                self?.micView.alpha = highlighted ? 1 : 0.3
+                cdPrint("state: \(self.state) highlighted: \(highlighted)")
+                //play sounds with highlighted
+                if !highlighted {
+                    if previousState.isConnectingState {
+                        return
+                    }
+                }
                 self.updateRole(highlighted)
             })
             .disposed(by: bag)

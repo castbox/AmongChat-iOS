@@ -13,7 +13,8 @@ class CreateGlobalChannelController: ViewController {
     @IBOutlet weak var container: GlobalChannelContainer!
 
     var joinChannel: (String, Bool) -> Void = { _, _ in }
-
+    private var dismissFromJoinChannel: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +22,7 @@ class CreateGlobalChannelController: ViewController {
         
         container.joinChannel = { [weak self] name, autoShare in
             self?.joinChannel(name, autoShare)
+            self?.dismissFromJoinChannel = true
             self?.dismiss()
         }
         
@@ -44,7 +46,7 @@ class CreateGlobalChannelController: ViewController {
 
 extension CreateGlobalChannelController {
     func shouldDismiss() -> Bool {
-        if container.isFirstResponder {
+        if !dismissFromJoinChannel, container.isFirstResponder {
             self.view.endEditing(true)
             return false
         }

@@ -26,7 +26,7 @@ extension ChannelType {
     func screenImage(with isConnected: Bool) -> UIImage? {
         switch self {
         case .public:
-            return isConnected ? R.image.icon_screen_bg_g() : R.image.icon_screen_bg_g_d()
+            return isConnected ? R.image.icon_screen_bg_g() : R.image.icon_screen_bg_g_d_pdf()
         case .private:
             return isConnected ? R.image.icon_screen_bg_o() : R.image.icon_screen_bg_o_d()
         }

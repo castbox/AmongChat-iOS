@@ -22,6 +22,7 @@ class SearchViewModel {
     var querySourceSubject = BehaviorSubject<[Room]>(value: [])
     var mode: Mode = .public {
         didSet {
+            queryString = nil
             updateQueryStorce()
         }
     }

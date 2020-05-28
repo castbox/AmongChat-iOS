@@ -364,6 +364,8 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - PINCache (2.3)
+  - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
   - Protobuf (3.11.4)
   - R.swift (5.0.3):
@@ -380,6 +382,17 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SnapKit (4.2.0)
+  - SnapSDK (1.4.4):
+    - SnapSDK/SCSDKBitmojiKit (= 1.4.4)
+    - SnapSDK/SCSDKCreativeKit (= 1.4.4)
+    - SnapSDK/SCSDKLoginKit (= 1.4.4)
+    - SnapSDK/SCSDKStoryKit (= 1.4.4)
+  - SnapSDK/SCSDKBitmojiKit (1.4.4):
+    - PINCache (< 3.1, >= 2.3)
+    - PINOperation (~> 1.1)
+  - SnapSDK/SCSDKCreativeKit (1.4.4)
+  - SnapSDK/SCSDKLoginKit (1.4.4)
+  - SnapSDK/SCSDKStoryKit (1.4.4)
   - SSZipArchive (2.1.5)
   - SwifterSwift (5.2.0):
     - SwifterSwift/AppKit (= 5.2.0)
@@ -443,6 +456,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxGesture (= 3.0.2)
   - SnapKit (~> 4.2.0)
+  - SnapSDK
   - SwifterSwift
   - SwiftHash
   - SwiftLint (= 0.31.0)
@@ -497,6 +511,8 @@ SPEC REPOS:
     - mopub-ios-sdk
     - Moya
     - nanopb
+    - PINCache
+    - PINOperation
     - PromisesObjC
     - Protobuf
     - R.swift
@@ -507,6 +523,7 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SnapKit
+    - SnapSDK
     - SSZipArchive
     - SwifterSwift
     - SwiftHash
@@ -561,6 +578,8 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
+  PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
@@ -571,6 +590,7 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
   SwifterSwift: 334181863c416882d97b7a60c05054d9e4d799e2
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
@@ -581,6 +601,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
 
-PODFILE CHECKSUM: 3220c062d90d2bff5005fd0d33db9fe9fa100b68
+PODFILE CHECKSUM: 64181ce25d1f196c1f1142ff24aa5d18cb27f4f9
 
 COCOAPODS: 1.9.1

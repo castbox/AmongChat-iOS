@@ -33,7 +33,7 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="63J-cd-JMl">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_d" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-mf-2tx">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_d_pdf" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-mf-2tx">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                         </imageView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Hvf-Il-oM0">
@@ -121,7 +121,7 @@
     <resources>
         <image name="icon_mic" width="25" height="25"/>
         <image name="icon_room_lock" width="25" height="25"/>
-        <image name="icon_screen_bg_g_d" width="277" height="125"/>
+        <image name="icon_screen_bg_g_d_pdf" width="554" height="250"/>
         <image name="icon_screen_bg_g_shadow" width="214.5" height="110"/>
     </resources>
 </document>

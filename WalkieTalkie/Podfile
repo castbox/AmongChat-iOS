@@ -111,6 +111,8 @@ target 'WalkieTalkie' do
     pod 'JXPagingView/Paging', '2.0.3'
     pod 'JXSegmentedView'
     
+    pod 'SnapSDK'
+    
     #https://github.com/gmarm/BetterSegmentedControl
     pod 'BetterSegmentedControl'
 end

@@ -164,8 +164,8 @@ struct R: Rswift.Validatable {
     static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
-    /// Image `icon_screen_bg_g_d`.
-    static let icon_screen_bg_g_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d")
+    /// Image `icon_screen_bg_g_d_pdf`.
+    static let icon_screen_bg_g_d_pdf = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d_pdf")
     /// Image `icon_screen_bg_g_shadow_round`.
     static let icon_screen_bg_g_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow_round")
     /// Image `icon_screen_bg_g_shadow`.
@@ -369,9 +369,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_screen_bg_g, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_bg_g_d", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_g_d(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_d, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_screen_bg_g_d_pdf", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_d_pdf(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_d_pdf, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_screen_bg_g_shadow", bundle: ..., traitCollection: ...)`
@@ -1268,7 +1268,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_mic' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg_g_d", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_d' is used in nib 'ScreenContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_screen_bg_g_d_pdf", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_d_pdf' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_screen_bg_g_shadow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_shadow' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
