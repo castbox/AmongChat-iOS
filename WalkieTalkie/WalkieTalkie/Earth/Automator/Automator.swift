@@ -21,6 +21,7 @@ class Automator {
         // FireMessage -> Routes
         // 监听通知，启动路由
         FireMessaging.shared.anpsMessageValue()
+            .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { (message) in
 //                Routes.handle(message.uri)
                 cdPrint("message: \(message.uri) \(message.userInfo)")

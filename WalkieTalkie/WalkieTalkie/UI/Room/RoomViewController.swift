@@ -76,8 +76,13 @@ class RoomViewController: ViewController {
     private var channelName: String {
         return channel.name
     }
-    
+//    private var isEnableForSegmentControlRelay = BehaviorRelay(value: true)
     private var hotBag: DisposeBag? = DisposeBag()
+    var isSegmentControlEnable: Bool = true {
+        didSet {
+            segmentControl.isEnabled = isSegmentControlEnable
+        }
+    }
     
     private var state: ConnectState = .disconnected {
         didSet {
@@ -226,7 +231,7 @@ class RoomViewController: ViewController {
     }
     
     @discardableResult
-    private func _joinChannel(_ name: String?) -> Bool {
+    private func _joinChannel(_ name: String?, completionBlock: (() -> Void)? = nil) -> Bool {
         guard let name = name else {
             return false
         }
@@ -248,6 +253,8 @@ class RoomViewController: ViewController {
                 HapticFeedback.Impact.medium()
                 self?.viewModel.requestEnterRoom()
                 UIApplication.shared.isIdleTimerDisabled = true
+                self?.isSegmentControlEnable = true
+                completionBlock?()
             }
         }
         return true
@@ -273,6 +280,17 @@ class RoomViewController: ViewController {
             }
         }
     }
+    
+    func update(mode: Int) {
+        //正在连接
+//        if self.mManager.isConnectedState {
+            self.leaveChannel()
+//        }
+        //已断开
+        //change the style
+        let mode = Mode(index: mode)
+        self.screenContainer.update(mode: mode)
+    }
 }
 
 // MARK: - ChatRoomDelegate
@@ -288,6 +306,7 @@ extension RoomViewController: ChatRoomDelegate {
             .subscribe(onNext: { [weak self] _ in
 //                self?.connectStateLabel.text = "OCCOR ERROR"
                 self?.screenContainer.update(state: .timeout)
+                self?.isSegmentControlEnable = true
             })
             .disposed(by: bag)
     }
@@ -310,6 +329,7 @@ extension RoomViewController: ChatRoomDelegate {
             .subscribe(onNext: { [weak self] _ in
 //                self?.connectStateLabel.text = "TIMEOUT"
                 self?.screenContainer.update(state: .timeout)
+                self?.isSegmentControlEnable = true
             })
             .disposed(by: bag)
     }
@@ -353,6 +373,9 @@ extension RoomViewController: ChatRoomDelegate {
     
     @objc
     func updateIsMuted(_ value: NSNumber) {
+        guard mManager.isConnectedState else {
+            return
+        }
         let isMute = value.boolValue
         if isMute {
             if mManager.state == .connected {
@@ -396,7 +419,9 @@ extension RoomViewController: ScreenContainerDelegate {
     
     func containerShouldJoinChannel(name: String?, directly: Bool) -> Bool {
         if directly {
-            return _joinChannel(name)
+            let result = _joinChannel(name)
+            isSegmentControlEnable = !result
+            return result
         } else {
             joinChannelSubject.onNext(name)
             return true
@@ -409,7 +434,9 @@ extension RoomViewController: ScreenContainerDelegate {
     
     func containerDidUpdate(to mode: Mode) {
         if segmentControl.index != mode.intValue {
+            segmentControl.alwaysAnnouncesValue = false
             segmentControl.setIndex(mode.intValue, animated: true)
+            segmentControl.alwaysAnnouncesValue = true
         }
     }
     
@@ -552,11 +579,14 @@ private extension RoomViewController {
             .observeOn(MainScheduler.asyncInstance)
             .do(onNext: { [weak self] name in
                 //find
+                self?.isSegmentControlEnable = false
                 self?.channel = FireStore.shared.findValidRoom(with: name)
             })
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
-                self?._joinChannel(name)
+                guard let `self` = self else { return }
+                let result = self._joinChannel(name)
+                self.isSegmentControlEnable = !result
             })
             .disposed(by: bag)
        
@@ -592,40 +622,42 @@ private extension RoomViewController {
                 return true
             }
             .distinctUntilChanged()
-            .debug()
-            .flatMap { value -> Observable<Bool> in
-                guard !value else {
-                    return Observable.just(value)
+//            .debug()
+            .flatMap { [weak self] value -> Observable<(Bool, Mode)> in
+                //            return Observable.just((true, .public))
+                guard let mode = self?.mode else {
+                    return .just((false, .public))
                 }
-                return Observable.just(value)
+                guard !value else {
+                    return Observable.just((value, mode))
+                }
+                return Observable.just((value, mode))
                     .delay(.fromSeconds(0.3), scheduler: MainScheduler.asyncInstance)
             }
-            .debug()
-            .subscribe(onNext: { [weak self] highlighted in
+//            .debug()
+            .subscribe(onNext: { [weak self] (highlighted, mode) in
+                guard let `self` = self,
+                    self.mode == mode else {
+                    return
+                }
                 if highlighted {
                     HapticFeedback.Impact.light()
                 }
-                self?.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
-                self?.speakButton.alpha = highlighted ? 1 : 0.6
-                self?.state = highlighted ? .preparing : .connected
-                self?.userStatus = highlighted ? .broadcaster : .audiance
-                self?.screenContainer.updateMicView(alpha: highlighted ? 1 : 0.3)
+                self.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
+                self.speakButton.alpha = highlighted ? 1 : 0.6
+                self.state = highlighted ? .preparing : .connected
+                self.segmentControl.isEnabled = !highlighted
+                self.userStatus = highlighted ? .broadcaster : .audiance
+                self.screenContainer.updateMicView(alpha: highlighted ? 1 : 0.3)
 //                self?.micView.alpha = highlighted ? 1 : 0.3
-                self?.updateRole(highlighted)
+                self.updateRole(highlighted)
             })
             .disposed(by: bag)
         
         segmentControl.rx.controlEvent(.valueChanged)
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                //正在连接
-                if self.mManager.isConnectedState {
-                    self.leaveChannel()
-                }
-                //已断开
-                //change the style
-                let mode = Mode(index: self.segmentControl.index)
-                self.screenContainer.update(mode: mode)
+                self.update(mode: self.segmentControl.index)
             })
             .disposed(by: bag)
         

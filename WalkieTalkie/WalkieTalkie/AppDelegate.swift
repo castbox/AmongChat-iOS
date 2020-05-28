@@ -109,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         guard name.isPrivate else {
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+            roomVc.update(mode: Mode.public.intValue)
             roomVc.joinChannel(name)
             return true
         }
@@ -117,6 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             removeHandler()
             if result {
                 Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                roomVc.update(mode: Mode.private.intValue)
                 roomVc.joinChannel(name)
             } else {
                 roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
