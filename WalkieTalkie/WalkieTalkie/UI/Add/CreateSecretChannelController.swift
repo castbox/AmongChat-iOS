@@ -17,12 +17,12 @@ class CreateSecretChannelController: ViewController {
     }
     
     var container: SecretChannelContainer!
-    
+    var source: Logger.PageShow.Category = .empty
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     var alert: AlertType = .none
     
     static func show(from vc: UIViewController, alert: AlertType = .none, joinChannel: @escaping (String, Bool) -> Void) {
-        
+        Logger.logger(Logger.Action.EventName.create_secret_clk.rawValue, alert.loggerCategoryName)
         let controller = CreateSecretChannelController()
         controller.alert = alert
         controller.joinChannel = { name, autoShare in
@@ -40,7 +40,7 @@ class CreateSecretChannelController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Logger.PageShow.log(.secret_channel_create_pop_imp)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -57,6 +57,7 @@ class CreateSecretChannelController: ViewController {
 
         // Do any additional setup after loading the view.
         container = SecretChannelContainer()
+        container.sourceCategory = alert.loggerCategoryName
         view.addSubview(container)
         container.snp.makeConstraints { maker in
             maker.leading.top.trailing.equalToSuperview()
@@ -88,12 +89,15 @@ class CreateSecretChannelController: ViewController {
             self.container.alertEmojiLabel.shake()
         }
         
+        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_imp.rawValue,
+                               alert.loggerCategoryName)
     }
 }
 
 extension CreateSecretChannelController {
     func dismiss() {
-        Logger.PageShow.log(.secret_channel_create_pop_close)
+        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_close.rawValue,
+                               alert.loggerCategoryName)
         hideModal()
     }
     
@@ -167,4 +171,18 @@ extension CreateSecretChannelController.AlertType {
             return nil
         }
     }
+    
+    var loggerCategoryName: String? {
+        switch self {
+        case .emptySecretRooms:
+            return Logger.PageShow.Category.empty.rawValue
+        case .errorPasscode:
+            return Logger.PageShow.Category.wrong_passcode.rawValue
+        case .invalid:
+            return Logger.PageShow.Category.invaild.rawValue
+        case .none:
+            return Logger.PageShow.Category.normal.rawValue
+        }
+    }
 }
+

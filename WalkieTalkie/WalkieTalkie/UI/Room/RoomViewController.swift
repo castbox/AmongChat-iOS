@@ -17,6 +17,7 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 import BetterSegmentedControl
+import Crashlytics
 
 enum UserStatus {
     case audiance
@@ -143,6 +144,7 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
+        Crashlytics.sharedInstance().crash()
         Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {

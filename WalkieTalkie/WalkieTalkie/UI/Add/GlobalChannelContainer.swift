@@ -44,6 +44,7 @@ class GlobalChannelContainer: XibLoadableView {
     }
     
     func joinChannel(_ channel: String?) {
+        Logger.Action.log(.create_global_clk)
         guard let channel = channel else {
             return
         }

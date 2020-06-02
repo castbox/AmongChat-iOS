@@ -35,6 +35,7 @@ class CreateGlobalChannelController: ViewController {
             })
             .disposed(by: bag)
 
+        Logger.Action.log(.global_create_imp)
     }
 
     func dismiss() {

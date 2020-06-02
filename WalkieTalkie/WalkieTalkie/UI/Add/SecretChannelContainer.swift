@@ -40,6 +40,7 @@ class SecretChannelContainer: XibLoadableView {
     weak var viewController: ViewController?
     
     var joinChannel: (String, Bool) -> Void = { _, _ in }
+    var sourceCategory: String?
     
     deinit {
         cdPrint("[SecretChannelContainer] deinit")
@@ -84,6 +85,7 @@ class SecretChannelContainer: XibLoadableView {
     
     @IBAction func confirmButtonAction(_ sender: Any) {
         Logger.UserAction.log(.enter_secret)
+        Logger.logger(Logger.Action.EventName.enter_secret.rawValue, sourceCategory)
         guard let name = codeField.text?.uppercased() else {
             return
         }
@@ -95,6 +97,7 @@ class SecretChannelContainer: XibLoadableView {
             errorTipsLabel.shake()
             return
         }
+        Logger.logger(Logger.Action.EventName.enter_secret_success.rawValue, sourceCategory)
         //join
         _ = codeField.resignFirstResponder()
         self.joinChannel("_\(name)", false)
