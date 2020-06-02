@@ -47,7 +47,7 @@ target 'WalkieTalkie' do
     # Objective-C Pods
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'DeviceKit'
-    pod 'LYEmptyView'
+#    pod 'LYEmptyView'
     ui_pods
     firebase_pods
 
@@ -80,7 +80,7 @@ target 'WalkieTalkie' do
     
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
-    pod 'AgoraAudio_iOS', '3.0.0.2'
+    pod 'AgoraAudio_iOS', '3.0.1'
 #    pod 'AgoraRtm_iOS'
 
     pod 'JLRoutes'

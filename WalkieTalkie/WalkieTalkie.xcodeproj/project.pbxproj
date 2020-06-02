@@ -838,8 +838,8 @@
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
-				FE8DEA56243CA1130059C252 /* Fabric */,
 				C58A6116679A3F10B18CF611 /* [CP] Embed Pods Frameworks */,
+				FE8DEA56243CA1130059C252 /* Fabric */,
 			);
 			buildRules = (
 			);
