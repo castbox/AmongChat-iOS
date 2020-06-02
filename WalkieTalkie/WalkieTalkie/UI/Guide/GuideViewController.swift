@@ -25,7 +25,7 @@ class GuideViewController: ViewController {
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
     private var isFirstShowPage4 = false
-    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$19.99")
+    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
     private var selectedProductId: String? {
         didSet {
             updateContinueButtonTitle()

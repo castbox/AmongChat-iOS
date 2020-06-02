@@ -33,7 +33,10 @@ def firebase_pods
     pod 'Firebase/Analytics'
     #, '6.1.0'
     
-#    # in app messageing
+    # in app messageing
+    pod 'Firebase/InAppMessaging'
+    
+    # in app messageing
     pod 'Firebase/InAppMessagingDisplay'
 end
 

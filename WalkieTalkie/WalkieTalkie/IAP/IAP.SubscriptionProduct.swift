@@ -16,7 +16,7 @@ extension IAP {
 //        return ["wt.i.sub.vip.p1y", //29.99
 //                "wt.i.sub.vip.p1y1", //19.99
 //            ][Settings.shared.userInAGroup.int]
-        return "wt.i.sub.vip.p1y1"
+        return "wt.i.sub.vip.p1y"
     }
     static let productMonth: String = "wt.i.sub.vip.p1m"
     static let productLifeTime: String = "wt.i.iap.vip"
