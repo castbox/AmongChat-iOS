@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SCSDKCreativeKit
+import SwifterSwift
 
 class ViewController: UIViewController, ScreenLifeLogable {
     var isNavigationBarHiddenWhenAppear = false {
@@ -52,6 +54,10 @@ class ViewController: UIViewController, ScreenLifeLogable {
     let bag = DisposeBag()
     
     var screenLifeStartTime: Date = .init()
+    
+    fileprivate lazy var snapAPI = {
+        return SCSDKSnapAPI()
+    }()
     
     var screenName: Logger.Screen.Node.Start {
         return .ios_ignore
@@ -195,26 +201,33 @@ extension ViewController {
         loggerScreenDuration()
     }
     
-    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
-        guard let channelName = name,
+    static func shareUrl(for channelName: String?) -> String {
+        guard let channelName = channelName,
             let publicName = channelName.publicName else {
-            return
+            return "https://walkietalkie.live/"
         }
-        var deepLink: String {
-            if channelName.isPrivate {
-                return "https://walkietalkie.live/?passcode=\(publicName)"
-            }
-            return "https://walkietalkie.live/?channel=\(publicName)"
+        if channelName.isPrivate {
+            return "https://walkietalkie.live/?passcode=\(publicName)"
         }
+        return "https://walkietalkie.live/?channel=\(publicName)"
+    }
+    
+    static func shareTitle(for channelName: String?) -> String? {
+        guard let channelName = channelName,
+            let publicName = channelName.publicName else {
+                return nil
+        }
+        let deepLink = shareUrl(for: channelName)
         var prefixString: String {
             if channelName.isPrivate {
-                return "passcode: \(publicName)"
+                return "Hurry ！use passcode: \(publicName) to join our secret channel."
             }
-            return "channel: \(publicName)"
+            return "Hey, your friends are waiting for you, join us now"
         }
+        
         let shareString =
         """
-        Hurry ！use \(prefixString) to join our secret channel.
+        \(prefixString)
         \(deepLink)
         
         iOS: https://apps.apple.com/app/id1505959099
@@ -222,12 +235,60 @@ extension ViewController {
         Over and out.
         #WalkieTalkieTalktoFriends
         """
+        return shareString
+    }
+    
+    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
+        guard let textToShare = Self.shareTitle(for: name) else {
+            successHandler?()
+            return
+        }
+//        let imageToShare = R.image.share_logo()!
+        let shareView = SnapChatCreativeShareView(with: name)
+        view.addSubview(shareView)
+        guard let imageToShare = shareView.screenshot else {
+            successHandler?()
+            return
+        }
+        shareView.removeFromSuperview()
         
-        let textToShare = shareString
-        let imageToShare = R.image.share_logo()!
-//        let urlToShare = NSURL(string: deepLink)
+        let urlToShare = Self.shareUrl(for: name)
         let items = [textToShare, imageToShare] as [Any]
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let snapChat = ActivityViewCustomActivity(title: "Snapchat", image: R.image.logo_snapchat()) { [weak self] in
+            guard let `self` = self else { return }
+//            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
+            
+            /* Sticker to be used in the Snap */
+//            let stickerImage = imageToShare!/* Prepare a sticker image */
+            let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
+            sticker.width = shareView.width
+            sticker.height = shareView.height
+            /* Alternatively, use a URL instead */
+            // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
+
+            /* Modeling a Snap using SCSDKPhotoSnapContent */
+            let snapContent = SCSDKNoSnapContent()
+            snapContent.sticker = sticker /* Optional */
+//            snapContent.caption = textToShare /* Optional */
+            snapContent.attachmentUrl = urlToShare /* Optional */
+            
+            // Send it over to Snapchat
+            
+            // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
+            //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
+            //       Either synchronize the method call yourself or disable user interaction until the share is over.
+            let removeHandler = self.view.raft.show(.loading)
+//            self.view.isUserInteractionEnabled = false
+            self.snapAPI.startSending(snapContent) { (error: Error?) in
+                removeHandler()
+//                self?.view.isUserInteractionEnabled = true
+//                self?.isSharing = false
+                print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
+            }
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [snapChat])
+        activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             if success {
                 successHandler?()
@@ -237,5 +298,58 @@ extension ViewController {
             
         })
 
+    }
+}
+
+class ActivityViewCustomActivity: UIActivity {
+
+    var customActivityType = ""
+    var activityName = ""
+    var iconImage: UIImage?
+    var customActionWhenTapped: (() -> Void)?
+
+    init(title: String, image: UIImage?, performAction: (() -> ())?) {
+        self.activityName = title
+        self.iconImage = image
+        self.customActivityType = "Action \(title)"
+        self.customActionWhenTapped = performAction
+        super.init()
+    }
+    
+    override var activityType: UIActivity.ActivityType? {
+        UIActivity.ActivityType(rawValue: "live.walkietalkie.snapchat.activity")
+    }
+
+    override class var activityCategory: UIActivity.Category {
+        .share
+    }
+    
+    override var activityTitle: String? {
+        activityName
+    }
+
+    override var activityImage: UIImage? {
+        iconImage
+    }
+    
+    @objc var _activitySettingsImage: UIImage? {
+        return iconImage?.withRoundedCorners(radius: 10)?.scaled(toWidth: 29)
+    }
+
+    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
+        return true
+    }
+    
+    override func prepare(withActivityItems activityItems: [Any]) {
+        // nothing to prepare
+    }
+
+    override var activityViewController: UIViewController? {
+        nil
+    }
+
+    override func perform() {
+        customActionWhenTapped?()
+        activityDidFinish(true)
     }
 }

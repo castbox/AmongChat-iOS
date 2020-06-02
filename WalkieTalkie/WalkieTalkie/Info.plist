@@ -20,6 +20,17 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>walkietalkie</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>GADApplicationIdentifier</key>
@@ -37,6 +48,8 @@
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>need mic to join the room</string>
+	<key>SCSDKClientId</key>
+	<string>944a91d7-5a1f-4812-9821-7e823d680baf</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BlackOpsOne-Regular.ttf</string>
@@ -68,5 +81,9 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>snapchat</string>
+	</array>
 </dict>
 </plist>

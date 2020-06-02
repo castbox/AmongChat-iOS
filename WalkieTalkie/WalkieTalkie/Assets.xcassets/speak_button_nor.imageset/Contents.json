@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "speak_button_pre@2x.png",
+      "filename" : "speak_button_nor@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "speak_button_pre@3x.png",
+      "filename" : "speak_button_nor@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -28,6 +28,8 @@ class SearchViewController: UITableViewController {
          self.clearsSelectionOnViewWillAppear = true
         tableView.tableHeaderView = UIView()
         tableView.tableFooterView = UIView()
+        tableView.showsVerticalScrollIndicator = true
+//        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
         viewModel.querySourceSubject
             .observeOn(MainScheduler.asyncInstance)
@@ -39,7 +41,7 @@ class SearchViewController: UITableViewController {
     
     func setChannel(type: ChannelType?) {
         self.currentType = type ?? .public
-        tableView.backgroundColor = currentType.screenColor
+//        tableView.backgroundColor = currentType.screenColor
     }
     
     func set(query: String) {
@@ -61,7 +63,7 @@ class SearchViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchCell
         cell.set(dataSource[indexPath.row])
-        cell.backgroundColor = currentType.screenColor
+//        cell.backgroundColor = currentType.screenColor
         return cell
     }
     
@@ -72,7 +74,7 @@ class SearchViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 58
+        return 47
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -90,6 +92,15 @@ class SearchCell: UITableViewCell {
     @IBOutlet weak var tagView: UILabel!
     @IBOutlet weak var lockIconView: UIImageView!
     
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let point = convert(point, to: self)
+        return bounds.contains(point)
+    }
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        return self
+    }
+    
     func set(_ room: Room?) {
         guard let room = room else {
             return
@@ -102,6 +113,11 @@ class SearchCell: UITableViewCell {
         }()
         let isPrivate = room.name.isPrivate
         lockIconView.isHidden = !isPrivate
+        if room.type == .add {
+            tagView.text = "+"
+        } else {
+            tagView.text = "#"
+        }
         tagView.isHidden = isPrivate
 //        countLabelWidthConstraint.constant = countLabel.textRect(forBounds: CGRect(x: 0, y: 0, width: 200, height: 30), limitedToNumberOfLines: 1).size.width
     }

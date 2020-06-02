@@ -71,26 +71,28 @@ extension Modalable where Self: UIViewController {
         let cover = Modal.Cover(frame: UIScreen.main.bounds)
         cover.tag = coverViewTag
 
-        let dismissBlock: (UIView) -> Void = { cover in
+        let dismissBlock: (UIView) -> Void = { [weak self] coverView in
+            guard let `self` = self else { return }
             let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: { [weak self] in
                 self?.view.frame = CGRect(x: 0.0,
                                           y: Frame.Screen.height,
                                           width: UIScreen.main.bounds.width,
                                           height: UIScreen.main.bounds.height)
-                cover.alpha = 0
+                coverView.alpha = 0
             })
             transitionAnimator.addCompletion { [weak self] _ in
                 self?.willMove(toParent: nil)
                 self?.view.removeFromSuperview()
                 self?.removeFromParent()
-                cover.removeFromSuperview()
+                coverView.removeFromSuperview()
             }
             transitionAnimator.startAnimation()
         }
         
-        cover.onTapped = { [weak self] in
+        cover.onTapped = { [weak self, weak cover] in
             guard let `self` = self,
-                self.canAutoDismiss() else {
+                self.canAutoDismiss(),
+                let cover = cover else {
                     return
             }
             dismissBlock(cover)
@@ -106,8 +108,8 @@ extension Modalable where Self: UIViewController {
         }
         
         let coverAlpha = self.coverAlpha()
-        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: {
-            self.view.frame = CGRect(x: 0.0,
+        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: { [weak self] in
+            self?.view.frame = CGRect(x: 0.0,
                                      y: height,
                                      width: UIScreen.main.bounds.width,
                                      height: UIScreen.main.bounds.height)

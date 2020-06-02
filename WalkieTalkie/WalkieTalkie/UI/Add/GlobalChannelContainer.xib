@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -28,29 +28,29 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="278"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rZk-Pm-Osw">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="278"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GIA-qA-jg9">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="435"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="278"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Global Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bXQ-fl-Dwk" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="25" y="31" width="206" height="27.5"/>
+                            <rect key="frame" x="25" y="25" width="206" height="27.5"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a channel visible to everyone and chat with them" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ta-de-3ga" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="25" y="63" width="364" height="19.5"/>
+                            <rect key="frame" x="25" y="57" width="364" height="19.5"/>
                             <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YxI-hB-RRU">
-                            <rect key="frame" x="25" y="98.5" width="364" height="50"/>
+                            <rect key="frame" x="25" y="91.5" width="364" height="50"/>
                             <subviews>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4eh-e4-9KW" customClass="ChannelNameField" customModule="WalkieTalkie" customModuleProvider="target">
                                     <rect key="frame" x="15" y="0.0" width="349" height="50"/>
@@ -79,8 +79,8 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="675-xO-rm4" customClass="WalkieButton" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="50" y="360" width="314" height="44"/>
-                            <color key="backgroundColor" red="0.95294117649999999" green="0.65098039220000004" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <rect key="frame" x="50" y="171.5" width="314" height="44"/>
+                            <color key="backgroundColor" red="0.58431372549019611" green="0.75686274509803919" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="UVb-vk-i2O"/>
                             </constraints>
@@ -98,7 +98,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CeD-hV-0bC">
-                            <rect key="frame" x="0.0" y="435" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="278" width="414" height="0.0"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" id="alb-R2-8NG"/>
@@ -109,24 +109,23 @@
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="CeD-hV-0bC" secondAttribute="trailing" id="2Pt-HH-ZuX"/>
                         <constraint firstItem="bXQ-fl-Dwk" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" constant="25" id="2ng-NE-Mkl"/>
-                        <constraint firstItem="YxI-hB-RRU" firstAttribute="top" secondItem="8ta-de-3ga" secondAttribute="bottom" constant="16" id="4NL-kJ-kRt"/>
+                        <constraint firstItem="YxI-hB-RRU" firstAttribute="top" secondItem="8ta-de-3ga" secondAttribute="bottom" constant="15" id="4NL-kJ-kRt"/>
                         <constraint firstAttribute="bottom" secondItem="CeD-hV-0bC" secondAttribute="bottom" id="5pQ-7I-yF3"/>
                         <constraint firstAttribute="width" constant="414" id="5vZ-eW-Ac5"/>
                         <constraint firstAttribute="trailing" secondItem="YxI-hB-RRU" secondAttribute="trailing" constant="25" id="AFq-iQ-1uF"/>
                         <constraint firstItem="YxI-hB-RRU" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" constant="25" id="NEM-aR-rk3"/>
                         <constraint firstItem="8ta-de-3ga" firstAttribute="leading" secondItem="bXQ-fl-Dwk" secondAttribute="leading" id="PRp-Um-QvG"/>
-                        <constraint firstItem="bXQ-fl-Dwk" firstAttribute="top" secondItem="GIA-qA-jg9" secondAttribute="top" constant="31" id="QLt-SO-gyP"/>
-                        <constraint firstAttribute="height" constant="435" id="Qbj-cw-fQh"/>
+                        <constraint firstItem="bXQ-fl-Dwk" firstAttribute="top" secondItem="GIA-qA-jg9" secondAttribute="top" constant="25" id="QLt-SO-gyP"/>
                         <constraint firstItem="CeD-hV-0bC" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" id="SWz-u1-i2X"/>
                         <constraint firstItem="675-xO-rm4" firstAttribute="leading" secondItem="GIA-qA-jg9" secondAttribute="leading" constant="50" id="VDb-Q6-9SV"/>
                         <constraint firstAttribute="trailing" secondItem="8ta-de-3ga" secondAttribute="trailing" constant="25" id="XNE-QC-0n7"/>
                         <constraint firstItem="8ta-de-3ga" firstAttribute="top" secondItem="bXQ-fl-Dwk" secondAttribute="bottom" constant="4.5" id="aEa-6P-0bc"/>
-                        <constraint firstItem="CeD-hV-0bC" firstAttribute="top" secondItem="675-xO-rm4" secondAttribute="bottom" constant="31" id="omQ-xH-sff"/>
+                        <constraint firstItem="675-xO-rm4" firstAttribute="top" secondItem="YxI-hB-RRU" secondAttribute="bottom" constant="30" id="kWH-iv-H6b"/>
                         <constraint firstAttribute="trailing" secondItem="675-xO-rm4" secondAttribute="trailing" constant="50" id="qEM-2y-i2c"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rZk-Pm-Osw" secondAttribute="bottom" id="FUe-YO-10y"/>
                 <constraint firstItem="rZk-Pm-Osw" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="LPs-3z-VXg"/>

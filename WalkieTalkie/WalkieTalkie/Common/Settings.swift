@@ -195,6 +195,9 @@ class Settings {
     
     var userInAGroup: Bool {
         get {
+            #if DEBUG
+            return true
+            #endif
             if let c = userId.unicodeScalars.last {
                 return c.value % 2 == 0
             }
@@ -204,6 +207,10 @@ class Settings {
 }
 
 extension DefaultsKeys {
+    var mode: DefaultsKey<Mode> { /// app 主题 {
+        .init("mode", defaultValue: .public)
+    }
+    
     var channelName: DefaultsKey<String> {
         .init("channelName", defaultValue: "WELCOME")
     }
@@ -217,7 +224,7 @@ extension DefaultsKeys {
     }
     
     var secretChannels: DefaultsKey<[Room]> {
-        .init("channel", defaultValue: [])
+        .init("secret.channels.joined", defaultValue: [])
     }
     
     var isProKey: DefaultsKey<Bool> {
@@ -288,17 +295,32 @@ extension DefaultsKeys {
         .init("subscrbe.hot.topic", defaultValue: true)
     }
     
+    var isFirstShowSecretChannel: DefaultsKey<Bool> {
+        .init("walkie.talkie.first.show.secret", defaultValue: true)
+    }
+    
+    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
+        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
+    }
 }
 
 extension DefaultsAdapter {
-//    var validChannel: Room {
-////        var channel = Defaults[\.channel]
-////        if !channel.isValid {
-////            channel = .default
-////        }
-////        return Room(name: "_2193129", user_count: 1)
-//        return Defaults[\.channel]
-//    }
+    func channel(for mode: Mode) -> Room {
+        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+    }
+    
+    func set(channel: Room?, mode: Mode) {
+        //保护存储错误
+        if mode == .public,
+            channel?.name.isPrivate ?? false {
+            return
+        }
+        if mode == .private,
+        !(channel?.name.isPrivate ?? true) {
+            return
+        }
+        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+    }
 }
 
 extension CLLocation: DefaultsSerializable {}

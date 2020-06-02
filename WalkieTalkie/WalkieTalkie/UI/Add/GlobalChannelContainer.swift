@@ -22,32 +22,12 @@ class GlobalChannelContainer: XibLoadableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        bottonEdgeHeightConstraint.constant = Frame.Height.safeAeraBottomHeight
-        textField.didReturn = { [weak self] text in
-            self?.joinChannel(text)
-            Logger.UserAction.log(.channel_create_new, text)
-        }
-        
-        let attributes: [NSAttributedString.Key : Any] = [
-            .foregroundColor: UIColor.black.alpha(0.3),
-            .font: R.font.nunitoSemiBold(size: 15),
-            .kern: 0.5,
-        ]
-        textField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.inputPasscodeGlobalPlaceholder(), attributes: attributes)
-        
-        titleLabel.appendKern()
-        descLabel.appendKern()
-        createButton.appendKern()
-        
-        textField.defaultTextAttributes = [
-            .kern: 0.5,
-            .font: R.font.nunitoBold(size: 17),
-        ]
+        configureSubview()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        configureSubview()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -91,5 +71,31 @@ extension GlobalChannelContainer: JXPagingViewListViewDelegate {
 
     public func listDidAppear() {
         print("listDidAppear")
+    }
+}
+
+extension GlobalChannelContainer {
+    func configureSubview() {
+        bottonEdgeHeightConstraint.constant = Frame.Height.safeAeraBottomHeight
+        textField.didReturn = { [weak self] text in
+            self?.joinChannel(text)
+            Logger.UserAction.log(.channel_create_new, text)
+        }
+        
+        let attributes: [NSAttributedString.Key : Any] = [
+            .foregroundColor: UIColor.black.alpha(0.3),
+            .font: R.font.nunitoSemiBold(size: 15),
+            .kern: 0.5,
+        ]
+        textField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.inputPasscodeGlobalPlaceholder(), attributes: attributes)
+        
+        titleLabel.appendKern()
+        descLabel.appendKern()
+        createButton.appendKern()
+        
+        textField.defaultTextAttributes = [
+            .kern: 0.5,
+            .font: R.font.nunitoBold(size: 17),
+        ]
     }
 }

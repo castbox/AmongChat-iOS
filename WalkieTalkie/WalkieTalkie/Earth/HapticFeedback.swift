@@ -27,6 +27,21 @@ class HapticFeedback {
             impactOccurred(.heavy)
         }
         
+        public static func success() {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+        }
+        
+        public static func error() {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.error)
+        }
+        
+        public static func warning() {
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.warning)
+        }
+        
         fileprivate static func impactOccurred(_ style: UIImpactFeedbackGenerator.FeedbackStyle) {
             generator = UIImpactFeedbackGenerator(style: style)
             generator?.prepare()

@@ -96,7 +96,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 43 images.
+  /// This `R.image` struct is generated, and contains static references to 52 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -124,6 +124,8 @@ struct R: Rswift.Validatable {
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
+    /// Image `home_connect_btn_bg_b`.
+    static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -162,10 +164,22 @@ struct R: Rswift.Validatable {
     static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
-    /// Image `icon_screen_bg`.
-    static let icon_screen_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg")
-    /// Image `icon_screen_s_bg`.
-    static let icon_screen_s_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_s_bg")
+    /// Image `icon_screen_bg_g_d_pdf`.
+    static let icon_screen_bg_g_d_pdf = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d_pdf")
+    /// Image `icon_screen_bg_g_shadow_round`.
+    static let icon_screen_bg_g_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow_round")
+    /// Image `icon_screen_bg_g_shadow`.
+    static let icon_screen_bg_g_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow")
+    /// Image `icon_screen_bg_g`.
+    static let icon_screen_bg_g = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g")
+    /// Image `icon_screen_bg_o_d`.
+    static let icon_screen_bg_o_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_d")
+    /// Image `icon_screen_bg_o_shadow_round`.
+    static let icon_screen_bg_o_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow_round")
+    /// Image `icon_screen_bg_o_shadow`.
+    static let icon_screen_bg_o_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow")
+    /// Image `icon_screen_bg_o`.
+    static let icon_screen_bg_o = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o")
     /// Image `icon_setting_diamonds_u`.
     static let icon_setting_diamonds_u = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds_u")
     /// Image `icon_setting_diamonds`.
@@ -178,8 +192,12 @@ struct R: Rswift.Validatable {
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
+    /// Image `logo_snapchat`.
+    static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
     /// Image `share_logo`.
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
+    /// Image `snapchat_share_bg`.
+    static let snapchat_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "snapchat_share_bg")
     /// Image `speak_button_nor`.
     static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
     /// Image `speak_button_pre`.
@@ -248,6 +266,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "home_btn_bg_b", bundle: ..., traitCollection: ...)`
     static func home_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.home_btn_bg_b, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "home_connect_btn_bg_b", bundle: ..., traitCollection: ...)`
+    static func home_connect_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
@@ -345,14 +368,44 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_room_lock, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_bg", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_screen_bg_g", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_s_bg", bundle: ..., traitCollection: ...)`
-    static func icon_screen_s_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_s_bg, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_screen_bg_g_d_pdf", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_d_pdf(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_d_pdf, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g_shadow", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_g_shadow_round", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_g_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow_round, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o_d", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_d(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_d, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o_shadow", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_screen_bg_o_shadow_round", bundle: ..., traitCollection: ...)`
+    static func icon_screen_bg_o_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow_round, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_setting", bundle: ..., traitCollection: ...)`
@@ -385,9 +438,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.launch_name, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "logo_snapchat", bundle: ..., traitCollection: ...)`
+    static func logo_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
     static func share_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "snapchat_share_bg", bundle: ..., traitCollection: ...)`
+    static func snapchat_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.snapchat_share_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "speak_button_nor", bundle: ..., traitCollection: ...)`
@@ -403,8 +466,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 8 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
   struct nib {
+    /// Nib `CreateGlobalChannelController`.
+    static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
+    /// Nib `CreateSecretChannelController`.
+    static let createSecretChannelController = _R.nib._CreateSecretChannelController()
     /// Nib `GlobalChannelContainer`.
     static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
@@ -421,6 +488,20 @@ struct R: Rswift.Validatable {
     static let screenContainer = _R.nib._ScreenContainer()
     /// Nib `SecretChannelContainer`.
     static let secretChannelContainer = _R.nib._SecretChannelContainer()
+    /// Nib `SnapChatCreativeShareView`.
+    static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
+    
+    /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
+    static func createGlobalChannelController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.createGlobalChannelController)
+    }
+    
+    /// `UINib(name: "CreateSecretChannelController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.createSecretChannelController) instead")
+    static func createSecretChannelController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.createSecretChannelController)
+    }
     
     /// `UINib(name: "GlobalChannelContainer", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.globalChannelContainer) instead")
@@ -470,6 +551,20 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.secretChannelContainer)
     }
     
+    /// `UINib(name: "SnapChatCreativeShareView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.snapChatCreativeShareView) instead")
+    static func snapChatCreativeShareView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
+    }
+    
+    static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func createSecretChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.createSecretChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     static func globalChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.globalChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -500,6 +595,10 @@ struct R: Rswift.Validatable {
     
     static func secretChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.secretChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     fileprivate init() {}
@@ -542,7 +641,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 39 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 44 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -580,6 +679,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let guideContinue = Rswift.StringResource(key: "guide.continue", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Copied
+      /// 
+      /// Locales: en
+      static let copied = Rswift.StringResource(key: "copied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -604,7 +707,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// en translation: Join secret channel to chat with your friends
       /// 
       /// Locales: en
       static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -692,6 +795,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let networkNotReachable = Rswift.StringResource(key: "network.not.reachable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You don't have any secret channel yet, create or join one
+      /// 
+      /// Locales: en
+      static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You only have one secret channel
+      /// 
+      /// Locales: en
+      static let toastSingleSecretChannal = Rswift.StringResource(key: "toast.single.secret.channal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your passcode has no corresponding secret channel, create or join one 
+      /// 
+      /// Locales: en
+      static let addChannelSecretErrorPasscode = Rswift.StringResource(key: "add.channel.secret.error.passcode", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your secret channel is invalid, create or join one 👇👇👇
+      /// 
+      /// Locales: en
+      static let addChannelSecretInvalid = Rswift.StringResource(key: "add.channel.secret.invalid", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -764,6 +883,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("guide.continue", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Copied
+      /// 
+      /// Locales: en
+      static func copied(_: Void = ()) -> String {
+        return NSLocalizedString("copied", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -806,7 +932,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Input Passcode to join your friends’ Secret channel
+      /// en translation: Join secret channel to chat with your friends
       /// 
       /// Locales: en
       static func addChannelSecretTipsDes(_: Void = ()) -> String {
@@ -960,6 +1086,34 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("network.not.reachable", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: You don't have any secret channel yet, create or join one
+      /// 
+      /// Locales: en
+      static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You only have one secret channel
+      /// 
+      /// Locales: en
+      static func toastSingleSecretChannal(_: Void = ()) -> String {
+        return NSLocalizedString("toast.single.secret.channal", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your passcode has no corresponding secret channel, create or join one 
+      /// 
+      /// Locales: en
+      static func addChannelSecretErrorPasscode(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.error.passcode", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your secret channel is invalid, create or join one 👇👇👇
+      /// 
+      /// Locales: en
+      static func addChannelSecretInvalid(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.invalid", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -1008,6 +1162,29 @@ struct _R: Rswift.Validatable {
       try _PremiumContainer.validate()
       try _ScreenContainer.validate()
       try _SecretChannelContainer.validate()
+      try _SnapChatCreativeShareView.validate()
+    }
+    
+    struct _CreateGlobalChannelController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CreateGlobalChannelController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _CreateSecretChannelController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CreateSecretChannelController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
     }
     
     struct _GlobalChannelContainer: Rswift.NibResourceType {
@@ -1129,7 +1306,8 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_mic' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg' is used in nib 'ScreenContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_screen_bg_g_d_pdf", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_d_pdf' is used in nib 'ScreenContainer', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_screen_bg_g_shadow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_shadow' is used in nib 'ScreenContainer', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -1148,6 +1326,23 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SnapChatCreativeShareView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "SnapChatCreativeShareView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -1243,10 +1438,9 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "btn_private_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_private_icon' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_share", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_share' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_up", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_up' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "button_press", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'button_press' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "home_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "home_connect_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_connect_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_mic' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -1254,7 +1448,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_push", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_push' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_diamonds_u", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds_u' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_star", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_star' is used in storyboard 'Main', but couldn't be loaded.") }

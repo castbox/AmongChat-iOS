@@ -24,7 +24,8 @@ class GuideViewController: ViewController {
     private let fourthPage = R.storyboard.main.premiumViewController()!
     private var isFirstShowPage2 = false
     private var isFirstShowPage3 = false
-    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
+    private var isFirstShowPage4 = false
+    private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$19.99")
     private var selectedProductId: String? {
         didSet {
             updateContinueButtonTitle()
@@ -129,9 +130,10 @@ extension GuideViewController {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
 //                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
             }
-            iapTipsLabel.text = iapTipsLabelText
+//            iapTipsLabel.text = iapTipsLabelText
+            iapTipsLabel.isHidden = false
         } else {
-            iapTipsLabel.text = nil
+            iapTipsLabel.isHidden = true
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
             
         }
@@ -140,8 +142,8 @@ extension GuideViewController {
         continueButton.layoutIfNeeded()
         UIView.setAnimationsEnabled(true)
         
-        if !isFirstShowPage3 {
-            isFirstShowPage3 = true
+        if !isFirstShowPage4 {
+            isFirstShowPage4 = true
             Logger.IAP.logImp(.first_open)
         }
         
@@ -161,22 +163,26 @@ extension GuideViewController {
                 guard let price = maps[IAP.productYear]?.skProduct.localizedPrice else {
                     return
                 }
-                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+                //                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
+                //                if let text = self?.iapTipsLabel.text,
+                //                    !text.isEmpty {
+                self?.iapTipsLabel.text = R.string.localizable.premiumTryTitleDes(price)
+                //                }
             })
             .disposed(by: bag)
 
         FireStore.shared.onlineChannelList()
-            .debug()
+//            .debug()
             .map { items -> Room? in
                 let sortedItems = items.sorted {
                     $0.user_count > $1.user_count
                 }
                 return sortedItems.first(where: { $0.user_count <= 4 })
             }
-            .debug()
+//            .debug()
             .filterNil()
             .subscribe(onNext: { room in
-                Defaults[\.channel] = room
+                Defaults.set(channel: room, mode: .public)
             })
             .disposed(by: bag)
     }

@@ -17,6 +17,8 @@ enum ConnectState: Int {
     case maxMic
     case preparing
     case talking
+    case maxUser
+    case timeout
     
 //    case
     init(_ state: AgoraConnectionStateType) {
@@ -25,6 +27,15 @@ enum ConnectState: Int {
 }
 
 extension ConnectState {
+    var isConnectingState: Bool {
+        let connectingState: [ConnectState] = [
+            .connecting,
+            .connected,
+            .reconnecting,
+        ]
+        return connectingState.contains(self)
+    }
+    
     var title: String {
         switch self {
         case .connecting:
@@ -43,6 +54,10 @@ extension ConnectState {
             return "PREPARING..."
         case .talking:
             return "talking..."
+        case .maxUser:
+            return R.string.localizable.channelUserMaxState()
+        case .timeout:
+            return "Timeout"
         }
     }
 }

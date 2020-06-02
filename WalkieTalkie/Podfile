@@ -1,5 +1,6 @@
 source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
+install!'cocoapods',:deterministic_uuids=>false
 
 def core_pods
     pod 'RxSwift', '5.1'
@@ -21,19 +22,19 @@ def firebase_pods
 
     # Firebase Remote Configure
     pod 'Firebase/RemoteConfig'
-    
+
     # Firestore
     pod 'Firebase/Firestore'
-    
+
 #    # Firebase auth
 #    pod 'Firebase/Auth'
-    
+
     # log
     pod 'Firebase/Analytics'
     #, '6.1.0'
     
 #    # in app messageing
-#    pod 'Firebase/InAppMessagingDisplay'
+    pod 'Firebase/InAppMessagingDisplay'
 end
 
 # specify the version numbers in case of Podfile.lock missing
@@ -53,7 +54,10 @@ target 'WalkieTalkie' do
     pod 'Moya'
     pod 'Moya/RxSwift'
 
-    pod 'Firebase/Crashlytics'
+#    pod 'Firebase/Crashlytics'
+    pod 'Fabric', '~> 1.10.2'
+    pod 'Crashlytics', '~> 3.14.0'
+
     # Crash 统计
 #    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.4.1'
 
@@ -110,6 +114,11 @@ target 'WalkieTalkie' do
     pod 'JXCategoryView'
     pod 'JXPagingView/Paging', '2.0.3'
     pod 'JXSegmentedView'
+    
+    pod 'SnapSDK'
+    
+    #https://github.com/gmarm/BetterSegmentedControl
+    pod 'BetterSegmentedControl'
 end
 
 post_install do |installer|

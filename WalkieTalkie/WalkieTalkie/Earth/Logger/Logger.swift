@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAnalytics
+//import FirebaseCrashlytics
 import Crashlytics
 import StoreKit
 
@@ -85,14 +86,13 @@ class GuruAnalytics {
 
         defer {
             
-//            #if DEBUG
-                var info = firebaseInfo
-                info["event_name"] = event
+            var info = firebaseInfo
+            info["event_name"] = event
+            #if DEBUG
                 cdPrint("GuruAnalytics.log.event: \(info)")
-//            #endif
-            
+            #else
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
-//            AppEvents.logEvent(AppEvents.Name(rawValue: event), parameters: facebookInfo)
+            #endif
         }
         
         firebaseInfo[AnalyticsParameterItemName] = name
@@ -131,6 +131,7 @@ class GuruAnalytics {
         FirebaseAnalytics.Analytics.setUserID(userID)
 //        AppEvents.userID = userID
         Crashlytics.sharedInstance().setUserIdentifier(userID ?? "nil")
+//        Crashlytics.crashlytics().setUserID(userID ?? "nil")
         
         #if DEBUG
         cdPrint("GuruAnalytics.log.userID: \(userID ?? "")")
@@ -209,6 +210,7 @@ extension GuruAnalytics {
         //                NSLocalizedDescriptionKey: localizedDescription,
         //                NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
         //            ])
+//        Crashlytics.crashlytics().record(error: error)
         Crashlytics.sharedInstance().recordError(error, withAdditionalUserInfo: userInfo)
     }
     

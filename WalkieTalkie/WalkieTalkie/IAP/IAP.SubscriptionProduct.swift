@@ -12,7 +12,12 @@ import SwiftyStoreKit
 extension IAP {
     static let productsValue = ReplaySubject<[String: IAP.Product]>.create(bufferSize: 1)
     
-    static let productYear: String = "wt.i.sub.vip.p1y"
+    static var productYear: String {
+//        return ["wt.i.sub.vip.p1y", //29.99
+//                "wt.i.sub.vip.p1y1", //19.99
+//            ][Settings.shared.userInAGroup.int]
+        return "wt.i.sub.vip.p1y1"
+    }
     static let productMonth: String = "wt.i.sub.vip.p1m"
     static let productLifeTime: String = "wt.i.iap.vip"
     

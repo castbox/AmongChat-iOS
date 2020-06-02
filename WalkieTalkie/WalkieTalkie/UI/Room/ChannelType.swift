@@ -23,12 +23,21 @@ extension ChannelType {
         }
     }
     
-    var screenImage: UIImage? {
+    func screenImage(with isConnected: Bool) -> UIImage? {
         switch self {
         case .public:
-            return R.image.icon_screen_bg()
+            return isConnected ? R.image.icon_screen_bg_g() : R.image.icon_screen_bg_g_d_pdf()
         case .private:
-            return R.image.icon_screen_s_bg()
+            return isConnected ? R.image.icon_screen_bg_o() : R.image.icon_screen_bg_o_d()
+        }
+    }
+    
+    func screenInnerShadowImage(with isConnected: Bool, isShowSearchView: Bool = false) -> UIImage? {
+        switch self {
+        case .public:
+            return isConnected ? (isShowSearchView ? R.image.icon_screen_bg_g_shadow_round() : R.image.icon_screen_bg_g_shadow()) : nil
+        case .private:
+            return isConnected ? (isShowSearchView ? R.image.icon_screen_bg_o_shadow_round() : R.image.icon_screen_bg_o_shadow()) : nil
         }
     }
 }

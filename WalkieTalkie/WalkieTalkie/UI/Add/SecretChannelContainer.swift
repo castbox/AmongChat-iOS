@@ -14,7 +14,10 @@ import MoPub
 
 class SecretChannelContainer: XibLoadableView {
     
+    @IBOutlet weak var alertContainer: UIView!
+    @IBOutlet weak var alertTitleLabel: WalkieLabel!
     @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet weak var alertEmojiLabel: WalkieLabel!
     @IBOutlet private weak var channelFieldContainer: UIView!
     @IBOutlet private weak var codeField: ChannelNameField!
     @IBOutlet private weak var proButton: WalkieButton!
@@ -29,6 +32,7 @@ class SecretChannelContainer: XibLoadableView {
     @IBOutlet weak var createTitleLabel: WalkieLabel!
     @IBOutlet weak var createDescribeLabel: WalkieLabel!
     
+    @IBOutlet weak var createTitleTopConstraint: NSLayoutConstraint!
     private var gradientLayer: CAGradientLayer!
     private let dashLayer = CAShapeLayer()
     private let bag = DisposeBag()
@@ -37,6 +41,10 @@ class SecretChannelContainer: XibLoadableView {
     
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     
+    deinit {
+        cdPrint("[SecretChannelContainer] deinit")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubview()
@@ -44,7 +52,9 @@ class SecretChannelContainer: XibLoadableView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+//        configureSubview()
+//        bindSubviewEvent()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -57,8 +67,19 @@ class SecretChannelContainer: XibLoadableView {
     }
     
     override func layoutSubviews() {
-        gradientLayer.frame = proButton.bounds
+//        gradientLayer.frame = proButton.bounds
         addDashdeBorderLayer()
+    }
+    
+    func update(with alert: CreateSecretChannelController.AlertType) {
+        alertContainer.isHidden = alert == .none
+        alertTitleLabel.text = alert.title
+        alertEmojiLabel.text = alert.emoji
+        if alert == .none {
+            createTitleTopConstraint.constant = 25
+        } else {
+            createTitleTopConstraint.constant = 116
+        }
     }
     
     @IBAction func confirmButtonAction(_ sender: Any) {
@@ -156,40 +177,41 @@ extension SecretChannelContainer {
                     return false
                 }
                 return true
-        }
-        .flatMap { _ -> Observable<Void> in
-            Logger.UserAction.log(.create_secret)
-            guard !Settings.shared.isProValue.value,
-                let reward = AdsManager.shared.aviliableRewardVideo else {
-                    return Observable.just(())
             }
-            
-            return Observable.just(())
-                .filter({ [weak self] _ in
-                    guard let controller = self?.viewController else {
-                        //                                    noAdAlertBlock()
+            .flatMap { [weak self] _ -> Observable<Void> in
+                Logger.UserAction.log(.create_secret)
+                guard let `self` = self,
+                    !Settings.shared.isProValue.value,
+                    let reward = AdsManager.shared.aviliableRewardVideo else {
+                        return Observable.just(())
+                }
+                
+                return Observable.just(())
+                    .filter({ [weak self] _ in
+                        guard let controller = self?.viewController else {
+                            //                                    noAdAlertBlock()
+                            return true
+                        }
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
                         return true
-                    }
-                    MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
-                    return true
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                }
+                .do(onNext: { _ in
+                    AdsManager.shared.requestRewardVideoIfNeed()
                 })
-                .flatMap { _ -> Observable<Void> in
-                    return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                }
             }
-            .do(onNext: { _ in
-                AdsManager.shared.requestRewardVideoIfNeed()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                //create one
+                let channelName = self.createUniqueChannelName()
+                //check if in private channels
+                self.joinChannel("_\(channelName)", true)
             })
-                .flatMap { _ -> Observable<Void> in
-                    return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-            }
-        }
-        .subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            //create one
-            let channelName = self.createUniqueChannelName()
-            //check if in private channels
-            self.joinChannel("_\(channelName)", true)
-        })
             .disposed(by: bag)
     }
     
@@ -204,7 +226,7 @@ extension SecretChannelContainer {
         gradientLayer.endPoint = CGPoint(x: 1, y: 0)
         //设置frame和插入view的layer
         gradientLayer.frame = bounds
-        proButton.layer.insertSublayer(gradientLayer, at: 0)
+//        proButton.layer.insertSublayer(gradientLayer, at: 0)
         
         let attributes: [NSAttributedString.Key : Any] = [
             .foregroundColor: UIColor.black.alpha(0.3),
@@ -214,7 +236,7 @@ extension SecretChannelContainer {
         codeField.attributedPlaceholder = NSAttributedString(string: R.string.localizable.inputPasscodePlaceholder(), attributes: attributes)
         if Settings.shared.isProValue.value {
             adIconView.isHidden = true
-            proButton.isHidden = true
+//            proButton.isHidden = true
         }
         codeField.defaultTextAttributes = [
             .kern: 0.5,
@@ -225,7 +247,7 @@ extension SecretChannelContainer {
         createTitleLabel.appendKern()
         createDescribeLabel.appendKern()
         createButton.appendKern()
-        proButton.appendKern()
+//        proButton.appendKern()
     }
     
     //绘制虚线边框
