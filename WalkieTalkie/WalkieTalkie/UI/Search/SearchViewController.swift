@@ -28,6 +28,7 @@ class SearchViewController: UITableViewController {
          self.clearsSelectionOnViewWillAppear = true
         tableView.tableHeaderView = UIView()
         tableView.tableFooterView = UIView()
+        tableView.showsVerticalScrollIndicator = true
 //        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 15, right: 0)
         
         viewModel.querySourceSubject
@@ -73,7 +74,7 @@ class SearchViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 58
+        return 47
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

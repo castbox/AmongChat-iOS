@@ -14,7 +14,7 @@ import MoPub
 
 class PrivateChannelController: ViewController {
     let TAG = "PrivateChannelController"
-
+    
     @IBOutlet weak var channelFieldContainer: UIView!
     @IBOutlet private weak var codeField: ChannelNameField!
     @IBOutlet private weak var proButton: UIButton!
@@ -132,55 +132,50 @@ extension PrivateChannelController {
             self?.present(alert, animated: true, completion: nil)
         }
         
-//        let isRewardVideoReady =
-//            AdsManager.shared.isRewardVideoReadyRelay
-//                .asObservable()
-//                .filter { $0 }
-//        let createButtonObservable =
-            createButton.rx.tap.asObservable()
-                .observeOn(MainScheduler.asyncInstance)
-                .filter { _ -> Bool in
-                    guard Reachability.shared.canReachable else {
-                        networkNotReachAlertBlock()
-                        return false
-                    }
-                    return true
+        createButton.rx.tap.asObservable()
+            .observeOn(MainScheduler.asyncInstance)
+            .filter { _ -> Bool in
+                guard Reachability.shared.canReachable else {
+                    networkNotReachAlertBlock()
+                    return false
                 }
-                .flatMap { _ -> Observable<Void> in
-                    Logger.UserAction.log(.create_secret)
-                    guard !Settings.shared.isProValue.value,
-                        let reward = AdsManager.shared.aviliableRewardVideo else {
+                return true
+            }
+            .flatMap { _ -> Observable<Void> in
+                Logger.UserAction.log(.create_secret)
+                guard !Settings.shared.isProValue.value,
+                    let reward = AdsManager.shared.aviliableRewardVideo else {
                         return Observable.just(())
-                    }
-                    
-                    return Observable.just(())
-                        .filter({ [weak self] _ in
-                            guard let `self` = self else {
-//                                    noAdAlertBlock()
-                                return true
-                            }
-                            MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
-                            return true
-                        })
-                        .flatMap { _ -> Observable<Void> in
-                            return AdsManager.shared.rewardVideoShouldReward.asObserver()
-                        }
-                        .do(onNext: { _ in
-                            AdsManager.shared.requestRewardVideoIfNeed()
-                        })
-                            .flatMap { _ -> Observable<Void> in
-                                return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                        }
                 }
-                .subscribe(onNext: { [weak self] _ in
-                    guard let `self` = self else { return }
-                    //create one
-                    let channelName = self.createUniqueChannelName()
-                    //check if in private channels
-                    self.joinChannel("_\(channelName)", true)
-                    self.dismiss()
+                
+                return Observable.just(())
+                    .filter({ [weak self] _ in
+                        guard let `self` = self else {
+                            //                                    noAdAlertBlock()
+                            return true
+                        }
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
+                        return true
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                }
+                .do(onNext: { _ in
+                    AdsManager.shared.requestRewardVideoIfNeed()
                 })
-                .disposed(by: bag)
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                }
+            }
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                //create one
+                let channelName = self.createUniqueChannelName()
+                //check if in private channels
+                self.joinChannel("_\(channelName)", true)
+                self.dismiss()
+            })
+            .disposed(by: bag)
     }
     
     func configureSubview() {
@@ -223,7 +218,7 @@ extension PrivateChannelController {
         dashLayer.lineWidth = 0.5
         dashLayer.lineJoin = .round
         dashLayer.lineDashPattern = [6,6]
-//        let path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 5)
+        //        let path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 5)
         dashLayer.path = path.cgPath
         dashLineView.layer.addSublayer(dashLayer)
     }

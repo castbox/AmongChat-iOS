@@ -96,7 +96,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 50 images.
+  /// This `R.image` struct is generated, and contains static references to 52 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -192,8 +192,12 @@ struct R: Rswift.Validatable {
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
+    /// Image `logo_snapchat`.
+    static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
     /// Image `share_logo`.
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
+    /// Image `snapchat_share_bg`.
+    static let snapchat_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "snapchat_share_bg")
     /// Image `speak_button_nor`.
     static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
     /// Image `speak_button_pre`.
@@ -434,9 +438,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.launch_name, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "logo_snapchat", bundle: ..., traitCollection: ...)`
+    static func logo_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
     static func share_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "snapchat_share_bg", bundle: ..., traitCollection: ...)`
+    static func snapchat_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.snapchat_share_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "speak_button_nor", bundle: ..., traitCollection: ...)`
@@ -452,7 +466,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 10 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
   struct nib {
     /// Nib `CreateGlobalChannelController`.
     static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
@@ -474,6 +488,8 @@ struct R: Rswift.Validatable {
     static let screenContainer = _R.nib._ScreenContainer()
     /// Nib `SecretChannelContainer`.
     static let secretChannelContainer = _R.nib._SecretChannelContainer()
+    /// Nib `SnapChatCreativeShareView`.
+    static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
     
     /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
@@ -535,6 +551,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.secretChannelContainer)
     }
     
+    /// `UINib(name: "SnapChatCreativeShareView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.snapChatCreativeShareView) instead")
+    static func snapChatCreativeShareView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
+    }
+    
     static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -573,6 +595,10 @@ struct R: Rswift.Validatable {
     
     static func secretChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.secretChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     fileprivate init() {}
@@ -615,7 +641,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 43 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 44 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -781,6 +807,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretErrorPasscode = Rswift.StringResource(key: "add.channel.secret.error.passcode", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your secret channel is invalid, create or join one 👇👇👇
+      /// 
+      /// Locales: en
+      static let addChannelSecretInvalid = Rswift.StringResource(key: "add.channel.secret.invalid", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -1077,6 +1107,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.error.passcode", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Your secret channel is invalid, create or join one 👇👇👇
+      /// 
+      /// Locales: en
+      static func addChannelSecretInvalid(_: Void = ()) -> String {
+        return NSLocalizedString("add.channel.secret.invalid", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: You’re all set
       /// 
       /// Locales: en
@@ -1125,6 +1162,7 @@ struct _R: Rswift.Validatable {
       try _PremiumContainer.validate()
       try _ScreenContainer.validate()
       try _SecretChannelContainer.validate()
+      try _SnapChatCreativeShareView.validate()
     }
     
     struct _CreateGlobalChannelController: Rswift.NibResourceType {
@@ -1288,6 +1326,23 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SnapChatCreativeShareView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "SnapChatCreativeShareView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

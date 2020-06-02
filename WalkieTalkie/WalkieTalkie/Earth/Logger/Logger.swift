@@ -8,7 +8,8 @@
 
 import UIKit
 import FirebaseAnalytics
-import FirebaseCrashlytics
+//import FirebaseCrashlytics
+import Crashlytics
 import StoreKit
 
 class Logger { }
@@ -129,7 +130,8 @@ class GuruAnalytics {
     static func log(userID: String?) {
         FirebaseAnalytics.Analytics.setUserID(userID)
 //        AppEvents.userID = userID
-        Crashlytics.crashlytics().setUserID(userID ?? "nil")
+        Crashlytics.sharedInstance().setUserIdentifier(userID ?? "nil")
+//        Crashlytics.crashlytics().setUserID(userID ?? "nil")
         
         #if DEBUG
         cdPrint("GuruAnalytics.log.userID: \(userID ?? "")")
@@ -208,8 +210,8 @@ extension GuruAnalytics {
         //                NSLocalizedDescriptionKey: localizedDescription,
         //                NSLocalizedFailureReasonErrorKey: maybeReason ?? "",
         //            ])
-        Crashlytics.crashlytics().record(error: error)
-//        Crashlytics.crashlytics().recordError(error, withAdditionalUserInfo: userInfo)
+//        Crashlytics.crashlytics().record(error: error)
+        Crashlytics.sharedInstance().recordError(error, withAdditionalUserInfo: userInfo)
     }
     
 //    static func record(_ code: Int, userInfo: [String: Any]?) {

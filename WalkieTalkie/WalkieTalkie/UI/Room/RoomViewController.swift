@@ -57,6 +57,16 @@ class RoomViewController: ViewController {
 
     private var adView: MPAdView!
     
+    private var isFirstConnectSecretChannel: String = ""
+    
+    private var isFirstShowSecretChannel: Bool {
+        set {
+            Defaults[\.isFirstShowSecretChannel] = newValue
+        }
+        get { Defaults[\.isFirstShowSecretChannel] }
+    }
+    
+    
     private var searchViewModel: SearchViewModel {
         screenContainer.searchViewModel
     }
@@ -158,6 +168,7 @@ class RoomViewController: ViewController {
         }
         self.channel = room
         if mManager.isConnectingState {
+            leaveChannel()
             joinChannelSubject.onNext(room.name)
         }
         Logger.UserAction.log(.channel_up, room.name)
@@ -176,6 +187,7 @@ class RoomViewController: ViewController {
         }
         self.channel = room
         if mManager.isConnectingState {
+            leaveChannel()
             joinChannelSubject.onNext(room.name)
         }
         Logger.UserAction.log(.channel_down, room.name)
@@ -193,8 +205,18 @@ class RoomViewController: ViewController {
                     joinChannel(channelName)
                 } else {
                     //show error
-//                    view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-                    showCreateSecretChannel(with: .errorPasscode)
+                    if channelName.count > 1 { //only have _
+                        if channelName == isFirstConnectSecretChannel {
+                            //clear invalid secret channel
+                            Defaults.set(channel: nil, mode: .private)
+                            searchViewModel.joinedSecretRemove(channelName)
+                            showCreateSecretChannel(with: .invalid)
+                        } else {
+                            showCreateSecretChannel(with: .errorPasscode)
+                        }
+                    } else {
+                        showCreateSecretChannel(with: .emptySecretRooms)
+                    }
                 }
             } else {
                 joinChannel(channelName)
@@ -205,6 +227,10 @@ class RoomViewController: ViewController {
     @IBAction func shareButtonAction(_ sender: Any) {
 
         if channel.isPrivate {
+            guard !channelName.showName.isEmpty else {
+                showCreateSecretChannel(with: .emptySecretRooms)
+                return
+            }
             showShareController(channelName: channelName)
         } else {
             Logger.UserAction.log(.share_channel, channelName)
@@ -252,7 +278,7 @@ class RoomViewController: ViewController {
         checkMicroPermission { [weak self] in
             guard let `self` = self else { return }
             self.mManager.joinChannel(channelId: name) { [weak self] in
-                HapticFeedback.Impact.medium()
+                HapticFeedback.Impact.success()
                 self?.viewModel.requestEnterRoom()
                 UIApplication.shared.isIdleTimerDisabled = true
                 self?.isSegmentControlEnable = true
@@ -440,6 +466,13 @@ extension RoomViewController: ScreenContainerDelegate {
             segmentControl.setIndex(mode.intValue, animated: true)
             segmentControl.alwaysAnnouncesValue = true
         }
+        
+        if mode == .private,
+            channelName.showName.isEmpty,
+            isFirstShowSecretChannel {
+            isFirstShowSecretChannel = false
+            showCreateSecretChannel(with: .emptySecretRooms)
+        }
     }
     
     func containerShouldShowCreateView(with alertType: CreateSecretChannelController.AlertType) {
@@ -552,18 +585,20 @@ private extension RoomViewController {
         switch state {
         case .talking:
             speakButton.alpha = 1
+            ()
         case .maxMic:
-            speakButton.alpha = 1
+            ()
+//            speakButton.alpha = 1
         case .connected, .preparing:
             speakButton.isEnabled = true
-            speakButton.alpha = 0.6
+//            speakButton.alpha = 1
             musicButton.isEnabled = true
             pushToTalkButton.isHidden = false
             powerButton.setImage(R.image.btn_power_on(), for: .normal)
             powerButton.setBackgroundImage(R.image.home_btn_bg(), for: .normal)
         default:
 //            micView.alpha = 0
-            speakButton.alpha = 1
+//            speakButton.alpha = 1
             speakButton.isEnabled = false
             musicButton.isEnabled = false
             pushToTalkButton.isHidden = true
@@ -646,13 +681,13 @@ private extension RoomViewController {
                     HapticFeedback.Impact.light()
                 }
                 self.speakButton.setImage(highlighted ? R.image.speak_button_pre() : R.image.speak_button_nor(), for: .normal)
-                self.speakButton.alpha = highlighted ? 1 : 0.6
+//                self.speakButton.alpha = highlighted ? 1 : 0.6
                 let previousState = self.state
                 self.state = highlighted ? .preparing : .connected
                 self.segmentControl.isEnabled = !highlighted
                 self.userStatus = highlighted ? .broadcaster : .audiance
                 self.screenContainer.updateMicView(alpha: highlighted ? 1 : 0.3)
-                cdPrint("state: \(self.state) highlighted: \(highlighted)")
+//                cdPrint("state: \(self.state) highlighted: \(highlighted)")
                 //play sounds with highlighted
                 if !highlighted {
                     if previousState.isConnectingState {
@@ -664,9 +699,21 @@ private extension RoomViewController {
             .disposed(by: bag)
         
         segmentControl.rx.controlEvent(.valueChanged)
-            .subscribe(onNext: { [weak self] _ in
+            .do(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.view.endEditing(true)
+            })
+            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
+            .do(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self.update(mode: self.segmentControl.index)
+                self.segmentControl.isEnabled = false
+            })
+            .delay(.fromSeconds(segmentControl.animationDuration), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+//                self.update(mode: self.segmentControl.index)
+                self.segmentControl.isEnabled = true
             })
             .disposed(by: bag)
         
@@ -726,6 +773,9 @@ private extension RoomViewController {
         //update style
         screenContainer.updateSubviewStyle()
         segmentControl.setIndex(mode.intValue)
+        //保存
+        isFirstConnectSecretChannel = Defaults.channel(for: .private).name
+//        segmentControl.announcesValueImmediately = false
     }
     
     func loadAdView() {

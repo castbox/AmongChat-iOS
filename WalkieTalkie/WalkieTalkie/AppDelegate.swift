@@ -13,6 +13,7 @@ import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+//import FirebaseCrashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -42,6 +42,7 @@
 "add.channel.secret.create.tips.des" = "Create secret channel to chat with your friends";
 "add.channel.secret.empty.joined" = "You don't have any secret channel yet, create or join one";
 "add.channel.secret.error.passcode" = "Your passcode has no corresponding secret channel, create or join one ";
+"add.channel.secret.invalid" = "Your secret channel is invalid, create or join one 👇👇👇";
 
 "premium.try.title" = "Try it FREE";
 "premium.try.title.des" = "3 days free trial, then %@ / Year";

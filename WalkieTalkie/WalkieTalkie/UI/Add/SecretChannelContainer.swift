@@ -41,6 +41,10 @@ class SecretChannelContainer: XibLoadableView {
     
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     
+    deinit {
+        cdPrint("[SecretChannelContainer] deinit")
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubview()
@@ -49,8 +53,8 @@ class SecretChannelContainer: XibLoadableView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        configureSubview()
-        bindSubviewEvent()
+//        configureSubview()
+//        bindSubviewEvent()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -173,40 +177,41 @@ extension SecretChannelContainer {
                     return false
                 }
                 return true
-        }
-        .flatMap { _ -> Observable<Void> in
-            Logger.UserAction.log(.create_secret)
-            guard !Settings.shared.isProValue.value,
-                let reward = AdsManager.shared.aviliableRewardVideo else {
-                    return Observable.just(())
             }
-            
-            return Observable.just(())
-                .filter({ [weak self] _ in
-                    guard let controller = self?.viewController else {
-                        //                                    noAdAlertBlock()
+            .flatMap { [weak self] _ -> Observable<Void> in
+                Logger.UserAction.log(.create_secret)
+                guard let `self` = self,
+                    !Settings.shared.isProValue.value,
+                    let reward = AdsManager.shared.aviliableRewardVideo else {
+                        return Observable.just(())
+                }
+                
+                return Observable.just(())
+                    .filter({ [weak self] _ in
+                        guard let controller = self?.viewController else {
+                            //                                    noAdAlertBlock()
+                            return true
+                        }
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
                         return true
-                    }
-                    MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
-                    return true
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                }
+                .do(onNext: { _ in
+                    AdsManager.shared.requestRewardVideoIfNeed()
                 })
-                .flatMap { _ -> Observable<Void> in
-                    return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                }
             }
-            .do(onNext: { _ in
-                AdsManager.shared.requestRewardVideoIfNeed()
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                //create one
+                let channelName = self.createUniqueChannelName()
+                //check if in private channels
+                self.joinChannel("_\(channelName)", true)
             })
-                .flatMap { _ -> Observable<Void> in
-                    return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-            }
-        }
-        .subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else { return }
-            //create one
-            let channelName = self.createUniqueChannelName()
-            //check if in private channels
-            self.joinChannel("_\(channelName)", true)
-        })
             .disposed(by: bag)
     }
     

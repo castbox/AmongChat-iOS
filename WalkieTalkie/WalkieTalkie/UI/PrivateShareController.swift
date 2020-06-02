@@ -30,7 +30,7 @@ class PrivateShareController: ViewController {
         super.viewDidAppear(animated)
         if let shareString = Self.shareTitle(for: channelName) {
             shareString.copyToPasteboard()
-            container.raft.autoShow(.text(R.string.localizable.copied()))
+            container.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
     }
@@ -45,11 +45,12 @@ class PrivateShareController: ViewController {
     
     @IBAction func copyButtonAction(_ sender: Any) {
         passcodeLabel.text?.copyToPasteboard()
-        container.raft.autoShow(.text(R.string.localizable.copied()))
+        container.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
     }
     
     @IBAction func closeButtonAction(_ sender: Any) {
-        hideModal()
+//        hideModal()
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {

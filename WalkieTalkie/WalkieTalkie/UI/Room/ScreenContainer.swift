@@ -49,6 +49,15 @@ enum Mode: String, DefaultsSerializable {
             return .private
         }
     }
+    
+    var placeholder: String {
+        switch self {
+        case .public:
+            return "CREATE NEW"
+        case .private:
+            return "PASSCODE"
+        }
+    }
 }
 
 class ScreenContainer: XibLoadableView {
@@ -138,6 +147,7 @@ class ScreenContainer: XibLoadableView {
         //检查当前频道名称，如果和模式不相符则处理
         let previousChannel = Defaults.channel(for: mode)
         delegate?.containerShouldUpdate(channel: previousChannel)
+        channelTextField.placeholder = mode.placeholder
         
         UIView.transition(with: backgroundView, duration: AnimationDuration.fast.rawValue, options: .transitionCrossDissolve, animations: { [weak self] in
             self?.backgroundView.image = mode.channelType.screenImage(with: false)
@@ -218,8 +228,9 @@ extension ScreenContainer {
         viewContainingController()?.present(alertVC, animated: true, completion: nil)
     }
     
-    func sendQueryEvent() {
-        if let text = channelTextField.text?.uppercased(),
+    func sendQueryEvent(_ queryString: String? = nil) {
+        let nilableText = queryString ?? channelTextField.text?.uppercased()
+        if let text = nilableText,
             text.count >= 2,
             text != channelName.showName {
             searchController.set(query: text)
@@ -294,11 +305,11 @@ extension ScreenContainer {
                     return nil
                 }
                 return rooms.first(where: { $0.name == self.channelName })
-        }
-        .observeOn(MainScheduler.asyncInstance)
-        .subscribe(onNext: { [weak self] room in
-            self?.updateMemberCount(with: room)
-        })
+            }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] room in
+                self?.updateMemberCount(with: room)
+            })
             .disposed(by: bag)
         
         searchController.selectRoomHandler = { [weak self] room in
@@ -334,6 +345,8 @@ extension ScreenContainer {
                 }
                 return text
             }
+            //clear query string
+            strongSelf.sendQueryEvent("")
             let room = FireStore.shared.findValidRoom(with: channelName, defaultUserCount: 0)
             strongSelf.delegate?.containerShouldUpdate(channel: room)
         }
@@ -345,8 +358,11 @@ extension ScreenContainer {
                     self?.delegate?.containerShouldLeaveChannel()
                     return
             }
+            //clear query string
+            strongSelf.sendQueryEvent("")
             let joinChannelBlock: (String?) -> Void = { name in
                 //                self?.joinChannelSubject.onNext(name)
+                //clear query string
                 _ = strongSelf.delegate?.containerShouldJoinChannel(name: name, directly: false)
                 Logger.UserAction.log(.channel_create, name)
             }
@@ -368,6 +384,7 @@ extension ScreenContainer {
                 }
             } else {
                 guard isInSecretChannel else {
+                    strongSelf.delegate?.containerShouldLeaveChannel()
                     strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
                     return
                 }

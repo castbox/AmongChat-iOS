@@ -60,7 +60,7 @@ struct Room: Codable, DefaultsSerializable {
             return true
         }
         let interval = Date().timeIntervalSince1970
-        return (interval - joinAt) < 30 * 60
+        return (interval - joinAt) < 10 * 24 * 60 * 60 //10天
     }
     
     var showName: String {

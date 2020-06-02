@@ -295,6 +295,10 @@ extension DefaultsKeys {
         .init("subscrbe.hot.topic", defaultValue: true)
     }
     
+    var isFirstShowSecretChannel: DefaultsKey<Bool> {
+        .init("walkie.talkie.first.show.secret", defaultValue: true)
+    }
+    
     static func channel(for mode: Mode) -> DefaultsKey<Room?> {
         .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
     }

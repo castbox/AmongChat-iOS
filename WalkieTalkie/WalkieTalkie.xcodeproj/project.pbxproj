@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6B147A28675545973D11F32D /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0440049C3E826D3A5A28E7B4 /* Pods_WalkieTalkie.framework */; };
+		CB42766D63F52145FFD8A7EA /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
 		FE0D1A2524489BF300518793 /* AudioType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2424489BF300518793 /* AudioType.swift */; };
@@ -172,6 +172,8 @@
 		FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */; };
 		FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */; };
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
+		FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */; };
+		FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,9 +187,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0440049C3E826D3A5A28E7B4 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D909EE1BC837D18DC881816 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
-		CC777A50BBEAB0C77549E07F /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		78A019F60EEA1E97E35CCEE4 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
+		7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E9255508815A08927361B38 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
@@ -357,6 +359,8 @@
 		FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+PageShow.swift"; sourceTree = "<group>"; };
 		FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+UserAction.swift"; sourceTree = "<group>"; };
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapChatCreativeShareView.swift; sourceTree = "<group>"; };
+		FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnapChatCreativeShareView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,7 +368,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6B147A28675545973D11F32D /* Pods_WalkieTalkie.framework in Frameworks */,
+				CB42766D63F52145FFD8A7EA /* Pods_WalkieTalkie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,16 +385,16 @@
 		21322B40449618314E604481 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3D909EE1BC837D18DC881816 /* Pods-WalkieTalkie.debug.xcconfig */,
-				CC777A50BBEAB0C77549E07F /* Pods-WalkieTalkie.release.xcconfig */,
+				78A019F60EEA1E97E35CCEE4 /* Pods-WalkieTalkie.debug.xcconfig */,
+				9E9255508815A08927361B38 /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B3317840B5CFB2BDBCAA0D41 /* Frameworks */ = {
+		ED5947D0B791715A1554FB38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0440049C3E826D3A5A28E7B4 /* Pods_WalkieTalkie.framework */,
+				7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -429,7 +433,7 @@
 				FE126D2D243461EB00BEDD60 /* WalkieTalkieTests */,
 				FE126D15243461E800BEDD60 /* Products */,
 				21322B40449618314E604481 /* Pods */,
-				B3317840B5CFB2BDBCAA0D41 /* Frameworks */,
+				ED5947D0B791715A1554FB38 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -758,6 +762,8 @@
 				FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */,
 				FE86A589245AC18200C35FCA /* ScreenContainer.swift */,
 				FE86A58B245AC19E00C35FCA /* ScreenContainer.xib */,
+				FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */,
+				FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -827,13 +833,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
-				102AEFDD49D57A188D293585 /* [CP] Check Pods Manifest.lock */,
+				429AEEC56A9C442138641E86 /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
 				FE8DEA56243CA1130059C252 /* Fabric */,
-				172F49663C8F441673137222 /* [CP] Embed Pods Frameworks */,
+				C58A6116679A3F10B18CF611 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -906,6 +912,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
+				FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */,
 				FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */,
 				FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */,
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
@@ -941,7 +948,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		102AEFDD49D57A188D293585 /* [CP] Check Pods Manifest.lock */ = {
+		429AEEC56A9C442138641E86 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -963,7 +970,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		172F49663C8F441673137222 /* [CP] Embed Pods Frameworks */ = {
+		C58A6116679A3F10B18CF611 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1014,7 +1021,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1117,6 +1124,7 @@
 				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
 				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
+				FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */,
 				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */,
@@ -1328,7 +1336,7 @@
 		};
 		FE126D34243461EB00BEDD60 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3D909EE1BC837D18DC881816 /* Pods-WalkieTalkie.debug.xcconfig */;
+			baseConfigurationReference = 78A019F60EEA1E97E35CCEE4 /* Pods-WalkieTalkie.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
@@ -1353,7 +1361,7 @@
 		};
 		FE126D35243461EB00BEDD60 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CC777A50BBEAB0C77549E07F /* Pods-WalkieTalkie.release.xcconfig */;
+			baseConfigurationReference = 9E9255508815A08927361B38 /* Pods-WalkieTalkie.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;

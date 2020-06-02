@@ -13,9 +13,10 @@ class CreateSecretChannelController: ViewController {
         case none
         case emptySecretRooms
         case errorPasscode
+        case invalid
     }
     
-    @IBOutlet weak var container: SecretChannelContainer!
+    var container: SecretChannelContainer!
     
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     var alert: AlertType = .none
@@ -33,6 +34,10 @@ class CreateSecretChannelController: ViewController {
 
     }
     
+    deinit {
+        cdPrint("[CreateSecretChannelController] deinit")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         Logger.PageShow.log(.secret_channel_create_pop_imp)
@@ -41,11 +46,23 @@ class CreateSecretChannelController: ViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        container = SecretChannelContainer()
+        view.addSubview(container)
+        container.snp.makeConstraints { maker in
+            maker.leading.top.trailing.equalToSuperview()
+            maker.height.equalTo(435)
+        }
+        
         container.viewController = self
         container.update(with: alert)
         container.joinChannel = { [weak self] name, autoShare in
@@ -53,15 +70,24 @@ class CreateSecretChannelController: ViewController {
             self?.dismiss()
         }
         
-        
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
                 guard let `self` = self else { return }
-                UIView.animate(withDuration: 0) {
+                UIView.animate(withDuration: 0) { [weak self] in
+                    guard let `self` = self else { return }
                     self.view.top = Frame.Screen.height - self.height() - keyboardVisibleHeight
                 }
             })
             .disposed(by: bag)
+        
+        mainQueueDispatchAsync(after: 0.5) { [weak self] in
+            guard let `self` = self,
+                self.alert != .none else { return }
+            HapticFeedback.Impact.error()
+            self.container.alertTitleLabel.shake()
+            self.container.alertEmojiLabel.shake()
+        }
+        
     }
 }
 
@@ -124,6 +150,8 @@ extension CreateSecretChannelController.AlertType {
             return R.string.localizable.addChannelSecretEmptyJoined()
         case .errorPasscode:
             return R.string.localizable.addChannelSecretErrorPasscode()
+        case .invalid:
+            return R.string.localizable.addChannelSecretInvalid()
         default:
             return nil
         }
@@ -131,7 +159,7 @@ extension CreateSecretChannelController.AlertType {
     
     var emoji: String? {
         switch self {
-        case .emptySecretRooms:
+        case .emptySecretRooms, .invalid:
             return "😦"
         case .errorPasscode:
             return "🤔"

@@ -54,7 +54,7 @@ class SearchViewModel {
             
         let secretChannelsSubject =
             FireStore.shared.secretChannelsSubject
-                .debug()
+//                .debug()
                 .map { [weak self] items -> [Room] in
                     guard let `self` = self else { return [] }
                     return items.filter { room -> Bool in
@@ -170,7 +170,13 @@ class SearchViewModel {
             channels.append(FireStore.shared.findValidRoom(with: channelName))
             joinedPrivateChannels = channels
         }
-        
+    }
+    
+    func joinedSecretRemove(_ channelName: String) {
+        guard channelName.isPrivate else {
+            return
+        }
+        _ = joinedPrivateChannels.removeElement { $0.name == channelName }
     }
 }
 
