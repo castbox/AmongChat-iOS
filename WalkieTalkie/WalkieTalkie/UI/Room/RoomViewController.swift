@@ -144,7 +144,7 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
-        Crashlytics.sharedInstance().crash()
+//        Crashlytics.sharedInstance().crash()
         Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {
