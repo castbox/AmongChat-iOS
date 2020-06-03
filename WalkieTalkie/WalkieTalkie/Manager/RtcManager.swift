@@ -10,6 +10,7 @@ import Foundation
 import AgoraRtcKit
 import RxCocoa
 import RxSwift
+import Path
 
 protocol RtcDelegate: class {
     func onJoinChannelSuccess(channelId: String)
@@ -123,11 +124,13 @@ class RtcManager: NSObject {
             debugPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
-//        if role == .broadcaster {
-//            mRtcEngine.startAudioRecording(<#T##filePath: String##String#>, quality: <#T##AgoraAudioRecordingQuality#>)
-//        } else {
-//            mRtcEngine.stopAudioRecording()
-//        }
+        if role == .broadcaster {
+            let path = Path.caches/"record.wav"
+            mRtcEngine.startAudioRecording(path.string, quality: .high)
+            print("path: \(path)")
+        } else {
+            mRtcEngine.stopAudioRecording()
+        }
     }
 
     func muteAllRemoteAudioStreams(_ muted: Bool) {

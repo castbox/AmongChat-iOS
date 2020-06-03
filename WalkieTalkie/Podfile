@@ -122,6 +122,19 @@ target 'WalkieTalkie' do
     
     #https://github.com/gmarm/BetterSegmentedControl
     pod 'BetterSegmentedControl'
+    
+    #https://github.com/mxcl/Path.swift
+    pod 'Path.swift', '~> 1.0.0'
+    
+    
+    pod 'DoraemonKit/Core', '~> 3.0.2', :configurations => ['Debug'] #Required
+    #pod 'DoraemonKit/WithGPS', '~> 3.0.2', :configurations => ['Debug'] #可选
+    pod 'DoraemonKit/WithLoad', '~> 3.0.2', :configurations => ['Debug'] #可选
+    #pod 'DoraemonKit/WithLogger', '~> 3.0.2', :configurations => ['Debug'] #可选
+    #pod 'DoraemonKit/WithDatabase', '~> 3.0.2', :configurations => ['Debug'] #可选
+    pod 'DoraemonKit/WithMLeaksFinder', '~> 3.0.2', :configurations => ['Debug'] #可选
+    #pod 'DoraemonKit/WithWeex', '~> 3.0.2', :configurations => ['Debug'] #可选
+
 end
 
 post_install do |installer|

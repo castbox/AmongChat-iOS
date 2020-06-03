@@ -13,6 +13,9 @@ import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+#if DEBUG
+import DoraemonKit
+#endif
 //import FirebaseCrashlytics
 
 @UIApplicationMain
@@ -40,6 +43,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Automator.shared
         _ = FireStore.shared
         
+        #if DEBUG
+//        Fabric.sharedSDK().debug = true
+        DoraemonManager.shareInstance().install()
+        #endif
+//        Fabric.with([Crashlytics.self])
+
 //        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
