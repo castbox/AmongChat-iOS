@@ -49,15 +49,15 @@ class PrivateShareController: ViewController {
     }
     
     @IBAction func closeButtonAction(_ sender: Any) {
-//        hideModal()
-        self.dismiss(animated: true, completion: nil)
+        hideModal()
+        Logger.Action.log(.secret_channel_share_pop_cancel)
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
         shareChannel(name: channelName) { [weak self] in
             self?.hideModal()
         }
-        Logger.UserAction.log(.share_secret_channel_create, channelName)
+        Logger.Action.log(.secret_channel_share_pop_confirm)
     }
 }
 

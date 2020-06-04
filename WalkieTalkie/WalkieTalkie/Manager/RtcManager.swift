@@ -123,6 +123,11 @@ class RtcManager: NSObject {
             debugPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
+//        if role == .broadcaster {
+//            mRtcEngine.startAudioRecording(<#T##filePath: String##String#>, quality: <#T##AgoraAudioRecordingQuality#>)
+//        } else {
+//            mRtcEngine.stopAudioRecording()
+//        }
     }
 
     func muteAllRemoteAudioStreams(_ muted: Bool) {

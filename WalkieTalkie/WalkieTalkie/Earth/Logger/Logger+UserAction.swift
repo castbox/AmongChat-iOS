@@ -50,3 +50,49 @@ extension Logger {
         }
     }
 }
+
+extension Logger {
+    
+    struct Action {
+        enum EventName: String {
+            case input_passcode
+            case secret_tab
+            case global_tab
+            case global_create_imp
+            case create_secret_clk
+            case enter_secret
+            case enter_secret_success
+            case create_global_clk
+            case create_secret_list_clk
+            case secret_channel_share_pop_confirm
+            case secret_channel_share_pop_cancel
+        }
+        
+        enum Category: String {
+            case channel_list
+            case channel_create
+            case channel_create_new
+            case channel_choice
+            case connect
+            case music
+            //"点击分享时所在页面
+            case share_channel //channel页
+            case share_secret_channel_create //创建secret channel弹窗"
+            case secret
+            case channel_up
+            case channel_down
+            case create_secret
+            case update_pro
+            case enter_secret
+            //source
+            case normal //正常半页/
+            case empty //列表为空、点击按钮/
+            case wrong_passcode //：输入passcode错误/
+            case invaild //房间失效"
+        }
+        
+        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: nil, content: nil)
+        }
+    }
+}

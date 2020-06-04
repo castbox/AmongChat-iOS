@@ -157,6 +157,12 @@ class ScreenContainer: XibLoadableView {
                     self?.delegate?.containerShouldShowCreateView(with: .emptySecretRooms)
                 }
         })
+        switch mode {
+        case .public:
+            Logger.Action.log(.global_tab)
+        case .private:
+            Logger.Action.log(.secret_tab)
+        }
     }
     
     private func update(state to: ConnectState, old state: ConnectState) {
@@ -318,6 +324,7 @@ extension ScreenContainer {
             self.hideSearchView()
             guard room.type != .add else {
                 //show create
+                Logger.Action.log(.create_secret_list_clk)
                 delegate.containerShouldShowCreateView(with: .none)
                 return
             }

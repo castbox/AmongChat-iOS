@@ -33,7 +33,10 @@ def firebase_pods
     pod 'Firebase/Analytics'
     #, '6.1.0'
     
-#    # in app messageing
+    # in app messageing
+    pod 'Firebase/InAppMessaging'
+    
+    # in app messageing
     pod 'Firebase/InAppMessagingDisplay'
 end
 
@@ -47,7 +50,7 @@ target 'WalkieTalkie' do
     # Objective-C Pods
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'DeviceKit'
-    pod 'LYEmptyView'
+#    pod 'LYEmptyView'
     ui_pods
     firebase_pods
 
@@ -80,7 +83,7 @@ target 'WalkieTalkie' do
     
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
-    pod 'AgoraAudio_iOS', '3.0.0.2'
+    pod 'AgoraAudio_iOS', '3.0.1'
 #    pod 'AgoraRtm_iOS'
 
     pod 'JLRoutes'
