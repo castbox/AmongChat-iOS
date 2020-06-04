@@ -55,6 +55,8 @@ class RoomViewController: ViewController {
     @IBOutlet weak var adContainerHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var adContainer: UIView!
+    
+    private var confetti: ConfettiView!
 
     private var adView: MPAdView!
     
@@ -97,7 +99,7 @@ class RoomViewController: ViewController {
     
     private var state: ConnectState = .disconnected {
         didSet {
-            cdPrint("state: \(state)")
+//            cdPrint("state: \(state)")
             updateButtonsEnable()
             screenContainer.update(state: state)
         }
@@ -277,16 +279,20 @@ class RoomViewController: ViewController {
             return false
         }
         searchViewModel.add(private: name)
-        checkMicroPermission { [weak self] in
+        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
             guard let `self` = self else { return }
-            self.mManager.joinChannel(channelId: name) { [weak self] in
-                HapticFeedback.Impact.success()
-                self?.viewModel.requestEnterRoom()
-                UIApplication.shared.isIdleTimerDisabled = true
-                self?.isSegmentControlEnable = true
-                completionBlock?()
+            self.checkMicroPermission { [weak self] in
+                guard let `self` = self else { return }
+                self.mManager.joinChannel(channelId: name) { [weak self] in
+                    HapticFeedback.Impact.success()
+                    self?.viewModel.requestEnterRoom()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                    self?.isSegmentControlEnable = true
+                    completionBlock?()
+                }
             }
         }
+        
         return true
     }
     
@@ -743,6 +749,28 @@ private extension RoomViewController {
         musicButton.tapHandler = { [weak self] in
             self?.playMusicAction()
         }
+        
+        SpeechRecognizer.default.didRecongnizedEmojiHandler = { [weak self] emojis in
+            cdPrint("SpeechRecognizer: \(emojis)")
+            guard let `self` = self,
+                self.confetti.isAvailable else {
+                    return
+            }
+            let contents = emojis.map { item -> ConfettiView.Content in
+                .text(item)
+            }.last(2)
+            guard !contents.isEmpty else {
+                return
+            }
+            self.confetti.emit(with: contents)
+//            self?.confetti.emit(with: [
+//                .text("👨🏻"),
+//                .text("📱"),
+////                .shape(.circle, .purple),
+////                .shape(.triangle, .lightGray),
+////                .image(star, .orange)
+//            ])
+        }
     }
     
     func configureSubview() {
@@ -778,6 +806,13 @@ private extension RoomViewController {
         //保存
         isFirstConnectSecretChannel = Defaults.channel(for: .private).name
 //        segmentControl.announcesValueImmediately = false
+        
+        confetti = ConfettiView()
+        confetti.isUserInteractionEnabled = false
+        view.addSubview(confetti)
+        confetti.snp.makeConstraints { maker in
+            maker.left.right.top.bottom.equalToSuperview()
+        }
     }
     
     func loadAdView() {

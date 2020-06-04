@@ -109,6 +109,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func applicationWillTerminate(_ application: UIApplication) {
+        RtcManager.shared.leaveChannel()
+    }
+    
     func handle(_ uri: URL) -> Bool {
         guard let params = uri.queryParameters else {
             return false

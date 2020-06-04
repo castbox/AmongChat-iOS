@@ -135,6 +135,7 @@ target 'WalkieTalkie' do
     pod 'DoraemonKit/WithMLeaksFinder', '~> 3.0.2', :configurations => ['Debug'] #可选
     #pod 'DoraemonKit/WithWeex', '~> 3.0.2', :configurations => ['Debug'] #可选
 
+    pod 'WSFlexibleTouch'
 end
 
 post_install do |installer|

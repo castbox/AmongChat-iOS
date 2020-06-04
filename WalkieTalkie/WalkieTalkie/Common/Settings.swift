@@ -302,6 +302,10 @@ extension DefaultsKeys {
     static func channel(for mode: Mode) -> DefaultsKey<Room?> {
         .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
     }
+    
+    var emojiMaps: DefaultsKey<[String: Any]> {
+        .init("emoji.maps", defaultValue: [:])
+    }
 }
 
 extension DefaultsAdapter {
