@@ -13,6 +13,7 @@ import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import FirebaseInAppMessaging
 //import FirebaseCrashlytics
 
 @UIApplicationMain
@@ -141,12 +142,15 @@ extension AppDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .black
         window.makeKeyAndVisible()
+                
         if goRoom {
+            InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
             let guide = R.storyboard.guide.guideViewController()!
             guide.dismissHandler = { [unowned self] in
                 self.window?.replaceRootViewController(rootVc)
                 // 推送服务
                 FireMessaging.shared.requestPermissionIfNotGranted()
+                InAppMessaging.inAppMessaging().messageDisplaySuppressed = true
             }
             window.rootViewController = guide
         } else {
