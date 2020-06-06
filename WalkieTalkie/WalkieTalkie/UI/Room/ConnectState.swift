@@ -36,6 +36,17 @@ extension ConnectState {
         return connectingState.contains(self)
     }
     
+    var isConnectedState: Bool {
+        let connectingState: [ConnectState] = [
+            .reconnecting,
+            .connected,
+            .talking,
+            .maxMic,
+            .preparing,
+        ]
+        return connectingState.contains(self)
+    }
+    
     var title: String {
         switch self {
         case .connecting:

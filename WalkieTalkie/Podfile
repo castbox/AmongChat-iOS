@@ -52,20 +52,18 @@ target 'WalkieTalkie' do
     pod 'DeviceKit'
 #    pod 'LYEmptyView'
     ui_pods
-    firebase_pods
 
     pod 'Moya'
     pod 'Moya/RxSwift'
 
 #    pod 'Firebase/Crashlytics'
-    pod 'Fabric', '~> 1.10.2'
-    pod 'Crashlytics', '~> 3.14.0'
+#    pod 'Fabric', '~> 1.10.2'
+#    pod 'Crashlytics', '~> 3.14.0'
+    pod 'Firebase/Crashlytics'
 
-    # Crash 统计
-#    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '4.4.1'
+    firebase_pods
 
     pod 'Adjust', '4.21.0'
-    #pod 'Streamer', :git => 'https://github.com/castbox/Streamer.git', :branch => 'master'
 #    pod 'GuruRater', '~> 0.1.0'
 #    pod 'GuruQueue', '~> 0.2.1'
 #    pod 'GuruExtensions', :git => 'https://github.com/castbox/GuruExtensions.git', :branch => 'master'
@@ -126,13 +124,14 @@ target 'WalkieTalkie' do
     #https://github.com/mxcl/Path.swift
     pod 'Path.swift', '~> 1.0.0'
     
-    
-    pod 'DoraemonKit/Core', '~> 3.0.2', :configurations => ['Debug'] #Required
+     pod 'CocoaDebug', :configurations => ['Debug'] #Required
+#    pod 'DoraemonKit/Core', '~> 3.0.2'
+#    pod 'DoraemonKit/Core', '~> 3.0.2', :configurations => ['Debug'] #Required
     #pod 'DoraemonKit/WithGPS', '~> 3.0.2', :configurations => ['Debug'] #可选
-    pod 'DoraemonKit/WithLoad', '~> 3.0.2', :configurations => ['Debug'] #可选
+#    pod 'DoraemonKit/WithLoad', '~> 3.0.2', :configurations => ['Debug'] #可选
     #pod 'DoraemonKit/WithLogger', '~> 3.0.2', :configurations => ['Debug'] #可选
     #pod 'DoraemonKit/WithDatabase', '~> 3.0.2', :configurations => ['Debug'] #可选
-    pod 'DoraemonKit/WithMLeaksFinder', '~> 3.0.2', :configurations => ['Debug'] #可选
+#    pod 'DoraemonKit/WithMLeaksFinder', '~> 3.0.2', :configurations => ['Debug'] #可选
     #pod 'DoraemonKit/WithWeex', '~> 3.0.2', :configurations => ['Debug'] #可选
 
     pod 'WSFlexibleTouch'

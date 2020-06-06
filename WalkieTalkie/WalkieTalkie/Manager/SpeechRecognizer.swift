@@ -39,6 +39,10 @@ class SpeechRecognizer {
         }
     }
     
+    var isAvaliable: Bool {
+        return SFSpeechRecognizer(locale: Locale(identifier: "en_US"))?.isAvailable ?? false
+    }
+    
     func requestAuthorize(_ completionHandler: ((SFSpeechRecognizerAuthorizationStatus) -> Void)? = nil) {
         guard SFSpeechRecognizer.authorizationStatus() != .authorized else {
             completionHandler?(.authorized)
@@ -56,9 +60,12 @@ class SpeechRecognizer {
         }
         paths.removeAll()
         paths.append(path)
+        cdPrint("[SpeechRecognizer]- add queue: \(paths)")
     }
     
     func startIfNeed() {
+        cdPrint("[SpeechRecognizer]- startIfNeed queue: \(paths)")
+
         guard let path = paths.first, !isStart else {
             return
         }
@@ -77,22 +84,31 @@ class SpeechRecognizer {
     
     func start(with filePath: String) {
         isStart = true
-        let recognizer = SFSpeechRecognizer(locale: NSLocale.current)
+//        let recognizer = SFSpeechRecognizer(locale: Locale.current)
+//        let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))
+        cdPrint("[SpeechRecognizer] - will start: \(filePath)")
+        guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US")) else {
+            isStart = false
+            removeFileFromQueue(path: filePath)
+            cdPrint("[SpeechRecognizer] - can't get SFSpeechRecognizer: \(filePath)")
+            return
+        }
         let url = URL(fileURLWithPath: filePath)
         let request = SFSpeechURLRecognitionRequest(url: url)
         
         if #available(iOS 13.0, *) {
-            recognizer?.supportsOnDeviceRecognition = true
-            request.requiresOnDeviceRecognition = true
+            recognizer.supportsOnDeviceRecognition = true
+//            request.requiresOnDeviceRecognition = true
         }
         cdPrint("[SpeechRecognizer] - start: \(filePath)")
+//        NSLog("[SpeechRecognizer] - start: %@", filePath)
 
         let emojiMaps = self.emojiMaps
         var recognizedEmojis: [String] = []
-        recognizer?.recognitionTask(with: request, resultHandler: { [weak self] result, error in
+        recognizer.recognitionTask(with: request, resultHandler: { [weak self] result, error in
             if error == nil, let isFinal = result?.isFinal {
                 if let string = result?.bestTranscription.formattedString {
-                    cdPrint("[SpeechRecognizer] - recognitionTask result: \(string)")
+                    cdPrint("[SpeechRecognizer] - recognitionTask result: %@", string)
                     //match
                     let emojiChars = string.lowercased().split(bySeparator: " ")
                             .compactMap { emojiMaps[$0] }
@@ -111,7 +127,8 @@ class SpeechRecognizer {
                     self?.removeFileFromQueue(path: filePath)
                 }
             } else {
-                cdPrint("[SpeechRecognizer] - error: \(String(describing: error?.localizedDescription))")
+                NSLog("[SpeechRecognizer] - error: %@", String(describing: error?.localizedDescription))
+//                cdPrint("[SpeechRecognizer] - error: \(String(describing: error?.localizedDescription))")
                 self?.isStart = false
                 self?.removeFileFromQueue(path: filePath)
             }

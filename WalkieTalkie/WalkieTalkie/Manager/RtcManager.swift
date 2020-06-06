@@ -120,9 +120,9 @@ class RtcManager: NSObject {
     func setClientRole(_ role: AgoraClientRole) {
         let result = mRtcEngine.setClientRole(role)
         if result == 0 {
-            debugPrint("setClientRole: \(role.rawValue) success")
+            cdPrint("setClientRole: \(role.rawValue) success")
         } else {
-            debugPrint("setClientRole: \(role.rawValue) failed")
+            cdPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
         updateRecordStatus()
@@ -134,12 +134,13 @@ class RtcManager: NSObject {
             SpeechRecognizer.default.add(file: path.string)
             mRtcEngine.startAudioRecording(path.string, quality: .medium)
             //倒计时5秒
-            cdPrint("path: \(path)")
+            cdPrint("start recording path: \(path)")
             invalidTimerIfNeed()
             timeoutTimer = SwiftTimer(interval: .seconds(1), handler: { [weak self] _ in
                 guard let `self` = self else {
                     return
                 }
+                cdPrint("end recording path: \(path)")
                 self.mRtcEngine.stopAudioRecording()
                 SpeechRecognizer.default.startIfNeed()
                 self.invalidTimerIfNeed()
@@ -153,8 +154,8 @@ class RtcManager: NSObject {
                 }
             })
             timeoutTimer?.start()
-            
         } else {
+            cdPrint("end recording")
             invalidTimerIfNeed()
             mRtcEngine.stopAudioRecording()
             SpeechRecognizer.default.startIfNeed()

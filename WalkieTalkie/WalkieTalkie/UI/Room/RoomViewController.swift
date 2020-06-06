@@ -99,9 +99,9 @@ class RoomViewController: ViewController {
     
     private var state: ConnectState = .disconnected {
         didSet {
-//            cdPrint("state: \(state)")
             updateButtonsEnable()
             screenContainer.update(state: state)
+            updateObserverEmojiState()
         }
     }
     
@@ -404,6 +404,10 @@ extension RoomViewController: ChatRoomDelegate {
             } else {
                 perform(#selector(updateIsMuted(_:)), with: value)
             }
+            
+            if !SpeechRecognizer.default.isAvaliable {
+                view.raft.autoShow(.text("Speech text is not avaliable"))
+            }
         }
     }
     
@@ -526,6 +530,19 @@ extension RoomViewController: MPAdViewDelegate {
 //MARK: Private method
 private extension RoomViewController {
     
+    func play(emojis: [String]) {
+        guard self.confetti.isAvailable else {
+            return
+        }
+        let contents = emojis.map { item -> ConfettiView.Content in
+            .text(item)
+        }.last(2)
+        guard !contents.isEmpty else {
+            return
+        }
+        self.confetti.emit(with: contents)
+    }
+    
     func showCreateSecretChannel(with alert: CreateSecretChannelController.AlertType = .none) {
         CreateSecretChannelController.show(from: self, alert: alert) { [weak self] name, autoShare in
             //join channels
@@ -588,6 +605,23 @@ private extension RoomViewController {
         }
     }
     
+    func updateObserverEmojiState() {
+        guard state.isConnectedState || state.isConnectingState else {
+            viewModel.removeEmojiObserver()
+            return
+        }
+        if viewModel.observeEmojiAtRoom?.name != channel.name {
+            //replace
+            viewModel.observerEmoji(at: channel, searchViewModel: searchViewModel) { [weak self] emojis in
+                guard let `self` = self,
+                    self.state.isConnectedState else {
+                        return
+                }
+                self.play(emojis: emojis)
+            }
+        }
+    }
+    
     func updateButtonsEnable() {
 //        print("[RoomViewController] updateButtonsEnable with state: \(state.title)")
         switch state {
@@ -616,6 +650,16 @@ private extension RoomViewController {
     }
 
     func bindSubviewEvent() {
+        let mode = Defaults[\.mode]
+        //set index
+        screenContainer.update(mode: mode)
+        //update style
+        screenContainer.updateSubviewStyle()
+        segmentControl.setIndex(mode.intValue)
+        //保存
+        isFirstConnectSecretChannel = Defaults.channel(for: .private).name
+        //        segmentControl.announcesValueImmediately = false
+
         searchViewModel.startListenerList()
             
         joinChannelSubject
@@ -753,23 +797,12 @@ private extension RoomViewController {
         SpeechRecognizer.default.didRecongnizedEmojiHandler = { [weak self] emojis in
             cdPrint("SpeechRecognizer: \(emojis)")
             guard let `self` = self,
-                self.confetti.isAvailable else {
-                    return
-            }
-            let contents = emojis.map { item -> ConfettiView.Content in
-                .text(item)
-            }.last(2)
-            guard !contents.isEmpty else {
+                !emojis.isEmpty else {
                 return
             }
-            self.confetti.emit(with: contents)
-//            self?.confetti.emit(with: [
-//                .text("👨🏻"),
-//                .text("📱"),
-////                .shape(.circle, .purple),
-////                .shape(.triangle, .lightGray),
-////                .image(star, .orange)
-//            ])
+            let key = FireStore.shared.update(emoji: emojis, for: self.channel.name)
+            self.viewModel.addEmojiObserveIgnored(key: key)
+            self.play(emojis: emojis)
         }
     }
     
@@ -797,22 +830,13 @@ private extension RoomViewController {
             selectedTextColor: UIColor.white
         )
         
-        let mode = Defaults[\.mode]
-        //set index
-        screenContainer.update(mode: mode)
-        //update style
-        screenContainer.updateSubviewStyle()
-        segmentControl.setIndex(mode.intValue)
-        //保存
-        isFirstConnectSecretChannel = Defaults.channel(for: .private).name
-//        segmentControl.announcesValueImmediately = false
-        
         confetti = ConfettiView()
         confetti.isUserInteractionEnabled = false
         view.addSubview(confetti)
         confetti.snp.makeConstraints { maker in
             maker.left.right.top.bottom.equalToSuperview()
         }
+        
     }
     
     func loadAdView() {

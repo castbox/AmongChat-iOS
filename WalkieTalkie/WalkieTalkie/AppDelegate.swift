@@ -14,7 +14,8 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 #if DEBUG
-import DoraemonKit
+//import DoraemonKit
+import CocoaDebug
 #endif
 import FirebaseInAppMessaging
 //import FirebaseCrashlytics
@@ -46,10 +47,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         #if DEBUG
 //        Fabric.sharedSDK().debug = true
-        DoraemonManager.shareInstance().install()
+//        DoraemonManager.shareInstance().install()
+        CocoaDebug.enable()
+        CocoaDebug.showBubble()
         #endif
-//        Fabric.with([Crashlytics.self])
-
+        
+        Fabric.with([Crashlytics.self])
 //        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE

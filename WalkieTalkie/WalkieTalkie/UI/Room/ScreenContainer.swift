@@ -106,7 +106,6 @@ class ScreenContainer: XibLoadableView {
             updateSubviewStyle()
             updateMemberCount(with: channel)
             channel.updateJoinInterval()
-            //            Defaults[\.channel] = channel
         }
     }
     

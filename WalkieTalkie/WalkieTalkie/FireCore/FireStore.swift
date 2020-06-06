@@ -12,6 +12,7 @@ import FirebaseCore
 //import SwiftyJSON
 import RxSwift
 import RxCocoa
+import SwifterSwift
 
 class FireStore {
     
@@ -220,16 +221,106 @@ class FireStore {
         })
         .startWith([])
     }
+    
+    func update(emoji: [String], for channel: String, completionHandler: ((Bool) -> Void)? = nil) -> String {
+        let updated = String(Date().timeIntervalSince1970).hashed(.md5) ?? ""
+        let data: [String: Any] = ["emoji": [
+            "chars": emoji,
+            "updated": updated, ]
+        ]
+        
+        if !channel.isPrivate {
+            guard publicChannels.contains(where: { $0.name == channel }) else {
+                completionHandler?(false)
+                return updated
+            }
+            //检查是否存在
+            db.collection(Root.channels)
+                .document(channel)
+                .setData(data, merge: true, completion: { (error) in
+                    if let error = error {
+                        cdPrint("failed: \(error)")
+                        completionHandler?(false)
+                    } else {
+                        cdPrint("success")
+                        completionHandler?(true)
+                    }
+                })
+            
+        } else {
+            guard secretChannels.contains(where: { $0.name == channel }) else {
+                completionHandler?(false)
+                return updated
+            }
+            //检查是否存在
+            db.collection(Root.secrets)
+                .document(channel)
+                .setData(data, merge: true, completion: { (error) in
+                    if let error = error {
+                        cdPrint("failed: \(error)")
+                        completionHandler?(false)
+                    } else {
+                        cdPrint("success")
+                        completionHandler?(true)
+                    }
+                })
+        }
+        return updated
+    }
+    
+    func observerEmoji(at channel: String) -> Observable<Room?> {
+        return Observable<Room?>.create({ [weak self] (observer) -> Disposable in
+            var documentRef: DocumentReference? {
+                if channel.isPrivate {
+                    return self?.db.collection(Root.secrets)
+                        .document(channel)
+                }  else {
+                    return self?.db.collection(Root.channels)
+                        .document(channel)
+                }
+            }
+            let ref = documentRef?
+                .addSnapshotListener({ snapshot, error in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        //                        observer.onNext()
+                        return
+                    } else {
+                        guard let data = snapshot?.toRoom() else {
+                            //                            observer.onNext([])
+                            return
+                        }
+                        observer.onNext(data)
+                    }
+                })
+            return Disposables.create {
+                ref?.remove()
+            }
+        })
+    }
 }
 
 extension QuerySnapshot {
     func toRoomList() -> [Room] {
-        return documents.map { snapshot -> Room? in
-            let count = snapshot.data()["user_count"] as? Int ?? 0
-            let persistence = snapshot.data()["persistence"] as? Bool ?? false
-            return Room(name: snapshot.documentID, user_count: count, persistence: persistence)
+        return documents
+            .map { $0.toRoom() }
+            .compactMap { $0 }
+    }
+}
+
+extension DocumentSnapshot {
+    func toRoom() -> Room? {
+        guard let data = data() else {
+            return nil
         }
-        .compactMap { $0 }
+        let count = data["user_count"] as? Int ?? 0
+        let persistence = data["persistence"] as? Bool ?? false
+        var emoji: Room.Emoji?
+        if let emojiData = data["emoji"] as? [String: Any] {
+            emoji = try? JSONDecoder().decodeAnyData(Room.Emoji.self, from: emojiData)
+        }
+        return Room(name: documentID, user_count: count, persistence: persistence, emoji: emoji)
+
     }
 }
 

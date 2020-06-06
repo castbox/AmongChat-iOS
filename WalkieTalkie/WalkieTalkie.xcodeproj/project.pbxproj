@@ -39,6 +39,8 @@
 		FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D592434825900BEDD60 /* KeyCenter.swift */; };
 		FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */; };
 		FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */; };
+		FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */; };
+		FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE1A2DF4248A4BAD00F9A44D /* emojis.json */; };
 		FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE274D42243B81B400B6DB88 /* R.generated.swift */; };
 		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
 		FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */; };
@@ -148,7 +150,6 @@
 		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
-		FE9B29F62488E630009A4969 /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE9B29F52488E62F009A4969 /* emojis.json */; };
 		FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1CE247D47CC00AA2199 /* Room.swift */; };
 		FE9CB1D6247D512400AA2199 /* CreateGlobalChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */; };
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
@@ -227,6 +228,8 @@
 		FE126D592434825900BEDD60 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableOptionalExtension.swift; sourceTree = "<group>"; };
 		FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
+		FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Crypto.swift"; sourceTree = "<group>"; };
+		FE1A2DF4248A4BAD00F9A44D /* emojis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
 		FE274D42243B81B400B6DB88 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		FE2AF9E5244DB0F400763747 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Safari.swift"; sourceTree = "<group>"; };
@@ -337,7 +340,6 @@
 		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
-		FE9B29F52488E62F009A4969 /* emojis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
 		FE9CB1CE247D47CC00AA2199 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGlobalChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */,
 				FE0D1A282448A06200518793 /* UIViewExtension.swift */,
 				FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */,
+				FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -477,7 +480,6 @@
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
-				FE9B29F52488E62F009A4969 /* emojis.json */,
 			);
 			path = WalkieTalkie;
 			sourceTree = "<group>";
@@ -736,6 +738,7 @@
 		FECA43B52459A8A40075D139 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
 				FE746BCC24629A9800CAC554 /* BlackOpsOne-Regular.ttf */,
 				FE746BC924629A9800CAC554 /* call.m4a */,
 				FE746BC524629A9700CAC554 /* en.lproj */,
@@ -933,7 +936,7 @@
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE746BDF24629B0500CAC554 /* GuideFourthView.xib in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
-				FE9B29F62488E630009A4969 /* emojis.json in Resources */,
+				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
 				FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */,
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
@@ -1106,6 +1109,7 @@
 				FE11DC2F245AFF6A009B7E08 /* ConnectState.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
+				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
@@ -1370,7 +1374,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1378,7 +1382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1395,7 +1399,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1403,7 +1407,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.2.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
