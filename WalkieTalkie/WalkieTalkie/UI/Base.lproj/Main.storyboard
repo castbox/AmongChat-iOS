@@ -251,10 +251,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZT-Mw-FCd">
-                                <rect key="frame" x="47" y="812" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="812" width="414" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="BB0-Tt-0sH"/>
-                                    <constraint firstAttribute="width" constant="320" id="gIp-3A-LHF"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="320" id="gIp-3A-LHF"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pek-Uq-QJi">
@@ -304,11 +304,13 @@
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="trailing" secondItem="xvW-Mq-pGj" secondAttribute="trailing" id="KDT-br-OEl"/>
                             <constraint firstItem="dYG-ao-Tdh" firstAttribute="leading" secondItem="lwK-gc-HYW" secondAttribute="leading" constant="40" id="KgP-zT-R0b"/>
                             <constraint firstItem="QZT-Mw-FCd" firstAttribute="centerX" secondItem="lwK-gc-HYW" secondAttribute="centerX" id="WWk-PZ-t2M"/>
+                            <constraint firstItem="QZT-Mw-FCd" firstAttribute="leading" secondItem="lwK-gc-HYW" secondAttribute="leading" priority="750" id="bjc-un-8FW"/>
                             <constraint firstItem="QZT-Mw-FCd" firstAttribute="bottom" secondItem="lwK-gc-HYW" secondAttribute="bottom" id="eKs-6Z-xVa"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="bottom" secondItem="xvW-Mq-pGj" secondAttribute="bottom" id="h8B-sI-ifJ"/>
                             <constraint firstItem="Pek-Uq-QJi" firstAttribute="top" secondItem="lwK-gc-HYW" secondAttribute="top" constant="1.5" id="mB0-7h-Dcv"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="leading" secondItem="xvW-Mq-pGj" secondAttribute="leading" id="mpp-8g-Hyj"/>
                             <constraint firstItem="lwK-gc-HYW" firstAttribute="bottom" secondItem="XJx-Nj-5oY" secondAttribute="bottom" constant="110" id="p1Y-hP-Ksi"/>
+                            <constraint firstItem="lwK-gc-HYW" firstAttribute="trailing" secondItem="QZT-Mw-FCd" secondAttribute="trailing" priority="750" id="s5T-IR-rBr"/>
                             <constraint firstItem="XIU-XL-ivD" firstAttribute="centerX" secondItem="dYG-ao-Tdh" secondAttribute="centerX" id="yoC-Qf-njY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lwK-gc-HYW"/>
@@ -1337,7 +1339,7 @@ Cg
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s7p-Qj-sPz" customClass="MJMaterialSwitch" customModule="WalkieTalkie" customModuleProvider="target">
-                                                    <rect key="frame" x="350" y="7" width="50" height="30"/>
+                                                    <rect key="frame" x="256" y="7" width="50" height="30"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="HFr-cH-wOK"/>
@@ -1345,7 +1347,7 @@ Cg
                                                     </constraints>
                                                 </view>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dr4-Jt-zm4">
-                                                    <rect key="frame" x="351" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="257" y="6.5" width="51" height="31"/>
                                                     <color key="onTintColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="thumbTintColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                                 </switch>

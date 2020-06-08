@@ -182,10 +182,7 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         selectedButton = sender
         selectedProductId = IAP.productYear
         buyProductHandler(IAP.productYear)
-        tipsLabel.text = """
-        3-day free trial. Then $29.99 / Year.
-        Recurring bilking.Cancel any times
-        """
+        updateTipsLabelContent(sender)
     }
     
     @IBAction func lifetimeAction(_ sender: GuideProductButton) {
@@ -199,9 +196,21 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         selectedButton = sender
         selectedProductId = IAP.productMonth
         buyProductHandler(IAP.productMonth)
-        tipsLabel.text = """
-        Recurring bilking.Cancel any times
-        """
+        updateTipsLabelContent(sender)
+    }
+    
+    func updateTipsLabelContent(_ sender: GuideProductButton) {
+        if sender == yearButton {
+            tipsLabel.text = """
+            3-day free trial, then \(sender.title(for: .normal) ?? "").
+            Automatically renew. Cancel anytime.
+            """
+        } else {
+            tipsLabel.text = """
+            \(sender.title(for: .normal) ?? "").
+            Automatically renew. Cancel anytime.
+            """
+        }
     }
  
     func updateButtonTitles(_ maps: [String: IAP.Product]) {
@@ -213,6 +222,7 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
             if selectedButton == nil {
                 yearButton.isSelected = true
                 selectedButton = yearButton
+                updateTipsLabelContent(yearButton)
             }
         }
         if let product = maps[IAP.productMonth]?.skProduct {

@@ -841,7 +841,7 @@ private extension RoomViewController {
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
         adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: 320, height: adContainerHeightConstraint.constant)
+        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
         adContainer.addSubview(adView)
         adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
 //        if adContainerHeightConstraint.constant > 50 {
