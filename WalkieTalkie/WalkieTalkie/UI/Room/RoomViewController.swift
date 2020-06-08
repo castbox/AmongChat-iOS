@@ -17,7 +17,6 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 import BetterSegmentedControl
-import Crashlytics
 
 enum UserStatus {
     case audiance
@@ -146,7 +145,6 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
-//        Crashlytics.sharedInstance().crash()
         Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {
@@ -404,10 +402,11 @@ extension RoomViewController: ChatRoomDelegate {
             } else {
                 perform(#selector(updateIsMuted(_:)), with: value)
             }
-            
+            #if DEBUG
             if !SpeechRecognizer.default.isAvaliable {
                 view.raft.autoShow(.text("Speech text is not avaliable"))
             }
+            #endif
         }
     }
     

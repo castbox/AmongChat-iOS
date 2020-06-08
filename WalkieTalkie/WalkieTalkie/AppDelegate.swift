@@ -18,7 +18,7 @@ import SwiftyUserDefaults
 import CocoaDebug
 #endif
 import FirebaseInAppMessaging
-//import FirebaseCrashlytics
+import FirebaseCrashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RtcManager.shared.initialize()
         FirebaseApp.configure()
         
-//        UserProperty.logUserID(Settings.shared.userId)
+        UserProperty.logUserID(String(Constant.sUserId))
         
         _ = AdsManager.shared
         _ = Reachability.shared
@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CocoaDebug.showBubble()
         #endif
         
-        Fabric.with([Crashlytics.self])
+//        Fabric.with([Crashlytics.self])
 //        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
@@ -75,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        
         return true
     }
     
