@@ -55,6 +55,9 @@ struct Frame {
         static func deviceDiagonalIsMinThan(_ value: Double) -> Bool {
             let diagonal = Device.current.diagonal
             var realDiagonal: Double {
+                guard !(Device.allPads.contains(Device.current) || Device.allSimulatorPads.contains(Device.current)) else {
+                    return 4.0
+                }
                 guard Device.current.isZoomed ?? false else {
                     return diagonal
                 }
@@ -72,7 +75,7 @@ struct Frame {
                 case 4:
                     return 3.5
                 default:
-                    return diagonal
+                    return 4
                 }
             }
             return realDiagonal < value
