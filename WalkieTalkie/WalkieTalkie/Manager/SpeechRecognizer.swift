@@ -30,7 +30,7 @@ class SpeechRecognizer {
     var didRecongnizedEmojiHandler: (([String]) -> Void)?
     
     private var paths: [String] = []
-    private var isStart: Bool = false
+    private var isRecognizingPath: String?
     private var emojiMaps: [String: String] = [:]
     
     init() {
@@ -58,6 +58,11 @@ class SpeechRecognizer {
             !emojiMaps.isEmpty else {
             return
         }
+        paths.forEach { [weak self] item in
+            if item != self?.isRecognizingPath {
+                self?.removeFileFromQueue(path: item, autoStart: false)
+            }
+        }
         paths.removeAll()
         paths.append(path)
         cdPrint("[SpeechRecognizer]- add queue: \(paths)")
@@ -65,30 +70,29 @@ class SpeechRecognizer {
     
     func startIfNeed() {
         cdPrint("[SpeechRecognizer]- startIfNeed queue: \(paths)")
-
-        guard let path = paths.first, !isStart else {
+        guard let path = paths.first, isRecognizingPath == nil else {
             return
         }
         start(with: path)
     }
     
-    func removeFileFromQueue(path : String) {
+    func removeFileFromQueue(path : String, autoStart: Bool = true) {
         do {
             try FileManager.default.removeItem(atPath: path)
         } catch {
             cdPrint("[SpeechRecognizer]- remove item error: \(error)")
         }
         paths.removeElement(ifExists: { $0 == path })
-        startIfNeed()
+        if autoStart {
+            startIfNeed()
+        }
     }
     
     func start(with filePath: String) {
-        isStart = true
-//        let recognizer = SFSpeechRecognizer(locale: Locale.current)
-//        let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US"))
+        isRecognizingPath = filePath
         cdPrint("[SpeechRecognizer] - will start: \(filePath)")
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US")) else {
-            isStart = false
+            isRecognizingPath = nil
             removeFileFromQueue(path: filePath)
             cdPrint("[SpeechRecognizer] - can't get SFSpeechRecognizer: \(filePath)")
             return
@@ -123,13 +127,13 @@ class SpeechRecognizer {
                     }
                 }
                 if isFinal {
-                    self?.isStart = false
+                    self?.isRecognizingPath = nil
                     self?.removeFileFromQueue(path: filePath)
                 }
             } else {
                 NSLog("[SpeechRecognizer] - error: %@", String(describing: error?.localizedDescription))
 //                cdPrint("[SpeechRecognizer] - error: \(String(describing: error?.localizedDescription))")
-                self?.isStart = false
+                self?.isRecognizingPath = nil
                 self?.removeFileFromQueue(path: filePath)
             }
         })

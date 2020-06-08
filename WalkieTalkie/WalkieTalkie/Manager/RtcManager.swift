@@ -135,15 +135,15 @@ class RtcManager: NSObject {
             mRtcEngine.startAudioRecording(path.string, quality: .medium)
             //倒计时5秒
             cdPrint("start recording path: \(path)")
-            invalidTimerIfNeed()
-            timeoutTimer = SwiftTimer(interval: .seconds(1), handler: { [weak self] _ in
+            invalidRecordTimerIfNeed()
+            recorderTimer = SwiftTimer(interval: .seconds(1), handler: { [weak self] _ in
                 guard let `self` = self else {
                     return
                 }
                 cdPrint("end recording path: \(path)")
                 self.mRtcEngine.stopAudioRecording()
                 SpeechRecognizer.default.startIfNeed()
-                self.invalidTimerIfNeed()
+                self.invalidRecordTimerIfNeed()
                 mainQueueDispatchAsync(after: 0.2) { [weak self] in
                     guard let `self` = self else {
                         return
@@ -153,10 +153,10 @@ class RtcManager: NSObject {
                     }
                 }
             })
-            timeoutTimer?.start()
+            recorderTimer?.start()
         } else {
             cdPrint("end recording")
-            invalidTimerIfNeed()
+            invalidRecordTimerIfNeed()
             mRtcEngine.stopAudioRecording()
             SpeechRecognizer.default.startIfNeed()
         }
