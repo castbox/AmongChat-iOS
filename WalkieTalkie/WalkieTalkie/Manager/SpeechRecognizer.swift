@@ -112,10 +112,10 @@ class SpeechRecognizer {
         recognizer.recognitionTask(with: request, resultHandler: { [weak self] result, error in
             if error == nil, let isFinal = result?.isFinal {
                 if let string = result?.bestTranscription.formattedString {
-                    cdPrint("[SpeechRecognizer] - recognitionTask result: %@", string)
+                    cdPrint("[SpeechRecognizer] - recognitionTask result: \(string)")
                     //match
-                    let emojiChars = string.lowercased().split(bySeparator: " ")
-                            .compactMap { emojiMaps[$0] }
+                    let emojiChars = string.lowercased().split(separator: " ")
+                        .compactMap { emojiMaps[String($0)] }
 //                    emojiChars.removeDuplicates()
                     var newChars = recognizedEmojis
                     newChars.append(contentsOf: emojiChars)
@@ -131,7 +131,7 @@ class SpeechRecognizer {
                     self?.removeFileFromQueue(path: filePath)
                 }
             } else {
-                NSLog("[SpeechRecognizer] - error: %@", String(describing: error?.localizedDescription))
+                cdPrint("[SpeechRecognizer] - error: \(String(describing: error?.localizedDescription))")
 //                cdPrint("[SpeechRecognizer] - error: \(String(describing: error?.localizedDescription))")
                 self?.isRecognizingPath = nil
                 self?.removeFileFromQueue(path: filePath)
