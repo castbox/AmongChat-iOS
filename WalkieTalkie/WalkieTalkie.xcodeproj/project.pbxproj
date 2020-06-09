@@ -1374,7 +1374,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
@@ -1383,7 +1383,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.6;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1400,7 +1400,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1408,7 +1408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.6;
+				MARKETING_VERSION = 1.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
