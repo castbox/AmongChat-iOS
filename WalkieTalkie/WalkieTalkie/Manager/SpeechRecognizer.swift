@@ -69,7 +69,7 @@ class SpeechRecognizer {
     }
     
     func startIfNeed() {
-        cdPrint("[SpeechRecognizer]- startIfNeed queue: \(paths)")
+//        cdPrint("[SpeechRecognizer]- startIfNeed queue: \(paths)")
         guard let path = paths.first, isRecognizingPath == nil else {
             return
         }
@@ -90,7 +90,7 @@ class SpeechRecognizer {
     
     func start(with filePath: String) {
         isRecognizingPath = filePath
-        cdPrint("[SpeechRecognizer] - will start: \(filePath)")
+//        cdPrint("[SpeechRecognizer] - will start: \(filePath)")
         guard let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en_US")) else {
             isRecognizingPath = nil
             removeFileFromQueue(path: filePath)
@@ -115,7 +115,7 @@ class SpeechRecognizer {
                     cdPrint("[SpeechRecognizer] - recognitionTask result: \(string)")
                     //match
                     let emojiChars = string.lowercased().split(separator: " ")
-                        .compactMap { emojiMaps[String($0)] }
+                        .compactMap { emojiMaps[String($0).lowercased() ] }
 //                    emojiChars.removeDuplicates()
                     var newChars = recognizedEmojis
                     newChars.append(contentsOf: emojiChars)

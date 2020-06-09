@@ -539,6 +539,7 @@ private extension RoomViewController {
         guard !contents.isEmpty else {
             return
         }
+        Logger.Action.log(.emoji_imp)
         self.confetti.emit(with: contents)
     }
     
@@ -801,6 +802,10 @@ private extension RoomViewController {
             }
             let key = FireStore.shared.update(emoji: emojis, for: self.channel.name)
             self.viewModel.addEmojiObserveIgnored(key: key)
+            //
+            if self.confetti.isAvailable {
+                Logger.Action.log(.emoji_imp)
+            }
             self.play(emojis: emojis)
         }
     }
