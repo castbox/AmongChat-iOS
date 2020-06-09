@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RtcManager.shared.initialize()
         FirebaseApp.configure()
         
-        UserProperty.logUserID(String(Constant.sUserId))
+//        UserProperty.logUserID(String(Constant.sUserId))
         
         _ = AdsManager.shared
         _ = Reachability.shared

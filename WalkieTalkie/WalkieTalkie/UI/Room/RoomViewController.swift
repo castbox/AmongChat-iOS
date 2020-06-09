@@ -109,7 +109,7 @@ class RoomViewController: ViewController {
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
-    
+
     override var screenName: Logger.Screen.Node.Start {
         return .channel
     }
@@ -804,7 +804,7 @@ private extension RoomViewController {
             self.viewModel.addEmojiObserveIgnored(key: key)
             //
             if self.confetti.isAvailable {
-                Logger.Action.log(.emoji_imp)
+                Logger.Action.log(.emoji_sent)
             }
             self.play(emojis: emojis)
         }
