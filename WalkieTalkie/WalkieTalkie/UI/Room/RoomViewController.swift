@@ -17,7 +17,6 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 import BetterSegmentedControl
-import Crashlytics
 
 enum UserStatus {
     case audiance
@@ -110,7 +109,7 @@ class RoomViewController: ViewController {
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
-    
+
     override var screenName: Logger.Screen.Node.Start {
         return .channel
     }
@@ -146,7 +145,6 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
-//        Crashlytics.sharedInstance().crash()
         Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {
@@ -404,10 +402,11 @@ extension RoomViewController: ChatRoomDelegate {
             } else {
                 perform(#selector(updateIsMuted(_:)), with: value)
             }
-            
+            #if DEBUG
             if !SpeechRecognizer.default.isAvaliable {
                 view.raft.autoShow(.text("Speech text is not avaliable"))
             }
+            #endif
         }
     }
     
@@ -540,6 +539,7 @@ private extension RoomViewController {
         guard !contents.isEmpty else {
             return
         }
+        Logger.Action.log(.emoji_imp)
         self.confetti.emit(with: contents)
     }
     
@@ -802,6 +802,10 @@ private extension RoomViewController {
             }
             let key = FireStore.shared.update(emoji: emojis, for: self.channel.name)
             self.viewModel.addEmojiObserveIgnored(key: key)
+            //
+            if self.confetti.isAvailable {
+                Logger.Action.log(.emoji_sent)
+            }
             self.play(emojis: emojis)
         }
     }
@@ -842,7 +846,7 @@ private extension RoomViewController {
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
         adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: 320, height: adContainerHeightConstraint.constant)
+        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
         adContainer.addSubview(adView)
         adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
 //        if adContainerHeightConstraint.constant > 50 {

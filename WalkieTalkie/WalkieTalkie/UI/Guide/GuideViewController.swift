@@ -109,7 +109,7 @@ extension GuideViewController {
 //            iapTipsLabel.fadeOut()
             return
         }
-        iapTipsLabel.fadeIn()
+//        iapTipsLabel.fadeIn()
 //        iapTipsLabel.isHidden = false
         let tryAttr: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
@@ -131,9 +131,9 @@ extension GuideViewController {
 //                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
             }
 //            iapTipsLabel.text = iapTipsLabelText
-            iapTipsLabel.isHidden = false
+//            iapTipsLabel.isHidden = false
         } else {
-            iapTipsLabel.isHidden = true
+//            iapTipsLabel.isHidden = true
             mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
             
         }

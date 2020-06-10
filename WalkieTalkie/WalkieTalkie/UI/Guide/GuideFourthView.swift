@@ -11,14 +11,14 @@ import RxSwift
 import RxCocoa
 
 class GuideProductButton: WalkieButton {
-    private var selectedTagLabel: UILabel!
+    var selectedTagLabel: UILabel!
     private var indicator: UIActivityIndicatorView!
     
     var hasSelected: Bool = false {
         didSet {
             selectedTagLabel.isHidden = !hasSelected
             if hasSelected {
-                setBackgroundImage("F5D223".color().image, for: .normal)
+                setBackgroundImage("FFCA1E".color().image, for: .normal)
             } else {
                 setBackgroundImage("FFF5CE".color().image, for: .normal)
             }
@@ -39,7 +39,7 @@ class GuideProductButton: WalkieButton {
         addSubview(selectedTagLabel)
         selectedTagLabel.snp.makeConstraints { maker in
             maker.centerY.equalToSuperview()
-            maker.left.equalTo(15.5)
+            maker.left.equalTo(17.5)
         }
         
         indicator = UIActivityIndicatorView(style: .gray)
@@ -63,7 +63,7 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
     
     @IBOutlet weak var yearButton: GuideProductButton!
     @IBOutlet weak var monthButton: GuideProductButton!
-    @IBOutlet weak var lifetimeButton: GuideProductButton!
+//    @IBOutlet weak var lifetimeButton: GuideProductButton!
     
     @IBOutlet weak var vipDesLabel: WalkieLabel!
     @IBOutlet weak var tipsLabel: UILabel!
@@ -75,12 +75,15 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
     
     @IBOutlet weak var desLabelBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var descLabelLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var productsContainerRightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var topContainerTopConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var productsContainerRightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emojiTopContainer: NSLayoutConstraint!
     private weak var selectedButton: GuideProductButton? {
         didSet {
             oldValue?.hasSelected = false
             selectedButton?.hasSelected = true
+            if selectedButton == yearButton {
+                selectedButton?.selectedTagLabel.isHidden = true
+            }
         }
     }
 
@@ -118,32 +121,33 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
             .disposed(by: bag)
         
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            yearButtonLeftConstraint.constant = 15
-            yearButtonRightConstraint.constant = 15
-            yearButtonHeightConstraint.constant = 36
-            let text = tipsLabel.attributedText?.string
-            let paragraph = NSMutableParagraphStyle()
-            paragraph.lineSpacing = 0
-            tipsLabel.attributedText = NSAttributedString(string: text ?? "", attributes: [NSAttributedString.Key.paragraphStyle : paragraph,
-                                                                                           NSAttributedString.Key.font: Font.smallBody.value])
-            yearButton.cornerRadius = 16
-            monthButton.cornerRadius = 16
-            lifetimeButton.cornerRadius = 16
-            productsContainerRightConstraint.constant = 10
-            descLabelLeftConstraint.constant = 15
-            topContainerTopConstraint.constant = 34
+            emojiTopContainer.constant = 25
+//            yearButtonLeftConstraint.constant = 15
+//            yearButtonRightConstraint.constant = 15
+//            yearButtonHeightConstraint.constant = 36
+//            let text = tipsLabel.attributedText?.string
+//            let paragraph = NSMutableParagraphStyle()
+//            paragraph.lineSpacing = 0
+//            tipsLabel.attributedText = NSAttributedString(string: text ?? "", attributes: [NSAttributedString.Key.paragraphStyle : paragraph,
+//                                                                                           NSAttributedString.Key.font: Font.smallBody.value])
+//            yearButton.cornerRadius = 16
+//            monthButton.cornerRadius = 16
+//            lifetimeButton.cornerRadius = 16
+//            productsContainerRightConstraint.constant = 10
+//            descLabelLeftConstraint.constant = 15
+//            topContainerTopConstraint.constant = 34
         } else if Frame.Height.deviceDiagonalIsMinThan5_5  {
-            topContainerTopConstraint.constant = 34
+//            topContainerTopConstraint.constant = 34
         } else {
-            topContainerTopConstraint.constant = Frame.Scale.height(90)
+//            topContainerTopConstraint.constant = Frame.Scale.height(90)
         }
-            
+//
         if Frame.Height.deviceDiagonalIsMinThan5_5 {
             desLabelBottomConstraint.constant = Frame.Scale.height(156)
         }
-        
-        backgroundIconWidthConstraint.constant = Frame.Screen.width - 27 * 2
-        
+//
+//        backgroundIconWidthConstraint.constant = Frame.Screen.width - 27 * 2
+//
 //        mainQueueDispatchAsync(after: 0.5) { [weak self] in
 //            self?.yearButton.isSelected = true
 //            self?.selectedButton = self?.yearButton
@@ -159,7 +163,7 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         vipDesLabel.appendKern()
         yearButton.appendKern()
         monthButton.appendKern()
-        lifetimeButton.appendKern()
+//        lifetimeButton.appendKern()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -178,6 +182,7 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         selectedButton = sender
         selectedProductId = IAP.productYear
         buyProductHandler(IAP.productYear)
+        updateTipsLabelContent(sender)
     }
     
     @IBAction func lifetimeAction(_ sender: GuideProductButton) {
@@ -191,6 +196,21 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         selectedButton = sender
         selectedProductId = IAP.productMonth
         buyProductHandler(IAP.productMonth)
+        updateTipsLabelContent(sender)
+    }
+    
+    func updateTipsLabelContent(_ sender: GuideProductButton) {
+        if sender == yearButton {
+            tipsLabel.text = """
+            3-day free trial, then \(sender.title(for: .normal) ?? "").
+            Automatically renew. Cancel anytime.
+            """
+        } else {
+            tipsLabel.text = """
+            \(sender.title(for: .normal) ?? "").
+            Automatically renew. Cancel anytime.
+            """
+        }
     }
  
     func updateButtonTitles(_ maps: [String: IAP.Product]) {
@@ -202,18 +222,19 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
             if selectedButton == nil {
                 yearButton.isSelected = true
                 selectedButton = yearButton
+                updateTipsLabelContent(yearButton)
             }
         }
         if let product = maps[IAP.productMonth]?.skProduct {
             monthButton.setAttributedTitle(nil, for: .normal)
             monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
         }
-        if let product = maps[IAP.productLifeTime]?.skProduct {
-            lifetimeButton.setAttributedTitle(nil, for: .normal)
-            lifetimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
-        }
+//        if let product = maps[IAP.productLifeTime]?.skProduct {
+//            lifetimeButton.setAttributedTitle(nil, for: .normal)
+//            lifetimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
+//        }
         yearButton.appendKern()
         monthButton.appendKern()
-        lifetimeButton.appendKern()
+//        lifetimeButton.appendKern()
     }
 }
