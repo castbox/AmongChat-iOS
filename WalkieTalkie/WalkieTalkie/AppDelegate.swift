@@ -13,8 +13,12 @@ import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+#if DEBUG
+//import DoraemonKit
+import CocoaDebug
+#endif
 import FirebaseInAppMessaging
-//import FirebaseCrashlytics
+import FirebaseCrashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,13 +38,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RtcManager.shared.initialize()
         FirebaseApp.configure()
         
-//        UserProperty.logUserID(Settings.shared.userId)
+//        UserProperty.logUserID(String(Constant.sUserId))
         
         _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
         _ = FireStore.shared
         
+        #if DEBUG
+//        Fabric.sharedSDK().debug = true
+//        DoraemonManager.shareInstance().install()
+        CocoaDebug.enable()
+        CocoaDebug.showBubble()
+        #endif
+        
+//        Fabric.with([Crashlytics.self])
 //        if true {
         if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
@@ -63,7 +75,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        
         return true
     }
     
@@ -98,6 +109,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // not supported yet
             return false
         }
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        RtcManager.shared.leaveChannel()
     }
     
     func handle(_ uri: URL) -> Bool {

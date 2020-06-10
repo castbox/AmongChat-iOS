@@ -66,6 +66,8 @@ extension Logger {
             case create_secret_list_clk
             case secret_channel_share_pop_confirm
             case secret_channel_share_pop_cancel
+            case emoji_sent
+            case emoji_imp
         }
         
         enum Category: String {

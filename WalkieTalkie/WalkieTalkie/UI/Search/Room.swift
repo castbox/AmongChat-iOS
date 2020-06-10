@@ -25,6 +25,11 @@ struct Room: Codable, DefaultsSerializable {
         }
     }
     
+    struct Emoji: Codable {
+        let chars: [String]
+        let updated: String //key
+    }
+    
     static let `default` = Room(name: "WELCOME", user_count: 0)
     static let empty = Room(name: "", user_count: 0, type: .empty)
     static let add = Room(name: "Create new", user_count: 0, type: .add)
@@ -32,19 +37,22 @@ struct Room: Codable, DefaultsSerializable {
     let name: String
     let user_count: Int
     var joinAt: TimeInterval
-    let persistence: Bool
+    let persistence: Bool?
     let type: RoomType
+    let emoji: Emoji?
     
     init(name: String,
          user_count: Int,
          joinAt: TimeInterval = Date().timeIntervalSince1970,
          persistence: Bool = false,
-         type: RoomType = .default) {
+         type: RoomType = .default,
+         emoji: Emoji? = nil) {
         self.name = name
         self.user_count = user_count
         self.joinAt = joinAt
         self.persistence = persistence
         self.type = type
+        self.emoji = emoji
     }
     
     static func empty(for mode: Mode) -> Room {
@@ -56,7 +64,7 @@ struct Room: Codable, DefaultsSerializable {
     }
     
     var isValidForPrivateChannel: Bool {
-        guard isPrivate, !persistence else {
+        guard isPrivate, !(persistence ?? false) else {
             return true
         }
         let interval = Date().timeIntervalSince1970

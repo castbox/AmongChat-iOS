@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 4 files.
+  /// This `R.file` struct is generated, and contains static references to 5 files.
   struct file {
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
@@ -25,6 +25,8 @@ struct R: Rswift.Validatable {
     static let callM4a = Rswift.FileResource(bundle: R.hostingBundle, name: "call", pathExtension: "m4a")
     /// Resource file `cbegin.mp3`.
     static let cbeginMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "cbegin", pathExtension: "mp3")
+    /// Resource file `emojis.json`.
+    static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
     /// Resource file `end.mp3`.
     static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
     
@@ -43,6 +45,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "cbegin", withExtension: "mp3")`
     static func cbeginMp3(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.cbeginMp3
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "emojis", withExtension: "json")`
+    static func emojisJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.emojisJson
       return fileResource.bundle.url(forResource: fileResource)
     }
     

@@ -56,22 +56,11 @@ class ChatRoomManager: SeatManager {
     }
     
     var isConnectingState: Bool {
-        let connectingState: [ConnectState] = [
-            .connecting,
-            .connected,
-            .reconnecting,
-        ]
-        return connectingState.contains(state)
+        return state.isConnectingState
     }
     
     var isConnectedState: Bool {
-        let connectingState: [ConnectState] = [
-            .connected,
-            .talking,
-            .maxMic,
-            .preparing,
-        ]
-        return connectingState.contains(state)
+        return state.isConnectedState
     }
     
     var role: AgoraClientRole? {

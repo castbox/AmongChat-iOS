@@ -17,7 +17,6 @@ import SwiftyUserDefaults
 import MoPub
 import RxGesture
 import BetterSegmentedControl
-import Crashlytics
 
 enum UserStatus {
     case audiance
@@ -55,6 +54,8 @@ class RoomViewController: ViewController {
     @IBOutlet weak var adContainerHeightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var adContainer: UIView!
+    
+    private var confetti: ConfettiView!
 
     private var adView: MPAdView!
     
@@ -97,9 +98,9 @@ class RoomViewController: ViewController {
     
     private var state: ConnectState = .disconnected {
         didSet {
-            cdPrint("state: \(state)")
             updateButtonsEnable()
             screenContainer.update(state: state)
+            updateObserverEmojiState()
         }
     }
     
@@ -108,7 +109,7 @@ class RoomViewController: ViewController {
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
-    
+
     override var screenName: Logger.Screen.Node.Start {
         return .channel
     }
@@ -144,7 +145,6 @@ class RoomViewController: ViewController {
     }
     
     func playMusicAction() {
-//        Crashlytics.sharedInstance().crash()
         Logger.UserAction.log(.music)
         userStatus = .music
         if let role = mManager.role, role == .broadcaster {
@@ -277,16 +277,20 @@ class RoomViewController: ViewController {
             return false
         }
         searchViewModel.add(private: name)
-        checkMicroPermission { [weak self] in
+        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
             guard let `self` = self else { return }
-            self.mManager.joinChannel(channelId: name) { [weak self] in
-                HapticFeedback.Impact.success()
-                self?.viewModel.requestEnterRoom()
-                UIApplication.shared.isIdleTimerDisabled = true
-                self?.isSegmentControlEnable = true
-                completionBlock?()
+            self.checkMicroPermission { [weak self] in
+                guard let `self` = self else { return }
+                self.mManager.joinChannel(channelId: name) { [weak self] in
+                    HapticFeedback.Impact.success()
+                    self?.viewModel.requestEnterRoom()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                    self?.isSegmentControlEnable = true
+                    completionBlock?()
+                }
             }
         }
+        
         return true
     }
     
@@ -398,6 +402,11 @@ extension RoomViewController: ChatRoomDelegate {
             } else {
                 perform(#selector(updateIsMuted(_:)), with: value)
             }
+            #if DEBUG
+            if !SpeechRecognizer.default.isAvaliable {
+                view.raft.autoShow(.text("Speech text is not avaliable"))
+            }
+            #endif
         }
     }
     
@@ -520,6 +529,20 @@ extension RoomViewController: MPAdViewDelegate {
 //MARK: Private method
 private extension RoomViewController {
     
+    func play(emojis: [String]) {
+        guard self.confetti.isAvailable else {
+            return
+        }
+        let contents = emojis.map { item -> ConfettiView.Content in
+            .text(item)
+        }.last(2)
+        guard !contents.isEmpty else {
+            return
+        }
+        Logger.Action.log(.emoji_imp)
+        self.confetti.emit(with: contents)
+    }
+    
     func showCreateSecretChannel(with alert: CreateSecretChannelController.AlertType = .none) {
         CreateSecretChannelController.show(from: self, alert: alert) { [weak self] name, autoShare in
             //join channels
@@ -582,6 +605,23 @@ private extension RoomViewController {
         }
     }
     
+    func updateObserverEmojiState() {
+        guard state.isConnectedState || state.isConnectingState else {
+            viewModel.removeEmojiObserver()
+            return
+        }
+        if viewModel.observeEmojiAtRoom?.name != channel.name {
+            //replace
+            viewModel.observerEmoji(at: channel, searchViewModel: searchViewModel) { [weak self] emojis in
+                guard let `self` = self,
+                    self.state.isConnectedState else {
+                        return
+                }
+                self.play(emojis: emojis)
+            }
+        }
+    }
+    
     func updateButtonsEnable() {
 //        print("[RoomViewController] updateButtonsEnable with state: \(state.title)")
         switch state {
@@ -610,6 +650,16 @@ private extension RoomViewController {
     }
 
     func bindSubviewEvent() {
+        let mode = Defaults[\.mode]
+        //set index
+        screenContainer.update(mode: mode)
+        //update style
+        screenContainer.updateSubviewStyle()
+        segmentControl.setIndex(mode.intValue)
+        //保存
+        isFirstConnectSecretChannel = Defaults.channel(for: .private).name
+        //        segmentControl.announcesValueImmediately = false
+
         searchViewModel.startListenerList()
             
         joinChannelSubject
@@ -743,6 +793,21 @@ private extension RoomViewController {
         musicButton.tapHandler = { [weak self] in
             self?.playMusicAction()
         }
+        
+        SpeechRecognizer.default.didRecongnizedEmojiHandler = { [weak self] emojis in
+            cdPrint("SpeechRecognizer: \(emojis)")
+            guard let `self` = self,
+                !emojis.isEmpty else {
+                return
+            }
+            let key = FireStore.shared.update(emoji: emojis, for: self.channel.name)
+            self.viewModel.addEmojiObserveIgnored(key: key)
+            //
+            if self.confetti.isAvailable {
+                Logger.Action.log(.emoji_sent)
+            }
+            self.play(emojis: emojis)
+        }
     }
     
     func configureSubview() {
@@ -769,21 +834,19 @@ private extension RoomViewController {
             selectedTextColor: UIColor.white
         )
         
-        let mode = Defaults[\.mode]
-        //set index
-        screenContainer.update(mode: mode)
-        //update style
-        screenContainer.updateSubviewStyle()
-        segmentControl.setIndex(mode.intValue)
-        //保存
-        isFirstConnectSecretChannel = Defaults.channel(for: .private).name
-//        segmentControl.announcesValueImmediately = false
+        confetti = ConfettiView()
+        confetti.isUserInteractionEnabled = false
+        view.addSubview(confetti)
+        confetti.snp.makeConstraints { maker in
+            maker.left.right.top.bottom.equalToSuperview()
+        }
+        
     }
     
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
         adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: 320, height: adContainerHeightConstraint.constant)
+        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
         adContainer.addSubview(adView)
         adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
 //        if adContainerHeightConstraint.constant > 50 {

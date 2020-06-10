@@ -227,10 +227,8 @@ PODS:
   - CastboxDebuger (1.3.2):
     - SSZipArchive (~> 2.1.4)
     - SwiftyBeaver (~> 1.9.0)
-  - Crashlytics (3.14.0):
-    - Fabric (~> 1.10.2)
+  - CocoaDebug (1.2.6)
   - DeviceKit (3.2.0)
-  - Fabric (1.10.2)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
   - Firebase/Core (6.25.0):
@@ -238,6 +236,9 @@ PODS:
     - FirebaseAnalytics (= 6.5.1)
   - Firebase/CoreOnly (6.25.0):
     - FirebaseCore (= 6.7.1)
+  - Firebase/Crashlytics (6.25.0):
+    - Firebase/CoreOnly
+    - FirebaseCrashlytics (~> 4.1.0)
   - Firebase/DynamicLinks (6.25.0):
     - Firebase/CoreOnly
     - FirebaseDynamicLinks (~> 4.0.8)
@@ -283,6 +284,14 @@ PODS:
     - GoogleUtilities/Logger (~> 6.5)
     - nanopb (~> 1.30905.0)
   - FirebaseCoreDiagnosticsInterop (1.2.0)
+  - FirebaseCrashlytics (4.1.1):
+    - FirebaseAnalyticsInterop (~> 1.2)
+    - FirebaseCore (~> 6.6)
+    - FirebaseInstallations (~> 1.1)
+    - GoogleDataTransport (~> 6.1)
+    - GoogleDataTransportCCTSupport (~> 3.1)
+    - nanopb (~> 1.30905.0)
+    - PromisesObjC (~> 1.2)
   - FirebaseDynamicLinks (4.0.8):
     - FirebaseAnalyticsInterop (~> 1.3)
     - FirebaseCore (~> 6.2)
@@ -434,6 +443,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
@@ -496,16 +506,17 @@ PODS:
   - SwiftyStoreKit (0.15.0)
   - SwiftyUserDefaults (5.0.0)
   - UIColor_Hex_Swift (4.2.0)
+  - WSFlexibleTouch (0.1.1)
 
 DEPENDENCIES:
   - Adjust (= 4.21.0)
   - AgoraAudio_iOS (= 3.0.1)
   - BetterSegmentedControl
   - CastboxDebuger (~> 1.3.2)
-  - Crashlytics (~> 3.14.0)
+  - CocoaDebug
   - DeviceKit
-  - Fabric (~> 1.10.2)
   - Firebase/Analytics
+  - Firebase/Crashlytics
   - Firebase/DynamicLinks
   - Firebase/Firestore
   - Firebase/InAppMessaging
@@ -523,6 +534,7 @@ DEPENDENCIES:
   - mopub-ios-sdk (= 5.12.1)
   - Moya
   - Moya/RxSwift
+  - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
   - RxCocoa
@@ -536,6 +548,7 @@ DEPENDENCIES:
   - SwiftyStoreKit
   - SwiftyUserDefaults (~> 5.0.0)
   - UIColor_Hex_Swift (~> 4.2.0)
+  - WSFlexibleTouch
 
 SPEC REPOS:
   "git@github.com:castbox/GuruSpecs.git":
@@ -547,9 +560,8 @@ SPEC REPOS:
     - Alamofire
     - BetterSegmentedControl
     - BoringSSL-GRPC
-    - Crashlytics
+    - CocoaDebug
     - DeviceKit
-    - Fabric
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -558,6 +570,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - FirebaseCoreDiagnosticsInterop
+    - FirebaseCrashlytics
     - FirebaseDynamicLinks
     - FirebaseFirestore
     - FirebaseInAppMessaging
@@ -585,6 +598,7 @@ SPEC REPOS:
     - mopub-ios-sdk
     - Moya
     - nanopb
+    - Path.swift
     - PINCache
     - PINOperation
     - PromisesObjC
@@ -607,18 +621,18 @@ SPEC REPOS:
     - SwiftyStoreKit
     - SwiftyUserDefaults
     - UIColor_Hex_Swift
+    - WSFlexibleTouch
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
-  AgoraAudio_iOS: bb67ea51c96240177371b1cc4598e27cb28f2b79
+  AgoraAudio_iOS: a91eb5c913e300dab7127f1e03ed5b90e6c441d5
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
-  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
+  CocoaDebug: 51998f568ab5f15b4321fce3a4eed32faded975b
   DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -627,6 +641,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 6023faeada5afa95a349fccafb40900e32e9ac42
   FirebaseCoreDiagnostics: 4a773a47bd83bbd5a9b1ccf1ce7caa8b2d535e67
   FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
+  FirebaseCrashlytics: a87cce5746d3335995bd18b1b60d073cd05a6920
   FirebaseDynamicLinks: 417dc6dbb6013233c77558290d73296f429656a6
   FirebaseFirestore: deb7242803734c97376278698de097499cf5194f
   FirebaseInAppMessaging: 003a6ae4d63f862832e183452e3f99babf58260f
@@ -654,6 +669,7 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
@@ -676,7 +692,8 @@ SPEC CHECKSUMS:
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
+  WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: 5a07f85a97480d2c9e0c6e053d1e71ebd015109d
+PODFILE CHECKSUM: 15a62a8f8103864051b3d75cde2f16b3ec0cb8fa
 
 COCOAPODS: 1.9.1

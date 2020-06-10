@@ -10,6 +10,7 @@ import Foundation
 import AgoraRtcKit
 import RxCocoa
 import RxSwift
+import Path
 
 protocol RtcDelegate: class {
     func onJoinChannelSuccess(channelId: String)
@@ -44,6 +45,7 @@ class RtcManager: NSObject {
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
     private var timeoutTimer: SwiftTimer?
+    private var recorderTimer: SwiftTimer?
     private var haveUnmuteUser: Bool {
         return !unMuteUsers.isEmpty
     }
@@ -118,18 +120,56 @@ class RtcManager: NSObject {
     func setClientRole(_ role: AgoraClientRole) {
         let result = mRtcEngine.setClientRole(role)
         if result == 0 {
-            debugPrint("setClientRole: \(role.rawValue) success")
+            cdPrint("setClientRole: \(role.rawValue) success")
         } else {
-            debugPrint("setClientRole: \(role.rawValue) failed")
+            cdPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
-//        if role == .broadcaster {
-//            mRtcEngine.startAudioRecording(<#T##filePath: String##String#>, quality: <#T##AgoraAudioRecordingQuality#>)
-//        } else {
-//            mRtcEngine.stopAudioRecording()
-//        }
+        updateRecordStatus()
     }
-
+    
+    func updateRecordStatus() {
+        if role == .broadcaster {
+            let path = Path.caches/"\(Date().timeIntervalSince1970.int)_record.wav"
+            SpeechRecognizer.default.add(file: path.string)
+            mRtcEngine.startAudioRecording(path.string, quality: .medium)
+            //倒计时5秒
+            cdPrint("start recording path: \(path)")
+            invalidRecordTimerIfNeed()
+            recorderTimer = SwiftTimer(interval: .seconds(1), handler: { [weak self] _ in
+                guard let `self` = self else {
+                    return
+                }
+                cdPrint("end recording path: \(path)")
+                self.mRtcEngine.stopAudioRecording()
+                SpeechRecognizer.default.startIfNeed()
+                self.invalidRecordTimerIfNeed()
+                mainQueueDispatchAsync(after: 0.2) { [weak self] in
+                    guard let `self` = self else {
+                        return
+                    }
+                    if self.role == .broadcaster {
+                        self.updateRecordStatus()
+                    }
+                }
+            })
+            recorderTimer?.start()
+        } else {
+            cdPrint("end recording")
+            invalidRecordTimerIfNeed()
+            mRtcEngine.stopAudioRecording()
+            SpeechRecognizer.default.startIfNeed()
+        }
+    }
+    
+    func invalidRecordTimerIfNeed() {
+        guard recorderTimer != nil else {
+            return
+        }
+        recorderTimer?.cancel()
+        recorderTimer = nil
+    }
+    
     func muteAllRemoteAudioStreams(_ muted: Bool) {
         mRtcEngine.muteAllRemoteAudioStreams(muted)
     }
@@ -201,7 +241,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didClientRoleChanged oldRole: AgoraClientRole, newRole: AgoraClientRole) {
-        cdPrint("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
+//        cdPrint("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
