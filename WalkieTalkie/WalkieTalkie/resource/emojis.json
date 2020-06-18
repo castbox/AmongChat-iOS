@@ -2304,7 +2304,7 @@
     "category": "animals_and_nature"
   },
   "boom": {
-    "keywords": ["bomb", "explode", "explosion", "collision", "blown", "boom"],
+    "keywords": ["explode", "explosion", "collision", "blown", "boom"],
     "char": "💥",
     "fitzpatrick_scale": false,
     "category": "animals_and_nature"
@@ -3714,7 +3714,7 @@
     "category": "travel_and_places"
   },
   "department_store": {
-    "keywords": ["department", "shopping", "mall"],
+    "keywords": ["department", "mall"],
     "char": "🏬",
     "fitzpatrick_scale": false,
     "category": "travel_and_places"
@@ -3834,325 +3834,241 @@
     "category": "objects"
   },
   "trackball": {
-    "keywords": ["technology", "trackpad"],
+    "keywords": ["trackball", "trackpad"],
     "char": "🖲",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "joystick": {
-    "keywords": ["game", "play"],
+    "keywords": ["joystick"],
     "char": "🕹",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "clamp": {
-    "keywords": ["tool"],
+    "keywords": ["clamp"],
     "char": "🗜",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "minidisc": {
-    "keywords": ["technology", "record", "data", "disk", "90s"],
+    "keywords": ["minidisc", "disk", "90s"],
     "char": "💽",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "floppy_disk": {
-    "keywords": ["oldschool", "technology", "save", "90s", "80s"],
+    "keywords": ["oldschool", "floppy disk", "80s"],
     "char": "💾",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "cd": {
-    "keywords": ["technology", "dvd", "disk", "disc", "90s"],
+    "keywords": ["cd"],
     "char": "💿",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "dvd": {
-    "keywords": ["cd", "disk", "disc"],
+    "keywords": ["dvd"],
     "char": "📀",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "vhs": {
-    "keywords": ["record", "video", "oldschool", "90s", "80s"],
-    "char": "📼",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "camera": {
-    "keywords": ["gadgets", "photography"],
+    "camera": {
+    "keywords": ["camera", "photography"],
     "char": "📷",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "camera_flash": {
-    "keywords": ["photography", "gadgets"],
-    "char": "📸",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "video_camera": {
-    "keywords": ["film", "record"],
-    "char": "📹",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "movie_camera": {
-    "keywords": ["film", "record"],
-    "char": "🎥",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "film_projector": {
-    "keywords": ["video", "tape", "record", "movie"],
+    "film_projector": {
+    "keywords": ["projector"],
     "char": "📽",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "film_strip": {
-    "keywords": ["movie"],
+    "keywords": ["movie", "film strip"],
     "char": "🎞",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "telephone_receiver": {
-    "keywords": ["technology", "communication", "dial"],
+    "keywords": ["receiver", "dial"],
     "char": "📞",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "phone": {
-    "keywords": ["technology", "communication", "dial", "telephone"],
+    "keywords": ["phone"],
     "char": "☎️",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "pager": {
-    "keywords": ["bbcall", "oldschool", "90s"],
-    "char": "📟",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "fax": {
-    "keywords": ["communication", "technology"],
+    "fax": {
+    "keywords": ["fax"],
     "char": "📠",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "tv": {
-    "keywords": ["technology", "program", "oldschool", "show", "television"],
+    "keywords": ["tv", "television"],
     "char": "📺",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "radio": {
-    "keywords": ["communication", "music", "podcast", "program"],
+    "keywords": ["radio"],
     "char": "📻",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "studio_microphone": {
-    "keywords": ["sing", "recording", "artist", "talkshow"],
-    "char": "🎙",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "level_slider": {
-    "keywords": ["scale"],
-    "char": "🎚",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "control_knobs": {
-    "keywords": ["dial"],
-    "char": "🎛",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "compass": {
-    "keywords": ["magnetic", "navigation", "orienteering"],
+     "compass": {
+    "keywords": ["compass", "navigation", "orienteering"],
     "char": "🧭",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "stopwatch": {
-    "keywords": ["time", "deadline"],
+    "keywords": ["stopwatch"],
     "char": "⏱",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "timer_clock": {
-    "keywords": ["alarm"],
+    "keywords": ["timer"],
     "char": "⏲",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "alarm_clock": {
-    "keywords": ["time", "wake"],
+    "keywords": ["clock", "alarm"],
     "char": "⏰",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "mantelpiece_clock": {
-    "keywords": ["time"],
-    "char": "🕰",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "hourglass_flowing_sand": {
-    "keywords": ["oldschool", "time", "countdown"],
-    "char": "⏳",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "hourglass": {
-    "keywords": ["time", "clock", "oldschool", "limit", "exam", "quiz", "test"],
+     "hourglass": {
+    "keywords": ["hourglass"],
     "char": "⌛",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "satellite": {
-    "keywords": ["communication", "future", "radio", "space"],
-    "char": "📡",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "battery": {
-    "keywords": ["power", "energy", "sustain"],
+    "battery": {
+    "keywords": ["power", "battery", "ebergy"],
     "char": "🔋",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "electric_plug": {
-    "keywords": ["charger", "power"],
+    "keywords": ["charger", "plug"],
     "char": "🔌",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "bulb": {
-    "keywords": ["light", "electricity", "idea"],
+    "keywords": ["bulb", "electricity", "idea"],
     "char": "💡",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "flashlight": {
-    "keywords": ["dark", "camping", "sight", "night"],
+    "keywords": ["flashlight"],
     "char": "🔦",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "candle": {
-    "keywords": ["fire", "wax"],
+    "keywords": ["candle", "wax"],
     "char": "🕯",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "wastebasket": {
-    "keywords": ["bin", "trash", "rubbish", "garbage", "toss"],
+    "keywords": ["bin", "wastebasket", "rubbish", "garbage", "toss"],
     "char": "🗑",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "oil_drum": {
-    "keywords": ["barrell"],
+    "keywords": ["oil drum"],
     "char": "🛢",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "money_with_wings": {
-    "keywords": ["dollar", "bills", "payment", "sale"],
-    "char": "💸",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "dollar": {
-    "keywords": ["money", "sales", "bill", "currency"],
+    "dollar": {
+    "keywords": ["dollar"],
     "char": "💵",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "yen": {
-    "keywords": ["money", "sales", "japanese", "dollar", "currency"],
+    "keywords": ["yen"],
     "char": "💴",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "euro": {
-    "keywords": ["money", "sales", "dollar", "currency"],
+    "keywords": ["euro"],
     "char": "💶",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "pound": {
-    "keywords": ["british", "sterling", "money", "sales", "bills", "uk", "england", "currency"],
+    "keywords": ["pound", "sterling"],
     "char": "💷",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "moneybag": {
-    "keywords": ["dollar", "payment", "coins", "sale"],
+    "keywords": ["moneybag", "payment", "coins"],
     "char": "💰",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "credit_card": {
-    "keywords": ["money", "sales", "dollar", "bill", "payment", "shopping"],
+    "keywords": ["credit card"],
     "char": "💳",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "gem": {
-    "keywords": ["blue", "ruby", "diamond", "jewelry"],
+    "keywords": ["gem", "ruby", "diamond", "jewelry"],
     "char": "💎",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "balance_scale": {
-    "keywords": ["law", "fairness", "weight"],
+    "keywords": ["law", "fairness", "balance scale"],
     "char": "⚖",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "wrench": {
-    "keywords": ["tools", "diy", "ikea", "fix", "maintainer"],
+    "keywords": ["wrench"],
     "char": "🔧",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "hammer": {
-    "keywords": ["tools", "build", "create"],
+    "keywords": ["hammer"],
     "char": "🔨",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "hammer_and_pick": {
-    "keywords": ["tools", "build", "create"],
-    "char": "⚒",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "hammer_and_wrench": {
-    "keywords": ["tools", "build", "create"],
-    "char": "🛠",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "pick": {
-    "keywords": ["tools", "dig"],
+    "pick": {
+    "keywords": ["pick", "dig"],
     "char": "⛏",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "nut_and_bolt": {
-    "keywords": ["handy", "tools", "fix"],
+    "keywords": ["nut and bolt"],
     "char": "🔩",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "gear": {
-    "keywords": ["cog"],
+    "keywords": ["gear"],
     "char": "⚙",
     "fitzpatrick_scale": false,
     "category": "objects"
@@ -4164,2266 +4080,2055 @@
     "category": "objects"
   },
   "chains": {
-    "keywords": ["lock", "arrest"],
+    "keywords": ["chains"],
     "char": "⛓",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "magnet": {
-    "keywords": ["attraction", "magnetic"],
+    "keywords": ["magnet", "magnetic"],
     "char": "🧲",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "gun": {
-    "keywords": ["violence", "weapon", "pistol", "revolver"],
+    "keywords": ["gun", "weapon", "pistol", "revolver"],
     "char": "🔫",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "bomb": {
-    "keywords": ["boom", "explode", "explosion", "terrorism"],
+    "keywords": ["boom", "explode", "explosion"],
     "char": "💣",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "skull_and_crossbones": {
-    "keywords": ["poison", "danger", "deadly", "scary", "death", "pirate", "evil"],
-    "char": "☠",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
   "coffin": {
-    "keywords": ["vampire", "dead", "die", "death", "rip", "graveyard", "cemetery", "casket", "funeral", "box"],
+    "keywords": ["coffin", "graveyard", "cemetery"],
     "char": "⚰",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "funeral_urn": {
-    "keywords": ["dead", "die", "death", "rip", "ashes"],
-    "char": "⚱",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "amphora": {
-    "keywords": ["vase", "jar"],
+    "amphora": {
+    "keywords": ["vase", "jar", "amphora"],
     "char": "🏺",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "crystal_ball": {
-    "keywords": ["disco", "party", "magic", "circus", "fortune_teller"],
+    "keywords": ["crystal ball"],
     "char": "🔮",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-   "alembic": {
-    "keywords": ["distilling", "science", "experiment", "chemistry"],
-    "char": "⚗",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "telescope": {
-    "keywords": ["stars", "space", "zoom", "science", "astronomy"],
+     "telescope": {
+    "keywords": ["telescope", "astronomy"],
     "char": "🔭",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "microscope": {
-    "keywords": ["laboratory", "experiment", "zoomin", "science", "study"],
+    "keywords": ["laboratory", "experiment", "microscope"],
     "char": "🔬",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "hole": {
-    "keywords": ["embarrassing"],
+    "keywords": ["hole"],
     "char": "🕳",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
     "syringe": {
-    "keywords": ["health", "hospital", "drugs", "blood", "medicine", "needle", "doctor", "nurse"],
+    "keywords": ["syringe", "blood", "medicine"],
     "char": "💉",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "dna": {
-    "keywords": ["biologist", "genetics", "life"],
+    "keywords": ["biologist", "genetics", "dna"],
     "char": "🧬",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "microbe": {
-    "keywords": ["amoeba", "bacteria", "germs"],
+    "keywords": ["microbe", "bacteria", "germs"],
     "char": "🦠",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "broom": {
-    "keywords": ["cleaning", "sweeping", "witch"],
+    "keywords": ["cleaning", "sweeping", "broom"],
     "char": "🧹",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "basket": {
-    "keywords": ["laundry"],
+    "keywords": ["basket"],
     "char": "🧺",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
    "bathtub": {
-    "keywords": ["clean", "shower", "bathroom"],
+    "keywords": ["bathtub", "shower"],
     "char": "🛁",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "soap": {
-    "keywords": ["bar", "bathing", "cleaning", "lather"],
+    "keywords": ["soap", "bathing"],
     "char": "🧼",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "sponge": {
-    "keywords": ["absorbing", "cleaning", "porous"],
+    "keywords": ["sponge"],
     "char": "🧽",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
     "key": {
-    "keywords": ["lock", "door", "password"],
+    "keywords": ["key", "password"],
     "char": "🔑",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
    "bed": {
-    "keywords": ["sleep", "rest"],
+    "keywords": ["bed", "rest"],
     "char": "🛏",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "door": {
-    "keywords": ["house", "entry", "exit"],
+    "keywords": ["door"],
     "char": "🚪",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "bellhop_bell": {
-    "keywords": ["service"],
+    "keywords": ["bell"],
     "char": "🛎",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
     "world_map": {
-    "keywords": ["location", "direction"],
+    "keywords": ["map"],
     "char": "🗺",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
    "moyai": {
-    "keywords": ["rock", "easter island", "moai"],
+    "keywords": ["moyai"],
     "char": "🗿",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "shopping": {
-    "keywords": ["mall", "buy", "purchase"],
+    "keywords": ["shopping", "buy", "purchase"],
     "char": "🛍",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "balloon": {
-    "keywords": ["party", "celebration", "birthday", "circus"],
+    "keywords": ["balloon"],
     "char": "🎈",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "flags": {
-    "keywords": ["fish", "japanese", "koinobori", "carp", "banner"],
+    "keywords": ["flags", "koinobori"],
     "char": "🎏",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "ribbon": {
-    "keywords": ["decoration", "pink", "girl", "bowtie"],
+    "keywords": ["ribbon", "bowtie"],
     "char": "🎀",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "gift": {
-    "keywords": ["present", "birthday", "christmas", "xmas"],
+    "keywords": ["present", "gift"],
     "char": "🎁",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "confetti_ball": {
-    "keywords": ["festival", "party", "birthday", "circus"],
-    "char": "🎊",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "tada": {
-    "keywords": ["party", "congratulations", "birthday", "magic", "circus", "celebration"],
+    "tada": {
+    "keywords": ["tada"],
     "char": "🎉",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "dolls": {
-    "keywords": ["japanese", "toy", "kimono"],
+    "keywords": ["dolls", "toy"],
     "char": "🎎",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "wind_chime": {
-    "keywords": ["nature", "ding", "spring", "bell"],
+    "keywords": ["wind chime", "ding"],
     "char": "🎐",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "crossed_flags": {
-    "keywords": ["japanese", "nation", "country", "border"],
-    "char": "🎌",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "izakaya_lantern": {
-    "keywords": ["light", "paper", "halloween", "spooky"],
+    "izakaya_lantern": {
+    "keywords": ["izakaya lantern"],
     "char": "🏮",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "red_envelope": {
-    "keywords": ["gift"],
+    "keywords": ["red envelope"],
     "char": "🧧",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "email": {
-    "keywords": ["letter", "postal", "inbox", "communication"],
+    "keywords": ["letter", "email", "inbox"],
     "char": "✉️",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "envelope_with_arrow": {
-    "keywords": ["email", "communication"],
-    "char": "📩",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "incoming_envelope": {
-    "keywords": ["email", "inbox"],
-    "char": "📨",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "e-mail": {
-    "keywords": ["communication", "inbox"],
-    "char": "📧",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "love_letter": {
-    "keywords": ["email", "like", "affection", "envelope", "valentines"],
-    "char": "💌",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "postbox": {
-    "keywords": ["email", "letter", "envelope"],
+    "postbox": {
+    "keywords": ["postbox"],
     "char": "📮",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "mailbox_closed": {
-    "keywords": ["email", "communication", "inbox"],
-    "char": "📪",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "mailbox": {
-    "keywords": ["email", "inbox", "communication"],
+    "mailbox": {
+    "keywords": ["mailbox"],
     "char": "📫",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "mailbox_with_mail": {
-    "keywords": ["email", "inbox", "communication"],
-    "char": "📬",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "mailbox_with_no_mail": {
-    "keywords": ["email", "inbox"],
-    "char": "📭",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "package": {
-    "keywords": ["mail", "gift", "cardboard", "box", "moving"],
+    "package": {
+    "keywords": ["package"],
     "char": "📦",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "postal_horn": {
-    "keywords": ["instrument", "music"],
-    "char": "📯",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "inbox_tray": {
-    "keywords": ["email", "documents"],
-    "char": "📥",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "scroll": {
-    "keywords": ["documents", "ancient", "history", "paper"],
+     "scroll": {
+    "keywords": ["scroll"],
     "char": "📜",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "bookmark_tabs": {
-    "keywords": ["favorite", "save", "order", "tidy"],
+    "keywords": ["bookmark"],
     "char": "📑",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "receipt": {
-    "keywords": ["accounting", "expenses"],
+    "keywords": ["accounting", "receipt", "expenses"],
     "char": "🧾",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "calendar": {
-    "keywords": ["schedule", "date", "planning"],
+    "keywords": ["schedule", "calendar", "planning"],
     "char": "📆",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "card_index": {
-    "keywords": ["business", "stationery"],
-    "char": "📇",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "card_file_box": {
-    "keywords": ["business", "stationery"],
-    "char": "🗃",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "ballot_box": {
-    "keywords": ["election", "vote"],
-    "char": "🗳",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "file_cabinet": {
-    "keywords": ["filing", "organizing"],
-    "char": "🗄",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "file_folder": {
-    "keywords": ["documents", "business", "office"],
+    "file_folder": {
+    "keywords": ["documents"],
     "char": "📁",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "card_index_dividers": {
-    "keywords": ["organizing", "business", "stationery"],
-    "char": "🗂",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "newspaper_roll": {
-    "keywords": ["press", "headline"],
-    "char": "🗞",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "newspaper": {
-    "keywords": ["press", "headline"],
+    "newspaper": {
+    "keywords": ["press", "newspaper"],
     "char": "📰",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "notebook": {
-    "keywords": ["stationery", "record", "notes", "paper", "study"],
+    "keywords": ["notebook", "notes", "paper"],
     "char": "📓",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "closed_book": {
-    "keywords": ["read", "library", "knowledge", "textbook", "learn"],
-    "char": "📕",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "triangular_flag_on_post": {
-    "keywords": ["mark", "milestone", "place"],
+    "triangular_flag_on_post": {
+    "keywords": ["mark", "milestone"],
     "char": "🚩",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "white_flag": {
-    "keywords": ["losing", "loser", "lost", "surrender", "give up", "fail"],
+    "keywords": ["losing", "loser", "white flag", "give up", "fail"],
     "char": "🏳",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "black_flag": {
-    "keywords": ["pirate"],
+    "keywords": ["black flag"],
     "char": "🏴",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "rainbow_flag": {
-    "keywords": ["flag", "rainbow", "pride", "gay", "lgbt", "glbt", "queer", "homosexual", "lesbian", "bisexual", "transgender"],
+    "keywords": ["lgbt", "homosexual", "lesbian", "bisexual", "transgender"],
     "char": "🏳️‍🌈",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "closed_lock_with_key": {
-    "keywords": ["security", "privacy"],
-    "char": "🔐",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "lock": {
-    "keywords": ["security", "password", "padlock"],
+    "lock": {
+    "keywords": ["lock"],
     "char": "🔒",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "unlock": {
-    "keywords": ["privacy", "security"],
+    "keywords": ["unlock"],
     "char": "🔓",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "lock_with_ink_pen": {
-    "keywords": ["security", "secret"],
-    "char": "🔏",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "pen": {
-    "keywords": ["stationery", "writing", "write"],
+    "pen": {
+    "keywords": ["pen", "writing", "write"],
     "char": "🖊",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "fountain_pen": {
-    "keywords": ["stationery", "writing", "write"],
+    "keywords": ["fountain pen"],
     "char": "🖋",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
-  "black_nib": {
-    "keywords": ["pen", "stationery", "writing", "write"],
-    "char": "✒️",
-    "fitzpatrick_scale": false,
-    "category": "objects"
-  },
-  "memo": {
-    "keywords": ["write", "documents", "stationery", "pencil", "paper", "writing", "legal", "exam", "quiz", "test", "study", "compose"],
+    "memo": {
+    "keywords": ["memo"],
     "char": "📝",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "pencil2": {
-    "keywords": ["stationery", "write", "paper", "writing", "school", "study"],
+    "keywords": ["pencil"],
     "char": "✏️",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "crayon": {
-    "keywords": ["drawing", "creativity"],
+    "keywords": ["crayon", "creativity"],
     "char": "🖍",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "paintbrush": {
-    "keywords": ["drawing", "creativity", "art"],
+    "keywords": ["paintbrush"],
     "char": "🖌",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "mag": {
-    "keywords": ["search", "zoom", "find", "detective"],
+    "keywords": ["search", "mag", "find"],
     "char": "🔍",
     "fitzpatrick_scale": false,
     "category": "objects"
   },
   "heart": {
-    "keywords": ["love", "like", "valentines"],
+    "keywords": ["heart"],
     "char": "❤️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "orange_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["orange heart"],
     "char": "🧡",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "yellow_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["yellow heart"],
     "char": "💛",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "green_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["green heart"],
     "char": "💚",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "blue_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["blue heart"],
     "char": "💙",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "purple_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["purple heart"],
     "char": "💜",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "black_heart": {
-    "keywords": ["evil"],
+    "keywords": ["black heart"],
     "char": "🖤",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "broken_heart": {
-    "keywords": ["sad", "sorry", "break", "heart", "heartbreak"],
+    "keywords": ["heartbreak"],
     "char": "💔",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "heavy_heart_exclamation": {
-    "keywords": ["decoration", "love"],
-    "char": "❣",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "two_hearts": {
-    "keywords": ["love", "like", "affection", "valentines", "heart"],
+    "two_hearts": {
+    "keywords": ["two hearts"],
     "char": "💕",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "revolving_hearts": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["revolving hearts"],
     "char": "💞",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "heartbeat": {
-    "keywords": ["love", "like", "affection", "valentines", "pink", "heart"],
+    "keywords": ["heartbeat"],
     "char": "💓",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "heartpulse": {
-    "keywords": ["like", "love", "affection", "valentines", "pink"],
+    "keywords": ["heartpulse"],
     "char": "💗",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "sparkling_heart": {
-    "keywords": ["love", "like", "affection", "valentines"],
+    "keywords": ["sparkling heart"],
     "char": "💖",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "cupid": {
-    "keywords": ["love", "like", "heart", "affection", "valentines"],
+    "keywords": ["cupid"],
     "char": "💘",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "gift_heart": {
-    "keywords": ["love", "valentines"],
+    "keywords": ["gift heart"],
     "char": "💝",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "heart_decoration": {
-    "keywords": ["purple-square", "love", "like"],
-    "char": "💟",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "anger": {
-    "keywords": ["angry", "mad"],
+    "anger": {
+    "keywords": ["anger", "mad"],
     "char": "💢",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "hotsprings": {
-    "keywords": ["bath", "warm", "relax"],
+    "keywords": ["hotsprings"],
     "char": "♨️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
  "exclamation": {
-    "keywords": ["heavy_exclamation_mark", "danger", "surprise", "punctuation", "wow", "warning"],
+    "keywords": ["exclamation"],
     "char": "❗",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "question": {
-    "keywords": ["doubt", "confused"],
+    "keywords": ["doubt", "confused", "question"],
     "char": "❓",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "bangbang": {
-    "keywords": ["exclamation", "surprise"],
+    "keywords": ["bangbang"],
     "char": "‼️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "interrobang": {
-    "keywords": ["wat", "punctuation", "surprise"],
+    "keywords": ["wat", "interrobang"],
     "char": "⁉️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "100": {
-    "keywords": ["score", "perfect", "numbers", "century", "exam", "quiz", "test", "pass", "hundred"],
+    "keywords": ["score", "perfect", "100", "hundred"],
     "char": "💯",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "part_alternation_mark": {
-    "keywords": ["graph", "presentation", "stats", "business", "economics", "bad"],
-    "char": "〽️",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "warning": {
-    "keywords": ["exclamation", "wip", "alert", "error", "problem", "issue"],
+    "warning": {
+    "keywords": ["warning", "problem", "issue"],
     "char": "⚠️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "children_crossing": {
-    "keywords": ["school", "warning", "danger", "sign", "driving", "yellow-diamond"],
-    "char": "🚸",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "sparkle": {
-    "keywords": ["stars", "green-square", "awesome", "good", "fireworks"],
-    "char": "❇️",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "eight_spoked_asterisk": {
-    "keywords": ["star", "sparkle", "green-square"],
-    "char": "✳️",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "negative_squared_cross_mark": {
-    "keywords": ["x", "green-square", "no", "deny"],
+    "negative_squared_cross_mark": {
+    "keywords": ["x", "negative", "no", "deny"],
     "char": "❎",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "white_check_mark": {
-    "keywords": ["green-square", "ok", "agree", "vote", "election", "answer", "tick"],
+    "keywords": ["get", "ok"],
     "char": "✅",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "wheelchair": {
-    "keywords": ["blue-square", "disabled", "a11y", "accessibility"],
+    "keywords": ["wheelchair", "disabled"],
     "char": "♿",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "no_smoking": {
-    "keywords": ["cigarette", "blue-square", "smell", "smoke"],
+    "keywords": ["no smoking"],
     "char": "🚭",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "parking": {
-    "keywords": ["cars", "blue-square", "alphabet", "letter"],
+    "keywords": ["parking"],
     "char": "🅿️",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "potable_water": {
-    "keywords": ["blue-square", "liquid", "restroom", "cleaning", "faucet"],
-    "char": "🚰",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "mens": {
-    "keywords": ["toilet", "restroom", "wc", "blue-square", "gender", "male"],
+    "mens": {
+    "keywords": ["mens"],
     "char": "🚹",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "womens": {
-    "keywords": ["purple-square", "woman", "female", "toilet", "loo", "restroom", "gender"],
+    "keywords": ["womens"],
     "char": "🚺",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "baby_symbol": {
-    "keywords": ["orange-square", "child"],
-    "char": "🚼",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "loudspeaker": {
-    "keywords": ["volume", "sound"],
+   "loudspeaker": {
+    "keywords": ["volume", "loudspeaker"],
     "char": "📢",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "bell": {
-    "keywords": ["sound", "notification", "christmas", "xmas", "chime"],
+    "keywords": ["bell", "notification", "chime"],
     "char": "🔔",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
   "no_bell": {
-    "keywords": ["sound", "volume", "mute", "quiet", "silent"],
+    "keywords": ["no bell", "mute", "quiet", "silent"],
     "char": "🔕",
     "fitzpatrick_scale": false,
     "category": "symbols"
   },
-  "thought_balloon": {
-    "keywords": ["bubble", "cloud", "speech", "thinking", "dream"],
-    "char": "💭",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "right_anger_bubble": {
-    "keywords": ["caption", "speech", "thinking", "mad"],
-    "char": "🗯",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "speech_balloon": {
-    "keywords": ["bubble", "words", "message", "talk", "chatting"],
-    "char": "💬",
-    "fitzpatrick_scale": false,
-    "category": "symbols"
-  },
-  "afghanistan": {
-    "keywords": ["af", "flag", "nation", "country", "banner"],
+    "afghanistan": {
+    "keywords": ["afghanistan"],
     "char": "🇦🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "aland_islands": {
-    "keywords": ["Åland", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["Åland", "islands"],
     "char": "🇦🇽",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "albania": {
-    "keywords": ["al", "flag", "nation", "country", "banner"],
+    "keywords": ["albania"],
     "char": "🇦🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "algeria": {
-    "keywords": ["dz", "flag", "nation", "country", "banner"],
+    "keywords": ["algeria"],
     "char": "🇩🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "american_samoa": {
-    "keywords": ["american", "ws", "flag", "nation", "country", "banner"],
+    "keywords": ["american samoa"],
     "char": "🇦🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "andorra": {
-    "keywords": ["ad", "flag", "nation", "country", "banner"],
+    "keywords": ["andorra"],
     "char": "🇦🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "angola": {
-    "keywords": ["ao", "flag", "nation", "country", "banner"],
+    "keywords": ["angola"],
     "char": "🇦🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "anguilla": {
-    "keywords": ["ai", "flag", "nation", "country", "banner"],
+    "keywords": ["anguilla"],
     "char": "🇦🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "antarctica": {
-    "keywords": ["aq", "flag", "nation", "country", "banner"],
+    "keywords": ["antarctica"],
     "char": "🇦🇶",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "antigua_barbuda": {
-    "keywords": ["antigua", "barbuda", "flag", "nation", "country", "banner"],
+    "keywords": ["antigua", "barbuda"],
     "char": "🇦🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "argentina": {
-    "keywords": ["ar", "flag", "nation", "country", "banner"],
+    "keywords": ["argentina"],
     "char": "🇦🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "armenia": {
-    "keywords": ["am", "flag", "nation", "country", "banner"],
+    "keywords": ["armenia"],
     "char": "🇦🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "aruba": {
-    "keywords": ["aw", "flag", "nation", "country", "banner"],
+    "keywords": ["aruba"],
     "char": "🇦🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "australia": {
-    "keywords": ["au", "flag", "nation", "country", "banner"],
+    "keywords": ["australia"],
     "char": "🇦🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "austria": {
-    "keywords": ["at", "flag", "nation", "country", "banner"],
+    "keywords": ["austria"],
     "char": "🇦🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "azerbaijan": {
-    "keywords": ["az", "flag", "nation", "country", "banner"],
+    "keywords": ["azerbaijan"],
     "char": "🇦🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bahamas": {
-    "keywords": ["bs", "flag", "nation", "country", "banner"],
+    "keywords": ["bahamas"],
     "char": "🇧🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bahrain": {
-    "keywords": ["bh", "flag", "nation", "country", "banner"],
+    "keywords": ["bahrain"],
     "char": "🇧🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bangladesh": {
-    "keywords": ["bd", "flag", "nation", "country", "banner"],
+    "keywords": ["bangladesh"],
     "char": "🇧🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "barbados": {
-    "keywords": ["bb", "flag", "nation", "country", "banner"],
+    "keywords": ["barbados"],
     "char": "🇧🇧",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "belarus": {
-    "keywords": ["by", "flag", "nation", "country", "banner"],
+    "keywords": ["belarus"],
     "char": "🇧🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "belgium": {
-    "keywords": ["be", "flag", "nation", "country", "banner"],
+    "keywords": ["belgium"],
     "char": "🇧🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "belize": {
-    "keywords": ["bz", "flag", "nation", "country", "banner"],
+    "keywords": ["belize"],
     "char": "🇧🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "benin": {
-    "keywords": ["bj", "flag", "nation", "country", "banner"],
+    "keywords": ["benin"],
     "char": "🇧🇯",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bermuda": {
-    "keywords": ["bm", "flag", "nation", "country", "banner"],
+    "keywords": ["bermuda"],
     "char": "🇧🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bhutan": {
-    "keywords": ["bt", "flag", "nation", "country", "banner"],
+    "keywords": ["bhutan"],
     "char": "🇧🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bolivia": {
-    "keywords": ["bo", "flag", "nation", "country", "banner"],
+    "keywords": ["bolivia"],
     "char": "🇧🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "caribbean_netherlands": {
-    "keywords": ["bonaire", "flag", "nation", "country", "banner"],
+    "keywords": ["caribbean netherlands"],
     "char": "🇧🇶",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bosnia_herzegovina": {
-    "keywords": ["bosnia", "herzegovina", "flag", "nation", "country", "banner"],
+    "keywords": ["bosnia", "herzegovina"],
     "char": "🇧🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "botswana": {
-    "keywords": ["bw", "flag", "nation", "country", "banner"],
+    "keywords": ["botswana"],
     "char": "🇧🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "brazil": {
-    "keywords": ["br", "flag", "nation", "country", "banner"],
+    "keywords": ["brazil"],
     "char": "🇧🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "british_indian_ocean_territory": {
-    "keywords": ["british", "indian", "ocean", "territory", "flag", "nation", "country", "banner"],
+    "keywords": ["british", "indian", "ocean", "territory"],
     "char": "🇮🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "british_virgin_islands": {
-    "keywords": ["british", "virgin", "islands", "bvi", "flag", "nation", "country", "banner"],
+    "keywords": ["british", "virgin", "islands", "bvi"],
     "char": "🇻🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "brunei": {
-    "keywords": ["bn", "darussalam", "flag", "nation", "country", "banner"],
+    "keywords": ["brunei"],
     "char": "🇧🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "bulgaria": {
-    "keywords": ["bg", "flag", "nation", "country", "banner"],
+    "keywords": ["bulgaria"],
     "char": "🇧🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "burkina_faso": {
-    "keywords": ["burkina", "faso", "flag", "nation", "country", "banner"],
+    "keywords": ["burkina", "faso"],
     "char": "🇧🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "burundi": {
-    "keywords": ["bi", "flag", "nation", "country", "banner"],
+    "keywords": ["burundi"],
     "char": "🇧🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cape_verde": {
-    "keywords": ["cabo", "verde", "flag", "nation", "country", "banner"],
+    "keywords": ["cabo", "verde"],
     "char": "🇨🇻",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cambodia": {
-    "keywords": ["kh", "flag", "nation", "country", "banner"],
+    "keywords": ["cambodia"],
     "char": "🇰🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cameroon": {
-    "keywords": ["cm", "flag", "nation", "country", "banner"],
+    "keywords": ["cameroon"],
     "char": "🇨🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "canada": {
-    "keywords": ["ca", "flag", "nation", "country", "banner"],
+    "keywords": ["canada"],
     "char": "🇨🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "canary_islands": {
-    "keywords": ["canary", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["canary", "islands"],
     "char": "🇮🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cayman_islands": {
-    "keywords": ["cayman", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["cayman", "islands"],
     "char": "🇰🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "central_african_republic": {
-    "keywords": ["central", "african", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["central", "african", "republic"],
     "char": "🇨🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "chad": {
-    "keywords": ["td", "flag", "nation", "country", "banner"],
+    "keywords": ["chad"],
     "char": "🇹🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "chile": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["chile"],
     "char": "🇨🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cn": {
-    "keywords": ["china", "chinese", "prc", "flag", "country", "nation", "banner"],
+    "keywords": ["china", "chinese", "prc", "cn"],
     "char": "🇨🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "christmas_island": {
-    "keywords": ["christmas", "island", "flag", "nation", "country", "banner"],
+    "keywords": ["christmas", "island"],
     "char": "🇨🇽",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cocos_islands": {
-    "keywords": ["cocos", "keeling", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["cocos", "islands"],
     "char": "🇨🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "colombia": {
-    "keywords": ["co", "flag", "nation", "country", "banner"],
+    "keywords": ["colombia"],
     "char": "🇨🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "comoros": {
-    "keywords": ["km", "flag", "nation", "country", "banner"],
+    "keywords": ["comoros"],
     "char": "🇰🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "congo_brazzaville": {
-    "keywords": ["congo", "flag", "nation", "country", "banner"],
+    "keywords": ["congo", "congo_brazzaville"],
     "char": "🇨🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "congo_kinshasa": {
-    "keywords": ["congo", "democratic", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["congo_kinshasa"],
     "char": "🇨🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cook_islands": {
-    "keywords": ["cook", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["cook", "islands"],
     "char": "🇨🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "costa_rica": {
-    "keywords": ["costa", "rica", "flag", "nation", "country", "banner"],
+    "keywords": ["costa", "rica"],
     "char": "🇨🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "croatia": {
-    "keywords": ["hr", "flag", "nation", "country", "banner"],
+    "keywords": ["croatia"],
     "char": "🇭🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cuba": {
-    "keywords": ["cu", "flag", "nation", "country", "banner"],
+    "keywords": ["cuba"],
     "char": "🇨🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "curacao": {
-    "keywords": ["curaçao", "flag", "nation", "country", "banner"],
+    "keywords": ["curacao"],
     "char": "🇨🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cyprus": {
-    "keywords": ["cy", "flag", "nation", "country", "banner"],
+    "keywords": ["cyprus"],
     "char": "🇨🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "czech_republic": {
-    "keywords": ["cz", "flag", "nation", "country", "banner"],
+    "keywords": ["czech republic"],
     "char": "🇨🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "denmark": {
-    "keywords": ["dk", "flag", "nation", "country", "banner"],
+    "keywords": ["denmark"],
     "char": "🇩🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "djibouti": {
-    "keywords": ["dj", "flag", "nation", "country", "banner"],
+    "keywords": ["djibouti"],
     "char": "🇩🇯",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "dominica": {
-    "keywords": ["dm", "flag", "nation", "country", "banner"],
+    "keywords": ["dominica"],
     "char": "🇩🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "dominican_republic": {
-    "keywords": ["dominican", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["dominican", "republic"],
     "char": "🇩🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ecuador": {
-    "keywords": ["ec", "flag", "nation", "country", "banner"],
+    "keywords": ["ecuador"],
     "char": "🇪🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "egypt": {
-    "keywords": ["eg", "flag", "nation", "country", "banner"],
+    "keywords": ["egypt"],
     "char": "🇪🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "el_salvador": {
-    "keywords": ["el", "salvador", "flag", "nation", "country", "banner"],
+    "keywords": ["el", "salvador"],
     "char": "🇸🇻",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "equatorial_guinea": {
-    "keywords": ["equatorial", "gn", "flag", "nation", "country", "banner"],
+    "keywords": ["equatorial", "guinea"],
     "char": "🇬🇶",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "eritrea": {
-    "keywords": ["er", "flag", "nation", "country", "banner"],
+    "keywords": ["eritrea"],
     "char": "🇪🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "estonia": {
-    "keywords": ["ee", "flag", "nation", "country", "banner"],
+    "keywords": ["estonia"],
     "char": "🇪🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ethiopia": {
-    "keywords": ["et", "flag", "nation", "country", "banner"],
+    "keywords": ["ethiopia"],
     "char": "🇪🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "eu": {
-    "keywords": ["european", "union", "flag", "banner"],
+    "keywords": ["european"],
     "char": "🇪🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "falkland_islands": {
-    "keywords": ["falkland", "islands", "malvinas", "flag", "nation", "country", "banner"],
+    "keywords": ["falkland", "islands"],
     "char": "🇫🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "faroe_islands": {
-    "keywords": ["faroe", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["faroe", "islands"],
     "char": "🇫🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "fiji": {
-    "keywords": ["fj", "flag", "nation", "country", "banner"],
+    "keywords": ["fiji"],
     "char": "🇫🇯",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "finland": {
-    "keywords": ["fi", "flag", "nation", "country", "banner"],
+    "keywords": ["finland"],
     "char": "🇫🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "fr": {
-    "keywords": ["banner", "flag", "nation", "france", "french", "country"],
+    "keywords": ["france", "french"],
     "char": "🇫🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "french_guiana": {
-    "keywords": ["french", "guiana", "flag", "nation", "country", "banner"],
+    "keywords": ["french", "guiana"],
     "char": "🇬🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "french_polynesia": {
-    "keywords": ["french", "polynesia", "flag", "nation", "country", "banner"],
+    "keywords": ["french", "polynesia"],
     "char": "🇵🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "french_southern_territories": {
-    "keywords": ["french", "southern", "territories", "flag", "nation", "country", "banner"],
+    "keywords": ["french", "southern", "territories"],
     "char": "🇹🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "gabon": {
-    "keywords": ["ga", "flag", "nation", "country", "banner"],
+    "keywords": ["gabon"],
     "char": "🇬🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "gambia": {
-    "keywords": ["gm", "flag", "nation", "country", "banner"],
+    "keywords": ["gambia"],
     "char": "🇬🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "georgia": {
-    "keywords": ["ge", "flag", "nation", "country", "banner"],
+    "keywords": ["georgia"],
     "char": "🇬🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "de": {
-    "keywords": ["german", "nation", "flag", "country", "banner"],
+    "keywords": ["germany"],
     "char": "🇩🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ghana": {
-    "keywords": ["gh", "flag", "nation", "country", "banner"],
+    "keywords": ["ghana"],
     "char": "🇬🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "gibraltar": {
-    "keywords": ["gi", "flag", "nation", "country", "banner"],
+    "keywords": ["gibraltar"],
     "char": "🇬🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "greece": {
-    "keywords": ["gr", "flag", "nation", "country", "banner"],
+    "keywords": ["greece"],
     "char": "🇬🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "greenland": {
-    "keywords": ["gl", "flag", "nation", "country", "banner"],
+    "keywords": ["greenland"],
     "char": "🇬🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "grenada": {
-    "keywords": ["gd", "flag", "nation", "country", "banner"],
+    "keywords": ["grenada"],
     "char": "🇬🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guadeloupe": {
-    "keywords": ["gp", "flag", "nation", "country", "banner"],
+    "keywords": ["guadeloupe"],
     "char": "🇬🇵",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guam": {
-    "keywords": ["gu", "flag", "nation", "country", "banner"],
+    "keywords": ["guam"],
     "char": "🇬🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guatemala": {
-    "keywords": ["gt", "flag", "nation", "country", "banner"],
+    "keywords": ["guatemala"],
     "char": "🇬🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guernsey": {
-    "keywords": ["gg", "flag", "nation", "country", "banner"],
+    "keywords": ["guernsey"],
     "char": "🇬🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guinea": {
-    "keywords": ["gn", "flag", "nation", "country", "banner"],
+    "keywords": ["guinea"],
     "char": "🇬🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guinea_bissau": {
-    "keywords": ["gw", "bissau", "flag", "nation", "country", "banner"],
+    "keywords": ["guinea_bissau", "bissau"],
     "char": "🇬🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "guyana": {
-    "keywords": ["gy", "flag", "nation", "country", "banner"],
+    "keywords": ["guyana"],
     "char": "🇬🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "haiti": {
-    "keywords": ["ht", "flag", "nation", "country", "banner"],
+    "keywords": ["haiti"],
     "char": "🇭🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "honduras": {
-    "keywords": ["hn", "flag", "nation", "country", "banner"],
+    "keywords": ["honduras"],
     "char": "🇭🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "hong_kong": {
-    "keywords": ["hong", "kong", "flag", "nation", "country", "banner"],
+    "keywords": ["hong", "kong"],
     "char": "🇭🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "hungary": {
-    "keywords": ["hu", "flag", "nation", "country", "banner"],
+    "keywords": ["hungary"],
     "char": "🇭🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "iceland": {
-    "keywords": ["is", "flag", "nation", "country", "banner"],
+    "keywords": ["iceland"],
     "char": "🇮🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "india": {
-    "keywords": ["in", "flag", "nation", "country", "banner"],
+    "keywords": ["india"],
     "char": "🇮🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "indonesia": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["indonesia"],
     "char": "🇮🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "iran": {
-    "keywords": ["iran,", "islamic", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["iran,"],
     "char": "🇮🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "iraq": {
-    "keywords": ["iq", "flag", "nation", "country", "banner"],
+    "keywords": ["iraq"],
     "char": "🇮🇶",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ireland": {
-    "keywords": ["ie", "flag", "nation", "country", "banner"],
+    "keywords": ["ireland"],
     "char": "🇮🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "isle_of_man": {
-    "keywords": ["isle", "man", "flag", "nation", "country", "banner"],
+    "keywords": ["isle"],
     "char": "🇮🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "israel": {
-    "keywords": ["il", "flag", "nation", "country", "banner"],
+    "keywords": ["israel"],
     "char": "🇮🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "it": {
-    "keywords": ["italy", "flag", "nation", "country", "banner"],
+    "keywords": ["italy"],
     "char": "🇮🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "cote_divoire": {
-    "keywords": ["ivory", "coast", "flag", "nation", "country", "banner"],
+    "keywords": ["cote divoire"],
     "char": "🇨🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "jamaica": {
-    "keywords": ["jm", "flag", "nation", "country", "banner"],
+    "keywords": ["jamaica"],
     "char": "🇯🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "jp": {
-    "keywords": ["japanese", "nation", "flag", "country", "banner"],
+    "keywords": ["japan"],
     "char": "🇯🇵",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "jersey": {
-    "keywords": ["je", "flag", "nation", "country", "banner"],
+    "keywords": ["jersey"],
     "char": "🇯🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "jordan": {
-    "keywords": ["jo", "flag", "nation", "country", "banner"],
+    "keywords": ["jordan"],
     "char": "🇯🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kazakhstan": {
-    "keywords": ["kz", "flag", "nation", "country", "banner"],
+    "keywords": ["kazakhstan"],
     "char": "🇰🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kenya": {
-    "keywords": ["ke", "flag", "nation", "country", "banner"],
+    "keywords": ["kenya"],
     "char": "🇰🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kiribati": {
-    "keywords": ["ki", "flag", "nation", "country", "banner"],
+    "keywords": ["kiribati"],
     "char": "🇰🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kosovo": {
-    "keywords": ["xk", "flag", "nation", "country", "banner"],
+    "keywords": ["kosovo"],
     "char": "🇽🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kuwait": {
-    "keywords": ["kw", "flag", "nation", "country", "banner"],
+    "keywords": ["kuwait"],
     "char": "🇰🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kyrgyzstan": {
-    "keywords": ["kg", "flag", "nation", "country", "banner"],
+    "keywords": ["kyrgyzstan"],
     "char": "🇰🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "laos": {
-    "keywords": ["lao", "democratic", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["laos"],
     "char": "🇱🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "latvia": {
-    "keywords": ["lv", "flag", "nation", "country", "banner"],
+    "keywords": ["latvia"],
     "char": "🇱🇻",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "lebanon": {
-    "keywords": ["lb", "flag", "nation", "country", "banner"],
+    "keywords": ["lebanon"],
     "char": "🇱🇧",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "lesotho": {
-    "keywords": ["ls", "flag", "nation", "country", "banner"],
+    "keywords": ["lesotho"],
     "char": "🇱🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "liberia": {
-    "keywords": ["lr", "flag", "nation", "country", "banner"],
+    "keywords": ["liberia"],
     "char": "🇱🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "libya": {
-    "keywords": ["ly", "flag", "nation", "country", "banner"],
+    "keywords": ["libya"],
     "char": "🇱🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "liechtenstein": {
-    "keywords": ["li", "flag", "nation", "country", "banner"],
+    "keywords": ["liechtenstein"],
     "char": "🇱🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "lithuania": {
-    "keywords": ["lt", "flag", "nation", "country", "banner"],
+    "keywords": ["lithuania"],
     "char": "🇱🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "luxembourg": {
-    "keywords": ["lu", "flag", "nation", "country", "banner"],
+    "keywords": ["luxembourg"],
     "char": "🇱🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "macau": {
-    "keywords": ["macao", "flag", "nation", "country", "banner"],
+    "keywords": ["macau"],
     "char": "🇲🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "macedonia": {
-    "keywords": ["macedonia,", "flag", "nation", "country", "banner"],
+    "keywords": ["macedonia"],
     "char": "🇲🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "madagascar": {
-    "keywords": ["mg", "flag", "nation", "country", "banner"],
+    "keywords": ["madagascar"],
     "char": "🇲🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "malawi": {
-    "keywords": ["mw", "flag", "nation", "country", "banner"],
+    "keywords": ["malawi"],
     "char": "🇲🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "malaysia": {
-    "keywords": ["my", "flag", "nation", "country", "banner"],
+    "keywords": ["malaysia"],
     "char": "🇲🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "maldives": {
-    "keywords": ["mv", "flag", "nation", "country", "banner"],
+    "keywords": ["maldives"],
     "char": "🇲🇻",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mali": {
-    "keywords": ["ml", "flag", "nation", "country", "banner"],
+    "keywords": ["mali"],
     "char": "🇲🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "malta": {
-    "keywords": ["mt", "flag", "nation", "country", "banner"],
+    "keywords": ["malta"],
     "char": "🇲🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "marshall_islands": {
-    "keywords": ["marshall", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["marshall", "islands"],
     "char": "🇲🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "martinique": {
-    "keywords": ["mq", "flag", "nation", "country", "banner"],
+    "keywords": ["martinique"],
     "char": "🇲🇶",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mauritania": {
-    "keywords": ["mr", "flag", "nation", "country", "banner"],
+    "keywords": ["mauritania"],
     "char": "🇲🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mauritius": {
-    "keywords": ["mu", "flag", "nation", "country", "banner"],
+    "keywords": ["mauritius"],
     "char": "🇲🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mayotte": {
-    "keywords": ["yt", "flag", "nation", "country", "banner"],
+    "keywords": ["mayotte"],
     "char": "🇾🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mexico": {
-    "keywords": ["mx", "flag", "nation", "country", "banner"],
+    "keywords": ["mexico"],
     "char": "🇲🇽",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "micronesia": {
-    "keywords": ["micronesia,", "federated", "states", "flag", "nation", "country", "banner"],
+    "keywords": ["micronesia"],
     "char": "🇫🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "moldova": {
-    "keywords": ["moldova,", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["moldova"],
     "char": "🇲🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "monaco": {
-    "keywords": ["mc", "flag", "nation", "country", "banner"],
+    "keywords": ["monaco"],
     "char": "🇲🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mongolia": {
-    "keywords": ["mn", "flag", "nation", "country", "banner"],
+    "keywords": ["mongolia"],
     "char": "🇲🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "montenegro": {
-    "keywords": ["me", "flag", "nation", "country", "banner"],
+    "keywords": ["montenegro"],
     "char": "🇲🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "montserrat": {
-    "keywords": ["ms", "flag", "nation", "country", "banner"],
+    "keywords": ["montserrat"],
     "char": "🇲🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "morocco": {
-    "keywords": ["ma", "flag", "nation", "country", "banner"],
+    "keywords": ["morocco"],
     "char": "🇲🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "mozambique": {
-    "keywords": ["mz", "flag", "nation", "country", "banner"],
+    "keywords": ["mozambique"],
     "char": "🇲🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "myanmar": {
-    "keywords": ["mm", "flag", "nation", "country", "banner"],
+    "keywords": ["myanmar"],
     "char": "🇲🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "namibia": {
-    "keywords": ["na", "flag", "nation", "country", "banner"],
+    "keywords": ["namibia"],
     "char": "🇳🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "nauru": {
-    "keywords": ["nr", "flag", "nation", "country", "banner"],
+    "keywords": ["nauru"],
     "char": "🇳🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "nepal": {
-    "keywords": ["np", "flag", "nation", "country", "banner"],
+    "keywords": ["nepal"],
     "char": "🇳🇵",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "netherlands": {
-    "keywords": ["nl", "flag", "nation", "country", "banner"],
+    "keywords": ["netherlands"],
     "char": "🇳🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "new_caledonia": {
-    "keywords": ["new", "caledonia", "flag", "nation", "country", "banner"],
+    "keywords": ["new", "caledonia"],
     "char": "🇳🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "new_zealand": {
-    "keywords": ["new", "zealand", "flag", "nation", "country", "banner"],
+    "keywords": ["new", "zealand"],
     "char": "🇳🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "nicaragua": {
-    "keywords": ["ni", "flag", "nation", "country", "banner"],
+    "keywords": ["nicaragua"],
     "char": "🇳🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "niger": {
-    "keywords": ["ne", "flag", "nation", "country", "banner"],
+    "keywords": ["niger"],
     "char": "🇳🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "nigeria": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["nigeria"],
     "char": "🇳🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "niue": {
-    "keywords": ["nu", "flag", "nation", "country", "banner"],
+    "keywords": ["niue"],
     "char": "🇳🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "norfolk_island": {
-    "keywords": ["norfolk", "island", "flag", "nation", "country", "banner"],
+    "keywords": ["norfolk", "island"],
     "char": "🇳🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "northern_mariana_islands": {
-    "keywords": ["northern", "mariana", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["northern", "mariana", "islands"],
     "char": "🇲🇵",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "north_korea": {
-    "keywords": ["north", "korea", "nation", "flag", "country", "banner"],
+    "keywords": ["north", "korea"],
     "char": "🇰🇵",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "norway": {
-    "keywords": ["no", "flag", "nation", "country", "banner"],
+    "keywords": ["norway"],
     "char": "🇳🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "oman": {
-    "keywords": ["om_symbol", "flag", "nation", "country", "banner"],
+    "keywords": ["oman"],
     "char": "🇴🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "pakistan": {
-    "keywords": ["pk", "flag", "nation", "country", "banner"],
+    "keywords": ["pakistan"],
     "char": "🇵🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "palau": {
-    "keywords": ["pw", "flag", "nation", "country", "banner"],
+    "keywords": ["palau"],
     "char": "🇵🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "palestinian_territories": {
-    "keywords": ["palestine", "palestinian", "territories", "flag", "nation", "country", "banner"],
+    "keywords": ["palestinian", "territories"],
     "char": "🇵🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "panama": {
-    "keywords": ["pa", "flag", "nation", "country", "banner"],
+    "keywords": ["panama"],
     "char": "🇵🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "papua_new_guinea": {
-    "keywords": ["papua", "new", "guinea", "flag", "nation", "country", "banner"],
+    "keywords": ["papua", "new", "guinea"],
     "char": "🇵🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "paraguay": {
-    "keywords": ["py", "flag", "nation", "country", "banner"],
+    "keywords": ["paraguay"],
     "char": "🇵🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "peru": {
-    "keywords": ["pe", "flag", "nation", "country", "banner"],
+    "keywords": ["peru"],
     "char": "🇵🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "philippines": {
-    "keywords": ["ph", "flag", "nation", "country", "banner"],
+    "keywords": ["philippines"],
     "char": "🇵🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "pitcairn_islands": {
-    "keywords": ["pitcairn", "flag", "nation", "country", "banner"],
+    "keywords": ["pitcairn"],
     "char": "🇵🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "poland": {
-    "keywords": ["pl", "flag", "nation", "country", "banner"],
+    "keywords": ["poland"],
     "char": "🇵🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "portugal": {
-    "keywords": ["pt", "flag", "nation", "country", "banner"],
+    "keywords": ["portugal"],
     "char": "🇵🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "puerto_rico": {
-    "keywords": ["puerto", "rico", "flag", "nation", "country", "banner"],
+    "keywords": ["puerto", "rico"],
     "char": "🇵🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "qatar": {
-    "keywords": ["qa", "flag", "nation", "country", "banner"],
+    "keywords": ["qatar"],
     "char": "🇶🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "reunion": {
-    "keywords": ["réunion", "flag", "nation", "country", "banner"],
+    "keywords": ["réunion", "reunion"],
     "char": "🇷🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "romania": {
-    "keywords": ["ro", "flag", "nation", "country", "banner"],
+    "keywords": ["romania"],
     "char": "🇷🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ru": {
-    "keywords": ["russian", "federation", "flag", "nation", "country", "banner"],
+    "keywords": ["russia"],
     "char": "🇷🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "rwanda": {
-    "keywords": ["rw", "flag", "nation", "country", "banner"],
+    "keywords": ["rwanda"],
     "char": "🇷🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_barthelemy": {
-    "keywords": ["saint", "barthélemy", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "barthélemy"],
     "char": "🇧🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_helena": {
-    "keywords": ["saint", "helena", "ascension", "tristan", "cunha", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "helena"],
     "char": "🇸🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_kitts_nevis": {
-    "keywords": ["saint", "kitts", "nevis", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "kitts", "nevis"],
     "char": "🇰🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_lucia": {
-    "keywords": ["saint", "lucia", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "lucia"],
     "char": "🇱🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_pierre_miquelon": {
-    "keywords": ["saint", "pierre", "miquelon", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "pierre", "miquelon"],
     "char": "🇵🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "st_vincent_grenadines": {
-    "keywords": ["saint", "vincent", "grenadines", "flag", "nation", "country", "banner"],
+    "keywords": ["saint", "vincent", "grenadines"],
     "char": "🇻🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "samoa": {
-    "keywords": ["ws", "flag", "nation", "country", "banner"],
+    "keywords": ["samoa"],
     "char": "🇼🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "san_marino": {
-    "keywords": ["san", "marino", "flag", "nation", "country", "banner"],
+    "keywords": ["san", "marino"],
     "char": "🇸🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sao_tome_principe": {
-    "keywords": ["sao", "tome", "principe", "flag", "nation", "country", "banner"],
+    "keywords": ["sao", "tome", "principe"],
     "char": "🇸🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "saudi_arabia": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["saudi arabia"],
     "char": "🇸🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "senegal": {
-    "keywords": ["sn", "flag", "nation", "country", "banner"],
+    "keywords": ["senegal"],
     "char": "🇸🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "serbia": {
-    "keywords": ["rs", "flag", "nation", "country", "banner"],
+    "keywords": ["serbia"],
     "char": "🇷🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "seychelles": {
-    "keywords": ["sc", "flag", "nation", "country", "banner"],
+    "keywords": ["seychelles"],
     "char": "🇸🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sierra_leone": {
-    "keywords": ["sierra", "leone", "flag", "nation", "country", "banner"],
+    "keywords": ["sierra", "leone"],
     "char": "🇸🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "singapore": {
-    "keywords": ["sg", "flag", "nation", "country", "banner"],
+    "keywords": ["singapore"],
     "char": "🇸🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sint_maarten": {
-    "keywords": ["sint", "maarten", "dutch", "flag", "nation", "country", "banner"],
+    "keywords": ["sint", "maarten"],
     "char": "🇸🇽",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "slovakia": {
-    "keywords": ["sk", "flag", "nation", "country", "banner"],
+    "keywords": ["slovakia"],
     "char": "🇸🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "slovenia": {
-    "keywords": ["si", "flag", "nation", "country", "banner"],
+    "keywords": ["slovenia"],
     "char": "🇸🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "solomon_islands": {
-    "keywords": ["solomon", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["solomon", "islands"],
     "char": "🇸🇧",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "somalia": {
-    "keywords": ["so", "flag", "nation", "country", "banner"],
+    "keywords": ["somalia"],
     "char": "🇸🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "south_africa": {
-    "keywords": ["south", "africa", "flag", "nation", "country", "banner"],
+    "keywords": ["south", "africa"],
     "char": "🇿🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "south_georgia_south_sandwich_islands": {
-    "keywords": ["south", "georgia", "sandwich", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["south", "georgia", "sandwich", "islands"],
     "char": "🇬🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "kr": {
-    "keywords": ["south", "korea", "nation", "flag", "country", "banner"],
+    "keywords": ["south", "korea"],
     "char": "🇰🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "south_sudan": {
-    "keywords": ["south", "sd", "flag", "nation", "country", "banner"],
+    "keywords": ["south sudan"],
     "char": "🇸🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "es": {
-    "keywords": ["spain", "flag", "nation", "country", "banner"],
+    "keywords": ["spain"],
     "char": "🇪🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sri_lanka": {
-    "keywords": ["sri", "lanka", "flag", "nation", "country", "banner"],
+    "keywords": ["sri", "lanka"],
     "char": "🇱🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sudan": {
-    "keywords": ["sd", "flag", "nation", "country", "banner"],
+    "keywords": ["sudan"],
     "char": "🇸🇩",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "suriname": {
-    "keywords": ["sr", "flag", "nation", "country", "banner"],
+    "keywords": ["suriname"],
     "char": "🇸🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "swaziland": {
-    "keywords": ["sz", "flag", "nation", "country", "banner"],
+    "keywords": ["swaziland"],
     "char": "🇸🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "sweden": {
-    "keywords": ["se", "flag", "nation", "country", "banner"],
+    "keywords": ["sweden"],
     "char": "🇸🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "switzerland": {
-    "keywords": ["ch", "flag", "nation", "country", "banner"],
+    "keywords": ["switzerland"],
     "char": "🇨🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "syria": {
-    "keywords": ["syrian", "arab", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["syria"],
     "char": "🇸🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "taiwan": {
-    "keywords": ["tw", "flag", "nation", "country", "banner"],
+    "keywords": ["taiwan"],
     "char": "🇹🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tajikistan": {
-    "keywords": ["tj", "flag", "nation", "country", "banner"],
+    "keywords": ["tajikistan"],
     "char": "🇹🇯",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tanzania": {
-    "keywords": ["tanzania,", "united", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["tanzania,"],
     "char": "🇹🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "thailand": {
-    "keywords": ["th", "flag", "nation", "country", "banner"],
+    "keywords": ["thailand"],
     "char": "🇹🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "timor_leste": {
-    "keywords": ["timor", "leste", "flag", "nation", "country", "banner"],
+    "keywords": ["timor", "leste"],
     "char": "🇹🇱",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "togo": {
-    "keywords": ["tg", "flag", "nation", "country", "banner"],
+    "keywords": ["togo"],
     "char": "🇹🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tokelau": {
-    "keywords": ["tk", "flag", "nation", "country", "banner"],
+    "keywords": ["tokelau"],
     "char": "🇹🇰",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tonga": {
-    "keywords": ["to", "flag", "nation", "country", "banner"],
+    "keywords": ["tonga"],
     "char": "🇹🇴",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "trinidad_tobago": {
-    "keywords": ["trinidad", "tobago", "flag", "nation", "country", "banner"],
+    "keywords": ["trinidad", "tobago"],
     "char": "🇹🇹",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tunisia": {
-    "keywords": ["tn", "flag", "nation", "country", "banner"],
+    "keywords": ["tunisia"],
     "char": "🇹🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tr": {
-    "keywords": ["turkey", "flag", "nation", "country", "banner"],
+    "keywords": ["turkey"],
     "char": "🇹🇷",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "turkmenistan": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["turkmenistan"],
     "char": "🇹🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "turks_caicos_islands": {
-    "keywords": ["turks", "caicos", "islands", "flag", "nation", "country", "banner"],
+    "keywords": ["turks", "caicos", "islands"],
     "char": "🇹🇨",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "tuvalu": {
-    "keywords": ["flag", "nation", "country", "banner"],
+    "keywords": ["tuvalu"],
     "char": "🇹🇻",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "uganda": {
-    "keywords": ["ug", "flag", "nation", "country", "banner"],
+    "keywords": ["uganda"],
     "char": "🇺🇬",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "ukraine": {
-    "keywords": ["ua", "flag", "nation", "country", "banner"],
+    "keywords": ["ukraine"],
     "char": "🇺🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "united_arab_emirates": {
-    "keywords": ["united", "arab", "emirates", "flag", "nation", "country", "banner"],
+    "keywords": ["united", "arab", "emirates"],
     "char": "🇦🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "uk": {
-    "keywords": ["united", "kingdom", "great", "britain", "northern", "ireland", "flag", "nation", "country", "banner", "british", "UK", "english", "england", "union jack"],
+    "keywords": ["united", "kingdom", "britain", "british", "UK", "english", "england"],
     "char": "🇬🇧",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "england": {
-    "keywords": ["flag", "english"],
+    "keywords": ["england"],
     "char": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "scotland": {
-    "keywords": ["flag", "scottish"],
+    "keywords": ["scotland", "scottish"],
     "char": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "wales": {
-    "keywords": ["flag", "welsh"],
+    "keywords": ["wales"],
     "char": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "us": {
-    "keywords": ["united", "states", "america", "flag", "nation", "country", "banner"],
+    "keywords": ["USA", "america"],
     "char": "🇺🇸",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "us_virgin_islands": {
-    "keywords": ["virgin", "islands", "us", "flag", "nation", "country", "banner"],
+    "keywords": ["virgin", "islands"],
     "char": "🇻🇮",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "uruguay": {
-    "keywords": ["uy", "flag", "nation", "country", "banner"],
+    "keywords": ["uruguay"],
     "char": "🇺🇾",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "uzbekistan": {
-    "keywords": ["uz", "flag", "nation", "country", "banner"],
+    "keywords": ["uzbekistan"],
     "char": "🇺🇿",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "vanuatu": {
-    "keywords": ["vu", "flag", "nation", "country", "banner"],
+    "keywords": ["vanuatu"],
     "char": "🇻🇺",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "vatican_city": {
-    "keywords": ["vatican", "city", "flag", "nation", "country", "banner"],
+    "keywords": ["vatican", "city"],
     "char": "🇻🇦",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "venezuela": {
-    "keywords": ["ve", "bolivarian", "republic", "flag", "nation", "country", "banner"],
+    "keywords": ["venezuela"],
     "char": "🇻🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "vietnam": {
-    "keywords": ["viet", "nam", "flag", "nation", "country", "banner"],
+    "keywords": ["vietnam"],
     "char": "🇻🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "wallis_futuna": {
-    "keywords": ["wallis", "futuna", "flag", "nation", "country", "banner"],
+    "keywords": ["wallis", "futuna"],
     "char": "🇼🇫",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "western_sahara": {
-    "keywords": ["western", "sahara", "flag", "nation", "country", "banner"],
+    "keywords": ["western", "sahara"],
     "char": "🇪🇭",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "yemen": {
-    "keywords": ["ye", "flag", "nation", "country", "banner"],
+    "keywords": ["yemen"],
     "char": "🇾🇪",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "zambia": {
-    "keywords": ["zm", "flag", "nation", "country", "banner"],
+    "keywords": ["zambia"],
     "char": "🇿🇲",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "zimbabwe": {
-    "keywords": ["zw", "flag", "nation", "country", "banner"],
+    "keywords": ["zimbabwe"],
     "char": "🇿🇼",
     "fitzpatrick_scale": false,
     "category": "flags"
   },
   "united_nations": {
-    "keywords": ["un", "flag", "banner"],
+    "keywords": ["un", "united nations"],
     "char": "🇺🇳",
     "fitzpatrick_scale": false,
     "category": "flags"
   }
 }
-

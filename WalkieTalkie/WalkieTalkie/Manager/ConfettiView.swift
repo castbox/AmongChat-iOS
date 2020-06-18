@@ -49,7 +49,9 @@ public final class ConfettiView: UIView {
         layer.needsDisplayOnBoundsChange = true
         self.layer.addSublayer(layer)
 
-        guard duration.isFinite else { return }
+        guard duration.isFinite else {
+            return
+        }
 
         let animation = CAKeyframeAnimation(keyPath: #keyPath(CAEmitterLayer.birthRate))
         animation.duration = duration
