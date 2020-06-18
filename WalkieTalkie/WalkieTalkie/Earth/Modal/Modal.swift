@@ -34,6 +34,7 @@ struct Modal {
     enum Style {
         case topOffset
         case customHeight
+        case alpha
     }
 }
 
@@ -66,7 +67,16 @@ extension Modalable where Self: UIViewController {
             return
         }
         let height = Frame.Screen.height - self.height()
-        view.frame = CGRect(x: 0, y: Frame.Screen.height, width: Frame.Screen.width, height: Frame.Screen.height)
+        let style = self.style()
+        var initY: CGFloat {
+            if style == .alpha {
+                return 0
+            } else {
+                return Frame.Screen.height
+            }
+        }
+        view.frame = CGRect(x: 0, y: initY, width: Frame.Screen.width, height: Frame.Screen.height)
+        view.alpha = (style != .alpha).int.cgFloat
         //add cover
         let cover = Modal.Cover(frame: UIScreen.main.bounds)
         cover.tag = coverViewTag
@@ -74,10 +84,14 @@ extension Modalable where Self: UIViewController {
         let dismissBlock: (UIView) -> Void = { [weak self] coverView in
             guard let `self` = self else { return }
             let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: { [weak self] in
-                self?.view.frame = CGRect(x: 0.0,
-                                          y: Frame.Screen.height,
-                                          width: UIScreen.main.bounds.width,
-                                          height: UIScreen.main.bounds.height)
+                if style != .alpha {
+                    self?.view.frame = CGRect(x: 0.0,
+                                              y: Frame.Screen.height,
+                                              width: UIScreen.main.bounds.width,
+                                              height: UIScreen.main.bounds.height)
+                } else {
+                    self?.view.alpha = 0
+                }
                 coverView.alpha = 0
             })
             transitionAnimator.addCompletion { [weak self] _ in
@@ -109,10 +123,14 @@ extension Modalable where Self: UIViewController {
         
         let coverAlpha = self.coverAlpha()
         let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normalSlow.rawValue, dampingRatio: 1, animations: { [weak self] in
-            self?.view.frame = CGRect(x: 0.0,
-                                     y: height,
-                                     width: UIScreen.main.bounds.width,
-                                     height: UIScreen.main.bounds.height)
+            if style != .alpha {
+                self?.view.frame = CGRect(x: 0.0,
+                                          y: height,
+                                          width: UIScreen.main.bounds.width,
+                                          height: UIScreen.main.bounds.height)
+            } else {
+                self?.view.alpha = 1
+            }
             cover.alpha = coverAlpha > 0 ? coverAlpha : 0.1
         })
         transitionAnimator.startAnimation()
@@ -128,3 +146,5 @@ extension Modalable where Self: UIViewController {
         completion?()
     }
 }
+
+
