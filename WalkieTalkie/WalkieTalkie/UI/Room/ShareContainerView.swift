@@ -14,13 +14,15 @@ import RxCocoa
 import SwifterSwift
 
 class ShareView: UIView, UIGestureRecognizerDelegate {
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
     private var contentView: ShareContainerView!
+    private var isAutomaticShow: Bool = false
     
-    static func showWith(channel: Room, shareButton: UIButton) {
+    static func showWith(channel: Room, shareButton: UIButton, isAutomaticShow: Bool) {
         let shareView = ShareView(frame: Frame.Screen.bounds, forView: shareButton)
         shareView.alpha = 0
         shareView.set(channel)
+        shareView.isAutomaticShow = isAutomaticShow
         shareButton.parentViewController?.view.addSubview(shareView)
         shareView.fadeIn(duration: AnimationDuration.fast.rawValue)
     }
@@ -35,6 +37,7 @@ class ShareView: UIView, UIGestureRecognizerDelegate {
         let refViewFrame = forView.convert(forView.bounds, to: viewController!.view)
         contentView.top = refViewFrame.origin.y + refViewFrame.height
         contentView.left = 40
+        contentView.isAutomaticShow = isAutomaticShow
         contentView.completionHandler = { [weak self] in
             self?.hideView()
         }
@@ -75,11 +78,12 @@ class ShareView: UIView, UIGestureRecognizerDelegate {
 }
 
 class ShareContainerView: XibLoadableView {
-    
-    
+        
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var isAutomaticShow: Bool = false
+
     private var source: [Item] = []
     private var channel: Room!
     var completionHandler: (() -> Void)? = nil
@@ -214,6 +218,7 @@ extension ShareContainerView: UICollectionViewDelegate {
         }
         self.isUserInteractionEnabled = false
         cell.isAnimate = true
+        Logger.Share.log(.share, category: item.type.rawValue, isAutomaticShow.int.string)
         ShareManager.default.share(with: channel.name, type: item.type, viewController: self.parentViewController!) { [weak self] in
             self?.isUserInteractionEnabled = true
             cell.isAnimate = false
