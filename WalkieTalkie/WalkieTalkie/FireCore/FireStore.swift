@@ -53,6 +53,7 @@ class FireStore {
     }()
     
 //    private (set) var isInReview: Bool = true
+    let appConfigSubject = BehaviorRelay<AppConfig?>(value: nil)
     let isInReviewSubject = BehaviorRelay<Bool>(value: true)
 
     init() {
@@ -105,6 +106,7 @@ class FireStore {
                     //                    observer.onCompleted()
                     //                    self.
                     self?.isInReviewSubject.accept(config?.reviewVersion == Config.appVersion)
+                    self?.appConfigSubject.accept(config)
                 }
             })
     }

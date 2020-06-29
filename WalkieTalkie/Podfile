@@ -38,6 +38,8 @@ def firebase_pods
     
     # in app messageing
     pod 'Firebase/InAppMessagingDisplay'
+    
+    pod 'Firebase/DynamicLinks'
 end
 
 # specify the version numbers in case of Podfile.lock missing
@@ -124,9 +126,9 @@ target 'WalkieTalkie' do
     #https://github.com/mxcl/Path.swift
     pod 'Path.swift', '~> 1.0.0'
     
-     pod 'CocoaDebug', :configurations => ['Debug'] #Required
+#     pod 'CocoaDebug', :configurations => ['Debug'] #Required
 #    pod 'DoraemonKit/Core', '~> 3.0.2'
-#    pod 'DoraemonKit/Core', '~> 3.0.2', :configurations => ['Debug'] #Required
+    pod 'DoraemonKit/Core', '~> 3.0.2', :configurations => ['Debug'] #Required
     #pod 'DoraemonKit/WithGPS', '~> 3.0.2', :configurations => ['Debug'] #可选
 #    pod 'DoraemonKit/WithLoad', '~> 3.0.2', :configurations => ['Debug'] #可选
     #pod 'DoraemonKit/WithLogger', '~> 3.0.2', :configurations => ['Debug'] #可选
@@ -135,6 +137,8 @@ target 'WalkieTalkie' do
     #pod 'DoraemonKit/WithWeex', '~> 3.0.2', :configurations => ['Debug'] #可选
 
     pod 'WSFlexibleTouch'
+    
+    pod 'TikTokOpenSDK', '~> 3.0.2'
 end
 
 post_install do |installer|

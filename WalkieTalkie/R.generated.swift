@@ -17,8 +17,10 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 5 files.
+  /// This `R.file` struct is generated, and contains static references to 6 files.
   struct file {
+    /// Resource file `DefaultRemoteConfig.plist`.
+    static let defaultRemoteConfigPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "DefaultRemoteConfig", pathExtension: "plist")
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
     /// Resource file `call.m4a`.
@@ -29,6 +31,12 @@ struct R: Rswift.Validatable {
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
     /// Resource file `end.mp3`.
     static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
+    
+    /// `bundle.url(forResource: "DefaultRemoteConfig", withExtension: "plist")`
+    static func defaultRemoteConfigPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.defaultRemoteConfigPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
     
     /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
     static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -104,7 +112,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 52 images.
+  /// This `R.image` struct is generated, and contains static references to 58 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -196,6 +204,18 @@ struct R: Rswift.Validatable {
     static let icon_setting_star = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_star")
     /// Image `icon_setting`.
     static let icon_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting")
+    /// Image `icon_share_bg`.
+    static let icon_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_bg")
+    /// Image `icon_share_message`.
+    static let icon_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_message")
+    /// Image `icon_share_more`.
+    static let icon_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_more")
+    /// Image `icon_share_snapchat`.
+    static let icon_share_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_snapchat")
+    /// Image `icon_share_ticktock`.
+    static let icon_share_ticktock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_ticktock")
+    /// Image `icon_share_whatsapp`.
+    static let icon_share_whatsapp = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_whatsapp")
     /// Image `launch_logo`.
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
@@ -436,6 +456,36 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_setting_star, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_share_bg", bundle: ..., traitCollection: ...)`
+    static func icon_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_share_message", bundle: ..., traitCollection: ...)`
+    static func icon_share_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_message, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_share_more", bundle: ..., traitCollection: ...)`
+    static func icon_share_more(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_more, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_share_snapchat", bundle: ..., traitCollection: ...)`
+    static func icon_share_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_snapchat, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_share_ticktock", bundle: ..., traitCollection: ...)`
+    static func icon_share_ticktock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_ticktock, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_share_whatsapp", bundle: ..., traitCollection: ...)`
+    static func icon_share_whatsapp(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_whatsapp, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "launch_logo", bundle: ..., traitCollection: ...)`
     static func launch_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.launch_logo, compatibleWith: traitCollection)
@@ -474,7 +524,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 11 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
   struct nib {
     /// Nib `CreateGlobalChannelController`.
     static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
@@ -496,6 +546,8 @@ struct R: Rswift.Validatable {
     static let screenContainer = _R.nib._ScreenContainer()
     /// Nib `SecretChannelContainer`.
     static let secretChannelContainer = _R.nib._SecretChannelContainer()
+    /// Nib `ShareContainerView`.
+    static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
     
@@ -559,6 +611,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.secretChannelContainer)
     }
     
+    /// `UINib(name: "ShareContainerView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.shareContainerView) instead")
+    static func shareContainerView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.shareContainerView)
+    }
+    
     /// `UINib(name: "SnapChatCreativeShareView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.snapChatCreativeShareView) instead")
     static func snapChatCreativeShareView(_: Void = ()) -> UIKit.UINib {
@@ -603,6 +661,10 @@ struct R: Rswift.Validatable {
     
     static func secretChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.secretChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.shareContainerView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -739,7 +801,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: PASSCORD
+      /// en translation: PASSCODE
       /// 
       /// Locales: en
       static let inputPasscodePlaceholder = Rswift.StringResource(key: "input.passcode.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -982,7 +1044,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: PASSCORD
+      /// en translation: PASSCODE
       /// 
       /// Locales: en
       static func inputPasscodePlaceholder(_: Void = ()) -> String {
@@ -1170,6 +1232,7 @@ struct _R: Rswift.Validatable {
       try _PremiumContainer.validate()
       try _ScreenContainer.validate()
       try _SecretChannelContainer.validate()
+      try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
     }
     
@@ -1334,6 +1397,23 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ShareContainerView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "ShareContainerView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_share_bg' is used in nib 'ShareContainerView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

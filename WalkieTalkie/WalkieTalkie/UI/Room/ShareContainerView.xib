@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareContainerView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="ajl-4I-brv" id="TD6-kX-utY"/>
+                <outlet property="titleLabel" destination="i89-6m-mJB" id="Sor-x5-tda"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_share_bg" translatesAutoresizingMaskIntoConstraints="NO" id="xvj-XH-9Gd">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Friends to We" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i89-6m-mJB">
+                    <rect key="frame" x="20" y="27.5" width="140" height="21"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ajl-4I-brv">
+                    <rect key="frame" x="0.0" y="58.5" width="414" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="fyO-4f-fZK"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="J9r-rK-9RA">
+                        <size key="itemSize" width="44" height="44"/>
+                        <size key="headerReferenceSize" width="20" height="44"/>
+                        <size key="footerReferenceSize" width="20" height="44"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="ZME-p6-btf"/>
+                        <outlet property="delegate" destination="-1" id="TlB-zi-tK5"/>
+                    </connections>
+                </collectionView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="xvj-XH-9Gd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3gu-5h-9Nb"/>
+                <constraint firstItem="xvj-XH-9Gd" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="4xN-vt-2yJ"/>
+                <constraint firstItem="xvj-XH-9Gd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="M33-ed-bAQ"/>
+                <constraint firstItem="ajl-4I-brv" firstAttribute="top" secondItem="i89-6m-mJB" secondAttribute="bottom" constant="10" id="Qpv-KF-YrQ"/>
+                <constraint firstItem="i89-6m-mJB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="27.5" id="kA5-5Z-LfG"/>
+                <constraint firstItem="xvj-XH-9Gd" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="lcP-tA-tYy"/>
+                <constraint firstItem="i89-6m-mJB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="wCd-cw-PhZ"/>
+                <constraint firstItem="ajl-4I-brv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xMX-F2-VTF"/>
+                <constraint firstAttribute="trailing" secondItem="ajl-4I-brv" secondAttribute="trailing" id="xw5-30-Y1p"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="153.01339285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_share_bg" width="108" height="118"/>
+    </resources>
+</document>
