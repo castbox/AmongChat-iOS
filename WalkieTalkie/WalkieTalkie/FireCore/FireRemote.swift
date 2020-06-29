@@ -16,7 +16,7 @@ class FireRemote {
     
     private let config: RemoteConfig = {
         let fig = RemoteConfig.remoteConfig()
-        fig.setDefaults(fromPlist: "ScannerDefaultRemoteConfig")
+        fig.setDefaults(fromPlist: "DefaultRemoteConfig")
         fig.configSettings = RemoteConfigSettings.init()
         return fig
     }()
@@ -71,6 +71,8 @@ extension FireRemote {
         
         let rateIntervalSeconds: Int
         
+        let delayShowShareDialog: Int
+        
         init(config: RemoteConfig) {
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
@@ -107,6 +109,7 @@ extension FireRemote {
             interstitialConfig = InterstitialConfig(interstitialString)
             
             rateIntervalSeconds = config["i_rate_interval_sec"].numberValue?.intValue ?? 86400
+                    delayShowShareDialog = config["delay_show_share_dialog"].numberValue?.intValue ?? 10
         }
     }
 }

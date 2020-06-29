@@ -224,11 +224,13 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.7):
     - BoringSSL-GRPC/Interface (= 0.0.7)
   - BoringSSL-GRPC/Interface (0.0.7)
+  - BytedanceOpenPlatformSDK (3.0.1)
   - CastboxDebuger (1.3.2):
     - SSZipArchive (~> 2.1.4)
     - SwiftyBeaver (~> 1.9.0)
-  - CocoaDebug (1.2.6)
   - DeviceKit (3.2.0)
+  - DoraemonKit/Core (3.0.2)
+  - EasyTipView (2.0.4)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
   - Firebase/Core (6.25.0):
@@ -505,6 +507,8 @@ PODS:
   - SwiftyJSON (5.0.0)
   - SwiftyStoreKit (0.15.0)
   - SwiftyUserDefaults (5.0.0)
+  - TikTokOpenSDK (3.0.2):
+    - BytedanceOpenPlatformSDK (= 3.0.1)
   - UIColor_Hex_Swift (4.2.0)
   - WSFlexibleTouch (0.1.1)
 
@@ -513,8 +517,9 @@ DEPENDENCIES:
   - AgoraAudio_iOS (= 3.0.1)
   - BetterSegmentedControl
   - CastboxDebuger (~> 1.3.2)
-  - CocoaDebug
   - DeviceKit
+  - DoraemonKit/Core (~> 3.0.2)
+  - EasyTipView (~> 2.0.4)
   - Firebase/Analytics
   - Firebase/Crashlytics
   - Firebase/DynamicLinks
@@ -547,6 +552,7 @@ DEPENDENCIES:
   - SwiftyJSON
   - SwiftyStoreKit
   - SwiftyUserDefaults (~> 5.0.0)
+  - TikTokOpenSDK (~> 3.0.2)
   - UIColor_Hex_Swift (~> 4.2.0)
   - WSFlexibleTouch
 
@@ -560,8 +566,10 @@ SPEC REPOS:
     - Alamofire
     - BetterSegmentedControl
     - BoringSSL-GRPC
-    - CocoaDebug
+    - BytedanceOpenPlatformSDK
     - DeviceKit
+    - DoraemonKit
+    - EasyTipView
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -620,6 +628,7 @@ SPEC REPOS:
     - SwiftyJSON
     - SwiftyStoreKit
     - SwiftyUserDefaults
+    - TikTokOpenSDK
     - UIColor_Hex_Swift
     - WSFlexibleTouch
 
@@ -630,9 +639,11 @@ SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
+  BytedanceOpenPlatformSDK: 48b6b7603f81daf50dd90cb337cd690bf3c51371
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
-  CocoaDebug: 51998f568ab5f15b4321fce3a4eed32faded975b
   DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
+  DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
+  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -691,9 +702,10 @@ SPEC CHECKSUMS:
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
+  TikTokOpenSDK: f81840227b18ba43c294b2839e5cfe46610647bf
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: 15a62a8f8103864051b3d75cde2f16b3ec0cb8fa
+PODFILE CHECKSUM: 90da03567c601f7877ebae2a86b4036b3c019927
 
 COCOAPODS: 1.9.1

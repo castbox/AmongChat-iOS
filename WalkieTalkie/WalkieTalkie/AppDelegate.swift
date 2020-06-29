@@ -14,11 +14,13 @@ import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
 #if DEBUG
-//import DoraemonKit
-import CocoaDebug
+import DoraemonKit
+//import CocoaDebug
 #endif
 import FirebaseInAppMessaging
 import FirebaseCrashlytics
+import TikTokOpenSDK
+import FirebaseDynamicLinks
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,19 +39,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setGlobalAppearance()
         RtcManager.shared.initialize()
         FirebaseApp.configure()
-        
 //        UserProperty.logUserID(String(Constant.sUserId))
         
         _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
         _ = FireStore.shared
+        FireRemote.shared.refresh()
         
         #if DEBUG
 //        Fabric.sharedSDK().debug = true
-//        DoraemonManager.shareInstance().install()
-        CocoaDebug.enable()
-        CocoaDebug.showBubble()
+        DoraemonManager.shareInstance().install()
+//        CocoaDebug.enable()
+//        CocoaDebug.showBubble()
         #endif
         
 //        Fabric.with([Crashlytics.self])
@@ -75,6 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
+        
+        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         return true
     }
     
@@ -86,10 +91,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
         if Routes.canHandle(url) {
-            return Routes.handle(url)
+            return handle(url)
+        } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
+            return true
         }
-        return FireLink.handle(dynamicLink: url) { url in
-            cdPrint("url: \(url)")
+        return FireLink.handle(dynamicLink: url) { [weak self] url in
+            cdPrint("url: \(String(describing: url))")
+            guard let url = url else {
+                return
+            }
+            _ = self?.handle(url)
+//            _ = Routes.canHandle(url)
         }
     }
 
@@ -101,9 +113,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = userActivity.webpageURL else { return false }
             if Routes.canHandle(url) {
                 return handle(url)
-            }
-            return FireLink.handle(dynamicLink: url) { url in
-                cdPrint("url: \(url)")
+            } 
+            return FireLink.handle(dynamicLink: url) { [weak self] url in
+                cdPrint("url: \(String(describing: url))")
+                guard let url = url else {
+                    return
+                }
+                _ = self?.handle(url)
+//                _ = Routes.canHandle(url)
             }
         default:
             // not supported yet

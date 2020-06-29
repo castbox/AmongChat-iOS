@@ -109,6 +109,9 @@ class RoomViewController: ViewController {
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
+    var shareTimeDispose: Disposable?
+    //only show once
+    var previousShowShareViewName: String?
 
     override var screenName: Logger.Screen.Node.Start {
         return .channel
@@ -233,11 +236,13 @@ class RoomViewController: ViewController {
                 showCreateSecretChannel(with: .emptySecretRooms)
                 return
             }
-            showShareController(channelName: channelName)
+//            showShareController(channelName: channelName)
         } else {
             Logger.UserAction.log(.share_channel, channelName)
-            shareChannel(name: channelName)
+//            shareChannel(name: channelName)
         }
+        previousShowShareViewName = channelName
+        ShareView.showWith(channel: channel, shareButton: shareButton)
     }
     
     @IBAction func privateButtonAction(_ sender: Any) {
@@ -529,6 +534,28 @@ extension RoomViewController: MPAdViewDelegate {
 //MARK: Private method
 private extension RoomViewController {
     
+    func startShowShareViewTimer() {
+        guard state.isConnectedState else {
+            shareTimeDispose?.dispose()
+            return
+        }
+        guard previousShowShareViewName == nil else {
+            return
+        }
+        shareTimeDispose?.dispose()
+        shareTimeDispose =
+            Observable.just(())
+                .delay(.seconds(FireRemote.shared.value.delayShowShareDialog), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] _ in
+                    guard let `self` = self,
+                        let shareButton = self.shareButton else {
+                            return
+                    }
+                    self.shareButtonAction(shareButton)
+                })
+        shareTimeDispose?.disposed(by: bag)
+    }
+    
     func play(emojis: [String]) {
         guard self.confetti.isAvailable else {
             return
@@ -647,6 +674,7 @@ private extension RoomViewController {
             powerButton.setBackgroundImage(R.image.home_connect_btn_bg_b(), for: .normal)
             powerButton.setImage(R.image.btn_power(), for: .normal)
         }
+        startShowShareViewTimer()
     }
 
     func bindSubviewEvent() {

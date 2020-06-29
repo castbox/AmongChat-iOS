@@ -155,6 +155,10 @@
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
 		FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */; };
 		FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */; };
+		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
+		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
+		FEA79E66249B551D0067C1C1 /* ShareContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E65249B551D0067C1C1 /* ShareContainerView.swift */; };
+		FEA79E68249B55360067C1C1 /* ShareContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA79E67249B55360067C1C1 /* ShareContainerView.xib */; };
 		FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
 		FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D32449B69F006454F6 /* GestureBackable.swift */; };
@@ -345,6 +349,10 @@
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
 		FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSecretChannelController.xib; sourceTree = "<group>"; };
+		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
+		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
+		FEA79E65249B551D0067C1C1 /* ShareContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContainerView.swift; sourceTree = "<group>"; };
+		FEA79E67249B55360067C1C1 /* ShareContainerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareContainerView.xib; sourceTree = "<group>"; };
 		FEAAE837247E85CF00D5FD39 /* RoomToolsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomToolsView.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FEAD54D32449B69F006454F6 /* GestureBackable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GestureBackable.swift; sourceTree = "<group>"; };
@@ -480,6 +488,7 @@
 				FE4FDADF2435E4C500CD5E97 /* GoogleService-Info.plist */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
+				FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */,
 			);
 			path = WalkieTalkie;
 			sourceTree = "<group>";
@@ -520,6 +529,7 @@
 				FE126D3D243481BC00BEDD60 /* SeatManager.swift */,
 				FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */,
 				FE9B29F32488D250009A4969 /* ConfettiView.swift */,
+				FEA79E62249B52EF0067C1C1 /* ShareManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -776,6 +786,8 @@
 				FE86A58B245AC19E00C35FCA /* ScreenContainer.xib */,
 				FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */,
 				FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */,
+				FEA79E65249B551D0067C1C1 /* ShareContainerView.swift */,
+				FEA79E67249B55360067C1C1 /* ShareContainerView.xib */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -924,6 +936,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEA79E68249B55360067C1C1 /* ShareContainerView.xib in Resources */,
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
 				FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */,
 				FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */,
@@ -939,6 +952,7 @@
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
 				FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */,
+				FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */,
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FE746BD024629A9800CAC554 /* call.m4a in Resources */,
 				FE11DC30245B007B009B7E08 /* cbegin.mp3 in Resources */,
@@ -1163,6 +1177,7 @@
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
+				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
 				FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
@@ -1170,6 +1185,7 @@
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
 				FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
+				FEA79E66249B551D0067C1C1 /* ShareContainerView.swift in Sources */,
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
 				FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */,
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
@@ -1383,7 +1399,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.7;
+				MARKETING_VERSION = 1.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1408,7 +1424,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.7;
+				MARKETING_VERSION = 1.2.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

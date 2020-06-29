@@ -1,84 +1,78 @@
 {
   "grinning": {
-    "keywords": ["face","happy","hello"],
+    "keywords": ["joy", ":D", "grin"],
     "char": "😀",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "grimacing": {
-    "keywords": ["grimace", "teeth"],
+    "keywords": ["face", "grimace"],
     "char": "😬",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "grin": {
-    "keywords": ["smile", "joy", "kawaii"],
+    "keywords": ["happy", "smile", "delighted", "kawaii"],
     "char": "😁",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "joy": {
-    "keywords": ["cry", "tears", "weep", "happy", "happytears"],
+    "keywords": ["laugh", "lmao", "happytears", "haha"],
     "char": "😂",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "rofl": {
-    "keywords": ["laughing", "lol", "haha"],
+    "keywords": ["rolling", "floor", "laughing", "lol"],
     "char": "🤣",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "partying": {
-    "keywords": ["celebration", "woohoo"],
+    "keywords": ["pleased", "celebration", "woohoo"],
     "char": "🥳",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "smiley": {
-    "keywords": ["hi"],
+    "keywords": [":D", ":)", "funny"],
     "char": "😃",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "smile": {
-    "keywords": ["funny", "laugh", "like"],
-    "char": "😄",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
   "sweat_smile": {
-    "keywords": ["laugh", "sweat", "relief"],
+    "keywords": ["hot", "sweat", "relief", "embarrassed"],
     "char": "😅",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "laughing": {
-    "keywords": ["satisfied", "glad"],
+    "keywords": ["satisfied", "glad", "XD"],
     "char": "😆",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "innocent": {
-    "keywords": ["angel", "heaven", "halo"],
+    "keywords": ["heaven", "halo"],
     "char": "😇",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "wink": {
-    "keywords": ["mischievous", "secret"],
+    "keywords": ["mischievous", ";)", "eye"],
     "char": "😉",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "blush": {
-    "keywords": ["flushed", "embarrassed", "shy", "joy"],
+    "keywords": ["flushed", "crush", "shy"],
     "char": "😊",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "slightly_smiling_face": {
-    "keywords": ["smile"],
+    "keywords": ["smile", "glee"],
     "char": "🙂",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -96,7 +90,7 @@
     "category": "people"
   },
   "yum": {
-    "keywords": ["tongue", "silly", "yummy", "delicious", "savouring"],
+    "keywords": ["yummy", "nom", "delicious", "savouring"],
     "char": "😋",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -108,25 +102,25 @@
     "category": "people"
   },
   "heart_eyes": {
-    "keywords": ["love","affection", "valentines", "infatuation"],
+    "keywords": ["affection", "valentines", "infatuation"],
     "char": "😍",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "smiling_face_with_three_hearts": {
-    "keywords": ["like", "crush", "hearts", "adore"],
+    "keywords": ["like", "hearts", "adore"],
     "char": "🥰",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "kissing_heart": {
-    "keywords": ["kiss"],
+    "keywords": ["kiss", "love", "adore"],
     "char": "😘",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "stuck_out_tongue_winking_eye": {
-    "keywords": ["prank", "childish", "playful"],
+    "stuck_out_tongue_winking_eye": {
+    "keywords": ["prank", "childish", "wink"],
     "char": "😜",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -150,18 +144,12 @@
     "category": "people"
   },
   "stuck_out_tongue_closed_eyes": {
-    "keywords": ["face", "prank", "playful", "mischievous", "smile", "tongue"],
+    "keywords": ["playful", "tongue"],
     "char": "😝",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "stuck_out_tongue": {
-    "keywords": ["prank", "childish", "playful", "mischievous", "smile", "tongue"],
-    "char": "😛",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
-  "money_mouth_face": {
+    "money_mouth_face": {
     "keywords": ["rich", "dollar", "money"],
     "char": "🤑",
     "fitzpatrick_scale": false,
@@ -180,13 +168,13 @@
     "category": "people"
   },
   "star_struck": {
-    "keywords": ["smile", "starry", "eyes", "grinning", "star"],
+    "keywords": ["starry", "eyes", "surprised"],
     "char": "🤩",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "clown_face": {
-    "keywords": ["clown"],
+    "keywords": ["face", "clown", "zany"],
     "char": "🤡",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -198,31 +186,37 @@
     "category": "people"
   },
   "hugs": {
-    "keywords": ["hug"],
+    "keywords": ["hands", "hug"],
     "char": "🤗",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "smirk": {
-    "keywords": ["mean", "prank", "smug", "sarcasm"],
+    "keywords": ["mean", "smug", "sarcasm"],
     "char": "😏",
     "fitzpatrick_scale": false,
     "category": "people"
   },
+  "no_mouth": {
+    "keywords": ["hellokitty", "gape"],
+    "char": "😶",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
   "neutral_face": {
-    "keywords": ["indifference", "meh", "neutral"],
+    "keywords": ["indifference", "meh", ":|", "neutral"],
     "char": "😐",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "expressionless": {
-    "keywords": ["meh", "deadpan"],
+    "keywords": ["-_-", "deadpan"],
     "char": "😑",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "unamused": {
-    "keywords": ["unamused", "bored","sarcasm", "unimpressed", "skeptical", "dubious"],
+    "keywords": ["indifferent", "bored", "straight face", "serious", "skeptical", "dubious", "side_eye"],
     "char": "😒",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -246,7 +240,7 @@
     "category": "people"
   },
   "hand_over_mouth": {
-    "keywords": ["whoops", "shock", "surprise"],
+    "keywords": ["whoops", "shock", "astonished"],
     "char": "🤭",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -258,25 +252,25 @@
     "category": "people"
   },
   "symbols_over_mouth": {
-    "keywords": ["swearing", "cursing", "profanity", "expletive"],
+    "keywords": ["swearing", "cursing", "cussing", "profanity", "expletive"],
     "char": "🤬",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "exploding_head": {
-    "keywords": ["shocked", "mind", "blown", "shut up"],
+    "keywords": ["mind", "blown"],
     "char": "🤯",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "flushed": {
-    "keywords": ["blush", "flattered"],
+    "keywords": ["flattered", "unimpressed"],
     "char": "😳",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "disappointed": {
-    "keywords": ["sad", "upset", "depressed"],
+    "keywords": ["sad", "depressed", ":("],
     "char": "😞",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -288,151 +282,133 @@
     "category": "people"
   },
   "angry": {
-    "keywords": ["mad","annoyed", "frustrated"],
+    "keywords": ["mad", "annoyed"],
     "char": "😠",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "rage": {
-    "keywords": ["angry", "mad", "hate", "despise"],
+    "keywords": ["angry", "hate", "despise"],
     "char": "😡",
     "fitzpatrick_scale": false,
     "category": "people"
   },
+  "pensive": {
+    "keywords": ["upset"],
+    "char": "😔",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
   "confused": {
-    "keywords": ["indifference", "huh", "weird", "hmmm", ":/"],
+    "keywords": ["huh", "weird", ":/"],
     "char": "😕",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "frowning_face": {
-    "keywords": ["face", "sad", "upset", "frown"],
-    "char": "☹",
+  "slightly_frowning_face": {
+    "keywords": ["frowning", "disappointed"],
+    "char": "🙁",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "persevere": {
-    "keywords": ["face", "sick", "no", "upset", "oops"],
+    "keywords": ["sick", "no", "oops"],
     "char": "😣",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "confounded": {
-    "keywords": ["face", "confused", "sick", "unwell", "oops", ":S"],
+    "keywords": ["confused", "unwell", ":S"],
     "char": "😖",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "tired_face": {
-    "keywords": ["sick", "whine", "upset", "frustrated"],
+    "keywords": ["whine", "hopeless", "desperate"],
     "char": "😫",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "weary": {
-    "keywords": ["face", "tired", "sleepy", "sad", "frustrated", "upset"],
+    "keywords": ["tired", "despairing"],
     "char": "😩",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "pleading": {
-    "keywords": ["face", "begging", "mercy"],
+    "keywords": ["begging", "mercy"],
     "char": "🥺",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "triumph": {
-    "keywords": ["face", "gas", "phew", "proud", "pride"],
+    "keywords": ["gas", "proud", "pride"],
     "char": "😤",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "open_mouth": {
-    "keywords": ["face", "surprise", "impressed", "wow", "whoa", ":O"],
+    "keywords": ["wow", "whoa", ":O"],
     "char": "😮",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "scream": {
-    "keywords": ["face", "munch", "scared", "omg"],
+    "keywords": ["munch", "scared", "omg"],
     "char": "😱",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "fearful": {
-    "keywords": ["face", "scared", "terrified", "nervous", "oops", "huh"],
+    "keywords": ["terrified", "fearful"],
     "char": "😨",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "cold_sweat": {
-    "keywords": ["face", "nervous", "sweat"],
-    "char": "😰",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
   "hushed": {
-    "keywords": ["face", "woo", "shh"],
+    "keywords": ["woo", "shh"],
     "char": "😯",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "frowning": {
-    "keywords": ["face", "aw", "what"],
+    "keywords": ["aw", "what"],
     "char": "😦",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "anguished": {
-    "keywords": ["face", "stunned", "nervous"],
+    "keywords": ["stunned", "afraid"],
     "char": "😧",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "cry": {
-    "keywords": ["face", "tears", "sad", "depressed", "upset", ":'("],
-    "char": "😢",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
-  "disappointed_relieved": {
-    "keywords": ["face", "phew", "sweat", "nervous"],
-    "char": "😥",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
-  "drooling_face": {
-    "keywords": ["face"],
+    "drooling_face": {
+    "keywords": ["drool", "mouth water", "dribble"],
     "char": "🤤",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "sleepy": {
-    "keywords": ["face", "tired", "rest", "nap"],
+    "keywords": ["rest", "nap"],
     "char": "😪",
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "sweat": {
-    "keywords": ["face", "sad", "tired", "exercise"],
-    "char": "😓",
-    "fitzpatrick_scale": false,
-    "category": "people"
-  },
   "hot": {
-    "keywords": ["face", "feverish", "heat", "red", "sweating", "hot"],
+    "keywords": ["feverish", "heat", "red", "sweating"],
     "char": "🥵",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "cold": {
-    "keywords": ["face", "blue", "freezing", "frozen", "frostbite", "icicles", "cold"],
+    "keywords": ["blue", "freezing", "frozen", "frostbite", "icicles"],
     "char": "🥶",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "sob": {
-    "keywords": ["face", "cry", "tears", "sad", "upset", "depressed"],
+    "keywords": ["cry", "tears", "sorrowful", "heartbroken", "grief"],
     "char": "😭",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -444,43 +420,43 @@
     "category": "people"
   },
   "astonished": {
-    "keywords": ["face", "xox", "surprised", "poisoned"],
+    "keywords": ["poisoned"],
     "char": "😲",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "zipper_mouth_face": {
-    "keywords": ["face", "sealed", "zipper", "secret"],
+    "keywords": ["sealed", "zipper", "secret"],
     "char": "🤐",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "nauseated_face": {
-    "keywords": ["vomit", "gross", "green", "sick", "throw up", "ill"],
+    "keywords": ["vomit", "gross", "green", "throw up"],
     "char": "🤢",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "sneezing_face": {
-    "keywords": ["gesundheit", "sneeze", "sick", "allergy"],
+    "keywords": ["gesundheit", "sneeze", "allergy"],
     "char": "🤧",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "vomiting": {
-    "keywords": ["face", "sick"],
+    "keywords": ["ill", "disgusting"],
     "char": "🤮",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "mask": {
-    "keywords": ["face", "sick", "ill", "disease"],
+    "keywords": ["mask", "disease"],
     "char": "😷",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "face_with_thermometer": {
-    "keywords": ["sick", "temperature", "thermometer", "cold", "fever"],
+    "keywords": ["temperature", "thermometer", "cold", "fever"],
     "char": "🤒",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -492,19 +468,19 @@
     "category": "people"
   },
   "woozy": {
-    "keywords": ["face", "dizzy", "intoxicated", "tipsy", "wavy"],
+    "keywords": ["intoxicated", "tipsy", "wavy"],
     "char": "🥴",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "sleeping": {
-    "keywords": ["tired", "sleepy", "night", "zzz"],
+    "keywords": ["good night", "zzz"],
     "char": "😴",
     "fitzpatrick_scale": false,
     "category": "people"
   },
   "zzz": {
-    "keywords": ["sleepy", "tired", "dream"],
+    "keywords": ["sleepy", "dream"],
     "char": "💤",
     "fitzpatrick_scale": false,
     "category": "people"
@@ -521,11 +497,5638 @@
     "fitzpatrick_scale": false,
     "category": "people"
   },
-  "imp": {
-    "keywords": ["devil", "angry", "horns"],
-    "char": "👿",
+    "japanese_ogre": {
+    "keywords": ["monster", "scary", "creepy", "demon", "ogre"],
+    "char": "👹",
     "fitzpatrick_scale": false,
     "category": "people"
+  },
+  "japanese_goblin": {
+    "keywords": ["evil", "goblin"],
+    "char": "👺",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "skull": {
+    "keywords": ["dead", "skeleton", "death"],
+    "char": "💀",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "ghost": {
+    "keywords": ["spooky", "halloween", "scary"],
+    "char": "👻",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "alien": {
+    "keywords": ["UFO", "paul", "weird", "outer_space", "alien"],
+    "char": "👽",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "robot": {
+    "keywords": ["machine", "bot"],
+    "char": "🤖",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "smiley_cat": {
+    "keywords": ["animal", "cats"],
+    "char": "😺",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+     "palms_up": {
+    "keywords": ["palms", "cupped", "prayer"],
+    "char": "🤲",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "raised_hands": {
+    "keywords": ["hooray", "yea", "approve"],
+    "char": "🙌",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "clap": {
+    "keywords": ["praise", "applause", "congrats", "yay"],
+    "char": "👏",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "wave": {
+    "keywords": ["goodbye", "solong", "farewell", "hello", "hi", "palm"],
+    "char": "👋",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "call_me_hand": {
+    "keywords": ["call"],
+    "char": "🤙",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "+1": {
+    "keywords": ["thumbsup", "yes", "awesome", "good", "agree", "accept", "cool"],
+    "char": "👍",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "-1": {
+    "keywords": ["thumbsdown", "no", "dislike"],
+    "char": "👎",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "facepunch": {
+    "keywords": ["violence", "fist", "hit", "attack"],
+    "char": "👊",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "fist": {
+    "keywords": ["fingers", "grasp"],
+    "char": "✊",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "fist_left": {
+    "keywords": ["fistleft"],
+    "char": "🤛",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "fist_right": {
+    "keywords": ["fistright"],
+    "char": "🤜",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "v": {
+    "keywords": ["ohyeah", "peace", "victory", "two"],
+    "char": "✌",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "ok_hand": {
+    "keywords": ["limbs", "perfect", "ok", "okay"],
+    "char": "👌",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "raised_hand": {
+    "keywords": ["stop", "highfive", "ban"],
+    "char": "✋",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "raised_back_of_hand": {
+    "keywords": ["raised", "backhand"],
+    "char": "🤚",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "open_hands": {
+    "keywords": ["butterfly", "open hands"],
+    "char": "👐",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "muscle": {
+    "keywords": ["arm", "flex", "strong", "biceps"],
+    "char": "💪",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "pray": {
+    "keywords": ["please", "hope", "wish", "namaste"],
+    "char": "🙏",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "foot": {
+    "keywords": ["kick", "stomp"],
+    "char": "🦶",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "leg": {
+    "keywords": ["leg", "limb"],
+    "char": "🦵",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "handshake": {
+    "keywords": ["agreement", "shake"],
+    "char": "🤝",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "point_up_2": {
+    "keywords": ["direction", "up"],
+    "char": "👆",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "point_down": {
+    "keywords": ["point", "down"],
+    "char": "👇",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "point_left": {
+    "keywords": ["left"],
+    "char": "👈",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "point_right": {
+    "keywords": ["right"],
+    "char": "👉",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "fu": {
+    "keywords": ["rude", "middle", "flipping"],
+    "char": "🖕",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "raised_hand_with_fingers_splayed": {
+    "keywords": ["five"],
+    "char": "🖐",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "love_you": {
+    "keywords": ["I love you"],
+    "char": "🤟",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "metal": {
+    "keywords": ["evil_eye", "sign_of_horns", "rock_on"],
+    "char": "🤘",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "crossed_fingers": {
+    "keywords": ["lucky"],
+    "char": "🤞",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "vulcan_salute": {
+    "keywords": ["spock", "star trek"],
+    "char": "🖖",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "selfie": {
+    "keywords": ["camera", "phone", "selfie"],
+    "char": "🤳",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "nail_care": {
+    "keywords": ["beauty", "manicure", "fashion", "nail"],
+    "char": "💅",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "lips": {
+    "keywords": ["mouth"],
+    "char": "👄",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "tooth": {
+    "keywords": ["teeth", "dentist"],
+    "char": "🦷",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "tongue": {
+    "keywords": ["tongue", "playful"],
+    "char": "👅",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "ear": {
+    "keywords": ["ears", "hear", "sound", "listen"],
+    "char": "👂",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "nose": {
+    "keywords": ["smell", "nose", "sniff"],
+    "char": "👃",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "eye": {
+    "keywords": ["look", "see", "watch", "stare"],
+    "char": "👁",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "brain": {
+    "keywords": ["smart", "intelligent", "brain"],
+    "char": "🧠",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "baby": {
+    "keywords": ["baby", "infant", "toddler"],
+    "char": "👶",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "child": {
+    "keywords": ["child", "young"],
+    "char": "🧒",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "boy": {
+    "keywords": ["boy", "son"],
+    "char": "👦",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "girl": {
+    "keywords": ["girl", "daughter"],
+    "char": "👧",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "adult": {
+    "keywords": ["gender-neutral", "adult"],
+    "char": "🧑",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man": {
+    "keywords": ["man", "men", "male", "masculine", "mustache", "father", "dad", "classy", "sir"],
+    "char": "👨",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman": {
+    "keywords": [ "woman", "women", "female", "lady", "mother", "mom", "madam"],
+    "char": "👩",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "blonde_woman": {
+    "keywords": ["blonde"],
+    "char": "👱‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+    "bearded_person": {
+    "keywords": ["bearded", "bewhiskered"],
+    "char": "🧔",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "older_man": {
+    "keywords": ["senior", "grandfather"],
+    "char": "👴",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "older_woman": {
+    "keywords": ["grandmother"],
+    "char": "👵",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "policeman": {
+    "keywords": ["police", "law", "legal", "enforcement", "arrest", "911"],
+    "char": "👮",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "construction_worker_woman": {
+    "keywords": ["wip", "build", "construction", "worker", "labor"],
+    "char": "👷‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "guardsman": {
+    "keywords": ["uk", "gb", "british", "royal"],
+    "char": "💂",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "female_detective": {
+    "keywords": ["spy", "detective"],
+    "char": "🕵️‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_health_worker": {
+    "keywords": ["doctor", "nurse", "therapist", "healthcare"],
+    "char": "👨‍⚕️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+    "man_farmer": {
+    "keywords": ["rancher", "gardener", "farmer"],
+    "char": "👨‍🌾",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_cook": {
+    "keywords": ["chef"],
+    "char": "👨‍🍳",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_student": {
+    "keywords": ["graduate"],
+    "char": "👩‍🎓",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_singer": {
+    "keywords": ["rockstar", "entertainer"],
+    "char": "👨‍🎤",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_teacher": {
+    "keywords": ["instructor", "professor"],
+    "char": "👨‍🏫",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_factory_worker": {
+    "keywords": ["assembly", "industrial"],
+    "char": "👨‍🏭",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_technologist": {
+    "keywords": ["coder", "developer", "engineer", "programmer", "software", "woman", "human", "laptop"],
+    "char": "👩‍💻",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_office_worker": {
+    "keywords": ["business", "manager"],
+    "char": "👨‍💼",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_mechanic": {
+    "keywords": ["plumber"],
+    "char": "👨‍🔧",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_scientist": {
+    "keywords": ["biologist", "chemist", "engineer", "physicist"],
+    "char": "👩‍🔬",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_artist": {
+    "keywords": ["painter"],
+    "char": "👩‍🎨",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_firefighter": {
+    "keywords": ["firewoman"],
+    "char": "👩‍🚒",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_firefighter": {
+    "keywords": ["fireman"],
+    "char": "👨‍🚒",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+   "man_pilot": {
+    "keywords": ["aviator", "plane", "pilot"],
+    "char": "👨‍✈️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_astronaut": {
+    "keywords": ["space", "rocket", "astronaut"],
+    "char": "👨‍🚀",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_judge": {
+    "keywords": ["justice", "court", "lawyer"],
+    "char": "👩‍⚖️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_superhero": {
+    "keywords": ["heroine", "superwoman"],
+    "char": "🦸‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_superhero": {
+    "keywords": ["hero", "superman"],
+    "char": "🦸‍♂️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+    "mrs_claus": {
+    "keywords": ["xmas", "mother christmas"],
+    "char": "🤶",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "santa": {
+    "keywords": ["festival", "father christmas"],
+    "char": "🎅",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "sorceress": {
+    "keywords": ["mage", "witch"],
+    "char": "🧙‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "wizard": {
+    "keywords": ["sorcerer"],
+    "char": "🧙‍♂️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_vampire": {
+    "keywords": ["dracula"],
+    "char": "🧛‍♂️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_zombie": {
+    "keywords": ["walking dead"],
+    "char": "🧟‍♂️",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "mermaid": {
+    "keywords": ["mermaid", "merwoman", "ariel"],
+    "char": "🧜‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "merman": {
+    "keywords": ["merman", "triton"],
+    "char": "🧜‍♂️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_fairy": {
+    "keywords": ["fairy"],
+    "char": "🧚‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "angel": {
+    "keywords": ["angel", "wings"],
+    "char": "👼",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "pregnant_woman": {
+    "keywords": ["pregnant"],
+    "char": "🤰",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "breastfeeding": {
+    "keywords": ["nursing", "feeding"],
+    "char": "🤱",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "princess": {
+    "keywords": ["princess", "queen"],
+    "char": "👸",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "prince": {
+    "keywords": ["prince", "king"],
+    "char": "🤴",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "bride_with_veil": {
+    "keywords": ["bride"],
+    "char": "👰",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "man_in_tuxedo": {
+    "keywords": ["groom"],
+    "char": "🤵",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "running_woman": {
+    "keywords": ["running"],
+    "char": "🏃‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "walking_woman": {
+    "keywords": ["walk"],
+    "char": "🚶‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "dancer": {
+    "keywords": ["dance", "dancer"],
+    "char": "💃",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "couple": {
+    "keywords": ["pair", "date", "dating", "marriage"],
+    "char": "👫",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "two_men_holding_hands": {
+    "keywords": ["bromance", "friendship"],
+    "char": "👬",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "two_women_holding_hands": {
+    "keywords": ["intimate"],
+    "char": "👭",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "bowing_woman": {
+    "keywords": ["bowing"],
+    "char": "🙇‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_facepalming": {
+    "keywords": ["facepalm"],
+    "char": "🤦‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_shrugging": {
+    "keywords": ["shrug"],
+    "char": "🤷",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "tipping_hand_woman": {
+    "keywords": ["tipping", "information"],
+    "char": "💁",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "no_good_woman": {
+    "keywords": ["nope"],
+    "char": "🙅",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "pouting_woman": {
+    "keywords": ["pouting"],
+    "char": "🙎",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "frowning_woman": {
+    "keywords": ["discouraged", "unhappy"],
+    "char": "🙍",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "haircut_woman": {
+    "keywords": ["haircut"],
+    "char": "💇",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "massage_woman": {
+    "keywords": ["massage"],
+    "char": "💆",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "woman_in_steamy_room": {
+    "keywords": ["spa", "steamroom", "sauna"],
+    "char": "🧖‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "people"
+  },
+  "couple_with_heart_woman_man": {
+    "keywords": ["couple"],
+    "char": "💑",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "couple_with_heart_woman_woman": {
+    "keywords": ["lesbian"],
+    "char": "👩‍❤️‍👩",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "couple_with_heart_man_man": {
+    "keywords": ["gay"],
+    "char": "👨‍❤️‍👨",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "family_man_woman_boy": {
+    "keywords": ["home", "parents", "family"],
+    "char": "👪",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "yarn": {
+    "keywords": ["ball", "crochet", "knit"],
+    "char": "🧶",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "thread": {
+    "keywords": ["needle", "sewing", "spool", "string"],
+    "char": "🧵",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "coat": {
+    "keywords": ["jacket"],
+    "char": "🧥",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "labcoat": {
+    "keywords": ["experiment", "scientist"],
+    "char": "🥼",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "womans_clothes": {
+    "keywords": ["cloth", "shopping_bags"],
+    "char": "👚",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "tshirt": {
+    "keywords": ["casual", "shirt", "tee"],
+    "char": "👕",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "jeans": {
+    "keywords": ["jeans"],
+    "char": "👖",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "necktie": {
+    "keywords": ["suitup", "formal"],
+    "char": "👔",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "dress": {
+    "keywords": ["dress"],
+    "char": "👗",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "bikini": {
+    "keywords": ["swimming", "bikini"],
+    "char": "👙",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "kimono": {
+    "keywords": ["kimono"],
+    "char": "👘",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "lipstick": {
+    "keywords": ["lipstick"],
+    "char": "💄",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "kiss": {
+    "keywords": ["kiss", "lips"],
+    "char": "💋",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "footprints": {
+    "keywords": ["feet", "tracking", "footprints"],
+    "char": "👣",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "flat_shoe": {
+    "keywords": ["ballet", "slip-on", "slipper"],
+    "char": "🥿",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "high_heel": {
+    "keywords": ["shoes", "pumps", "stiletto"],
+    "char": "👠",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "sandal": {
+    "keywords": ["sandal", "flip flops"],
+    "char": "👡",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "boot": {
+    "keywords": ["boots"],
+    "char": "👢",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "mans_shoe": {
+    "keywords": ["shoe"],
+    "char": "👞",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "athletic_shoe": {
+    "keywords": ["sports", "sneakers"],
+    "char": "👟",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "hiking_boot": {
+    "keywords": ["backpacking", "camping", "hiking"],
+    "char": "🥾",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "socks": {
+    "keywords": ["stockings", "socks"],
+    "char": "🧦",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "gloves": {
+    "keywords": ["gloves"],
+    "char": "🧤",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "scarf": {
+    "keywords": ["neck", "scarf"],
+    "char": "🧣",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "womans_hat": {
+    "keywords": ["accessories", "hat", "spring"],
+    "char": "👒",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "tophat": {
+    "keywords": ["magic", "gentleman", "tophat", "circus"],
+    "char": "🎩",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "billed_hat": {
+    "keywords": ["cap", "baseball"],
+    "char": "🧢",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "rescue_worker_helmet": {
+    "keywords": ["helmet"],
+    "char": "⛑",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "mortar_board": {
+    "keywords": ["college", "degree", "university", "graduation", "education"],
+    "char": "🎓",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "crown": {
+    "keywords": ["kod", "leader", "crown", "royalty", "lord"],
+    "char": "👑",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "school_satchel": {
+    "keywords": ["student", "bag", "backpack"],
+    "char": "🎒",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "luggage": {
+    "keywords": ["packing", "travel", "luggage"],
+    "char": "🧳",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "pouch": {
+    "keywords": ["bag", "pouch"],
+    "char": "👝",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "purse": {
+    "keywords": ["purse", "sales"],
+    "char": "👛",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "handbag": {
+    "keywords": ["handbag"],
+    "char": "👜",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "briefcase": {
+    "keywords": ["briefcase", "documents", "work"],
+    "char": "💼",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "eyeglasses": {
+    "keywords": ["eyesight", "eyeglasses"],
+    "char": "👓",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "dark_sunglasses": {
+    "keywords": ["sunglasses"],
+    "char": "🕶",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "goggles": {
+    "keywords": ["goggles", "protection", "safety"],
+    "char": "🥽",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "ring": {
+    "keywords": ["wedding", "propose", "diamond", "ring", "jewelry", "gem", "engagement"],
+    "char": "💍",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "closed_umbrella": {
+    "keywords": ["weather", "umbrella", "rain", "drizzle"],
+    "char": "🌂",
+    "fitzpatrick_scale": false,
+    "category": "people"
+  },
+  "dog": {
+    "keywords": ["woof", "puppy", "pet", "dog"],
+    "char": "🐶",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cat": {
+    "keywords": ["meow", "kitten"],
+    "char": "🐱",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "mouse": {
+    "keywords": ["mouse", "cheese_wedge", "rodent"],
+    "char": "🐭",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "hamster": {
+    "keywords": ["hamster"],
+    "char": "🐹",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "rabbit": {
+    "keywords": ["rabbit", "bunny"],
+    "char": "🐰",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "fox_face": {
+    "keywords": ["fox"],
+    "char": "🦊",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bear": {
+    "keywords": ["bear", "wild"],
+    "char": "🐻",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "panda_face": {
+    "keywords": ["panda"],
+    "char": "🐼",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "koala": {
+    "keywords": ["koala"],
+    "char": "🐨",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "tiger": {
+    "keywords": ["tiger", "danger", "roar"],
+    "char": "🐯",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "lion": {
+    "keywords": ["lion"],
+    "char": "🦁",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cow": {
+    "keywords": ["beef", "cow", "moo"],
+    "char": "🐮",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "pig": {
+    "keywords": ["pig"],
+    "char": "🐷",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "pig_nose": {
+    "keywords": ["oink"],
+    "char": "🐽",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "frog": {
+    "keywords": ["frog", "croak", "toad"],
+    "char": "🐸",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "squid": {
+    "keywords": ["squid", "ocean", "sea"],
+    "char": "🦑",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "octopus": {
+    "keywords": ["octopus", "creature"],
+    "char": "🐙",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "shrimp": {
+    "keywords": ["shrimp", "seafood"],
+    "char": "🦐",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "monkey_face": {
+    "keywords": ["monkey"],
+    "char": "🐵",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "gorilla": {
+    "keywords": ["gorilla"],
+    "char": "🦍",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "chicken": {
+    "keywords": ["chicken", "cluck"],
+    "char": "🐔",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "penguin": {
+    "keywords": ["penguin"],
+    "char": "🐧",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bird": {
+    "keywords": ["bird", "fly", "tweet"],
+    "char": "🐦",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "baby_chick": {
+    "keywords": ["chick"],
+    "char": "🐤",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "hatching_chick": {
+    "keywords": ["egg", "born", "hatch"],
+    "char": "🐣",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "duck": {
+    "keywords": ["duck", "mallard"],
+    "char": "🦆",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "eagle": {
+    "keywords": ["eagle"],
+    "char": "🦅",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "owl": {
+    "keywords": ["owl", "hoot"],
+    "char": "🦉",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bat": {
+    "keywords": ["bat", "vampire"],
+    "char": "🦇",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "wolf": {
+    "keywords": ["wolf"],
+    "char": "🐺",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "boar": {
+    "keywords": ["boar"],
+    "char": "🐗",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "horse": {
+    "keywords": ["horse"],
+    "char": "🐴",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "unicorn": {
+    "keywords": ["unicorn", "mystical"],
+    "char": "🦄",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "honeybee": {
+    "keywords": ["bee", "insect", "honey"],
+    "char": "🐝",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bug": {
+    "keywords": ["bug", "worm"],
+    "char": "🐛",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "butterfly": {
+    "keywords": ["butterfly", "caterpillar"],
+    "char": "🦋",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "snail": {
+    "keywords": ["snail", "shell"],
+    "char": "🐌",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "beetle": {
+    "keywords": ["beetle", "ladybug"],
+    "char": "🐞",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "ant": {
+    "keywords": ["ant"],
+    "char": "🐜",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "grasshopper": {
+    "keywords": ["grasshopper", "cricket", "chirp"],
+    "char": "🦗",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "spider": {
+    "keywords": ["spider", "arachnid"],
+    "char": "🕷",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "scorpion": {
+    "keywords": ["scorpion"],
+    "char": "🦂",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "crab": {
+    "keywords": ["crab", "crustacean"],
+    "char": "🦀",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "snake": {
+    "keywords": ["snail", "hiss", "python"],
+    "char": "🐍",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "lizard": {
+    "keywords": ["lizard", "reptile"],
+    "char": "🦎",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "t-rex": {
+    "keywords": ["dinosaur", "tyrannosaurus", "extinct"],
+    "char": "🦖",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sauropod": {
+    "keywords": ["sauropod", "brachiosaurus", "brontosaurus", "diplodocus"],
+    "char": "🦕",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "turtle": {
+    "keywords": ["turtle", "slow", "tortoise"],
+    "char": "🐢",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "tropical_fish": {
+    "keywords": ["tropical", "nemo"],
+    "char": "🐠",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "fish": {
+    "keywords": ["fish"],
+    "char": "🐟",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "blowfish": {
+    "keywords": ["blowfish"],
+    "char": "🐡",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "dolphin": {
+    "keywords": ["dolphin", "fins"],
+    "char": "🐬",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "shark": {
+    "keywords": ["shark", "jaws"],
+    "char": "🦈",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "whale": {
+    "keywords": ["whale"],
+    "char": "🐳",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "crocodile": {
+    "keywords": ["crocodile", "alligator"],
+    "char": "🐊",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "leopard": {
+    "keywords": ["leopard"],
+    "char": "🐆",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "zebra": {
+    "keywords": ["zebra", "stripes", "safari"],
+    "char": "🦓",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "water_buffalo": {
+    "keywords": ["buffalo"],
+    "char": "🐃",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "ox": {
+    "keywords": ["ox"],
+    "char": "🐂",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "deer": {
+    "keywords": ["deer", "venison"],
+    "char": "🦌",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "camel": {
+    "keywords": ["camel", "desert", "hump"],
+    "char": "🐫",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "giraffe": {
+    "keywords": ["giraffe", "spots"],
+    "char": "🦒",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "elephant": {
+    "keywords": ["elephant"],
+    "char": "🐘",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "rhinoceros": {
+    "keywords": ["rhinoceros"],
+    "char": "🦏",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "goat": {
+    "keywords": ["goat"],
+    "char": "🐐",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "ram": {
+    "keywords": ["ram"],
+    "char": "🐏",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sheep": {
+    "keywords": ["sheep", "wool", "shipit"],
+    "char": "🐑",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "racehorse": {
+    "keywords": ["racehorse", "gamble"],
+    "char": "🐎",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "rat": {
+    "keywords": ["rat"],
+    "char": "🐀",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "rooster": {
+    "keywords": ["rooster"],
+    "char": "🐓",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "turkey": {
+    "keywords": ["turkey"],
+    "char": "🦃",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "dove": {
+    "keywords": ["dove"],
+    "char": "🕊",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "poodle": {
+    "keywords": ["poodle"],
+    "char": "🐩",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "chipmunk": {
+    "keywords": ["chipmunk", "squirrel"],
+    "char": "🐿",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "hedgehog": {
+    "keywords": ["hedgehog", "spiny"],
+    "char": "🦔",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "raccoon": {
+    "keywords": ["raccoon"],
+    "char": "🦝",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "llama": {
+    "keywords": ["llama", "alpaca"],
+    "char": "🦙",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "hippopotamus": {
+    "keywords": ["hippopotamus"],
+    "char": "🦛",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "kangaroo": {
+    "keywords": ["kangaroo", "joey", "hop", "marsupial"],
+    "char": "🦘",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "badger": {
+    "keywords": ["badger"],
+    "char": "🦡",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "swan": {
+    "keywords": ["swan"],
+    "char": "🦢",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "peacock": {
+    "keywords": ["peacock", "peahen"],
+    "char": "🦚",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "parrot": {
+    "keywords": ["parrot", "pirate"],
+    "char": "🦜",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "lobster": {
+    "keywords": ["lobster", "bisque", "claws"],
+    "char": "🦞",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "mosquito": {
+    "keywords": ["mosquito", "malaria"],
+    "char": "🦟",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "dragon": {
+    "keywords": ["dragon", "myth"],
+    "char": "🐉",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cactus": {
+    "keywords": ["cactus"],
+    "char": "🌵",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "christmas_tree": {
+    "keywords": ["Christmas", "xmas"],
+    "char": "🎄",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "evergreen_tree": {
+    "keywords": ["evergreen"],
+    "char": "🌲",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "deciduous_tree": {
+    "keywords": ["deciduous"],
+    "char": "🌳",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "palm_tree": {
+    "keywords": ["palm", "mojito", "tropical"],
+    "char": "🌴",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "seedling": {
+    "keywords": ["seedling", "grass", "lawn"],
+    "char": "🌱",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "herb": {
+    "keywords": ["herb"],
+    "char": "🌿",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "shamrock": {
+    "keywords": ["shamrock", "clover"],
+    "char": "☘",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "four_leaf_clover": {
+    "keywords": ["four leaf clover", "lucky"],
+    "char": "🍀",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bamboo": {
+    "keywords": ["bamboo"],
+    "char": "🎍",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "tanabata_tree": {
+    "keywords": ["tanabata"],
+    "char": "🎋",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "leaves": {
+    "keywords": ["leaves"],
+    "char": "🍃",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "fallen_leaf": {
+    "keywords": ["fallen", "fall", "autumn"],
+    "char": "🍂",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "maple_leaf": {
+    "keywords": ["maple"],
+    "char": "🍁",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "ear_of_rice": {
+    "keywords": ["rice"],
+    "char": "🌾",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "hibiscus": {
+    "keywords": ["hibiscus", "flowers"],
+    "char": "🌺",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sunflower": {
+    "keywords": ["sunflower"],
+    "char": "🌻",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "rose": {
+    "keywords": ["rose"],
+    "char": "🌹",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "wilted_flower": {
+    "keywords": ["wilted"],
+    "char": "🥀",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "tulip": {
+    "keywords": ["tulip"],
+    "char": "🌷",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "blossom": {
+    "keywords": ["blossom", "yellow"],
+    "char": "🌼",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cherry_blossom": {
+    "keywords": ["cherry blossom", "flower"],
+    "char": "🌸",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "bouquet": {
+    "keywords": ["bouquet"],
+    "char": "💐",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "mushroom": {
+    "keywords": ["mushroom"],
+    "char": "🍄",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "chestnut": {
+    "keywords": ["chestnut"],
+    "char": "🌰",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "jack_o_lantern": {
+    "keywords": ["halloween", "pumpkin", "lantern"],
+    "char": "🎃",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "shell": {
+    "keywords": ["shell"],
+    "char": "🐚",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "spider_web": {
+    "keywords": ["spider web", "arachnid"],
+    "char": "🕸",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "earth_americas": {
+    "keywords": ["globe", "world", "USA", "international"],
+    "char": "🌎",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "earth_africa": {
+    "keywords": ["africa"],
+    "char": "🌍",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "earth_asia": {
+    "keywords": ["asia"],
+    "char": "🌏",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "full_moon": {
+    "keywords": ["full moon"],
+    "char": "🌕",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "waning_gibbous_moon": {
+    "keywords": ["waxing_gibbous_moon"],
+    "char": "🌖",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "last_quarter_moon": {
+    "keywords": ["last_quarter_moon"],
+    "char": "🌗",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "waning_crescent_moon": {
+    "keywords": ["waning_crescent_moon"],
+    "char": "🌘",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "new_moon": {
+    "keywords": ["new_moon"],
+    "char": "🌑",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "waxing_crescent_moon": {
+    "keywords": ["waxing_crescent_moon"],
+    "char": "🌒",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "first_quarter_moon": {
+    "keywords": ["first_quarter_moon"],
+    "char": "🌓",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "waxing_gibbous_moon": {
+    "keywords": ["waxing_gibbous_moon"],
+    "char": "🌔",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "new_moon_with_face": {
+    "keywords": ["new_moon_with_face"],
+    "char": "🌚",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "full_moon_with_face": {
+    "keywords": ["full_moon_with_face"],
+    "char": "🌝",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "first_quarter_moon_with_face": {
+    "keywords": ["first_quarter_moon_with_face"],
+    "char": "🌛",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "last_quarter_moon_with_face": {
+    "keywords": ["last_quarter_moon_with_face"],
+    "char": "🌜",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sun_with_face": {
+    "keywords": ["sun_with_face", "morning"],
+    "char": "🌞",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "crescent_moon": {
+    "keywords": ["crescent_moon", "evening"],
+    "char": "🌙",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "star": {
+    "keywords": ["star"],
+    "char": "⭐",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "star2": {
+    "keywords": ["sparkle"],
+    "char": "🌟",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sparkles": {
+    "keywords": ["stars", "shine", "shiny", "sparkles"],
+    "char": "✨",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "comet": {
+    "keywords": ["comet"],
+    "char": "☄",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sunny": {
+    "keywords": ["sunny", "brightness"],
+    "char": "☀️",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "partly_sunny": {
+    "keywords": ["partly sunny", "cloudy"],
+    "char": "⛅",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cloud": {
+    "keywords": ["cloud"],
+    "char": "☁️",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cloud_with_rain": {
+    "keywords": ["rainy","rain"],
+    "char": "🌧",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cloud_with_lightning_and_rain": {
+    "keywords": ["lightning"],
+    "char": "⛈",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cloud_with_lightning": {
+    "keywords": ["thunder"],
+    "char": "🌩",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "zap": {
+    "keywords": ["zap", "lightning bolt"],
+    "char": "⚡",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "fire": {
+    "keywords": ["fire", "flame"],
+    "char": "🔥",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "boom": {
+    "keywords": ["explode", "explosion", "collision", "blown", "boom"],
+    "char": "💥",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "snowflake": {
+    "keywords": ["winter", "snowflake", "cold"],
+    "char": "❄️",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "cloud_with_snow": {
+    "keywords": ["snowy"],
+    "char": "🌨",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "snowman": {
+    "keywords": ["snowman", "frozen"],
+    "char": "⛄",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "wind_face": {
+    "keywords": ["gust", "air", "wind"],
+    "char": "🌬",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "dash": {
+    "keywords": ["dash", "shoo", "fart", "puff"],
+    "char": "💨",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "tornado": {
+    "keywords": ["tornado", "cyclone", "twister"],
+    "char": "🌪",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "fog": {
+    "keywords": ["fog"],
+    "char": "🌫",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "sweat_drops": {
+    "keywords": ["drip", "drops"],
+    "char": "💦",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+  "ocean": {
+    "keywords": ["sea", "ocean", "wave", "tsunami"],
+    "char": "🌊",
+    "fitzpatrick_scale": false,
+    "category": "animals_and_nature"
+  },
+    "apple": {
+    "keywords": ["apple"],
+    "char": "🍎",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "tangerine": {
+    "keywords": ["tangerine", "orange"],
+    "char": "🍊",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "watermelon": {
+    "keywords": ["watermelon", "summer"],
+    "char": "🍉",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "strawberry": {
+    "keywords": ["strawberry"],
+    "char": "🍓",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "melon": {
+    "keywords": ["melon"],
+    "char": "🍈",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cherries": {
+    "keywords": ["cherries"],
+    "char": "🍒",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "peach": {
+    "keywords": ["peach"],
+    "char": "🍑",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "pineapple": {
+    "keywords": ["pineapple"],
+    "char": "🍍",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "coconut": {
+    "keywords": ["coconut"],
+    "char": "🥥",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "kiwi_fruit": {
+    "keywords": ["kiwi"],
+    "char": "🥝",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "mango": {
+    "keywords": ["mango"],
+    "char": "🥭",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "avocado": {
+    "keywords": ["avocado"],
+    "char": "🥑",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "broccoli": {
+    "keywords": ["broccoli"],
+    "char": "🥦",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "tomato": {
+    "keywords": ["tomato"],
+    "char": "🍅",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "eggplant": {
+    "keywords": ["eggplant", "aubergine"],
+    "char": "🍆",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cucumber": {
+    "keywords": ["cucumber", "pickle"],
+    "char": "🥒",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "carrot": {
+    "keywords": ["carrot"],
+    "char": "🥕",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "hot_pepper": {
+    "keywords": ["pepper", "spicy", "chili"],
+    "char": "🌶",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "potato": {
+    "keywords": ["potato", "starch"],
+    "char": "🥔",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "corn": {
+    "keywords": ["corn"],
+    "char": "🌽",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "leafy_greens": {
+    "keywords": ["vegetable", "bok choy", "cabbage", "kale", "lettuce"],
+    "char": "🥬",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "sweet_potato": {
+    "keywords": ["sweet_potato"],
+    "char": "🍠",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "peanuts": {
+    "keywords": ["peanuts", "nut"],
+    "char": "🥜",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "honey_pot": {
+    "keywords": ["bees", "honey"],
+    "char": "🍯",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "bread": {
+    "keywords": ["bread", "breakfast", "toast"],
+    "char": "🍞",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cheese": {
+    "keywords": ["cheese", "chadder"],
+    "char": "🧀",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "egg": {
+    "keywords": ["egg"],
+    "char": "🥚",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "bacon": {
+    "keywords": ["bacon", "pork", "meat"],
+    "char": "🥓",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "steak": {
+    "keywords": ["steak"],
+    "char": "🥩",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "pancakes": {
+    "keywords": ["pancakes", "flapjacks", "hotcakes"],
+    "char": "🥞",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "bone": {
+    "keywords": ["bone"],
+    "char": "🦴",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "fried_shrimp": {
+    "keywords": ["fried_shrimp", "appetizer"],
+    "char": "🍤",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "fried_egg": {
+    "keywords": ["fried_egg"],
+    "char": "🍳",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "hamburger": {
+    "keywords": ["hamburger", "fast food", "cheeseburger", "mcdonalds", "burger king"],
+    "char": "🍔",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "fries": {
+    "keywords": ["chips", "snack", "fries"],
+    "char": "🍟",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "stuffed_flatbread": {
+    "keywords": ["flatbread", "stuffed", "gyro"],
+    "char": "🥙",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "hotdog": {
+    "keywords": ["hotdog", "frankfurter"],
+    "char": "🌭",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "pizza": {
+    "keywords": ["pizza"],
+    "char": "🍕",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "sandwich": {
+    "keywords": ["sandwich"],
+    "char": "🥪",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "canned_food": {
+    "keywords": ["food", "canned_food"],
+    "char": "🥫",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "spaghetti": {
+    "keywords": ["spaghetti", "italian", "noodle"],
+    "char": "🍝",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "taco": {
+    "keywords": ["taco", "mexican"],
+    "char": "🌮",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "burrito": {
+    "keywords": ["burrito"],
+    "char": "🌯",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "green_salad": {
+    "keywords": ["salad", "healthy"],
+    "char": "🥗",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "ramen": {
+    "keywords": ["ramen"],
+    "char": "🍜",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "sushi": {
+    "keywords": ["sushi"],
+    "char": "🍣",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "rice_ball": {
+    "keywords": ["rice_ball"],
+    "char": "🍙",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "oden": {
+    "keywords": ["oden"],
+    "char": "🍢",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "dango": {
+    "keywords": ["dango", "barbecue"],
+    "char": "🍡",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "shaved_ice": {
+    "keywords": ["ice", "dessert"],
+    "char": "🍧",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+    "icecream": {
+    "keywords": ["icecream"],
+    "char": "🍦",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "pie": {
+    "keywords": ["pie", "pastry"],
+    "char": "🥧",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cake": {
+    "keywords": ["cake"],
+    "char": "🍰",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cupcake": {
+    "keywords": ["cupcake", "bakery", "sweet"],
+    "char": "🧁",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "moon_cake": {
+    "keywords": ["mooncake"],
+    "char": "🥮",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "birthday": {
+    "keywords": ["birthday"],
+    "char": "🎂",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "custard": {
+    "keywords": ["custard"],
+    "char": "🍮",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "candy": {
+    "keywords": ["candy", "lolly"],
+    "char": "🍬",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "lollipop": {
+    "keywords": ["lollipop"],
+    "char": "🍭",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "chocolate_bar": {
+    "keywords": ["chocolate_bar"],
+    "char": "🍫",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "popcorn": {
+    "keywords": ["popcorn", "movie theater", "films", "snack"],
+    "char": "🍿",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "dumpling": {
+    "keywords": ["dumpling", "empanada", "pierogi", "potsticker"],
+    "char": "🥟",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "doughnut": {
+    "keywords": ["doughnut", "donut"],
+    "char": "🍩",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cookie": {
+    "keywords": ["cookie", "oreo"],
+    "char": "🍪",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "milk_glass": {
+    "keywords": ["milk"],
+    "char": "🥛",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "beer": {
+    "keywords": ["relax", "beverage", "drink", "drunk", "party", "pub", "beer", "alcohol", "booze"],
+    "char": "🍺",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cocktail": {
+    "keywords": ["cocktail"],
+    "char": "🍸",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "champagne": {
+    "keywords": ["champagne"],
+    "char": "🍾",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "sake": {
+    "keywords": ["sake"],
+    "char": "🍶",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "tea": {
+    "keywords": ["tea"],
+    "char": "🍵",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "cup_with_straw": {
+    "keywords": ["soda"],
+    "char": "🥤",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "coffee": {
+    "keywords": ["coffee", "caffeine", "latte", "espresso"],
+    "char": "☕",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "salt": {
+    "keywords": ["salt", "condiment", "shaker"],
+    "char": "🧂",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "spoon": {
+    "keywords": ["cutlery", "spoon", "tableware"],
+    "char": "🥄",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "fork_and_knife": {
+    "keywords": ["fork_and_knife"],
+    "char": "🍴",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "plate_with_cutlery": {
+    "keywords": ["plate_with_cutlery", "eat", "meal", "lunch", "dinner"],
+    "char": "🍽",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "bowl_with_spoon": {
+    "keywords": ["bowl", "spoon"],
+    "char": "🥣",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "takeout_box": {
+    "keywords": ["takeout_box", "leftovers"],
+    "char": "🥡",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "chopsticks": {
+    "keywords": ["chopsticks"],
+    "char": "🥢",
+    "fitzpatrick_scale": false,
+    "category": "food_and_drink"
+  },
+  "soccer": {
+    "keywords": ["soccer"],
+    "char": "⚽",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "basketball": {
+    "keywords": ["basketball", "balls", "NBA"],
+    "char": "🏀",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "football": {
+    "keywords": ["football", "NFL"],
+    "char": "🏈",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "baseball": {
+    "keywords": ["baseball"],
+    "char": "⚾",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "softball": {
+    "keywords": ["softball"],
+    "char": "🥎",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "tennis": {
+    "keywords": ["tennis"],
+    "char": "🎾",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "volleyball": {
+    "keywords": ["volleyball"],
+    "char": "🏐",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "rugby_football": {
+    "keywords": ["rugby"],
+    "char": "🏉",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "flying_disc": {
+    "keywords": ["flying disc", "frisbee"],
+    "char": "🥏",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "golf": {
+    "keywords": ["golf"],
+    "char": "⛳",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+    "golfing_man": {
+    "keywords": ["golfing"],
+    "char": "🏌",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "ping_pong": {
+    "keywords": ["pingpong"],
+    "char": "🏓",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "badminton": {
+    "keywords": ["badminton"],
+    "char": "🏸",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "goal_net": {
+    "keywords": ["goal net"],
+    "char": "🥅",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "ice_hockey": {
+    "keywords": ["ice hockey"],
+    "char": "🏒",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "field_hockey": {
+    "keywords": ["field hockey"],
+    "char": "🏑",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "lacrosse": {
+    "keywords": ["lacrosse"],
+    "char": "🥍",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "cricket": {
+    "keywords": ["cricket"],
+    "char": "🏏",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "ski": {
+    "keywords": ["ski"],
+    "char": "🎿",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "skier": {
+    "keywords": ["skier"],
+    "char": "⛷",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "snowboarder": {
+    "keywords": ["snowboarder"],
+    "char": "🏂",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "person_fencing": {
+    "keywords": ["person_fencing", "fencing", "sword"],
+    "char": "🤺",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "men_wrestling": {
+    "keywords": ["wrestling", "wrestlers"],
+    "char": "🤼‍♂️",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "woman_cartwheeling": {
+    "keywords": ["gymnastics", "cartwheeling"],
+    "char": "🤸‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "woman_playing_handball": {
+    "keywords": ["handball"],
+    "char": "🤾‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "ice_skate": {
+    "keywords": ["ice_skate"],
+    "char": "⛸",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "curling_stone": {
+    "keywords": ["curling_stone"],
+    "char": "🥌",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "skateboard": {
+    "keywords": ["board", "skateboard"],
+    "char": "🛹",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "sled": {
+    "keywords": ["sled", "sleigh", "luge", "toboggan"],
+    "char": "🛷",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "bow_and_arrow": {
+    "keywords": ["bow", "arrow"],
+    "char": "🏹",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "fishing_pole_and_fish": {
+    "keywords": ["fishing"],
+    "char": "🎣",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "boxing_glove": {
+    "keywords": ["boxing"],
+    "char": "🥊",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "martial_arts_uniform": {
+    "keywords": ["judo", "karate", "taekwondo"],
+    "char": "🥋",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "rowing_woman": {
+    "keywords": ["rowing"],
+    "char": "🚣‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "climbing_woman": {
+    "keywords": ["climbing"],
+    "char": "🧗‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "swimming_woman": {
+    "keywords": ["swimming", "exercise"],
+    "char": "🏊‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "woman_playing_water_polo": {
+    "keywords": ["water polo"],
+    "char": "🤽‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "woman_in_lotus_position": {
+    "keywords": ["meditation", "yoga", "serenity", "zen", "mindfulness"],
+    "char": "🧘‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "surfing_woman": {
+    "keywords": ["surf", "surfing"],
+    "char": "🏄‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "bath": {
+    "keywords": ["bath", "shower", "bathroom"],
+    "char": "🛀",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "weight_lifting_woman": {
+    "keywords": ["weight lifting", "training"],
+    "char": "🏋️‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "biking_woman": {
+    "keywords": ["biking", "bike", "hipster"],
+    "char": "🚴‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "mountain_biking_woman": {
+    "keywords": ["mountain biking"],
+    "char": "🚵‍♀️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "horse_racing": {
+    "keywords": ["horse race"],
+    "char": "🏇",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+    "trophy": {
+    "keywords": ["win", "award", "trophy"],
+    "char": "🏆",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "running_shirt_with_sash": {
+    "keywords": ["running shirt"],
+    "char": "🎽",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "medal_sports": {
+    "keywords": ["medal sports", "winning"],
+    "char": "🏅",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "medal_military": {
+    "keywords": ["medal military"],
+    "char": "🎖",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "1st_place_medal": {
+    "keywords": ["first place"],
+    "char": "🥇",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "2nd_place_medal": {
+    "keywords": ["second place"],
+    "char": "🥈",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "3rd_place_medal": {
+    "keywords": ["third place"],
+    "char": "🥉",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "reminder_ribbon": {
+    "keywords": ["ribbon"],
+    "char": "🎗",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "rosette": {
+    "keywords": ["rosette"],
+    "char": "🏵",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "ticket": {
+    "keywords": ["ticket"],
+    "char": "🎫",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "tickets": {
+    "keywords": ["tickets"],
+    "char": "🎟",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "performing_arts": {
+    "keywords": ["acting", "theater", "drama"],
+    "char": "🎭",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "art": {
+    "keywords": ["art", "paint", "draw", "colors"],
+    "char": "🎨",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "circus_tent": {
+    "keywords": ["circus tent", "circus"],
+    "char": "🎪",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+    "man_juggling": {
+    "keywords": ["juggle", "balance", "skill"],
+    "char": "🤹‍♂️",
+    "fitzpatrick_scale": true,
+    "category": "activity"
+  },
+  "microphone": {
+    "keywords": ["microphone", "music", "sing", "talkshow"],
+    "char": "🎤",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "headphones": {
+    "keywords": ["headphones"],
+    "char": "🎧",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+    "musical_keyboard": {
+    "keywords": ["piano"],
+    "char": "🎹",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "drum": {
+    "keywords": ["drum", "drumsticks"],
+    "char": "🥁",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "saxophone": {
+    "keywords": ["saxophone", "jazz", "blues"],
+    "char": "🎷",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "trumpet": {
+    "keywords": ["trumpet", "brass"],
+    "char": "🎺",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "guitar": {
+    "keywords": ["guitar"],
+    "char": "🎸",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "violin": {
+    "keywords": ["violin"],
+    "char": "🎻",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "clapper": {
+    "keywords": ["movie", "film", "record"],
+    "char": "🎬",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "video_game": {
+    "keywords": ["video game", "console", "PS4", "controller"],
+    "char": "🎮",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "space_invader": {
+    "keywords": ["game", "arcade"],
+    "char": "👾",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "dart": {
+    "keywords": ["dart", "target"],
+    "char": "🎯",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "game_die": {
+    "keywords": ["dice"],
+    "char": "🎲",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "chess_pawn": {
+    "keywords": ["chess"],
+    "char": "♟",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+    "jigsaw": {
+    "keywords": ["jigsaw", "puzzle"],
+    "char": "🧩",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "bowling": {
+    "keywords": ["bowling"],
+    "char": "🎳",
+    "fitzpatrick_scale": false,
+    "category": "activity"
+  },
+  "red_car": {
+    "keywords": ["car", "transportation", "vehicle"],
+    "char": "🚗",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "taxi": {
+    "keywords": ["uber", "taxi"],
+    "char": "🚕",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+   "bus": {
+    "keywords": ["bus"],
+    "char": "🚌",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "trolleybus": {
+    "keywords": ["trolleybus"],
+    "char": "🚎",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "racing_car": {
+    "keywords": ["racing car"],
+    "char": "🏎",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "police_car": {
+    "keywords": ["police car"],
+    "char": "🚓",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "ambulance": {
+    "keywords": ["ambulance", "911"],
+    "char": "🚑",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "fire_engine": {
+    "keywords": ["fire engine"],
+    "char": "🚒",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "minibus": {
+    "keywords": ["minibus"],
+    "char": "🚐",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "truck": {
+    "keywords": ["truck"],
+    "char": "🚚",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "articulated_lorry": {
+    "keywords": ["articulated lorry", "express"],
+    "char": "🚛",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "tractor": {
+    "keywords": ["tractor", "farming", "agriculture"],
+    "char": "🚜",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "kick_scooter": {
+    "keywords": ["kick scooter", "kick"],
+    "char": "🛴",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "motorcycle": {
+    "keywords": ["motorcycle"],
+    "char": "🏍",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "bike": {
+    "keywords": ["bike", "bicycle"],
+    "char": "🚲",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "motor_scooter": {
+    "keywords": ["motorbike"],
+    "char": "🛵",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "rotating_light": {
+    "keywords": ["emergency", "alert"],
+    "char": "🚨",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "bullettrain_side": {
+    "keywords": ["bullettrain"],
+    "char": "🚄",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "light_rail": {
+    "keywords": ["light rail"],
+    "char": "🚈",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "mountain_railway": {
+    "keywords": ["mountain railway"],
+    "char": "🚞",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "metro": {
+    "keywords": ["metro", "underground", "tube"],
+    "char": "🚇",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "tram": {
+    "keywords": ["tram"],
+    "char": "🚊",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "station": {
+    "keywords": ["station"],
+    "char": "🚉",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "helicopter": {
+    "keywords": ["helicopter"],
+    "char": "🚁",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "airplane": {
+    "keywords": ["airplane", "flight"],
+    "char": "✈️",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "flight_departure": {
+    "keywords": ["departure"],
+    "char": "🛫",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "flight_arrival": {
+    "keywords": ["arrival"],
+    "char": "🛬",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "sailboat": {
+    "keywords": ["sailboat", "sailing"],
+    "char": "⛵",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "motor_boat": {
+    "keywords": ["motorboat"],
+    "char": "🛥",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "speedboat": {
+    "keywords": ["speedboat"],
+    "char": "🚤",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "ferry": {
+    "keywords": ["ferry"],
+    "char": "⛴",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "passenger_ship": {
+    "keywords": ["yacht", "cruise"],
+    "char": "🛳",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "rocket": {
+    "keywords": ["rocket"],
+    "char": "🚀",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "artificial_satellite": {
+    "keywords": ["artificial satellite", "spaceflight"],
+    "char": "🛰",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "seat": {
+    "keywords": ["sit", "seat"],
+    "char": "💺",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "canoe": {
+    "keywords": ["canoe", "paddle"],
+    "char": "🛶",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "anchor": {
+    "keywords": ["anchor"],
+    "char": "⚓",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "construction": {
+    "keywords": ["construction"],
+    "char": "🚧",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "fuelpump": {
+    "keywords": ["gas station", "fuelpump"],
+    "char": "⛽",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "busstop": {
+    "keywords": ["busstop"],
+    "char": "🚏",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "vertical_traffic_light": {
+    "keywords": ["traffic light"],
+    "char": "🚦",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "checkered_flag": {
+    "keywords": ["contest", "finishline"],
+    "char": "🏁",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "ship": {
+    "keywords": ["ship"],
+    "char": "🚢",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "ferris_wheel": {
+    "keywords": ["ferris wheel", "londoneye"],
+    "char": "🎡",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "roller_coaster": {
+    "keywords": ["roller coaster"],
+    "char": "🎢",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "carousel_horse": {
+    "keywords": ["carousel horse"],
+    "char": "🎠",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "factory": {
+    "keywords": ["factory", "industry"],
+    "char": "🏭",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "fountain": {
+    "keywords": ["fountain"],
+    "char": "⛲",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "mountain": {
+    "keywords": ["mountain"],
+    "char": "⛰",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "mountain_snow": {
+    "keywords": ["mountain snow"],
+    "char": "🏔",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "mount_fuji": {
+    "keywords": ["fuji", "mountain"],
+    "char": "🗻",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "volcano": {
+    "keywords": ["volcano"],
+    "char": "🌋",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "japan": {
+    "keywords": ["japan"],
+    "char": "🗾",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "camping": {
+    "keywords": ["camping"],
+    "char": "🏕",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "tent": {
+    "keywords": ["tent"],
+    "char": "⛺",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "national_park": {
+    "keywords": ["national park"],
+    "char": "🏞",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "motorway": {
+    "keywords": ["motorway", "highway"],
+    "char": "🛣",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "railway_track": {
+    "keywords": ["railway"],
+    "char": "🛤",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "sunrise": {
+    "keywords": ["morning", "sunrise"],
+    "char": "🌅",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "desert": {
+    "keywords": ["desert", "saharah"],
+    "char": "🏜",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+   "city_sunset": {
+    "keywords": ["sunset", "evening"],
+    "char": "🌆",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "cityscape": {
+    "keywords": ["cityscape", "urban"],
+    "char": "🏙",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+     "milky_way": {
+    "keywords": ["milky way"],
+    "char": "🌌",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "fireworks": {
+    "keywords": ["fireworks", "festival", "carnival", "congratulations"],
+    "char": "🎆",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "rainbow": {
+    "keywords": ["rainbow"],
+    "char": "🌈",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "houses": {
+    "keywords": ["houses"],
+    "char": "🏘",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "european_castle": {
+    "keywords": ["castle"],
+    "char": "🏰",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "stadium": {
+    "keywords": ["stadium"],
+    "char": "🏟",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "statue_of_liberty": {
+    "keywords": ["american", "newyork", "statue of liberty"],
+    "char": "🗽",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "house": {
+    "keywords": ["house", "home"],
+    "char": "🏠",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "office": {
+    "keywords": ["office"],
+    "char": "🏢",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "department_store": {
+    "keywords": ["department", "mall"],
+    "char": "🏬",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "post_office": {
+    "keywords": ["postoffice"],
+    "char": "🏣",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "hospital": {
+    "keywords": ["hospital"],
+    "char": "🏥",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "bank": {
+    "keywords": ["bank"],
+    "char": "🏦",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "hotel": {
+    "keywords": ["hotel", "accomodation", "checkin"],
+    "char": "🏨",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "convenience_store": {
+    "keywords": ["convenience store", "groceries"],
+    "char": "🏪",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "school": {
+    "keywords": ["school"],
+    "char": "🏫",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "love_hotel": {
+    "keywords": ["love hotel"],
+    "char": "🏩",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "wedding": {
+    "keywords": ["wedding"],
+    "char": "💒",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "church": {
+    "keywords": ["church", "religion", "christ"],
+    "char": "⛪",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "mosque": {
+    "keywords": ["islam", "worship", "mosque"],
+    "char": "🕌",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "synagogue": {
+    "keywords": ["judaism", "synagogue", "jewish"],
+    "char": "🕍",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+  "kaaba": {
+    "keywords": ["kaaba"],
+    "char": "🕋",
+    "fitzpatrick_scale": false,
+    "category": "travel_and_places"
+  },
+    "watch": {
+    "keywords": ["time", "watch"],
+    "char": "⌚",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "iphone": {
+    "keywords": ["iphone", "apple"],
+    "char": "📱",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "calling": {
+    "keywords": ["calling"],
+    "char": "📲",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "computer": {
+    "keywords": ["computer", "laptop", "monitor"],
+    "char": "💻",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "keyboard": {
+    "keywords": ["keyboard"],
+    "char": "⌨",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "printer": {
+    "keywords": ["printer"],
+    "char": "🖨",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "computer_mouse": {
+    "keywords": ["click", "mouse"],
+    "char": "🖱",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "trackball": {
+    "keywords": ["trackball", "trackpad"],
+    "char": "🖲",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "joystick": {
+    "keywords": ["joystick"],
+    "char": "🕹",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "clamp": {
+    "keywords": ["clamp"],
+    "char": "🗜",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "minidisc": {
+    "keywords": ["minidisc", "disk", "90s"],
+    "char": "💽",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "floppy_disk": {
+    "keywords": ["oldschool", "floppy disk", "80s"],
+    "char": "💾",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "cd": {
+    "keywords": ["cd"],
+    "char": "💿",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "dvd": {
+    "keywords": ["dvd"],
+    "char": "📀",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "camera": {
+    "keywords": ["camera", "photography"],
+    "char": "📷",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "film_projector": {
+    "keywords": ["projector"],
+    "char": "📽",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "film_strip": {
+    "keywords": ["movie", "film strip"],
+    "char": "🎞",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "telephone_receiver": {
+    "keywords": ["receiver", "dial"],
+    "char": "📞",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "phone": {
+    "keywords": ["phone"],
+    "char": "☎️",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "fax": {
+    "keywords": ["fax"],
+    "char": "📠",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "tv": {
+    "keywords": ["tv", "television"],
+    "char": "📺",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "radio": {
+    "keywords": ["radio"],
+    "char": "📻",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+     "compass": {
+    "keywords": ["compass", "navigation", "orienteering"],
+    "char": "🧭",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "stopwatch": {
+    "keywords": ["stopwatch"],
+    "char": "⏱",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "timer_clock": {
+    "keywords": ["timer"],
+    "char": "⏲",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "alarm_clock": {
+    "keywords": ["clock", "alarm"],
+    "char": "⏰",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+     "hourglass": {
+    "keywords": ["hourglass"],
+    "char": "⌛",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "battery": {
+    "keywords": ["power", "battery", "ebergy"],
+    "char": "🔋",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "electric_plug": {
+    "keywords": ["charger", "plug"],
+    "char": "🔌",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "bulb": {
+    "keywords": ["bulb", "electricity", "idea"],
+    "char": "💡",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "flashlight": {
+    "keywords": ["flashlight"],
+    "char": "🔦",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "candle": {
+    "keywords": ["candle", "wax"],
+    "char": "🕯",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "wastebasket": {
+    "keywords": ["bin", "wastebasket", "rubbish", "garbage", "toss"],
+    "char": "🗑",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "oil_drum": {
+    "keywords": ["oil drum"],
+    "char": "🛢",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "dollar": {
+    "keywords": ["dollar"],
+    "char": "💵",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "yen": {
+    "keywords": ["yen"],
+    "char": "💴",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "euro": {
+    "keywords": ["euro"],
+    "char": "💶",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "pound": {
+    "keywords": ["pound", "sterling"],
+    "char": "💷",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "moneybag": {
+    "keywords": ["moneybag", "payment", "coins"],
+    "char": "💰",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "credit_card": {
+    "keywords": ["credit card"],
+    "char": "💳",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "gem": {
+    "keywords": ["gem", "ruby", "diamond", "jewelry"],
+    "char": "💎",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "balance_scale": {
+    "keywords": ["law", "fairness", "balance scale"],
+    "char": "⚖",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "wrench": {
+    "keywords": ["wrench"],
+    "char": "🔧",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "hammer": {
+    "keywords": ["hammer"],
+    "char": "🔨",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "pick": {
+    "keywords": ["pick", "dig"],
+    "char": "⛏",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "nut_and_bolt": {
+    "keywords": ["nut and bolt"],
+    "char": "🔩",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "gear": {
+    "keywords": ["gear"],
+    "char": "⚙",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "brick": {
+    "keywords": ["bricks"],
+    "char": "🧱",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "chains": {
+    "keywords": ["chains"],
+    "char": "⛓",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "magnet": {
+    "keywords": ["magnet", "magnetic"],
+    "char": "🧲",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "gun": {
+    "keywords": ["gun", "weapon", "pistol", "revolver"],
+    "char": "🔫",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "bomb": {
+    "keywords": ["boom", "explode", "explosion"],
+    "char": "💣",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "coffin": {
+    "keywords": ["coffin", "graveyard", "cemetery"],
+    "char": "⚰",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "amphora": {
+    "keywords": ["vase", "jar", "amphora"],
+    "char": "🏺",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "crystal_ball": {
+    "keywords": ["crystal ball"],
+    "char": "🔮",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+     "telescope": {
+    "keywords": ["telescope", "astronomy"],
+    "char": "🔭",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "microscope": {
+    "keywords": ["laboratory", "experiment", "microscope"],
+    "char": "🔬",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "hole": {
+    "keywords": ["hole"],
+    "char": "🕳",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "syringe": {
+    "keywords": ["syringe", "blood", "medicine"],
+    "char": "💉",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "dna": {
+    "keywords": ["biologist", "genetics", "dna"],
+    "char": "🧬",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "microbe": {
+    "keywords": ["microbe", "bacteria", "germs"],
+    "char": "🦠",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "broom": {
+    "keywords": ["cleaning", "sweeping", "broom"],
+    "char": "🧹",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "basket": {
+    "keywords": ["basket"],
+    "char": "🧺",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+   "bathtub": {
+    "keywords": ["bathtub", "shower"],
+    "char": "🛁",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "soap": {
+    "keywords": ["soap", "bathing"],
+    "char": "🧼",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "sponge": {
+    "keywords": ["sponge"],
+    "char": "🧽",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "key": {
+    "keywords": ["key", "password"],
+    "char": "🔑",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+   "bed": {
+    "keywords": ["bed", "rest"],
+    "char": "🛏",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "door": {
+    "keywords": ["door"],
+    "char": "🚪",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "bellhop_bell": {
+    "keywords": ["bell"],
+    "char": "🛎",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "world_map": {
+    "keywords": ["map"],
+    "char": "🗺",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+   "moyai": {
+    "keywords": ["moyai"],
+    "char": "🗿",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "shopping": {
+    "keywords": ["shopping", "buy", "purchase"],
+    "char": "🛍",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "balloon": {
+    "keywords": ["balloon"],
+    "char": "🎈",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "flags": {
+    "keywords": ["flags", "koinobori"],
+    "char": "🎏",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "ribbon": {
+    "keywords": ["ribbon", "bowtie"],
+    "char": "🎀",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "gift": {
+    "keywords": ["present", "gift"],
+    "char": "🎁",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "tada": {
+    "keywords": ["tada"],
+    "char": "🎉",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "dolls": {
+    "keywords": ["dolls", "toy"],
+    "char": "🎎",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "wind_chime": {
+    "keywords": ["wind chime", "ding"],
+    "char": "🎐",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "izakaya_lantern": {
+    "keywords": ["izakaya lantern"],
+    "char": "🏮",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "red_envelope": {
+    "keywords": ["red envelope"],
+    "char": "🧧",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "email": {
+    "keywords": ["letter", "email", "inbox"],
+    "char": "✉️",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "postbox": {
+    "keywords": ["postbox"],
+    "char": "📮",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "mailbox": {
+    "keywords": ["mailbox"],
+    "char": "📫",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "package": {
+    "keywords": ["package"],
+    "char": "📦",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+     "scroll": {
+    "keywords": ["scroll"],
+    "char": "📜",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "bookmark_tabs": {
+    "keywords": ["bookmark"],
+    "char": "📑",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "receipt": {
+    "keywords": ["accounting", "receipt", "expenses"],
+    "char": "🧾",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "calendar": {
+    "keywords": ["schedule", "calendar", "planning"],
+    "char": "📆",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "file_folder": {
+    "keywords": ["documents"],
+    "char": "📁",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "newspaper": {
+    "keywords": ["press", "newspaper"],
+    "char": "📰",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "notebook": {
+    "keywords": ["notebook", "notes", "paper"],
+    "char": "📓",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "triangular_flag_on_post": {
+    "keywords": ["mark", "milestone"],
+    "char": "🚩",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "white_flag": {
+    "keywords": ["losing", "loser", "white flag", "give up", "fail"],
+    "char": "🏳",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "black_flag": {
+    "keywords": ["black flag"],
+    "char": "🏴",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "rainbow_flag": {
+    "keywords": ["lgbt", "homosexual", "lesbian", "bisexual", "transgender"],
+    "char": "🏳️‍🌈",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "lock": {
+    "keywords": ["lock"],
+    "char": "🔒",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "unlock": {
+    "keywords": ["unlock"],
+    "char": "🔓",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "pen": {
+    "keywords": ["pen", "writing", "write"],
+    "char": "🖊",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "fountain_pen": {
+    "keywords": ["fountain pen"],
+    "char": "🖋",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+    "memo": {
+    "keywords": ["memo"],
+    "char": "📝",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "pencil2": {
+    "keywords": ["pencil"],
+    "char": "✏️",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "crayon": {
+    "keywords": ["crayon", "creativity"],
+    "char": "🖍",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "paintbrush": {
+    "keywords": ["paintbrush"],
+    "char": "🖌",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "mag": {
+    "keywords": ["search", "mag", "find"],
+    "char": "🔍",
+    "fitzpatrick_scale": false,
+    "category": "objects"
+  },
+  "heart": {
+    "keywords": ["heart"],
+    "char": "❤️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "orange_heart": {
+    "keywords": ["orange heart"],
+    "char": "🧡",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "yellow_heart": {
+    "keywords": ["yellow heart"],
+    "char": "💛",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "green_heart": {
+    "keywords": ["green heart"],
+    "char": "💚",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "blue_heart": {
+    "keywords": ["blue heart"],
+    "char": "💙",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "purple_heart": {
+    "keywords": ["purple heart"],
+    "char": "💜",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "black_heart": {
+    "keywords": ["black heart"],
+    "char": "🖤",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "broken_heart": {
+    "keywords": ["heartbreak"],
+    "char": "💔",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "two_hearts": {
+    "keywords": ["two hearts"],
+    "char": "💕",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "revolving_hearts": {
+    "keywords": ["revolving hearts"],
+    "char": "💞",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "heartbeat": {
+    "keywords": ["heartbeat"],
+    "char": "💓",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "heartpulse": {
+    "keywords": ["heartpulse"],
+    "char": "💗",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "sparkling_heart": {
+    "keywords": ["sparkling heart"],
+    "char": "💖",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "cupid": {
+    "keywords": ["cupid"],
+    "char": "💘",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "gift_heart": {
+    "keywords": ["gift heart"],
+    "char": "💝",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "anger": {
+    "keywords": ["anger", "mad"],
+    "char": "💢",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "hotsprings": {
+    "keywords": ["hotsprings"],
+    "char": "♨️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+ "exclamation": {
+    "keywords": ["exclamation"],
+    "char": "❗",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "question": {
+    "keywords": ["doubt", "confused", "question"],
+    "char": "❓",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "bangbang": {
+    "keywords": ["bangbang"],
+    "char": "‼️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "interrobang": {
+    "keywords": ["wat", "interrobang"],
+    "char": "⁉️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "100": {
+    "keywords": ["score", "perfect", "100", "hundred"],
+    "char": "💯",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "warning": {
+    "keywords": ["warning", "problem", "issue"],
+    "char": "⚠️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "negative_squared_cross_mark": {
+    "keywords": ["x", "negative", "no", "deny"],
+    "char": "❎",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "white_check_mark": {
+    "keywords": ["get", "ok"],
+    "char": "✅",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "wheelchair": {
+    "keywords": ["wheelchair", "disabled"],
+    "char": "♿",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "no_smoking": {
+    "keywords": ["no smoking"],
+    "char": "🚭",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "parking": {
+    "keywords": ["parking"],
+    "char": "🅿️",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "mens": {
+    "keywords": ["mens"],
+    "char": "🚹",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "womens": {
+    "keywords": ["womens"],
+    "char": "🚺",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+   "loudspeaker": {
+    "keywords": ["volume", "loudspeaker"],
+    "char": "📢",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "bell": {
+    "keywords": ["bell", "notification", "chime"],
+    "char": "🔔",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+  "no_bell": {
+    "keywords": ["no bell", "mute", "quiet", "silent"],
+    "char": "🔕",
+    "fitzpatrick_scale": false,
+    "category": "symbols"
+  },
+    "afghanistan": {
+    "keywords": ["afghanistan"],
+    "char": "🇦🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "aland_islands": {
+    "keywords": ["Åland", "islands"],
+    "char": "🇦🇽",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "albania": {
+    "keywords": ["albania"],
+    "char": "🇦🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "algeria": {
+    "keywords": ["algeria"],
+    "char": "🇩🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "american_samoa": {
+    "keywords": ["american samoa"],
+    "char": "🇦🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "andorra": {
+    "keywords": ["andorra"],
+    "char": "🇦🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "angola": {
+    "keywords": ["angola"],
+    "char": "🇦🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "anguilla": {
+    "keywords": ["anguilla"],
+    "char": "🇦🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "antarctica": {
+    "keywords": ["antarctica"],
+    "char": "🇦🇶",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "antigua_barbuda": {
+    "keywords": ["antigua", "barbuda"],
+    "char": "🇦🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "argentina": {
+    "keywords": ["argentina"],
+    "char": "🇦🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "armenia": {
+    "keywords": ["armenia"],
+    "char": "🇦🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "aruba": {
+    "keywords": ["aruba"],
+    "char": "🇦🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "australia": {
+    "keywords": ["australia"],
+    "char": "🇦🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "austria": {
+    "keywords": ["austria"],
+    "char": "🇦🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "azerbaijan": {
+    "keywords": ["azerbaijan"],
+    "char": "🇦🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bahamas": {
+    "keywords": ["bahamas"],
+    "char": "🇧🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bahrain": {
+    "keywords": ["bahrain"],
+    "char": "🇧🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bangladesh": {
+    "keywords": ["bangladesh"],
+    "char": "🇧🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "barbados": {
+    "keywords": ["barbados"],
+    "char": "🇧🇧",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "belarus": {
+    "keywords": ["belarus"],
+    "char": "🇧🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "belgium": {
+    "keywords": ["belgium"],
+    "char": "🇧🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "belize": {
+    "keywords": ["belize"],
+    "char": "🇧🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "benin": {
+    "keywords": ["benin"],
+    "char": "🇧🇯",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bermuda": {
+    "keywords": ["bermuda"],
+    "char": "🇧🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bhutan": {
+    "keywords": ["bhutan"],
+    "char": "🇧🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bolivia": {
+    "keywords": ["bolivia"],
+    "char": "🇧🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "caribbean_netherlands": {
+    "keywords": ["caribbean netherlands"],
+    "char": "🇧🇶",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bosnia_herzegovina": {
+    "keywords": ["bosnia", "herzegovina"],
+    "char": "🇧🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "botswana": {
+    "keywords": ["botswana"],
+    "char": "🇧🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "brazil": {
+    "keywords": ["brazil"],
+    "char": "🇧🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "british_indian_ocean_territory": {
+    "keywords": ["british", "indian", "ocean", "territory"],
+    "char": "🇮🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "british_virgin_islands": {
+    "keywords": ["british", "virgin", "islands", "bvi"],
+    "char": "🇻🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "brunei": {
+    "keywords": ["brunei"],
+    "char": "🇧🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "bulgaria": {
+    "keywords": ["bulgaria"],
+    "char": "🇧🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "burkina_faso": {
+    "keywords": ["burkina", "faso"],
+    "char": "🇧🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "burundi": {
+    "keywords": ["burundi"],
+    "char": "🇧🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cape_verde": {
+    "keywords": ["cabo", "verde"],
+    "char": "🇨🇻",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cambodia": {
+    "keywords": ["cambodia"],
+    "char": "🇰🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cameroon": {
+    "keywords": ["cameroon"],
+    "char": "🇨🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "canada": {
+    "keywords": ["canada"],
+    "char": "🇨🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "canary_islands": {
+    "keywords": ["canary", "islands"],
+    "char": "🇮🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cayman_islands": {
+    "keywords": ["cayman", "islands"],
+    "char": "🇰🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "central_african_republic": {
+    "keywords": ["central", "african", "republic"],
+    "char": "🇨🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "chad": {
+    "keywords": ["chad"],
+    "char": "🇹🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "chile": {
+    "keywords": ["chile"],
+    "char": "🇨🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cn": {
+    "keywords": ["china", "chinese", "prc", "cn"],
+    "char": "🇨🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "christmas_island": {
+    "keywords": ["christmas", "island"],
+    "char": "🇨🇽",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cocos_islands": {
+    "keywords": ["cocos", "islands"],
+    "char": "🇨🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "colombia": {
+    "keywords": ["colombia"],
+    "char": "🇨🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "comoros": {
+    "keywords": ["comoros"],
+    "char": "🇰🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "congo_brazzaville": {
+    "keywords": ["congo", "congo_brazzaville"],
+    "char": "🇨🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "congo_kinshasa": {
+    "keywords": ["congo_kinshasa"],
+    "char": "🇨🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cook_islands": {
+    "keywords": ["cook", "islands"],
+    "char": "🇨🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "costa_rica": {
+    "keywords": ["costa", "rica"],
+    "char": "🇨🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "croatia": {
+    "keywords": ["croatia"],
+    "char": "🇭🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cuba": {
+    "keywords": ["cuba"],
+    "char": "🇨🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "curacao": {
+    "keywords": ["curacao"],
+    "char": "🇨🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cyprus": {
+    "keywords": ["cyprus"],
+    "char": "🇨🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "czech_republic": {
+    "keywords": ["czech republic"],
+    "char": "🇨🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "denmark": {
+    "keywords": ["denmark"],
+    "char": "🇩🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "djibouti": {
+    "keywords": ["djibouti"],
+    "char": "🇩🇯",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "dominica": {
+    "keywords": ["dominica"],
+    "char": "🇩🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "dominican_republic": {
+    "keywords": ["dominican", "republic"],
+    "char": "🇩🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ecuador": {
+    "keywords": ["ecuador"],
+    "char": "🇪🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "egypt": {
+    "keywords": ["egypt"],
+    "char": "🇪🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "el_salvador": {
+    "keywords": ["el", "salvador"],
+    "char": "🇸🇻",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "equatorial_guinea": {
+    "keywords": ["equatorial", "guinea"],
+    "char": "🇬🇶",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "eritrea": {
+    "keywords": ["eritrea"],
+    "char": "🇪🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "estonia": {
+    "keywords": ["estonia"],
+    "char": "🇪🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ethiopia": {
+    "keywords": ["ethiopia"],
+    "char": "🇪🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "eu": {
+    "keywords": ["european"],
+    "char": "🇪🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "falkland_islands": {
+    "keywords": ["falkland", "islands"],
+    "char": "🇫🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "faroe_islands": {
+    "keywords": ["faroe", "islands"],
+    "char": "🇫🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "fiji": {
+    "keywords": ["fiji"],
+    "char": "🇫🇯",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "finland": {
+    "keywords": ["finland"],
+    "char": "🇫🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "fr": {
+    "keywords": ["france", "french"],
+    "char": "🇫🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "french_guiana": {
+    "keywords": ["french", "guiana"],
+    "char": "🇬🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "french_polynesia": {
+    "keywords": ["french", "polynesia"],
+    "char": "🇵🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "french_southern_territories": {
+    "keywords": ["french", "southern", "territories"],
+    "char": "🇹🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "gabon": {
+    "keywords": ["gabon"],
+    "char": "🇬🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "gambia": {
+    "keywords": ["gambia"],
+    "char": "🇬🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "georgia": {
+    "keywords": ["georgia"],
+    "char": "🇬🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "de": {
+    "keywords": ["germany"],
+    "char": "🇩🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ghana": {
+    "keywords": ["ghana"],
+    "char": "🇬🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "gibraltar": {
+    "keywords": ["gibraltar"],
+    "char": "🇬🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "greece": {
+    "keywords": ["greece"],
+    "char": "🇬🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "greenland": {
+    "keywords": ["greenland"],
+    "char": "🇬🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "grenada": {
+    "keywords": ["grenada"],
+    "char": "🇬🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guadeloupe": {
+    "keywords": ["guadeloupe"],
+    "char": "🇬🇵",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guam": {
+    "keywords": ["guam"],
+    "char": "🇬🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guatemala": {
+    "keywords": ["guatemala"],
+    "char": "🇬🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guernsey": {
+    "keywords": ["guernsey"],
+    "char": "🇬🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guinea": {
+    "keywords": ["guinea"],
+    "char": "🇬🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guinea_bissau": {
+    "keywords": ["guinea_bissau", "bissau"],
+    "char": "🇬🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "guyana": {
+    "keywords": ["guyana"],
+    "char": "🇬🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "haiti": {
+    "keywords": ["haiti"],
+    "char": "🇭🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "honduras": {
+    "keywords": ["honduras"],
+    "char": "🇭🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "hong_kong": {
+    "keywords": ["hong", "kong"],
+    "char": "🇭🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "hungary": {
+    "keywords": ["hungary"],
+    "char": "🇭🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "iceland": {
+    "keywords": ["iceland"],
+    "char": "🇮🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "india": {
+    "keywords": ["india"],
+    "char": "🇮🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "indonesia": {
+    "keywords": ["indonesia"],
+    "char": "🇮🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "iran": {
+    "keywords": ["iran,"],
+    "char": "🇮🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "iraq": {
+    "keywords": ["iraq"],
+    "char": "🇮🇶",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ireland": {
+    "keywords": ["ireland"],
+    "char": "🇮🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "isle_of_man": {
+    "keywords": ["isle"],
+    "char": "🇮🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "israel": {
+    "keywords": ["israel"],
+    "char": "🇮🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "it": {
+    "keywords": ["italy"],
+    "char": "🇮🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "cote_divoire": {
+    "keywords": ["cote divoire"],
+    "char": "🇨🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "jamaica": {
+    "keywords": ["jamaica"],
+    "char": "🇯🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "jp": {
+    "keywords": ["japan"],
+    "char": "🇯🇵",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "jersey": {
+    "keywords": ["jersey"],
+    "char": "🇯🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "jordan": {
+    "keywords": ["jordan"],
+    "char": "🇯🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kazakhstan": {
+    "keywords": ["kazakhstan"],
+    "char": "🇰🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kenya": {
+    "keywords": ["kenya"],
+    "char": "🇰🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kiribati": {
+    "keywords": ["kiribati"],
+    "char": "🇰🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kosovo": {
+    "keywords": ["kosovo"],
+    "char": "🇽🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kuwait": {
+    "keywords": ["kuwait"],
+    "char": "🇰🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kyrgyzstan": {
+    "keywords": ["kyrgyzstan"],
+    "char": "🇰🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "laos": {
+    "keywords": ["laos"],
+    "char": "🇱🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "latvia": {
+    "keywords": ["latvia"],
+    "char": "🇱🇻",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "lebanon": {
+    "keywords": ["lebanon"],
+    "char": "🇱🇧",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "lesotho": {
+    "keywords": ["lesotho"],
+    "char": "🇱🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "liberia": {
+    "keywords": ["liberia"],
+    "char": "🇱🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "libya": {
+    "keywords": ["libya"],
+    "char": "🇱🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "liechtenstein": {
+    "keywords": ["liechtenstein"],
+    "char": "🇱🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "lithuania": {
+    "keywords": ["lithuania"],
+    "char": "🇱🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "luxembourg": {
+    "keywords": ["luxembourg"],
+    "char": "🇱🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "macau": {
+    "keywords": ["macau"],
+    "char": "🇲🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "macedonia": {
+    "keywords": ["macedonia"],
+    "char": "🇲🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "madagascar": {
+    "keywords": ["madagascar"],
+    "char": "🇲🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "malawi": {
+    "keywords": ["malawi"],
+    "char": "🇲🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "malaysia": {
+    "keywords": ["malaysia"],
+    "char": "🇲🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "maldives": {
+    "keywords": ["maldives"],
+    "char": "🇲🇻",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mali": {
+    "keywords": ["mali"],
+    "char": "🇲🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "malta": {
+    "keywords": ["malta"],
+    "char": "🇲🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "marshall_islands": {
+    "keywords": ["marshall", "islands"],
+    "char": "🇲🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "martinique": {
+    "keywords": ["martinique"],
+    "char": "🇲🇶",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mauritania": {
+    "keywords": ["mauritania"],
+    "char": "🇲🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mauritius": {
+    "keywords": ["mauritius"],
+    "char": "🇲🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mayotte": {
+    "keywords": ["mayotte"],
+    "char": "🇾🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mexico": {
+    "keywords": ["mexico"],
+    "char": "🇲🇽",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "micronesia": {
+    "keywords": ["micronesia"],
+    "char": "🇫🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "moldova": {
+    "keywords": ["moldova"],
+    "char": "🇲🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "monaco": {
+    "keywords": ["monaco"],
+    "char": "🇲🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mongolia": {
+    "keywords": ["mongolia"],
+    "char": "🇲🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "montenegro": {
+    "keywords": ["montenegro"],
+    "char": "🇲🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "montserrat": {
+    "keywords": ["montserrat"],
+    "char": "🇲🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "morocco": {
+    "keywords": ["morocco"],
+    "char": "🇲🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "mozambique": {
+    "keywords": ["mozambique"],
+    "char": "🇲🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "myanmar": {
+    "keywords": ["myanmar"],
+    "char": "🇲🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "namibia": {
+    "keywords": ["namibia"],
+    "char": "🇳🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "nauru": {
+    "keywords": ["nauru"],
+    "char": "🇳🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "nepal": {
+    "keywords": ["nepal"],
+    "char": "🇳🇵",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "netherlands": {
+    "keywords": ["netherlands"],
+    "char": "🇳🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "new_caledonia": {
+    "keywords": ["new", "caledonia"],
+    "char": "🇳🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "new_zealand": {
+    "keywords": ["new", "zealand"],
+    "char": "🇳🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "nicaragua": {
+    "keywords": ["nicaragua"],
+    "char": "🇳🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "niger": {
+    "keywords": ["niger"],
+    "char": "🇳🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "nigeria": {
+    "keywords": ["nigeria"],
+    "char": "🇳🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "niue": {
+    "keywords": ["niue"],
+    "char": "🇳🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "norfolk_island": {
+    "keywords": ["norfolk", "island"],
+    "char": "🇳🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "northern_mariana_islands": {
+    "keywords": ["northern", "mariana", "islands"],
+    "char": "🇲🇵",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "north_korea": {
+    "keywords": ["north", "korea"],
+    "char": "🇰🇵",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "norway": {
+    "keywords": ["norway"],
+    "char": "🇳🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "oman": {
+    "keywords": ["oman"],
+    "char": "🇴🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "pakistan": {
+    "keywords": ["pakistan"],
+    "char": "🇵🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "palau": {
+    "keywords": ["palau"],
+    "char": "🇵🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "palestinian_territories": {
+    "keywords": ["palestinian", "territories"],
+    "char": "🇵🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "panama": {
+    "keywords": ["panama"],
+    "char": "🇵🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "papua_new_guinea": {
+    "keywords": ["papua", "new", "guinea"],
+    "char": "🇵🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "paraguay": {
+    "keywords": ["paraguay"],
+    "char": "🇵🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "peru": {
+    "keywords": ["peru"],
+    "char": "🇵🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "philippines": {
+    "keywords": ["philippines"],
+    "char": "🇵🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "pitcairn_islands": {
+    "keywords": ["pitcairn"],
+    "char": "🇵🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "poland": {
+    "keywords": ["poland"],
+    "char": "🇵🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "portugal": {
+    "keywords": ["portugal"],
+    "char": "🇵🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "puerto_rico": {
+    "keywords": ["puerto", "rico"],
+    "char": "🇵🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "qatar": {
+    "keywords": ["qatar"],
+    "char": "🇶🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "reunion": {
+    "keywords": ["réunion", "reunion"],
+    "char": "🇷🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "romania": {
+    "keywords": ["romania"],
+    "char": "🇷🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ru": {
+    "keywords": ["russia"],
+    "char": "🇷🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "rwanda": {
+    "keywords": ["rwanda"],
+    "char": "🇷🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_barthelemy": {
+    "keywords": ["saint", "barthélemy"],
+    "char": "🇧🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_helena": {
+    "keywords": ["saint", "helena"],
+    "char": "🇸🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_kitts_nevis": {
+    "keywords": ["saint", "kitts", "nevis"],
+    "char": "🇰🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_lucia": {
+    "keywords": ["saint", "lucia"],
+    "char": "🇱🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_pierre_miquelon": {
+    "keywords": ["saint", "pierre", "miquelon"],
+    "char": "🇵🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "st_vincent_grenadines": {
+    "keywords": ["saint", "vincent", "grenadines"],
+    "char": "🇻🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "samoa": {
+    "keywords": ["samoa"],
+    "char": "🇼🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "san_marino": {
+    "keywords": ["san", "marino"],
+    "char": "🇸🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sao_tome_principe": {
+    "keywords": ["sao", "tome", "principe"],
+    "char": "🇸🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "saudi_arabia": {
+    "keywords": ["saudi arabia"],
+    "char": "🇸🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "senegal": {
+    "keywords": ["senegal"],
+    "char": "🇸🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "serbia": {
+    "keywords": ["serbia"],
+    "char": "🇷🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "seychelles": {
+    "keywords": ["seychelles"],
+    "char": "🇸🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sierra_leone": {
+    "keywords": ["sierra", "leone"],
+    "char": "🇸🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "singapore": {
+    "keywords": ["singapore"],
+    "char": "🇸🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sint_maarten": {
+    "keywords": ["sint", "maarten"],
+    "char": "🇸🇽",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "slovakia": {
+    "keywords": ["slovakia"],
+    "char": "🇸🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "slovenia": {
+    "keywords": ["slovenia"],
+    "char": "🇸🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "solomon_islands": {
+    "keywords": ["solomon", "islands"],
+    "char": "🇸🇧",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "somalia": {
+    "keywords": ["somalia"],
+    "char": "🇸🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "south_africa": {
+    "keywords": ["south", "africa"],
+    "char": "🇿🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "south_georgia_south_sandwich_islands": {
+    "keywords": ["south", "georgia", "sandwich", "islands"],
+    "char": "🇬🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "kr": {
+    "keywords": ["south", "korea"],
+    "char": "🇰🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "south_sudan": {
+    "keywords": ["south sudan"],
+    "char": "🇸🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "es": {
+    "keywords": ["spain"],
+    "char": "🇪🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sri_lanka": {
+    "keywords": ["sri", "lanka"],
+    "char": "🇱🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sudan": {
+    "keywords": ["sudan"],
+    "char": "🇸🇩",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "suriname": {
+    "keywords": ["suriname"],
+    "char": "🇸🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "swaziland": {
+    "keywords": ["swaziland"],
+    "char": "🇸🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "sweden": {
+    "keywords": ["sweden"],
+    "char": "🇸🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "switzerland": {
+    "keywords": ["switzerland"],
+    "char": "🇨🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "syria": {
+    "keywords": ["syria"],
+    "char": "🇸🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "taiwan": {
+    "keywords": ["taiwan"],
+    "char": "🇹🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tajikistan": {
+    "keywords": ["tajikistan"],
+    "char": "🇹🇯",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tanzania": {
+    "keywords": ["tanzania,"],
+    "char": "🇹🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "thailand": {
+    "keywords": ["thailand"],
+    "char": "🇹🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "timor_leste": {
+    "keywords": ["timor", "leste"],
+    "char": "🇹🇱",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "togo": {
+    "keywords": ["togo"],
+    "char": "🇹🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tokelau": {
+    "keywords": ["tokelau"],
+    "char": "🇹🇰",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tonga": {
+    "keywords": ["tonga"],
+    "char": "🇹🇴",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "trinidad_tobago": {
+    "keywords": ["trinidad", "tobago"],
+    "char": "🇹🇹",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tunisia": {
+    "keywords": ["tunisia"],
+    "char": "🇹🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tr": {
+    "keywords": ["turkey"],
+    "char": "🇹🇷",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "turkmenistan": {
+    "keywords": ["turkmenistan"],
+    "char": "🇹🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "turks_caicos_islands": {
+    "keywords": ["turks", "caicos", "islands"],
+    "char": "🇹🇨",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "tuvalu": {
+    "keywords": ["tuvalu"],
+    "char": "🇹🇻",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "uganda": {
+    "keywords": ["uganda"],
+    "char": "🇺🇬",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "ukraine": {
+    "keywords": ["ukraine"],
+    "char": "🇺🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "united_arab_emirates": {
+    "keywords": ["united", "arab", "emirates"],
+    "char": "🇦🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "uk": {
+    "keywords": ["united", "kingdom", "britain", "british", "UK", "english", "england"],
+    "char": "🇬🇧",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "england": {
+    "keywords": ["england"],
+    "char": "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "scotland": {
+    "keywords": ["scotland", "scottish"],
+    "char": "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "wales": {
+    "keywords": ["wales"],
+    "char": "🏴󠁧󠁢󠁷󠁬󠁳󠁿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "us": {
+    "keywords": ["USA", "america"],
+    "char": "🇺🇸",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "us_virgin_islands": {
+    "keywords": ["virgin", "islands"],
+    "char": "🇻🇮",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "uruguay": {
+    "keywords": ["uruguay"],
+    "char": "🇺🇾",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "uzbekistan": {
+    "keywords": ["uzbekistan"],
+    "char": "🇺🇿",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "vanuatu": {
+    "keywords": ["vanuatu"],
+    "char": "🇻🇺",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "vatican_city": {
+    "keywords": ["vatican", "city"],
+    "char": "🇻🇦",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "venezuela": {
+    "keywords": ["venezuela"],
+    "char": "🇻🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "vietnam": {
+    "keywords": ["vietnam"],
+    "char": "🇻🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "wallis_futuna": {
+    "keywords": ["wallis", "futuna"],
+    "char": "🇼🇫",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "western_sahara": {
+    "keywords": ["western", "sahara"],
+    "char": "🇪🇭",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "yemen": {
+    "keywords": ["yemen"],
+    "char": "🇾🇪",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "zambia": {
+    "keywords": ["zambia"],
+    "char": "🇿🇲",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "zimbabwe": {
+    "keywords": ["zimbabwe"],
+    "char": "🇿🇼",
+    "fitzpatrick_scale": false,
+    "category": "flags"
+  },
+  "united_nations": {
+    "keywords": ["un", "united nations"],
+    "char": "🇺🇳",
+    "fitzpatrick_scale": false,
+    "category": "flags"
   }
 }
-

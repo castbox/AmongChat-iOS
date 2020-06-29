@@ -136,7 +136,7 @@ class RtcManager: NSObject {
             //倒计时5秒
             cdPrint("start recording path: \(path)")
             invalidRecordTimerIfNeed()
-            recorderTimer = SwiftTimer(interval: .seconds(1), handler: { [weak self] _ in
+            recorderTimer = SwiftTimer(interval: .seconds(2), handler: { [weak self] _ in
                 guard let `self` = self else {
                     return
                 }

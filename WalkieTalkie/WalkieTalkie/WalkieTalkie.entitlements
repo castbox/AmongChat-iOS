@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:walkietalkie.live</string>
+		<string>applinks:walkie.page.link</string>
 	</array>
 </dict>
 </plist>
