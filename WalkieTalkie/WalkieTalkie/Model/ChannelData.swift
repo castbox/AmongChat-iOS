@@ -45,7 +45,7 @@ class ChannelData {
     }
 
     func isAnchorMyself() -> Bool {
-        isAnchor(String(Constant.sUserId))
+        isAnchor(String(Constants.sUserId))
     }
 
     // MARK: - SeatArray

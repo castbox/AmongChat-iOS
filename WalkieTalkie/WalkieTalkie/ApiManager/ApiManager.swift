@@ -40,10 +40,10 @@ struct ResponseError: Error, CustomStringConvertible {
     }
 }
 
-class ApiManager {
-    static let `default` = ApiManager()
+class ApiManager<T: TargetType> {
+//    static let `default` = ApiManager()
 //    private let manager: Session
-    private let provider: MoyaProvider<WalkieTalkie>
+    private let provider: MoyaProvider<T>
     
     init() {
         
@@ -54,12 +54,12 @@ class ApiManager {
         
         #if DEBUG
 //        let stubBehavior = MoyaProvider<Cuddle>.immediatelyStub
-        let stubBehavior = MoyaProvider<WalkieTalkie>.neverStub
+        let stubBehavior = MoyaProvider<T>.neverStub
         #else
-        let stubBehavior = MoyaProvider<WalkieTalkie>.neverStub
+        let stubBehavior = MoyaProvider<T>.neverStub
         #endif
 //        NetworkLoggerPlugin.Configuration(formatter: JSONResponseDataFormatter, logOptions: <#T##NetworkLoggerPlugin.Configuration.LogOptions#>)
-        provider = MoyaProvider<WalkieTalkie>(
+        provider = MoyaProvider<T>(
             stubClosure: stubBehavior,
 //            manager: manager,
             plugins: [
@@ -69,25 +69,25 @@ class ApiManager {
         )
     }
     
-    @discardableResult
-    static func request(
-        _ target: WalkieTalkie,
-        callbackQueue: DispatchQueue? = nil,
-        progress: Moya.ProgressBlock? = nil,
-        success: @escaping (Json) -> Void,
-        failure: @escaping (ResponseError) -> Void) -> Cancellable {
-        return ApiManager.default.request(
-            target,
-            callbackQueue: callbackQueue,
-            progress: progress,
-            success: success,
-            failure: failure
-        )
-    }
+//    @discardableResult
+//    static func request(
+//        _ target: T,
+//        callbackQueue: DispatchQueue? = nil,
+//        progress: Moya.ProgressBlock? = nil,
+//        success: @escaping (Json) -> Void,
+//        failure: @escaping (ResponseError) -> Void) -> Cancellable {
+//        return ApiManager.default.request(
+//            target,
+//            callbackQueue: callbackQueue,
+//            progress: progress,
+//            success: success,
+//            failure: failure
+//        )
+//    }
     
     @discardableResult
     func request(
-        _ target: WalkieTalkie,
+        _ target: T,
         callbackQueue: DispatchQueue? = nil,
         progress: Moya.ProgressBlock? = nil,
         success: @escaping (Json) -> Void,
@@ -100,7 +100,7 @@ class ApiManager {
             }
             switch result {
             case .success(let response):
-                let (response, error) = self.handle(moyaResponse: response)
+                let (response, error) = APIService.handle(moyaResponse: response)
                 if let error = error {
                     failure(error)
                 }
@@ -108,7 +108,7 @@ class ApiManager {
                     success(response!)
                 }
             case .failure(let error):
-                failure(self.transform(moyaError: error).1)
+                failure(APIService.transform(moyaError: error).1)
             }
             
         })
@@ -116,7 +116,7 @@ class ApiManager {
     
     @discardableResult
     func request(
-        _ target: WalkieTalkie,
+        _ target: T,
         callbackQueue: DispatchQueue? = nil,
         progress: Moya.ProgressBlock? = nil,
         successWithRawData: @escaping (Data) -> Void,
@@ -131,7 +131,7 @@ class ApiManager {
             case .success(let response):
                 successWithRawData(response.data)
             case .failure(let error):
-                failure(self.transform(moyaError: error).1)
+                failure(APIService.transform(moyaError: error).1)
             }
             
         })
@@ -144,7 +144,7 @@ class ApiManager {
     ///   - callbackQueue: callback queue
     ///   - progress: progress block
     /// - Returns: response and error
-    func sendSynchronousRequest(_ target: WalkieTalkie,
+    func sendSynchronousRequest(_ target: T,
                                 callbackQueue: DispatchQueue? = nil,
                                 progress: Moya.ProgressBlock? = nil) -> (Json?, ResponseError?) {
         let semaphore = DispatchSemaphore(value: 0)
@@ -161,15 +161,15 @@ class ApiManager {
     }
 }
 
-extension ApiManager {
-    func handle(moyaResponse response: Moya.Response) -> (Json?, ResponseError?) {
+extension APIService {
+    static func handle(moyaResponse response: Moya.Response) -> (Json?, ResponseError?) {
         guard let json = try? Json(response.data) else {
             return (nil, ResponseError(message: "Can't parse respose", code: .parseResponseError) )
         }
         return (json, nil)
     }
     
-    func transform(moyaError error: MoyaError) -> (Json?, ResponseError) {
+    static func transform(moyaError error: MoyaError) -> (Json?, ResponseError) {
         return (nil, ResponseError(message: error.localizedDescription, code: .unknow))
     }
 }

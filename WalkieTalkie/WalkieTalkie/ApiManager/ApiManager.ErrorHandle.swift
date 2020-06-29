@@ -12,7 +12,7 @@ protocol HttpRequestHandle {
     static func handle(httpResponse response: Json?, error: ResponseError?)
 }
 
-extension ApiManager {
+extension APIService {
     
     class ErrorHandle: NSObject, HttpRequestHandle {
         private static let `default` = ErrorHandle()
@@ -27,7 +27,7 @@ extension ApiManager {
     }
 }
 
-private extension ApiManager.ErrorHandle {
+private extension APIService.ErrorHandle {
     
     func handle(_ response: Json?, error: ResponseError?) {
         //        guard let error = error else {

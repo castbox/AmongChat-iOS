@@ -55,7 +55,7 @@ target 'WalkieTalkie' do
 #    pod 'LYEmptyView'
     ui_pods
 
-    pod 'Moya'
+#    pod 'Moya'
     pod 'Moya/RxSwift'
 
 #    pod 'Firebase/Crashlytics'

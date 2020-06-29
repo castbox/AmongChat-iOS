@@ -29,12 +29,33 @@ class Automator {
             })
             .disposed(by: bag)
         
-        FireMessaging.shared.fcmTokenValue()
-            .subscribe(onNext: { (message) in
-//                Routes.handle(message.uri)
+        //只有登录才上报
+        Observable.combineLatest(Settings.shared.loginResult.replay(), FireMessaging.shared.fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+            .filter { $0.0 != nil }
+            .map { $0.1 }
+            .do(onNext: { (message) in
                 //订阅 topic
                 cdPrint("[Automator]  : \(String(describing: message.fcmToken)) apnsToken: \(String(describing: message.apnsTokenString))")
             })
+            .flatMap { message -> Single<Bool> in
+                guard let token = message.fcmToken else {
+                    return .just(false)
+                }
+                var params = Constants.deviceInfo()
+                params["deviceToken"] = token
+                return Request.devices(params: params)
+            }
+            .subscribe(onNext: { result in
+                cdPrint("[Automator]  Sync token result: \(result)")
+            })
             .disposed(by: bag)
+        
+        _ = Request.login(deviceId: Constants.deviceID)
+            .subscribe(onSuccess: { result in
+                Settings.shared.loginResult.value = result
+            })
     }
+}
+extension Automator {
+
 }

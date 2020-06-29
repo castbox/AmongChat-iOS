@@ -142,6 +142,8 @@
 //            }
         }
         anpsMessageSubject.onNext(msg)
+        let _ = Request.pushEvent(.DeviceOpen, notiUserInfo: userInfo)
+            .subscribe()
     }
  }
  
@@ -178,6 +180,8 @@
         } else {
             handleRemoteNotificationPayload(userInfo)
         }
+        let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: userInfo)
+            .subscribe()
         completionHandler(.noData)
     }
     
@@ -199,6 +203,8 @@
         guard let msg = APNSMessage(notification.request.content.userInfo) else { return }
         addPushReceiveLogger(msg: msg)
         anpsMessageWillShowSubject.onNext(msg)
+        
+        let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: notification.request.content.userInfo).subscribe(onSuccess: { (_) in })
         completionHandler([.alert, .badge, .sound])
     }
     

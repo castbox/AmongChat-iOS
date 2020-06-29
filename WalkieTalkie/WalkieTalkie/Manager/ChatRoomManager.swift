@@ -114,17 +114,17 @@ class ChatRoomManager: SeatManager {
         if state == .connected {
             leaveChannel()
         }
-//        mRtmManager.login(Constant.sUserId, { [weak self] (code) in
+//        mRtmManager.login(Constants.sUserId, { [weak self] (code) in
 //            guard let `self` = self else {
 //                return
 //            }
 //            if code == .ok || code == .alreadyLogin {
-//                let member = Member(userId: String(Constant.sUserId))
+//                let member = Member(userId: String(Constants.sUserId))
 //                if let json = member.toJsonString() {
 //                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
 //                }
                 self.updateRole(false)
-                self.mRtcManager.joinChannel(channelId, Constant.sUserId) { [weak self] in
+                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
                     //set to audiance
 //                    self?.updateRole(false)
                     self?.channelName = channelId
@@ -157,7 +157,7 @@ class ChatRoomManager: SeatManager {
     }
 
 //    private func checkAndBeAnchor() {
-//        let myUserId = String(Constant.sUserId)
+//        let myUserId = String(Constants.sUserId)
 //
 //        if mChannelData.isAnchorMyself() {
 //            var index = mChannelData.indexOfSeatArray(myUserId)
@@ -181,7 +181,7 @@ class ChatRoomManager: SeatManager {
 //    }
 
 //    func givingGift() {
-//        let message = Message(messageType: Message.MESSAGE_TYPE_GIFT, content: nil, sendId: Constant.sUserId)
+//        let message = Message(messageType: Message.MESSAGE_TYPE_GIFT, content: nil, sendId: Constants.sUserId)
 //        mRtmManager.sendMessage(message.toJsonString(), { [weak self] (code) in
 //            self?.delegate?.onUserGivingGift(userId: message.sendId)
 //        })
@@ -193,12 +193,12 @@ class ChatRoomManager: SeatManager {
 //        if !mChannelData.isAnchorMyself() {
 //            return
 //        }
-//        let message = Message(orderType: orderType, content: content, sendId: Constant.sUserId)
+//        let message = Message(orderType: orderType, content: content, sendId: Constants.sUserId)
 //        mRtmManager.sendMessageToPeer(userId, message.toJsonString(), callback)
 //    }
 //
 //    func sendMessage(text: String) {
-//        let message = Message(content: text, sendId: Constant.sUserId)
+//        let message = Message(content: text, sendId: Constants.sUserId)
 //        mRtmManager.sendMessage(message.toJsonString(), { [weak self] (code) in
 //            if code == .errorOk {
 //                self?.addMessage(message: message)
@@ -216,7 +216,7 @@ class ChatRoomManager: SeatManager {
 //            case Message.MESSAGE_TYPE_GIFT:
 //                delegate?.onUserGivingGift(userId: message.sendId)
 //            case Message.MESSAGE_TYPE_ORDER:
-//                let myUserId = String(Constant.sUserId)
+//                let myUserId = String(Constants.sUserId)
 //                switch message.orderType {
 //                case Message.ORDER_TYPE_AUDIENCE:
 //                    toAudience(myUserId, nil)

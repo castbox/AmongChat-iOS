@@ -105,7 +105,7 @@ class RoomViewController: ViewController {
     }
     
     var myUserId: String {
-        return String(Constant.sUserId)
+        return String(Constants.sUserId)
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
@@ -398,7 +398,7 @@ extension RoomViewController: ChatRoomDelegate {
 
     func onUserStatusChanged(userId: String, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
-        if Constant.isMyself(userId) {
+        if Constants.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
             let value = NSNumber(booleanLiteral: muted)
             if !muted {

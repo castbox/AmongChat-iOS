@@ -11,17 +11,19 @@ import Moya
 import Alamofire
 //import CastboxNetwork
 
-extension ApiManager {
+struct APIService {}
+
+extension APIService {
     enum WalkieTalkie {
         case enterRoom
     }
 }
 
-extension ApiManager.WalkieTalkie: TargetType {
+extension APIService.WalkieTalkie: TargetType {
     var baseURL: URL {
         switch self {
         default:
-            return URL(string: ApiManager.Config.host)!
+            return URL(string: APIService.Config.host)!
         }
     }
     
@@ -54,7 +56,7 @@ extension ApiManager.WalkieTalkie: TargetType {
     
     var headers: [String : String]? {
         var additionalHeaders = HTTPHeaders.default.dictionary
-        additionalHeaders["User-Agent"] = ApiManager.Config.userAgent
+        additionalHeaders["User-Agent"] = APIService.Config.userAgent
         return additionalHeaders
     }
 }

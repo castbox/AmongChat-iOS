@@ -19,10 +19,8 @@ class RoomViewModel {
     private var emojiObserverDispose: Disposable?
     
     func requestEnterRoom() {
-        ApiManager.default.reactiveRequest(.enterRoom)
-            .subscribe(onNext: { _ in
-                
-            })
+        Request.reportEnterRoom()
+            .subscribe()
             .disposed(by: bag)
     }
     

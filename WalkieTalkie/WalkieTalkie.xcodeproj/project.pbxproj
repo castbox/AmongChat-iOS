@@ -26,7 +26,7 @@
 		FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */; };
 		FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3C243481BC00BEDD60 /* MessageManager.swift */; };
 		FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3D243481BC00BEDD60 /* SeatManager.swift */; };
-		FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D43243481FD00BEDD60 /* Constant.swift */; };
+		FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D43243481FD00BEDD60 /* Constants.swift */; };
 		FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D44243481FD00BEDD60 /* ChannelData.swift */; };
 		FE126D4D243481FF00BEDD60 /* Member.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D45243481FD00BEDD60 /* Member.swift */; };
 		FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D46243481FE00BEDD60 /* Channel.swift */; };
@@ -139,7 +139,7 @@
 		FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */; };
 		FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA58243DB0960059C252 /* ApiManager.swift */; };
 		FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */; };
-		FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */; };
+		FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5A243DB0970059C252 /* APIService.swift */; };
 		FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5B243DB0970059C252 /* Codable.Extension.swift */; };
 		FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5C243DB0970059C252 /* ApiManager.Observable.swift */; };
 		FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA5D243DB0970059C252 /* ApiManager.Json.swift */; };
@@ -167,6 +167,9 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */; };
+		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
+		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
+		FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */; };
 		FECA43AC24597B570075D139 /* Automator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43A924597B570075D139 /* Automator.swift */; };
 		FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AA24597B570075D139 /* Automator.Device.swift */; };
 		FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AB24597B570075D139 /* Automator.Analytics.swift */; };
@@ -219,7 +222,7 @@
 		FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomManager.swift; sourceTree = "<group>"; };
 		FE126D3C243481BC00BEDD60 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
 		FE126D3D243481BC00BEDD60 /* SeatManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatManager.swift; sourceTree = "<group>"; };
-		FE126D43243481FD00BEDD60 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		FE126D43243481FD00BEDD60 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FE126D44243481FD00BEDD60 /* ChannelData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelData.swift; sourceTree = "<group>"; };
 		FE126D45243481FD00BEDD60 /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		FE126D46243481FE00BEDD60 /* Channel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Channel.swift; sourceTree = "<group>"; };
@@ -333,7 +336,7 @@
 		FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Config.swift; sourceTree = "<group>"; };
 		FE8DEA58243DB0960059C252 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		FE8DEA59243DB0960059C252 /* ApiManager.Plugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Plugin.swift; sourceTree = "<group>"; };
-		FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Api.swift; sourceTree = "<group>"; };
+		FE8DEA5A243DB0970059C252 /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		FE8DEA5B243DB0970059C252 /* Codable.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Codable.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA5C243DB0970059C252 /* ApiManager.Observable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Observable.swift; sourceTree = "<group>"; };
 		FE8DEA5D243DB0970059C252 /* ApiManager.Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.Json.swift; sourceTree = "<group>"; };
@@ -361,6 +364,9 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
+		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.CastboxBackend.swift; sourceTree = "<group>"; };
 		FECA43A924597B570075D139 /* Automator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.swift; sourceTree = "<group>"; };
 		FECA43AA24597B570075D139 /* Automator.Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Device.swift; sourceTree = "<group>"; };
 		FECA43AB24597B570075D139 /* Automator.Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Analytics.swift; sourceTree = "<group>"; };
@@ -508,7 +514,7 @@
 				FE126D47243481FE00BEDD60 /* AttributeKey.swift */,
 				FE126D46243481FE00BEDD60 /* Channel.swift */,
 				FE126D44243481FD00BEDD60 /* ChannelData.swift */,
-				FE126D43243481FD00BEDD60 /* Constant.swift */,
+				FE126D43243481FD00BEDD60 /* Constants.swift */,
 				FE126D45243481FD00BEDD60 /* Member.swift */,
 				FE126D49243481FE00BEDD60 /* Message.swift */,
 				FE126D4A243481FE00BEDD60 /* Seat.swift */,
@@ -664,7 +670,9 @@
 		FE8DEA6F243DB0A20059C252 /* ApiManager */ = {
 			isa = PBXGroup;
 			children = (
-				FE8DEA5A243DB0970059C252 /* ApiManager.Api.swift */,
+				FEC17A4A24A9B957003719BC /* Request.swift */,
+				FE8DEA5A243DB0970059C252 /* APIService.swift */,
+				FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */,
 				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
 				FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */,
 				FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */,
@@ -676,6 +684,7 @@
 				FE8DEA5F243DB0980059C252 /* Json.swift */,
 				FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */,
 				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
+				FEC17A4824A99BF0003719BC /* Entity.swift */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1117,6 +1126,7 @@
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
 				FECFC4FE24666FBD00B10EEE /* GuideThirdView.swift in Sources */,
+				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
@@ -1152,7 +1162,7 @@
 				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
 				FE9CB1D6247D512400AA2199 /* CreateGlobalChannelController.swift in Sources */,
 				FE401E3F244D9C450081F793 /* IAP.Receipt.swift in Sources */,
-				FE126D4B243481FF00BEDD60 /* Constant.swift in Sources */,
+				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
 				FE7218712456D900005274CA /* FireMessaging.swift in Sources */,
@@ -1165,15 +1175,17 @@
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
-				FE8DEA66243DB09A0059C252 /* ApiManager.Api.swift in Sources */,
+				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
 				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
+				FEC17A4B24A9B957003719BC /* Request.swift in Sources */,
 				FE274D43243B81B500B6DB88 /* R.generated.swift in Sources */,
 				FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */,
 				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */,
+				FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */,
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
