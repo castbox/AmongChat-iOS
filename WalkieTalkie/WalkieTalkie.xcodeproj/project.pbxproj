@@ -148,6 +148,7 @@
 		FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */; };
 		FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */; };
 		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
+		FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE97371424AB3D050015ECE6 /* DebugViewController.swift */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
 		FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1CE247D47CC00AA2199 /* Room.swift */; };
@@ -345,6 +346,7 @@
 		FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
+		FE97371424AB3D050015ECE6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		FE9CB1CE247D47CC00AA2199 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
@@ -843,6 +845,7 @@
 			children = (
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
 				FECA43B1245987CA0075D139 /* PushSettingController.swift */,
+				FE97371424AB3D050015ECE6 /* DebugViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1136,6 +1139,7 @@
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
+				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
@@ -1411,7 +1415,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.8;
+				MARKETING_VERSION = 1.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1436,7 +1440,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.8;
+				MARKETING_VERSION = 1.2.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

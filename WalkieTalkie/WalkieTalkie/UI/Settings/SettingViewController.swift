@@ -13,6 +13,8 @@ class SettingViewController: ViewController {
 
     @IBOutlet weak var versionLabel: UILabel!
     
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    
     override var screenName: Logger.Screen.Node.Start {
         return .settings
     }
@@ -23,6 +25,11 @@ class SettingViewController: ViewController {
         // Do any additional setup after loading the view.
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
+//        #if DEBUG
+//        tapGesture.isEnabled = true
+//        #else
+//        tapGesture.isEnabled = false
+//        #endif
     }
     
     @IBAction func policyAction(_ sender: Any) {
