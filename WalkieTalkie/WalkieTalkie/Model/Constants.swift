@@ -58,7 +58,9 @@ struct Constants {
         return Locale.current.identifier
     }()
     
-    static var deviceToken: String = ""
+    static var deviceToken: String {
+        FireMessaging.shared.fcmToken ?? ""
+    }
     
     static func deviceInfo() -> [String : Any] {
         return [
