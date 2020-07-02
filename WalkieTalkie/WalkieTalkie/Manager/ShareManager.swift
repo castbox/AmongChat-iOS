@@ -11,6 +11,7 @@ import FirebaseDynamicLinks
 import SCSDKCreativeKit
 import MessageUI
 import TikTokOpenSDK
+import RxSwift
 
 class ShareManager: NSObject {
     enum ShareType: String, CaseIterable {
@@ -108,6 +109,11 @@ class ShareManager: NSObject {
     }
     
     func share(with channelName: String?, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
+        guard let channelName = channelName else {
+            successHandler?()
+            return
+        }
+        
         ShareManager.makeDynamicLinks(with: channelName, for: type) { url in
             guard let url = url else {
                 successHandler?()
@@ -144,7 +150,7 @@ class ShareManager: NSObject {
                     }
                 }
             case .snapchat:
-                let shareView = SnapChatCreativeShareView(with: channelName ?? "")
+                let shareView = SnapChatCreativeShareView(with: channelName)
                 viewController.view.addSubview(shareView)
                 guard let imageToShare = shareView.screenshot else {
                     successHandler?()
@@ -181,6 +187,30 @@ class ShareManager: NSObject {
                     //                self?.isSharing = false
                     print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
                 }
+            case .ticktock:
+                _ = self.createImagesForTikTok(channelName, viewController: viewController)
+                    .observeOn(MainScheduler.asyncInstance)
+                    .subscribe(onNext: { localizlIdentifiers in
+                        guard localizlIdentifiers.count == 2 else {
+                            successHandler?()
+                            return
+                        }
+                        let request = TikTokOpenSDKShareRequest()
+                        request.mediaType = .image
+                        request.localIdentifiers = localizlIdentifiers
+//                        request.extraInfo =
+                        request.send { response in
+                            cdPrint(response.debugDescription)
+                            if response.errCode == .success {
+                                
+                            } else {
+                                //
+                            }
+                            successHandler?()
+
+                        }
+                    })
+                
             case .more:
                 self.showActivity(name: channelName, dynamicLink: url, type: type, viewController: viewController, successHandler: successHandler)
             default:
@@ -202,42 +232,7 @@ class ShareManager: NSObject {
         }
         shareView.removeFromSuperview()
         
-//        let urlToShare = Self.shareUrl(for: name)
         let items = [textToShare, imageToShare] as [Any]
-//        let snapChat = ActivityViewCustomActivity(title: "Snapchat", image: R.image.logo_snapchat()) { [weak viewController] in
-//            guard let controller = viewController else { return }
-//            //            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
-//
-//            /* Sticker to be used in the Snap */
-//            //            let stickerImage = imageToShare!/* Prepare a sticker image */
-//            let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
-//            sticker.width = shareView.width
-//            sticker.height = shareView.height
-//            /* Alternatively, use a URL instead */
-//            // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
-//
-//            /* Modeling a Snap using SCSDKPhotoSnapContent */
-//            let snapContent = SCSDKNoSnapContent()
-//            snapContent.sticker = sticker /* Optional */
-//            //            snapContent.caption = textToShare /* Optional */
-//            snapContent.attachmentUrl = urlToShare /* Optional */
-//
-//            // Send it over to Snapchat
-//
-//            // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
-//            //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
-//            //       Either synchronize the method call yourself or disable user interaction until the share is over.
-////            let removeHandler = controller.view.raft.show(.loading)
-//            //            self.view.isUserInteractionEnabled = false
-//            self.snapAPI.startSending(snapContent) { (error: Error?) in
-////                removeHandler()
-//                successHandler?()
-//                //                self?.view.isUserInteractionEnabled = true
-//                //                self?.isSharing = false
-//                print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
-//            }
-//        }
-        
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -248,6 +243,31 @@ class ShareManager: NSObject {
         viewController.present(activityVC, animated: true, completion: { () -> Void in
             
         })
+    }
+    
+    private func createImagesForTikTok(_ channelName: String, viewController: UIViewController) -> Observable<[String]> {
+        var shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_1 : .public_1)
+        viewController.view.addSubview(shareView)
+        guard let imageToShare = shareView.screenshot else {
+            return .just([])
+        }
+        shareView.removeFromSuperview()
+        
+        shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_2 : .public_2)
+        viewController.view.addSubview(shareView)
+        guard let image2ToShare = shareView.screenshot else {
+            return .just([])
+        }
+        shareView.removeFromSuperview()
+        //save image to
+        return Observable.zip(PhotoManager.shared.saveImageObserve(imageToShare), PhotoManager.shared.saveImageObserve(image2ToShare))
+            .map { (item1, item2) -> [String] in
+                guard let item1 = item1, let item2 = item2 else {
+                    return []
+                }
+                return [item1, item2]
+            }
+            .subscribeOn(MainScheduler.asyncInstance)
     }
 }
 
@@ -292,3 +312,20 @@ extension ShareManager.ShareType {
     }
 }
 
+
+extension PhotoManager {
+    func saveImageObserve(_ image: UIImage) -> Observable<String?> {
+        return Observable.create { observer -> Disposable in
+            self.save(image) { (localIdentifier, error) in
+                if let error = error {
+                    observer.onError(error)
+                } else {
+                    observer.onNext(localIdentifier)
+                }
+            }
+            return Disposables.create {
+                
+            }
+        }
+    }
+}

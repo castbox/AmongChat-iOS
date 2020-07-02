@@ -127,8 +127,7 @@ class ShareContainerView: XibLoadableView {
                         source.append(Item(icon: R.image.icon_share_snapchat(), type: .snapchat))
                     }
                 case .ticktock:
-                    ()
-//                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))
+                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))
                 case .more:
                     source.append(Item(icon: R.image.icon_share_more(), type: .more))
                 }
