@@ -98,3 +98,27 @@ extension Logger {
         }
     }
 }
+
+extension Logger {
+    
+    struct Share {
+        enum EventName: String {
+            case share
+            case share_clk
+            case share_dialog_pop
+        }
+        
+        enum Category: String {
+            case global
+            case secret
+        }
+        
+        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: nil, content: nil)
+        }
+        
+        static func log(_ eventName: EventName, category: String?, _ itemName: String? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category, name: itemName, value: nil, content: nil)
+        }
+    }
+}

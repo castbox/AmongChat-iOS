@@ -105,7 +105,7 @@ class RoomViewController: ViewController {
     }
     
     var myUserId: String {
-        return String(Constant.sUserId)
+        return String(Constants.sUserId)
     }
     var timer: SwiftTimer?
     var userStatus: UserStatus = .audiance
@@ -230,19 +230,8 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-
-        if channel.isPrivate {
-            guard !channelName.showName.isEmpty else {
-                showCreateSecretChannel(with: .emptySecretRooms)
-                return
-            }
-//            showShareController(channelName: channelName)
-        } else {
-            Logger.UserAction.log(.share_channel, channelName)
-//            shareChannel(name: channelName)
-        }
-        previousShowShareViewName = channelName
-        ShareView.showWith(channel: channel, shareButton: shareButton)
+        Logger.Share.log(.share_clk, category: channelName.isPrivate ? .secret : .global, channelName)
+        showShareView()
     }
     
     @IBAction func privateButtonAction(_ sender: Any) {
@@ -252,6 +241,17 @@ class RoomViewController: ViewController {
         case .public:
             showCreateGlobalChannelController()
         }
+    }
+    
+    func showShareView(_ isAutomaticShow: Bool = false) {
+        if channel.isPrivate {
+            guard !channelName.showName.isEmpty else {
+                showCreateSecretChannel(with: .emptySecretRooms)
+                return
+            }
+        }
+        previousShowShareViewName = channelName
+        ShareView.showWith(channel: channel, shareButton: shareButton, isAutomaticShow: isAutomaticShow)
     }
     
     func leaveChannel() {
@@ -398,7 +398,7 @@ extension RoomViewController: ChatRoomDelegate {
 
     func onUserStatusChanged(userId: String, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
-        if Constant.isMyself(userId) {
+        if Constants.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
             let value = NSNumber(booleanLiteral: muted)
             if !muted {
@@ -547,11 +547,11 @@ private extension RoomViewController {
             Observable.just(())
                 .delay(.seconds(FireRemote.shared.value.delayShowShareDialog), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
-                    guard let `self` = self,
-                        let shareButton = self.shareButton else {
-                            return
+                    guard self?.previousShowShareViewName == nil else {
+                        return
                     }
-                    self.shareButtonAction(shareButton)
+                    Logger.Share.log(.share_dialog_pop)
+                    self?.showShareView(true)
                 })
         shareTimeDispose?.disposed(by: bag)
     }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension ApiManager {
+extension APIService {
     struct Config {
         static var isRelease: Bool {
             #if DEBUG

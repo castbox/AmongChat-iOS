@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setGlobalAppearance()
         RtcManager.shared.initialize()
         FirebaseApp.configure()
-//        UserProperty.logUserID(String(Constant.sUserId))
+//        UserProperty.logUserID(String(Constants.sUserId))
         
         _ = AdsManager.shared
         _ = Reachability.shared

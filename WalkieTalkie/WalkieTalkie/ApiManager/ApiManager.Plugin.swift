@@ -25,14 +25,14 @@ extension ApiManager {
 
             switch result {
             case .success(let response):
-                (httpResponse, responseError) = ApiManager.default.handle(moyaResponse: response)
+                (httpResponse, responseError) = APIService.handle(moyaResponse: response)
             case .failure(let error):
-                let result = ApiManager.default.transform(moyaError: error)
+                let result = APIService.transform(moyaError: error)
                 httpResponse = result.0
                 responseError = result.1
             }
 
-            ErrorHandle.handle(httpResponse: httpResponse, error: responseError)
+            APIService.ErrorHandle.handle(httpResponse: httpResponse, error: responseError)
         }
     }
 }
@@ -41,7 +41,7 @@ extension URLRequest {
     
     /// global common params
     private var commonParams: [String: Any] {
-        return ApiManager.Config.commonQueryParams
+        return APIService.Config.commonQueryParams
     }
     
     /// global common header fields

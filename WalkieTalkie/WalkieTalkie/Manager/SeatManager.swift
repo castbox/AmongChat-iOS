@@ -24,7 +24,7 @@ extension SeatManager {
 //        cdPrint("toBroadcaster \(userId) \(position)")
 //
 //        let channelData = getChannelData()
-//        if Constant.isMyself(userId) {
+//        if Constants.isMyself(userId) {
 //            let index = channelData.indexOfSeatArray(userId)
 //            if index != NSNotFound {
 //                if position == index {
@@ -52,7 +52,7 @@ extension SeatManager {
 //        cdPrint("toAudience \(userId)")
 //
 //        let channelData = getChannelData()
-//        if Constant.isMyself(userId) {
+//        if Constants.isMyself(userId) {
 //            resetSeat(channelData.indexOfSeatArray(userId), { [weak self] (code) in
 //                if code == .attributeOperationErrorOk {
 //                    self?.getRtcManager().setClientRole(.audience)
@@ -92,7 +92,7 @@ extension SeatManager {
 //    }
 
     func muteMic(_ userId: String, _ muted: Bool) {
-        if Constant.isMyself(userId) {
+        if Constants.isMyself(userId) {
             if !getChannelData().isUserOnline(userId) {
                 return
             }

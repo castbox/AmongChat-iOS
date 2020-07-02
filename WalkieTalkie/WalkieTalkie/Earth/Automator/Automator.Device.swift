@@ -23,7 +23,7 @@ extension Automator {
 //                .willSet()
 //                .filter({ $0.new == nil })
 //                .subscribe(onNext: { (auth) in
-//                    guard let deviceID = Constant.deviceID else {
+//                    guard let deviceID = Constants.deviceID else {
 //                        assert(false, "userRef should not be nil here")
 //                        return
 //                    }
@@ -50,7 +50,7 @@ extension Automator {
 //                .subscribe(onNext: { (tuple) in
 //                    guard let _ = Knife.Auth.shared.loginResult.value,
 //                        let token = tuple.token,
-//                        let deviceID = Constant.deviceID else { return}
+//                        let deviceID = Constants.deviceID else { return}
 //                    DB.Device.add(device: deviceID, token: token)
 //                    _ = Request.device(fcmToken: token, followingPush: tuple.followingPush, momentPush: tuple.momentPush, systemPush: tuple.systemPush, messagePush: tuple.messagePush)
 //                        .subscribe(onNext: { (success) in
@@ -72,7 +72,7 @@ extension Automator {
 //                    /// 同时通过 HTTP Api 传递给 Server，以防万一
 //                    guard let _ = Knife.Auth.shared.loginResult.value,
 //                        let token = tuple.token,
-//                        let deviceID = Constant.deviceID else {
+//                        let deviceID = Constants.deviceID else {
 //                            return
 //                    }
 //

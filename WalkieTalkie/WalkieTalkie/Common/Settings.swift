@@ -28,6 +28,24 @@ enum BrowseSelection: Int {
 class Settings {
     static let shared = Settings()
     
+    let loginResult: PublishProperty<Entity.LoginResult?> = {
+        
+        typealias LoginResult = Entity.LoginResult
+        let value: LoginResult?
+        
+        if let json = Defaults[\.loginResultKey] {
+            value = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json)
+        } else {
+            value = nil
+        }
+        
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
+            })
+            .asPublishProperty()
+    }()
+    
     let isProValue: PublishProperty<Bool> = {
         var value = Defaults[\.isProKey]
         UserProperty.setIsPro(value)
@@ -305,6 +323,10 @@ extension DefaultsKeys {
     
     var emojiMaps: DefaultsKey<[String: Any]> {
         .init("emoji.maps", defaultValue: [:])
+    }
+    
+    var loginResultKey: DefaultsKey<[String : Any]?> {
+        .init("login.result", defaultValue: nil)
     }
 }
 
