@@ -100,6 +100,9 @@
 		FE72187F2456DC26005274CA /* GlobalChannelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE72187E2456DC26005274CA /* GlobalChannelContainer.swift */; };
 		FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */; };
 		FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7218822456DC35005274CA /* SecretChannelContainer.xib */; };
+		FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE730E4C24ADCB0100680062 /* PhotoManager.swift */; };
+		FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE730E4E24ADCC4C00680062 /* TikTokShareView.swift */; };
+		FE730E5124ADCC5A00680062 /* TikTokShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE730E5024ADCC5A00680062 /* TikTokShareView.xib */; };
 		FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */; };
 		FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC624629A9700CAC554 /* Localizable.strings */; };
 		FE746BD024629A9800CAC554 /* call.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FE746BC924629A9800CAC554 /* call.m4a */; };
@@ -298,6 +301,9 @@
 		FE72187E2456DC26005274CA /* GlobalChannelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalChannelContainer.swift; sourceTree = "<group>"; };
 		FE7218802456DC2E005274CA /* GlobalChannelContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GlobalChannelContainer.xib; sourceTree = "<group>"; };
 		FE7218822456DC35005274CA /* SecretChannelContainer.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecretChannelContainer.xib; sourceTree = "<group>"; };
+		FE730E4C24ADCB0100680062 /* PhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoManager.swift; sourceTree = "<group>"; };
+		FE730E4E24ADCC4C00680062 /* TikTokShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikTokShareView.swift; sourceTree = "<group>"; };
+		FE730E5024ADCC5A00680062 /* TikTokShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TikTokShareView.xib; sourceTree = "<group>"; };
 		FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-SemiBold.ttf"; sourceTree = "<group>"; };
 		FE746BC724629A9700CAC554 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		FE746BC924629A9800CAC554 /* call.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = call.m4a; sourceTree = "<group>"; };
@@ -528,6 +534,7 @@
 		FE126D542434821900BEDD60 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FE730E4C24ADCB0100680062 /* PhotoManager.swift */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
 				FE0D1A1F24488FE100518793 /* Utils */,
 				FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */,
@@ -538,6 +545,8 @@
 				FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */,
 				FE9B29F32488D250009A4969 /* ConfettiView.swift */,
 				FEA79E62249B52EF0067C1C1 /* ShareManager.swift */,
+				FE730E4E24ADCC4C00680062 /* TikTokShareView.swift */,
+				FE730E5024ADCC5A00680062 /* TikTokShareView.xib */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -968,6 +977,7 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FE746BD024629A9800CAC554 /* call.m4a in Resources */,
 				FE11DC30245B007B009B7E08 /* cbegin.mp3 in Resources */,
+				FE730E5124ADCC5A00680062 /* TikTokShareView.xib in Resources */,
 				FE7218812456DC2E005274CA /* GlobalChannelContainer.xib in Resources */,
 				FE86A58C245AC19E00C35FCA /* ScreenContainer.xib in Resources */,
 				FE746BD224629A9800CAC554 /* end.mp3 in Resources */,
@@ -1213,6 +1223,7 @@
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE7218752456DA36005274CA /* Extension.swift in Sources */,
 				FE684873244B4D2200F87AF9 /* ChannelNameField.swift in Sources */,
+				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				FE72187D2456DC19005274CA /* SecretChannelContainer.swift in Sources */,
@@ -1224,6 +1235,7 @@
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
+				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
 				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
@@ -1406,7 +1418,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
@@ -1415,7 +1427,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1432,7 +1444,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1440,7 +1452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.9;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

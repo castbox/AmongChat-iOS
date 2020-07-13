@@ -200,8 +200,11 @@
  extension FireMessaging: UNUserNotificationCenterDelegate {
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        guard let msg = APNSMessage(notification.request.content.userInfo) else { return }
-        addPushReceiveLogger(msg: msg)
+        let nilableMessage = APNSMessage(notification.request.content.userInfo)
+        addPushReceiveLogger(msg: nilableMessage)
+        guard let msg = nilableMessage else {
+            return
+        }
         anpsMessageWillShowSubject.onNext(msg)
         
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: notification.request.content.userInfo).subscribe(onSuccess: { (_) in })
@@ -215,11 +218,12 @@
         completionHandler()
     }
     
-    func addPushReceiveLogger(msg: APNSMessage) {
-        let uriList = msg.uri.split(separator: "/")
-        let type = uriList.safe(0) ?? ""
-        let id = uriList.safe(1) ?? ""
-        Logger.PageShow.logger("push_receive", String(type), String(id), nil)
+    func addPushReceiveLogger(msg: APNSMessage?) {
+        var category: Logger.Push.Category {
+            msg?.uri != nil ? .hot : .recommend
+        }
+        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
+        Logger.Push.log(category, home?.channelName)
     }
  }
  

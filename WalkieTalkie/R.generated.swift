@@ -112,7 +112,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 58 images.
+  /// This `R.image` struct is generated, and contains static references to 62 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -222,6 +222,14 @@ struct R: Rswift.Validatable {
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `logo_snapchat`.
     static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
+    /// Image `private_share_bg_2`.
+    static let private_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg_2")
+    /// Image `private_share_bg`.
+    static let private_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg")
+    /// Image `public_share_bg_2`.
+    static let public_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "public_share_bg_2")
+    /// Image `public_share_bg`.
+    static let public_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "public_share_bg")
     /// Image `share_logo`.
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
     /// Image `snapchat_share_bg`.
@@ -501,6 +509,26 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "private_share_bg", bundle: ..., traitCollection: ...)`
+    static func private_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.private_share_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "private_share_bg_2", bundle: ..., traitCollection: ...)`
+    static func private_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.private_share_bg_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "public_share_bg", bundle: ..., traitCollection: ...)`
+    static func public_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.public_share_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "public_share_bg_2", bundle: ..., traitCollection: ...)`
+    static func public_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.public_share_bg_2, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
     static func share_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
@@ -524,7 +552,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 12 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
   struct nib {
     /// Nib `CreateGlobalChannelController`.
     static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
@@ -550,6 +578,8 @@ struct R: Rswift.Validatable {
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
+    /// Nib `TikTokShareView`.
+    static let tikTokShareView = _R.nib._TikTokShareView()
     
     /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
@@ -623,6 +653,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
     }
     
+    /// `UINib(name: "TikTokShareView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
+    static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.tikTokShareView)
+    }
+    
     static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -671,6 +707,10 @@ struct R: Rswift.Validatable {
       return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func tikTokShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.tikTokShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     fileprivate init() {}
   }
   
@@ -711,7 +751,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 44 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 47 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -765,6 +805,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretCreateTipsDes = Rswift.StringResource(key: "add.channel.secret.create.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Download “walkie talkie talk to friends” First
+      /// 
+      /// Locales: en
+      static let shareTiktokContentDowload = Rswift.StringResource(key: "share.tiktok.content.dowload", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ERROR MAX USERS
       /// 
       /// Locales: en
@@ -777,6 +821,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Join in %@ talk to me & have fun !!!
+      /// 
+      /// Locales: en
+      static let shareTiktokPublicTitle = Rswift.StringResource(key: "share.tiktok.public.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Join in my SERET CHANNEL %@ talk to me !!!
+      /// 
+      /// Locales: en
+      static let shareTiktokPrivateTitle = Rswift.StringResource(key: "share.tiktok.private.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join secret channel to chat with your friends
       /// 
       /// Locales: en
@@ -981,6 +1033,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.create.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Download “walkie talkie talk to friends” First
+      /// 
+      /// Locales: en
+      static func shareTiktokContentDowload(_: Void = ()) -> String {
+        return NSLocalizedString("share.tiktok.content.dowload", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: ERROR MAX USERS
       /// 
       /// Locales: en
@@ -1000,6 +1059,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelGlobalTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Join in %@ talk to me & have fun !!!
+      /// 
+      /// Locales: en
+      static func shareTiktokPublicTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("share.tiktok.public.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Join in my SERET CHANNEL %@ talk to me !!!
+      /// 
+      /// Locales: en
+      static func shareTiktokPrivateTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("share.tiktok.private.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Join secret channel to chat with your friends
@@ -1234,6 +1307,7 @@ struct _R: Rswift.Validatable {
       try _SecretChannelContainer.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
+      try _TikTokShareView.validate()
     }
     
     struct _CreateGlobalChannelController: Rswift.NibResourceType {
@@ -1431,6 +1505,23 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _TikTokShareView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "TikTokShareView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "public_share_bg_2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'public_share_bg_2' is used in nib 'TikTokShareView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

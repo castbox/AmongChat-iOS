@@ -40,4 +40,16 @@ extension Logger {
             GuruAnalytics.log(event: eventName, category: category, name: itemName, value: value, content: content)
         }
     }
+    
+    struct Push {
+        
+        enum Category: String {
+            case hot
+            case recommend
+        }
+        
+        static func log(_ category: Category? = nil, _ itemName: String? = nil, _ value: Int64? = nil, content: String? = nil) {
+            GuruAnalytics.log(event: "push_receive", category: category?.rawValue, name: itemName, value: value, content: content)
+        }
+    }
 }

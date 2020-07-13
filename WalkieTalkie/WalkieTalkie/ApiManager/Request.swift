@@ -45,37 +45,26 @@ extension Request {
         }
     }
     
-    enum PushEventType {
+    enum PushEventType: String {
         case DeviceOpen
         case DeviceReceive
     }
     
     static func pushEvent(_ type: PushEventType, notiUserInfo: [AnyHashable : Any]) -> Single<Bool> {
         
-        guard let _ = notiUserInfo["gcm.message_id"] else {
+        guard let serverParams = notiUserInfo["serverParams"] else {
             return Observable<Bool>.just(true).asSingle()
         }
         
         var params: [String : Any] = [:]
         let deviceInfo = Constants.deviceInfo()
         params["deviceData"] = deviceInfo
-        params["eventType"] = "\(type)"
-        
+        params["eventType"] = type.rawValue
+        params["serverParams"] = serverParams
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         params["appEventTime"] = dateFormatter.string(from: Date())
-        
-        if let pushId = notiUserInfo["pushEventId"] {
-            params["pushEventId"] = pushId
-        }
-        
-        if let taskName = notiUserInfo["taskName"] {
-            params["taskName"] = taskName
-        }
-        
-        if let serverPushTime = notiUserInfo["serverPushTime"] {
-            params["serverPushTime"] = serverPushTime
-        }
         
         return castboxProvider.rx.request(.pushEvent(params))
             .mapJSON()

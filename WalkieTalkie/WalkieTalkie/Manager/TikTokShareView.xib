@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="BlackOpsOne-Regular.ttf">
+            <string>BlackOpsOne-Regular</string>
+        </array>
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TikTokShareView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundImageView" destination="zEd-eb-ksa" id="jAr-fD-U3X"/>
+                <outlet property="channelNameLabel" destination="beH-9Y-OVt" id="c05-k0-GLE"/>
+                <outlet property="shareContentLabel" destination="dTc-R9-uui" id="BUT-LX-007"/>
+                <outlet property="shareContentleftConstraint" destination="kR4-2r-bpH" id="pq1-zX-xjC"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="public_share_bg_2" translatesAutoresizingMaskIntoConstraints="NO" id="zEd-eb-ksa">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WELCOME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="beH-9Y-OVt">
+                    <rect key="frame" x="173" y="168" width="132" height="31.666666666666657"/>
+                    <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="25"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join in WELCOME talk to me &amp; have fun !!!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTc-R9-uui">
+                    <rect key="frame" x="57" y="444" width="261" height="83.333333333333371"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="dTc-R9-uui" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="400" id="1gi-LH-Le2"/>
+                <constraint firstItem="zEd-eb-ksa" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Hkv-zs-BlA"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="beH-9Y-OVt" secondAttribute="trailing" constant="70" id="Ncm-ep-x3n"/>
+                <constraint firstItem="zEd-eb-ksa" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="R50-l5-Gqi"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="dTc-R9-uui" secondAttribute="bottom" constant="250.66999999999999" id="UJV-FD-99g"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="dTc-R9-uui" secondAttribute="trailing" constant="57" id="UuI-aS-Q7l"/>
+                <constraint firstItem="beH-9Y-OVt" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="168" id="Z7V-us-9Zn"/>
+                <constraint firstAttribute="bottom" secondItem="zEd-eb-ksa" secondAttribute="bottom" id="Zog-1H-cEz"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="zEd-eb-ksa" secondAttribute="trailing" id="gtI-Tz-63h"/>
+                <constraint firstItem="dTc-R9-uui" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="57" id="kR4-2r-bpH"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="141" y="154"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="public_share_bg_2" width="375" height="812"/>
+    </resources>
+</document>
