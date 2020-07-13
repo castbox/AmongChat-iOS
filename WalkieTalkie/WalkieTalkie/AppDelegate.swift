@@ -79,7 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         return true
     }
     
@@ -126,6 +126,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // not supported yet
             return false
         }
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
