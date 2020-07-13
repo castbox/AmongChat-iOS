@@ -85,7 +85,7 @@ class ShareManager: NSObject {
             let publicName = channelName.publicName else {
                 return nil
         }
-        let deepLink = shareUrl(for: channelName)
+//        let deepLink = shareUrl(for: channelName)
         var prefixString: String {
             if channelName.isPrivate {
                 return "Hurry ！use passcode: \(publicName) to join our secret channel."
@@ -97,9 +97,6 @@ class ShareManager: NSObject {
         let shareString =
         """
         \(prefixString)
-        \(deepLink)
-
-        Enjoy a better experience with the app
         \(dynamicLink)
 
         Over and out.
@@ -213,8 +210,6 @@ class ShareManager: NSObject {
                 
             case .more:
                 self.showActivity(name: channelName, dynamicLink: url, type: type, viewController: viewController, successHandler: successHandler)
-            default:
-                ()
             }
         }
     }
