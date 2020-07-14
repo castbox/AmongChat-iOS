@@ -20,9 +20,15 @@ extension IAP {
     }
     static let productMonth: String = "wt.i.sub.vip.p1m"
     static let productLifeTime: String = "wt.i.iap.vip"
+    static let productWeek: String = "wt.i.sub.vip.p1w"
     
     static func prefetchProducts() {
-        let productIds = Set([productYear, productMonth, productLifeTime])
+        var productIds: Set<String> {
+            guard Constants.abGroup == .b else {
+                return Set([productYear, productMonth])
+            }
+            return Set([productWeek, productMonth, productYear])
+        }
         
         IAP.ProductFetcher.fetchProducts(of: productIds) { (error, productMap) in
             guard error == nil else {

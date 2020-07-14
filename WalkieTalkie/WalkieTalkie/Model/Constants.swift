@@ -26,6 +26,9 @@ struct Constants {
     }()
     
     static let abGroup: ABGroup = {
+        #if DEBUG
+        return .a
+        #else
         let deviceId_t = UIDevice.current.identifierForVendor?.uuid
         let deviceId_int: UInt8 = deviceId_t?.15 ?? 0
         let group: ABGroup
@@ -35,6 +38,7 @@ struct Constants {
             group = .a
         }
         return group
+        #endif
     }()
     
     static let appVersion: String = {

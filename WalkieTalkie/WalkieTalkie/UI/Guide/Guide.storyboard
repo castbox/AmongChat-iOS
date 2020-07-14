@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -74,16 +74,34 @@
                                     <action selector="privacyAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="q9D-b0-iz9"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OiF-AE-SQc">
+                                <rect key="frame" x="71.5" y="820" width="271.5" height="32"/>
+                                <gestureRecognizers/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">3-day free trial. Then $29.99 / Year. 
+Recurring bilking.Cancel any times. Terms &amp; Policy</string>
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="4" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="leading" secondItem="FEE-8P-tGf" secondAttribute="leading" id="57z-Fe-nSo"/>
+                            <constraint firstItem="OiF-AE-SQc" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="7w5-CV-dfJ"/>
                             <constraint firstItem="nqv-l7-gVE" firstAttribute="top" secondItem="C2G-6b-QID" secondAttribute="bottom" constant="10" id="DKf-ea-z1f"/>
                             <constraint firstItem="pEC-b9-k1H" firstAttribute="top" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="5" id="JZb-Lz-YPv"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="top" secondItem="m8b-hO-4SY" secondAttribute="top" id="PjR-ym-Bxd"/>
                             <constraint firstItem="FEE-8P-tGf" firstAttribute="bottom" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="50" id="PoW-sv-aA9"/>
                             <constraint firstItem="nqv-l7-gVE" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="PsW-G3-GBH"/>
                             <constraint firstAttribute="bottom" secondItem="b4B-cD-flf" secondAttribute="bottom" id="SVB-Vs-MAt"/>
+                            <constraint firstItem="OiF-AE-SQc" firstAttribute="top" secondItem="nqv-l7-gVE" secondAttribute="bottom" constant="8" id="TVm-J4-WmP"/>
                             <constraint firstItem="C2G-6b-QID" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Xo5-eh-3Ci"/>
                             <constraint firstItem="pEC-b9-k1H" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Z4K-wH-Pc6"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="trailing" secondItem="FEE-8P-tGf" secondAttribute="trailing" id="awW-ha-auo"/>
@@ -94,7 +112,7 @@
                         <outlet property="continueButton" destination="nqv-l7-gVE" id="LDc-TW-h3M"/>
                         <outlet property="continueButtonBottomConstraint" destination="PoW-sv-aA9" id="OBP-wI-8VT"/>
                         <outlet property="continueButtonHeightConstraint" destination="opm-EH-NSH" id="ozr-sH-myW"/>
-                        <outlet property="iapTipsLabel" destination="C2G-6b-QID" id="Twb-L5-OO3"/>
+                        <outlet property="iapTipsLabel" destination="OiF-AE-SQc" id="0jR-qE-xON"/>
                         <outlet property="privacyButton" destination="pEC-b9-k1H" id="J5R-Vd-NhQ"/>
                         <outlet property="scrollView" destination="b4B-cD-flf" id="96y-15-WPO"/>
                     </connections>

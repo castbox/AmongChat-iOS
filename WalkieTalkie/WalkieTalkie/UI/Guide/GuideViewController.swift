@@ -26,6 +26,7 @@ class GuideViewController: ViewController {
     private var isFirstShowPage3 = false
     private var isFirstShowPage4 = false
     private var iapTipsLabelText = R.string.localizable.premiumTryTitleDes("$29.99")
+    private var productMaps: [String: IAP.Product] = [:]
     private var selectedProductId: String? {
         didSet {
             updateContinueButtonTitle()
@@ -106,11 +107,9 @@ extension GuideViewController {
     func updateContinueButtonTitle() {
         guard pageIndex == 3 else {
             iapTipsLabel.isHidden = true
-//            iapTipsLabel.fadeOut()
+            iapTipsLabel.fadeOut()
             return
         }
-//        iapTipsLabel.fadeIn()
-//        iapTipsLabel.isHidden = false
         let tryAttr: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
             .font: R.font.nunitoBold(size: 18) ?? Font.bigBody.value,
@@ -118,24 +117,48 @@ extension GuideViewController {
         ]
         
         let mutableNormalString = NSMutableAttributedString()
-        if selectedProductId == IAP.productYear {
-            //
+        if Constants.abGroup == .b {
             if FireStore.shared.isInReviewSubject.value {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
             } else {
-//                let tryDesAttr: [NSAttributedString.Key: Any] = [
-//                    .foregroundColor: UIColor.black.alpha(0.7),
-//                    .font: UIFont.systemFont(ofSize: 12)
-//                ]
-                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
-//                mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes())", attributes: tryDesAttr))
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumFree3dTrial(), attributes: tryAttr))
             }
-//            iapTipsLabel.text = iapTipsLabelText
-//            iapTipsLabel.isHidden = false
-        } else {
-//            iapTipsLabel.isHidden = true
-            mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
+            iapTipsLabel.fadeIn()
+            iapTipsLabel.isHidden = false
             
+            if let pid = selectedProductId,
+                pid == IAP.productYear,
+                let product = productMaps[pid]?.skProduct {
+                iapTipsLabel.text = """
+                3-day free trial. Then \(product.localizedPrice) / Year.
+                Recurring bilking.Cancel any time.
+                """
+            } else if let pid = selectedProductId,
+                pid == IAP.productWeek,
+                let product = productMaps[pid]?.skProduct {
+                iapTipsLabel.text = """
+                \(product.localizedPrice) / Week.
+                Recurring bilking.Cancel any time.
+                """
+            } else if let pid = selectedProductId,
+                pid == IAP.productMonth,
+                let product = productMaps[pid]?.skProduct {
+                iapTipsLabel.text = """
+                \(product.localizedPrice) / Month.
+                Recurring bilking.Cancel any time.
+                """
+            }
+        } else {
+            if selectedProductId == IAP.productYear {
+                if FireStore.shared.isInReviewSubject.value {
+                    mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
+                } else {
+                    mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+                }
+            } else {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideContinue(), attributes: tryAttr))
+                
+            }
         }
         UIView.setAnimationsEnabled(false)
         continueButton.setAttributedTitle(mutableNormalString, for: .normal)
@@ -157,19 +180,6 @@ extension GuideViewController {
     }
     
     func bindSubviewEvent() {
-        IAP.productsValue
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] maps in
-                guard let price = maps[IAP.productYear]?.skProduct.localizedPrice else {
-                    return
-                }
-                //                self?.iapTipsLabelText = R.string.localizable.premiumTryTitleDes(price)
-                //                if let text = self?.iapTipsLabel.text,
-                //                    !text.isEmpty {
-                self?.iapTipsLabel.text = R.string.localizable.premiumTryTitleDes(price)
-                //                }
-            })
-            .disposed(by: bag)
 
         FireStore.shared.onlineChannelList()
 //            .debug()
@@ -185,6 +195,14 @@ extension GuideViewController {
                 Defaults.set(channel: room, mode: .public)
             })
             .disposed(by: bag)
+        
+        IAP.productsValue
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] maps in
+                self?.productMaps = maps
+            })
+            .disposed(by: bag)
+
     }
     
     func configureSubview() {

@@ -112,7 +112,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 62 images.
+  /// This `R.image` struct is generated, and contains static references to 63 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -156,6 +156,8 @@ struct R: Rswift.Validatable {
     static let icon_guide_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_2")
     /// Image `icon_guide_3`.
     static let icon_guide_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_3")
+    /// Image `icon_guide_4_b`.
+    static let icon_guide_4_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4_b")
     /// Image `icon_guide_4`.
     static let icon_guide_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4")
     /// Image `icon_mic_disable`.
@@ -347,6 +349,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_guide_4", bundle: ..., traitCollection: ...)`
     static func icon_guide_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_guide_4, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_guide_4_b", bundle: ..., traitCollection: ...)`
+    static func icon_guide_4_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_4_b, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_mic", bundle: ..., traitCollection: ...)`
@@ -552,7 +559,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 14 nibs.
   struct nib {
     /// Nib `CreateGlobalChannelController`.
     static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
@@ -562,6 +569,8 @@ struct R: Rswift.Validatable {
     static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
     static let guideFirstView = _R.nib._GuideFirstView()
+    /// Nib `GuideFourthView_b`.
+    static let guideFourthView_b = _R.nib._GuideFourthView_b()
     /// Nib `GuideFourthView`.
     static let guideFourthView = _R.nib._GuideFourthView()
     /// Nib `GuideSecondView`.
@@ -609,6 +618,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView) instead")
     static func guideFourthView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.guideFourthView)
+    }
+    
+    /// `UINib(name: "GuideFourthView_b", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView_b) instead")
+    static func guideFourthView_b(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideFourthView_b)
     }
     
     /// `UINib(name: "GuideSecondView", in: bundle)`
@@ -677,6 +692,10 @@ struct R: Rswift.Validatable {
     
     static func guideFourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.guideFourthView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func guideFourthView_b(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideFourthView_b.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func guideSecondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -751,7 +770,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 47 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 48 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -761,6 +780,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumTryTitleDes = Rswift.StringResource(key: "premium.try.title.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: 3D Free Trials
+      /// 
+      /// Locales: en
+      static let premiumFree3dTrial = Rswift.StringResource(key: "premium.free.3d.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
@@ -954,6 +977,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumTryTitleDes(_ value1: String) -> String {
         return String(format: NSLocalizedString("premium.try.title.des", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: 3D Free Trials
+      /// 
+      /// Locales: en
+      static func premiumFree3dTrial(_: Void = ()) -> String {
+        return NSLocalizedString("premium.free.3d.trial", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -1300,6 +1330,7 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       try _GuideFirstView.validate()
       try _GuideFourthView.validate()
+      try _GuideFourthView_b.validate()
       try _GuideSecondView.validate()
       try _GuideThirdView.validate()
       try _PremiumContainer.validate()
@@ -1379,6 +1410,25 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_guide_4", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4' is used in nib 'GuideFourthView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
           if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView', but couldn't be loaded.") }
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _GuideFourthView_b: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideFourthView_b"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_close_gray", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close_gray' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_guide_4_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4_b' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView_b', but couldn't be loaded.") }
         }
       }
       

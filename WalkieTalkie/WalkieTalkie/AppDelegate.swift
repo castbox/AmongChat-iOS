@@ -48,15 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FireRemote.shared.refresh()
         
         #if DEBUG
-//        Fabric.sharedSDK().debug = true
         DoraemonManager.shareInstance().install()
-//        CocoaDebug.enable()
-//        CocoaDebug.showBubble()
         #endif
         
 //        Fabric.with([Crashlytics.self])
-//        if true {
-        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+        if true {
+//        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
             migrateUserDefaults()
             

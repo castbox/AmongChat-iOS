@@ -178,42 +178,16 @@ extension PremiumViewController {
 //            if self.isPremiumPage(), let text = self.freetrialText() {
 //                self.actionBtn.setTitle(text, for: .normal)
 //            }
-        })
+            })
             .disposed(by: bag)
-        
-        
-        
-//        currentProduct.asDriver()
-//            .drive(onNext: { [weak self] (p) in
-//                guard let `self` = self, let product = p else { return }
-//                let actionDescString = product.actionDesc ?? ""
-//                let actionDesc = NSMutableAttributedString(string: actionDescString)
-//                actionDesc.yy_font = .systemFont(ofSize: 13)
-//                actionDesc.yy_color = UIColor.white.withAlphaComponent(0.7)
-//                if let validRange = actionDescString.range(of: "free trial") {
-//                    let range: NSRange = NSRange(validRange, in: actionDescString)
-//                    actionDesc.yy_setFont(.systemFont(ofSize: 13, weight: .black), range: range)
-//                    actionDesc.yy_setColor(.white, range: range)
-//                }
-//                actionDesc.yy_setLineSpacing(8.0, range: actionDesc.yy_rangeOfAll())
-//                self.premiumView.actionDesc.attributedText = actionDesc
-//
-//                switch product.product.info.category {
-//                case let .sub(free: f, renewal: _):
-//                    if f == nil {
-//                        self.premiumView.termsDescLabel.attributedText = self.attributedTerms(product.termsDesc ?? "", isFreeTrial: false)
-//                    } else {
-//                        self.premiumView.termsDescLabel.attributedText = self.attributedTerms(product.termsDesc ?? "", isFreeTrial: true)
-//                    }
-//                }
-//            })
-//            .disposed(by: bag)
-        
     }
     
     //for
     func buySelectedProducts() {
-        guard let guideView = premiumContainer as? GuideFourthView else {
+        guard Constants.abGroup == .a,
+            let guideView = premiumContainer as? GuideFourthView else {
+                didSelectProducts(IAP.productYear)
+                buy(identifier: IAP.productYear)
             return
         }
         buy(identifier: guideView.selectedProductId)
@@ -307,12 +281,22 @@ extension PremiumViewController {
         if style == .default {
             premiumContainer = PremiumContainer()
         } else {
-            let guideView = GuideFourthView()
-            guideView.didSelectProducts = { [weak self] pid in
-                self?.didSelectProducts(pid)
+            if Constants.abGroup == .b  {
+                let guideView = GuideFourthView_b()
+                guideView.didSelectProducts = { [weak self] pid in
+                    self?.didSelectProducts(pid)
+                }
+                didSelectProducts(guideView.selectedProductId)
+                premiumContainer = guideView
+                
+            } else {
+                let guideView = GuideFourthView()
+                guideView.didSelectProducts = { [weak self] pid in
+                    self?.didSelectProducts(pid)
+                }
+                didSelectProducts(guideView.selectedProductId)
+                premiumContainer = guideView
             }
-            didSelectProducts(guideView.selectedProductId)
-            premiumContainer = guideView
         }
         view.addSubview(premiumContainer)
         premiumContainer.snp.makeConstraints { maker in
