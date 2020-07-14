@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setGlobalAppearance()
         RtcManager.shared.initialize()
         FirebaseApp.configure()
+        updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
         _ = AdsManager.shared
@@ -51,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DoraemonManager.shareInstance().install()
         #endif
         
-//        Fabric.with([Crashlytics.self])
         if true {
 //        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
@@ -164,6 +164,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    func updateUserProperty() {
+        GuruAnalytics.setUserProperty(Constants.deviceID, forName: "device_id")
+        GuruAnalytics.setUserProperty(Constants.abGroup.rawValue, forName: "ab_group")
+    }
+    
     func migrateUserDefaults() {
         let room = Defaults[\.channel]
         let mode = Mode(index: room.isPrivate.int)

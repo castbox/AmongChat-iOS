@@ -79,10 +79,11 @@ class GuruAnalytics {
      - event_name,      item_name,      item_category,      value
      - _eventName,      fb_content_id,  fb_content_type,    fb_level
      */
-    static func log(event: String, category: String? = nil, name: String? = nil, value: Int64? = nil, content: String? = nil) {
+    static func log(event: String, category: String? = nil, name: String? = nil, value: Int64? = nil, content: String? = nil,
+                    iap_ab_group: String? = nil) {
         
         var firebaseInfo = [String: Any]()
-        var facebookInfo = [String: Any]()
+//        var facebookInfo = [String: Any]()
 
         defer {
             
@@ -97,17 +98,16 @@ class GuruAnalytics {
         
         firebaseInfo[AnalyticsParameterItemName] = name
 
-        facebookInfo["fb_content_id"] = name
+//        facebookInfo["fb_content_id"] = name
         
         firebaseInfo[AnalyticsParameterContent] = content
         
         firebaseInfo[AnalyticsParameterItemCategory] = category
-        facebookInfo["fb_content_type"] = category
+//        facebookInfo["fb_content_type"] = category
 
         firebaseInfo[AnalyticsParameterValue] = value
-        facebookInfo["fb_level"] = value
-        
-//        cdPrint(GuruAnalytics)
+//        facebookInfo["fb_level"] = value
+        firebaseInfo["iap_ab_group"] = iap_ab_group
     }
 //
     static func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
@@ -135,6 +135,14 @@ class GuruAnalytics {
         
         #if DEBUG
         cdPrint("GuruAnalytics.log.userID: \(userID ?? "")")
+        #endif
+    }
+    
+    static func setUserProperty(_ value: String?, forName name: String) {
+        FirebaseAnalytics.Analytics.setUserProperty(value, forName: name)
+        
+        #if DEBUG
+        cdPrint("GuruAnalytics.log.setUserProperty name: \(name) value: \(value ?? "")")
         #endif
     }
 }
