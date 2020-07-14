@@ -133,21 +133,22 @@ extension GuideViewController {
                 3-day free trial. Then \(product.localizedPrice) / Year.
                 Recurring bilking.Cancel any time.
                 """
-            } else if let pid = selectedProductId,
-                pid == IAP.productWeek,
-                let product = productMaps[pid]?.skProduct {
-                iapTipsLabel.text = """
-                \(product.localizedPrice) / Week.
-                Recurring bilking.Cancel any time.
-                """
-            } else if let pid = selectedProductId,
-                pid == IAP.productMonth,
-                let product = productMaps[pid]?.skProduct {
-                iapTipsLabel.text = """
-                \(product.localizedPrice) / Month.
-                Recurring bilking.Cancel any time.
-                """
             }
+//            else if let pid = selectedProductId,
+//                pid == IAP.productWeek,
+//                let product = productMaps[pid]?.skProduct {
+//                iapTipsLabel.text = """
+//                \(product.localizedPrice) / Week.
+//                Recurring bilking.Cancel any time.
+//                """
+//            } else if let pid = selectedProductId,
+//                pid == IAP.productMonth,
+//                let product = productMaps[pid]?.skProduct {
+//                iapTipsLabel.text = """
+//                \(product.localizedPrice) / Month.
+//                Recurring bilking.Cancel any time.
+//                """
+//            }
         } else {
             if selectedProductId == IAP.productYear {
                 if FireStore.shared.isInReviewSubject.value {

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -33,7 +34,7 @@
                                 <color key="textColor" red="0.43921568630000002" green="0.43921568630000002" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE" customClass="WalkieButton" customModule="WalkieTalkie" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqv-l7-gVE" customClass="WalkieButton" customModule="WalkieTalkie" customModuleProvider="target">
                                 <rect key="frame" x="97.5" y="756" width="219" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -53,7 +54,7 @@
                                     <action selector="continueAction:" destination="dDX-wl-xhG" eventType="touchUpInside" id="abg-8Y-yTL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEC-b9-k1H">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEC-b9-k1H">
                                 <rect key="frame" x="127" y="817" width="160" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="kyj-0b-bqo"/>
@@ -75,12 +76,12 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OiF-AE-SQc">
-                                <rect key="frame" x="71.5" y="820" width="271.5" height="32"/>
+                                <rect key="frame" x="111.5" y="820" width="191.5" height="32"/>
                                 <gestureRecognizers/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">3-day free trial. Then $29.99 / Year. 
-Recurring bilking.Cancel any times. Terms &amp; Policy</string>
+Recurring bilking.Cancel any times.</string>
                                         <attributes>
                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="12" name="HelveticaNeue"/>
@@ -91,7 +92,8 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="FEE-8P-tGf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="leading" secondItem="FEE-8P-tGf" secondAttribute="leading" id="57z-Fe-nSo"/>
                             <constraint firstItem="OiF-AE-SQc" firstAttribute="centerX" secondItem="FEE-8P-tGf" secondAttribute="centerX" id="7w5-CV-dfJ"/>
@@ -106,7 +108,6 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                             <constraint firstItem="pEC-b9-k1H" firstAttribute="centerX" secondItem="nqv-l7-gVE" secondAttribute="centerX" id="Z4K-wH-Pc6"/>
                             <constraint firstItem="b4B-cD-flf" firstAttribute="trailing" secondItem="FEE-8P-tGf" secondAttribute="trailing" id="awW-ha-auo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="FEE-8P-tGf"/>
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="nqv-l7-gVE" id="LDc-TW-h3M"/>
@@ -122,4 +123,9 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
             <point key="canvasLocation" x="-13.043478260869566" y="172.76785714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

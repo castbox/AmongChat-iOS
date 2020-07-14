@@ -111,29 +111,29 @@ extension PremiumContainer {
                 guard let `self` = self else { return }
                 //button
                 if let product = maps[IAP.productYear]?.skProduct {
-                    if FireStore.shared.isInReviewSubject.value {
+//                    if FireStore.shared.isInReviewSubject.value {
                         self.yearButton.setAttributedTitle(nil, for: .normal)
                         self.yearButton.setTitleColor(.black, for: .normal)
                         self.yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
-                    } else {
-                        let paragrph = NSMutableParagraphStyle()
-                        paragrph.alignment = .center
-                        let mutableNormalString = NSMutableAttributedString()
-                        let tryDesAttr: [NSAttributedString.Key: Any] = [
-                            .foregroundColor: "6C6C6C".color(),
-                            .font: UIFont.systemFont(ofSize: 11),
-                            .paragraphStyle: paragrph,
-                        ]
-                        let tryAttr: [NSAttributedString.Key: Any] = [
-                            .foregroundColor: UIColor.black,
-                            .font: Font.premiumSubscribeTry.value,
-                            .kern: 0.5,
-                            .paragraphStyle: paragrph,
-                        ]
-                        mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
-                        mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes(product.localizedPrice))", attributes: tryDesAttr))
-                        self.yearButton.setAttributedTitle(mutableNormalString, for: .normal)
-                    }
+//                    } else {
+//                        let paragrph = NSMutableParagraphStyle()
+//                        paragrph.alignment = .center
+//                        let mutableNormalString = NSMutableAttributedString()
+//                        let tryDesAttr: [NSAttributedString.Key: Any] = [
+//                            .foregroundColor: "6C6C6C".color(),
+//                            .font: UIFont.systemFont(ofSize: 11),
+//                            .paragraphStyle: paragrph,
+//                        ]
+//                        let tryAttr: [NSAttributedString.Key: Any] = [
+//                            .foregroundColor: UIColor.black,
+//                            .font: Font.premiumSubscribeTry.value,
+//                            .kern: 0.5,
+//                            .paragraphStyle: paragrph,
+//                        ]
+//                        mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+//                        mutableNormalString.append(NSAttributedString(string: "\n\(R.string.localizable.premiumTryTitleDes(product.localizedPrice))", attributes: tryDesAttr))
+//                        self.yearButton.setAttributedTitle(mutableNormalString, for: .normal)
+//                    }
                 }
                 if let product = maps[IAP.productMonth]?.skProduct {
                     self.monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
