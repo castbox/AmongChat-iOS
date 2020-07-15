@@ -21,13 +21,21 @@ extension IAP {
     static let productMonth: String = "wt.i.sub.vip.p1m"
     static let productLifeTime: String = "wt.i.iap.vip"
     static let productWeek: String = "wt.i.sub.vip.p1w"
+    static var isWeekProductInReview: Bool {
+        guard let value = FireStore.shared.appConfigSubject.value else {
+            return true
+        }
+        print("value: \(value)")
+        return value.isWeekInReview ?? false
+    }
     
     static func prefetchProducts() {
         var productIds: Set<String> {
-            guard Constants.abGroup == .b else {
-                return Set([productYear, productMonth])
+            var set = Set([productMonth, productYear, productLifeTime])
+            if !isWeekProductInReview {
+                set.insert(productWeek)
             }
-            return Set([productWeek, productMonth, productYear])
+            return set
         }
         
         IAP.ProductFetcher.fetchProducts(of: productIds) { (error, productMap) in

@@ -81,36 +81,7 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         
         if Frame.Height.deviceDiagonalIsMinThan4_7 {
             emojiTopContainer.constant = 25
-            //            yearButtonLeftConstraint.constant = 15
-            //            yearButtonRightConstraint.constant = 15
-            //            yearButtonHeightConstraint.constant = 36
-            //            let text = tipsLabel.attributedText?.string
-            //            let paragraph = NSMutableParagraphStyle()
-            //            paragraph.lineSpacing = 0
-            //            tipsLabel.attributedText = NSAttributedString(string: text ?? "", attributes: [NSAttributedString.Key.paragraphStyle : paragraph,
-            //                                                                                           NSAttributedString.Key.font: Font.smallBody.value])
-            //            yearButton.cornerRadius = 16
-            //            monthButton.cornerRadius = 16
-            //            lifetimeButton.cornerRadius = 16
-            //            productsContainerRightConstraint.constant = 10
-            //            descLabelLeftConstraint.constant = 15
-            //            topContainerTopConstraint.constant = 34
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5  {
-            //            topContainerTopConstraint.constant = 34
-        } else {
-            //            topContainerTopConstraint.constant = Frame.Scale.height(90)
         }
-        //
-        if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            //            desLabelBottomConstraint.constant = Frame.Scale.height(156)
-        }
-        //
-        //        backgroundIconWidthConstraint.constant = Frame.Screen.width - 27 * 2
-        //
-        //        mainQueueDispatchAsync(after: 0.5) { [weak self] in
-        //            self?.yearButton.isSelected = true
-        //            self?.selectedButton = self?.yearButton
-        //        }
         
         IAP.productsValue
             .observeOn(MainScheduler.asyncInstance)
@@ -125,7 +96,8 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         yearButton.disableSelectTag = true
         monthButton.disableSelectTag = true
         weekButton.disableSelectTag = true
-        //        lifetimeButton.appendKern()
+//        weekButton.isHidden = IAP.isWeekProductInReview
+        weekButton.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -201,6 +173,9 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         if let product = maps[IAP.productWeek]?.skProduct {
             weekButton.setAttributedTitle(nil, for: .normal)
             weekButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
+            weekButton.isHidden = false
+        } else {
+            weekButton.isHidden = true
         }
         yearButton.appendKern()
         monthButton.appendKern()

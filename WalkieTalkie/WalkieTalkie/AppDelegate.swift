@@ -52,8 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DoraemonManager.shareInstance().install()
         #endif
         
-        if true {
-//        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+//        if true {
+        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
             //MIGRATE
             migrateUserDefaults()
             
@@ -69,12 +69,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
-            IAP.prefetchProducts()
+//            IAP.prefetchProducts()
+            
 //            if Defaults[\.pushEnabledKey] {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        
+        _ = FireStore.shared.isInReviewSubject
+//            .filter { !$0 }
+            .subscribe(onNext: { _ in
+                IAP.prefetchProducts()
+            })
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
         return true
