@@ -44,12 +44,17 @@ class ChannelUserListViewModel {
     }
     
     func updateVolumeIndication(userId: String, volume: UInt) {
+        cdPrint("userid: \(userId) volume: \(volume)")
         dataSource = dataSource.map { item -> ChannelUser in
-            guard item.status != .blocked, item.uid == userId else {
+            guard item.status != .blocked,
+                item.status != .droped,
+                item.uid == userId,
+                volume > 0 else {
                 return item
             }
             var user = item
             user.status = .talking
+            cdPrint("user: \(user)")
             return user
         }
     }

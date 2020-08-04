@@ -129,6 +129,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         case connected
         case talking
         case blocked
+        case droped //已下麦
         
 
         static var _defaults: DefaultsRawRepresentableBridge<Status> {
@@ -156,32 +157,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
     ]
     
     private static var tag: [String] = [
-        "A",
-        "B",
-        "C",
-        "D",
-        "E",
-        "F",
-        "G",
-        "H",
-        "I",
-        "J",
-        "K",
-        "L",
-        "M",
-        "N",
-        "O",
-        "P",
-        "Q",
-        "R",
-        "S",
-        "T",
-        "U",
-        "V",
-        "W",
-        "X",
-        "Y",
-        "Z",
+        "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
     ]
     
     static func randomUser(uid: String) -> ChannelUser {
@@ -193,26 +169,12 @@ struct ChannelUser: Codable, DefaultsSerializable {
 extension ChannelUser.Status {
     var title: String {
         switch self {
-//        case .connecting:
-//            return "connecting"
-        case .connected:
+        case .connected, .droped:
             return "Connected"
-//        case .disconnected:
-//            return "disconnected"
-//        case .failed:
-//            return "failed"
-//        case .reconnecting:
-//            return "reconnecting"
-//        case .maxMic:
-//            return "Mic Max"
-//        case .preparing:
-//            return "PREPARING..."
         case .talking:
             return "Talking..."
         case .blocked:
             return "Blocked"
-//        case .timeout:
-//            return "Timeout"
         }
     }
     
@@ -231,7 +193,7 @@ extension ChannelUser.Status {
             return R.image.icon_user_list_mic_block()
         case .talking:
             return  R.image.icon_user_list_mic()
-        case .connected:
+        case .connected, .droped:
             return  nil
         }
     }

@@ -258,7 +258,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, didClientRoleChanged oldRole: AgoraClientRole, newRole: AgoraClientRole) {
-//        cdPrint("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
+        cdPrint("didClientRoleChanged \(oldRole.rawValue) \(newRole.rawValue)")
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
@@ -273,6 +273,15 @@ extension RtcManager: AgoraRtcEngineDelegate {
         unMuteUsers.append(uid)
         if !talkedUsers.contains(where: { $0.uid.int?.uInt == uid }) {
             talkedUsers.append(ChannelUser.randomUser(uid: String(uid)))
+        } else {
+            talkedUsers = talkedUsers.map { item -> ChannelUser in
+                guard item.uid == String(uid) else {
+                    return item
+                }
+                var user = item
+                user.status = .connected
+                return user
+            }
         }
     }
 
@@ -283,13 +292,13 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
         if reason == .quit {
             talkedUsers.removeAll(where: { $0.uid.int?.uInt == uid })
-        } else if reason == .dropped {
-            talkedUsers = talkedUsers.map{ item -> ChannelUser in
+        } else if reason == .dropped || reason == .becomeAudience {
+            talkedUsers = talkedUsers.map { item -> ChannelUser in
                 guard item.uid == String(uid) else {
                     return item
                 }
                 var user = item
-                user.status = .connected
+                user.status = .droped
                 return user
             }
         }
