@@ -57,6 +57,9 @@ class GuideViewController: ViewController {
         configureSubview()
         bindSubviewEvent()
         Logger.PageShow.log(.tutorial_imp_1)
+        mainQueueDispatchAsync(after: 0.2) {
+            self.showEndUserLicenseAgreement()
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -180,6 +183,51 @@ extension GuideViewController {
         }
     }
     
+    func showEndUserLicenseAgreement() {
+        let vc = EndUserLicenseController()
+        vc.showModal(in: self)
+//        let alertVC = UIAlertController(
+//            title: R.string.localizable.endUserLicenseTitle(),
+//            message: R.string.localizable.endUserLicenseContent(),
+//            preferredStyle: UIAlertController.Style.alert)
+//        let confirmAction = UIAlertAction(title: R.string.localizable.iKnow(), style: .default, handler: { _ in
+//
+//        })
+//
+//        let newWidth = UIScreen.main.bounds.width - 50
+//        let height = NSLayoutConstraint(item: alertVC.view, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.60)
+//        let width = NSLayoutConstraint(item: alertVC.view, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: newWidth)
+//
+//        alertVC.view.addConstraint(height)
+//        alertVC.view.addConstraint(width)
+
+//        let newHeight = UIScreen.main.bounds.height - 220
+//
+//        // update width constraint value for main view
+//        if let viewWidthConstraint = alertVC.view.constraints.filter({ return $0.firstAttribute == .width }).first {
+//            viewWidthConstraint.constant = newWidth
+//        }
+//
+//        // update width constraint value for container view
+//        if let containerViewWidthConstraint = alertVC.view.subviews.first?.constraints.filter({ return $0.firstAttribute == .width }).first {
+//            containerViewWidthConstraint.constant = newWidth
+//        }
+//
+//        // update width constraint value for main view
+//        if let viewHeightConstraint = alertVC.view.constraints.filter({ return $0.firstAttribute == .height }).first {
+//            viewHeightConstraint.constant = newHeight
+//        }
+//
+//        // update width constraint value for container view
+//        if let containerViewHeightConstraint = alertVC.view.subviews.first?.constraints.filter({ return $0.firstAttribute == .height }).first {
+//            containerViewHeightConstraint.constant = newHeight
+//        }
+
+//        alertVC.addAction(confirmAction)
+//        present(alertVC, animated: true, completion: nil)
+
+    }
+    
     func bindSubviewEvent() {
 
         FireStore.shared.onlineChannelList()
@@ -207,12 +255,14 @@ extension GuideViewController {
     }
     
     func configureSubview() {
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            continueButtonHeightConstraint.constant = 44
-            continueButtonBottomConstraint.constant = 25
-            continueButton.cornerRadius = 22
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            continueButtonBottomConstraint.constant = Frame.Scale.height(50)
+        if Constants.abGroup == .a {
+            if Frame.Height.deviceDiagonalIsMinThan4_7 {
+                continueButtonHeightConstraint.constant = 44
+                continueButtonBottomConstraint.constant = 25
+                continueButton.cornerRadius = 22
+            } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
+                continueButtonBottomConstraint.constant = Frame.Scale.height(50)
+            }
         }
         
         continueButton.appendKern()

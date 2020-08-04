@@ -328,6 +328,10 @@ extension DefaultsKeys {
     var loginResultKey: DefaultsKey<[String : Any]?> {
         .init("login.result", defaultValue: nil)
     }
+    
+    var blockedUsersKey: DefaultsKey<[ChannelUser]> {
+        .init("blocked.users", defaultValue: [])
+    }
 }
 
 extension DefaultsAdapter {

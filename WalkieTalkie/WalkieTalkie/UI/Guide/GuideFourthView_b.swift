@@ -21,15 +21,6 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     @IBOutlet weak var vipDesLabel: WalkieLabel!
     @IBOutlet weak var tipsLabel: UILabel!
     
-    @IBOutlet weak var backgroundIconWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonRightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var desLabelBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var descLabelLeftConstraint: NSLayoutConstraint!
-    //    @IBOutlet weak var productsContainerRightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var emojiTopContainer: NSLayoutConstraint!
     private weak var selectedButton: GuideProductButton? {
         didSet {
             if Constants.abGroup == .b {
@@ -39,9 +30,9 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             } else {
                 oldValue?.hasSelected = false
                 selectedButton?.hasSelected = true
-                if selectedButton == yearButton {
-                    selectedButton?.selectedTagLabel.isHidden = true
-                }
+//                if selectedButton == yearButton {
+//                    selectedButton?.selectedTagLabel.isHidden = true
+//                }
             }
         }
     }
@@ -79,10 +70,6 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             })
             .disposed(by: bag)
         
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            emojiTopContainer.constant = 25
-        }
-        
         IAP.productsValue
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] maps in
@@ -91,9 +78,9 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             .disposed(by: bag)
         
         vipDesLabel.appendKern()
-        yearButton.appendKern()
+//        yearButton.appendKern()
         monthButton.appendKern()
-        yearButton.disableSelectTag = true
+//        yearButton.disableSelectTag = true
         monthButton.disableSelectTag = true
         weekButton.disableSelectTag = true
 //        weekButton.isHidden = IAP.isWeekProductInReview
@@ -156,16 +143,16 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     
     func updateButtonTitles(_ maps: [String: IAP.Product]) {
         //button
-        if let product = maps[IAP.productYear]?.skProduct {
-            cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
-            yearButton.setAttributedTitle(nil, for: .normal)
-            yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
-            if selectedButton == nil {
-                yearButton.isSelected = true
-                selectedButton = yearButton
-                updateTipsLabelContent(yearButton)
-            }
-        }
+//        if let product = maps[IAP.productYear]?.skProduct {
+//            cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
+//            yearButton.setAttributedTitle(nil, for: .normal)
+//            yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
+//            if selectedButton == nil {
+//                yearButton.isSelected = true
+//                selectedButton = yearButton
+//                updateTipsLabelContent(yearButton)
+//            }
+//        }
         if let product = maps[IAP.productMonth]?.skProduct {
             monthButton.setAttributedTitle(nil, for: .normal)
             monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
@@ -177,7 +164,7 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         } else {
             weekButton.isHidden = true
         }
-        yearButton.appendKern()
+//        yearButton.appendKern()
         monthButton.appendKern()
         weekButton.appendKern()
     }

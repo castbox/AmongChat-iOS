@@ -32,6 +32,8 @@ protocol ChatRoomDelegate: class {
     func onJoinChannelFailed(channelId: String?)
     
     func onJoinChannelTimeout(channelId: String?)
+    
+    func onChannelUserChanged(users: [ChannelUser])
 }
 
 class ChatRoomManager: SeatManager {
@@ -154,6 +156,10 @@ class ChatRoomManager: SeatManager {
         mRtcManager.leaveChannel()
         mChannelData.release()
         HapticFeedback.Impact.medium()
+    }
+    
+    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
+        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
     }
 
 //    private func checkAndBeAnchor() {
@@ -282,6 +288,10 @@ extension ChatRoomManager: RtcDelegate {
 
     func onAudioVolumeIndication(uid: UInt, volume: UInt) {
         delegate?.onAudioVolumeIndication(userId: String(uid), volume: volume)
+    }
+    
+    func onChannelUserChanged(users: [ChannelUser]) {
+        delegate?.onChannelUserChanged(users: users)
     }
 }
 

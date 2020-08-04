@@ -122,3 +122,117 @@ extension String {
         return isPrivate ? .private : .public
     }
 }
+
+
+struct ChannelUser: Codable, DefaultsSerializable {
+    enum Status: String, Codable, DefaultsSerializable {
+        case connected
+        case talking
+        case blocked
+        
+
+        static var _defaults: DefaultsRawRepresentableBridge<Status> {
+            return DefaultsRawRepresentableBridge<Status>()
+        }
+        
+        static var _defaultsArray: DefaultsRawRepresentableArrayBridge<[Status]> {
+            return DefaultsRawRepresentableArrayBridge<[Status]>()
+        }
+    }
+    
+    let uid: String
+    let name: String
+    let prefix: String
+    let iconColor: String
+    var status: Status
+    var isMuted: Bool
+    
+    private static var colors: [String] = [
+        "F5CEC7",
+        "FFB384",
+        "FFC98B",
+        "C6C09C",
+        "BD9DDE"
+    ]
+    
+    private static var tag: [String] = [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J",
+        "K",
+        "L",
+        "M",
+        "N",
+        "O",
+        "P",
+        "Q",
+        "R",
+        "S",
+        "T",
+        "U",
+        "V",
+        "W",
+        "X",
+        "Y",
+        "Z",
+    ]
+    
+    static func randomUser(uid: String) -> ChannelUser {
+        return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem()!, iconColor: colors.randomItem()!, status: .connected, isMuted: false)
+    }
+}
+
+
+extension ChannelUser.Status {
+    var title: String {
+        switch self {
+//        case .connecting:
+//            return "connecting"
+        case .connected:
+            return "Connected"
+//        case .disconnected:
+//            return "disconnected"
+//        case .failed:
+//            return "failed"
+//        case .reconnecting:
+//            return "reconnecting"
+//        case .maxMic:
+//            return "Mic Max"
+//        case .preparing:
+//            return "PREPARING..."
+        case .talking:
+            return "Talking..."
+        case .blocked:
+            return "Blocked"
+//        case .timeout:
+//            return "Timeout"
+        }
+    }
+    
+    var textColor: UIColor {
+        switch self {
+        case .talking:
+            return "81BB01".color()
+        default:
+            return UIColor.black.alpha(0.54)
+        }
+    }
+    
+    var micImage: UIImage? {
+        switch self {
+        case .blocked:
+            return R.image.icon_user_list_mic_block()
+        case .talking:
+            return  R.image.icon_user_list_mic()
+        case .connected:
+            return  nil
+        }
+    }
+}

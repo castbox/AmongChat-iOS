@@ -10,7 +10,6 @@ import UIKit
 import JXPagingView
 import JXCategoryView
 import JXSegmentedView
-import IQKeyboardManagerSwift
 
 class AddChannelViewController: ViewController {
     private var pagingView: JXPagingView!
@@ -20,17 +19,6 @@ class AddChannelViewController: ViewController {
     private let dataSource: JXSegmentedTitleDataSource = JXSegmentedTitleDataSource()
     private var isScrollDismiss: Bool = false
     var joinChannel: (String, Bool) -> Void = { _, _ in }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        IQKeyboardManager.shared.enable = true
-//        Logger.PageShow.log(.secret_channel_create_pop_imp)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-//        IQKeyboardManager.shared.enable = false
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

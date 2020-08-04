@@ -28,6 +28,8 @@ protocol RtcDelegate: class {
     func onAudioVolumeIndication(uid: UInt, volume: UInt)
     
     func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason)
+    
+    func onChannelUserChanged(users: [ChannelUser])
 }
 
 //1761995123
@@ -38,8 +40,14 @@ class RtcManager: NSObject {
     weak var delegate: RtcDelegate?
 
     var unMuteUsers: [UInt] = []
+    
+    private var talkedUsers: [ChannelUser] = [] {
+        didSet {
+            delegate?.onChannelUserChanged(users: talkedUsers)
+        }
+    }
 
-    ///current channel ID
+    ///current channel IDz
     private var channelId: String?
     private(set) var role: AgoraClientRole?
     private var mRtcEngine: AgoraRtcEngineKit!
@@ -82,6 +90,7 @@ class RtcManager: NSObject {
     func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         //清除数据
         unMuteUsers.removeAll()
+        talkedUsers.removeAll()
         let result = mRtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
@@ -173,6 +182,13 @@ class RtcManager: NSObject {
     func muteAllRemoteAudioStreams(_ muted: Bool) {
         mRtcEngine.muteAllRemoteAudioStreams(muted)
     }
+    
+    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
+        guard let uid = user.uid.int?.uInt else {
+            return
+        }
+        mRtcEngine.adjustUserPlaybackSignalVolume(uid, volume: volume)
+    }
 
     func muteLocalAudioStream(_ muted: Bool) {
         mRtcEngine.muteLocalAudioStream(muted)
@@ -209,6 +225,7 @@ class RtcManager: NSObject {
     func leaveChannel() {
         //清除数据
         unMuteUsers.removeAll()
+        talkedUsers.removeAll()
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
@@ -254,16 +271,41 @@ extension RtcManager: AgoraRtcEngineDelegate {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
         unMuteUsers.append(uid)
+        if !talkedUsers.contains(where: { $0.uid.int?.uInt == uid }) {
+            talkedUsers.append(ChannelUser.randomUser(uid: String(uid)))
+        }
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         cdPrint("didOfflineOfUid \(uid)")
         unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
+
+        if reason == .quit {
+            talkedUsers.removeAll(where: { $0.uid.int?.uInt == uid })
+        } else if reason == .dropped {
+            talkedUsers = talkedUsers.map{ item -> ChannelUser in
+                guard item.uid == String(uid) else {
+                    return item
+                }
+                var user = item
+                user.status = .connected
+                return user
+            }
+        }
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
         cdPrint("didAudioMuted \(uid) \(muted)")
+        let talkedUsers = self.talkedUsers.map { user -> ChannelUser in
+            guard user.uid.int?.uInt == uid else {
+                return user
+            }
+            var user = user
+            user.isMuted = muted
+            return user
+        }
+        self.talkedUsers = talkedUsers
         delegate?.onUserMuteAudio(uid: uid, muted: muted)
     }
 

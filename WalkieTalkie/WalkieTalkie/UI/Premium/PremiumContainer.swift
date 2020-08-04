@@ -138,9 +138,9 @@ extension PremiumContainer {
                 if let product = maps[IAP.productMonth]?.skProduct {
                     self.monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
                 }
-                if let product = maps[IAP.productWeek]?.skProduct {
-//                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
-                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
+                if let product = maps[IAP.productLifeTime]?.skProduct {
+                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
+//                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
 
                 }
                 

@@ -48,23 +48,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = FireStore.shared
         FireRemote.shared.refresh()
         
-        #if DEBUG
-        DoraemonManager.shareInstance().install()
-        #endif
+        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
+//        #if DEBUG
+//        isFirstLogin = true
+//        #endif
         
-//        if true {
-        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+        if isFirstLogin {
             //MIGRATE
             migrateUserDefaults()
-            
             setupInitialView(goRoom: true)
             firstOpenPremiumShowed = true
         } else {
-            #if DEBUG
             setupInitialView(goRoom: false)
-            #else
-            setupInitialView(goRoom: false)
-            #endif
         }
         
         DispatchQueue.global(qos: .background).async {
@@ -169,6 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    
     func updateUserProperty() {
         GuruAnalytics.setUserProperty(Constants.deviceID, forName: "device_id")
         GuruAnalytics.setUserProperty(Constants.abGroup.rawValue, forName: "ab_group")

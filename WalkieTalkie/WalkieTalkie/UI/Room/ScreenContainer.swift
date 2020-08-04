@@ -60,10 +60,20 @@ enum Mode: String, DefaultsSerializable {
     }
 }
 
+class AutoHideImageView: UIImageView {
+    override var image: UIImage? {
+        set {
+            super.image = newValue
+            isHidden = newValue == nil
+        }
+        get { super.image }
+    }
+}
+
 class ScreenContainer: XibLoadableView {
     
     @IBOutlet weak var backgroundView: UIImageView!
-    @IBOutlet weak var innerShadowView: UIImageView!
+    @IBOutlet weak var innerShadowView: AutoHideImageView!
     @IBOutlet weak var connectStateLabel: UILabel!
     @IBOutlet weak var tagView: UILabel!
     @IBOutlet weak var lockIconView: UIImageView!
