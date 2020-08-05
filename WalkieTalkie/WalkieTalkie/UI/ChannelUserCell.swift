@@ -32,6 +32,11 @@ class ChannelUserCell: UITableViewCell {
         statuLabel.textColor = user.status.textColor
         micView.image = user.status.micImage
         prefixLabel.text = user.prefix
+        if user.status == .talking {
+            statuLabel.font = R.font.nunitoBold(size: 14)
+        } else {
+            statuLabel.font = R.font.nunitoSemiBold(size: 14)
+        }
     }
     
     @IBAction func blockButtonAction(_ sender: Any) {

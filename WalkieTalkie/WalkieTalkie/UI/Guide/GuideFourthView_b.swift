@@ -112,6 +112,11 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         buyProductHandler(IAP.productLifeTime)
         
     }
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { _ in
+            
+        }
+    }
     
     @IBAction func weakAction(_ sender: GuideProductButton) {
         selectedButton = sender

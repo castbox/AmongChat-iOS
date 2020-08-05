@@ -72,7 +72,7 @@
                         <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="13"/>
                         <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
                         <state key="normal" title="●●●">
-                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="blockButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XiY-jH-A4G"/>

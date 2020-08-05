@@ -71,6 +71,12 @@ class PremiumContainer: XibLoadableView, PremiumContainerable {
         buyProductHandler(IAP.productYear)
     }
     
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { _ in
+            
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds

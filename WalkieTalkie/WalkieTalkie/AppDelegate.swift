@@ -49,9 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FireRemote.shared.refresh()
         
         var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-//        #if DEBUG
-//        isFirstLogin = true
-//        #endif
+        #if DEBUG
+        isFirstLogin = true
+        #endif
         
         if isFirstLogin {
             //MIGRATE
