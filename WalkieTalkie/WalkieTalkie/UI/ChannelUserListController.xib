@@ -19,6 +19,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChannelUserListController" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
                 <outlet property="emptyView" destination="e5K-R4-aSb" id="EuI-qD-9aw"/>
+                <outlet property="navHeightConstraint" destination="jBj-Qj-BdS" id="90e-6q-xct"/>
                 <outlet property="tableView" destination="elw-iU-yBn" id="NDY-mu-qud"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -28,62 +29,79 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Block" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dbd-je-6Qk">
-                    <rect key="frame" x="25" y="69" width="46" height="25"/>
-                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="18"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can block the abusive users here." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L6M-TE-Art">
-                    <rect key="frame" x="25" y="104" width="235.5" height="19.5"/>
-                    <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="elw-iU-yBn">
-                    <rect key="frame" x="0.0" y="138.5" width="414" height="340"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUY-Yt-QOx">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVI-tk-nWZ">
+                            <rect key="frame" x="5" y="51.5" width="44" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="Eow-8E-sJl"/>
+                                <constraint firstAttribute="width" constant="44" id="nWj-WY-fTz"/>
+                            </constraints>
+                            <state key="normal" image="backNor"/>
+                            <connections>
+                                <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="vqu-AD-rDE"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users Talked in the Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgs-CT-jDy">
+                            <rect key="frame" x="105" y="53" width="204.5" height="22"/>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="340" id="Afs-3m-Fdg"/>
+                        <constraint firstItem="Vgs-CT-jDy" firstAttribute="centerX" secondItem="sUY-Yt-QOx" secondAttribute="centerX" id="cOI-mz-hg2"/>
+                        <constraint firstAttribute="height" constant="88" id="jBj-Qj-BdS"/>
+                        <constraint firstItem="Vgs-CT-jDy" firstAttribute="centerY" secondItem="IVI-tk-nWZ" secondAttribute="centerY" id="pLf-8P-AmE"/>
+                        <constraint firstItem="IVI-tk-nWZ" firstAttribute="leading" secondItem="sUY-Yt-QOx" secondAttribute="leading" constant="5" id="uSu-g8-Wez"/>
+                        <constraint firstAttribute="bottom" secondItem="IVI-tk-nWZ" secondAttribute="bottom" constant="11.5" id="waI-7K-NUZ"/>
                     </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="elw-iU-yBn">
+                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                    <color key="backgroundColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="lNc-Q5-oZ9"/>
                         <outlet property="delegate" destination="-1" id="e2g-WO-aBD"/>
                     </connections>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e5K-R4-aSb">
-                    <rect key="frame" x="0.0" y="138.5" width="414" height="340"/>
+                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nobody is talking now!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aob-51-18i">
-                            <rect key="frame" x="134.5" y="160.5" width="145.5" height="19.5"/>
+                            <rect key="frame" x="134.5" y="377.5" width="145.5" height="19.5"/>
                             <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
-                            <color key="textColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
                         <constraint firstItem="Aob-51-18i" firstAttribute="centerY" secondItem="e5K-R4-aSb" secondAttribute="centerY" id="BcI-Th-r8o"/>
                         <constraint firstItem="Aob-51-18i" firstAttribute="centerX" secondItem="e5K-R4-aSb" secondAttribute="centerX" id="KV7-OF-ZVr"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="dbd-je-6Qk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="1ak-bD-Fyz"/>
-                <constraint firstItem="L6M-TE-Art" firstAttribute="top" secondItem="dbd-je-6Qk" secondAttribute="bottom" constant="10" id="CVC-m6-l2N"/>
-                <constraint firstItem="L6M-TE-Art" firstAttribute="leading" secondItem="dbd-je-6Qk" secondAttribute="leading" id="F98-y7-E8G"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sUY-Yt-QOx" secondAttribute="trailing" id="6y7-IL-0uT"/>
                 <constraint firstItem="e5K-R4-aSb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="H29-YL-AwU"/>
                 <constraint firstItem="e5K-R4-aSb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="OBE-qq-kcg"/>
-                <constraint firstItem="elw-iU-yBn" firstAttribute="top" secondItem="L6M-TE-Art" secondAttribute="bottom" constant="15" id="QRk-hg-DT4"/>
+                <constraint firstItem="sUY-Yt-QOx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WVE-dn-BRc"/>
+                <constraint firstItem="elw-iU-yBn" firstAttribute="top" secondItem="sUY-Yt-QOx" secondAttribute="bottom" id="eqk-2r-f47"/>
                 <constraint firstItem="e5K-R4-aSb" firstAttribute="bottom" secondItem="elw-iU-yBn" secondAttribute="bottom" id="h1I-JV-UZZ"/>
                 <constraint firstItem="elw-iU-yBn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="lqV-Gb-04q"/>
+                <constraint firstItem="sUY-Yt-QOx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mBf-xl-kjX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="elw-iU-yBn" secondAttribute="trailing" id="pQ0-fG-DbI"/>
-                <constraint firstItem="dbd-je-6Qk" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="r4V-Gr-Bm7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="elw-iU-yBn" secondAttribute="bottom" id="pz4-aA-Ij7"/>
                 <constraint firstItem="e5K-R4-aSb" firstAttribute="top" secondItem="elw-iU-yBn" secondAttribute="top" id="ugj-5h-nB8"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
         </view>
     </objects>
+    <resources>
+        <image name="backNor" width="25" height="25"/>
+    </resources>
 </document>

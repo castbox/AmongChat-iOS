@@ -32,11 +32,6 @@ class ChannelUserCell: UITableViewCell {
         statuLabel.textColor = user.status.textColor
         micView.image = user.status.micImage
         prefixLabel.text = user.prefix
-        if user.status == .blocked {
-            blockButton.setTitle("Unblock", for: .normal)
-        } else {
-            blockButton.setTitle("🚫", for: .normal)
-        }
     }
     
     @IBAction func blockButtonAction(_ sender: Any) {

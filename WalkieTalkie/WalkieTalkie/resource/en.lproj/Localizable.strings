@@ -92,5 +92,8 @@
 "report.success" = "Thanks for reporting. It would be processed within 24 hours.";
 
 "alert.block" = "Block";
-
+"alert.unblock" = "Unblock";
+"user.list.more.sheet" = "You can block or report the abusive users here.";
+"user.list.title" = "Users Talked in the Channel";
+"report.user.id" = "User ID";
 

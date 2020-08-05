@@ -14,20 +14,36 @@ class ChannelUserListController: ViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
-    
-    var dataSource: [ChannelUser] = [] {
+    @IBOutlet weak var navHeightConstraint: NSLayoutConstraint!
+
+    private var dataSource: [ChannelUser] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    let viewModel = ChannelUserListViewModel.shared
+    private let channel: Room
+    private let viewModel = ChannelUserListViewModel.shared
+    
+    init(channel: Room) {
+        self.channel = channel
+        super.init(nibName: "ChannelUserListController", bundle: nil)
+        self.isNavigationBarHiddenWhenAppear = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureSubview()
         bindSubviewEvent()
+    }
+    
+    @IBAction func backButtonAction(_ sender: Any) {
+        navigationController?.popViewController()
     }
 }
 
@@ -46,7 +62,7 @@ extension ChannelUserListController: UITableViewDataSource {
         let user = dataSource[indexPath.row]
         cell.bind(user)
         cell.tapBlockHandler = { [weak self] in
-            self?.showBlockAlert(with: user)
+            self?.showMoreSheet(for: user)
         }
         return cell
     }
@@ -58,7 +74,7 @@ extension ChannelUserListController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 47
+        return 64
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -76,6 +92,51 @@ extension ChannelUserListController: UITableViewDelegate {
 }
 
 extension ChannelUserListController {
+    func showMoreSheet(for user: ChannelUser) {
+        let alertVC = UIAlertController(
+            title: nil,
+            message: R.string.localizable.userListMoreSheet(),
+            preferredStyle: .actionSheet
+        )
+
+        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+            self?.showReportSheet(for: user)
+        })
+        let blockAction = UIAlertAction(title:user.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+            self?.showBlockAlert(with: user)
+        })
+        alertVC.addAction(reportAction)
+        alertVC.addAction(blockAction)
+        
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    func showReportSheet(for user: ChannelUser) {
+        let alertVC = UIAlertController(
+            title: R.string.localizable.reportTitle(),
+            message: "\(R.string.localizable.reportUserId()): \(user.uid)",
+            preferredStyle: .actionSheet)
+
+        let items = [
+            R.string.localizable.reportIncorrectInformation(),
+            R.string.localizable.reportIncorrectSexual(),
+            R.string.localizable.reportIncorrectHarassment(),
+            R.string.localizable.reportIncorrectUnreasonable(),
+            ].enumerated()
+
+        for (index, item) in items {
+            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                Logger.Report.logImp(itemIndex: index, channelName: user.uid)
+            })
+            alertVC.addAction(action)
+        }
+
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
     func showBlockAlert(with user: ChannelUser) {
         guard user.status != .blocked else {
             viewModel.unblockedUser(user)
@@ -113,6 +174,7 @@ extension ChannelUserListController {
     
     func configureSubview() {
         tableView.register(nibWithCellClass: ChannelUserCell.self)
+        navHeightConstraint.constant = Frame.Height.navigation
     }
 }
 

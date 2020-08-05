@@ -251,30 +251,8 @@ class RoomViewController: ViewController {
         guard !channel.showName.isEmpty else {
             return
         }
-        let vc = ChannelUserListController()
-        vc.showModal(in: self)
-//        let alertVC = UIAlertController(
-//            title: R.string.localizable.reportTitle(),
-//            message: "\(R.string.localizable.reportRoomId()): \(channel.showName)",
-//            preferredStyle: .actionSheet)
-//
-//        let items = [R.string.localizable.reportIncorrectInformation(),
-//         R.string.localizable.reportIncorrectSexual(),
-//         R.string.localizable.reportIncorrectHarassment(),
-//         R.string.localizable.reportIncorrectUnreasonable(),
-//            ].enumerated()
-//
-//        for (index, item) in items {
-//            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-//                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-//                Logger.Report.logImp(itemIndex: index, channelName: self?.channelName.showName)
-//            })
-//            alertVC.addAction(action)
-//        }
-//
-//        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
-//        present(alertVC, animated: true, completion: nil)
-//        
+        let vc = ChannelUserListController(channel: channel)
+        navigationController?.pushViewController(vc)
     }
     
     func showShareView(_ isAutomaticShow: Bool = false) {
