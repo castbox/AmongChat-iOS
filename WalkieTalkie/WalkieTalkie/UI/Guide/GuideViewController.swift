@@ -122,7 +122,13 @@ extension GuideViewController {
         let mutableNormalString = NSMutableAttributedString()
         if Constants.abGroup == .b {
             if FireStore.shared.isInReviewSubject.value {
-                mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
+                var title: String {
+                    guard let price = productMaps[IAP.productYear]?.skProduct.localizedPrice else {
+                        return "$29.99 / year"
+                    }
+                    return "\(price) / Year"
+                }
+                mutableNormalString.append(NSAttributedString(string: title, attributes: tryAttr))
             } else {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumFree3dTrial(), attributes: tryAttr))
             }
@@ -132,10 +138,18 @@ extension GuideViewController {
             if let pid = selectedProductId,
                 pid == IAP.productYear,
                 let product = productMaps[pid]?.skProduct {
-                iapTipsLabel.text = """
-                3-day free trial. Then \(product.localizedPrice) / Year.
-                Recurring bilking.Cancel any time.
-                """
+                if FireStore.shared.isInReviewSubject.value {
+                    iapTipsLabel.font = .systemFont(ofSize: 10)
+                    iapTipsLabel.text =
+                    """
+                    A 3-Day Free Trial automatically converts into a paid subscription at the end of the trial period. Recurring billing, cancel any time.
+                    """
+                } else {
+                    iapTipsLabel.text = """
+                    3-day free trial. Then \(product.localizedPrice) / Year.
+                    Recurring bilking.Cancel any time.
+                    """
+                }
             }
 //            else if let pid = selectedProductId,
 //                pid == IAP.productWeek,
