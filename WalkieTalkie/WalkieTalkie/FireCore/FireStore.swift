@@ -105,8 +105,8 @@ class FireStore {
                     //                    observer.onNext(config ?? .default)
                     //                    observer.onCompleted()
                     //                    self.
-                    self?.isInReviewSubject.accept(config?.reviewVersion == Config.appVersion)
                     self?.appConfigSubject.accept(config)
+                    self?.isInReviewSubject.accept(config?.reviewVersion == Config.appVersion)
                 }
             })
     }

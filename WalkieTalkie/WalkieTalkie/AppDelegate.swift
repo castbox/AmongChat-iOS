@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setGlobalAppearance()
         RtcManager.shared.initialize()
         FirebaseApp.configure()
+        updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
         _ = AdsManager.shared
@@ -47,37 +48,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = FireStore.shared
         FireRemote.shared.refresh()
         
+        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
         #if DEBUG
-//        Fabric.sharedSDK().debug = true
-        DoraemonManager.shareInstance().install()
-//        CocoaDebug.enable()
-//        CocoaDebug.showBubble()
+        isFirstLogin = true
         #endif
         
-//        Fabric.with([Crashlytics.self])
-//        if true {
-        if Settings.shared.isFirstOpen, !firstOpenPremiumShowed {
+        if isFirstLogin {
             //MIGRATE
             migrateUserDefaults()
-            
             setupInitialView(goRoom: true)
             firstOpenPremiumShowed = true
         } else {
-            #if DEBUG
             setupInitialView(goRoom: false)
-            #else
-            setupInitialView(goRoom: false)
-            #endif
         }
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
-            IAP.prefetchProducts()
+//            IAP.prefetchProducts()
+            
 //            if Defaults[\.pushEnabledKey] {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        
+        _ = FireStore.shared.isInReviewSubject
+//            .filter { !$0 }
+            .subscribe(onNext: { _ in
+                IAP.prefetchProducts()
+            })
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
         return true
@@ -167,6 +164,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
+    
+    func updateUserProperty() {
+        GuruAnalytics.setUserProperty(Constants.deviceID, forName: "device_id")
+        GuruAnalytics.setUserProperty(Constants.abGroup.rawValue, forName: "ab_group")
+    }
+    
     func migrateUserDefaults() {
         let room = Defaults[\.channel]
         let mode = Mode(index: room.isPrivate.int)

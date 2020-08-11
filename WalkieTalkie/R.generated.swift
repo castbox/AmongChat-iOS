@@ -112,7 +112,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 62 images.
+  /// This `R.image` struct is generated, and contains static references to 66 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -142,6 +142,8 @@ struct R: Rswift.Validatable {
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
     /// Image `home_connect_btn_bg_b`.
     static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
+    /// Image `iconReport`.
+    static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
     /// Image `icon_close_gray`.
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
@@ -156,6 +158,8 @@ struct R: Rswift.Validatable {
     static let icon_guide_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_2")
     /// Image `icon_guide_3`.
     static let icon_guide_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_3")
+    /// Image `icon_guide_4_b`.
+    static let icon_guide_4_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4_b")
     /// Image `icon_guide_4`.
     static let icon_guide_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4")
     /// Image `icon_mic_disable`.
@@ -216,6 +220,10 @@ struct R: Rswift.Validatable {
     static let icon_share_ticktock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_ticktock")
     /// Image `icon_share_whatsapp`.
     static let icon_share_whatsapp = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_whatsapp")
+    /// Image `icon_user_list_mic_block`.
+    static let icon_user_list_mic_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic_block")
+    /// Image `icon_user_list_mic`.
+    static let icon_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic")
     /// Image `launch_logo`.
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
@@ -309,6 +317,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconReport", bundle: ..., traitCollection: ...)`
+    static func iconReport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReport, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
     static func icon_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
@@ -347,6 +360,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_guide_4", bundle: ..., traitCollection: ...)`
     static func icon_guide_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_guide_4, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_guide_4_b", bundle: ..., traitCollection: ...)`
+    static func icon_guide_4_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_guide_4_b, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_mic", bundle: ..., traitCollection: ...)`
@@ -494,6 +512,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_share_whatsapp, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_user_list_mic", bundle: ..., traitCollection: ...)`
+    static func icon_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_user_list_mic, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_user_list_mic_block", bundle: ..., traitCollection: ...)`
+    static func icon_user_list_mic_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_user_list_mic_block, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "launch_logo", bundle: ..., traitCollection: ...)`
     static func launch_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.launch_logo, compatibleWith: traitCollection)
@@ -552,16 +580,24 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 13 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 17 nibs.
   struct nib {
+    /// Nib `ChannelUserCell`.
+    static let channelUserCell = _R.nib._ChannelUserCell()
+    /// Nib `ChannelUserListController`.
+    static let channelUserListController = _R.nib._ChannelUserListController()
     /// Nib `CreateGlobalChannelController`.
     static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
     /// Nib `CreateSecretChannelController`.
     static let createSecretChannelController = _R.nib._CreateSecretChannelController()
+    /// Nib `EndUserLicenseController`.
+    static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `GlobalChannelContainer`.
     static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
     static let guideFirstView = _R.nib._GuideFirstView()
+    /// Nib `GuideFourthView_b`.
+    static let guideFourthView_b = _R.nib._GuideFourthView_b()
     /// Nib `GuideFourthView`.
     static let guideFourthView = _R.nib._GuideFourthView()
     /// Nib `GuideSecondView`.
@@ -581,6 +617,18 @@ struct R: Rswift.Validatable {
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
     
+    /// `UINib(name: "ChannelUserCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.channelUserCell) instead")
+    static func channelUserCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.channelUserCell)
+    }
+    
+    /// `UINib(name: "ChannelUserListController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.channelUserListController) instead")
+    static func channelUserListController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.channelUserListController)
+    }
+    
     /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
     static func createGlobalChannelController(_: Void = ()) -> UIKit.UINib {
@@ -591,6 +639,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.createSecretChannelController) instead")
     static func createSecretChannelController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.createSecretChannelController)
+    }
+    
+    /// `UINib(name: "EndUserLicenseController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.endUserLicenseController) instead")
+    static func endUserLicenseController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
     /// `UINib(name: "GlobalChannelContainer", in: bundle)`
@@ -609,6 +663,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView) instead")
     static func guideFourthView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.guideFourthView)
+    }
+    
+    /// `UINib(name: "GuideFourthView_b", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView_b) instead")
+    static func guideFourthView_b(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.guideFourthView_b)
     }
     
     /// `UINib(name: "GuideSecondView", in: bundle)`
@@ -659,12 +719,24 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.tikTokShareView)
     }
     
+    static func channelUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
+      return R.nib.channelUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ChannelUserCell
+    }
+    
+    static func channelUserListController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.channelUserListController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func createSecretChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.createSecretChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func globalChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -677,6 +749,10 @@ struct R: Rswift.Validatable {
     
     static func guideFourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.guideFourthView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func guideFourthView_b(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.guideFourthView_b.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func guideSecondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -714,8 +790,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 1 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
   struct reuseIdentifier {
+    /// Reuse identifier `ChannelUserCell`.
+    static let channelUserCell: Rswift.ReuseIdentifier<ChannelUserCell> = Rswift.ReuseIdentifier(identifier: "ChannelUserCell")
     /// Reuse identifier `SearchCell`.
     static let searchCell: Rswift.ReuseIdentifier<SearchCell> = Rswift.ReuseIdentifier(identifier: "SearchCell")
     
@@ -751,7 +829,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 47 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 62 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -761,10 +839,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumTryTitleDes = Rswift.StringResource(key: "premium.try.title.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: 3D Free Trials
+      /// 
+      /// Locales: en
+      static let premiumFree3dTrial = Rswift.StringResource(key: "premium.free.3d.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Block
+      /// 
+      /// Locales: en
+      static let alertBlock = Rswift.StringResource(key: "alert.block", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
@@ -813,6 +899,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserMaxState = Rswift.StringResource(key: "channel.user.max.state", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: End user License Agreement
+      /// 
+      /// Locales: en
+      static let endUserLicenseTitle = Rswift.StringResource(key: "end.user.license.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Enter the Secret Channel?
       /// 
       /// Locales: en
@@ -821,6 +911,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Harassment or repulsive language
+      /// 
+      /// Locales: en
+      static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: I Know
+      /// 
+      /// Locales: en
+      static let iKnow = Rswift.StringResource(key: "i.know", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Incorrect information
+      /// 
+      /// Locales: en
+      static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join in %@ talk to me & have fun !!!
       /// 
       /// Locales: en
@@ -869,10 +971,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivAds = Rswift.StringResource(key: "premium.priv.ads", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Report
+      /// 
+      /// Locales: en
+      static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Restore Purchase
       /// 
       /// Locales: en
       static let settingsRestoreTitle = Rswift.StringResource(key: "settings.restore.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Room ID
+      /// 
+      /// Locales: en
+      static let reportRoomId = Rswift.StringResource(key: "report.room.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: SECRET
       /// 
       /// Locales: en
@@ -885,6 +995,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sexual content
+      /// 
+      /// Locales: en
+      static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Subscribe
       /// 
       /// Locales: en
@@ -897,6 +1011,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Thanks for reporting. It would be processed within 24 hours.
+      /// 
+      /// Locales: en
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This passcode can enter a secret channel, enter now?
       /// 
       /// Locales: en
@@ -905,6 +1023,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static let alertUnblock = Rswift.StringResource(key: "alert.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -917,6 +1039,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let networkNotReachable = Rswift.StringResource(key: "network.not.reachable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unreasonable demands
+      /// 
+      /// Locales: en
+      static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: User ID
+      /// 
+      /// Locales: en
+      static let reportUserId = Rswift.StringResource(key: "report.user.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Users Talked in the Channel
+      /// 
+      /// Locales: en
+      static let userListTitle = Rswift.StringResource(key: "user.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You can block or report the abusive users here.
+      /// 
+      /// Locales: en
+      static let userListMoreSheet = Rswift.StringResource(key: "user.list.more.sheet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You don't have any secret channel yet, create or join one
       /// 
       /// Locales: en
@@ -956,11 +1094,25 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.try.title.des", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: 3D Free Trials
+      /// 
+      /// Locales: en
+      static func premiumFree3dTrial(_: Void = ()) -> String {
+        return NSLocalizedString("premium.free.3d.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static func premiumSubscriptionDetailFree(_ value1: String, _ value2: String) -> String {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: Block
+      /// 
+      /// Locales: en
+      static func alertBlock(_: Void = ()) -> String {
+        return NSLocalizedString("alert.block", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: CHANNEL NAME
@@ -1047,6 +1199,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.max.state", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: End user License Agreement
+      /// 
+      /// Locales: en
+      static func endUserLicenseTitle(_: Void = ()) -> String {
+        return NSLocalizedString("end.user.license.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Enter the Secret Channel?
       /// 
       /// Locales: en
@@ -1059,6 +1218,27 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelGlobalTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Harassment or repulsive language
+      /// 
+      /// Locales: en
+      static func reportIncorrectHarassment(_: Void = ()) -> String {
+        return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: I Know
+      /// 
+      /// Locales: en
+      static func iKnow(_: Void = ()) -> String {
+        return NSLocalizedString("i.know", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Incorrect information
+      /// 
+      /// Locales: en
+      static func reportIncorrectInformation(_: Void = ()) -> String {
+        return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join in %@ talk to me & have fun !!!
@@ -1145,11 +1325,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.priv.ads", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Report
+      /// 
+      /// Locales: en
+      static func reportTitle(_: Void = ()) -> String {
+        return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Restore Purchase
       /// 
       /// Locales: en
       static func settingsRestoreTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Room ID
+      /// 
+      /// Locales: en
+      static func reportRoomId(_: Void = ()) -> String {
+        return NSLocalizedString("report.room.id", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: SECRET
@@ -1173,6 +1367,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Sexual content
+      /// 
+      /// Locales: en
+      static func reportIncorrectSexual(_: Void = ()) -> String {
+        return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Subscribe
       /// 
       /// Locales: en
@@ -1194,6 +1395,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Thanks for reporting. It would be processed within 24 hours.
+      /// 
+      /// Locales: en
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: This passcode can enter a secret channel, enter now?
       /// 
       /// Locales: en
@@ -1206,6 +1414,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumTryTitle(_: Void = ()) -> String {
         return NSLocalizedString("premium.try.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static func alertUnblock(_: Void = ()) -> String {
+        return NSLocalizedString("alert.unblock", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock all categories
@@ -1227,6 +1442,34 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func networkNotReachable(_: Void = ()) -> String {
         return NSLocalizedString("network.not.reachable", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unreasonable demands
+      /// 
+      /// Locales: en
+      static func reportIncorrectUnreasonable(_: Void = ()) -> String {
+        return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: User ID
+      /// 
+      /// Locales: en
+      static func reportUserId(_: Void = ()) -> String {
+        return NSLocalizedString("report.user.id", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Users Talked in the Channel
+      /// 
+      /// Locales: en
+      static func userListTitle(_: Void = ()) -> String {
+        return NSLocalizedString("user.list.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You can block or report the abusive users here.
+      /// 
+      /// Locales: en
+      static func userListMoreSheet(_: Void = ()) -> String {
+        return NSLocalizedString("user.list.more.sheet", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You don't have any secret channel yet, create or join one
@@ -1298,8 +1541,11 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
+      try _ChannelUserCell.validate()
+      try _ChannelUserListController.validate()
       try _GuideFirstView.validate()
       try _GuideFourthView.validate()
+      try _GuideFourthView_b.validate()
       try _GuideSecondView.validate()
       try _GuideThirdView.validate()
       try _PremiumContainer.validate()
@@ -1308,6 +1554,43 @@ struct _R: Rswift.Validatable {
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _TikTokShareView.validate()
+    }
+    
+    struct _ChannelUserCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+      typealias ReusableType = ChannelUserCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "ChannelUserCell"
+      let name = "ChannelUserCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ChannelUserCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_user_list_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_user_list_mic' is used in nib 'ChannelUserCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ChannelUserListController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "ChannelUserListController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "backNor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'backNor' is used in nib 'ChannelUserListController', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
     }
     
     struct _CreateGlobalChannelController: Rswift.NibResourceType {
@@ -1324,6 +1607,17 @@ struct _R: Rswift.Validatable {
     struct _CreateSecretChannelController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "CreateSecretChannelController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _EndUserLicenseController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "EndUserLicenseController"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
@@ -1379,6 +1673,25 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_guide_4", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4' is used in nib 'GuideFourthView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
           if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView', but couldn't be loaded.") }
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _GuideFourthView_b: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "GuideFourthView_b"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "icon_close_gray", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close_gray' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_guide_4_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4_b' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView_b', but couldn't be loaded.") }
         }
       }
       
@@ -1627,7 +1940,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_push", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_push' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_setting", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_diamonds_u", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds_u' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_star", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_star' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }

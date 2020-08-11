@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
-struct Channel {
-    var drawableRes: UIImage
-    var backgroundRes: UIImage
-    var name: String
-}
+//
+//struct Channel {
+//    var drawableRes: UIImage
+//    var backgroundRes: UIImage
+//    var name: String
+//}

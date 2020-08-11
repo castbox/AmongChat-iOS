@@ -10,17 +10,11 @@ import UIKit
 //import CastboxNetwork
 //import CastboxDebuger
 #if DEBUG
-//import CocoaDebug
+import DoraemonKit
 #endif
 
 /// 保证只在测试环境下才进行打印
 public func cdPrint(_ items: Any..., separator: String = " ", terminator: String = "\n") {
-    func cocoaPrint<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {
-        #if DEBUG
-//            swiftLog(file, function, line, message, color, false)
-        #endif
-    }
-    
     #if DEBUG
     let isMain = Thread.isMainThread ? "main": "non-main"
     print("CUDDLE:\(isMain): ", terminator: "")
@@ -33,7 +27,7 @@ public func cdPrint(_ items: Any..., separator: String = " ", terminator: String
         guard let string = item as? CustomStringConvertible else {
             return
         }
-        cocoaPrint(string.description)
+        DoraemonNSLogManager.sharedInstance()?.addNSLog(string.description)
     }
     #else
 //    CocoaDebug.enable()

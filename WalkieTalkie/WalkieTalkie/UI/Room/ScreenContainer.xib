@@ -18,7 +18,7 @@
                 <outlet property="backgroundView" destination="nsb-mf-2tx" id="x34-rZ-0W1"/>
                 <outlet property="channelTextField" destination="q7C-OU-Xww" id="r47-ut-8oe"/>
                 <outlet property="connectStateLabel" destination="hWG-O7-7C3" id="w4E-bH-yXN"/>
-                <outlet property="innerShadowView" destination="Hvf-Il-oM0" id="kjX-ge-iMU"/>
+                <outlet property="innerShadowView" destination="Hvf-Il-oM0" id="GYV-yw-Zsn"/>
                 <outlet property="lockIconView" destination="Fux-OW-unk" id="gFB-dG-nll"/>
                 <outlet property="micView" destination="Yyx-Zi-Ocj" id="e5x-CB-6dh"/>
                 <outlet property="numberLabel" destination="NSB-yS-cuB" id="zsg-dl-xy8"/>
@@ -36,7 +36,7 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_d_pdf" translatesAutoresizingMaskIntoConstraints="NO" id="nsb-mf-2tx">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                         </imageView>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Hvf-Il-oM0">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_screen_bg_g_shadow" translatesAutoresizingMaskIntoConstraints="NO" id="Hvf-Il-oM0" customClass="AutoHideImageView" customModule="WalkieTalkie" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="450"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISCONNECTED" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hWG-O7-7C3">

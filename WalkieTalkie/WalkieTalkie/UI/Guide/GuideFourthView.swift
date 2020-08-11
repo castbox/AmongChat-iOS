@@ -13,9 +13,15 @@ import RxCocoa
 class GuideProductButton: WalkieButton {
     var selectedTagLabel: UILabel!
     private var indicator: UIActivityIndicatorView!
+    var disableSelectTag: Bool = false {
+        didSet {
+            selectedTagLabel.isHidden = disableSelectTag
+        }
+    }
     
     var hasSelected: Bool = false {
         didSet {
+            guard Constants.abGroup == .a else { return }
             selectedTagLabel.isHidden = !hasSelected
             if hasSelected {
                 setBackgroundImage("FFCA1E".color().image, for: .normal)
@@ -185,6 +191,12 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         updateTipsLabelContent(sender)
     }
     
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { result in
+            
+        }
+    }
+    
     @IBAction func lifetimeAction(_ sender: GuideProductButton) {
         selectedButton = sender
         selectedProductId = IAP.productLifeTime
@@ -238,3 +250,4 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
 //        lifetimeButton.appendKern()
     }
 }
+
