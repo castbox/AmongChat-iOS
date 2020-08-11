@@ -71,6 +71,12 @@ class PremiumContainer: XibLoadableView, PremiumContainerable {
         buyProductHandler(IAP.productYear)
     }
     
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { _ in
+            
+        }
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = bounds
@@ -140,6 +146,8 @@ extension PremiumContainer {
                 }
                 if let product = maps[IAP.productLifeTime]?.skProduct {
                     self.lifeTimeButton.setTitle("\(product.localizedPrice) / Lifetime", for: .normal)
+//                    self.lifeTimeButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
+
                 }
                 
                 //            if let product = map[IAP.productMonth]

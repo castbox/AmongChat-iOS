@@ -191,6 +191,12 @@ class GuideFourthView: XibLoadableView, PremiumContainerable {
         updateTipsLabelContent(sender)
     }
     
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { result in
+            
+        }
+    }
+    
     @IBAction func lifetimeAction(_ sender: GuideProductButton) {
         selectedButton = sender
         selectedProductId = IAP.productLifeTime

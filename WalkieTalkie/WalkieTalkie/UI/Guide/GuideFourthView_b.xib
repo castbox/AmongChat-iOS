@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -423,12 +423,26 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="icon_guide_4_b" translatesAutoresizingMaskIntoConstraints="NO" id="RhU-yU-agD">
                             <rect key="frame" x="94.5" y="200.5" width="225" height="387.5"/>
                         </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIc-Va-pDX">
+                            <rect key="frame" x="10" y="-2" width="57" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="6k9-Wq-a6E"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                            <state key="normal" title="Restore">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="restoreAction:" destination="-1" eventType="touchUpInside" id="DXh-K6-LyU"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="YhS-vB-LEz" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="-2" id="0zS-BQ-AQk"/>
                         <constraint firstAttribute="trailing" secondItem="d2O-I3-Zkk" secondAttribute="trailing" constant="10" id="63t-ey-Wbb"/>
                         <constraint firstAttribute="bottom" secondItem="aMw-P3-ICX" secondAttribute="bottom" constant="3" id="B0M-zP-D2i"/>
                         <constraint firstItem="6rB-xS-Atc" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="15" id="ErV-fk-LAM"/>
+                        <constraint firstItem="XIc-Va-pDX" firstAttribute="centerY" secondItem="YhS-vB-LEz" secondAttribute="centerY" id="G5R-AV-1SI"/>
                         <constraint firstItem="6rB-xS-Atc" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="203" id="GE9-yp-QaP"/>
                         <constraint firstItem="Ljt-kJ-6WR" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="35" id="Ldy-wE-4zh"/>
                         <constraint firstItem="d2O-I3-Zkk" firstAttribute="top" secondItem="Ljt-kJ-6WR" secondAttribute="bottom" id="P4g-yM-7JN"/>
@@ -438,6 +452,7 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                         <constraint firstItem="Ljt-kJ-6WR" firstAttribute="centerX" secondItem="gBy-nY-nY4" secondAttribute="centerX" id="XV7-Ed-EfS"/>
                         <constraint firstAttribute="trailing" secondItem="T80-2t-0sP" secondAttribute="trailing" constant="-13.5" id="XfO-wn-fhe"/>
                         <constraint firstItem="RhU-yU-agD" firstAttribute="top" secondItem="d2O-I3-Zkk" secondAttribute="bottom" id="c21-dr-Xow"/>
+                        <constraint firstItem="XIc-Va-pDX" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="10" id="eNJ-uQ-LY1"/>
                         <constraint firstItem="d2O-I3-Zkk" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="10" id="gmf-pL-5B4"/>
                         <constraint firstAttribute="trailing" secondItem="YhS-vB-LEz" secondAttribute="trailing" constant="6" id="iAo-yV-cI5"/>
                         <constraint firstItem="T80-2t-0sP" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="19" id="kak-YA-xxF"/>

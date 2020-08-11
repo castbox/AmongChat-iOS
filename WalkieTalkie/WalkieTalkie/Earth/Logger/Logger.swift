@@ -321,3 +321,11 @@ extension Logger {
         }
     }
 }
+
+extension Logger {
+    struct Report {
+        static func logImp(itemIndex: Int, channelName: String?) {
+            GuruAnalytics.log(event: "report_room", category: "item_\(itemIndex)", name: channelName, value: nil)
+        }
+    }
+}

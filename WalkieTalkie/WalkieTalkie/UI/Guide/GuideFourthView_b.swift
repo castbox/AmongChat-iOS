@@ -21,15 +21,6 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     @IBOutlet weak var vipDesLabel: WalkieLabel!
     @IBOutlet weak var tipsLabel: UILabel!
     
-    @IBOutlet weak var backgroundIconWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonLeftConstraint: NSLayoutConstraint!
-    @IBOutlet weak var yearButtonRightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var desLabelBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var descLabelLeftConstraint: NSLayoutConstraint!
-    //    @IBOutlet weak var productsContainerRightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var emojiTopContainer: NSLayoutConstraint!
     private weak var selectedButton: GuideProductButton? {
         didSet {
             if Constants.abGroup == .b {
@@ -39,9 +30,9 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             } else {
                 oldValue?.hasSelected = false
                 selectedButton?.hasSelected = true
-                if selectedButton == yearButton {
-                    selectedButton?.selectedTagLabel.isHidden = true
-                }
+//                if selectedButton == yearButton {
+//                    selectedButton?.selectedTagLabel.isHidden = true
+//                }
             }
         }
     }
@@ -79,39 +70,6 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             })
             .disposed(by: bag)
         
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            emojiTopContainer.constant = 25
-            //            yearButtonLeftConstraint.constant = 15
-            //            yearButtonRightConstraint.constant = 15
-            //            yearButtonHeightConstraint.constant = 36
-            //            let text = tipsLabel.attributedText?.string
-            //            let paragraph = NSMutableParagraphStyle()
-            //            paragraph.lineSpacing = 0
-            //            tipsLabel.attributedText = NSAttributedString(string: text ?? "", attributes: [NSAttributedString.Key.paragraphStyle : paragraph,
-            //                                                                                           NSAttributedString.Key.font: Font.smallBody.value])
-            //            yearButton.cornerRadius = 16
-            //            monthButton.cornerRadius = 16
-            //            lifetimeButton.cornerRadius = 16
-            //            productsContainerRightConstraint.constant = 10
-            //            descLabelLeftConstraint.constant = 15
-            //            topContainerTopConstraint.constant = 34
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5  {
-            //            topContainerTopConstraint.constant = 34
-        } else {
-            //            topContainerTopConstraint.constant = Frame.Scale.height(90)
-        }
-        //
-        if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            //            desLabelBottomConstraint.constant = Frame.Scale.height(156)
-        }
-        //
-        //        backgroundIconWidthConstraint.constant = Frame.Screen.width - 27 * 2
-        //
-        //        mainQueueDispatchAsync(after: 0.5) { [weak self] in
-        //            self?.yearButton.isSelected = true
-        //            self?.selectedButton = self?.yearButton
-        //        }
-        
         IAP.productsValue
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] maps in
@@ -120,12 +78,13 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             .disposed(by: bag)
         
         vipDesLabel.appendKern()
-        yearButton.appendKern()
+//        yearButton.appendKern()
         monthButton.appendKern()
-        yearButton.disableSelectTag = true
+//        yearButton.disableSelectTag = true
         monthButton.disableSelectTag = true
         weekButton.disableSelectTag = true
-        //        lifetimeButton.appendKern()
+//        weekButton.isHidden = IAP.isWeekProductInReview
+        weekButton.isHidden = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -152,6 +111,11 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         selectedProductId = IAP.productLifeTime
         buyProductHandler(IAP.productLifeTime)
         
+    }
+    @IBAction func restoreAction(_ sender: Any) {
+        IAP.restorePurchased { _ in
+            
+        }
     }
     
     @IBAction func weakAction(_ sender: GuideProductButton) {
@@ -184,16 +148,16 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     
     func updateButtonTitles(_ maps: [String: IAP.Product]) {
         //button
-        if let product = maps[IAP.productYear]?.skProduct {
-            cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
-            yearButton.setAttributedTitle(nil, for: .normal)
-            yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
-            if selectedButton == nil {
-                yearButton.isSelected = true
-                selectedButton = yearButton
-                updateTipsLabelContent(yearButton)
-            }
-        }
+//        if let product = maps[IAP.productYear]?.skProduct {
+//            cdPrint("product.localizedPrice: \(product.localizedPrice) / Year")
+//            yearButton.setAttributedTitle(nil, for: .normal)
+//            yearButton.setTitle("\(product.localizedPrice) / Year", for: .normal)
+//            if selectedButton == nil {
+//                yearButton.isSelected = true
+//                selectedButton = yearButton
+//                updateTipsLabelContent(yearButton)
+//            }
+//        }
         if let product = maps[IAP.productMonth]?.skProduct {
             monthButton.setAttributedTitle(nil, for: .normal)
             monthButton.setTitle("\(product.localizedPrice) / Month", for: .normal)
@@ -201,8 +165,11 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         if let product = maps[IAP.productWeek]?.skProduct {
             weekButton.setAttributedTitle(nil, for: .normal)
             weekButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
+            weekButton.isHidden = false
+        } else {
+            weekButton.isHidden = true
         }
-        yearButton.appendKern()
+//        yearButton.appendKern()
         monthButton.appendKern()
         weekButton.appendKern()
     }

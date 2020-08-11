@@ -47,9 +47,12 @@ extension FireStore {
     struct AppConfig: Codable {
         let reviewVersion: String?
         let isSnapchatInreview: Bool?
+        let isWeekInReview: Bool?
+        
         private enum CodingKeys: String, CodingKey {
             case reviewVersion = "in_review_ios"
             case isSnapchatInreview = "is_snapchat_inreview"
+            case isWeekInReview
         }
     }
 }

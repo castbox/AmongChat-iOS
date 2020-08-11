@@ -26,6 +26,9 @@ enum UserStatus {
 }
 
 class RoomViewController: ViewController {
+    
+    @IBOutlet weak var reportButton: UIButton!
+    
     @IBOutlet private weak var speakButton: UIButton!
     @IBOutlet weak var speakButtonTrigger: UIView!
     
@@ -82,6 +85,7 @@ class RoomViewController: ViewController {
             screenContainer.channel = channel
             channel.updateJoinInterval()
             Defaults.set(channel: channel, mode: mode)
+            reportButton.isEnabled = !channel.showName.isEmpty
         }
     }
     
@@ -243,7 +247,19 @@ class RoomViewController: ViewController {
         }
     }
     
+    @IBAction func reportButtonAction(_ sender: UIButton) {
+        guard !channel.showName.isEmpty else {
+            return
+        }
+        let vc = ChannelUserListController(channel: channel)
+        navigationController?.pushViewController(vc)
+    }
+    
     func showShareView(_ isAutomaticShow: Bool = false) {
+        //检查是否有 controller 再上面
+        guard children.isEmpty else {
+            return
+        }
         if channel.isPrivate {
             guard !channelName.showName.isEmpty else {
                 showCreateSecretChannel(with: .emptySecretRooms)
@@ -412,6 +428,11 @@ extension RoomViewController: ChatRoomDelegate {
                 view.raft.autoShow(.text("Speech text is not avaliable"))
             }
             #endif
+        } else {
+            //check block
+            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
+                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+            }
         }
     }
     
@@ -447,7 +468,11 @@ extension RoomViewController: ChatRoomDelegate {
     }
 
     func onAudioVolumeIndication(userId: String, volume: UInt) {
-
+        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
+    }
+    
+    func onChannelUserChanged(users: [ChannelUser]) {
+        ChannelUserListViewModel.shared.update(users)
     }
 }
 
@@ -836,6 +861,12 @@ private extension RoomViewController {
             }
             self.play(emojis: emojis)
         }
+        
+        RxKeyboard.instance.visibleHeight
+            .map { $0 <= 0 }
+            .asObservable()
+            .bind(to: reportButton.rx.isEnabled)
+            .disposed(by: bag)
     }
     
     func configureSubview() {

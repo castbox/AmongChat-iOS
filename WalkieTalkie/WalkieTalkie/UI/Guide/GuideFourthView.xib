@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -416,6 +416,19 @@ Recurring bilking.Cancel any times</string>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRV-R1-CeP">
+                            <rect key="frame" x="10" y="-2" width="57" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="jm8-m8-hKf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                            <state key="normal" title="Restore">
+                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="restoreAction:" destination="-1" eventType="touchUpInside" id="blr-Wi-ZRI"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
                         <constraint firstItem="AS9-om-rTk" firstAttribute="top" secondItem="d5L-4d-iSE" secondAttribute="bottom" constant="11" id="0SC-B9-iHN"/>
@@ -426,11 +439,13 @@ Recurring bilking.Cancel any times</string>
                         <constraint firstItem="Rc1-aB-vz5" firstAttribute="leading" secondItem="n2c-IT-6UP" secondAttribute="leading" constant="75" id="DTK-fb-5gv"/>
                         <constraint firstItem="n2c-IT-6UP" firstAttribute="centerY" secondItem="IDQ-35-XKc" secondAttribute="centerY" multiplier="0.7" id="Fu2-xz-CIs"/>
                         <constraint firstItem="KJG-zK-P4r" firstAttribute="leading" secondItem="d5L-4d-iSE" secondAttribute="trailing" constant="132" id="HOl-vV-4rp"/>
+                        <constraint firstItem="eRV-R1-CeP" firstAttribute="centerY" secondItem="Bvc-Lm-LHi" secondAttribute="centerY" id="KNJ-z1-pO2"/>
                         <constraint firstAttribute="trailing" secondItem="AS9-om-rTk" secondAttribute="trailing" constant="28" id="Neh-tS-tMi"/>
                         <constraint firstItem="RZ4-cV-NYY" firstAttribute="top" secondItem="IDQ-35-XKc" secondAttribute="top" constant="430.33333333333331" id="Pbn-bT-Nhz"/>
                         <constraint firstItem="AS9-om-rTk" firstAttribute="leading" secondItem="IDQ-35-XKc" secondAttribute="leading" constant="9.5" id="RfJ-h2-4n8"/>
                         <constraint firstItem="d5L-4d-iSE" firstAttribute="top" secondItem="IDQ-35-XKc" secondAttribute="top" constant="41.5" id="YOO-Zn-G3q"/>
                         <constraint firstAttribute="trailing" secondItem="Bvc-Lm-LHi" secondAttribute="trailing" constant="6" id="bFr-ku-6t4"/>
+                        <constraint firstItem="eRV-R1-CeP" firstAttribute="leading" secondItem="IDQ-35-XKc" secondAttribute="leading" constant="10" id="ddZ-ZH-e3L"/>
                         <constraint firstItem="ExF-Bs-HmG" firstAttribute="centerX" secondItem="IDQ-35-XKc" secondAttribute="centerX" id="eje-BR-yqX"/>
                         <constraint firstItem="Bvc-Lm-LHi" firstAttribute="top" secondItem="IDQ-35-XKc" secondAttribute="top" constant="-2" id="fg3-6q-eMK"/>
                         <constraint firstItem="cgz-9l-nDL" firstAttribute="leading" secondItem="AS9-om-rTk" secondAttribute="leading" id="jYE-6i-z7X"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -10,6 +10,9 @@
     <customFonts key="customFonts">
         <array key="BlackOpsOne-Regular.ttf">
             <string>BlackOpsOne-Regular</string>
+        </array>
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
         </array>
     </customFonts>
     <objects>
@@ -181,7 +184,7 @@ Cg
                                                 <attributes>
                                                     <color key="NSBackgroundColor" red="0.42352941176470588" green="0.42352941176470588" blue="0.42352941176470588" alpha="0.0" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                     <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <font key="NSFont" metaFont="menu" size="11"/>
+                                                    <font key="NSFont" metaFont="message" size="11"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
@@ -224,6 +227,19 @@ Cg
                                         <action selector="policyButtonAction:" destination="-1" eventType="touchUpInside" id="081-Ul-SmK"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hSz-eB-NG3">
+                                    <rect key="frame" x="347" y="57" width="57" height="44"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="4tH-tu-Du2"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                                    <state key="normal" title="Restore">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="restoreAction:" destination="-1" eventType="touchUpInside" id="k1S-BU-BJS"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="Fiz-9j-hdQ" firstAttribute="top" secondItem="Uny-nd-a1S" secondAttribute="bottom" constant="15" id="1PV-Jk-LNc"/>
@@ -232,6 +248,7 @@ Cg
                                 <constraint firstItem="6xu-82-QHt" firstAttribute="leading" secondItem="Qyh-Pe-e6v" secondAttribute="trailing" constant="10" id="4dl-4n-1gb"/>
                                 <constraint firstItem="JQG-7G-R4C" firstAttribute="leading" secondItem="GaX-oC-zq5" secondAttribute="trailing" constant="10" id="6xT-Es-EDC"/>
                                 <constraint firstItem="Fiz-9j-hdQ" firstAttribute="leading" secondItem="Uny-nd-a1S" secondAttribute="leading" id="8aw-fU-o96"/>
+                                <constraint firstAttribute="trailing" secondItem="hSz-eB-NG3" secondAttribute="trailing" constant="10" id="8bz-t0-Tuh"/>
                                 <constraint firstItem="NIk-Ad-bKE" firstAttribute="centerY" secondItem="NDG-Eo-bg8" secondAttribute="centerY" id="9ge-v7-2nv"/>
                                 <constraint firstItem="GaX-oC-zq5" firstAttribute="top" secondItem="NDG-Eo-bg8" secondAttribute="bottom" constant="10" id="BXz-N2-9eg"/>
                                 <constraint firstItem="6Rm-YD-2gq" firstAttribute="leading" secondItem="5Ej-Y3-xCg" secondAttribute="trailing" constant="11.5" id="CGJ-9l-RXN"/>
@@ -244,6 +261,7 @@ Cg
                                 <constraint firstAttribute="trailing" secondItem="fh5-67-fiA" secondAttribute="trailing" constant="40" id="O2m-YA-w3m"/>
                                 <constraint firstItem="Uny-nd-a1S" firstAttribute="trailing" secondItem="q6p-5A-ssJ" secondAttribute="trailing" id="Oad-wf-eZq"/>
                                 <constraint firstItem="AG6-EJ-VKj" firstAttribute="leading" secondItem="vff-1I-vww" secondAttribute="leadingMargin" constant="5" id="PW6-5i-aGA"/>
+                                <constraint firstItem="hSz-eB-NG3" firstAttribute="centerY" secondItem="AG6-EJ-VKj" secondAttribute="centerY" id="Swc-fI-EOd"/>
                                 <constraint firstItem="Nw6-4U-pzz" firstAttribute="leading" secondItem="vff-1I-vww" secondAttribute="leading" id="TFg-CO-3PO"/>
                                 <constraint firstItem="q6p-5A-ssJ" firstAttribute="leading" secondItem="vff-1I-vww" secondAttribute="leading" constant="40" id="ars-ok-CG9"/>
                                 <constraint firstItem="Nw6-4U-pzz" firstAttribute="top" secondItem="fh5-67-fiA" secondAttribute="bottom" constant="40" id="bHG-Pe-gYY"/>
