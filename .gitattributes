@@ -1,0 +1,12 @@
+WalkieTalkie/Pods/AgoraAudio_iOS/AgoraRtcKit.framework/AgoraRtcKit filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.framework/GoogleMobileAds filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/GoogleAppMeasurement/Frameworks/GoogleAppMeasurement.framework/GoogleAppMeasurement filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/R.swift/rswift filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/SnapSDK/SCSDKBitmojiKit.framework/SCSDKBitmojiKit filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/SwiftLint/swiftlint filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/BytedanceOpenPlatformSDK/BytedanceOpenPlatformSDK.framework/BytedanceOpenPlatformSDK filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/Reveal-SDK/RevealServer-4/iOS/RevealServer.framework/RevealServer filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/SnapSDK/SCSDKCoreKit.framework/SCSDKCoreKit filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/SnapSDK/SCSDKLoginKit.framework/SCSDKLoginKit filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/SnapSDK/SCSDKStoryKit.framework/SCSDKStoryKit filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/Pods.xcodeproj/project.pbxproj filter=lfs diff=lfs merge=lfs -text
