@@ -8,7 +8,7 @@
 
 import UIKit
 import TikTokOpenSDK
-import EasyTipView
+//import EasyTipView
 import RxSwift
 import RxCocoa
 import SwifterSwift

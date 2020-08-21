@@ -230,7 +230,6 @@ PODS:
     - SwiftyBeaver (~> 1.9.0)
   - DeviceKit (3.2.0)
   - DoraemonKit/Core (3.0.2)
-  - EasyTipView (2.0.4)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
   - Firebase/Core (6.25.0):
@@ -433,8 +432,6 @@ PODS:
     - mopub-ios-sdk/NativeAds
   - mopub-ios-sdk/NativeAds (5.12.1):
     - mopub-ios-sdk/Core
-  - Moya (14.0.0):
-    - Moya/Core (= 14.0.0)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -519,7 +516,6 @@ DEPENDENCIES:
   - CastboxDebuger (~> 1.3.2)
   - DeviceKit
   - DoraemonKit/Core (~> 3.0.2)
-  - EasyTipView (~> 2.0.4)
   - Firebase/Analytics
   - Firebase/Crashlytics
   - Firebase/DynamicLinks
@@ -537,7 +533,6 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - MoPub-AdMob-Adapters (= 7.57.0.0)
   - mopub-ios-sdk (= 5.12.1)
-  - Moya
   - Moya/RxSwift
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
@@ -569,7 +564,6 @@ SPEC REPOS:
     - BytedanceOpenPlatformSDK
     - DeviceKit
     - DoraemonKit
-    - EasyTipView
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -643,7 +637,6 @@ SPEC CHECKSUMS:
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
   DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
-  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -706,6 +699,6 @@ SPEC CHECKSUMS:
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: 90da03567c601f7877ebae2a86b4036b3c019927
+PODFILE CHECKSUM: b6269b7d888d7b06b7f530eec8dd3aa7c0c9d4da
 
 COCOAPODS: 1.9.1
