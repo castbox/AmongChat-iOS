@@ -437,17 +437,15 @@ extension FireStore {
         .document(user)
         .setData([
             Entity.User.Keys.status: [Entity.User.Status.Keys.heartbeatAt : FieldValue.serverTimestamp()]
-        ], merge: true) { (error) in
-            NSLog("")
-        }
+        ], merge: true)
     }
     
     func updateStatus(_ status: Entity.User.Status, of user: String) {
         db.collection(Root.users)
             .document(user)
-            .updateData([
+            .setData([
                 Entity.User.Keys.status : status.toDictionary()
-            ])
+            ], merge: true)
     }
     
     func addBlockUser(_ blockUser: String, to user: String) {

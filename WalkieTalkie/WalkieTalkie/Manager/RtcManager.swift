@@ -100,6 +100,7 @@ class RtcManager: NSObject {
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
+            self.updateFirestoreChannelStatus(with: channelId)
         })
         //start a time out timer
         if result != 0 {
@@ -229,6 +230,7 @@ class RtcManager: NSObject {
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
+        updateFirestoreChannelStatus(with: "")
     }
     
     func logFilePath() -> String {
@@ -345,5 +347,16 @@ extension RtcManager: AgoraRtcEngineDelegate {
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, networkQuality uid: UInt, txQuality: AgoraNetworkQuality, rxQuality: AgoraNetworkQuality) {
         
+    }
+}
+
+extension RtcManager {
+    
+    func updateFirestoreChannelStatus(with channel: String) {
+        guard let uid = Settings.shared.loginResult.value?.uid else {
+            return
+        }
+        let status = FireStore.Entity.User.Status(currentChannel: channel, online: true)
+        FireStore.shared.updateStatus(status, of: uid)
     }
 }

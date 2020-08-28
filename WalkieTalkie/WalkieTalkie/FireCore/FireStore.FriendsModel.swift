@@ -103,7 +103,7 @@ extension FireStore.Entity.User.Profile {
 extension FireStore.Entity.User {
     struct Status {
         var currentChannel: String
-        var heartbeatAt: Timestamp
+        var heartbeatAt: Timestamp = Timestamp(date: Date())
         var online: Bool
         
         struct Keys {
