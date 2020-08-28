@@ -54,8 +54,30 @@ class Automator {
             .subscribe(onSuccess: { result in
                 Settings.shared.loginResult.value = result
             })
+        
+        Settings.shared.loginResult.replay()
+            .skipWhile { $0 == nil }
+            .take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.startHeartbeat()
+            })
+            .disposed(by: bag)
+        
     }
 }
 extension Automator {
-
+    
+    func startHeartbeat() {
+        #if DEBUG
+        let interval: Int = 10
+        #else
+        let interval: Int = 30
+        #endif
+        Observable<Int>.interval(.seconds(interval), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { (_) in
+                guard let loginResult = Settings.shared.loginResult.value else { return }
+                FireStore.shared.updateHeartbeat(of: loginResult.uid)
+            })
+            .disposed(by: bag)
+    }
 }

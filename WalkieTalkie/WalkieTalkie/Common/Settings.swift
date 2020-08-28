@@ -33,8 +33,9 @@ class Settings {
         typealias LoginResult = Entity.LoginResult
         let value: LoginResult?
         
-        if let json = Defaults[\.loginResultKey] {
-            value = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json)
+        if let json = Defaults[\.loginResultKey],
+            let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
+            value = result
         } else {
             value = nil
         }

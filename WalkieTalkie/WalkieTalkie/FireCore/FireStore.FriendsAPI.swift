@@ -431,6 +431,16 @@ extension FireStore {
         }
         
     }
+        
+    func updateHeartbeat(of user: String) {
+        db.collection(Root.users)
+        .document(user)
+        .setData([
+            Entity.User.Keys.status: [Entity.User.Status.Keys.heartbeatAt : FieldValue.serverTimestamp()]
+        ], merge: true) { (error) in
+            NSLog("")
+        }
+    }
     
     func updateStatus(_ status: Entity.User.Status, of user: String) {
         db.collection(Root.users)

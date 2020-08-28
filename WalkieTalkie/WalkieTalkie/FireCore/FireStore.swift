@@ -13,6 +13,7 @@ import FirebaseCore
 import RxSwift
 import RxCocoa
 import SwifterSwift
+import FirebaseAuth
 
 class FireStore {
     
@@ -91,6 +92,21 @@ class FireStore {
             .catchErrorJustReturn(.default)
             .bind(to: channelConfigSubject)
         #endif
+        
+        let _ = Settings.shared.loginResult.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (result) in
+                self?.signIn(with: result.firebaseToken)
+            })
+    }
+    
+    private func signIn(with token: String) {
+        
+        Auth.auth().signIn(withCustomToken: token) { (user, error) in
+            if let error = error {
+                cdPrint("fire store auth error: \(error)")
+            }
+        }
     }
     
     func getAppConfigValue() {
