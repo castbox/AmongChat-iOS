@@ -61,8 +61,8 @@ extension FireStore.Entity.User {
         var birthday: String
         var name: String
         var premium: Bool
-        let uidInt: Int
-        var updatedAt: Timestamp
+        let uidInt: UInt
+        var updatedAt: Timestamp = Timestamp(date: Date())
         
         struct Keys {
             static let avatar = "avatar"
@@ -78,7 +78,7 @@ extension FireStore.Entity.User {
 extension FireStore.Entity.User.Profile {
     
     init?(with dict: [String : Any]) {
-        guard let uid = dict[Keys.uidInt] as? Int else { return nil }
+        guard let uid = dict[Keys.uidInt] as? UInt else { return nil }
         uidInt = uid
         avatar = dict[Keys.avatar] as? String ?? ""
         birthday = dict[Keys.birthday] as? String ?? ""

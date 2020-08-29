@@ -431,6 +431,39 @@ extension FireStore {
         }
         
     }
+    
+    func fetchUserProfile(_ user: String) -> Single<Entity.User.Profile?> {
+        
+        return Observable<Entity.User.Profile?>.create { [weak self] (subscriber) -> Disposable in
+            
+            self?.db.collection(Root.users)
+                .document(user)
+                .getDocument(completion: { (doc, error) in
+                    guard error == nil else {
+                        subscriber.onError(error!)
+                        return
+                    }
+                    
+                    guard let doc = doc,
+                        doc.exists,
+                        let dict = doc.data()?[Entity.User.Keys.profile] as? [String : Any],
+                        let profile = Entity.User.Profile(with: dict) else {
+                            subscriber.onNext(nil)
+                            subscriber.onCompleted()
+                            return
+                    }
+                    
+                    subscriber.onNext(profile)
+                    subscriber.onCompleted()
+                    
+                })
+            
+            return Disposables.create {
+                
+            }
+        }
+        .asSingle()
+    }
         
     func updateHeartbeat(of user: String) {
         db.collection(Root.users)

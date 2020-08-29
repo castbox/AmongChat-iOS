@@ -223,6 +223,12 @@ class Settings {
             return true
         }
     }
+    
+    let firestoreUserProfile: PublishProperty<FireStore.Entity.User.Profile?> = {
+        return DynamicProperty.stored(nil)
+            .asPublishProperty()
+    }()
+    
 }
 
 extension DefaultsKeys {
