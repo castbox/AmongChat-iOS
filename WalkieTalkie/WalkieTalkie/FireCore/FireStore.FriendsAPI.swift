@@ -41,6 +41,12 @@ extension FireStore {
                     
                     let uidList = query.documents.map { $0.documentID }
                     
+                    guard uidList.count > 0 else {
+                        observer.onNext([])
+                        observer.onCompleted()
+                        return
+                    }
+                    
                     self?.db.collection(Root.users)
                         .whereField(FieldPath.documentID(), in: uidList)
                         .getDocuments(completion: { (query, error) in
@@ -83,9 +89,16 @@ extension FireStore {
                     
                     guard let query = query else {
                         observer.onNext([])
+                        observer.onCompleted()
                         return
                     }
                     let uidList = query.documents.map { $0.documentID }
+                    
+                    guard uidList.count > 0 else {
+                        observer.onNext([])
+                        observer.onCompleted()
+                        return
+                    }
                     
                     self?.db.collection(Root.users)
                         .whereField(FieldPath.documentID(), in: uidList)

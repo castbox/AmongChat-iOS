@@ -248,10 +248,13 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func reportButtonAction(_ sender: UIButton) {
-        guard !channel.showName.isEmpty else {
-            return
-        }
-        let vc = ChannelUserListController(channel: channel)
+//        guard !channel.showName.isEmpty else {
+//            return
+//        }
+//        let vc = ChannelUserListController(channel: channel)
+//        navigationController?.pushViewController(vc)
+        
+        let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
     }
     

@@ -100,3 +100,11 @@
 "profile.initial.user.name.title" = "USERNAME";
 "profile.initial.tip" = "Can this be your image and name in walkie talkie?";
 "profile.initial.confirm.btn" = "Yes, is me!";
+
+//Profile
+"profile.edit" = "Edit Profile";
+"profile.following" = "Following";
+"profile.follower" = "Follower";
+"profile.invite.friends" = "invite friends";
+"profile.block.user" = "Block user";
+"profile.settings" = "settings";
