@@ -48,10 +48,11 @@ extension Social {
         }()
         
         private lazy var nameInputLabel: UILabel = {
-            let label = UILabel()
+            let label = WalkieLabel()
             label.text = R.string.localizable.profileInitialUserNameTitle()
             label.font = R.font.nunitoRegular(size: 12)
             label.textColor = UIColor(hex6: 0x000000, alpha: 0.5)
+            label.appendKern()
             return label
         }()
         
