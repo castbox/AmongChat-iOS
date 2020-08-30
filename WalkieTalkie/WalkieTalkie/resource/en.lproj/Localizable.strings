@@ -97,3 +97,6 @@
 "user.list.title" = "Users Talked in the Channel";
 "report.user.id" = "User ID";
 
+"profile.initial.user.name.title" = "USERNAME";
+"profile.initial.tip" = "Can this be your image and name in walkie talkie?";
+"profile.initial.confirm.btn" = "Yes, is me!";

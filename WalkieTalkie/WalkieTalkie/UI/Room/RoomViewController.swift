@@ -727,8 +727,10 @@ private extension RoomViewController {
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
                 guard let `self` = self else { return }
-                let result = self._joinChannel(name)
-                self.isSegmentControlEnable = !result
+                self.prompProfileInitialIfNeeded {
+                    let result = self._joinChannel(name)
+                    self.isSegmentControlEnable = !result                    
+                }
             })
             .disposed(by: bag)
        
@@ -948,4 +950,28 @@ extension UIColor {
     var image: UIImage {
         return UIImage(color: self, size: CGSize(width: 10, height: 10))
     }
+}
+
+extension RoomViewController {
+    
+    func prompProfileInitialIfNeeded(completion: @escaping (() -> Void)) {
+        
+        #if DEBUG
+        let shouldShow = true
+        #else
+        let shouldShow = Defaults[\.profileInitialShownTsKey] == nil
+        #endif
+        
+        if shouldShow {
+            let vc = Social.InitialProfileViewController()
+            vc.onDismissHandler = {
+                completion()
+            }
+            vc.showModal(in: self)
+        } else {
+            completion()
+        }
+        
+    }
+    
 }

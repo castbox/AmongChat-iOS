@@ -71,7 +71,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 4 fonts.
+  /// This `R.font` struct is generated, and contains static references to 5 fonts.
   struct font: Rswift.Validatable {
     /// Font `BlackOpsOne-Regular`.
     static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
@@ -79,6 +79,8 @@ struct R: Rswift.Validatable {
     static let nunitoBlack = Rswift.FontResource(fontName: "Nunito-Black")
     /// Font `Nunito-Bold`.
     static let nunitoBold = Rswift.FontResource(fontName: "Nunito-Bold")
+    /// Font `Nunito-Regular`.
+    static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
     static let nunitoSemiBold = Rswift.FontResource(fontName: "Nunito-SemiBold")
     
@@ -97,6 +99,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIFont(resource: nunitoBold, size: size)
     }
     
+    /// `UIFont(name: "Nunito-Regular", size: ...)`
+    static func nunitoRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: nunitoRegular, size: size)
+    }
+    
     /// `UIFont(name: "Nunito-SemiBold", size: ...)`
     static func nunitoSemiBold(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: nunitoSemiBold, size: size)
@@ -106,6 +113,7 @@ struct R: Rswift.Validatable {
       if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.nunitoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Regular' could not be loaded, is 'Nunito-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-SemiBold' could not be loaded, is 'Nunito-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
     
@@ -829,7 +837,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 62 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 65 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -855,6 +863,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let inputPasscodeGlobalPlaceholder = Rswift.StringResource(key: "input.passcode.global.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Can this be your image and name in walkie talkie?
+      /// 
+      /// Locales: en
+      static let profileInitialTip = Rswift.StringResource(key: "profile.initial.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Cancel
       /// 
       /// Locales: en
@@ -1023,6 +1035,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: USERNAME
+      /// 
+      /// Locales: en
+      static let profileInitialUserNameTitle = Rswift.StringResource(key: "profile.initial.user.name.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unblock
       /// 
       /// Locales: en
@@ -1051,6 +1067,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let userListTitle = Rswift.StringResource(key: "user.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Yes, is me!
+      /// 
+      /// Locales: en
+      static let profileInitialConfirmBtn = Rswift.StringResource(key: "profile.initial.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You can block or report the abusive users here.
       /// 
       /// Locales: en
@@ -1120,6 +1140,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func inputPasscodeGlobalPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("input.passcode.global.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Can this be your image and name in walkie talkie?
+      /// 
+      /// Locales: en
+      static func profileInitialTip(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Cancel
@@ -1416,6 +1443,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.try.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: USERNAME
+      /// 
+      /// Locales: en
+      static func profileInitialUserNameTitle(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.user.name.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Unblock
       /// 
       /// Locales: en
@@ -1463,6 +1497,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func userListTitle(_: Void = ()) -> String {
         return NSLocalizedString("user.list.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Yes, is me!
+      /// 
+      /// Locales: en
+      static func profileInitialConfirmBtn(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.confirm.btn", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You can block or report the abusive users here.

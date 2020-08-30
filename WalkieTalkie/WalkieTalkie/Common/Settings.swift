@@ -339,6 +339,10 @@ extension DefaultsKeys {
     var blockedUsersKey: DefaultsKey<[ChannelUser]> {
         .init("blocked.users", defaultValue: [])
     }
+    
+    var profileInitialShownTsKey: DefaultsKey<Double?> {
+        .init("profile.initial.shown.timestamp", defaultValue: nil)
+    }
 }
 
 extension DefaultsAdapter {
