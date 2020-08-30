@@ -82,4 +82,7 @@ struct Constants {
         ]
     }
 
+    static var defaultUsername: String {
+        return "User \(sUserId)"
+    }
 }

@@ -92,11 +92,10 @@ extension Automator {
                 } else {
                     let profile = FireStore.Entity.User.Profile(avatar: "",
                                                                 birthday: "",
-                                                                name: "User \(Constants.sUserId)",
+                                                                name: Constants.defaultUsername,
                         premium: Settings.shared.isProValue.value,
                         uidInt: Constants.sUserId)
-                    
-                    FireStore.shared.updateProfile(profile, of: uid)
+                    Settings.shared.firestoreUserProfile.value = profile
                 }
                 
             })
@@ -104,6 +103,7 @@ extension Automator {
     }
     
     private func bindProToFirestore() {
+        // 更新firestore profile都通过Settings.shared.firestoreUserProfile流
         Observable.combineLatest(Settings.shared.isProValue.replay(), Settings.shared.firestoreUserProfile.replay())
             .filter { $0.1 != nil }
             .subscribe(onNext: { (isPro, profile) in
