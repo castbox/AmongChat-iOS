@@ -108,3 +108,7 @@
 "profile.invite.friends" = "invite friends";
 "profile.block.user" = "Block user";
 "profile.settings" = "settings";
+
+// Edit Profile
+"profile.edit.username" = "Username";
+"profile.edit.birthday" = "Birthday";

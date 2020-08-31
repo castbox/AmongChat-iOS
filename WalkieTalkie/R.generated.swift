@@ -858,7 +858,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 71 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 73 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -876,6 +876,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Birthday
+      /// 
+      /// Locales: en
+      static let profileEditBirthday = Rswift.StringResource(key: "profile.edit.birthday", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Block
       /// 
       /// Locales: en
@@ -1100,6 +1104,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportUserId = Rswift.StringResource(key: "report.user.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Username
+      /// 
+      /// Locales: en
+      static let profileEditUsername = Rswift.StringResource(key: "profile.edit.username", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
@@ -1171,6 +1179,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailFree(_ value1: String, _ value2: String) -> String {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: Birthday
+      /// 
+      /// Locales: en
+      static func profileEditBirthday(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit.birthday", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Block
@@ -1563,6 +1578,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportUserId(_: Void = ()) -> String {
         return NSLocalizedString("report.user.id", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Username
+      /// 
+      /// Locales: en
+      static func profileEditUsername(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit.username", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Users Talked in the Channel
