@@ -204,7 +204,7 @@ extension Social {
                 return
             }
             
-            profile.name = nameInputField.text ?? Constants.defaultUsername
+            profile.name = nameInputField.text?.trim() ?? Constants.defaultUsername
             Settings.shared.firestoreUserProfile.value = profile
         }
         
