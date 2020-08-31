@@ -15,6 +15,7 @@
 		BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */; };
 		BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
+		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
 		CB42766D63F52145FFD8A7EA /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
@@ -230,6 +231,7 @@
 		BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsAPI.swift; sourceTree = "<group>"; };
 		BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.EditProfileViewController.swift; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
+		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				BDB8F58624F7D925000027F8 /* Social.swift */,
+				BDD1F9F324FD1A3800B8563C /* Social.Module.swift */,
 				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
 				BDB8F58A24F7DE75000027F8 /* Social.InitialProfileViewController.swift */,
@@ -1231,6 +1234,7 @@
 				FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */,
 				BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */,
 				FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */,
+				BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */,
 				FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */,
 				FE860D5C2446D2A800087B73 /* PublishProperty.swift in Sources */,
 				FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */,
