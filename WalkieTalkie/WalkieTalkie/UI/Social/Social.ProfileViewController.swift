@@ -76,10 +76,7 @@ extension Social {
         }
         
         private func setupLayout() {
-            navigationController?.navigationBar.barTintColor = UIColor.green
-            
-            self.isNavigationBarHiddenWhenAppear = true
-            
+            isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
 
             view.addSubview(table)
