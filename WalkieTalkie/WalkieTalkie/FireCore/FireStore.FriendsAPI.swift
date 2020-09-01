@@ -61,7 +61,7 @@ extension FireStore {
                                 return
                             }
                             
-                            let followingUsers = query.documents.compactMap { User(with: $0.data()) }
+                            let followingUsers = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
                             
                             observer.onNext(followingUsers)
                             observer.onCompleted()
@@ -71,6 +71,43 @@ extension FireStore {
             return Disposables.create { }
         })
         .asSingle()
+    }
+    
+    func fetchUsers(_ uids: [String]) -> Single<[Entity.User]> {
+        
+        typealias User = Entity.User
+        
+        return Observable<[User]>.create({ [weak self] (subscriber) -> Disposable in
+            
+            guard uids.count > 0 else {
+                subscriber.onNext([])
+                subscriber.onCompleted()
+                return Disposables.create { }
+            }
+            
+            self?.db.collection(Root.users)
+                .whereField(FieldPath.documentID(), in: uids)
+                .getDocuments(completion: { (query, error) in
+                    guard error == nil else {
+                        subscriber.onError(error!)
+                        return
+                    }
+                    
+                    guard let query = query else {
+                        subscriber.onNext([])
+                        subscriber.onCompleted()
+                        return
+                    }
+                    
+                    let users = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
+                    
+                    subscriber.onNext(users)
+                    subscriber.onCompleted()
+                })
+            
+            return Disposables.create { }
+        })
+            .asSingle()
     }
     
     func fetchFollowerList(of user: String) -> Single<[Entity.User]> {
@@ -115,7 +152,7 @@ extension FireStore {
                                 return
                             }
                             
-                            let followerUsers = query.documents.compactMap { User(with: $0.data()) }
+                            let followerUsers = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
                             
                             observer.onNext(followerUsers)
                             observer.onCompleted()
@@ -429,7 +466,7 @@ extension FireStore {
                         return
                     }
                     
-                    guard let user = Entity.User(with: dict) else {
+                    guard let user = Entity.User(with: dict, uid: doc.documentID) else {
                         // document field字段不匹配
                         subscriber.onError(NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey : ""]))
                         return

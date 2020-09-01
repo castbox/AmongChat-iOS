@@ -16,9 +16,10 @@ extension FireStore {
 extension FireStore.Entity {
     struct User {
         var blockList: [String]
-        var muteList: [String]
+        var muteList: [UInt]
         var profile: Profile
         var status: Status
+        let uid: String
         
         struct Keys {
             static let blockList = "blockList"
@@ -39,7 +40,7 @@ extension FireStore.Entity {
 
 extension FireStore.Entity.User {
     
-    init?(with dict: [String : Any]) {
+    init?(with dict: [String : Any], uid: String) {
         
         guard let profileDict = dict[Keys.profile] as? [String : Any],
             let statusDict = dict[Keys.status] as? [String : Any] else { return nil }
@@ -50,7 +51,8 @@ extension FireStore.Entity.User {
         status = Status(with: statusDict)
         
         blockList = dict[Keys.blockList] as? [String] ?? []
-        muteList = dict[Keys.muteList] as? [String] ?? []
+        muteList = dict[Keys.muteList] as? [UInt] ?? []
+        self.uid = uid
     }
     
 }
