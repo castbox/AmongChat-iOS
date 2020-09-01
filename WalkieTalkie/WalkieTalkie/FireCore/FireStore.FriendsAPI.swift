@@ -482,7 +482,8 @@ extension FireStore {
         db.collection(Root.users)
         .document(user)
         .setData([
-            Entity.User.Keys.status: [Entity.User.Status.Keys.heartbeatAt : FieldValue.serverTimestamp()]
+            Entity.User.Keys.status: [Entity.User.Status.Keys.heartbeatAt : FieldValue.serverTimestamp(),
+                                      Entity.User.Status.Keys.online: true]
         ], merge: true)
     }
     
