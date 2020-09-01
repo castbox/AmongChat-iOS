@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 extension Social {
     
@@ -17,6 +18,10 @@ extension Social {
         
         private let bag = DisposeBag()
         
+        private let followingListRelay = BehaviorRelay<[FireStore.Entity.User.FriendMeta]>(value: [])
+        
+        private let followerListRelay = BehaviorRelay<[FireStore.Entity.User.FriendMeta]>(value: [])
+        
         private init() {
             
             Settings.shared.loginResult.replay()
@@ -25,6 +30,7 @@ extension Social {
                 .subscribe(onNext: { [weak self] (result) in
                     self?.startHeartbeat()
                     self?.initializeProfileIfNeeded(result.uid)
+                    self?.observeRelations(result.uid)
                 })
                 .disposed(by: bag)
             
@@ -80,5 +86,28 @@ extension Social {
                 .disposed(by: bag)
         }
         
+        private func observeRelations(_ uid: String) {
+            
+            FireStore.shared.followingObservable(of: uid)
+                .bind(to: followingListRelay)
+                .disposed(by: bag)
+            
+            FireStore.shared.followersObservable(of: uid)
+                .bind(to: followerListRelay)
+                .disposed(by: bag)
+        }
+        
     }
+}
+
+extension Social.Module {
+    
+    func followingObservable() -> Observable<[FireStore.Entity.User.FriendMeta]> {
+        return followingListRelay.asObservable()
+    }
+    
+    func followerObservable() -> Observable<[FireStore.Entity.User.FriendMeta]> {
+        return followerListRelay.asObservable()
+    }
+    
 }

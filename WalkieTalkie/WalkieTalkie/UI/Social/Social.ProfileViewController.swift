@@ -92,22 +92,20 @@ extension Social {
         
         private func setupData() {
             
-            guard let uid = Settings.shared.loginResult.value?.uid else { return }
-            
             if let profile = Settings.shared.firestoreUserProfile.value {
                 headerView.configProfile(profile)
             }
             
-            FireStore.shared.fetchFollowingList(of: uid)
+            Social.Module.shared.followingObservable()
                 .map { $0.count }
-                .subscribe(onSuccess: { [weak self] (count) in
+                .subscribe(onNext: { [weak self] (count) in
                     self?.headerView.configFollowingCount(count)
                 })
                 .disposed(by: bag)
             
-            FireStore.shared.fetchFollowerList(of: uid)
+            Social.Module.shared.followerObservable()
                 .map { $0.count }
-                .subscribe(onSuccess: { [weak self] (count) in
+                .subscribe(onNext: {  [weak self] (count) in
                     self?.headerView.configFollowerCount(count)
                 })
                 .disposed(by: bag)
