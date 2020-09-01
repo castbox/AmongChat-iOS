@@ -112,3 +112,5 @@
 // Edit Profile
 "profile.edit.username" = "Username";
 "profile.edit.birthday" = "Birthday";
+"social.follower.follow.action" = "Follow Back";
+"social.blocked.user.title" = "block user";

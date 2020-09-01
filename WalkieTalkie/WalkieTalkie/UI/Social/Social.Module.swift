@@ -22,6 +22,10 @@ extension Social {
         
         private let followerListRelay = BehaviorRelay<[FireStore.Entity.User.FriendMeta]>(value: [])
         
+        private let blockedListRelay = BehaviorRelay<[String]>(value: [])
+        
+        private let muteListRelay = BehaviorRelay<[UInt]>(value: [])
+        
         private init() {
             
             Settings.shared.loginResult.replay()
@@ -95,6 +99,17 @@ extension Social {
             FireStore.shared.followersObservable(of: uid)
                 .bind(to: followerListRelay)
                 .disposed(by: bag)
+            
+            FireStore.shared.userObservable(uid)
+                .subscribe(onNext: { [weak self] (user) in
+                    
+                    guard let `self` = self else { return }
+                    
+                    self.blockedListRelay.accept(user.blockList)
+                    self.muteListRelay.accept(user.muteList)
+                })
+                .disposed(by: bag)
+            
         }
         
     }
@@ -106,8 +121,20 @@ extension Social.Module {
         return followingListRelay.asObservable()
     }
     
+    func followingValue() -> [FireStore.Entity.User.FriendMeta] {
+        return followingListRelay.value
+    }
+    
     func followerObservable() -> Observable<[FireStore.Entity.User.FriendMeta]> {
         return followerListRelay.asObservable()
+    }
+    
+    func followerValue() -> [FireStore.Entity.User.FriendMeta] {
+        return followerListRelay.value
+    }
+    
+    func blockedValue() -> [String] {
+        return blockedListRelay.value
     }
     
 }

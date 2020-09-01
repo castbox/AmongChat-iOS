@@ -47,6 +47,14 @@ extension Social {
                 let vc = Social.EditProfileViewController()
                 self?.navigationController?.pushViewController(vc)
             }
+            v.followingBtnHandler = { [weak self] in
+                let vc = Social.RelationsViewController(.followingTab)
+                self?.navigationController?.pushViewController(vc)
+            }
+            v.followerBtnHandler = { [weak self] in
+                let vc = Social.RelationsViewController(.followerTab)
+                self?.navigationController?.pushViewController(vc)
+            }
             return v
         }()
         
@@ -139,7 +147,8 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             case .inviteFriends:
                 ()
             case .blockUser:
-                ()
+                let vc = Social.BlockedUserViewController()
+                navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")

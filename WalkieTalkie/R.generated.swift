@@ -858,7 +858,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 73 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 75 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -952,6 +952,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow Back
+      /// 
+      /// Locales: en
+      static let socialFollowerFollowAction = Rswift.StringResource(key: "social.follower.follow.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Follower
       /// 
       /// Locales: en
@@ -1140,6 +1144,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: block user
+      /// 
+      /// Locales: en
+      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: invite friends
       /// 
       /// Locales: en
@@ -1312,6 +1320,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func enterSecretChannelAlertTitle(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Follow Back
+      /// 
+      /// Locales: en
+      static func socialFollowerFollowAction(_: Void = ()) -> String {
+        return NSLocalizedString("social.follower.follow.action", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Follower
@@ -1641,6 +1656,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: block user
+      /// 
+      /// Locales: en
+      static func socialBlockedUserTitle(_: Void = ()) -> String {
+        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: invite friends
