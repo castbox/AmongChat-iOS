@@ -225,7 +225,7 @@ extension Social.InitialProfileViewController: UITextFieldDelegate {
             return false
         }
         let newLength = currentCharacterCount + string.count - range.length
-        return newLength <= 25
+        return newLength <= 20
     }
     
 }
