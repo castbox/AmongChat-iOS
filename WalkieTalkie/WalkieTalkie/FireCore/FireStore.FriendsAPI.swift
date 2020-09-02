@@ -407,22 +407,22 @@ extension FireStore {
     }
     
     func acceptChannelInvitation(_ invitationMsg: Entity.User.ChannelInvitationMessage, to invitee: String) {
-        let acceptMsg = Entity.User.CommonMessage(msgType: .enterRoom, uid: invitee, channel: nil, docId: "")
+        let acceptMsg = Entity.User.CommonMessage(msgType: .enterRoom, uid: invitee, channel: nil, username: nil, avatar: nil, docId: "")
         addCommonMsg(acceptMsg, to: invitationMsg.uid)
     }
     
     func sendJoinChannelRequest(from requester: String, to user: String, toJoin channel: String) {
-        let requestJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRequest, uid: requester, channel: nil, docId: "")
+        let requestJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRequest, uid: requester, channel: nil, username: nil, avatar: nil, docId: "")
         addCommonMsg(requestJoinMsg, to: user)
     }
     
     func refuseJoinChannelRequest(_ msg: Entity.User.CommonMessage, by user: String) {
-        let refuseJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRefuse, uid: user, channel: nil, docId: "")
+        let refuseJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRefuse, uid: user, channel: nil, username: nil, avatar: nil, docId: "")
         addCommonMsg(refuseJoinMsg, to: msg.uid)
     }
     
     func acceptJoinChannelRequest(_ msg: Entity.User.CommonMessage, toJoinChannel: String, by user: String) {
-        let acceptJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryAccept, uid: user, channel: toJoinChannel, docId: "")
+        let acceptJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryAccept, uid: user, channel: toJoinChannel, username: nil, avatar: nil, docId: "")
         addCommonMsg(acceptJoinMsg, to: msg.uid)
     }
     

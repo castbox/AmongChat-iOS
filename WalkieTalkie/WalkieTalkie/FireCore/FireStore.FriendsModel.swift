@@ -152,12 +152,16 @@ extension FireStore.Entity.User {
         let msgType: MessageType
         let uid: String
         let channel: String?
+        let username: String?
+        let avatar: String?
         let docId: String
         
         struct Keys {
             static let msgType = "msgType"
             static let uid = "uid"
             static let channel = "channel"
+            static let username = "username"
+            static let avatar = "avatar"
         }
         
         enum MessageType: String {
@@ -241,6 +245,8 @@ extension FireStore.Entity.User.CommonMessage {
         uid = from
         channel = dict[Keys.channel] as? String
         docId = doc.documentID
+        username = dict[Keys.username] as? String
+        avatar = dict[Keys.avatar] as? String
 
     }
     
@@ -253,6 +259,14 @@ extension FireStore.Entity.User.CommonMessage {
         
         if let channel = channel {
             dict[Keys.channel] = channel
+        }
+        
+        if let username = username {
+            dict[Keys.username] = username
+        }
+        
+        if let avatar = avatar {
+            dict[Keys.avatar] = avatar
         }
         
         return dict
