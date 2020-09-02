@@ -91,7 +91,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             
-            Observable.combineLatest(Social.Module.shared.followingObservable(), Social.Module.shared.followerObservable())
+            Observable.combineLatest(Social.Module.shared.followingObservable, Social.Module.shared.followerObservable)
                 .subscribe(onNext: { [weak self] (followingList, followerList) in
                     
                     self?.followingBtn.setTitle("\(followingList.count) \(R.string.localizable.profileFollowing())", for: .normal)

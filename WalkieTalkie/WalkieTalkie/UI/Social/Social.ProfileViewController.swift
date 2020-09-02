@@ -104,14 +104,14 @@ extension Social {
                 headerView.configProfile(profile)
             }
             
-            Social.Module.shared.followingObservable()
+            Social.Module.shared.followingObservable
                 .map { $0.count }
                 .subscribe(onNext: { [weak self] (count) in
                     self?.headerView.configFollowingCount(count)
                 })
                 .disposed(by: bag)
             
-            Social.Module.shared.followerObservable()
+            Social.Module.shared.followerObservable
                 .map { $0.count }
                 .subscribe(onNext: {  [weak self] (count) in
                     self?.headerView.configFollowerCount(count)

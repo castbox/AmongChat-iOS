@@ -86,11 +86,11 @@ extension Social.UserList {
             
             switch userType {
             case .following:
-                uids = Social.Module.shared.followingValue().map { $0.uid }
+                uids = Social.Module.shared.followingValue.map { $0.uid }
             case .follower:
-                uids = Social.Module.shared.followerValue().map{ $0.uid }
+                uids = Social.Module.shared.followerValue.map{ $0.uid }
             case .blocked:
-                uids = Social.Module.shared.blockedValue()
+                uids = Social.Module.shared.blockedValue
             }
             
             let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)

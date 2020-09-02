@@ -53,10 +53,10 @@ extension Social.UserList {
         
         var isFriend: Bool {
             let inFollowing = { (userId: String) in
-                return Social.Module.shared.followingValue().map{ $0.uid }.contains(userId)
+                return Social.Module.shared.followingValue.map{ $0.uid }.contains(userId)
             }
             let inFollower = { (userId: String) in
-                return Social.Module.shared.followerValue().map { $0.uid }.contains(userId)
+                return Social.Module.shared.followerValue.map { $0.uid }.contains(userId)
             }
             return inFollowing(user.uid) && inFollower(user.uid)
         }

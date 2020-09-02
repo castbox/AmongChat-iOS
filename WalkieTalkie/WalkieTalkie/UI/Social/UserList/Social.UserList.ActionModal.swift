@@ -121,7 +121,7 @@ extension Social.UserList {
                     btns.append(joinBtn)
                 }
                 
-                let selfChannel = Social.Module.shared.currentChannelValue()
+                let selfChannel = Social.Module.shared.currentChannelValue
                 
                 if selfChannel.isEmpty,
                     userChannel.isEmpty,
@@ -260,7 +260,7 @@ extension Social.UserList {
                 dismissModal(animated: true)
             }
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.sendChannelInvitation(to: viewModel.userId, toJoin: Social.Module.shared.currentChannelValue(), from: selfUid)
+            FireStore.shared.sendChannelInvitation(to: viewModel.userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
         }
         
         

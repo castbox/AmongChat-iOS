@@ -120,27 +120,27 @@ extension Social {
 
 extension Social.Module {
     
-    func followingObservable() -> Observable<[FireStore.Entity.User.FriendMeta]> {
+    var followingObservable: Observable<[FireStore.Entity.User.FriendMeta]> {
         return followingListRelay.asObservable()
     }
     
-    func followingValue() -> [FireStore.Entity.User.FriendMeta] {
+    var followingValue: [FireStore.Entity.User.FriendMeta] {
         return followingListRelay.value
     }
     
-    func followerObservable() -> Observable<[FireStore.Entity.User.FriendMeta]> {
+    var followerObservable: Observable<[FireStore.Entity.User.FriendMeta]> {
         return followerListRelay.asObservable()
     }
     
-    func followerValue() -> [FireStore.Entity.User.FriendMeta] {
+    var followerValue: [FireStore.Entity.User.FriendMeta] {
         return followerListRelay.value
     }
     
-    func blockedValue() -> [String] {
+    var blockedValue: [String] {
         return blockedListRelay.value
     }
     
-    func currentChannelValue() -> String {
+    var currentChannelValue: String {
         return currentChannel
     }
 }
