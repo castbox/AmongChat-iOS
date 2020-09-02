@@ -565,10 +565,12 @@ extension FireStore {
     }
     
     func updateProfile(_ profile: Entity.User.Profile, of user: String) {
+        var data = profile.toDictionary()
+        data[Entity.User.Profile.Keys.uid] = user
         db.collection(Root.users)
             .document(user)
             .updateData([
-                Entity.User.Keys.profile : profile.toDictionary()
+                Entity.User.Keys.profile : data
             ])
     }
     

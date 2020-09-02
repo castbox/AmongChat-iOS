@@ -73,6 +73,7 @@ extension FireStore.Entity.User {
             static let premium = "premium"
             static let uidInt = "uidInt"
             static let updatedAt = "updatedAt"
+            static let uid = "uid"
         }
     }
 }
