@@ -858,7 +858,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 75 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 76 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -1088,6 +1088,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let alertUnblock = Rswift.StringResource(key: "alert.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static let socialUnblock = Rswift.StringResource(key: "social.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -1558,6 +1562,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func alertUnblock(_: Void = ()) -> String {
         return NSLocalizedString("alert.unblock", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static func socialUnblock(_: Void = ()) -> String {
+        return NSLocalizedString("social.unblock", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock all categories

@@ -11,6 +11,7 @@
 		BD73B0FA24FDF08E009D0AC7 /* Social.UserList.Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */; };
 		BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */; };
 		BD73B10124FE363D009D0AC7 /* Social.BlockedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B10024FE363D009D0AC7 /* Social.BlockedUserViewController.swift */; };
+		BD73B10324FE89CA009D0AC7 /* Social.UserList.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B10224FE89C9009D0AC7 /* Social.UserList.ActionModal.swift */; };
 		BD7B126324F6623900C94836 /* FireStore.FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */; };
 		BDB8F58724F7D925000027F8 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58624F7D925000027F8 /* Social.swift */; };
 		BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */; };
@@ -232,6 +233,7 @@
 		BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.Widgets.swift; sourceTree = "<group>"; };
 		BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewModel.swift; sourceTree = "<group>"; };
 		BD73B10024FE363D009D0AC7 /* Social.BlockedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserViewController.swift; sourceTree = "<group>"; };
+		BD73B10224FE89C9009D0AC7 /* Social.UserList.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ActionModal.swift; sourceTree = "<group>"; };
 		BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsModel.swift; sourceTree = "<group>"; };
 		BDB8F58624F7D925000027F8 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
 		BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewController.swift; sourceTree = "<group>"; };
@@ -473,6 +475,7 @@
 				BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */,
 				BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */,
 				BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */,
+				BD73B10224FE89C9009D0AC7 /* Social.UserList.ActionModal.swift */,
 			);
 			path = UserList;
 			sourceTree = "<group>";
@@ -1334,6 +1337,7 @@
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
+				BD73B10324FE89CA009D0AC7 /* Social.UserList.ActionModal.swift in Sources */,
 				FE72187D2456DC19005274CA /* SecretChannelContainer.swift in Sources */,
 				FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */,
 				FE746BE124629B0500CAC554 /* GuideSecondView.swift in Sources */,

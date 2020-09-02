@@ -93,11 +93,20 @@ extension Social.UserList {
                 uids = Social.Module.shared.blockedValue()
             }
             
+            let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+            let removeBlock = { [weak self] in
+                self?.view.isUserInteractionEnabled = true
+                removeHUDBlock()
+            }
+            
             FireStore.shared.fetchUsers(uids)
                 .subscribe(onSuccess: { [weak self] (users) in
+                    removeBlock()
                     guard let `self` = self else { return }
                     self.userList = users.map { UserViewModel(with: $0) }
                     self.tableView.reloadData()
+                    }, onError: { (_) in
+                        removeBlock()
                 })
                 .disposed(by: bag)
         }
@@ -126,7 +135,12 @@ extension Social.UserList {
         }
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            tableView.deselectRow(at: indexPath, animated: true)
             
+            guard let user = userList.safe(indexPath.row) else { return }
+            
+            let modal = ActionModal(with: user, userType: userType)
+            modal.showModal(in: parent ?? self)
         }
         
     }

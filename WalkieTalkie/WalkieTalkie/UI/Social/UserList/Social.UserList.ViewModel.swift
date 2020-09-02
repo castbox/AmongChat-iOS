@@ -19,12 +19,32 @@ extension Social.UserList {
             user = data
         }
         
+        var userId: String {
+            return user.uid
+        }
+        
         var username: String {
             return user.profile.name
         }
         
-        var channel: String {
+        var channelId: String {
             return user.status.currentChannel
+        }
+        
+        var channelName: String {
+            if user.status.currentChannel.starts(with: "_"){
+                return "Secret Room"
+            } else {
+                return user.status.currentChannel
+            }
+        }
+        
+        var channelIsSecrete: Bool {
+            if user.status.currentChannel.starts(with: "_"){
+                return true
+            } else {
+                return false
+            }
         }
         
         var online: Bool {
@@ -60,12 +80,10 @@ extension Social.UserList {
             
             if user.status.online {
                 
-                if user.status.currentChannel.isEmpty {
+                if channelName.isEmpty {
                     statusString = "Online"
-                } else if user.status.currentChannel.starts(with: "_"){
-                    statusString = "In Secret Room"
                 } else {
-                    statusString = "In \(user.status.currentChannel)"
+                    statusString = "In \(channelName)"
                 }
                 
             } else {

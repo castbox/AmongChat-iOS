@@ -310,3 +310,21 @@ extension Social.UserList {
     }
     
 }
+
+extension Social.UserList {
+    
+    class FriendView: UIView {
+        
+        enum Style {
+            case light
+            case dark
+        }
+        
+        private lazy var friendIcon: UIImageView = {
+            let iv = UIImageView()
+            return iv
+        }()
+        
+    }
+    
+}

@@ -26,6 +26,8 @@ extension Social {
         
         private let muteListRelay = BehaviorRelay<[UInt]>(value: [])
         
+        private var currentChannel: String = ""
+        
         private init() {
             
             Settings.shared.loginResult.replay()
@@ -107,6 +109,7 @@ extension Social {
                     
                     self.blockedListRelay.accept(user.blockList)
                     self.muteListRelay.accept(user.muteList)
+                    self.currentChannel = user.status.currentChannel
                 })
                 .disposed(by: bag)
             
@@ -137,4 +140,7 @@ extension Social.Module {
         return blockedListRelay.value
     }
     
+    func currentChannelValue() -> String {
+        return currentChannel
+    }
 }
