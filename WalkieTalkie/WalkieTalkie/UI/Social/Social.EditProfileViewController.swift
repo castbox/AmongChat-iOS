@@ -24,6 +24,10 @@ extension Social {
             let iv = UIImageView()
             iv.layer.cornerRadius = 40
             iv.layer.masksToBounds = true
+            let tapGR = UITapGestureRecognizer()
+            tapGR.addTarget(self, action: #selector(onAvatarTapped))
+            iv.isUserInteractionEnabled = true
+            iv.addGestureRecognizer(tapGR)
             #if DEBUG
             iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
             #endif
@@ -195,11 +199,22 @@ extension Social {
         private func updateFields() {
             userNameInputField.text = profile.name
             birthdayInputField.text = profile.birthday
+            let _ = profile.avatarObservable
+                .subscribe(onSuccess: { [weak self] (image) in
+                    self?.avatarIV.image = image
+            })
         }
         
         @objc
         private func onBackBtn() {
             navigationController?.popViewController()
+        }
+        
+        @objc
+        private func onAvatarTapped() {
+            let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
+            avatarIV.image = avatar.0
+            profile.avatar = "\(avatar.1)"
         }
         
         private func updateProfileIfNeeded() {

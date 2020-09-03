@@ -33,8 +33,10 @@ class ChannelUserViewModel {
             // TODO: avatar fetching
             
             if let profile = self?.firestoreUser?.profile {
-                
-                
+                let _ = profile.avatarObservable.subscribe(onSuccess: { (image) in
+                    subscriber.onNext(image)
+                    subscriber.onCompleted()
+                })
                 
             } else {
                 subscriber.onNext(nil)

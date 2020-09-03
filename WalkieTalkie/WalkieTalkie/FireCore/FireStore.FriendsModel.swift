@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import RxSwift
 
 extension FireStore {
     struct Entity { }
@@ -100,7 +101,31 @@ extension FireStore.Entity.User.Profile {
             Keys.updatedAt : FieldValue.serverTimestamp()
         ]
     }
-
+    
+    static func randomDefaultAvatar() -> (UIImage?, Int) {
+        let idx = Int.random(in: 0...4)
+        let image = UIImage(named: "default_avatar_\(idx)")
+        return (image, idx)
+    }
+    
+    var avatarObservable: Single<UIImage?> {
+        return Observable<UIImage?>.create { (subscriber) -> Disposable in
+            
+            if self.avatar.starts(with: "http") {
+                // TODO: avatar fetching
+            } else if let idx = Int(self.avatar){
+                let image = UIImage(named: "default_avatar_\(idx)")
+                subscriber.onNext(image)
+                subscriber.onCompleted()
+            } else {
+                subscriber.onNext(nil)
+                subscriber.onCompleted()
+            }
+            
+            return Disposables.create { }
+        }
+        .asSingle()
+    }
 }
 
 extension FireStore.Entity.User {

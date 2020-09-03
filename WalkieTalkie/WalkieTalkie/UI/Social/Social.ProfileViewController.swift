@@ -99,10 +99,13 @@ extension Social {
         }
         
         private func setupData() {
-            
-            if let profile = Settings.shared.firestoreUserProfile.value {
-                headerView.configProfile(profile)
-            }
+                        
+            Settings.shared.firestoreUserProfile.replay()
+                .subscribe(onNext: { [weak self] (profile) in
+                    guard let profile = profile else { return }
+                    self?.headerView.configProfile(profile)
+                })
+                .disposed(by: bag)
             
             Social.Module.shared.followingObservable
                 .map { $0.count }
@@ -291,6 +294,11 @@ extension Social.ProfileViewController {
         func configProfile(_ profile: FireStore.Entity.User.Profile) {
             nameLabel.text = profile.name
             nameLabel.appendKern()
+            
+            let _ = profile.avatarObservable
+                .subscribe(onSuccess: { [weak self] (image) in
+                    self?.avatarIV.image = image
+                })
         }
         
         func configFollowerCount(_ followerCount: Int) {

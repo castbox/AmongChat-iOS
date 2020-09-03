@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 69 images.
+  /// This `R.image` struct is generated, and contains static references to 74 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -144,6 +144,16 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
+    /// Image `default_avatar_0`.
+    static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
+    /// Image `default_avatar_1`.
+    static let default_avatar_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_1")
+    /// Image `default_avatar_2`.
+    static let default_avatar_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_2")
+    /// Image `default_avatar_3`.
+    static let default_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_3")
+    /// Image `default_avatar_4`.
+    static let default_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_4")
     /// Image `home_btn_bg_b`.
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
@@ -314,6 +324,31 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_up", bundle: ..., traitCollection: ...)`
     static func btn_up(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
+    static func default_avatar_0(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_0, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_1", bundle: ..., traitCollection: ...)`
+    static func default_avatar_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_1, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_2", bundle: ..., traitCollection: ...)`
+    static func default_avatar_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_3", bundle: ..., traitCollection: ...)`
+    static func default_avatar_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_3, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_4", bundle: ..., traitCollection: ...)`
+    static func default_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_4, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "home_btn_bg", bundle: ..., traitCollection: ...)`

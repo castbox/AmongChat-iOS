@@ -62,16 +62,7 @@ extension Social.UserList {
         }
         
         var avatar: Single<UIImage?> {
-            return Observable<UIImage?>.create { (subscriber) -> Disposable in
-                
-                // TODO: avatar fetching
-                
-                
-                return Disposables.create {
-                    
-                }
-            }
-            .asSingle()
+            return user.profile.avatarObservable
         }
         
         var status: String {

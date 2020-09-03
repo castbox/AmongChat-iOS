@@ -94,6 +94,8 @@ extension Social {
             return v
         }()
         
+        private lazy var avatar: (UIImage?, Int) = FireStore.Entity.User.Profile.randomDefaultAvatar()
+        
         var onDismissHandler: (() -> Void)? = nil
         
         override func viewDidLoad() {
@@ -164,7 +166,7 @@ extension Social {
         }
         
         private func setupData() {
-            
+            avatarIV.image = avatar.0
             guard let profile = Settings.shared.firestoreUserProfile.value else {
                 nameInputField.text = Constants.defaultUsername
                 return
@@ -205,12 +207,14 @@ extension Social {
             }
             
             profile.name = nameInputField.text?.trim() ?? Constants.defaultUsername
+            profile.avatar = "\(avatar.1)"
             Settings.shared.firestoreUserProfile.value = profile
         }
         
         @objc
         private func onAvatarTapped() {
-            
+            avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
+            avatarIV.image = avatar.0
         }
         
     }
