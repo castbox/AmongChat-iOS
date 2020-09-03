@@ -127,9 +127,9 @@ class ScreenContainer: XibLoadableView {
         let height: CGFloat
         //        isShowSearchPage = true
         if isShowSearchPage {
-            height = 125 + searchViewMaxHeight
+            height = 184 + searchViewMaxHeight
         } else {
-            height = 125
+            height = 184
         }
         return CGSize(width: Frame.Screen.width - 50 * 2, height: height)
     }

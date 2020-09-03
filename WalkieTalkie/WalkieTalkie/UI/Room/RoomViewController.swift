@@ -42,7 +42,6 @@ class RoomViewController: ViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolsView: RoomToolsView!
     
     private lazy var mManager: ChatRoomManager = {
@@ -879,14 +878,6 @@ private extension RoomViewController {
     func configureSubview() {
         screenContainer.mManager = mManager
         screenContainer.delegate = self
-        
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            spackButtonBottomConstraint.constant = 45
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            spackButtonBottomConstraint.constant = 65
-        } else {
-            adContainerHeightConstraint.constant = 90
-        }
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         toolsView.addShadow(ofColor: "60521C".color(), radius: 6.5, offset: CGSize(width: 0, height: 1), opacity: 0.31)
