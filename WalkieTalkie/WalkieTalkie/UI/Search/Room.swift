@@ -141,7 +141,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         }
     }
     
-    let uid: String
+    let uid: UInt
     let name: String
     let prefix: String
     let iconColor: String
@@ -160,7 +160,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
     ]
     
-    static func randomUser(uid: String) -> ChannelUser {
+    static func randomUser(uid: UInt) -> ChannelUser {
         return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem()!, iconColor: colors.randomItem()!, status: .connected, isMuted: false)
     }
 }

@@ -21,11 +21,11 @@ protocol ChatRoomDelegate: class {
 
     func onMemberListUpdated(userId: String?)
 
-    func onUserStatusChanged(userId: String, muted: Bool)
+    func onUserStatusChanged(userId: UInt, muted: Bool)
 
     func onAudioMixingStateChanged(isPlaying: Bool)
 
-    func onAudioVolumeIndication(userId: String, volume: UInt)
+    func onAudioVolumeIndication(userId: UInt, volume: UInt)
     
     func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason)
     
@@ -268,18 +268,18 @@ extension ChatRoomManager: RtcDelegate {
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
         if isOnline {
             mChannelData.addOrUpdateUserStatus(uid, false)
-            delegate?.onUserStatusChanged(userId: String(uid), muted: false)
+            delegate?.onUserStatusChanged(userId: uid, muted: false)
         } else {
             mChannelData.removeUserStatus(uid)
 
-            delegate?.onUserStatusChanged(userId: String(uid), muted: true)
+            delegate?.onUserStatusChanged(userId: uid, muted: true)
         }
     }
 
     func onUserMuteAudio(uid: UInt, muted: Bool) {
         mChannelData.addOrUpdateUserStatus(uid, muted)
 
-        delegate?.onUserStatusChanged(userId: String(uid), muted: muted)
+        delegate?.onUserStatusChanged(userId: uid, muted: muted)
     }
 
     func onAudioMixingStateChanged(isPlaying: Bool) {
@@ -287,7 +287,7 @@ extension ChatRoomManager: RtcDelegate {
     }
 
     func onAudioVolumeIndication(uid: UInt, volume: UInt) {
-        delegate?.onAudioVolumeIndication(userId: String(uid), volume: volume)
+        delegate?.onAudioVolumeIndication(userId: uid, volume: volume)
     }
     
     func onChannelUserChanged(users: [ChannelUser]) {

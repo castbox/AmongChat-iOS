@@ -11,8 +11,8 @@ import UIKit
 struct Constants {
     static let sUserId: UInt = UInt(UInt32(bitPattern: MemberUtil.getUserId()))
 
-    static func isMyself(_ userId: String) -> Bool {
-        userId == String(sUserId)
+    static func isMyself(_ userId: UInt) -> Bool {
+        userId == sUserId
     }
 
     enum ABGroup: String {

@@ -43,7 +43,7 @@ class ChannelUserListViewModel {
         }
     }
     
-    func updateVolumeIndication(userId: String, volume: UInt) {
+    func updateVolumeIndication(userId: UInt, volume: UInt) {
         cdPrint("userid: \(userId) volume: \(volume)")
         dataSource = dataSource.map { item -> ChannelUser in
             guard item.status != .blocked,

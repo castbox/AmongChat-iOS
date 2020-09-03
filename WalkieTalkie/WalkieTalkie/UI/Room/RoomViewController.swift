@@ -415,7 +415,7 @@ extension RoomViewController: ChatRoomDelegate {
 //        updateMemberCountLabel()
     }
 
-    func onUserStatusChanged(userId: String, muted: Bool) {
+    func onUserStatusChanged(userId: UInt, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constants.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -470,7 +470,7 @@ extension RoomViewController: ChatRoomDelegate {
 
     }
 
-    func onAudioVolumeIndication(userId: String, volume: UInt) {
+    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
         ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
     }
     
