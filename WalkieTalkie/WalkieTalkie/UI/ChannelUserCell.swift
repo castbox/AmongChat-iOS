@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ChannelUserCell: UITableViewCell {
 
@@ -20,14 +21,28 @@ class ChannelUserCell: UITableViewCell {
     @IBOutlet weak var blockButton: UIButton!
     var tapBlockHandler: (() -> Void)?
     
+    private var avatarDisposable: Disposable?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func bind(_ user: ChannelUser) {
-        userAvatar.backgroundColor = user.iconColor.color()
-        uidLabel.text = user.name
+    func bind(_ userViewModel: ChannelUserViewModel) {
+        let user = userViewModel.channelUser
+        avatarDisposable?.dispose()
+        avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
+            guard let `self` = self else { return }
+            
+            if let image = image {
+                self.userAvatar.backgroundColor = .clear
+            } else {
+                self.userAvatar.backgroundColor = user.iconColor.color()
+            }
+            self.userAvatar.image = image            
+        })
+        
+        uidLabel.text = userViewModel.name
         statuLabel.text = user.status.title
         statuLabel.textColor = user.status.textColor
         micView.image = user.status.micImage

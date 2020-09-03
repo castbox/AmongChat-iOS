@@ -129,6 +129,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         case connected
         case talking
         case blocked
+        case muted
         case droped //已下麦
         
 
@@ -141,7 +142,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         }
     }
     
-    let uid: String
+    let uid: UInt
     let name: String
     let prefix: String
     let iconColor: String
@@ -160,7 +161,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
     ]
     
-    static func randomUser(uid: String) -> ChannelUser {
+    static func randomUser(uid: UInt) -> ChannelUser {
         return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem()!, iconColor: colors.randomItem()!, status: .connected, isMuted: false)
     }
 }
@@ -175,6 +176,8 @@ extension ChannelUser.Status {
             return "Talking..."
         case .blocked:
             return "Blocked"
+        case .muted:
+            return "Mute"
         }
     }
     
@@ -195,6 +198,8 @@ extension ChannelUser.Status {
             return  R.image.icon_user_list_mic()
         case .connected, .droped:
             return  nil
+        case .muted:
+            return R.image.icon_user_list_mic_block()
         }
     }
 }

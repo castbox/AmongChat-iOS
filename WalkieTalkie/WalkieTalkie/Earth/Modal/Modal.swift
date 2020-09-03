@@ -112,6 +112,13 @@ extension Modalable where Self: UIViewController {
             dismissBlock(cover)
         }
         
+        cover.dismiss = { [weak cover] in
+            guard let cover = cover else {
+                return
+            }
+            dismissBlock(cover)
+        }
+        
         cover.alpha = 0
         container.view.addSubview(cover)
         self.willMove(toParent: container)
@@ -143,6 +150,16 @@ extension Modalable where Self: UIViewController {
         }
         //hide
         cover.onClickVew()
+        completion?()
+    }
+    
+    func dismissModal(animated: Bool = true, completion: (() -> Void)? = nil) {
+        guard let parent = self.parent,
+            let cover = parent.view.viewWithTag(coverViewTag) as? Modal.Cover else {
+            return
+        }
+        //hide
+        cover.dismiss?()
         completion?()
     }
 }

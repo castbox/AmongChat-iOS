@@ -42,8 +42,20 @@ class RoomViewController: ViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolsView: RoomToolsView!
+    
+    private lazy var speakingListView: RoomSpeakingListView = {
+        let v = RoomSpeakingListView(frame: .zero)
+        v.moreUserBtnAction = { [weak self] in
+            guard let `self` = self else { return }
+            guard !self.channel.showName.isEmpty else {
+                return
+            }
+            let vc = ChannelUserListController(channel: self.channel)
+            self.navigationController?.pushViewController(vc)
+        }
+        return v
+    }()
     
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
@@ -86,6 +98,7 @@ class RoomViewController: ViewController {
             channel.updateJoinInterval()
             Defaults.set(channel: channel, mode: mode)
             reportButton.isEnabled = !channel.showName.isEmpty
+            speakingListView.update(with: channel)
         }
     }
     
@@ -248,10 +261,13 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func reportButtonAction(_ sender: UIButton) {
-        guard !channel.showName.isEmpty else {
-            return
-        }
-        let vc = ChannelUserListController(channel: channel)
+//        guard !channel.showName.isEmpty else {
+//            return
+//        }
+//        let vc = ChannelUserListController(channel: channel)
+//        navigationController?.pushViewController(vc)
+        
+        let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
     }
     
@@ -412,7 +428,7 @@ extension RoomViewController: ChatRoomDelegate {
 //        updateMemberCountLabel()
     }
 
-    func onUserStatusChanged(userId: String, muted: Bool) {
+    func onUserStatusChanged(userId: UInt, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constants.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -432,6 +448,8 @@ extension RoomViewController: ChatRoomDelegate {
             //check block
             if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
                 mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
             }
         }
     }
@@ -467,7 +485,7 @@ extension RoomViewController: ChatRoomDelegate {
 
     }
 
-    func onAudioVolumeIndication(userId: String, volume: UInt) {
+    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
         ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
     }
     
@@ -727,8 +745,10 @@ private extension RoomViewController {
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
                 guard let `self` = self else { return }
-                let result = self._joinChannel(name)
-                self.isSegmentControlEnable = !result
+                self.prompProfileInitialIfNeeded {
+                    let result = self._joinChannel(name)
+                    self.isSegmentControlEnable = !result                    
+                }
             })
             .disposed(by: bag)
        
@@ -872,14 +892,6 @@ private extension RoomViewController {
     func configureSubview() {
         screenContainer.mManager = mManager
         screenContainer.delegate = self
-        
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            spackButtonBottomConstraint.constant = 45
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            spackButtonBottomConstraint.constant = 65
-        } else {
-            adContainerHeightConstraint.constant = 90
-        }
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         toolsView.addShadow(ofColor: "60521C".color(), radius: 6.5, offset: CGSize(width: 0, height: 1), opacity: 0.31)
@@ -900,7 +912,36 @@ private extension RoomViewController {
             maker.left.right.top.bottom.equalToSuperview()
         }
         
+        #if DEBUG
+        
+        let btn = UIButton(type: .custom)
+        btn.setImage(R.image.iconReport(), for: .normal)
+        btn.addTarget(self, action: #selector(gotoChannelUserList), for: .primaryActionTriggered)
+        
+        view.addSubview(btn)
+        btn.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(segmentControl)
+            maker.left.equalTo(segmentControl.snp.right).offset(10)
+        }
+        
+        #endif
+        
+        screenContainer.addSubview(speakingListView)
+        speakingListView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalToSuperview()
+        }
     }
+    
+    #if DEBUG
+    @objc
+    func gotoChannelUserList() {
+        guard !channel.showName.isEmpty else {
+            return
+        }
+        let vc = ChannelUserListController(channel: channel)
+        navigationController?.pushViewController(vc)
+    }
+    #endif
     
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
@@ -948,4 +989,28 @@ extension UIColor {
     var image: UIImage {
         return UIImage(color: self, size: CGSize(width: 10, height: 10))
     }
+}
+
+extension RoomViewController {
+    
+    func prompProfileInitialIfNeeded(completion: @escaping (() -> Void)) {
+        
+        #if DEBUG
+        let shouldShow = true
+        #else
+        let shouldShow = Defaults[\.profileInitialShownTsKey] == nil
+        #endif
+        
+        if shouldShow {
+            let vc = Social.InitialProfileViewController()
+            vc.onDismissHandler = {
+                completion()
+            }
+            vc.showModal(in: self)
+        } else {
+            completion()
+        }
+        
+    }
+    
 }

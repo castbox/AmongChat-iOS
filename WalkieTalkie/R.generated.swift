@@ -71,7 +71,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 4 fonts.
+  /// This `R.font` struct is generated, and contains static references to 5 fonts.
   struct font: Rswift.Validatable {
     /// Font `BlackOpsOne-Regular`.
     static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
@@ -79,6 +79,8 @@ struct R: Rswift.Validatable {
     static let nunitoBlack = Rswift.FontResource(fontName: "Nunito-Black")
     /// Font `Nunito-Bold`.
     static let nunitoBold = Rswift.FontResource(fontName: "Nunito-Bold")
+    /// Font `Nunito-Regular`.
+    static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
     static let nunitoSemiBold = Rswift.FontResource(fontName: "Nunito-SemiBold")
     
@@ -97,6 +99,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIFont(resource: nunitoBold, size: size)
     }
     
+    /// `UIFont(name: "Nunito-Regular", size: ...)`
+    static func nunitoRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: nunitoRegular, size: size)
+    }
+    
     /// `UIFont(name: "Nunito-SemiBold", size: ...)`
     static func nunitoSemiBold(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: nunitoSemiBold, size: size)
@@ -106,13 +113,14 @@ struct R: Rswift.Validatable {
       if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.nunitoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Regular' could not be loaded, is 'Nunito-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-SemiBold' could not be loaded, is 'Nunito-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }
     
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 66 images.
+  /// This `R.image` struct is generated, and contains static references to 74 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -136,6 +144,16 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
+    /// Image `default_avatar_0`.
+    static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
+    /// Image `default_avatar_1`.
+    static let default_avatar_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_1")
+    /// Image `default_avatar_2`.
+    static let default_avatar_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_2")
+    /// Image `default_avatar_3`.
+    static let default_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_3")
+    /// Image `default_avatar_4`.
+    static let default_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_4")
     /// Image `home_btn_bg_b`.
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
@@ -234,6 +252,12 @@ struct R: Rswift.Validatable {
     static let private_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg_2")
     /// Image `private_share_bg`.
     static let private_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg")
+    /// Image `profile_block_users`.
+    static let profile_block_users = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_block_users")
+    /// Image `profile_invite_friends`.
+    static let profile_invite_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_invite_friends")
+    /// Image `profile_settings`.
+    static let profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_settings")
     /// Image `public_share_bg_2`.
     static let public_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "public_share_bg_2")
     /// Image `public_share_bg`.
@@ -300,6 +324,31 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_up", bundle: ..., traitCollection: ...)`
     static func btn_up(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
+    static func default_avatar_0(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_0, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_1", bundle: ..., traitCollection: ...)`
+    static func default_avatar_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_1, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_2", bundle: ..., traitCollection: ...)`
+    static func default_avatar_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_3", bundle: ..., traitCollection: ...)`
+    static func default_avatar_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_3, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_4", bundle: ..., traitCollection: ...)`
+    static func default_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_4, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "home_btn_bg", bundle: ..., traitCollection: ...)`
@@ -545,6 +594,21 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "private_share_bg_2", bundle: ..., traitCollection: ...)`
     static func private_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.private_share_bg_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "profile_block_users", bundle: ..., traitCollection: ...)`
+    static func profile_block_users(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.profile_block_users, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "profile_invite_friends", bundle: ..., traitCollection: ...)`
+    static func profile_invite_friends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.profile_invite_friends, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "profile_settings", bundle: ..., traitCollection: ...)`
+    static func profile_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.profile_settings, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "public_share_bg", bundle: ..., traitCollection: ...)`
@@ -829,7 +893,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 62 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 81 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -847,14 +911,26 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Birthday
+      /// 
+      /// Locales: en
+      static let profileEditBirthday = Rswift.StringResource(key: "profile.edit.birthday", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Block
       /// 
       /// Locales: en
       static let alertBlock = Rswift.StringResource(key: "alert.block", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Block user
+      /// 
+      /// Locales: en
+      static let profileBlockUser = Rswift.StringResource(key: "profile.block.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
       static let inputPasscodeGlobalPlaceholder = Rswift.StringResource(key: "input.passcode.global.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Can this be your image and name in walkie talkie?
+      /// 
+      /// Locales: en
+      static let profileInitialTip = Rswift.StringResource(key: "profile.initial.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Cancel
       /// 
       /// Locales: en
@@ -899,6 +975,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserMaxState = Rswift.StringResource(key: "channel.user.max.state", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Edit Profile
+      /// 
+      /// Locales: en
+      static let profileEdit = Rswift.StringResource(key: "profile.edit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: End user License Agreement
       /// 
       /// Locales: en
@@ -907,6 +987,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static let channelUserListFollow = Rswift.StringResource(key: "channel.user.list.follow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow Back
+      /// 
+      /// Locales: en
+      static let socialFollowerFollowAction = Rswift.StringResource(key: "social.follower.follow.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follower
+      /// 
+      /// Locales: en
+      static let profileFollower = Rswift.StringResource(key: "profile.follower", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Following
+      /// 
+      /// Locales: en
+      static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -935,10 +1031,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: LISTEN
+      /// 
+      /// Locales: en
+      static let channelUserListListenTitle = Rswift.StringResource(key: "channel.user.list.listen.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MAX
       /// 
       /// Locales: en
       static let channelUserMax = Rswift.StringResource(key: "channel.user.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mute
+      /// 
+      /// Locales: en
+      static let channelUserListMute = Rswift.StringResource(key: "channel.user.list.mute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: No ad available, please try again later. 
       /// 
       /// Locales: en
@@ -991,6 +1095,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSkipTrial = Rswift.StringResource(key: "premium.skip.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: SPEAKING
+      /// 
+      /// Locales: en
+      static let channelUserListSpeakingTitle = Rswift.StringResource(key: "channel.user.list.speaking.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1023,10 +1131,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumTryTitle = Rswift.StringResource(key: "premium.try.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: USERNAME
+      /// 
+      /// Locales: en
+      static let profileInitialUserNameTitle = Rswift.StringResource(key: "profile.initial.user.name.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unblock
       /// 
       /// Locales: en
       static let alertUnblock = Rswift.StringResource(key: "alert.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static let socialUnblock = Rswift.StringResource(key: "social.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -1035,6 +1151,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivThemes = Rswift.StringResource(key: "premium.priv.themes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unmute
+      /// 
+      /// Locales: en
+      static let channelUserListUnmute = Rswift.StringResource(key: "channel.user.list.unmute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unreachable networking!
       /// 
       /// Locales: en
@@ -1047,10 +1167,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportUserId = Rswift.StringResource(key: "report.user.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Username
+      /// 
+      /// Locales: en
+      static let profileEditUsername = Rswift.StringResource(key: "profile.edit.username", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
       static let userListTitle = Rswift.StringResource(key: "user.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Yes, is me!
+      /// 
+      /// Locales: en
+      static let profileInitialConfirmBtn = Rswift.StringResource(key: "profile.initial.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You can block or report the abusive users here.
       /// 
       /// Locales: en
@@ -1075,6 +1203,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: block user
+      /// 
+      /// Locales: en
+      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: invite friends
+      /// 
+      /// Locales: en
+      static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: settings
+      /// 
+      /// Locales: en
+      static let profileSettings = Rswift.StringResource(key: "profile.settings", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en
@@ -1108,6 +1248,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: Birthday
+      /// 
+      /// Locales: en
+      static func profileEditBirthday(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit.birthday", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Block
       /// 
       /// Locales: en
@@ -1115,11 +1262,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alert.block", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Block user
+      /// 
+      /// Locales: en
+      static func profileBlockUser(_: Void = ()) -> String {
+        return NSLocalizedString("profile.block.user", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
       static func inputPasscodeGlobalPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("input.passcode.global.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Can this be your image and name in walkie talkie?
+      /// 
+      /// Locales: en
+      static func profileInitialTip(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Cancel
@@ -1199,6 +1360,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.max.state", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Edit Profile
+      /// 
+      /// Locales: en
+      static func profileEdit(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: End user License Agreement
       /// 
       /// Locales: en
@@ -1211,6 +1379,34 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func enterSecretChannelAlertTitle(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static func channelUserListFollow(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.follow", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Follow Back
+      /// 
+      /// Locales: en
+      static func socialFollowerFollowAction(_: Void = ()) -> String {
+        return NSLocalizedString("social.follower.follow.action", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Follower
+      /// 
+      /// Locales: en
+      static func profileFollower(_: Void = ()) -> String {
+        return NSLocalizedString("profile.follower", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Following
+      /// 
+      /// Locales: en
+      static func profileFollowing(_: Void = ()) -> String {
+        return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: GLOBAL
@@ -1262,11 +1458,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: LISTEN
+      /// 
+      /// Locales: en
+      static func channelUserListListenTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.listen.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: MAX
       /// 
       /// Locales: en
       static func channelUserMax(_: Void = ()) -> String {
         return NSLocalizedString("channel.user.max", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mute
+      /// 
+      /// Locales: en
+      static func channelUserListMute(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.mute", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: No ad available, please try again later. 
@@ -1360,6 +1570,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.skip.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: SPEAKING
+      /// 
+      /// Locales: en
+      static func channelUserListSpeakingTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.speaking.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1416,11 +1633,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.try.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: USERNAME
+      /// 
+      /// Locales: en
+      static func profileInitialUserNameTitle(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.user.name.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Unblock
       /// 
       /// Locales: en
       static func alertUnblock(_: Void = ()) -> String {
         return NSLocalizedString("alert.unblock", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unblock
+      /// 
+      /// Locales: en
+      static func socialUnblock(_: Void = ()) -> String {
+        return NSLocalizedString("social.unblock", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock all categories
@@ -1435,6 +1666,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumPrivThemes(_: Void = ()) -> String {
         return NSLocalizedString("premium.priv.themes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unmute
+      /// 
+      /// Locales: en
+      static func channelUserListUnmute(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.unmute", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unreachable networking!
@@ -1458,11 +1696,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.user.id", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Username
+      /// 
+      /// Locales: en
+      static func profileEditUsername(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit.username", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
       static func userListTitle(_: Void = ()) -> String {
         return NSLocalizedString("user.list.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Yes, is me!
+      /// 
+      /// Locales: en
+      static func profileInitialConfirmBtn(_: Void = ()) -> String {
+        return NSLocalizedString("profile.initial.confirm.btn", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You can block or report the abusive users here.
@@ -1505,6 +1757,27 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: block user
+      /// 
+      /// Locales: en
+      static func socialBlockedUserTitle(_: Void = ()) -> String {
+        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: invite friends
+      /// 
+      /// Locales: en
+      static func profileInviteFriends(_: Void = ()) -> String {
+        return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: settings
+      /// 
+      /// Locales: en
+      static func profileSettings(_: Void = ()) -> String {
+        return NSLocalizedString("profile.settings", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful

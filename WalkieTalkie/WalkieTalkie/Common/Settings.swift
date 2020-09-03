@@ -33,8 +33,9 @@ class Settings {
         typealias LoginResult = Entity.LoginResult
         let value: LoginResult?
         
-        if let json = Defaults[\.loginResultKey] {
-            value = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json)
+        if let json = Defaults[\.loginResultKey],
+            let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
+            value = result
         } else {
             value = nil
         }
@@ -222,6 +223,12 @@ class Settings {
             return true
         }
     }
+    
+    let firestoreUserProfile: PublishProperty<FireStore.Entity.User.Profile?> = {
+        return DynamicProperty.stored(nil)
+            .asPublishProperty()
+    }()
+    
 }
 
 extension DefaultsKeys {
@@ -331,6 +338,10 @@ extension DefaultsKeys {
     
     var blockedUsersKey: DefaultsKey<[ChannelUser]> {
         .init("blocked.users", defaultValue: [])
+    }
+    
+    var profileInitialShownTsKey: DefaultsKey<Double?> {
+        .init("profile.initial.shown.timestamp", defaultValue: nil)
     }
 }
 

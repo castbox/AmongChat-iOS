@@ -13,16 +13,25 @@ import FirebaseCore
 import RxSwift
 import RxCocoa
 import SwifterSwift
+import FirebaseAuth
 
 class FireStore {
     
     /// 根结点名称
     struct Root {
-        static let channels = "channels"
         static let secrets = "secrets"
         static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
+        #if DEBUG
+        static let channels = "channels-test"
+        static let users = "users-test"
+        static let userMeta = "user-meta-test"
+        #else
+        static let channels = "channels"
+        static let users = "users"
+        static let userMeta = "user-meta"
+        #endif
     }
     //
     static let shared = FireStore()
@@ -83,6 +92,21 @@ class FireStore {
             .catchErrorJustReturn(.default)
             .bind(to: channelConfigSubject)
         #endif
+        
+        let _ = Settings.shared.loginResult.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (result) in
+                self?.signIn(with: result.firebaseToken)
+            })
+    }
+    
+    private func signIn(with token: String) {
+        
+        Auth.auth().signIn(withCustomToken: token) { (user, error) in
+            if let error = error {
+                cdPrint("fire store auth error: \(error)")
+            }
+        }
     }
     
     func getAppConfigValue() {

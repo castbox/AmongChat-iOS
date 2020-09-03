@@ -91,9 +91,9 @@ extension SeatManager {
 //        })
 //    }
 
-    func muteMic(_ userId: String, _ muted: Bool) {
+    func muteMic(_ userId: UInt, _ muted: Bool) {
         if Constants.isMyself(userId) {
-            if !getChannelData().isUserOnline(userId) {
+            if !getChannelData().isUserOnline(String(userId)) {
                 return
             }
             getRtcManager().muteLocalAudioStream(muted)

@@ -97,3 +97,27 @@
 "user.list.title" = "Users Talked in the Channel";
 "report.user.id" = "User ID";
 
+"profile.initial.user.name.title" = "USERNAME";
+"profile.initial.tip" = "Can this be your image and name in walkie talkie?";
+"profile.initial.confirm.btn" = "Yes, is me!";
+
+//Profile
+"profile.edit" = "Edit Profile";
+"profile.following" = "Following";
+"profile.follower" = "Follower";
+"profile.invite.friends" = "invite friends";
+"profile.block.user" = "Block user";
+"profile.settings" = "settings";
+
+// Edit Profile
+"profile.edit.username" = "Username";
+"profile.edit.birthday" = "Birthday";
+"social.follower.follow.action" = "Follow Back";
+"social.blocked.user.title" = "block user";
+"social.unblock" = "Unblock";
+
+"channel.user.list.speaking.title" = "SPEAKING";
+"channel.user.list.listen.title" = "LISTEN";
+"channel.user.list.follow" = "Follow";
+"channel.user.list.mute" = "Mute";
+"channel.user.list.unmute" = "Unmute";

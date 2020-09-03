@@ -16,7 +16,7 @@ class ChannelUserListController: ViewController {
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var navHeightConstraint: NSLayoutConstraint!
 
-    private var dataSource: [ChannelUser] = [] {
+    private var dataSource: [[ChannelUserViewModel]] = [] {
         didSet {
             tableView.reloadData()
         }
@@ -49,20 +49,20 @@ class ChannelUserListController: ViewController {
 
 extension ChannelUserListController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return dataSource.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = dataSource.count
-        return count
+        return dataSource.safe(section)?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withClass: ChannelUserCell.self, for: indexPath)
-        let user = dataSource[indexPath.row]
-        cell.bind(user)
-        cell.tapBlockHandler = { [weak self] in
-            self?.showMoreSheet(for: user)
+        if let user = dataSource.safe(indexPath.section)?.safe(indexPath.row) {
+            cell.bind(user)
+            cell.tapBlockHandler = { [weak self] in
+                self?.showMoreSheet(for: user)
+            }
         }
         return cell
     }
@@ -78,11 +78,37 @@ extension ChannelUserListController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 30
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
+        return CGFloat.leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let header: UIView = {
+            let view = UIView()
+            view.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoSemiBold(size: 12)
+            lb.textColor = .black
+            if section == 0 {
+                lb.text = R.string.localizable.channelUserListSpeakingTitle()
+            } else {
+                lb.text = R.string.localizable.channelUserListListenTitle()
+            }
+            lb.appendKern()
+            view.addSubview(lb)
+            lb.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.left.equalTo(45)
+            }
+            return view
+        }()
+        
+        return header
+        
     }
 
 }
@@ -92,18 +118,47 @@ extension ChannelUserListController: UITableViewDelegate {
 }
 
 extension ChannelUserListController {
-    func showMoreSheet(for user: ChannelUser) {
+    func showMoreSheet(for userViewModel: ChannelUserViewModel) {
         let alertVC = UIAlertController(
             title: nil,
             message: R.string.localizable.userListMoreSheet(),
             preferredStyle: .actionSheet
         )
-
+        
+        if let firestoreUser = userViewModel.firestoreUser {
+            let followingUids = Social.Module.shared.followingValue.map { $0.uid }
+            if !followingUids.contains(firestoreUser.uid) {
+                //未添加到following
+                let followAction = UIAlertAction(title: R.string.localizable.channelUserListFollow(), style: .default) { [weak self] (_) in
+                    self?.viewModel.followUser(firestoreUser)
+                }
+                alertVC.addAction(followAction)
+            }
+            
+            let isMuted = Social.Module.shared.mutedValue.contains(firestoreUser.profile.uidInt)
+            if isMuted {
+                let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
+                    // TODO: unmute
+                    self?.viewModel.unmuteUser(firestoreUser)
+                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+                }
+                alertVC.addAction(unmuteAction)
+                
+            } else {
+                let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
+                    // TODO: mute
+                    self?.viewModel.muteUser(firestoreUser)
+                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+                }
+                alertVC.addAction(muteAction)
+            }
+        }
+        
         let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
-            self?.showReportSheet(for: user)
+            self?.showReportSheet(for: userViewModel)
         })
-        let blockAction = UIAlertAction(title:user.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
-            self?.showBlockAlert(with: user)
+        let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+            self?.showBlockAlert(with: userViewModel)
         })
         alertVC.addAction(reportAction)
         alertVC.addAction(blockAction)
@@ -112,7 +167,8 @@ extension ChannelUserListController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    func showReportSheet(for user: ChannelUser) {
+    func showReportSheet(for userViewModel: ChannelUserViewModel) {
+        let user = userViewModel.channelUser
         let alertVC = UIAlertController(
             title: R.string.localizable.reportTitle(),
             message: "\(R.string.localizable.reportUserId()): \(user.uid)",
@@ -128,7 +184,7 @@ extension ChannelUserListController {
         for (index, item) in items {
             let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
                 self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: user.uid)
+                Logger.Report.logImp(itemIndex: index, channelName: String(user.uid))
             })
             alertVC.addAction(action)
         }
@@ -137,26 +193,23 @@ extension ChannelUserListController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    func showBlockAlert(with user: ChannelUser) {
-        guard user.status != .blocked else {
-            viewModel.unblockedUser(user)
-            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(user, volume: 100)
+    func showBlockAlert(with userViewModel: ChannelUserViewModel) {
+        guard userViewModel.channelUser.status != .blocked else {
+            viewModel.unblockedUser(userViewModel)
+            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
             return
         }
         let alertVC = UIAlertController(
-            title: "Block \(user.name)?",
-            message: "After blocking, \(user.name) will no longer be able to talk to you. ",
+            title: "Block \(userViewModel.name)?",
+            message: "After blocking, \(userViewModel.name) will no longer be able to talk to you. ",
             preferredStyle: .alert
         )
         let confirmAction = UIAlertAction(title: R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
-            
-                self?.viewModel.blockedUser(user)
-                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(user, volume: 0)
+            self?.viewModel.blockedUser(userViewModel)
+            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
         })
         
-        let cancelAction = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel) { _ in
-            
-        }
+        let cancelAction = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
         alertVC.addAction(cancelAction)
         alertVC.addAction(confirmAction)
         present(alertVC, animated: true, completion: nil)
@@ -167,13 +220,24 @@ extension ChannelUserListController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] users in
                 self?.emptyView.isHidden = !users.isEmpty
-                self?.dataSource = users
+                
+                let speaking = users.filter { (user) -> Bool in
+                    user.channelUser.status == .talking
+                }
+                
+                let listen = users.filter { (user) -> Bool in
+                    user.channelUser.status != .talking
+                }
+                
+                self?.dataSource = [speaking, listen]
+                
             })
             .disposed(by: bag)
     }
     
     func configureSubview() {
         tableView.register(nibWithCellClass: ChannelUserCell.self)
+        tableView.backgroundColor = .clear
         navHeightConstraint.constant = Frame.Height.navigation
     }
 }

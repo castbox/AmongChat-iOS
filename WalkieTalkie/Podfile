@@ -27,7 +27,7 @@ def firebase_pods
     pod 'Firebase/Firestore'
 
 #    # Firebase auth
-#    pod 'Firebase/Auth'
+    pod 'Firebase/Auth'
 
     # log
     pod 'Firebase/Analytics'

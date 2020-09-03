@@ -100,6 +100,7 @@ class RtcManager: NSObject {
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
+            self.updateFirestoreChannelStatus(with: channelId)
         })
         //start a time out timer
         if result != 0 {
@@ -184,9 +185,7 @@ class RtcManager: NSObject {
     }
     
     func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-        guard let uid = user.uid.int?.uInt else {
-            return
-        }
+        let uid = user.uid
         mRtcEngine.adjustUserPlaybackSignalVolume(uid, volume: volume)
     }
 
@@ -229,6 +228,7 @@ class RtcManager: NSObject {
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
+        updateFirestoreChannelStatus(with: "")
     }
     
     func logFilePath() -> String {
@@ -271,11 +271,11 @@ extension RtcManager: AgoraRtcEngineDelegate {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
         unMuteUsers.append(uid)
-        if !talkedUsers.contains(where: { $0.uid.int?.uInt == uid }) {
-            talkedUsers.append(ChannelUser.randomUser(uid: String(uid)))
+        if !talkedUsers.contains(where: { $0.uid == uid }) {
+            talkedUsers.append(ChannelUser.randomUser(uid: uid))
         } else {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == String(uid) else {
+                guard item.uid == uid else {
                     return item
                 }
                 var user = item
@@ -291,10 +291,10 @@ extension RtcManager: AgoraRtcEngineDelegate {
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
 
         if reason == .quit {
-            talkedUsers.removeAll(where: { $0.uid.int?.uInt == uid })
+            talkedUsers.removeAll(where: { $0.uid == uid })
         } else if reason == .dropped || reason == .becomeAudience {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == String(uid) else {
+                guard item.uid == uid else {
                     return item
                 }
                 var user = item
@@ -307,7 +307,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
         cdPrint("didAudioMuted \(uid) \(muted)")
         let talkedUsers = self.talkedUsers.map { user -> ChannelUser in
-            guard user.uid.int?.uInt == uid else {
+            guard user.uid == uid else {
                 return user
             }
             var user = user
@@ -345,5 +345,16 @@ extension RtcManager: AgoraRtcEngineDelegate {
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, networkQuality uid: UInt, txQuality: AgoraNetworkQuality, rxQuality: AgoraNetworkQuality) {
         
+    }
+}
+
+extension RtcManager {
+    
+    func updateFirestoreChannelStatus(with channel: String) {
+        guard let uid = Settings.shared.loginResult.value?.uid else {
+            return
+        }
+        let status = FireStore.Entity.User.Status(currentChannel: channel, online: true)
+        FireStore.shared.updateStatus(status, of: uid)
     }
 }

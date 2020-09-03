@@ -56,6 +56,3 @@ class Automator {
             })
     }
 }
-extension Automator {
-
-}

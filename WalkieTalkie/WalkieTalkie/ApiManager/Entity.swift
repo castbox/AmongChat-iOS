@@ -17,5 +17,6 @@ extension Entity {
         let uid: String
         let token: String
         let newUser: Bool
+        let firebaseToken : String
     }
 }
