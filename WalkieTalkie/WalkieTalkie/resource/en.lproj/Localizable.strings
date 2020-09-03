@@ -115,3 +115,9 @@
 "social.follower.follow.action" = "Follow Back";
 "social.blocked.user.title" = "block user";
 "social.unblock" = "Unblock";
+
+"channel.user.list.speaking.title" = "SPEAKING";
+"channel.user.list.listen.title" = "LISTEN";
+"channel.user.list.follow" = "Follow";
+"channel.user.list.mute" = "Mute";
+"channel.user.list.unmute" = "Unmute";

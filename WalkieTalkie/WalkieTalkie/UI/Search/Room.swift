@@ -129,6 +129,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
         case connected
         case talking
         case blocked
+        case muted
         case droped //已下麦
         
 
@@ -175,6 +176,8 @@ extension ChannelUser.Status {
             return "Talking..."
         case .blocked:
             return "Blocked"
+        case .muted:
+            return "Mute"
         }
     }
     
@@ -195,6 +198,8 @@ extension ChannelUser.Status {
             return  R.image.icon_user_list_mic()
         case .connected, .droped:
             return  nil
+        case .muted:
+            return R.image.icon_user_list_mic_block()
         }
     }
 }

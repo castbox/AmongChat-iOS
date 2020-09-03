@@ -858,7 +858,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 76 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 81 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -952,6 +952,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static let channelUserListFollow = Rswift.StringResource(key: "channel.user.list.follow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Follow Back
       /// 
       /// Locales: en
@@ -992,10 +996,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: LISTEN
+      /// 
+      /// Locales: en
+      static let channelUserListListenTitle = Rswift.StringResource(key: "channel.user.list.listen.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MAX
       /// 
       /// Locales: en
       static let channelUserMax = Rswift.StringResource(key: "channel.user.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Mute
+      /// 
+      /// Locales: en
+      static let channelUserListMute = Rswift.StringResource(key: "channel.user.list.mute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: No ad available, please try again later. 
       /// 
       /// Locales: en
@@ -1048,6 +1060,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSkipTrial = Rswift.StringResource(key: "premium.skip.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: SPEAKING
+      /// 
+      /// Locales: en
+      static let channelUserListSpeakingTitle = Rswift.StringResource(key: "channel.user.list.speaking.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1100,6 +1116,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivThemes = Rswift.StringResource(key: "premium.priv.themes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unmute
+      /// 
+      /// Locales: en
+      static let channelUserListUnmute = Rswift.StringResource(key: "channel.user.list.unmute", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unreachable networking!
       /// 
       /// Locales: en
@@ -1326,6 +1346,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static func channelUserListFollow(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.follow", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Follow Back
       /// 
       /// Locales: en
@@ -1396,11 +1423,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: LISTEN
+      /// 
+      /// Locales: en
+      static func channelUserListListenTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.listen.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: MAX
       /// 
       /// Locales: en
       static func channelUserMax(_: Void = ()) -> String {
         return NSLocalizedString("channel.user.max", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Mute
+      /// 
+      /// Locales: en
+      static func channelUserListMute(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.mute", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: No ad available, please try again later. 
@@ -1494,6 +1535,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.skip.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: SPEAKING
+      /// 
+      /// Locales: en
+      static func channelUserListSpeakingTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.speaking.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1583,6 +1631,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumPrivThemes(_: Void = ()) -> String {
         return NSLocalizedString("premium.priv.themes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unmute
+      /// 
+      /// Locales: en
+      static func channelUserListUnmute(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.unmute", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unreachable networking!

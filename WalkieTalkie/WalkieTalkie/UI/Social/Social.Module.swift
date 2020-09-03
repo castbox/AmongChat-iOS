@@ -143,4 +143,12 @@ extension Social.Module {
     var currentChannelValue: String {
         return currentChannel
     }
+    
+    var mutedValue: [UInt] {
+        return muteListRelay.value
+    }
+    
+    var mutedObservable: Observable<[UInt]> {
+        return muteListRelay.asObservable()
+    }
 }

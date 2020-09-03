@@ -110,6 +110,42 @@ extension FireStore {
             .asSingle()
     }
     
+    func fetchUsers(_ uids: [UInt]) -> Single<[Entity.User]> {
+        typealias User = Entity.User
+        
+        return Observable<[User]>.create({ [weak self] (subscriber) -> Disposable in
+            
+            guard uids.count > 0 else {
+                subscriber.onNext([])
+                subscriber.onCompleted()
+                return Disposables.create { }
+            }
+            
+            self?.db.collection(Root.users)
+                .whereField(FieldPath.init([User.Keys.profile, User.Profile.Keys.uidInt]), in: uids)
+                .getDocuments(completion: { (query, error) in
+                    guard error == nil else {
+                        subscriber.onError(error!)
+                        return
+                    }
+                    
+                    guard let query = query else {
+                        subscriber.onNext([])
+                        subscriber.onCompleted()
+                        return
+                    }
+                    
+                    let users = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
+                    
+                    subscriber.onNext(users)
+                    subscriber.onCompleted()
+                })
+            
+            return Disposables.create { }
+        })
+            .asSingle()
+    }
+    
     func fetchFollowerList(of user: String) -> Single<[Entity.User]> {
 
         typealias User = Entity.User
@@ -548,7 +584,7 @@ extension FireStore {
             ])
     }
     
-    func addMuteUser(_ muteUser: String, to user: String) {
+    func addMuteUser(_ muteUser: UInt, to user: String) {
         db.collection(Root.users)
             .document(user)
             .updateData([
@@ -556,7 +592,7 @@ extension FireStore {
             ])
     }
     
-    func removeMuteUser(_ muteUser: String, from user: String) {
+    func removeMuteUser(_ muteUser: UInt, from user: String) {
         db.collection(Root.users)
             .document(user)
             .updateData([

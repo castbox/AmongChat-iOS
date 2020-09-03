@@ -435,6 +435,8 @@ extension RoomViewController: ChatRoomDelegate {
             //check block
             if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
                 mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
             }
         }
     }
@@ -905,7 +907,32 @@ private extension RoomViewController {
             maker.left.right.top.bottom.equalToSuperview()
         }
         
+        #if DEBUG
+        
+        let btn = UIButton(type: .custom)
+        btn.setImage(R.image.iconReport(), for: .normal)
+        btn.addTarget(self, action: #selector(gotoChannelUserList), for: .primaryActionTriggered)
+        
+        view.addSubview(btn)
+        btn.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(segmentControl)
+            maker.left.equalTo(segmentControl.snp.right).offset(10)
+        }
+        
+        #endif
+        
     }
+    
+    #if DEBUG
+    @objc
+    func gotoChannelUserList() {
+        guard !channel.showName.isEmpty else {
+            return
+        }
+        let vc = ChannelUserListController(channel: channel)
+        navigationController?.pushViewController(vc)
+    }
+    #endif
     
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
