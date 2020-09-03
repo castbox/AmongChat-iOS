@@ -16,6 +16,10 @@ class ChannelUserListViewModel {
     
     var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
     
+    var userObservable: Observable<[ChannelUserViewModel]> {
+        return dataSourceReplay.asObservable()
+    }
+    
     private var dataSource = [ChannelUser]() {
         didSet {
 //            dataSourceReplay.accept(dataSource.map { ChannelUserViewModel.init(with: $0) })
@@ -35,6 +39,10 @@ class ChannelUserListViewModel {
     }
     
     private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
+    
+    var speakingUserObservable: Observable<[ChannelUserViewModel]> {
+        return speakingUsersRelay.asObservable()
+    }
     
     var blockedUsers = [ChannelUser]()
     

@@ -42,6 +42,14 @@ extension FireStore {
                 return room.user_count < gUserLimit
             }
         }
+        
+        func maximumSpeakers(_ room: Room) -> Int {
+            if room.isPrivate {
+                return sSpeakerLimit
+            } else {
+                return gSpeakerLimit
+            }
+        }
     }
     
     struct AppConfig: Codable {

@@ -44,6 +44,19 @@ class RoomViewController: ViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var toolsView: RoomToolsView!
     
+    private lazy var speakingListView: RoomSpeakingListView = {
+        let v = RoomSpeakingListView(frame: .zero)
+        v.moreUserBtnAction = { [weak self] in
+            guard let `self` = self else { return }
+            guard !self.channel.showName.isEmpty else {
+                return
+            }
+            let vc = ChannelUserListController(channel: self.channel)
+            self.navigationController?.pushViewController(vc)
+        }
+        return v
+    }()
+    
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
         manager.delegate = self
@@ -85,6 +98,7 @@ class RoomViewController: ViewController {
             channel.updateJoinInterval()
             Defaults.set(channel: channel, mode: mode)
             reportButton.isEnabled = !channel.showName.isEmpty
+            speakingListView.update(with: channel)
         }
     }
     
@@ -912,6 +926,10 @@ private extension RoomViewController {
         
         #endif
         
+        screenContainer.addSubview(speakingListView)
+        speakingListView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalToSuperview()
+        }
     }
     
     #if DEBUG
