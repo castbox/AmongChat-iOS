@@ -69,7 +69,8 @@ extension Social {
                                                                     birthday: "",
                                                                     name: Constants.defaultUsername,
                             premium: Settings.shared.isProValue.value,
-                            uidInt: Constants.sUserId)
+                            uidInt: Constants.sUserId,
+                            uid: uid)
                         Settings.shared.firestoreUserProfile.value = profile
                     }
                     

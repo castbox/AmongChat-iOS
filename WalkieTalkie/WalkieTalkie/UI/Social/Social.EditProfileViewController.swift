@@ -102,7 +102,7 @@ extension Social {
             return f
         }()
         
-        private lazy var profile: FireStore.Entity.User.Profile = FireStore.Entity.User.Profile(avatar: "", birthday: "", name: Constants.defaultUsername, premium: false, uidInt: Constants.sUserId)
+        private var profile: FireStore.Entity.User.Profile = FireStore.Entity.User.Profile(avatar: "", birthday: "", name: Constants.defaultUsername, premium: false, uidInt: Constants.sUserId, uid: "")
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -129,7 +129,6 @@ extension Social {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
             view.addSubviews(views: backBtn, avatarIV, randomIconIV, userNameTitle, userNameInputField, birthdayTitle, birthdayInputField)
-            navigationController?.interactivePopGestureRecognizer
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(15)

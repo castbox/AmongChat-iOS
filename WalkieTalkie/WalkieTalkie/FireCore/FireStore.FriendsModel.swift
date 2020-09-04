@@ -65,6 +65,7 @@ extension FireStore.Entity.User {
         var name: String
         var premium: Bool
         let uidInt: UInt
+        let uid: String
         var updatedAt: Timestamp = Timestamp(date: Date())
         
         struct Keys {
@@ -82,8 +83,10 @@ extension FireStore.Entity.User {
 extension FireStore.Entity.User.Profile {
     
     init?(with dict: [String : Any]) {
-        guard let uid = dict[Keys.uidInt] as? UInt else { return nil }
-        uidInt = uid
+        guard let uidInt = dict[Keys.uidInt] as? UInt,
+            let uidStr = dict[Keys.uid] as? String else { return nil }
+        self.uidInt = uidInt
+        uid = uidStr
         avatar = dict[Keys.avatar] as? String ?? ""
         birthday = dict[Keys.birthday] as? String ?? ""
         name = dict[Keys.name] as? String ?? ""
@@ -98,6 +101,7 @@ extension FireStore.Entity.User.Profile {
             Keys.name : name,
             Keys.premium : premium,
             Keys.uidInt : uidInt,
+            Keys.uid : uid,
             Keys.updatedAt : FieldValue.serverTimestamp()
         ]
     }
@@ -185,7 +189,7 @@ extension FireStore.Entity.User {
             static let msgType = "msgType"
             static let uid = "uid"
             static let channel = "channel"
-            static let username = "username"
+            static let username = "name"
             static let avatar = "avatar"
         }
         
