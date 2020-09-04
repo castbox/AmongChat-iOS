@@ -447,8 +447,8 @@ extension FireStore {
         addCommonMsg(acceptMsg, to: invitationMsg.uid)
     }
     
-    func sendJoinChannelRequest(from requester: String, to user: String, toJoin channel: String) {
-        let requestJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRequest, uid: requester, channel: nil, username: nil, avatar: nil, docId: "")
+    func sendJoinChannelRequest(from requester: Entity.User.Profile, to user: String, toJoin channel: String) {
+        let requestJoinMsg = Entity.User.CommonMessage(msgType: .channelEntryRequest, uid: requester.uid, channel: nil, username: requester.name, avatar: requester.avatar, docId: "")
         addCommonMsg(requestJoinMsg, to: user)
     }
     

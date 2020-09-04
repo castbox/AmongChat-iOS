@@ -245,9 +245,9 @@ extension Social.UserList {
             defer {
                 dismissModal(animated: true)
             }
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
             if viewModel.channelIsSecrete {
-                FireStore.shared.sendJoinChannelRequest(from: selfUid, to: viewModel.userId, toJoin: viewModel.channelId)
+                FireStore.shared.sendJoinChannelRequest(from: profile, to: viewModel.userId, toJoin: viewModel.channelId)
             } else if let roomVC = navigationController?.viewControllers.first as? RoomViewController {
                 // join channel directly
                 roomVC.joinChannel(viewModel.channelId)
