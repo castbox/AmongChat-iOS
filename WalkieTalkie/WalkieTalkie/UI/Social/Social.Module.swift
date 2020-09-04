@@ -30,10 +30,10 @@ extension Social {
         
         private init() {
             
-            Settings.shared.loginResult.replay()
-                .filterNil()
+            Observable.combineLatest(Settings.shared.loginResult.replay().filterNil(), FireStore.shared.firebaseSignedInObservable)
                 .take(1)
-                .subscribe(onNext: { [weak self] (result) in
+                .subscribe(onNext: { [weak self] (t) in
+                    let (result, _) = t
                     self?.startHeartbeat()
                     self?.initializeProfileIfNeeded(result.uid)
                     self?.observeRelations(result.uid)
