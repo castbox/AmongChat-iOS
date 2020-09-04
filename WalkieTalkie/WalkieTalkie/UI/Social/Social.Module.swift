@@ -29,13 +29,13 @@ extension Social {
         private typealias CommonMessge = FireStore.Entity.User.CommonMessage
         
         // 受邀人接受邀请，进入房间
-        private let enterRoomMsgSubject = PublishSubject<CommonMessge>()
+        private let enterRoomMsgSubject = ReplaySubject<CommonMessge>.create(bufferSize: 1)
         // 他人申请进入房间
-        private let joinChannelRequestedSubject = PublishSubject<CommonMessge>()
+        private let joinChannelRequestedSubject = ReplaySubject<CommonMessge>.create(bufferSize: 1)
         // 申请进入他人房间被接受
-        private let joinChannelAcceptedSubject = PublishSubject<CommonMessge>()
+        private let joinChannelAcceptedSubject = ReplaySubject<CommonMessge>.create(bufferSize: 1)
         // 申请进入他人房间被拒绝
-        private let joinChannelRefusedSubject = PublishSubject<CommonMessge>()
+        private let joinChannelRefusedSubject = ReplaySubject<CommonMessge>.create(bufferSize: 1)
         
         private var currentChannel: String = ""
         
@@ -53,7 +53,6 @@ extension Social {
                 .disposed(by: bag)
             
             bindProToFirestore()
-            handleCommonMsg()
         }
         
         private func startHeartbeat() {
@@ -147,15 +146,12 @@ extension Social {
                 })
                 .disposed(by: bag)
             
-        }
-        
-        private func handleCommonMsg() {
-            
             joinChannelRequestedSubject
                 .subscribe(onNext: { (msg) in
                     guard let topVC = UIApplication.topViewController(UIApplication.navigationController) else { return }
                     let modal = Social.JoinChannelRequestModal(with: msg)
                     modal.showModal(in: topVC)
+                    FireStore.shared.deleteCommonMsg(msg, from: uid)
                 })
                 .disposed(by: bag)
             
@@ -176,6 +172,7 @@ extension Social {
                     
                 })
                 .disposed(by: bag)
+            
         }
         
     }

@@ -377,6 +377,20 @@ extension FireStore {
         addChannelInvitationMsg(invitationMsg, to: invitee)
     }
     
+    func deleteCommonMsg(_ msg: Entity.User.CommonMessage, from user: String) {
+        db.collection(Root.users)
+            .document(user)
+            .collection(Entity.User.Collection.commonMsgs)
+            .document(msg.docId)
+            .delete { (err) in
+                if let err = err {
+                    NSLog("Error removing document: \(err)")
+                } else {
+                    NSLog("Document successfully removed!")
+                }
+        }
+    }
+    
 }
 
 extension FireStore {
