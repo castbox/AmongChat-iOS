@@ -64,6 +64,12 @@ class FireStore {
 //    private (set) var isInReview: Bool = true
     let appConfigSubject = BehaviorRelay<AppConfig?>(value: nil)
     let isInReviewSubject = BehaviorRelay<Bool>(value: true)
+    
+    private let firebaseSignedInSubject = PublishSubject<Void>()
+    
+    var firebaseSignedInObservable: Observable<Void> {
+        return firebaseSignedInSubject.replay(1).asObservable()
+    }
 
     init() {
         #if DEBUG
@@ -102,9 +108,11 @@ class FireStore {
     
     private func signIn(with token: String) {
         
-        Auth.auth().signIn(withCustomToken: token) { (user, error) in
+        Auth.auth().signIn(withCustomToken: token) { [weak self] (user, error) in
             if let error = error {
                 cdPrint("fire store auth error: \(error)")
+            } else {
+                self?.firebaseSignedInSubject.onNext(())
             }
         }
     }
