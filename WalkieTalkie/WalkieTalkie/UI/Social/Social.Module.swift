@@ -26,6 +26,17 @@ extension Social {
         
         private let muteListRelay = BehaviorRelay<[UInt]>(value: [])
         
+        private typealias CommonMessge = FireStore.Entity.User.CommonMessage
+        
+        // 受邀人接受邀请，进入房间
+        private let enterRoomMsgSubject = PublishSubject<CommonMessge>()
+        // 他人申请进入房间
+        private let joinChannelRequestedSubject = PublishSubject<CommonMessge>()
+        // 申请进入他人房间被接受
+        private let joinChannelAcceptedSubject = PublishSubject<CommonMessge>()
+        // 申请进入他人房间被拒绝
+        private let joinChannelRefusedSubject = PublishSubject<CommonMessge>()
+        
         private var currentChannel: String = ""
         
         private init() {
@@ -37,11 +48,12 @@ extension Social {
                     self?.startHeartbeat()
                     self?.initializeProfileIfNeeded(result.uid)
                     self?.observeRelations(result.uid)
+                    self?.observeCommonMsg(result.uid)
                 })
                 .disposed(by: bag)
             
             bindProToFirestore()
-            
+            handleCommonMsg()
         }
         
         private func startHeartbeat() {
@@ -114,6 +126,56 @@ extension Social {
                 })
                 .disposed(by: bag)
             
+        }
+        
+        private func observeCommonMsg(_ uid: String) {
+            
+            FireStore.shared.newCommonMsgObservable(of: uid)
+                .subscribe(onNext: { [weak self] (msg) in
+                    
+                    switch msg.msgType {
+                    case .channelEntryRequest:
+                        self?.joinChannelRefusedSubject.onNext(msg)
+                    case .channelEntryAccept:
+                        self?.joinChannelAcceptedSubject.onNext(msg)
+                    case .channelEntryRefuse:
+                        self?.joinChannelRefusedSubject.onNext(msg)
+                    case .enterRoom:
+                        self?.enterRoomMsgSubject.onNext(msg)
+                    }
+                    
+                })
+                .disposed(by: bag)
+            
+        }
+        
+        private func handleCommonMsg() {
+            
+            joinChannelRequestedSubject
+                .subscribe(onNext: { (msg) in
+                    guard let topVC = UIApplication.topViewController(UIApplication.navigationController) else { return }
+                    let modal = Social.JoinChannelRequestModal(with: msg)
+                    modal.showModal(in: topVC)
+                })
+                .disposed(by: bag)
+            
+            joinChannelAcceptedSubject
+                .subscribe(onNext: { (msg) in
+                    
+                })
+                .disposed(by: bag)
+            
+            joinChannelRefusedSubject
+                .subscribe(onNext: { (msg) in
+                    
+                })
+                .disposed(by: bag)
+            
+            enterRoomMsgSubject
+                .subscribe(onNext: { (msg) in
+                    
+                })
+                .disposed(by: bag)
         }
         
     }

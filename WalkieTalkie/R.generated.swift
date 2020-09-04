@@ -893,7 +893,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 81 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 85 localization keys.
     struct localizable {
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
@@ -907,6 +907,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFree3dTrial = Rswift.StringResource(key: "premium.free.3d.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Accept
+      /// 
+      /// Locales: en
+      static let channelJoinRequestAccept = Rswift.StringResource(key: "channel.join.request.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
@@ -1071,6 +1075,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreFailTitle = Rswift.StringResource(key: "settings.restore.fail.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Refuse
+      /// 
+      /// Locales: en
+      static let channelJoinRequestRefuse = Rswift.StringResource(key: "channel.join.request.refuse", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Remove ads
       /// 
       /// Locales: en
@@ -1191,6 +1199,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let toastSingleSecretChannal = Rswift.StringResource(key: "toast.single.secret.channal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your friend wants to join you
+      /// 
+      /// Locales: en
+      static let channelJoinRequesltModalTitle = Rswift.StringResource(key: "channel.join.requeslt.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like
+      /// 
+      /// Locales: en
+      static let channelJoinRequestModalMsg = Rswift.StringResource(key: "channel.join.request.modal.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your passcode has no corresponding secret channel, create or join one 
       /// 
       /// Locales: en
@@ -1239,6 +1255,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFree3dTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.3d.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Accept
+      /// 
+      /// Locales: en
+      static func channelJoinRequestAccept(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.request.accept", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -1528,6 +1551,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.restore.fail.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Refuse
+      /// 
+      /// Locales: en
+      static func channelJoinRequestRefuse(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.request.refuse", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Remove ads
       /// 
       /// Locales: en
@@ -1736,6 +1766,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func toastSingleSecretChannal(_: Void = ()) -> String {
         return NSLocalizedString("toast.single.secret.channal", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your friend wants to join you
+      /// 
+      /// Locales: en
+      static func channelJoinRequesltModalTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.requeslt.modal.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like
+      /// 
+      /// Locales: en
+      static func channelJoinRequestModalMsg(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.request.modal.msg", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your passcode has no corresponding secret channel, create or join one 
