@@ -16,145 +16,78 @@ import SwifterSwift
 
 extension FireStore {
     
+    private var firestoreQueryLimitCount: Int { return 10 }
+    
+    private typealias User = Entity.User
+    
     // MARK: - handle collections under user document
     
-    func fetchFollowingList(of user: String) -> Single<[Entity.User]> {
-        
-        typealias User = Entity.User
-        
-        return Observable<[User]>.create({ [weak self] (observer) -> Disposable in
-                self?.db.collection(Root.users)
-                .document(user)
-                .collection(User.Collection.following)
-                .getDocuments(completion: { (query, error) in
-                    
-                    guard error == nil else {
-                        observer.onError(error!)
-                        return
-                    }
-                    
-                    guard let query = query else {
-                        observer.onNext([])
-                        observer.onCompleted()
-                        return
-                    }
-                    
-                    let uidList = query.documents.map { $0.documentID }
-                    
-                    guard uidList.count > 0 else {
-                        observer.onNext([])
-                        observer.onCompleted()
-                        return
-                    }
-                    
-                    self?.db.collection(Root.users)
-                        .whereField(FieldPath.documentID(), in: uidList)
-                        .getDocuments(completion: { (query, error) in
-                            guard error == nil else {
-                                observer.onError(error!)
-                                return
-                            }
-                            
-                            guard let query = query else {
-                                observer.onNext([])
-                                observer.onCompleted()
-                                return
-                            }
-                            
-                            let followingUsers = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
-                            
-                            observer.onNext(followingUsers)
-                            observer.onCompleted()
-                        })
-                    
-                })
-            return Disposables.create { }
-        })
-        .asSingle()
-    }
-    
     func fetchUsers(_ uids: [String]) -> Single<[Entity.User]> {
-        
-        typealias User = Entity.User
-        
+
         return Observable<[User]>.create({ [weak self] (subscriber) -> Disposable in
             
-            guard uids.count > 0 else {
-                subscriber.onNext([])
-                subscriber.onCompleted()
-                return Disposables.create { }
+            guard let `self` = self,
+                uids.count > 0 else {
+                    subscriber.onNext([])
+                    subscriber.onCompleted()
+                    return Disposables.create { }
             }
             
-            self?.db.collection(Root.users)
-                .whereField(FieldPath.documentID(), in: uids)
-                .getDocuments(completion: { (query, error) in
-                    guard error == nil else {
-                        subscriber.onError(error!)
-                        return
-                    }
-                    
-                    guard let query = query else {
-                        subscriber.onNext([])
-                        subscriber.onCompleted()
-                        return
-                    }
-                    
-                    let users = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
-                    
+            let uidsChunk = uids.chunked(into: self.firestoreQueryLimitCount)
+            
+            let obs = uidsChunk.map { self._fetchUsers(where: FieldPath.documentID(), in: $0).catchErrorJustReturn([]) }
+            
+            let d = Observable.from(obs)
+                .flatMap { $0 }
+                .subscribe(onNext: { (users) in
                     subscriber.onNext(users)
                     subscriber.onCompleted()
+                }, onError: { (error) in
+                    subscriber.onError(error)
                 })
             
-            return Disposables.create { }
+            return Disposables.create { d.dispose() }
         })
             .asSingle()
     }
     
     func fetchUsers(_ uids: [UInt]) -> Single<[Entity.User]> {
-        typealias User = Entity.User
         
         return Observable<[User]>.create({ [weak self] (subscriber) -> Disposable in
             
-            guard uids.count > 0 else {
-                subscriber.onNext([])
-                subscriber.onCompleted()
-                return Disposables.create { }
+            guard let `self` = self,
+                uids.count > 0 else {
+                    subscriber.onNext([])
+                    subscriber.onCompleted()
+                    return Disposables.create { }
             }
             
-            self?.db.collection(Root.users)
-                .whereField(FieldPath.init([User.Keys.profile, User.Profile.Keys.uidInt]), in: uids)
-                .getDocuments(completion: { (query, error) in
-                    guard error == nil else {
-                        subscriber.onError(error!)
-                        return
-                    }
-                    
-                    guard let query = query else {
-                        subscriber.onNext([])
-                        subscriber.onCompleted()
-                        return
-                    }
-                    
-                    let users = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
-                    
+            let uidsChunk = uids.chunked(into: self.firestoreQueryLimitCount)
+            
+            let obs = uidsChunk.map { self._fetchUsers(where: FieldPath.init([User.Keys.profile, User.Profile.Keys.uidInt]), in: $0).catchErrorJustReturn([]) }
+            
+            let d = Observable.from(obs)
+                .flatMap { $0 }
+                .subscribe(onNext: { (users) in
                     subscriber.onNext(users)
                     subscriber.onCompleted()
+                }, onError: { (error) in
+                    subscriber.onError(error)
                 })
             
-            return Disposables.create { }
+            return Disposables.create { d.dispose() }
         })
             .asSingle()
     }
     
-    func fetchFollowerList(of user: String) -> Single<[Entity.User]> {
-
-        typealias User = Entity.User
+    private func _fetchUsers(where fieldPath: FieldPath, in values: [Any]) -> Single<[Entity.User]> {
         
         return Observable<[User]>.create({ [weak self] (observer) -> Disposable in
+            
             self?.db.collection(Root.users)
-                .document(user)
-                .collection(User.Collection.followers)
+                .whereField(fieldPath, in: values)
                 .getDocuments(completion: { (query, error) in
+                    
                     guard error == nil else {
                         observer.onError(error!)
                         return
@@ -165,39 +98,16 @@ extension FireStore {
                         observer.onCompleted()
                         return
                     }
-                    let uidList = query.documents.map { $0.documentID }
                     
-                    guard uidList.count > 0 else {
-                        observer.onNext([])
-                        observer.onCompleted()
-                        return
-                    }
+                    let followerUsers = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
                     
-                    self?.db.collection(Root.users)
-                        .whereField(FieldPath.documentID(), in: uidList)
-                        .getDocuments(completion: { (query, error) in
-                            
-                            guard error == nil else {
-                                observer.onError(error!)
-                                return
-                            }
-                            
-                            guard let query = query else {
-                                observer.onNext([])
-                                observer.onCompleted()
-                                return
-                            }
-                            
-                            let followerUsers = query.documents.compactMap { User(with: $0.data(), uid: $0.documentID) }
-                            
-                            observer.onNext(followerUsers)
-                            observer.onCompleted()
-                        })
+                    observer.onNext(followerUsers)
+                    observer.onCompleted()
                 })
             
             return Disposables.create { }
         })
-        .asSingle()
+            .asSingle()
     }
     
     func addFollowing(_ followingUser: String, to user: String) {
