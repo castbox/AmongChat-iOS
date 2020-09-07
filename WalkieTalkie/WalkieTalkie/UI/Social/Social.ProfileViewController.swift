@@ -66,6 +66,7 @@ extension Social {
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            tb.rowHeight = 75
             return tb
         }()
         
