@@ -944,8 +944,15 @@ private extension RoomViewController {
         guard !channel.showName.isEmpty else {
             return
         }
-        let vc = ChannelUserListController(channel: channel)
-        navigationController?.pushViewController(vc)
+//        let vc = ChannelUserListController(channel: channel)
+//        navigationController?.pushViewController(vc)
+        
+        guard let topVC = UIApplication.topViewController() else { return }
+        let msg = FireStore.Entity.User.CommonMessage(msgType: .enterRoom, uid: "WT-YYYYJR", channel: nil, username: "JJJJ", avatar: "3", docId: "")
+//        let modal = Social.TopToastModal(with: msg)
+        let modal = Social.JoinChannelRequestModal(with: msg)
+        topVC.present(modal, animated: false)
+
     }
     #endif
     
