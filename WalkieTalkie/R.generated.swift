@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 74 images.
+  /// This `R.image` struct is generated, and contains static references to 76 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -144,6 +144,10 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
+    /// Image `channel_user_list_ear`.
+    static let channel_user_list_ear = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_ear")
+    /// Image `channel_user_list_mic`.
+    static let channel_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mic")
     /// Image `default_avatar_0`.
     static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
     /// Image `default_avatar_1`.
@@ -324,6 +328,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_up", bundle: ..., traitCollection: ...)`
     static func btn_up(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "channel_user_list_ear", bundle: ..., traitCollection: ...)`
+    static func channel_user_list_ear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.channel_user_list_ear, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "channel_user_list_mic", bundle: ..., traitCollection: ...)`
+    static func channel_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.channel_user_list_mic, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`

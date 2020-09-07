@@ -104,6 +104,21 @@ extension ChannelUserListController: UITableViewDataSource {
                 maker.centerY.equalToSuperview()
                 maker.left.equalTo(45)
             }
+            let icon: UIImage?
+            if section == 0 {
+                icon = R.image.channel_user_list_mic()
+            } else if section == 1 {
+                icon = R.image.channel_user_list_ear()
+            } else {
+                icon = nil
+            }
+            let iconiV = UIImageView(image: icon)
+            view.addSubview(iconiV)
+            iconiV.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+                maker.left.equalToSuperview().offset(15)
+            }
             return view
         }()
         
