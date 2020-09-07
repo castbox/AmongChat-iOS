@@ -37,6 +37,8 @@ extension Routes {
                     switch uri {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
+                    case let channel as URI.Channel:
+                        self.handleChannel(channel)
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
                         
@@ -53,7 +55,49 @@ extension Routes {
                 return
             }
             
-            roomVc.joinChannel(name)
+            if name.isPrivate {
+                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                roomVc.update(mode: Mode.public.intValue)
+                roomVc.joinChannel(name)
+            } else {
+                let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
+                FireStore.shared.checkIsValidSecretChannel(name) { result in
+                    removeHandler()
+                    if result {
+                        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                        roomVc.update(mode: Mode.private.intValue)
+                        roomVc.joinChannel(name)
+                    } else {
+                        roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                    }
+                }
+            }
+        }
+        
+        func handleChannel(_ channel: URI.Channel) {
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+                return
+            }
+            
+            let name = channel.channelName
+            
+            if name.isPrivate {
+                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                roomVc.update(mode: Mode.public.intValue)
+                roomVc.joinChannel(name)
+            } else {
+                let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
+                FireStore.shared.checkIsValidSecretChannel(name) { result in
+                    removeHandler()
+                    if result {
+                        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+                        roomVc.update(mode: Mode.private.intValue)
+                        roomVc.joinChannel(name)
+                    } else {
+                        roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                    }
+                }
+            }
         }
         
         func showWebViewController(urlString: String) {

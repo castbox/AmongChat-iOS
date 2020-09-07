@@ -72,6 +72,23 @@ extension URI {
         }
     }
     
+    struct Channel: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/channel/:channelName"
+            ]
+        }
+        
+        let channelName: String
+        
+        init?(_ paras: [String : Any]) {
+            guard let channelName = paras["channelName"] as? String else { return nil }
+            self.channelName = channelName
+        }
+        
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {
