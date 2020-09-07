@@ -377,6 +377,11 @@ extension FireStore {
         addChannelInvitationMsg(invitationMsg, to: invitee)
     }
     
+    func sendJoinedChannelMsg(to user: String, from requester: Entity.User.Profile) {
+        let joinedMsg = Entity.User.CommonMessage(msgType: .enterRoom, uid: requester.uid, channel: nil, username: requester.name, avatar: requester.avatar, docId: "")
+        addCommonMsg(joinedMsg, to: user)
+    }
+    
     func deleteCommonMsg(_ msg: Entity.User.CommonMessage, from user: String) {
         db.collection(Root.users)
             .document(user)

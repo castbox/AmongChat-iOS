@@ -134,6 +134,11 @@ class RoomViewController: ViewController {
         return .channel
     }
     
+    private let joinedChannelSubject = PublishSubject<String>()
+    var joinedChannelObservable: Observable<String> {
+        return joinedChannelSubject.asObservable()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.isNavigationBarHiddenWhenAppear = true
@@ -324,6 +329,7 @@ class RoomViewController: ViewController {
                     UIApplication.shared.isIdleTimerDisabled = true
                     self?.isSegmentControlEnable = true
                     completionBlock?()
+                    self?.joinedChannelSubject.onNext(name)
                 }
             }
         }
