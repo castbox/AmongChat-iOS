@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 76 images.
+  /// This `R.image` struct is generated, and contains static references to 77 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -132,6 +132,8 @@ struct R: Rswift.Validatable {
     static let btn_call_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_call_on")
     /// Image `btn_down`.
     static let btn_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_down")
+    /// Image `btn_more_action`.
+    static let btn_more_action = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_more_action")
     /// Image `btn_power_on`.
     static let btn_power_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_power_on")
     /// Image `btn_power`.
@@ -298,6 +300,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_down", bundle: ..., traitCollection: ...)`
     static func btn_down(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_down, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "btn_more_action", bundle: ..., traitCollection: ...)`
+    static func btn_more_action(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_more_action, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "btn_power", bundle: ..., traitCollection: ...)`
@@ -1921,6 +1928,7 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
+        if UIKit.UIImage(named: "btn_more_action", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_more_action' is used in nib 'ChannelUserCell', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_user_list_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_user_list_mic' is used in nib 'ChannelUserCell', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }

@@ -94,6 +94,7 @@ extension Social.UserList {
         
         private lazy var moreActionBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
+            btn.setImage(R.image.btn_more_action(), for: .normal)
             btn.addTarget(self, action: #selector(onMoreActionBtn), for: .primaryActionTriggered)
             if self.userType == .blocked {
                 btn.isHidden = true

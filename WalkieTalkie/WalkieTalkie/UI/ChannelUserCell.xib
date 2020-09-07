@@ -11,9 +11,6 @@
         <array key="Nunito-Black.ttf">
             <string>Nunito-Black</string>
         </array>
-        <array key="Nunito-Bold.ttf">
-            <string>Nunito-Bold</string>
-        </array>
         <array key="Nunito-SemiBold.ttf">
             <string>Nunito-SemiBold</string>
         </array>
@@ -67,11 +64,13 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-Zb-a5v">
-                        <rect key="frame" x="270" y="18" width="44" height="28"/>
-                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="13"/>
-                        <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                        <state key="normal" title="●●●">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-Zb-a5v">
+                        <rect key="frame" x="289" y="19.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Rvg-YU-Lcq"/>
+                            <constraint firstAttribute="width" constant="25" id="iQr-BJ-6ag"/>
+                        </constraints>
+                        <state key="normal" image="btn_more_action">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         </state>
                         <connections>
@@ -114,6 +113,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="btn_more_action" width="50" height="50"/>
         <image name="icon_user_list_mic" width="25" height="25"/>
     </resources>
 </document>
