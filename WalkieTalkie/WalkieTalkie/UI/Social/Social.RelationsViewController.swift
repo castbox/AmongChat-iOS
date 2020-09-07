@@ -100,6 +100,15 @@ extension Social {
                     self?.followerBtn.appendKern()
                 })
                 .disposed(by: bag)
+            
+            rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: { [weak self] (_) in
+                    if self?.primitiveTab == .followerTab {
+                        self?.followerBtn.sendActions(for: .primaryActionTriggered)
+                    }
+                })
+                .disposed(by: bag)
         }
         
         override func viewDidLayoutSubviews() {
