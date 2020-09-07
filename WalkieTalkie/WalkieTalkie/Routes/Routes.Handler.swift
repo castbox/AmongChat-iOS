@@ -39,6 +39,8 @@ extension Routes {
                         self.handleHomepage(home.channelName)
                     case let channel as URI.Channel:
                         self.handleChannel(channel)
+                    case let _ as URI.Followers:
+                        self.handleFollowers()
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
                         
@@ -98,6 +100,12 @@ extension Routes {
                     }
                 }
             }
+        }
+        
+        func handleFollowers() {
+            guard let nav = UIApplication.navigationController else { return }
+            let vc = Social.RelationsViewController(.followerTab)
+            nav.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {
