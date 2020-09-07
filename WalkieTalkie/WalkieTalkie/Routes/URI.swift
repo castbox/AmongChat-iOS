@@ -89,6 +89,18 @@ extension URI {
         
     }
     
+    struct Followers: URIRepresentable {
+        static func patterns() -> [String] {
+            return [
+                "/follower",
+                "/followers"
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {
