@@ -176,9 +176,9 @@ extension Social {
             }
             
             let selfChannel = Social.Module.shared.currentChannelValue
-            guard let selfUid = Settings.shared.loginResult.value?.uid,
+            guard let selfProfile = Settings.shared.firestoreUserProfile.value,
                 !selfChannel.isEmpty else { return }
-            FireStore.shared.acceptJoinChannelRequest(originMsg, toJoinChannel: selfChannel, by: selfUid)
+            FireStore.shared.acceptJoinChannelRequest(originMsg, toJoinChannel: selfChannel, by: selfProfile)
         }
         
         // MARK: - Modalable
