@@ -122,7 +122,7 @@
 "channel.user.list.mute" = "Mute";
 "channel.user.list.unmute" = "Unmute";
 
-"channel.join.requeslt.modal.title" = "Your friend wants to join you";
+"channel.join.request.modal.title" = "Your friend wants to join you";
 "channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";
 "channel.join.request.refuse" = "Refuse";
 "channel.join.request.accept" = "Accept";

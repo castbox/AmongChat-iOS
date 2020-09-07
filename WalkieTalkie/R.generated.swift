@@ -1210,7 +1210,7 @@ struct R: Rswift.Validatable {
       /// en translation: Your friend wants to join you
       /// 
       /// Locales: en
-      static let channelJoinRequesltModalTitle = Rswift.StringResource(key: "channel.join.requeslt.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let channelJoinRequestModalTitle = Rswift.StringResource(key: "channel.join.request.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like
       /// 
       /// Locales: en
@@ -1793,8 +1793,8 @@ struct R: Rswift.Validatable {
       /// en translation: Your friend wants to join you
       /// 
       /// Locales: en
-      static func channelJoinRequesltModalTitle(_: Void = ()) -> String {
-        return NSLocalizedString("channel.join.requeslt.modal.title", bundle: R.hostingBundle, comment: "")
+      static func channelJoinRequestModalTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.request.modal.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like

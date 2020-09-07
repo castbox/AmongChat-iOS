@@ -17,7 +17,7 @@ extension Social {
             #if DEBUG
             iv.backgroundColor = UIColor(hex6: 0xF8E71C, alpha: 1.0)
             #endif
-            iv.layer.cornerRadius = 45
+            iv.layer.cornerRadius = 15
             iv.layer.masksToBounds = true
             return iv
         }()
@@ -33,6 +33,7 @@ extension Social {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoBold(size: 20)
             lb.textColor = UIColor(hex6: 0x2C2C2C, alpha: 1.0)
+            lb.text = R.string.localizable.channelJoinRequestModalTitle()
             return lb
         }()
         
@@ -41,6 +42,7 @@ extension Social {
             lb.numberOfLines = 0
             lb.font = R.font.nunitoRegular(size: 14)
             lb.textColor = UIColor(hex6: 0x333333, alpha: 0.54)
+            lb.text = R.string.localizable.channelJoinRequestModalMsg()
             return lb
         }()
         
@@ -50,7 +52,7 @@ extension Social {
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.addTarget(self, action: #selector(onRefuseBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.socialUnblock(), for: .normal)
+            btn.setTitle(R.string.localizable.channelJoinRequestRefuse(), for: .normal)
             btn.setTitleColor(.white, for: .normal)
             btn.appendKern()
             return btn
@@ -62,7 +64,7 @@ extension Social {
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.addTarget(self, action: #selector(onAcceptBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.socialUnblock(), for: .normal)
+            btn.setTitle(R.string.localizable.channelJoinRequestAccept(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.appendKern()
             return btn
