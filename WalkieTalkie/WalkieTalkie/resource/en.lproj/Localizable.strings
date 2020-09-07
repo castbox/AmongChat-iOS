@@ -126,3 +126,5 @@
 "channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";
 "channel.join.request.refuse" = "Refuse";
 "channel.join.request.accept" = "Accept";
+"channel.join.request.refused.msg" = "%1$@ refuses your request";
+"channel.join.request.enter.room.msg" = "%1$@ enters room";

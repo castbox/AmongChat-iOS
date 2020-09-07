@@ -893,8 +893,16 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 85 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 87 localization keys.
     struct localizable {
+      /// en translation: %1$@ enters room
+      /// 
+      /// Locales: en
+      static let channelJoinRequestEnterRoomMsg = Rswift.StringResource(key: "channel.join.request.enter.room.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: %1$@ refuses your request
+      /// 
+      /// Locales: en
+      static let channelJoinRequestRefusedMsg = Rswift.StringResource(key: "channel.join.request.refused.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
@@ -1235,6 +1243,20 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessBody = Rswift.StringResource(key: "settings.restore.success.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      
+      /// en translation: %1$@ enters room
+      /// 
+      /// Locales: en
+      static func channelJoinRequestEnterRoomMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("channel.join.request.enter.room.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %1$@ refuses your request
+      /// 
+      /// Locales: en
+      static func channelJoinRequestRefusedMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("channel.join.request.refused.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
       
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 

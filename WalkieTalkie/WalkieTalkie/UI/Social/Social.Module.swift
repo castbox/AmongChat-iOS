@@ -177,13 +177,17 @@ extension Social {
             
             joinChannelRefusedSubject
                 .subscribe(onNext: { (msg) in
-                    
+                    guard let topVC = UIApplication.topViewController() else { return }
+                    let modal = Social.TopToastModal(with: msg)
+                    topVC.present(modal, animated: false)
                 })
                 .disposed(by: bag)
             
             enterRoomMsgSubject
                 .subscribe(onNext: { (msg) in
-                    
+                    guard let topVC = UIApplication.topViewController() else { return }
+                    let modal = Social.TopToastModal(with: msg)
+                    topVC.present(modal, animated: false)
                 })
                 .disposed(by: bag)
             
