@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 78 images.
+  /// This `R.image` struct is generated, and contains static references to 81 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -278,6 +278,12 @@ struct R: Rswift.Validatable {
     static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
     /// Image `speak_button_pre`.
     static let speak_button_pre = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_pre")
+    /// Image `speak_list_add`.
+    static let speak_list_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_add")
+    /// Image `speak_list_mic`.
+    static let speak_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_mic")
+    /// Image `speak_list_user`.
+    static let speak_list_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_user")
     
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
     static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -667,6 +673,21 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "speak_button_pre", bundle: ..., traitCollection: ...)`
     static func speak_button_pre(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.speak_button_pre, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "speak_list_add", bundle: ..., traitCollection: ...)`
+    static func speak_list_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_list_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "speak_list_mic", bundle: ..., traitCollection: ...)`
+    static func speak_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_list_mic, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "speak_list_user", bundle: ..., traitCollection: ...)`
+    static func speak_list_user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_list_user, compatibleWith: traitCollection)
     }
     
     fileprivate init() {}

@@ -27,12 +27,34 @@ class RoomSpeakingListView: UIView {
         return v
     }()
     
-    private lazy var moreUserBtn: UIButton = {
-        let btn = UIButton(type: .custom)
-        btn.addTarget(self, action: #selector(onMoreUserBtn), for: .primaryActionTriggered)
-        btn.titleLabel?.font = R.font.nunitoBold(size: 10)
-        btn.setTitleColor(UIColor(hex6: 0xF1F1F1, alpha: 1.0), for: .normal)
+    private lazy var userCountLabel: WalkieLabel = {
+        let lb = WalkieLabel()
+        lb.font = R.font.nunitoBold(size: 11)
+        lb.textColor = UIColor(hex6: 0xF1F1F1, alpha: 1.0)
+        return lb
+    }()
+    
+    private lazy var moreUserBtn: UIView = {
+        let btn = UIView()
         btn.backgroundColor = UIColor(hex6: 0x363636, alpha: 0.3)
+        let tapGR = UITapGestureRecognizer()
+        tapGR.addTarget(self, action: #selector(onMoreUserBtn))
+        btn.addGestureRecognizer(tapGR)
+        
+        let iconIV = UIImageView(image: R.image.speak_list_user())
+        btn.addSubviews(views: iconIV, self.userCountLabel)
+        iconIV.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(15)
+            maker.centerY.equalToSuperview()
+            maker.left.equalToSuperview().offset(8)
+        }
+        
+        self.userCountLabel.snp.makeConstraints { (maker) in
+            maker.left.equalTo(iconIV.snp.right).offset(5)
+            maker.centerY.equalToSuperview()
+            maker.right.equalToSuperview().offset(-8)
+        }
+        
         btn.layer.cornerRadius = 15
         return btn
     }()
@@ -61,7 +83,8 @@ class RoomSpeakingListView: UIView {
         
         let _ = ChannelUserListViewModel.shared.userObservable
             .subscribe(onNext: { [weak self] (users) in
-                self?.moreUserBtn.setTitle("\(users.count)", for: .normal)
+                self?.userCountLabel.text = "\(users.count)"
+                self?.userCountLabel.appendKern()
             })
     }
     
@@ -92,10 +115,10 @@ class RoomSpeakingListView: UIView {
     
     func update(with room: Room) {
         if room.name.isEmpty {
-            moreUserBtn.isEnabled = false
+            moreUserBtn.isUserInteractionEnabled = false
             minimumListLength = 5
         } else {
-            moreUserBtn.isEnabled = true
+            moreUserBtn.isUserInteractionEnabled = true
             minimumListLength = FireStore.channelConfig.maximumSpeakers(room)
         }
     }
@@ -156,6 +179,7 @@ fileprivate extension RoomSpeakingListView {
                         
             micView.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalTo(userAvatar)
+                maker.width.height.equalTo(15)
             }
         }
         
@@ -174,9 +198,9 @@ fileprivate extension RoomSpeakingListView {
                     self.userAvatar.image = image
                 })
                 
-                micView.image = user.status.micImage
+                micView.image = R.image.speak_list_mic()
             } else {
-                userAvatar.image = R.image.btn_add()
+                userAvatar.image = R.image.speak_list_add()
                 userAvatar.backgroundColor = nil
                 micView.image = nil
             }
