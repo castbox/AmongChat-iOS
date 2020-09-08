@@ -32,8 +32,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJx-Nj-5oY">
-                                <rect key="frame" x="92.5" y="618" width="229" height="151.5"/>
+                                <rect key="frame" x="97" y="633.5" width="220" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="cSy-KW-NwM"/>
+                                    <constraint firstAttribute="height" constant="120" id="iF3-BM-Tb8"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="speak_button_nor"/>
+                                <state key="disabled" backgroundImage="speak_button_dis"/>
                                 <state key="highlighted" backgroundImage="speak_button_pre"/>
                             </button>
                             <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-XA-SAp">
@@ -49,7 +54,7 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-Mq-pGj">
-                                <rect key="frame" x="92.5" y="618" width="229" height="151.5"/>
+                                <rect key="frame" x="97" y="633.5" width="220" height="120"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh" customClass="RoomToolsView" customModule="WalkieTalkie" customModuleProvider="target">
                                 <rect key="frame" x="40" y="102" width="334" height="423"/>
@@ -1472,7 +1477,8 @@ Cg
         <image name="icon_room_lock" width="25" height="25"/>
         <image name="icon_setting_diamonds_u" width="25" height="25"/>
         <image name="icon_setting_star" width="25" height="25"/>
-        <image name="speak_button_nor" width="229" height="151.5"/>
-        <image name="speak_button_pre" width="229" height="151.5"/>
+        <image name="speak_button_dis" width="440" height="240"/>
+        <image name="speak_button_nor" width="440" height="240"/>
+        <image name="speak_button_pre" width="440" height="240"/>
     </resources>
 </document>

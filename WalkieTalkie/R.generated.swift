@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 81 images.
+  /// This `R.image` struct is generated, and contains static references to 82 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -274,6 +274,8 @@ struct R: Rswift.Validatable {
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
     /// Image `snapchat_share_bg`.
     static let snapchat_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "snapchat_share_bg")
+    /// Image `speak_button_dis`.
+    static let speak_button_dis = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_dis")
     /// Image `speak_button_nor`.
     static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
     /// Image `speak_button_pre`.
@@ -663,6 +665,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "snapchat_share_bg", bundle: ..., traitCollection: ...)`
     static func snapchat_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.snapchat_share_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "speak_button_dis", bundle: ..., traitCollection: ...)`
+    static func speak_button_dis(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.speak_button_dis, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "speak_button_nor", bundle: ..., traitCollection: ...)`
@@ -2364,6 +2371,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_diamonds_u", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds_u' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_setting_star", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_star' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "speak_button_dis", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_dis' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
