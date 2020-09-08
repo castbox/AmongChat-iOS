@@ -57,6 +57,18 @@ class RoomViewController: ViewController {
         return v
     }()
     
+    private lazy var avatarBtn: Social.Widgets.AvatarView = {
+        let iv = Social.Widgets.AvatarView()
+        iv.isUserInteractionEnabled = true
+        let tapGR = UITapGestureRecognizer()
+        tapGR.addTarget(self, action: #selector(reportButtonAction(_:)))
+        iv.addGestureRecognizer(tapGR)
+        iv.a_cornerRadius = 15
+        iv.a_borderWidth = 2
+        iv.a_borderColor = UIColor(hex6: 0xFFFFFF, alpha: 0.25)
+        return iv
+    }()
+    
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
         manager.delegate = self
@@ -893,6 +905,16 @@ private extension RoomViewController {
             .asObservable()
             .bind(to: reportButton.rx.isEnabled)
             .disposed(by: bag)
+        
+        Settings.shared.firestoreUserProfile.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (profile) in
+                let _ = profile.avatarObservable
+                    .subscribe(onSuccess: { (image) in
+                        self?.avatarBtn.image = image
+                    })
+            })
+            .disposed(by: bag)
     }
     
     func configureSubview() {
@@ -931,6 +953,13 @@ private extension RoomViewController {
         }
         
         #endif
+        
+        view.addSubview(avatarBtn)
+        avatarBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(30)
+            maker.left.equalTo(15)
+            maker.centerY.equalTo(segmentControl)
+        }
         
         screenContainer.addSubview(speakingListView)
         speakingListView.snp.makeConstraints { (maker) in
