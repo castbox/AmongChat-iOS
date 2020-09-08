@@ -59,7 +59,7 @@ extension Social {
             #if DEBUG
             let interval: Int = 10
             #else
-            let interval: Int = 30
+            let interval: Int = 60
             #endif
             Observable<Int>.interval(.seconds(interval), scheduler: MainScheduler.instance)
                 .subscribe(onNext: { (_) in
