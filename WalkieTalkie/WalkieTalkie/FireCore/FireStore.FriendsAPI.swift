@@ -116,7 +116,7 @@ extension FireStore {
             .collection(Entity.User.Collection.following)
             .document(followingUser)
             .setData([
-                Entity.User.FriendMeta.Keys.createdAt : FieldValue.serverTimestamp()
+                Entity.User.FriendMeta.Keys.createdAt : Int64(Date().timeIntervalSince1970 * 1000)
             ])
     }
     
