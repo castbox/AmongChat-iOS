@@ -118,6 +118,7 @@
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";
+"channel.user.list.social.title" = "Social";
 "channel.user.list.follow" = "Follow";
 "channel.user.list.mute" = "Mute";
 "channel.user.list.unmute" = "Unmute";

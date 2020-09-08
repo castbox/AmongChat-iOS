@@ -15,6 +15,41 @@ class ChannelUserListController: ViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var navHeightConstraint: NSLayoutConstraint!
+    
+    private lazy var footerView: UIView = {
+        
+        let view = UIView()
+        view.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
+        
+        let iconiV = UIImageView(image: R.image.channel_user_list_social())
+        view.addSubview(iconiV)
+        iconiV.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(15)
+            maker.left.equalToSuperview().offset(15)
+            maker.top.equalToSuperview().offset(5)
+        }
+        
+        let lb = WalkieLabel()
+        lb.font = R.font.nunitoSemiBold(size: 12)
+        lb.textColor = .black
+        lb.text = R.string.localizable.channelUserListSocialTitle()
+        lb.appendKern()
+        view.addSubview(lb)
+        lb.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(iconiV)
+            maker.left.equalTo(45)
+        }
+        
+        let shareContainer = SocialContainerView(with: self.channel)
+
+        view.addSubview(shareContainer)
+        shareContainer.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview().inset(15)
+            maker.bottom.equalToSuperview().offset(-40)
+        }
+        view.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 145)
+        return view
+    }()
 
     private var dataSource: [[ChannelUserViewModel]] = [] {
         didSet {
@@ -254,6 +289,7 @@ extension ChannelUserListController {
         tableView.register(nibWithCellClass: ChannelUserCell.self)
         tableView.backgroundColor = .clear
         navHeightConstraint.constant = Frame.Height.navigation
+        tableView.tableFooterView = footerView
     }
 }
 
@@ -278,4 +314,105 @@ extension ChannelUserListController: Modalable {
     func coverAlpha() -> CGFloat {
         return 0.5
     }
+}
+
+extension ChannelUserListController {
+    
+    class SocialContainerView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
+                
+        private lazy var collectionView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            layout.itemSize = CGSize(width: 50, height: 50)
+            layout.minimumLineSpacing = 24
+            layout.sectionInset = .zero
+            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(ShareContainerView.Cell.self, forCellWithReuseIdentifier: NSStringFromClass(ShareContainerView.Cell.self))
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
+            v.dataSource = self
+            v.delegate = self
+            v.backgroundColor = nil
+            return v
+        }()
+        
+        private typealias Item = ShareContainerView.Item
+        
+        private var source: [Item] = []
+        private let channel: Room
+        
+        override var intrinsicContentSize: CGSize {
+            return CGSize(width: 0, height: 50)
+        }
+        
+        init(with channel: Room) {
+            self.channel = channel
+            super.init(frame: .zero)
+            setupLayout()
+            updateSource()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            addSubview(collectionView)
+            collectionView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+        }
+        
+        private func updateSource() {
+            ShareManager.ShareType.allCases
+                .filter { $0.isAppInstalled }
+                .forEach { type in
+                    switch type {
+                    case .message:
+                        source.append(Item(icon: R.image.icon_share_message(), type: .message))
+                    case .whatsapp:
+                        source.append(Item(icon: R.image.icon_share_whatsapp(), type: .whatsapp))
+                    case .snapchat:
+                        let isInreview = FireStore.shared.appConfigSubject.value?.isSnapchatInreview ?? false
+                        if !isInreview {
+                            source.append(Item(icon: R.image.icon_share_snapchat(), type: .snapchat))
+                        }
+                    case .ticktock:
+                        ()
+    //                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))
+                    case .more:
+                        source.append(Item(icon: R.image.icon_share_more(), type: .more))
+                    }
+            }
+        }
+        
+        
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            return source.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(ShareContainerView.Cell.self), for: indexPath)
+            if let cell = cell as? ShareContainerView.Cell,
+                let item = source.safe(indexPath.item) {
+                cell.imageView.image = item.icon
+            }
+            return cell
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            //select
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ShareContainerView.Cell,
+                let item = source.safe(indexPath.item) else {
+                    return
+            }
+            self.isUserInteractionEnabled = false
+            cell.isAnimate = true
+            ShareManager.default.share(with: channel.name, type: item.type, viewController: self.parentViewController!) { [weak self] in
+                self?.isUserInteractionEnabled = true
+                cell.isAnimate = false
+            }
+        }
+    }
+    
 }

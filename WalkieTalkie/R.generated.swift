@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 77 images.
+  /// This `R.image` struct is generated, and contains static references to 78 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -150,6 +150,8 @@ struct R: Rswift.Validatable {
     static let channel_user_list_ear = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_ear")
     /// Image `channel_user_list_mic`.
     static let channel_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mic")
+    /// Image `channel_user_list_social`.
+    static let channel_user_list_social = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_social")
     /// Image `default_avatar_0`.
     static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
     /// Image `default_avatar_1`.
@@ -345,6 +347,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "channel_user_list_mic", bundle: ..., traitCollection: ...)`
     static func channel_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.channel_user_list_mic, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "channel_user_list_social", bundle: ..., traitCollection: ...)`
+    static func channel_user_list_social(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.channel_user_list_social, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
@@ -914,7 +921,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 87 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 88 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1144,6 +1151,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Social
+      /// 
+      /// Locales: en
+      static let channelUserListSocialTitle = Rswift.StringResource(key: "channel.user.list.social.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Subscribe
       /// 
       /// Locales: en
@@ -1662,6 +1673,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectSexual(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Social
+      /// 
+      /// Locales: en
+      static func channelUserListSocialTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.social.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Subscribe
