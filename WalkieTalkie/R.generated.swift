@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 82 images.
+  /// This `R.image` struct is generated, and contains static references to 83 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -260,6 +260,8 @@ struct R: Rswift.Validatable {
     static let private_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg_2")
     /// Image `private_share_bg`.
     static let private_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg")
+    /// Image `profile_avatar_random_btn`.
+    static let profile_avatar_random_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_avatar_random_btn")
     /// Image `profile_block_users`.
     static let profile_block_users = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_block_users")
     /// Image `profile_invite_friends`.
@@ -630,6 +632,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "private_share_bg_2", bundle: ..., traitCollection: ...)`
     static func private_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.private_share_bg_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "profile_avatar_random_btn", bundle: ..., traitCollection: ...)`
+    static func profile_avatar_random_btn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.profile_avatar_random_btn, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "profile_block_users", bundle: ..., traitCollection: ...)`

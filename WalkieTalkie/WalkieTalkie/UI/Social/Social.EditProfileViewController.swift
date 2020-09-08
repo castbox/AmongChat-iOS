@@ -36,11 +36,9 @@ extension Social {
         
         private lazy var randomIconIV: UIImageView = {
             let iv = UIImageView()
-            #if DEBUG
-            iv.backgroundColor = UIColor(hex6: 0xD8D8D8, alpha: 1.0)
-            #endif
             iv.layer.cornerRadius = 15
             iv.layer.masksToBounds = true
+            iv.image = R.image.profile_avatar_random_btn()
             return iv
         }()
         

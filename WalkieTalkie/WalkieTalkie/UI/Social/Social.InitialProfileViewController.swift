@@ -19,9 +19,6 @@ extension Social {
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGR)
-            #if DEBUG
-            iv.backgroundColor = UIColor(hex6: 0xF8E71C, alpha: 1.0)
-            #endif
             iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
             return iv
@@ -34,6 +31,7 @@ extension Social {
             #endif
             iv.layer.cornerRadius = 15
             iv.layer.masksToBounds = true
+            iv.image = R.image.profile_avatar_random_btn()
             return iv
         }()
         
