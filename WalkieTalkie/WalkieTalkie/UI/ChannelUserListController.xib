@@ -11,14 +11,10 @@
         <array key="Nunito-Bold.ttf">
             <string>Nunito-Bold</string>
         </array>
-        <array key="Nunito-SemiBold.ttf">
-            <string>Nunito-SemiBold</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChannelUserListController" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
-                <outlet property="emptyView" destination="e5K-R4-aSb" id="EuI-qD-9aw"/>
                 <outlet property="navHeightConstraint" destination="jBj-Qj-BdS" id="90e-6q-xct"/>
                 <outlet property="tableView" destination="elw-iU-yBn" id="NDY-mu-qud"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -59,21 +55,6 @@
                         <constraint firstAttribute="bottom" secondItem="IVI-tk-nWZ" secondAttribute="bottom" constant="11.5" id="waI-7K-NUZ"/>
                     </constraints>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e5K-R4-aSb">
-                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nobody is talking now!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aob-51-18i">
-                            <rect key="frame" x="134.5" y="377.5" width="145.5" height="19.5"/>
-                            <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
-                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="Aob-51-18i" firstAttribute="centerY" secondItem="e5K-R4-aSb" secondAttribute="centerY" id="BcI-Th-r8o"/>
-                        <constraint firstItem="Aob-51-18i" firstAttribute="centerX" secondItem="e5K-R4-aSb" secondAttribute="centerX" id="KV7-OF-ZVr"/>
-                    </constraints>
-                </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="elw-iU-yBn">
                     <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -86,16 +67,12 @@
             <color key="backgroundColor" red="1" green="0.83529411764705885" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sUY-Yt-QOx" secondAttribute="trailing" id="6y7-IL-0uT"/>
-                <constraint firstItem="e5K-R4-aSb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="H29-YL-AwU"/>
-                <constraint firstItem="e5K-R4-aSb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="OBE-qq-kcg"/>
                 <constraint firstItem="sUY-Yt-QOx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WVE-dn-BRc"/>
                 <constraint firstItem="elw-iU-yBn" firstAttribute="top" secondItem="sUY-Yt-QOx" secondAttribute="bottom" id="eqk-2r-f47"/>
-                <constraint firstItem="e5K-R4-aSb" firstAttribute="bottom" secondItem="elw-iU-yBn" secondAttribute="bottom" id="h1I-JV-UZZ"/>
                 <constraint firstItem="elw-iU-yBn" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="lqV-Gb-04q"/>
                 <constraint firstItem="sUY-Yt-QOx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mBf-xl-kjX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="elw-iU-yBn" secondAttribute="trailing" id="pQ0-fG-DbI"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="elw-iU-yBn" secondAttribute="bottom" id="pz4-aA-Ij7"/>
-                <constraint firstItem="e5K-R4-aSb" firstAttribute="top" secondItem="elw-iU-yBn" secondAttribute="top" id="ugj-5h-nB8"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>

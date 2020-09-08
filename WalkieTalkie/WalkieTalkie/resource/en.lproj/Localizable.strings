@@ -122,6 +122,8 @@
 "channel.user.list.follow" = "Follow";
 "channel.user.list.mute" = "Mute";
 "channel.user.list.unmute" = "Unmute";
+"channel.user.list.speak.empty.text" = "Nobody speaks yet";
+"channel.user.list.listen.empty.text" = "Nobody listens yet";
 
 "channel.join.request.modal.title" = "Your friend wants to join you";
 "channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";

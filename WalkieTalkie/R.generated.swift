@@ -921,7 +921,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 88 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 90 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1091,6 +1091,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreFailBody = Rswift.StringResource(key: "settings.restore.fail.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Nobody listens yet
+      /// 
+      /// Locales: en
+      static let channelUserListListenEmptyText = Rswift.StringResource(key: "channel.user.list.listen.empty.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Nobody speaks yet
+      /// 
+      /// Locales: en
+      static let channelUserListSpeakEmptyText = Rswift.StringResource(key: "channel.user.list.speak.empty.text", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: OK
       /// 
       /// Locales: en
@@ -1568,6 +1576,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreFailBody(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.fail.body", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Nobody listens yet
+      /// 
+      /// Locales: en
+      static func channelUserListListenEmptyText(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.listen.empty.text", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Nobody speaks yet
+      /// 
+      /// Locales: en
+      static func channelUserListSpeakEmptyText(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.speak.empty.text", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: OK

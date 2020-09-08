@@ -13,7 +13,6 @@ import RxSwift
 class ChannelUserListController: ViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var navHeightConstraint: NSLayoutConstraint!
     
     private lazy var footerView: UIView = {
@@ -112,17 +111,13 @@ extension ChannelUserListController: UITableViewDataSource {
         return 64
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let header: UIView = {
+        let titleView: UIView = {
             let view = UIView()
             view.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
             let lb = WalkieLabel()
@@ -155,6 +150,52 @@ extension ChannelUserListController: UITableViewDataSource {
                 maker.left.equalToSuperview().offset(15)
             }
             return view
+        }()
+        
+        let emptyTextView: UIView = {
+            let v = UIView()
+            
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoSemiBold(size: 16)
+            lb.textColor = .black
+            
+            if section == 0 {
+                lb.text = R.string.localizable.channelUserListSpeakEmptyText()
+            } else if section == 1 {
+                lb.text = R.string.localizable.channelUserListListenEmptyText()
+            }
+            
+            v.addSubview(lb)
+            lb.snp.makeConstraints { (maker) in
+                maker.center.equalToSuperview()
+                maker.top.bottom.equalToSuperview().inset(30)
+            }
+            return v
+        }()
+        
+        let header: UIView = {
+            let v = UIView()
+            
+            v.addSubview(titleView)
+            
+            titleView.snp.makeConstraints { (maker) in
+                maker.left.right.top.equalToSuperview()
+                maker.height.equalTo(30)
+            }
+            
+            if dataSource.safe(section)?.count == 0 {
+                v.addSubview(emptyTextView)
+                emptyTextView.snp.makeConstraints { (maker) in
+                    maker.left.right.bottom.equalToSuperview()
+                    maker.top.equalTo(titleView.snp.bottom)
+                }
+            } else {
+                titleView.snp.makeConstraints { (maker) in
+                    maker.bottom.equalToSuperview()
+                }
+            }
+            
+            return v
         }()
         
         return header
@@ -269,7 +310,6 @@ extension ChannelUserListController {
         viewModel.dataSourceReplay
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] users in
-                self?.emptyView.isHidden = !users.isEmpty
                 
                 let speaking = users.filter { (user) -> Bool in
                     user.channelUser.status == .talking
@@ -290,6 +330,8 @@ extension ChannelUserListController {
         tableView.backgroundColor = .clear
         navHeightConstraint.constant = Frame.Height.navigation
         tableView.tableFooterView = footerView
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        tableView.estimatedSectionHeaderHeight = 73
     }
 }
 
