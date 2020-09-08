@@ -164,12 +164,17 @@ extension Social {
         }
         
         private func setupData() {
-            avatarIV.image = avatar.0
             guard let profile = Settings.shared.firestoreUserProfile.value else {
+                avatarIV.image = avatar.0
                 nameInputField.text = Constants.defaultUsername
                 return
             }
             nameInputField.text = profile.name
+            profile.avatarObservable
+                .subscribe(onSuccess: { [weak self] (image) in
+                    self?.avatarIV.image = image
+                })
+                .disposed(by: bag)
         }
         
         private func setupEvent() {
