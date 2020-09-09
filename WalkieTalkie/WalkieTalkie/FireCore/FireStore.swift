@@ -26,11 +26,9 @@ class FireStore {
         #if DEBUG
         static let channels = "channels-test"
         static let users = "users-test"
-        static let userMeta = "user-meta-test"
         #else
         static let channels = "channels"
         static let users = "users"
-        static let userMeta = "user-meta"
         #endif
     }
     //

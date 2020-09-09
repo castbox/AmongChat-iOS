@@ -226,44 +226,6 @@ extension FireStore {
         
     }
     
-    func newChannelInvitationMsgObservable(of user: String) -> Observable<Entity.User.ChannelInvitationMessage> {
-        
-        typealias User = Entity.User
-        
-        return Observable<User.ChannelInvitationMessage>.create({ [weak self] (observer) -> Disposable in
-            let ref = self?.db.collection(Root.users)
-                .document(user)
-                .collection(User.Collection.channelInvitationMsgs)
-                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
-                    
-                    guard error == nil else {
-                        observer.onError(error!)
-                        return
-                    }
-                    
-                    guard let query = query else {
-                        observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
-                        return
-                    }
-                    
-                    query.documentChanges.forEach { (diff) in
-                        switch diff.type {
-                        case .added:
-                            if let msg = User.ChannelInvitationMessage(with: diff.document) {
-                                observer.onNext(msg)
-                            }
-                        default:
-                            ()
-                        }
-                    }
-                })
-            
-            return Disposables.create {
-                ref?.remove()
-            }
-        })
-    }
-    
     func newCommonMsgObservable(of user: String) -> Observable<Entity.User.CommonMessage> {
         
         typealias User = Entity.User
@@ -323,21 +285,7 @@ extension FireStore {
         
         batch.commit()
     }
-    
-    func deleteChannelInvitationMsg(_ msg: Entity.User.ChannelInvitationMessage, of user: String) {
-        db.collection(Root.users)
-            .document(user)
-            .collection(Entity.User.Collection.channelInvitationMsgs)
-            .document(msg.docId)
-            .delete { (err) in
-                if let err = err {
-                    NSLog("Error removing document: \(err)")
-                } else {
-                    NSLog("Document successfully removed!")
-                }
-        }
-    }
-    
+        
     private func addCommonMsg(_ msg: Entity.User.CommonMessage, to user: String) {
         db.collection(Root.users)
             .document(user)
@@ -537,53 +485,6 @@ extension FireStore {
             .updateData([
                 Entity.User.Keys.profile : data
             ])
-    }
-    
-}
-
-extension FireStore {
-    
-    // MARK: - handle user-meta document
-    
-    func addUserMeta(with uidInt: Int, and uidString: String) {
-        
-        let userMeta = Entity.UserMeta(uid: uidString)
-        
-        db.collection(Root.userMeta)
-        .document("\(uidInt)")
-        .setData(userMeta.toDictionary())
-    }
-    
-    func fetchUserMeta(_ uidInt: Int) -> Single<Entity.UserMeta?> {
-        return Observable<Entity.UserMeta?>.create { [weak self] (subscriber) -> Disposable in
-            
-            self?.db.collection(Root.userMeta)
-                .document("\(uidInt)")
-                .getDocument(completion: { (doc, error) in
-                    
-                    guard error == nil else {
-                        subscriber.onError(error!)
-                        return
-                    }
-                    
-                    guard let doc = doc,
-                        let dict = doc.data(),
-                        let userMeta = Entity.UserMeta(with: dict) else {
-                        subscriber.onNext(nil)
-                        subscriber.onCompleted()
-                        return
-                    }
-                    
-                    subscriber.onNext(userMeta)
-                    subscriber.onCompleted()
-                    
-                })
-            
-            return Disposables.create {
-                
-            }
-        }
-        .asSingle()
     }
     
 }

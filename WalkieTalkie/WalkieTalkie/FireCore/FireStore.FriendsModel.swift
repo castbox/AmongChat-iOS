@@ -302,29 +302,3 @@ extension FireStore.Entity.User.CommonMessage {
     }
 
 }
-
-extension FireStore.Entity {
-    struct UserMeta {
-        let uid: String
-        
-        struct Keys {
-            static let uid = "uid"
-        }
-        
-    }
-}
-
-extension FireStore.Entity.UserMeta {
-    
-    init?(with dict: [String : Any]) {
-        guard let uid = dict[Keys.uid] as? String else { return nil }
-        self.uid = uid
-    }
-    
-    func toDictionary() -> [String : Any] {
-        return [
-            Keys.uid : uid
-        ]
-    }
-    
-}
