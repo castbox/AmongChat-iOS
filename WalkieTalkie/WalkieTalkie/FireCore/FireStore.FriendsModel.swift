@@ -167,7 +167,7 @@ extension FireStore.Entity.User.Status {
 extension FireStore.Entity.User {
     
     struct FriendMeta {
-        let createdAt: Int64
+        let createdAt: Timestamp
         let uid: String
         let docId: String
         
@@ -224,7 +224,7 @@ extension FireStore.Entity.User.FriendMeta {
     init?(with doc: QueryDocumentSnapshot) {
         let dict = doc.data()
         
-        guard let ts = dict[Keys.createdAt] as? Int64 else {
+        guard let ts = dict[Keys.createdAt] as? Timestamp else {
             return nil
         }
         
