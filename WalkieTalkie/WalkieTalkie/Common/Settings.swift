@@ -236,7 +236,9 @@ class Settings {
         
         return DynamicProperty.stored(profile)
             .didSet({ (event) in
-                Defaults[\.firestoreUserProfileKey] = event.new?.toDictionary()
+                var dict = event.new?.toDictionary()
+                dict?.removeValue(forKey: Profile.Keys.updatedAt)
+                Defaults[\.firestoreUserProfileKey] = dict
             })
             .asPublishProperty()
     }()
