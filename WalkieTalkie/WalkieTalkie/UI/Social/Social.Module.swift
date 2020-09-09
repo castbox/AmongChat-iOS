@@ -49,10 +49,11 @@ extension Social {
                     self?.initializeProfileIfNeeded(result.uid)
                     self?.observeRelations(result.uid)
                     self?.observeCommonMsg(result.uid)
+                    self?.bindProToProfile(result.uid)
+                    self?.bindProfileToFirestore(result.uid)
                 })
                 .disposed(by: bag)
             
-            bindProToFirestore()
         }
         
         private func startHeartbeat(_ uid: String) {
@@ -88,16 +89,25 @@ extension Social {
                 .disposed(by: bag)
         }
         
-        private func bindProToFirestore() {
-            // 更新firestore profile都通过Settings.shared.firestoreUserProfile流
-            Observable.combineLatest(Settings.shared.isProValue.replay(), Settings.shared.firestoreUserProfile.replay())
-                .filter { $0.1 != nil }
-                .subscribe(onNext: { (isPro, profile) in
-                    guard var profile = profile,
-                        let uid = Settings.shared.loginResult.value?.uid else {
-                        return
-                    }
-                    profile.premium = isPro
+        private func bindProToProfile(_ uid: String) {
+            Settings.shared.isProValue.replay()
+                .subscribe(onNext: { (isPro) in
+                    let _ = Settings.shared.firestoreUserProfile.replay().filterNil()
+                        .take(1)
+                        .subscribe(onNext: { (p) in
+                            var profile = p
+                            profile.premium = isPro
+                            Settings.shared.firestoreUserProfile.value = profile
+                        })
+                })
+                .disposed(by: bag)
+        }
+        
+        private func bindProfileToFirestore(_ uid: String) {
+            Settings.shared.firestoreUserProfile.replay()
+                .filterNil()
+                .distinctUntilChanged()
+                .subscribe(onNext: { (profile) in
                     FireStore.shared.updateProfile(profile, of: uid)
                 })
                 .disposed(by: bag)

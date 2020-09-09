@@ -132,6 +132,17 @@ extension FireStore.Entity.User.Profile {
     }
 }
 
+extension FireStore.Entity.User.Profile: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool {        
+        return lhs.uid == rhs.uid &&
+            lhs.uidInt == rhs.uidInt &&
+            lhs.avatar == rhs.avatar &&
+            lhs.name == rhs.name &&
+            lhs.birthday == rhs.birthday &&
+            lhs.avatar == rhs.avatar
+    }
+}
+
 extension FireStore.Entity.User {
     struct Status {
         var currentChannel: String
