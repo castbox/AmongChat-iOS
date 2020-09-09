@@ -19,14 +19,16 @@ class FireStore {
     
     /// 根结点名称
     struct Root {
-        static let secrets = "secrets"
-        static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
         #if DEBUG
+        static let secrets = "secrets-test"
+        static let settings = "settings-test"
         static let channels = "channels-test"
         static let users = "users-test"
         #else
+        static let secrets = "secrets"
+        static let settings = "settings"
         static let channels = "channels"
         static let users = "users"
         #endif
