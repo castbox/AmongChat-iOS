@@ -20,8 +20,13 @@ struct Request {
 }
 
 extension Request {
-    static func reportEnterRoom() -> Single<Any> {
-        return dataProvider.rx.request(.enterRoom)
+    static func reportEnterRoom(_ room: String) -> Single<Any> {
+        return dataProvider.rx.request(.enterRoom(roomName: room))
+            .mapJSON()
+    }
+    
+    static func reportLeaveRoom(_ room: String) -> Single<Any> {
+        return dataProvider.rx.request(.leaveRoom(roomName: room))
             .mapJSON()
     }
     

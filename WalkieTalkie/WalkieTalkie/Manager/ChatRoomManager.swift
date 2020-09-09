@@ -148,14 +148,15 @@ class ChatRoomManager: SeatManager {
         mRtcManager.setClientRole(joinRole)
     }
 
-    func leaveChannel() {
-        guard channelName != nil else {
+    func leaveChannel(_ block: ((String) -> Void)? = nil) {
+        guard let name = channelName else {
             return
         }
         channelName = nil
         mRtcManager.leaveChannel()
         mChannelData.release()
         HapticFeedback.Impact.medium()
+        block?(name)
     }
     
     func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {

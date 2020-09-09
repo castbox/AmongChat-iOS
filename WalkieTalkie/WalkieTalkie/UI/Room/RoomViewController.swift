@@ -306,7 +306,9 @@ class RoomViewController: ViewController {
     func leaveChannel() {
         UIApplication.shared.isIdleTimerDisabled = false
         speakButtonTrigger.isUserInteractionEnabled = false
-        mManager.leaveChannel()
+        mManager.leaveChannel { [weak self] (name) in
+            self?.viewModel.requestLeaveRoom(name)
+        }
         speakButtonTrigger.isUserInteractionEnabled = true
     }
   
@@ -337,7 +339,7 @@ class RoomViewController: ViewController {
                 guard let `self` = self else { return }
                 self.mManager.joinChannel(channelId: name) { [weak self] in
                     HapticFeedback.Impact.success()
-                    self?.viewModel.requestEnterRoom()
+                    self?.viewModel.requestEnterRoom(name)
                     UIApplication.shared.isIdleTimerDisabled = true
                     self?.isSegmentControlEnable = true
                     completionBlock?()
