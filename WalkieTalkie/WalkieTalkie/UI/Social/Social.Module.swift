@@ -138,8 +138,15 @@ extension Social {
         
         private func observeCommonMsg(_ uid: String) {
             
+            //先清空
+            FireStore.shared.flushCommonMsg(of: uid)
+            
             FireStore.shared.newCommonMsgObservable(of: uid)
                 .subscribe(onNext: { [weak self] (msg) in
+                    
+                    defer {
+                        FireStore.shared.deleteCommonMsg(msg, from: uid)
+                    }
                     
                     switch msg.msgType {
                     case .channelEntryRequest:
@@ -160,7 +167,6 @@ extension Social {
                     guard let topVC = UIApplication.topViewController(UIApplication.navigationController) else { return }
                     let modal = Social.JoinChannelRequestModal(with: msg)
                     modal.showModal(in: topVC)
-                    FireStore.shared.deleteCommonMsg(msg, from: uid)
                 })
                 .disposed(by: bag)
             
