@@ -143,7 +143,7 @@ extension Social {
                     
                     switch msg.msgType {
                     case .channelEntryRequest:
-                        self?.joinChannelRefusedSubject.onNext(msg)
+                        self?.joinChannelRequestedSubject.onNext(msg)
                     case .channelEntryAccept:
                         self?.joinChannelAcceptedSubject.onNext(msg)
                     case .channelEntryRefuse:
