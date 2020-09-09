@@ -244,7 +244,7 @@ extension GuideViewController {
     
     func bindSubviewEvent() {
 
-        FireStore.shared.onlineChannelList()
+        FireStore.shared.publicChannelsSubject
 //            .debug()
             .map { items -> Room? in
                 let sortedItems = items.sorted {

@@ -14,21 +14,20 @@ import RxSwift
 import RxCocoa
 import SwifterSwift
 import FirebaseAuth
+import SwiftyUserDefaults
 
 class FireStore {
     
     /// 根结点名称
     struct Root {
+        static let secrets = "secrets"
+        static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
         #if DEBUG
-        static let secrets = "secrets-test"
-        static let settings = "settings-test"
         static let channels = "channels-test"
         static let users = "users-test"
         #else
-        static let secrets = "secrets"
-        static let settings = "settings"
         static let channels = "channels"
         static let users = "users"
         #endif
@@ -76,28 +75,50 @@ class FireStore {
         //        Firestore.enableLogging(true)
         #endif
         
-        getAppConfigValue()
-        
-        _ = secretChannelList()
-            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-            .catchErrorJustReturn([])
-            .bind(to: secretChannelsSubject)
-        
-        _ = onlineChannelList()
-            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-            .catchErrorJustReturn([])
-            .bind(to: publicChannelsSubject)
-        //static let channelConfig = "channel_config"
-        
-        #if DEBUG
-        _ = channelConfigObservalbe()
-            .catchErrorJustReturn(.default)
-            .bind(to: channelConfigSubject)
-        #else
-        _ = channelConfigObservalbe()
-            .catchErrorJustReturn(.default)
-            .bind(to: channelConfigSubject)
-        #endif
+        let _ = firebaseSignedInSubject.take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                
+                guard let `self` = self else { return }
+                
+                self.getAppConfigValue()
+
+                let _ = Observable<Int>.interval(.seconds(60), scheduler: MainScheduler.instance)
+                    .startWith(0)
+                    .subscribe(onNext: { (_) in
+                        
+                        let _ = self.fetchOnlineChannelList()
+                            .catchErrorJustReturn([])
+                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+                            .subscribe(onSuccess: { (rooms) in
+                                self.publicChannelsSubject.accept(rooms)
+                            })
+                        
+                        let _ = self.fetchSecretChannelList(of: Defaults[\.secretChannels].map({ $0.name }))
+                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+                            .catchErrorJustReturn([])
+                            .subscribe(onSuccess: { (rooms) in
+                                
+                                var cachedSecretChannels = Defaults[\.secretChannels]
+                                cachedSecretChannels.removeAll { (cachedRoom) -> Bool in
+                                    !rooms.contains { $0.name == cachedRoom.name}
+                                }
+                                
+                                Defaults[\.secretChannels] = cachedSecretChannels
+                                
+                                self.secretChannelsSubject.accept(rooms)
+                            })
+                    })
+                
+                #if DEBUG
+                _ = self.channelConfigObservalbe()
+                    .catchErrorJustReturn(.default)
+                    .bind(to: self.channelConfigSubject)
+                #else
+                _ = self.channelConfigObservalbe()
+                    .catchErrorJustReturn(.default)
+                    .bind(to: self.channelConfigSubject)
+                #endif
+            })
         
         let _ = Settings.shared.loginResult.replay()
             .filterNil()
@@ -206,7 +227,7 @@ class FireStore {
         })
     }
     
-    func onlineChannelList() -> Observable<[Room]> {
+    private func onlineChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             let ref = self?.db.collection(Root.channels)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
@@ -231,7 +252,93 @@ class FireStore {
             .startWith([FireStore.defaultRoom])
     }
     
-    func secretChannelList() -> Observable<[Room]> {
+    private func fetchOnlineChannelList() -> Single<[Room]> {
+        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+            self?.db.collection(Root.channels)
+                .getDocuments(completion: { (query, error) in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onError(error)
+                        return
+                    } else {
+                        guard let query = query else {
+                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+                            return
+                        }
+                        let list = query.toRoomList()
+                        observer.onNext(list)
+                        observer.onCompleted()
+                    }
+                })
+            
+            return Disposables.create { }
+        })
+            .asSingle()
+    }
+    
+    private func fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
+        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+            
+            guard let `self` = self,
+                channelIds.count > 0 else {
+                observer.onNext([])
+                observer.onCompleted()
+                return Disposables.create { }
+            }
+            
+            let idsChunk = channelIds.chunked(into: 10)
+            
+            let obs = idsChunk.map { self._fetchSecretChannelList(of: $0).catchErrorJustReturn([]) }
+            
+            let d = Observable.from(obs)
+                .flatMap { $0 }
+                .subscribe(onNext: { (rooms) in
+                    observer.onNext(rooms)
+                    observer.onCompleted()
+                }, onError: { (error) in
+                    observer.onError(error)
+                })
+            
+            return Disposables.create {
+                d.dispose()
+            }
+        })
+            .asSingle()
+    }
+    
+    private func _fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
+        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+            
+            guard channelIds.count > 0 else {
+                observer.onNext([])
+                observer.onCompleted()
+                return Disposables.create { }
+            }
+            
+            self?.db.collection(Root.secrets)
+                .whereField(FieldPath.documentID(), in: channelIds)
+                .getDocuments(completion: { (query, error) in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onError(error)
+                        return
+                    } else {
+                        guard let query = query else {
+                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+                            return
+                        }
+                        let list = query.toRoomList()
+                        observer.onNext(list)
+                        observer.onCompleted()
+                    }
+                })
+            
+            return Disposables.create { }
+        })
+            .asSingle()
+    }
+    
+    private func secretChannelList() -> Observable<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
             let ref = self?.db.collection(Root.secrets)
                 .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
