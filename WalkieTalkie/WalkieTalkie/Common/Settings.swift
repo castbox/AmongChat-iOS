@@ -225,7 +225,19 @@ class Settings {
     }
     
     let firestoreUserProfile: PublishProperty<FireStore.Entity.User.Profile?> = {
-        return DynamicProperty.stored(nil)
+        typealias Profile = FireStore.Entity.User.Profile
+        let profile: Profile?
+        
+        if let dict = Defaults[\.firestoreUserProfileKey] {
+            profile = Profile(with: dict)
+        } else {
+            profile = nil
+        }
+        
+        return DynamicProperty.stored(profile)
+            .didSet({ (event) in
+                Defaults[\.firestoreUserProfileKey] = event.new?.toDictionary()
+            })
             .asPublishProperty()
     }()
     
@@ -342,6 +354,10 @@ extension DefaultsKeys {
     
     var profileInitialShownTsKey: DefaultsKey<Double?> {
         .init("profile.initial.shown.timestamp", defaultValue: nil)
+    }
+    
+    var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
+        .init("social.user.profile", defaultValue: nil)
     }
 }
 
