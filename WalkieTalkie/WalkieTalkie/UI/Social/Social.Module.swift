@@ -45,7 +45,7 @@ extension Social {
                 .take(1)
                 .subscribe(onNext: { [weak self] (t) in
                     let (result, _) = t
-                    self?.startHeartbeat()
+                    self?.startHeartbeat(result.uid)
                     self?.initializeProfileIfNeeded(result.uid)
                     self?.observeRelations(result.uid)
                     self?.observeCommonMsg(result.uid)
@@ -55,7 +55,7 @@ extension Social {
             bindProToFirestore()
         }
         
-        private func startHeartbeat() {
+        private func startHeartbeat(_ uid: String) {
             #if DEBUG
             let interval: Int = 10
             #else
@@ -63,8 +63,7 @@ extension Social {
             #endif
             Observable<Int>.interval(.seconds(interval), scheduler: MainScheduler.instance)
                 .subscribe(onNext: { (_) in
-                    guard let loginResult = Settings.shared.loginResult.value else { return }
-                    FireStore.shared.updateHeartbeat(of: loginResult.uid)
+                    FireStore.shared.updateHeartbeat(of: uid)
                 })
                 .disposed(by: bag)
         }
