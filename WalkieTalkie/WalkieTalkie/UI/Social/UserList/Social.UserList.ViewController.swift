@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 extension Social {
     
@@ -50,7 +51,11 @@ extension Social.UserList {
             }
         }
         
-        private var userList: [UserViewModel] = []
+        private var userList: [UserViewModel] = [] {
+            didSet {
+                tableView.reloadData()
+            }
+        }
         
         private let userType: UserType
         
@@ -66,7 +71,7 @@ extension Social.UserList {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            fetchData()
+            bindData()
         }
         
         private func setupLayout() {
@@ -80,33 +85,39 @@ extension Social.UserList {
             
         }
         
-        private func fetchData() {
+        private func bindData() {
             
-            let uids: [String]
+            let uidsOb: Observable<[String]>
             
             switch userType {
             case .following:
-                uids = Social.Module.shared.followingValue.map { $0.uid }
+                uidsOb = Social.Module.shared.followingObservable.map({ $0.map { $0.uid } })
+                
             case .follower:
-                uids = Social.Module.shared.followerValue.map{ $0.uid }
+                uidsOb = Social.Module.shared.followerObservable.map({ $0.map { $0.uid } })
+                // subscribe following list to update friends relation
+                Social.Module.shared.followingObservable
+                    .subscribe(onNext: { [weak self] (_) in
+                        self?.tableView.reloadData()
+                    })
+                    .disposed(by: bag)
+                
             case .blocked:
-                uids = Social.Module.shared.blockedValue
+                uidsOb = Social.Module.shared.blockedObservable
             }
             
-            let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-            let removeBlock = { [weak self] in
-                self?.view.isUserInteractionEnabled = true
-                removeHUDBlock()
-            }
+            var removeHUDBlock: (() -> Void)? = nil
             
-            FireStore.shared.fetchUsers(uids)
-                .subscribe(onSuccess: { [weak self] (users) in
-                    removeBlock()
-                    guard let `self` = self else { return }
-                    self.userList = users.map { UserViewModel(with: $0) }
-                    self.tableView.reloadData()
+            uidsOb.do(onNext: { [weak self] (_) in
+                removeHUDBlock = self?.view.raft.show(.loading, userInteractionEnabled: false)
+            })
+                .flatMap({ FireStore.shared.fetchUsers($0) })
+                .map({ $0.map { UserViewModel(with: $0)} })
+                .subscribe(onNext: { [weak self] (users) in
+                    removeHUDBlock?()
+                    self?.userList = users
                     }, onError: { (_) in
-                        removeBlock()
+                        removeHUDBlock?()
                 })
                 .disposed(by: bag)
         }

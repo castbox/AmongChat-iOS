@@ -140,13 +140,18 @@ extension Social.UserList {
             
         }
         
+        private var user: Social.UserList.UserViewModel!
+        
         @objc
         private func onFollowBtn() {
-            
+            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+            FireStore.shared.addFollowing(user.userId, to: selfUid)
         }
         
         func configView(with viewModel: Social.UserList.UserViewModel) {
             userView.configView(with: viewModel)
+            followBtn.isHidden = viewModel.isFriend
+            user = viewModel
         }
 
     }

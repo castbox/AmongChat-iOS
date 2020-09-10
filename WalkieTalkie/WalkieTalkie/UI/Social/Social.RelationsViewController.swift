@@ -95,9 +95,7 @@ extension Social {
                 .subscribe(onNext: { [weak self] (followingList, followerList) in
                     
                     self?.followingBtn.setTitle("\(followingList.count) \(R.string.localizable.profileFollowing())", for: .normal)
-                    self?.followingBtn.appendKern()
                     self?.followerBtn.setTitle("\(followerList.count) \(R.string.localizable.profileFollower())", for: .normal)
-                    self?.followerBtn.appendKern()
                 })
                 .disposed(by: bag)
             

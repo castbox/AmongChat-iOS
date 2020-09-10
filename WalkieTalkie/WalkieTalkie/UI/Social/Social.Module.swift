@@ -229,6 +229,10 @@ extension Social.Module {
         return followerListRelay.value
     }
     
+    var blockedObservable: Observable<[String]> {
+        return blockedListRelay.asObservable()
+    }
+    
     var blockedValue: [String] {
         return blockedListRelay.value
     }
