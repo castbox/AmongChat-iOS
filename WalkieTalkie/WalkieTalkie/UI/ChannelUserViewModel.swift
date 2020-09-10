@@ -49,4 +49,8 @@ class ChannelUserViewModel {
         }
         .asSingle()
     }
+    
+    var isSelf: Bool {
+        return Constants.isMyself(channelUser.uid)
+    }
 }

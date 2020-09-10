@@ -52,6 +52,8 @@ class ChannelUserCell: UITableViewCell {
         } else {
             statuLabel.font = R.font.nunitoSemiBold(size: 14)
         }
+        prefixLabel.isHidden = (userViewModel.firestoreUser != nil)
+        blockButton.isHidden = userViewModel.isSelf
     }
     
     @IBAction func blockButtonAction(_ sender: Any) {

@@ -94,8 +94,12 @@ extension ChannelUserListController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withClass: ChannelUserCell.self, for: indexPath)
         if let user = dataSource.safe(indexPath.section)?.safe(indexPath.row) {
             cell.bind(user)
-            cell.tapBlockHandler = { [weak self] in
-                self?.showMoreSheet(for: user)
+            if user.isSelf {
+                cell.tapBlockHandler = nil
+            } else {
+                cell.tapBlockHandler = { [weak self] in
+                    self?.showMoreSheet(for: user)
+                }
             }
         }
         return cell
