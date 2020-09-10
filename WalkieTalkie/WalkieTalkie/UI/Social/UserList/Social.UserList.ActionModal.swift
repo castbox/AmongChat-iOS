@@ -279,7 +279,7 @@ extension Social.UserList {
         @objc
         private func onMoreActionBtn() {
             
-            let alert = UIAlertController(title: "More Action", message: nil, preferredStyle: .alert)
+            let alert = UIAlertController(title: "More Action", message: nil, preferredStyle: .actionSheet)
             
             let blockAction = UIAlertAction(title: "Block", style: .default) { [weak self] (_) in
                 guard let `self` = self,
@@ -299,7 +299,7 @@ extension Social.UserList {
                 alert.addAction(unfollowAction)
             }
             
-            let cancelAction = UIAlertAction(title: "Return", style: .default)
+            let cancelAction = UIAlertAction(title: "Return", style: .cancel)
             
             alert.addAction(cancelAction)
             
