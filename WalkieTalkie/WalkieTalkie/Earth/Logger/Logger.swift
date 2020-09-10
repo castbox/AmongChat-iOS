@@ -256,6 +256,7 @@ extension Logger {
             case first_open
             case setting
             case secret_channel_create
+            case mute
         }
         
         static func logImp(_ source: ActionSource) {

@@ -229,24 +229,30 @@ extension ChannelUserListController {
                 }
                 alertVC.addAction(followAction)
             }
+        }
+        
+        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid)
+        if isMuted {
+            let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
+                self?.viewModel.unmuteUser(userViewModel)
+                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+            }
+            alertVC.addAction(unmuteAction)
             
-            let isMuted = Social.Module.shared.mutedValue.contains(firestoreUser.profile.uidInt)
-            if isMuted {
-                let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
-                    // TODO: unmute
-                    self?.viewModel.unmuteUser(firestoreUser)
-                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
-                }
-                alertVC.addAction(unmuteAction)
+        } else {
+            let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
                 
-            } else {
-                let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
-                    // TODO: mute
-                    self?.viewModel.muteUser(firestoreUser)
+//                self?.viewModel.muteUser(userViewModel)
+//                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+
+                let modal = ActionModal(with: userViewModel, actionType: .mute)
+                modal.actionHandler = { () in
+                    self?.viewModel.muteUser(userViewModel)
                     ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
                 }
-                alertVC.addAction(muteAction)
+                modal.showModal(in: self)
             }
+            alertVC.addAction(muteAction)
         }
         
         let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
@@ -294,20 +300,12 @@ extension ChannelUserListController {
             ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
             return
         }
-        let alertVC = UIAlertController(
-            title: "Block \(userViewModel.name)?",
-            message: "After blocking, \(userViewModel.name) will no longer be able to talk to you. ",
-            preferredStyle: .alert
-        )
-        let confirmAction = UIAlertAction(title: R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+        let modal = ActionModal(with: userViewModel, actionType: .block)
+        modal.actionHandler = { [weak self] in
             self?.viewModel.blockedUser(userViewModel)
             ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-        })
-        
-        let cancelAction = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
-        alertVC.addAction(cancelAction)
-        alertVC.addAction(confirmAction)
-        present(alertVC, animated: true, completion: nil)
+        }
+        modal.showModal(in: self)
     }
     
     func bindSubviewEvent() {

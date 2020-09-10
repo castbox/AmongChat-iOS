@@ -126,6 +126,12 @@
 "channel.user.list.unmute" = "Unmute";
 "channel.user.list.speak.empty.text" = "Nobody speaks yet";
 "channel.user.list.listen.empty.text" = "Nobody listens yet";
+"channel.user.list.mute.action" = "Mute Now";
+"channel.user.list.mute.action.title" = "Someone Noisy?";
+"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room";
+"channel.user.list.block.action.title" = "Block Username?";
+"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in room. We won’t let them know you blocked them";
+"channel.user.list.pro.badge" = "PRO";
 
 "channel.join.request.modal.title" = "Your friend wants to join you";
 "channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";

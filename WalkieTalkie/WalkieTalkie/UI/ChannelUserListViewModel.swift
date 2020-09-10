@@ -122,18 +122,18 @@ class ChannelUserListViewModel {
         }
     }
     
-    func muteUser(_ user: FireStore.Entity.User) {
-        mutedUser.insert(user.profile.uidInt)
+    func muteUser(_ user: ChannelUserViewModel) {
+        mutedUser.insert(user.channelUser.uid)
         update(dataSource)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.addMuteUser(user.profile.uidInt, to: selfUid)
+        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
     }
     
-    func unmuteUser(_ user: FireStore.Entity.User) {
-        mutedUser.remove(user.profile.uidInt)
+    func unmuteUser(_ user: ChannelUserViewModel) {
+        mutedUser.remove(user.channelUser.uid)
         update(dataSource)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.removeMuteUser(user.profile.uidInt, from: selfUid)
+        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
     }
     
     func followUser(_ user: FireStore.Entity.User) {
