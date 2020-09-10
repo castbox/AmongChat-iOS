@@ -23,14 +23,21 @@ extension Social.UserList {
         }()
         
         private lazy var joinChannelBtn: UIButton = {
-            let btn = UIButton(type: .custom)
+            let btn = WalkieButton(type: .custom)
             btn.addTarget(self, action: #selector(onJoinChannelBtn), for: .primaryActionTriggered)
+            btn.backgroundColor = .white
+            btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
+            btn.layer.cornerRadius = 15
+            btn.setTitle(R.string.localizable.socialJoinAction(), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
+            btn.appendKern()
             return btn
         }()
         
         private lazy var inviteBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onInviteBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.user_list_invite(), for: .normal)
             return btn
         }()
         
@@ -56,11 +63,13 @@ extension Social.UserList {
             joinChannelBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.right.equalToSuperview().inset(14.5)
+                maker.width.greaterThanOrEqualTo(45)
             }
             
             inviteBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.right.equalTo(joinChannelBtn.snp.left).offset(-15)
+                maker.width.height.equalTo(30)
             }
         }
         
@@ -244,6 +253,12 @@ extension Social.UserList {
             return lb
         }()
         
+        private lazy var friendView: FriendView = {
+            let v = FriendView()
+            v.contentStyle = .dark
+            return v
+        }()
+        
         private lazy var statusLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoRegular(size: 14)
@@ -263,7 +278,7 @@ extension Social.UserList {
         }
         
         private func setupLayout() {
-            addSubviews(views: avatarIV, usernameLabel, statusLabel)
+            addSubviews(views: avatarIV, usernameLabel, friendView, statusLabel)
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
@@ -283,6 +298,12 @@ extension Social.UserList {
             usernameLabel.snp.makeConstraints { (maker) in
                 maker.left.top.equalTo(textLayoutGuide)
                 maker.height.equalTo(21)
+            }
+            
+            friendView.snp.makeConstraints { (maker) in
+                maker.left.equalTo(usernameLabel.snp.right).offset(4)
+                maker.centerY.equalTo(usernameLabel)
+                maker.right.lessThanOrEqualTo(textLayoutGuide)
             }
             
             statusLabel.snp.makeConstraints { (maker) in
@@ -305,6 +326,8 @@ extension Social.UserList {
             avatarDisposable = viewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
                 self?.avatarIV.image = image
             })
+            
+            friendView.isHidden = !viewModel.isFriend
         }
         
     }
@@ -315,7 +338,7 @@ extension Social.UserList {
     
     class FriendView: UIView {
         
-        enum Style {
+        enum ContentStyle {
             case light
             case dark
         }
@@ -324,6 +347,71 @@ extension Social.UserList {
             let iv = UIImageView()
             return iv
         }()
+        
+        private lazy var friendLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoSemiBold(size: 10)
+            lb.text = R.string.localizable.socialRelationFriend()
+            return lb
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override var intrinsicContentSize: CGSize {
+            return CGSize(width: 0, height: 15)
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            layer.cornerRadius = bounds.height / 2
+        }
+        
+        var contentStyle: ContentStyle = .light {
+            didSet {
+                updateContentStyle(contentStyle)
+            }
+        }
+        
+        private func setupLayout() {
+            addSubviews(views: friendIcon, friendLabel)
+            
+            friendIcon.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.left.equalToSuperview().inset(6)
+                maker.height.equalTo(7)
+                maker.width.equalTo(9)
+            }
+            
+            friendLabel.snp.makeConstraints { (maker) in
+                maker.top.bottom.equalToSuperview()
+                maker.right.equalToSuperview().inset(6)
+                maker.leading.equalToSuperview().inset(19)
+            }
+            
+        }
+        
+        private func updateContentStyle(_ style: ContentStyle) {
+            switch style {
+            case .light:
+                backgroundColor = UIColor(hex6: 0x000000, alpha: 0.5)
+                friendIcon.image = R.image.user_list_friend_light()
+                friendLabel.textColor = UIColor(hex6: 0xFFFFFF, alpha: 1.0)
+                friendLabel.appendKern()
+
+            case .dark:
+                backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.3)
+                friendIcon.image = R.image.user_list_friend_dark()
+                friendLabel.textColor = UIColor(hex6: 0x000000, alpha: 0.8)
+                friendLabel.appendKern()
+            }
+        }
         
     }
     

@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 83 images.
+  /// This `R.image` struct is generated, and contains static references to 86 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -288,6 +288,12 @@ struct R: Rswift.Validatable {
     static let speak_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_mic")
     /// Image `speak_list_user`.
     static let speak_list_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_user")
+    /// Image `user_list_friend_dark`.
+    static let user_list_friend_dark = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_dark")
+    /// Image `user_list_friend_light`.
+    static let user_list_friend_light = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_light")
+    /// Image `user_list_invite`.
+    static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
     
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
     static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -704,6 +710,21 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.speak_list_user, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "user_list_friend_dark", bundle: ..., traitCollection: ...)`
+    static func user_list_friend_dark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.user_list_friend_dark, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "user_list_friend_light", bundle: ..., traitCollection: ...)`
+    static func user_list_friend_light(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.user_list_friend_light, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "user_list_invite", bundle: ..., traitCollection: ...)`
+    static func user_list_invite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.user_list_invite, compatibleWith: traitCollection)
+    }
+    
     fileprivate init() {}
   }
   
@@ -956,7 +977,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 90 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 92 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1078,6 +1099,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static let socialRelationFriend = Rswift.StringResource(key: "social.relation.friend", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -1094,6 +1119,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Join
+      /// 
+      /// Locales: en
+      static let socialJoinAction = Rswift.StringResource(key: "social.join.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join in %@ talk to me & have fun !!!
       /// 
       /// Locales: en
@@ -1529,6 +1558,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Friends
+      /// 
+      /// Locales: en
+      static func socialRelationFriend(_: Void = ()) -> String {
+        return NSLocalizedString("social.relation.friend", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -1555,6 +1591,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectInformation(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Join
+      /// 
+      /// Locales: en
+      static func socialJoinAction(_: Void = ()) -> String {
+        return NSLocalizedString("social.join.action", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join in %@ talk to me & have fun !!!

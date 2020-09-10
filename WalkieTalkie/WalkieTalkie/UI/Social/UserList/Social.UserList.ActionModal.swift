@@ -36,6 +36,12 @@ extension Social.UserList {
             return lb
         }()
         
+        private lazy var friendView: FriendView = {
+            let v = FriendView()
+            v.contentStyle = .light
+            return v
+        }()
+        
         private lazy var followBackBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
             btn.backgroundColor = UIColor(hex6: 0xFF7989, alpha: 1.0)
@@ -162,7 +168,7 @@ extension Social.UserList {
             
             view.backgroundColor = .clear
             
-            view.addSubviews(views: bgView, avatarIV, nameLabel, statusLabel, actionBtnStack, moreActionBtn)
+            view.addSubviews(views: bgView, avatarIV, nameLabel, statusLabel, friendView, actionBtnStack, moreActionBtn)
             
             bgView.snp.makeConstraints { (maker) in
                 maker.left.right.bottom.equalToSuperview()
@@ -184,6 +190,11 @@ extension Social.UserList {
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(nameLabel.snp.bottom)
                 maker.height.equalTo(19)
+            }
+            
+            friendView.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(statusLabel.snp.bottom).offset(5)
             }
             
             let actionBtnStackHeight: CGFloat = {
