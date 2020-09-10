@@ -101,6 +101,11 @@ class RtcManager: NSObject {
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
             self.updateFirestoreChannelStatus(with: channelId)
+            
+            if !self.talkedUsers.contains(where: { $0.uid == uid }) {
+                self.talkedUsers.append(ChannelUser.randomUser(uid: uid))
+            }
+            
         })
         //start a time out timer
         if result != 0 {
@@ -262,8 +267,28 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
+            if !talkedUsers.contains(where: { $0.uid == mUserId }) {
+                talkedUsers.append(ChannelUser.randomUser(uid: mUserId))
+            } else {
+                talkedUsers = talkedUsers.map { item -> ChannelUser in
+                    guard item.uid == mUserId else {
+                        return item
+                    }
+                    var user = item
+                    user.status = .connected
+                    return user
+                }
+            }
         } else if newRole == .audience {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: false)
+            talkedUsers = talkedUsers.map { item -> ChannelUser in
+                guard item.uid == mUserId else {
+                    return item
+                }
+                var user = item
+                user.status = .droped
+                return user
+            }
         }
     }
 
