@@ -167,7 +167,16 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         if let op = options.safe(indexPath.row) {
             switch op {
             case .inviteFriends:
-                ()
+                let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+                let removeBlock = { [weak self] in
+                    self?.view.isUserInteractionEnabled = true
+                    removeHUDBlock()
+                }
+
+                self.view.isUserInteractionEnabled = false
+                ShareManager.default.share(with: "", type: .more, viewController: self) { () in
+                    removeBlock()
+                }
             case .blockUser:
                 let vc = Social.BlockedUserViewController()
                 navigationController?.pushViewController(vc)
