@@ -40,6 +40,13 @@ extension Social {
             }
         }
         
+        private lazy var backBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.backNor(), for: .normal)
+            return btn
+        }()
+        
         private lazy var headerView: ProfileView = {
             let v = ProfileView()
             v.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 273)
@@ -94,6 +101,12 @@ extension Social {
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
+            view.addSubview(backBtn)
+            backBtn.snp.makeConstraints { (maker) in
+                maker.left.equalToSuperview().offset(15)
+                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(11.5)
+                maker.width.height.equalTo(25)
+            }
             
             table.tableHeaderView = headerView
             table.reloadData()
@@ -121,6 +134,11 @@ extension Social {
                     self?.headerView.configFollowerCount(count)
                 })
                 .disposed(by: bag)
+        }
+        
+        @objc
+        private func onBackBtn() {
+            navigationController?.popViewController()
         }
         
     }
