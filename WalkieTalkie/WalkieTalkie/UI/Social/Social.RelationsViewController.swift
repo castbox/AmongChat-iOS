@@ -109,6 +109,14 @@ extension Social {
                     }
                 })
                 .disposed(by: bag)
+            
+            Settings.shared.firestoreUserProfile.replay()
+                .filterNil()
+                .subscribe(onNext: { [weak self] (p) in
+                    self?.titleLabel.text = p.name
+                    self?.titleLabel.appendKern()
+                })
+                .disposed(by: bag)
         }
         
         override func viewDidLayoutSubviews() {
