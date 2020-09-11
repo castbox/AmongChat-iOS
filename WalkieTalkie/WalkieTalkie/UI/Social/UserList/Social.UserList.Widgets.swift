@@ -38,8 +38,11 @@ extension Social.UserList {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onInviteBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.user_list_invite(), for: .normal)
+            btn.adjustsImageWhenHighlighted = false
             return btn
         }()
+        
+        private var user: UserViewModel!
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -75,16 +78,21 @@ extension Social.UserList {
         
         @objc
         private func onJoinChannelBtn() {
-            
+            guard user.joinable else { return }
+            user.joinUserRoom()
         }
         
         @objc
         private func onInviteBtn() {
-            
+            guard user.invitable else { return }
+            user.invite()
         }
         
         func configView(with viewModel: Social.UserList.UserViewModel) {
+            user = viewModel
             userView.configView(with: viewModel)
+            joinChannelBtn.alpha = viewModel.joinable ? 1.0 : 0.5
+            inviteBtn.alpha = viewModel.invitable ? 1.0 : 0.5
         }
         
     }

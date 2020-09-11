@@ -51,6 +51,8 @@ extension Social.UserList {
             btn.setTitle(R.string.localizable.socialFollowerFollowAction(), for: .normal)
             btn.setTitleColor(.white, for: .normal)
             btn.appendKern()
+            btn.isEnabled = !self.viewModel.isFriend
+            btn.alpha = btn.isEnabled ? 1.0 : 0.5
             return btn
         }()
         
@@ -60,9 +62,7 @@ extension Social.UserList {
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.addTarget(self, action: #selector(onJoinBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
-            btn.setTitle("Join", for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            btn.appendKern()
+            btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
             return btn
         }()
 
@@ -72,9 +72,9 @@ extension Social.UserList {
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.addTarget(self, action: #selector(onInviteBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
-            btn.setTitle("Invite", for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            btn.appendKern()
+            btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
+            btn.isEnabled = self.viewModel.invitable
+            btn.alpha = self.viewModel.invitable ? 1.0 : 0.5
             return btn
         }()
         
@@ -99,7 +99,7 @@ extension Social.UserList {
             return v
         }()
         
-        private var actionBtns: [UIView] {
+        private lazy var actionBtns: [UIView] = {
             
             switch userType {
             case .following:
@@ -113,14 +113,6 @@ extension Social.UserList {
                     btns.append(joinBtn)
                 }
                 
-                let selfChannel = Social.Module.shared.currentChannelValue
-                
-                if selfChannel.isEmpty,
-                    userChannel.isEmpty,
-                    viewModel.online {
-                    inviteBtn.isEnabled = false
-                }
-                
                 inviteBtn.setTitle("Invtie", for: .normal)
                 
                 btns.append(inviteBtn)
@@ -131,7 +123,17 @@ extension Social.UserList {
                 return [followBackBtn]
             }
             
-        }
+        }()
+        
+        private lazy var contentHeight: CGFloat = {
+            
+            if self.actionBtns.count > 1 {
+                return 342
+            } else {
+                return 259
+            }
+            
+        }()
         
         private let viewModel: UserViewModel
         private let userType: UserType
@@ -222,8 +224,7 @@ extension Social.UserList {
             defer {
                 dismissModal(animated: true)
             }
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.addFollowing(viewModel.userId, to: selfUid)
+            viewModel.follow()
         }
         
         @objc
@@ -231,24 +232,17 @@ extension Social.UserList {
             defer {
                 dismissModal(animated: true)
             }
-            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
-            if viewModel.channelIsSecrete {
-                FireStore.shared.sendJoinChannelRequest(from: profile, to: viewModel.userId, toJoin: viewModel.channelId)
-            } else if let roomVC = navigationController?.viewControllers.first as? RoomViewController {
-                // join channel directly
-                roomVC.joinChannel(viewModel.channelId)
-            }
+            
+            viewModel.joinUserRoom()
         }
         
         @objc
         private func onInviteBtn() {
             defer {
                 dismissModal(animated: true)
-            }
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.sendChannelInvitation(to: viewModel.userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
+            }            
+            viewModel.invite()
         }
-        
         
         @objc
         private func onMoreActionBtn() {
@@ -297,7 +291,7 @@ extension Social.UserList {
         }
         
         func height() -> CGFloat {
-            return 259 + Frame.Height.safeAeraBottomHeight
+            return contentHeight + Frame.Height.safeAeraBottomHeight
         }
         
         func modalPresentationStyle() -> UIModalPresentationStyle {

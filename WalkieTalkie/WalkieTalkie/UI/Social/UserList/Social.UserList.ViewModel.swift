@@ -84,6 +84,38 @@ extension Social.UserList {
             return statusString
         }
         
+        func follow() {
+            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+            FireStore.shared.addFollowing(userId, to: selfUid)
+        }
+        
+        var joinable: Bool {
+            return !channelName.isEmpty
+        }
+        
+        func joinUserRoom() {
+            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
+            if channelIsSecrete {
+                FireStore.shared.sendJoinChannelRequest(from: profile, to: userId, toJoin: channelId)
+            } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
+                // join channel directly
+                roomVC.joinChannel(channelId)
+            }
+        }
+        
+        var invitable: Bool {
+            
+            let iHaveARoom = !Social.Module.shared.currentChannelValue.isEmpty
+            let heIsOnline = user.status.online
+            
+            return iHaveARoom || !heIsOnline
+        }
+        
+        func invite() {
+            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+            FireStore.shared.sendChannelInvitation(to: userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
+        }
+        
     }
     
 }
