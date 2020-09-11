@@ -228,6 +228,11 @@ extension ChannelUserListController {
                     self?.viewModel.followUser(firestoreUser)
                 }
                 alertVC.addAction(followAction)
+            } else {
+                let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
+                    self?.viewModel.unfollowUser(firestoreUser)
+                }
+                alertVC.addAction(unfollowAction)
             }
         }
         
