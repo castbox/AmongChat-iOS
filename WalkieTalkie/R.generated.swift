@@ -1305,10 +1305,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let alertUnblock = Rswift.StringResource(key: "alert.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Unblock
+      /// en translation: Unfollow
       /// 
       /// Locales: en
-      static let socialUnblock = Rswift.StringResource(key: "social.unblock", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let socialUnfollow = Rswift.StringResource(key: "social.unfollow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock all categories
       /// 
       /// Locales: en
@@ -1926,11 +1926,11 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("alert.unblock", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Unblock
+      /// en translation: Unfollow
       /// 
       /// Locales: en
-      static func socialUnblock(_: Void = ()) -> String {
-        return NSLocalizedString("social.unblock", bundle: R.hostingBundle, comment: "")
+      static func socialUnfollow(_: Void = ()) -> String {
+        return NSLocalizedString("social.unfollow", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock all categories

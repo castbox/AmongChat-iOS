@@ -32,7 +32,7 @@ extension Social.BlockedUserList {
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.addTarget(self, action: #selector(onUnblockBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.socialUnblock(), for: .normal)
+            btn.setTitle(R.string.localizable.alertUnblock(), for: .normal)
             btn.setTitleColor(.white, for: .normal)
             btn.appendKern()
             return btn

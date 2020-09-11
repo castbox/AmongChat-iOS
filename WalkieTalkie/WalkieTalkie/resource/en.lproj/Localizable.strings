@@ -114,9 +114,9 @@
 "profile.edit.birthday" = "Birthday";
 "social.follower.follow.action" = "Follow Back";
 "social.blocked.user.title" = "block user";
-"social.unblock" = "Unblock";
 "social.relation.friend" = "Friends";
 "social.join.action" = "Join";
+"social.unfollow" = "Unfollow";
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";

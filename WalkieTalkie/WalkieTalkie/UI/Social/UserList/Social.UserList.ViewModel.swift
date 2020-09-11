@@ -13,7 +13,7 @@ extension Social.UserList {
     
     class UserViewModel {
         
-        private let user: FireStore.Entity.User
+        let user: FireStore.Entity.User
         
         init(with data: FireStore.Entity.User) {
             user = data

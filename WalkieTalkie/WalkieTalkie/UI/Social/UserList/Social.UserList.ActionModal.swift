@@ -255,19 +255,28 @@ extension Social.UserList {
             
             let alert = UIAlertController(title: "More Action", message: nil, preferredStyle: .actionSheet)
             
-            let blockAction = UIAlertAction(title: "Block", style: .default) { [weak self] (_) in
-                guard let `self` = self,
-                    let selfUid = Settings.shared.loginResult.value?.uid else { return }
-                FireStore.shared.addBlockUser(self.viewModel.userId, to: selfUid)
+            let channelUser = ChannelUser.randomUser(uid: viewModel.user.profile.uidInt)
+            let channelUserViewModel = ChannelUserViewModel(with: channelUser, firestoreUser: viewModel.user)
+            
+            let blockAction = UIAlertAction(title: R.string.localizable.alertBlock(), style: .default) { (_) in
+                ChannelUserListViewModel.shared.blockedUser(channelUserViewModel)
             }
             
-            let unfollowAction = UIAlertAction(title: "Unfollow", style: .destructive) { [weak self] (_) in
+            let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
                 guard let `self` = self,
                     let selfUid = Settings.shared.loginResult.value?.uid else { return }
                 FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
             }
             
-            alert.addAction(blockAction)
+            let unblockAction = UIAlertAction(title: R.string.localizable.alertUnblock(), style: .default) { (_) in
+                ChannelUserListViewModel.shared.unblockedUser(channelUserViewModel)
+            }
+            
+            if ChannelUserListViewModel.shared.blockedUsers.contains(where: { $0.uid == viewModel.user.profile.uidInt }) {
+                alert.addAction(unblockAction)
+            } else {
+                alert.addAction(blockAction)
+            }
             
             if userType == .following {
                 alert.addAction(unfollowAction)
