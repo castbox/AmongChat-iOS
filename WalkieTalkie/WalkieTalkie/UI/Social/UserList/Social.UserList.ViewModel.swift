@@ -113,6 +113,7 @@ extension Social.UserList {
             } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
                 // join channel directly
                 roomVC.joinChannel(channelId)
+                UIApplication.navigationController?.popToRootViewController(animated: true)
             }
         }
         
