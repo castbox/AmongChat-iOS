@@ -159,6 +159,17 @@ extension Social.UserList {
         func configView(with viewModel: Social.UserList.UserViewModel) {
             userView.configView(with: viewModel)
             followBtn.isHidden = viewModel.isFriend
+            if followBtn.isHidden {
+                followBtn.snp.updateConstraints { (maker) in
+                    maker.width.equalTo(0)
+                    maker.right.equalToSuperview().inset(0)
+                }
+            } else {
+                followBtn.snp.updateConstraints { (maker) in
+                    maker.width.equalTo(107)
+                    maker.right.equalToSuperview().inset(15)
+                }
+            }
             user = viewModel
         }
 
@@ -236,6 +247,11 @@ extension Social.UserList {
                 maker.centerY.equalTo(usernameLabel)
                 maker.right.lessThanOrEqualTo(textLayoutGuide)
             }
+            let lower = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue - 1)
+            let higher = UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1)
+
+            friendView.setContentCompressionResistancePriority(higher, for: .horizontal)
+            usernameLabel.setContentCompressionResistancePriority(lower, for: .horizontal)
             
             statusLabel.snp.makeConstraints { (maker) in
                 maker.left.bottom.equalTo(textLayoutGuide)

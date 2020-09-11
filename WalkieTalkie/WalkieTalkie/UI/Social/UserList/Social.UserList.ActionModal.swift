@@ -167,6 +167,7 @@ extension Social.UserList {
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(avatarIV.snp.bottom).offset(10)
                 maker.height.equalTo(27)
+                maker.left.greaterThanOrEqualToSuperview().offset(25)
             }
             
             statusLabel.snp.makeConstraints { (maker) in
