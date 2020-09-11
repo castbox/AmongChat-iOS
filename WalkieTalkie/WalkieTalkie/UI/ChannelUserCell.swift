@@ -34,7 +34,7 @@ class ChannelUserCell: UITableViewCell {
         avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
             guard let `self` = self else { return }
             
-            if let image = image {
+            if let _ = image {
                 self.userAvatar.backgroundColor = .clear
             } else {
                 self.userAvatar.backgroundColor = user.iconColor.color()
