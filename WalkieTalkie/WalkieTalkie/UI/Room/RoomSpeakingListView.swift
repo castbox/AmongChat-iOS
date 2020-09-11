@@ -149,6 +149,13 @@ fileprivate extension RoomSpeakingListView {
             return iv
         }()
         
+        private lazy var prefixLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoBlack(size: 11)
+            lb.textColor = UIColor(hex6: 0xF8F8F8)
+            return lb
+        }()
+        
         private var avatarDisposable: Disposable?
         
         override init(frame: CGRect) {
@@ -166,11 +173,15 @@ fileprivate extension RoomSpeakingListView {
         }        
         
         private func setupLayout() {
-            contentView.addSubviews(views: avatarBorder, userAvatar, micView)
+            contentView.addSubviews(views: avatarBorder, userAvatar, micView, prefixLabel)
             
             userAvatar.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(30)
                 maker.center.equalToSuperview()
+            }
+            
+            prefixLabel.snp.makeConstraints { (maker) in
+                maker.center.equalTo(userAvatar)
             }
             
             avatarBorder.snp.makeConstraints { (maker) in
@@ -199,10 +210,16 @@ fileprivate extension RoomSpeakingListView {
                 })
                 
                 micView.image = R.image.speak_list_mic()
+                
+                prefixLabel.text = user.prefix
+                prefixLabel.isHidden = (userViewModel.firestoreUser != nil)
+
             } else {
                 userAvatar.image = R.image.speak_list_add()
                 userAvatar.backgroundColor = nil
                 micView.image = nil
+                prefixLabel.text = nil
+                prefixLabel.isHidden = true
             }
         }
         

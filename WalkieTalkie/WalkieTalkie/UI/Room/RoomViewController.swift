@@ -54,6 +54,7 @@ class RoomViewController: ViewController {
             let vc = ChannelUserListController(channel: self.channel)
             self.navigationController?.pushViewController(vc)
         }
+        v.isUserInteractionEnabled = false
         return v
     }()
     
@@ -310,6 +311,7 @@ class RoomViewController: ViewController {
             self?.viewModel.requestLeaveRoom(name)
         }
         speakButtonTrigger.isUserInteractionEnabled = true
+        speakingListView.isUserInteractionEnabled = false
     }
   
     func joinChannel(_ name: String?) {
@@ -344,6 +346,7 @@ class RoomViewController: ViewController {
                     self?.isSegmentControlEnable = true
                     completionBlock?()
                     self?.joinedChannelSubject.onNext(name)
+                    self?.speakingListView.isUserInteractionEnabled = true
                 }
             }
         }
