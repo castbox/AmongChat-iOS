@@ -106,10 +106,8 @@ extension Social.UserList {
                 
                 var btns: [UIView] = []
                 
-                let userChannel = viewModel.channelName
-                
-                if !userChannel.isEmpty {
-                    joinBtn.setTitle("Join \(userChannel)", for: .normal)
+                if self.viewModel.joinable {
+                    joinBtn.setTitle("Join \(self.viewModel.channelName)", for: .normal)
                     btns.append(joinBtn)
                 }
                 

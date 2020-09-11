@@ -48,6 +48,10 @@ extension Social.UserList {
         }
         
         var online: Bool {
+            guard let selfUid = Settings.shared.loginResult.value?.uid,
+                !user.blockList.contains(selfUid) else {
+                return false
+            }
             return user.status.online
         }
         
@@ -69,7 +73,7 @@ extension Social.UserList {
             
             let statusString: String
             
-            if user.status.online {
+            if online {
                 
                 if channelName.isEmpty {
                     statusString = "Online"
@@ -90,6 +94,15 @@ extension Social.UserList {
         }
         
         var joinable: Bool {
+            guard let selfUid = Settings.shared.loginResult.value?.uid,
+                !user.blockList.contains(selfUid) else {
+                return false
+            }
+            
+            guard !Social.Module.shared.blockedValue.contains(user.profile.uid) else {
+                return false
+            }
+            
             return !channelName.isEmpty
         }
         
@@ -104,6 +117,14 @@ extension Social.UserList {
         }
         
         var invitable: Bool {
+            guard let selfUid = Settings.shared.loginResult.value?.uid,
+                !user.blockList.contains(selfUid) else {
+                return false
+            }
+
+            guard !Social.Module.shared.blockedValue.contains(user.profile.uid) else {
+                return false
+            }
             
             let iHaveARoom = !Social.Module.shared.currentChannelValue.isEmpty
             let heIsOnline = user.status.online
