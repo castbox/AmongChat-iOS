@@ -14,10 +14,12 @@
 		BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */; };
 		BD73B0FA24FDF08E009D0AC7 /* Social.UserList.Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */; };
 		BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */; };
-		BD73B10124FE363D009D0AC7 /* Social.BlockedUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B10024FE363D009D0AC7 /* Social.BlockedUserViewController.swift */; };
+		BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B10024FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift */; };
 		BD73B10324FE89CA009D0AC7 /* Social.UserList.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B10224FE89C9009D0AC7 /* Social.UserList.ActionModal.swift */; };
 		BD7B126324F6623900C94836 /* FireStore.FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */; };
 		BD8BEE1D2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8BEE1C2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift */; };
+		BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA05E9D250B22D50087933F /* Social.BlockedUserList.Widgets.swift */; };
+		BDA05EA0250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA05E9F250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift */; };
 		BDB21A50250A1288000ADC20 /* ChannelUserListController.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB21A4F250A1285000ADC20 /* ChannelUserListController.ActionModal.swift */; };
 		BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */; };
 		BDB8F58724F7D925000027F8 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58624F7D925000027F8 /* Social.swift */; };
@@ -243,10 +245,12 @@
 		BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewController.swift; sourceTree = "<group>"; };
 		BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.Widgets.swift; sourceTree = "<group>"; };
 		BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewModel.swift; sourceTree = "<group>"; };
-		BD73B10024FE363D009D0AC7 /* Social.BlockedUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserViewController.swift; sourceTree = "<group>"; };
+		BD73B10024FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserList.ViewController.swift; sourceTree = "<group>"; };
 		BD73B10224FE89C9009D0AC7 /* Social.UserList.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ActionModal.swift; sourceTree = "<group>"; };
 		BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsModel.swift; sourceTree = "<group>"; };
 		BD8BEE1C2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.JoinChannelRequestModal.swift; sourceTree = "<group>"; };
+		BDA05E9D250B22D50087933F /* Social.BlockedUserList.Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserList.Widgets.swift; sourceTree = "<group>"; };
+		BDA05E9F250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserList.ActionModal.swift; sourceTree = "<group>"; };
 		BDB21A4F250A1285000ADC20 /* ChannelUserListController.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUserListController.ActionModal.swift; sourceTree = "<group>"; };
 		BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-BoldItalic.ttf"; sourceTree = "<group>"; };
 		BDB8F58624F7D925000027F8 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
@@ -494,6 +498,16 @@
 			path = UserList;
 			sourceTree = "<group>";
 		};
+		BDA05E9C250B229D0087933F /* BlockedUserList */ = {
+			isa = PBXGroup;
+			children = (
+				BD73B10024FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift */,
+				BDA05E9D250B22D50087933F /* Social.BlockedUserList.Widgets.swift */,
+				BDA05E9F250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift */,
+			);
+			path = BlockedUserList;
+			sourceTree = "<group>";
+		};
 		BDB8F58524F7D5A0000027F8 /* Social */ = {
 			isa = PBXGroup;
 			children = (
@@ -503,10 +517,10 @@
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
 				BDB8F58A24F7DE75000027F8 /* Social.InitialProfileViewController.swift */,
 				BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */,
-				BD73B10024FE363D009D0AC7 /* Social.BlockedUserViewController.swift */,
 				BD8BEE1C2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift */,
 				BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */,
 				BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */,
+				BDA05E9C250B229D0087933F /* BlockedUserList */,
 				BD73B0FB24FE1705009D0AC7 /* UserList */,
 			);
 			path = Social;
@@ -1249,9 +1263,11 @@
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
-				BD73B10124FE363D009D0AC7 /* Social.BlockedUserViewController.swift in Sources */,
+				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
+				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
+				BDA05EA0250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift in Sources */,
 				FE27949224D911D100817F51 /* ChannelUserListViewModel.swift in Sources */,
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,

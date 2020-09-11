@@ -16,7 +16,6 @@ extension Social {
         enum UserType {
             case following
             case follower
-            case blocked
         }
         
     }
@@ -46,8 +45,6 @@ extension Social.UserList {
                 return FollowingUserCell.self
             case .follower:
                 return FollowerUserCell.self
-            case .blocked:
-                return BlockedUserCell.self
             }
         }
         
@@ -101,9 +98,6 @@ extension Social.UserList {
                         self?.tableView.reloadData()
                     })
                     .disposed(by: bag)
-                
-            case .blocked:
-                uidsOb = Social.Module.shared.blockedObservable
             }
             
             var removeHUDBlock: (() -> Void)? = nil

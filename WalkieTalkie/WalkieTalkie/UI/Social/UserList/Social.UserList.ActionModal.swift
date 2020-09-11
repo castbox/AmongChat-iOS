@@ -54,18 +54,6 @@ extension Social.UserList {
             return btn
         }()
         
-        private lazy var unblockBtn: UIButton = {
-            let btn = WalkieButton(type: .custom)
-            btn.backgroundColor = UIColor(hex6: 0xFF7989, alpha: 1.0)
-            btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
-            btn.addTarget(self, action: #selector(onUnblockBtn), for: .primaryActionTriggered)
-            btn.layer.cornerRadius = 24
-            btn.setTitle(R.string.localizable.socialUnblock(), for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            btn.appendKern()
-            return btn
-        }()
-        
         private lazy var joinBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
             btn.backgroundColor = UIColor(hex6: 0xF8E71C, alpha: 1.0)
@@ -102,9 +90,6 @@ extension Social.UserList {
             let btn = WalkieButton(type: .custom)
             btn.setImage(R.image.btn_more_action(), for: .normal)
             btn.addTarget(self, action: #selector(onMoreActionBtn), for: .primaryActionTriggered)
-            if self.userType == .blocked {
-                btn.isHidden = true
-            }
             return btn
         }()
         
@@ -144,8 +129,6 @@ extension Social.UserList {
                 
             case .follower:
                 return [followBackBtn]
-            case .blocked:
-                return [unblockBtn]
             }
             
         }
@@ -241,15 +224,6 @@ extension Social.UserList {
             }
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             FireStore.shared.addFollowing(viewModel.userId, to: selfUid)
-        }
-        
-        @objc
-        private func onUnblockBtn() {
-            defer {
-                dismissModal(animated: true)
-            }
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.removeBlockUser(viewModel.userId, from: selfUid)
         }
         
         @objc

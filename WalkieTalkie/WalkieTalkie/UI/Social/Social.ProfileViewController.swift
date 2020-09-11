@@ -178,7 +178,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     removeBlock()
                 }
             case .blockUser:
-                let vc = Social.BlockedUserViewController()
+                let vc = Social.BlockedUserList.ViewController()
                 navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
