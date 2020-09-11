@@ -999,7 +999,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 98 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 99 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1033,6 +1033,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileEditBirthday = Rswift.StringResource(key: "profile.edit.birthday", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Birthday can be edited only one time in seven days.
+      /// 
+      /// Locales: en
+      static let profielEditBirthdayCantTip = Rswift.StringResource(key: "profiel.edit.birthday.cant.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Block
       /// 
       /// Locales: en
@@ -1448,6 +1452,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileEditBirthday(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.birthday", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Birthday can be edited only one time in seven days.
+      /// 
+      /// Locales: en
+      static func profielEditBirthdayCantTip(_: Void = ()) -> String {
+        return NSLocalizedString("profiel.edit.birthday.cant.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Block

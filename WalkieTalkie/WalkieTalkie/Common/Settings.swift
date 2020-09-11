@@ -361,6 +361,10 @@ extension DefaultsKeys {
     var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
         .init("social.user.profile", defaultValue: nil)
     }
+    
+    var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {
+        .init("social.profile.birthday.updated.timestamp", defaultValue: 0)
+    }
 }
 
 extension DefaultsAdapter {

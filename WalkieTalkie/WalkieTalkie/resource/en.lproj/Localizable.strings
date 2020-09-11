@@ -112,6 +112,7 @@
 // Edit Profile
 "profile.edit.username" = "Username";
 "profile.edit.birthday" = "Birthday";
+"profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";
 "social.follower.follow.action" = "Follow Back";
 "social.blocked.user.title" = "block user";
 "social.relation.friend" = "Friends";

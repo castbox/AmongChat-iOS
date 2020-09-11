@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 extension Social {
     class EditProfileViewController: ViewController {
@@ -223,6 +224,11 @@ extension Social {
             if profile.name != currentProfile?.name ||
                 profile.avatar != currentProfile?.avatar ||
                 profile.birthday != currentProfile?.birthday {
+                
+                if profile.birthday != currentProfile?.birthday {
+                    Defaults[\.socialBirthdayUpdateAtTsKey] = Date().timeIntervalSince1970
+                }
+                
                 Settings.shared.firestoreUserProfile.value = profile
             }
         }
@@ -234,6 +240,10 @@ extension Social.EditProfileViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == birthdayInputField {
+            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
+                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
+                return false
+            }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
                 self?.birthdayInputField.text = birthdayStr
