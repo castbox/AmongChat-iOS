@@ -39,6 +39,7 @@ extension Social.UserList {
         private lazy var friendView: FriendView = {
             let v = FriendView()
             v.contentStyle = .light
+            v.isHidden = !self.viewModel.isFriend
             return v
         }()
         
