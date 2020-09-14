@@ -110,6 +110,7 @@
 "profile.settings" = "settings";
 
 // Edit Profile
+"profile.edit.save.btn" = "Save";
 "profile.edit.username" = "Username";
 "profile.edit.birthday" = "Birthday";
 "profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";

@@ -21,6 +21,15 @@ extension Social {
             return btn
         }()
         
+        private lazy var saveBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoBold(size: 16)
+            btn.setTitleColor(UIColor(hex6: 0x000000), for: .normal)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+            btn.addTarget(self, action: #selector(onSaveBtn), for: .primaryActionTriggered)
+            return btn
+        }()
+        
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
             iv.layer.cornerRadius = 40
@@ -114,25 +123,20 @@ extension Social {
             view.endEditing(true)
         }
         
-        override func didMove(toParent parent: UIViewController?) {
-            super.didMove(toParent: parent)
-            
-            guard parent == nil else {
-                return
-            }
-            
-            updateProfileIfNeeded()
-        }
-        
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
-            view.addSubviews(views: backBtn, avatarIV, randomIconIV, userNameTitle, userNameInputField, birthdayTitle, birthdayInputField)
+            view.addSubviews(views: backBtn, avatarIV, saveBtn, randomIconIV, userNameTitle, userNameInputField, birthdayTitle, birthdayInputField)
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(15)
                 maker.top.equalTo(topLayoutGuide.snp.bottom).offset(11.5)
                 maker.width.height.equalTo(25)
+            }
+            
+            saveBtn.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(backBtn)
+                maker.right.equalToSuperview().offset(-10)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
@@ -205,6 +209,13 @@ extension Social {
         
         @objc
         private func onBackBtn() {
+            navigationController?.popViewController()
+        }
+        
+        @objc
+        private func onSaveBtn() {
+            view.endEditing(true)
+            updateProfileIfNeeded()
             navigationController?.popViewController()
         }
         

@@ -999,7 +999,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 99 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 100 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1257,6 +1257,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListSpeakingTitle = Rswift.StringResource(key: "channel.user.list.speaking.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Save
+      /// 
+      /// Locales: en
+      static let profileEditSaveBtn = Rswift.StringResource(key: "profile.edit.save.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1844,6 +1848,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelUserListSpeakingTitle(_: Void = ()) -> String {
         return NSLocalizedString("channel.user.list.speaking.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Save
+      /// 
+      /// Locales: en
+      static func profileEditSaveBtn(_: Void = ()) -> String {
+        return NSLocalizedString("profile.edit.save.btn", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Settings
