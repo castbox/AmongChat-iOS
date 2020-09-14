@@ -236,7 +236,7 @@ extension Social.ProfileViewController {
         var followerBtnHandler: (() -> Void)? = nil
         var editBtnHandler: (() -> Void)? = nil
         
-        private lazy var EditBtn: UIButton = {
+        private lazy var editBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
             btn.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
@@ -259,18 +259,12 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            let seperator = UIView(frame: CGRect(x: 0, y: 0, width: 0.5, height: 25))
+            let seperator = UIView()
             seperator.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.87)
                         
-            let btnStack = UIStackView(arrangedSubviews: [followingBtn, seperator, followerBtn],
-                                       axis: .horizontal,
-                                       spacing: 15,
-                                       alignment: .center,
-                                       distribution: .equalSpacing)
-            
             let avatarBorder = UIView()
             
-            addSubviews(views: avatarBorder, avatarIV, nameLabel, btnStack, EditBtn)
+            addSubviews(views: avatarBorder, avatarIV, nameLabel, followingBtn, seperator, followerBtn, editBtn)
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview().offset(16)
@@ -291,13 +285,25 @@ extension Social.ProfileViewController {
                 maker.left.greaterThanOrEqualToSuperview().offset(25)
             }
             
-            btnStack.snp.makeConstraints { (maker) in
-                maker.top.equalTo(nameLabel.snp.bottom)
+            seperator.snp.makeConstraints { (maker) in
+                maker.width.equalTo(1)
+                maker.height.equalTo(25)
+                maker.top.equalTo(nameLabel.snp.bottom).offset(15)
                 maker.centerX.equalToSuperview()
             }
             
-            EditBtn.snp.makeConstraints { (maker) in
-                maker.top.equalTo(btnStack.snp.bottom).offset(25)
+            followingBtn.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(seperator)
+                maker.right.equalTo(seperator.snp.left).offset(-15)
+            }
+            
+            followerBtn.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(seperator)
+                maker.left.equalTo(seperator.snp.right).offset(15)
+            }
+            
+            editBtn.snp.makeConstraints { (maker) in
+                maker.top.equalTo(seperator.snp.bottom).offset(30)
                 maker.height.equalTo(40)
                 maker.width.greaterThanOrEqualTo(122)
                 maker.centerX.equalToSuperview()
