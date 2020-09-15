@@ -102,13 +102,22 @@ extension Social.UserList {
             
             var removeHUDBlock: (() -> Void)? = nil
             
-            uidsOb.do(onNext: { [weak self] (_) in
-                removeHUDBlock = self?.view.raft.show(.loading, userInteractionEnabled: false)
-            })
+            let usersOb = uidsOb
                 .flatMap({ FireStore.shared.fetchUsers($0) })
                 .map({ $0.map { UserViewModel(with: $0)} })
-                .subscribe(onNext: { [weak self] (users) in
+                
+            Observable.combineLatest(uidsOb, usersOb)
+                .do(onNext: { [weak self] (_) in
+                    removeHUDBlock = self?.view.raft.show(.loading, userInteractionEnabled: false)
+                })
+                .subscribe(onNext: { [weak self] (t) in
                     removeHUDBlock?()
+                    var (uids, users) = t
+                    
+                    users.sort(by: { (lft, rgt) -> Bool in
+                        uids.firstIndex(of: lft.userId) ?? 0 <= uids.firstIndex(of: rgt.userId) ?? 0
+                    })
+                    
                     self?.userList = users
                     }, onError: { (_) in
                         removeHUDBlock?()

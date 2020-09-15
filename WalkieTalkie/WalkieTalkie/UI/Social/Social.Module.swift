@@ -115,11 +115,21 @@ extension Social {
         
         private func observeRelations(_ uid: String) {
             
+            let sortFollowingFollower: (([FireStore.Entity.User.FriendMeta]) -> [FireStore.Entity.User.FriendMeta]) = { (list) in
+                var sorted = list
+                sorted.sort(by: { (lft, rgt) -> Bool in
+                    lft.createdAt.compare(rgt.createdAt) == .orderedDescending
+                })
+                return sorted
+            }
+            
             FireStore.shared.followingObservable(of: uid)
+                .map(sortFollowingFollower)
                 .bind(to: followingListRelay)
                 .disposed(by: bag)
             
             FireStore.shared.followersObservable(of: uid)
+                .map(sortFollowingFollower)
                 .bind(to: followerListRelay)
                 .disposed(by: bag)
             
