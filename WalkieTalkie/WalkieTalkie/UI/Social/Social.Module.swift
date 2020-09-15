@@ -196,6 +196,7 @@ extension Social {
                         .subscribe(onNext: { (channelName) in
                             guard let profile = Settings.shared.firestoreUserProfile.value else { return }
                             FireStore.shared.sendJoinedChannelMsg(to: msg.uid, from: profile)
+                            UIApplication.navigationController?.popToRootViewController(animated: true)
                         })
                 })
                 .disposed(by: bag)
