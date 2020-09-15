@@ -448,10 +448,12 @@ class FireStore {
                         if let room = room,
                             let `self` = self {
                             var secretRooms = self.secretChannelsSubject.value
-                            if !secretRooms.contains { $0.name == room.name } {
+                            if let idx = secretRooms.firstIndex(where: { $0.name == room.name }) {
+                                secretRooms[idx] = room
+                            } else {
                                 secretRooms.append(room)
-                                self.secretChannelsSubject.accept(secretRooms)
                             }
+                            self.secretChannelsSubject.accept(secretRooms)
                         }
                     }
                 })
