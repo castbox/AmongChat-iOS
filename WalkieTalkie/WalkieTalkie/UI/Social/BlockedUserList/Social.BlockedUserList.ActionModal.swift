@@ -79,6 +79,7 @@ extension Social.BlockedUserList {
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(avatarIV.snp.bottom).offset(10)
                 maker.height.equalTo(27)
+                maker.left.greaterThanOrEqualToSuperview().offset(25)
             }
             
             unblockBtn.snp.makeConstraints { (maker) in
