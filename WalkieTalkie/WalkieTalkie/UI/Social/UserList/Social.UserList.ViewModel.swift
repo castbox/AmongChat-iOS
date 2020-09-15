@@ -127,6 +127,10 @@ extension Social.UserList {
                 return false
             }
             
+            guard isFriend else {
+                return false
+            }
+            
             let iHaveARoom = !Social.Module.shared.currentChannelValue.isEmpty
             let heIsOnline = user.status.online
             
