@@ -108,7 +108,13 @@ extension Social.UserList {
                 var btns: [UIView] = []
                 
                 if self.viewModel.joinable {
-                    joinBtn.setTitle("Join \(self.viewModel.channelName)", for: .normal)
+                    let btnTitle: String
+                    if self.viewModel.channelIsSecrete {
+                        btnTitle = "Join"
+                    } else {
+                        btnTitle = "Join \(self.viewModel.channelName)"
+                    }
+                    joinBtn.setTitle(btnTitle, for: .normal)
                     btns.append(joinBtn)
                 }
                 
