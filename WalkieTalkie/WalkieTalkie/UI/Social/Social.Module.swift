@@ -188,7 +188,7 @@ extension Social {
                         return
                     }
                     // join channel directly
-                    roomVC.joinChannel(channel)
+                    roomVC.joinRoom(channel)
                     
                     let _ = roomVC.joinedChannelObservable
                         .skipWhile({ $0 != channel })

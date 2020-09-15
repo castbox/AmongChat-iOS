@@ -39,7 +39,7 @@ extension Routes {
                         self.handleHomepage(home.channelName)
                     case let channel as URI.Channel:
                         self.handleChannel(channel)
-                    case let _ as URI.Followers:
+                    case _ as URI.Followers:
                         self.handleFollowers()
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
@@ -57,27 +57,8 @@ extension Routes {
                 return
             }
             
-            if name.isPrivate {
-                let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
-                let _ = FireStore.shared.fetchSecretChannel(of: name)
-                    .catchErrorJustReturn(nil)
-                    .subscribe(onSuccess: { (room) in
-                        removeHandler()
-                        
-                        guard let _ = room else {
-                            roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-                            return
-                        }
-                        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-                        roomVc.update(mode: Mode.private.intValue)
-                        roomVc.joinChannel(name)
-                        
-                    })
-            } else {
-                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-                roomVc.update(mode: Mode.public.intValue)
-                roomVc.joinChannel(name)
-            }
+            roomVc.joinRoom(name)
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
         func handleChannel(_ channel: URI.Channel) {
@@ -86,28 +67,8 @@ extension Routes {
             }
             
             let name = channel.channelName
-            
-            if name.isPrivate {
-                let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
-                let _ = FireStore.shared.fetchSecretChannel(of: name)
-                    .catchErrorJustReturn(nil)
-                    .subscribe(onSuccess: { (room) in
-                        removeHandler()
-                        
-                        guard let _ = room else {
-                            roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-                            return
-                        }
-                        Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-                        roomVc.update(mode: Mode.private.intValue)
-                        roomVc.joinChannel(name)
-                        
-                    })
-            } else {
-                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-                roomVc.update(mode: Mode.public.intValue)
-                roomVc.joinChannel(name)
-            }
+            roomVc.joinRoom(name)
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
         func handleFollowers() {

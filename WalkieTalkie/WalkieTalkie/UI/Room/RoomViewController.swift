@@ -331,7 +331,7 @@ class RoomViewController: ViewController {
         speakingListView.isUserInteractionEnabled = false
     }
   
-    func joinChannel(_ name: String?) {
+    private func joinChannel(_ name: String?) {
         joinChannelSubject.onNext(name)
     }
     
@@ -1075,6 +1075,28 @@ extension RoomViewController {
             completion()
         }
         
+    }
+    
+    func joinRoom(_ name: String) {
+        if name.isPrivate {
+            let removeHandler = view.raft.show(.doing(R.string.localizable.channelChecking()))
+            let _ = FireStore.shared.fetchSecretChannel(of: name)
+                .catchErrorJustReturn(nil)
+                .subscribe(onSuccess: { [weak self] (room) in
+                    removeHandler()
+                    
+                    guard let _ = room else {
+                        self?.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                        return
+                    }
+                    self?.update(mode: Mode.private.intValue)
+                    self?.joinChannel(name)
+                    
+                })
+        } else {
+            update(mode: Mode.public.intValue)
+            joinChannel(name)
+        }
     }
     
 }

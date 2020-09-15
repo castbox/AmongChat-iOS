@@ -112,7 +112,7 @@ extension Social.UserList {
                 FireStore.shared.sendJoinChannelRequest(from: profile, to: userId, toJoin: channelId)
             } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
                 // join channel directly
-                roomVC.joinChannel(channelId)
+                roomVC.joinRoom(channelId)
                 UIApplication.navigationController?.popToRootViewController(animated: true)
             }
         }
