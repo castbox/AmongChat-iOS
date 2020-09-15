@@ -89,18 +89,43 @@ class SecretChannelContainer: XibLoadableView {
         guard let name = codeField.text?.uppercased() else {
             return
         }
+        
+        let joinBlock = { [weak self] in
+            guard let `self` = self else { return }
+            Logger.logger(Logger.Action.EventName.enter_secret_success.rawValue, self.sourceCategory)
+            //join
+            _ = self.codeField.resignFirstResponder()
+            self.joinChannel("_\(name)", false)
+        }
+        
         //已存在
         guard !isValidChannel(name: name) else {
-            //show hud
-            channelFieldContainer.layer.borderColor = UIColor(hex: 0xD0021B)?.cgColor
-            errorTipsLabel.text = R.string.localizable.privateErrorCode()
-            errorTipsLabel.shake()
+                        
+            let removeHUDBlock = parentViewController?.view.raft.show(.loading, userInteractionEnabled: false)
+
+            FireStore.shared.fetchSecretChannel(of: "_\(name)")
+                .catchErrorJustReturn(nil)
+                .subscribe(onSuccess: {[weak self] (room) in
+                    removeHUDBlock?()
+                    
+                    guard let `self` = self else { return }
+                    
+                    guard let _ = room else {
+                        //show hud
+                        self.channelFieldContainer.layer.borderColor = UIColor(hex: 0xD0021B)?.cgColor
+                        self.errorTipsLabel.text = R.string.localizable.privateErrorCode()
+                        self.errorTipsLabel.shake()
+                        return
+                    }
+                    
+                    joinBlock()
+                })
+                .disposed(by: bag)
+            
             return
         }
-        Logger.logger(Logger.Action.EventName.enter_secret_success.rawValue, sourceCategory)
-        //join
-        _ = codeField.resignFirstResponder()
-        self.joinChannel("_\(name)", false)
+        
+        joinBlock()
     }
     
     @IBAction func upgradeToProAction(_ sender: Any) {

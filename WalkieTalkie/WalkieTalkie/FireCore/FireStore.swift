@@ -97,14 +97,6 @@ class FireStore {
                             .observeOn(SerialDispatchQueueScheduler(qos: .default))
                             .catchErrorJustReturn([])
                             .subscribe(onSuccess: { (rooms) in
-                                
-                                var cachedSecretChannels = Defaults[\.secretChannels]
-                                cachedSecretChannels.removeAll { (cachedRoom) -> Bool in
-                                    !rooms.contains { $0.name == cachedRoom.name}
-                                }
-                                
-                                Defaults[\.secretChannels] = cachedSecretChannels
-                                
                                 self.secretChannelsSubject.accept(rooms)
                             })
                     })
@@ -439,6 +431,37 @@ class FireStore {
             }
         })
     }
+    
+    func fetchSecretChannel(of channel: String) -> Single<Room?> {
+        
+        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
+            self?.db.collection(Root.secrets)
+                .document(channel)
+                .getDocument(completion: { (doc, error) in
+                    if let error = error {
+                        subscriber.onError(error)
+                    } else {
+                        let room = doc?.toRoom()
+                        subscriber.onNext(room)
+                        subscriber.onCompleted()
+                        
+                        if let room = room,
+                            let `self` = self {
+                            var secretRooms = self.secretChannelsSubject.value
+                            if !secretRooms.contains { $0.name == room.name } {
+                                secretRooms.append(room)
+                                self.secretChannelsSubject.accept(secretRooms)
+                            }
+                        }
+                    }
+                })
+            
+            return Disposables.create { }
+        }
+        .asSingle()
+        
+    }
+    
 }
 
 extension QuerySnapshot {

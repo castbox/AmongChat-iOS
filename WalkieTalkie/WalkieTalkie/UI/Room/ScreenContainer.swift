@@ -399,12 +399,22 @@ extension ScreenContainer {
                     joinChannelBlock(text)
                 }
             } else {
-                guard isInSecretChannel else {
-                    strongSelf.delegate?.containerShouldLeaveChannel()
-                    strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
-                    return
+                if isInSecretChannel {
+                    joinChannelBlock("_\(text)")
+                } else {
+                    let removeHUDBlock = strongSelf.parentViewController?.view.raft.show(.loading, userInteractionEnabled: false)
+                    let _ = FireStore.shared.fetchSecretChannel(of: "_\(text)")
+                        .catchErrorJustReturn(nil)
+                        .subscribe(onSuccess: { (room) in
+                            removeHUDBlock?()
+                            guard let _ = room else {
+                                strongSelf.delegate?.containerShouldLeaveChannel()
+                                strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
+                                return
+                            }
+                            joinChannelBlock("_\(text)")
+                        })
                 }
-                joinChannelBlock("_\(text)")
             }
         }
         

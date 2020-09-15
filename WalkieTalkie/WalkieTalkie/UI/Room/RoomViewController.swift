@@ -244,19 +244,36 @@ class RoomViewController: ViewController {
                 if FireStore.shared.isValidSecretChannel(channelName) { //则检查是否存在
                     joinChannel(channelName)
                 } else {
-                    //show error
-                    if channelName.count > 1 { //only have _
-                        if channelName == isFirstConnectSecretChannel {
-                            //clear invalid secret channel
-                            Defaults.set(channel: nil, mode: .private)
-                            searchViewModel.joinedSecretRemove(channelName)
-                            showCreateSecretChannel(with: .invalid)
+                    let showErrorBlock = { [weak self] in
+                        guard let `self` = self else { return }
+                        //show error
+                        if self.channelName.count > 1 { //only have _
+                            if self.channelName == self.isFirstConnectSecretChannel {
+                                //clear invalid secret channel
+                                Defaults.set(channel: nil, mode: .private)
+                                self.searchViewModel.joinedSecretRemove(self.channelName)
+                                self.showCreateSecretChannel(with: .invalid)
+                            } else {
+                                self.showCreateSecretChannel(with: .errorPasscode)
+                            }
                         } else {
-                            showCreateSecretChannel(with: .errorPasscode)
+                            self.showCreateSecretChannel(with: .emptySecretRooms)
                         }
-                    } else {
-                        showCreateSecretChannel(with: .emptySecretRooms)
                     }
+                    
+                    let removeHUDBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+                    FireStore.shared.fetchSecretChannel(of: channelName)
+                        .catchErrorJustReturn(nil)
+                        .subscribe(onSuccess: { [weak self] (room) in
+                            removeHUDBlock()
+                            guard let _ = room else {
+                                showErrorBlock()
+                                return
+                            }
+                            self?.joinChannel(self?.channelName)
+                        })
+                        .disposed(by: bag)
+
                 }
             } else {
                 joinChannel(channelName)
