@@ -64,7 +64,7 @@ extension Routes {
                     .subscribe(onSuccess: { (room) in
                         removeHandler()
                         
-                        guard let room = room else {
+                        guard let _ = room else {
                             roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
                             return
                         }
@@ -94,7 +94,7 @@ extension Routes {
                     .subscribe(onSuccess: { (room) in
                         removeHandler()
                         
-                        guard let room = room else {
+                        guard let _ = room else {
                             roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
                             return
                         }
