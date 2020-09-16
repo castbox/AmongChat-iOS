@@ -195,7 +195,7 @@ class FireStore {
     func channelConfigObservalbe() -> Observable<FireStore.ChannelConfig> {
         return Observable<FireStore.ChannelConfig>.create({ [weak self] (observer) -> Disposable in
             self?.db.collection(Root.settings)
-                .document("channel_config")
+                .document(Root.channelConfig)
                 .getDocument(completion: { query, error in
                     if let error = error {
                         cdPrint("FireStore Error new: \(error)")

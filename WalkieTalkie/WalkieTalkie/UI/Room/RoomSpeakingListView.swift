@@ -65,7 +65,11 @@ class RoomSpeakingListView: UIView {
         }
     }
     
-    private var minimumListLength: Int = 5
+    private var minimumListLength: Int = FireStore.ChannelConfig.default.gSpeakerLimit {
+        didSet {
+            speakersCollectionView.reloadData()
+        }
+    }
     
     var moreUserBtnAction: (() -> Void)? = nil
     
@@ -116,7 +120,7 @@ class RoomSpeakingListView: UIView {
     func update(with room: Room) {
         if room.name.isEmpty {
             moreUserBtn.isUserInteractionEnabled = false
-            minimumListLength = 5
+            minimumListLength = FireStore.ChannelConfig.default.gSpeakerLimit
         } else {
             moreUserBtn.isUserInteractionEnabled = true
             minimumListLength = FireStore.channelConfig.maximumSpeakers(room)
