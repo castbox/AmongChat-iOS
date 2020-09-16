@@ -58,6 +58,7 @@ extension Routes {
             }
             
             roomVc.joinRoom(name)
+            UIApplication.navigationController?.popToRootViewController(animated: true)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
@@ -68,6 +69,7 @@ extension Routes {
             
             let name = channel.channelName
             roomVc.joinRoom(name)
+            UIApplication.navigationController?.popToRootViewController(animated: true)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
