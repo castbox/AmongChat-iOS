@@ -64,6 +64,8 @@ extension Social.UserList {
             btn.addTarget(self, action: #selector(onJoinBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
             btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
+            btn.setTitle("Join", for: .normal)
+            btn.appendKern()
             return btn
         }()
 
@@ -76,6 +78,8 @@ extension Social.UserList {
             btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
             btn.isEnabled = self.viewModel.invitable
             btn.alpha = self.viewModel.invitable ? 1.0 : 0.5
+            btn.setTitle("Invtie", for: .normal)
+            btn.appendKern()
             return btn
         }()
         
@@ -108,17 +112,8 @@ extension Social.UserList {
                 var btns: [UIView] = []
                 
                 if self.viewModel.joinable {
-                    let btnTitle: String
-                    if self.viewModel.channelIsSecrete {
-                        btnTitle = "Join"
-                    } else {
-                        btnTitle = "Join \(self.viewModel.channelName)"
-                    }
-                    joinBtn.setTitle(btnTitle, for: .normal)
                     btns.append(joinBtn)
                 }
-                
-                inviteBtn.setTitle("Invtie", for: .normal)
                 
                 btns.append(inviteBtn)
                 
