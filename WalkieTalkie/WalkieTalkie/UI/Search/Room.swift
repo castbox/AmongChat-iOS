@@ -40,6 +40,7 @@ struct Room: Codable, DefaultsSerializable {
     let persistence: Bool?
     let type: RoomType
     let emoji: Emoji?
+    var user_list: [UInt] = []
     
     init(name: String,
          user_count: Int,

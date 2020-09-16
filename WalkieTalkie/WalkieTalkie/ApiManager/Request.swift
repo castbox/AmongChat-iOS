@@ -20,14 +20,28 @@ struct Request {
 }
 
 extension Request {
-    static func reportEnterRoom(_ room: String) -> Single<Any> {
+    static func reportEnterRoom(_ room: String) -> Single<Entity.Channel?> {
         return dataProvider.rx.request(.enterRoom(roomName: room))
             .mapJSON()
+            .map({ (json) -> Entity.Channel? in
+                var channel: Entity.Channel?
+                decoderCatcher {
+                    channel = try JSONDecoder().decodeAnyData(Entity.Channel.self, from: json) as Entity.Channel
+                }
+                return channel
+            })
     }
     
-    static func reportLeaveRoom(_ room: String) -> Single<Any> {
+    static func reportLeaveRoom(_ room: String) -> Single<Entity.Channel?> {
         return dataProvider.rx.request(.leaveRoom(roomName: room))
             .mapJSON()
+            .map({ (json) -> Entity.Channel? in
+                var channel: Entity.Channel?
+                decoderCatcher {
+                    channel = try JSONDecoder().decodeAnyData(Entity.Channel.self, from: json) as Entity.Channel
+                }
+                return channel
+            })
     }
     
     static func login(deviceId: String) -> Single<Entity.LoginResult?> {

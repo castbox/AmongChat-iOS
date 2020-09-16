@@ -464,6 +464,44 @@ class FireStore {
         
     }
     
+    func channelObservable(of channel: String) -> Observable<Room?> {
+        let root: String
+        
+        if channel.isPrivate {
+            root = Root.secrets
+        } else {
+            root = Root.channels
+        }
+        return _channelObservable(of: channel, root: root)
+    }
+    
+    private func _channelObservable(of channel: String, root: String) -> Observable<Room?> {
+        
+        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
+            
+            let ref = self?.db.collection(root)
+                .document(channel)
+                .addSnapshotListener({ (doc, error) in
+                    guard error == nil else {
+                        subscriber.onError(error!)
+                        return
+                    }
+                    
+                    guard let doc = doc else {
+                        subscriber.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+                        return
+                    }
+                    
+                    subscriber.onNext(doc.toRoom())
+                })
+            
+            return Disposables.create {
+                ref?.remove()
+            }
+        }
+        
+    }
+    
 }
 
 extension QuerySnapshot {
@@ -485,8 +523,11 @@ extension DocumentSnapshot {
         if let emojiData = data["emoji"] as? [String: Any] {
             emoji = try? JSONDecoder().decodeAnyData(Room.Emoji.self, from: emojiData)
         }
-        return Room(name: documentID, user_count: count, persistence: persistence, emoji: emoji)
-
+        
+        let userList: [UInt] = data["user_list"] as? [UInt] ?? []
+        var room = Room(name: documentID, user_count: count, persistence: persistence, emoji: emoji)
+        room.user_list = userList
+        return room
     }
 }
 

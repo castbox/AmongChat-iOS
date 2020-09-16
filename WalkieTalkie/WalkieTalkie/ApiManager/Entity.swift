@@ -19,4 +19,11 @@ extension Entity {
         let newUser: Bool
         let firebaseToken : String
     }
+    
+    struct Channel: Codable {
+        let name: String
+        let user_count: Int
+        let user_list: [UInt]
+        let channel_exist: Bool
+    }
 }
