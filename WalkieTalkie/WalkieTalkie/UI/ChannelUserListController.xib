@@ -39,8 +39,8 @@
                                 <action selector="backButtonAction:" destination="-1" eventType="touchUpInside" id="vqu-AD-rDE"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users Talked in the Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgs-CT-jDy">
-                            <rect key="frame" x="105" y="53" width="204.5" height="22"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vgs-CT-jDy">
+                            <rect key="frame" x="186" y="53" width="42" height="22"/>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

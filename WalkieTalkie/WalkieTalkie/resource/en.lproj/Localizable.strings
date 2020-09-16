@@ -105,9 +105,9 @@
 "profile.edit" = "Edit Profile";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
-"profile.invite.friends" = "invite friends";
-"profile.block.user" = "Block user";
-"profile.settings" = "settings";
+"profile.invite.friends" = "Invite friends";
+"profile.block.user" = "Block users";
+"profile.settings" = "Settings";
 
 // Edit Profile
 "profile.edit.save.btn" = "Save";
@@ -115,7 +115,7 @@
 "profile.edit.birthday" = "Birthday";
 "profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";
 "social.follower.follow.action" = "Follow Back";
-"social.blocked.user.title" = "block user";
+"social.blocked.user.title" = "Users";
 "social.relation.friend" = "Friends";
 "social.join.action" = "Join";
 "social.unfollow" = "Unfollow";

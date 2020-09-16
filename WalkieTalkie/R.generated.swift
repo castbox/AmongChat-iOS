@@ -1045,7 +1045,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListBlockActionTitle = Rswift.StringResource(key: "channel.user.list.block.action.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Block user
+      /// en translation: Block users
       /// 
       /// Locales: en
       static let profileBlockUser = Rswift.StringResource(key: "profile.block.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1153,6 +1153,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invite friends
+      /// 
+      /// Locales: en
+      static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join
       /// 
       /// Locales: en
@@ -1264,6 +1268,10 @@ struct R: Rswift.Validatable {
       /// en translation: Settings
       /// 
       /// Locales: en
+      static let profileSettings = Rswift.StringResource(key: "profile.settings", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Settings
+      /// 
+      /// Locales: en
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sexual content
       /// 
@@ -1345,6 +1353,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileEditUsername = Rswift.StringResource(key: "profile.edit.username", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Users
+      /// 
+      /// Locales: en
+      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
@@ -1385,18 +1397,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: block user
-      /// 
-      /// Locales: en
-      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: invite friends
-      /// 
-      /// Locales: en
-      static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: settings
-      /// 
-      /// Locales: en
-      static let profileSettings = Rswift.StringResource(key: "profile.settings", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en
@@ -1479,7 +1479,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.block.action.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Block user
+      /// en translation: Block users
       /// 
       /// Locales: en
       static func profileBlockUser(_: Void = ()) -> String {
@@ -1666,6 +1666,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectInformation(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Invite friends
+      /// 
+      /// Locales: en
+      static func profileInviteFriends(_: Void = ()) -> String {
+        return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join
@@ -1860,6 +1867,13 @@ struct R: Rswift.Validatable {
       /// en translation: Settings
       /// 
       /// Locales: en
+      static func profileSettings(_: Void = ()) -> String {
+        return NSLocalizedString("profile.settings", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Settings
+      /// 
+      /// Locales: en
       static func settingsTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
       }
@@ -2004,6 +2018,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.edit.username", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Users
+      /// 
+      /// Locales: en
+      static func socialBlockedUserTitle(_: Void = ()) -> String {
+        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
@@ -2072,27 +2093,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: block user
-      /// 
-      /// Locales: en
-      static func socialBlockedUserTitle(_: Void = ()) -> String {
-        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: invite friends
-      /// 
-      /// Locales: en
-      static func profileInviteFriends(_: Void = ()) -> String {
-        return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: settings
-      /// 
-      /// Locales: en
-      static func profileSettings(_: Void = ()) -> String {
-        return NSLocalizedString("profile.settings", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
