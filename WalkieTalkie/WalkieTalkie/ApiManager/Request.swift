@@ -24,11 +24,8 @@ extension Request {
         return dataProvider.rx.request(.enterRoom(roomName: room))
             .mapJSON()
             .map({ (json) -> Entity.Channel? in
-                var channel: Entity.Channel?
-                decoderCatcher {
-                    channel = try JSONDecoder().decodeAnyData(Entity.Channel.self, from: json) as Entity.Channel
-                }
-                return channel
+                guard let dict = json as? [String : Any] else { return nil }
+                return Entity.Channel(with: dict)
             })
     }
     
@@ -36,11 +33,8 @@ extension Request {
         return dataProvider.rx.request(.leaveRoom(roomName: room))
             .mapJSON()
             .map({ (json) -> Entity.Channel? in
-                var channel: Entity.Channel?
-                decoderCatcher {
-                    channel = try JSONDecoder().decodeAnyData(Entity.Channel.self, from: json) as Entity.Channel
-                }
-                return channel
+                guard let dict = json as? [String : Any] else { return nil }
+                return Entity.Channel(with: dict)
             })
     }
     
