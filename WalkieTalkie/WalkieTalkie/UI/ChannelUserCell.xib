@@ -77,8 +77,8 @@
                             <action selector="blockButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XiY-jH-A4G"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlr-f0-0eV">
-                        <rect key="frame" x="30" y="21" width="12" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlr-f0-0eV">
+                        <rect key="frame" x="32" y="21" width="12" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="16"/>
                         <color key="textColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -86,6 +86,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Cf5-5P-uUU" firstAttribute="bottom" secondItem="uap-W2-2bI" secondAttribute="bottom" constant="4" id="8WK-97-m74"/>
+                    <constraint firstItem="ED2-Zb-a5v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5MM-79-UwM" secondAttribute="trailing" constant="15" id="EJo-Mm-ple"/>
+                    <constraint firstItem="ED2-Zb-a5v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NKk-Sn-HwN" secondAttribute="trailing" constant="15" id="Eig-dx-UxR"/>
                     <constraint firstItem="Cf5-5P-uUU" firstAttribute="trailing" secondItem="uap-W2-2bI" secondAttribute="trailing" constant="4" id="FsO-79-6Wb"/>
                     <constraint firstItem="Nlr-f0-0eV" firstAttribute="centerY" secondItem="uap-W2-2bI" secondAttribute="centerY" id="InH-a3-8pj"/>
                     <constraint firstItem="NKk-Sn-HwN" firstAttribute="bottom" secondItem="uap-W2-2bI" secondAttribute="bottom" id="VUm-GO-pef"/>
