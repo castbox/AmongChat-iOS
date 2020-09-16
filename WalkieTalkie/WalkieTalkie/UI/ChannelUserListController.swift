@@ -50,11 +50,13 @@ class ChannelUserListController: ViewController {
         return view
     }()
 
-    private var dataSource: [[ChannelUserViewModel]] = [] {
+    private var dataSource: [[ChannelUserViewModel]] = [[], [], []] {
         didSet {
             tableView.reloadData()
         }
     }
+    
+    private var hasBeenInvited: [String] = []
     
     private let channel: Room
     private let viewModel = ChannelUserListViewModel.shared
@@ -83,7 +85,11 @@ class ChannelUserListController: ViewController {
 
 extension ChannelUserListController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dataSource.count
+        if dataSource.safe(2)?.count ?? 0 > 0 {
+            return dataSource.count
+        } else {
+            return 2
+        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,18 +97,33 @@ extension ChannelUserListController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withClass: ChannelUserCell.self, for: indexPath)
-        if let user = dataSource.safe(indexPath.section)?.safe(indexPath.row) {
-            cell.bind(user)
-            if user.isSelf {
-                cell.tapBlockHandler = nil
-            } else {
-                cell.tapBlockHandler = { [weak self] in
-                    self?.showMoreSheet(for: user)
+        if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(ChannelFriendUserCell.self), for: indexPath)
+            if let user = dataSource.safe(indexPath.section)?.safe(indexPath.row),
+                let friendCell = cell as? ChannelFriendUserCell,
+                let firestoreUser = user.firestoreUser {
+                
+                friendCell.inviteHandler = { [weak self] (uid) in
+                    self?.hasBeenInvited.append(uid)
+                }
+                
+                friendCell.configView(with: Social.UserList.UserViewModel(with: firestoreUser), hasInvited: hasBeenInvited.contains(firestoreUser.uid))
+            }
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withClass: ChannelUserCell.self, for: indexPath)
+            if let user = dataSource.safe(indexPath.section)?.safe(indexPath.row) {
+                cell.bind(user)
+                if user.isSelf {
+                    cell.tapBlockHandler = nil
+                } else {
+                    cell.tapBlockHandler = { [weak self] in
+                        self?.showMoreSheet(for: user)
+                    }
                 }
             }
+            return cell
         }
-        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -116,7 +137,7 @@ extension ChannelUserListController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
+        return 15
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -129,8 +150,10 @@ extension ChannelUserListController: UITableViewDataSource {
             lb.textColor = .black
             if section == 0 {
                 lb.text = R.string.localizable.channelUserListSpeakingTitle()
-            } else {
+            } else if section == 1 {
                 lb.text = R.string.localizable.channelUserListListenTitle()
+            } else {
+                lb.text = R.string.localizable.channelUserListFollowedTitle()
             }
             lb.appendKern()
             view.addSubview(lb)
@@ -144,7 +167,7 @@ extension ChannelUserListController: UITableViewDataSource {
             } else if section == 1 {
                 icon = R.image.channel_user_list_ear()
             } else {
-                icon = nil
+                icon = R.image.channel_user_list_followed()
             }
             let iconiV = UIImageView(image: icon)
             view.addSubview(iconiV)
@@ -314,26 +337,52 @@ extension ChannelUserListController {
     }
     
     func bindSubviewEvent() {
-        viewModel.dataSourceReplay
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] users in
-                
-                let speaking = users.filter { (user) -> Bool in
-                    user.channelUser.status == .talking
+
+        let friendsOb = Observable.combineLatest(Social.Module.shared.followerObservable, Social.Module.shared.followingObservable)
+            .map { (t) -> [FireStore.Entity.User.FriendMeta] in
+                let (followers, followings) = t
+                return followers.filter { (follower) -> Bool in
+                    followings.contains { (following) -> Bool in
+                        following.uid == follower.uid
+                    }
                 }
-                
-                let listen = users.filter { (user) -> Bool in
-                    user.channelUser.status != .talking
-                }
-                
-                self?.dataSource = [speaking, listen]
-                
+        }
+        .map({ $0.map { $0.uid } })
+        .map({ Set($0) })
+        .distinctUntilChanged()
+        .flatMap({ FireStore.shared.fetchUsers(Array($0)) })
+        .map({
+            $0.map { ChannelUserViewModel(with: ChannelUser.randomUser(uid: $0.profile.uidInt), firestoreUser: $0) }
+        })
+        
+        let channelUserOb = viewModel.userObservable
+        
+        Observable.combineLatest(channelUserOb, friendsOb)
+        .subscribe(onNext: { [weak self] (t) in
+            
+            let (channelUsers, friends) = t
+            
+            let speaking = channelUsers.filter { (user) -> Bool in
+                user.channelUser.status == .talking
+            }
+            
+            let listen = channelUsers.filter { (user) -> Bool in
+                user.channelUser.status != .talking
+            }
+            
+            self?.dataSource[0] = speaking
+            self?.dataSource[1] = listen
+            self?.dataSource[2] = friends.filter({ (friend) -> Bool in
+                !channelUsers.contains { $0.channelUser.uid == friend.channelUser.uid }
             })
+        })
             .disposed(by: bag)
+        
     }
     
     func configureSubview() {
         tableView.register(nibWithCellClass: ChannelUserCell.self)
+        tableView.register(ChannelFriendUserCell.self, forCellReuseIdentifier: NSStringFromClass(ChannelFriendUserCell.self))
         tableView.backgroundColor = .clear
         navHeightConstraint.constant = Frame.Height.navigation
         tableView.tableFooterView = footerView
