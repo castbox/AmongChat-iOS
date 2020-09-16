@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 88 images.
+  /// This `R.image` struct is generated, and contains static references to 89 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -158,6 +158,8 @@ struct R: Rswift.Validatable {
     static let channel_user_list_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_block")
     /// Image `channel_user_list_ear`.
     static let channel_user_list_ear = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_ear")
+    /// Image `channel_user_list_followed`.
+    static let channel_user_list_followed = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_followed")
     /// Image `channel_user_list_mic`.
     static let channel_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mic")
     /// Image `channel_user_list_mute`.
@@ -375,6 +377,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "channel_user_list_ear", bundle: ..., traitCollection: ...)`
     static func channel_user_list_ear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.channel_user_list_ear, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "channel_user_list_followed", bundle: ..., traitCollection: ...)`
+    static func channel_user_list_followed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.channel_user_list_followed, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "channel_user_list_mic", bundle: ..., traitCollection: ...)`
@@ -999,7 +1006,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 100 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 102 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1125,6 +1132,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialFollowerFollowAction = Rswift.StringResource(key: "social.follower.follow.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Followed user
+      /// 
+      /// Locales: en
+      static let channelUserListFollowedTitle = Rswift.StringResource(key: "channel.user.list.followed.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Follower
       /// 
       /// Locales: en
@@ -1153,6 +1164,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invitation has been sent
+      /// 
+      /// Locales: en
+      static let channelInviteSentTip = Rswift.StringResource(key: "channel.invite.sent.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Invite friends
       /// 
       /// Locales: en
@@ -1619,6 +1634,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.follower.follow.action", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Followed user
+      /// 
+      /// Locales: en
+      static func channelUserListFollowedTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.user.list.followed.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Follower
       /// 
       /// Locales: en
@@ -1666,6 +1688,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectInformation(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Invitation has been sent
+      /// 
+      /// Locales: en
+      static func channelInviteSentTip(_: Void = ()) -> String {
+        return NSLocalizedString("channel.invite.sent.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Invite friends

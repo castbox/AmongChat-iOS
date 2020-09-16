@@ -140,6 +140,7 @@ extension Social.UserList {
         func invite() {
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             FireStore.shared.sendChannelInvitation(to: userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
+            UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.channelInviteSentTip()))
         }
         
     }

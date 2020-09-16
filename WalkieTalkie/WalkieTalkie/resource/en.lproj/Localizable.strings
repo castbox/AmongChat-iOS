@@ -122,6 +122,7 @@
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";
+"channel.user.list.followed.title" = "Followed user";
 "channel.user.list.social.title" = "Social";
 "channel.user.list.follow" = "Follow";
 "channel.user.list.mute" = "Mute";
@@ -141,3 +142,4 @@
 "channel.join.request.accept" = "Accept";
 "channel.join.request.refused.msg" = "%1$@ refuses your request";
 "channel.join.request.enter.room.msg" = "%1$@ enters room";
+"channel.invite.sent.tip" = "Invitation has been sent";
