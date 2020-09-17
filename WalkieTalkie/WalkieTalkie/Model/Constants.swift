@@ -83,6 +83,11 @@ struct Constants {
     }
 
     static var defaultUsername: String {
-        return "User \(sUserId)"
+        
+        if let loginResult = Settings.shared.loginResult.value {
+            return "User - \(loginResult.uid)"
+        } else {
+            return "User - \(sUserId)"
+        }
     }
 }
