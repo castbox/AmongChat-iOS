@@ -1080,7 +1080,8 @@ extension RoomViewController {
         #if DEBUG
         let shouldShow = true
         #else
-        let shouldShow = Defaults[\.profileInitialShownTsKey] == nil
+        let loggedIn = Settings.shared.loginResult.value != nil
+        let shouldShow = loggedIn && Defaults[\.profileInitialShownTsKey] == nil
         #endif
         
         if shouldShow {

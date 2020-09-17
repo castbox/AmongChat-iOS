@@ -308,6 +308,7 @@ extension Social.ProfileViewController {
                 maker.width.greaterThanOrEqualTo(122)
                 maker.centerX.equalToSuperview()
             }
+            editBtn.isHidden = true
         }
         
         @objc
@@ -333,6 +334,7 @@ extension Social.ProfileViewController {
                 .subscribe(onSuccess: { [weak self] (image) in
                     self?.avatarIV.image = image
                 })
+            editBtn.isHidden = false
         }
         
         func configFollowerCount(_ followerCount: Int) {
