@@ -156,6 +156,7 @@ class ChannelUserListViewModel {
     }
     
     func didJoinedChannel(_ channel: String) {
+        roomDisposable?.dispose()
         roomDisposable = FireStore.shared.channelObservable(of: channel)
             .filterNilAndEmpty()
             .subscribe(onNext: { [weak self] (room) in
