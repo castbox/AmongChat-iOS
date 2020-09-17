@@ -106,6 +106,19 @@ extension Social.UserList {
         
         private lazy var actionBtns: [UIView] = {
             
+            if self.viewModel.isFriend {
+                
+                var btns: [UIView] = []
+                
+                if self.viewModel.joinable {
+                    btns.append(joinBtn)
+                }
+                
+                btns.append(inviteBtn)
+                
+                return btns
+            }
+            
             switch userType {
             case .following:
                 
