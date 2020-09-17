@@ -42,6 +42,7 @@ extension Social {
             f.textColor = .black
             f.borderStyle = .none
             f.delegate = self
+            f.addTarget(self, action: #selector(onTextFieldDidChange), for: .editingChanged)
             return f
         }()
         
@@ -164,6 +165,13 @@ extension Social {
         }
         
         private func setupData() {
+            
+            defer {
+                let name: String = nameInputField.text?.trim() ?? ""
+                confirmBtn.alpha = name.isEmpty ? 0.5 : 1.0
+                confirmBtn.isEnabled = !name.isEmpty
+            }
+            
             guard let profile = Settings.shared.firestoreUserProfile.value else {
                 avatarIV.image = avatar.0
                 nameInputField.text = Constants.defaultUsername
@@ -212,7 +220,7 @@ extension Social {
                 return
             }
             
-            profile.name = nameInputField.text?.trim() ?? Constants.defaultUsername
+            profile.name = nameInputField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? Constants.defaultUsername
             profile.avatar = "\(avatar.1)"
             Settings.shared.firestoreUserProfile.value = profile
         }
@@ -221,6 +229,13 @@ extension Social {
         private func onAvatarTapped() {
             avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
             avatarIV.image = avatar.0
+        }
+        
+        @objc
+        private func onTextFieldDidChange() {
+            let name: String = nameInputField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            confirmBtn.alpha = name.isEmpty ? 0.5 : 1.0
+            confirmBtn.isEnabled = !name.isEmpty
         }
         
     }

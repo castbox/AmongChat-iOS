@@ -78,6 +78,7 @@ extension Social {
             f.leftViewMode = .always
             f.rightViewMode = .always
             f.cornerRadius = 15
+            f.addTarget(self, action: #selector(onTextFieldDidChange), for: .editingChanged)
             return f
         }()
         
@@ -205,6 +206,9 @@ extension Social {
                 .subscribe(onSuccess: { [weak self] (image) in
                     self?.avatarIV.image = image
             })
+            let name: String = userNameInputField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            saveBtn.alpha = name.isEmpty ? 0.5 : 1.0
+            saveBtn.isEnabled = !name.isEmpty
         }
         
         @objc
@@ -224,6 +228,13 @@ extension Social {
             let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
             avatarIV.image = avatar.0
             profile.avatar = "\(avatar.1)"
+        }
+        
+        @objc
+        private func onTextFieldDidChange() {
+            let name: String = userNameInputField.text?.trimmingCharacters(in: .whitespaces) ?? ""
+            saveBtn.alpha = name.isEmpty ? 0.5 : 1.0
+            saveBtn.isEnabled = !name.isEmpty
         }
         
         private func updateProfileIfNeeded() {
