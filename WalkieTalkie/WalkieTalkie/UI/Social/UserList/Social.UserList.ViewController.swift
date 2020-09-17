@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SwiftyUserDefaults
 
 extension Social {
     
@@ -50,7 +51,12 @@ extension Social.UserList {
         
         private var userList: [UserViewModel] = [] {
             didSet {
-                tableView.reloadData()
+                userList.forEach { (user) in
+                    user.viewRefresh = { [weak self] in
+                        self?.refreshTable()
+                    }
+                }
+                refreshTable()
             }
         }
         
@@ -123,6 +129,18 @@ extension Social.UserList {
                         removeHUDBlock?()
                 })
                 .disposed(by: bag)
+        }
+        
+        private func refreshTable() {
+            let sentList = Defaults[\.joinChannelRequestsSentKey]
+            Defaults[\.joinChannelRequestsSentKey] = sentList.compactMapKeysAndValues { (t) -> (String, Double)? in
+                let (_, ts) = t
+                guard Date().timeIntervalSince(Date(timeIntervalSince1970: ts)) < 5 * 60 else {
+                    return nil
+                }
+                return t
+            }
+            tableView.reloadData()
         }
 
                 

@@ -8,12 +8,15 @@
 
 import Foundation
 import RxSwift
+import SwiftyUserDefaults
 
 extension Social.UserList {
     
     class UserViewModel {
         
         let user: FireStore.Entity.User
+        
+        var viewRefresh: (() -> Void)? = nil
         
         init(with data: FireStore.Entity.User) {
             user = data
@@ -32,7 +35,7 @@ extension Social.UserList {
         }
         
         var channelName: String {
-            if user.status.currentChannel.starts(with: "_"){
+            if channelIsSecrete {
                 return "Secret Room"
             } else {
                 return user.status.currentChannel
@@ -40,11 +43,7 @@ extension Social.UserList {
         }
         
         var channelIsSecrete: Bool {
-            if user.status.currentChannel.starts(with: "_"){
-                return true
-            } else {
-                return false
-            }
+            return user.status.currentChannel.isPrivate
         }
         
         var online: Bool {
@@ -76,13 +75,13 @@ extension Social.UserList {
             if online {
                 
                 if channelName.isEmpty {
-                    statusString = "Online"
+                    statusString = R.string.localizable.socialStatusOnline()
                 } else {
-                    statusString = "In \(channelName)"
+                    statusString = R.string.localizable.socialStatusInSomeroom(channelName)
                 }
                 
             } else {
-                statusString = "Offline"
+                statusString = R.string.localizable.socialStatusOffline()
             }
             
             return statusString
@@ -93,28 +92,44 @@ extension Social.UserList {
             FireStore.shared.addFollowing(userId, to: selfUid)
         }
         
-        var joinable: Bool {
+        var joinable: (Bool, String) {
             guard let selfUid = Settings.shared.loginResult.value?.uid,
                 !user.blockList.contains(selfUid) else {
-                return false
+                return (false, R.string.localizable.socialJoinAction())
             }
             
             guard !Social.Module.shared.blockedValue.contains(user.profile.uid) else {
-                return false
+                return (false, R.string.localizable.socialJoinAction())
             }
             
-            return !channelName.isEmpty
+            guard channelIsSecrete == false else {
+
+                if let lastSent = Defaults[\.joinChannelRequestsSentKey][userId],
+                    Date().timeIntervalSince(Date(timeIntervalSince1970: lastSent)) < 5 * 60 {
+                    return (false, R.string.localizable.socialJoinActionSent())
+                } else {
+                    return (true, R.string.localizable.socialJoinAction())
+                }
+            }
+            
+            return (!channelName.isEmpty, R.string.localizable.socialJoinAction())
         }
         
         func joinUserRoom() {
             guard let profile = Settings.shared.firestoreUserProfile.value else { return }
             if channelIsSecrete {
                 FireStore.shared.sendJoinChannelRequest(from: profile, to: userId, toJoin: channelId)
+                UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.channelJoinRequestSentTip()))
+                var sentList = Defaults[\.joinChannelRequestsSentKey]
+                sentList[userId] = Date().timeIntervalSince1970
+                Defaults[\.joinChannelRequestsSentKey] = sentList
+                viewRefresh?()
             } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
                 // join channel directly
                 roomVC.joinRoom(channelId)
                 UIApplication.navigationController?.popToRootViewController(animated: true)
             }
+            
         }
         
         var invitable: Bool {

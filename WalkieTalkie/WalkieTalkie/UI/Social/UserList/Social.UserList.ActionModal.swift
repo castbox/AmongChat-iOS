@@ -64,7 +64,7 @@ extension Social.UserList {
             btn.addTarget(self, action: #selector(onJoinBtn), for: .primaryActionTriggered)
             btn.layer.cornerRadius = 24
             btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
-            btn.setTitle("Join", for: .normal)
+            btn.setTitle(R.string.localizable.socialJoinAction(), for: .normal)
             btn.appendKern()
             return btn
         }()
@@ -110,7 +110,7 @@ extension Social.UserList {
                 
                 var btns: [UIView] = []
                 
-                if self.viewModel.joinable {
+                if self.viewModel.joinable.0 {
                     btns.append(joinBtn)
                 }
                 
@@ -124,7 +124,7 @@ extension Social.UserList {
                 
                 var btns: [UIView] = []
                 
-                if self.viewModel.joinable {
+                if self.viewModel.joinable.0 {
                     btns.append(joinBtn)
                 }
                 

@@ -28,9 +28,8 @@ extension Social.UserList {
             btn.backgroundColor = .white
             btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
             btn.layer.cornerRadius = 15
-            btn.setTitle(R.string.localizable.socialJoinAction(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0x000000, alpha: 0.8), for: .normal)
-            btn.appendKern()
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
             return btn
         }()
         
@@ -66,7 +65,7 @@ extension Social.UserList {
             joinChannelBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.right.equalToSuperview().inset(14.5)
-                maker.width.greaterThanOrEqualTo(45)
+                maker.height.equalTo(30)
             }
             
             inviteBtn.snp.makeConstraints { (maker) in
@@ -78,7 +77,7 @@ extension Social.UserList {
         
         @objc
         private func onJoinChannelBtn() {
-            guard user.joinable else { return }
+            guard user.joinable.0 else { return }
             user.joinUserRoom()
         }
         
@@ -91,7 +90,8 @@ extension Social.UserList {
         func configView(with viewModel: Social.UserList.UserViewModel) {
             user = viewModel
             userView.configView(with: viewModel)
-            joinChannelBtn.alpha = viewModel.joinable ? 1.0 : 0.5
+            joinChannelBtn.alpha = viewModel.joinable.0 ? 1.0 : 0.5
+            joinChannelBtn.setTitle(viewModel.joinable.1, for: .normal)
             inviteBtn.alpha = viewModel.invitable ? 1.0 : 0.5
         }
         

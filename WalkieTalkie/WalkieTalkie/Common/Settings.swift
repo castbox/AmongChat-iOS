@@ -365,6 +365,10 @@ extension DefaultsKeys {
     var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {
         .init("social.profile.birthday.updated.timestamp", defaultValue: 0)
     }
+    
+    var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
+        .init("social.join.channel.request.sent.list", defaultValue: [:])
+    }
 }
 
 extension DefaultsAdapter {

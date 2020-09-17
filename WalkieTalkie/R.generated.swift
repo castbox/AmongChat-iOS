@@ -1006,7 +1006,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 102 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 107 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1160,6 +1160,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let iKnow = Rswift.StringResource(key: "i.know", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: In %1$@
+      /// 
+      /// Locales: en
+      static let socialStatusInSomeroom = Rswift.StringResource(key: "social.status.in.someroom", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Incorrect information
       /// 
       /// Locales: en
@@ -1224,10 +1228,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let toastConfirm = Rswift.StringResource(key: "toast.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Offline
+      /// 
+      /// Locales: en
+      static let socialStatusOffline = Rswift.StringResource(key: "social.status.offline", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Ok
       /// 
       /// Locales: en
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Online
+      /// 
+      /// Locales: en
+      static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: PASSCODE
       /// 
       /// Locales: en
@@ -1256,6 +1268,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Request has been sent
+      /// 
+      /// Locales: en
+      static let channelJoinRequestSentTip = Rswift.StringResource(key: "channel.join.request.sent.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Restore Purchase
       /// 
       /// Locales: en
@@ -1280,6 +1296,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileEditSaveBtn = Rswift.StringResource(key: "profile.edit.save.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static let socialJoinActionSent = Rswift.StringResource(key: "social.join.action.sent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Settings
       /// 
       /// Locales: en
@@ -1683,6 +1703,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("i.know", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: In %1$@
+      /// 
+      /// Locales: en
+      static func socialStatusInSomeroom(_ value1: String) -> String {
+        return String(format: NSLocalizedString("social.status.in.someroom", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: Incorrect information
       /// 
       /// Locales: en
@@ -1795,11 +1822,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("toast.confirm", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Offline
+      /// 
+      /// Locales: en
+      static func socialStatusOffline(_: Void = ()) -> String {
+        return NSLocalizedString("social.status.offline", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Ok
       /// 
       /// Locales: en
       static func alertOk(_: Void = ()) -> String {
         return NSLocalizedString("alert.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Online
+      /// 
+      /// Locales: en
+      static func socialStatusOnline(_: Void = ()) -> String {
+        return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PASSCODE
@@ -1851,6 +1892,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Request has been sent
+      /// 
+      /// Locales: en
+      static func channelJoinRequestSentTip(_: Void = ()) -> String {
+        return NSLocalizedString("channel.join.request.sent.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Restore Purchase
       /// 
       /// Locales: en
@@ -1891,6 +1939,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileEditSaveBtn(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.save.btn", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static func socialJoinActionSent(_: Void = ()) -> String {
+        return NSLocalizedString("social.join.action.sent", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Settings
