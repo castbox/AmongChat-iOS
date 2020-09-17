@@ -70,6 +70,16 @@ class RoomViewController: ViewController {
         return iv
     }()
     
+    private lazy var avatarDot: Social.Widgets.AvatarView = {
+        let iv = Social.Widgets.AvatarView()
+        iv.a_backgroundColor = UIColor(hex6: 0xFF6679, alpha: 1.0)
+        iv.a_cornerRadius = 5
+        iv.a_borderWidth = 1
+        iv.a_borderColor = UIColor(hex6: 0xFFFFFF, alpha: 1.0)
+        iv.isHidden = true
+        return iv
+    }()
+    
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
         manager.delegate = self
@@ -304,6 +314,7 @@ class RoomViewController: ViewController {
         
         let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
+        avatarDot.isHidden = true
     }
     
     func showShareView(_ isAutomaticShow: Bool = false) {
@@ -987,6 +998,13 @@ private extension RoomViewController {
         speakingListView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalToSuperview()
         }
+        
+        view.insertSubview(avatarDot, aboveSubview: avatarBtn)
+        avatarDot.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(10)
+            maker.right.equalTo(avatarBtn).offset(2)
+            maker.bottom.equalTo(avatarBtn).offset(-4)
+        }
     }
     
     #if DEBUG
@@ -1097,6 +1115,10 @@ extension RoomViewController {
             update(mode: Mode.public.intValue)
             joinChannel(name)
         }
+    }
+    
+    func onPushReceived() {
+        avatarDot.isHidden = false
     }
     
 }

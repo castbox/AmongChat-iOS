@@ -34,6 +34,12 @@ extension Social.Widgets {
             }
         }
         
+        var a_backgroundColor: UIColor? = nil {
+            didSet {
+                updateLayout()
+            }
+        }
+        
         var image: UIImage? = nil {
             didSet {
                 iv.image = image
@@ -83,6 +89,7 @@ extension Social.Widgets {
             border.layer.borderColor = a_borderColor?.cgColor
             
             iv.layer.cornerRadius = a_cornerRadius
+            iv.backgroundColor = a_backgroundColor
         }
         
     }
