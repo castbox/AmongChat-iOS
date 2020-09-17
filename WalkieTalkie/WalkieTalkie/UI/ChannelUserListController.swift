@@ -372,9 +372,12 @@ extension ChannelUserListController {
             
             self?.dataSource[0] = speaking
             self?.dataSource[1] = listen
-            self?.dataSource[2] = friends.filter({ (friend) -> Bool in
-                !channelUsers.contains { $0.channelUser.uid == friend.channelUser.uid }
-            })
+            self?.dataSource[2] = friends
+            /* 暂时不用筛除已在房间的好友
+             .filter({ (friend) -> Bool in
+             !channelUsers.contains { $0.channelUser.uid == friend.channelUser.uid }
+             })
+             */
         })
             .disposed(by: bag)
         
