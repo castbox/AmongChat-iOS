@@ -233,7 +233,11 @@ fileprivate extension RoomSpeakingListView {
 extension RoomSpeakingListView: UICollectionViewDataSource {
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return max(userList.count, minimumListLength)
+        if isUserInteractionEnabled {
+            return max(userList.count, 5)
+        } else {
+            return 3
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
