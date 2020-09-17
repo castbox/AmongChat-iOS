@@ -173,6 +173,9 @@ extension Social {
             profile.avatarObservable
                 .subscribe(onSuccess: { [weak self] (image) in
                     self?.avatarIV.image = image
+                    if let avatarIdx: Int = profile.avatar.int {
+                        self?.avatar = (image, avatarIdx)                        
+                    }
                 })
                 .disposed(by: bag)
         }
