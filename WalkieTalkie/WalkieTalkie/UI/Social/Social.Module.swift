@@ -268,6 +268,9 @@ extension Social.Module {
     func follow(_ user: String) {
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
         guard followingValue.count < maximumFollowings else {
+            // follow_max log
+            GuruAnalytics.log(event: "follow_max", category: nil, name: nil, value: nil, content: nil)
+            //
             UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.socialFollowingMaximiumTip("\(maximumFollowings)")))
             return
         }
