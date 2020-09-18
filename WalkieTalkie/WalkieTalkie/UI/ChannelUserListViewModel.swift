@@ -146,8 +146,7 @@ class ChannelUserListViewModel {
     }
     
     func followUser(_ user: FireStore.Entity.User) {
-        guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.addFollowing(user.uid, to: selfUid)
+        Social.Module.shared.follow(user.uid)
     }
     
     func unfollowUser(_ user: FireStore.Entity.User) {

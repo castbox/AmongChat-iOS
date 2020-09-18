@@ -152,8 +152,7 @@ extension Social.UserList {
         
         @objc
         private func onFollowBtn() {
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.addFollowing(user.userId, to: selfUid)
+            user.follow()
         }
         
         func configView(with viewModel: Social.UserList.UserViewModel) {

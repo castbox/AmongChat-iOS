@@ -88,8 +88,7 @@ extension Social.UserList {
         }
         
         func follow() {
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.addFollowing(userId, to: selfUid)
+            Social.Module.shared.follow(userId)
         }
         
         var joinable: (Bool, String) {

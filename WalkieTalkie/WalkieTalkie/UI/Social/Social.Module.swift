@@ -16,6 +16,8 @@ extension Social {
         
         static let shared = Module()
         
+        private let maximumFollowings: Int = 150
+        
         private let bag = DisposeBag()
         
         private let followingListRelay = BehaviorRelay<[FireStore.Entity.User.FriendMeta]>(value: [])
@@ -259,4 +261,17 @@ extension Social.Module {
     var mutedObservable: Observable<[UInt]> {
         return muteListRelay.asObservable()
     }
+}
+
+extension Social.Module {
+    
+    func follow(_ user: String) {
+        guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+        guard followingValue.count < maximumFollowings else {
+            UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.socialFollowingMaximiumTip("\(maximumFollowings)")))
+            return
+        }
+        FireStore.shared.addFollowing(user, to: selfUid)
+    }
+    
 }

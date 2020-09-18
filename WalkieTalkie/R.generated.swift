@@ -1006,7 +1006,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 107 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 108 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1412,6 +1412,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let toastSingleSecretChannal = Rswift.StringResource(key: "toast.single.secret.channal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Your followings has reached maximum of %1$@
+      /// 
+      /// Locales: en
+      static let socialFollowingMaximiumTip = Rswift.StringResource(key: "social.following.maximium.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your friend wants to join you
       /// 
       /// Locales: en
@@ -2142,6 +2146,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func toastSingleSecretChannal(_: Void = ()) -> String {
         return NSLocalizedString("toast.single.secret.channal", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your followings has reached maximum of %1$@
+      /// 
+      /// Locales: en
+      static func socialFollowingMaximiumTip(_ value1: String) -> String {
+        return String(format: NSLocalizedString("social.following.maximium.tip", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Your friend wants to join you

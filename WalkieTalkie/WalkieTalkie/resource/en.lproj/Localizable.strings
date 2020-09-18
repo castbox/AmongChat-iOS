@@ -123,6 +123,7 @@
 "social.status.offline" = "Offline";
 "social.status.online" = "Online";
 "social.status.in.someroom" = "In %1$@";
+"social.following.maximium.tip" = "Your followings has reached maximum of %1$@";
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";
