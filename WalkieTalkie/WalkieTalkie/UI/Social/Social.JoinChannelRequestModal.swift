@@ -72,6 +72,8 @@ extension Social {
         
         private let originMsg: FireStore.Entity.User.CommonMessage
         
+        private lazy var decisionIsMade: Bool = false
+        
         init(with msg: FireStore.Entity.User.CommonMessage) {
             originMsg = msg
             super.init(nibName: nil, bundle: nil)
@@ -85,6 +87,28 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
+            rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: { (_) in
+                    // join_secret_imp log
+                    GuruAnalytics.log(event: "join_secret_imp", category: nil, name: nil, value: nil, content: nil)
+                    //
+                })
+                .disposed(by: bag)
+        }
+        
+        override func didMove(toParent parent: UIViewController?) {
+            super.didMove(toParent: parent)
+            
+            guard parent == nil,
+                decisionIsMade == false else {
+                    return
+            }
+            
+            // join_secret_clk log
+            GuruAnalytics.log(event: "join_secret_clk", category: nil, name: "2", value: nil, content: nil)
+            //
+
         }
         
         private func setupLayout() {
@@ -165,8 +189,13 @@ extension Social {
         @objc
         private func onRefuseBtn() {
             defer {
-                dismissModal(animated: true)
+                dismissSelf(decisionIsMade: true)
             }
+            
+            // join_secret_clk log
+            GuruAnalytics.log(event: "join_secret_clk", category: nil, name: "0", value: nil, content: nil)
+            //
+            
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             FireStore.shared.refuseJoinChannelRequest(originMsg, by: selfUid)
         }
@@ -174,13 +203,22 @@ extension Social {
         @objc
         private func onAcceptBtn() {
             defer {
-                dismissModal(animated: true)
+                dismissSelf(decisionIsMade: true)
             }
+            
+            // join_secret_clk log
+            GuruAnalytics.log(event: "join_secret_clk", category: nil, name: "1", value: nil, content: nil)
+            //
             
             let selfChannel = Social.Module.shared.currentChannelValue
             guard let selfProfile = Settings.shared.firestoreUserProfile.value,
                 !selfChannel.isEmpty else { return }
             FireStore.shared.acceptJoinChannelRequest(originMsg, toJoinChannel: selfChannel, by: selfProfile)
+        }
+        
+        private func dismissSelf(decisionIsMade: Bool) {
+            self.decisionIsMade = decisionIsMade
+            dismissModal(animated: true)
         }
         
         // MARK: - Modalable
