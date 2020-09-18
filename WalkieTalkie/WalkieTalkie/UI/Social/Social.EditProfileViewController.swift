@@ -225,6 +225,9 @@ extension Social {
         
         @objc
         private func onAvatarTapped() {
+            // avatar_change log
+            GuruAnalytics.log(event: "avatar_change", category: nil, name: nil, value: nil, content: nil)
+            //
             let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
             avatarIV.image = avatar.0
             profile.avatar = "\(avatar.1)"
