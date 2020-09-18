@@ -65,7 +65,7 @@ class RoomSpeakingListView: UIView {
         }
     }
     
-    private var minimumListLength: Int = FireStore.ChannelConfig.default.gSpeakerLimit {
+    private var minimumListLength: Int = 3 {
         didSet {
             speakersCollectionView.reloadData()
         }
@@ -120,10 +120,8 @@ class RoomSpeakingListView: UIView {
     func update(with room: Room) {
         if room.name.isEmpty {
             moreUserBtn.isUserInteractionEnabled = false
-            minimumListLength = FireStore.ChannelConfig.default.gSpeakerLimit
         } else {
             moreUserBtn.isUserInteractionEnabled = true
-            minimumListLength = FireStore.channelConfig.maximumSpeakers(room)
         }
     }
 }
@@ -233,11 +231,7 @@ fileprivate extension RoomSpeakingListView {
 extension RoomSpeakingListView: UICollectionViewDataSource {
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if isUserInteractionEnabled {
-            return max(userList.count, 5)
-        } else {
-            return 3
-        }
+        return max(userList.count, minimumListLength)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
