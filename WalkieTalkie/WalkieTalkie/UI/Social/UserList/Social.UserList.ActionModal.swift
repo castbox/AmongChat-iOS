@@ -286,7 +286,7 @@ extension Social.UserList {
                 alert.addAction(blockAction)
             }
             
-            if userType == .following {
+            if userType == .following || viewModel.isFriend {
                 alert.addAction(unfollowAction)
             }
             
