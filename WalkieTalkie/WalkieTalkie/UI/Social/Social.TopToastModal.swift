@@ -92,6 +92,12 @@ extension Social {
             .take(1)
                 .subscribe(onNext: { [weak self] (_) in
                     
+                    if self?.originMsg.msgType == .enterRoom {
+                        // join_message_imp log
+                        GuruAnalytics.log(event: "join_message_imp", category: nil, name: nil, value: nil, content: nil)
+                        //
+                    }
+                    
                     UIView.animate(withDuration: AnimationDuration.normalSlow.rawValue) {
                         self?.toastContainer.transform = .identity
                     }
