@@ -248,11 +248,17 @@ extension ChannelUserListController {
             if !followingUids.contains(firestoreUser.uid) {
                 //未添加到following
                 let followAction = UIAlertAction(title: R.string.localizable.channelUserListFollow(), style: .default) { [weak self] (_) in
+                    // follow_clk log
+                    GuruAnalytics.log(event: "follow_clk", category: nil, name: nil, value: nil, content: nil)
+                    //
                     self?.viewModel.followUser(firestoreUser)
                 }
                 alertVC.addAction(followAction)
             } else {
                 let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
+                    // unfollow_clk log
+                    GuruAnalytics.log(event: "unfollow_clk", category: nil, name: nil, value: nil, content: nil)
+                    //
                     self?.viewModel.unfollowUser(firestoreUser)
                 }
                 alertVC.addAction(unfollowAction)
@@ -262,6 +268,9 @@ extension ChannelUserListController {
         let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid)
         if isMuted {
             let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
+                // unmute_clk log
+                GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
+                //
                 self?.viewModel.unmuteUser(userViewModel)
                 ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
             }
@@ -273,6 +282,10 @@ extension ChannelUserListController {
 //                self?.viewModel.muteUser(userViewModel)
 //                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
 
+                // mute_clk log
+                GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
+                //
+                
                 let modal = ActionModal(with: userViewModel, actionType: .mute)
                 modal.actionHandler = { () in
                     self?.viewModel.muteUser(userViewModel)
@@ -287,6 +300,9 @@ extension ChannelUserListController {
             self?.showReportSheet(for: userViewModel)
         })
         let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+            // block_clk log
+            GuruAnalytics.log(event: "block_clk", category: "user_list", name: nil, value: nil, content: nil)
+            //
             self?.showBlockAlert(with: userViewModel)
         })
         alertVC.addAction(reportAction)

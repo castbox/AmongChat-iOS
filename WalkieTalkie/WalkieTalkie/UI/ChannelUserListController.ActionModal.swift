@@ -158,6 +158,10 @@ extension ChannelUserListController {
                 dismissModal(animated: true)
             }
             
+            // mute_halfpage_clk log
+            GuruAnalytics.log(event: "mute_halfpage_clk", category: nil, name: nil, value: nil, content: nil)
+            //
+            
             guard Settings.shared.isProValue.value else {
                 
                 let sb = UIStoryboard(name: "Main", bundle: nil)
@@ -182,6 +186,9 @@ extension ChannelUserListController {
             defer {
                 dismissModal(animated: true)
             }
+            // block_halfpage_clk log
+            GuruAnalytics.log(event: "block_halfpage_clk", category: nil, name: nil, value: nil, content: nil)
+            //
             actionHandler?()
         }
         

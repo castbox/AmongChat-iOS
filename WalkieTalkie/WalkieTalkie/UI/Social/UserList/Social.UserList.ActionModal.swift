@@ -238,6 +238,9 @@ extension Social.UserList {
             defer {
                 dismissModal(animated: true)
             }
+            // follow_back log
+            GuruAnalytics.log(event: "follow_back", category: nil, name: nil, value: nil, content: nil)
+            //
             viewModel.follow()
         }
         
@@ -246,7 +249,9 @@ extension Social.UserList {
             defer {
                 dismissModal(animated: true)
             }
-            
+            // join_clk log
+            GuruAnalytics.log(event: "join_clk", category: nil, name: nil, value: nil, content: nil)
+            //
             viewModel.joinUserRoom()
         }
         
@@ -254,7 +259,10 @@ extension Social.UserList {
         private func onInviteBtn() {
             defer {
                 dismissModal(animated: true)
-            }            
+            }
+            // invite_clk log
+            GuruAnalytics.log(event: "invite_clk", category: "follow_list", name: nil, value: nil, content: nil)
+            //
             viewModel.invite()
         }
         
@@ -267,16 +275,25 @@ extension Social.UserList {
             let channelUserViewModel = ChannelUserViewModel(with: channelUser, firestoreUser: viewModel.user)
             
             let blockAction = UIAlertAction(title: R.string.localizable.alertBlock(), style: .default) { (_) in
+                // block_clk log
+                GuruAnalytics.log(event: "block_clk", category: "follow_list", name: nil, value: nil, content: nil)
+                //
                 ChannelUserListViewModel.shared.blockedUser(channelUserViewModel)
             }
             
             let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
+                // unfollow_clk log
+                GuruAnalytics.log(event: "unfollow_clk", category: nil, name: nil, value: nil, content: nil)
+                //
                 guard let `self` = self,
                     let selfUid = Settings.shared.loginResult.value?.uid else { return }
                 FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
             }
             
             let unblockAction = UIAlertAction(title: R.string.localizable.alertUnblock(), style: .default) { (_) in
+                // unblock_clk log
+                GuruAnalytics.log(event: "unblock_clk", category: "follow_list", name: nil, value: nil, content: nil)
+                //
                 ChannelUserListViewModel.shared.unblockedUser(channelUserViewModel)
             }
             

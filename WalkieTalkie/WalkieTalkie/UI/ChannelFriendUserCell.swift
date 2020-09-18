@@ -57,6 +57,9 @@ class ChannelFriendUserCell: UITableViewCell {
     
     @objc
     private func onInviteBtn() {
+        // invite_clk log
+        GuruAnalytics.log(event: "invite_clk", category: "user_list", name: nil, value: nil, content: nil)
+        //
         user.invite()
         inviteBtn.isEnabled = false
         inviteHandler?(user.userId)

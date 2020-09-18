@@ -78,12 +78,18 @@ extension Social.UserList {
         @objc
         private func onJoinChannelBtn() {
             guard user.joinable.0 else { return }
+            // join_clk log
+            GuruAnalytics.log(event: "join_clk", category: nil, name: nil, value: nil, content: nil)
+            //
             user.joinUserRoom()
         }
         
         @objc
         private func onInviteBtn() {
             guard user.invitable else { return }
+            // invite_clk log
+            GuruAnalytics.log(event: "invite_clk", category: "follow_list", name: nil, value: nil, content: nil)
+            //
             user.invite()
         }
         
@@ -152,6 +158,9 @@ extension Social.UserList {
         
         @objc
         private func onFollowBtn() {
+            // follow_back log
+            GuruAnalytics.log(event: "follow_back", category: nil, name: nil, value: nil, content: nil)
+            //
             user.follow()
         }
         
