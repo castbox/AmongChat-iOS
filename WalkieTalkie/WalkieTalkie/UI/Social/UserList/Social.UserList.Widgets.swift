@@ -233,7 +233,7 @@ extension Social.UserList {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.centerY.equalToSuperview()
-                maker.left.equalToSuperview().offset(15)
+                maker.left.equalToSuperview()
             }
             
             let textLayoutGuide = UILayoutGuide()
