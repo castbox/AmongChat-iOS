@@ -91,6 +91,12 @@ class FireStore {
                             .observeOn(SerialDispatchQueueScheduler(qos: .default))
                             .subscribe(onSuccess: { (rooms) in
                                 self.publicChannelsSubject.accept(rooms)
+                                SharedDefaults[\.topPublicChannelsKey] = rooms.sorted(by: { (left, right) -> Bool in
+                                    left.user_count > right.user_count
+                                }).map({ (room) -> [String : Any] in
+                                    return ["name" : room.name, "userCount" : room.user_count]
+                                })
+                                .first(2)
                             })
                         
                         let _ = self.fetchSecretChannelList(of: Defaults[\.secretChannels].map({ $0.name }))
