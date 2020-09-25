@@ -17,6 +17,8 @@ extension Modal {
         
         var onTapped: (() -> Void)?
         
+        var dismiss: (() -> Void)?
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             

@@ -127,9 +127,9 @@ class ScreenContainer: XibLoadableView {
         let height: CGFloat
         //        isShowSearchPage = true
         if isShowSearchPage {
-            height = 125 + searchViewMaxHeight
+            height = 184 + searchViewMaxHeight
         } else {
-            height = 125
+            height = 184
         }
         return CGSize(width: Frame.Screen.width - 50 * 2, height: height)
     }
@@ -399,12 +399,22 @@ extension ScreenContainer {
                     joinChannelBlock(text)
                 }
             } else {
-                guard isInSecretChannel else {
-                    strongSelf.delegate?.containerShouldLeaveChannel()
-                    strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
-                    return
+                if isInSecretChannel {
+                    joinChannelBlock("_\(text)")
+                } else {
+                    let removeHUDBlock = strongSelf.parentViewController?.view.raft.show(.loading, userInteractionEnabled: false)
+                    let _ = FireStore.shared.fetchSecretChannel(of: "_\(text)")
+                        .catchErrorJustReturn(nil)
+                        .subscribe(onSuccess: { (room) in
+                            removeHUDBlock?()
+                            guard let _ = room else {
+                                strongSelf.delegate?.containerShouldLeaveChannel()
+                                strongSelf.delegate?.containerShouldShowCreateView(with: .errorPasscode)
+                                return
+                            }
+                            joinChannelBlock("_\(text)")
+                        })
                 }
-                joinChannelBlock("_\(text)")
             }
         }
         

@@ -20,9 +20,22 @@ struct Request {
 }
 
 extension Request {
-    static func reportEnterRoom() -> Single<Any> {
-        return dataProvider.rx.request(.enterRoom)
+    static func reportEnterRoom(_ room: String) -> Single<Entity.Channel?> {
+        return dataProvider.rx.request(.enterRoom(roomName: room))
             .mapJSON()
+            .map({ (json) -> Entity.Channel? in
+                guard let dict = json as? [String : Any] else { return nil }
+                return Entity.Channel(with: dict)
+            })
+    }
+    
+    static func reportLeaveRoom(_ room: String) -> Single<Entity.Channel?> {
+        return dataProvider.rx.request(.leaveRoom(roomName: room))
+            .mapJSON()
+            .map({ (json) -> Entity.Channel? in
+                guard let dict = json as? [String : Any] else { return nil }
+                return Entity.Channel(with: dict)
+            })
     }
     
     static func login(deviceId: String) -> Single<Entity.LoginResult?> {

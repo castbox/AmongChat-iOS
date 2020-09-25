@@ -42,8 +42,43 @@ class RoomViewController: ViewController {
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var downButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
-    @IBOutlet weak var spackButtonBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var toolsView: RoomToolsView!
+    
+    private lazy var speakingListView: RoomSpeakingListView = {
+        let v = RoomSpeakingListView(frame: .zero)
+        v.moreUserBtnAction = { [weak self] in
+            guard let `self` = self else { return }
+            guard !self.channel.showName.isEmpty else {
+                return
+            }
+            let vc = ChannelUserListController(channel: self.channel)
+            self.navigationController?.pushViewController(vc)
+        }
+        v.isUserInteractionEnabled = false
+        return v
+    }()
+    
+    private lazy var avatarBtn: Social.Widgets.AvatarView = {
+        let iv = Social.Widgets.AvatarView()
+        iv.isUserInteractionEnabled = true
+        let tapGR = UITapGestureRecognizer()
+        tapGR.addTarget(self, action: #selector(reportButtonAction(_:)))
+        iv.addGestureRecognizer(tapGR)
+        iv.a_cornerRadius = 15
+        iv.a_borderWidth = 2
+        iv.a_borderColor = UIColor(hex6: 0xFFFFFF, alpha: 0.25)
+        return iv
+    }()
+    
+    private lazy var avatarDot: Social.Widgets.AvatarView = {
+        let iv = Social.Widgets.AvatarView()
+        iv.a_backgroundColor = UIColor(hex6: 0xFF6679, alpha: 1.0)
+        iv.a_cornerRadius = 5
+        iv.a_borderWidth = 1
+        iv.a_borderColor = UIColor(hex6: 0xFFFFFF, alpha: 1.0)
+        iv.isHidden = true
+        return iv
+    }()
     
     private lazy var mManager: ChatRoomManager = {
         let manager = ChatRoomManager.shared
@@ -86,6 +121,7 @@ class RoomViewController: ViewController {
             channel.updateJoinInterval()
             Defaults.set(channel: channel, mode: mode)
             reportButton.isEnabled = !channel.showName.isEmpty
+            speakingListView.update(with: channel)
         }
     }
     
@@ -119,6 +155,11 @@ class RoomViewController: ViewController {
 
     override var screenName: Logger.Screen.Node.Start {
         return .channel
+    }
+    
+    private let joinedChannelSubject = PublishSubject<String>()
+    var joinedChannelObservable: Observable<String> {
+        return joinedChannelSubject.asObservable()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -213,19 +254,36 @@ class RoomViewController: ViewController {
                 if FireStore.shared.isValidSecretChannel(channelName) { //则检查是否存在
                     joinChannel(channelName)
                 } else {
-                    //show error
-                    if channelName.count > 1 { //only have _
-                        if channelName == isFirstConnectSecretChannel {
-                            //clear invalid secret channel
-                            Defaults.set(channel: nil, mode: .private)
-                            searchViewModel.joinedSecretRemove(channelName)
-                            showCreateSecretChannel(with: .invalid)
+                    let showErrorBlock = { [weak self] in
+                        guard let `self` = self else { return }
+                        //show error
+                        if self.channelName.count > 1 { //only have _
+                            if self.channelName == self.isFirstConnectSecretChannel {
+                                //clear invalid secret channel
+                                Defaults.set(channel: nil, mode: .private)
+                                self.searchViewModel.joinedSecretRemove(self.channelName)
+                                self.showCreateSecretChannel(with: .invalid)
+                            } else {
+                                self.showCreateSecretChannel(with: .errorPasscode)
+                            }
                         } else {
-                            showCreateSecretChannel(with: .errorPasscode)
+                            self.showCreateSecretChannel(with: .emptySecretRooms)
                         }
-                    } else {
-                        showCreateSecretChannel(with: .emptySecretRooms)
                     }
+                    
+                    let removeHUDBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+                    FireStore.shared.fetchSecretChannel(of: channelName)
+                        .catchErrorJustReturn(nil)
+                        .subscribe(onSuccess: { [weak self] (room) in
+                            removeHUDBlock()
+                            guard let _ = room else {
+                                showErrorBlock()
+                                return
+                            }
+                            self?.joinChannel(self?.channelName)
+                        })
+                        .disposed(by: bag)
+
                 }
             } else {
                 joinChannel(channelName)
@@ -248,11 +306,15 @@ class RoomViewController: ViewController {
     }
     
     @IBAction func reportButtonAction(_ sender: UIButton) {
-        guard !channel.showName.isEmpty else {
-            return
-        }
-        let vc = ChannelUserListController(channel: channel)
+//        guard !channel.showName.isEmpty else {
+//            return
+//        }
+//        let vc = ChannelUserListController(channel: channel)
+//        navigationController?.pushViewController(vc)
+        
+        let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
+        avatarDot.isHidden = true
     }
     
     func showShareView(_ isAutomaticShow: Bool = false) {
@@ -273,11 +335,14 @@ class RoomViewController: ViewController {
     func leaveChannel() {
         UIApplication.shared.isIdleTimerDisabled = false
         speakButtonTrigger.isUserInteractionEnabled = false
-        mManager.leaveChannel()
+        mManager.leaveChannel { [weak self] (name) in
+            ChannelUserListViewModel.shared.leavChannel(name)
+        }
         speakButtonTrigger.isUserInteractionEnabled = true
+        speakingListView.isUserInteractionEnabled = false
     }
   
-    func joinChannel(_ name: String?) {
+    private func joinChannel(_ name: String?) {
         joinChannelSubject.onNext(name)
     }
     
@@ -304,10 +369,12 @@ class RoomViewController: ViewController {
                 guard let `self` = self else { return }
                 self.mManager.joinChannel(channelId: name) { [weak self] in
                     HapticFeedback.Impact.success()
-                    self?.viewModel.requestEnterRoom()
                     UIApplication.shared.isIdleTimerDisabled = true
                     self?.isSegmentControlEnable = true
                     completionBlock?()
+                    self?.joinedChannelSubject.onNext(name)
+                    self?.speakingListView.isUserInteractionEnabled = true
+                    ChannelUserListViewModel.shared.didJoinedChannel(name)
                 }
             }
         }
@@ -412,7 +479,7 @@ extension RoomViewController: ChatRoomDelegate {
 //        updateMemberCountLabel()
     }
 
-    func onUserStatusChanged(userId: String, muted: Bool) {
+    func onUserStatusChanged(userId: UInt, muted: Bool) {
         debugPrint("uid: \(userId) muted: \(muted)")
         if Constants.isMyself(userId) {
             NSObject.cancelPreviousPerformRequests(withTarget: self)
@@ -432,6 +499,8 @@ extension RoomViewController: ChatRoomDelegate {
             //check block
             if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
                 mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
             }
         }
     }
@@ -467,7 +536,7 @@ extension RoomViewController: ChatRoomDelegate {
 
     }
 
-    func onAudioVolumeIndication(userId: String, volume: UInt) {
+    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
         ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
     }
     
@@ -727,8 +796,10 @@ private extension RoomViewController {
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] name in
                 guard let `self` = self else { return }
-                let result = self._joinChannel(name)
-                self.isSegmentControlEnable = !result
+                self.prompProfileInitialIfNeeded {
+                    let result = self._joinChannel(name)
+                    self.isSegmentControlEnable = !result                    
+                }
             })
             .disposed(by: bag)
        
@@ -867,19 +938,21 @@ private extension RoomViewController {
             .asObservable()
             .bind(to: reportButton.rx.isEnabled)
             .disposed(by: bag)
+        
+        Settings.shared.firestoreUserProfile.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (profile) in
+                let _ = profile.avatarObservable
+                    .subscribe(onSuccess: { (image) in
+                        self?.avatarBtn.image = image
+                    })
+            })
+            .disposed(by: bag)
     }
     
     func configureSubview() {
         screenContainer.mManager = mManager
         screenContainer.delegate = self
-        
-        if Frame.Height.deviceDiagonalIsMinThan4_7 {
-            spackButtonBottomConstraint.constant = 45
-        } else if Frame.Height.deviceDiagonalIsMinThan5_5 {
-            spackButtonBottomConstraint.constant = 65
-        } else {
-            adContainerHeightConstraint.constant = 90
-        }
         speakButton.imageView?.contentMode = .scaleAspectFit
         
         toolsView.addShadow(ofColor: "60521C".color(), radius: 6.5, offset: CGSize(width: 0, height: 1), opacity: 0.31)
@@ -900,7 +973,57 @@ private extension RoomViewController {
             maker.left.right.top.bottom.equalToSuperview()
         }
         
+        #if DEBUG
+        
+        let btn = UIButton(type: .custom)
+        btn.setImage(R.image.iconReport(), for: .normal)
+        btn.addTarget(self, action: #selector(gotoChannelUserList), for: .primaryActionTriggered)
+        
+        view.addSubview(btn)
+        btn.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(segmentControl)
+            maker.left.equalTo(segmentControl.snp.right).offset(10)
+        }
+        
+        #endif
+        
+        view.addSubview(avatarBtn)
+        avatarBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(30)
+            maker.left.equalTo(15)
+            maker.centerY.equalTo(segmentControl)
+        }
+        
+        screenContainer.addSubview(speakingListView)
+        speakingListView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalToSuperview()
+        }
+        
+        view.insertSubview(avatarDot, aboveSubview: avatarBtn)
+        avatarDot.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(10)
+            maker.right.equalTo(avatarBtn).offset(2)
+            maker.bottom.equalTo(avatarBtn).offset(-4)
+        }
     }
+    
+    #if DEBUG
+    @objc
+    func gotoChannelUserList() {
+        guard !channel.showName.isEmpty else {
+            return
+        }
+//        let vc = ChannelUserListController(channel: channel)
+//        navigationController?.pushViewController(vc)
+        
+        guard let topVC = UIApplication.topViewController() else { return }
+        let msg = FireStore.Entity.User.CommonMessage(msgType: .enterRoom, uid: "WT-YYYYJR", channel: nil, username: "JJJJ", avatar: "3", docId: "")
+//        let modal = Social.TopToastModal(with: msg)
+        let modal = Social.JoinChannelRequestModal(with: msg)
+        topVC.present(modal, animated: false)
+
+    }
+    #endif
     
     func loadAdView() {
         adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
@@ -948,4 +1071,55 @@ extension UIColor {
     var image: UIImage {
         return UIImage(color: self, size: CGSize(width: 10, height: 10))
     }
+}
+
+extension RoomViewController {
+    
+    func prompProfileInitialIfNeeded(completion: @escaping (() -> Void)) {
+        
+        #if DEBUG
+        let shouldShow = true
+        #else
+        let loggedIn = Settings.shared.loginResult.value != nil
+        let shouldShow = loggedIn && Defaults[\.profileInitialShownTsKey] == nil
+        #endif
+        
+        if shouldShow {
+            let vc = Social.InitialProfileViewController()
+            vc.onDismissHandler = {
+                completion()
+            }
+            vc.showModal(in: self)
+        } else {
+            completion()
+        }
+        
+    }
+    
+    func joinRoom(_ name: String) {
+        if name.isPrivate {
+            let removeHandler = view.raft.show(.doing(R.string.localizable.channelChecking()))
+            let _ = FireStore.shared.fetchSecretChannel(of: name)
+                .catchErrorJustReturn(nil)
+                .subscribe(onSuccess: { [weak self] (room) in
+                    removeHandler()
+                    
+                    guard let _ = room else {
+                        self?.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+                        return
+                    }
+                    self?.update(mode: Mode.private.intValue)
+                    self?.joinChannel(name)
+                    
+                })
+        } else {
+            update(mode: Mode.public.intValue)
+            joinChannel(name)
+        }
+    }
+    
+    func onPushReceived() {
+        avatarDot.isHidden = false
+    }
+    
 }

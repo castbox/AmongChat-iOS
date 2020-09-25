@@ -18,12 +18,6 @@ class RoomViewModel {
     
     private var emojiObserverDispose: Disposable?
     
-    func requestEnterRoom() {
-        Request.reportEnterRoom()
-            .subscribe()
-            .disposed(by: bag)
-    }
-    
     func addEmojiObserveIgnored(key: String?) {
         guard let key = key else {
             return

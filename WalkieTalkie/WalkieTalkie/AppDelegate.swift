@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Automator.shared
         _ = FireStore.shared
         FireRemote.shared.refresh()
+        _ = Social.Module.shared
         
         var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
         #if DEBUG
@@ -75,6 +76,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .subscribe(onNext: { _ in
                 IAP.prefetchProducts()
             })
+        // 路由模块待优化
+        _ = Routes.shared
+        _ = Routes.Handler.shared
+        // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
         return true
@@ -134,32 +139,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handle(_ uri: URL) -> Bool {
-        guard let params = uri.queryParameters else {
-            return false
-        }
-        let home = URI.Homepage(params)
-        guard let name = home?.channelName,
-            let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-            return false
-        }
-        guard name.isPrivate else {
-            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-            roomVc.update(mode: Mode.public.intValue)
-            roomVc.joinChannel(name)
-            return true
-        }
-        let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
-        FireStore.shared.checkIsValidSecretChannel(name) { result in
-            removeHandler()
-            if result {
-                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-                roomVc.update(mode: Mode.private.intValue)
-                roomVc.joinChannel(name)
-            } else {
-                roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-            }
-        }
-        return true
+        return Routes.handle(uri)
+//        guard let params = uri.queryParameters else {
+//            return false
+//        }
+//        let home = URI.Homepage(params)
+//        guard let name = home?.channelName,
+//            let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+//            return false
+//        }
+//        guard name.isPrivate else {
+//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+//            roomVc.update(mode: Mode.public.intValue)
+//            roomVc.joinChannel(name)
+//            return true
+//        }
+//        let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
+//        FireStore.shared.checkIsValidSecretChannel(name) { result in
+//            removeHandler()
+//            if result {
+//                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+//                roomVc.update(mode: Mode.private.intValue)
+//                roomVc.joinChannel(name)
+//            } else {
+//                roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
+//            }
+//        }
+//        return true
     }
 }
 
@@ -233,6 +239,21 @@ extension UIApplication {
     
     static var navigationController: NavigationViewController? {
         return (shared.delegate as? AppDelegate)?.navigationController
+    }
+    
+    class func topViewController(_ viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let nav = viewController as? UINavigationController {
+            return topViewController(nav.visibleViewController)
+        }
+        if let tab = viewController as? UITabBarController {
+            if let selected = tab.selectedViewController {
+                return topViewController(selected)
+            }
+        }
+        if let presented = viewController?.presentedViewController {
+            return topViewController(presented)
+        }
+        return viewController
     }
 }
 

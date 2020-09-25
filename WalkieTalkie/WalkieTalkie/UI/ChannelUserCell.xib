@@ -14,8 +14,8 @@
         <array key="Nunito-Bold.ttf">
             <string>Nunito-Bold</string>
         </array>
-        <array key="Nunito-SemiBold.ttf">
-            <string>Nunito-SemiBold</string>
+        <array key="Nunito-Regular.ttf">
+            <string>Nunito-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -29,14 +29,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uap-W2-2bI">
-                        <rect key="frame" x="16" y="10" width="44" height="44"/>
+                        <rect key="frame" x="15" y="12" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="44" id="PhT-GD-rMa"/>
-                            <constraint firstAttribute="height" constant="44" id="tPq-pv-SGu"/>
+                            <constraint firstAttribute="width" secondItem="uap-W2-2bI" secondAttribute="height" multiplier="1:1" id="Pc7-hU-faF"/>
+                            <constraint firstAttribute="width" constant="40" id="PhT-GD-rMa"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="22"/>
+                                <integer key="value" value="20"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                 <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -53,33 +53,35 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user_list_mic" translatesAutoresizingMaskIntoConstraints="NO" id="Cf5-5P-uUU">
-                        <rect key="frame" x="39" y="33" width="25" height="25"/>
+                        <rect key="frame" x="34" y="31" width="25" height="25"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MM-79-UwM">
-                        <rect key="frame" x="74.5" y="10" width="39.5" height="22"/>
-                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="16"/>
+                        <rect key="frame" x="70" y="12" width="40" height="22"/>
+                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NKk-Sn-HwN">
-                        <rect key="frame" x="74.5" y="34.5" width="34.5" height="19.5"/>
-                        <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        <rect key="frame" x="70" y="32.5" width="34" height="19.5"/>
+                        <fontDescription key="fontDescription" name="Nunito-Regular" family="Nunito" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-Zb-a5v">
-                        <rect key="frame" x="270" y="18" width="44" height="28"/>
-                        <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="13"/>
-                        <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
-                        <state key="normal" title="●●●">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ED2-Zb-a5v">
+                        <rect key="frame" x="289" y="19.5" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="Rvg-YU-Lcq"/>
+                            <constraint firstAttribute="width" constant="25" id="iQr-BJ-6ag"/>
+                        </constraints>
+                        <state key="normal" image="btn_more_action">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="blockButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XiY-jH-A4G"/>
                         </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlr-f0-0eV">
-                        <rect key="frame" x="30" y="21" width="12" height="22"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nlr-f0-0eV">
+                        <rect key="frame" x="29" y="21" width="12" height="22"/>
                         <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="16"/>
                         <color key="textColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -87,15 +89,17 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Cf5-5P-uUU" firstAttribute="bottom" secondItem="uap-W2-2bI" secondAttribute="bottom" constant="4" id="8WK-97-m74"/>
+                    <constraint firstItem="ED2-Zb-a5v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5MM-79-UwM" secondAttribute="trailing" constant="15" id="EJo-Mm-ple"/>
+                    <constraint firstItem="ED2-Zb-a5v" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="NKk-Sn-HwN" secondAttribute="trailing" constant="15" id="Eig-dx-UxR"/>
                     <constraint firstItem="Cf5-5P-uUU" firstAttribute="trailing" secondItem="uap-W2-2bI" secondAttribute="trailing" constant="4" id="FsO-79-6Wb"/>
                     <constraint firstItem="Nlr-f0-0eV" firstAttribute="centerY" secondItem="uap-W2-2bI" secondAttribute="centerY" id="InH-a3-8pj"/>
                     <constraint firstItem="NKk-Sn-HwN" firstAttribute="bottom" secondItem="uap-W2-2bI" secondAttribute="bottom" id="VUm-GO-pef"/>
-                    <constraint firstItem="uap-W2-2bI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="ahz-Sk-wua"/>
+                    <constraint firstItem="uap-W2-2bI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="ahz-Sk-wua"/>
                     <constraint firstItem="Nlr-f0-0eV" firstAttribute="centerX" secondItem="uap-W2-2bI" secondAttribute="centerX" id="ckA-Oz-e96"/>
                     <constraint firstItem="uap-W2-2bI" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="hXW-ud-jId"/>
                     <constraint firstAttribute="trailing" secondItem="ED2-Zb-a5v" secondAttribute="trailing" constant="6" id="hno-CX-5R6"/>
                     <constraint firstItem="ED2-Zb-a5v" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iKm-VL-Cu7"/>
-                    <constraint firstItem="5MM-79-UwM" firstAttribute="leading" secondItem="uap-W2-2bI" secondAttribute="trailing" constant="14.5" id="t6q-dL-MEg"/>
+                    <constraint firstItem="5MM-79-UwM" firstAttribute="leading" secondItem="uap-W2-2bI" secondAttribute="trailing" constant="15" id="t6q-dL-MEg"/>
                     <constraint firstItem="5MM-79-UwM" firstAttribute="top" secondItem="uap-W2-2bI" secondAttribute="top" id="vA3-MZ-2fO"/>
                     <constraint firstItem="NKk-Sn-HwN" firstAttribute="leading" secondItem="5MM-79-UwM" secondAttribute="leading" id="vYp-O0-EpM"/>
                 </constraints>
@@ -114,6 +118,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="btn_more_action" width="50" height="50"/>
         <image name="icon_user_list_mic" width="25" height="25"/>
     </resources>
 </document>

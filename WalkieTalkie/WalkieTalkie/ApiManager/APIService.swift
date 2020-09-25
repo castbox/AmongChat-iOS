@@ -15,28 +15,35 @@ struct APIService {}
 
 extension APIService {
     enum WalkieTalkie {
-        case enterRoom
+        case enterRoom(roomName: String)
+        case leaveRoom(roomName: String)
     }
 }
 
 extension APIService.WalkieTalkie: TargetType {
     var baseURL: URL {
-        switch self {
-        default:
-            return URL(string: APIService.Config.host)!
-        }
+        #if DEBUG
+        let url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
+        #else
+        let url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
+        #endif
+        return URL(string: url)!
     }
     
     var path: String {
         switch self {
-        case .enterRoom:
-            return "/app/channels/event"
+        case .enterRoom(_), .leaveRoom(_):
+            #if DEBUG
+            return "test-app/channels/user/event"
+            #else
+            return "app/channels/user/event"
+            #endif
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .enterRoom:
+        case .enterRoom(_), .leaveRoom(_):
             return .get
         }
     }
@@ -47,10 +54,18 @@ extension APIService.WalkieTalkie: TargetType {
     
     var task: Task {
         switch self {
-//        case .enterRoom(let params):
-//            return .requestData(try! JSONSerialization.data(withJSONObject: params, options: .prettyPrinted))
-        default:
-            return .requestPlain
+        case .enterRoom(let room):
+            var baseParams: [String : Any] = [:]
+            baseParams["channel"] = room
+            baseParams["eventType"] = "enterChannel"
+            return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
+            
+        case .leaveRoom(let room):
+            var baseParams: [String : Any] = [:]
+            baseParams["channel"] = room
+            baseParams["eventType"] = "leaveChannel"
+            return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
+
         }
     }
     

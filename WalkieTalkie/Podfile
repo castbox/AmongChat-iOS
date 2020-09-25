@@ -27,7 +27,7 @@ def firebase_pods
     pod 'Firebase/Firestore'
 
 #    # Firebase auth
-#    pod 'Firebase/Auth'
+    pod 'Firebase/Auth'
 
     # log
     pod 'Firebase/Analytics'
@@ -101,7 +101,7 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-    pod 'mopub-ios-sdk', '5.12.1'
+    pod 'mopub-ios-sdk/Core', '5.12.1'
     pod 'MoPub-AdMob-Adapters', '7.57.0.0'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'

@@ -27,13 +27,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="655-VZ-PlG" userLabel="Speak Button Layout Guide">
+                                <rect key="frame" x="0.0" y="525" width="414" height="337"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XJx-Nj-5oY">
-                                <rect key="frame" x="92.5" y="600.5" width="229" height="151.5"/>
+                                <rect key="frame" x="97" y="633.5" width="220" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="cSy-KW-NwM"/>
+                                    <constraint firstAttribute="height" constant="120" id="iF3-BM-Tb8"/>
+                                </constraints>
                                 <state key="normal" backgroundImage="speak_button_nor"/>
+                                <state key="disabled" backgroundImage="speak_button_dis"/>
                                 <state key="highlighted" backgroundImage="speak_button_pre"/>
                             </button>
                             <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1m5-XA-SAp">
-                                <rect key="frame" x="114.5" y="664" width="185" height="25"/>
+                                <rect key="frame" x="114.5" y="681" width="185" height="25"/>
                                 <color key="backgroundColor" red="1" green="0.83529411760000005" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="Dq5-jQ-4sb"/>
@@ -45,13 +54,13 @@
                                 </state>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xvW-Mq-pGj">
-                                <rect key="frame" x="92.5" y="600.5" width="229" height="151.5"/>
+                                <rect key="frame" x="97" y="633.5" width="220" height="120"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dYG-ao-Tdh" customClass="RoomToolsView" customModule="WalkieTalkie" customModuleProvider="target">
-                                <rect key="frame" x="40" y="102" width="334" height="351"/>
+                                <rect key="frame" x="40" y="102" width="334" height="423"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fvi-3S-Jjc">
-                                        <rect key="frame" x="10" y="150" width="314" height="186"/>
+                                        <rect key="frame" x="10" y="217" width="314" height="186"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jg-9J-TZa">
                                                 <rect key="frame" x="113" y="0.0" width="88" height="88"/>
@@ -224,8 +233,8 @@
                                             <constraint firstItem="s2v-Ak-Ufd" firstAttribute="leading" secondItem="7jg-9J-TZa" secondAttribute="leading" id="z3e-UC-Vvo"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="125" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q" customClass="ScreenContainer" customModule="WalkieTalkie" customModuleProvider="target">
-                                        <rect key="frame" x="10" y="10" width="314" height="125"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="184" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-YY-a9Q" customClass="ScreenContainer" customModule="WalkieTalkie" customModuleProvider="target">
+                                        <rect key="frame" x="10" y="10" width="314" height="184"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <gestureRecognizers/>
                                         <userDefinedRuntimeAttributes>
@@ -243,11 +252,11 @@
                                     <constraint firstItem="8yd-YY-a9Q" firstAttribute="leading" secondItem="dYG-ao-Tdh" secondAttribute="leading" constant="10" id="9nI-fg-EgY"/>
                                     <constraint firstAttribute="trailing" secondItem="8yd-YY-a9Q" secondAttribute="trailing" constant="10" id="L10-PX-OHf"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8yd-YY-a9Q" secondAttribute="bottom" constant="10" id="QpC-Np-fS1"/>
-                                    <constraint firstAttribute="bottom" secondItem="fvi-3S-Jjc" secondAttribute="bottom" constant="15" id="VV1-TJ-HtZ"/>
+                                    <constraint firstAttribute="bottom" secondItem="fvi-3S-Jjc" secondAttribute="bottom" constant="20" id="VV1-TJ-HtZ"/>
                                     <constraint firstItem="8yd-YY-a9Q" firstAttribute="top" secondItem="dYG-ao-Tdh" secondAttribute="top" constant="10" id="eIL-TB-D9U"/>
                                     <constraint firstAttribute="trailing" secondItem="fvi-3S-Jjc" secondAttribute="trailing" constant="10" id="tVq-P1-qTT"/>
                                     <constraint firstItem="fvi-3S-Jjc" firstAttribute="leading" secondItem="dYG-ao-Tdh" secondAttribute="leading" constant="10" id="tsf-Je-Yed"/>
-                                    <constraint firstItem="fvi-3S-Jjc" firstAttribute="top" secondItem="dYG-ao-Tdh" secondAttribute="top" constant="150" id="yuP-Tc-dCq"/>
+                                    <constraint firstItem="fvi-3S-Jjc" firstAttribute="top" secondItem="dYG-ao-Tdh" secondAttribute="top" constant="217" id="yuP-Tc-dCq"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QZT-Mw-FCd">
@@ -257,7 +266,7 @@
                                     <constraint firstAttribute="width" constant="320" id="gIp-3A-LHF"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pek-Uq-QJi">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pek-Uq-QJi">
                                 <rect key="frame" x="364" y="45.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="AMw-wF-Ehr"/>
@@ -290,7 +299,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLT-rV-g5c">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qLT-rV-g5c">
                                 <rect key="frame" x="5" y="45.5" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="B5p-0l-sX4"/>
@@ -314,14 +323,18 @@
                             <constraint firstItem="dYG-ao-Tdh" firstAttribute="top" secondItem="lwK-gc-HYW" secondAttribute="top" constant="58" id="Cry-4O-P8n"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="trailing" secondItem="xvW-Mq-pGj" secondAttribute="trailing" id="KDT-br-OEl"/>
                             <constraint firstItem="dYG-ao-Tdh" firstAttribute="leading" secondItem="lwK-gc-HYW" secondAttribute="leading" constant="40" id="KgP-zT-R0b"/>
+                            <constraint firstItem="XJx-Nj-5oY" firstAttribute="centerY" secondItem="655-VZ-PlG" secondAttribute="centerY" id="QMv-CL-dzI"/>
+                            <constraint firstItem="lwK-gc-HYW" firstAttribute="trailing" secondItem="655-VZ-PlG" secondAttribute="trailing" id="Vk8-kt-T4E"/>
                             <constraint firstItem="QZT-Mw-FCd" firstAttribute="centerX" secondItem="lwK-gc-HYW" secondAttribute="centerX" id="WWk-PZ-t2M"/>
                             <constraint firstItem="qLT-rV-g5c" firstAttribute="leading" secondItem="lwK-gc-HYW" secondAttribute="leading" constant="5" id="YkL-VE-yGe"/>
                             <constraint firstItem="QZT-Mw-FCd" firstAttribute="bottom" secondItem="lwK-gc-HYW" secondAttribute="bottom" id="eKs-6Z-xVa"/>
+                            <constraint firstItem="655-VZ-PlG" firstAttribute="top" secondItem="dYG-ao-Tdh" secondAttribute="bottom" id="fn7-RH-htC"/>
+                            <constraint firstItem="lwK-gc-HYW" firstAttribute="bottom" secondItem="655-VZ-PlG" secondAttribute="bottom" id="h5e-Dm-VNt"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="bottom" secondItem="xvW-Mq-pGj" secondAttribute="bottom" id="h8B-sI-ifJ"/>
                             <constraint firstItem="Pek-Uq-QJi" firstAttribute="top" secondItem="lwK-gc-HYW" secondAttribute="top" constant="1.5" id="mB0-7h-Dcv"/>
                             <constraint firstItem="XJx-Nj-5oY" firstAttribute="leading" secondItem="xvW-Mq-pGj" secondAttribute="leading" id="mpp-8g-Hyj"/>
-                            <constraint firstItem="lwK-gc-HYW" firstAttribute="bottom" secondItem="XJx-Nj-5oY" secondAttribute="bottom" constant="110" id="p1Y-hP-Ksi"/>
                             <constraint firstItem="qLT-rV-g5c" firstAttribute="centerY" secondItem="Pek-Uq-QJi" secondAttribute="centerY" id="pGi-Zf-KdW"/>
+                            <constraint firstItem="655-VZ-PlG" firstAttribute="leading" secondItem="lwK-gc-HYW" secondAttribute="leading" id="qXp-JE-93W"/>
                             <constraint firstItem="XIU-XL-ivD" firstAttribute="centerX" secondItem="dYG-ao-Tdh" secondAttribute="centerX" id="yoC-Qf-njY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="lwK-gc-HYW"/>
@@ -340,7 +353,6 @@
                         <outlet property="screenContainer" destination="8yd-YY-a9Q" id="fOH-G8-JdM"/>
                         <outlet property="segmentControl" destination="XIU-XL-ivD" id="w7J-kl-pcL"/>
                         <outlet property="shareButton" destination="nYu-Os-NyD" id="buf-KS-wDr"/>
-                        <outlet property="spackButtonBottomConstraint" destination="p1Y-hP-Ksi" id="rFa-UN-Bgb"/>
                         <outlet property="speakButton" destination="XJx-Nj-5oY" id="Rcs-kZ-WwC"/>
                         <outlet property="speakButtonTrigger" destination="xvW-Mq-pGj" id="Brq-8U-XVq"/>
                         <outlet property="toolsView" destination="dYG-ao-Tdh" id="fLA-G9-mMR"/>
@@ -1465,7 +1477,8 @@ Cg
         <image name="icon_room_lock" width="25" height="25"/>
         <image name="icon_setting_diamonds_u" width="25" height="25"/>
         <image name="icon_setting_star" width="25" height="25"/>
-        <image name="speak_button_nor" width="229" height="151.5"/>
-        <image name="speak_button_pre" width="229" height="151.5"/>
+        <image name="speak_button_dis" width="440" height="240"/>
+        <image name="speak_button_nor" width="440" height="240"/>
+        <image name="speak_button_pre" width="440" height="240"/>
     </resources>
 </document>

@@ -37,6 +37,10 @@ extension Routes {
                     switch uri {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
+                    case let channel as URI.Channel:
+                        self.handleChannel(channel)
+                    case _ as URI.Followers:
+                        self.handleFollowers()
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
                         
@@ -53,7 +57,26 @@ extension Routes {
                 return
             }
             
-            roomVc.joinChannel(name)
+            roomVc.joinRoom(name)
+            UIApplication.navigationController?.popToRootViewController(animated: true)
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+        }
+        
+        func handleChannel(_ channel: URI.Channel) {
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+                return
+            }
+            
+            let name = channel.channelName
+            roomVc.joinRoom(name)
+            UIApplication.navigationController?.popToRootViewController(animated: true)
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+        }
+        
+        func handleFollowers() {
+            guard let nav = UIApplication.navigationController else { return }
+            let vc = Social.RelationsViewController(.followerTab)
+            nav.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

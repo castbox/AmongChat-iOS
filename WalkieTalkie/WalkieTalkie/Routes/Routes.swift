@@ -25,6 +25,8 @@ final class Routes {
         
         let types: [URIRepresentable.Type] = [
             URI.Homepage.self,
+            URI.Followers.self,
+            URI.Channel.self
             ]
         
         types.forEach { (type) in
