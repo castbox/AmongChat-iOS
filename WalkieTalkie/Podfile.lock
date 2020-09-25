@@ -441,6 +441,7 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - ObjectMapper (4.2.0)
   - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
@@ -534,6 +535,7 @@ DEPENDENCIES:
   - MoPub-AdMob-Adapters (= 7.57.0.0)
   - mopub-ios-sdk/Core (= 5.12.1)
   - Moya/RxSwift
+  - ObjectMapper
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
@@ -546,6 +548,7 @@ DEPENDENCIES:
   - SwiftLint (= 0.31.0)
   - SwiftyJSON
   - SwiftyStoreKit
+  - SwiftyUserDefaults
   - SwiftyUserDefaults (~> 5.0.0)
   - TikTokOpenSDK (~> 3.0.2)
   - UIColor_Hex_Swift (~> 4.2.0)
@@ -602,6 +605,7 @@ SPEC REPOS:
     - mopub-ios-sdk
     - Moya
     - nanopb
+    - ObjectMapper
     - Path.swift
     - PINCache
     - PINOperation
@@ -677,6 +681,7 @@ SPEC CHECKSUMS:
   mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
@@ -703,6 +708,6 @@ SPEC CHECKSUMS:
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: fd56121d367aa54b875f2033a15b2d3ef9628805
+PODFILE CHECKSUM: 960e63f1783117e3f00435681eb59b3e85a81aeb
 
 COCOAPODS: 1.9.1

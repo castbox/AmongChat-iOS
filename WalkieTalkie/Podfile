@@ -141,6 +141,13 @@ target 'WalkieTalkie' do
     pod 'TikTokOpenSDK', '~> 3.0.2'
 end
 
+target 'WalkieTalkieWidgetExtension' do
+  use_frameworks!
+  pod 'SwiftyUserDefaults'
+  pod 'Moya/RxSwift'
+  pod 'ObjectMapper'
+end
+
 post_install do |installer|
     installer.pods_project.targets.each do |target|
         if target.name == 'RxSwift'

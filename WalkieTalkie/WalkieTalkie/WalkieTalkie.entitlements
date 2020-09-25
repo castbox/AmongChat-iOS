@@ -9,5 +9,9 @@
 		<string>applinks:walkietalkie.live</string>
 		<string>applinks:walkie.page.link</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.talkie.walkie</string>
+	</array>
 </dict>
 </plist>
