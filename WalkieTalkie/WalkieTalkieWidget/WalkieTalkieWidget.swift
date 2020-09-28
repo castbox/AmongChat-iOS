@@ -61,7 +61,7 @@ struct WalkieTalkieWidget: Widget {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
             WalkieTalkieWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("WalkieTalkie Widget")
+        .configurationDisplayName("Walkie Talkie Widget")
         .description("Hot Public Channels")
     }
 }
