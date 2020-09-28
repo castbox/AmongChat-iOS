@@ -43,6 +43,7 @@ class Settings {
         return DynamicProperty.stored(value)
             .didSet({ event in
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
+                SharedDefaults[\.loginResultTokenKey] = event.new?.token
             })
             .asPublishProperty()
     }()
