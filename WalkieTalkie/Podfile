@@ -2,6 +2,11 @@ source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
 install!'cocoapods',:deterministic_uuids=>false
 
+platform :ios, '10.0'
+use_frameworks!
+use_modular_headers!
+
+
 def core_pods
     pod 'RxSwift', '5.1'
 end
@@ -44,11 +49,7 @@ end
 
 # specify the version numbers in case of Podfile.lock missing
 target 'WalkieTalkie' do
-    platform :ios, '10.0'
     
-    use_frameworks!
-    use_modular_headers!
-
     # Objective-C Pods
     pod 'MBProgressHUD', '~> 1.0.0'
     pod 'DeviceKit'
@@ -142,7 +143,6 @@ target 'WalkieTalkie' do
 end
 
 target 'WalkieTalkieWidgetExtension' do
-  use_frameworks!
   pod 'SwiftyUserDefaults'
   pod 'Moya/RxSwift'
   pod 'ObjectMapper'
