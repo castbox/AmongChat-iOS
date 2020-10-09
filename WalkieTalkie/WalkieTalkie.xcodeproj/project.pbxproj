@@ -551,6 +551,7 @@
 		2694565C2519DFE3003AA34A /* WalkieTalkieWidget */ = {
 			isa = PBXGroup;
 			children = (
+				2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */,
 				26125FEF251C746200CD1A98 /* WalkieTalkieWidget.DataLoader.swift */,
 				2694565D2519DFE3003AA34A /* WalkieTalkieWidget.swift */,
 				26125FEA251C73B900CD1A98 /* WalkieTalkieWidget.UI.swift */,
@@ -644,7 +645,6 @@
 		FE126D0B243461E800BEDD60 = {
 			isa = PBXGroup;
 			children = (
-				2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */,
 				FE126D16243461E800BEDD60 /* WalkieTalkie */,
 				FE126D2D243461EB00BEDD60 /* WalkieTalkieTests */,
 				2694565C2519DFE3003AA34A /* WalkieTalkieWidget */,
@@ -1330,7 +1330,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1615,7 +1615,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidget/WalkieTalkieWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1643,7 +1643,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidget/WalkieTalkieWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
