@@ -89,6 +89,14 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
+            
+            rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
+                })
+                .disposed(by: bag)
         }
         
         private func setupLayout() {

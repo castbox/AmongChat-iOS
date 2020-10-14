@@ -86,6 +86,7 @@ class AdsManager: NSObject {
             self?.mopubInitializeSuccessSubject.accept(true)
             //req
             self?.requestRewardVideoIfNeed()
+            Ad.InterstitialManager.shared.loadAd()
         }
     }
     
