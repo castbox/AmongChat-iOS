@@ -43,6 +43,7 @@
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
+		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
 		C8F64676E70F9E0A762C8D97 /* Pods_WalkieTalkieWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C9A24D569DABA7A3F2E1C93 /* Pods_WalkieTalkieWidgetExtension.framework */; };
 		CB42766D63F52145FFD8A7EA /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
@@ -310,6 +311,7 @@
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
+		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
 		E7AFAC812348D65AF81E454E /* Pods-WalkieTalkieWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkieWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkieWidgetExtension/Pods-WalkieTalkieWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 		2694565C2519DFE3003AA34A /* WalkieTalkieWidget */ = {
 			isa = PBXGroup;
 			children = (
+				2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */,
 				26125FEF251C746200CD1A98 /* WalkieTalkieWidget.DataLoader.swift */,
 				2694565D2519DFE3003AA34A /* WalkieTalkieWidget.swift */,
 				26125FEA251C73B900CD1A98 /* WalkieTalkieWidget.UI.swift */,
@@ -644,7 +647,6 @@
 		FE126D0B243461E800BEDD60 = {
 			isa = PBXGroup;
 			children = (
-				2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */,
 				FE126D16243461E800BEDD60 /* WalkieTalkie */,
 				FE126D2D243461EB00BEDD60 /* WalkieTalkieTests */,
 				2694565C2519DFE3003AA34A /* WalkieTalkieWidget */,
@@ -988,6 +990,7 @@
 		FECA43B92459A8D30075D139 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
+				BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */,
 				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
 				FE684876244BD3D200F87AF9 /* AdsDebugger.swift */,
 				FE68487B244BD65B00F87AF9 /* NativeAdView.swift */,
@@ -1528,6 +1531,7 @@
 				FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE7218752456DA36005274CA /* Extension.swift in Sources */,
+				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE684873244B4D2200F87AF9 /* ChannelNameField.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
@@ -1615,7 +1619,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidget/WalkieTalkieWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1627,7 +1631,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.WalkieTalkieWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1643,7 +1647,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = WalkieTalkieWidget/WalkieTalkieWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1655,7 +1659,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.WalkieTalkieWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1796,7 +1800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1822,7 +1826,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.1;
+				MARKETING_VERSION = 1.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
