@@ -149,3 +149,7 @@
 "channel.join.request.enter.room.msg" = "%1$@ enters room";
 "channel.invite.sent.tip" = "Invitation has been sent";
 "channel.join.request.sent.tip" = "Request has been sent";
+
+"channel.speaking.limit.modal.title" = "Break the mic max limit";
+"channel.speaking.limit.modal.msg" = "To be a VIP member to talk with more users simultaneously";
+"channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";

@@ -1006,7 +1006,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 108 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 111 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1056,6 +1056,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileBlockUser = Rswift.StringResource(key: "profile.block.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Break the mic max limit
+      /// 
+      /// Locales: en
+      static let channelSpeakingLimitModalTitle = Rswift.StringResource(key: "channel.speaking.limit.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
@@ -1344,6 +1348,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertDesc = Rswift.StringResource(key: "enter.secret.channel.alert.desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: To be a VIP member to talk with more users simultaneously
+      /// 
+      /// Locales: en
+      static let channelSpeakingLimitModalMsg = Rswift.StringResource(key: "channel.speaking.limit.modal.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Try it FREE
       /// 
       /// Locales: en
@@ -1380,6 +1388,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Upgrade to PRO
+      /// 
+      /// Locales: en
+      static let channelSpeakingLimitModalUpgrade = Rswift.StringResource(key: "channel.speaking.limit.modal.upgrade", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: User ID
       /// 
       /// Locales: en
@@ -1523,6 +1535,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileBlockUser(_: Void = ()) -> String {
         return NSLocalizedString("profile.block.user", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Break the mic max limit
+      /// 
+      /// Locales: en
+      static func channelSpeakingLimitModalTitle(_: Void = ()) -> String {
+        return NSLocalizedString("channel.speaking.limit.modal.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: CHANNEL NAME
@@ -2029,6 +2048,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.secret.channel.alert.desc", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: To be a VIP member to talk with more users simultaneously
+      /// 
+      /// Locales: en
+      static func channelSpeakingLimitModalMsg(_: Void = ()) -> String {
+        return NSLocalizedString("channel.speaking.limit.modal.msg", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Try it FREE
       /// 
       /// Locales: en
@@ -2090,6 +2116,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectUnreasonable(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Upgrade to PRO
+      /// 
+      /// Locales: en
+      static func channelSpeakingLimitModalUpgrade(_: Void = ()) -> String {
+        return NSLocalizedString("channel.speaking.limit.modal.upgrade", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: User ID
