@@ -49,6 +49,11 @@ extension RoomViewController {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            let _ = rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: {
+                    GuruAnalytics.log(event: "iap_tip_imp", category: nil, name: nil, value: nil, content: nil)
+                })
         }
         
         private func setupLayout() {
@@ -88,11 +93,13 @@ extension RoomViewController {
                 dismissModal(animated: true)
             }
             
+            GuruAnalytics.log(event: "iap_tip_clk", category: nil, name: nil, value: nil, content: nil)
+            
             let sb = UIStoryboard(name: "Main", bundle: nil)
             
             let premiumVC = sb.instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
             
-            premiumVC.source = .speaking
+            premiumVC.source = .iap_tip
             premiumVC.dismissHandler = {
                 premiumVC.dismiss(animated: true, completion: nil)
             }
