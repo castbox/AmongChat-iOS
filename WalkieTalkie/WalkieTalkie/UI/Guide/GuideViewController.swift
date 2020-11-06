@@ -64,7 +64,7 @@ class GuideViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 3, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
+        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
     }
     
     @IBAction func skipAction(_ sender: Any) {
@@ -108,7 +108,7 @@ extension GuideViewController: UIScrollViewDelegate {
 
 extension GuideViewController {
     func updateContinueButtonTitle() {
-        guard pageIndex == 3 else {
+        guard pageIndex == 2 else {
             iapTipsLabel.isHidden = true
             iapTipsLabel.fadeOut()
             return
@@ -191,7 +191,7 @@ extension GuideViewController {
     }
     
     func updateSubviewStatus(_ pageIndex: Int) {
-        if pageIndex == 3 {
+        if pageIndex == 2 {
             //            continueButton.isHidden = true
             scrollView.isScrollEnabled = false
         }
@@ -284,13 +284,17 @@ extension GuideViewController {
         let firstPage = GuideFirstView(frame: Frame.Screen.bounds)
         scrollView.addSubview(firstPage)
         
-        let secondPage = GuideSecondView(frame: Frame.Screen.bounds)
+//        let secondPage = GuideSecondView(frame: Frame.Screen.bounds)
+//        secondPage.x = Frame.Screen.width
+//        scrollView.addSubview(secondPage)
+//
+//        let thirdPage = GuideThirdView(frame: Frame.Screen.bounds)
+//        thirdPage.x = Frame.Screen.width * 2
+//        scrollView.addSubview(thirdPage)
+        
+        let secondPage = GuideThirdView(frame: Frame.Screen.bounds)
         secondPage.x = Frame.Screen.width
         scrollView.addSubview(secondPage)
-        
-        let thirdPage = GuideThirdView(frame: Frame.Screen.bounds)
-        thirdPage.x = Frame.Screen.width * 2
-        scrollView.addSubview(thirdPage)
         
         fourthPage.style = .guide
         fourthPage.source = .first_open
@@ -301,12 +305,12 @@ extension GuideViewController {
         fourthPage.didSelectProducts = { [weak self] pid in
             self?.selectedProductId = pid
         }
-        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 3, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
+        fourthPage.view.frame = CGRect(x: Frame.Screen.width * 2, y: 0, width: Frame.Screen.width, height: Frame.Screen.height)
         //        fourthPage.willMove(toParent: self)
         addChild(fourthPage)
         scrollView.addSubview(fourthPage.view)
         
-        scrollView.contentSize = CGSize(width: Frame.Screen.width * 4, height: Frame.Screen.height)
+        scrollView.contentSize = CGSize(width: Frame.Screen.width * 3, height: Frame.Screen.height)
         
         continueButton.titleLabel?.lineBreakMode = .byWordWrapping
         continueButton.titleLabel?.textAlignment = .center

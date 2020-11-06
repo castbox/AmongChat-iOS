@@ -60,7 +60,7 @@
 
 "share.tiktok.public.title" = "Join in %@ talk to me & have fun !!!";
 "share.tiktok.private.title" = "Join in my SERET CHANNEL %@ talk to me !!!";
-"share.tiktok.content.dowload" = "Download “walkie talkie talk to friends” First";
+"share.tiktok.content.dowload" = "Download “Among Chat talk to friends” First";
 "end.user.license.title" = "End user License Agreement";
 
 //"end.user.license.content" = """
@@ -98,7 +98,7 @@
 "report.user.id" = "User ID";
 
 "profile.initial.user.name.title" = "USERNAME";
-"profile.initial.tip" = "Can this be your image and name in walkie talkie?";
+"profile.initial.tip" = "Can this be your image and name in Among Chat?";
 "profile.initial.confirm.btn" = "Yes, is me!";
 
 //Profile

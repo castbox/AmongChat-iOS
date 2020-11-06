@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 89 images.
+  /// This `R.image` struct is generated, and contains static references to 90 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -176,6 +176,8 @@ struct R: Rswift.Validatable {
     static let default_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_3")
     /// Image `default_avatar_4`.
     static let default_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_4")
+    /// Image `default_avatar_5`.
+    static let default_avatar_5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_5")
     /// Image `home_btn_bg_b`.
     static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
     /// Image `home_btn_bg`.
@@ -422,6 +424,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "default_avatar_4", bundle: ..., traitCollection: ...)`
     static func default_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.default_avatar_4, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "default_avatar_5", bundle: ..., traitCollection: ...)`
+    static func default_avatar_5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.default_avatar_5, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "home_btn_bg", bundle: ..., traitCollection: ...)`
@@ -1064,7 +1071,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let inputPasscodeGlobalPlaceholder = Rswift.StringResource(key: "input.passcode.global.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Can this be your image and name in walkie talkie?
+      /// en translation: Can this be your image and name in Among Chat?
       /// 
       /// Locales: en
       static let profileInitialTip = Rswift.StringResource(key: "profile.initial.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1108,7 +1115,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListMuteActionMsg = Rswift.StringResource(key: "channel.user.list.mute.action.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Download “walkie talkie talk to friends” First
+      /// en translation: Download “Among Chat talk to friends” First
       /// 
       /// Locales: en
       static let shareTiktokContentDowload = Rswift.StringResource(key: "share.tiktok.content.dowload", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1551,7 +1558,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("input.passcode.global.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Can this be your image and name in walkie talkie?
+      /// en translation: Can this be your image and name in Among Chat?
       /// 
       /// Locales: en
       static func profileInitialTip(_: Void = ()) -> String {
@@ -1628,7 +1635,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.mute.action.msg", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Download “walkie talkie talk to friends” First
+      /// en translation: Download “Among Chat talk to friends” First
       /// 
       /// Locales: en
       static func shareTiktokContentDowload(_: Void = ()) -> String {

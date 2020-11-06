@@ -58,7 +58,7 @@ class ShareManager: NSObject {
         itcAnalyticsParameters.campaignToken = type.googleCampaign
         
         let socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
-        socialMetaTagParameters.title = "Share Walkie Talkie app"
+        socialMetaTagParameters.title = "Share Among Chat app"
         socialMetaTagParameters.descriptionText = "This link works whether the app is installed or not!"
         let navigationInfoParameters = DynamicLinkNavigationInfoParameters()
         navigationInfoParameters.isForcedRedirectEnabled = true
