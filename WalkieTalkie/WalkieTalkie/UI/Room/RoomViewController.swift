@@ -141,8 +141,11 @@ class RoomViewController: ViewController {
             updateButtonsEnable()
             screenContainer.update(state: state)
             updateObserverEmojiState()
+            updateState(new: state, old: oldValue)
         }
     }
+    
+    private var speakingModalRecord: String? = nil
     
     var myUserId: String {
         return String(Constants.sUserId)
@@ -340,6 +343,7 @@ class RoomViewController: ViewController {
         }
         speakButtonTrigger.isUserInteractionEnabled = true
         speakingListView.isUserInteractionEnabled = false
+        speakingModalRecord = nil
     }
   
     private func joinChannel(_ name: String?) {
@@ -1122,4 +1126,26 @@ extension RoomViewController {
         avatarDot.isHidden = false
     }
     
+}
+
+extension RoomViewController {
+    private func updateState(new: ConnectState, old: ConnectState) {
+        switch (new, old) {
+        case (.connected, .maxMic):
+            promptSpeakingModalIfNeeded(for: channelName)
+        default:
+            ()
+        }
+    }
+    
+    private func promptSpeakingModalIfNeeded(for channel: String) {
+        guard speakingModalRecord == nil || channel != speakingModalRecord else {
+            return
+        }
+        
+        speakingModalRecord = channel
+        
+        let modal = SpeakingModal()
+        modal.showModal(in: self)
+    }
 }

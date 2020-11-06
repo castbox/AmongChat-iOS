@@ -60,7 +60,7 @@
 
 "share.tiktok.public.title" = "Join in %@ talk to me & have fun !!!";
 "share.tiktok.private.title" = "Join in my SERET CHANNEL %@ talk to me !!!";
-"share.tiktok.content.dowload" = "Download “walkie talkie talk to friends” First";
+"share.tiktok.content.dowload" = "Download “Among Chat talk to friends” First";
 "end.user.license.title" = "End user License Agreement";
 
 //"end.user.license.content" = """
@@ -98,7 +98,7 @@
 "report.user.id" = "User ID";
 
 "profile.initial.user.name.title" = "USERNAME";
-"profile.initial.tip" = "Can this be your image and name in walkie talkie?";
+"profile.initial.tip" = "Can this be your image and name in Among Chat?";
 "profile.initial.confirm.btn" = "Yes, is me!";
 
 //Profile
@@ -149,3 +149,7 @@
 "channel.join.request.enter.room.msg" = "%1$@ enters room";
 "channel.invite.sent.tip" = "Invitation has been sent";
 "channel.join.request.sent.tip" = "Request has been sent";
+
+"channel.speaking.limit.modal.title" = "Break the mic max limit";
+"channel.speaking.limit.modal.msg" = "To be a VIP member to talk with more users simultaneously";
+"channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
