@@ -23,6 +23,8 @@
 		BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */; };
 		BD4DEE1225061F88006476E0 /* Social.TopToastModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */; };
 		BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */; };
+		BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */; };
+		BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD680D792554F89D0062CEC7 /* Logger+AppOpenAd.swift */; };
 		BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */; };
 		BD73B0FA24FDF08E009D0AC7 /* Social.UserList.Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */; };
 		BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */; };
@@ -292,6 +294,8 @@
 		BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFriendUserCell.swift; sourceTree = "<group>"; };
 		BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.TopToastModal.swift; sourceTree = "<group>"; };
 		BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Widgets.AvatarView.swift; sourceTree = "<group>"; };
+		BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.AppOpenAdManager.swift; sourceTree = "<group>"; };
+		BD680D792554F89D0062CEC7 /* Logger+AppOpenAd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+AppOpenAd.swift"; sourceTree = "<group>"; };
 		BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewController.swift; sourceTree = "<group>"; };
 		BD73B0F924FDF08E009D0AC7 /* Social.UserList.Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.Widgets.swift; sourceTree = "<group>"; };
 		BD73B0FE24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewModel.swift; sourceTree = "<group>"; };
@@ -992,6 +996,7 @@
 		FECA43B92459A8D30075D139 /* Ads */ = {
 			isa = PBXGroup;
 			children = (
+				BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */,
 				BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */,
 				FE684874244BD2E700F87AF9 /* AdsManager.swift */,
 				FE684876244BD3D200F87AF9 /* AdsDebugger.swift */,
@@ -1078,6 +1083,7 @@
 				FED7B600244EC9FB00D94F97 /* LoggerPath.swift */,
 				FED7B602244ECAA600D94F97 /* Logger+PageShow.swift */,
 				FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */,
+				BD680D792554F89D0062CEC7 /* Logger+AppOpenAd.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -1109,6 +1115,7 @@
 			buildPhases = (
 				429AEEC56A9C442138641E86 /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
+				2616518A095E74F7C72044EE /* [CP] Prepare Artifacts */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
@@ -1248,6 +1255,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2616518A095E74F7C72044EE /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Prepare Artifacts";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-artifacts.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		429AEEC56A9C442138641E86 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1418,6 +1440,7 @@
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
+				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
@@ -1493,6 +1516,7 @@
 				FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */,
+				BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
