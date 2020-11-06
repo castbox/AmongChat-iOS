@@ -150,7 +150,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
     var status: Status
     var isMuted: Bool
     
-    private static var colors: [String] = [
+    private static let colors: [String] = [
         "F5CEC7",
         "FFB384",
         "FFC98B",
@@ -158,12 +158,12 @@ struct ChannelUser: Codable, DefaultsSerializable {
         "BD9DDE"
     ]
     
-    private static var tag: [String] = [
+    private static let tag: [String] = [
         "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
     ]
     
     static func randomUser(uid: UInt) -> ChannelUser {
-        return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem()!, iconColor: colors.randomItem()!, status: .connected, isMuted: false)
+        return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem() ?? "A", iconColor: colors.randomItem() ?? "F5CEC7", status: .connected, isMuted: false)
     }
 }
 
