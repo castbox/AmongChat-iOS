@@ -73,7 +73,12 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
             valid = NO;
         }
 
-        _defaultActionURL = [NSURL URLWithString:[properties objectForKey:kDefaultActionURLKey]];
+        // Validate that the clickthrough URL is a string before attempting to parse into a URL
+        id clickthroughUrl = [properties objectForKey:kDefaultActionURLKey];
+        if ([clickthroughUrl isKindOfClass:[NSString class]]) {
+            NSString *clickthroughUrlString = (NSString *)clickthroughUrl;
+            _defaultActionURL = [NSURL URLWithString:clickthroughUrlString];
+        }
 
         // Grab the config, figure out requiredSecondsForImpression and requiredViewVisibilityPercentage,
         // and set up the timer.
@@ -152,7 +157,7 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
         return;
     }
 
-    [self.destinationDisplayAgent displayDestinationForURL:URL];
+    [self.destinationDisplayAgent displayDestinationForURL:URL skAdNetworkClickthroughData:self.adConfiguration.skAdNetworkClickthroughData];
 }
 
 #pragma mark - Privacy Icon
@@ -161,11 +166,18 @@ static const CGFloat kMoPubRequiredViewVisibilityPercentage = 0.5;
 {
     NSURL *defaultPrivacyClickUrl = [NSURL URLWithString:kPrivacyIconTapDestinationURL];
     NSURL *overridePrivacyClickUrl = ({
-        NSString *url = self.properties[kAdPrivacyIconClickUrlKey];
+        // Make sure that `kAdPrivacyIconClickUrlKey` contains a string at least.
+        id privacyIconClickUrl = self.properties[kAdPrivacyIconClickUrlKey];
+        NSString *url = nil;
+        if ([privacyIconClickUrl isKindOfClass:[NSString class]]) {
+            url = (NSString *)privacyIconClickUrl;
+        }
+
         (url != nil ? [NSURL URLWithString:url] : nil);
     });
 
-    [self.destinationDisplayAgent displayDestinationForURL:(overridePrivacyClickUrl != nil ? overridePrivacyClickUrl : defaultPrivacyClickUrl)];
+    // Since this is the privacy icon, send @c nil for skAdNetworkClickthroughData
+    [self.destinationDisplayAgent displayDestinationForURL:(overridePrivacyClickUrl != nil ? overridePrivacyClickUrl : defaultPrivacyClickUrl) skAdNetworkClickthroughData:nil];
 }
 
 #pragma mark - <MPAdImpressionTimerDelegate>
