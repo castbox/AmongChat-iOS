@@ -137,6 +137,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         RtcManager.shared.leaveChannel()
     }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
+        // your other code here....
+        Ad.AppOpenAdManager.shared.tryToPresentAd()
+    }
     
     func handle(_ uri: URL) -> Bool {
         return Routes.handle(uri)

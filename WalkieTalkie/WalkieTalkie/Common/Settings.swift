@@ -370,6 +370,10 @@ extension DefaultsKeys {
     var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
         .init("social.join.channel.request.sent.list", defaultValue: [:])
     }
+    
+    /// 最近一次启动广告展示时间
+    var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
+
 }
 
 extension DefaultsAdapter {

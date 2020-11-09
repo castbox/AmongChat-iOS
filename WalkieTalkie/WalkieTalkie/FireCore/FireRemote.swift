@@ -17,7 +17,11 @@ class FireRemote {
     private let config: RemoteConfig = {
         let fig = RemoteConfig.remoteConfig()
         fig.setDefaults(fromPlist: "DefaultRemoteConfig")
-        fig.configSettings = RemoteConfigSettings.init()
+        let settings = RemoteConfigSettings()
+        #if DEBUG
+        settings.minimumFetchInterval = 0
+        #endif
+        fig.configSettings = settings
         return fig
     }()
     
@@ -73,6 +77,9 @@ extension FireRemote {
         
         let delayShowShareDialog: Int
         
+        /// 启动广告
+        let app_open_ad_config: AppOpenAdConfig
+        
         init(config: RemoteConfig) {
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
@@ -110,6 +117,8 @@ extension FireRemote {
             
             rateIntervalSeconds = config["i_rate_interval_sec"].numberValue?.intValue ?? 86400
                     delayShowShareDialog = config["delay_show_share_dialog"].numberValue?.intValue ?? 10
+            
+            app_open_ad_config = AppOpenAdConfig(config["app_open_ad_config"].stringValue ?? "")
         }
     }
 }
@@ -144,4 +153,25 @@ extension FireRemote.Value {
             self.freeMinutes = json["free_m"].int ?? 10
         }
     }
+}
+
+extension FireRemote.Value {
+    
+    struct AppOpenAdConfig {
+        let enable: Bool
+        let free_h: Double
+        let interval_s: Double
+        let adId: String
+        let delay_s: Double
+        
+        init(_ jsonString: String) {
+            let json = JSON(parseJSON: jsonString)
+            enable = json["enable"].bool ?? false
+            free_h = json["free_h"].double ?? 12
+            interval_s = json["interval_s"].double ?? 300
+            adId = json["adId"].string ?? "ca-app-pub-2436733915645843/4244538208"
+            delay_s = json["delay_s"].double ?? 0.5
+        }
+    }
+    
 }

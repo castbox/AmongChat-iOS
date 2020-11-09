@@ -80,7 +80,7 @@ class GuruAnalytics {
      - _eventName,      fb_content_id,  fb_content_type,    fb_level
      */
     static func log(event: String, category: String? = nil, name: String? = nil, value: Int64? = nil, content: String? = nil,
-                    iap_ab_group: String? = nil) {
+                    iap_ab_group: String? = nil, error: Error? = nil) {
         
         var firebaseInfo = [String: Any]()
 //        var facebookInfo = [String: Any]()
@@ -108,6 +108,12 @@ class GuruAnalytics {
         firebaseInfo[AnalyticsParameterValue] = value
 //        facebookInfo["fb_level"] = value
         firebaseInfo["iap_ab_group"] = iap_ab_group
+
+        if let err = error {
+           let nserr = err as NSError
+            firebaseInfo["error_code"] = nserr.code
+        }
+
     }
 //
     static func print<T>(file: String = #file, function: String = #function, line: Int = #line, _ message: T, color: UIColor = .white) {

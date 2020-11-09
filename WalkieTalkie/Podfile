@@ -102,8 +102,8 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-    pod 'mopub-ios-sdk/Core', '5.12.1'
-    pod 'MoPub-AdMob-Adapters', '7.57.0.0'
+    pod 'mopub-ios-sdk/Core'
+    pod 'MoPub-AdMob-Adapters'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
     
