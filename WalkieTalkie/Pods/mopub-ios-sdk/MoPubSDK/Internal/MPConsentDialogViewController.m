@@ -11,6 +11,7 @@
 #import "MPGlobal.h"
 #import "MPWebView.h"
 #import "MoPub+Utility.h"
+#import "UIImage+MPAdditions.h"
 
 typedef void(^MPConsentDialogViewControllerCompletion)(BOOL success, NSError *error);
 
@@ -131,7 +132,7 @@ static NSTimeInterval const kCloseButtonFadeInAfterSeconds = 10.0;
                                         kCloseButtonDimension,
                                         kCloseButtonDimension);
     self.closeButton.backgroundColor = [UIColor clearColor];
-    [self.closeButton setImage:[UIImage imageWithContentsOfFile:MPResourcePathForResource(@"MPCloseButtonX.png")] forState:UIControlStateNormal];
+    [self.closeButton setImage:[UIImage imageForAsset:kMPImageAssetCloseButton] forState:UIControlStateNormal];
     [self.closeButton addTarget:self
                          action:@selector(closeButtonAction:)
                forControlEvents:UIControlEventTouchUpInside];
@@ -174,8 +175,7 @@ static NSTimeInterval const kCloseButtonFadeInAfterSeconds = 10.0;
     self.didLoadCompletionBlock = completion;
 
     // Load consent dialog HTML markup
-    [self.webView loadHTMLString:self.dialogHTML
-                         baseURL:[NSURL URLWithString:[MPAPIEndpoints baseURL]]];
+    [self.webView loadHTMLString:self.dialogHTML baseURL:MPAPIEndpoints.baseURL];
 }
 
 #pragma mark - MPWebViewDelegate

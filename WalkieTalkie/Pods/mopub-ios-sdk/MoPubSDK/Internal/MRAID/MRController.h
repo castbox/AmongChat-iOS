@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import "MRConstants.h"
-#import "MPMRAIDInterstitialViewController.h"
+#import "MPAdContainerView.h"
+#import "MPFullscreenAdViewController+MRAIDWeb.h"
 
 @protocol MRControllerDelegate;
 @class MPAdConfiguration;
 @class CLLocation;
 @class MPWebView;
-@class MPViewabilityTracker;
 
 /**
  * The `MRController` class is used to load and interact with MRAID ads.
@@ -24,8 +24,9 @@
  * native calls such as expand(), resize(), close(), and open().
  */
 @interface MRController : NSObject
-
+@property (nonatomic, readonly) MPAdContainerView *mraidAdView;
 @property (nonatomic, weak) id<MRControllerDelegate> delegate;
+@property (nonatomic, weak) id<MPCountdownTimerDelegate> countdownTimerDelegate;
 
 - (instancetype)initWithAdViewFrame:(CGRect)adViewFrame
               supportedOrientations:(MPInterstitialOrientationType)orientationType
@@ -43,12 +44,10 @@
 - (void)loadVASTCompanionAd:(NSString *)companionAdHTML;
 - (void)loadVASTCompanionAdUrl:(NSURL *)companionAdUrl;
 
-- (void)handleMRAIDInterstitialWillPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;
-- (void)handleMRAIDInterstitialDidPresentWithViewController:(MPMRAIDInterstitialViewController *)viewController;
+- (void)handleMRAIDInterstitialWillPresentWithViewController:(MPFullscreenAdViewController *)viewController;
+- (void)handleMRAIDInterstitialDidPresentWithViewController:(MPFullscreenAdViewController *)viewController;
 - (void)enableRequestHandling;
 - (void)disableRequestHandling;
-
-- (void)startViewabilityTracking;
 
 /**
  When a click-through happens, do not open a web browser.
@@ -72,38 +71,64 @@
  **/
 @protocol MRControllerDelegate <NSObject>
 
+#pragma mark - Required
+
 @required
 
 // Retrieves the view controller from which modal views should be presented.
-- (UIViewController *)viewControllerForPresentingModalView;
+- (UIViewController *)viewControllerForPresentingMRAIDModalView;
 
 // Called when the ad is about to display modal content (thus taking over the screen).
-- (void)appShouldSuspendForAd:(UIView *)adView;
+- (void)appShouldSuspendForMRAIDAd:(MPAdContainerView *)adView;
 
 // Called when the ad has dismissed any modal content (removing any on-screen takeovers).
-- (void)appShouldResumeFromAd:(UIView *)adView;
+- (void)appShouldResumeFromMRAIDAd:(MPAdContainerView *)adView;
+
+/**
+ Customize the HTML content that will be loaded into the webview. This hook is provided for Viewability injection purposes.
+ If no customization is required, return the passed in HTML string.
+ @param html HTML string that will be loaded into @c webView.
+ @param webView The target web view.
+ @param adView The MRAID container of the web view.
+ @return The modified HTML string.
+ */
+- (NSString *)customizeHTML:(NSString *)html inWebView:(MPWebView *)webView forContainerView:(MPAdContainerView *)adView;
+
+#pragma mark - Optional
 
 @optional
 
+// Called when the webview has been created and about to load the HTML.
+- (void)mraidWebSessionStarted:(MPAdContainerView *)adView;
+
+// Called when the webview has successfully finished loading the HTML.
+- (void)mraidWebSessionReady:(MPAdContainerView *)adView;
+
 // Called when the ad loads successfully.
-- (void)adDidLoad:(UIView *)adView;
+- (void)mraidAdDidLoad:(MPAdContainerView *)adView;
 
 // Called when the ad fails to load.
-- (void)adDidFailToLoad:(UIView *)adView;
+- (void)mraidAdDidFailToLoad:(MPAdContainerView *)adView;
 
 // Called just before the ad closes.
-- (void)adWillClose:(UIView *)adView;
+- (void)mraidAdWillClose:(MPAdContainerView *)adView;
 
 // Called just after the ad has closed.
-- (void)adDidClose:(UIView *)adView;
+- (void)mraidAdDidClose:(MPAdContainerView *)adView;
 
-// Called after the rewarded video finishes playing
-- (void)rewardedVideoEnded;
+// Called when click-throught happens.
+- (void)mraidAdDidReceiveClickthrough:(NSURL *)url;
+
+// Called when a user would be taken out of the application context.
+- (void)mraidAdWillLeaveApplication;
+
+// Called after the rewarded ad finishes
+- (void)mraidAdDidFulflilRewardRequirement;
 
 // Called just before the ad will expand or resize
-- (void)adWillExpand:(UIView *)adView;
+- (void)mraidAdWillExpand:(MPAdContainerView *)adView;
 
 // Called after the ad collapsed from an expanded or resized state
-- (void)adDidCollapse:(UIView *)adView;
+- (void)mraidAdDidCollapse:(MPAdContainerView *)adView;
 
 @end

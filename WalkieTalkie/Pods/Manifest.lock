@@ -354,8 +354,9 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - Google-Mobile-Ads-SDK (7.57.0):
+  - Google-Mobile-Ads-SDK (7.66.0):
     - GoogleAppMeasurement (~> 6.0)
+    - GoogleUserMessagingPlatform (~> 1.1)
   - GoogleAppMeasurement (6.5.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -366,6 +367,7 @@ PODS:
   - GoogleDataTransportCCTSupport (3.1.0):
     - GoogleDataTransport (~> 6.1)
     - nanopb (~> 1.30905.0)
+  - GoogleUserMessagingPlatform (1.3.0)
   - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -418,18 +420,18 @@ PODS:
   - leveldb-library (1.22)
   - loady (1.0.5)
   - MBProgressHUD (1.0.0)
-  - MoPub-AdMob-Adapters (7.57.0.0):
-    - MoPub-AdMob-Adapters/MoPub (= 7.57.0.0)
-    - MoPub-AdMob-Adapters/Network (= 7.57.0.0)
-  - MoPub-AdMob-Adapters/MoPub (7.57.0.0):
-    - mopub-ios-sdk/Core (~> 5.8)
-    - mopub-ios-sdk/NativeAds (~> 5.8)
-  - MoPub-AdMob-Adapters/Network (7.57.0.0):
-    - Google-Mobile-Ads-SDK (= 7.57.0)
-    - mopub-ios-sdk/Core (~> 5.8)
-    - mopub-ios-sdk/NativeAds (~> 5.8)
-  - mopub-ios-sdk/Core (5.12.1)
-  - mopub-ios-sdk/NativeAds (5.12.1):
+  - MoPub-AdMob-Adapters (7.66.0.1):
+    - MoPub-AdMob-Adapters/MoPub (= 7.66.0.1)
+    - MoPub-AdMob-Adapters/Network (= 7.66.0.1)
+  - MoPub-AdMob-Adapters/MoPub (7.66.0.1):
+    - mopub-ios-sdk/Core (~> 5.13)
+    - mopub-ios-sdk/NativeAds (~> 5.13)
+  - MoPub-AdMob-Adapters/Network (7.66.0.1):
+    - Google-Mobile-Ads-SDK (= 7.66.0)
+    - mopub-ios-sdk/Core (~> 5.13)
+    - mopub-ios-sdk/NativeAds (~> 5.13)
+  - mopub-ios-sdk/Core (5.14.1)
+  - mopub-ios-sdk/NativeAds (5.14.1):
     - mopub-ios-sdk/Core
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
@@ -532,8 +534,8 @@ DEPENDENCIES:
   - JXSegmentedView
   - loady
   - MBProgressHUD (~> 1.0.0)
-  - MoPub-AdMob-Adapters (= 7.57.0.0)
-  - mopub-ios-sdk/Core (= 5.12.1)
+  - MoPub-AdMob-Adapters
+  - mopub-ios-sdk/Core
   - Moya/RxSwift
   - ObjectMapper
   - Path.swift (~> 1.0.0)
@@ -589,6 +591,7 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
+    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -661,10 +664,11 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
   FirebaseRemoteConfig: 3d189cf0c3c5abc0c924ef1cce60c4add8d3262c
-  Google-Mobile-Ads-SDK: ec897018b9ab9b447e7aa4876e7f75aba13ba2de
+  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
   GoogleAppMeasurement: 137afe68bfa406c3f4221b9395253d9e5d4654cf
   GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
   GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
+  GoogleUserMessagingPlatform: 1d4b6946710d18cec34742054092e2c2bddae61f
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
@@ -677,8 +681,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MoPub-AdMob-Adapters: caa45d156ca6c22f50b2431d5f9df3fb2c709abf
-  mopub-ios-sdk: d1640225b34ad74700e2acddb116cac634fc45d8
+  MoPub-AdMob-Adapters: 70274439efc4914639b340d8ccb4462c9bdde756
+  mopub-ios-sdk: b60afe997d7631e6bea6e1ae8a3d3727be9cd171
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
@@ -708,6 +712,6 @@ SPEC CHECKSUMS:
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: 06db246cb58cc23af76a48d406faefa8cf25a9f1
+PODFILE CHECKSUM: d523dfa2a5f292e0cb4ddccab115f65239ebe5fe
 
 COCOAPODS: 1.9.1

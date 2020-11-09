@@ -9,8 +9,9 @@ import Foundation
 
 extension Array {
     func randomItem() -> Element? {
+        guard count > 0  else { return nil }
         let idx = Int(arc4random()) % count
-        return self[idx]
+        return self.safe(idx)
     }
     
     // Could contain duplicates
