@@ -10,7 +10,7 @@ import Foundation
 extension Array {
     func randomItem() -> Element? {
         guard count > 0  else { return nil }
-        let idx = Int(arc4random()) % count
+        let idx = Int(arc4random_uniform(UInt32(count))) % count
         return self.safe(idx)
     }
     
