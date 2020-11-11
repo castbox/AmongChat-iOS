@@ -45,6 +45,7 @@ struct WalkieTalkieWidgetEntryView : View {
                     Text("Hot Channels".uppercased())
                         .multilineTextAlignment(.center)
                         .font(customizeFont(size: titleFontSize * scaledFactor))
+                        .foregroundColor(.black)
                         .minimumScaleFactor(0.8)
                     Spacer()
                 }
