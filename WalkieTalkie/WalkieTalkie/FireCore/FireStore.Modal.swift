@@ -58,7 +58,7 @@ extension FireStore {
         let isWeekInReview: Bool?
         
         private enum CodingKeys: String, CodingKey {
-            case reviewVersion = "in_review_ios"
+            case reviewVersion = "in_review_among_chat_ios"
             case isSnapchatInreview = "is_snapchat_inreview"
             case isWeekInReview
         }

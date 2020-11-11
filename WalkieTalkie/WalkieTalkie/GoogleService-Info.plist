@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>476395756522-q4fjinoaqt920nn5pbja2jhu05830b76.apps.googleusercontent.com</string>
+	<string>476395756522-7emgmljelqou676e9rggb5n7cjf7br6o.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.476395756522-q4fjinoaqt920nn5pbja2jhu05830b76</string>
+	<string>com.googleusercontent.apps.476395756522-7emgmljelqou676e9rggb5n7cjf7br6o</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>476395756522-6spkrol67khf6fnee0ofsum1s0g3hjgu.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDa8amE4uEanPql6OuWYEzXk8Z3SqolfXs</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,23 +15,23 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.talkie.walkie</string>
+	<string>com.talkie.walkie.chat.among</string>
 	<key>PROJECT_ID</key>
 	<string>walkietalkie-a6b37</string>
 	<key>STORAGE_BUCKET</key>
 	<string>walkietalkie-a6b37.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:476395756522:ios:777427f556e489627cb093</string>
+	<string>1:476395756522:ios:cd62529221d361017cb093</string>
 	<key>DATABASE_URL</key>
 	<string>https://walkietalkie-a6b37.firebaseio.com</string>
 </dict>

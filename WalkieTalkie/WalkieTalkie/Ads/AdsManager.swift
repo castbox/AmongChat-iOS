@@ -77,7 +77,7 @@ class AdsManager: NSObject {
     
     
     private func setupMopub() {
-        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "3cc10f8823c6428daf3bbf136dfbb761")
+        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "4334cad9c4e244f8b432635d48104bb9")
         #if DEBUG
         config.loggingLevel = .info
         #endif
@@ -321,9 +321,9 @@ class AdsManager: NSObject {
            /// online ad id
            //        return "156615c0b77140bfa9465efe32a6b39b"
            /// adview with only appmonet
-           return "1e7f8eed3a854b819a34c9e279533369"
+           return "a545cd81a6814a4bb06a6e6055ed5e58"
            #else
-           return "1e7f8eed3a854b819a34c9e279533369"
+           return "a545cd81a6814a4bb06a6e6055ed5e58"
            #endif
        }
     

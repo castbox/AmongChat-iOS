@@ -169,7 +169,7 @@ extension FireRemote.Value {
             enable = json["enable"].bool ?? false
             free_h = json["free_h"].double ?? 12
             interval_s = json["interval_s"].double ?? 300
-            adId = json["adId"].string ?? "ca-app-pub-2436733915645843/4244538208"
+            adId = json["adId"].string ?? "ca-app-pub-2436733915645843/3571875937"
             delay_s = json["delay_s"].double ?? 0.5
         }
     }

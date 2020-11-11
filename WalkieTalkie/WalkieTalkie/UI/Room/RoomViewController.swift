@@ -1030,7 +1030,7 @@ private extension RoomViewController {
     #endif
     
     func loadAdView() {
-        adView = MPAdView(adUnitId: "3cc10f8823c6428daf3bbf136dfbb761")
+        adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
         adView.delegate = self
         adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
         adContainer.addSubview(adView)

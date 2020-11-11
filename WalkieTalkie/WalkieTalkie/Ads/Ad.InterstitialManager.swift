@@ -26,7 +26,7 @@ extension Ad {
         
         override private init() {
             interstitial = {
-                let unitId = "21ffa078a6b04e87886b0237dd1dcc13"
+                let unitId = "6c140af189f042c0b5d1188bd1d7f49b"
                 let ad = MPInterstitialAdController(forAdUnitId: unitId)
                 return ad!
             }()
