@@ -2310,6 +2310,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "backNor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'backNor' is used in nib 'ChannelUserListController', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "btn_more_action", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_more_action' is used in nib 'ChannelUserListController', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

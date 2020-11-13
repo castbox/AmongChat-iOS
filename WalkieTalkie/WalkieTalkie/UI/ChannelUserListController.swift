@@ -81,6 +81,11 @@ class ChannelUserListController: ViewController {
     @IBAction func backButtonAction(_ sender: Any) {
         navigationController?.popViewController()
     }
+    
+    @IBAction func moreButtonAction(_ sender: UIButton) {
+        showMoreSheet(for: channel)
+    }
+    
 }
 
 extension ChannelUserListController: UITableViewDataSource {
@@ -414,6 +419,51 @@ extension ChannelUserListController {
         tableView.tableFooterView = footerView
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 73
+    }
+}
+
+extension ChannelUserListController {
+    
+    private func showMoreSheet(for channel: Room) {
+        let alertVC = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.showReportSheet(for: self.channel)
+        })
+        alertVC.addAction(reportAction)
+        
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func showReportSheet(for channel: Room) {
+        let alertVC = UIAlertController(
+            title: R.string.localizable.reportTitle(),
+            message: "\(R.string.localizable.reportRoomId()): \(channel.showName)",
+            preferredStyle: .actionSheet)
+
+        let items = [
+            R.string.localizable.reportIncorrectInformation(),
+            R.string.localizable.reportIncorrectSexual(),
+            R.string.localizable.reportIncorrectHarassment(),
+            R.string.localizable.reportIncorrectUnreasonable(),
+            ].enumerated()
+
+        for (index, item) in items {
+            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                Logger.Report.logImp(itemIndex: index, channelName: String(channel.showName))
+            })
+            alertVC.addAction(action)
+        }
+
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
     }
 }
 
