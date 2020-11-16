@@ -25,14 +25,6 @@ extension Array {
         return result
     }
     
-    func shuffleItems() -> [Element] {
-        var newArray = self
-        for i in (0..<newArray.count) {
-            let j = Int(arc4random()) % newArray.count
-            newArray.insert(newArray.remove(at: j), at: i)
-        }
-        return newArray
-    }
 }
 
 extension String {
@@ -67,6 +59,6 @@ class PasswordGenerator {
         password += uppercaseSet.randomItems(total: uppercase)
         password += numberSet.randomItems(total: numbers)
         //    password += symbolSet.randomItems(total:symbols)
-        return password.shuffleItems().reduce("") { (a, b) -> String in a+b }
+        return password.shuffled().reduce("", +)
     }
 }
