@@ -17,6 +17,7 @@ class PremiumViewController: ViewController {
     enum ContainerStyle {
         case `default`
         case guide
+        case likeGuide
     }
 
     @IBOutlet weak var lifeTimeButton: UIButton!
@@ -26,6 +27,22 @@ class PremiumViewController: ViewController {
     
     @IBOutlet weak var faceView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+
+    private lazy var yearButton: WalkieButton = {
+        let btn = WalkieButton(type: .custom)
+        btn.layer.cornerRadius = 28
+        btn.backgroundColor = .white
+        btn.addTarget(self, action: #selector(onYearButton), for: .primaryActionTriggered)
+        return btn
+    }()
+    private lazy var iapTipsLabel: UILabel = {
+        let lb = UILabel()
+        lb.numberOfLines = 0
+        lb.textAlignment = .center
+        lb.font = .systemFont(ofSize: 12)
+        return lb
+    }()
+    private var productMaps: [String: IAP.Product] = [:]
     
     var gradientLayer: CAGradientLayer!
     var source: Logger.IAP.ActionSource?
@@ -70,6 +87,7 @@ class PremiumViewController: ViewController {
         // Do any additional setup after loading the view.
         configureSubview()
         bindSubviewEvent()
+        setupProduct()
     }
     
     override func viewDidLayoutSubviews() {
@@ -178,6 +196,8 @@ extension PremiumViewController {
 //            if self.isPremiumPage(), let text = self.freetrialText() {
 //                self.actionBtn.setTitle(text, for: .normal)
 //            }
+            self.productMaps = map
+            self.updateYearButtonTitle()
             })
             .disposed(by: bag)
     }
@@ -302,5 +322,70 @@ extension PremiumViewController {
         premiumContainer.snp.makeConstraints { maker in
             maker.left.right.top.bottom.equalToSuperview()
         }
+        
+        if style == .likeGuide {
+            view.addSubviews(views: yearButton, iapTipsLabel)
+            yearButton.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-50)
+                maker.size.equalTo(CGSize(width: 219, height: 56))
+            }
+            
+            iapTipsLabel.snp.makeConstraints { (maker) in
+                maker.left.right.equalToSuperview().inset(10)
+                maker.top.equalTo(yearButton.snp.bottom).offset(8)
+            }
+        }
+    }
+    
+    private func updateYearButtonTitle() {
+        let tryAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.black,
+            .font: R.font.nunitoBold(size: 18) ?? Font.bigBody.value,
+            .kern: 0.5
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+        if Constants.abGroup == .b {
+            if FireStore.shared.isInReviewSubject.value {
+                var title: String {
+                    guard let price = productMaps[IAP.productYear]?.skProduct.localizedPrice else {
+                        return "$29.99 / year"
+                    }
+                    return "\(price) / Year"
+                }
+                mutableNormalString.append(NSAttributedString(string: title, attributes: tryAttr))
+            } else {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumFree3dTrial(), attributes: tryAttr))
+            }
+            
+            if let product = productMaps[IAP.productYear]?.skProduct {
+                if FireStore.shared.isInReviewSubject.value {
+                    iapTipsLabel.font = .systemFont(ofSize: 10)
+                    iapTipsLabel.text =
+                    """
+                    A 3-Day Free Trial automatically converts into a paid subscription at the end of the trial period. Recurring billing, cancel any time.
+                    """
+                } else {
+                    iapTipsLabel.text = """
+                    3-day free trial. Then \(product.localizedPrice) / Year.
+                    Recurring bilking.Cancel any time.
+                    """
+                }
+            }
+        } else {
+            if FireStore.shared.isInReviewSubject.value {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
+            } else {
+                mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))
+            }
+        }
+        yearButton.setAttributedTitle(mutableNormalString, for: .normal)
+        yearButton.layoutIfNeeded()
+    }
+    
+    @objc
+    private func onYearButton() {
+        buy(identifier: IAP.productYear)
     }
 }

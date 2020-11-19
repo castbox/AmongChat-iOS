@@ -264,6 +264,7 @@ extension Logger {
             case secret_channel_create
             case mute
             case iap_tip
+            case iap_home
         }
         
         static func logImp(_ source: ActionSource) {

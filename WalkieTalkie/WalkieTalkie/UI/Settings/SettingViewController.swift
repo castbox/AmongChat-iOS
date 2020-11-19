@@ -77,6 +77,7 @@ class SettingContainerTableController: UITableViewController {
                 let premiun = R.storyboard.main.premiumViewController() else {
                 return
             }
+            premiun.style = .likeGuide
             premiun.source = .setting
             premiun.dismissHandler = { [weak self] in
                 self?.updateSubviewStyle()

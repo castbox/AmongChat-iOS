@@ -70,6 +70,14 @@ class RoomViewController: ViewController {
         return iv
     }()
     
+    private lazy var premiumBtn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(R.image.icon_setting_diamonds(), for: .normal)
+        btn.addTarget(self, action: #selector(onPremiumBtn), for: .primaryActionTriggered)
+        btn.isHidden = true
+        return btn
+    }()
+    
     private lazy var avatarDot: Social.Widgets.AvatarView = {
         let iv = Social.Widgets.AvatarView()
         iv.a_backgroundColor = UIColor(hex6: 0xFF6679, alpha: 1.0)
@@ -952,6 +960,13 @@ private extension RoomViewController {
                     })
             })
             .disposed(by: bag)
+        
+        Observable.combineLatest(FireStore.shared.isInReviewSubject, Settings.shared.isProValue.replay())
+            .subscribe(onNext: { [weak self] (t) in
+                let (isInReview, isPro) = t
+                self?.premiumBtn.isHidden = isInReview || isPro
+            })
+            .disposed(by: bag)
     }
     
     func configureSubview() {
@@ -991,6 +1006,12 @@ private extension RoomViewController {
         
         #endif
         
+        view.addSubview(premiumBtn)
+        premiumBtn.snp.makeConstraints { (maker) in
+            maker.centerY.equalTo(segmentControl)
+            maker.right.equalTo(-15)
+        }
+        
         view.addSubview(avatarBtn)
         avatarBtn.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(30)
@@ -1013,7 +1034,7 @@ private extension RoomViewController {
     
     #if DEBUG
     @objc
-    func gotoChannelUserList() {
+    private func gotoChannelUserList() {
         guard !channel.showName.isEmpty else {
             return
         }
@@ -1028,6 +1049,18 @@ private extension RoomViewController {
 
     }
     #endif
+    
+    @objc
+    private func onPremiumBtn() {
+        let premium = R.storyboard.main.premiumViewController()!
+        premium.style = .likeGuide
+        premium.source = .iap_home
+        premium.dismissHandler = {
+            premium.dismiss(animated: true, completion: nil)
+        }
+        premium.modalPresentationStyle = .fullScreen
+        present(premium, animated: true, completion: nil)
+    }
     
     func loadAdView() {
         adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
