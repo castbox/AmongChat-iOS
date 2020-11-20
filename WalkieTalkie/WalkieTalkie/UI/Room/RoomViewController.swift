@@ -1008,8 +1008,9 @@ private extension RoomViewController {
         
         view.addSubview(premiumBtn)
         premiumBtn.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(60)
             maker.centerY.equalTo(segmentControl)
-            maker.right.equalTo(-15)
+            maker.right.equalTo(0)
         }
         
         view.addSubview(avatarBtn)
