@@ -24,13 +24,8 @@ class FireStore {
         static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
-        #if DEBUG
-        static let channels = "channels-test"
-        static let users = "users-test"
-        #else
         static let channels = "channels"
         static let users = "users"
-        #endif
     }
     //
     static let shared = FireStore()
