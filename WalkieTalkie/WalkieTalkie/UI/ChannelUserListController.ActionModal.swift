@@ -169,6 +169,7 @@ extension ChannelUserListController {
                 let premiumVC = sb.instantiateViewController(withIdentifier: "PremiumViewController") as! PremiumViewController
                 
                 premiumVC.source = .mute
+                premiumVC.style = .likeGuide
                 premiumVC.dismissHandler = {
                     premiumVC.dismiss(animated: true, completion: nil)
                 }
