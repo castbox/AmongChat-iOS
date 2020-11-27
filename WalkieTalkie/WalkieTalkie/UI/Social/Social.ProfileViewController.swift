@@ -317,6 +317,11 @@ extension Social.ProfileViewController {
                 maker.centerX.equalToSuperview()
             }
             editBtn.isHidden = true
+            
+            seperator.isHidden = true
+            followingBtn.isHidden = true
+            followerBtn.isHidden = true
+            
         }
         
         @objc
