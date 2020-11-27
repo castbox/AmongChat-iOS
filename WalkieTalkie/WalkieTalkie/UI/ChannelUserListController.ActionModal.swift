@@ -174,7 +174,7 @@ extension ChannelUserListController {
                     premiumVC.dismiss(animated: true, completion: nil)
                 }
                 premiumVC.modalPresentationStyle = .fullScreen
-                navigationController?.present(premiumVC, animated: true, completion: nil)
+                UIApplication.topViewController()?.present(premiumVC, animated: true, completion: nil)
                 
                 return
             }
