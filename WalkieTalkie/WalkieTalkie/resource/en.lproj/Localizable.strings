@@ -153,3 +153,8 @@
 "channel.speaking.limit.modal.title" = "Break the mic max limit";
 "channel.speaking.limit.modal.msg" = "To be a VIP member to talk with more users simultaneously";
 "channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
+
+"among.chat.home.tag.among" = "AmongUsMatch";
+"among.chat.home.tag.group" = "GroupChat";
+"among.chat.home.tag.create.private" = "CreatePrivateChannel";
+"among.chat.home.tag.join.private" = "JoinPrivateChannel";

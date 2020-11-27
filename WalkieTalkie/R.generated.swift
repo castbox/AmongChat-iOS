@@ -1013,7 +1013,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 111 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 115 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1043,6 +1043,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: AmongUsMatch
+      /// 
+      /// Locales: en
+      static let amongChatHomeTagAmong = Rswift.StringResource(key: "among.chat.home.tag.among", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Birthday
       /// 
       /// Locales: en
@@ -1111,6 +1115,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretCreateTipsDes = Rswift.StringResource(key: "add.channel.secret.create.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: CreatePrivateChannel
+      /// 
+      /// Locales: en
+      static let amongChatHomeTagCreatePrivate = Rswift.StringResource(key: "among.chat.home.tag.create.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room
       /// 
       /// Locales: en
@@ -1163,6 +1171,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: GroupChat
+      /// 
+      /// Locales: en
+      static let amongChatHomeTagGroup = Rswift.StringResource(key: "among.chat.home.tag.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en
@@ -1203,6 +1215,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretTipsDes = Rswift.StringResource(key: "add.channel.secret.tips.des", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: JoinPrivateChannel
+      /// 
+      /// Locales: en
+      static let amongChatHomeTagJoinPrivate = Rswift.StringResource(key: "among.chat.home.tag.join.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: LISTEN
       /// 
       /// Locales: en
@@ -1509,6 +1525,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: AmongUsMatch
+      /// 
+      /// Locales: en
+      static func amongChatHomeTagAmong(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.tag.among", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Birthday
       /// 
       /// Locales: en
@@ -1628,6 +1651,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.create.tips.des", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: CreatePrivateChannel
+      /// 
+      /// Locales: en
+      static func amongChatHomeTagCreatePrivate(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.tag.create.private", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room
       /// 
       /// Locales: en
@@ -1719,6 +1749,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: GroupChat
+      /// 
+      /// Locales: en
+      static func amongChatHomeTagGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.tag.group", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en
@@ -1787,6 +1824,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretTipsDes(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.tips.des", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: JoinPrivateChannel
+      /// 
+      /// Locales: en
+      static func amongChatHomeTagJoinPrivate(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.tag.join.private", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: LISTEN
