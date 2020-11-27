@@ -125,7 +125,7 @@ class ChatRoomManager: SeatManager {
 //                if let json = member.toJsonString() {
 //                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
 //                }
-                self.updateRole(false)
+                self.updateRole(true)
                 self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
                     //set to audiance
 //                    self?.updateRole(false)

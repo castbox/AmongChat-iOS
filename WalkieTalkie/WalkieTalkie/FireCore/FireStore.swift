@@ -20,17 +20,20 @@ class FireStore {
     
     /// 根结点名称
     struct Root {
-        static let secrets = "secrets"
+        static let secrets = "secrets-amongus"
         static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
         static let channels = "channels"
         static let users = "users"
+        static let amongUsChannels = "channels-amongus"
     }
     //
     static let shared = FireStore()
     
     static let defaultRoom = Room(name: "WELCOME", user_count: 0)
+    
+    private static let amongUsMaxOnlineUser = Int(10)
     
     let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
     var secretChannels: [Room] {
@@ -532,3 +535,103 @@ extension DocumentSnapshot {
     }
 }
 
+extension WalkieTalkie.FireStore {
+    
+    private enum RoomType {
+        case amongUs
+        case global
+        case secret
+    }
+    
+    func findAPublicRoom() -> Single<Room> {
+        return fetchOnlineChannelList()
+            .catchErrorJustReturn([])
+            .map({ (rooms) -> Room in
+                if let room = rooms
+                    .sorted(by: \.user_count)
+                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
+                    return room
+                } else {
+                    let newRoomName = self.createUniqueChannelName(type: .global, in: rooms.map({ $0.name }))
+                    return Room(name: newRoomName, user_count: 0)
+                }
+            })
+    }
+    
+    private func roomPrefix(of type: RoomType) -> String {
+        let prefix: String
+        
+        switch type {
+        case .amongUs:
+            prefix = "@"
+        case .secret:
+            prefix = "_@"
+        case .global:
+            prefix = ""
+        }
+        
+        return prefix
+    }
+    
+    private func createUniqueChannelName(type: RoomType, in nameSet: [String]) -> String {
+        
+        let channelName = roomPrefix(of: type) + PasswordGenerator.shared.generate()
+        guard !nameSet.contains(channelName) else {
+            return createUniqueChannelName(type: type, in: nameSet)
+        }
+        return channelName
+    }
+    
+    func findAAmongUsRoom() -> Single<Room> {
+        return fetchAmongUsChannelList()
+            .catchErrorJustReturn([])
+            .map({ (rooms) -> Room in
+                if let room = rooms
+                    .sorted(by: \.user_count)
+                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
+                    return room
+                } else {
+                    let newRoomName = self.createUniqueChannelName(type: .amongUs, in: rooms.map({ $0.name }))
+                    return Room(name: newRoomName, user_count: 0)
+                }
+            })
+    }
+    
+    private func fetchAmongUsChannelList() -> Single<[Room]> {
+        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+            self?.db.collection(Root.amongUsChannels)
+                .getDocuments(completion: { (query, error) in
+                    if let error = error {
+                        cdPrint("FireStore Error new: \(error)")
+                        observer.onError(error)
+                        return
+                    } else {
+                        guard let query = query else {
+                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+                            return
+                        }
+                        let list = query.toRoomList()
+                        observer.onNext(list)
+                        observer.onCompleted()
+                    }
+                })
+            
+            return Disposables.create { }
+        })
+        .asSingle()
+    }
+    
+    func createAPrivateRoom(with name: String? = nil) -> Single<Room> {
+        
+        let newRoomName: String
+        
+        if let name = name {
+            newRoomName = roomPrefix(of: .secret) + name
+        } else {
+            newRoomName = createUniqueChannelName(type: .secret, in: [])
+        }
+        
+        let room = Room(name: newRoomName, user_count: 0)
+        return Observable.of(room).asSingle()
+    }
+}

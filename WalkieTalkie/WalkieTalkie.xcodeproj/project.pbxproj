@@ -44,6 +44,7 @@
 		BDA05EA0250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA05E9F250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift */; };
 		BDB21A50250A1288000ADC20 /* ChannelUserListController.ActionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB21A4F250A1285000ADC20 /* ChannelUserListController.ActionModal.swift */; };
 		BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */; };
+		BDB8D20A2571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8D2092571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift */; };
 		BDB8F58724F7D925000027F8 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58624F7D925000027F8 /* Social.swift */; };
 		BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */; };
 		BDB8F58B24F7DE75000027F8 /* Social.InitialProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58A24F7DE75000027F8 /* Social.InitialProfileViewController.swift */; };
@@ -322,6 +323,7 @@
 		BDA05E9F250B2BDE0087933F /* Social.BlockedUserList.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserList.ActionModal.swift; sourceTree = "<group>"; };
 		BDB21A4F250A1285000ADC20 /* ChannelUserListController.ActionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUserListController.ActionModal.swift; sourceTree = "<group>"; };
 		BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-BoldItalic.ttf"; sourceTree = "<group>"; };
+		BDB8D2092571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.JoinSecretViewController.swift; sourceTree = "<group>"; };
 		BDB8F58624F7D925000027F8 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
 		BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewController.swift; sourceTree = "<group>"; };
 		BDB8F58A24F7DE75000027F8 /* Social.InitialProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InitialProfileViewController.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				BD6C36F9256E530100D1E708 /* AmongChat.Home.ViewController.swift */,
 				BD6C370F256F564500D1E708 /* AmongChat.Home.HashTagCell.swift */,
 				BD6C3717256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift */,
+				BDB8D2092571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1582,6 +1585,7 @@
 				FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */,
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				BD6C36ED256E525000D1E708 /* AmongChat.swift in Sources */,
+				BDB8D20A2571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift in Sources */,
 				BDB21A50250A1288000ADC20 /* ChannelUserListController.ActionModal.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,

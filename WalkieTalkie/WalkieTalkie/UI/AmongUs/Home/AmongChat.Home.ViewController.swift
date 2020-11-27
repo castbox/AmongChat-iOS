@@ -91,27 +91,21 @@ extension AmongChat.Home {
         
         private lazy var hashTags: [HashTag] = {
             return [
-                HashTag(type: .amongUs, didSelect: {
-                    
+                HashTag(type: .amongUs, didSelect: { [weak self] in
+                    guard let `self` = self else { return }
+                    self.joinRoom(FireStore.shared.findAAmongUsRoom())
                 }),
                 HashTag(type: .groupChat, didSelect: { [weak self] in
                     guard let `self` = self else { return }
-                    self.view.isUserInteractionEnabled = false
-                    let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
-                    self.hudRemoval = {
-                        removeBlock()
-                        self.view.isUserInteractionEnabled = true
-                    }
-                    let _ = FireStore.shared.findAPublicRoom()
-                        .subscribe(onSuccess: { (room) in
-                            self.joinChannelSubject.onNext(room)
-                        })
+                    self.joinRoom(FireStore.shared.findAPublicRoom())
                 }),
-                HashTag(type: .createPrivate, didSelect: {
-                    
+                HashTag(type: .createPrivate, didSelect: { [weak self] in
+                    guard let `self` = self else { return }
+                    self.createPrivateChannel()
                 }),
-                HashTag(type: .joinPrivate, didSelect: {
-                    
+                HashTag(type: .joinPrivate, didSelect: { [weak self] in
+                    guard let `self` = self else { return }
+                    self.showJoinSecretChannel()
                 })
             ]
         }()
@@ -280,18 +274,16 @@ extension AmongChat.Home.ViewController {
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] room in
                 guard let `self` = self else { return }
-                self.prompProfileInitialIfNeeded {
-                    self._joinChannel(room) { (channel) in
-                        let vc = AmongChat.Room.UserListViewController()
-                        vc.modalPresentationStyle = .fullScreen
-                        let transition = CATransition()
-                        transition.duration = 0.5
-                        transition.type = CATransitionType.push
-                        transition.subtype = CATransitionSubtype.fromRight
-                        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                        self.view.window!.layer.add(transition, forKey: kCATransition)
-                        self.present(vc, animated: false, completion: nil)
-                    }
+                self._joinChannel(room) { (channel) in
+                    let vc = AmongChat.Room.UserListViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    let transition = CATransition()
+                    transition.duration = 0.5
+                    transition.type = CATransitionType.push
+                    transition.subtype = CATransitionSubtype.fromRight
+                    transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+                    self.view.window!.layer.add(transition, forKey: kCATransition)
+                    self.present(vc, animated: false, completion: nil)
                 }
             })
             .disposed(by: bag)
@@ -307,23 +299,6 @@ extension AmongChat.Home.ViewController {
         adView?.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
         Logger.Ads.logEvent(.ads_load, .channel)
         adView?.startAutomaticallyRefreshingContents()
-    }
-    
-    private func prompProfileInitialIfNeeded(completion: @escaping (() -> Void)) {
-        
-        let loggedIn = Settings.shared.loginResult.value != nil
-        let shouldShow = loggedIn && Defaults[\.profileInitialShownTsKey] == nil
-        
-        if shouldShow {
-            let vc = Social.InitialProfileViewController()
-            vc.onDismissHandler = {
-                completion()
-            }
-            vc.showModal(in: self)
-        } else {
-            completion()
-        }
-        
     }
     
     @discardableResult
@@ -401,6 +376,77 @@ extension AmongChat.Home.ViewController {
             }
         }
     }
+    
+    private func joinRoom(_ room: Single<Room>) {
+        self.view.isUserInteractionEnabled = false
+        let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+        self.hudRemoval = {
+            removeBlock()
+            self.view.isUserInteractionEnabled = true
+        }
+        
+        room.subscribe(onSuccess: { (room) in
+            self.joinChannelSubject.onNext(room)
+        })
+        .disposed(by: bag)
+        
+    }
+    
+    private func showJoinSecretChannel() {
+        let controller = AmongChat.Home.JoinSecretViewController()
+        controller.joinChannel = { name, autoShare in
+            self.joinRoom(FireStore.shared.createAPrivateRoom(with: name))
+        }
+        controller.showModal(in: self)
+    }
+    
+    private func createPrivateChannel() {
+        
+        let networkNotReachAlertBlock = { [weak self] in
+            let alert = UIAlertController(title: R.string.localizable.networkNotReachable(), message: nil, preferredStyle: .alert)
+            alert.addAction(.init(title: R.string.localizable.toastConfirm(), style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
+        Observable.just(())
+            .observeOn(MainScheduler.asyncInstance)
+            .filter { _ -> Bool in
+                guard Reachability.shared.canReachable else {
+                    networkNotReachAlertBlock()
+                    return false
+                }
+                return true
+            }
+            .flatMap { [weak self] _ -> Observable<Void> in
+                Logger.UserAction.log(.create_secret)
+                guard let `self` = self,
+                      !Settings.shared.isProValue.value,
+                      let reward = AdsManager.shared.aviliableRewardVideo else {
+                    return Observable.just(())
+                }
+                
+                return Observable.just(())
+                    .filter({ _ in
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
+                        return true
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                    }
+                    .do(onNext: { _ in
+                        AdsManager.shared.requestRewardVideoIfNeed()
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                    }
+            }
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.joinRoom(FireStore.shared.createAPrivateRoom())
+            })
+            .disposed(by: bag)
+    }
+    
 }
 
 extension AmongChat.Home.ViewController: UICollectionViewDataSource {

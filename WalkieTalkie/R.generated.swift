@@ -1027,7 +1027,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 115 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 116 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1217,6 +1217,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialJoinAction = Rswift.StringResource(key: "social.join.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Join Friend’s Channel
+      /// 
+      /// Locales: en
+      static let joinChannelSecretTipsTitle = Rswift.StringResource(key: "join.channel.secret.tips.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join in %@ talk to me & have fun !!!
       /// 
       /// Locales: en
@@ -1817,6 +1821,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialJoinAction(_: Void = ()) -> String {
         return NSLocalizedString("social.join.action", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Join Friend’s Channel
+      /// 
+      /// Locales: en
+      static func joinChannelSecretTipsTitle(_: Void = ()) -> String {
+        return NSLocalizedString("join.channel.secret.tips.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join in %@ talk to me & have fun !!!
