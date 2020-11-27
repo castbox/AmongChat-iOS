@@ -45,11 +45,11 @@ class ShareManager: NSObject {
             return
         }
         let dynamicLinksDomainURIPrefix = "https://walkie.page.link"
-        let iosParameters = DynamicLinkIOSParameters(bundleID: "com.talkie.walkie")
-        iosParameters.fallbackURL = URL(string: "https://apps.apple.com/app/id1505959099")
-        iosParameters.appStoreID = "1505959099"
+        let iosParameters = DynamicLinkIOSParameters(bundleID: Bundle.main.bundleIdentifier!)
+        iosParameters.fallbackURL = URL(string: "https://apps.apple.com/app/id1539641263")
+        iosParameters.appStoreID = "1539641263"
         
-        let androidParameters = DynamicLinkAndroidParameters(packageName: "walkie.talkie.talk")
+        let androidParameters = DynamicLinkAndroidParameters(packageName: "walkie.talkie.among.us.friends")
         androidParameters.fallbackURL = URL(string: "https://play.google.com/store/apps/details?id=walkie.talkie.talk")
         let googleAnalyticsParameters = DynamicLinkGoogleAnalyticsParameters(source: type.googleSource, medium: type.googleMedium, campaign: type.googleCampaign)
         
