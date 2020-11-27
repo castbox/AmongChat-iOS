@@ -37,6 +37,7 @@ class PremiumViewController: ViewController {
     }()
     private lazy var iapTipsLabel: UILabel = {
         let lb = UILabel()
+        lb.textColor = .white
         lb.numberOfLines = 0
         lb.textAlignment = .center
         lb.font = .systemFont(ofSize: 12)

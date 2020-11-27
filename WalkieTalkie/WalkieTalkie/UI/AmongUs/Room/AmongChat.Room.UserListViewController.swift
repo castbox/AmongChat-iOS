@@ -12,6 +12,20 @@ extension AmongChat.Room {
     
     class UserListViewController: WalkieTalkie.ViewController {
         
+        private lazy var bgView: UIView = {
+            let v = UIView()
+            let ship = UIImageView(image: R.image.space_ship_bg())
+            let star = UIImageView(image: R.image.star_bg())
+            v.addSubviews(views: star, ship)
+            star.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            ship.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            return v
+        }()
+        
         private lazy var closeBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.icon_close(), for: .normal)
@@ -94,12 +108,24 @@ extension AmongChat.Room.UserListViewController {
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
-        view.addSubviews(views: closeBtn)
+        view.backgroundColor = UIColor(hex6: 0x00011B)
+        view.addSubviews(views: bgView, closeBtn)
+        
+        bgView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
         closeBtn.snp.makeConstraints { (maker) in
             maker.height.width.equalTo(44)
             maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
             maker.right.equalTo(-6)
         }
+    }
+    
+    private func showShareController(channelName: String) {
+        let controller = R.storyboard.main.privateShareController()
+        controller?.channelName = channelName
+        controller?.showModal(in: self)
     }
     
 }

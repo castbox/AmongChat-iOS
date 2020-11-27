@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 90 images.
+  /// This `R.image` struct is generated, and contains static references to 92 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -292,6 +292,8 @@ struct R: Rswift.Validatable {
     static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
     /// Image `snapchat_share_bg`.
     static let snapchat_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "snapchat_share_bg")
+    /// Image `space_ship_bg`.
+    static let space_ship_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "space_ship_bg")
     /// Image `speak_button_dis`.
     static let speak_button_dis = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_dis")
     /// Image `speak_button_nor`.
@@ -304,6 +306,8 @@ struct R: Rswift.Validatable {
     static let speak_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_mic")
     /// Image `speak_list_user`.
     static let speak_list_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_user")
+    /// Image `star_bg`.
+    static let star_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "star_bg")
     /// Image `user_list_friend_dark`.
     static let user_list_friend_dark = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_dark")
     /// Image `user_list_friend_light`.
@@ -716,6 +720,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.snapchat_share_bg, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "space_ship_bg", bundle: ..., traitCollection: ...)`
+    static func space_ship_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.space_ship_bg, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "speak_button_dis", bundle: ..., traitCollection: ...)`
     static func speak_button_dis(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.speak_button_dis, compatibleWith: traitCollection)
@@ -744,6 +753,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "speak_list_user", bundle: ..., traitCollection: ...)`
     static func speak_list_user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.speak_list_user, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "star_bg", bundle: ..., traitCollection: ...)`
+    static func star_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.star_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "user_list_friend_dark", bundle: ..., traitCollection: ...)`
@@ -2416,6 +2430,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_guide_1", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_1' is used in nib 'GuideFirstView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideFirstView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -2457,10 +2472,10 @@ struct _R: Rswift.Validatable {
       }
       
       static func validate() throws {
-        if UIKit.UIImage(named: "icon_close_gray", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close_gray' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_guide_4_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4_b' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
-          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView_b', but couldn't be loaded.") }
         }
       }
       
@@ -2494,6 +2509,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "icon_guide_3", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_3' is used in nib 'GuideThirdView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideThirdView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -2648,6 +2664,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "launch_logo", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_logo' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if UIKit.UIImage(named: "launch_name", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'launch_name' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in storyboard 'LaunchScreen', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

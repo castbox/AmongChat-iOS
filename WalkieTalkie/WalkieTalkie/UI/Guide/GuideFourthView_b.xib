@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -33,32 +33,9 @@
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gBy-nY-nY4">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T80-2t-0sP">
-                            <rect key="frame" x="400.5" y="19" width="27" height="27"/>
-                            <color key="backgroundColor" red="1" green="0.92941176469999998" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="27" id="8aV-Bn-hLR"/>
-                                <constraint firstAttribute="height" constant="27" id="dLI-gF-KAL"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="13.5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rB-xS-Atc">
-                            <rect key="frame" x="203" y="15" width="10" height="10"/>
-                            <color key="backgroundColor" red="1" green="0.92941176469999998" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="10" id="2su-9i-Wiu"/>
-                                <constraint firstAttribute="height" constant="10" id="jd8-Eh-eTV"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="5"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star_bg" translatesAutoresizingMaskIntoConstraints="NO" id="lvO-Hq-R0f">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                        </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2O-I3-Zkk">
                             <rect key="frame" x="10" y="68" width="394" height="132.5"/>
                             <subviews>
@@ -68,7 +45,7 @@
                                         <fragment content="✔️">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
@@ -81,7 +58,7 @@
                                         <fragment content=" ">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Nunito-Regular"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
@@ -96,7 +73,7 @@
 </string>
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="14.5" name="Nunito-Bold"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
@@ -109,7 +86,7 @@
                                         <fragment content="✔️">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -120,7 +97,7 @@
                                         <fragment content=" ">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Nunito-Regular"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -133,7 +110,7 @@
 </string>
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="14.5" name="Nunito-Bold"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -144,7 +121,7 @@
                                         <fragment content="✔️">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -155,7 +132,7 @@
                                         <fragment content=" ">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Nunito-Regular"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -166,7 +143,7 @@
                                         <fragment content="Mute other users">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="14.5" name="Nunito-Bold"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -180,7 +157,7 @@ Cg
 </string>
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Nunito-Regular"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -193,7 +170,7 @@ Cg
                                         <fragment content="✔️">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -205,7 +182,7 @@ Cg
                                         <fragment content=" ">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Nunito-Regular"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -217,7 +194,7 @@ Cg
                                         <fragment content="Secret channels">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="14.5" name="Nunito-Bold"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <font key="NSOriginalFont" size="14.5" name="Nunito-Bold"/>
@@ -254,7 +231,7 @@ Cg
                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <state key="selected">
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
@@ -270,7 +247,7 @@ Cg
                                             <real key="value" value="1.5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                            <color key="value" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -281,7 +258,7 @@ Cg
                                     <rect key="frame" x="40" y="59" width="223" height="44"/>
                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                     <state key="normal">
-                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <state key="selected">
                                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
@@ -297,7 +274,7 @@ Cg
                                             <real key="value" value="1.5"/>
                                         </userDefinedRuntimeAttribute>
                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                            <color key="value" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
@@ -312,7 +289,7 @@ Cg
                                             <string key="content">3-day free trial. Then $29.99 / Year. 
 Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                             <attributes>
-                                                <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="NSColor" red="1" green="1" blue="1" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="12" name="HelveticaNeue"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="4" tighteningFactorForTruncation="0.0"/>
                                             </attributes>
@@ -381,7 +358,7 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock Pro" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ljt-kJ-6WR" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
                             <rect key="frame" x="143.5" y="35" width="127" height="33"/>
                             <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="24"/>
-                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhS-vB-LEz">
@@ -390,24 +367,11 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                 <constraint firstAttribute="height" constant="44" id="Rem-8X-Zgc"/>
                                 <constraint firstAttribute="width" constant="44" id="WRy-Hm-jDn"/>
                             </constraints>
-                            <state key="normal" image="icon_close_gray"/>
+                            <state key="normal" image="icon_close"/>
                             <connections>
                                 <action selector="closeButtonAction:" destination="-1" eventType="touchUpInside" id="BYq-Dr-jX5"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4cU-7b-xY2">
-                            <rect key="frame" x="8" y="430.5" width="12" height="12"/>
-                            <color key="backgroundColor" red="1" green="0.92941176469999998" blue="0.65490196079999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="12" id="BGe-ri-h2t"/>
-                                <constraint firstAttribute="height" constant="12" id="Xsa-2y-q22"/>
-                            </constraints>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="6"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                        </view>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="icon_guide_4_b" translatesAutoresizingMaskIntoConstraints="NO" id="RhU-yU-agD">
                             <rect key="frame" x="102.5" y="200.5" width="209" height="387.5"/>
                         </imageView>
@@ -418,7 +382,7 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                             </constraints>
                             <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
                             <state key="normal" title="Restore">
-                                <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
                                 <action selector="restoreAction:" destination="-1" eventType="touchUpInside" id="DXh-K6-LyU"/>
@@ -427,30 +391,28 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                     </subviews>
                     <constraints>
                         <constraint firstItem="YhS-vB-LEz" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="-2" id="0zS-BQ-AQk"/>
+                        <constraint firstAttribute="trailing" secondItem="lvO-Hq-R0f" secondAttribute="trailing" id="4RI-HG-94E"/>
                         <constraint firstAttribute="trailing" secondItem="d2O-I3-Zkk" secondAttribute="trailing" constant="10" id="63t-ey-Wbb"/>
                         <constraint firstAttribute="bottom" secondItem="aMw-P3-ICX" secondAttribute="bottom" constant="3" id="B0M-zP-D2i"/>
-                        <constraint firstItem="6rB-xS-Atc" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="15" id="ErV-fk-LAM"/>
                         <constraint firstItem="XIc-Va-pDX" firstAttribute="centerY" secondItem="YhS-vB-LEz" secondAttribute="centerY" id="G5R-AV-1SI"/>
-                        <constraint firstItem="6rB-xS-Atc" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="203" id="GE9-yp-QaP"/>
+                        <constraint firstItem="lvO-Hq-R0f" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" id="H8N-zT-x7D"/>
+                        <constraint firstItem="lvO-Hq-R0f" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" id="Ic7-tS-2Wb"/>
                         <constraint firstItem="Ljt-kJ-6WR" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="35" id="Ldy-wE-4zh"/>
                         <constraint firstItem="d2O-I3-Zkk" firstAttribute="top" secondItem="Ljt-kJ-6WR" secondAttribute="bottom" id="P4g-yM-7JN"/>
                         <constraint firstItem="aMw-P3-ICX" firstAttribute="top" secondItem="RhU-yU-agD" secondAttribute="bottom" constant="5" id="PWQ-5k-mO8"/>
                         <constraint firstItem="RhU-yU-agD" firstAttribute="centerX" secondItem="gBy-nY-nY4" secondAttribute="centerX" id="Qow-tf-HG8"/>
-                        <constraint firstItem="4cU-7b-xY2" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="8" id="WI2-aP-Rp0"/>
                         <constraint firstItem="Ljt-kJ-6WR" firstAttribute="centerX" secondItem="gBy-nY-nY4" secondAttribute="centerX" id="XV7-Ed-EfS"/>
-                        <constraint firstAttribute="trailing" secondItem="T80-2t-0sP" secondAttribute="trailing" constant="-13.5" id="XfO-wn-fhe"/>
                         <constraint firstItem="RhU-yU-agD" firstAttribute="top" secondItem="d2O-I3-Zkk" secondAttribute="bottom" id="c21-dr-Xow"/>
+                        <constraint firstAttribute="bottom" secondItem="lvO-Hq-R0f" secondAttribute="bottom" id="cDe-KQ-7Fc"/>
                         <constraint firstItem="XIc-Va-pDX" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="10" id="eNJ-uQ-LY1"/>
                         <constraint firstItem="d2O-I3-Zkk" firstAttribute="leading" secondItem="gBy-nY-nY4" secondAttribute="leading" constant="10" id="gmf-pL-5B4"/>
                         <constraint firstAttribute="trailing" secondItem="YhS-vB-LEz" secondAttribute="trailing" constant="6" id="iAo-yV-cI5"/>
-                        <constraint firstItem="T80-2t-0sP" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="19" id="kak-YA-xxF"/>
-                        <constraint firstItem="4cU-7b-xY2" firstAttribute="top" secondItem="gBy-nY-nY4" secondAttribute="top" constant="430.33333333333331" id="lsX-Ie-KAX"/>
                         <constraint firstItem="aMw-P3-ICX" firstAttribute="centerX" secondItem="gBy-nY-nY4" secondAttribute="centerX" id="q3N-sF-mpv"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" red="1" green="0.79215686269999996" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.0039215686274509803" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="gBy-nY-nY4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="5bp-46-XiF"/>
                 <constraint firstItem="gBy-nY-nY4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="CSQ-1q-Ome"/>
@@ -461,7 +423,8 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
         </view>
     </objects>
     <resources>
-        <image name="icon_close_gray" width="25" height="25"/>
+        <image name="icon_close" width="25" height="25"/>
         <image name="icon_guide_4_b" width="209" height="275"/>
+        <image name="star_bg" width="375" height="811.66668701171875"/>
     </resources>
 </document>

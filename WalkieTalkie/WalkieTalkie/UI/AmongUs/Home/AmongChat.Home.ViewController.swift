@@ -22,6 +22,11 @@ extension AmongChat.Home {
         
         // MARK: - members
         
+        private lazy var bgImageView: UIImageView = {
+            let i = UIImageView(image: R.image.star_bg())
+            return i
+        }()
+        
         private lazy var haloView: UIView = {
             let v = UIView()
             v.backgroundColor = .clear
@@ -169,8 +174,12 @@ extension AmongChat.Home.ViewController {
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
-        view.backgroundColor = .black
-        view.addSubviews(views: haloView, premiumBtn, avatarBtn, hashTagCollectionView)
+        view.backgroundColor = UIColor(hex6: 0x00011B)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, hashTagCollectionView)
+        
+        bgImageView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
         
         haloView.snp.makeConstraints { (maker) in
             maker.center.equalTo(avatarBtn)

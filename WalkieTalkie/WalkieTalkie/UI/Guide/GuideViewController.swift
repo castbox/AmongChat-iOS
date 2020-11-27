@@ -269,6 +269,7 @@ extension GuideViewController {
     }
     
     func configureSubview() {
+        statusBarStyle = .lightContent
         if Constants.abGroup == .a {
             if Frame.Height.deviceDiagonalIsMinThan4_7 {
                 continueButtonHeightConstraint.constant = 44
