@@ -548,7 +548,7 @@ extension WalkieTalkie.FireStore {
             .catchErrorJustReturn([])
             .map({ (rooms) -> Room in
                 if let room = rooms
-                    .sorted(by: \.user_count)
+                    .sorted(by: \.user_count, with: >)
                     .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
                     return room
                 } else {
@@ -587,7 +587,7 @@ extension WalkieTalkie.FireStore {
             .catchErrorJustReturn([])
             .map({ (rooms) -> Room in
                 if let room = rooms
-                    .sorted(by: \.user_count)
+                    .sorted(by: \.user_count, with: >)
                     .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
                     return room
                 } else {
