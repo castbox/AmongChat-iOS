@@ -63,13 +63,15 @@ extension Routes {
         }
         
         func handleChannel(_ channel: URI.Channel) {
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+            UIApplication.navigationController?.popToRootViewController(animated: true)
+            
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
+                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
                 return
             }
             
             let name = channel.channelName
-            roomVc.joinRoom(name)
-            UIApplication.navigationController?.popToRootViewController(animated: true)
+            roomVc.joinRoom(with: name)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         

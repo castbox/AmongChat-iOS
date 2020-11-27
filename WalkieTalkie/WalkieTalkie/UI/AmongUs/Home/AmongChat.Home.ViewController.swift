@@ -48,6 +48,14 @@ extension AmongChat.Home {
             return btn
         }()
         
+        private lazy var hashTagsTitle: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoRegular(size: 16)
+            lb.textColor = .white
+            lb.text = R.string.localizable.amomgChatHomeHashTagsTitle()
+            return lb
+        }()
+        
         private lazy var hashTagCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -93,11 +101,11 @@ extension AmongChat.Home {
             return [
                 HashTag(type: .amongUs, didSelect: { [weak self] in
                     guard let `self` = self else { return }
-                    self.joinRoom(FireStore.shared.findAAmongUsRoom())
+                    self._joinRoom(FireStore.shared.findAAmongUsRoom())
                 }),
                 HashTag(type: .groupChat, didSelect: { [weak self] in
                     guard let `self` = self else { return }
-                    self.joinRoom(FireStore.shared.findAPublicRoom())
+                    self._joinRoom(FireStore.shared.findAPublicRoom())
                 }),
                 HashTag(type: .createPrivate, didSelect: { [weak self] in
                     guard let `self` = self else { return }
@@ -169,7 +177,7 @@ extension AmongChat.Home.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, hashTagsTitle, hashTagCollectionView)
         
         bgImageView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -188,6 +196,11 @@ extension AmongChat.Home.ViewController {
         
         avatarBtn.snp.makeConstraints { (maker) in
             maker.center.equalToSuperview()
+        }
+        
+        hashTagsTitle.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(hashTagCollectionView.snp.top)
+            maker.left.equalTo(16)
         }
         
         hashTagCollectionView.snp.makeConstraints { (maker) in
@@ -275,14 +288,14 @@ extension AmongChat.Home.ViewController {
             .subscribe(onNext: { [weak self] room in
                 guard let `self` = self else { return }
                 self._joinChannel(room) { (channel) in
-                    let vc = AmongChat.Room.UserListViewController()
+                    let vc = AmongChat.Room.UserListViewController(channel: channel)
                     vc.modalPresentationStyle = .fullScreen
                     let transition = CATransition()
                     transition.duration = 0.5
                     transition.type = CATransitionType.push
                     transition.subtype = CATransitionSubtype.fromRight
                     transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                    self.view.window!.layer.add(transition, forKey: kCATransition)
+                    self.view.window?.layer.add(transition, forKey: kCATransition)
                     self.present(vc, animated: false, completion: nil)
                 }
             })
@@ -377,7 +390,7 @@ extension AmongChat.Home.ViewController {
         }
     }
     
-    private func joinRoom(_ room: Single<Room>) {
+    private func _joinRoom(_ room: Single<Room>) {
         self.view.isUserInteractionEnabled = false
         let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
         self.hudRemoval = {
@@ -395,7 +408,7 @@ extension AmongChat.Home.ViewController {
     private func showJoinSecretChannel() {
         let controller = AmongChat.Home.JoinSecretViewController()
         controller.joinChannel = { name, autoShare in
-            self.joinRoom(FireStore.shared.createAPrivateRoom(with: name))
+            self._joinRoom(FireStore.shared.createAPrivateRoom(with: name))
         }
         controller.showModal(in: self)
     }
@@ -442,9 +455,14 @@ extension AmongChat.Home.ViewController {
             }
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                self.joinRoom(FireStore.shared.createAPrivateRoom())
+                self._joinRoom(FireStore.shared.createAPrivateRoom())
             })
             .disposed(by: bag)
+    }
+    
+    func joinRoom(with name: String) {
+        let room = Room(name: name, user_count: 0)
+        _joinRoom(Observable.just(room).asSingle())
     }
     
 }
