@@ -268,6 +268,14 @@ extension AmongChat.Room.UserListViewController {
             maker.bottom.equalTo(-12)
             maker.height.equalTo(50)
         }
+        
+        if channel.name.isPrivate {
+            var name = channel.name
+            name.removeAll(where: { (c) -> Bool in
+                c == "_" || c == "@"
+            })
+            showShareController(channelName: name)
+        }
     }
     
     private func showShareController(channelName: String) {
