@@ -7,20 +7,30 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension AmongChat.Room {
     
     class UserListViewController: WalkieTalkie.ViewController {
         
+        private typealias UserCell = AmongChat.Room.UserCell
+        private typealias ActionModal = ChannelUserListController.ActionModal
+        
         private lazy var bgView: UIView = {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
             let star = UIImageView(image: R.image.star_bg())
-            v.addSubviews(views: star, ship)
+            let mask = UIView()
+            mask.backgroundColor = UIColor.black.alpha(0.5)
+            v.addSubviews(views: star, ship, mask)
             star.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
             ship.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            mask.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
             return v
@@ -35,36 +45,99 @@ extension AmongChat.Room {
         
         private lazy var userCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            layout.itemSize = CGSize(width: 32, height: 32)
-            layout.minimumLineSpacing = 10
-            layout.sectionInset = .zero
+            let hInset: CGFloat = 24
+            let itemSpacing: CGFloat = 17
+            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
+            layout.itemSize = CGSize(width: cellWidth, height: 71)
+            layout.minimumInteritemSpacing = itemSpacing
+            layout.minimumLineSpacing = 8
+            layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 12, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
-//            v.dataSource = self
-//            v.delegate = self
+            v.dataSource = self
+            v.delegate = self
             v.backgroundColor = nil
             return v
         }()
         
         private lazy var micSwitchBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onMicSwitchBtn), for: .primaryActionTriggered)
+            btn.addTarget(self, action: #selector(onMicSwitchBtn(_:)), for: .primaryActionTriggered)
+            btn.backgroundColor = UIColor.white.alpha(0.8)
+            btn.layer.cornerRadius = 25
+            btn.setImage(R.image.icon_mic(), for: .normal)
+            btn.setImage(R.image.icon_mic_disable(), for: .selected)
             return btn
         }()
         
         private lazy var shareBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onShareBtn), for: .primaryActionTriggered)
+            btn.backgroundColor = UIColor.white.alpha(0.8)
+            btn.layer.cornerRadius = 25
+            let image = R.image.btn_share()?.withRenderingMode(.alwaysTemplate)
+            btn.setImage(image, for: .normal)
+            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+            btn.imageView?.contentMode = .scaleAspectFit
             return btn
         }()
         
+        private lazy var moreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.addTarget(self, action: #selector(onMoreBtn), for: .primaryActionTriggered)
+            btn.backgroundColor = UIColor.white.alpha(0.8)
+            btn.layer.cornerRadius = 25
+            btn.setImage(R.image.btn_more_action(), for: .normal)
+            return btn
+        }()
         
+        private lazy var bottomBtnStack: UIStackView = {
+            let s = UIStackView(arrangedSubviews: [micSwitchBtn, shareBtn, moreBtn],
+                                axis: .horizontal,
+                                spacing: 12,
+                                alignment: .fill,
+                                distribution: .fillEqually)
+            
+            micSwitchBtn.snp.makeConstraints { (maker) in
+                maker.height.width.equalTo(50)
+            }
+            
+            shareBtn.snp.makeConstraints { (maker) in
+                maker.height.width.equalTo(50)
+            }
+            
+            moreBtn.snp.makeConstraints { (maker) in
+                maker.height.width.equalTo(50)
+            }
+            
+            return s
+        }()
+        
+        private var dataSource: [ChannelUserViewModel] = [] {
+            didSet {
+                userCollectionView.reloadData()
+            }
+        }
+        
+        private let channel: Room
+        private let viewModel = ChannelUserListViewModel.shared
+        
+        init(channel: Room) {
+            self.channel = channel
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
         
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            bindSubviewEvent()
         }
         
     }
@@ -77,48 +150,123 @@ extension AmongChat.Room.UserListViewController {
     
     @objc
     private func onCloseBtn() {
-        ChatRoomManager.shared.leaveChannel { [weak self] (_) in
-            
+        
+        let alertVC = UIAlertController(
+            title: R.string.localizable.amongChatLeaveRoomTipTitle(),
+            message: nil,
+            preferredStyle: .alert
+        )
+        
+        let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
             guard let `self` = self else { return }
             
-            let transition = CATransition()
-            transition.duration = 0.5
-            transition.type = CATransitionType.push
-            transition.subtype = CATransitionSubtype.fromLeft
-            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-            self.view.window!.layer.add(transition, forKey: kCATransition)
-            self.dismiss(animated: true)
-        }
+            ChatRoomManager.shared.leaveChannel { (_) in
+                let transition = CATransition()
+                transition.duration = 0.5
+                transition.type = CATransitionType.push
+                transition.subtype = CATransitionSubtype.fromLeft
+                transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+                self.view.window?.layer.add(transition, forKey: kCATransition)
+                self.dismiss(animated: true)
+            }
+        })
+        
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        alertVC.addAction(confirm)
+        present(alertVC, animated: true, completion: nil)
     }
     
     @objc
-    private func onMicSwitchBtn() {
+    private func onMicSwitchBtn(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
         
+        let mute = sender.isSelected
+        ChatRoomManager.shared.muteMyMic(muted: mute)
     }
     
     @objc
     private func onShareBtn() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.share(with: channel.name, type: .more, viewController: self) { () in
+            removeBlock()
+        }
+    }
+
+    @objc
+    private func onMoreBtn() {
+        showMoreSheet(for: channel)
+    }
+}
+
+extension AmongChat.Room.UserListViewController: UICollectionViewDataSource {
+    
+    // MARK: - UICollectionView
         
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UserCell.self), for: indexPath)
+        if let cell = cell as? UserCell,
+           let user = dataSource.safe(indexPath.item) {
+            cell.bind(user)
+        }
+        return cell
+    }
+    
+}
+
+extension AmongChat.Room.UserListViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let user = dataSource.safe(indexPath.item),
+              !user.isSelf else {
+            return
+        }
+        
+        showMoreSheet(for: user)
     }
     
 }
 
 extension AmongChat.Room.UserListViewController {
     
+    // MARK: -
+    
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgView, closeBtn)
+                
+        view.addSubviews(views: bgView, userCollectionView, closeBtn, bottomBtnStack)
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
+        }
+        
+        userCollectionView.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(140)
+            maker.height.equalTo(250)
         }
         
         closeBtn.snp.makeConstraints { (maker) in
             maker.height.width.equalTo(44)
             maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
             maker.right.equalTo(-6)
+        }
+        
+        bottomBtnStack.snp.makeConstraints { (maker) in
+            maker.trailing.equalTo(-16)
+            maker.bottom.equalTo(-12)
+            maker.height.equalTo(50)
         }
     }
     
@@ -128,4 +276,179 @@ extension AmongChat.Room.UserListViewController {
         controller?.showModal(in: self)
     }
     
+    private func showMoreSheet(for userViewModel: ChannelUserViewModel) {
+        let alertVC = UIAlertController(
+            title: nil,
+            message: R.string.localizable.userListMoreSheet(),
+            preferredStyle: .actionSheet
+        )
+        
+//        if let firestoreUser = userViewModel.firestoreUser {
+//            let followingUids = Social.Module.shared.followingValue.map { $0.uid }
+//            if !followingUids.contains(firestoreUser.uid) {
+//                //未添加到following
+//                let followAction = UIAlertAction(title: R.string.localizable.channelUserListFollow(), style: .default) { [weak self] (_) in
+//                    // follow_clk log
+//                    GuruAnalytics.log(event: "follow_clk", category: nil, name: nil, value: nil, content: nil)
+//                    //
+//                    self?.viewModel.followUser(firestoreUser)
+//                }
+//                alertVC.addAction(followAction)
+//            } else {
+//                let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
+//                    // unfollow_clk log
+//                    GuruAnalytics.log(event: "unfollow_clk", category: nil, name: nil, value: nil, content: nil)
+//                    //
+//                    self?.viewModel.unfollowUser(firestoreUser)
+//                }
+//                alertVC.addAction(unfollowAction)
+//            }
+//        }
+        
+        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid)
+        if isMuted {
+            let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
+                // unmute_clk log
+                GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
+                //
+                self?.viewModel.unmuteUser(userViewModel)
+                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+            }
+            alertVC.addAction(unmuteAction)
+            
+        } else {
+            let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
+                
+                // mute_clk log
+                GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
+                //
+                
+                let modal = ActionModal(with: userViewModel, actionType: .mute)
+                modal.actionHandler = { () in
+                    self?.viewModel.muteUser(userViewModel)
+                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+                }
+                modal.showModal(in: self)
+            }
+            alertVC.addAction(muteAction)
+        }
+        
+        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+            self?.showReportSheet(for: userViewModel)
+        })
+        let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+            // block_clk log
+            GuruAnalytics.log(event: "block_clk", category: "user_list", name: nil, value: nil, content: nil)
+            //
+            self?.showBlockAlert(with: userViewModel)
+        })
+        alertVC.addAction(reportAction)
+        alertVC.addAction(blockAction)
+        
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func showReportSheet(for userViewModel: ChannelUserViewModel) {
+        let user = userViewModel.channelUser
+        let alertVC = UIAlertController(
+            title: R.string.localizable.reportTitle(),
+            message: "\(R.string.localizable.reportUserId()): \(user.uid)",
+            preferredStyle: .actionSheet)
+
+        let items = [
+            R.string.localizable.reportIncorrectInformation(),
+            R.string.localizable.reportIncorrectSexual(),
+            R.string.localizable.reportIncorrectHarassment(),
+            R.string.localizable.reportIncorrectUnreasonable(),
+            ].enumerated()
+
+        for (index, item) in items {
+            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                Logger.Report.logImp(itemIndex: index, channelName: String(user.uid))
+            })
+            alertVC.addAction(action)
+        }
+
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func showBlockAlert(with userViewModel: ChannelUserViewModel) {
+        guard userViewModel.channelUser.status != .blocked else {
+            viewModel.unblockedUser(userViewModel)
+            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+            return
+        }
+        let modal = ActionModal(with: userViewModel, actionType: .block)
+        modal.actionHandler = { [weak self] in
+            self?.viewModel.blockedUser(userViewModel)
+            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+        }
+        modal.showModal(in: self)
+    }
+    
+    private func bindSubviewEvent() {
+        
+        viewModel.userObservable
+        .subscribe(onNext: { [weak self] (channelUsers) in
+            self?.dataSource = channelUsers
+        })
+            .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                guard let `self` = self else { return }
+                Ad.InterstitialManager.shared.showAdIfReady(from: self)
+            })
+            .disposed(by: bag)
+    }
+    
+}
+
+extension AmongChat.Room.UserListViewController {
+    
+    private func showMoreSheet(for channel: Room) {
+        let alertVC = UIAlertController(
+            title: nil,
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        
+        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.showReportSheet(for: self.channel)
+        })
+        alertVC.addAction(reportAction)
+        
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
+    
+    private func showReportSheet(for channel: Room) {
+        let alertVC = UIAlertController(
+            title: R.string.localizable.reportTitle(),
+            message: "\(R.string.localizable.reportRoomId()): \(channel.showName)",
+            preferredStyle: .actionSheet)
+
+        let items = [
+            R.string.localizable.reportIncorrectInformation(),
+            R.string.localizable.reportIncorrectSexual(),
+            R.string.localizable.reportIncorrectHarassment(),
+            R.string.localizable.reportIncorrectUnreasonable(),
+            ].enumerated()
+
+        for (index, item) in items {
+            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
+                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                Logger.Report.logImp(itemIndex: index, channelName: String(channel.showName))
+            })
+            alertVC.addAction(action)
+        }
+
+        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        present(alertVC, animated: true, completion: nil)
+    }
 }

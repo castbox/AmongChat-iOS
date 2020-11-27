@@ -104,6 +104,10 @@ extension SeatManager {
 //            getMessageManager().sendOrder(userId: userId, orderType: Message.ORDER_TYPE_MUTE, content: String(muted), callback: nil)
         }
     }
+    
+    func muteMyMic(muted: Bool) {
+        getRtcManager().muteLocalAudioStream(muted)
+    }
 
 //    func closeSeat(_ position: Int) {
 //        let channelData = getChannelData()

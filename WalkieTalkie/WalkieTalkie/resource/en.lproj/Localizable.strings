@@ -155,7 +155,9 @@
 "channel.speaking.limit.modal.msg" = "To be a VIP member to talk with more users simultaneously";
 "channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
 
+"amomg.chat.home.hash.tags.title" = "Let's match & chat";
 "among.chat.home.tag.among" = "AmongUsMatch";
 "among.chat.home.tag.group" = "GroupChat";
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";
+"among.chat.leave.room.tip.title" = "Are you sure to exit the room?";
