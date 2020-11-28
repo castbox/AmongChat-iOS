@@ -21,6 +21,7 @@ extension AmongChat.Room {
         private lazy var bgView: UIView = {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
+            ship.contentMode = .scaleAspectFit
             let star = UIImageView(image: R.image.star_bg())
             let mask = UIView()
             mask.backgroundColor = UIColor.black.alpha(0.5)
