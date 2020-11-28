@@ -80,30 +80,30 @@ class FireStore {
                 
                 self.getAppConfigValue()
 
-                let _ = Observable<Int>.interval(.seconds(60), scheduler: MainScheduler.instance)
-                    .startWith(0)
-                    .subscribe(onNext: { (_) in
-                        
-                        let _ = self.fetchOnlineChannelList()
-                            .catchErrorJustReturn([])
-                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-                            .subscribe(onSuccess: { (rooms) in
-                                self.publicChannelsSubject.accept(rooms)
-                                SharedDefaults[\.topPublicChannelsKey] = rooms.sorted(by: { (left, right) -> Bool in
-                                    left.user_count > right.user_count
-                                }).map({ (room) -> [String : Any] in
-                                    return ["name" : room.name, "userCount" : room.user_count]
-                                })
-                                .first(2)
-                            })
-                        
-                        let _ = self.fetchSecretChannelList(of: Defaults[\.secretChannels].map({ $0.name }))
-                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-                            .catchErrorJustReturn([])
-                            .subscribe(onSuccess: { (rooms) in
-                                self.secretChannelsSubject.accept(rooms)
-                            })
-                    })
+//                let _ = Observable<Int>.interval(.seconds(60), scheduler: MainScheduler.instance)
+//                    .startWith(0)
+//                    .subscribe(onNext: { (_) in
+//                        
+//                        let _ = self.fetchOnlineChannelList()
+//                            .catchErrorJustReturn([])
+//                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+//                            .subscribe(onSuccess: { (rooms) in
+//                                self.publicChannelsSubject.accept(rooms)
+//                                SharedDefaults[\.topPublicChannelsKey] = rooms.sorted(by: { (left, right) -> Bool in
+//                                    left.user_count > right.user_count
+//                                }).map({ (room) -> [String : Any] in
+//                                    return ["name" : room.name, "userCount" : room.user_count]
+//                                })
+//                                .first(2)
+//                            })
+//                        
+//                        let _ = self.fetchSecretChannelList(of: Defaults[\.secretChannels].map({ $0.name }))
+//                            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+//                            .catchErrorJustReturn([])
+//                            .subscribe(onSuccess: { (rooms) in
+//                                self.secretChannelsSubject.accept(rooms)
+//                            })
+//                    })
                 
                 #if DEBUG
                 _ = self.channelConfigObservalbe()
