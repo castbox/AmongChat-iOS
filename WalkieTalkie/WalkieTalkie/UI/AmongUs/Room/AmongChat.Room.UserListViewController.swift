@@ -137,6 +137,8 @@ extension AmongChat.Room {
             }
         }
         
+        private let minimumListLength = Int(10)
+        
         private let channel: Room
         private let viewModel = ChannelUserListViewModel.shared
         
@@ -224,14 +226,13 @@ extension AmongChat.Room.UserListViewController: UICollectionViewDataSource {
     // MARK: - UICollectionView
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.count
+        return max(dataSource.count, minimumListLength)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UserCell.self), for: indexPath)
-        if let cell = cell as? UserCell,
-           let user = dataSource.safe(indexPath.item) {
-            cell.bind(user)
+        if let cell = cell as? UserCell {
+            cell.bind(dataSource.safe(indexPath.item))
         }
         return cell
     }

@@ -42,7 +42,7 @@ extension AmongChat.Room {
         }()
         
         private var avatarDisposable: Disposable?
-                        
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -60,7 +60,7 @@ extension AmongChat.Room {
         override func layoutSubviews() {
             super.layoutSubviews()
         }
-                
+        
         private func setupLayout() {
             contentView.backgroundColor = .clear
             contentView.addSubviews(views: haloView, avatarIV, nameLabel)
@@ -74,7 +74,7 @@ extension AmongChat.Room {
                 maker.size.equalTo(CGSize(width: 50, height: 50))
                 maker.top.centerX.equalToSuperview()
             }
-                        
+            
             nameLabel.snp.makeConstraints { (maker) in
                 maker.left.right.bottom.equalToSuperview()
             }
@@ -82,7 +82,7 @@ extension AmongChat.Room {
         }
         
         private func haloAnimation() {
-
+            
             let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
             borderWidthAni.fromValue = 1
             borderWidthAni.toValue = 0
@@ -94,7 +94,7 @@ extension AmongChat.Room {
             let scaleAni = CABasicAnimation(keyPath: "transform.scale")
             scaleAni.fromValue = 1
             scaleAni.toValue = 1.5
-
+            
             let animationGroup = CAAnimationGroup()
             animationGroup.duration = 1.5;
             animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
@@ -107,31 +107,39 @@ extension AmongChat.Room {
         private func stopHaloAnimation() {
             haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
         }
-                
+        
     }
 }
 
 extension AmongChat.Room.UserCell {
     
-    func bind(_ userViewModel: ChannelUserViewModel) {
-        let user = userViewModel.channelUser
-        avatarDisposable?.dispose()
-        avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
-            guard let `self` = self else { return }
-            
-            if let _ = image {
-                self.avatarIV.backgroundColor = .clear
-            } else {
-                self.avatarIV.backgroundColor = user.iconColor.color()
-            }
-            self.avatarIV.image = image
-        })
+    func bind(_ userViewModel: ChannelUserViewModel?) {
         
-        nameLabel.text = userViewModel.name
-        if userViewModel.channelUser.status == .talking {
-            haloAnimation()
+        if let userViewModel = userViewModel {
+            avatarIV.image = nil
+            let user = userViewModel.channelUser
+            avatarDisposable?.dispose()
+            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
+                guard let `self` = self else { return }
+                
+                if let _ = image {
+                    self.avatarIV.backgroundColor = .clear
+                } else {
+                    self.avatarIV.backgroundColor = user.iconColor.color()
+                }
+                self.avatarIV.image = image
+            })
+            
+            nameLabel.text = userViewModel.name
+            if userViewModel.channelUser.status == .talking {
+                haloAnimation()
+            } else {
+                stopHaloAnimation()
+            }
         } else {
-            stopHaloAnimation()
+            avatarIV.image = R.image.speak_list_add()
+            avatarIV.backgroundColor = nil
+            nameLabel.text = ""
         }
     }
     
