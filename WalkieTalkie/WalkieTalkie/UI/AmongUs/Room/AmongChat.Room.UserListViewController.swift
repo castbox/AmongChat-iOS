@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MoPub
 
 extension AmongChat.Room {
     
@@ -114,6 +115,19 @@ extension AmongChat.Room {
             }
             
             return s
+        }()
+        
+        private lazy var adContainer: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            return v
+        }()
+        
+        private lazy var adView: MPAdView? = {
+            let adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
+            adView?.delegate = self
+            adView?.frame = CGRect(origin: .zero, size: kMPPresetMaxAdSizeMatchFrame)
+            return adView
         }()
         
         private var dataSource: [ChannelUserViewModel] = [] {
@@ -236,6 +250,40 @@ extension AmongChat.Room.UserListViewController: UICollectionViewDelegate {
     
 }
 
+extension AmongChat.Room.UserListViewController: MPAdViewDelegate {
+    
+    //MARK: - MPAdViewDelegate
+    
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        if let naviVC = self.navigationController {
+            return naviVC
+        } else {
+            return self
+        }
+    }
+
+    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+        Logger.Ads.logEvent(.ads_loaded, .channel)
+    }
+
+    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+        Logger.Ads.logEvent(.ads_failed, .channel)
+    }
+
+    func willPresentModalView(forAd view: MPAdView!) {
+        Logger.Ads.logEvent(.ads_imp, .channel)
+    }
+    
+    func willLeaveApplication(fromAd view: MPAdView!) {
+        Logger.Ads.logEvent(.ads_clk, .channel)
+    }
+    
+    func didDismissModalView(forAd view: MPAdView!) {
+    }
+    
+}
+
+
 extension AmongChat.Room.UserListViewController {
     
     // MARK: -
@@ -245,7 +293,7 @@ extension AmongChat.Room.UserListViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
                 
-        view.addSubviews(views: bgView, userCollectionView, closeBtn, bottomBtnStack)
+        view.addSubviews(views: bgView, userCollectionView, closeBtn, bottomBtnStack, adContainer)
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -265,7 +313,13 @@ extension AmongChat.Room.UserListViewController {
         
         bottomBtnStack.snp.makeConstraints { (maker) in
             maker.trailing.equalTo(-16)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-12)
+            maker.bottom.equalTo(adContainer.snp.top).offset(-12)
+            maker.height.equalTo(50)
+        }
+        
+        adContainer.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.centerX.equalToSuperview()
             maker.height.equalTo(50)
         }
         
@@ -276,6 +330,15 @@ extension AmongChat.Room.UserListViewController {
             })
             showShareController(channelName: name)
         }
+        
+        if let adView = self.adView {
+            adContainer.addSubview(adView)
+            adView.snp.makeConstraints { (maker) in
+                maker.size.equalTo(CGSize(width: 320, height: 50))
+                maker.edges.equalToSuperview()
+            }
+        }
+
     }
     
     private func showShareController(channelName: String) {
@@ -399,6 +462,36 @@ extension AmongChat.Room.UserListViewController {
     
     private func bindSubviewEvent() {
         
+        AdsManager.shared.mopubInitializeSuccessSubject
+            .filter { _ -> Bool in
+                return !Settings.shared.isProValue.value
+            }
+            .filter { $0 }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.loadAdView()
+            })
+            .disposed(by: bag)
+        
+        Settings.shared.isProValue.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (isPro) in
+                guard let `self` = self else { return }
+                
+                if isPro {
+                    //remove ad
+                    self.adView?.stopAutomaticallyRefreshingContents()
+                } else {
+                    self.adView?.loadAd()
+                }
+                
+                self.adContainer.snp.updateConstraints { (maker) in
+                    maker.height.equalTo(isPro ? 0 : 50)
+                }
+                self.adView?.isHidden = isPro
+            })
+            .disposed(by: bag)
+        
         viewModel.userObservable
         .subscribe(onNext: { [weak self] (channelUsers) in
             self?.dataSource = channelUsers
@@ -412,6 +505,12 @@ extension AmongChat.Room.UserListViewController {
                 Ad.InterstitialManager.shared.showAdIfReady(from: self)
             })
             .disposed(by: bag)
+    }
+    
+    private func loadAdView() {
+        adView?.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+        Logger.Ads.logEvent(.ads_load, .channel)
+        adView?.startAutomaticallyRefreshingContents()
     }
     
 }
