@@ -265,7 +265,7 @@ extension AmongChat.Room.UserListViewController {
         
         bottomBtnStack.snp.makeConstraints { (maker) in
             maker.trailing.equalTo(-16)
-            maker.bottom.equalTo(-12)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-12)
             maker.height.equalTo(50)
         }
         
