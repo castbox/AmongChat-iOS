@@ -16,7 +16,7 @@
  #if DEBUG
  fileprivate let defaultHotTopic = ["test", "hot"]
  #else
- fileprivate let defaultHotTopic = ["hot"]
+ fileprivate let defaultHotTopic = ["hot-amongus"]
  #endif
  //private func print()
  
