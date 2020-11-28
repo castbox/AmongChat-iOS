@@ -214,6 +214,18 @@ class ShareManager: NSObject {
         }
     }
     
+    func showActivity(viewController: UIViewController, successHandler: (() -> Void)? = nil) {
+        let items = ["https://walkie.page.link/amongchat"] as [Any]
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
+        activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
+        activityVC.completionWithItemsHandler = { activity, success, items, error in
+            successHandler?()
+        }
+        viewController.present(activityVC, animated: true, completion: { () -> Void in
+            
+        })
+    }
+    
     private func showActivity(name: String?, dynamicLink: String, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
         guard let textToShare = Self.shareTitle(for: name, dynamicLink: dynamicLink) else {
             successHandler?()

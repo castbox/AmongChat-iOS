@@ -182,7 +182,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 }
 
                 self.view.isUserInteractionEnabled = false
-                ShareManager.default.share(with: "", type: .more, viewController: self) { () in
+                ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
                 }
             case .blockUser:

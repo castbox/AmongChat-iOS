@@ -208,7 +208,7 @@ extension AmongChat.Room.UserListViewController {
         }
 
         self.view.isUserInteractionEnabled = false
-        ShareManager.default.share(with: channel.name, type: .more, viewController: self) { () in
+        ShareManager.default.showActivity(viewController: self) { () in
             removeBlock()
         }
     }

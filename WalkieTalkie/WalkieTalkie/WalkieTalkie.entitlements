@@ -6,8 +6,8 @@
 	<string>development</string>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:walkietalkie.live</string>
-		<string>applinks:walkie.page.link</string>
+		<string>applinks:walkietalkie.live/amongchat</string>
+		<string>applinks:walkie.page.link/amongchat</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>
