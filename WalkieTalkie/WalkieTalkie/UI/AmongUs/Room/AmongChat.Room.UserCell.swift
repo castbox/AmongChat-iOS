@@ -33,6 +33,13 @@ extension AmongChat.Room {
             return iv
         }()
         
+        private lazy var prefixLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoBlack(size: 16)
+            lb.textColor = UIColor(hex6: 0xF8F8F8)
+            return lb
+        }()
+        
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoRegular(size: 11)
@@ -63,7 +70,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: haloView, avatarIV, nameLabel)
+            contentView.addSubviews(views: haloView, avatarIV, prefixLabel, nameLabel)
             
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
@@ -73,6 +80,10 @@ extension AmongChat.Room {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.size.equalTo(CGSize(width: 50, height: 50))
                 maker.top.centerX.equalToSuperview()
+            }
+            
+            prefixLabel.snp.makeConstraints { (maker) in
+                maker.center.equalTo(avatarIV)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -136,10 +147,14 @@ extension AmongChat.Room.UserCell {
             } else {
                 stopHaloAnimation()
             }
+            prefixLabel.text = user.prefix
+            prefixLabel.isHidden = (userViewModel.firestoreUser != nil)
         } else {
             avatarIV.image = R.image.speak_list_add()
             avatarIV.backgroundColor = nil
             nameLabel.text = ""
+            prefixLabel.text = nil
+            prefixLabel.isHidden = true
         }
     }
     
