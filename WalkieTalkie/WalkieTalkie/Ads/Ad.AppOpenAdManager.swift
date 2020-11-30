@@ -94,7 +94,7 @@ extension Ad {
                               self.shouldShow() else { return }
                         
                         guard let vc = UIApplication.topViewController(),
-                              vc is RoomViewController else { return }
+                              vc is AmongChat.Home.ViewController else { return }
                         
                         ad.present(fromRootViewController: vc)
                     })
