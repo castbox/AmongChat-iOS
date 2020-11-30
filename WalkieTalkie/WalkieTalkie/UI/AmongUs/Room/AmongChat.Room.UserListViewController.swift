@@ -209,7 +209,11 @@ extension AmongChat.Room.UserListViewController {
                 transition.subtype = CATransitionSubtype.fromLeft
                 transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
                 self.view.window?.layer.add(transition, forKey: kCATransition)
-                self.dismiss(animated: true)
+                let presentingVC = self.presentingViewController
+                self.dismiss(animated: true) {
+                    guard let vc = presentingVC else { return }
+                    Ad.InterstitialManager.shared.showAdIfReady(from: vc)
+                }
             }
         })
         
@@ -528,14 +532,6 @@ extension AmongChat.Room.UserListViewController {
         .subscribe(onNext: { [weak self] (channelUsers) in
             self?.dataSource = channelUsers
         })
-            .disposed(by: bag)
-        
-        rx.viewDidAppear
-            .take(1)
-            .subscribe(onNext: { [weak self] (_) in
-                guard let `self` = self else { return }
-                Ad.InterstitialManager.shared.showAdIfReady(from: self)
-            })
             .disposed(by: bag)
     }
     
