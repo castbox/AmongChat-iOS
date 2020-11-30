@@ -125,7 +125,7 @@ extension AmongChat.Room {
         }()
         
         private lazy var adView: MPAdView? = {
-            let adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
+            let adView = MPAdView(adUnitId: "2d4ccd8d270a4f8aa9afda3713ccdc8a")
             adView?.delegate = self
             adView?.frame = CGRect(origin: .zero, size: kMPPresetMaxAdSizeMatchFrame)
             return adView
