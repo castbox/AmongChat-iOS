@@ -1027,7 +1027,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 118 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 120 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1217,6 +1217,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
+      /// 
+      /// Locales: en
+      static let amongChatRoomStartGameTip1 = Rswift.StringResource(key: "among.chat.room.start.game.tip1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join
       /// 
       /// Locales: en
@@ -1457,6 +1461,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let userListTitle = Rswift.StringResource(key: "user.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: What about you, %1$@
+      /// 
+      /// Locales: en
+      static let amongChatRoomStartGameTip2 = Rswift.StringResource(key: "among.chat.room.start.game.tip2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Yes, is me!
       /// 
       /// Locales: en
@@ -1829,6 +1837,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileInviteFriends(_: Void = ()) -> String {
         return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
+      /// 
+      /// Locales: en
+      static func amongChatRoomStartGameTip1(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.start.game.tip1", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join
@@ -2249,6 +2264,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func userListTitle(_: Void = ()) -> String {
         return NSLocalizedString("user.list.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: What about you, %1$@
+      /// 
+      /// Locales: en
+      static func amongChatRoomStartGameTip2(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.room.start.game.tip2", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Yes, is me!

@@ -161,3 +161,5 @@
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";
 "among.chat.leave.room.tip.title" = "Are you sure to exit the room?";
+"among.chat.room.start.game.tip1" = "It's time to start the game! Let's pick a lucky guy to open a room in Among Us.";
+"among.chat.room.start.game.tip2" = "What about you, %1$@";

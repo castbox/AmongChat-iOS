@@ -64,6 +64,31 @@ extension AmongChat.Room {
             return v
         }()
         
+        private lazy var gameTipView: UIView = {
+            let view = UIView()
+            view.backgroundColor = UIColor.white.alpha(0.5)
+            let lb = UILabel()
+            lb.numberOfLines = 0
+            lb.lineBreakMode = .byWordWrapping
+            lb.font = R.font.nunitoRegular(size: 12)
+            lb.textColor = UIColor(red: 254, green: 254, blue: 104)
+            
+            var txt = R.string.localizable.amongChatRoomStartGameTip1()
+            
+            if let p = Settings.shared.firestoreUserProfile.value {
+                txt = txt + " " + R.string.localizable.amongChatRoomStartGameTip2(p.name)
+            }
+            
+            lb.text = txt
+            view.addSubview(lb)
+            lb.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview().inset(12)
+            }
+            view.layer.cornerRadius = 10
+            view.isHidden = (roomType == .global)
+            return view
+        }()
+        
         private lazy var micSwitchBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onMicSwitchBtn(_:)), for: .primaryActionTriggered)
@@ -295,7 +320,7 @@ extension AmongChat.Room.UserListViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
                 
-        view.addSubviews(views: bgView, userCollectionView, closeBtn, bottomBtnStack, adContainer)
+        view.addSubviews(views: bgView, userCollectionView, gameTipView, closeBtn, bottomBtnStack, adContainer)
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -304,7 +329,12 @@ extension AmongChat.Room.UserListViewController {
         userCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom).offset(140)
-            maker.height.equalTo(250)
+            maker.height.equalTo(180)
+        }
+        
+        gameTipView.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview().inset(12)
+            maker.top.equalTo(userCollectionView.snp.bottom)
         }
         
         closeBtn.snp.makeConstraints { (maker) in
@@ -560,4 +590,25 @@ extension AmongChat.Room.UserListViewController {
         alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
         present(alertVC, animated: true, completion: nil)
     }
+}
+
+
+fileprivate extension AmongChat.Room.UserListViewController {
+    
+    enum RoomType {
+        case amongUsMatch
+        case global
+        case amongUsPrivate
+    }
+    
+    private var roomType: RoomType {
+        if channel.name.hasPrefix("_@") {
+            return .amongUsPrivate
+        } else if channel.name.hasPrefix("@") {
+            return .amongUsMatch
+        } else {
+            return .global
+        }
+    }
+    
 }
