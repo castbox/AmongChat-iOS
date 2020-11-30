@@ -13,11 +13,8 @@
  import RxSwift
  
  /// https://firebase.google.com/docs/cloud-messaging/?authuser=0
- #if DEBUG
- fileprivate let defaultHotTopic = ["test", "hot"]
- #else
  fileprivate let defaultHotTopic = ["hot-amongus"]
- #endif
+ private let oldHotTopic = ["hot"]
  //private func print()
  
  class FireMessaging: NSObject {
@@ -50,6 +47,9 @@
             .debug()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { value in
+                oldHotTopic.forEach { topic in
+                    Messaging.messaging().unsubscribe(fromTopic: topic)
+                }
                 defaultHotTopic.forEach { topic in
                     if value {
                         Messaging.messaging().subscribe(toTopic: topic) { error in
