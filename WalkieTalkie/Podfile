@@ -85,7 +85,7 @@ target 'WalkieTalkie' do
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
     pod 'AgoraAudio_iOS', '3.0.1'
-#    pod 'AgoraRtm_iOS'
+    pod 'AgoraRtm_iOS'
 
     pod 'JLRoutes'
     
@@ -142,11 +142,11 @@ target 'WalkieTalkie' do
     pod 'TikTokOpenSDK', '~> 3.0.2'
 end
 
-target 'WalkieTalkieWidgetExtension' do
-  pod 'SwiftyUserDefaults'
-  pod 'Moya/RxSwift'
-  pod 'ObjectMapper'
-end
+#target 'WalkieTalkieWidgetExtension' do
+#  pod 'SwiftyUserDefaults'
+#  pod 'Moya/RxSwift'
+#  pod 'ObjectMapper'
+#end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
