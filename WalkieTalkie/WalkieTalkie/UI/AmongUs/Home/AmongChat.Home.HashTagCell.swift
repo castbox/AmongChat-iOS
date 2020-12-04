@@ -19,6 +19,14 @@ extension AmongChat.Home {
             return iv
         }()
         
+        private lazy var hashSymbol: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.blackOpsOneRegular(size: 20)
+            lb.textColor = UIColor.white.alpha(0.5)
+            lb.text = "#"
+            return lb
+        }()
+        
         private lazy var tagNameLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoRegular(size: 14)
@@ -55,7 +63,11 @@ extension AmongChat.Home {
                 
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: tagIcon, tagNameLabel)
+            contentView.addSubviews(views: hashSymbol, tagIcon, tagNameLabel)
+            
+            hashSymbol.snp.makeConstraints { (maker) in
+                maker.center.equalTo(tagIcon)
+            }
             
             tagIcon.snp.makeConstraints { (maker) in
                 maker.size.equalTo(CGSize(width: 23, height: 23))
