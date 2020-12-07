@@ -106,8 +106,12 @@ extension FireStore.Entity.User.Profile {
         ]
     }
     
+    private static var defaultAvatarsAmount: Int {
+        return Int(6)
+    }
+    
     static func randomDefaultAvatar() -> (UIImage?, Int) {
-        let idx = Int.random(in: 0...5)
+        let idx = Int.random(in: 0..<defaultAvatarsAmount)
         let image = UIImage(named: "default_avatar_\(idx)")
         return (image, idx)
     }
@@ -122,7 +126,8 @@ extension FireStore.Entity.User.Profile {
                 subscriber.onNext(image)
                 subscriber.onCompleted()
             } else {
-                subscriber.onNext(nil)
+                let image = UIImage(named: "default_avatar_\(uidInt % UInt(FireStore.Entity.User.Profile.defaultAvatarsAmount))")
+                subscriber.onNext(image)
                 subscriber.onCompleted()
             }
             
