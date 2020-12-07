@@ -227,6 +227,8 @@ extension AmongChat.Room.UserListViewController {
         
         let mute = sender.isSelected
         ChatRoomManager.shared.muteMyMic(muted: mute)
+        let tip = mute ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
+        view.raft.autoShow(.text(tip))
     }
     
     @objc

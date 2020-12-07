@@ -165,3 +165,5 @@
 "among.chat.room.start.game.tip2" = "What about you, %1$@";
 "among.chat.room.tip.timeout" = "Timeout";
 "among.chat.room.tip.failed" = "Failed";
+"among.chat.room.tip.mic.off" = "mic off";
+"among.chat.room.tip.mic.on" = "mic on";

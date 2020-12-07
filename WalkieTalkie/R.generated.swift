@@ -1027,7 +1027,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 122 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 124 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1513,6 +1513,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: mic off
+      /// 
+      /// Locales: en
+      static let amongChatRoomTipMicOff = Rswift.StringResource(key: "among.chat.room.tip.mic.off", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: mic on
+      /// 
+      /// Locales: en
+      static let amongChatRoomTipMicOn = Rswift.StringResource(key: "among.chat.room.tip.mic.on", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en
@@ -2363,6 +2371,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: mic off
+      /// 
+      /// Locales: en
+      static func amongChatRoomTipMicOff(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.tip.mic.off", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: mic on
+      /// 
+      /// Locales: en
+      static func amongChatRoomTipMicOn(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.tip.mic.on", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
