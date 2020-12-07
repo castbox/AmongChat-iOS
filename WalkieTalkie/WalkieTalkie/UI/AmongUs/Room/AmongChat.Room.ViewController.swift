@@ -1,5 +1,5 @@
 //
-//  AmongChat.Room.UserListViewController.swift
+//  AmongChat.Room.ViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue_work on 2020/11/25.
@@ -13,7 +13,7 @@ import MoPub
 
 extension AmongChat.Room {
     
-    class UserListViewController: WalkieTalkie.ViewController {
+    class ViewController: WalkieTalkie.ViewController {
         
         private typealias UserCell = AmongChat.Room.UserCell
         private typealias ActionModal = ChannelUserListController.ActionModal
@@ -62,6 +62,10 @@ extension AmongChat.Room {
             v.delegate = self
             v.backgroundColor = nil
             return v
+        }()
+        
+        private lazy var messageListView: UITableView = {
+            
         }()
         
         private lazy var gameTipView: UIView = {
@@ -186,7 +190,7 @@ extension AmongChat.Room {
     
 }
 
-extension AmongChat.Room.UserListViewController {
+extension AmongChat.Room.ViewController {
     
     //MARK: - UI Action
     
@@ -251,7 +255,7 @@ extension AmongChat.Room.UserListViewController {
     }
 }
 
-extension AmongChat.Room.UserListViewController: UICollectionViewDataSource {
+extension AmongChat.Room.ViewController: UICollectionViewDataSource {
     
     // MARK: - UICollectionView
         
@@ -269,7 +273,7 @@ extension AmongChat.Room.UserListViewController: UICollectionViewDataSource {
     
 }
 
-extension AmongChat.Room.UserListViewController: UICollectionViewDelegate {
+extension AmongChat.Room.ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let user = dataSource.safe(indexPath.item),
@@ -282,7 +286,7 @@ extension AmongChat.Room.UserListViewController: UICollectionViewDelegate {
     
 }
 
-extension AmongChat.Room.UserListViewController: MPAdViewDelegate {
+extension AmongChat.Room.ViewController: MPAdViewDelegate {
     
     //MARK: - MPAdViewDelegate
     
@@ -316,7 +320,7 @@ extension AmongChat.Room.UserListViewController: MPAdViewDelegate {
 }
 
 
-extension AmongChat.Room.UserListViewController {
+extension AmongChat.Room.ViewController {
     
     // MARK: -
     
@@ -540,7 +544,7 @@ extension AmongChat.Room.UserListViewController {
     
 }
 
-extension AmongChat.Room.UserListViewController {
+extension AmongChat.Room.ViewController {
     
     private func showMoreSheet(for channel: Room) {
         let alertVC = UIAlertController(
@@ -586,7 +590,7 @@ extension AmongChat.Room.UserListViewController {
 }
 
 
-fileprivate extension AmongChat.Room.UserListViewController {
+fileprivate extension AmongChat.Room.ViewController {
     
     enum RoomType {
         case amongUsMatch

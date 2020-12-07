@@ -296,7 +296,7 @@ extension AmongChat.Home.ViewController {
             .subscribe(onNext: { [weak self] room in
                 guard let `self` = self else { return }
                 self._joinChannel(room) { (channel) in
-                    let vc = AmongChat.Room.UserListViewController(channel: channel)
+                    let vc = AmongChat.Room.ViewController(channel: channel)
                     vc.modalPresentationStyle = .fullScreen
                     let transition = CATransition()
                     transition.duration = 0.5

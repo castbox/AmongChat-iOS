@@ -20,7 +20,7 @@
 		BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C36F4256E526B00D1E708 /* AmongChat.Home.swift */; };
 		BD6C36FA256E530100D1E708 /* AmongChat.Home.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C36F9256E530100D1E708 /* AmongChat.Home.ViewController.swift */; };
 		BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */; };
-		BD6C370B256E7D0C00D1E708 /* AmongChat.Room.UserListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C370A256E7D0C00D1E708 /* AmongChat.Room.UserListViewController.swift */; };
+		BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */; };
 		BD6C3710256F564500D1E708 /* AmongChat.Home.HashTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C370F256F564500D1E708 /* AmongChat.Home.HashTagCell.swift */; };
 		BD6C3718256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6C3717256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift */; };
 		BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */; };
@@ -290,7 +290,7 @@
 		BD6C36F4256E526B00D1E708 /* AmongChat.Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.swift; sourceTree = "<group>"; };
 		BD6C36F9256E530100D1E708 /* AmongChat.Home.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.ViewController.swift; sourceTree = "<group>"; };
 		BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.swift; sourceTree = "<group>"; };
-		BD6C370A256E7D0C00D1E708 /* AmongChat.Room.UserListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.UserListViewController.swift; sourceTree = "<group>"; };
+		BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewController.swift; sourceTree = "<group>"; };
 		BD6C370F256F564500D1E708 /* AmongChat.Home.HashTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.HashTagCell.swift; sourceTree = "<group>"; };
 		BD6C3717256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.HashTag.swift; sourceTree = "<group>"; };
 		BD73B0F724FDEE4B009D0AC7 /* Social.UserList.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.UserList.ViewController.swift; sourceTree = "<group>"; };
@@ -584,7 +584,7 @@
 			isa = PBXGroup;
 			children = (
 				BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */,
-				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.UserListViewController.swift */,
+				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */,
 				BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */,
 			);
 			path = Room;
@@ -1360,7 +1360,7 @@
 				FE746BDD24629B0500CAC554 /* GuideFirstView.swift in Sources */,
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
-				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.UserListViewController.swift in Sources */,
+				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
 				BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */,
