@@ -92,6 +92,7 @@ extension AmongChat.Home.HashTagCell {
     func configCell(with tag: AmongChat.Home.HashTag) {
         tagNameLabel.text = tag.name
         tagIcon.image = tag.icon
+        hashSymbol.isHidden = (tag.icon != nil)
     }
     
 }

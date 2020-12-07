@@ -26,6 +26,8 @@ extension AmongChat.Home {
             switch type {
             case .amongUs:
                 return R.image.launch_logo()
+            case .createPrivate:
+                return R.image.icon_pri_ad()
             default:
                 return nil
             }
