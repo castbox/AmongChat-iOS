@@ -1027,7 +1027,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 120 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 122 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1157,6 +1157,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed
+      /// 
+      /// Locales: en
+      static let amongChatRoomTipFailed = Rswift.StringResource(key: "among.chat.room.tip.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: FindCrewmates
       /// 
       /// Locales: en
@@ -1401,6 +1405,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertDesc = Rswift.StringResource(key: "enter.secret.channel.alert.desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Timeout
+      /// 
+      /// Locales: en
+      static let amongChatRoomTipTimeout = Rswift.StringResource(key: "among.chat.room.tip.timeout", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: To be a VIP member to talk with more users simultaneously
       /// 
       /// Locales: en
@@ -1732,6 +1740,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func enterSecretChannelAlertTitle(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed
+      /// 
+      /// Locales: en
+      static func amongChatRoomTipFailed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.tip.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: FindCrewmates
@@ -2159,6 +2174,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func enterSecretChannelAlertDesc(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.desc", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Timeout
+      /// 
+      /// Locales: en
+      static func amongChatRoomTipTimeout(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.tip.timeout", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: To be a VIP member to talk with more users simultaneously

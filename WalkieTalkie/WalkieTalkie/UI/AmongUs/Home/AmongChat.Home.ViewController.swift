@@ -391,6 +391,18 @@ extension AmongChat.Home.ViewController {
     }
     
     private func _joinRoom(_ room: Single<Room>) {
+        
+        let networkNotReachAlertBlock = { [weak self] in
+            let alert = UIAlertController(title: R.string.localizable.networkNotReachable(), message: nil, preferredStyle: .alert)
+            alert.addAction(.init(title: R.string.localizable.toastConfirm(), style: .default, handler: nil))
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
+        guard Reachability.shared.canReachable else {
+            networkNotReachAlertBlock()
+            return
+        }
+        
         self.view.isUserInteractionEnabled = false
         let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
         self.hudRemoval = {
@@ -537,7 +549,9 @@ extension AmongChat.Home.ViewController: ChatRoomDelegate {
     func onJoinChannelFailed(channelId: String?) {
         self.hudRemoval?()
         self.hudRemoval = nil
-
+        
+        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
+        
         Observable.just(())
             .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
             .filter { [weak self] _  -> Bool in
@@ -552,7 +566,9 @@ extension AmongChat.Home.ViewController: ChatRoomDelegate {
     func onJoinChannelTimeout(channelId: String?) {
         self.hudRemoval?()
         self.hudRemoval = nil
-
+        
+        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
+        
         Observable.just(())
             .observeOn(MainScheduler.asyncInstance)
             .filter { [weak self] _  -> Bool in
