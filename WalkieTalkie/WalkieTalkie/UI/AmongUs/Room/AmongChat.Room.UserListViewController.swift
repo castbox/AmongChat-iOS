@@ -85,7 +85,7 @@ extension AmongChat.Room {
                 maker.edges.equalToSuperview().inset(12)
             }
             view.layer.cornerRadius = 10
-            view.isHidden = (roomType == .global)
+            view.isHidden = (FireStore.shared.isInReviewSubject.value || roomType == .global)
             return view
         }()
         
