@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -456,7 +456,7 @@ Cg
                                     </attributes>
                                 </fragment>
                                 <fragment>
-                                    <mutableString key="content">10. INDEMNIFICATION. You agree to indemnify, defend and hold harmless WalAmong Chat: Talk to Friends from and against any claim, proceeding, loss, damage, fine, penalty, interest and expense (including, without limitation, fees for attorneys and other professional advisors) arising out of or in connection with the following: (i) your access to or use of the APPLICATION or Third Party Content and Services; (ii) your breach of this License; (iii) Your violation of law; (iv) your negligence or willful misconduct; or (v) your violation of the rights of a third party. You will promptly notify WalAmong Chat: Talk to Friends in writing of any third-party claim arising out of or in connection with your access to or use of the APPLICATION. These obligations survive termination of this License</mutableString>
+                                    <mutableString key="content">10. INDEMNIFICATION. You agree to indemnify, defend and hold harmless Among Chat: Talk to Friends from and against any claim, proceeding, loss, damage, fine, penalty, interest and expense (including, without limitation, fees for attorneys and other professional advisors) arising out of or in connection with the following: (i) your access to or use of the APPLICATION or Third Party Content and Services; (ii) your breach of this License; (iii) Your violation of law; (iv) your negligence or willful misconduct; or (v) your violation of the rights of a third party. You will promptly notify Among Chat: Talk to Friends in writing of any third-party claim arising out of or in connection with your access to or use of the APPLICATION. These obligations survive termination of this License</mutableString>
                                     <attributes>
                                         <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -486,7 +486,7 @@ Cg
                                     </attributes>
                                 </fragment>
                                 <fragment>
-                                    <mutableString key="content">11. MODIFICATION OR AMENDMENT. WalAmong Chat: Talk to Friends may modify or amend the terms of this License at any time, with or without notice to you, by posting a copy of the modified or amended License available through the APPLICATION. You will be deemed to have agreed to any such modification or amendment by your decision to continue using the APPLICATION following the date in which the modified or amended License is made available through the APPLICATION.</mutableString>
+                                    <mutableString key="content">11. MODIFICATION OR AMENDMENT. Among Chat: Talk to Friends may modify or amend the terms of this License at any time, with or without notice to you, by posting a copy of the modified or amended License available through the APPLICATION. You will be deemed to have agreed to any such modification or amendment by your decision to continue using the APPLICATION following the date in which the modified or amended License is made available through the APPLICATION.</mutableString>
                                     <attributes>
                                         <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
