@@ -201,6 +201,11 @@ extension AmongChat.Room {
         private var messageListDataSource: [MessageViewModel] = [] {
             didSet {
                 messageListTableView.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    if self?.messageListTableView.contentSize.height ?? 0 > self?.messageListTableView.frame.size.height ?? 0 {
+                        self?.messageListTableView.scrollToBottom()
+                    }
+                }
             }
         }
         
