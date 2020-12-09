@@ -167,3 +167,4 @@
 "among.chat.room.tip.failed" = "Failed";
 "among.chat.room.tip.mic.off" = "mic off";
 "among.chat.room.tip.mic.on" = "mic on";
+"among.chat.room.message.placeholder" = "Say something...";

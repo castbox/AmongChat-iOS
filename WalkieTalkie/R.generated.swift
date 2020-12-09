@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 92 images.
+  /// This `R.image` struct is generated, and contains static references to 94 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -150,6 +150,10 @@ struct R: Rswift.Validatable {
     static let btn_private_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_private_icon")
     /// Image `btn_private_small`.
     static let btn_private_small = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_private_small")
+    /// Image `btn_room_message`.
+    static let btn_room_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_room_message")
+    /// Image `btn_room_share`.
+    static let btn_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_room_share")
     /// Image `btn_share`.
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
@@ -363,6 +367,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_private_small", bundle: ..., traitCollection: ...)`
     static func btn_private_small(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_private_small, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "btn_room_message", bundle: ..., traitCollection: ...)`
+    static func btn_room_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_room_message, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "btn_room_share", bundle: ..., traitCollection: ...)`
+    static func btn_room_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_room_share, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "btn_share", bundle: ..., traitCollection: ...)`
@@ -1027,7 +1041,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 124 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 125 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1357,6 +1371,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileEditSaveBtn = Rswift.StringResource(key: "profile.edit.save.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Say something...
+      /// 
+      /// Locales: en
+      static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sent
       /// 
       /// Locales: en
@@ -2098,6 +2116,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileEditSaveBtn(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.save.btn", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Say something...
+      /// 
+      /// Locales: en
+      static func amongChatRoomMessagePlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.message.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sent

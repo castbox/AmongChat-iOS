@@ -64,33 +64,26 @@ extension AmongChat.Room {
             return v
         }()
         
-        private lazy var messageListView: UITableView = {
-            
+        private lazy var messageListTableView: UITableView = {
+            let tb = UITableView(frame: .zero, style: .plain)
+            tb.register(AmongChat.Room.MessageCell.self, forCellReuseIdentifier: NSStringFromClass(AmongChat.Room.MessageCell.self))
+            tb.backgroundColor = .clear
+            tb.dataSource = self
+            tb.delegate = self
+            tb.isHidden = true
+            return tb
         }()
         
-        private lazy var gameTipView: UIView = {
-            let view = UIView()
-            view.backgroundColor = UIColor.white.alpha(0.5)
-            let lb = UILabel()
-            lb.numberOfLines = 0
-            lb.lineBreakMode = .byWordWrapping
-            lb.font = R.font.nunitoRegular(size: 12)
-            lb.textColor = UIColor(red: 254, green: 254, blue: 104)
-            
-            var txt = R.string.localizable.amongChatRoomStartGameTip1()
-            
-            if let p = Settings.shared.firestoreUserProfile.value {
-                txt = txt + " " + R.string.localizable.amongChatRoomStartGameTip2(p.name)
-            }
-            
-            lb.text = txt
-            view.addSubview(lb)
-            lb.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview().inset(12)
-            }
-            view.layer.cornerRadius = 10
-            view.isHidden = (FireStore.shared.isInReviewSubject.value || roomType == .global)
-            return view
+        private lazy var messageBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.addTarget(self, action: #selector(onMessageBtn), for: .primaryActionTriggered)
+            btn.backgroundColor = UIColor.white.alpha(0.8)
+            btn.layer.cornerRadius = 25
+            let image = R.image.btn_room_message()?.withRenderingMode(.alwaysTemplate)
+            btn.setImage(image, for: .normal)
+            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
+            btn.isHidden = true
+            return btn
         }()
         
         private lazy var micSwitchBtn: UIButton = {
@@ -108,11 +101,9 @@ extension AmongChat.Room {
             btn.addTarget(self, action: #selector(onShareBtn), for: .primaryActionTriggered)
             btn.backgroundColor = UIColor.white.alpha(0.8)
             btn.layer.cornerRadius = 25
-            let image = R.image.btn_share()?.withRenderingMode(.alwaysTemplate)
+            let image = R.image.btn_room_share()?.withRenderingMode(.alwaysTemplate)
             btn.setImage(image, for: .normal)
             btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-            btn.imageView?.contentMode = .scaleAspectFit
             return btn
         }()
         
@@ -160,6 +151,41 @@ extension AmongChat.Room {
             return adView
         }()
         
+        private lazy var messageInputContainerView: UIView = {
+            let v = UIView()
+            v.isHidden = true
+            v.backgroundColor = .clear
+            v.addSubview(messageInputField)
+            messageInputField.snp.makeConstraints { (maker) in
+                maker.left.right.bottom.equalToSuperview()
+                maker.height.equalTo(50)
+            }
+            return v
+        }()
+        
+        private lazy var messageInputField: UITextField = {
+            let f = UITextField(frame: CGRect.zero)
+            f.backgroundColor = UIColor("#151515")
+            f.borderStyle = .none
+            let leftMargin = UIView()
+            leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
+            let rightMargin = UIView()
+            rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
+            f.leftView = leftMargin
+            f.rightView = rightMargin
+            f.leftViewMode = .always
+            f.rightViewMode = .always
+            f.returnKeyType = .send
+            f.attributedPlaceholder = NSAttributedString(string: R.string.localizable.amongChatRoomMessagePlaceholder(),
+                                                         attributes: [
+                                                            NSAttributedString.Key.foregroundColor : UIColor("#8A8A8A")
+                                                         ])
+            f.textColor = .white
+            f.delegate = self
+            f.font = R.font.nunitoRegular(size: 13)
+            return f
+        }()
+        
         private var dataSource: [ChannelUserViewModel] = [] {
             didSet {
                 userCollectionView.reloadData()
@@ -170,9 +196,17 @@ extension AmongChat.Room {
         
         private let channel: Room
         private let viewModel = ChannelUserListViewModel.shared
+        private let imViewModel: IMViewModel
+        
+        private var messageListDataSource: [MessageViewModel] = [] {
+            didSet {
+                messageListTableView.reloadData()
+            }
+        }
         
         init(channel: Room) {
             self.channel = channel
+            self.imViewModel = IMViewModel(with: channel.name)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -184,6 +218,11 @@ extension AmongChat.Room {
             super.viewDidLoad()
             setupLayout()
             bindSubviewEvent()
+        }
+        
+        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            view.endEditing(true)
         }
         
     }
@@ -223,6 +262,11 @@ extension AmongChat.Room.ViewController {
         alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
         alertVC.addAction(confirm)
         present(alertVC, animated: true, completion: nil)
+    }
+    
+    @objc
+    private func onMessageBtn() {
+        messageInputField.becomeFirstResponder()
     }
     
     @objc
@@ -329,27 +373,34 @@ extension AmongChat.Room.ViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
                 
-        view.addSubviews(views: bgView, userCollectionView, gameTipView, closeBtn, bottomBtnStack, adContainer)
+        view.addSubviews(views: bgView, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView)
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
-        }
-        
-        userCollectionView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(140)
-            maker.height.equalTo(180)
-        }
-        
-        gameTipView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview().inset(12)
-            maker.top.equalTo(userCollectionView.snp.bottom)
         }
         
         closeBtn.snp.makeConstraints { (maker) in
             maker.height.width.equalTo(44)
             maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
             maker.right.equalTo(-6)
+        }
+        
+        userCollectionView.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(closeBtn.snp.bottom).offset(20)
+            maker.height.equalTo(180)
+        }
+        
+        messageListTableView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(userCollectionView.snp.bottom)
+            maker.bottom.equalTo(bottomBtnStack.snp.top).offset(-20)
+            maker.left.right.equalToSuperview()
+        }
+        
+        messageBtn.snp.makeConstraints { (maker) in
+            maker.height.width.equalTo(50)
+            maker.centerY.equalTo(bottomBtnStack)
+            maker.left.equalToSuperview().inset(16)
         }
         
         bottomBtnStack.snp.makeConstraints { (maker) in
@@ -362,6 +413,11 @@ extension AmongChat.Room.ViewController {
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.centerX.equalToSuperview()
             maker.height.equalTo(50)
+        }
+        
+        messageInputContainerView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         if channel.name.isPrivate {
@@ -529,10 +585,37 @@ extension AmongChat.Room.ViewController {
             })
             .disposed(by: bag)
         
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self] keyboardVisibleHeight in
+                guard let `self` = self else { return }
+                self.messageInputContainerView.snp.updateConstraints { (maker) in
+                    maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                }
+                UIView.animate(withDuration: 0) {
+                    self.view.layoutIfNeeded()
+                }
+            })
+            .disposed(by: bag)
+        
         viewModel.userObservable
-        .subscribe(onNext: { [weak self] (channelUsers) in
-            self?.dataSource = channelUsers
-        })
+            .subscribe(onNext: { [weak self] (channelUsers) in
+                self?.dataSource = channelUsers
+            })
+            .disposed(by: bag)
+        
+        imViewModel.messagesObservable
+            .subscribe(onNext: { [weak self] (msgs) in
+                self?.messageListDataSource = msgs
+            })
+            .disposed(by: bag)
+        
+        imViewModel.imReadySignal
+            .filter({ $0 })
+            .take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.messageListTableView.isHidden = false
+                self?.messageBtn.isHidden = false
+            })
             .disposed(by: bag)
     }
     
@@ -589,23 +672,72 @@ extension AmongChat.Room.ViewController {
     }
 }
 
-
-fileprivate extension AmongChat.Room.ViewController {
+extension AmongChat.Room.ViewController: UITextFieldDelegate {
     
-    enum RoomType {
-        case amongUsMatch
-        case global
-        case amongUsPrivate
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        messageInputContainerView.isHidden = true
     }
     
-    private var roomType: RoomType {
-        if channel.name.hasPrefix("_@") {
-            return .amongUsPrivate
-        } else if channel.name.hasPrefix("@") {
-            return .amongUsMatch
-        } else {
-            return .global
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        messageInputContainerView.isHidden = false
+    }
+        
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = textField.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
         }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 256
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        guard let text = textField.text,
+              text.count > 0 else {
+            return true
+        }
+        
+        textField.clear()
+        imViewModel.sendMessage(text)
+        return true
+    }
+}
+
+extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messageListDataSource.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongChat.Room.MessageCell.self), for: indexPath)
+        
+        if let cell = cell as? AmongChat.Room.MessageCell,
+           let model = messageListDataSource.safe(indexPath.row) {
+            cell.configCell(with: model)
+        }
+        
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        if let model = messageListDataSource.safe(indexPath.row) {
+            model.text.copyToPasteboard()
+            view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        }
+        
     }
     
 }
