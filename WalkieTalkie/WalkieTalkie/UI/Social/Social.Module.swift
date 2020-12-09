@@ -47,11 +47,11 @@ extension Social {
                 .take(1)
                 .subscribe(onNext: { [weak self] (t) in
                     let (result, _) = t
-                    self?.startHeartbeat(result.uid)
+//                    self?.startHeartbeat(result.uid)
                     self?.initializeProfileIfNeeded(result.uid)
-                    self?.observeRelations(result.uid)
-                    self?.observeCommonMsg(result.uid)
-                    self?.bindProToProfile(result.uid)
+//                    self?.observeRelations(result.uid)
+//                    self?.observeCommonMsg(result.uid)
+//                    self?.bindProToProfile(result.uid)
                     self?.bindProfileToFirestore(result.uid)
                 })
                 .disposed(by: bag)
