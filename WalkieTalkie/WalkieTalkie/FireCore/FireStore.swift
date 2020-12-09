@@ -20,13 +20,13 @@ class FireStore {
     
     /// 根结点名称
     struct Root {
-        static let secrets = "secrets-amongus"
+        static let secrets = "ac-channels-0"
         static let settings = "settings"
         static let channelConfig = "channel_config"
         //        static let default_channels = "default_channels"
-        static let channels = "channels"
+        static let channels = "ac-channels-100"
         static let users = "users"
-        static let amongUsChannels = "channels-amongus"
+        static let amongUsChannels = "ac-channels-101"
     }
     //
     static let shared = FireStore()
@@ -552,7 +552,7 @@ extension WalkieTalkie.FireStore {
                     .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
                     return room
                 } else {
-                    let newRoomName = self.createUniqueChannelName(type: .global, in: rooms.map({ $0.name }))
+                    let newRoomName = self.createUniqueChannelName(type: .global, exclude: rooms.map({ $0.name }))
                     return Room(name: newRoomName, user_count: 0)
                 }
             })
@@ -563,21 +563,21 @@ extension WalkieTalkie.FireStore {
         
         switch type {
         case .amongUs:
-            prefix = "@"
+            prefix = "@101#"
         case .secret:
-            prefix = "_@"
+            prefix = "@0#"
         case .global:
-            prefix = ""
+            prefix = "@100#"
         }
         
         return prefix
     }
     
-    private func createUniqueChannelName(type: RoomType, in nameSet: [String]) -> String {
+    private func createUniqueChannelName(type: RoomType, exclude nameSet: [String]) -> String {
         
         let channelName = roomPrefix(of: type) + PasswordGenerator.shared.generate()
         guard !nameSet.contains(channelName) else {
-            return createUniqueChannelName(type: type, in: nameSet)
+            return createUniqueChannelName(type: type, exclude: nameSet)
         }
         return channelName
     }
@@ -591,7 +591,7 @@ extension WalkieTalkie.FireStore {
                     .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
                     return room
                 } else {
-                    let newRoomName = self.createUniqueChannelName(type: .amongUs, in: rooms.map({ $0.name }))
+                    let newRoomName = self.createUniqueChannelName(type: .amongUs, exclude: rooms.map({ $0.name }))
                     return Room(name: newRoomName, user_count: 0)
                 }
             })
@@ -628,7 +628,7 @@ extension WalkieTalkie.FireStore {
         if let name = name {
             newRoomName = roomPrefix(of: .secret) + name
         } else {
-            newRoomName = createUniqueChannelName(type: .secret, in: [])
+            newRoomName = createUniqueChannelName(type: .secret, exclude: [])
         }
         
         let room = Room(name: newRoomName, user_count: 0)

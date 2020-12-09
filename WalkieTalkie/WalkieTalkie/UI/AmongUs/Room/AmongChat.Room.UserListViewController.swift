@@ -361,11 +361,7 @@ extension AmongChat.Room.UserListViewController {
         }
         
         if channel.name.isPrivate {
-            var name = channel.name
-            name.removeAll(where: { (c) -> Bool in
-                c == "_" || c == "@"
-            })
-            showShareController(channelName: name)
+            showShareController(channelName: channel.name)
         }
         
         if let adView = self.adView {

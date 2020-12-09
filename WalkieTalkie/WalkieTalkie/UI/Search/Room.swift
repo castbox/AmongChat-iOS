@@ -90,14 +90,14 @@ struct Room: Codable, DefaultsSerializable {
     }
     
     var isPrivate: Bool {
-        return name.hasPrefix("_")
+        return name.hasPrefix("@0#")
     }
 }
 
 extension String {
     var showName: String {
         if isPrivate {
-            guard let name = split(bySeparator: "_").last else {
+            guard let name = split(bySeparator: "@0#").last else {
                 return self
             }
 //            guard name.count == PasswordGenerator.shared.totalCount else {
@@ -112,11 +112,11 @@ extension String {
     }
     
     var publicName: String? {
-        return split(bySeparator: "_").last
+        return split(bySeparator: "@0#").last
     }
     
     var isPrivate: Bool {
-        return hasPrefix("_")
+        return hasPrefix("@0#")
     }
     
     var channelType: ChannelType {
