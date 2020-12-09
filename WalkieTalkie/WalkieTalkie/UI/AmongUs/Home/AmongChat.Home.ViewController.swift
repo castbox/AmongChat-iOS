@@ -179,6 +179,14 @@ extension AmongChat.Home.ViewController {
         view.backgroundColor = UIColor(hex6: 0x00011B)
         view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, hashTagsTitle, hashTagCollectionView)
         
+        let avatarLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(avatarLayoutGuide)
+        
+        avatarLayoutGuide.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalToSuperview()
+            maker.bottom.equalTo(hashTagsTitle.snp.top)
+        }
+        
         bgImageView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
@@ -195,7 +203,7 @@ extension AmongChat.Home.ViewController {
         }
         
         avatarBtn.snp.makeConstraints { (maker) in
-            maker.center.equalToSuperview()
+            maker.center.equalTo(avatarLayoutGuide)
         }
         
         hashTagsTitle.snp.makeConstraints { (maker) in
