@@ -33,11 +33,11 @@ extension APIService.WalkieTalkie: TargetType {
     var path: String {
         switch self {
         case .enterRoom(_), .leaveRoom(_):
-            #if DEBUG
-            return "test-app/channels/user/event"
-            #else
+//            #if DEBUG
+//            return "test-app/channels/user/event"
+//            #else
             return "app/channels/user/event"
-            #endif
+//            #endif
         }
     }
     
