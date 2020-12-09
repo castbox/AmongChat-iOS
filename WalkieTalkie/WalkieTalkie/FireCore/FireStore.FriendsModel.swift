@@ -116,18 +116,20 @@ extension FireStore.Entity.User.Profile {
         return (image, idx)
     }
     
+    static func defaultAvatar(of idx: Int) -> UIImage? {
+        return  UIImage(named: "default_avatar_\(idx % FireStore.Entity.User.Profile.defaultAvatarsAmount)")
+    }
+    
     var avatarObservable: Single<UIImage?> {
         return Observable<UIImage?>.create { (subscriber) -> Disposable in
             
             if self.avatar.starts(with: "http") {
                 // TODO: avatar fetching
             } else if let idx = Int(self.avatar){
-                let image = UIImage(named: "default_avatar_\(idx)")
-                subscriber.onNext(image)
+                subscriber.onNext(type(of: self).defaultAvatar(of: idx))
                 subscriber.onCompleted()
             } else {
-                let image = UIImage(named: "default_avatar_\(uidInt % UInt(FireStore.Entity.User.Profile.defaultAvatarsAmount))")
-                subscriber.onNext(image)
+                subscriber.onNext(type(of: self).defaultAvatar(of: Int.init(uidInt)))
                 subscriber.onCompleted()
             }
             
