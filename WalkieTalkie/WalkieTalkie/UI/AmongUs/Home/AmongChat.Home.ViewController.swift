@@ -45,7 +45,44 @@ extension AmongChat.Home {
         private lazy var avatarBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onAvatarBtn), for: .primaryActionTriggered)
+            btn.layer.borderWidth = 2
+            btn.layer.borderColor = UIColor.white.cgColor
             return btn
+        }()
+        
+        private lazy var nameLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoRegular(size: 12)
+            lb.textColor = .black
+            return lb
+        }()
+        
+        private lazy var editNameBtn: UIView = {
+            let v = UIView()
+            let icon = UIImageView(image: R.image.home_name_edit()?.withRenderingMode(.alwaysTemplate))
+            icon.contentMode = .scaleAspectFit
+            icon.tintColor = .black
+            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onEditNameBtn))
+            v.addGestureRecognizer(tapGR)
+            v.layer.cornerRadius = 10
+            v.backgroundColor = .white
+            v.isHidden = true
+            
+            v.addSubviews(views: nameLabel, icon)
+            
+            nameLabel.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.left.equalToSuperview().inset(10)
+            }
+            
+            icon.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(14)
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().inset(5)
+                maker.left.equalTo(nameLabel.snp.right).offset(5)
+            }
+            
+            return v
         }()
         
         private lazy var hashTagsTitle: UILabel = {
@@ -133,7 +170,7 @@ extension AmongChat.Home {
             hashTagCollectionView.snp.updateConstraints { (maker) in
                 maker.height.equalTo(hashTagCollectionView.contentSize.height)
             }
-            
+            avatarBtn.layer.cornerRadius = avatarBtn.bounds.width / 2
             haloView.layer.cornerRadius = haloView.bounds.width / 2
         }
     }
@@ -163,6 +200,14 @@ extension AmongChat.Home.ViewController {
     }
     
     @objc
+    private func onEditNameBtn() {
+        let vc = Social.EditProfileViewController()
+        navigationController?.pushViewController(vc, completion: {
+            Ad.InterstitialManager.shared.showAdIfReady(from: vc)
+        })
+    }
+    
+    @objc
     private func onRequestMicBtn() {
         
     }
@@ -177,7 +222,7 @@ extension AmongChat.Home.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, hashTagsTitle, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, editNameBtn, hashTagsTitle, hashTagCollectionView)
         
         let avatarLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(avatarLayoutGuide)
@@ -204,6 +249,12 @@ extension AmongChat.Home.ViewController {
         
         avatarBtn.snp.makeConstraints { (maker) in
             maker.center.equalTo(avatarLayoutGuide)
+        }
+        
+        editNameBtn.snp.makeConstraints { (maker) in
+            maker.bottom.equalTo(avatarBtn.snp.bottom)
+            maker.centerX.equalTo(avatarBtn)
+            maker.height.equalTo(20)
         }
         
         hashTagsTitle.snp.makeConstraints { (maker) in
@@ -285,6 +336,8 @@ extension AmongChat.Home.ViewController {
                     .subscribe(onSuccess: { (image) in
                         self?.avatarBtn.setImage(image, for: .normal)
                     })
+                self?.editNameBtn.isHidden = false
+                self?.nameLabel.text = profile.name
             })
             .disposed(by: bag)
         

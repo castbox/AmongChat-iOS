@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 94 images.
+  /// This `R.image` struct is generated, and contains static references to 95 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -188,6 +188,8 @@ struct R: Rswift.Validatable {
     static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
     /// Image `home_connect_btn_bg_b`.
     static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
+    /// Image `home_name_edit`.
+    static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconReport`.
     static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
     /// Image `icon_close_gray`.
@@ -462,6 +464,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "home_connect_btn_bg_b", bundle: ..., traitCollection: ...)`
     static func home_connect_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "home_name_edit", bundle: ..., traitCollection: ...)`
+    static func home_name_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "iconReport", bundle: ..., traitCollection: ...)`
