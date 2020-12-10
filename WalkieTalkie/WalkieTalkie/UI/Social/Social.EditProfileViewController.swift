@@ -63,6 +63,7 @@ extension Social {
         
         private lazy var userNameInputField: UITextField = {
             let f = UITextField()
+            f.keyboardType = .alphabet
             f.contentVerticalAlignment = .center
             f.backgroundColor = .white
             f.font = R.font.nunitoSemiBold(size: 12)
@@ -88,6 +89,7 @@ extension Social {
             lb.textColor = .black
             lb.text = R.string.localizable.profileEditBirthday()
             lb.appendKern()
+            lb.isHidden = true
             return lb
         }()
         
@@ -108,6 +110,7 @@ extension Social {
             f.leftViewMode = .always
             f.rightViewMode = .always
             f.cornerRadius = 15
+            f.isHidden = true
             return f
         }()
         
@@ -287,12 +290,15 @@ extension Social.EditProfileViewController: UITextFieldDelegate {
             return true
         }
         
+        let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").inverted
+        let filteredString = string.components(separatedBy: set).joined(separator: "")
+        
         let currentCharacterCount = textField.text?.count ?? 0
         if range.length + range.location > currentCharacterCount {
             return false
         }
         let newLength = currentCharacterCount + string.count - range.length
-        return newLength <= 20
+        return filteredString == string && newLength <= 10
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
