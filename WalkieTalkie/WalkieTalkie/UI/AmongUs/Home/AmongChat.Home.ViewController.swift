@@ -330,6 +330,12 @@ extension AmongChat.Home.ViewController {
             .disposed(by: bag)
         
         Settings.shared.firestoreUserProfile.replay()
+            .do(onNext: { [weak self] (profile) in
+                guard profile == nil else {
+                    return
+                }
+                self?.avatarBtn.setImage(FireStore.Entity.User.Profile.defaultAvatar(of: Int.init(Constants.sUserId)).0, for: .normal)
+            })
             .filterNil()
             .subscribe(onNext: { [weak self] (profile) in
                 let _ = profile.avatarObservable
