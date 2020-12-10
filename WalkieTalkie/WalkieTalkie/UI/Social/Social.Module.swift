@@ -78,7 +78,7 @@ extension Social {
                     if let profile = profile {
                         Settings.shared.firestoreUserProfile.value = profile
                     } else {
-                        let profile = FireStore.Entity.User.Profile(avatar: "\(FireStore.Entity.User.Profile.randomDefaultAvatar().1)",
+                        let profile = FireStore.Entity.User.Profile(avatar: "\(FireStore.Entity.User.Profile.defaultAvatar(of: Int.init(Constants.sUserId)).1)",
                                                                     birthday: "",
                                                                     name: Constants.defaultUsername,
                             premium: Settings.shared.isProValue.value,
