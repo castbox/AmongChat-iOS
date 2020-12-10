@@ -5644,6 +5644,19 @@ THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string> The MoPub SDK License can be found at http://www.mopub.com/legal/sdk-license-agreement/
+
+
+</string>
+			<key>License</key>
+			<string>New BSD</string>
+			<key>Title</key>
+			<string>MoPub-UnityAds-Adapters</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>The MIT License (MIT)
 
 Copyright (c) 2014-present Artsy, Ash Furrow
@@ -6827,6 +6840,19 @@ SOFTWARE.</string>
 			<string>MIT</string>
 			<key>Title</key>
 			<string>UIColor_Hex_Swift</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
+			<string>Unity Advertisements © 2020 Unity Technologies SF
+Your use of the Unity Technologies SF ("Unity') software known as "Unity Advertisements" is subject to the Unity Monetization Services Terms of Service linked to and copied immediately below.
+[Unity Monetization Services TOS](https://unity3d.com/legal/monetization-services-terms-of-service)
+Your use of the Unity Advertisements software constitutes your acceptance of such terms. Unless expressly provided otherwise, the software under this license is made available strictly on an "AS IS" BASIS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED. Please review the license for details on these and other terms and conditions.</string>
+			<key>License</key>
+			<string>Unity License</string>
+			<key>Title</key>
+			<string>UnityAds</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
