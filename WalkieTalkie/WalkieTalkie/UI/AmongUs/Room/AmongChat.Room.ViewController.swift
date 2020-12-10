@@ -71,6 +71,8 @@ extension AmongChat.Room {
             tb.dataSource = self
             tb.delegate = self
             tb.isHidden = true
+            tb.separatorStyle = .none
+            tb.rowHeight = UITableView.automaticDimension
             return tb
         }()
         
