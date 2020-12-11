@@ -434,14 +434,14 @@ PODS:
   - mopub-ios-sdk/Core (5.14.1)
   - mopub-ios-sdk/NativeAds (5.14.1):
     - mopub-ios-sdk/Core
-  - MoPub-UnityAds-Adapters (3.5.1.0):
-    - MoPub-UnityAds-Adapters/MoPub (= 3.5.1.0)
-    - MoPub-UnityAds-Adapters/Network (= 3.5.1.0)
-  - MoPub-UnityAds-Adapters/MoPub (3.5.1.0):
+  - MoPub-UnityAds-Adapters (3.4.8.1):
+    - MoPub-UnityAds-Adapters/MoPub (= 3.4.8.1)
+    - MoPub-UnityAds-Adapters/Network (= 3.4.8.1)
+  - MoPub-UnityAds-Adapters/MoPub (3.4.8.1):
     - mopub-ios-sdk/Core (~> 5.13)
-  - MoPub-UnityAds-Adapters/Network (3.5.1.0):
+  - MoPub-UnityAds-Adapters/Network (3.4.8.1):
     - mopub-ios-sdk/Core (~> 5.13)
-    - UnityAds (= 3.5.1)
+    - UnityAds (= 3.4.8)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -517,7 +517,7 @@ PODS:
   - TikTokOpenSDK (3.0.2):
     - BytedanceOpenPlatformSDK (= 3.0.1)
   - UIColor_Hex_Swift (4.2.0)
-  - UnityAds (3.5.1)
+  - UnityAds (3.4.8)
   - WSFlexibleTouch (0.1.1)
 
 DEPENDENCIES:
@@ -546,7 +546,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 1.0.0)
   - MoPub-AdMob-Adapters
   - mopub-ios-sdk/Core
-  - MoPub-UnityAds-Adapters
+  - MoPub-UnityAds-Adapters (= 3.4.8.1)
   - Moya/RxSwift
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
@@ -695,7 +695,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MoPub-AdMob-Adapters: 70274439efc4914639b340d8ccb4462c9bdde756
   mopub-ios-sdk: b60afe997d7631e6bea6e1ae8a3d3727be9cd171
-  MoPub-UnityAds-Adapters: 9d30884c9895c0c2b8b616dd78258bd59bc98d5e
+  MoPub-UnityAds-Adapters: 267a3e5f23252c01895fc220b958639e1c1343e2
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
@@ -722,9 +722,9 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   TikTokOpenSDK: f81840227b18ba43c294b2839e5cfe46610647bf
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
-  UnityAds: 5cf7348607675db42414a1625f88c2d560f1164c
+  UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: 76a45e4a3b77cfc9ec456104ea3c9437eb89a03c
+PODFILE CHECKSUM: 787be0f347742e7256e1c8444ae5931946fd71be
 
 COCOAPODS: 1.9.1

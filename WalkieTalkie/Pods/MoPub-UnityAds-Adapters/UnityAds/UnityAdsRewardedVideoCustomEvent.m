@@ -19,7 +19,7 @@ static NSString *const kMPUnityRewardedVideoGameId = @"gameId";
 static NSString *const kUnityAdsOptionPlacementIdKey = @"placementId";
 static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
-@interface UnityAdsRewardedVideoCustomEvent () <UnityAdsLoadDelegate, UnityAdsExtendedDelegate>
+@interface UnityAdsRewardedVideoCustomEvent () <UnityRouterDelegate>
 
 @property (nonatomic, copy) NSString *placementId;
 
@@ -30,6 +30,11 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 @dynamic localExtras;
 @dynamic hasAdAvailable;
 
+- (void)dealloc
+{
+    [[UnityRouter sharedRouter] clearDelegate:self];
+}
+
 - (void)initializeSdkWithParameters:(NSDictionary *)parameters {
     NSString *gameId = [parameters objectForKey:kMPUnityRewardedVideoGameId];
     if (gameId == nil) {
@@ -37,7 +42,7 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
         return;
     }
 
-    [[UnityRouter sharedRouter] initializeWithGameId:gameId withCompletionHandler:nil];
+    [[UnityRouter sharedRouter] initializeWithGameId:gameId];
 }
 
 #pragma mark - MPFullscreenAdAdapter Override
@@ -47,12 +52,9 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     return YES;
 }
 
-- (BOOL)hasAdAvailable {
-    return [UnityAds isReady:self.placementId];
-}
-
-- (NSString *) getAdNetworkId {
-    return (self.placementId != nil) ? self.placementId : @"";
+- (BOOL)hasAdAvailable
+{
+    return [[UnityRouter sharedRouter] isAdAvailableForPlacementId:self.placementId];
 }
 
 - (void)requestAdWithAdapterInfo:(NSDictionary *)info adMarkup:(NSString *)adMarkup
@@ -61,8 +63,8 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     if (gameId == nil) {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain gameId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads gameId."}];
 
-        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
         [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:error];
+        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
         return;
     }
 
@@ -76,51 +78,47 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
     if (self.placementId == nil) {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Custom event class data did not contain placementId.", NSLocalizedRecoverySuggestionErrorKey: @"Update your MoPub custom event class data to contain a valid Unity Ads placementId."}];
-        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
         [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:error];
+        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
         return;
     }
-    
-    if (![UnityAds isInitialized]) {
-        [[UnityRouter sharedRouter] initializeWithGameId:gameId withCompletionHandler:nil];
-        
-        NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorInvalidCustomEvent userInfo:@{NSLocalizedDescriptionKey: @"Unity Ads adapter failed to request rewarded video ad. Unity Ads is not initialized yet. Failing this ad request and calling Unity Ads initialization so it would be available for an upcoming ad request.", NSLocalizedRecoverySuggestionErrorKey: @""}];
-        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
-        [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:error];
-        return;
-    }
-    
+
+    [[UnityRouter sharedRouter] requestVideoAdWithGameId:gameId placementId:self.placementId delegate:self];
     MPLogAdEvent([MPLogEvent adLoadAttemptForAdapter:NSStringFromClass(self.class) dspCreativeId:nil dspName:nil], [self getAdNetworkId]);
-    [UnityAds load:self.placementId loadDelegate:self];
 }
 
 - (void)presentAdFromViewController:(UIViewController *)viewController
 {
     if ([self hasAdAvailable]) {
+        UnityAdsInstanceMediationSettings *settings = [self.delegate fullscreenAdAdapter:self instanceMediationSettingsForClass:[UnityAdsInstanceMediationSettings class]];
+        
         MPLogAdEvent([MPLogEvent adShowAttemptForAdapter:NSStringFromClass(self.class)], [self getAdNetworkId]);
-        [UnityAds addDelegate:self];
-        [UnityAds show:viewController placementId:_placementId];
+        [[UnityRouter sharedRouter] presentVideoAdFromViewController:viewController
+                                                          customerId:[self.delegate customerIdForAdapter:self]
+                                                         placementId:self.placementId
+                                                            settings:settings
+                                                            delegate:self];
+
     } else {
         NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorNoAdsAvailable userInfo:nil];
-        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
         [self.delegate fullscreenAdAdapter:self didFailToShowAdWithError:error];
+         MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
     }
 }
 
 - (void)handleDidInvalidateAd
 {
-    [UnityAds removeDelegate:self];
+    [[UnityRouter sharedRouter] clearDelegate:self];
 }
 
-/// This callback is used for expiration
 - (void)handleDidPlayAd
 {
     // If we no longer have an ad available, report back up to the application that this ad expired.
     // We receive this message only when this ad has reported an ad has loaded and another ad unit
     // has played a video for the same ad network.
     if (![self hasAdAvailable]) {
-        MPLogInfo(@"Unity Ads interstitial has expired");
         [self.delegate fullscreenAdAdapterDidExpire:self];
+        MPLogAdEvent([MPLogEvent adExpiredWithTimeInterval:0], [self getAdNetworkId]);
     }
 }
 
@@ -133,27 +131,61 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 - (void)unityAdsReady:(NSString *)placementId
 {
-    // No-op
+    [self.delegate fullscreenAdAdapterDidLoadAd:self];
+    MPLogAdEvent([MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(self.class)], [self getAdNetworkId]);
 }
 
-/// This method only handles show-related errors. Load-related errors are handled by unityAdsAdFailedToLoad.
 - (void)unityAdsDidError:(UnityAdsError)error withMessage:(NSString *)message
 {
-    [UnityAds removeDelegate:self];
-    
-    if (error == kUnityAdsErrorShowError) {
-        NSString* unityErrorMessage = [NSString stringWithFormat:@"Unity Ads failed to show a rewarded video ad for %@, with error message: %@", _placementId, message];
-        NSError *showError = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:@{NSLocalizedDescriptionKey: unityErrorMessage}];
-        
-        MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:showError], [self getAdNetworkId]);
-        [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:showError];
-    } else {
-        NSString* unityErrorMessage = [NSString stringWithFormat:@"Unity Ads rewarded video failed for ad %@, with error message: %@", _placementId, message];
-        NSError *otherError = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:@{NSLocalizedDescriptionKey: unityErrorMessage}];
-        
-        MPLogAdEvent([MPLogEvent adShowFailedForAdapter:NSStringFromClass(self.class) error:otherError], [self getAdNetworkId]);
-        [self.delegate fullscreenAdAdapter:self didFailToShowAdWithError:otherError];
+    NSString* unityErrorMessage;
+    switch (error) {
+        case kUnityAdsErrorNotInitialized:
+            unityErrorMessage = @"Unity Ads not initialized";
+            break;
+
+        case kUnityAdsErrorInitializedFailed:
+            unityErrorMessage = @"Unity Ads initialize failed";
+            break;
+
+        case kUnityAdsErrorInvalidArgument:
+            unityErrorMessage = @"Unity Ads initialize given an invalid argument";
+            break;
+
+        case kUnityAdsErrorVideoPlayerError:
+            unityErrorMessage = @"Unity Ads video player failed";
+            break;
+
+        case kUnityAdsErrorInitSanityCheckFail:
+            unityErrorMessage = @"Unity Ads initialized in an invalid environment";
+            break;
+
+        case kUnityAdsErrorAdBlockerDetected:
+            unityErrorMessage = @"Unity Ads failed due to presence of ad blocker";
+            break;
+
+        case kUnityAdsErrorFileIoError:
+            unityErrorMessage = @"Unity Ads file IO error";
+            break;
+
+        case kUnityAdsErrorDeviceIdError:
+            unityErrorMessage = @"Unity Ads encountered a bad device identifier";
+            break;
+
+        case kUnityAdsErrorShowError:
+            unityErrorMessage = @"Unity Ads failed while attempting to show an ad";
+            break;
+
+        case kUnityAdsErrorInternalError:
+            unityErrorMessage = @"Unity Ads experienced an internal failure";
+            break;
+
+        default:
+            unityErrorMessage = @"Unity Ads unknown error";
+            break;
     }
+    NSError *adapterError = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:@{NSLocalizedDescriptionKey: unityErrorMessage}];
+    [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:adapterError];
+    MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:adapterError], [self getAdNetworkId]);
 }
 
 - (void) unityAdsDidStart:(NSString *)placementId
@@ -169,7 +201,6 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
 
 - (void) unityAdsDidFinish:(NSString *)placementId withFinishState:(UnityAdsFinishState)state
 {
-    [UnityAds removeDelegate:self];
     if (state == kUnityAdsFinishStateCompleted) {
         MPReward *reward = [[MPReward alloc] initWithCurrencyType:kMPRewardCurrencyTypeUnspecified
                                                            amount:@(kMPRewardCurrencyAmountUnspecified)];
@@ -191,19 +222,14 @@ static NSString *const kUnityAdsOptionZoneIdKey = @"zoneId";
     [self.delegate fullscreenAdAdapterWillLeaveApplication:self];
 }
 
-- (void)unityAdsPlacementStateChanged:(nonnull NSString *)placementId oldState:(UnityAdsPlacementState)oldState newState:(UnityAdsPlacementState)newState {
-    // No-op
-}
-
-- (void)unityAdsAdFailedToLoad:(nonnull NSString *)placementId {
-    NSError *error = [NSError errorWithDomain:MoPubRewardedVideoAdsSDKDomain code:MPRewardedVideoAdErrorUnknown userInfo:nil];
+- (void)unityAdsDidFailWithError:(NSError *)error
+{
+    [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:error];
     MPLogAdEvent([MPLogEvent adLoadFailedForAdapter:NSStringFromClass(self.class) error:error], [self getAdNetworkId]);
-     [self.delegate fullscreenAdAdapter:self didFailToLoadAdWithError:error];
 }
 
-- (void)unityAdsAdLoaded:(nonnull NSString *)placementId {
-    MPLogAdEvent([MPLogEvent adLoadSuccessForAdapter:NSStringFromClass(self.class)], [self getAdNetworkId]);
-    [self.delegate fullscreenAdAdapterDidLoadAd:self];
+- (NSString *) getAdNetworkId {
+    return (self.placementId != nil) ? self.placementId : @"";
 }
 
 @end
