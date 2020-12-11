@@ -28,7 +28,7 @@ extension AmongChat.Home {
         }()
         
         private lazy var describeLabel: WalkieLabel = {
-            let l = WalkieLabel(text: R.string.localizable.addChannelSecretCreateTipsDes())
+            let l = WalkieLabel(text: R.string.localizable.addChannelSecretTipsDes())
             l.font = R.font.nunitoSemiBold(size: 14)
             l.textColor = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1)
             l.numberOfLines = 0
