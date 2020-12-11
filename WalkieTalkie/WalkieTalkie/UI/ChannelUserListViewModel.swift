@@ -38,12 +38,6 @@ class ChannelUserListViewModel {
         }
     }
     
-    private var onlineUserList: [UInt] = [] {
-        didSet {
-            update(onlineUserList.map({ ChannelUser.randomUser(uid: $0) }))
-        }
-    }
-    
     private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
     
     var speakingUserObservable: Observable<[ChannelUserViewModel]> {
@@ -62,8 +56,6 @@ class ChannelUserListViewModel {
         return mutedUser
     }
     
-    private var roomDisposable: Disposable? = nil
-    
     init() {
         blockedUsers = Defaults[\.blockedUsersKey]
         
@@ -77,8 +69,7 @@ class ChannelUserListViewModel {
     
     func update(_ userList: [ChannelUser]) {
         let blockedUsers = self.blockedUsers
-        dataSource = userList.filter({ onlineUserList.contains($0.uid)})
-            .map { item -> ChannelUser in
+        dataSource = userList.map { item -> ChannelUser in
             var user = item
             if blockedUsers.contains(where: { $0.uid == item.uid }) {
                 user.isMuted = true
@@ -155,22 +146,12 @@ class ChannelUserListViewModel {
     }
     
     func didJoinedChannel(_ channel: String) {
-        roomDisposable?.dispose()
-        roomDisposable = FireStore.shared.channelObservable(of: channel)
-            .filterNilAndEmpty()
-            .subscribe(onNext: { [weak self] (room) in
-                self?.onlineUserList = room.user_list
-            })
         let _ = Request.reportEnterRoom(channel)
-            .subscribe(onSuccess: { [weak self] (channel) in
-                guard let channel = channel else { return }
-                self?.onlineUserList = channel.user_list
+            .subscribe(onSuccess: { (_) in
             })
     }
     
     func leavChannel(_ channel: String) {
-        roomDisposable?.dispose()
-        roomDisposable = nil
         let _ = Request.reportLeaveRoom(channel)
             .subscribe()
     }
