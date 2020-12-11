@@ -33,6 +33,17 @@ class FireStore {
     
     static let defaultRoom = Room(name: "WELCOME", user_count: 0)
     
+    let channels = [
+        ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
+        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
+        ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
+        ChannelCategory(id: 100, name: "GroupChat", type: .groupChat),
+        ChannelCategory(id: 105, name: "Anime", type: .anime),
+        ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
+        ChannelCategory(id: 106, name: "Pubg", type: .pubg),
+        ChannelCategory(id: 107, name: "Fortnite", type: .fortnite)
+    ]
+    
     private static let amongUsMaxOnlineUser = Int(10)
     
     let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
@@ -537,69 +548,42 @@ extension DocumentSnapshot {
 
 extension WalkieTalkie.FireStore {
     
-    private enum RoomType {
+    enum ChannelType {
         case amongUs
-        case global
-        case secret
+        case groupChat
+        case createSecret
+        case joinSecret
+        case roblox
+        case animalCrossing
+        case minecraft
+        case anime
+        case pubg
+        case fortnite
     }
     
-    func findAPublicRoom() -> Single<Room> {
-        return fetchOnlineChannelList()
-            .catchErrorJustReturn([])
-            .map({ (rooms) -> Room in
-                if let room = rooms
-                    .sorted(by: \.user_count, with: >)
-                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
-                    return room
-                } else {
-                    let newRoomName = self.createUniqueChannelName(type: .global, exclude: rooms.map({ $0.name }))
-                    return Room(name: newRoomName, user_count: 0)
-                }
-            })
-    }
-    
-    private func roomPrefix(of type: RoomType) -> String {
-        let prefix: String
+    struct ChannelCategory {
+        let id: Int
+        let name: String
+        let type: ChannelType
         
-        switch type {
-        case .amongUs:
-            prefix = "@101#"
-        case .secret:
-            prefix = "@0#"
-        case .global:
-            prefix = "@100#"
+        var roomPrefix: String {
+            return "@\(id)#"
         }
         
-        return prefix
-    }
-    
-    private func createUniqueChannelName(type: RoomType, exclude nameSet: [String]) -> String {
-        
-        let channelName = roomPrefix(of: type) + PasswordGenerator.shared.generate()
-        guard !nameSet.contains(channelName) else {
-            return createUniqueChannelName(type: type, exclude: nameSet)
+        var rootName: String {
+            return "ac-channels-\(id)"
         }
-        return channelName
+        
+        static let secretCategory = ChannelCategory(id: 0, name: "", type: .joinSecret)
     }
     
-    func findAAmongUsRoom() -> Single<Room> {
-        return fetchAmongUsChannelList()
-            .catchErrorJustReturn([])
-            .map({ (rooms) -> Room in
-                if let room = rooms
-                    .sorted(by: \.user_count, with: >)
-                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
-                    return room
-                } else {
-                    let newRoomName = self.createUniqueChannelName(type: .amongUs, exclude: rooms.map({ $0.name }))
-                    return Room(name: newRoomName, user_count: 0)
-                }
-            })
-    }
+}
     
-    private func fetchAmongUsChannelList() -> Single<[Room]> {
+extension WalkieTalkie.FireStore {
+    
+    private func fetchChannels(of root: String) -> Single<[Room]> {
         return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            self?.db.collection(Root.amongUsChannels)
+            self?.db.collection(root)
                 .getDocuments(completion: { (query, error) in
                     if let error = error {
                         cdPrint("FireStore Error new: \(error)")
@@ -621,17 +605,41 @@ extension WalkieTalkie.FireStore {
         .asSingle()
     }
     
-    func createAPrivateRoom(with name: String? = nil) -> Single<Room> {
+    func findAPrivateRoom(with name: String? = nil) -> Single<Room> {
         
         let newRoomName: String
         
         if let name = name {
-            newRoomName = roomPrefix(of: .secret) + name
+            newRoomName = ChannelCategory.secretCategory.roomPrefix + name
         } else {
-            newRoomName = createUniqueChannelName(type: .secret, exclude: [])
+            newRoomName = createUniqueChannelName(of: .secretCategory, exclude: [])
         }
         
         let room = Room(name: newRoomName, user_count: 0)
         return Observable.of(room).asSingle()
+    }
+    
+    private func createUniqueChannelName(of channelCategory: ChannelCategory, exclude nameSet: [String]) -> String {
+        
+        let channelName = channelCategory.roomPrefix + PasswordGenerator.shared.generate()
+        guard !nameSet.contains(channelName) else {
+            return createUniqueChannelName(of: channelCategory, exclude: nameSet)
+        }
+        return channelName
+    }
+    
+    func findARoom(of channelCategory: ChannelCategory) -> Single<Room> {
+        return fetchChannels(of: channelCategory.rootName)
+            .catchErrorJustReturn([])
+            .map({ (rooms) -> Room in
+                if let room = rooms
+                    .sorted(by: \.user_count, with: >)
+                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
+                    return room
+                } else {
+                    let newRoomName = self.createUniqueChannelName(of: channelCategory, exclude: rooms.map({ $0.name }))
+                    return Room(name: newRoomName, user_count: 0)
+                }
+            })
     }
 }

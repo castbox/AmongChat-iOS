@@ -156,7 +156,8 @@
 "channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
 
 "amomg.chat.home.hash.tags.title" = "Let's match & chat";
-"among.chat.home.tag.among" = "FindCrewmates";
+"among.chat.home.tag.among.a" = "FindCrewmates";
+"among.chat.home.tag.among.b" = "AmongUsMatch";
 "among.chat.home.tag.group" = "GroupChat";
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";

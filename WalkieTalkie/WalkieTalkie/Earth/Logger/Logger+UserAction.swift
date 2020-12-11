@@ -48,6 +48,11 @@ extension Logger {
         static func log(_ category: Category? = nil, _ itemName: String? = nil, value: Int) {
             GuruAnalytics.log(event: "channel_imp", category: category?.rawValue, name: itemName, value: Int64(value), content: nil)
         }
+        
+        static func logChannelCategoryClick(id: Int) {
+            GuruAnalytics.log(event: "clk_home_category_\(id)")
+        }
+
     }
 }
 

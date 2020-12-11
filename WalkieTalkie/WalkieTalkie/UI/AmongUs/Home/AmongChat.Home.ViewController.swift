@@ -19,6 +19,7 @@ extension AmongChat.Home {
     class ViewController: WalkieTalkie.ViewController {
         
         private typealias HashTagCell = AmongChat.Home.HashTagCell
+        private typealias HashTag = AmongChat.Home.HashTag
         
         // MARK: - members
         
@@ -134,26 +135,27 @@ extension AmongChat.Home {
                 
         private let joinChannelSubject = BehaviorSubject<Room?>(value: nil)
         
+        private typealias ChannelCategory = FireStore.ChannelCategory
+        
         private lazy var hashTags: [HashTag] = {
             return [
-                HashTag(type: .amongUs, didSelect: { [weak self] in
+                ChannelCategory(id: 101, name: R.string.localizable.amongChatHomeTagAmongA(), type: .amongUs),
+                ChannelCategory(id: 100, name: R.string.localizable.amongChatHomeTagGroup(), type: .groupChat),
+                ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
+                ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
+            ].map { mapHastTag(from: $0) }
+        }() {
+            didSet {
+                hashTagCollectionView.reloadData()
+                DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    self._joinRoom(FireStore.shared.findAAmongUsRoom())
-                }),
-                HashTag(type: .groupChat, didSelect: { [weak self] in
-                    guard let `self` = self else { return }
-                    self._joinRoom(FireStore.shared.findAPublicRoom())
-                }),
-                HashTag(type: .createPrivate, didSelect: { [weak self] in
-                    guard let `self` = self else { return }
-                    self.createPrivateChannel()
-                }),
-                HashTag(type: .joinPrivate, didSelect: { [weak self] in
-                    guard let `self` = self else { return }
-                    self.showJoinSecretChannel()
-                })
-            ]
-        }()
+                    let h = self.hashTagCollectionView.contentSize.height
+                    self.hashTagCollectionView.snp.updateConstraints { (maker) in
+                        maker.height.equalTo(h)
+                    }
+                }
+            }
+        }
         
         private var hudRemoval: (() -> Void)? = nil
         
@@ -167,8 +169,9 @@ extension AmongChat.Home {
         
         override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
+            let h = hashTagCollectionView.contentSize.height
             hashTagCollectionView.snp.updateConstraints { (maker) in
-                maker.height.equalTo(hashTagCollectionView.contentSize.height)
+                maker.height.equalTo(h)
             }
             avatarBtn.layer.cornerRadius = avatarBtn.bounds.width / 2
             haloView.layer.cornerRadius = haloView.bounds.width / 2
@@ -373,6 +376,40 @@ extension AmongChat.Home.ViewController {
                 self?.haloAnimation()
             }
             .disposed(by: bag)
+        
+        FireStore.shared.isInReviewSubject
+            .filter({ !$0 })
+            .take(1)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                guard let `self` = self else { return }
+                self.hashTags = {
+                    return [
+                        ChannelCategory(id: 101, name: R.string.localizable.amongChatHomeTagAmongB(), type: .amongUs),
+                        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
+                        ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
+                        ChannelCategory(id: 100, name: R.string.localizable.amongChatHomeTagGroup(), type: .groupChat),
+                        ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
+                        ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
+                    ].map { self.mapHastTag(from: $0) }
+                }()
+            })
+            .disposed(by: bag)
+    }
+    
+    private func mapHastTag(from channelCategory: ChannelCategory) -> HashTag {
+        return HashTag(channelCategory: channelCategory) { [weak self] in
+            guard let `self` = self else { return }
+            switch channelCategory.type {
+            case .createSecret:
+                self.createPrivateChannel()
+            case .joinSecret:
+                self.showJoinSecretChannel()
+            default:
+                self._joinRoom(FireStore.shared.findARoom(of: channelCategory))
+            }
+            Logger.Channel.logChannelCategoryClick(id: channelCategory.id)
+        }
     }
     
     private func loadAdView() {
@@ -487,7 +524,7 @@ extension AmongChat.Home.ViewController {
     private func showJoinSecretChannel() {
         let controller = AmongChat.Home.JoinSecretViewController()
         controller.joinChannel = { name, autoShare in
-            self._joinRoom(FireStore.shared.createAPrivateRoom(with: name))
+            self._joinRoom(FireStore.shared.findAPrivateRoom(with: name))
         }
         controller.showModal(in: self)
     }
@@ -534,7 +571,7 @@ extension AmongChat.Home.ViewController {
             }
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                self._joinRoom(FireStore.shared.createAPrivateRoom())
+                self._joinRoom(FireStore.shared.findAPrivateRoom())
             })
             .disposed(by: bag)
     }

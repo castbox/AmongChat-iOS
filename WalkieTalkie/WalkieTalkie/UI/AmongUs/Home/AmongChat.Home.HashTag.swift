@@ -12,21 +12,14 @@ extension AmongChat.Home {
     
     struct HashTag {
         
-        enum TagType {
-            case amongUs
-            case groupChat
-            case createPrivate
-            case joinPrivate
-        }
-        
-        let type: TagType
+        let channelCategory: FireStore.ChannelCategory
         let didSelect: (() -> Void)
         
         var icon: UIImage? {
-            switch type {
+            switch channelCategory.type {
             case .amongUs:
                 return R.image.launch_logo()
-            case .createPrivate:
+            case .createSecret:
                 return R.image.icon_pri_ad()
             default:
                 return nil
@@ -34,16 +27,7 @@ extension AmongChat.Home {
         }
         
         var name: String {
-            switch type {
-            case .amongUs:
-                return R.string.localizable.amongChatHomeTagAmong()
-            case .groupChat:
-                return R.string.localizable.amongChatHomeTagGroup()
-            case .createPrivate:
-                return R.string.localizable.amongChatHomeTagCreatePrivate()
-            case .joinPrivate:
-                return R.string.localizable.amongChatHomeTagJoinPrivate()
-            }
+            return channelCategory.name
         }
         
     }
