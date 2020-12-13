@@ -147,9 +147,9 @@ extension AmongChat.Home {
         }() {
             didSet {
                 hashTagCollectionView.reloadData()
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    self.view.layoutIfNeeded()
+                let h = hashTagCollectionView.collectionViewLayout.collectionViewContentSize.height
+                hashTagCollectionView.snp.updateConstraints { (maker) in
+                    maker.height.equalTo(h)
                 }
             }
         }
@@ -166,7 +166,7 @@ extension AmongChat.Home {
         
         override func viewDidLayoutSubviews() {
             super.viewDidLayoutSubviews()
-            let h = hashTagCollectionView.contentSize.height
+            let h = hashTagCollectionView.collectionViewLayout.collectionViewContentSize.height
             hashTagCollectionView.snp.updateConstraints { (maker) in
                 maker.height.equalTo(h)
             }
