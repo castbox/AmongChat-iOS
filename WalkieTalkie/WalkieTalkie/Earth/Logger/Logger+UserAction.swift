@@ -49,9 +49,15 @@ extension Logger {
             GuruAnalytics.log(event: "channel_imp", category: category?.rawValue, name: itemName, value: Int64(value), content: nil)
         }
         
-        static func logChannelCategoryClick(id: Int) {
-            GuruAnalytics.log(event: "clk_home_category_\(id)")
+        enum Source: String {
+            case home
+            case all_rooms
         }
+        
+        static func logChannelCategoryClick(id: Int, source: Source) {
+            GuruAnalytics.log(event: "clk_home_category_\(id)", category: source.rawValue)
+        }
+        
 
     }
 }

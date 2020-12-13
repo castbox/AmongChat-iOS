@@ -247,6 +247,7 @@ extension AmongChat.Home.ViewController {
     private func onMoreRoomsBtn() {
         let vc = AmongChat.AllRooms.ViewController()
         navigationController?.pushViewController(vc)
+        GuruAnalytics.log(event: "clk_all_rooms")
     }
     
     @objc
@@ -456,7 +457,7 @@ extension AmongChat.Home.ViewController {
             default:
                 self._joinRoom(FireStore.shared.findARoom(of: channelCategory))
             }
-            Logger.Channel.logChannelCategoryClick(id: channelCategory.id)
+            Logger.Channel.logChannelCategoryClick(id: channelCategory.id, source: .home)
         }
     }
     

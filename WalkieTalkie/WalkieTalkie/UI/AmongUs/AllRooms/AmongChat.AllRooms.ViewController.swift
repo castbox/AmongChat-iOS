@@ -111,7 +111,7 @@ extension AmongChat.AllRooms.ViewController {
 //            self.hudRemoval =
             let _ = self.view.raft.show(.loading, userInteractionEnabled: false)
             AmongChat.Home.ViewController.shared.joinRoom(with: FireStore.shared.findARoom(of: channelCategory))
-            Logger.Channel.logChannelCategoryClick(id: channelCategory.id)
+            Logger.Channel.logChannelCategoryClick(id: channelCategory.id, source: .all_rooms)
         }
     }
 
@@ -145,6 +145,8 @@ extension AmongChat.AllRooms.ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let hashTag = hashTags.safe(indexPath.item) {
             hashTag.didSelect()
+        } else {
+            GuruAnalytics.log(event: "clk_more_rooms_coming")
         }
     }
     
