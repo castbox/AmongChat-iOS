@@ -194,7 +194,7 @@ extension AmongChat.Room {
             }
         }
         
-        private let minimumListLength = Int(10)
+        private let fixedListLength = Int(10)
         
         private let channel: Room
         private let viewModel = ChannelUserListViewModel.shared
@@ -311,7 +311,7 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
     // MARK: - UICollectionView
         
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return max(dataSource.count, minimumListLength)
+        return fixedListLength
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

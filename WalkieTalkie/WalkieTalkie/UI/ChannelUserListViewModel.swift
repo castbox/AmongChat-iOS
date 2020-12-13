@@ -69,7 +69,11 @@ class ChannelUserListViewModel {
     
     func update(_ userList: [ChannelUser]) {
         let blockedUsers = self.blockedUsers
-        dataSource = userList.map { item -> ChannelUser in
+        var copyOfUserList = userList
+        if let selfUser = copyOfUserList.removeFirst(where: { $0.uid == Constants.sUserId }) {
+            copyOfUserList.insert(selfUser, at: 0)
+        }
+        dataSource = copyOfUserList.map { item -> ChannelUser in
             var user = item
             if blockedUsers.contains(where: { $0.uid == item.uid }) {
                 user.isMuted = true
