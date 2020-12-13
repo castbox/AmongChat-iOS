@@ -21,6 +21,8 @@ extension AmongChat.Home {
         private typealias HashTagCell = AmongChat.Home.HashTagCell
         private typealias HashTag = AmongChat.Home.HashTag
         
+        static let shared = AmongChat.Home.ViewController()
+        
         // MARK: - members
         
         private lazy var bgImageView: UIImageView = {
@@ -92,6 +94,40 @@ extension AmongChat.Home {
             lb.textColor = .white
             lb.text = R.string.localizable.amomgChatHomeHashTagsTitle()
             return lb
+        }()
+        
+        private lazy var moreRoomsBtn: UIView = {
+            let v = UIView()
+            
+            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onMoreRoomsBtn))
+            v.addGestureRecognizer(tapGR)
+
+            v.backgroundColor = .clear
+            
+            let lb = UILabel()
+            lb.font = R.font.nunitoRegular(size: 14)
+            lb.textColor = UIColor.white.alpha(0.8)
+            lb.text = R.string.localizable.amongChatHomeHashTagsMore()
+            
+            let icon = UIImageView(image: R.image.backNor()?.rotated(by: .pi)?.withRenderingMode(.alwaysTemplate))
+            icon.tintColor = UIColor.white.alpha(0.8)
+            icon.contentMode = .scaleAspectFill
+            
+            v.addSubviews(views: lb, icon)
+            
+            lb.snp.makeConstraints { (maker) in
+                maker.left.centerY.equalToSuperview()
+            }
+            
+            icon.snp.makeConstraints { (maker) in
+                maker.centerY.right.equalToSuperview()
+                maker.left.equalTo(lb.snp.right)
+                maker.width.height.equalTo(14)
+            }
+            
+            v.isHidden = true
+            
+            return v
         }()
         
         private lazy var hashTagCollectionView: UICollectionView = {
@@ -208,6 +244,12 @@ extension AmongChat.Home.ViewController {
     }
     
     @objc
+    private func onMoreRoomsBtn() {
+        let vc = AmongChat.AllRooms.ViewController()
+        navigationController?.pushViewController(vc)
+    }
+    
+    @objc
     private func onRequestMicBtn() {
         
     }
@@ -222,7 +264,7 @@ extension AmongChat.Home.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, editNameBtn, hashTagsTitle, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, editNameBtn, hashTagsTitle, moreRoomsBtn, hashTagCollectionView)
         
         let avatarLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(avatarLayoutGuide)
@@ -260,6 +302,12 @@ extension AmongChat.Home.ViewController {
         hashTagsTitle.snp.makeConstraints { (maker) in
             maker.bottom.equalTo(hashTagCollectionView.snp.top)
             maker.left.equalTo(16)
+        }
+        
+        moreRoomsBtn.snp.makeConstraints { (maker) in
+            maker.right.equalToSuperview().inset(16)
+            maker.centerY.equalTo(hashTagsTitle)
+            maker.height.equalTo(20)
         }
         
         hashTagCollectionView.snp.makeConstraints { (maker) in
@@ -362,8 +410,10 @@ extension AmongChat.Home.ViewController {
                     transition.type = CATransitionType.push
                     transition.subtype = CATransitionSubtype.fromRight
                     transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                    self.view.window?.layer.add(transition, forKey: kCATransition)
-                    self.present(vc, animated: false, completion: nil)
+                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+                    self.present(vc, animated: false) { [weak self] in
+                        self?.navigationController?.popToRootViewController(animated: false)
+                    }
                 }
             })
             .disposed(by: bag)
@@ -390,6 +440,7 @@ extension AmongChat.Home.ViewController {
                         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
                     ].map { self.mapHastTag(from: $0) }
                 }()
+                self.moreRoomsBtn.isHidden = false
             })
             .disposed(by: bag)
     }
@@ -577,7 +628,11 @@ extension AmongChat.Home.ViewController {
         let room = Room(name: name, user_count: 0)
         _joinRoom(Observable.just(room).asSingle())
     }
-    
+
+    func joinRoom(with room: Single<Room>) {
+        _joinRoom(room)
+    }
+
 }
 
 extension AmongChat.Home.ViewController: UICollectionViewDataSource {

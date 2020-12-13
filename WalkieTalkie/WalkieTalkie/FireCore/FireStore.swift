@@ -37,11 +37,11 @@ class FireStore {
         ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
         ChannelCategory(id: 102, name: "Roblox", type: .roblox),
         ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
-        ChannelCategory(id: 100, name: "GroupChat", type: .groupChat),
         ChannelCategory(id: 105, name: "Anime", type: .anime),
-        ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
+        ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),
         ChannelCategory(id: 106, name: "Pubg", type: .pubg),
-        ChannelCategory(id: 107, name: "Fortnite", type: .fortnite)
+        ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
+        ChannelCategory(id: 100, name: "GroupChat", type: .groupChat)
     ]
     
     private static let amongUsMaxOnlineUser = Int(10)

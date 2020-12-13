@@ -190,7 +190,7 @@ extension AppDelegate {
     
     func setupInitialView(goRoom: Bool) {
 //        let rootVc = R.storyboard.main.instantiateInitialViewController()!
-        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController.shared)
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .black
         window.makeKeyAndVisible()

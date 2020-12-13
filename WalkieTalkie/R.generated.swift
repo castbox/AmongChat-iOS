@@ -1048,7 +1048,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 126 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 128 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1078,7 +1078,11 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: AmongUsMatch
+      /// en translation: All Rooms
+      /// 
+      /// Locales: en
+      static let amongChatHomeHashTagsMore = Rswift.StringResource(key: "among.chat.home.hash.tags.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: AmongUs
       /// 
       /// Locales: en
       static let amongChatHomeTagAmongB = Rswift.StringResource(key: "among.chat.home.tag.among.b", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1286,6 +1290,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserMax = Rswift.StringResource(key: "channel.user.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: More rooms coming soon!
+      /// 
+      /// Locales: en
+      static let amongChatAllRoomsMore = Rswift.StringResource(key: "among.chat.all.rooms.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Mute
       /// 
       /// Locales: en
@@ -1604,7 +1612,14 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
-      /// en translation: AmongUsMatch
+      /// en translation: All Rooms
+      /// 
+      /// Locales: en
+      static func amongChatHomeHashTagsMore(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.hash.tags.more", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: AmongUs
       /// 
       /// Locales: en
       static func amongChatHomeTagAmongB(_: Void = ()) -> String {
@@ -1966,6 +1981,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelUserMax(_: Void = ()) -> String {
         return NSLocalizedString("channel.user.max", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: More rooms coming soon!
+      /// 
+      /// Locales: en
+      static func amongChatAllRoomsMore(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.all.rooms.more", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Mute

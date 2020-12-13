@@ -156,8 +156,9 @@
 "channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
 
 "amomg.chat.home.hash.tags.title" = "Let's match & chat";
+"among.chat.home.hash.tags.more" = "All Rooms";
 "among.chat.home.tag.among.a" = "FindCrewmates";
-"among.chat.home.tag.among.b" = "AmongUsMatch";
+"among.chat.home.tag.among.b" = "AmongUs";
 "among.chat.home.tag.group" = "GroupChat";
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";
@@ -169,3 +170,4 @@
 "among.chat.room.tip.mic.off" = "mic off";
 "among.chat.room.tip.mic.on" = "mic on";
 "among.chat.room.message.placeholder" = "Say something...";
+"among.chat.all.rooms.more" = "More rooms coming soon!";
