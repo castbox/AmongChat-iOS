@@ -14,29 +14,20 @@ import SwiftyUserDefaults
 class ChannelUserListViewModel {
     static let shared = ChannelUserListViewModel()
     
-    var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
+    private var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
     
     var userObservable: Observable<[ChannelUserViewModel]> {
         return dataSourceReplay.asObservable()
     }
     
-    private var dataSource = [ChannelUser]() {
-        didSet {
-//            dataSourceReplay.accept(dataSource.map { ChannelUserViewModel.init(with: $0) })
-            
-            let uids: [UInt] = dataSource.map { $0.uid }
-            let _ = FireStore.shared.fetchUsers(uids)
-                .subscribe(onSuccess: { (users) in
-                    
-                    let viewModelList = self.dataSource.map { (channelUser) -> ChannelUserViewModel in
-                        let firestoreUser = users.first(where: { $0.profile.uidInt == channelUser.uid })
-                        return ChannelUserViewModel.init(with: channelUser, firestoreUser: firestoreUser)
-                    }
-                    self.dataSourceReplay.accept(viewModelList)
-                    self.speakingUsersRelay.accept(viewModelList.filter { $0.channelUser.status == .talking })
-                })
-        }
+    var channelUserViewModelList: [ChannelUserViewModel] {
+        return dataSourceReplay.value
     }
+    
+    private var cachedFUsers = [UInt : FireStore.Entity.User]()
+    private var unfoundUserIds = Set<UInt>()
+    
+    private let dataSource = BehaviorRelay<[ChannelUser]>(value: [])
     
     private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
     
@@ -48,7 +39,7 @@ class ChannelUserListViewModel {
     
     private var mutedUser = Set<UInt>() {
         didSet {
-            update(dataSource)
+            update(dataSource.value)
         }
     }
     
@@ -65,6 +56,27 @@ class ChannelUserListViewModel {
             .subscribe(onNext: { [weak self] (users) in
                 self?.mutedUser = users
             })
+        
+        let _ = dataSource
+            .throttle(.seconds(5), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (channelUsers) in
+                
+                guard let `self` = self else { return }
+                
+                let uids: [UInt] = channelUsers.map { $0.uid }
+                                
+                let _ = self.fetchFirestoreUser(uids: uids)
+                    .subscribe(onSuccess: { (users) in
+                        
+                        let viewModelList = channelUsers.map { (channelUser) -> ChannelUserViewModel in
+                            let firestoreUser = users.first(where: { $0.profile.uidInt == channelUser.uid })
+                            return ChannelUserViewModel.init(with: channelUser, firestoreUser: firestoreUser)
+                        }
+                        self.dataSourceReplay.accept(viewModelList)
+                        self.speakingUsersRelay.accept(viewModelList.filter { $0.channelUser.status == .talking })
+                    })
+            })
+
     }
     
     func update(_ userList: [ChannelUser]) {
@@ -73,7 +85,7 @@ class ChannelUserListViewModel {
         if let selfUser = copyOfUserList.removeFirst(where: { $0.uid == Constants.sUserId }) {
             copyOfUserList.insert(selfUser, at: 0)
         }
-        dataSource = copyOfUserList.map { item -> ChannelUser in
+        let users = copyOfUserList.map { item -> ChannelUser in
             var user = item
             if blockedUsers.contains(where: { $0.uid == item.uid }) {
                 user.isMuted = true
@@ -87,11 +99,12 @@ class ChannelUserListViewModel {
             }
             return user
         }
+        dataSource.accept(users)
     }
     
     func updateVolumeIndication(userId: UInt, volume: UInt) {
         cdPrint("userid: \(userId) volume: \(volume)")
-        dataSource = dataSource.map { item -> ChannelUser in
+        let users = dataSource.value.map { item -> ChannelUser in
             guard item.status != .blocked,
                 item.status != .muted,
                 item.status != .droped,
@@ -104,12 +117,13 @@ class ChannelUserListViewModel {
             cdPrint("user: \(user)")
             return user
         }
+        dataSource.accept(users)
     }
     
     func blockedUser(_ user: ChannelUserViewModel) {
         blockedUsers.append(user.channelUser)
         Defaults[\.blockedUsersKey] = blockedUsers
-        update(dataSource)
+        update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
             FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
@@ -119,7 +133,7 @@ class ChannelUserListViewModel {
     func unblockedUser(_ user: ChannelUserViewModel) {
         blockedUsers.removeElement(ifExists: { $0.uid == user.channelUser.uid })
         Defaults[\.blockedUsersKey] = blockedUsers
-        update(dataSource)
+        update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
             FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
@@ -128,14 +142,14 @@ class ChannelUserListViewModel {
     
     func muteUser(_ user: ChannelUserViewModel) {
         mutedUser.insert(user.channelUser.uid)
-        update(dataSource)
+        update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
         FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
     }
     
     func unmuteUser(_ user: ChannelUserViewModel) {
         mutedUser.remove(user.channelUser.uid)
-        update(dataSource)
+        update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
         FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
     }
@@ -158,6 +172,79 @@ class ChannelUserListViewModel {
     func leavChannel(_ channel: String) {
         let _ = Request.reportLeaveRoom(channel)
             .subscribe()
+        cachedFUsers.removeAll()
+        unfoundUserIds.removeAll()
+        dataSource.accept([])
     }
 
+}
+
+extension ChannelUserListViewModel {
+    
+    private func fetchFirestoreUser(uids: [UInt]) -> Single<[FireStore.Entity.User]> {
+        
+        let hitUsers = uids.compactMap {
+            cachedFUsers[$0]
+        }
+        
+        let missedUids = uids.filter { (uid) in
+            !hitUsers.contains { $0.profile.uidInt == uid }
+        }
+        .filter { (uid) in
+            !unfoundUserIds.contains(uid)
+        }
+        
+        guard missedUids.isEmpty else {
+            
+            return Observable.create { [weak self] (subscriber) -> Disposable in
+                
+                guard let `self` = self else {
+                    return Disposables.create {}
+                }
+                
+                let _ = FireStore.shared.fetchUsers(missedUids)
+                    .do(onSuccess: { (users) in
+                        self.cachedFUsers.merge(users.map({ ($0.profile.uidInt, $0) })) { (_, new) in
+                            new
+                        }
+                        
+                        let unfoundIds = missedUids.filter { (uid) in
+                            !users.contains { $0.profile.uidInt == uid }
+                        }
+                        
+                        guard !unfoundIds.isEmpty else { return }
+                        
+                        self.unfoundUserIds.formUnion(Set(unfoundIds))
+                        
+                    })
+                    .subscribe(onSuccess: { (users) in
+                        
+                        var allUsers = hitUsers
+                        allUsers.append(contentsOf: users)
+                        
+                        allUsers.sort { (l, r) -> Bool in
+                            guard let lIdx = uids.firstIndex(of: l.profile.uidInt),
+                                  let rIdx = uids.firstIndex(of: r.profile.uidInt) else {
+                                return true
+                            }
+                            
+                            return lIdx < rIdx
+                        }
+                        
+                        subscriber.onNext(allUsers)
+                        subscriber.onCompleted()
+                        
+                    }) { (error) in
+                        subscriber.onError(error)
+                    }
+                
+                return Disposables.create {}
+            }
+            .asSingle()
+            
+        }
+        
+        return Observable.just(hitUsers).asSingle()
+    }
+    
 }

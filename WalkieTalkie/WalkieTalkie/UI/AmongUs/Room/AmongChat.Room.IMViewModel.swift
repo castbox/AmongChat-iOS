@@ -48,7 +48,7 @@ extension AmongChat.Room.IMViewModel {
         
         let userViewModel: ChannelUserViewModel
         
-        if let user = ChannelUserListViewModel.shared.dataSourceReplay.value.first(where: { "\($0.channelUser.uid)" == user.userId }) {
+        if let user = ChannelUserListViewModel.shared.channelUserViewModelList.first(where: { "\($0.channelUser.uid)" == user.userId }) {
             userViewModel = user
         } else {
             userViewModel = ChannelUserViewModel(with: ChannelUser.randomUser(uid: UInt(user.userId) ?? 0), firestoreUser: nil)
