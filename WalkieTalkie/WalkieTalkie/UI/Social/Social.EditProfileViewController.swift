@@ -63,6 +63,7 @@ extension Social {
         
         private lazy var userNameInputField: UITextField = {
             let f = UITextField()
+            f.clearButtonMode = .always
             f.keyboardType = .alphabet
             f.contentVerticalAlignment = .center
             f.backgroundColor = .white
@@ -77,7 +78,6 @@ extension Social {
             f.leftView = leftMargin
             f.rightView = rightMargin
             f.leftViewMode = .always
-            f.rightViewMode = .always
             f.cornerRadius = 15
             f.addTarget(self, action: #selector(onTextFieldDidChange), for: .editingChanged)
             return f
