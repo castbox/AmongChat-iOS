@@ -149,10 +149,7 @@ extension AmongChat.Home {
                 hashTagCollectionView.reloadData()
                 DispatchQueue.main.async { [weak self] in
                     guard let `self` = self else { return }
-                    let h = self.hashTagCollectionView.contentSize.height
-                    self.hashTagCollectionView.snp.updateConstraints { (maker) in
-                        maker.height.equalTo(h)
-                    }
+                    self.view.layoutIfNeeded()
                 }
             }
         }
