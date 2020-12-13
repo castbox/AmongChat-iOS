@@ -42,6 +42,8 @@ struct Room: Codable, DefaultsSerializable {
     let emoji: Emoji?
     var user_list: [UInt] = []
     
+    var channelCategory: FireStore.ChannelCategory?
+    
     init(name: String,
          user_count: Int,
          joinAt: TimeInterval = Date().timeIntervalSince1970,
@@ -203,4 +205,23 @@ extension ChannelUser.Status {
             return R.image.icon_user_list_mic_block()
         }
     }
+}
+
+extension Room {
+    
+    var code: String {
+        
+        guard let cat = channelCategory else {
+            return showName
+        }
+        
+        switch cat.type {
+        case .joinSecret, .createSecret:
+            return name.removingPrefix(cat.roomPrefix)
+        default:
+            return cat.name
+        }
+        
+    }
+    
 }

@@ -50,9 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Social.Module.shared
         
         var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-        #if DEBUG
-        isFirstLogin = true
-        #endif
+//        #if DEBUG
+//        isFirstLogin = true
+//        #endif
         
         if isFirstLogin {
             //MIGRATE

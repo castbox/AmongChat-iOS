@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 95 images.
+  /// This `R.image` struct is generated, and contains static references to 96 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -150,6 +150,8 @@ struct R: Rswift.Validatable {
     static let btn_private_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_private_icon")
     /// Image `btn_private_small`.
     static let btn_private_small = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_private_small")
+    /// Image `btn_room_copy`.
+    static let btn_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_room_copy")
     /// Image `btn_room_message`.
     static let btn_room_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_room_message")
     /// Image `btn_room_share`.
@@ -369,6 +371,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "btn_private_small", bundle: ..., traitCollection: ...)`
     static func btn_private_small(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.btn_private_small, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "btn_room_copy", bundle: ..., traitCollection: ...)`
+    static func btn_room_copy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.btn_room_copy, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "btn_room_message", bundle: ..., traitCollection: ...)`
@@ -1078,7 +1085,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: All Rooms
+      /// en translation: All Channels
       /// 
       /// Locales: en
       static let amongChatHomeHashTagsMore = Rswift.StringResource(key: "among.chat.home.hash.tags.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1290,7 +1297,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserMax = Rswift.StringResource(key: "channel.user.max", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: More rooms coming soon!
+      /// en translation: More channels coming soon!
       /// 
       /// Locales: en
       static let amongChatAllRoomsMore = Rswift.StringResource(key: "among.chat.all.rooms.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1612,7 +1619,7 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
-      /// en translation: All Rooms
+      /// en translation: All Channels
       /// 
       /// Locales: en
       static func amongChatHomeHashTagsMore(_: Void = ()) -> String {
@@ -1983,7 +1990,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.max", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: More rooms coming soon!
+      /// en translation: More channels coming soon!
       /// 
       /// Locales: en
       static func amongChatAllRoomsMore(_: Void = ()) -> String {

@@ -38,6 +38,57 @@ extension AmongChat.Room {
             return v
         }()
         
+        private lazy var copyNameBtn: UIView = {
+            let v = UIView()
+            
+            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onCopyNameBtn))
+            v.addGestureRecognizer(tapGR)
+            
+            v.backgroundColor = UIColor.white.alpha(0.2)
+            v.layer.cornerRadius = 15
+            
+            let hashSymbol: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.blackOpsOneRegular(size: 20)
+                lb.textColor = UIColor.white.alpha(0.5)
+                lb.text = "#"
+                return lb
+            }()
+            
+            let nameLabel: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoRegular(size: 14)
+                lb.textColor = .white
+                lb.text = channel.code
+                return lb
+            }()
+            
+            let icon = UIImageView(image: R.image.btn_room_copy())
+            icon.contentMode = .scaleAspectFill
+            icon.backgroundColor = .clear
+            
+            v.addSubviews(views: hashSymbol, nameLabel, icon)
+            
+            hashSymbol.snp.makeConstraints { (maker) in
+                maker.top.bottom.equalToSuperview()
+                maker.left.equalToSuperview().offset(10)
+            }
+            
+            nameLabel.snp.makeConstraints { (maker) in
+                maker.left.equalTo(hashSymbol.snp.right).offset(5)
+                maker.top.bottom.equalToSuperview()
+            }
+            
+            icon.snp.makeConstraints { (maker) in
+                maker.left.equalTo(nameLabel.snp.right).offset(5)
+                maker.right.equalToSuperview().inset(10)
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+            }
+            
+            return v
+        }()
+        
         private lazy var closeBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.icon_close(), for: .normal)
@@ -242,6 +293,12 @@ extension AmongChat.Room.ViewController {
     //MARK: - UI Action
     
     @objc
+    private func onCopyNameBtn() {
+        channel.code.copyToPasteboard()
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+    }
+    
+    @objc
     private func onCloseBtn() {
         
         let alertVC = UIAlertController(
@@ -381,10 +438,16 @@ extension AmongChat.Room.ViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
                 
-        view.addSubviews(views: bgView, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView)
+        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView)
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
+        }
+        
+        copyNameBtn.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().inset(17)
+            maker.centerY.equalTo(closeBtn)
+            maker.height.equalTo(30)
         }
         
         closeBtn.snp.makeConstraints { (maker) in

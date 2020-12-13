@@ -548,7 +548,7 @@ extension DocumentSnapshot {
 
 extension WalkieTalkie.FireStore {
     
-    enum ChannelType {
+    enum ChannelType: String, Codable, DefaultsSerializable {
         case amongUs
         case groupChat
         case createSecret
@@ -559,9 +559,17 @@ extension WalkieTalkie.FireStore {
         case anime
         case pubg
         case fortnite
+        
+        static var _defaults: DefaultsRawRepresentableBridge<ChannelType> {
+            return DefaultsRawRepresentableBridge<ChannelType>()
+        }
+        
+        static var _defaultsArray: DefaultsRawRepresentableArrayBridge<[ChannelType]> {
+            return DefaultsRawRepresentableArrayBridge<[ChannelType]>()
+        }
     }
     
-    struct ChannelCategory {
+    struct ChannelCategory: Codable, DefaultsSerializable {
         let id: Int
         let name: String
         let type: ChannelType
@@ -615,7 +623,8 @@ extension WalkieTalkie.FireStore {
             newRoomName = createUniqueChannelName(of: .secretCategory, exclude: [])
         }
         
-        let room = Room(name: newRoomName, user_count: 0)
+        var room = Room(name: newRoomName, user_count: 0)
+        room.channelCategory = ChannelCategory.secretCategory
         return Observable.of(room).asSingle()
     }
     
@@ -632,13 +641,16 @@ extension WalkieTalkie.FireStore {
         return fetchChannels(of: channelCategory.rootName)
             .catchErrorJustReturn([])
             .map({ (rooms) -> Room in
-                if let room = rooms
+                if var room = rooms
                     .sorted(by: \.user_count, with: >)
                     .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
+                    room.channelCategory = channelCategory
                     return room
                 } else {
                     let newRoomName = self.createUniqueChannelName(of: channelCategory, exclude: rooms.map({ $0.name }))
-                    return Room(name: newRoomName, user_count: 0)
+                    var room = Room(name: newRoomName, user_count: 0)
+                    room.channelCategory = channelCategory
+                    return room
                 }
             })
     }
