@@ -44,7 +44,18 @@ extension AmongChat.Home {
             btn.addTarget(self, action: #selector(onPremiumBtn), for: .primaryActionTriggered)
             return btn
         }()
-
+        
+        private lazy var hashTagBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.blackOpsOneRegular(size: 30)
+            btn.setTitleColor(.black, for: .normal)
+            btn.setTitle("#", for: .normal)
+            btn.addTarget(self, action: #selector(onHashBtn), for: .primaryActionTriggered)
+            btn.layer.cornerRadius = 10
+            btn.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            return btn
+        }()
+        
         private lazy var avatarBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onAvatarBtn), for: .primaryActionTriggered)
@@ -230,6 +241,32 @@ extension AmongChat.Home.ViewController {
     }
     
     @objc
+    private func onHashBtn() {
+        let vc = AmongChat.Home.ChannelInputViewController()
+        
+        vc.joinChannel = { [weak self] name, autoShare in
+            guard let `self` = self else { return }
+            guard let cat = FireStore.shared.allChannelCategories.first(where: { $0.name == name }),
+            cat.type != .joinSecret,
+            cat.type != .createSecret else {
+                self._joinRoom(FireStore.shared.findAGroupChatRoom(with: name))
+                return
+            }
+            self._joinRoom(FireStore.shared.findARoom(of: cat))
+        }
+        
+        vc.onDismiss = { [weak self] in
+            self?.hashTagBtn.isHidden = false
+        }
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: false) { [weak self] in
+            self?.hashTagBtn.isHidden = true
+        }
+        
+    }
+
+    @objc
     private func onAvatarBtn() {
         let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
@@ -265,7 +302,7 @@ extension AmongChat.Home.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, haloView, premiumBtn, avatarBtn, editNameBtn, hashTagsTitle, moreRoomsBtn, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, hashTagBtn, avatarBtn, editNameBtn, hashTagsTitle, moreRoomsBtn, hashTagCollectionView)
         
         let avatarLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(avatarLayoutGuide)
@@ -288,6 +325,12 @@ extension AmongChat.Home.ViewController {
             maker.width.height.equalTo(60)
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.left.equalTo(0)
+        }
+        
+        hashTagBtn.snp.makeConstraints { (maker) in
+            maker.right.equalToSuperview().inset(10)
+            maker.width.height.equalTo(40)
+            maker.centerY.equalTo(premiumBtn)
         }
         
         avatarBtn.snp.makeConstraints { (maker) in

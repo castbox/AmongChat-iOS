@@ -44,6 +44,19 @@ class FireStore {
         ChannelCategory(id: 100, name: "GroupChat", type: .groupChat)
     ]
     
+    let allChannelCategories = [
+        ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
+        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
+        ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
+        ChannelCategory(id: 105, name: "Anime", type: .anime),
+        ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),
+        ChannelCategory(id: 106, name: "Pubg", type: .pubg),
+        ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
+        ChannelCategory(id: 100, name: "GroupChat", type: .groupChat),
+        ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
+        ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
+    ]
+    
     private static let amongUsMaxOnlineUser = Int(10)
     
     let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
@@ -625,6 +638,18 @@ extension WalkieTalkie.FireStore {
         
         var room = Room(name: newRoomName, user_count: 0)
         room.channelCategory = ChannelCategory.secretCategory
+        return Observable.of(room).asSingle()
+    }
+    
+    func findAGroupChatRoom(with name: String) -> Single<Room> {
+        
+        guard let cat = allChannelCategories.first(where: { $0.type == .groupChat }) else {
+            return findAPrivateRoom(with: name)
+        }
+        
+        let newRoomName = cat.roomPrefix + name
+        var room = Room(name: newRoomName, user_count: 0)
+        room.channelCategory = cat
         return Observable.of(room).asSingle()
     }
     

@@ -97,7 +97,8 @@ extension AmongChat.Home.JoinSecretViewController {
     
     @objc
     private func onConfirmBtn() {
-        guard let name = codeField.text?.uppercased() else {
+        guard let name = codeField.text?.uppercased(),
+              !name.isEmpty else {
             return
         }
         
