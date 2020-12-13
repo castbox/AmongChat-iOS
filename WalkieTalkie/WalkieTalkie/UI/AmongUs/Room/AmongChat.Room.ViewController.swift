@@ -259,8 +259,8 @@ extension AmongChat.Room.ViewController {
                 transition.type = CATransitionType.push
                 transition.subtype = CATransitionSubtype.fromLeft
                 transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                self.view.window?.layer.add(transition, forKey: kCATransition)
-                self.dismiss(animated: true) {
+                UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+                self.dismiss(animated: false) {
                     guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
                     Ad.InterstitialManager.shared.showAdIfReady(from: vc)
                 }
