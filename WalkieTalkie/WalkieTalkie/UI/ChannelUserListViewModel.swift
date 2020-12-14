@@ -64,9 +64,14 @@ class ChannelUserListViewModel {
                 guard let `self` = self else { return }
                 
                 let uids: [UInt] = channelUsers.map { $0.uid }
-                                
-                let _ = self.fetchFirestoreUser(uids: uids)
-                    .subscribe(onSuccess: { (users) in
+                
+                let hitUsers = uids.compactMap {
+                    self.cachedFUsers[$0]
+                }
+                
+                let _ = Observable.of(self.fetchFirestoreUser(uids: uids), Observable.just(hitUsers).asSingle()).merge()
+                    .take(2)
+                    .subscribe(onNext: { (users) in
                         
                         let viewModelList = channelUsers.map { (channelUser) -> ChannelUserViewModel in
                             let firestoreUser = users.first(where: { $0.profile.uidInt == channelUser.uid })
