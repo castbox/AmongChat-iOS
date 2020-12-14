@@ -298,7 +298,7 @@ extension Social.EditProfileViewController: UITextFieldDelegate {
             return false
         }
         let newLength = currentCharacterCount + string.count - range.length
-        return filteredString == string && newLength <= 10
+        return (filteredString == string && newLength <= 10) || newLength < currentCharacterCount
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
