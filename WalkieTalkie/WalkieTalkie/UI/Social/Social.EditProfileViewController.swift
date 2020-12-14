@@ -301,14 +301,14 @@ extension Social.EditProfileViewController: UITextFieldDelegate {
         return (filteredString == string && newLength <= 10) || newLength < currentCharacterCount
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField == userNameInputField {
-            birthdayInputField.becomeFirstResponder()
-        }
-        
-        return false
-    }
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//
+//        if textField == userNameInputField {
+//            birthdayInputField.becomeFirstResponder()
+//        }
+//
+//        return false
+//    }
     
 }
 
