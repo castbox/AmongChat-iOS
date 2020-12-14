@@ -86,7 +86,6 @@ extension IAP {
                 return newMap
         }
         .observeOn(MainScheduler.instance)
-        .timeout(RxTimeInterval.seconds(10), scheduler: MainScheduler.instance)
     }
 
 }

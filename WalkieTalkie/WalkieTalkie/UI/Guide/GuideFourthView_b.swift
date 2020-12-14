@@ -94,7 +94,6 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] maps in
                 self?.updateButtonTitles(maps)
-                self?.termsBackgroundView.isHidden = false
             })
             .disposed(by: bag)
         
@@ -102,6 +101,7 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             .take(1)
             .subscribe(onNext: {  [weak self] (map) in
                 self?.productsMap = map
+                self?.termsBackgroundView.isHidden = false
                 guard let p = self?.productsMap[IAP.productYear] else {
                     return
                 }
