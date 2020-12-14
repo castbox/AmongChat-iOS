@@ -20,7 +20,27 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     
     @IBOutlet weak var vipDesLabel: WalkieLabel!
     @IBOutlet weak var tipsLabel: UILabel!
+    @IBOutlet weak var iconGuide: UIImageView!
     
+    private lazy var termsBackgroundView: UIView = {
+        let v = UIView()
+        v.backgroundColor = UIColor.black.alpha(0.5)
+        v.isHidden = true
+        return v
+    }()
+    
+    private lazy var termsLabel: UILabel = {
+        let lb = UILabel()
+        lb.numberOfLines = 0
+        lb.lineBreakMode = .byWordWrapping
+        lb.textColor = UIColor.white
+        lb.font = R.font.nunitoRegular(size: 12)
+        lb.textAlignment = .left
+        return lb
+    }()
+    
+    private var productsMap = [String: IAP.ProductInfo]()
+
     private weak var selectedButton: GuideProductButton? {
         didSet {
             if Constants.abGroup == .b {
@@ -74,9 +94,19 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] maps in
                 self?.updateButtonTitles(maps)
+                self?.termsBackgroundView.isHidden = false
             })
             .disposed(by: bag)
         
+        let _ = IAP.productInfoMap
+            .take(1)
+            .subscribe(onNext: {  [weak self] (map) in
+                self?.productsMap = map
+                guard let p = self?.productsMap[IAP.productYear] else {
+                    return
+                }
+                self?.updateTermsLabel(for: p)
+            })
         vipDesLabel.appendKern()
 //        yearButton.appendKern()
         monthButton.appendKern()
@@ -84,7 +114,17 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         monthButton.disableSelectTag = true
         weekButton.disableSelectTag = true
 //        weekButton.isHidden = IAP.isWeekProductInReview
-        weekButton.isHidden = true
+//        weekButton.isHidden = true
+        
+        insertSubview(termsLabel, aboveSubview: iconGuide)
+        insertSubview(termsBackgroundView, belowSubview: termsLabel)
+        termsLabel.snp.makeConstraints { (maker) in
+            maker.center.equalTo(iconGuide)
+            maker.width.equalTo(223)
+        }
+        termsBackgroundView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(termsLabel).inset(-10)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -132,6 +172,11 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         updateTipsLabelContent(sender)
     }
     
+    @IBAction func privacyAction(_ sender: Any) {
+        parentViewController?.open(urlSting: "https://walkietalkie.live/policy.html")
+        policyHandler()
+    }
+    
     func updateTipsLabelContent(_ sender: GuideProductButton) {
         if sender == yearButton {
             tipsLabel.text = """
@@ -167,10 +212,34 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
             weekButton.setTitle("\(product.localizedPrice) / Week", for: .normal)
             weekButton.isHidden = false
         } else {
-            weekButton.isHidden = true
+//            weekButton.isHidden = true
         }
 //        yearButton.appendKern()
         monthButton.appendKern()
         weekButton.appendKern()
     }
+}
+
+extension GuideFourthView_b {
+    
+    private typealias ProductInfo = IAP.ProductInfo
+    
+    private func updateTermsLabel(for product: ProductInfo) {
+                
+        if product.identifier == IAP.productLifeTime {
+            termsLabel.text = R.string.localizable.premiumSubscriptionDetailLifetime()
+        } else if product.identifier == IAP.productYear {
+            termsLabel.text = R.string.localizable.premiumSubscriptionTerms() + " " + R.string.localizable.premiumSubscriptionDetailFree(product.product.skProduct.localizedTitle, product.priceInfo.price)
+        } else {
+            termsLabel.text = R.string.localizable.premiumSubscriptionTerms() + " " + R.string.localizable.premiumSubscriptionDetailNormal(product.product.skProduct.localizedTitle, product.priceInfo.price)
+        }
+    }
+    
+    func selectProduct(id: String) {
+        guard let p = productsMap[id] else {
+            return
+        }
+        updateTermsLabel(for: p)
+    }
+    
 }

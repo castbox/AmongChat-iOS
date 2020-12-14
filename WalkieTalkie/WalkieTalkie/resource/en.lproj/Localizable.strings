@@ -171,3 +171,8 @@
 "among.chat.room.tip.mic.on" = "mic on";
 "among.chat.room.message.placeholder" = "Say something...";
 "among.chat.all.rooms.more" = "More channels coming soon!";
+"premium.subscription.terms" = "Subscription Terms:";
+"premium.subscription.detail.free" = "After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+"premium.subscription.detail.normal" = "%@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+"premium.lifetime" = "lifetime";
+"premium.subscription.detail.lifetime" = "Pay once, No Subscription";

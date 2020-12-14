@@ -1055,7 +1055,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 128 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 130 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1353,6 +1353,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let privateErrorCode = Rswift.StringResource(key: "private.error.code", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Pay once, No Subscription
+      /// 
+      /// Locales: en
+      static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -1557,6 +1561,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: lifetime
+      /// 
+      /// Locales: en
+      static let premiumLifetime = Rswift.StringResource(key: "premium.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: mic off
       /// 
       /// Locales: en
@@ -2088,6 +2096,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("private.error.code", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Pay once, No Subscription
+      /// 
+      /// Locales: en
+      static func premiumSubscriptionDetailLifetime(_: Void = ()) -> String {
+        return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -2443,6 +2458,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: lifetime
+      /// 
+      /// Locales: en
+      static func premiumLifetime(_: Void = ()) -> String {
+        return NSLocalizedString("premium.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: mic off

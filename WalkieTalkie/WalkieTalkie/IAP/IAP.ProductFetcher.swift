@@ -145,6 +145,21 @@ extension IAP.Product {
                     return NSLocalizedString("lifeTime", comment: "lifeTime")
                 }
             }
+            
+            var adjString: String {
+                switch self {
+                case .day:
+                    return NSLocalizedString("daily", comment: "daily")
+                case .week:
+                    return NSLocalizedString("weekly", comment: "weekly")
+                case .month:
+                    return NSLocalizedString("monthly", comment: "monthly")
+                case .year:
+                    return NSLocalizedString("yearly", comment: "yearly")
+                case .life:
+                    return NSLocalizedString("lifeTime", comment: "lifeTime")
+                }
+            }
         }
         
         let num: Int

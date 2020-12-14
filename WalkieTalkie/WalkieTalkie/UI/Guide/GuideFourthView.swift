@@ -66,6 +66,8 @@ class GuideProductButton: WalkieButton {
 
 class GuideFourthView: XibLoadableView, PremiumContainerable {
     
+    func selectProduct(id: String) {
+    }
     
     @IBOutlet weak var yearButton: GuideProductButton!
     @IBOutlet weak var monthButton: GuideProductButton!

@@ -14,9 +14,13 @@ protocol PremiumContainerable: UIView {
     var closeHandler: () -> Void { get set }
     var policyHandler: () -> Void { get set }
     var buyProductHandler: (String) -> Void { get set }
+    func selectProduct(id: String)
 }
 
 class PremiumContainer: XibLoadableView, PremiumContainerable {
+    func selectProduct(id: String) {
+    }
+    
     @IBOutlet weak var monthButton: UIButton!
     @IBOutlet weak var lifeTimeButton: UIButton!
     @IBOutlet weak var yearButton: UIButton!

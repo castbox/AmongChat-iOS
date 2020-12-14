@@ -18,6 +18,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GuideFourthView_b" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="iconGuide" destination="RhU-yU-agD" id="zfu-RU-nN6"/>
                 <outlet property="monthButton" destination="EFa-eC-QG7" id="KHs-yp-lpP"/>
                 <outlet property="tipsLabel" destination="cxq-OC-C9i" id="68f-9Q-fE2"/>
                 <outlet property="vipDesLabel" destination="nqi-XK-w1a" id="BzD-9t-SHW"/>
@@ -40,13 +41,13 @@
                             <rect key="frame" x="10" y="68" width="394" height="132.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqi-XK-w1a" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                                    <rect key="frame" x="109.5" y="15" width="175" height="97.5"/>
+                                    <rect key="frame" x="109" y="15" width="176" height="97.5"/>
                                     <attributedString key="attributedText">
                                         <fragment content="✔️">
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="smallSystem"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                     <tabStops/>
@@ -87,7 +88,7 @@
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="smallSystem"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
@@ -122,7 +123,7 @@
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="smallSystem"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
@@ -171,7 +172,7 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
+                                                <font key="NSFont" metaFont="smallSystem"/>
                                                 <real key="NSKern" value="0.0"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
@@ -297,6 +298,27 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                     </attributedString>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETM-JP-LCT">
+                                    <rect key="frame" x="71.5" y="193" width="160" height="26"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="26" id="5Ke-xy-HeR"/>
+                                    </constraints>
+                                    <state key="normal">
+                                        <attributedString key="attributedTitle">
+                                            <fragment content="Privacy Policy &amp; Terms of Sevice">
+                                                <attributes>
+                                                    <color key="NSColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <font key="NSFont" size="11" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    <integer key="NSUnderline" value="1"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </state>
+                                    <connections>
+                                        <action selector="privacyAction:" destination="-1" eventType="touchUpInside" id="yRn-fu-zi8"/>
+                                    </connections>
+                                </button>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0BG-Oq-imo" customClass="GuideProductButton" customModule="WalkieTalkie" customModuleProvider="target">
                                     <rect key="frame" x="40" y="119" width="223" height="56"/>
                                     <constraints>
@@ -334,6 +356,7 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                 <constraint firstItem="0BG-Oq-imo" firstAttribute="leading" secondItem="aMw-P3-ICX" secondAttribute="leading" constant="40" id="0sO-g1-ih8"/>
                                 <constraint firstItem="EFa-eC-QG7" firstAttribute="centerX" secondItem="ibH-pu-vZg" secondAttribute="centerX" id="1rc-WF-dCd"/>
                                 <constraint firstAttribute="width" constant="303" id="4y8-Sh-Gsd"/>
+                                <constraint firstItem="ETM-JP-LCT" firstAttribute="centerY" secondItem="cxq-OC-C9i" secondAttribute="centerY" id="CP4-KR-8p0"/>
                                 <constraint firstItem="0BG-Oq-imo" firstAttribute="trailing" secondItem="ibH-pu-vZg" secondAttribute="trailing" id="HcV-Ya-Awv"/>
                                 <constraint firstItem="ibH-pu-vZg" firstAttribute="top" secondItem="aMw-P3-ICX" secondAttribute="top" id="LbM-kX-Or3"/>
                                 <constraint firstAttribute="bottom" secondItem="cxq-OC-C9i" secondAttribute="bottom" id="PKN-0S-Vvg"/>
@@ -345,6 +368,7 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                 <constraint firstItem="cxq-OC-C9i" firstAttribute="leading" secondItem="aMw-P3-ICX" secondAttribute="leading" id="k9q-Su-p8Q"/>
                                 <constraint firstItem="EFa-eC-QG7" firstAttribute="top" secondItem="ibH-pu-vZg" secondAttribute="bottom" constant="15" id="lBq-BK-iVc"/>
                                 <constraint firstAttribute="trailing" secondItem="0BG-Oq-imo" secondAttribute="trailing" constant="40" id="tBj-EY-1BK"/>
+                                <constraint firstItem="ETM-JP-LCT" firstAttribute="centerX" secondItem="cxq-OC-C9i" secondAttribute="centerX" id="wKz-PM-33N"/>
                                 <constraint firstAttribute="trailing" secondItem="cxq-OC-C9i" secondAttribute="trailing" id="wbf-z8-iSQ"/>
                                 <constraint firstItem="0BG-Oq-imo" firstAttribute="leading" secondItem="ibH-pu-vZg" secondAttribute="leading" id="ytY-Up-RFw"/>
                                 <constraint firstItem="0BG-Oq-imo" firstAttribute="top" secondItem="EFa-eC-QG7" secondAttribute="bottom" constant="16" id="zWy-U8-kmf"/>

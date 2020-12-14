@@ -95,7 +95,7 @@ extension GuideViewController: UIScrollViewDelegate {
         }
         updateSubviewStatus(pageIndex)
         updateContinueButtonTitle()
-        privacyButton.isHidden = pageIndex > 0
+        privacyButton.isHidden = pageIndex > 0// && pageIndex < maxPage
         if pageIndex == 1, !isFirstShowPage2 {
             isFirstShowPage2 = true
             Logger.PageShow.log(.tutorial_imp_2)
@@ -132,8 +132,8 @@ extension GuideViewController {
             } else {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumFree3dTrial(), attributes: tryAttr))
             }
-            iapTipsLabel.fadeIn()
-            iapTipsLabel.isHidden = false
+//            iapTipsLabel.fadeIn()
+//            iapTipsLabel.isHidden = false
             
             if let pid = selectedProductId,
                 pid == IAP.productYear,

@@ -41,6 +41,7 @@ class PremiumViewController: ViewController {
         lb.numberOfLines = 0
         lb.textAlignment = .center
         lb.font = .systemFont(ofSize: 12)
+        lb.isHidden = true
         return lb
     }()
     private var productMaps: [String: IAP.Product] = [:]
@@ -215,6 +216,9 @@ extension PremiumViewController {
     }
     
     func buy(identifier: String) {
+        
+        premiumContainer.selectProduct(id: identifier)
+        
         if let s = self.source {
             Logger.IAP.logPurchase(productId: identifier, source: s)
         }
