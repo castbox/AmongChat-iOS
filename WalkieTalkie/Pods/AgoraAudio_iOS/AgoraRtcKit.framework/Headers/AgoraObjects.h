@@ -61,7 +61,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcVideoCanvas : NSObject
 
 /** The configurations of the last-mile network probe test. */
 __attribute__((visibility("default"))) @interface AgoraLastmileProbeConfig : NSObject
-/** Sets whether or not to test the uplink network. Some users, for example, the audience in a Live-broadcast channel, do not need such a test.
+/** Sets whether or not to test the uplink network. Some users, for example, the audience in the live interactive streaming channel, do not need such a test.
 
 - NO: disables the test.
 - YES: enables the test.
@@ -146,10 +146,22 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalVideoStats : NSOb
 @property (assign, nonatomic) NSUInteger encodedFrameCount;
 /** The codec type of the local video：
 
- - AgoraVideoCodecTypeVP8 = 1: VP8.
- - AgoraVideoCodecTypeH264 = 2: (Default) H.264.
+ - `AgoraVideoCodecTypeVP8` = 1: VP8.
+ - `AgoraVideoCodecTypeH264` = 2: (Default) H.264.
  */
 @property (assign, nonatomic) AgoraVideoCodecType codecType;
+
+/** The video packet loss rate (%) from the local client to the Agora edge server before applying the anti-packet loss strategies.
+ 
+ @since v3.1.0
+ */
+@property (assign, nonatomic) NSInteger txPacketLossRate;
+
+/** The capture frame rate (fps) of the local video.
+ 
+ @since v3.1.0
+ */
+@property (assign, nonatomic) NSInteger captureFrameRate;
 @end
 
 /** Statistics of the remote video stream.
@@ -188,9 +200,12 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteVideoStats : NSO
 /** The total video freeze time as a percentage (%) of the total time when the video is available.
  */
 @property (assign, nonatomic) NSUInteger frozenRate;
-/** The total time (ms) when the remote user in the Communication profile or the remote broadcaster in the Live-broadcast profile neither stops sending the video stream nor disables the video module after joining the channel.
+/** The total time (ms) when the remote user in the Communication profile or the remote host in the live interactive streaming profile neither stops sending the video stream nor disables the video module after joining the channel.
  */
 @property (assign, nonatomic) NSUInteger totalActiveTime;
+/** The total publish duration (ms) of the remote video stream.
+ */
+@property (assign, nonatomic) NSInteger publishDuration;
 @end
 
 /** The statistics of the local audio stream.
@@ -205,6 +220,11 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalAudioStats : NSOb
 /** The average sending bitrate (Kbps).
  */
 @property (assign, nonatomic) NSUInteger sentBitrate;
+/** The audio packet loss rate (%) from the local client to the Agora edge server before applying the anti-packet loss strategies.
+ 
+ @since v3.1.0
+ */
+@property (assign, nonatomic) NSUInteger txPacketLossRate;
 @end
 
 /** The statistics of the remote audio stream.
@@ -240,15 +260,22 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteAudioStats : NSO
 /** The total audio freeze time as a percentage (%) of the total time when the audio is available.
  */
 @property (assign, nonatomic) NSUInteger frozenRate;
-/** The total time (ms) when the remote user in the Communication profile or the remote broadcaster in the Live-broadcast profile neither stops sending the audio stream nor disables the audio module after joining the channel.
+/** The total time (ms) when the remote user in the Communication profile or the remote host in the live interactive streaming profile neither stops sending the audio stream nor disables the audio module after joining the channel.
  */
 @property (assign, nonatomic) NSUInteger totalActiveTime;
+/** The total publish duration (ms) of the remote audio stream.
+ 
+ @since v3.1.0
+ */
+@property (assign, nonatomic) NSInteger publishDuration;
 @end
 
 /** Properties of the audio volume information.
  */
 __attribute__((visibility("default"))) @interface AgoraRtcAudioVolumeInfo : NSObject
-/** User ID of the speaker. The `uid` of the local user is 0.
+/** <p>User ID of the speaker.</p>
+<li>The uid of the local user is 0.
+<li>On macOS, if you call [startRecordingDeviceTest]([AgoraRtcEngineKit startRecordingDeviceTest:]) or [startPlaybackDeviceTest]([AgoraRtcEngineKit startPlaybackDeviceTest:]) to test audio recording device or playback device, the `uid` of the audio recording device is `0`, and the `uid` of the audio playback device is `1`.
  */
 @property (assign, nonatomic) NSUInteger uid;
 /** The sum of the voice volume and audio-mixing volume of the speaker. The value ranges between 0 (lowest volume) and 255 (highest volume).
@@ -273,7 +300,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcAudioVolumeInfo : NSOb
 /** Statistics of the channel
  */
 __attribute__((visibility("default"))) @interface AgoraChannelStats: NSObject
-/** Call duration (s), represented by an aggregate value.
+/** Call duration of the local user in seconds, represented by an aggregate value.
  */
 @property (assign, nonatomic) NSInteger duration;
 /** Total number of bytes transmitted, represented by an aggregate value.
@@ -324,7 +351,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelStats: NSObject
 /** Number of users in the channel.
 
 - Communication profile: The number of users in the channel.
-- Live broadcast profile:
+- Live interactive streaming profile:
 
   - If the local user is an audience: The number of users in the channel = The number of hosts in the channel + 1.
   - If the user is a host: The number of users in the channel = The number of hosts in the channel.
@@ -336,19 +363,24 @@ __attribute__((visibility("default"))) @interface AgoraChannelStats: NSObject
 /** System CPU usage (%).
  */
 @property (assign, nonatomic) double cpuTotalUsage;
-/** The round-trip time delay from the client to the local router.
+/** The round-trip time delay (ms) from the client to the local router.
+ 
+ @note (iOS only) Since v3.1.2, this parameter is disabled by default. See [FAQ](https://docs.agora.io/en/faq/local_network_privacy) for details. If you need to enable this parameter, contact [support@agora.io](mailto:support@agora.io).
  */
 @property (assign, nonatomic) NSInteger gatewayRtt;
 /** The memory usage ratio of the app (%).
- **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
+ 
+ @note This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) double memoryAppUsageRatio;
 /** The memory usage ratio of the system (%). 
- **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
+ 
+ @note This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) double memoryTotalUsageRatio;
 /** The memory usage of the app (KB). 
- **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
+ 
+ @note This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) NSInteger memoryAppUsageInKbytes;
 @end
@@ -412,14 +444,14 @@ The default value is DEFAULT_MIN_BITRATE(-1) (the SDK uses the lowest encoder fr
 
  Sets the video bitrate (Kbps). Refer to the table below and set your bitrate. If you set a bitrate beyond the proper range, the SDK automatically adjusts it to a value within the range. You can also choose from the following options:
 
- - AgoraVideoBitrateStandard: (recommended) the standard bitrate mode. In this mode, the bitrates differ between the Live-broadcast and Communication profiles:
+ - AgoraVideoBitrateStandard: (recommended) the standard bitrate mode. In this mode, the bitrates differ between the live interactive streaming and Communication profiles:
 
      - Communication profile: the video bitrate is the same as the base bitrate.
-     - Live-broadcast profile: the video bitrate is twice the base bitrate.
+     - Live-Live interactive streaming profile: the video bitrate is twice the base bitrate.
 
- - AgoraVideoBitrateCompatible: the compatible bitrate mode. In this mode, the bitrate stays the same regardless of the profile. In the Live-broadcast profile, if you choose this mode, the video frame rate may be lower than the set value.
+ - AgoraVideoBitrateCompatible: the compatible bitrate mode. In this mode, the bitrate stays the same regardless of the profile. In the live interactive streaming profile, if you choose this mode, the video frame rate may be lower than the set value.
 
-Agora uses different video codecs for different profiles to optimize the user experience. For example, the Communication profile prioritizes the smoothness while the Live-broadcast profile prioritizes the video quality (a higher bitrate). Therefore, Agora recommends setting this parameter as AgoraVideoBitrateStandard.
+Agora uses different video codecs for different profiles to optimize the user experience. For example, the Communication profile prioritizes the smoothness while the live interactive streaming profile prioritizes the video quality (a higher bitrate). Therefore, Agora recommends setting this parameter as AgoraVideoBitrateStandard.
 
 **Video Bitrate Table**
 
@@ -461,7 +493,7 @@ Agora uses different video codecs for different profiles to optimize the user ex
 
 **Note:**
 
-The base bitrate in this table applies to the Communication profile. The Live-broadcast profile generally requires a higher bitrate for better video quality. Agora recommends setting the bitrate mode as AgoraVideoBitrateStandard. You can also set the bitrate as twice the base bitrate.
+The base bitrate in this table applies to the Communication profile. The live interactive streaming profile generally requires a higher bitrate for better video quality. Agora recommends setting the bitrate mode as AgoraVideoBitrateStandard. You can also set the bitrate as twice the base bitrate.
 
 
 */
@@ -475,7 +507,7 @@ The Agora SDK automatically adjusts the encoding bitrate to adapt to network con
 
 **Note:**
 
-This parameter applies only to the Live-broadcast profile.*/
+This parameter applies only to the live interactive streaming profile.*/
 @property (assign, nonatomic) NSInteger minBitrate;
 
 /** The video orientation mode of the video: AgoraVideoOutputOrientationMode.
@@ -501,8 +533,10 @@ AgoraDegradationPreference:
 @property (assign, nonatomic) AgoraDegradationPreference degradationPreference;
 
 /** Sets the mirror mode of the published local video stream. It only affects the video that the remote user sees. See [AgoraVideoMirrorMode](AgoraVideoMirrorMode).
- <p>**Note**</p>
- <p>The SDK disables the mirror mode by default.</p>
+ 
+ **Note**
+ 
+ The SDK disables the mirror mode by default.
  */
 @property (assign, nonatomic) AgoraVideoMirrorMode mirrorMode;
 
@@ -567,6 +601,26 @@ In either case, Agora uses the value of this parameter to calculate the charges.
  */
 @property (assign, nonatomic) BOOL captureMouseCursor;
 
+/** Whether to bring the window to the front when calling [startScreenCaptureByWindowId]([AgoraRtcEngineKit startScreenCaptureByWindowId:rectangle:parameters:]) to share the window:
+ 
+ - YES: Bring the window to the front.
+ - NO: (Default) Do not bring the window to the front.
+
+ @since v3.1.0
+ */ 
+@property (assign, nonatomic) BOOL windowFocus;
+
+/** A list of IDs of windows to be blocked. 
+ 
+ When calling [startScreenCaptureByDisplayId]([AgoraRtcEngineKit startScreenCaptureByDisplayId:rectangle:parameters:]) 
+ and pass `0` in the `displayId` parameter to start sharing a main screen, you can use this parameter to block the specified windows. When calling 
+ [updateScreenCaptureParameters]([AgoraRtcEngineKit updateScreenCaptureParameters:]) to update the configuration for the main screen sharing, you can use this 
+ parameter to dynamically block the specified windows during the main screen sharing.
+
+ @since v3.1.0
+ */ 
+@property (copy, nonatomic) NSArray * _Nullable excludeWindowList;
+
 @end
 
 /** A class for providing user-specific CDN live audio/video transcoding settings.
@@ -602,16 +656,40 @@ __attribute__((visibility("default"))) @interface AgoraLiveTranscodingUser: NSOb
 
  The default value is 0:
 
-    - 0: (Default) Supports dual channels. Depends on the upstream of the broadcaster.
-    - 1: The audio stream of the broadcaster uses the FL audio channel. If the upstream of the broadcaster uses multiple audio channels, these channels will be mixed into mono first.
-    - 2: The audio stream of the broadcaster uses the FC audio channel. If the upstream of the broadcaster uses multiple audio channels, these channels will be mixed into mono first.
-    - 3: The audio stream of the broadcaster uses the FR audio channel. If the upstream of the broadcaster uses multiple audio channels, these channels will be mixed into mono first.
-    - 4: The audio stream of the broadcaster uses the BL audio channel. If the upstream of the broadcaster uses multiple audio channels, these channels will be mixed into mono first.
-    - 5: The audio stream of the broadcaster uses the BR audio channel. If the upstream of the broadcaster uses multiple audio channels, these channels will be mixed into mono first.
+    - 0: (Default) Supports dual channels. Depends on the upstream of the host.
+    - 1: The audio stream of the host uses the FL audio channel. If the upstream of the host uses multiple audio channels, these channels will be mixed into mono first.
+    - 2: The audio stream of the host uses the FC audio channel. If the upstream of the host uses multiple audio channels, these channels will be mixed into mono first.
+    - 3: The audio stream of the host uses the FR audio channel. If the upstream of the host uses multiple audio channels, these channels will be mixed into mono first.
+    - 4: The audio stream of the host uses the BL audio channel. If the upstream of the host uses multiple audio channels, these channels will be mixed into mono first.
+    - 5: The audio stream of the host uses the BR audio channel. If the upstream of the host uses multiple audio channels, these channels will be mixed into mono first.
 
 Note: If your setting is not 0, you may need a specialized player.
  */
 @property (assign, nonatomic) NSInteger audioChannel;
+@end
+
+/** The advanced feature for high-quality video with a lower bitrate. */
+extern NSString* _Nonnull const LBHQ;
+/** The advanced feature for the optimized video encoder. */
+extern NSString* _Nonnull const VEO;
+
+/** The configuration for advanced features of the RTMP streaming with transcoding.
+ */
+__attribute__((visibility("default"))) @interface AgoraLiveStreamAdvancedFeature: NSObject
+
+/** The name of the advanced feature, including the following:
+
+ - LBHQ: The advanced feature for high-quality video with a lower bitrate.
+ - VEO: The advanced feature for the optimized video encoder.
+*/
+@property (copy, nonatomic) NSString *_Nullable featureName;
+
+/** Whether to enable the advanced feature:
+
+ - YES: Enable the advanced feature.
+ - NO: (Default) Disable the advanced feature.
+ */
+@property (assign, nonatomic) BOOL opened;
 @end
 
 /** Image properties.
@@ -677,7 +755,7 @@ Set this parameter according to the Video Bitrate Table. If you set a bitrate be
 
 The default value is 15 fps, and the value range is (0,30]. 
 
-@note The Agora server adjusts any value over 30 to 30.
+ @note The Agora server adjusts any value over 30 to 30.
  */
 @property (assign, nonatomic) NSInteger videoFramerate;
 /** Latency mode. **DEPRECATED** from v2.8.0
@@ -696,9 +774,15 @@ If you set this parameter to other values, Agora adjusts it to the default value
  */
 @property (assign, nonatomic) AgoraVideoCodecProfileType videoCodecProfile;
 
+/** Video codec type
+Set it as 1(default), 2 , see AgoraVideoCodecType.
+ */
+@property (assign, nonatomic) AgoraVideoCodecTypeForStream videoCodecType;
+
 /** An AgoraLiveTranscodingUser object managing the user layout configuration in the CDN live stream. Agora supports a maximum of 17 transcoding users in a CDN live stream channel. See AgoraLiveTranscodingUser.
  */
 @property (copy, nonatomic) NSArray<AgoraLiveTranscodingUser *> *_Nullable transcodingUsers;
+
 /** Reserved property. Extra user-defined information to send SEI for the H.264/H.265 video stream to the CDN live client. Maximum length: 4096 bytes. For more information on SEI, see [SEI-related questions](https://docs.agora.io/en/faq/sei).
  */
 @property (copy, nonatomic) NSString *_Nullable transcodingExtraInfo;
@@ -755,30 +839,62 @@ COLOR_CLASS is a general name for the type:
  */
 +(AgoraLiveTranscoding *_Nonnull) defaultTranscoding;
 
+/** Adds a user displaying the video in CDN live.
+ 
+ @param user The transcoding user. See AgoraLiveTranscodingUser.
+
+ @return - 0: Success.
+ - < 0: Failure.
+ */
 -(int)addUser:(AgoraLiveTranscodingUser * _Nonnull)user;
 
+/** Removes a user from CDN live.
+ 
+ @param uid The user ID of the user to remove from CDN live.
+
+ @return - 0: Success.
+ - < 0: Failure.
+ */
 -(int)removeUser:(NSUInteger)uid;
+
+/** Enables/Disables advanced features of the RTMP streaming with transcoding. 
+ 
+ @param featureName The name of the advanced feature, including the following:
+ <li>LBHQ: The advanced feature for high-quality video with a lower bitrate.</li>
+ <li>VEO: The advanced feature for the optimized video encoder.</li>
+ @param opened Whether to enable the advanced feature:
+ <li>YES: Enable the advanced feature.</li>
+ <li>NO: (Default) Disable the advanced feature.</li>
+ */
+-(void)setAdvancedFeatures:(NSString* _Nonnull) featureName opened:(BOOL) opened;
+
+/** Checks whether advanced features of the RTMP streaming with transcoding are enabled.
+ 
+ @return The name of each advanced feature and whether the advanced feature is enabled.
+ */
+-(NSArray<AgoraLiveStreamAdvancedFeature *> * _Nullable)getAdvancedFeatures;
+
 @end
 
-/** Configuration of the imported live broadcast voice or video stream.
+/** Configuration of the imported live interactive streaming.
  */
 __attribute__((visibility("default"))) @interface AgoraLiveInjectStreamConfig: NSObject
-/** Size of the added stream to the broadcast.
+/** Size of the added stream to the live interactive streaming.
 
 The default value is 0; same size as the original stream.
  */
 @property (assign, nonatomic) CGSize size;
-/** Video GOP of the added stream to the broadcast.
+/** Video GOP of the added stream to the live interactive streaming.
 
 The default value is 30 fps.
  */
 @property (assign, nonatomic) NSInteger videoGop;
-/** Video frame rate of the added stream to the broadcast.
+/** Video frame rate of the added stream to the live interactive streaming.
 
 The default value is 15 fps.
  */
 @property (assign, nonatomic) NSInteger videoFramerate;
-/** Video bitrate of the added stream to the broadcast.
+/** Video bitrate of the added stream to the live interactive streaming.
 
 The default value is 400 Kbps.
 
@@ -786,7 +902,7 @@ The setting of the video bitrate is closely linked to the resolution. If the vid
  */
 @property (assign, nonatomic) NSInteger videoBitrate;
 
-/** Audio sample rate of the added stream to the broadcast.
+/** Audio sample rate of the added stream to the live interactive streaming.
 
 The default value is 48000 Hz. See AgoraAudioSampleRateType for details.
 
@@ -795,7 +911,7 @@ The default value is 48000 Hz. See AgoraAudioSampleRateType for details.
 Agora recommends using the default value.
  */
 @property (assign, nonatomic) AgoraAudioSampleRateType audioSampleRate;
-/** Audio bitrate of the added stream to the broadcast.
+/** Audio bitrate of the added stream to the live interactive streaming.
 
 The default value is 48 Kbps.
 
@@ -804,7 +920,7 @@ The default value is 48 Kbps.
 Agora recommends using the default value.
  */
 @property (assign, nonatomic) NSInteger audioBitrate;
-/** Number of audio channels to add to the broadcast. The values are 1 and 2.
+/** Number of audio channels to add to the live interactive streaming. The values are 1 and 2.
 
 The default value is 1.
 
@@ -819,6 +935,7 @@ Agora recommends using the default value.
  @return Default stream configuration object.
  */
 +(AgoraLiveInjectStreamConfig *_Nonnull) defaultConfig;
+
 @end
 
 /** the configuration of camera capturer.
@@ -984,7 +1101,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
 /** The information of the destination channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the destination channel.
- - `uid`: ID of the broadcaster in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). To avoid UID conflicts, this `uid` must be different from any other UIDs in the destination channel. The default value is 0, which means the SDK generates a random UID.
+ - `uid`: The unique ID to identify the relay stream in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). Do not set this parameter as the `uid` of the host in the destination channel, and ensure that this `uid` is different from any other `uid` in the channel. The default value is 0, which means the SDK generates a random UID.
  - `token`: The token for joining the destination channel. It is generated with the `channelName` and `uid` you set in `destinationInfos`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -994,7 +1111,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
 /** The information of the source channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the source channel. The default value is `nil`, which means the SDK applies the name of the current channel.
- - `uid`: ID of the broadcaster whose media stream you want to relay. The default value is 0, which means the SDK generates a random UID. You must set it as 0.
+ - `uid`: The unique ID to identify the relay stream in the source channel. The default value is 0, which means the SDK generates a random UID. You must set it as 0.
  - `token`: The token for joining the source channel. It is generated with the `channelName` and `uid` you set in `sourceInfo`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -1008,7 +1125,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
  @param destinationInfo The information of the destination channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the destination channel.
- - `uid`: ID of the broadcaster in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). To avoid UID conflicts, this `uid` must be different from any other UIDs in the destination channel. The default value is 0, which means the SDK generates a random UID.
+ - `uid`: The unique ID to identify the relay stream in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). Do not set this parameter as the `uid` of the host in the destination channel, and ensure that this `uid` is different from any other `uid` in the channel. The default value is 0, which means the SDK generates a random UID.
  - `token`: The token for joining the destination channel. It is generated with the `channelName` and `uid` you set in `destinationInfo`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -1079,16 +1196,16 @@ __attribute__((visibility("default"))) @interface AgoraUserInfo : NSObject
 __attribute__((visibility("default"))) @interface AgoraRtcChannelMediaOptions : NSObject
 /** Determines whether to subscribe to audio streams when the user joins the channel:
 
- - true: (Default) Subscribe.
- - false: Do not subscribe.
+ - YES: (Default) Subscribe.
+ - NO: Do not subscribe.
  
  This member serves a similar function to the [muteAllRemoteAudioStreams]([AgoraRtcChannel muteAllRemoteAudioStreams:]) method. After joining the channel, you can call the `muteAllRemoteAudioStreams` method to set whether to subscribe to audio streams in the channel.
  */ 
 @property (nonatomic, assign) BOOL autoSubscribeAudio;
 /** Determines whether to subscribe to video streams when the user joins the channel:
 
- - true: (Default) Subscribe.
- - false: Do not subscribe.
+ - YES: (Default) Subscribe.
+ - NO: Do not subscribe.
 
  This member serves a similar function to the [muteAllRemoteVideoStreams]([AgoraRtcChannel muteAllRemoteVideoStreams:]) method. After joining the channel, you can call the `muteAllRemoteVideoStreams` method to set whether to subscribe to audio streams in the channel.
  */ 
@@ -1128,10 +1245,39 @@ __attribute__((visibility("default"))) @interface AgoraFacePositionInfo : NSObje
 /** Configurations for the AgoraRtcEngineKit instance.
  */ 
 __attribute__((visibility("default"))) @interface AgoraRtcEngineConfig: NSObject
- /** The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance. To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to destroy the current AgoraRtcEngineKit instance and then call create to create an AgoraRtcEngineKit instance with the new App ID.
+ /** The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance.  To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to `destroy` the current AgoraRtcEngineKit instance, and after `destroy` returns 0, call [sharedEngineWithConfig]([AgoraRtcEngineKit sharedEngineWithConfig:delegate:]) to create an AgoraRtcEngineKit instance with the new App ID.
   */ 
  @property (copy, nonatomic) NSString * _Nullable appId;
- /** The area for connection. This advanced feature applies to scenarios that have regional restrictions. <p>You can use the bitwise OR operator (`|`) to specify multiple areas. For details, see AgoraIpAreaCode.<p>After specifying the area of connection:<li>When the app that integrates the Agora SDK is used within the specified area, it connects to the Agora servers within the specified area under normal circumstances.<li>When the app that integrates the Agora SDK is used out of the specified area, it connects to the Agora servers either in the specified area or in the area where the app is located.</li></p>
+ /** The region for connection. This advanced feature applies to scenarios that have regional restrictions. <p>For the regions that Agora supports, see AgoraAreaCode. After specifying the region, the SDK connects to the Agora servers within that region.</p>
+  
+  @note The SDK supports specifying only one region.
   */ 
- @property (nonatomic, assign) int areaCode;
+ @property (nonatomic, assign) NSUInteger areaCode;
  @end
+
+/** Configurations of built-in encryption schemas.
+ */
+__attribute__((visibility("default"))) @interface AgoraEncryptionConfig: NSObject
+
+ /** Encryption mode. The default encryption mode is `AgoraEncryptionModeAES128XTS`. See AgoraEncryptionMode.
+  */
+ @property (assign, nonatomic) AgoraEncryptionMode encryptionMode;
+
+ /** Encryption key in string type.
+ 
+ **Note**
+
+ If you do not set an encryption key or set it as `nil`, you cannot use the built-in encryption, and the SDK returns `-2` (`AgoraErrorCodeInvalidArgument`).
+  */
+ @property (copy, nonatomic) NSString * _Nullable encryptionKey;
+ @end
+
+/** The detailed options of a user.
+ */ 
+__attribute__((visibility("default"))) @interface AgoraClientRoleOptions: NSObject
+
+/** The latency level of an audience member in a live interactive streaming. See [AgoraAudienceLatencyLevelType](AgoraAudienceLatencyLevelType).
+  */
+@property (assign, nonatomic) AgoraAudienceLatencyLevelType audienceLatencyLevel;
+
+@end

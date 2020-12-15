@@ -13,16 +13,16 @@
 
 /** The standard bitrate set in [setVideoEncoderConfiguration]([AgoraRtcEngineKit setVideoEncoderConfiguration:]).
 
-(Recommended) The standard bitrate mode. In this mode, the bitrate under the live broadcast and communication profiles differs:
+(Recommended) The standard bitrate mode. In this mode, the bitrate under the live interactive streaming and communication profiles differs:
 
     - Communication profile: The video bitrate is the same as the base bitrate.
-    - Live broadcast profile: The video bitrate is twice the base bitrate.
+    - Live interactive streaming profile: The video bitrate is twice the base bitrate.
  */
 extern NSInteger const AgoraVideoBitrateStandard;
 
 /** The compatible bitrate set in [setVideoEncoderConfiguration]([AgoraRtcEngineKit setVideoEncoderConfiguration:]).
 
-The compatible bitrate mode. In this mode, the bitrate stays the same regardless of the channel profile. In a live broadcast channel, if you choose this mode, the video frame rate may be lower than the set value.
+The compatible bitrate mode. In this mode, the bitrate stays the same regardless of the channel profile. In the live interactive streaming channel, if you choose this mode, the video frame rate may be lower than the set value.
  */
 extern NSInteger const AgoraVideoBitrateCompatible;
 
