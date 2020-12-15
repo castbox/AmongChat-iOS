@@ -176,3 +176,4 @@
 "premium.subscription.detail.normal" = "%@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
 "premium.lifetime" = "lifetime";
 "premium.subscription.detail.lifetime" = "Pay once, No Subscription";
+"force.upgrade.tip" = "Please update to the newest version of the app to continue playing.";

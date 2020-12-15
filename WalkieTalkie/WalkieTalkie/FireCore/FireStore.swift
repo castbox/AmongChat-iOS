@@ -86,6 +86,10 @@ class FireStore {
     let appConfigSubject = BehaviorRelay<AppConfig?>(value: nil)
     let isInReviewSubject = BehaviorRelay<Bool>(value: true)
     
+    var appConfigObservable: Observable<AppConfig> {
+        return appConfigSubject.asObservable().filterNil()
+    }
+    
     private let firebaseSignedInSubject = ReplaySubject<Void>.create(bufferSize: 1)
     
     var firebaseSignedInObservable: Observable<Void> {

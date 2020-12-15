@@ -1055,7 +1055,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 130 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 131 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1357,6 +1357,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Please update to the newest version of the app to continue playing.
+      /// 
+      /// Locales: en
+      static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -2101,6 +2105,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please update to the newest version of the app to continue playing.
+      /// 
+      /// Locales: en
+      static func forceUpgradeTip(_: Void = ()) -> String {
+        return NSLocalizedString("force.upgrade.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Purchase not found
