@@ -105,7 +105,7 @@ class SettingContainerTableController: UITableViewController {
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {
-            let appID = "1505959099"
+            let appID = Constants.appId
 //            let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
             let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
 

@@ -25,6 +25,8 @@ struct Constants {
         return deviceID
     }()
     
+    static let appId = "1539641263"
+    
     static let abGroup: ABGroup = {
 //        #if DEBUG
         return .b
