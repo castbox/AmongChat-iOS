@@ -143,6 +143,8 @@ target 'WalkieTalkie' do
     pod 'TikTokOpenSDK', '~> 3.0.2'
     
     pod 'Kingfisher'
+    pod 'YYText'
+    pod 'GoogleSignIn'
 end
 
 #target 'WalkieTalkieWidgetExtension' do
