@@ -55,13 +55,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEC-b9-k1H">
-                                <rect key="frame" x="127" y="817" width="160" height="26"/>
+                                <rect key="frame" x="125" y="817" width="164" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="kyj-0b-bqo"/>
                                 </constraints>
                                 <state key="normal">
                                     <attributedString key="attributedTitle">
-                                        <fragment content="Privacy Policy &amp; Terms of Sevice">
+                                        <fragment content="Privacy Policy &amp; Terms of Service">
                                             <attributes>
                                                 <color key="NSColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <font key="NSFont" size="11" name="Helvetica"/>
