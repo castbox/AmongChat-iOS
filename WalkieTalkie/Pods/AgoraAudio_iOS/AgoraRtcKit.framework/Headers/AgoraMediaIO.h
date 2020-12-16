@@ -50,6 +50,16 @@ typedef NS_ENUM(NSInteger, AgoraVideoBufferType) {
     AgoraVideoBufferTypeRawData     = 2,
 };
 
+/** The capture type of the custom video source. */
+typedef NS_ENUM(NSInteger, AgoraVideoCaptureType) {
+    /** Unknown type. */
+    AgoraVideoCaptureTypeUnknown = 0,
+    /** (Default) Video captured by the camera. */
+    AgoraVideoCaptureTypeCamera  = 1,
+    /** Video for screen sharing. */
+    AgoraVideoCaptureTypeScreen = 2,
+};
+
 /** An object supporting video data in two formats; pixel buffer and raw data.
 
  When the video source is initialized, the media engine passes this object to you and you need to reserve it, and then pass the video frame to the media engine through this object once the video source is initialized.
@@ -94,7 +104,9 @@ typedef NS_ENUM(NSInteger, AgoraVideoBufferType) {
  * Enables the Video Source ([shouldStart](shouldStart))
  * Disables the Video Source ([shouldStop](shouldStop))
  * Releases the Video Source ([shouldDispose](shouldDispose))
- * Retrieves the Buffer Type ([bufferType](bufferType))
+ * Retrieves the Buffer Type (AgoraVideoBufferType)
+ * Gets the capture type of the custom video source (AgoraVideoCaptureType)
+ * Gets the content hint of the custom video source (AgoraVideoContentHint)
 
  Note:
 
@@ -107,7 +119,11 @@ typedef NS_ENUM(NSInteger, AgoraVideoBufferType) {
  */
 @protocol AgoraVideoSourceProtocol <NSObject>
 @required
-/** See AgoraVideoFrameConsumer */
+/** An AgoraVideoFrameConsumer object that the SDK passes to you. You need to reserve this object and use it to send the video frame to 
+ the SDK once the custom video source is started. See [AgoraVideoFrameConsumer](AgoraVideoFrameConsumer).
+ 
+ @note The SDK does not support the alpha channel, and discards any alpha value passed to the SDK.
+ */
 @property (strong) id<AgoraVideoFrameConsumer> _Nullable consumer;
 /** Initializes the video source.
 
@@ -150,6 +166,32 @@ Call this method when AgoraVideoFrameConsumer is released by the media engine. Y
  @return return AgoraVideoBufferType
  */
 - (AgoraVideoBufferType)bufferType;
+
+/** Gets the capture type of the custom video source.
+
+ @since v3.1.0
+
+ Before you initialize the custom video source, the SDK triggers this callback to query the capture type 
+ of the video source. You must specify the capture type in the return value and then pass it to the SDK. 
+ The SDK enables the corresponding video processing algorithm according to the capture type after 
+ receiving the video frame.
+
+ @return AgoraVideoCaptureType
+ */
+- (AgoraVideoCaptureType)captureType;
+
+/** Gets the content hint of the custom video source.
+
+ @since v3.1.0
+ 
+ If you specify the custom video source as a screen-sharing video, the SDK triggers this callback to query 
+ the content hint of the video source before you initialize the video source. You must specify the content 
+ hint in the return value and then pass it to the SDK. The SDK enables the corresponding video processing 
+ algorithm according to the content hint after receiving the video frame.
+
+ @return AgoraVideoContentHint
+ */
+- (AgoraVideoContentHint)contentHint;
 @end
 
 /** Defines a set of protocols to implement the custom video sink and pass it to the underlying media engine to replace the default video sink.
@@ -271,6 +313,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcScreenCapture: NSObjec
 @property (nonatomic, assign, readonly) NSInteger frameRate;
 @property (nonatomic, assign, readonly) NSInteger bitrate;
 @property (nonatomic, assign, readonly) BOOL captureMouseCursor;
+@property (nonatomic, assign, readonly) BOOL windowFocus;
 
 + (instancetype _Nonnull)screenCaptureWithId:(NSUInteger)displayId
                                         rect:(CGRect)rect
@@ -283,7 +326,8 @@ __attribute__((visibility("default"))) @interface AgoraRtcScreenCapture: NSObjec
                                   dimensions:(CGSize)dimensions
                                    frameRate:(NSInteger)frameRate
                                      bitrate:(NSInteger)bitrate
-                          captureMouseCursor:(BOOL)captureMouseCursor;
+                          captureMouseCursor:(BOOL)captureMouseCursor
+                                 windowFocus:(BOOL)windowFocus;
 @end
 #endif
 

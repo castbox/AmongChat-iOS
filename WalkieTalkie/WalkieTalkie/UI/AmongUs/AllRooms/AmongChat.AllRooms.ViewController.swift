@@ -31,6 +31,21 @@ extension AmongChat.AllRooms {
             btn.tintColor = UIColor.white.alpha(0.8)
             return btn
         }()
+        
+        private lazy var voteGameBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.backgroundColor = .clear
+            btn.addTarget(self, action: #selector(onVoteGameBtn), for: .primaryActionTriggered)
+            let attTxt = NSAttributedString(string: R.string.localizable.amongChatAllRoomsVoteGame(),
+                                            attributes: [
+                                                NSAttributedString.Key.font : R.font.nunitoRegular(size: 14) ?? UIFont.systemFont(ofSize: 14),
+                                                NSAttributedString.Key.foregroundColor : UIColor.white,
+                                                NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue
+                                            ])
+
+            btn.setAttributedTitle(attTxt, for: .normal)
+            return btn
+        }()
                 
         private lazy var hashTagCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
@@ -55,8 +70,6 @@ extension AmongChat.AllRooms {
             return FireStore.shared.channels.map { mapHastTag(from: $0) }
         }()
         
-//        private var hudRemoval: (() -> Void)? = nil
-        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -75,6 +88,11 @@ extension AmongChat.AllRooms.ViewController {
         navigationController?.popViewController()
     }
     
+    @objc
+    private func onVoteGameBtn() {
+        open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSd6Hl8ucuvELwWmalLHpMcOVNFyS1erFFhp8eBhc0ZfgHxB7A/viewform")
+    }
+    
 }
 
 extension AmongChat.AllRooms.ViewController {
@@ -85,7 +103,7 @@ extension AmongChat.AllRooms.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, backBtn, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, backBtn, voteGameBtn, hashTagCollectionView)
         
         bgImageView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -97,10 +115,15 @@ extension AmongChat.AllRooms.ViewController {
             maker.width.height.equalTo(25)
         }
         
+        voteGameBtn.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(30)
+            maker.top.equalTo(backBtn.snp.bottom).offset(5)
+        }
+        
         hashTagCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.top.equalTo(backBtn.snp.bottom)
+            maker.top.equalTo(voteGameBtn.snp.bottom)
         }
         
     }
@@ -108,7 +131,6 @@ extension AmongChat.AllRooms.ViewController {
     private func mapHastTag(from channelCategory: ChannelCategory) -> HashTag {
         return HashTag(channelCategory: channelCategory) { [weak self] in
             guard let `self` = self else { return }
-//            self.hudRemoval =
             let _ = self.view.raft.show(.loading, userInteractionEnabled: false)
             AmongChat.Home.ViewController.shared.joinRoom(with: FireStore.shared.findARoom(of: channelCategory))
             Logger.Channel.logChannelCategoryClick(id: channelCategory.id, source: .all_rooms)

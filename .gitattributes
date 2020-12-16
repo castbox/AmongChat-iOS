@@ -12,3 +12,4 @@ WalkieTalkie/Pods/SnapSDK/SCSDKStoryKit.framework/SCSDKStoryKit filter=lfs diff=
 WalkieTalkie/Pods/Pods.xcodeproj/project.pbxproj filter=lfs diff=lfs merge=lfs -text
 WalkieTalkie/Pods/AgoraRtm_iOS/AgoraRtmKit.framework/AgoraRtmKit filter=lfs diff=lfs merge=lfs -text
 WalkieTalkie/Pods/UnityAds/UnityAds.framework/UnityAds filter=lfs diff=lfs merge=lfs -text
+WalkieTalkie/Pods/AgoraAudio_iOS/Agorafdkaac.framework/Agorafdkaac filter=lfs diff=lfs merge=lfs -text
