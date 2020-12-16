@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 96 images.
+  /// This `R.image` struct is generated, and contains static references to 97 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -172,6 +172,8 @@ struct R: Rswift.Validatable {
     static let channel_user_list_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mute")
     /// Image `channel_user_list_social`.
     static let channel_user_list_social = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_social")
+    /// Image `community_guidelines_banner`.
+    static let community_guidelines_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "community_guidelines_banner")
     /// Image `default_avatar_0`.
     static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
     /// Image `default_avatar_1`.
@@ -426,6 +428,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "channel_user_list_social", bundle: ..., traitCollection: ...)`
     static func channel_user_list_social(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.channel_user_list_social, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "community_guidelines_banner", bundle: ..., traitCollection: ...)`
+    static func community_guidelines_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.community_guidelines_banner, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
