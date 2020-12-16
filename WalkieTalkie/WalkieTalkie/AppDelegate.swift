@@ -67,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        } else {
 //            setupInitialView(goRoom: false)
 //        }
+        _ = AdjustAnalytics.sharedInstance
         
         setupInitialView()
         

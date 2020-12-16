@@ -59,6 +59,8 @@
 		BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1412589C92800412BDC /* PolicyLabel.swift */; };
 		BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */; };
 		BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */; };
+		BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */; };
+		BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
@@ -386,6 +388,8 @@
 		BDC9D1412589C92800412BDC /* PolicyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolicyLabel.swift; sourceTree = "<group>"; };
 		BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.Manager.swift; sourceTree = "<group>"; };
 		BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.LoginResult.swift; sourceTree = "<group>"; };
+		BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustAnalytics.swift; sourceTree = "<group>"; };
+		BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Adjust-Info.plist"; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
@@ -1198,6 +1202,7 @@
 		FECA43B52459A8A40075D139 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
 				FE746BCC24629A9800CAC554 /* BlackOpsOne-Regular.ttf */,
 				FE746BC924629A9800CAC554 /* call.m4a */,
@@ -1299,6 +1304,7 @@
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */,
 				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
 				FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */,
 				FED7B600244EC9FB00D94F97 /* LoggerPath.swift */,
@@ -1406,6 +1412,7 @@
 				FE79F38E258CDFA500E9BC6C /* AmongSheetUserCell.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
 				FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */,
+				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */,
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
@@ -1729,6 +1736,7 @@
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
+				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
 				FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,

@@ -17,8 +17,10 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 6 files.
+  /// This `R.file` struct is generated, and contains static references to 7 files.
   struct file {
+    /// Resource file `Adjust-Info.plist`.
+    static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
     /// Resource file `DefaultRemoteConfig.plist`.
     static let defaultRemoteConfigPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "DefaultRemoteConfig", pathExtension: "plist")
     /// Resource file `GoogleService-Info.plist`.
@@ -31,6 +33,12 @@ struct R: Rswift.Validatable {
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
     /// Resource file `end.mp3`.
     static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
+    
+    /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
+    static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.adjustInfoPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
     
     /// `bundle.url(forResource: "DefaultRemoteConfig", withExtension: "plist")`
     static func defaultRemoteConfigPlist(_: Void = ()) -> Foundation.URL? {
