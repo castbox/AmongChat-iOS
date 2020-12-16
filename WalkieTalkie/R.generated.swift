@@ -1055,7 +1055,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 130 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 132 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1357,6 +1357,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Please update to the newest version of the app to continue playing.
+      /// 
+      /// Locales: en
+      static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -1517,6 +1521,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let userListTitle = Rswift.StringResource(key: "user.list.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Vote which games we should support next!
+      /// 
+      /// Locales: en
+      static let amongChatAllRoomsVoteGame = Rswift.StringResource(key: "among.chat.all.rooms.vote.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: What about you, %1$@
       /// 
       /// Locales: en
@@ -2103,6 +2111,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Please update to the newest version of the app to continue playing.
+      /// 
+      /// Locales: en
+      static func forceUpgradeTip(_: Void = ()) -> String {
+        return NSLocalizedString("force.upgrade.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -2381,6 +2396,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func userListTitle(_: Void = ()) -> String {
         return NSLocalizedString("user.list.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Vote which games we should support next!
+      /// 
+      /// Locales: en
+      static func amongChatAllRoomsVoteGame(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.all.rooms.vote.game", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: What about you, %1$@

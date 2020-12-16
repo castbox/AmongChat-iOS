@@ -39,7 +39,7 @@ class FireStore {
         ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
         ChannelCategory(id: 105, name: "Anime", type: .anime),
         ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),
-        ChannelCategory(id: 106, name: "Pubg", type: .pubg),
+        ChannelCategory(id: 106, name: "PUBG", type: .pubg),
         ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
         ChannelCategory(id: 100, name: "GroupChat", type: .groupChat)
     ]
@@ -50,7 +50,7 @@ class FireStore {
         ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
         ChannelCategory(id: 105, name: "Anime", type: .anime),
         ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),
-        ChannelCategory(id: 106, name: "Pubg", type: .pubg),
+        ChannelCategory(id: 106, name: "PUBG", type: .pubg),
         ChannelCategory(id: 103, name: "Minecraft", type: .minecraft),
         ChannelCategory(id: 100, name: "GroupChat", type: .groupChat),
         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
@@ -85,6 +85,10 @@ class FireStore {
 //    private (set) var isInReview: Bool = true
     let appConfigSubject = BehaviorRelay<AppConfig?>(value: nil)
     let isInReviewSubject = BehaviorRelay<Bool>(value: true)
+    
+    var appConfigObservable: Observable<AppConfig> {
+        return appConfigSubject.asObservable().filterNil()
+    }
     
     private let firebaseSignedInSubject = ReplaySubject<Void>.create(bufferSize: 1)
     

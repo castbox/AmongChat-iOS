@@ -56,11 +56,27 @@ extension FireStore {
         let reviewVersion: String?
         let isSnapchatInreview: Bool?
         let isWeekInReview: Bool?
+        let allowedMinimumVersion: String?
         
         private enum CodingKeys: String, CodingKey {
             case reviewVersion = "in_review_among_chat_ios"
             case isSnapchatInreview = "is_snapchat_inreview"
             case isWeekInReview
+            case allowedMinimumVersion = "allowed_minimum_version_ios"
         }
     }
+}
+
+extension FireStore.AppConfig {
+    
+    var forceUpgrade: Bool {
+        
+        switch Config.appVersion.compare(allowedMinimumVersion ?? "", options: .numeric) {
+        case .orderedSame, .orderedDescending:
+            return false
+        case .orderedAscending:
+            return true
+        }
+    }
+    
 }
