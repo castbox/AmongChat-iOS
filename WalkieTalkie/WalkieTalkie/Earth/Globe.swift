@@ -61,6 +61,7 @@ public func cdAssertFailure(_ message: String) {
 //typealias DataError = CastboxNetwork.DataError
 ////typealias Repos = CastboxNetwork.Repos
 //typealias Debug = CastboxDebuger.Debug
+typealias CallBack = () -> Void
 
 extension Comparable {
     func clamped(to limits: ClosedRange<Self>) -> Self {

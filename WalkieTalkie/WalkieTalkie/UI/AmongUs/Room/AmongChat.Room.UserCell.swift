@@ -15,6 +15,14 @@ extension AmongChat.Room {
         
         private static let haloViewAnimationKey = "halo_animation"
         
+        private lazy var indexLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoRegular(size: 11)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            return lb
+        }()
+        
         private lazy var haloView: UIView = {
             let v = UIView()
             v.backgroundColor = .clear
@@ -41,6 +49,15 @@ extension AmongChat.Room {
             return lb
         }()
         
+//        private lazy var gameNameButton: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.setTitle("XXX", for: .normal)
+////            btn.setTitleColor(<#T##color: UIColor?##UIColor?#>, for: <#T##UIControl.State#>)
+////            btn.setImage(R.image.icon_close(), for: .normal)
+////            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
+//            return btn
+//        }()
+        
         private var avatarDisposable: Disposable?
         
         override init(frame: CGRect) {
@@ -63,7 +80,11 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: haloView, avatarIV, nameLabel)
+            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel)
+            
+            indexLabel.snp.makeConstraints { (maker) in
+                maker.left.right.top.equalToSuperview()
+            }
             
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
@@ -72,13 +93,18 @@ extension AmongChat.Room {
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.size.equalTo(CGSize(width: 50, height: 50))
-                maker.top.centerX.equalToSuperview()
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(indexLabel.snp.bottom)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.left.right.bottom.equalToSuperview()
+                maker.left.bottom.right.equalToSuperview()
+//                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
+//            gameNameButton.snp.makeConstraints { maker in
+//                maker.left.right.bottom.equalToSuperview()
+//            }
         }
         
         private func haloAnimation() {

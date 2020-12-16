@@ -59,7 +59,7 @@ extension AmongChat.Room {
                 let lb = UILabel()
                 lb.font = R.font.nunitoRegular(size: 14)
                 lb.textColor = .white
-                lb.text = channel.code
+                lb.text = room.roomId
                 return lb
             }()
             
@@ -96,12 +96,17 @@ extension AmongChat.Room {
             return btn
         }()
         
+        private var topBar: AmongChatRoomTopBar!
+        private var configView: AmongChatRoomConfigView!
+        private var amongInputCodeView: AmongInputCodeView!
+//        private var infoView: Among
+        
         private lazy var userCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             let hInset: CGFloat = 24
             let itemSpacing: CGFloat = 17
             let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
-            layout.itemSize = CGSize(width: cellWidth, height: 71)
+            layout.itemSize = CGSize(width: cellWidth, height: 91)
             layout.minimumInteritemSpacing = itemSpacing
             layout.minimumLineSpacing = 8
             layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 12, right: hInset)
@@ -248,7 +253,7 @@ extension AmongChat.Room {
         
         private let fixedListLength = Int(10)
         
-        private let channel: Room
+        private let room: Entity.Room
         private let viewModel = ChannelUserListViewModel.shared
         private let imViewModel: IMViewModel
         
@@ -263,9 +268,9 @@ extension AmongChat.Room {
             }
         }
         
-        init(channel: Room) {
-            self.channel = channel
-            self.imViewModel = IMViewModel(with: channel.name)
+        init(room: Entity.Room) {
+            self.room = room
+            self.imViewModel = IMViewModel(with: room.roomId)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -294,8 +299,8 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onCopyNameBtn() {
-        channel.code.copyToPasteboard()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+//        channel.code.copyToPasteboard()
+//        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
     }
     
     @objc
@@ -331,7 +336,8 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onMessageBtn() {
-        messageInputField.becomeFirstResponder()
+        amongInputCodeView?.becomeFirstResponder()
+//        messageInputField.becomeFirstResponder()
     }
     
     @objc
@@ -360,7 +366,7 @@ extension AmongChat.Room.ViewController {
 
     @objc
     private func onMoreBtn() {
-        showMoreSheet(for: channel)
+//        showMoreSheet(for: channel)
     }
 }
 
@@ -437,8 +443,17 @@ extension AmongChat.Room.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
+        
+        topBar = AmongChatRoomTopBar()
                 
-        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView)
+        amongInputCodeView = AmongInputCodeView()
+        amongInputCodeView.alpha = 0
+        
+        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView, amongInputCodeView, topBar)
+        
+        topBar.snp.makeConstraints { maker in
+            maker.left.right.equalToSuperview()
+        }
         
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -459,7 +474,7 @@ extension AmongChat.Room.ViewController {
         userCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(closeBtn.snp.bottom).offset(20)
-            maker.height.equalTo(180)
+            maker.height.equalTo(220)
         }
         
         messageListTableView.snp.makeConstraints { (maker) in
@@ -491,9 +506,14 @@ extension AmongChat.Room.ViewController {
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
-        if channel.name.isPrivate {
-            showShareController(channelName: channel.name)
+        amongInputCodeView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
+        
+//        if channel.name.isPrivate {
+//            showShareController(channelName: channel.name)
+//        }
         
         if let adView = self.adView {
             adContainer.addSubview(adView)
@@ -659,9 +679,12 @@ extension AmongChat.Room.ViewController {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
                 guard let `self` = self else { return }
-                self.messageInputContainerView.snp.updateConstraints { (maker) in
+                self.amongInputCodeView.snp.updateConstraints { (maker) in
                     maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
                 }
+//                self.messageInputContainerView.snp.updateConstraints { (maker) in
+//                    maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+//                }
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }
@@ -709,7 +732,7 @@ extension AmongChat.Room.ViewController {
         
         let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
             guard let `self` = self else { return }
-            self.showReportSheet(for: self.channel)
+//            self.showReportSheet(for: self.channel)
         })
         alertVC.addAction(reportAction)
         

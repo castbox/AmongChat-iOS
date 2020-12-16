@@ -806,8 +806,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 17 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
   struct nib {
+    /// Nib `AmongChatRoomConfigView`.
+    static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
+    /// Nib `AmongChatRoomTopBar`.
+    static let amongChatRoomTopBar = _R.nib._AmongChatRoomTopBar()
+    /// Nib `AmongInputCodeView`.
+    static let amongInputCodeView = _R.nib._AmongInputCodeView()
+    /// Nib `AmongRoomBottomBar`.
+    static let amongRoomBottomBar = _R.nib._AmongRoomBottomBar()
+    /// Nib `AmongRoomInfoSetupView`.
+    static let amongRoomInfoSetupView = _R.nib._AmongRoomInfoSetupView()
+    /// Nib `AmongRoomInfoView`.
+    static let amongRoomInfoView = _R.nib._AmongRoomInfoView()
     /// Nib `ChannelUserCell`.
     static let channelUserCell = _R.nib._ChannelUserCell()
     /// Nib `ChannelUserListController`.
@@ -830,6 +842,10 @@ struct R: Rswift.Validatable {
     static let guideSecondView = _R.nib._GuideSecondView()
     /// Nib `GuideThirdView`.
     static let guideThirdView = _R.nib._GuideThirdView()
+    /// Nib `JustChillingInfoView`.
+    static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `JustChillingSetupView`.
+    static let justChillingSetupView = _R.nib._JustChillingSetupView()
     /// Nib `PremiumContainer`.
     static let premiumContainer = _R.nib._PremiumContainer()
     /// Nib `ScreenContainer`.
@@ -842,6 +858,42 @@ struct R: Rswift.Validatable {
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
+    
+    /// `UINib(name: "AmongChatRoomConfigView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongChatRoomConfigView) instead")
+    static func amongChatRoomConfigView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongChatRoomConfigView)
+    }
+    
+    /// `UINib(name: "AmongChatRoomTopBar", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongChatRoomTopBar) instead")
+    static func amongChatRoomTopBar(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongChatRoomTopBar)
+    }
+    
+    /// `UINib(name: "AmongInputCodeView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongInputCodeView) instead")
+    static func amongInputCodeView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongInputCodeView)
+    }
+    
+    /// `UINib(name: "AmongRoomBottomBar", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongRoomBottomBar) instead")
+    static func amongRoomBottomBar(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongRoomBottomBar)
+    }
+    
+    /// `UINib(name: "AmongRoomInfoSetupView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongRoomInfoSetupView) instead")
+    static func amongRoomInfoSetupView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongRoomInfoSetupView)
+    }
+    
+    /// `UINib(name: "AmongRoomInfoView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongRoomInfoView) instead")
+    static func amongRoomInfoView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongRoomInfoView)
+    }
     
     /// `UINib(name: "ChannelUserCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.channelUserCell) instead")
@@ -909,6 +961,18 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.guideThirdView)
     }
     
+    /// `UINib(name: "JustChillingInfoView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingInfoView) instead")
+    static func justChillingInfoView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.justChillingInfoView)
+    }
+    
+    /// `UINib(name: "JustChillingSetupView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingSetupView) instead")
+    static func justChillingSetupView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.justChillingSetupView)
+    }
+    
     /// `UINib(name: "PremiumContainer", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.premiumContainer) instead")
     static func premiumContainer(_: Void = ()) -> UIKit.UINib {
@@ -943,6 +1007,30 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
     static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.tikTokShareView)
+    }
+    
+    static func amongChatRoomConfigView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongChatRoomConfigView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongChatRoomTopBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongChatRoomTopBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongInputCodeView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongInputCodeView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongRoomBottomBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongRoomBottomBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongRoomInfoSetupView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongRoomInfoSetupView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongRoomInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongRoomInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func channelUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
@@ -987,6 +1075,14 @@ struct R: Rswift.Validatable {
     
     static func guideThirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.guideThirdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func justChillingSetupView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.justChillingSetupView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func premiumContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -2552,6 +2648,72 @@ struct _R: Rswift.Validatable {
       try _TikTokShareView.validate()
     }
     
+    struct _AmongChatRoomConfigView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongChatRoomConfigView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongChatRoomTopBar: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongChatRoomTopBar"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongInputCodeView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongInputCodeView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongRoomBottomBar: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongRoomBottomBar"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongRoomInfoSetupView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongRoomInfoSetupView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongRoomInfoView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongRoomInfoView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
     struct _ChannelUserCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
       typealias ReusableType = ChannelUserCell
       
@@ -2727,6 +2889,28 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideThirdView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _JustChillingInfoView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "JustChillingInfoView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _JustChillingSetupView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "JustChillingSetupView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}
