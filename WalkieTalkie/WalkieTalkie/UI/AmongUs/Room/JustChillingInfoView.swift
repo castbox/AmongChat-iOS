@@ -11,6 +11,8 @@ import UIKit
 class JustChillingInfoView: XibLoadableView {
     
     @IBOutlet weak var notesDetailButton: UIButton!
+    
+    
     var notes: String? {
         didSet {
             guard let string = notes else {

@@ -15,8 +15,8 @@ struct AmongChat {
 
 extension AmongChat {
     //
-    enum Topic: String {
-        case amongus
+    enum Topic: Int, Codable {
+        case amongus = 0
 //        case roblox
         case chilling
     }

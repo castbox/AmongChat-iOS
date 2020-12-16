@@ -10,10 +10,10 @@ import UIKit
 
 class AmongRoomInfoSetupView: XibLoadableView {
 
-    var setupButtonClick: (() -> Void)?
+    var setupHandler: (() -> Void)?
     
     @IBAction func setupButtonAction(_ sender: UIButton) {
-        setupButtonClick?()
+        setupHandler?()
     }
     
     /*

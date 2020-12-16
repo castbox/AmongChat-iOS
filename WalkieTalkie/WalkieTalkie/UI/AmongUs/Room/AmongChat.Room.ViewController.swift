@@ -12,6 +12,23 @@ import RxCocoa
 import MoPub
 
 extension AmongChat.Room {
+    enum EditType {
+        case message
+        case amongSetup
+        case robloxSetup
+        case chillingSetup
+    }
+}
+
+extension AmongChat.Room {
+    class ViewModel {
+        
+    }
+}
+
+typealias RoomEditType = AmongChat.Room.EditType
+
+extension AmongChat.Room {
     
     class ViewController: WalkieTalkie.ViewController {
         
@@ -99,6 +116,16 @@ extension AmongChat.Room {
         private var topBar: AmongChatRoomTopBar!
         private var configView: AmongChatRoomConfigView!
         private var amongInputCodeView: AmongInputCodeView!
+        private var editType: AmongChat.Room.EditType = .message {
+            didSet {
+                switch editType {
+                case .amongSetup:
+                    amongInputCodeView.becomeFirstResponder()
+                default:
+                    messageInputField.becomeFirstResponder()
+                }
+            }
+        }
 //        private var infoView: Among
         
         private lazy var userCollectionView: UICollectionView = {
@@ -336,8 +363,8 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onMessageBtn() {
-        amongInputCodeView?.becomeFirstResponder()
 //        messageInputField.becomeFirstResponder()
+        editType = .message
     }
     
     @objc
@@ -445,14 +472,23 @@ extension AmongChat.Room.ViewController {
         view.backgroundColor = UIColor(hex6: 0x00011B)
         
         topBar = AmongChatRoomTopBar()
-                
+        configView = AmongChatRoomConfigView(room)
+        
         amongInputCodeView = AmongInputCodeView()
         amongInputCodeView.alpha = 0
         
-        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView, amongInputCodeView, topBar)
+        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView, amongInputCodeView, topBar, configView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(60)
+        }
+        
+        configView.snp.makeConstraints { maker in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topBar.snp.bottom)
+            maker.height.equalTo(107)
         }
         
         bgView.snp.makeConstraints { (maker) in
@@ -679,12 +715,16 @@ extension AmongChat.Room.ViewController {
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
                 guard let `self` = self else { return }
-                self.amongInputCodeView.snp.updateConstraints { (maker) in
-                    maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                switch self.editType {
+                case .amongSetup:
+                    self.amongInputCodeView.snp.updateConstraints { (maker) in
+                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                    }
+                default:
+                    self.messageInputContainerView.snp.updateConstraints { (maker) in
+                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                    }
                 }
-//                self.messageInputContainerView.snp.updateConstraints { (maker) in
-//                    maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
-//                }
                 UIView.animate(withDuration: 0) {
                     self.view.layoutIfNeeded()
                 }
@@ -711,6 +751,22 @@ extension AmongChat.Room.ViewController {
                 self?.messageBtn.isHidden = false
             })
             .disposed(by: bag)
+        
+        configView.updateEditTypeHandler = { [weak self] editType in
+            self?.editType = editType
+        }
+        
+        topBar.leaveHandler = { [weak self] in
+            self?.onCloseBtn()
+        }
+        
+        topBar.kickOffHandler = { [weak self] in
+            
+        }
+        
+        topBar.changePublicStateHandler = { [weak self] in
+            //update state
+        }
     }
     
     private func loadAdView() {

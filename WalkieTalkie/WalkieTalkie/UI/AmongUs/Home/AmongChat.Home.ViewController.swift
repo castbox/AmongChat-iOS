@@ -439,17 +439,18 @@ extension AmongChat.Home.ViewController {
             })
             .disposed(by: bag)
         
+        let room = Entity.Room(amongUsCode: "UUU", amongUsZone: "North Amercial", note: "", roomId: "qq12345678", roomUserList: [Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 0, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 1, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 2, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 3, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 4, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 5, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 6, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 7, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 8, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 9, uid: "100000")], state: .public, topicId: .amongus, topicName: "Among Us")
+        
         joinChannelSubject
             .filterNil()
             .filter { !$0.name.isEmpty }
             .observeOn(MainScheduler.asyncInstance)
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] room in
+            .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self._joinChannel(room) { (channel) in
 //                    uid=100000, room_id=qq12345678 的rtc token
 //                    006db4ec67c84774be1ad7b1414fdca7979IAA1VzWiQ9tR/M+jYW1XZLTEFM05PScY2YNvkUYa0G5Sx4BUG+JD1hryIgBSbPMFvNfaXwQAAQA8EwFgAgA8EwFgAwA8EwFgBAA8EwFg
-                    let room = Entity.Room(amongUsCode: "UUU", amongUsZone: "North Amercial", note: "", roomId: "qq12345678", roomUserList: [Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 0, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 1, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 2, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 3, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 4, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 5, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 6, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 7, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 8, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 9, uid: "100000")], state: .public, topicId: 1, topicName: "Among Us")
                     let vc = AmongChat.Room.ViewController(room: room)
                     vc.modalPresentationStyle = .fullScreen
                     let transition = CATransition()
@@ -514,39 +515,39 @@ extension AmongChat.Home.ViewController {
     }
     
     @discardableResult
-    private func _joinChannel(_ room: Room, completionBlock: ((Room) -> Void)? = nil) -> Bool {
+    private func _joinChannel(_ room: Entity.Room, completionBlock: ((Entity.Room) -> Void)? = nil) -> Bool {
 
-        let name = room.name
+        let name = room.topicName
         var channel = room
         
-        guard !name.isEmpty else {
-            return false
-        }
-
-        if mManager.isConnectedState && mManager.channelName == name {
-           return false
-        }
+//        guard !name.isEmpty else {
+//            return false
+//        }
+//
+//        if mManager.isConnectedState && mManager.channelName == name {
+//           return false
+//        }
         
-        guard !channel.isReachMaxUser else {
-            //离开当前房间
-            leaveChannel()
-            return false
-        }
-        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
-            guard let `self` = self else { return }
+//        guard !channel.isReachMaxUser else {
+//            //离开当前房间
+//            leaveChannel()
+//            return false
+//        }
+//        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
+//            guard let `self` = self else { return }
             self.checkMicroPermission { [weak self] in
                 guard let `self` = self else { return }
-                self.mManager.joinChannel(channelId: name) {
+                self.mManager.joinChannel(channelId: room.roomId) {
                     self.hudRemoval?()
                     self.hudRemoval = nil
-                    channel.updateJoinInterval()
+//                    channel.updateJoinInterval()
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
                     ChannelUserListViewModel.shared.didJoinedChannel(name)
                     completionBlock?(channel)
                 }
             }
-        }
+//        }
         
         return true
     }

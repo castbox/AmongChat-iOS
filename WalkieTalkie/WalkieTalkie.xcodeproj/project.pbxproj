@@ -221,6 +221,8 @@
 		FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE97371424AB3D050015ECE6 /* DebugViewController.swift */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
+		FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */; };
+		FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */; };
 		FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1CE247D47CC00AA2199 /* Room.swift */; };
 		FE9CB1D6247D512400AA2199 /* CreateGlobalChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */; };
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
@@ -515,6 +517,8 @@
 		FE97371424AB3D050015ECE6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.AmongChatBackend.swift; sourceTree = "<group>"; };
+		FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9CB1CE247D47CC00AA2199 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGlobalChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
@@ -969,8 +973,10 @@
 			isa = PBXGroup;
 			children = (
 				FEC17A4A24A9B957003719BC /* Request.swift */,
+				FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */,
 				FE8DEA5A243DB0970059C252 /* APIService.swift */,
 				FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */,
+				FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */,
 				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
 				FE8DEA57243DB0950059C252 /* ApiManager.Config.swift */,
 				FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */,
@@ -1451,6 +1457,7 @@
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
 				BD8B4C10257A533D00BE6520 /* AmongChat.Room.MessageCell.swift in Sources */,
 				FE860D5A2446D2A800087B73 /* PublishValue.swift in Sources */,
+				FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */,
 				FE126D1C243461E800BEDD60 /* RoomViewController.swift in Sources */,
 				FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */,
 				FE401E3B244D9C450081F793 /* IAP.SubscriptionProduct.swift in Sources */,
@@ -1620,6 +1627,7 @@
 				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
 				FE86A58A245AC18200C35FCA /* ScreenContainer.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
+				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
 				BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FE0D1A2524489BF300518793 /* AudioType.swift in Sources */,

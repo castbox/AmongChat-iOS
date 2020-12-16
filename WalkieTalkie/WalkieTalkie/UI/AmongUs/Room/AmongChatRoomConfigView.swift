@@ -11,18 +11,16 @@ import SnapKit
 
 class AmongChatRoomConfigView: XibLoadableView {
 
-    let topic: AmongChat.Topic
-    let topicDetail: Bool
+    var room: Entity.Room
     //view
     lazy var amongSetupView = AmongRoomInfoSetupView()
     lazy var amongInfoView = AmongRoomInfoView()
-    
     lazy var justChillingInfoView = JustChillingInfoView()
     
+    var updateEditTypeHandler: ((RoomEditType) -> Void)?
     
-    init(_ topic: AmongChat.Topic, topicDetail: Bool) {
-        self.topic = topic
-        self.topicDetail = topicDetail
+    init(_ room: Entity.Room) {
+        self.room = room
         super.init(frame: .zero)
         configureSubview()
         bindSubviewEvent()
@@ -37,18 +35,13 @@ class AmongChatRoomConfigView: XibLoadableView {
 extension AmongChatRoomConfigView {
     
     func updateSubview() {
-        switch topic {
+        switch room.topicId {
         case .amongus:
             //
             justChillingInfoView.isHidden = true
-            amongSetupView.isHidden = topicDetail
-            amongInfoView.isHidden = !topicDetail
-            if topicDetail {
-              //已配置
-                
-            } else {
-                //未配置
-            }
+            amongSetupView.isHidden = room.isValidAmongConfig
+            amongInfoView.isHidden = !room.isValidAmongConfig
+            amongInfoView.room = room
         case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
@@ -58,8 +51,12 @@ extension AmongChatRoomConfigView {
     }
     
     func bindSubviewEvent() {
-        amongSetupView.setupButtonClick = { [weak self] in
-            
+        amongSetupView.setupHandler = { [weak self] in
+            self?.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
+        }
+        
+        justChillingInfoView.hostNotesClick = { [weak self] in
+            self?.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
         }
     }
     

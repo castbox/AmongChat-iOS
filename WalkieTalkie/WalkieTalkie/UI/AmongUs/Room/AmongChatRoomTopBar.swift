@@ -22,16 +22,30 @@ class BottomTitleButton: UIButton {
 
 class AmongChatRoomTopBar: XibLoadableView {
 
+    @IBOutlet weak var publicButton: UIButton!
+    @IBOutlet weak var kickButton: UIButton!
+    @IBOutlet weak var leaveButton: UIButton!
+    
+    var changePublicStateHandler: CallBack?
+    var leaveHandler: CallBack?
+    var kickOffHandler: CallBack?
+    
+    var room: Entity.Room? {
+        didSet {
+            
+        }
+    }
+    
     @IBAction func publicButtonAction(_ sender: Any) {
-
+        changePublicStateHandler?()
     }
 
     @IBAction func leaveButtonAction(_ sender: Any) {
-    
+        leaveHandler?()
     }
     
     @IBAction func kickOffButtonAction(_ sender: Any) {
-        
+        kickOffHandler?()
     }
     
 }
