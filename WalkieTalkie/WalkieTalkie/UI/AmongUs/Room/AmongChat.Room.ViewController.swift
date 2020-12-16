@@ -125,6 +125,52 @@ extension AmongChat.Room {
             tb.separatorStyle = .none
             tb.rowHeight = UITableView.automaticDimension
             tb.estimatedRowHeight = 80
+            
+            // TODO: - IM system message
+            // temporary simple solution for system message
+            let lb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoRegular(size: 11)
+                lb.textColor = UIColor.yellow.alpha(0.8)
+                lb.numberOfLines = 0
+                lb.lineBreakMode = .byWordWrapping
+                lb.text = R.string.localizable.amongChatRoomChatRuleTip(channel.code)
+                return lb
+            }()
+            
+            let lbInset: CGFloat = 10
+            
+            let headerBg: UIView = {
+                let v = UIView()
+                v.layer.cornerRadius = 5
+                v.backgroundColor = UIColor.white.alpha(0.2)
+                v.addSubview(lb)
+                lb.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview().inset(10)
+                }
+                return v
+            }()
+            
+            let bgInset: CGFloat = 12
+            
+            let headerView: UIView = {
+                let v = UIView()
+                v.backgroundColor = .clear
+                v.addSubview(headerBg)
+                headerBg.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview().inset(12)
+                }
+                return v
+            }()
+            
+            var height: CGFloat = lb.text!.boundingRect(with: CGSize(width: Frame.Screen.width - (lbInset + bgInset) * 2, height: 200), font: lb.font!, lineSpacing: 0).height + (lbInset + bgInset) * 2
+            height.round(.awayFromZero)
+            
+            headerView.bounds = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: height))
+            
+            tb.tableHeaderView = headerView
+            //end
+            
             return tb
         }()
         
