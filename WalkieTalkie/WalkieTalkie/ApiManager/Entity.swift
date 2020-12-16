@@ -59,14 +59,23 @@ extension Entity {
     //房间类型
     struct Room: Codable {
         
-        let amongUsCode: String
-        let amongUsZone: String
+        let amongUsCode: String?
+        let amongUsZone: String?
         let note: String?
         let roomId: String
         
         let roomUserList: [RoomUser]
         let state: RoomPublicType
-        let topicId: Int
+        let topicId: AmongChat.Topic
         let topicName: String
+        
+        var isValidAmongConfig: Bool {
+            guard topicId == .amongus,
+                  let code = amongUsCode,
+                  let zone = amongUsZone else {
+                return false
+            }
+            return !code.isEmpty && !zone.isEmpty
+        }
     }
 }
