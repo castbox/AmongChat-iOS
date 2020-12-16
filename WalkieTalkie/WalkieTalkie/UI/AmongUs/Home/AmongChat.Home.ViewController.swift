@@ -477,8 +477,6 @@ extension AmongChat.Home.ViewController {
                 self.hashTags = {
                     return [
                         ChannelCategory(id: 101, name: R.string.localizable.amongChatHomeTagAmongB(), type: .amongUs),
-                        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
-                        ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
                         ChannelCategory(id: 100, name: R.string.localizable.amongChatHomeTagGroup(), type: .groupChat),
                         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
                         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
