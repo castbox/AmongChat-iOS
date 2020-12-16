@@ -1,6 +1,0 @@
-framework module BytedanceOpenPlatformSDK {
-  umbrella header "BytedanceOpenPlatformSDK-umbrella.h"
-
-  export *
-  module * { export * }
-}

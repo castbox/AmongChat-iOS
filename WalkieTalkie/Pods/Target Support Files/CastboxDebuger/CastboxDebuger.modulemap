@@ -1,6 +1,0 @@
-framework module CastboxDebuger {
-  umbrella header "CastboxDebuger-umbrella.h"
-
-  export *
-  module * { export * }
-}

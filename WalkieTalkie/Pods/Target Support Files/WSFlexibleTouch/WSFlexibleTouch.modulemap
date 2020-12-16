@@ -1,6 +1,0 @@
-framework module WSFlexibleTouch {
-  umbrella header "WSFlexibleTouch-umbrella.h"
-
-  export *
-  module * { export * }
-}
