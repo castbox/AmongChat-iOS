@@ -48,7 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = FireStore.shared
         FireRemote.shared.refresh()
         _ = Social.Module.shared
-        
+        _ = AdjustAnalytics.sharedInstance
+
         var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
 //        #if DEBUG
 //        isFirstLogin = true
