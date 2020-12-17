@@ -189,34 +189,38 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.MessageTextCell {
     
-    func configCell(with viewModel: AmongChat.Room.MessageViewModel) {
-        
-//        avatarIV.image = nil
-        let userViewModel = viewModel.user
-        let channelUser = userViewModel.channelUser
-        
-        let pargraph = NSMutableParagraphStyle()
-        pargraph.lineBreakMode = .byTruncatingTail
-        pargraph.lineHeightMultiple = 0
-        
-        let nameAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: "ABABAB".color(),
-            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
-            .paragraphStyle: pargraph
-//            .kern: 0.5
-        ]
-        
-        let contentAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
-            .paragraphStyle: pargraph
-//            .kern: 0.5
-        ]
-        
-        let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#1 \(channelUser.name)", attributes: nameAttr))
-        mutableNormalString.append(NSAttributedString(string: " \(viewModel.text)", attributes: contentAttr))
-        nameLabel.attributedText = mutableNormalString
+    func configCell(with message: ChatRoomMessage) {
+//        let userViewModel = viewModel.user
+//        let channelUser = userViewModel.channelUser
+        var user: Entity.RoomUser?
+        var text: String = ""
+        if let textMessage = message as? ChatRoom.TextMessage {
+//            user = textMessage.user
+//            text = textMessage.text
+            
+            let pargraph = NSMutableParagraphStyle()
+            pargraph.lineBreakMode = .byTruncatingTail
+            pargraph.lineHeightMultiple = 0
+            
+            let nameAttr: [NSAttributedString.Key: Any] = [
+                .foregroundColor: "ABABAB".color(),
+                .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+                .paragraphStyle: pargraph
+    //            .kern: 0.5
+            ]
+            
+            let contentAttr: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.white,
+                .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+                .paragraphStyle: pargraph
+    //            .kern: 0.5
+            ]
+            
+            let mutableNormalString = NSMutableAttributedString()
+            mutableNormalString.append(NSAttributedString(string: "#1 \(textMessage.user.name)", attributes: nameAttr))
+            mutableNormalString.append(NSAttributedString(string: " \(textMessage.text)", attributes: contentAttr))
+            nameLabel.attributedText = mutableNormalString
+        }
 //        messageLabel.text = viewModel.text
     }
     

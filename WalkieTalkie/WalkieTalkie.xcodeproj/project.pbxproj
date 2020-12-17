@@ -252,6 +252,7 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */; };
+		FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD68DD258BA42900977579 /* EncodableExtension.swift */; };
 		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
 		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
 		FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */; };
@@ -565,6 +566,7 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD54DF2449C799006454F6 /* PrivateChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChannelController.swift; sourceTree = "<group>"; wrapsLines = 1; };
+		FEAD68DD258BA42900977579 /* EncodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
 		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.CastboxBackend.swift; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 		FE0D1A1E24488F9B00518793 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FEAD68DD258BA42900977579 /* EncodableExtension.swift */,
 				FE9BCA43258A5344002F82AF /* IntExtension.swift */,
 				FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */,
 				FE7218742456DA36005274CA /* Extension.swift */,
@@ -1455,7 +1458,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$SRCROOT/R.generated.swift",
+				$SRCROOT/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1587,6 +1590,7 @@
 				BD4DEE1225061F88006476E0 /* Social.TopToastModal.swift in Sources */,
 				FEAD54D72449B6A0006454F6 /* NavigationViewController.swift in Sources */,
 				FE860D5C2446D2A800087B73 /* PublishProperty.swift in Sources */,
+				FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */,
 				FE6AF85A2457E26C00FD474A /* UIViewFrameExtension.swift in Sources */,
 				FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */,
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,

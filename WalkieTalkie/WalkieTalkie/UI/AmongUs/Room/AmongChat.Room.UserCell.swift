@@ -193,7 +193,7 @@ extension AmongChat.Room.UserCell {
         }
         if user.uid != nil {
             avatarIV.image = nil
-            avatarIV.setImage(with: user.avatar)
+            avatarIV.setImage(with: user.pictureUrl)
             nameLabel.text = user.name
             if user.status == .talking {
                 haloAnimation()
@@ -206,7 +206,7 @@ extension AmongChat.Room.UserCell {
             gameNameButton.isHidden = topic != .roblox
             gameNameButton.isHidden = !user.robloxName.isValid
             //自己 muted 其他用户
-            mutedLabel.isHidden = !user.isMuted
+            mutedLabel.isHidden = !user.isMutedValue
             //自己 muted 自己
 //            disableMicView.isHidden = true
         } else {

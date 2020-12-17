@@ -6,7 +6,7 @@
 import Foundation
 
 struct KeyCenter {
-    static let AppId: String = "06040a98af684c5f9306350bbce03acb"
+    static let AppId: String = "db4ec67c84774be1ad7b1414fdca7979"
 
     /* assign Token to nil if you have not enabled app certificate
      * before you deploy your own token server, you can easily generate a temp token for dev use

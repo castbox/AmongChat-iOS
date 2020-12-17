@@ -89,7 +89,7 @@ class ChatRoomManager: SeatManager {
     private var mChannelData = ChannelData()
 
     private init() {
-        
+        self.startHeartBeating()
     }
 
     func getChannelData() -> ChannelData {
@@ -356,3 +356,28 @@ extension ChatRoomManager: RtcDelegate {
 //        processMessage(rtmMessage: message)
 //    }
 //}
+
+extension ChatRoomManager {
+    func startHeartBeating() {
+        _ = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
+            .startWith(0)
+//            .flatMap { _ -> Observable<[String: Any]?> in
+//
+//            }
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.requestALive()
+            })
+    }
+    
+    func requestALive() {
+        var params: [String: Any] = [:]
+        if let channelId = mRtcManager.channelId {
+            params["room_id"] = channelId
+        }
+        _ = Request.authProvider.rx.request(.heartBeating(params))
+            .debug()
+            .subscribe()
+        
+    }
+}

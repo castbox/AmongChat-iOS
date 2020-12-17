@@ -12,6 +12,14 @@ import Alamofire
 
 extension APIService {
     enum Auth {
+        /**
+         "roomId": "hdDVPJZc",
+         "topicId": "amongus",
+         "state": "public"
+         */
+        case roomUpdate([String: Any])
+        case updateNickName([String: Any])
+        case heartBeating([String: Any])
         case login([String : Any])
         case createRoom([String : Any])
     }
@@ -29,6 +37,12 @@ extension APIService.Auth: TargetType {
     
     var path: String {
         switch self {
+        case .roomUpdate:
+            return "/api/v1/rooms/update"
+        case .updateNickName:
+            return "/api/v1/rooms/nickname"
+        case .heartBeating:
+            return "/api/v1/rooms/heartbeat"
         case .login:
             return "/auth/login"
         case .createRoom:
@@ -38,8 +52,10 @@ extension APIService.Auth: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom:
+        case .login, .createRoom, .roomUpdate, .updateNickName:
             return .post
+        case .heartBeating:
+            return .get
         }
     }
     
@@ -53,8 +69,10 @@ extension APIService.Auth: TargetType {
             var baseParams = params
             baseParams["box_token"] = 1
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
-            
-        case .createRoom(let params):
+        case .updateNickName(let params), .heartBeating(let params):
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+        case .createRoom(let params),
+             .roomUpdate(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }

@@ -48,7 +48,7 @@ class RtcManager: NSObject {
     }
 
     ///current channel IDz
-    private var channelId: String?
+    private(set) var channelId: String?
     private(set) var role: AgoraClientRole?
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
@@ -383,3 +383,5 @@ extension RtcManager {
 //        FireStore.shared.updateStatus(status, of: uid)
     }
 }
+
+

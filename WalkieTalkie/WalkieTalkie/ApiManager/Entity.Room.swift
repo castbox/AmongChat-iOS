@@ -70,30 +70,24 @@ extension Entity {
         
         let uid: String?
         let name: String?
-        let avatar: String?
-    //    let name: String
-        let robloxName: String?
+        let pictureUrl: String
         let seatNo: Int
+        var status: Status?
+        var isMuted: Bool?
+        let robloxName: String?
         
-        let prefix: String?
-        let iconColor: String?
-        var status: Status
-        var isMuted: Bool
+        var isMutedValue: Bool {
+            return isMuted ?? false
+        }
         
-        private static let colors: [String] = [
-            "F5CEC7",
-            "FFB384",
-            "FFC98B",
-            "C6C09C",
-            "BD9DDE"
-        ]
-        
-        private static let tag: [String] = [
-            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-        ]
-        
-        static func randomUser(uid: UInt) -> ChannelUser {
-            return ChannelUser(uid: String(uid), name: "User - \(uid)", avatar: "", robloxName: nil, seatNo: 0, prefix: tag.randomItem() ?? "A", iconColor: colors.randomItem() ?? "F5CEC7", status: .connected, isMuted: false)
+        private enum CodingKeys: String, CodingKey {
+            case uid
+            case name
+            case pictureUrl = "picture_url"
+            case seatNo
+            case status
+            case isMuted = "is_muted"
+            case robloxName = "roblox_name"
         }
     }
 }

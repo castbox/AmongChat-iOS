@@ -315,3 +315,17 @@ extension Optional where Wrapped == String {
         return !string.isEmpty
     }
 }
+
+extension String {
+    
+    func jsonObject() -> [String: Any]? {
+
+        guard let data = data(using: .utf8) else {
+            return nil
+        }
+        guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+            return nil
+        }
+        return jsonData
+    }
+}

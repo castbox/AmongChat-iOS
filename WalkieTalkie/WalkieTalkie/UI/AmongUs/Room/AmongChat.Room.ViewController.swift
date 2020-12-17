@@ -31,10 +31,9 @@ extension AmongChat.Room {
         private typealias ActionModal = ChannelUserListController.ActionModal
         
         private var room: Entity.Room
-        private let viewModel = ChannelUserListViewModel.shared
-        private let imViewModel: IMViewModel
+        private let viewModel: ViewModel
 
-        private let roomViewModel: ViewModel
+//        private let viewModel: ViewModel
         private var topBar: AmongChatRoomTopBar!
         private var configView: AmongChatRoomConfigView!
         private var amongInputCodeView: AmongInputCodeView!
@@ -67,7 +66,7 @@ extension AmongChat.Room {
         }
         
         private let fixedListLength = Int(10)
-        private var messageListDataSource: [MessageViewModel] = [] {
+        private var messageListDataSource: [ChatRoomMessage] = [] {
             didSet {
                 messageListTableView.reloadData()
                 mainQueueDispatchAsync(after: 0.2) { [weak self] in
@@ -311,8 +310,7 @@ extension AmongChat.Room {
                 
         init(room: Entity.Room) {
             self.room = room
-            self.imViewModel = IMViewModel(with: room.roomId)
-            self.roomViewModel = ViewModel(room: room)
+            self.viewModel = ViewModel(room: room)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -771,28 +769,28 @@ extension AmongChat.Room.ViewController {
             })
             .disposed(by: bag)
         
-        viewModel.userObservable
-            .subscribe(onNext: { [weak self] (channelUsers) in
-//                self?.dataSource = channelUsers
-            })
-            .disposed(by: bag)
+//        viewModel.userObservable
+//            .subscribe(onNext: { [weak self] (channelUsers) in
+////                self?.dataSource = channelUsers
+//            })
+//            .disposed(by: bag)
         
-        imViewModel.messagesObservable
-            .subscribe(onNext: { [weak self] (msgs) in
-                self?.messageListDataSource = msgs
-            })
-            .disposed(by: bag)
+//        imViewModel.messagesObservable
+//            .subscribe(onNext: { [weak self] (msgs) in
+//                self?.messageListDataSource = msgs
+//            })
+//            .disposed(by: bag)
+//        
+//        imViewModel.imReadySignal
+//            .filter({ $0 })
+//            .take(1)
+//            .subscribe(onNext: { [weak self] (_) in
+//                self?.messageListTableView.isHidden = false
+////                self?.messageBtn.isHidden = false
+//            })
+//            .disposed(by: bag)
         
-        imViewModel.imReadySignal
-            .filter({ $0 })
-            .take(1)
-            .subscribe(onNext: { [weak self] (_) in
-                self?.messageListTableView.isHidden = false
-//                self?.messageBtn.isHidden = false
-            })
-            .disposed(by: bag)
-        
-        roomViewModel.roomReplay
+        viewModel.roomReplay
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] room in
                 self?.room = room
@@ -819,7 +817,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.changePublicStateHandler = { [weak self] in
-            self?.roomViewModel.changePublicType()
+            self?.viewModel.changePublicType()
         }
         
         bottomBar.sendMessageHandler = { [weak self] in
@@ -839,15 +837,15 @@ extension AmongChat.Room.ViewController {
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
-            self?.roomViewModel.updateAmong(code: code, aera: aera)
+            self?.viewModel.updateAmong(code: code, aera: aera)
         }
         
         nickNameInputView.inputResultHandler = { [weak self] text in
-            self?.roomViewModel.update(nickName: text)
+            self?.viewModel.update(nickName: text)
         }
         
         inputNotesView.inputResultHandler = { [weak self] notes in
-            self?.roomViewModel.update(notes: notes)
+            self?.viewModel.update(notes: notes)
         }
         
         toolView.setNickNameHandler = { [weak self] in
@@ -954,7 +952,8 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
         }
         
         textField.clear()
-        imViewModel.sendMessage(text)
+        //text
+        viewModel.sendText(message: text)
         return true
     }
 }
@@ -964,14 +963,14 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messageListDataSource.count
+        return viewModel.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongChat.Room.MessageTextCell.self), for: indexPath)
         
         if let cell = cell as? AmongChat.Room.MessageTextCell,
-           let model = messageListDataSource.safe(indexPath.row) {
+           let model = viewModel.messages.safe(indexPath.row) {
             cell.configCell(with: model)
         }
         
@@ -983,9 +982,9 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        if let model = messageListDataSource.safe(indexPath.row) {
-            model.text.copyToPasteboard()
-            view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        if let model = viewModel.messages.safe(indexPath.row) {
+//            model.text.copyToPasteboard()
+//            view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
     }

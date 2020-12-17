@@ -51,7 +51,7 @@
                         <constraint firstAttribute="width" constant="44" id="Ake-cj-s3g"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
-                    <state key="normal" title="Kick" image="ac_icon_kick_user">
+                    <state key="normal" title="Report" image="ac_icon_room_report">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -71,14 +71,30 @@
                         <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="NWD-QO-Psh"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="133" y="13" width="44" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="W8l-0G-L5k"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="WlO-S3-hoM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                    <state key="normal" title="Kick" image="ac_icon_kick_user">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="kickOffButtonAction:" destination="-1" eventType="touchUpInside" id="avl-G3-4v0"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="nnL-fi-G2g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="6dW-0H-78X"/>
                 <constraint firstItem="nnL-fi-G2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="8xl-nf-yx6"/>
                 <constraint firstItem="gGA-VZ-FHM" firstAttribute="leading" secondItem="nnL-fi-G2g" secondAttribute="trailing" constant="10" id="DP8-1M-iH4"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="gGA-VZ-FHM" secondAttribute="centerY" id="KTm-Yf-80V"/>
                 <constraint firstItem="gGA-VZ-FHM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="NWV-LH-l6W"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="39w-62-qes" secondAttribute="trailing" constant="10" id="Zoh-4f-pw5"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="gGA-VZ-FHM" secondAttribute="trailing" constant="4" id="aI6-5a-Mv3"/>
                 <constraint firstItem="39w-62-qes" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="hEc-Nh-eGn"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -88,5 +104,6 @@
     <resources>
         <image name="ac_icon_kick_user" width="24" height="24"/>
         <image name="ac_icon_leave" width="24" height="24"/>
+        <image name="ac_icon_room_report" width="24.5" height="24"/>
     </resources>
 </document>

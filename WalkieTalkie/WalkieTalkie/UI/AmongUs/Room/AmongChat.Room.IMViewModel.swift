@@ -19,12 +19,13 @@ extension AmongChat.Room {
         
         private let channelId: String
         private let imManager: IMManager
-        private let messagesRelay = BehaviorRelay<[MessageViewModel]>(value: [])
+        private let messageRelay = BehaviorRelay<ChatRoomMessage?>(value: nil)
         
         private let bag = DisposeBag()
         
-        var messagesObservable: Observable<[AmongChat.Room.MessageViewModel]> {
-            return messagesRelay.asObservable()
+        var messagesObservable: Observable<ChatRoomMessage> {
+            return messageRelay.asObservable()
+                .filterNilAndEmpty()
         }
         
         var imReadySignal: Observable<Bool> {
@@ -44,46 +45,89 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.IMViewModel {
         
-    private func appendNewMessage(_ message: AgoraRtmMessage, user: AgoraRtmMember) {
-        
-        let userViewModel: ChannelUserViewModel
-        
-        if let user = ChannelUserListViewModel.shared.channelUserViewModelList.first(where: { "\($0.channelUser.uid)" == user.userId }) {
-            userViewModel = user
-        } else {
-            userViewModel = ChannelUserViewModel(with: ChannelUser.randomUser(uid: UInt(user.userId) ?? 0), firestoreUser: nil)
-        }
-
-        let messageVM = MessageViewModel(user: userViewModel, text: message.text)
-        
-        var messages = messagesRelay.value
-        messages.append(messageVM)
-        messagesRelay.accept(messages)
-    }
+//    private func appendNewMessage(_ message: ChatRoomMessage) {
+//
+////        let userViewModel: ChannelUserViewModel
+////
+////        if let user = ChannelUserListViewModel.shared.channelUserViewModelList.first(where: { "\($0.channelUser.uid)" == user.userId }) {
+////            userViewModel = user
+////        } else {
+////            userViewModel = ChannelUserViewModel(with: ChannelUser.randomUser(uid: UInt(user.userId) ?? 0), firestoreUser: nil)
+////        }
+////
+////        let messageVM = MessageViewModel(user: userViewModel, text: message.text)
+//
+//        var messages = messageRelay.value
+//        messages.append(message)
+//        messageRelay.accept(messages)
+//    }
     
     private func bindEvents() {
         
         imManager.newMessageObservable
-            .subscribe(onNext: { [weak self] agoraRtmMessage, agoraRtmMember in
-                self?.appendNewMessage(agoraRtmMessage, user: agoraRtmMember)
-            })
+            .observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .debug()
+            .map { (message, member) -> ChatRoomMessage? in
+                guard message.type == .text,
+                      let json = message.text.jsonObject(),
+                      let messageType = json["message_type"] as? String,
+                      let type = ChatRoom.MessageType(rawValue: messageType) else {
+//                    let structType = ChatRoom.MessageType.structMap[type]
+                    return nil
+                }
+//                let item = try JSONDecoder().decodeAnyData(structType, from: json)
+                var item: ChatRoomMessage?
+                decoderCatcher {
+                    switch type {
+                    case .text:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.TextMessage.self, from: json) as ChatRoomMessage
+                    case .baseInfo:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomBaseMessage.self, from: json) as ChatRoomMessage
+                    case .joinRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.JoinRoomMessage.self, from: json) as ChatRoomMessage
+                    case .leaveRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
+                    case .kickoutRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.KickOutMessage.self, from: json) as ChatRoomMessage
+                    case .roomUserListInfo:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.UserListMessage.self, from: json) as ChatRoomMessage
+                    }
+                }
+                return item
+            }
+            .filterNil()
+            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] message in
+//                self?.appendNewMessage(message)
+//            })
+            .bind(to: messageRelay)
             .disposed(by: bag)
     }
     
-    func sendMessage(_ text: String) {
-        
-        imManager.send(message: text)
+//    func sendText(message: String, roomUser: Entity.Roo) {
+//        //find current user
+//        let textMessage = ChatRoom.TextMessage(text: message, user: Entity.RoomUser(uid: <#T##String?#>, name: <#T##String?#>, pictureUrl: <#T##String#>, seatNo: <#T##Int#>, status: <#T##Entity.RoomUser.Status?#>, isMuted: <#T##Bool?#>, robloxName: <#T##String?#>), messageType: <#T##ChatRoom.MessageType#>)
+//    }
+    
+    func sendText(message: ChatRoomMessage) {
+        guard let string = message.asString else {
+            return
+        }
+        imManager.send(message: string)
             .catchErrorJustReturn(false)
+            .filter { _ -> Bool in
+                return message.msgType == .text
+            }
             .subscribe(onSuccess: { [weak self] (success) in
                 guard let `self` = self,
                     success else { return }
                 
-                let msg = AgoraRtmMessage(text: text)
-                let user = AgoraRtmMember()
-                user.userId = "\(Constants.sUserId)"
-                user.channelId = self.channelId
-                
-                self.appendNewMessage(msg, user: user)
+//                let msg = AgoraRtmMessage(text: text)
+//                let user = AgoraRtmMember()
+//                user.userId = "\(Constants.sUserId)"
+//                user.channelId = self.channelId
+//
+//                self.appendNewMessage(message)
             })
             .disposed(by: bag)
         
@@ -98,4 +142,100 @@ extension AmongChat.Room {
         let text: String
     }
     
+}
+
+struct ChatRoom {
+    
+}
+
+protocol ChatRoomMessageable {
+    var msgType: ChatRoom.MessageType { get }
+}
+
+typealias ChatRoomMessage = ChatRoomMessageable & Codable
+
+extension ChatRoom {
+    enum MessageType: String, Codable {
+        case text = "AC:Chatroom:Text"
+        case baseInfo = "AC:Chatroom:RoomBase"
+        case roomUserListInfo = "AC:Chatroom:RoomUserList"
+        case joinRoom = "AC:Chatroom:Join"
+        case leaveRoom = "AC:Chatroom:Leave"
+        case kickoutRoom = "AC:Chatroom:Kick"
+    }
+    
+    struct TextMessage: ChatRoomMessage {
+        let text: String
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case text
+            case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct RoomBaseMessage: ChatRoomMessage {
+        let room: Entity.Room
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case room
+            case msgType = "message_type"
+        }
+    }
+
+    struct UserListMessage: ChatRoomMessage {
+        let room: Entity.Room
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case room
+            case msgType = "message_type"
+        }
+    }
+
+    struct JoinRoomMessage: ChatRoomMessage {
+        let room: Entity.Room
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case room
+            case msgType = "message_type"
+        }
+    }
+    
+    struct LeaveRoomMessage: ChatRoomMessage {
+        let roomId: String
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case roomId = "room_id"
+            case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct KickOutMessage: ChatRoomMessage {
+        let room: Entity.Room
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case room
+            case msgType = "message_type"
+        }
+    }
+}
+
+extension ChatRoom.MessageType {
+    static var structMap: [ChatRoom.MessageType: ChatRoomMessage.Type] {
+        return [
+            .baseInfo: ChatRoom.RoomBaseMessage.self,
+            .joinRoom: ChatRoom.JoinRoomMessage.self,
+            .leaveRoom: ChatRoom.LeaveRoomMessage.self,
+            .kickoutRoom: ChatRoom.KickOutMessage.self,
+            .roomUserListInfo: ChatRoom.UserListMessage.self,
+        ]
+    }
 }

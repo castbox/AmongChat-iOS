@@ -396,3 +396,10 @@ extension DefaultsAdapter {
 }
 
 extension CLLocation: DefaultsSerializable {}
+
+
+extension Settings {
+    static var loginUserId: String? {
+        return shared.loginResult.value?.uid.string
+    }
+}
