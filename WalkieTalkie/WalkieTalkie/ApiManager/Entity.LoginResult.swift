@@ -8,10 +8,6 @@
 
 import Foundation
 
-extension Request {
-//    struct Entity { }
-}
-
 extension Entity {
     
     public enum LoginProvider: String {

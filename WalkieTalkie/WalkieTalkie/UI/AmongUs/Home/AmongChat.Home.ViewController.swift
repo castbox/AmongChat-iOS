@@ -230,14 +230,17 @@ extension AmongChat.Home.ViewController {
     
     @objc
     private func onPremiumBtn() {
-        let premium = R.storyboard.main.premiumViewController()!
-        premium.style = .likeGuide
-        premium.source = .iap_home
-        premium.dismissHandler = {
-            premium.dismiss(animated: true, completion: nil)
-        }
-        premium.modalPresentationStyle = .fullScreen
-        present(premium, animated: true, completion: nil)
+        Request.enterRoom(roomId: "", topicId: "amongus")
+            .subscribe(onSuccess: { (room) in
+                // TODO: - 进入房间
+                guard let room = room else { return }
+                
+                cdPrint("")
+
+            }, onError: { (error) in
+                cdPrint("")
+            })
+            .disposed(by: bag)
     }
     
     @objc
@@ -431,18 +434,31 @@ extension AmongChat.Home.ViewController {
                 self?.nameLabel.text = profile.name
             })
             .disposed(by: bag)
-        let room = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "qq12345678", roomUserList: [
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-        ], state: .private, topicId: .chilling, topicName: "Among Us")
+//        let room = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "qq12345678", roomUserList: [
+////<<<<<<< HEAD
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
+////=======
+////            Entity.RoomUser(uid: "2121", name: "Wilson", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: "Stark", seatNo: 0, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "", avatar: "", robloxName: nil, seatNo: 1, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "Six", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 2, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 3, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: "213", name: "Jimmy", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 4, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 5, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: "213123", name: "King", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 6, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "", avatar: "", robloxName: nil, seatNo: 7, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 8, prefix: "", iconColor: "", status: .connected, isMuted: false),
+////            Entity.RoomUser(uid: "2131", name: "Cass", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 9, prefix: "lisa", iconColor: "", status: .connected, isMuted: false),
+//>>>>>>> 97a9b8dd5f432058fec15c361923f9fedde73d4b
+//        ], state: .private, topicId: .chilling, topicName: "Among Us")
         
 //        joinChannelSubject
 //            .filterNil()
@@ -451,21 +467,21 @@ extension AmongChat.Home.ViewController {
 //            .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
 //            .subscribe(onNext: { [weak self] _ in
 //                guard let `self` = self else { return }
-                self._joinChannel(room) { (channel) in
+//                self._joinChannel(room) { (channel) in
 //                    uid=100000, room_id=qq12345678 的rtc token
 //                    006db4ec67c84774be1ad7b1414fdca7979IAA1VzWiQ9tR/M+jYW1XZLTEFM05PScY2YNvkUYa0G5Sx4BUG+JD1hryIgBSbPMFvNfaXwQAAQA8EwFgAgA8EwFgAwA8EwFgBAA8EwFg
-                    let vc = AmongChat.Room.ViewController(room: room)
-                    vc.modalPresentationStyle = .fullScreen
-                    let transition = CATransition()
-                    transition.duration = 0.5
-                    transition.type = CATransitionType.push
-                    transition.subtype = CATransitionSubtype.fromRight
-                    transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
-                    self.present(vc, animated: false) { [weak self] in
-                        self?.navigationController?.popToRootViewController(animated: false)
-                    }
-                }
+//                    let vc = AmongChat.Room.ViewController(room: room)
+//                    vc.modalPresentationStyle = .fullScreen
+//                    let transition = CATransition()
+//                    transition.duration = 0.5
+//                    transition.type = CATransitionType.push
+//                    transition.subtype = CATransitionSubtype.fromRight
+//                    transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+//                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+//                    self.present(vc, animated: false) { [weak self] in
+//                        self?.navigationController?.popToRootViewController(animated: false)
+//                    }
+//                }
 //            })
 //            .disposed(by: bag)
         

@@ -22,12 +22,12 @@ class AmongRoomInfoView: XibLoadableView {
     
     @IBAction func copyButtonAction(_ sender: Any) {
         //is self
-        if room?.roomUserList.first?.uid == "" {
-            
-        } else {
+//        if room?.roomUserList.first?.uid == "" {
+//
+//        } else {
             room?.amongUsCode?.copyToPasteboard()
             raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
-        }
+//        }
     }
     /*
     // Only override draw() if you perform custom drawing.

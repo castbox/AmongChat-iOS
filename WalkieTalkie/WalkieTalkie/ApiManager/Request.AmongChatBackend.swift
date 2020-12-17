@@ -18,6 +18,41 @@ extension Request {
 
 
 extension Request {
+    
+    static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
+        
+        var paras = ["provider": provider.rawValue]
+        paras["client_type"] = clientType
+        
+        if let token = token { paras["token"] = token }
+        if let secret = secret { paras["secret"] = secret }
+        if let uid = uid { paras["uid"] = uid }
+        
+        return amongchatProvider.rx.request(.login(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.LoginResult.self)
+    }
+    
+    static func enterRoom(roomId: String, topicId: String) -> Single<Entity.Room?> {
+        
+        var paras = [String : Any]()
+        paras["room_id"] = roomId
+        paras["topic_id"] = topicId
+        
+        return amongchatProvider.rx.request(.enteryRoom(paras))
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject],
+                 let data = json["data"] as? [String: AnyObject],
+                 let roomData = data["room"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return roomData
+            }
+            .mapTo(Entity.Room.self)
+    }
+    
     static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
         guard let params = room?.dictionary else {
             return Observable<Bool>.empty().asSingle()

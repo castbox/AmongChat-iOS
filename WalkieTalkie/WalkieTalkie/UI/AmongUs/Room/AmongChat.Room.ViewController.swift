@@ -415,11 +415,11 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
 extension AmongChat.Room.ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let user = dataSource.safe(indexPath.item), user.uid.isValid else {
-            //show
-            self.onShareBtn()
-            return
-        }
+//        guard let user = dataSource.safe(indexPath.item), user.uid.isValid else {
+//            //show
+//            self.onShareBtn()
+//            return
+//        }
         //enter profile page
     }
     

@@ -50,13 +50,11 @@
 		BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */; };
 		BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1412589C92800412BDC /* PolicyLabel.swift */; };
 		BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */; };
-		BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */; };
-		BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D667258A4C5500412BDC /* APIService.Auth.swift */; };
+		BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
 		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
-		BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */; };
 		BDFEFEE12586043F007F40FC /* AmongChat.AllRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */; };
 		BDFEFEE525860467007F40FC /* AmongChat.AllRooms.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */; };
 		BDFEFEE9258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */; };
@@ -359,13 +357,11 @@
 		BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.ViewController.swift; sourceTree = "<group>"; };
 		BDC9D1412589C92800412BDC /* PolicyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolicyLabel.swift; sourceTree = "<group>"; };
 		BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.Manager.swift; sourceTree = "<group>"; };
-		BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Entity.swift; sourceTree = "<group>"; };
-		BDC9D667258A4C5500412BDC /* APIService.Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Auth.swift; sourceTree = "<group>"; };
+		BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.LoginResult.swift; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
 		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
-		BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+AmongChat.swift"; sourceTree = "<group>"; };
 		BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.swift; sourceTree = "<group>"; };
 		BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ViewController.swift; sourceTree = "<group>"; };
 		BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ChannelCell.swift; sourceTree = "<group>"; };
@@ -1031,10 +1027,7 @@
 			children = (
 				FEC17A4A24A9B957003719BC /* Request.swift */,
 				FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */,
-				BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */,
-				BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */,
 				FE8DEA5A243DB0970059C252 /* APIService.swift */,
-				BDC9D667258A4C5500412BDC /* APIService.Auth.swift */,
 				FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */,
 				FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */,
 				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
@@ -1049,6 +1042,7 @@
 				FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */,
 				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
 				FEC17A4824A99BF0003719BC /* Entity.swift */,
+				BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */,
 				FE9EF523258B0C07008C0BAD /* Entity.Room.swift */,
 			);
 			path = ApiManager;
@@ -1547,10 +1541,9 @@
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				BD1F050F2500E37400712C24 /* RoomSpeakingListView.swift in Sources */,
-				BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDB8F58B24F7DE75000027F8 /* Social.InitialProfileViewController.swift in Sources */,
-				BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */,
+				BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */,
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
 				FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */,
@@ -1662,7 +1655,6 @@
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,
 				BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
-				BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */,
 				FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */,
 				BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,

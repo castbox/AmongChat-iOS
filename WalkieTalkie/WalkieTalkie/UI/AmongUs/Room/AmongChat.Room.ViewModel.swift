@@ -135,7 +135,7 @@ extension AmongChat.Room {
         func sendText(message: String?) {
             guard let message = message?.trimmed,
                   !message.isEmpty,
-                  let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId }) else {
+                  let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId?.int }) else {
                 return
             }
             let textMessage = ChatRoom.TextMessage(text: message, user: user, msgType: .text)
@@ -372,88 +372,88 @@ extension AmongChat.Room.ViewModel {
 
 }
 
-extension AmongChat.Room.ViewModel: ChatRoomDelegate {
-    // MARK: - ChatRoomDelegate
-    
-    func onJoinChannelFailed(channelId: String?) {
-        self.hudRemoval?()
-        self.hudRemoval = nil
-        
-        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
-        
-        Observable.just(())
-            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
-            .filter { [weak self] _  -> Bool in
-                guard let `self` = self else { return false }
-                return self.mManager.state != .connected
-            }
-            .subscribe(onNext: { _ in
-            })
-            .disposed(by: bag)
-    }
-    
-    func onJoinChannelTimeout(channelId: String?) {
-        self.hudRemoval?()
-        self.hudRemoval = nil
-        
-        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
-        
-        Observable.just(())
-            .observeOn(MainScheduler.asyncInstance)
-            .filter { [weak self] _  -> Bool in
-                guard let `self` = self else { return false }
-                return self.mManager.state != .connected
-            }
-            .do(onNext: { [weak self] _ in
-                self?.leaveChannel()
-            })
-            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
-            .filter { [weak self] _  -> Bool in
-                guard let `self` = self else { return false }
-                return self.mManager.state != .connected
-            }
-            .subscribe(onNext: { _ in
-            })
-            .disposed(by: bag)
-    }
-
-    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
-    }
-    
-    func onSeatUpdated(position: Int) {
-    }
-
-    func onUserGivingGift(userId: String) {
-    }
-
-    func onMessageAdded(position: Int) {
-    }
-
-    func onMemberListUpdated(userId: String?) {
-    }
-
-    func onUserStatusChanged(userId: UInt, muted: Bool) {
-        if Constants.isMyself(userId) {
-            
-        } else {
-            //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
-                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
-            }
-        }
-    }
-    
-    func onAudioMixingStateChanged(isPlaying: Bool) {
-
-    }
-
-    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
-        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
-    }
-    
-    func onChannelUserChanged(users: [ChannelUser]) {
-        ChannelUserListViewModel.shared.update(users)
-    }
-}
+//extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+//    // MARK: - ChatRoomDelegate
+//    
+//    func onJoinChannelFailed(channelId: String?) {
+//        self.hudRemoval?()
+//        self.hudRemoval = nil
+//        
+//        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
+//        
+//        Observable.just(())
+//            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
+//            .filter { [weak self] _  -> Bool in
+//                guard let `self` = self else { return false }
+//                return self.mManager.state != .connected
+//            }
+//            .subscribe(onNext: { _ in
+//            })
+//            .disposed(by: bag)
+//    }
+//    
+//    func onJoinChannelTimeout(channelId: String?) {
+//        self.hudRemoval?()
+//        self.hudRemoval = nil
+//        
+//        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
+//        
+//        Observable.just(())
+//            .observeOn(MainScheduler.asyncInstance)
+//            .filter { [weak self] _  -> Bool in
+//                guard let `self` = self else { return false }
+//                return self.mManager.state != .connected
+//            }
+//            .do(onNext: { [weak self] _ in
+//                self?.leaveChannel()
+//            })
+//            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
+//            .filter { [weak self] _  -> Bool in
+//                guard let `self` = self else { return false }
+//                return self.mManager.state != .connected
+//            }
+//            .subscribe(onNext: { _ in
+//            })
+//            .disposed(by: bag)
+//    }
+//
+//    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+//    }
+//    
+//    func onSeatUpdated(position: Int) {
+//    }
+//
+//    func onUserGivingGift(userId: String) {
+//    }
+//
+//    func onMessageAdded(position: Int) {
+//    }
+//
+//    func onMemberListUpdated(userId: String?) {
+//    }
+//
+//    func onUserStatusChanged(userId: UInt, muted: Bool) {
+//        if Constants.isMyself(userId) {
+//            
+//        } else {
+//            //check block
+//            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
+//                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+//            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+//                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+//            }
+//        }
+//    }
+//    
+//    func onAudioMixingStateChanged(isPlaying: Bool) {
+//
+//    }
+//
+//    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+//        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
+//    }
+//    
+//    func onChannelUserChanged(users: [ChannelUser]) {
+//        ChannelUserListViewModel.shared.update(users)
+//    }
+//}
