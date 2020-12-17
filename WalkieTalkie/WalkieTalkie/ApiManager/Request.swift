@@ -17,6 +17,10 @@ struct Request {
     static let castboxProvider = MoyaProvider<APIService.CastboxBackend>(plugins: [
         NetworkLoggerPlugin(),
     ])
+    
+    static let authProvider = MoyaProvider<APIService.Auth>(plugins: [
+        NetworkLoggerPlugin()
+    ])
 }
 
 extension Request {
@@ -43,6 +47,21 @@ extension Request {
         var params: [String : Any] = [:]
         params["secret"] = deviceId
         return castboxProvider.rx.request(.secret(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.LoginResult.self)
+    }
+        
+    static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
+        
+        var paras = ["provider": provider.rawValue]
+        paras["client_type"] = clientType
+        
+        if let token = token { paras["token"] = token }
+        if let secret = secret { paras["secret"] = secret }
+        if let uid = uid { paras["uid"] = uid }
+        
+        return authProvider.rx.request(.login(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.LoginResult.self)

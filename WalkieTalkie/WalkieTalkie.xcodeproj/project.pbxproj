@@ -45,7 +45,12 @@
 		BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */; };
 		BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */; };
 		BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */; };
+		BDC9D1382589BBC600412BDC /* AmongChat.Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */; };
+		BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */; };
+		BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1412589C92800412BDC /* PolicyLabel.swift */; };
+		BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */; };
 		BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */; };
+		BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D667258A4C5500412BDC /* APIService.Auth.swift */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
@@ -348,7 +353,12 @@
 		BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsAPI.swift; sourceTree = "<group>"; };
 		BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.EditProfileViewController.swift; sourceTree = "<group>"; };
+		BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.swift; sourceTree = "<group>"; };
+		BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.ViewController.swift; sourceTree = "<group>"; };
+		BDC9D1412589C92800412BDC /* PolicyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolicyLabel.swift; sourceTree = "<group>"; };
+		BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.Manager.swift; sourceTree = "<group>"; };
 		BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Entity.swift; sourceTree = "<group>"; };
+		BDC9D667258A4C5500412BDC /* APIService.Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Auth.swift; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
@@ -632,6 +642,7 @@
 				BD6C36FE256E7CAD00D1E708 /* Room */,
 				BD6C36EB256E517E00D1E708 /* Home */,
 				BDFEFED5258603A9007F40FC /* AllRooms */,
+				BDC9D1362589BB2600412BDC /* Login */,
 			);
 			path = AmongUs;
 			sourceTree = "<group>";
@@ -720,6 +731,16 @@
 				BD73B0FB24FE1705009D0AC7 /* UserList */,
 			);
 			path = Social;
+			sourceTree = "<group>";
+		};
+		BDC9D1362589BB2600412BDC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */,
+				BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */,
+				BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		BDFEFED5258603A9007F40FC /* AllRooms */ = {
@@ -922,6 +943,7 @@
 		FE684885244BDA0C00F87AF9 /* Widge */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D1412589C92800412BDC /* PolicyLabel.swift */,
 				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
 				FE684883244BD9F900F87AF9 /* GradientView.swift */,
@@ -1006,6 +1028,7 @@
 				FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */,
 				BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */,
 				FE8DEA5A243DB0970059C252 /* APIService.swift */,
+				BDC9D667258A4C5500412BDC /* APIService.Auth.swift */,
 				FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */,
 				FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */,
 				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
@@ -1487,6 +1510,7 @@
 				BDFEFEE9258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				BDFEFEE525860467007F40FC /* AmongChat.AllRooms.ViewController.swift in Sources */,
+				BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */,
 				FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
@@ -1558,6 +1582,7 @@
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
+				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */,
@@ -1645,6 +1670,7 @@
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,
 				BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
+				BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */,
 				FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */,
 				BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
@@ -1659,6 +1685,7 @@
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
+				BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */,
 				FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */,
 				FE7CE9E32589E5450067952C /* AmongRoomBottomBar.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
@@ -1670,6 +1697,7 @@
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				BD73B10324FE89CA009D0AC7 /* Social.UserList.ActionModal.swift in Sources */,
 				FE72187D2456DC19005274CA /* SecretChannelContainer.swift in Sources */,
+				BDC9D1382589BBC600412BDC /* AmongChat.Login.swift in Sources */,
 				FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */,
 				BD82844F253ED915009B23BC /* RoomViewController.SpeakingModal.swift in Sources */,
 				FE746BE124629B0500CAC554 /* GuideSecondView.swift in Sources */,

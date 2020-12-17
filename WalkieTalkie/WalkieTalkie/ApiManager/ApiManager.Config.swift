@@ -27,24 +27,13 @@ extension APIService {
         }
         
         public static var userAgent: String {
-            
-            if let info = Bundle.main.infoDictionary {
-                let executable = "Cuddle"
-                let appVersion = info["CFBundleShortVersionString"] as? String ?? "Unknown" /// 4.1.2
-                let bundle = info[kCFBundleIdentifierKey as String] as? String ?? "Unknown" /// fm.castbox.audiobook.radio.podcast
-                let appBuild = info[kCFBundleVersionKey as String] as? String ?? "Unknown" /// 2
-                
-                let osNameVersion: String = {
-                    let version = ProcessInfo.processInfo.operatingSystemVersion
-                    let versionString = "\(version.majorVersion).\(version.minorVersion).\(version.patchVersion)"
-                    let osName = "iOS"
-                    return "\(osName) \(versionString)"
-                }() /// iOS 11.2.6
-                
-                /// CastBox/4.1.2 fm.castbox.audiobook.radio.podcast; build:2; iOS 11.2.6
-                return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion))"
+            var deviceInfo = Constants.deviceInfo()
+            if let loginResult = Settings.shared.loginResult.value {
+                deviceInfo["uid"] = loginResult.uid
             }
-            return "CastBox"
+            
+            let uaString = deviceInfo.map({"\($0)=\($1)"}).joined(separator: ";") + ";"
+            return uaString
         }
 
         
