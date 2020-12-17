@@ -439,7 +439,18 @@ extension AmongChat.Home.ViewController {
             })
             .disposed(by: bag)
         
-        let room = Entity.Room(amongUsCode: "UUU", amongUsZone: "North Amercial", note: "", roomId: "qq12345678", roomUserList: [Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 0, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 1, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 2, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 3, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 4, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 5, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 6, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 7, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 8, uid: "100000"), Entity.RoomUser(avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", name: "Reena", robloxName: nil, seatNo: 9, uid: "100000")], state: .public, topicId: .amongus, topicName: "Among Us")
+        let room = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "qq12345678", roomUserList: [
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 0, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 1, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 2, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 3, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 4, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 5, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 6, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 7, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 8, prefix: "", iconColor: "", status: .connected, isMuted: false),
+            ChannelUser(uid: "", name: "", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 9, prefix: "", iconColor: "", status: .connected, isMuted: false),
+        ], state: .public, topicId: .amongus, topicName: "Among Us")
         
         joinChannelSubject
             .filterNil()
@@ -812,7 +823,7 @@ extension AmongChat.Home.ViewController: ChatRoomDelegate {
             
         } else {
             //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
+            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
                 mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
             } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
                 mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)

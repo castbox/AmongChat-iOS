@@ -297,7 +297,7 @@ extension Social.UserList {
                 ChannelUserListViewModel.shared.unblockedUser(channelUserViewModel)
             }
             
-            if ChannelUserListViewModel.shared.blockedUsers.contains(where: { $0.uid == viewModel.user.profile.uidInt }) {
+            if ChannelUserListViewModel.shared.blockedUsers.contains(where: { $0.uid == viewModel.user.profile.uid }) {
                 alert.addAction(unblockAction)
             } else {
                 alert.addAction(blockAction)

@@ -18,10 +18,43 @@ class AmongInputCodeView: XibLoadableView {
     @IBOutlet weak var asiaButton: UIButton!
     @IBOutlet weak var europeButton: UIButton!
     
-    private var locationService: AmongChat.AmongServiceLocation = .northAmerica
+    private var locationService: AmongChat.AmongServiceLocation = .northAmerica {
+        didSet {
+            northAmericaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
+            asiaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
+            europeButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
+            
+            switch locationService {
+            case .northAmerica:
+                northAmericaButton.setBackgroundImage("FFF000".color().image, for: .normal)
+            case .asia:
+                asiaButton.setBackgroundImage("FFF000".color().image, for: .normal)
+            case .europe:
+                europeButton.setBackgroundImage("FFF000".color().image, for: .normal)
+            }
+        }
+    }
     
     var inputResultHandler: ((String, AmongChat.AmongServiceLocation) -> Void)?
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bindSubviewEvent()
+        configureSubview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindSubviewEvent() {
+        
+    }
+    
+    private func configureSubview() {
+        locationService = .northAmerica
+    }
+    
     override func becomeFirstResponder() -> Bool {
         return textField.becomeFirstResponder()
     }
@@ -29,32 +62,12 @@ class AmongInputCodeView: XibLoadableView {
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
     }
-    
-//    func show() {
-//        textField.becomeFirstResponder()
-//    }
-//
-//    func hide() {
-//
-//    }
 
     @IBAction func serviceLocationAction(_ sender: UIButton) {
         guard let location = AmongChat.AmongServiceLocation(rawValue: sender.tag) else {
             return
         }
         locationService = location
-        northAmericaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
-        asiaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
-        europeButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
-        
-        switch location {
-        case .northAmerica:
-            northAmericaButton.setBackgroundImage("FFF000".color().image, for: .normal)
-        case .asia:
-            asiaButton.setBackgroundImage("FFF000".color().image, for: .normal)
-        case .europe:
-            europeButton.setBackgroundImage("FFF000".color().image, for: .normal)
-        }
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
@@ -79,13 +92,14 @@ extension AmongInputCodeView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
 //        inputContainerView.isHidden = true
 //        isHidden = true
-        alpha = 0
+        fadeOut(duration: 0.25, completion: nil)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
 //        inputContainerView.isHidden = false
 //        isHidden = false
-        alpha = 1
+//        alpha = 1
+        fadeIn(duration: 0.25, completion: nil)
     }
         
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

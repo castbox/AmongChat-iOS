@@ -509,7 +509,7 @@ extension RoomViewController: ChatRoomDelegate {
             #endif
         } else {
             //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
+            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
                 mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
             } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
                 mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)

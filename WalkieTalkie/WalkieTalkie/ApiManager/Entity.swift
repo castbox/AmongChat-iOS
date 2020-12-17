@@ -38,13 +38,13 @@ extension Entity {
         }
     }
     
-    struct RoomUser: Codable {
-        let avatar: String
-        let name: String
-        let robloxName: String?
-        let seatNo: Int
-        let uid: String
-    }
+//    struct RoomUser: Codable {
+//        let avatar: String
+//        let name: String
+//        let robloxName: String?
+//        let seatNo: Int
+//        let uid: String
+//    }
     
     enum RoomPublicType: String, Codable {
         case `public`
@@ -64,8 +64,8 @@ extension Entity {
         let note: String?
         let roomId: String
         
-        let roomUserList: [RoomUser]
-        let state: RoomPublicType
+        let roomUserList: [ChannelUser]
+        var state: RoomPublicType
         let topicId: AmongChat.Topic
         let topicName: String
         
@@ -79,3 +79,4 @@ extension Entity {
         }
     }
 }
+

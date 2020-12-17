@@ -223,6 +223,7 @@
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
 		FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */; };
 		FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */; };
+		FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BCA43258A5344002F82AF /* IntExtension.swift */; };
 		FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1CE247D47CC00AA2199 /* Room.swift */; };
 		FE9CB1D6247D512400AA2199 /* CreateGlobalChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */; };
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
@@ -254,6 +255,7 @@
 		FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */; };
 		FECFC4FE24666FBD00B10EEE /* GuideThirdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECFC4FD24666FBD00B10EEE /* GuideThirdView.swift */; };
 		FECFC50024666FD400B10EEE /* GuideThirdView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FF24666FD400B10EEE /* GuideThirdView.xib */; };
+		FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -519,6 +521,7 @@
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
 		FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.AmongChatBackend.swift; sourceTree = "<group>"; };
+		FE9BCA43258A5344002F82AF /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
 		FE9CB1CE247D47CC00AA2199 /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		FE9CB1D4247D512400AA2199 /* CreateGlobalChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGlobalChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
@@ -551,6 +554,7 @@
 		FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
 		FECFC4FD24666FBD00B10EEE /* GuideThirdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideThirdView.swift; sourceTree = "<group>"; };
 		FECFC4FF24666FD400B10EEE /* GuideThirdView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideThirdView.xib; sourceTree = "<group>"; };
+		FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 		FE0D1A1E24488F9B00518793 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FE9BCA43258A5344002F82AF /* IntExtension.swift */,
 				FE6AF8592457E26C00FD474A /* UIViewFrameExtension.swift */,
 				FE7218742456DA36005274CA /* Extension.swift */,
 				FE2AF9E7244DB16F00763747 /* UIViewController+Safari.swift */,
@@ -1085,6 +1090,7 @@
 				FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */,
 				FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */,
 				BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */,
+				FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */,
 				FECA43B62459A8A60075D139 /* cbegin.mp3 */,
 			);
 			path = resource;
@@ -1312,6 +1318,7 @@
 				FEC5927524D8178F00E443FA /* ChannelUserListController.xib in Resources */,
 				FEC5927924D8202C00E443FA /* ChannelUserCell.xib in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
+				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 				FE746BDE24629B0500CAC554 /* Guide.storyboard in Resources */,
 			);
@@ -1593,6 +1600,7 @@
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
 				FEA79E66249B551D0067C1C1 /* ShareContainerView.swift in Sources */,
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
+				FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */,
 				FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */,
 				BD73B0FA24FDF08E009D0AC7 /* Social.UserList.Widgets.swift in Sources */,
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,

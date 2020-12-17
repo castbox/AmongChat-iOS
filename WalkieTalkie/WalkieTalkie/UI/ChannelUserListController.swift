@@ -270,7 +270,7 @@ extension ChannelUserListController {
             }
         }
         
-        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid)
+        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid.uIntValue)
         if isMuted {
             let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
                 // unmute_clk log

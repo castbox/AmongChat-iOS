@@ -418,6 +418,9 @@ PODS:
   - JXCategoryView (1.5.5)
   - JXPagingView/Paging (2.0.3)
   - JXSegmentedView (1.0.6)
+  - Kingfisher (5.15.8):
+    - Kingfisher/Core (= 5.15.8)
+  - Kingfisher/Core (5.15.8)
   - leveldb-library (1.22)
   - loady (1.0.5)
   - MBProgressHUD (1.0.0)
@@ -542,6 +545,7 @@ DEPENDENCIES:
   - JXCategoryView
   - JXPagingView/Paging (= 2.0.3)
   - JXSegmentedView
+  - Kingfisher
   - loady
   - MBProgressHUD (~> 1.0.0)
   - MoPub-AdMob-Adapters
@@ -611,6 +615,7 @@ SPEC REPOS:
     - JXCategoryView
     - JXPagingView
     - JXSegmentedView
+    - Kingfisher
     - leveldb-library
     - loady
     - MBProgressHUD
@@ -690,6 +695,7 @@ SPEC CHECKSUMS:
   JXCategoryView: 0293fcb356f10a5c2e679dac0a1a5f1899ee0c87
   JXPagingView: 16f18d80bd79e0aab2e77fd8855211359e2506a4
   JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
+  Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -725,6 +731,6 @@ SPEC CHECKSUMS:
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
 
-PODFILE CHECKSUM: cf5b39dffdebbbd454a6c176cc31a940124c2de0
+PODFILE CHECKSUM: 8a15cecffcda98f57f683cf20f6859a0a4b1c430
 
 COCOAPODS: 1.10.0

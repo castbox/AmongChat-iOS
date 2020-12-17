@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 extension AmongChat.Room {
     
@@ -17,7 +18,7 @@ extension AmongChat.Room {
         
         private lazy var indexLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoRegular(size: 11)
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
             lb.textAlignment = .center
             return lb
@@ -43,20 +44,21 @@ extension AmongChat.Room {
         
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoRegular(size: 11)
+            lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
             lb.textAlignment = .center
             return lb
         }()
         
-//        private lazy var gameNameButton: UIButton = {
-//            let btn = UIButton(type: .custom)
+        private lazy var gameNameButton: UIButton = {
+            let btn = UIButton(type: .custom)
 //            btn.setTitle("XXX", for: .normal)
-////            btn.setTitleColor(<#T##color: UIColor?##UIColor?#>, for: <#T##UIControl.State#>)
-////            btn.setImage(R.image.icon_close(), for: .normal)
-////            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
-//            return btn
-//        }()
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 10)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+            btn.backgroundColor = UIColor.white.alpha(0.2)
+            btn.cornerRadius = 10
+            return btn
+        }()
         
         private var avatarDisposable: Disposable?
         
@@ -80,7 +82,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel)
+            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel, gameNameButton)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
@@ -88,23 +90,26 @@ extension AmongChat.Room {
             
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.size.equalTo(avatarIV)
+                maker.width.height.equalTo(60)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.size.equalTo(CGSize(width: 50, height: 50))
+                maker.size.equalTo(CGSize(width: 40, height: 40))
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(indexLabel.snp.bottom)
+                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
+                maker.top.equalTo(avatarIV.snp.bottom).offset(4)
                 maker.left.bottom.right.equalToSuperview()
 //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
-//            gameNameButton.snp.makeConstraints { maker in
-//                maker.left.right.bottom.equalToSuperview()
-//            }
+            gameNameButton.snp.makeConstraints { maker in
+                maker.top.equalTo(nameLabel.snp.bottom).offset(4)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(20)
+            }
         }
         
         private func haloAnimation() {
@@ -139,33 +144,68 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.UserCell {
     
-    func bind(_ userViewModel: ChannelUserViewModel?) {
+//    func bind(_ userViewModel: ChannelUserViewModel?) {
+//
+//        if let userViewModel = userViewModel {
+//            avatarIV.image = nil
+//            let user = userViewModel.channelUser
+//            avatarDisposable?.dispose()
+//            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
+//                guard let `self` = self else { return }
+//
+//                if let _ = image {
+//                    self.avatarIV.backgroundColor = .clear
+//                } else {
+//                    self.avatarIV.backgroundColor = user.iconColor.color()
+//                }
+//                self.avatarIV.image = image
+//            })
+//
+//            nameLabel.text = userViewModel.name
+//            if userViewModel.channelUser.status == .talking {
+//                haloAnimation()
+//            } else {
+//                stopHaloAnimation()
+//            }
+//        } else {
+//            avatarIV.image = R.image.speak_list_add()
+//            avatarIV.backgroundColor = nil
+//            nameLabel.text = ""
+//        }
+//    }
+    
+    func bind(_ user: ChannelUser?) {
         
-        if let userViewModel = userViewModel {
+        if let user = user {
             avatarIV.image = nil
-            let user = userViewModel.channelUser
-            avatarDisposable?.dispose()
-            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
-                guard let `self` = self else { return }
-                
-                if let _ = image {
-                    self.avatarIV.backgroundColor = .clear
-                } else {
-                    self.avatarIV.backgroundColor = user.iconColor.color()
-                }
-                self.avatarIV.image = image
-            })
-            
-            nameLabel.text = userViewModel.name
-            if userViewModel.channelUser.status == .talking {
+            indexLabel.text = user.seatNo.string
+//            let user = userViewModel.channelUser
+//            avatarDisposable?.dispose()
+//            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
+//                guard let `self` = self else { return }
+//
+//                if let _ = image {
+//                    self.avatarIV.backgroundColor = .clear
+//                } else {
+//                    self.avatarIV.backgroundColor = user.iconColor.color()
+//                }
+//                self.avatarIV.image = image
+//            })
+//            avatarIV.kf.setImage(with: user.avatar)
+            nameLabel.text = user.name
+            if user.status == .talking {
                 haloAnimation()
             } else {
                 stopHaloAnimation()
             }
+            gameNameButton.setTitle(user.robloxName, for: .normal)
+            gameNameButton.isHidden = user.robloxName?.isEmpty ?? true
         } else {
             avatarIV.image = R.image.speak_list_add()
             avatarIV.backgroundColor = nil
             nameLabel.text = ""
+            gameNameButton.setTitle(nil, for: .normal)
+            gameNameButton.isHidden = true
         }
     }
     

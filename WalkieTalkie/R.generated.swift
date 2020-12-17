@@ -71,7 +71,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 6 fonts.
+  /// This `R.font` struct is generated, and contains static references to 7 fonts.
   struct font: Rswift.Validatable {
     /// Font `BlackOpsOne-Regular`.
     static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
@@ -81,6 +81,8 @@ struct R: Rswift.Validatable {
     static let nunitoBoldItalic = Rswift.FontResource(fontName: "Nunito-BoldItalic")
     /// Font `Nunito-Bold`.
     static let nunitoBold = Rswift.FontResource(fontName: "Nunito-Bold")
+    /// Font `Nunito-ExtraBold`.
+    static let nunitoExtraBold = Rswift.FontResource(fontName: "Nunito-ExtraBold")
     /// Font `Nunito-Regular`.
     static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
@@ -106,6 +108,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIFont(resource: nunitoBoldItalic, size: size)
     }
     
+    /// `UIFont(name: "Nunito-ExtraBold", size: ...)`
+    static func nunitoExtraBold(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: nunitoExtraBold, size: size)
+    }
+    
     /// `UIFont(name: "Nunito-Regular", size: ...)`
     static func nunitoRegular(size: CGFloat) -> UIKit.UIFont? {
       return UIKit.UIFont(resource: nunitoRegular, size: size)
@@ -121,6 +128,7 @@ struct R: Rswift.Validatable {
       if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-BoldItalic' could not be loaded, is 'Nunito-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
+      if R.font.nunitoExtraBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-ExtraBold' could not be loaded, is 'Nunito-ExtraBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Regular' could not be loaded, is 'Nunito-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoSemiBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-SemiBold' could not be loaded, is 'Nunito-SemiBold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
     }

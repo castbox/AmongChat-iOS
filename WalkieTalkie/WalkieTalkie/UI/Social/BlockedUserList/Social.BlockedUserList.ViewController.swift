@@ -111,7 +111,7 @@ extension Social.BlockedUserList {
                     //老版本用户
                     let oldUsers = ChannelUserListViewModel.shared.blockedUsers.filter({ (cUser) -> Bool in
                         !users.contains { (fUser) -> Bool in
-                            fUser.profile.uidInt == cUser.uid
+                            fUser.profile.uid == cUser.uid
                         }
                     })
                         .map { ChannelUserViewModel(with: $0, firestoreUser: nil) }

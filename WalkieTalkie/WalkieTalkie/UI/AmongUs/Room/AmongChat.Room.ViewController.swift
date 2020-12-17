@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import MoPub
+//import MoPub
 
 extension AmongChat.Room {
     enum EditType {
@@ -22,7 +22,38 @@ extension AmongChat.Room {
 
 extension AmongChat.Room {
     class ViewModel {
+        let roomReplay: BehaviorRelay<Entity.Room>
+        let bag = DisposeBag()
         
+        var room: Entity.Room {
+            roomReplay.value
+        }
+        
+        init(room: Entity.Room) {
+//            self.room = room
+            roomReplay = BehaviorRelay(value: room)
+        }
+        
+        func changePublicType() {
+            let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
+            var room = self.room
+            room.state = publicType
+            //update
+            updateRoomInfo(room)
+        }
+        
+        func updateRoomInfo(_ room: Entity.Room) {
+            //update
+            Request.updateRoomInfo(room: room)
+                .filter { $0 }
+                .map { _ -> Entity.Room in
+                    return room
+                }
+                .catchErrorJustReturn(self.room)
+                .asObservable()
+                .bind(to: roomReplay)
+                .disposed(by: bag)
+        }
     }
 }
 
@@ -35,6 +66,44 @@ extension AmongChat.Room {
         private typealias UserCell = AmongChat.Room.UserCell
         private typealias ActionModal = ChannelUserListController.ActionModal
         
+        private var room: Entity.Room
+        private let viewModel = ChannelUserListViewModel.shared
+        private let imViewModel: IMViewModel
+
+        private let roomViewModel: ViewModel
+        private var topBar: AmongChatRoomTopBar!
+        private var configView: AmongChatRoomConfigView!
+        private var amongInputCodeView: AmongInputCodeView!
+        private var editType: AmongChat.Room.EditType = .message {
+            didSet {
+                switch editType {
+                case .amongSetup:
+                    self.view.bringSubviewToFront(amongInputCodeView)
+                    amongInputCodeView.becomeFirstResponder()
+                default:
+                    messageInputField.becomeFirstResponder()
+                }
+            }
+        }
+        
+        private var dataSource: [ChannelUser] = [] {
+            didSet {
+                userCollectionView.reloadData()
+            }
+        }
+        
+        private let fixedListLength = Int(10)
+        private var messageListDataSource: [MessageViewModel] = [] {
+            didSet {
+                messageListTableView.reloadData()
+                DispatchQueue.main.async { [weak self] in
+                    if self?.messageListTableView.contentSize.height ?? 0 > self?.messageListTableView.frame.size.height ?? 0 {
+                        self?.messageListTableView.scrollToBottom()
+                    }
+                }
+            }
+        }
+
         private lazy var bgView: UIView = {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
@@ -112,31 +181,18 @@ extension AmongChat.Room {
             btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
             return btn
         }()
-        
-        private var topBar: AmongChatRoomTopBar!
-        private var configView: AmongChatRoomConfigView!
-        private var amongInputCodeView: AmongInputCodeView!
-        private var editType: AmongChat.Room.EditType = .message {
-            didSet {
-                switch editType {
-                case .amongSetup:
-                    amongInputCodeView.becomeFirstResponder()
-                default:
-                    messageInputField.becomeFirstResponder()
-                }
-            }
-        }
 //        private var infoView: Among
         
         private lazy var userCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
-            let hInset: CGFloat = 24
-            let itemSpacing: CGFloat = 17
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
-            layout.itemSize = CGSize(width: cellWidth, height: 91)
+            let itemSpacing: CGFloat = 0
+//            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
+            let cellWidth: CGFloat = 60
+            let hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
+            layout.itemSize = CGSize(width: cellWidth, height: 125.5)
             layout.minimumInteritemSpacing = itemSpacing
-            layout.minimumLineSpacing = 8
-            layout.sectionInset = UIEdgeInsets(top: 12, left: hInset, bottom: 12, right: hInset)
+            layout.minimumLineSpacing = 0
+            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
             v.showsVerticalScrollIndicator = false
@@ -230,12 +286,12 @@ extension AmongChat.Room {
             return v
         }()
         
-        private lazy var adView: MPAdView? = {
-            let adView = MPAdView(adUnitId: "2d4ccd8d270a4f8aa9afda3713ccdc8a")
-            adView?.delegate = self
-            adView?.frame = CGRect(origin: .zero, size: kMPPresetMaxAdSizeMatchFrame)
-            return adView
-        }()
+//        private lazy var adView: MPAdView? = {
+//            let adView = MPAdView(adUnitId: "2d4ccd8d270a4f8aa9afda3713ccdc8a")
+//            adView?.delegate = self
+//            adView?.frame = CGRect(origin: .zero, size: kMPPresetMaxAdSizeMatchFrame)
+//            return adView
+//        }()
         
         private lazy var messageInputContainerView: UIView = {
             let v = UIView()
@@ -271,33 +327,11 @@ extension AmongChat.Room {
             f.font = R.font.nunitoRegular(size: 13)
             return f
         }()
-        
-        private var dataSource: [ChannelUserViewModel] = [] {
-            didSet {
-                userCollectionView.reloadData()
-            }
-        }
-        
-        private let fixedListLength = Int(10)
-        
-        private let room: Entity.Room
-        private let viewModel = ChannelUserListViewModel.shared
-        private let imViewModel: IMViewModel
-        
-        private var messageListDataSource: [MessageViewModel] = [] {
-            didSet {
-                messageListTableView.reloadData()
-                DispatchQueue.main.async { [weak self] in
-                    if self?.messageListTableView.contentSize.height ?? 0 > self?.messageListTableView.frame.size.height ?? 0 {
-                        self?.messageListTableView.scrollToBottom()
-                    }
-                }
-            }
-        }
-        
+                
         init(room: Entity.Room) {
             self.room = room
             self.imViewModel = IMViewModel(with: room.roomId)
+            self.roomViewModel = ViewModel(room: room)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -418,48 +452,48 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
 extension AmongChat.Room.ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let user = dataSource.safe(indexPath.item),
-              !user.isSelf else {
-            return
-        }
+//        guard let user = dataSource.safe(indexPath.item),
+//              !user.isSelf else {
+//            return
+//        }
         
-        showMoreSheet(for: user)
+//        showMoreSheet(for: user)
     }
     
 }
 
-extension AmongChat.Room.ViewController: MPAdViewDelegate {
-    
-    //MARK: - MPAdViewDelegate
-    
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        if let naviVC = self.navigationController {
-            return naviVC
-        } else {
-            return self
-        }
-    }
-
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        Logger.Ads.logEvent(.ads_loaded, .channel)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        Logger.Ads.logEvent(.ads_failed, .channel)
-    }
-
-    func willPresentModalView(forAd view: MPAdView!) {
-        Logger.Ads.logEvent(.ads_imp, .channel)
-    }
-    
-    func willLeaveApplication(fromAd view: MPAdView!) {
-        Logger.Ads.logEvent(.ads_clk, .channel)
-    }
-    
-    func didDismissModalView(forAd view: MPAdView!) {
-    }
-    
-}
+//extension AmongChat.Room.ViewController: MPAdViewDelegate {
+//
+//    //MARK: - MPAdViewDelegate
+//
+//    func viewControllerForPresentingModalView() -> UIViewController! {
+//        if let naviVC = self.navigationController {
+//            return naviVC
+//        } else {
+//            return self
+//        }
+//    }
+//
+//    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+//        Logger.Ads.logEvent(.ads_loaded, .channel)
+//    }
+//
+//    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+//        Logger.Ads.logEvent(.ads_failed, .channel)
+//    }
+//
+//    func willPresentModalView(forAd view: MPAdView!) {
+//        Logger.Ads.logEvent(.ads_imp, .channel)
+//    }
+//
+//    func willLeaveApplication(fromAd view: MPAdView!) {
+//        Logger.Ads.logEvent(.ads_clk, .channel)
+//    }
+//
+//    func didDismissModalView(forAd view: MPAdView!) {
+//    }
+//
+//}
 
 
 extension AmongChat.Room.ViewController {
@@ -509,8 +543,8 @@ extension AmongChat.Room.ViewController {
         
         userCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
-            maker.top.equalTo(closeBtn.snp.bottom).offset(20)
-            maker.height.equalTo(220)
+            maker.top.equalTo(configView.snp.bottom).offset(40)
+            maker.height.equalTo(250)
         }
         
         messageListTableView.snp.makeConstraints { (maker) in
@@ -551,13 +585,13 @@ extension AmongChat.Room.ViewController {
 //            showShareController(channelName: channel.name)
 //        }
         
-        if let adView = self.adView {
-            adContainer.addSubview(adView)
-            adView.snp.makeConstraints { (maker) in
-                maker.size.equalTo(CGSize(width: 320, height: 50))
-                maker.edges.equalToSuperview()
-            }
-        }
+//        if let adView = self.adView {
+//            adContainer.addSubview(adView)
+//            adView.snp.makeConstraints { (maker) in
+//                maker.size.equalTo(CGSize(width: 320, height: 50))
+//                maker.edges.equalToSuperview()
+//            }
+//        }
 
     }
     
@@ -596,7 +630,7 @@ extension AmongChat.Room.ViewController {
 //            }
 //        }
         
-        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid)
+        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid.uIntValue)
         if isMuted {
             let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
                 // unmute_clk log
@@ -682,35 +716,35 @@ extension AmongChat.Room.ViewController {
     
     private func bindSubviewEvent() {
         
-        AdsManager.shared.mopubInitializeSuccessSubject
-            .filter { _ -> Bool in
-                return !Settings.shared.isProValue.value
-            }
-            .filter { $0 }
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.loadAdView()
-            })
-            .disposed(by: bag)
+//        AdsManager.shared.mopubInitializeSuccessSubject
+//            .filter { _ -> Bool in
+//                return !Settings.shared.isProValue.value
+//            }
+//            .filter { $0 }
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.loadAdView()
+//            })
+//            .disposed(by: bag)
         
-        Settings.shared.isProValue.replay()
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (isPro) in
-                guard let `self` = self else { return }
-                
-                if isPro {
-                    //remove ad
-                    self.adView?.stopAutomaticallyRefreshingContents()
-                } else {
-                    self.adView?.loadAd()
-                }
-                
-                self.adContainer.snp.updateConstraints { (maker) in
-                    maker.height.equalTo(isPro ? 0 : 50)
-                }
-                self.adView?.isHidden = isPro
-            })
-            .disposed(by: bag)
+//        Settings.shared.isProValue.replay()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] (isPro) in
+//                guard let `self` = self else { return }
+//
+//                if isPro {
+//                    //remove ad
+//                    self.adView?.stopAutomaticallyRefreshingContents()
+//                } else {
+//                    self.adView?.loadAd()
+//                }
+//
+//                self.adContainer.snp.updateConstraints { (maker) in
+//                    maker.height.equalTo(isPro ? 0 : 50)
+//                }
+//                self.adView?.isHidden = isPro
+//            })
+//            .disposed(by: bag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
@@ -733,7 +767,7 @@ extension AmongChat.Room.ViewController {
         
         viewModel.userObservable
             .subscribe(onNext: { [weak self] (channelUsers) in
-                self?.dataSource = channelUsers
+//                self?.dataSource = channelUsers
             })
             .disposed(by: bag)
         
@@ -752,6 +786,17 @@ extension AmongChat.Room.ViewController {
             })
             .disposed(by: bag)
         
+        roomViewModel.roomReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] room in
+                self?.room = room
+                self?.dataSource = room.roomUserList
+                //update list and other
+//                self?.userCollectionView.reloadData()
+            })
+            .disposed(by: bag)
+
+        
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
         }
@@ -765,14 +810,14 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.changePublicStateHandler = { [weak self] in
-            //update state
+            self?.roomViewModel.changePublicType()
         }
     }
     
     private func loadAdView() {
-        adView?.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
-        Logger.Ads.logEvent(.ads_load, .channel)
-        adView?.startAutomaticallyRefreshingContents()
+//        adView?.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+//        Logger.Ads.logEvent(.ads_load, .channel)
+//        adView?.startAutomaticallyRefreshingContents()
     }
     
 }

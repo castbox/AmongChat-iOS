@@ -102,7 +102,7 @@ class RtcManager: NSObject {
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
             self.updateFirestoreChannelStatus(with: channelId)
             
-            if !self.talkedUsers.contains(where: { $0.uid == uid }) {
+            if !self.talkedUsers.contains(where: { $0.uid.int!.uInt == uid }) {
                 self.talkedUsers.append(ChannelUser.randomUser(uid: uid))
             }
             
@@ -191,7 +191,7 @@ class RtcManager: NSObject {
     
     func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
         let uid = user.uid
-        mRtcEngine.adjustUserPlaybackSignalVolume(uid, volume: volume)
+        mRtcEngine.adjustUserPlaybackSignalVolume(uid.intValue.uInt, volume: volume)
     }
 
     func muteLocalAudioStream(_ muted: Bool) {
@@ -267,11 +267,11 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
-            if !talkedUsers.contains(where: { $0.uid == mUserId }) {
+            if !talkedUsers.contains(where: { $0.uid.intValue == mUserId }) {
                 talkedUsers.append(ChannelUser.randomUser(uid: mUserId))
             } else {
                 talkedUsers = talkedUsers.map { item -> ChannelUser in
-                    guard item.uid == mUserId else {
+                    guard item.uid.uIntValue == mUserId else {
                         return item
                     }
                     var user = item
@@ -282,7 +282,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
         } else if newRole == .audience {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: false)
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == mUserId else {
+                guard item.uid.uIntValue == mUserId else {
                     return item
                 }
                 var user = item
@@ -296,11 +296,11 @@ extension RtcManager: AgoraRtcEngineDelegate {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
         unMuteUsers.append(uid)
-        if !talkedUsers.contains(where: { $0.uid == uid }) {
+        if !talkedUsers.contains(where: { $0.uid.uIntValue == uid }) {
             talkedUsers.append(ChannelUser.randomUser(uid: uid))
         } else {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == uid else {
+                guard item.uid.uIntValue == uid else {
                     return item
                 }
                 var user = item
@@ -316,10 +316,10 @@ extension RtcManager: AgoraRtcEngineDelegate {
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
 
         if reason == .quit {
-            talkedUsers.removeAll(where: { $0.uid == uid })
+            talkedUsers.removeAll(where: { $0.uid.uIntValue == uid })
         } else if reason == .dropped || reason == .becomeAudience {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == uid else {
+                guard item.uid.uIntValue == uid else {
                     return item
                 }
                 var user = item
@@ -332,7 +332,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
         cdPrint("didAudioMuted \(uid) \(muted)")
         let talkedUsers = self.talkedUsers.map { user -> ChannelUser in
-            guard user.uid == uid else {
+            guard user.uid.uIntValue == uid else {
                 return user
             }
             var user = user

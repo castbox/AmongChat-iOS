@@ -145,8 +145,13 @@ struct ChannelUser: Codable, DefaultsSerializable {
         }
     }
     
-    let uid: UInt
+    let uid: String
     let name: String
+    let avatar: String
+//    let name: String
+    let robloxName: String?
+    let seatNo: Int
+    
     let prefix: String
     let iconColor: String
     var status: Status
@@ -165,7 +170,7 @@ struct ChannelUser: Codable, DefaultsSerializable {
     ]
     
     static func randomUser(uid: UInt) -> ChannelUser {
-        return ChannelUser(uid: uid, name: "User - \(uid)", prefix: tag.randomItem() ?? "A", iconColor: colors.randomItem() ?? "F5CEC7", status: .connected, isMuted: false)
+        return ChannelUser(uid: String(uid), name: "User - \(uid)", avatar: "", robloxName: nil, seatNo: 0, prefix: tag.randomItem() ?? "A", iconColor: colors.randomItem() ?? "F5CEC7", status: .connected, isMuted: false)
     }
 }
 
