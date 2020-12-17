@@ -13,15 +13,16 @@ import Alamofire
 extension APIService {
     enum Auth {
         case login([String : Any])
+        case createRoom([String : Any])
     }
 }
 
 extension APIService.Auth: TargetType {
     var baseURL: URL {
         #if DEBUG
-        let url = "https://dev.amongchat.castbox.fm"
+        let url = "https://dev.api.among.chat"
         #else
-        let url = "https://dev.amongchat.castbox.fm"
+        let url = "https://api.among.chat"
         #endif
         return URL(string: url)!
     }
@@ -30,12 +31,14 @@ extension APIService.Auth: TargetType {
         switch self {
         case .login:
             return "/auth/login"
+        case .createRoom:
+            return "/api/v1/rooms/create"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login:
+        case .login, .createRoom:
             return .post
         }
     }
@@ -50,6 +53,9 @@ extension APIService.Auth: TargetType {
             var baseParams = params
             baseParams["box_token"] = 1
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
+            
+        case .createRoom(let params):
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
     

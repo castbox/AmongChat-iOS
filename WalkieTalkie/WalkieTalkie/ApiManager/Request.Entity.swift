@@ -71,3 +71,53 @@ extension Request.Entity {
         
     }
 }
+
+extension Request.Entity {
+    
+    struct Room: Codable {
+                
+        var amongUsCode: String
+        var ageGroup: AgeGroup
+        var amongUsZone: Int
+        var country: String
+        var createTime: Int64
+        var language: String
+        var playerCount: Int
+        var note: String
+        var roomId: String
+        var roomUserList: [User]
+        var state: State
+        var topicId: TopicType
+        var topicName: String
+    }
+    
+}
+
+extension Request.Entity.Room {
+    
+    enum TopicType: String, Codable {
+        case justchatting
+        case amongus
+        case roblox
+    }
+    
+    enum State: String, Codable {
+        case `public`
+        case `private`
+    }
+    
+    enum AgeGroup: String, Codable {
+        case teen
+    }
+    
+    struct User {
+        var avatar: String
+        var name: String
+        var robloxName: String
+        var seatNo: Int
+        var uid: Int
+        var picture_url: String
+        var birthday: String
+    }
+    
+}
