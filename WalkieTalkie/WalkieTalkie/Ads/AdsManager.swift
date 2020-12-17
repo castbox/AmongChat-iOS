@@ -77,17 +77,17 @@ class AdsManager: NSObject {
     
     
     private func setupMopub() {
-        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "4334cad9c4e244f8b432635d48104bb9")
-        #if DEBUG
-        config.loggingLevel = .info
-        #endif
-        MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
-            //send notification
-            self?.mopubInitializeSuccessSubject.accept(true)
-            //req
-            self?.requestRewardVideoIfNeed()
-            Ad.InterstitialManager.shared.loadAd()
-        }
+//        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "4334cad9c4e244f8b432635d48104bb9")
+//        #if DEBUG
+//        config.loggingLevel = .info
+//        #endif
+//        MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
+//            //send notification
+//            self?.mopubInitializeSuccessSubject.accept(true)
+//            //req
+//            self?.requestRewardVideoIfNeed()
+//            Ad.InterstitialManager.shared.loadAd()
+//        }
     }
     
     private func setupAdmob() {
@@ -243,13 +243,13 @@ class AdsManager: NSObject {
 //    }
     
     func requestRewardVideoIfNeed() {
-        guard aviliableRewardVideo == nil,
-            !Settings.shared.isProValue.value else {
-            return
-        }
-        Logger.Ads.logEvent(.rads_load)
-        MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
-        MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
+//        guard aviliableRewardVideo == nil,
+//            !Settings.shared.isProValue.value else {
+//            return
+//        }
+//        Logger.Ads.logEvent(.rads_load)
+//        MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
+//        MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
     }
     
 //    private func refreshNative(after interval: RxTimeInterval) {
