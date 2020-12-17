@@ -159,10 +159,16 @@ extension AmongChat.Room {
         
         private lazy var userCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
-            let itemSpacing: CGFloat = 0
 //            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
             let cellWidth: CGFloat = 60
-            let hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
+            var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
+            let itemSpacing: CGFloat
+            if hInset > 40 {
+                itemSpacing = (hInset - 40) * 2 / 4
+                hInset = 40
+            } else {
+                itemSpacing = 0
+            }
             layout.itemSize = CGSize(width: cellWidth, height: 125.5)
             layout.minimumInteritemSpacing = itemSpacing
             layout.minimumLineSpacing = 0
@@ -370,22 +376,6 @@ extension AmongChat.Room.ViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-//    @objc
-//    private func onMessageBtn() {
-////        messageInputField.becomeFirstResponder()
-//        editType = .message
-//    }
-    
-//    @objc
-//    private func onMicSwitchBtn(_ sender: UIButton) {
-//        sender.isSelected = !sender.isSelected
-//
-//        let mute = sender.isSelected
-//        ChatRoomManager.shared.muteMyMic(muted: mute)
-//        let tip = mute ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
-//        view.raft.autoShow(.text(tip))
-//    }
-    
     @objc
     private func onShareBtn() {
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
@@ -427,12 +417,12 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
 extension AmongChat.Room.ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let user = dataSource.safe(indexPath.item),
-//              !user.isSelf else {
-//            return
-//        }
-        
-//        showMoreSheet(for: user)
+        guard let user = dataSource.safe(indexPath.item), user.uid.isValid else {
+            //show
+            self.onShareBtn()
+            return
+        }
+        //enter profile page
     }
     
 }

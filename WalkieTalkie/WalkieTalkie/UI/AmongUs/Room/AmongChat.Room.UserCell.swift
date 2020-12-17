@@ -43,10 +43,28 @@ extension AmongChat.Room {
             return iv
         }()
         
+        private lazy var disableMicView: UIImageView = {
+            let iv = UIImageView()
+            iv.image = R.image.ac_icon_room_disable_mic()
+            iv.isHidden = true
+            return iv
+        }()
+        
+        private lazy var mutedLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 10)
+            lb.textColor = "FB5858".color()
+            lb.textAlignment = .center
+            lb.text = R.string.localizable.roomUserListMuted()
+            lb.isHidden = true
+            return lb
+        }()
+        
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
+            lb.backgroundColor = UIColor.black.alpha(0.69)
             lb.textAlignment = .center
             return lb
         }()
@@ -90,7 +108,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel, gameNameButton)
+            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel, gameNameButton, disableMicView, mutedLabel)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
@@ -106,6 +124,16 @@ extension AmongChat.Room {
                 maker.size.equalTo(CGSize(width: 40, height: 40))
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+            }
+            
+            disableMicView.snp.makeConstraints { (maker) in
+                maker.right.bottom.equalTo(avatarIV)
+//                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+            }
+            
+            mutedLabel.snp.makeConstraints { (maker) in
+                maker.center.equalTo(avatarIV)
+                maker.width.height.equalTo(38)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -155,6 +183,7 @@ extension AmongChat.Room.UserCell {
     
     func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic) {
         guard let user = user else {
+            clearStyle()
             return
         }
         if user.seatNo == 0 {
@@ -176,15 +205,25 @@ extension AmongChat.Room.UserCell {
             haloView.isHidden = false
             gameNameButton.isHidden = topic != .roblox
             gameNameButton.isHidden = !user.robloxName.isValid
+            //自己 muted 其他用户
+            mutedLabel.isHidden = !user.isMuted
+            //自己 muted 自己
+//            disableMicView.isHidden = true
         } else {
-            avatarIV.image = R.image.ac_icon_seat_add()
-            avatarIV.contentMode = .center
-            avatarIV.layer.borderWidth = 0
-            haloView.isHidden = true
-            nameLabel.text = ""
-            gameNameButton.setTitle(nil, for: .normal)
-            gameNameButton.isHidden = true
+            clearStyle()
         }
+    }
+    
+    func clearStyle() {
+        avatarIV.image = R.image.ac_icon_seat_add()
+        avatarIV.contentMode = .center
+        avatarIV.layer.borderWidth = 0
+        haloView.isHidden = true
+        nameLabel.text = ""
+        gameNameButton.setTitle(nil, for: .normal)
+        gameNameButton.isHidden = true
+        mutedLabel.isHidden = true
+        disableMicView.isHidden = true
     }
     
 }
