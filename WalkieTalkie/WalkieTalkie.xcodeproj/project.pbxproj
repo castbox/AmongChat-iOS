@@ -55,11 +55,12 @@
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
 		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
+		BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */; };
 		BDFEFEE12586043F007F40FC /* AmongChat.AllRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */; };
 		BDFEFEE525860467007F40FC /* AmongChat.AllRooms.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */; };
 		BDFEFEE9258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */; };
-		BDFEFEF125864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */; };
-		ECD16AC5BAF0E9B0AD0B943C /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EA57779DE8536C06F02C5DF /* Pods_WalkieTalkie.framework */; };
+		BDFEFEF125864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */; };
+		CB42766D63F52145FFD8A7EA /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E656AD3E4EC873B4567BA49 /* Pods_WalkieTalkie.framework */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
 		FE0D1A2524489BF300518793 /* AudioType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2424489BF300518793 /* AudioType.swift */; };
@@ -363,11 +364,12 @@
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
 		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
+		BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+AmongChat.swift"; sourceTree = "<group>"; };
 		BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.swift; sourceTree = "<group>"; };
 		BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ViewController.swift; sourceTree = "<group>"; };
 		BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ChannelCell.swift; sourceTree = "<group>"; };
-		BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.ChannelInputViewController.swift; sourceTree = "<group>"; };
-		DBF730858CB97C3AE8B2A649 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
+		BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.CreateRoomViewController.swift; sourceTree = "<group>"; };
+		E7AFAC812348D65AF81E454E /* Pods-WalkieTalkieWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkieWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkieWidgetExtension/Pods-WalkieTalkieWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
@@ -655,7 +657,7 @@
 				BD6C370F256F564500D1E708 /* AmongChat.Home.HashTagCell.swift */,
 				BD6C3717256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift */,
 				BDB8D2092571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift */,
-				BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */,
+				BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1026,6 +1028,7 @@
 			children = (
 				FEC17A4A24A9B957003719BC /* Request.swift */,
 				FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */,
+				BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */,
 				BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */,
 				FE8DEA5A243DB0970059C252 /* APIService.swift */,
 				BDC9D667258A4C5500412BDC /* APIService.Auth.swift */,
@@ -1502,7 +1505,7 @@
 				FE86A582245AA26900C35FCA /* FireStore.Modal.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FE746BDD24629B0500CAC554 /* GuideFirstView.swift in Sources */,
-				BDFEFEF125864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift in Sources */,
+				BDFEFEF125864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift in Sources */,
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
@@ -1557,6 +1560,7 @@
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				BD1F050F2500E37400712C24 /* RoomSpeakingListView.swift in Sources */,
+				BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDB8F58B24F7DE75000027F8 /* Social.InitialProfileViewController.swift in Sources */,
 				BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */,

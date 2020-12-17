@@ -1246,7 +1246,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 139 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 140 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1344,6 +1344,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let copied = Rswift.StringResource(key: "copied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Create
+      /// 
+      /// Locales: en
+      static let amongChatHomeCreateRoomTitle = Rswift.StringResource(key: "among.chat.home.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Create %1$@ room
+      /// 
+      /// Locales: en
+      static let amongChatHomeCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.home.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -1592,6 +1600,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let privacyLabel = Rswift.StringResource(key: "privacy.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Private
+      /// 
+      /// Locales: en
+      static let amongChatHomeCreateRoomPrivate = Rswift.StringResource(key: "among.chat.home.create.room.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -1676,6 +1688,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: TYPE YOUR TOPIC HERE
+      /// 
+      /// Locales: en
+      static let amongChatHomeCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.home.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en
@@ -1987,6 +2003,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func copied(_: Void = ()) -> String {
         return NSLocalizedString("copied", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create
+      /// 
+      /// Locales: en
+      static func amongChatHomeCreateRoomTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.create.room.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create %1$@ room
+      /// 
+      /// Locales: en
+      static func amongChatHomeCreateRoomConfirmBtn(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.home.create.room.confirm.btn", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Create Global Channel
@@ -2421,6 +2451,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("privacy.label", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Private
+      /// 
+      /// Locales: en
+      static func amongChatHomeCreateRoomPrivate(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.create.room.private", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Purchase not found
       /// 
       /// Locales: en
@@ -2566,6 +2603,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: TYPE YOUR TOPIC HERE
+      /// 
+      /// Locales: en
+      static func amongChatHomeCreateRoomInputPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms of Service

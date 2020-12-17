@@ -242,7 +242,7 @@ extension AmongChat.Home.ViewController {
     
     @objc
     private func onHashBtn() {
-        let vc = AmongChat.Home.ChannelInputViewController()
+        let vc = AmongChat.Home.CreateRoomViewController()
         
         vc.joinChannel = { [weak self] name, autoShare in
             guard let `self` = self else { return }
@@ -255,14 +255,7 @@ extension AmongChat.Home.ViewController {
             self._joinRoom(FireStore.shared.findARoom(of: cat))
         }
         
-        vc.onDismiss = { [weak self] in
-            self?.hashTagBtn.isHidden = false
-        }
-        
-        vc.modalPresentationStyle = .overCurrentContext
-        present(vc, animated: false) { [weak self] in
-            self?.hashTagBtn.isHidden = true
-        }
+        present(vc, animated: true)
         
     }
 

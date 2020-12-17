@@ -248,11 +248,11 @@ extension AppDelegate {
             NavigationViewController(rootViewController: AmongChat.Home.ViewController.shared)
         }
         
-        #if DEBUG
-        let needLogin: Bool = true
-        #else
+//        #if DEBUG
+//        let needLogin: Bool = true
+//        #else
         let needLogin: Bool = Settings.shared.loginResult.value == nil
-        #endif
+//        #endif
         
         if needLogin {
             let loginVc = AmongChat.Login.ViewController()
