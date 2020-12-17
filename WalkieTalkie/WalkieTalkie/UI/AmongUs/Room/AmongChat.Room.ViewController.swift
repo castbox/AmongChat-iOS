@@ -16,44 +16,8 @@ extension AmongChat.Room {
         case message
         case amongSetup
         case robloxSetup
+        case nickName
         case chillingSetup
-    }
-}
-
-extension AmongChat.Room {
-    class ViewModel {
-        let roomReplay: BehaviorRelay<Entity.Room>
-        let bag = DisposeBag()
-        
-        var room: Entity.Room {
-            roomReplay.value
-        }
-        
-        init(room: Entity.Room) {
-//            self.room = room
-            roomReplay = BehaviorRelay(value: room)
-        }
-        
-        func changePublicType() {
-            let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
-            var room = self.room
-            room.state = publicType
-            //update
-            updateRoomInfo(room)
-        }
-        
-        func updateRoomInfo(_ room: Entity.Room) {
-            //update
-            Request.updateRoomInfo(room: room)
-                .filter { $0 }
-                .map { _ -> Entity.Room in
-                    return room
-                }
-                .catchErrorJustReturn(self.room)
-                .asObservable()
-                .bind(to: roomReplay)
-                .disposed(by: bag)
-        }
     }
 }
 
@@ -74,19 +38,29 @@ extension AmongChat.Room {
         private var topBar: AmongChatRoomTopBar!
         private var configView: AmongChatRoomConfigView!
         private var amongInputCodeView: AmongInputCodeView!
+        private var inputNotesView: AmongInputNotesView!
+        private var nickNameInputView: AmongInputNickNameView!
+        private var bottomBar: AmongRoomBottomBar!
+        private var toolView: AmongRoomToolView!
         private var editType: AmongChat.Room.EditType = .message {
             didSet {
                 switch editType {
                 case .amongSetup:
                     self.view.bringSubviewToFront(amongInputCodeView)
                     amongInputCodeView.becomeFirstResponder()
+                case .nickName:
+                    self.view.bringSubviewToFront(nickNameInputView)
+                    nickNameInputView.becomeFirstResponder()
+                case .chillingSetup:
+                    self.view.bringSubviewToFront(inputNotesView)
+                    inputNotesView.becomeFirstResponder()
                 default:
                     messageInputField.becomeFirstResponder()
                 }
             }
         }
         
-        private var dataSource: [ChannelUser] = [] {
+        private var dataSource: [Entity.RoomUser] = [] {
             didSet {
                 userCollectionView.reloadData()
             }
@@ -124,63 +98,63 @@ extension AmongChat.Room {
             return v
         }()
         
-        private lazy var copyNameBtn: UIView = {
-            let v = UIView()
-            
-            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onCopyNameBtn))
-            v.addGestureRecognizer(tapGR)
-            
-            v.backgroundColor = UIColor.white.alpha(0.2)
-            v.layer.cornerRadius = 15
-            
-            let hashSymbol: UILabel = {
-                let lb = UILabel()
-                lb.font = R.font.blackOpsOneRegular(size: 20)
-                lb.textColor = UIColor.white.alpha(0.5)
-                lb.text = "#"
-                return lb
-            }()
-            
-            let nameLabel: UILabel = {
-                let lb = UILabel()
-                lb.font = R.font.nunitoRegular(size: 14)
-                lb.textColor = .white
-                lb.text = room.roomId
-                return lb
-            }()
-            
-            let icon = UIImageView(image: R.image.btn_room_copy())
-            icon.contentMode = .scaleAspectFill
-            icon.backgroundColor = .clear
-            
-            v.addSubviews(views: hashSymbol, nameLabel, icon)
-            
-            hashSymbol.snp.makeConstraints { (maker) in
-                maker.top.bottom.equalToSuperview()
-                maker.left.equalToSuperview().offset(10)
-            }
-            
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.left.equalTo(hashSymbol.snp.right).offset(5)
-                maker.top.bottom.equalToSuperview()
-            }
-            
-            icon.snp.makeConstraints { (maker) in
-                maker.left.equalTo(nameLabel.snp.right).offset(5)
-                maker.right.equalToSuperview().inset(10)
-                maker.width.height.equalTo(20)
-                maker.centerY.equalToSuperview()
-            }
-            
-            return v
-        }()
+//        private lazy var copyNameBtn: UIView = {
+//            let v = UIView()
+//
+//            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onCopyNameBtn))
+//            v.addGestureRecognizer(tapGR)
+//
+//            v.backgroundColor = UIColor.white.alpha(0.2)
+//            v.layer.cornerRadius = 15
+//
+//            let hashSymbol: UILabel = {
+//                let lb = UILabel()
+//                lb.font = R.font.blackOpsOneRegular(size: 20)
+//                lb.textColor = UIColor.white.alpha(0.5)
+//                lb.text = "#"
+//                return lb
+//            }()
+//
+//            let nameLabel: UILabel = {
+//                let lb = UILabel()
+//                lb.font = R.font.nunitoRegular(size: 14)
+//                lb.textColor = .white
+//                lb.text = room.roomId
+//                return lb
+//            }()
+//
+//            let icon = UIImageView(image: R.image.btn_room_copy())
+//            icon.contentMode = .scaleAspectFill
+//            icon.backgroundColor = .clear
+//
+//            v.addSubviews(views: hashSymbol, nameLabel, icon)
+//
+//            hashSymbol.snp.makeConstraints { (maker) in
+//                maker.top.bottom.equalToSuperview()
+//                maker.left.equalToSuperview().offset(10)
+//            }
+//
+//            nameLabel.snp.makeConstraints { (maker) in
+//                maker.left.equalTo(hashSymbol.snp.right).offset(5)
+//                maker.top.bottom.equalToSuperview()
+//            }
+//
+//            icon.snp.makeConstraints { (maker) in
+//                maker.left.equalTo(nameLabel.snp.right).offset(5)
+//                maker.right.equalToSuperview().inset(10)
+//                maker.width.height.equalTo(20)
+//                maker.centerY.equalToSuperview()
+//            }
+//
+//            return v
+//        }()
         
-        private lazy var closeBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.icon_close(), for: .normal)
-            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
-            return btn
-        }()
+//        private lazy var closeBtn: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.setImage(R.image.icon_close(), for: .normal)
+//            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
+//            return btn
+//        }()
 //        private var infoView: Among
         
         private lazy var userCollectionView: UICollectionView = {
@@ -205,7 +179,7 @@ extension AmongChat.Room {
         
         private lazy var messageListTableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
-            tb.register(AmongChat.Room.MessageCell.self, forCellReuseIdentifier: NSStringFromClass(AmongChat.Room.MessageCell.self))
+            tb.register(AmongChat.Room.MessageTextCell.self, forCellReuseIdentifier: NSStringFromClass(AmongChat.Room.MessageTextCell.self))
             tb.backgroundColor = .clear
             tb.dataSource = self
             tb.delegate = self
@@ -216,69 +190,69 @@ extension AmongChat.Room {
             return tb
         }()
         
-        private lazy var messageBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onMessageBtn), for: .primaryActionTriggered)
-            btn.backgroundColor = UIColor.white.alpha(0.8)
-            btn.layer.cornerRadius = 25
-            let image = R.image.btn_room_message()?.withRenderingMode(.alwaysTemplate)
-            btn.setImage(image, for: .normal)
-            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
-            btn.isHidden = true
-            return btn
-        }()
+//        private lazy var messageBtn: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.addTarget(self, action: #selector(onMessageBtn), for: .primaryActionTriggered)
+//            btn.backgroundColor = UIColor.white.alpha(0.8)
+//            btn.layer.cornerRadius = 25
+//            let image = R.image.btn_room_message()?.withRenderingMode(.alwaysTemplate)
+//            btn.setImage(image, for: .normal)
+//            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
+//            btn.isHidden = true
+//            return btn
+//        }()
         
-        private lazy var micSwitchBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onMicSwitchBtn(_:)), for: .primaryActionTriggered)
-            btn.backgroundColor = UIColor.white.alpha(0.8)
-            btn.layer.cornerRadius = 25
-            btn.setImage(R.image.icon_mic(), for: .normal)
-            btn.setImage(R.image.icon_mic_disable(), for: .selected)
-            return btn
-        }()
+//        private lazy var micSwitchBtn: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.addTarget(self, action: #selector(onMicSwitchBtn(_:)), for: .primaryActionTriggered)
+//            btn.backgroundColor = UIColor.white.alpha(0.8)
+//            btn.layer.cornerRadius = 25
+//            btn.setImage(R.image.icon_mic(), for: .normal)
+//            btn.setImage(R.image.icon_mic_disable(), for: .selected)
+//            return btn
+//        }()
         
-        private lazy var shareBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onShareBtn), for: .primaryActionTriggered)
-            btn.backgroundColor = UIColor.white.alpha(0.8)
-            btn.layer.cornerRadius = 25
-            let image = R.image.btn_room_share()?.withRenderingMode(.alwaysTemplate)
-            btn.setImage(image, for: .normal)
-            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
-            return btn
-        }()
+//        private lazy var shareBtn: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.addTarget(self, action: #selector(onShareBtn), for: .primaryActionTriggered)
+//            btn.backgroundColor = UIColor.white.alpha(0.8)
+//            btn.layer.cornerRadius = 25
+//            let image = R.image.btn_room_share()?.withRenderingMode(.alwaysTemplate)
+//            btn.setImage(image, for: .normal)
+//            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
+//            return btn
+//        }()
         
-        private lazy var moreBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onMoreBtn), for: .primaryActionTriggered)
-            btn.backgroundColor = UIColor.white.alpha(0.8)
-            btn.layer.cornerRadius = 25
-            btn.setImage(R.image.btn_more_action(), for: .normal)
-            return btn
-        }()
+//        private lazy var moreBtn: UIButton = {
+//            let btn = UIButton(type: .custom)
+//            btn.addTarget(self, action: #selector(onMoreBtn), for: .primaryActionTriggered)
+//            btn.backgroundColor = UIColor.white.alpha(0.8)
+//            btn.layer.cornerRadius = 25
+//            btn.setImage(R.image.btn_more_action(), for: .normal)
+//            return btn
+//        }()
         
-        private lazy var bottomBtnStack: UIStackView = {
-            let s = UIStackView(arrangedSubviews: [micSwitchBtn, shareBtn, moreBtn],
-                                axis: .horizontal,
-                                spacing: 12,
-                                alignment: .fill,
-                                distribution: .fillEqually)
-            
-            micSwitchBtn.snp.makeConstraints { (maker) in
-                maker.height.width.equalTo(50)
-            }
-            
-            shareBtn.snp.makeConstraints { (maker) in
-                maker.height.width.equalTo(50)
-            }
-            
-            moreBtn.snp.makeConstraints { (maker) in
-                maker.height.width.equalTo(50)
-            }
-            
-            return s
-        }()
+//        private lazy var bottomBtnStack: UIStackView = {
+//            let s = UIStackView(arrangedSubviews: [micSwitchBtn, shareBtn, moreBtn],
+//                                axis: .horizontal,
+//                                spacing: 12,
+//                                alignment: .fill,
+//                                distribution: .fillEqually)
+//
+//            micSwitchBtn.snp.makeConstraints { (maker) in
+//                maker.height.width.equalTo(50)
+//            }
+//
+//            shareBtn.snp.makeConstraints { (maker) in
+//                maker.height.width.equalTo(50)
+//            }
+//
+//            moreBtn.snp.makeConstraints { (maker) in
+//                maker.height.width.equalTo(50)
+//            }
+//
+//            return s
+//        }()
         
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -395,21 +369,21 @@ extension AmongChat.Room.ViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    @objc
-    private func onMessageBtn() {
-//        messageInputField.becomeFirstResponder()
-        editType = .message
-    }
+//    @objc
+//    private func onMessageBtn() {
+////        messageInputField.becomeFirstResponder()
+//        editType = .message
+//    }
     
-    @objc
-    private func onMicSwitchBtn(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        
-        let mute = sender.isSelected
-        ChatRoomManager.shared.muteMyMic(muted: mute)
-        let tip = mute ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
-        view.raft.autoShow(.text(tip))
-    }
+//    @objc
+//    private func onMicSwitchBtn(_ sender: UIButton) {
+//        sender.isSelected = !sender.isSelected
+//
+//        let mute = sender.isSelected
+//        ChatRoomManager.shared.muteMyMic(muted: mute)
+//        let tip = mute ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
+//        view.raft.autoShow(.text(tip))
+//    }
     
     @objc
     private func onShareBtn() {
@@ -511,7 +485,18 @@ extension AmongChat.Room.ViewController {
         amongInputCodeView = AmongInputCodeView()
         amongInputCodeView.alpha = 0
         
-        view.addSubviews(views: bgView, copyNameBtn, userCollectionView, closeBtn, messageBtn, messageListTableView, bottomBtnStack, adContainer, messageInputContainerView, amongInputCodeView, topBar, configView)
+        bottomBar = AmongRoomBottomBar()
+        bottomBar.isMicOn = true
+        
+        toolView = AmongRoomToolView()
+        
+        nickNameInputView = AmongInputNickNameView()
+        nickNameInputView.alpha = 0
+        
+        inputNotesView = AmongInputNotesView()
+        inputNotesView.alpha = 0
+        
+        view.addSubviews(views: bgView, userCollectionView, messageListTableView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -529,17 +514,17 @@ extension AmongChat.Room.ViewController {
             maker.edges.equalToSuperview()
         }
         
-        copyNameBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().inset(17)
-            maker.centerY.equalTo(closeBtn)
-            maker.height.equalTo(30)
-        }
-        
-        closeBtn.snp.makeConstraints { (maker) in
-            maker.height.width.equalTo(44)
-            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
-            maker.right.equalTo(-6)
-        }
+//        copyNameBtn.snp.makeConstraints { (maker) in
+//            maker.left.equalToSuperview().inset(17)
+//            maker.centerY.equalTo(closeBtn)
+//            maker.height.equalTo(30)
+//        }
+//
+//        closeBtn.snp.makeConstraints { (maker) in
+//            maker.height.width.equalTo(44)
+//            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
+//            maker.right.equalTo(-6)
+//        }
         
         userCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
@@ -547,29 +532,35 @@ extension AmongChat.Room.ViewController {
             maker.height.equalTo(250)
         }
         
-        messageListTableView.snp.makeConstraints { (maker) in
+        toolView.snp.makeConstraints { (maker) in
             maker.top.equalTo(userCollectionView.snp.bottom)
-            maker.bottom.equalTo(bottomBtnStack.snp.top).offset(-20)
+            maker.height.equalTo(24)
             maker.left.right.equalToSuperview()
         }
         
-        messageBtn.snp.makeConstraints { (maker) in
-            maker.height.width.equalTo(50)
-            maker.centerY.equalTo(bottomBtnStack)
-            maker.left.equalToSuperview().inset(16)
+        messageListTableView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(toolView.snp.bottom).offset(17)
+            maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
+            maker.left.right.equalToSuperview()
         }
         
-        bottomBtnStack.snp.makeConstraints { (maker) in
-            maker.trailing.equalTo(-16)
-            maker.bottom.equalTo(adContainer.snp.top).offset(-12)
-            maker.height.equalTo(50)
-        }
-        
-        adContainer.snp.makeConstraints { (maker) in
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.centerX.equalToSuperview()
-            maker.height.equalTo(50)
-        }
+//        messageBtn.snp.makeConstraints { (maker) in
+//            maker.height.width.equalTo(50)
+//            maker.centerY.equalTo(bottomBtnStack)
+//            maker.left.equalToSuperview().inset(16)
+//        }
+//
+//        bottomBtnStack.snp.makeConstraints { (maker) in
+//            maker.trailing.equalTo(-16)
+//            maker.bottom.equalTo(adContainer.snp.top).offset(-12)
+//            maker.height.equalTo(50)
+//        }
+//
+//        adContainer.snp.makeConstraints { (maker) in
+//            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+//            maker.centerX.equalToSuperview()
+//            maker.height.equalTo(50)
+//        }
         
         messageInputContainerView.snp.makeConstraints { (maker) in
             maker.left.top.right.equalToSuperview()
@@ -579,6 +570,22 @@ extension AmongChat.Room.ViewController {
         amongInputCodeView.snp.makeConstraints { (maker) in
             maker.left.top.right.equalToSuperview()
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+        }
+        
+        nickNameInputView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+        }
+        
+        inputNotesView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+        }
+        
+        bottomBar.snp.makeConstraints { maker in
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-5)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(42)
         }
         
 //        if channel.name.isPrivate {
@@ -754,6 +761,14 @@ extension AmongChat.Room.ViewController {
                     self.amongInputCodeView.snp.updateConstraints { (maker) in
                         maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
                     }
+                case .nickName:
+                    self.nickNameInputView.snp.updateConstraints { (maker) in
+                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                    }
+                case .chillingSetup:
+                    self.inputNotesView.snp.updateConstraints { (maker) in
+                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                    }
                 default:
                     self.messageInputContainerView.snp.updateConstraints { (maker) in
                         maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
@@ -782,7 +797,7 @@ extension AmongChat.Room.ViewController {
             .take(1)
             .subscribe(onNext: { [weak self] (_) in
                 self?.messageListTableView.isHidden = false
-                self?.messageBtn.isHidden = false
+//                self?.messageBtn.isHidden = false
             })
             .disposed(by: bag)
         
@@ -790,6 +805,8 @@ extension AmongChat.Room.ViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] room in
                 self?.room = room
+                self?.topBar.set(room)
+                self?.toolView.set(room)
                 self?.dataSource = room.roomUserList
                 //update list and other
 //                self?.userCollectionView.reloadData()
@@ -811,6 +828,60 @@ extension AmongChat.Room.ViewController {
         
         topBar.changePublicStateHandler = { [weak self] in
             self?.roomViewModel.changePublicType()
+        }
+        
+        bottomBar.sendMessageHandler = { [weak self] in
+            self?.editType = .message
+        }
+        
+        bottomBar.shareHandler = { [weak self] in
+//            self?.editType = .message
+            self?.onShareBtn()
+        }
+        
+        bottomBar.changeMicStateHandler = { [weak self] micOn in
+//            self?.editType = .message
+            ChatRoomManager.shared.muteMyMic(muted: !micOn)
+            let tip = micOn ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
+            self?.view.raft.autoShow(.text(tip))
+        }
+        
+        amongInputCodeView.inputResultHandler = { [weak self] code, aera in
+            self?.roomViewModel.updateAmong(code: code, aera: aera.rawValue)
+        }
+        
+        nickNameInputView.inputResultHandler = { [weak self] text in
+            self?.roomViewModel.update(nickName: text)
+        }
+        
+        inputNotesView.inputResultHandler = { [weak self] notes in
+            self?.roomViewModel.update(notes: notes)
+        }
+        
+        toolView.setNickNameHandler = { [weak self] in
+            self?.editType = .nickName
+        }
+        
+        toolView.openGameHandler = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            let urlString: String
+            switch self.room.topicId {
+            case .amongus:
+                urlString = "itms-apps://itunes.apple.com/app/id1351168404"
+            case .roblox:
+                urlString = "itms-apps://itunes.apple.com/app/id431946152"
+            case .chilling:
+                urlString = ""
+            }
+            guard let url = URL(string: urlString),
+                  UIApplication.shared.canOpenURL(url) else {
+                return
+            }
+            UIApplication.shared.open(url, options: [:]) { _ in
+                
+            }
         }
     }
     
@@ -913,9 +984,9 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongChat.Room.MessageCell.self), for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongChat.Room.MessageTextCell.self), for: indexPath)
         
-        if let cell = cell as? AmongChat.Room.MessageCell,
+        if let cell = cell as? AmongChat.Room.MessageTextCell,
            let model = messageListDataSource.safe(indexPath.row) {
             cell.configCell(with: model)
         }

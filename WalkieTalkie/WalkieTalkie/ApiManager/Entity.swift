@@ -37,46 +37,5 @@ extension Entity {
             self.channel_exist = channel_exist
         }
     }
-    
-//    struct RoomUser: Codable {
-//        let avatar: String
-//        let name: String
-//        let robloxName: String?
-//        let seatNo: Int
-//        let uid: String
-//    }
-    
-    enum RoomPublicType: String, Codable {
-        case `public`
-        case `private`
-        
-        private enum CodingKeys: String, CodingKey {
-            case `public` = "PUBLIC"
-            case `private` = "PRIVATE"
-        }
-    }
-    
-    //房间类型
-    struct Room: Codable {
-        
-        let amongUsCode: String?
-        let amongUsZone: String?
-        let note: String?
-        let roomId: String
-        
-        let roomUserList: [ChannelUser]
-        var state: RoomPublicType
-        let topicId: AmongChat.Topic
-        let topicName: String
-        
-        var isValidAmongConfig: Bool {
-            guard topicId == .amongus,
-                  let code = amongUsCode,
-                  let zone = amongUsZone else {
-                return false
-            }
-            return !code.isEmpty && !zone.isEmpty
-        }
-    }
 }
 

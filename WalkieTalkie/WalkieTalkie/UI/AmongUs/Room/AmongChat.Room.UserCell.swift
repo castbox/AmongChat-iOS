@@ -29,16 +29,17 @@ extension AmongChat.Room {
             v.backgroundColor = .clear
             v.layer.borderColor = UIColor.white.cgColor
             v.layer.borderWidth = 1
-            v.layer.cornerRadius = 25
+            v.layer.cornerRadius = 20
             return v
         }()
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 25
+            iv.layer.cornerRadius = 20
             iv.layer.masksToBounds = true
             iv.layer.borderWidth = 0.5
             iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+            iv.backgroundColor = UIColor.white.alpha(0.2)
             return iv
         }()
         
@@ -86,11 +87,12 @@ extension AmongChat.Room {
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
+                maker.height.equalTo(21.5)
             }
             
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.width.height.equalTo(60)
+                maker.width.height.equalTo(40)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
@@ -101,7 +103,7 @@ extension AmongChat.Room {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
-                maker.left.bottom.right.equalToSuperview()
+                maker.left.right.equalToSuperview()
 //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
@@ -144,45 +146,17 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.UserCell {
     
-//    func bind(_ userViewModel: ChannelUserViewModel?) {
-//
-//        if let userViewModel = userViewModel {
-//            avatarIV.image = nil
-//            let user = userViewModel.channelUser
-//            avatarDisposable?.dispose()
-//            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
-//                guard let `self` = self else { return }
-//
-//                if let _ = image {
-//                    self.avatarIV.backgroundColor = .clear
-//                } else {
-//                    self.avatarIV.backgroundColor = user.iconColor.color()
-//                }
-//                self.avatarIV.image = image
-//            })
-//
-//            nameLabel.text = userViewModel.name
-//            if userViewModel.channelUser.status == .talking {
-//                haloAnimation()
-//            } else {
-//                stopHaloAnimation()
-//            }
-//        } else {
-//            avatarIV.image = R.image.speak_list_add()
-//            avatarIV.backgroundColor = nil
-//            nameLabel.text = ""
-//        }
-//    }
-    
-    func bind(_ user: ChannelUser?) {
-        
-        if let user = user {
+    func bind(_ user: Entity.RoomUser?) {
+        guard let user = user else {
+            return
+        }
+        if user.seatNo == 0 {
+            indexLabel.text = user.seatNo.string+"-host"
+        } else {
+            indexLabel.text = user.seatNo.string
+        }
+        if user.uid != nil {
             avatarIV.image = nil
-            if user.seatNo == 0 {
-                indexLabel.text = user.seatNo.string+"-host"
-            } else {
-                indexLabel.text = user.seatNo.string
-            }
 //            let user = userViewModel.channelUser
 //            avatarDisposable?.dispose()
 //            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
@@ -204,9 +178,13 @@ extension AmongChat.Room.UserCell {
             }
             gameNameButton.setTitle(user.robloxName, for: .normal)
             gameNameButton.isHidden = user.robloxName?.isEmpty ?? true
+            avatarIV.layer.borderWidth = 0.5
+            haloView.isHidden = false
         } else {
-            avatarIV.image = R.image.speak_list_add()
-            avatarIV.backgroundColor = nil
+            avatarIV.image = R.image.ac_icon_seat_add()
+            avatarIV.contentMode = .center
+            avatarIV.layer.borderWidth = 0
+            haloView.isHidden = true
             nameLabel.text = ""
             gameNameButton.setTitle(nil, for: .normal)
             gameNameButton.isHidden = true

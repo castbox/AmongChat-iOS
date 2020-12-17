@@ -37,11 +37,12 @@ extension AmongChatRoomConfigView {
     func updateSubview() {
         switch room.topicId {
         case .amongus:
-            //
             justChillingInfoView.isHidden = true
             amongSetupView.isHidden = room.isValidAmongConfig
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
+        case .roblox:
+            ()
         case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true

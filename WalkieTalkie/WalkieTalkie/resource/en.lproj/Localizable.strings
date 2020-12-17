@@ -167,8 +167,6 @@
 "among.chat.room.start.game.tip2" = "What about you, %1$@";
 "among.chat.room.tip.timeout" = "Timeout";
 "among.chat.room.tip.failed" = "Failed";
-"among.chat.room.tip.mic.off" = "mic off";
-"among.chat.room.tip.mic.on" = "mic on";
 "among.chat.room.message.placeholder" = "Say something...";
 "among.chat.all.rooms.more" = "More channels coming soon!";
 "among.chat.all.rooms.vote.game" = "Vote which games we should support next!";
@@ -178,3 +176,11 @@
 "premium.lifetime" = "lifetime";
 "premium.subscription.detail.lifetime" = "Pay once, No Subscription";
 "force.upgrade.tip" = "Please update to the newest version of the app to continue playing.";
+
+//new
+"room.public" = "Public";
+"room.private" = "Private";
+"among.chat.room.tip.mic.off" = "MIC OFF";
+"among.chat.room.tip.mic.on" = "MIC ON";
+"room.tag.open.game" = "Open Game";
+"room.tag.chilling" = "Just Chatting";
