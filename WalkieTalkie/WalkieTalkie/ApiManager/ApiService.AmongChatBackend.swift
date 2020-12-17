@@ -14,6 +14,7 @@ extension APIService {
     enum AmongChatBackend {
         case login([String : Any])
         case createRoom([String : Any])
+        case enteryRoom([String : Any])
         case updateRoomInfo([String : Any])
     }
 }
@@ -33,6 +34,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/auth/login"
         case .createRoom:
             return "/api/v1/rooms/create"
+        case .enteryRoom:
+            return "/api/v1/rooms/enter"
         case .updateRoomInfo:
             return "/api/v1/rooms/update"
         }
@@ -42,6 +45,8 @@ extension APIService.AmongChatBackend: TargetType {
         switch self {
         case .login, .createRoom:
             return .post
+        case .enteryRoom:
+            return .get
         case .updateRoomInfo:
             return .put
 //        case .secret, .devices, .pushEvent:
@@ -61,6 +66,9 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
             
         case .createRoom(let params):
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
+        case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
 
         case .updateRoomInfo(let params):

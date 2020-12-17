@@ -68,7 +68,7 @@ extension Entity {
             }
         }
         
-        let uid: String?
+        let uid: Int
         let name: String?
         let avatar: String?
     //    let name: String
@@ -77,8 +77,8 @@ extension Entity {
         
         let prefix: String?
         let iconColor: String?
-        var status: Status
-        var isMuted: Bool
+        var status: Status = .connected
+        var isMuted: Bool = false
         
         private static let colors: [String] = [
             "F5CEC7",

@@ -34,6 +34,25 @@ extension Request {
             .mapTo(Entity.LoginResult.self)
     }
     
+    static func enterRoom(roomId: String, topicId: String) -> Single<Entity.Room?> {
+        
+        var paras = [String : Any]()
+        paras["room_id"] = roomId
+        paras["topic_id"] = topicId
+        
+        return amongchatProvider.rx.request(.enteryRoom(paras))
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject],
+                 let data = json["data"] as? [String: AnyObject],
+                 let roomData = data["room"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return roomData
+            }
+            .mapTo(Entity.Room.self)
+    }
+    
     static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
         guard let params = room?.dictionary else {
             return Observable<Bool>.empty().asSingle()
