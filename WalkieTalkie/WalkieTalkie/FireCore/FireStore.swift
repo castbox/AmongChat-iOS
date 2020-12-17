@@ -35,7 +35,6 @@ class FireStore {
     
     let channels = [
         ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
-        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
         ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
         ChannelCategory(id: 105, name: "Anime", type: .anime),
         ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),
@@ -46,7 +45,6 @@ class FireStore {
     
     let allChannelCategories = [
         ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
-        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
         ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
         ChannelCategory(id: 105, name: "Anime", type: .anime),
         ChannelCategory(id: 107, name: "Fortnite", type: .fortnite),

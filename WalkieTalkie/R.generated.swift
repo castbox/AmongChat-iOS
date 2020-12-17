@@ -17,8 +17,10 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 6 files.
+  /// This `R.file` struct is generated, and contains static references to 7 files.
   struct file {
+    /// Resource file `Adjust-Info.plist`.
+    static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
     /// Resource file `DefaultRemoteConfig.plist`.
     static let defaultRemoteConfigPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "DefaultRemoteConfig", pathExtension: "plist")
     /// Resource file `GoogleService-Info.plist`.
@@ -31,6 +33,12 @@ struct R: Rswift.Validatable {
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
     /// Resource file `end.mp3`.
     static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
+    
+    /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
+    static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.adjustInfoPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
     
     /// `bundle.url(forResource: "DefaultRemoteConfig", withExtension: "plist")`
     static func defaultRemoteConfigPlist(_: Void = ()) -> Foundation.URL? {
@@ -128,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 96 images.
+  /// This `R.image` struct is generated, and contains static references to 97 images.
   struct image {
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
@@ -172,6 +180,8 @@ struct R: Rswift.Validatable {
     static let channel_user_list_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mute")
     /// Image `channel_user_list_social`.
     static let channel_user_list_social = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_social")
+    /// Image `community_guidelines_banner`.
+    static let community_guidelines_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "community_guidelines_banner")
     /// Image `default_avatar_0`.
     static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
     /// Image `default_avatar_1`.
@@ -426,6 +436,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "channel_user_list_social", bundle: ..., traitCollection: ...)`
     static func channel_user_list_social(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.channel_user_list_social, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "community_guidelines_banner", bundle: ..., traitCollection: ...)`
+    static func community_guidelines_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.community_guidelines_banner, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
@@ -1065,7 +1080,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelJoinRequestRefusedMsg = Rswift.StringResource(key: "channel.join.request.refused.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// en translation: %1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailNormal = Rswift.StringResource(key: "premium.subscription.detail.normal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1081,7 +1096,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelJoinRequestAccept = Rswift.StringResource(key: "channel.join.request.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// en translation: After the free trial, %1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1145,6 +1160,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelChecking = Rswift.StringResource(key: "channel.checking", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Community guideline
+      /// 
+      /// Locales: en
+      static let amongChatHomeCommunityGuideline = Rswift.StringResource(key: "among.chat.home.community.guideline", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Continue
       /// 
       /// Locales: en
@@ -1257,10 +1276,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
-      /// 
-      /// Locales: en
-      static let amongChatRoomStartGameTip1 = Rswift.StringResource(key: "among.chat.room.start.game.tip1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join
       /// 
       /// Locales: en
@@ -1525,10 +1540,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatAllRoomsVoteGame = Rswift.StringResource(key: "among.chat.all.rooms.vote.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: What about you, %1$@
+      /// en translation: Welcome to #%1$@# channel. Any pornography, political, religions, gambling and other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
       /// 
       /// Locales: en
-      static let amongChatRoomStartGameTip2 = Rswift.StringResource(key: "among.chat.room.start.game.tip2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatRoomChatRuleTip = Rswift.StringResource(key: "among.chat.room.chat.rule.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Yes, is me!
       /// 
       /// Locales: en
@@ -1600,7 +1615,7 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("channel.join.request.refused.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
-      /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// en translation: %1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static func premiumSubscriptionDetailNormal(_ value1: String, _ value2: String) -> String {
@@ -1628,7 +1643,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.join.request.accept", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
+      /// en translation: After the free trial, %1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
       static func premiumSubscriptionDetailFree(_ value1: String, _ value2: String) -> String {
@@ -1738,6 +1753,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelChecking(_: Void = ()) -> String {
         return NSLocalizedString("channel.checking", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Community guideline
+      /// 
+      /// Locales: en
+      static func amongChatHomeCommunityGuideline(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.community.guideline", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Continue
@@ -1934,13 +1956,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileInviteFriends(_: Void = ()) -> String {
         return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
-      /// 
-      /// Locales: en
-      static func amongChatRoomStartGameTip1(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.start.game.tip1", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join
@@ -2405,11 +2420,11 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.all.rooms.vote.game", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: What about you, %1$@
+      /// en translation: Welcome to #%1$@# channel. Any pornography, political, religions, gambling and other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
       /// 
       /// Locales: en
-      static func amongChatRoomStartGameTip2(_ value1: String) -> String {
-        return String(format: NSLocalizedString("among.chat.room.start.game.tip2", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      static func amongChatRoomChatRuleTip(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.room.chat.rule.tip", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Yes, is me!

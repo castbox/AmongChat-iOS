@@ -257,30 +257,22 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 
  - To enable the voice activity detection of the local user, ensure that you set `report_vad(YES)` in the [enableAudioVolumeIndication]([AgoraRtcEngineKit enableAudioVolumeIndication:smooth:report_vad:]) method.
  - Calling the [muteLocalAudioStream]([AgoraRtcEngineKit muteLocalAudioStream:]) method affects the behavior of the SDK:
-
   - If the local user calls the `muteLocalAudioStream` method, the SDK stops triggering the local user’s callback immediately.
   - 20 seconds after a remote speaker calls the `muteLocalAudioStream` method, the remote speakers' callback excludes information of this user; 20 seconds after all remote users call the `muteLocalAudioStream` method, the SDK stops triggering the remote speakers' callback.
-
- - On macOS, if you call [startRecordingDeviceTest]([AgoraRtcEngineKit startRecordingDeviceTest:]) or [startPlaybackDeviceTest]([AgoraRtcEngineKit startPlaybackDeviceTest:]) to test audio recording device or playback device, the SDK uses this callback to notify the application with the volume information.
-
-  - `uid` = `0`, which indicates the audio recording device;
-  - `uid` = `1`, which indicates the audio playback device.
 
  @param engine      AgoraRtcEngineKit object.
  @param speakers    AgoraRtcAudioVolumeInfo array.
 
  - In the local user’s callback, this array contains the following members:
-  - `uid` = 0, which indicates the local user;
-  - `volume` = `totalVolume`, which indicates the sum of the voice volume and audio-mixing volume of the local user;
-  - `vad`, which indicates the voice activity status of the local user;
-  - `channelId`, which indicates which channel the speaker is in.
+  - `uid` = 0,
+  - `volume` = `totalVolume`, which reports the sum of the voice volume and audio-mixing volume of the local user, and
+  - `vad`, which reports the voice activity status of the local user.
 
  - In the remote speakers' callback, this array contains the following members:
   - `uid` of each remote speaker,
-  - `volume`, which indicates the sum of the voice volume and audio-mixing volume of each remote speaker, and
+  - `volume`, which reports the sum of the voice volume and audio-mixing volume of each remote speaker, and
   - `vad` = 0.
-  - `channelId`, which indicates which channel the speaker is in.
-  <p>An empty speakers array in the callback indicates that no remote user is speaking at the moment.</p>
+  An empty speakers array in the callback indicates that no remote user is speaking at the moment.
 
  @param totalVolume Total volume after audio mixing. The value range is [0,255].
 
@@ -289,24 +281,22 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine reportAudioVolumeIndicationOfSpeakers:(NSArray<AgoraRtcAudioVolumeInfo *> * _Nonnull)speakers totalVolume:(NSInteger)totalVolume;
 
-/** Occurs when the most active speaker is detected.
+/** Reports which user is the loudest speaker over a period of time.
 
- After a successful call of [enableAudioVolumeIndication]([AgoraRtcEngineKit enableAudioVolumeIndication:smooth:report_vad:]), 
- the SDK continuously detects which remote user has the loudest volume. During the current period, the remote user, 
- who is detected as the loudest for the most times, is the most active user.
+This callback reports the speaker with the highest accumulative volume during a certain period.
+If the user enables the audio volume indication by calling the `enableAudioVolumeIndication` method, this callback returns the user ID of the active speaker whose voice is detected by the audio volume detection module of the SDK.
 
- When the number of users is more than or equal to two and an active speaker exists, the SDK triggers this callback and reports the `uid` of the most active speaker.
- 
- - If the most active speaker is always the same user, the SDK triggers this callback only once.
- - If the most active speaker changes to another user, the SDK triggers this callback again and reports the `uid` of the new active speaker.
+**Note:**
 
+* To receive this callback, you need to call the `enableAudioVolumeIndication` method.
+* This callback returns the user ID of the user with the highest voice volume during a period of time, instead of at the moment.
  @param engine     AgoraRtcEngineKit object.
- @param speakerUid The user ID of the most active speaker.
+ @param speakerUid The user ID of the active speaker. A `speakerUid` of 0 represents the local user.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine activeSpeaker:(NSUInteger)speakerUid;
 
 /** Occurs when the first audio frame is published.
-  
+
  @since v3.1.0
 
  The SDK triggers this callback under one of the following circumstances:
@@ -314,7 +304,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  - The local client enables the audio module and calls [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) successfully.
  - The local client calls [muteLocalAudioStream(YES)]([AgoraRtcEngineKit muteLocalAudioStream:]) and `muteLocalAudioStream(NO)` in sequence.
  - The local client calls [disableAudio]([AgoraRtcEngineKit disableAudio]) and [enableAudio]([AgoraRtcEngineKit enableAudio]) in sequence.
- 
+
  @param engine  AgoraRtcEngineKit object.
  @param elapsed The time elapsed (ms) from the local client calling `joinChannelByToken` until the SDK triggers this callback.
  */
@@ -325,12 +315,14 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  Same as [firstLocalVideoFrameBlock]([AgoraRtcEngineKit firstLocalVideoFrameBlock:]).
  @param engine  AgoraRtcEngineKit object.
  @param size    Size of the first local video frame (width and height).
- @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.<p>If the [startPreview]([AgoraRtcEngineKit startPreview]) method is called before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, then `elapsed` is the time elapsed from calling the [startPreview]([AgoraRtcEngineKit startPreview]) method until the SDK triggers this callback.</p>
+ @param elapsed Time elapsed (ms) from the local user calling the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK calls this callback.
+
+ If the [startPreview]([AgoraRtcEngineKit startPreview]) method is called before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method, then `elapsed` is the time elapsed from calling the [startPreview]([AgoraRtcEngineKit startPreview]) method until the SDK triggers this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine firstLocalVideoFrameWithSize:(CGSize)size elapsed:(NSInteger)elapsed;
 
 /** Occurs when the first video frame is published.
-  
+
  @since v3.1.0
 
  The SDK triggers this callback under one of the following circumstances:
@@ -338,7 +330,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  - The local client enables the video module and calls [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) successfully.
  - The local client calls [muteLocalVideoStream(YES)]([AgoraRtcEngineKit muteLocalVideoStream:]) and `muteLocalVideoStream(NO)` in sequence.
  - The local client calls [disableVideo]([AgoraRtcEngineKit disableVideo]) and [enableVideo]([AgoraRtcEngineKit enableVideo]) in sequence.
- 
+
  @param engine  AgoraRtcEngineKit object.
  @param elapsed The time elapsed (ms) from the local client calling `joinChannelByToken` until the SDK triggers this callback.
  */
@@ -354,10 +346,6 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine videoSizeChangedOfUid:(NSUInteger)uid size:(CGSize)size rotation:(NSInteger)rotation;
 
 /** Occurs when the remote video state changes.
- 
- **Note:**
-
- This callback does not work properly when the number of users (in the communication profile) or hosts (in the live interactive streaming profile) in the channel exceeds 17.
 
  @param engine AgoraRtcEngineKit object.
  @param uid ID of the remote user whose video state changes.
@@ -366,25 +354,6 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
  @param elapsed The time elapsed (ms) from the local user calling the [joinChannel]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method until the SDK triggers this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state reason:(AgoraVideoRemoteStateReason)reason elapsed:(NSInteger)elapsed;
-
-/** Reports whether the super-resolution algorithm is enabled.
- 
- @since v3.2.0
- 
- After calling [enableRemoteSuperResolution]([AgoraRtcEngineKit enableRemoteSuperResolution:enabled:]), the SDK triggers this callback to 
- report whether the super-resolution algorithm is successfully enabled. If not successfully enabled, you can use `reason` for 
- troubleshooting.
-
- @param engine AgoraRtcEngineKit object.
- @param uid The ID of the remote user.
- @param enabled Whether the super-resolution algorithm is successfully enabled:
-
- - `YES`: The super-resolution algorithm is successfully enabled.
- - `NO`: The super-resolution algorithm is not successfully enabled.
- @param reason The reason why the super-resolution algorithm is not successfully enabled. See 
- [AgoraSuperResolutionStateReason](AgoraSuperResolutionStateReason).
- */
-- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine superResolutionEnabledOfUid:(NSUInteger)uid enabled:(BOOL)enabled reason:(AgoraSuperResolutionStateReason)reason;
 
 /** Occurs when the local video stream state changes.
 
@@ -400,10 +369,6 @@ The SDK reports the current video state in this callback.
 
  This callback indicates the state change of the local audio stream, including the state of the audio recording and encoding, and allows you to troubleshoot issues when exceptions occur.
 
- **Note:**
-
- This callback does not work properly when the number of users (in the communication profile) or broadcasters (in the live interactive streaming profile) in the channel exceeds 17.
- 
  @param engine See AgoraRtcEngineKit.
  @param uid ID of the remote user whose audio state changes.
  @param state  State of the remote audio. See [AgoraAudioRemoteState](AgoraAudioRemoteState).
@@ -435,12 +400,12 @@ The SDK reports the current video state in this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine firstRemoteVideoFrameOfUid:(NSUInteger)uid size:(CGSize)size elapsed:(NSInteger)elapsed;
 
-/** Occurs when the audio publishing state changes. 
+/** Occurs when the audio publishing state changes.
 
  @since v3.1.0
- 
+
  This callback indicates the publishing state change of the local audio stream.
- 
+
  @param engine     AgoraRtcEngineKit object.
  @param channel    The channel name.
  @param oldState   The previous publishing state. For details, see AgoraStreamPublishState.
@@ -449,10 +414,11 @@ The SDK reports the current video state in this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didAudioPublishStateChange:(NSString *_Nonnull)channel oldState:(AgoraStreamPublishState)oldState newState:(AgoraStreamPublishState)newState elapseSinceLastState:(NSInteger)elapseSinceLastState;
 
+
 /** Occurs when the video publishing state changes.
 
  @since v3.1.0
- 
+
  This callback indicates the publishing state change of the local video stream.
 
  @param engine     AgoraRtcEngineKit object.
@@ -466,7 +432,7 @@ The SDK reports the current video state in this callback.
 /** Occurs when the audio subscribing state changes.
 
  @since v3.1.0
- 
+
  This callback indicates the subscribing state change of a remote audio stream.
 
  @param engine    AgoraRtcEngineKit object.
@@ -478,7 +444,7 @@ The SDK reports the current video state in this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didAudioSubscribeStateChange:(NSString *_Nonnull)channel withUid:(NSUInteger)uid oldState:(AgoraStreamSubscribeState)oldState newState:(AgoraStreamSubscribeState)newState elapseSinceLastState:(NSInteger)elapseSinceLastState;
 
-/** Occurs when the video subscribing state changes. 
+/** Occurs when the video subscribing state changes.
 
  @since v3.1.0
 
@@ -492,6 +458,7 @@ The SDK reports the current video state in this callback.
  @param elapseSinceLastState The time elapsed (ms) from the previous state to the current state.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didVideoSubscribeStateChange:(NSString *_Nonnull)channel withUid:(NSUInteger)uid oldState:(AgoraStreamSubscribeState)oldState newState:(AgoraStreamSubscribeState)newState elapseSinceLastState:(NSInteger)elapseSinceLastState;
+
 
 #pragma mark Fallback Delegate Methods
 
@@ -533,34 +500,6 @@ The SDK reports the current video state in this callback.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didRemoteSubscribeFallbackToAudioOnly:(BOOL)isFallbackOrRecover byUid:(NSUInteger)uid;
 
-/**-----------------------------------------------------------------------------
- * @name Face Detection Delegate Methods
- * -----------------------------------------------------------------------------
- */
-
-/** Reports the face detection result of the local user.
- 
- **Since:** v3.0.1.
- 
- Once you enable face detection by calling [enableFaceDetection]([AgoraRtcEngineKit enableFaceDetection:]), you can get the following information on the local user in real-time:
- 
- - The width and height of the local video.
- - The position of the human face in the local video.
- - The distance between the human face and the device screen. This value is based on the fitting calculation of the local video size and the position of the human face.
- 
- **Note**
- 
- - If the SDK does not detect a face, it reduces the frequency of this callback to reduce power consumption on the local device.
- - The SDK stops triggering this callback when a human face is in close proximity to the screen.
- 
- @param engine AgoraRtcEngineKit object.
- @param width The width (px) of the local video.
- @param height The height (px) of the local video.
- @param faces An AgoraFacePositionInfo array, which contains the information of the detected human face.
-
- The number of the AgoraFacePositionInfo array depends on the number of human faces detected. If the array length is 0, it means that no human face is detected.
- */ 
-- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine facePositionDidChangeWidth:(int)width previewHeight:(int)height faces:(NSArray<AgoraFacePositionInfo *> *_Nullable)faces;
 
 #pragma mark Device Delegate Methods
 
@@ -587,8 +526,10 @@ The SDK reports the current video state in this callback.
 
 /** Occurs when the local audio route changes.
 
+The SDK triggers this callback when the local audio route switches to an earpiece, speakerphone, headset, or Bluetooth device.
+
  @param engine  AgoraRtcEngineKit object.
- @param routing The current audio route: AgoraAudioOutputRouting.
+ @param routing Audio route: AgoraAudioOutputRouting.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine didAudioRouteChanged:(AgoraAudioOutputRouting)routing;
 
@@ -602,6 +543,31 @@ The SDK triggers this callback when the local user changes the camera focus posi
  @param rect   Rectangular area in the camera zoom specifying the focus area.
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine cameraFocusDidChangedToRect:(CGRect)rect;
+
+/** Reports the face detection result of the local user.
+
+ **Since:** v3.0.1.
+
+ Once you enable face detection by calling [enableFaceDetection]([AgoraRtcEngineKit enableFaceDetection:]), you can get the following information on the local user in real-time:
+
+ - The width and height of the local video.
+ - The position of the human face in the local video.
+ - The distance between the human face and the device screen. This value is based on the fitting calculation of the local video size and the position of the human face.
+
+ **Note**
+
+ - If the SDK does not detect a face, it reduces the frequency of this callback to reduce power consumption on the local device.
+ - The SDK stops triggering this callback when a human face is in close proximity to the screen.
+
+ @param engine AgoraRtcEngineKit object.
+ @param width The width (px) of the local video.
+ @param height The height (px) of the local video.
+ @param faces An AgoraFacePositionInfo array, which contains the information of the detected human face.
+
+ The number of the AgoraFacePositionInfo array depends on the number of human faces detected. If the array length is 0, it means that no human face is detected.
+ */
+- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine facePositionDidChangeWidth:(int)width previewHeight:(int)height faces:(NSArray<AgoraFacePositionInfo *> *_Nullable)faces;
+
 
 #endif
 
@@ -668,9 +634,9 @@ The SDK triggers this callback within 30 seconds after the app calls the [startL
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine localVideoStats:(AgoraRtcLocalVideoStats * _Nonnull)stats;
 
 /** Reports the statistics of the local audio stream.
- 
+
  The SDK triggers this callback once every two seconds.
- 
+
  @param engine See AgoraRtcEngineKit.
  @param stats The statistics of the local audio stream. See [AgoraRtcLocalAudioStats](AgoraRtcLocalAudioStats).
  */
@@ -726,9 +692,9 @@ You can start an audio mixing file playback by calling the [startAudioMixing]([A
 
 /** Occurs when the state of the local user's audio mixing file changes.
 
-When the state of the audio mixing file changes, the SDK triggers this callback and reports the audio mixing status and the error code of the audio playback failure.
-
-If the local audio mixing file does not exist, or if the SDK does not support the file format or cannot access the music file URL, the SDK returns `AgoraWarningCodeAudioMixingOpenError(701)`.
+- When the audio mixing file plays, pauses playing, or stops playing, this callback returns 710, 711, or 713  in state, and 0 in `errorCode`.
+- When exceptions occur during playback, this callback returns 714 in `state` and an error in `errorCode`.
+- If the local audio mixing file does not exist, or if the SDK does not support the file format or cannot access the music file URL, the SDK returns `AgoraWarningCodeAudioMixingOpenError = 701`.
 
 @param engine AgoraRtcEngineKit object.
 @param state The state code, see AgoraAudioMixingStateCode.
@@ -783,8 +749,6 @@ This callback indicates the state of the RTMP streaming. When exceptions occur, 
 
 /** Reports events during the RTMP streaming.
 
- @since v3.1.0
-
  @param engine AgoraRtcEngineKit object.
  @param url The RTMP streaming URL.
  @param eventCode The event code. See AgoraRtmpStreamingEvent.
@@ -792,11 +756,11 @@ This callback indicates the state of the RTMP streaming. When exceptions occur, 
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine rtmpStreamingEventWithUrl:(NSString * _Nonnull)url eventCode:(AgoraRtmpStreamingEvent)eventCode;
 
 /** Occurs when the CDN live streaming settings are updated.
- 
+
  When the `LiveTranscoding` class in the [setLiveTranscoding]([AgoraRtcEngineKit setLiveTranscoding:]) method updates, the SDK triggers the rtcEngineTranscodingUpdated callback to report the update information to the local host.
 
  **Note:**
- 
+
  If you call the `setLiveTranscoding` method to set the `LiveTranscoding` class for the first time, the SDK does not trigger the `rtcEngineTranscodingUpdated` callback.
 
  @param engine AgoraRtcEngineKit object.
@@ -875,7 +839,7 @@ The SDK triggers this callback when the local user receives the stream message t
 /** Occurs when the state of the media stream relay changes.
 
  The SDK reports the state of the current media relay and possible error messages in this callback.
- 
+
  @param engine AgoraRtcEngineKit object.
  @param state The state code in [AgoraChannelMediaRelayState](AgoraChannelMediaRelayState).
  @param error The error code in [AgoraChannelMediaRelayError](AgoraChannelMediaRelayError).
@@ -883,7 +847,7 @@ The SDK triggers this callback when the local user receives the stream message t
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine channelMediaRelayStateDidChange:(AgoraChannelMediaRelayState)state error:(AgoraChannelMediaRelayError)error;
 
 /** Reports events during the media stream relay.
- 
+
  @param engine AgoraRtcEngineKit object.
  @param event The event code in [AgoraChannelMediaRelayEvent](AgoraChannelMediaRelayEvent).
  */
@@ -905,7 +869,7 @@ The SDK triggers this callback when the local user receives the stream message t
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine firstLocalAudioFrame:(NSInteger)elapsed;
 
 /** Occurs when the engine receives the first audio frame from a specified remote user.
- 
+
  **DEPRECATED** from v3.0.0. Use `AgoraAudioRemoteStateStarting(1)` in the [remoteAudioStateChangedOfUid]([AgoraRtcEngineDelegate rtcEngine:remoteAudioStateChangedOfUid:state:reason:elapsed:]) callback.
 
  This callback is triggered in either of the following scenarios:
@@ -947,14 +911,13 @@ The SDK triggers this callback when the local user receives the stream message t
 /** Occurs when a remote user's audio stream is muted/unmuted.
 
  **DEPRECATED** from v3.0.0. Use the [remoteAudioStateChangedOfUid]([AgoraRtcEngineDelegate rtcEngine:remoteAudioStateChangedOfUid:state:reason:elapsed:]) callback with the following parameters instead:
- 
+
  - `AgoraAudioRemoteStateStopped(0)` and `AgoraAudioRemoteReasonRemoteMuted(5)`.
  - `AgoraAudioRemoteStateDecoding(2)` and `AgoraAudioRemoteReasonRemoteUnmuted(6)`.
 
  The SDK triggers this callback when the remote user stops or resumes sending the audio stream by calling the [muteLocalAudioStream]([AgoraRtcEngineKit muteLocalAudioStream:]) method.
 
- @note This callback does not work properly when the number of users (in the communication profile) or broadcasters (in the live interactive streaming profile) in the channel exceeds 17.
-
+ @note This callback is invalid when the number of the users or hosts in a channel exceeds 20.
  @param engine AgoraRtcEngineKit object.
  @param muted  Whether the remote user's audio stream is muted/unmuted:
 
@@ -1127,7 +1090,7 @@ This callback indicates whether you have successfully removed an RTMP stream fro
 
 /** Occurs when the connection between the SDK and the server is interrupted.
 
-**DEPRECATED** from v2.3.2. Use `AgoraConnectionStateReconnecting(4)` and `AgoraConnectionChangedInterrupted(2)` of the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback instead.
+**DEPRECATED** from v2.3.2. Use the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback instead.
 
 The SDK triggers this callback when it loses connection with the server for more than four seconds after a connection is established.
 
@@ -1146,7 +1109,7 @@ If the SDK fails to rejoin the channel 20 minutes after being disconnected from 
 
 /** Occurs when your connection is banned by the Agora server.
 
-**DEPRECATED** from v2.3.2. Use `AgoraConnectionStateFailed(5)` and `AgoraConnectionChangedBannedByServer(3)` of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback instead.
+**DEPRECATED** from v2.3.2. Use [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) instead.
 
 @param engine AgoraRtcEngineKit object
  */
@@ -1160,7 +1123,7 @@ Same as [audioQualityBlock]([AgoraRtcEngineKit audioQualityBlock:]).
 
 The SDK triggers this callback once every two seconds. This callback reports the audio quality of each remote user/host sending an audio stream. If a channel has multiple users/hosts sending audio streams, then the SDK triggers this callback as many times.
 
- @see See [remoteAudioStats]([AgoraRtcEngineDelegate rtcEngine:remoteAudioStats:])
+ @see [remoteAudioStats]([AgoraRtcEngineDelegate rtcEngine:remoteAudioStats:])
  @param engine  AgoraRtcEngineKit object.
  @param uid     User ID of the speaker.
  @param quality Audio quality of the user, see AgoraNetworkQuality.
@@ -1218,10 +1181,10 @@ __attribute__((visibility("default"))) @interface AgoraRtcEngineKit : NSObject
   **Note:**
 
   - You must create an AgoraRtcEngineKit instance before calling any other method.
-  - You can create an AgoraRtcEngineKit instance either by calling this method or by calling [sharedEngineWithConfig]([AgoraRtcEngineKit sharedEngineWithConfig:delegate:]). The difference between `sharedEngineWithConfig` and this method is that `sharedEngineWithConfig` enables you to specify the region for connection.
+  - You can create an AgoraRtcEngineKit instance either by calling this method or by calling [sharedEngineWithConfig]([AgoraRtcEngineKit sharedEngineWithConfig:delegate:]). The difference between `sharedEngineWithConfig` and this method is that `sharedEngineWithConfig` enables you to specify the connection area.
   - The Agora RTC Native SDK supports creating only one AgoraRtcEngineKit instance for an app for now.
- 
- @param appId    The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance. To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to `destroy` the current AgoraRtcEngineKit instance, and after `destroy` returns 0, call `sharedEngineWithAppId` to create an AgoraRtcEngineKit instance with the new App ID.
+
+ @param appId    The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance. To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to destroy the current AgoraRtcEngineKit instance and then call create to create an AgoraRtcEngineKit instance with the new App ID.
  @param delegate AgoraRtcEngineDelegate.
 
  @return - The AgoraRtcEngineKit instance, if this method call succeeds.
@@ -1242,9 +1205,9 @@ __attribute__((visibility("default"))) @interface AgoraRtcEngineKit : NSObject
   **Note:**
 
   - You must create the AgoraRtcEngineKit instance before calling any other method.
-  - You can create an AgoraRtcEngineKit instance either by calling this method or by calling [sharedEngineWithAppId]([AgoraRtcEngineKit sharedEngineWithAppId:delegate:]). The difference between `sharedEngineWithAppId` and this method is that this method enables you to specify the region for connection.
+  - You can create an AgoraRtcEngineKit instance either by calling this method or by calling [sharedEngineWithAppId]([AgoraRtcEngineKit sharedEngineWithAppId:delegate:]). The difference between `sharedEngineWithAppId` and this method is that this method enables you to specify the connection area.
   - The Agora RTC Native SDK supports creating only one AgoraRtcEngineKit instance for an app for now.
-  
+
   @param config    Configurations for the AgoraRtcEngineKit instance. For details, see AgoraRtcEngineConfig.
   @param delegate AgoraRtcEngineDelegate.
 
@@ -1323,41 +1286,6 @@ When a user switches user roles after joining a channel, a successful method cal
  */
 - (int)setClientRole:(AgoraClientRole)role;
 
-/** Sets the role of a user in a live interactive streaming.
- 
- @since v3.2.0
- 
- You can call this method either before or after joining the channel to set the user role as audience or host. If you call this method to 
- switch the user role after joining the channel, the SDK triggers the following callbacks:
- 
- - The local client: [didClientRoleChanged]([AgoraRtcEngineDelegate rtcEngine:didClientRoleChanged:newRole:]).
- - The remote client: [didJoinedOfUid]([AgoraRtcEngineDelegate rtcEngine:didJoinedOfUid:elapsed:]) or 
- [didOfflineOfUid]([AgoraRtcEngineDelegate rtcEngine:didOfflineOfUid:reason:]).
- 
- **Note:** 
- 
- - This method applies to the `LiveBroadcasting` profile only (when the `profile` parameter in 
- [setChannelProfile]([AgoraRtcEngineKit setChannelProfile:]) is set as `AgoraChannelProfileLiveBroadcasting`).
- 
- - The difference between this method and [setClientRole]([AgoraRtcEngineKit setClientRole:])1 is that this method can set the user 
- level in addition to the user role.
- 
-   - The user role determines the permissions that the SDK grants to a user, such as permission to send local streams, receive remote 
-   streams, and push streams to a CDN address.
-   - The user level determines the level of services that a user can enjoy within the permissions of the user's role. For example, 
-   an audience can choose to receive remote streams with low latency or ultra low latency. **Levels affect prices**.
- 
- @param role The role of a user in a live interactive streaming. See [AgoraClientRole](AgoraClientRole).
- @param options The detailed options of a user, including user level. See [AgoraClientRoleOptions](AgoraClientRoleOptions).
- 
- @return - 0(`AgoraRtmpStreamingErrorCodeOK`): Success.
- - < 0: Failure.
-
-   - `-1`(`AgoraErrorCodeFailed`): A general error occurs (no specified reason).
-   - `-2`(`AgoraErrorCodeInvalidArgument`): The parameter is invalid.
-   - `-7`(`AgoraErrorCodeNotInitialized`): The SDK is not initialized.
- */
-- (int)setClientRole:(AgoraClientRole)role options:(AgoraClientRoleOptions * _Nullable)options;
 /** Joins a channel with the user ID.
 
 Users in the same channel can talk to each other, and multiple users in the same channel can start a group chat. Users with different App IDs cannot call each other even if they join the same channel.
@@ -1385,7 +1313,7 @@ When the connection between the client and Agora's server is interrupted due to 
  @param token The token for authentication:
 
  - In situations not requiring high security: You can use the temporary token generated at Agora Console. For details, see [Get a temporary token](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#get-a-temporary-token).
- - In situations requiring high security: Set it as the token generated at your server. For details, see [Generate a token](https://docs.agora.io/en/Interactive%20Broadcast/token_server?platform=All%20Platforms).
+ - In situations requiring high security: Set it as the token generated at your server. For details, see [Generate a token](https://docs.agora.io/en/Interactive%20Broadcast/token_server_cpp?platform=CPP).
  @param channelId Unique channel name for the AgoraRTC session in the string format. The string length must be less than 64 bytes.
  Supported character scopes are:
 
@@ -1434,7 +1362,7 @@ After the user successfully joins the channel, the SDK triggers the following ca
 @param token The token generated at your server:
 
 - For low-security requirements: You can use the temporary token generated at Console. For details, see [Get a temporary token](https://docs.agora.io/en/Voice/token?platform=All%20Platforms#get-a-temporary-token).
-- For high-security requirements: Set it as the token generated at your server. For details, see [Generate a token](https://docs.agora.io/en/Interactive%20Broadcast/token_server?platform=All%20Platforms).
+- For high-security requirements: Set it as the token generated at your server. For details, see [Get a token](https://docs.agora.io/en/Voice/token?platform=All%20Platforms#get-a-token).
 @param channelId The channel name. The maximum length of this parameter is 64 bytes. Supported character scopes are:
 
 - All lowercase English letters: a to z.
@@ -1525,7 +1453,7 @@ After receiving the [didUpdatedUserInfo]([AgoraRtcEngineDelegate rtcEngine:didUp
  @param token The token generated at your server:
 
  - For low-security requirements: You can use the temporary token generated in Console. For details, see [Get a temporary token](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#get-a-temporary-token).
- - For high-security requirements: Use the token generated at your server. For details, see [Generate a token](https://docs.agora.io/en/Interactive%20Broadcast/token_server?platform=All%20Platforms).
+ - For high-security requirements: Use the token generated at your server. For details, see [Get a token](https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#get-a-token).
  @param channelId Unique channel name for the AgoraRTC session in the string format. The string length must be less than 64 bytes. Supported character scopes are:
 
  - All lowercase English letters: a to z.
@@ -1606,26 +1534,24 @@ The `token` expires after a period of time once the token schema is enabled when
 - (int)renewToken:(NSString * _Nonnull)token;
 
 /** Gets the connection state of the app.
- 
- You can call this method either before or after joining a channel.
 
- @return The connection state, see [AgoraConnectionStateType](AgoraConnectionStateType).
+@return The connection state, see [AgoraConnectionStateType](AgoraConnectionStateType).
 */
 - (AgoraConnectionStateType)getConnectionState;
 
 /** Starts to relay media streams across channels.
 
  After a successful method call, the SDK triggers the [channelMediaRelayStateDidChange]([AgoraRtcEngineDelegate rtcEngine:channelMediaRelayStateDidChange:error:]) and [didReceiveChannelMediaRelayEvent]([AgoraRtcEngineDelegate rtcEngine:didReceiveChannelMediaRelayEvent:]) callbacks, and these callbacks return the state and events of the media stream relay.
- 
+
  - If the `channelMediaRelayStateDidChange` callback returns AgoraChannelMediaRelayStateRunning(2) and AgoraChannelMediaRelayStateIdle(0), and the `didReceiveChannelMediaRelayEvent` callback returns  AgoraChannelMediaRelayEventSentToDestinationChannel(4), the SDK starts relaying media streams between the original and the destination channel.
  - If the `channelMediaRelayStateDidChange` callback returns AgoraChannelMediaRelayStateFailure(3), an exception occurs during the media stream relay.
- 
+
  **Note**
 
  - Call this method after the [joinChannel]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
  - This method takes effect only when you are a host in the live interactive streaming channel.
  - After a successful method call, if you want to call this method again, ensure that you call the [stopChannelMediaRelay]([AgoraRtcEngineKit stopChannelMediaRelay]) method to quit the current relay.
- - Contact support@agora.io before implementing this function.
+ - Contact sales-us@agora.io before implementing this function.
  - We do not support string user accounts in this API.
 
  @param config The configuration of the media stream relay: [AgoraChannelMediaRelayConfiguration](AgoraChannelMediaRelayConfiguration).
@@ -1635,7 +1561,7 @@ The `token` expires after a period of time once the token schema is enabled when
  */
 - (int)startChannelMediaRelay:(AgoraChannelMediaRelayConfiguration * _Nonnull)config;
 
-/** Updates the channels for media stream relay. 
+/** Updates the channels for media stream relay.
 
  After the channel media relay starts, if you want to relay the media stream to more channels, or leave the current relay channel, you can call the `updateChannelMediaRelay` method.
 
@@ -1645,7 +1571,7 @@ The `token` expires after a period of time once the token schema is enabled when
 
  - Call this method after the [startChannelMediaRelay]([AgoraRtcEngineKit startChannelMediaRelay:]) method to update the destination channel.
  - This method supports adding at most four destination channels in the relay. If there are already four destination channels in the relay, remove the unnecessary ones with the `removeDestinationInfoForChannelName` method in channelMediaRelayConfiguration before calling this method.
- 
+
  @param config The media stream relay configuration: [AgoraChannelMediaRelayConfiguration](AgoraChannelMediaRelayConfiguration).
 
  @return - 0: Success.
@@ -1660,7 +1586,7 @@ The `token` expires after a period of time once the token schema is enabled when
  After a successful method call, the SDK triggers the [channelMediaRelayStateDidChange]([AgoraRtcEngineDelegate rtcEngine:channelMediaRelayStateDidChange:error:]) callback. If the callback returns  AgoraChannelMediaRelayStateIdle(0) and AgoraChannelMediaRelayErrorNone(0), the host successfully stops the relay.
 
  @note If the method call fails, the SDK triggers the [channelMediaRelayStateDidChange]([AgoraRtcEngineDelegate rtcEngine:channelMediaRelayStateDidChange:error:]) callback with the AgoraChannelMediaRelayErrorServerNoResponse(2) or AgoraChannelMediaRelayEventUpdateDestinationChannelRefused(8) state code. You can leave the channel by calling the [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) method, and the media stream relay automatically stops.
- 
+
  @return - 0: Success.
  - < 0: Failure.
  */
@@ -1710,26 +1636,24 @@ The `token` expires after a period of time once the token schema is enabled when
 - (int)disableAudio;
 
 /** Sets the audio parameters and application scenarios.
- 
+
  **Note:**
- 
+
  * You must call this method before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
  * In the Communication profile, you can set the `profile` but not the `scenario`.
  * In the Communication and live interactive streaming profiles, the bitrates may be different from your settings due to network self-adaptation.
  * In scenarios requiring high-quality audio, we recommend setting `profile` as `AgoraAudioProfileMusicHighQuality(4)` and `scenario` as `AgoraAudioScenarioGameStreaming(3)`. For example, for music education scenarios.
- 
+
  @param profile  Sets the sample rate, bitrate, encoding mode, and the number of channels. See [AgoraAudioProfile](AgoraAudioProfile).
- @param scenario Sets the audio application scenario. See [AgoraAudioScenario](AgoraAudioScenario). Under different audio scenarios, the device uses different volume types. For details, see [What is the difference between the in-call volume and the media volume?](https://docs.agora.io/en/faq/system_volume).
- 
+ @param scenario Sets the audio application scenario. See [AgoraAudioScenario](AgoraAudioScenario). Under different audio scenarios, the device uses either the in-call volume or the media volume. For details, see [What is the difference between the in-call volume and the media volume?](https://docs.agora.io/en/faq/system_volume).
+
  @return * 0: Success.
 * < 0: Failure.
  */
 - (int)setAudioProfile:(AgoraAudioProfile)profile
               scenario:(AgoraAudioScenario)scenario;
 
-/** Adjusts the recording signal volume.
- 
- You can call this method either before or after joining a channel.
+/** Adjusts the recording volume.
 
  @param volume Recording volume. The value ranges between 0 and 400:
 
@@ -1743,9 +1667,7 @@ The `token` expires after a period of time once the token schema is enabled when
  */
 - (int)adjustRecordingSignalVolume:(NSInteger)volume;
 
-/** Adjusts the playback signal volume of all remote users.
- 
- You can call this method either before or after joining a channel.
+/** Adjusts the playback volume of all remote users.
 
  **Note**
 
@@ -1765,8 +1687,6 @@ The `token` expires after a period of time once the token schema is enabled when
 - (int)adjustPlaybackSignalVolume:(NSInteger)volume;
 
 /** Enables the SDK to regularly report to the app on which users are speaking and the speakers' volume.
- 
- You can call this method either before or after joining a channel.
 
  @param interval Sets the time interval between two consecutive volume indications:
 
@@ -1786,7 +1706,7 @@ The `token` expires after a period of time once the token schema is enabled when
 
 /** Enables/Disables the local audio capture.
 
-When an app joins a channel, the audio module is enabled by default. This method disables or re-enables the local audio capture, that is, to stop or restart local audio capturing and processing. You can call this method either before or after joining a channel.
+When an app joins a channel, the audio module is enabled by default. This method disables or re-enables the local audio capture, that is, to stop or restart local audio capturing and processing.
 
 This method does not affect receiving or playing the remote audio streams, and enableLocalAudio(NO) is applicable to scenarios where the user wants to receive remote audio streams without sending any audio stream to other users in the channel.
 
@@ -1813,7 +1733,7 @@ This method is different from the [muteLocalAudioStream]([AgoraRtcEngineKit mute
  **Note:**
 
  - When `mute` is set as `YES`, this method does not disable the microphone and thus does not affect any ongoing recording.
- - You can call this method either before or after joining a channel. If you call [setChannelProfile]([AgoraRtcEngineKit setChannelProfile:]) after this method, the SDK resets whether or not to mute the local audio according to the channel profile and user role. Therefore, we recommend calling this method after the `setChannelProfile` method.
+ - If you call [setChannelProfile]([AgoraRtcEngineKit setChannelProfile:]) after this method, the SDK resets whether or not to mute the local audio according to the channel profile and user role. Therefore, we recommend calling this method after the `setChannelProfile` method.
 
  @param mute Sets whether to send/stop sending the local audio stream:
 
@@ -1829,8 +1749,7 @@ This method is different from the [muteLocalAudioStream]([AgoraRtcEngineKit mute
 
  **Note:**
 
- - You can call this method either before or after joining a channel. If you call it before joining a channel, you need to maintain the `uid` of the remote user on your app level.
- - If you call the [muteAllRemoteAudioStreams]([AgoraRtcEngineKit muteAllRemoteAudioStreams:]) method and set `mute` as `YES` to mute all remote audio streams, call the `muteAllRemoteAudioStreams` method again and set `mute` as `NO` before calling this method. The `muteAllRemoteAudioStreams` method sets all remote streams, while the `muteRemoteAudioStream` method sets a specified stream.
+ If you call the [muteAllRemoteAudioStreams]([AgoraRtcEngineKit muteAllRemoteAudioStreams:]) method and set `mute` as `YES` to mute all remote audio streams, call the `muteAllRemoteAudioStreams` method again and set `mute` as `NO` before calling this method. The `muteAllRemoteAudioStreams` method sets all remote streams, while the `muteRemoteAudioStream` method sets a specified stream.
 
  @param uid  User ID of the specified remote user.
  @param mute Sets whether to receive/stop receiving a specified remote user’s audio stream:
@@ -1844,8 +1763,6 @@ This method is different from the [muteLocalAudioStream]([AgoraRtcEngineKit mute
 - (int)muteRemoteAudioStream:(NSUInteger)uid mute:(BOOL)mute;
 
 /** Receives/Stops receiving all remote audio streams.
- 
- You can call this method either before or after joining a channel.
 
  @param mute Sets whether to receive/stop receiving all remote audio streams:
 
@@ -1858,9 +1775,9 @@ This method is different from the [muteLocalAudioStream]([AgoraRtcEngineKit mute
 - (int)muteAllRemoteAudioStreams:(BOOL)mute;
 
 /** Sets whether to receive all remote audio streams by default.
- 
+
  You can call this method either before or after joining a channel. If you call `setDefaultMuteAllRemoteAudioStreams (YES)` after joining a channel, the remote audio streams of all subsequent users are not received.
- 
+
  @note If you want to resume receiving the audio stream, call [muteRemoteAudioStream (NO)]([AgoraRtcChannel muteRemoteAudioStream:mute:]), and specify the ID of the remote user whose audio stream you want to receive. To receive the audio streams of multiple remote users, call `muteRemoteAudioStream (NO)` as many times. Calling `setDefaultMuteAllRemoteAudioStreams (NO)` resumes receiving the audio streams of subsequent users only.
 
  @param mute Sets whether to receive/stop receiving all remote audio streams by default:
@@ -1873,21 +1790,21 @@ This method is different from the [muteLocalAudioStream]([AgoraRtcEngineKit mute
  */
 - (int)setDefaultMuteAllRemoteAudioStreams:(BOOL)mute;
 
-/** Adjust the playback signal volume of a specified remote user.
- 
+/** Adjust the playback volume of a specified remote user.
+
  **Since** v3.0.0.
 
  You can call this method as many times as necessary to adjust the playback volume of different remote users, or to repeatedly adjust the playback volume of the same remote user.
 
  **Note**
- 
+
  - Call this method after joining a channel.
  - The playback volume here refers to the mixed volume of a specified remote user.
  - This method can only adjust the playback volume of one specified remote user at a time. To adjust the playback volume of different remote users, call the method as many times, once for each remote user.
 
  @param uid The ID of the remote user.
  @param volume The playback volume of the specified remote user. The value ranges from 0 to 100:
- 
+
  - 0: Mute.
  - 100: Original volume.
 
@@ -1951,13 +1868,11 @@ To disable the video, call the disableVideo method.
 
 /** Sets the video encoder configuration.
 
- Each video encoder configuration corresponds to a set of video parameters, including the resolution, frame rate, bitrate, and video orientation.
+Each video encoder configuration corresponds to a set of video parameters, including the resolution, frame rate, bitrate, and video orientation.
 
- The parameters specified in this method are the maximum values under ideal network conditions. If the video engine cannot render the video using the specified parameters due to unreliable network conditions, the parameters further down the list are considered until a successful configuration is found.
+The parameters specified in this method are the maximum values under ideal network conditions. If the video engine cannot render the video using the specified parameters due to unreliable network conditions, the parameters further down the list are considered until a successful configuration is found.
 
  If you do not need to set the video encoder configuration after joining a channel, you can call this method before calling the enableVideo method to reduce the render time of the first video frame.
-
- You can call this method either before or after joining a channel.
 
  **Note:**
 
@@ -1977,13 +1892,11 @@ To disable the video, call the disableVideo method.
  This method initializes the video view of the local stream on the local device. It affects only the video view that the local user sees, not the published local video stream.
 
  Call this method to bind the local video stream to a video view and to set the rendering and mirror modes of the video view. To unbind the `view`, set the `view` in AgoraRtcVideoCanvas to `nil`.
- 
- You can call this method either before or after joining a channel.
 
  **Note**
- 
+
  To update the rendering or mirror mode of the local video view during a call, use [setLocalRenderMode]([AgoraRtcEngineKit setLocalRenderMode:mirrorMode:]).
- 
+
  @param local Sets the local video view and settings. See AgoraRtcVideoCanvas.
 
  @return * 0: Success.
@@ -2006,7 +1919,7 @@ To disable the video, call the disableVideo method.
  To unbind the remote user from the view, set the `view` in AgoraRtcVideoCanvas as nil. Once the remote user leaves the channel, the SDK unbinds the remote user.
 
  @note To update the rendering or mirror mode of the remote video view during a call, use [setRemoteRenderMode]([AgoraRtcEngineKit setRemoteRenderMode:renderMode:mirrorMode:]).
- 
+
  @param remote Sets the remote video view and settings. See AgoraRtcVideoCanvas.
 
  @return * 0: Success.
@@ -2020,7 +1933,7 @@ To disable the video, call the disableVideo method.
  **Since** v3.0.0.
 
  After initializing the local video view, you can call this method to update its rendering and mirror modes. It affects only the video view that the local user sees, not the published local video stream.
- 
+
  **Note**
 
  - Ensure that you have called [setupLocalVideo]([AgoraRtcEngineKit setupLocalVideo:]) to initialize the local video view before calling this method.
@@ -2028,11 +1941,11 @@ To disable the video, call the disableVideo method.
 
  @param renderMode The rendering mode of the local video view. See [AgoraVideoRenderMode](AgoraVideoRenderMode).
  @param mirrorMode The mirror mode of the local video view. See [AgoraVideoMirrorMode](AgoraVideoMirrorMode).
- 
+
  **Note**
- 
+
  If you use a front camera, the SDK enables the mirror mode by default; if you use a rear camera, the SDK disables the mirror mode by default.
- 
+
  @return * 0: Success.
  * < 0: Failure.
  */
@@ -2040,7 +1953,7 @@ To disable the video, call the disableVideo method.
                mirrorMode:(AgoraVideoMirrorMode) mirrorMode;
 
 /** Updates the display mode of the video view of a remote user.
- 
+
  **Since** v3.0.0.
 
  After initializing the video view of a remote user, you can call this method to update its rendering and mirror modes. This method affects only the video view that the local user sees.
@@ -2091,14 +2004,13 @@ Before calling this method, you must:
 - (int)stopPreview;
 
 /** Disables the local video.
- 
+
  This method disables or re-enables the local video capturer, and does not affect receiving the remote video stream.
 
  After you call the [enableVideo]([AgoraRtcEngineKit enableVideo]) method, the local video capturer is enabled by default. You can call [enableLocalVideo(NO)]([AgoraRtcEngineKit enableLocalVideo:]) to disable the local video capturer. If you want to re-enable it, call [enableLocalVideo(YES)]([AgoraRtcEngineKit enableLocalVideo:]).
 
  After the local video capturer is successfully disabled or re-enabled, the SDK triggers the [didLocalVideoEnabled]([AgoraRtcEngineDelegate rtcEngine:didLocalVideoEnabled:byUid:]) callback on the remote client.
 
- You can call this method either before or after joining a channel.
 
  **Note:**
 
@@ -2117,11 +2029,11 @@ Before calling this method, you must:
 /** Sends/Stops sending the local video stream.
 
  A successful `muteLocalVideoStream` method call triggers the [didVideoMuted]([AgoraRtcEngineDelegate rtcEngine:didVideoMuted:byUid:]) callback on the remote client.
- 
+
  **Note:**
 
  - When you set `mute` as `YES`, this method does not disable the camera, and thus does not affect the retrieval of the local video stream. This method responds faster compared to the [enableLocalVideo]([AgoraRtcEngineKit enableLocalVideo:]) method which controls the sending of local video streams.
- - You can call this method either before or after joining a channel. If you call [setChannelProfile]([AgoraRtcEngineKit setChannelProfile:]) after this method, the SDK resets whether or not to mute the local video according to the channel profile and user role. Therefore, we recommend calling this method after the `setChannelProfile` method.
+ - If you call [setChannelProfile]([AgoraRtcEngineKit setChannelProfile:]) after this method, the SDK resets whether or not to mute the local video according to the channel profile and user role. Therefore, we recommend calling this method after the `setChannelProfile` method.
 
  @param mute Sets whether to send/stop sending the local video stream:
 
@@ -2134,8 +2046,6 @@ Before calling this method, you must:
 - (int)muteLocalVideoStream:(BOOL)mute;
 
 /** Receives/Stops receiving all remote video streams.
- 
- You can call this method either before or after joining a channel.
 
  @param mute Sets whether to receive/stop receiving all remote video streams:
 
@@ -2148,10 +2058,8 @@ Before calling this method, you must:
 - (int)muteAllRemoteVideoStreams:(BOOL)mute;
 
 /** Receives/Stops receiving a specified remote user’s video stream.
- 
- You can call this method either before or after joining a channel. If you call it before joining a channel, you need to maintain the `uid` of the remote user on your app level.
 
- **Note:**
+**Note:**
 
  If you call the [muteAllRemoteVideoStreams]([AgoraRtcEngineKit muteAllRemoteVideoStreams:]) method and set `mute` as `YES` to stop receiving all remote video streams, call the muteAllRemoteVideoStreams method again and set `mute` as `NO` before calling this method.
 
@@ -2168,11 +2076,11 @@ Before calling this method, you must:
                         mute:(BOOL)mute;
 
 /** Sets whether to receive all remote video streams by default.
- 
+
  You can call this method either before or after joining a channel. If you call `setDefaultMuteAllRemoteVideoStreams (YES)` after joining a channel, the remote video streams of all subsequent users are not received.
 
  @note If you want to resume receiving the video stream, call [muteRemoteVideoStream (NO)]([AgoraRtcEngineKit muteRemoteVideoStream:mute:]), and specify the ID of the remote user whose video stream you want to receive. To receive the video streams of multiple remote users, call `muteRemoteVideoStream (NO)` as many times. Calling `setDefaultMuteAllRemoteVideoStreams (NO)` resumes receiving the video streams of subsequent users only.
- 
+
  @param mute Sets whether to receive/stop receiving all remote video streams by default.
 
  * YES: Stop receiving all remote video streams by default.
@@ -2190,15 +2098,15 @@ Before calling this method, you must:
  * -----------------------------------------------------------------------------
  */
 
-/** Enables/Disables image enhancement and sets the options.
+/** Enables/Disables image enhancement and sets the options. (iOS only)
 
 @note Call this method after calling the [enableVideo]([AgoraRtcEngineKit enableVideo]) method.
 
-@param enable Sets whether or not to enable image enhancement:
+@param enable 	Sets whether or not to enable image enhancement:
 
-- `YES`: Enable image enhancement.
-- `NO`: Disable image enhancement.
-@param options The image enhancement options, see AgoraBeautyOptions.
+- `YES`: enables image enhancement.
+- `NO`: disables image enhancement.
+@param options 	The image enhancement options, see AgoraBeautyOptions.
 
 @return * 0: Success.
 * < 0: Failure.
@@ -2206,87 +2114,9 @@ Before calling this method, you must:
 - (int)setBeautyEffectOptions:(BOOL)enable options:(AgoraBeautyOptions * _Nullable)options;
 
 #if defined (TARGET_OS_IPHONE) && TARGET_OS_IPHONE
-/** Enables/Disables the super-resolution algorithm for a remote user's video stream.
-
-@since v3.2.0
-
-The algorithm effectively improves the resolution of the specified remote user's video stream. When the original resolution of the 
-remote video stream is a × b pixels, you can receive and render the stream at a higher resolution (2a × 2b pixels) by enabling the 
-algorithm.
-
-After calling this method, the SDK triggers the 
-[superResolutionEnabledOfUid]([AgoraRtcEngineDelegate rtcEngine:superResolutionEnabledOfUid:enabled:reason:]) callback to report 
-whether you have successfully enabled the super-resolution algorithm.
-
-**Warning**:
-
-The super-resolution algorithm requires extra system resources. To balance the visual experience and system usage, the SDK poses the 
-following restrictions:
-
-- The algorithm can only be used for a single user at a time.
-- On the iOS platform, the original resolution of the remote video must not exceed 640 × 480 pixels.
-
-If you exceed these limitations, the SDK triggers the [didOccurWarning]([AgoraRtcEngineDelegate rtcEngine:didOccurWarning:]) callback 
-with the corresponding warning codes:
-
-- `AgoraWarningCodeSuperResolutionStreamOverLimitation(1610)`: The origin resolution of the remote video is beyond the range where the 
-super-resolution algorithm can be applied.
-- `AgoraWarningCodeSuperResolutionUserCountOverLimitation(1611)`: Another user is already using the super-resolution algorithm.
-- `AgoraWarningCodeSuperResolutionDeviceNotSupported(1612)`: The device does not support the super-resolution algorithm.
-
-**Note**:
-
-- This method applies to iOS only.
-- This method is supported on devices running iOS 12.0 or later. The following device models are known to support the method:
-
-  - iPhone XR
-  - iPhone XS
-  - iPhone XS Max
-  - iPhone 11
-  - iPhone 11 Pro
-  - iPhone 11 Pro Max
-  - iPad Pro 11-inch (3rd Generation)
-  - iPad Pro 12.9-inch (3rd Generation)
-  - iPad Air 3 (3rd Generation)
-
-@param uid The ID of the remote user.
-@param enabled Whether to enable the super-resolution algorithm:
-
-  - `YES`: Enable the super-resolution algorithm.
-  - `NO`: Disable the super-resolution algorithm.
-
-@return - 0: Success.
-- < 0: Failure.
- */
 - (int)enableRemoteSuperResolution:(NSUInteger)uid enabled:(BOOL)enabled;
 #endif
 
-/**-----------------------------------------------------------------------------
- * @name Face Detection
- * -----------------------------------------------------------------------------
- */
-
-/** Enables/Disables face detection for the local user.
- 
- **Since:** v3.0.1.
-
- Once face detection is enabled, the SDK triggers the [facePositionDidChangeWidth]([AgoraRtcEngineDelegate rtcEngine:facePositionDidChangeWidth:previewHeight:faces:]) callback to report the face information of the local user, which includes the following aspects:
-
- - The width and height of the local video.
- - The position of the human face in the local video.
- - The distance between the human face and the device screen.
- 
- You can call this method either before or after joining a channel.
-
- @param enable Determines whether to enable the face detection function for the local user:
- 
- - YES: Enable face detection.
- - NO: Disable face detection.
- 
- @return - 0: Success.
- - < 0: Failure.
- */
-- (int)enableFaceDetection:(bool)enable;
 
 #pragma mark Audio Routing Controller
 
@@ -2344,8 +2174,6 @@ super-resolution algorithm can be applied.
 
 /** Checks whether the speakerphone is enabled. (iOS only.)
 
- You can call this method either before or after joining a channel.
-
  @return * YES: The speakerphone is enabled, and the audio plays from the speakerphone.
  * NO: The speakerphone is not enabled, and the audio plays from devices other than the speakerphone. For example, the headset or earpiece.
  */
@@ -2363,10 +2191,6 @@ super-resolution algorithm can be applied.
 #if defined (TARGET_OS_IPHONE) && TARGET_OS_IPHONE
 
 /** Enables in-ear monitoring. (iOS only.)
- 
- You can call this method either before or after joining a channel.
-
- @note Users must use wired earphones to hear their own voices.
 
  @param enabled Sets whether to enable/disable in-ear monitoring.
 
@@ -2379,10 +2203,6 @@ super-resolution algorithm can be applied.
 - (int)enableInEarMonitoring:(BOOL)enabled;
 
 /** Sets the volume of the in-ear monitor. (iOS only.)
- 
- You can call this method either before or after joining a channel.
-
- @note Users must use wired earphones to hear their own voices.
 
  @param volume Sets the volume of the in-ear monitor. The value ranges between 0 and 100 (default).
 
@@ -2401,189 +2221,78 @@ super-resolution algorithm can be applied.
  */
 
 /** Changes the voice pitch of the local speaker.
- 
- You can call this method either before or after joining a channel.
 
  @param pitch Sets the voice pitch. The value ranges between 0.5 and 2.0. The lower the value, the lower the voice pitch. The default value is 1.0 (no change to the local voice pitch).
 
  @return * 0: Success.
-* < 0: Failure.
+* -1: Failure.
  */
 - (int)setLocalVoicePitch:(double)pitch;
 
 /** Sets the local voice equalization effect.
- 
- You can call this method either before or after joining a channel.
 
- @param bandFrequency Sets the band frequency. The value ranges between 0 and 9, representing the respective 10-band center frequencies of the voice effects, including 31, 62, 125, 250, 500, 1k, 2k, 4k, 8k, and 16k Hz. See AgoraAudioEqualizationBandFrequency.
+ @param bandFrequency Sets the band frequency. The value ranges between 0 and 9, representing the respective 10-band center frequencies of the voice effects, including 31, 62, 125, 500, 1k, 2k, 4k, 8k, and 16k Hz. See AgoraAudioEqualizationBandFrequency.
  @param gain          Sets the gain of each band (dB). The value ranges between -15 and 15. The default value is 0.
 
  @return * 0: Success.
-* < 0: Failure.
+* -1: Failure.
 */
 - (int)setLocalVoiceEqualizationOfBandFrequency:(AgoraAudioEqualizationBandFrequency)bandFrequency withGain:(NSInteger)gain;
 
 /** Sets the local voice reverberation.
- 
- v2.4.0 adds the [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:]) method, a more user-friendly method for setting the local voice reverberation. You can use this method to set the local reverberation effect, such as Popular, R&B, Rock, Hip-hop, and more.
- 
- You can call this method either before or after joining a channel.
 
+ v2.4.0 adds the [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:]) method, a more user-friendly method for setting the local voice reverberation. You can use this method to set the local reverberation effect, such as Popular, R&B, Rock, Hip-hop, and more.
  @param reverbType Sets the reverberation type. See AgoraAudioReverbType.
  @param value      Sets the effect of the reverberation type. See AgoraAudioReverbType for the value range.
 
  @return * 0: Success.
-* < 0: Failure.
+* -1: Failure.
  */
 - (int)setLocalVoiceReverbOfType:(AgoraAudioReverbType)reverbType withValue:(NSInteger)value;
 
-/** Sets an SDK preset voice beautifier effect.
- 
- @since v3.2.0
- 
- Call this method to set an SDK preset voice beautifier effect for the local user who sends an audio stream. After setting a voice 
- beautifier effect, all users in the channel can hear the effect.
- 
- You can set different voice beautifier effects for different scenarios. See *Set the Voice Beautifier and Audio Effects*.
- 
- To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and 
- setting the `scenario` parameter to `AgoraAudioScenarioGameStreaming(3)` and the `profile` parameter to 
- `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before calling this method.
- 
- **Note**
+/** Sets the local voice changer option.
 
- - You can call this method either before or after joining a channel.
- - Do not set the `profile` parameter of `setAudioProfile` to `AgoraAudioProfileSpeechStandard(1)`; otherwise, this method call fails.
- - This method works best with the human voice. Agora does not recommend using this method for audio containing music.
- - After calling this method, Agora recommends not calling the following methods, because they can override `setVoiceBeautifierPreset`:
- 
-   - [setAudioEffectPreset]([AgoraRtcEngineKit setAudioEffectPreset:])
-   - [setAudioEffectParameters]([AgoraRtcEngineKit setAudioEffectParameters:param1:param2:])
-   - [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:])
-   - [setLocalVoiceChanger]([AgoraRtcEngineKit setLocalVoiceChanger:])
-   - [setLocalVoicePitch]([AgoraRtcEngineKit setLocalVoicePitch:])
-   - [setLocalVoiceEqualizationOfBandFrequency]([AgoraRtcEngineKit setLocalVoiceEqualizationOfBandFrequency:withGain:])
-   - [setLocalVoiceReverbOfType]([AgoraRtcEngineKit  setLocalVoiceReverbOfType:withValue:])
+This method can be used to set the local voice effect for users in a Communication channel or hosts in the live interactive streaming channel. Voice changer options include the following voice effects:
 
- @param preset The options for SDK preset voice beautifier effects: [AgoraVoiceBeautifierPreset](AgoraVoiceBeautifierPreset).
+| Voice effect             | Description                                                  | Scenario          |
+| :----------------------- | :----------------------------------------------------------- | :---------------- |
+| AgoraAudioVoiceChanger*        | Changes the local voice to an old man, a little boy, or the Hulk. | Voice talk        |
+| AgoraAudioVoiceBeauty*         | Beautifies the local voice by making it sound more vigorous, resounding, or adding spacial resonance. | Voice talkSinging |
+| AgoraAudioGeneralBeautyVoice* | Adds gender-based beautification effect to the local voice:<li>For a male voice: Adds magnetism to the voice.<li>For a female voice: Adds freshness or vitality to the voice.</li> | Voice talk        |
 
- @return - 0: Success.
-- < 0: Failure.
+**Note:**
+
+- To achieve better voice effect quality, Agora recommends setting the `profile` parameter in [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) as `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)`.
+- This method works best with the human voice, and Agora does not recommend using it for audio containing music and a human voice.
+- Do not use this method with [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:]), because the method called later overrides the one called earlier. For detailed considerations, see the advanced guide *Voice Changer and Reverberation*.
+
+@param voiceChanger The local voice changer option. The default value is `AgoraAudioVoiceChangerOff`, which means the original voice. See details in AgoraAudioVoiceChanger.
+<br>Gender-based beatification effect works best only when assigned a proper gender:
+<li>For male: AgoraAudioGeneralBeautyVoiceMaleMagnetic.<li>For female: AgoraAudioGeneralBeautyVoiceFemaleFresh or AgoraAudioGeneralBeautyVoiceFemaleVitality.</li>
+<br>Failure to do so can lead to voice distortion.</br>
+
+@return * 0: Success.
+* < 0: Failure. Check if the enumeration is properly set.
+*/
+- (int) setLocalVoiceChanger:(AgoraAudioVoiceChanger)voiceChanger;
+
+/** Sets the local voice reverberation option, including the virtual stereo.
+
+This method sets the local voice reverberation for users in a Communication channel or hosts in the live interactive streaming channel. After successfully calling this method, all users in the channel can hear the voice with reverberation.
+
+**Note:**
+
+- When calling this method with enumerations that begin with `AgoraAudioReverbPresetFx`, ensure that you set `profile` in [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) as `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)`. Otherwise, this method call does not take effect.
+- When calling this method with `AgoraAudioReverbPresetVirtualStereo`, Agora recommends setting the `profile` parameter in `setAudioProfile` as `AgoraAudioProfileMusicHighQualityStereo(5)`.
+- This method works best with the human voice, and Agora does not recommend using it for audio containing music and a human voice.
+- Do not use this method with [setLocalVoiceChanger]([AgoraRtcEngineKit setLocalVoiceChanger:]), because the method called later overrides the one called earlier. For detailed considerations, see the advanced guide *Voice Changer and Reverberation*.
+
+ @param reverbPreset The local voice reverberation option. The default value is `AgoraAudioReverbPresetOff`, which means the original voice. See details in AgoraAudioReverbPreset.<br>**Note**<br>To achieve better voice effects, Agora recommends the enumeration whose name begins with `AgoraAudioReverbPresetFx`.</br>
+
+ @return * 0: Success.
+* < 0: Failure. Check if the enumeration is properly set.
  */
-- (int) setVoiceBeautifierPreset:(AgoraVoiceBeautifierPreset)preset;
-
-/** Sets an SDK preset audio effect.
- 
- @since v3.2.0
- 
- Call this method to set an SDK preset audio effect for the local user who sends an audio stream. This audio effect does not change the 
- gender characteristics of the original voice. After setting an audio effect, all users in the channel can hear the effect.
- 
- You can set different audio effects for different scenarios. See *Set the Voice Beautifier and Audio Effects*.
- 
- To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
- and setting the `scenario` parameter to `AgoraAudioScenarioGameStreaming(3)` before calling this method.
- 
- **Note**:
-
- - You can call this method either before or after joining a channel.
- - Do not set the `profile` parameter of `setAudioProfile` to `AgoraAudioProfileSpeechStandard(1)`; otherwise, this method call fails.
- - This method works best with the human voice. Agora does not recommend using this method for audio containing music.
- - If you call this method and set the preset parameter to enumerators except `AgoraRoomAcoustics3DVoice` or `AgoraPitchCorrection`, 
- do not call [setAudioEffectParameters]([AgoraRtcEngineKit setAudioEffectParameters:param1:param2:]); otherwise, 
- `setAudioEffectParameters` overrides this method.
- - After calling this method, Agora recommends not calling the following methods, because they can override `setAudioEffectPreset`:
- 
-   - [setVoiceBeautifierPreset]([AgoraRtcEngineKit setVoiceBeautifierPreset:])
-   - [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:])
-   - [setLocalVoiceChanger]([AgoraRtcEngineKit setLocalVoiceChanger:])
-   - [setLocalVoicePitch]([AgoraRtcEngineKit setLocalVoicePitch:])
-   - [setLocalVoiceEqualizationOfBandFrequency]([AgoraRtcEngineKit setLocalVoiceEqualizationOfBandFrequency:withGain:])
-   - [setLocalVoiceReverbOfType]([AgoraRtcEngineKit  setLocalVoiceReverbOfType:withValue:])
- 
- @param preset The options for SDK preset audio effects: [AgoraAudioEffectPreset](AgoraAudioEffectPreset).
-
- @return - 0: Success.
-- < 0: Failure.
- */
-- (int) setAudioEffectPreset:(AgoraAudioEffectPreset)preset;
-
-/** Sets parameters for SDK preset audio effects.
- 
- @since v3.2.0
- 
- Call this method to set the following parameters for the local user who send an audio stream:
- 
- - 3D voice effect: Sets the cycle period of the 3D voice effect.
- - Pitch correction effect: Sets the basic mode and tonic pitch of the pitch correction effect. Different songs have different modes and 
- tonic pitches. Agora recommends bounding this method with interface elements to enable users to adjust the pitch correction interactively.
- 
- After setting parameters, all users in the channel can hear the relevant effect.
- 
- You can call this method directly or after [setAudioEffectPreset]([AgoraRtcEngineKit setAudioEffectPreset:]). If you call this method 
- after `setAudioEffectPreset`, ensure that you set the `preset` parameter of `setAudioEffectPreset` to `AgoraRoomAcoustics3DVoice` or 
- `AgoraPitchCorrection` and then call this method to set the same enumerator; otherwise, this method overrides `setAudioEffectPreset`.
- 
- **Note**:
-
- - You can call this method either before or after joining a channel.
- - To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and 
- setting the scenario parameter to `AgoraAudioScenarioGameStreaming(3)` before calling this method.
- - Do not set the `profile` parameter of `setAudioProfile` to `AgoraAudioProfileSpeechStandard(1)`; otherwise, this method call fails.
- - This method works best with the human voice. Agora does not recommend using this method for audio containing music.
- - After calling this method, Agora recommends not calling the following methods, because they can override `setAudioEffectParameters`:
- 
-   - `setAudioEffectPreset`
-   - [setVoiceBeautifierPreset]([AgoraRtcEngineKit setVoiceBeautifierPreset:])
-   - [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:])
-   - [setLocalVoiceChanger]([AgoraRtcEngineKit setLocalVoiceChanger:])
-   - [setLocalVoicePitch]([AgoraRtcEngineKit setLocalVoicePitch:])
-   - [setLocalVoiceEqualizationOfBandFrequency]([AgoraRtcEngineKit setLocalVoiceEqualizationOfBandFrequency:withGain:])
-   - [setLocalVoiceReverbOfType]([AgoraRtcEngineKit  setLocalVoiceReverbOfType:withValue:])
- 
- @param preset The options for SDK preset audio effects:
-
- - 3D voice effect: `AgoraRoomAcoustics3DVoice`.
-
-    - Call `setAudioProfile` and set the `profile` parameter to 
-    `AgoraAudioProfileMusicStandardStereo(3)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator; 
-    otherwise, the enumerator setting does not take effect.
-    - If the 3D voice effect is enabled, users need to use stereo audio playback devices to hear the anticipated voice effect.
-
- - Pitch correction effect: `AgoraPitchCorrection`. To achieve better audio effect quality, Agora recommends calling 
- `setAudioProfile` and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or 
- `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator.
- @param param1 - If you set `preset` to `AgoraRoomAcoustics3DVoice`, the `param1` sets the cycle period of the 3D voice effect. 
- The value range is [1,60] and the unit is a second. The default value is 10 seconds, indicating that the voice moves around 
- you every 10 seconds.
- - If you set `preset` to `AgoraPitchCorrection`, `param1` sets the basic mode of the pitch correction effect:
-
-    - `1`: (Default) Natural major scale.
-    - `2`: Natural minor scale.
-    - `3`: Japanese pentatonic scale.
- @param param2 - If you set `preset` to `AgoraRoomAcoustics3DVoice`, you do not need to set `param2`.
-- If you set`preset` to `AgoraPitchCorrection`, `param2` sets the tonic pitch of the pitch correction effect:
-
-    - `1`: A
-    - `2`: A#
-    - `3`: B
-    - `4`: (Default) C
-    - `5`: C#
-    - `6`: D
-    - `7`: D#
-    - `8`: E
-    - `9`: F
-    - `10`: F#
-    - `11`: G
-    - `12`: G#
-
- @return - 0: Success.
-- < 0: Failure.
- */
-- (int) setAudioEffectParameters:(AgoraAudioEffectPreset)preset
-                             param1:(int)param1
-                             param2:(int)param2;
-
+- (int) setLocalVoiceReverbPreset:(AgoraAudioReverbPreset)reverbPreset;
 /** Enables/Disables stereo panning for remote users.
 
 If you need to use the [setRemoteVoicePosition]([AgoraRtcEngineKit setRemoteVoicePosition:pan:gain:]) method, ensure that you call this method before joining a channel to enable stereo panning for remote users.
@@ -2594,7 +2303,7 @@ If you need to use the [setRemoteVoicePosition]([AgoraRtcEngineKit setRemoteVoic
  - `NO`: disables stereo panning.
 
 @return * 0: Success.
-* < 0: Failure.
+* -1: Failure.
  */
 - (int) enableSoundPositionIndication:(BOOL)enabled;
 
@@ -2604,7 +2313,7 @@ If you need to use the [setRemoteVoicePosition]([AgoraRtcEngineKit setRemoteVoic
 
 **Note:**
 
-- Ensure that you call this method after joining a channel. For this method to work, enable stereo panning for remote users by calling [enableSoundPositionIndication]([AgoraRtcEngineKit enableSoundPositionIndication:]) before joining a channel.
+- For this method to work, enable stereo panning for remote users by calling [enableSoundPositionIndication]([AgoraRtcEngineKit enableSoundPositionIndication:]) before joining a channel.
 This method requires hardware support.
 - For the best effect, we recommend using the following audio output devices:
   - (iOS) A stereo headset.
@@ -2619,7 +2328,7 @@ This method requires hardware support.
  @param gain Gain of the remote user. The value ranges from 0.0 to 100.0. The default value is 100.0 (the original gain of the remote user). The smaller the value, the less the gain.
 
  @return * 0: Success.
-* < 0: Failure.
+* -1: Failure.
  */
 - (int) setRemoteVoicePosition:(NSUInteger) uid
                            pan:(double) pan
@@ -2648,7 +2357,7 @@ This method requires hardware support.
  * If you want to play an online music file, ensure that the time interval between playing the online music file and calling this method is greater than 100 ms, or the AudioFileOpenTooFrequent(702) warning occurs.
  * If the local audio mixing file does not exist, or if the SDK does not support the file format or cannot access the music file URL, the SDK returns AgoraWarningCodeAudioMixingOpenError(701).
 
- @param filePath The absolute path of the local or online audio file to be mixed, for example, /var/mobile/Containers/Data/audio.mp4. Agora recommends entering the file suffix. If you cannot determine the file suffix type, then leave it blank. Supported audio formats: mp3, aac, mp4, m4a, 3gp, and wav.
+ @param filePath The absolute path (including the suffixes of the filename) of the local or online audio file to be mixed, for example, /var/mobile/Containers/Data/audio.mp4. Supported audio formats: mp3, aac, mp4, m4a, 3gp, and wav.
 
  @param loopback Sets which user can hear the audio mixing:
 
@@ -2702,10 +2411,10 @@ This method requires hardware support.
 
 /** Adjusts the volume of audio mixing.
 
- Ensure that this method is called after [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]).
- 
+ Call this method when you are in a channel.
+
  **Note:**
- 
+
  Calling this method does not affect the volume of audio effect file playback invoked by the [playEffect]([AgoraRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]) method.
 
  @param volume Audio mixing volume. The value ranges between 0 and 100 (default).
@@ -2716,7 +2425,7 @@ This method requires hardware support.
 
 /** Adjusts the volume of audio mixing for local playback.
 
- Ensure that this method is called after [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]).
+ Call this method when you are in a channel.
 
  @param volume Audio mixing volume for local playback. The value ranges between 0 and 100 (default).
  @return * 0: Success.
@@ -2726,7 +2435,7 @@ This method requires hardware support.
 
 /** Adjusts the volume of audio mixing for publishing (sending to other users).
 
- Ensure that this method is called after [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]).
+ Call this method when you are in a channel.
 
  @param volume Audio mixing volume for publishing. The value ranges between 0 and 100 (default).
  @return * 0: Success.
@@ -2768,8 +2477,6 @@ This method helps troubleshoot audio volume related issues.
 - (int)getAudioMixingCurrentPosition;
 
 /** Sets the playback position of the audio mixing file to a different starting position (the default plays from the beginning).
- 
- Ensure that this method is called after [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]).
 
  @param pos The playback starting position (ms) of the audio mixing file.
 
@@ -2781,7 +2488,7 @@ This method helps troubleshoot audio volume related issues.
 /** Sets the pitch of the local music file.
 
  **Since:** v3.0.1.
- 
+
  When a local music file is mixed with a local human voice, call this method to set the pitch of the local music file only.
 
  @note Call this method after calling [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]).
@@ -2802,19 +2509,15 @@ This method helps troubleshoot audio volume related issues.
 
 /** Retrieves the volume of the audio effects.
 
- Ensure that this method is called after [playEffect]([AgoraRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]).
+The value ranges between 0.0 and 100.0.
 
- The value ranges between 0.0 and 100.0.
-
- @return * &ge; 0: Volume of the audio effects, if this method call is successful.
+@return * &ge; 0: Volume of the audio effects, if this method call is successful.
 
 * < 0: Failure.
  */
 - (double)getEffectsVolume;
 
 /** Sets the volume of the audio effects.
- 
- Ensure that this method is called after [playEffect]([AgoraRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]).
 
  @param volume Volume of the audio effects. The value ranges between 0.0 and 100.0 (default).
 
@@ -2825,8 +2528,6 @@ This method helps troubleshoot audio volume related issues.
 
 /** Sets the volume of a specified audio effect.
 
- Ensure that this method is called after [playEffect]([AgoraRtcEngineKit playEffect:filePath:loopCount:pitch:pan:gain:publish:]).
-
  @param soundId ID of the audio effect. Each audio effect has a unique ID.
  @param volume Volume of the audio effect. The value ranges between 0.0 and 100.0 (default).
 
@@ -2835,6 +2536,25 @@ This method helps troubleshoot audio volume related issues.
  */
 - (int)setVolumeOfEffect:(int)soundId
               withVolume:(double)volume;
+/** Enables/Disables face detection for the local user.
+
+ **Since:** v3.0.1.
+
+ Once face detection is enabled, the SDK triggers the [facePositionDidChangeWidth]([AgoraRtcEngineDelegate rtcEngine:facePositionDidChangeWidth:previewHeight:faces:]) callback to report the face information of the local user, which includes the following aspects:
+
+ - The width and height of the local video.
+ - The position of the human face in the local video.
+ - The distance between the human face and the device screen.
+
+ @param enable Determines whether to enable the face detection function for the local user:
+
+ - YES: Enable face detection.
+ - NO: Disable face detection.
+
+ @return - 0: Success.
+ - < 0: Failure.
+ */
+- (int)enableFaceDetection:(bool)enable;
 
 /** Plays a specified audio effect.
 
@@ -2846,14 +2566,10 @@ To play multiple audio effect files simultaneously, call this method multiple ti
 
 When the audio effect file playback is finished, the SDK triggers the [rtcEngineDidAudioEffectFinish]([AgoraRtcEngineDelegate rtcEngineDidAudioEffectFinish:soundId:]) callback.
 
-**Note**
-
-- Ensure that you call this method after joining a channel.
-- Playing multiple online audio effect files simultaneously is not supported on macOS.
-
+@note Playing multiple online audio effect files simultaneously is not supported on macOS.
  @param soundId ID of the specified audio effect. Each audio effect has a unique ID.
  If the audio effect is preloaded into the memory through the [preloadEffect](preloadEffect:filePath:) method, ensure that the `soundId` value is set to the same value as in [preloadEffect](preloadEffect:filePath:).
- @param filePath Specifies the absolute path to the local audio effect file or the URL of the online audio effect file, for example, /var/mobile/Containers/Data/audio.mp4. Agora recommends entering the file suffix. If you cannot determine the file suffix type, then leave it blank. Supported audio formats: mp3, mp4, m4a, aac, 3gp, mkv and wav.
+ @param filePath Specifies the absolute path (including the suffixes of the filename) to the local audio effect file or the URL of the online audio effect file, for example, /var/mobile/Containers/Data/audio.mp4. Supported audio formats: mp3, mp4, m4a, aac, 3gp, mkv and wav.
  @param loopCount Sets the number of times the audio effect loops:
 
  * 0: Plays the audio effect once.
@@ -2987,7 +2703,7 @@ When the audio effect file playback is finished, the SDK triggers the [rtcEngine
 
   @return - 0: Success.
 - < 0: Failure.
- */ 
+ */
 - (int)startAudioRecording:(NSString * _Nonnull)filePath
                    sampleRate:(NSInteger)sampleRate
                    quality:(AgoraAudioRecordingQuality)quality;
@@ -3014,8 +2730,6 @@ When the audio effect file playback is finished, the SDK triggers the [rtcEngine
 /** Enables loopback recording. (macOS only)
 
  If you enable loopback recording, the output of the sound card is mixed into the audio stream sent to the other end.
- 
- You can call this method either before or after joining a channel.
 
  **Note:**
 
@@ -3048,8 +2762,6 @@ When the audio effect file playback is finished, the SDK triggers the [rtcEngine
  The SDK and the app can both configure the audio session by default. The app may occasionally use other apps or third-party components to manipulate the audio session and restrict the SDK from doing so. This method allows the app to restrict the SDK's manipulation of the audio session.
 
  You can call this method at any time to return the control of the audio sessions to the SDK.
- 
- You can call this method either before or after joining a channel.
 
  **Note:**
 
@@ -3169,9 +2881,7 @@ Once this method is enabled, the SDK returns the following callbacks:
 
 /** Sets the video source.
 
- In real-time communications, the SDK uses the default video input source (the built-in camera) to publish streams. To use an external video source, call AgoraVideoSourceProtocol to set the custom video source and then use this method to add the external video source into the SDK.
- 
- You can call this method either before or after joining a channel.
+In real-time communications, the SDK uses the default video input source (the built-in camera) to publish streams. To use an external video source, call AgoraVideoSourceProtocol to set the custom video source and then use this method to add the external video source into the SDK.
 
  @param videoSource AgoraVideoSourceProtocol
  */
@@ -3179,9 +2889,7 @@ Once this method is enabled, the SDK returns the following callbacks:
 
 /** Sets the local video renderer.
 
- In real-time communications, the SDK uses the default video renderer to render the video. To use an external video renderer, call AgoraVideoSinkProtocol to set the custom local video renderer and then use this method to add the external renderer into the SDK.
- 
- You can call this method either before or after joining a channel.
+In real-time communications, the SDK uses the default video renderer to render the video. To use an external video renderer, call AgoraVideoSinkProtocol to set the custom local video renderer and then use this method to add the external renderer into the SDK.
 
  @param videoRenderer Sets the local video renderer. See AgoraVideoSinkProtocol.
  */
@@ -3190,8 +2898,6 @@ Once this method is enabled, the SDK returns the following callbacks:
 /** Sets the remote video renderer.
 
  This method sets the remote renderer. In real-time communications, the SDK uses the default video renderer to render the video. To use an external video renderer, call AgoraVideoSinkProtocol to set the custom remote video renderer and then use this method to add the external renderer into the SDK.
- 
- You can call this method either before or after joining a channel. If you call it before joining a channel, you need to maintain the `uid` of the remote user on your app level.
 
  @param videoRenderer Sets the video renderer of the remote user. See AgoraVideoSinkProtocol.
  @param userId ID of the remote user.
@@ -3220,17 +2926,15 @@ Once this method is enabled, the SDK returns the following callbacks:
 
 #pragma mark External Audio Data
 /** Enables the external audio sink.
- 
+
  This method applies to scenarios where you want to use external audio data for playback. After enabling the external audio sink, you can call the [pullPlaybackAudioFrameRawData]([AgoraRtcEngineKit pullPlaybackAudioFrameRawData:lengthInByte:]) / [pullPlaybackAudioFrameSampleBufferByLengthInByte]([AgoraRtcEngineKit pullPlaybackAudioFrameSampleBufferByLengthInByte:]) method to pull the remote audio data, process it, and play it with the audio effects that you want.
- 
- Ensure that you call this method before joining a channel.
 
  @param sampleRate Sets the sample rate (Hz) of the external audio sink. You can set this parameter as 16000, 32000, 44100 or 48000.
  @param channels Sets the number of audio channels of the external audio sink:
 
  - 1: Mono
  - 2: Stereo
- 
+
  @note Once you enable the external audio sink, the app will not retrieve any audio data from the `onPlaybackAudioFrame` callback.
  */
 - (void)enableExternalAudioSink:(NSUInteger)sampleRate
@@ -3241,21 +2945,23 @@ Once this method is enabled, the SDK returns the following callbacks:
 - (void)disableExternalAudioSink;
 
 /** Pulls the remote audio data in the RawData format.
- 
+
  Before calling this method, call the [enableExternalAudioSink]([AgoraRtcEngineKit enableExternalAudioSink:channels:]) method to enable and set the external audio sink.
- 
+
  After a successful method call, the app pulls the decoded and mixed audio data for playback.
 
  **Note**
- 
- - Ensure that you call this method after joining a channel. Once you call the [pullPlaybackAudioFrameRawData]([AgoraRtcEngineKit pullPlaybackAudioFrameRawData:lengthInByte:]) method successfully, the app will not retrieve any audio data from the `onPlaybackAudioFrame` callback.
+
+ - Once you call the [pullPlaybackAudioFrameRawData]([AgoraRtcEngineKit pullPlaybackAudioFrameRawData:lengthInByte:]) method successfully, the app will not retrieve any audio data from the `onPlaybackAudioFrame` callback.
  - The difference between the `onPlaybackAudioFrame` callback and the `pullPlaybackAudioFrameRawData` method is as follows:
-    - `onPlaybackAudioFrame`: The SDK sends the audio data to the app through this callback. Any delay in processing the audio frames may result in audio jitter.
+    - `onPlaybackAudioFrame`: The SDK sends the audio data to the app once every 10 ms. Any delay in processing the audio frames may result in audio jitter.
     - `pullPlaybackAudioFrameRawData`: The app pulls the remote audio data autonomously. After setting the audio data parameters, the SDK adjusts the frame buffer and avoids problems caused by jitter in the external audio playback.
- 
+
  @param data The audio data that you want to pull. The data format is in byte[].
- @param lengthInByte The data length (byte) of the external audio data. The value of this parameter is related to the audio duration, and the values of the `sampleRate` and `channels` parameters that you set in [enableExternalAudioSink]([AgoraRtcEngineKit enableExternalAudioSink:channels:]). Agora recommends setting the audio duration no shorter than 10 ms. The formula for `lengthInByte` is as follows: `lengthInByte` = `sampleRate` / 1000 × 2 × `channels` × audio duration (ms).
- 
+ @param lengthInByte The data length (byte) of the external audio data.
+
+ The value of this parameter is related to the value of the `sampleRate` parameter that you set in the [enableExternalAudioSink]([AgoraRtcEngineKit enableExternalAudioSink:channels:]) method: lengthInByte = sampleRate / 100 * 2 * number of channels * time (ms).
+
  @return - YES: Success.
  - NO: Failure.
  */
@@ -3270,12 +2976,16 @@ Once this method is enabled, the SDK returns the following callbacks:
 
  **Note**
 
- - Ensure that you call this method after joining a channel. Once you call the [pullPlaybackAudioFrameSampleBufferByLengthInByte]([AgoraRtcEngineKit pullPlaybackAudioFrameSampleBufferByLengthInByte:]) method successfully, the app will not retrieve any audio data from the `onPlaybackAudioFrame` callback.
+ - Once you call the [pullPlaybackAudioFrameSampleBufferByLengthInByte]([AgoraRtcEngineKit pullPlaybackAudioFrameSampleBufferByLengthInByte:]) method successfully, the app will not retrieve any audio data from the `onPlaybackAudioFrame` callback.
  - The difference between the `onPlaybackAudioFrame` callback and the `pullPlaybackAudioFrameSampleBufferByLengthInByte` method is as follows:
-    - `onPlaybackAudioFrame`: The SDK sends the audio data to the app through this callback. Any delay in processing the audio frames may result in audio jitter.
+    - `onPlaybackAudioFrame`: The SDK sends the audio data to the app once every 10 ms. Any delay in processing the audio frames may result in audio jitter.
     - `pullPlaybackAudioFrameSampleBufferByLengthInByte`: The app pulls the remote audio data. After setting the audio data parameters, the SDK adjusts the frame buffer and avoids problems caused by jitter in the external audio playback.
- 
- @param lengthInByte The data length (byte) of the external audio data. The value of this parameter is related to the audio duration, and the values of the `sampleRate` and `channels` parameters that you set in [enableExternalAudioSink]([AgoraRtcEngineKit enableExternalAudioSink:channels:]). This parameter should be divisible by the value of `sampleRate`, and Agora recommends setting the audio duration no shorter than 10 ms. The formula for `lengthInByte` is as follows: `lengthInByte` = `sampleRate` / 1000 × 2 × `channels` × audio duration (ms).
+
+ @param lengthInByte The data length (byte) of the external audio data.
+
+ The value of this parameter is related to the value of the sampleRate parameter that you set in the [enableExternalAudioSink]([AgoraRtcEngineKit enableExternalAudioSink:channels:]) method:
+
+ - `lengthInByte` = `sampleRate` / 100 * 2 * number of channels * time (ms).
  - This parameter should be divisible by the value of sampleRate.
 
  @return - YES: Success.
@@ -3290,11 +3000,11 @@ Once this method is enabled, the SDK returns the following callbacks:
 
 /** Enables the external audio source.
 
- Call this method before [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) and [startPreview]([AgoraRtcEngineKit startPreview]).
+ Call this method before joining the channel.
 
  @param sampleRate       Sets the sample rate (Hz) of the external audio source: 8000, 16000, 44100, or 48000 Hz.
  @param channelsPerFrame Sets the number of external audio source channels:
- 
+
  - 1: Mono.
  - 2: Stereo.
  */
@@ -3309,7 +3019,7 @@ Once this method is enabled, the SDK returns the following callbacks:
 
  @param data      External audio data to be pushed.
  @param samples   Number of samples for the push.
- @param timestamp The timestamp (ms) of the external audio frame. It is mandatory. You can use this parameter for the following purposes:
+ @param timestamp The timestamp of the external audio frame. It is mandatory. You can use this parameter for the following purposes:
 
  - Restore the order of the captured audio frame.
  - Synchronize audio and video frames in video-related scenarios, including scenarios where external video sources are used.
@@ -3359,10 +3069,8 @@ Once this method is enabled, the SDK returns the following callbacks:
 
 /** Pushes the external video frame.
 
- This method pushes the video frame using the AgoraVideoFrame class and passes the video frame to the SDK with the `format` parameter found in AgoraVideoFrame.
- Call the [setExternalVideoSource](setExternalVideoSource:useTexture:pushMode:) method and set the `pushMode` parameter as `YES` before calling this method. Otherwise, a failure returns after calling this method.
- 
- @note The SDK does not support the alpha channel, and discards any alpha value passed to the SDK.
+This method pushes the video frame using the AgoraVideoFrame class and passes the video frame to the SDK with the `format` parameter found in AgoraVideoFrame.
+Call the [setExternalVideoSource](setExternalVideoSource:useTexture:pushMode:) method and set the `pushMode` parameter as `YES` before calling this method. Otherwise, a failure returns after calling this method.
 
  @param frame Video frame containing the SDK's encoded video data to be pushed. See AgoraVideoFrame.
  @return * YES: The frame is pushed successfully.
@@ -3381,8 +3089,6 @@ Once this method is enabled, the SDK returns the following callbacks:
 /** Sets the audio recording format for the `onRecordAudioFrame` callback.
 
 See [Raw Audio Data](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_audio_apple?platform=iOS).
-
-Ensure that you call this method before joining a channel.
 
 @note The SDK calculates the sample interval according to the value of the `sampleRate`, `channel`, and `samplesPerCall` parameters you set in this method. Sample interval (sec) = `samplePerCall`/(`sampleRate` * `channel`). Ensure that the value of sample interval is no less than 0.01. The SDK triggers the `onRecordAudioFrame` callback according to the sample interval.
 
@@ -3406,8 +3112,6 @@ Ensure that you call this method before joining a channel.
 
 See [Raw Audio Data](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_audio_apple?platform=iOS).
 
-Ensure that you call this method before joining a channel.
-
 @note The SDK calculates the sample interval according to the value of the `sampleRate`, `channel`, and `samplesPerCall` parameters you set in this method. Sample interval (sec) = `samplePerCall`/(`sampleRate` * `channel`). Ensure that the value of sample interval is no less than 0.01. The SDK triggers the `onPlaybackAudioFrame` callback according to the sample interval.
 
  @param sampleRate     Sets the sample rate (`samplesPerSec`) returned in the `onPlaybackAudioFrame` callback, which can be set as 8000, 16000, 32000, 44100, or 48000 Hz.
@@ -3429,8 +3133,6 @@ Ensure that you call this method before joining a channel.
 /** Sets the mixed audio format for the `onMixedAudioFrame` callback.
 
 See [Raw Audio Data](https://docs.agora.io/en/Interactive%20Broadcast/raw_data_audio_apple?platform=iOS).
-
-Ensure that you call this method before joining a channel.
 
 @note The SDK calculates the sample interval according to the value of the `sampleRate`, `channel`, and `samplesPerCall` parameters you set in this method. Sample interval (sec) = `samplePerCall`/(`sampleRate` * `channel`). Ensure that the value of sample interval is no less than 0.01. The SDK triggers the `onMixedAudioFrame` callback according to the sample interval.
 
@@ -3496,7 +3198,7 @@ Ensure that you call this method before joining a channel.
 
 /** Sets the priority of a remote user's stream.
 
-The SDK ensures the high-priority user gets the best possible stream quality.
+Use this method with the [setRemoteSubscribeFallbackOption]([AgoraRtcEngineKit setRemoteSubscribeFallbackOption:]) method. If the fallback function is enabled for a remote stream, the SDK ensures the high-priority user gets the best possible stream quality.
 
 **Note:**
 
@@ -3520,8 +3222,6 @@ If `option` is set as `AgoraStreamFallbackOptionAudioOnly`, the SDK will:
  * Re-enable the video when the network conditions improve.
 
  When the published video stream falls back to audio only or when the audio-only stream switches back to the video, the SDK triggers the [didLocalPublishFallbackToAudioOnly]([AgoraRtcEngineDelegate rtcEngine:didLocalPublishFallbackToAudioOnly:]) callback.
- 
- Ensure that you call this method before joining a channel.
 
  **Note:**
 
@@ -3539,8 +3239,6 @@ The default setting for `option` is `AgoraStreamFallbackOptionVideoStreamLow`, w
 
 If `option` is set as `AgoraStreamFallbackOptionAudioOnly`, the SDK automatically switches the video from a high stream to a low stream, or disables the video when the downlink network conditions cannot support both audio and video to guarantee the quality of the audio. The SDK monitors the network quality and re-enables the video stream when the network conditions improve.
  When the remotely subscribed video stream falls back to audio only or when the audio-only stream switches back to the video, the SDK triggers the [didRemoteSubscribeFallbackToAudioOnly]([AgoraRtcEngineDelegate  rtcEngine:didRemoteSubscribeFallbackToAudioOnly:byUid:]) callback.
-
-Ensure that you call this method before joining a channel.
 
  @param option Sets the fallback option for the remotely subscribed video stream. The default value is `AgoraStreamFallbackOptionVideoStreamLow`. See AgoraStreamFallbackOptions.
  @return * 0: Success.
@@ -3560,8 +3258,6 @@ Ensure that you call this method before joining a channel.
 
 If dual-stream mode is enabled, the receiver can choose to receive the high-stream (high-resolution high-bitrate) or low-stream (low-resolution low-bitrate) video.
 
-You can call this method either before or after joining a channel.
-
  @param enabled Sets the stream mode:
 
  * YES: Dual-stream mode.
@@ -3575,14 +3271,12 @@ You can call this method either before or after joining a channel.
 /** Sets the stream type of the remote video.
 
  Under limited network conditions, if the publisher has not disabled the dual-stream mode using [enableDualStreamMode(NO)]([AgoraRtcEngineKit enableDualStreamMode:])enableDualStreamMode(NO), the receiver can choose to receive either the high-quality video stream (the high resolution, and high bitrate video stream) or the low-quality video stream (the low resolution, and low bitrate video stream).
- 
- By default, users receive the high-quality video stream. Call this method if you want to switch the remote stream type to reduce the bandwidth and resources.
- 
- The aspect ratio of the low-quality video stream is the same as the high-quality video stream. Once the resolution of the high-quality video stream is set, the system automatically sets the resolution, frame rate, and bitrate of the low-quality video stream.
- 
- The SDK reports the result of calling this method in the [didApiCallExecute]([AgoraRtcEngineDelegate rtcEngine:didApiCallExecute:api:result:]) callback.
 
- @note You can call this method either before or after joining a channel. If you call both `setRemoteVideoStream` and [setRemoteDefaultVideoStreamType]([AgoraRtcEngineKit setRemoteDefaultVideoStreamType:]), the SDK applies the settings in the `setRemoteVideoStream` method.
+ By default, users receive the high-quality video stream. Call this method if you want to switch the remote stream type to reduce the bandwidth and resources.
+
+ The aspect ratio of the low-quality video stream is the same as the high-quality video stream. Once the resolution of the high-quality video stream is set, the system automatically sets the resolution, frame rate, and bitrate of the low-quality video stream.
+
+ The SDK reports the result of calling this method in the [didApiCallExecute]([AgoraRtcEngineDelegate rtcEngine:didApiCallExecute:api:result:]) callback.
 
  @param uid        ID of the remote user sending the video stream.
  @param streamType  Sets the video-stream type. See AgoraVideoStreamType.
@@ -3594,8 +3288,6 @@ You can call this method either before or after joining a channel.
                        type:(AgoraVideoStreamType)streamType;
 
 /** Sets the default video-stream type for the video received by the local user when the remote user sends dual streams.
-
- @note You can call this method either before or after joining a channel. If you call both `setRemoteDefaultVideoStreamType` and [setRemoteVideoStream]([AgoraRtcEngineKit setRemoteVideoStream:type:]), the SDK applies the settings in the `setRemoteDefaultVideoStreamType` method.
 
  @param streamType Sets the default video-stream type. See AgoraVideoStreamType.
 
@@ -3614,8 +3306,6 @@ You can call this method either before or after joining a channel.
 
 /** Enables/Disables the built-in encryption.
 
- @since v3.1.0
-
  In scenarios requiring high security, Agora recommends calling enableEncryption to enable the built-in encryption before joining a channel.
  
  All users in the same channel must use the same encryption mode and encryption key. Once all users leave the channel, the encryption key of this channel is automatically cleared.
@@ -3623,10 +3313,9 @@ You can call this method either before or after joining a channel.
  **Note**
 
  - If you enable the built-in encryption, you cannot use the RTMP streaming function.
- - Agora supports four encryption modes. If you choose an encryption mode (excepting `SM4_128_ECB` mode), you need to add an external encryption library when integrating the iOS SDK. See *Channel Encryption*.
+ - Agora supports four encryption modes. If you choose an encryption mode (excepting `SM4_128_ECB` mode), you need to add an external encryption library when integrating the SDK. See *Channel Encryption*.
 
  @param enabled Whether to enable the built-in encryption:
- 
  - YES: Enable the built-in encryption.
  - NO: Disable the built-in encryption.
 
@@ -3639,7 +3328,7 @@ You can call this method either before or after joining a channel.
   - -7 (`AgoraErrorCodeNotInitialized`): The SDK is not initialized. Initialize the `AgoraRtcEngineKit` instance before calling this method.
   - -4 (`AgoraErrorCodeNotSupported`): The encryption mode is incorrect or the SDK fails to load the external encryption library. Check the enumeration or reload the external encryption library.
  */
-- (int)enableEncryption:(bool)enabled encryptionConfig:(AgoraEncryptionConfig * _Nonnull)config;
+- (int)enableEncryption:(bool)enabled encryptionConfig:(AgoraEncryptionConfig *)config;
 
 #pragma mark Inject an Online Media Stream
 
@@ -3667,7 +3356,6 @@ You can call this method either before or after joining a channel.
 
  **Note:**
 
- - Ensure that you call this method after joining a channel.
  - You can inject only one media stream into the channel at the same time.
  - Ensure that you enable the RTMP Converter service before using this function. See [Prerequisites](https://docs.agora.io/en/Interactive%20Broadcast/cdn_streaming_apple?platform=iOS#prerequisites).
  - This method applies to the Native SDK v2.4.1 and later.
@@ -3755,9 +3443,8 @@ This method call triggers the [rtmpStreamingChangedToState]([AgoraRtcEngineDeleg
 
  The SDK triggers the [rtcEngineTranscodingUpdated]([AgoraRtcEngineDelegate rtcEngineTranscodingUpdated:]) callback when you call the `setLiveTranscoding` method to update the transcoding setting.
 
- **Note** 
+ **Note**
 
- - Ensure that you call this method after joining a channel.
  - This method applies to the live interactive streaming profile only.
  - Ensure that you enable the RTMP Converter service before using this function. See [Prerequisites](https://docs.agora.io/en/Interactive%20Broadcast/cdn_streaming_apple?platform=iOS#prerequisites).
  - If you call the `setLiveTranscoding` method to update the transcoding setting for the first time, the SDK does not trigger the `rtcEngineTranscodingUpdated` callback.
@@ -3784,10 +3471,9 @@ This method call triggers the [rtmpStreamingChangedToState]([AgoraRtcEngineDeleg
 
  **Note:**
 
- - Ensure that you call this method after joining a channel.
- - Set both the `reliable` and `ordered` parameters to `YES` or `NO`. Do not set one as `YES` and the other as `NO`.
+ Set both the `reliable` and `ordered` parameters to `YES` or `NO`. Do not set one as `YES` and the other as `NO`.
 
- @param streamId (Output parameter) The ID of the created data stream.
+ @param streamId ID of the created data stream.
  @param reliable Sets whether or not the recipients are guaranteed to receive the data stream from the sender within five seconds:
 
  * YES: The recipients receive the data stream from the sender within five seconds. If the recipient does not receive the data stream within five seconds, an error is reported to the app.
@@ -3869,8 +3555,6 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Switches between front and rear cameras. (iOS only)
 
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
-
  @return * 0: Success.
 * < 0: Failure.
  */
@@ -3878,16 +3562,12 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Checks whether the camera zoom function is supported. (iOS only.)
 
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
-
  @return * YES: The device supports the camera zoom function.
  * NO: The device does not support the camera zoom function.
  */
 - (BOOL)isCameraZoomSupported;
 
 /** Checks whether the camera flash function is supported. (iOS only.)
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
 
  **Note:**
 
@@ -3900,16 +3580,12 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Checks whether the camera manual focus function is supported. (iOS only)
 
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
-
  @return * YES: The device supports the camera manual focus function.
  * NO: The device does not support the camera manual focus function.
  */
 - (BOOL)isCameraFocusPositionInPreviewSupported;
 
 /** Checks whether the camera manual exposure function is supported. (iOS only)
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
 
  @return * YES: The device supports the manual exposure function.
  * NO: The device does not support the manual exposure function.
@@ -3918,16 +3594,12 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Checks whether the camera auto-face focus function is supported. (iOS only)
 
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
-
  @return * YES: The device supports the camera auto-face focus function.
  * NO: The device does not support the camera auto-face focus function.
  */
 - (BOOL)isCameraAutoFocusFaceModeSupported;
 
 /** Sets the camera zoom ratio. (iOS only)
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
 
  @param zoomFactor Sets the camera zoom factor. The value ranges between 1.0 and the maximum zoom supported by the device.
 
@@ -3938,9 +3610,7 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Sets the manual focus position. (iOS only)
 
- A successful setCameraFocusPositionInPreview method call triggers the o[cameraFocusDidChangedToRect]([AgoraRtcEngineDelegate rtcEngine:cameraFocusDidChangedToRect:]) callback on the local client.
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
+A successful setCameraFocusPositionInPreview method call triggers the o[cameraFocusDidChangedToRect]([AgoraRtcEngineDelegate rtcEngine:cameraFocusDidChangedToRect:]) callback on the local client.
 
  @param position Coordinates of the touch point in the view.
 
@@ -3951,9 +3621,7 @@ Call this method before enabling the local camera. That said, you can call this 
 
 /** Sets the camera exposure position. (iOS only)
 
- A successful setCameraExposurePosition method call triggers the [cameraExposureDidChangedToRect]([AgoraRtcEngineDelegate rtcEngine:cameraExposureDidChangedToRect:]) callback on the local client.
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
+A successful setCameraExposurePosition method call triggers the [cameraExposureDidChangedToRect]([AgoraRtcEngineDelegate rtcEngine:cameraExposureDidChangedToRect:]) callback on the local client.
 
  @param positionInView Coordinates of the touch point in the view.
 
@@ -3963,8 +3631,6 @@ Call this method before enabling the local camera. That said, you can call this 
 - (BOOL)setCameraExposurePosition:(CGPoint)positionInView;
 
 /** Enables the camera flash function. (iOS only.)
- 
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
 
  @param isOn * YES: Enable the camera flash function.
  * NO: Disable the camera flash function.
@@ -3975,8 +3641,6 @@ Call this method before enabling the local camera. That said, you can call this 
 - (BOOL)setCameraTorchOn:(BOOL)isOn;
 
 /** Enables the camera auto-face focus function. (iOS only.)
-
- @note Ensure that you call this method after the camera starts, for example, by calling [startPreview]([AgoraRtcEngineKit startPreview]) or [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
 
  @param enable * YES: Enable the camera auto-face focus function.
  * NO: (Default) Disable the camera auto-face focus function.
@@ -3998,8 +3662,6 @@ Call this method before enabling the local camera. That said, you can call this 
  */
 
 /** Shares the whole or part of a screen by specifying the display ID.  (macOS only.)
-
-@note Ensure that you call this method after joining a channel.
 
 @param displayId The display ID of the screen to be shared. This parameter specifies which screen you want to share. For information on how to get the displayId, see *Share the Screen*.
 @param rectangle (Optional) The relative location of the region to the screen. nil means sharing the whole screen. This parameter contains the following properties:
@@ -4023,8 +3685,6 @@ If the specified region overruns the screen, the SDK shares only the region with
                           parameters:(AgoraScreenCaptureParameters * _Nonnull)captureParams;
 
 /** Shares the whole or part of a window by specifying the window ID. (macOS only.)
-
-@note Ensure that you call this method after joining a channel.
 
 @param windowId The ID of the window to be shared. This parameter specifies which window you want to share. For information on how to get the windowId, see *Share the Screen*.
 @param rectangle (Optional) The relative location of the region to the window. nil means sharing the whole window. This parameter contains the following properties:
@@ -4050,8 +3710,6 @@ If the specified region overruns the window, the SDK shares only the region with
 /** Sets the content hint for screen sharing.
 
 A content hint suggests the type of the content being shared, so that the SDK applies different optimization algorithm to different types of content.
-
-You can call this method either before or after you start screen sharing.
 
 @param contentHint The content hint for screen sharing, see [AgoraVideoContentHint](AgoraVideoContentHint).
 
@@ -4193,14 +3851,14 @@ If the specified region overruns the screen or window, the SDK shares only the r
 
  /** Starts an audio playback device test. (macOS only.)
 
- This method tests if the playback device works properly. Once the test starts, the SDK plays an audio file specified by the user, and uses the [reportAudioVolumeIndicationOfSpeakers]([AgoraRtcEngineDelegate rtcEngine:reportAudioVolumeIndicationOfSpeakers:totalVolume:]) callback to notify the application with the volume information. If the user can hear the audio, the playback device works properly.
+ This method tests whether the audio playback device works properly with a specified playback audio file.
 
  @param audioFileName Absolute path of the audio file for the test in UTF-8:
 
  - Supported file formats: wav, mp3, m4a, and aac.
  - Supported file sample rates: 8000, 16000, 32000, 44100, and 48000 Hz.
 
- @return * 0: Success.
+ @return * 0: Success, and you can hear the playback of the specified audio file.
 * < 0: Failure.
  */
 - (int)startPlaybackDeviceTest:(NSString * _Nonnull)audioFileName;
@@ -4291,7 +3949,7 @@ Ensure that you call this method to stop the loopback test after calling the [st
  You need to implement the AgoraMediaMetadataDelegate protocol and specify the type of metadata in this method.
 
  **Note**
- 
+
  - Call this method before the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.
  - This method applies to the live interactive streaming channel profile only.
 
@@ -4315,15 +3973,11 @@ Ensure that you call this method to stop the loopback test after calling the [st
 
  The [rate](rate:rating:description:) and [complain](complain:description:) methods require the `callId` parameter retrieved from the `getCallId` method during a call. *callId* is passed as an argument into the [rate](rate:rating:description:) and [complain](complain:description:) methods after the call ends.
 
- @note Ensure that you call this method after joining a channel.
- 
  @return callId The current call ID.
  */
 - (NSString * _Nullable)getCallId;
 
 /** Allows a user to rate a call after the call ends.
-
- @note Ensure that you call this method after leaving a channel.
 
  @param callId      Call ID retrieved from the [getCallId]([AgoraRtcEngineKit getCallId]) method.
  @param rating      Rating of the call. The value is between 1 (lowest score) and 5 (highest score). If you set a value out of this range, the AgoraErrorCodeInvalidArgument(-2) error occurs.
@@ -4340,8 +3994,6 @@ Ensure that you call this method to stop the loopback test after calling the [st
 description:(NSString * _Nullable)description;
 
 /** Allows a user to complain about the call quality after a call ends.
-
- @note Ensure that you call this method after leaving a channel.
 
  @param callId      Call ID retrieved from the getCallId method.
  @param description (Optional) Description of the complaint. The string length must be less than 800 bytes.
@@ -4369,8 +4021,6 @@ description:(NSString * _Nullable)description;
 /** Retrieves the SDK version.
 
  This method returns the string of the version number.
- 
- @note You can call this method either before or after joining a channel.
 
  @return The version of the current SDK in the string format. For example, 2.3.0
  */
@@ -4435,8 +4085,6 @@ For example, if you set the log level to `Warning`, you see the logs within leve
  encoded in UTF-8. The SDK writes the latest logs in `agorasdk.log`. When `agorasdk.log` is full, 
  the SDK deletes the log file with the earliest modification time among the other four, renames 
  `agorasdk.log` to the name of the deleted log file, and create a new `agorasdk.log` to record latest logs.
- 
- @note If you want to set the log file size, ensure that you call `setLogFileSize` before [setLogFile]([AgoraRtcEngineKit setLogFile:]), or the logs are cleared.
 
  @see [setLogFile]([AgoraRtcEngineKit setLogFile:])
 
@@ -4451,13 +4099,8 @@ For example, if you set the log level to `Warning`, you see the logs within leve
  */
 - (int)setLogFileSize:(NSUInteger)fileSizeInKBytes;
 
-/** Agora supports reporting and analyzing customized messages. 
- 
- @since 3.1.0
-
- This function is in the beta stage with a free trial. 
- The ability provided in its beta test version is reporting a maximum of 10 message pieces within 6 seconds, 
- with each message piece not exceeding 256 bytes and each string not exceeding 100 bytes.
+/** Agora supports reporting and analyzing customized messages. This function is in the beta stage with a free trial. The ability provided 
+ in its beta test version is reporting a maximum of 10 message pieces within 6 seconds, with each message piece not exceeding 256 bytes. 
  To try out this function, contact [support@agora.io](mailto:support@agora.io) and discuss the format of customized messages with us.
  */
 - (int)sendCustomReportMessage:(NSString * _Nonnull)id
@@ -4478,6 +4121,7 @@ For example, if you set the log level to `Warning`, you see the logs within leve
 
  */
 @property (nonatomic, weak) id<AgoraRtcEngineDelegate> _Nullable delegate;
+
 
 #pragma mark Customized Methods (Technical Preview)
 
@@ -4506,6 +4150,7 @@ For example, if you set the log level to `Warning`, you see the logs within leve
 - (NSString * _Nullable)getParameter:(NSString * _Nonnull)parameter
                                 args:(NSString * _Nullable)args;
 
+
 #pragma mark Deprecated Methods
 
 /**-----------------------------------------------------------------------------
@@ -4513,107 +4158,9 @@ For example, if you set the log level to `Warning`, you see the logs within leve
  * -----------------------------------------------------------------------------
  */
 
-/** Sets the local voice changer option.
-
-**DEPRECATED** from v3.2.0. Use [setAudioEffectPreset]([AgoraRtcEngineKit setAudioEffectPreset:]) or 
-[setVoiceBeautifierPreset]([AgoraRtcEngineKit setVoiceBeautifierPreset:]) instead.
-
-This method can be used to set the local voice effect for users in a Communication channel or hosts in the live interactive streaming channel. Voice changer options include the following voice effects:
-
-| Voice effect             | Description                                                  | Scenario          |
-| :----------------------- | :----------------------------------------------------------- | :---------------- |
-| AgoraAudioVoiceChanger*        | Changes the local voice to an old man, a little boy, or the Hulk. | Voice talk        |
-| AgoraAudioVoiceBeauty*         | Beautifies the local voice by making it sound more vigorous, resounding, or adding spacial resonance. | Voice talkSinging |
-| AgoraAudioGeneralBeautyVoice* | Adds gender-based beautification effect to the local voice:<li>For a male voice: Adds magnetism to the voice.<li>For a female voice: Adds freshness or vitality to the voice.</li> | Voice talk        |
-
-**Note:**
-
-- To achieve better voice effect quality, Agora recommends setting the `profile` parameter in [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) as `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)`.
-- This method works best with the human voice, and Agora does not recommend using it for audio containing music and a human voice.
-- Do not use this method with [setLocalVoiceReverbPreset]([AgoraRtcEngineKit setLocalVoiceReverbPreset:]), because the method called later overrides the one called earlier. For detailed considerations, see the advanced guide *Voice Changer and Reverberation*.
-
-@param voiceChanger <p>The local voice changer option. The default value is `AgoraAudioVoiceChangerOff`, which means the original voice. See details in AgoraAudioVoiceChanger.</p>
-Gender-based beatification effect works best only when assigned a proper gender:
-<li>For male: AgoraAudioGeneralBeautyVoiceMaleMagnetic.<li>For female: AgoraAudioGeneralBeautyVoiceFemaleFresh or AgoraAudioGeneralBeautyVoiceFemaleVitality.</li>
-<p>Failure to do so can lead to voice distortion.</p>
-
-@return * 0: Success.
-* < 0: Failure. Check if the enumeration is properly set.
-*/
-- (int) setLocalVoiceChanger:(AgoraAudioVoiceChanger)voiceChanger __deprecated_msg("use setAudioEffectPreset or setVoiceBeautifierPreset instead.");
-
-/** Sets the local voice reverberation option, including the virtual stereo.
-
-**DEPRECATED** from v3.2.0. Use [setAudioEffectPreset]([AgoraRtcEngineKit setAudioEffectPreset:]) or 
-[setVoiceBeautifierPreset]([AgoraRtcEngineKit setVoiceBeautifierPreset:]) instead.
-
-This method sets the local voice reverberation for users in a Communication channel or hosts in the live interactive streaming channel. After successfully calling this method, all users in the channel can hear the voice with reverberation.
-
-**Note:**
-
-- When calling this method with enumerations that begin with `AgoraAudioReverbPresetFx`, ensure that you set `profile` in [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) as `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)`. Otherwise, this method call does not take effect.
-- When calling this method with `AgoraAudioReverbPresetVirtualStereo`, Agora recommends setting the `profile` parameter in `setAudioProfile` as `AgoraAudioProfileMusicHighQualityStereo(5)`. 
-- This method works best with the human voice, and Agora does not recommend using it for audio containing music and a human voice.
-- Do not use this method with [setLocalVoiceChanger]([AgoraRtcEngineKit setLocalVoiceChanger:]), because the method called later overrides the one called earlier. For detailed considerations, see the advanced guide *Voice Changer and Reverberation*.
-
- @param reverbPreset The local voice reverberation option. The default value is `AgoraAudioReverbPresetOff`, which means the original voice. See details in AgoraAudioReverbPreset.<p>**Note**</p><p>To achieve better voice effects, Agora recommends the enumeration whose name begins with `AgoraAudioReverbPresetFx`.</p>
-
- @return * 0: Success.
-* < 0: Failure. Check if the enumeration is properly set.
- */
-- (int) setLocalVoiceReverbPreset:(AgoraAudioReverbPreset)reverbPreset __deprecated_msg("use setAudioEffectPreset or setVoiceBeautifierPreset instead.");
-
-/** Enables built-in encryption with an encryption password before joining a channel.
-
- **DEPRECATED** from v3.1.0. Use [enableEncryption]([AgoraRtcEngineKit enableEncryption:encryptionConfig:]) instead.
-
-All users in a channel must set the same encryption password. The encryption password is automatically cleared once a user leaves the channel.
-
-  If the encryption password is not specified or set to empty, the encryption functionality is disabled.
-
- **Note:**
-
- - Do not use this method for CDN live streaming.
- - For optimal transmission, ensure that the encrypted data size does not exceed the original data size + 16 bytes. 16 bytes is the maximum padding size for AES encryption.
-
- @param secret Encryption password.
- @return * 0: Success.
-* < 0: Failure.
- */
-- (int)setEncryptionSecret:(NSString * _Nullable)secret;
-
-/** Sets the built-in encryption mode.
-
- **DEPRECATED** from v3.1.0. Use [enableEncryption]([AgoraRtcEngineKit enableEncryption:encryptionConfig:]) instead.
-
- The SDK supports built-in encryption, which is set to the `"aes-128-xts"
-` mode by default. Call this method to use other encryption modes.
-
- All users in the same channel must use the same encryption mode and password.
-
- Refer to the information related to the AES encryption algorithm on the differences between the encryption modes.
-
- **Note:**
-
- - Call the [setEncryptionSecret](setEncryptionSecret:) method to enable the built-in encryption function before calling this method.
- - Do not use this method for CDN live streaming.
-
- @param encryptionMode Sets the encryption mode.
-
- - "aes-128-xts": (default) 128-bit AES encryption, XTS mode.
- - "aes-256-xts": 256-bit AES encryption, XTS mode.
- - "aes-128-ecb": 128-bit AES encryption, ECB mode.
-
-When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts" by default.
-
- @return * 0: Success.
- * < 0: Failure.
- */
-- (int)setEncryptionMode:(NSString * _Nullable)encryptionMode;
-
 /** Sets the local video display mode.
 
- **DEPRECATED** from v3.0.0, use the new [setLocalRenderMode]([AgoraRtcEngineKit setLocalRenderMode:mirrorMode:]) method instead.
+ **DEPRECATED** from v3.0.0, use the [setupLocalVideo]([AgoraRtcEngineKit setupLocalVideo:]) method instead.
 
  This method can be invoked multiple times during a call to change the display mode.
 
@@ -4626,7 +4173,7 @@ When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts
 
 /** Sets the remote video display mode.
 
- **DEPRECATED** from v3.0.0, use the new [setRemoteRenderMode]([AgoraRtcEngineKit setRemoteRenderMode:renderMode:mirrorMode:]) method instead.
+ **DEPRECATED** from v3.0.0, use the [setupRemoteVideo]([AgoraRtcEngineKit setupRemoteVideo:]) method instead.
 
  This method can be invoked multiple times during a call to change the display mode.
 
@@ -4644,8 +4191,8 @@ When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts
  **DEPRECATED** from v3.0.0, use the [setupLocalVideo]([AgoraRtcEngineKit setupLocalVideo:]) or [setLocalRenderMode]([AgoraRtcEngineKit setLocalRenderMode:mirrorMode:]) method instead.
 
  Use this method before calling the startPreview method, or the mirror mode does not take effect until you re-enable startPreview.
- 
- @warning Call this method after calling the initializing the local video view by calling `setupLocalVideo`.
+
+ @warning <li>Call this method after calling the initializing the local video view by calling `setupLocalVideo`.<li>During a call, you can call this method as many times as necessary to update the mirror mode of the local video view.</li>
  @param mode Sets the local video mirror mode. See AgoraVideoMirrorMode.
 
  @return * 0: Success.
@@ -4654,7 +4201,7 @@ When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts
 - (int)setLocalVideoMirrorMode:(AgoraVideoMirrorMode)mode;
 
 /** Enables interoperability with the Agora Web SDK.
- 
+
  **DEPRECATED** from v3.0.0. As of v3.0.0, the Native SDK automatically enables interoperability with the Web SDK, so you no longer need to call this method.
 
  - This method is applicable to the live interactive streaming profile only. In the Communication profile, the SDK is interoperable with the Web SDK by default.
@@ -4673,7 +4220,7 @@ When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts
 /** Adds a watermark image to the local video or CDN live stream.
 
  **DEPRECATED** from v2.9.1. Use the new [addVideoWatermark]([AgoraRtcEngineKit addVideoWatermark:options:]) method.
- 
+
  This method adds a PNG watermark to the local video stream for the recording device, channel audience, or CDN live audience to see and capture.
 
  To add the PNG file onto a CDN live publishing stream only, see the [setLiveTranscoding]([AgoraRtcEngineKit setLiveTranscoding:]) method.
@@ -4854,8 +4401,6 @@ Under unreliable network connections or the device's CPU is overloaded, the vide
  **DEPRECATED** from v2.3.
 
  Each video profile includes a set of parameters, such as the resolution, frame rate, and bitrate. If the camera device does not support the specified resolution, the SDK automatically chooses a suitable camera resolution, keeping the encoder resolution specified by setVideoProfile.
- 
- You can call this method either before or after joining a channel.
 
  **Note:**
 
@@ -4873,7 +4418,7 @@ Under unreliable network connections or the device's CPU is overloaded, the vide
  The width and height of the output video are consistent with the set video profile.
 
  @return * 0: Success.
- * < 0: Failure.
+* < 0: Failure.
  */
 - (int)setVideoProfile:(AgoraVideoProfile)profile
     swapWidthAndHeight:(BOOL)swapWidthAndHeight __deprecated_msg("use setVideoEncoderConfiguration: instead.");
@@ -4958,6 +4503,54 @@ Under unreliable network connections or the device's CPU is overloaded, the vide
  @return The media engine version in the string format.
  */
 + (NSString * _Nonnull)getMediaEngineVersion __deprecated;
+
+/** Enables built-in encryption with an encryption password before joining a channel.
+
+ **DEPRECATED** from v3.1.0. Use [enableEncryption]([AgoraRtcEngineKit enableEncryption:encryptionConfig:]) instead.
+
+All users in a channel must set the same encryption password. The encryption password is automatically cleared once a user leaves the channel.
+
+  If the encryption password is not specified or set to empty, the encryption functionality is disabled.
+
+ **Note:**
+
+ - Do not use this method for CDN live streaming.
+ - For optimal transmission, ensure that the encrypted data size does not exceed the original data size + 16 bytes. 16 bytes is the maximum padding size for AES encryption.
+
+ @param secret Encryption password.
+ @return * 0: Success.
+* < 0: Failure.
+ */
+- (int)setEncryptionSecret:(NSString * _Nullable)secret;
+
+/** Sets the built-in encryption mode.
+
+ **DEPRECATED** from v3.1.0. Use [enableEncryption]([AgoraRtcEngineKit enableEncryption:encryptionConfig:]) instead.
+
+ The SDK supports built-in encryption, which is set to the `"aes-128-xts"
+` mode by default. Call this method to use other encryption modes.
+
+ All users in the same channel must use the same encryption mode and password.
+
+ Refer to the information related to the AES encryption algorithm on the differences between the encryption modes.
+
+ **Note:**
+
+ - Call the [setEncryptionSecret](setEncryptionSecret:) method to enable the built-in encryption function before calling this method.
+ - Do not use this method for CDN live streaming.
+
+ @param encryptionMode Sets the encryption mode.
+
+ - "aes-128-xts": (default) 128-bit AES encryption, XTS mode.
+ - "aes-256-xts": 256-bit AES encryption, XTS mode.
+ - "aes-128-ecb": 128-bit AES encryption, ECB mode.
+
+When `encryptionMode` is set as NULL, the encryption mode is set as "aes-128-xts" by default.
+
+ @return * 0: Success.
+ * < 0: Failure.
+ */
+- (int)setEncryptionMode:(NSString * _Nullable)encryptionMode;
 
 
 #pragma mark Deprecated Blocks

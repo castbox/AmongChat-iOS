@@ -45,6 +45,8 @@
 		BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */; };
 		BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */; };
 		BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */; };
+		BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */; };
+		BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
@@ -322,6 +324,8 @@
 		BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsAPI.swift; sourceTree = "<group>"; };
 		BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.EditProfileViewController.swift; sourceTree = "<group>"; };
+		BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdjustAnalytics.swift; sourceTree = "<group>"; };
+		BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Adjust-Info.plist"; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
@@ -1027,6 +1031,7 @@
 		FECA43B52459A8A40075D139 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
 				FE746BCC24629A9800CAC554 /* BlackOpsOne-Regular.ttf */,
 				FE746BC924629A9800CAC554 /* call.m4a */,
@@ -1127,6 +1132,7 @@
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D4AC258A2AB400412BDC /* AdjustAnalytics.swift */,
 				FE4FDAD82435D0AB00CD5E97 /* Logger.swift */,
 				FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */,
 				FED7B600244EC9FB00D94F97 /* LoggerPath.swift */,
@@ -1230,6 +1236,7 @@
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
 				FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */,
 				FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */,
+				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */,
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE746BD324629A9800CAC554 /* BlackOpsOne-Regular.ttf in Resources */,
@@ -1532,6 +1539,7 @@
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
 				FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */,
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
+				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
 				FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
@@ -1757,7 +1765,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
@@ -1766,7 +1774,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1784,7 +1792,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -1792,7 +1800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.1;
+				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -56,6 +56,41 @@ extension AmongChat.Home {
             return btn
         }()
         
+        private lazy var guideLinesBtn: UIView = {
+            
+            let v = UIView()
+            let image = R.image.community_guidelines_banner()
+            let imgW: CGFloat = image?.size.width ?? 0
+            let imgH: CGFloat = image?.size.height ?? 0
+            if let img = image,
+               imgW > 0,
+               imgH > 0 {
+                
+                let i = UIImageView()
+                i.image = img
+                i.contentMode = .scaleAspectFill
+                
+                let r = imgH / imgW
+                
+                v.addSubview(i)
+                i.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                    maker.height.equalTo(Frame.Screen.width * r)
+                }
+            }
+            
+            let tap = UITapGestureRecognizer()
+            v.addGestureRecognizer(tap)
+            
+            tap.rx.event
+                .asDriver()
+                .drive(onNext: { [weak self] (_) in
+                    self?.open(urlSting: "https://sites.google.com/cuddlelive.com/amongchat/home")
+                })
+                .disposed(by: bag)
+            return v
+        }()
+        
         private lazy var avatarBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onAvatarBtn), for: .primaryActionTriggered)
@@ -302,7 +337,7 @@ extension AmongChat.Home.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        view.addSubviews(views: bgImageView, haloView, premiumBtn, hashTagBtn, avatarBtn, editNameBtn, hashTagsTitle, moreRoomsBtn, hashTagCollectionView)
+        view.addSubviews(views: bgImageView, haloView, premiumBtn, hashTagBtn, avatarBtn, editNameBtn, hashTagsTitle, moreRoomsBtn, hashTagCollectionView, guideLinesBtn)
         
         let avatarLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(avatarLayoutGuide)
@@ -331,6 +366,11 @@ extension AmongChat.Home.ViewController {
             maker.right.equalToSuperview().inset(10)
             maker.width.height.equalTo(40)
             maker.centerY.equalTo(premiumBtn)
+        }
+        
+        guideLinesBtn.snp.makeConstraints { (maker) in
+            maker.top.equalTo(hashTagBtn.snp.bottom).offset(10)
+            maker.left.right.equalToSuperview()
         }
         
         avatarBtn.snp.makeConstraints { (maker) in
@@ -477,8 +517,6 @@ extension AmongChat.Home.ViewController {
                 self.hashTags = {
                     return [
                         ChannelCategory(id: 101, name: R.string.localizable.amongChatHomeTagAmongB(), type: .amongUs),
-                        ChannelCategory(id: 102, name: "Roblox", type: .roblox),
-                        ChannelCategory(id: 104, name: "AnimalCrossing", type: .animalCrossing),
                         ChannelCategory(id: 100, name: R.string.localizable.amongChatHomeTagGroup(), type: .groupChat),
                         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagCreatePrivate(), type: .createSecret),
                         ChannelCategory(id: 0, name: R.string.localizable.amongChatHomeTagJoinPrivate(), type: .joinSecret)
