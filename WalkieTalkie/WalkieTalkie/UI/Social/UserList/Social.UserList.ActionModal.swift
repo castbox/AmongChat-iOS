@@ -287,7 +287,7 @@ extension Social.UserList {
                 //
                 guard let `self` = self,
                     let selfUid = Settings.shared.loginResult.value?.uid else { return }
-                FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
+//                FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
             }
             
             let unblockAction = UIAlertAction(title: R.string.localizable.alertUnblock(), style: .default) { (_) in

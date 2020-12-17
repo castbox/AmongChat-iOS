@@ -48,11 +48,11 @@ extension Social {
                 .subscribe(onNext: { [weak self] (t) in
                     let (result, _) = t
 //                    self?.startHeartbeat(result.uid)
-                    self?.initializeProfileIfNeeded(result.uid)
+//                    self?.initializeProfileIfNeeded(result.uid)
 //                    self?.observeRelations(result.uid)
 //                    self?.observeCommonMsg(result.uid)
 //                    self?.bindProToProfile(result.uid)
-                    self?.bindProfileToFirestore(result.uid)
+//                    self?.bindProfileToFirestore(result.uid)
                 })
                 .disposed(by: bag)
             
@@ -274,7 +274,7 @@ extension Social.Module {
             UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.socialFollowingMaximiumTip("\(maximumFollowings)")))
             return
         }
-        FireStore.shared.addFollowing(user, to: selfUid)
+//        FireStore.shared.addFollowing(user, to: selfUid)
     }
     
 }

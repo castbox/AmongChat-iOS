@@ -197,7 +197,7 @@ extension Social {
             //
             
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.refuseJoinChannelRequest(originMsg, by: selfUid)
+//            FireStore.shared.refuseJoinChannelRequest(originMsg, by: selfUid)
         }
         
         @objc

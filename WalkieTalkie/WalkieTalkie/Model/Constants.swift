@@ -86,11 +86,11 @@ struct Constants {
 
     static var defaultUsername: String {
         
-        if let loginResult = Settings.shared.loginResult.value,
-           let uidSufix = loginResult.uid.split(bySeparator: "-").last {
-            return "\(uidSufix)"
-        } else {
+//        if let loginResult = Settings.shared.loginResult.value,
+//           let uidSufix = loginResult.uid.split(bySeparator: "-").last {
+//            return "\(uidSufix)"
+//        } else {
             return "\(sUserId)"
-        }
+//        }
     }
 }

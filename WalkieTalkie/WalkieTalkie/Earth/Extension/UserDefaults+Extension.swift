@@ -18,6 +18,6 @@ extension DefaultsKeys {
     }
     
     var loginResultTokenKey: DefaultsKey<String?> {
-        .init("lgoin.result.token", defaultValue: nil)
+        .init("among.chat.lgoin.result.token", defaultValue: nil)
     }
 }
