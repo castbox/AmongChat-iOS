@@ -23,7 +23,7 @@ typedef NS_ENUM(NSInteger, AgoraWarningCode) {
     /** 104: A timeout occurs when looking up the channel. When joining a channel, the SDK looks up the specified channel. The warning usually occurs when the network condition is too poor for the SDK to connect to the server. */
     AgoraWarningCodeLookupChannelTimeout = 104,
     /** 105: The server rejects the request to look up the channel. The server cannot process this request or the request is illegal.
-     <p><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedRejectedByServer(10) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</p>
+     <br><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedRejectedByServer(10) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</br>
      */
     AgoraWarningCodeLookupChannelRejected = 105,
     /** 106: The server rejects the request to look up the channel. The server cannot process this request or the request is illegal. */
@@ -70,17 +70,11 @@ typedef NS_ENUM(NSInteger, AgoraWarningCode) {
     AgoraWarningCodeAdmGlitchState = 1052,
     /** 1053: Audio Processing Module: A residual echo is detected, which may be caused by the belated scheduling of system threads or the signal overflow. */
     AgoraWarningCodeApmResidualEcho = 1053,
-    /** 1610: Super-resolution warning: the original video dimensions of the remote user exceed 640 &times; 480. */
-    AgoraWarningCodeSuperResolutionStreamOverLimitation = 1610,
-    /** 1611: Super-resolution warning: another user is using super resolution. */
-    AgoraWarningCodeSuperResolutionUserCountOverLimitation = 1611,
-    /** 1612: Super-resolution warning: The device is not supported. */
-    AgoraWarningCodeSuperResolutionDeviceNotSupported = 1612,
 };
 
 /** Error code.
 
-Error codes occur when the SDK encounters an error that cannot be recovered automatically without any app intervention. For example, the SDK reports the `AgoraErrorCodeStartCall` = `1002` error if it fails to start a call, and reminds the user to call the [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) method.
+Error codes occur when the SDK encounters an error that cannot be recovered automatically without any app intervention. For example, the SDK reports the AgoraErrorCodeStartCall = 1002 error if it fails to start a call, and reminds the user to call the [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) method.
 */
 typedef NS_ENUM(NSInteger, AgoraErrorCode) {
     /** 0: No error occurs. */
@@ -121,8 +115,7 @@ typedef NS_ENUM(NSInteger, AgoraErrorCode) {
     /** 17: The request to join the channel is rejected.
      <p>Possible reasons are:
      <ul><li>The user is already in the channel, and still calls the API method to join the channel, for example, [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).</li>
-     <li>The user tries to join a channel during a call test ([startEchoTestWithInterval]([AgoraRtcEngineKit startEchoTestWithInterval:successBlock:])). Once you call `startEchoTestWithInterval`, you need to call [stopEchoTest]([AgoraRtcEngineKit stopEchoTest]) before joining a channel.</li>
-     <li>The user tries to join the channel with a token that is expired.</li></ul></p>
+     <li>The user tries to join a channel during a call test ([startEchoTestWithInterval]([AgoraRtcEngineKit startEchoTestWithInterval:successBlock:])). Once you call `startEchoTestWithInterval`, you need to call [stopEchoTest]([AgoraRtcEngineKit stopEchoTest]) before joining a channel.</li></ul></p>
     */
     AgoraErrorCodeJoinChannelRejected = 17,
     /** 18: The request to leave the channel is rejected.
@@ -146,14 +139,14 @@ typedef NS_ENUM(NSInteger, AgoraErrorCode) {
     /** 103: Fails to get server resources in the specified region. Please try to specify another region when calling [sharedEngineWithConfig]([AgoraRtcEngineKit  sharedEngineWithConfig:delegate:]). */
     AgoraErrorCodeNoServerResources = 103,
     /** 109: The token expired.
-     <p><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedTokenExpired(9) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</p>
+     <br><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedTokenExpired(9) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</br>
      <p>Possible reasons are:
      <ul><li>Authorized Timestamp expired: The timestamp is represented by the number of seconds elapsed since 1/1/1970. The user can use the token to access the Agora service within 24 hours after the token is generated. If the user does not access the Agora service after 24 hours, this token is no longer valid.</li>
      <li>Call Expiration Timestamp expired: The timestamp is the exact time when a user can no longer use the Agora service (for example, when a user is forced to leave an ongoing call). When a value is set for the Call Expiration Timestamp, it does not mean that the token will expire, but that the user will be banned from the channel.</li></ul></p>
      */
     AgoraErrorCodeTokenExpired = 109,
     /** 110: The token is invalid.
-     <p><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedInvalidToken(8) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</p>
+<br><b>DEPRECATED</b> as of v2.4.1. Use AgoraConnectionChangedInvalidToken(8) in the `reason` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</br>
      <p>Possible reasons are:
      <ul><li>The App Certificate for the project is enabled in Console, but the user is using the App ID. Once the App Certificate is enabled, the user must use a token.</li>
      <li>The uid is mandatory, and users must set the same uid as the one set in the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method.</li></ul></p>
@@ -208,7 +201,7 @@ typedef NS_ENUM(NSInteger, AgoraErrorCode) {
     /** 1002: Fails to start the call after enabling the media engine. */
     AgoraErrorCodeStartCall = 1002,
     /** 1003: Fails to start the camera.
-     <p><b>DEPRECATED</b> as of v2.4.1. Use AgoraLocalVideoStreamErrorCaptureFailure(4) in the `error` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</p>
+     <br><b>DEPRECATED</b> as of v2.4.1. Use AgoraLocalVideoStreamErrorCaptureFailure(4) in the `error` parameter of [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]).</br>
      */
     AgoraErrorCodeStartCamera = 1003,
     /** 1004: Fails to start the video rendering module. */
@@ -247,8 +240,6 @@ typedef NS_ENUM(NSInteger, AgoraErrorCode) {
     AgoraErrorCodeAdmStartLoopback = 1023,
     /** 1027: Audio Device Module: An error occurs in no recording Permission. */
     AgoraErrorCodeAdmNoPermission = 1027,
-    /** 1206: Audio device module: Cannot activate the Audio Session.*/
-    AgoraErrorCodeAdmActivateSessionFail = 1206,
     /** 1359: No recording device exists. */
     AgoraErrorCodeAdmNoRecordingDevice = 1359,
     /** 1360: No playback device exists. */
@@ -269,25 +260,25 @@ typedef NS_ENUM(NSInteger, AgoraErrorCode) {
 
 /** The state of the audio mixing file. */
 typedef NS_ENUM(NSInteger, AgoraAudioMixingStateCode){
-    /** 710: The audio mixing file is playing after the method call of [startAudioMixing]([AgoraRtcEngineKit startAudioMixing:loopback:replace:cycle:]) or [resumeAudioMixing]([AgoraRtcEngineKit resumeAudioMixing]) succeeds. */
+    /** The audio mixing file is playing. */
     AgoraAudioMixingStatePlaying = 710,
-    /** 711: The audio mixing file pauses playing after the method call of [pauseAudioMixing]([AgoraRtcEngineKit pauseAudioMixing]) succeeds. */
+    /** The audio mixing file pauses playing. */
     AgoraAudioMixingStatePaused = 711,
-    /** 713: The audio mixing file stops playing after the method call of [stopAudioMixing]([AgoraRtcEngineKit stopAudioMixing]) succeeds. */
+    /** The audio mixing file stops playing. */
     AgoraAudioMixingStateStopped = 713,
-    /** 714: An exception occurs during the playback of the audio mixing file. See `errorCode`. */
+    /** An exception occurs when playing the audio mixing file. */
     AgoraAudioMixingStateFailed = 714,
 };
 
 /**  The error code of the audio mixing file. */
 typedef NS_ENUM(NSInteger, AgoraAudioMixingErrorCode){
-    /** 701: The SDK cannot open the audio mixing file. */
+    /** The SDK cannot open the audio mixing file. */
    AgoraAudioMixingErrorCanNotOpen = 701,
-   /** 702: The SDK opens the audio mixing file too frequently. */
+   /** The SDK opens the audio mixing file too frequently. */
    AgoraAudioMixingErrorTooFrequentCall = 702,
-   /** 703: The opening of the audio mixing file is interrupted. */
+   /** The opening of the audio mixing file is interrupted. */
    AgoraAudioMixingErrorInterruptedEOF = 703,
-   /** 0: No error. */
+   /** No error. */
    AgoraAudioMixingErrorOK = 0,
 };
 
@@ -295,7 +286,7 @@ typedef NS_ENUM(NSInteger, AgoraAudioMixingErrorCode){
 
 **DEPRECATED**
 
-Please use `AgoraVideoEncoderConfiguration`.
+Please use AgoraVideoEncoderConfiguration.
 
 iPhones do not support resolutions above 720p.
 */
@@ -331,15 +322,18 @@ typedef NS_ENUM(NSInteger, AgoraVideoProfile) {
     /** Resolution 480 * 360, frame rate 30 fps, bitrate 490 Kbps. */
     AgoraVideoProfileLandscape360P_8 = 37,
     /** Resolution 640 * 360, frame rate 15 fps, bitrate 800 Kbps.
-     <p><b>Note:</b> This profile applies to the live interactive streaming channel profile only.</p>
+    <br>
+     <b>Note:</b> This profile applies to the live interactive streaming channel profile only.
      */
     AgoraVideoProfileLandscape360P_9 = 38,
     /** Resolution 640 * 360, frame rate 24 fps, bitrate 800 Kbps.
-     <p>><b>Note:</b> This profile applies to the live interactive streaming channel profile only.</p>
+    <br>
+     <b>Note:</b> This profile applies to the live interactive streaming channel profile only.
      */
     AgoraVideoProfileLandscape360P_10 = 39,
     /** Resolution 640 * 360, frame rate 24 fps, bitrate 1000 Kbps.
-     <p><b>Note:</b> This profile applies to the live interactive streaming channel profile only.</p>
+    <br>
+     <b>Note:</b> This profile applies to the live interactive streaming channel profile only.
      */
     AgoraVideoProfileLandscape360P_11 = 100,
     /** Resolution 640 * 480, frame rate 15 fps, bitrate 500 Kbps. */
@@ -516,35 +510,28 @@ typedef NS_ENUM(NSInteger, AgoraVideoOutputOrientationMode) {
 
 /** Channel profile. */
 typedef NS_ENUM(NSInteger, AgoraChannelProfile) {
-    /** 0: (Default) Communication.
+    /** 0: (Default) Communication. 
      <p>This profile applies to scenarios such as an audio call or video call, where all users can publish and subscribe to streams.</p>
      */
     AgoraChannelProfileCommunication = 0,
-    /** 1: Live interactive streaming.
+    /** 1: Live interactive streaming. 
      <p>In this profile, uses have roles, namely, host and audience (default). A host both publishes and subscribes to streams, while an audience subscribes to streams only. This profile applies to scenarios such as a chat room or interactive video streaming.</p>
      */
     AgoraChannelProfileLiveBroadcasting = 1,
-    /** Agora recommends not using this profile.
+    /** 2: The Gaming profile.
+     <p>This profile uses a codec with a lower bitrate and consumes less power. Applies to the gaming scenario, where all game players can talk freely.</p>
      */
     AgoraChannelProfileGame = 2,
 };
 
-/** The role of a user in a live interactive streaming. */
+/** Client role in the live interactive streaming. */
 typedef NS_ENUM(NSInteger, AgoraClientRole) {
-    /** 1: Host. A host can both send and receive streams. */
+    /** Host. */
     AgoraClientRoleBroadcaster = 1,
-    /** 2: (Default) Audience. An audience member can only receive streams. */
+    /** Audience. */
     AgoraClientRoleAudience = 2,
 };
 
-/** The latency level of an audience member in a live interactive streaming.<p>**Note**:</p><p>Takes effect only when the user role is 
- `AgoraClientRoleBroadcaster`.</p> */
-typedef NS_ENUM(NSInteger, AgoraAudienceLatencyLevelType) {
-    /** 1: Low latency. */
-    AgoraAudienceLatencyLevelLowLatency = 1,
-    /** 2: (Default) Ultra low latency. */
-    AgoraAudienceLatencyLevelUltraLowLatency = 2,
-};
 
 /** Media type. */
 typedef NS_ENUM(NSInteger, AgoraMediaType) {
@@ -589,14 +576,14 @@ typedef NS_ENUM(NSUInteger, AgoraUserOfflineReason) {
 
 /** The RTMP streaming state. */
 typedef NS_ENUM(NSUInteger, AgoraRtmpStreamingState) {
-  /** The RTMP streaming has not started or has ended. This state is also triggered after you remove an RTMP address from the CDN by calling [removePublishStreamUrl]([AgoraRtcEngineKit removePublishStreamUrl:]).*/
+  /** The RTMP streaming has not started or has ended. This state is also triggered after you remove an RTMP address from the CDN by calling removePublishStreamUrl.*/
   AgoraRtmpStreamingStateIdle = 0,
   /** The SDK is connecting to Agora's streaming server and the RTMP server. This state is triggered after you call the [addPublishStreamUrl]([AgoraRtcEngineKit addPublishStreamUrl:transcodingEnabled:]) method. */
   AgoraRtmpStreamingStateConnecting = 1,
   /** The RTMP streaming is being published. The SDK successfully publishes the RTMP streaming and returns this state. */
   AgoraRtmpStreamingStateRunning = 2,
   /** The RTMP streaming is recovering. When exceptions occur to the CDN, or the streaming is interrupted, the SDK attempts to resume RTMP streaming and returns this state.
-<li> If the SDK successfully resumes the streaming, `AgoraRtmpStreamingStateRunning(2)` returns.
+<li> If the SDK successfully resumes the streaming, AgoraRtmpStreamingStateRunning(2) returns.
 <li> If the streaming does not resume within 60 seconds or server errors occur, AgoraRtmpStreamingStateFailure(4) returns. You can also reconnect to the server by calling the [removePublishStreamUrl]([AgoraRtcEngineKit removePublishStreamUrl:]) and [addPublishStreamUrl]([AgoraRtcEngineKit addPublishStreamUrl:transcodingEnabled:]) methods. */
   AgoraRtmpStreamingStateRecovering = 3,
   /** The RTMP streaming fails. See the errorCode parameter for the detailed error information. You can also call the [addPublishStreamUrl]([AgoraRtcEngineKit addPublishStreamUrl:transcodingEnabled:]) method to publish the RTMP streaming again. */
@@ -783,14 +770,6 @@ typedef NS_ENUM(NSInteger, AgoraVideoCodecType) {
     AgoraVideoCodecTypeE264 = 4,
 };
 
-/** Self-defined video codec type */
-typedef NS_ENUM(NSInteger, AgoraVideoCodecTypeForStream) {
-    /** 1: (Default value)H264 */
-    AgoraVideoCodecTypeH264ForStream = 1,
-    /** 2: H265 */
-    AgoraVideoCodecTypeH265ForStream = 2,
-};
-
 /** Video mirror mode. */
 typedef NS_ENUM(NSUInteger, AgoraVideoMirrorMode) {
     /** 0: (Default) The SDK determines the mirror mode.
@@ -859,26 +838,26 @@ typedef NS_ENUM(NSUInteger, AgoraVideoContentHint) {
 
 /** The state of the remote video. */
 typedef NS_ENUM(NSUInteger, AgoraVideoRemoteState) {
-    /** 0: The remote video is in the default state, probably due to `AgoraVideoRemoteStateReasonLocalMuted(3)`, `AgoraVideoRemoteStateReasonRemoteMuted(5)`, or `AgoraVideoRemoteStateReasonRemoteOffline(7)`.
+    /** 0: The remote video is in the default state, probably due to AgoraVideoRemoteStateReasonLocalMuted(3), AgoraVideoRemoteStateReasonRemoteMuted(5), or AgoraVideoRemoteStateReasonRemoteOffline(7).
      */
     AgoraVideoRemoteStateStopped = 0,
     /** 1: The first remote video packet is received.
      */
     AgoraVideoRemoteStateStarting = 1,
-    /** 2: The remote video stream is decoded and plays normally, probably due to `AgoraVideoRemoteStateReasonNetworkRecovery(2)`, `AgoraVideoRemoteStateReasonLocalUnmuted(4)`, `AgoraVideoRemoteStateReasonRemoteUnmuted(6)`, or `AgoraVideoRemoteStateReasonAudioFallbackRecovery(9)`.
+    /** 2: The remote video stream is decoded and plays normally, probably due to AgoraVideoRemoteStateReasonNetworkRecovery(2), AgoraVideoRemoteStateReasonLocalUnmuted(4), AgoraVideoRemoteStateReasonRemoteUnmuted(6), or AgoraVideoRemoteStateReasonAudioFallbackRecovery(9).
      */
     AgoraVideoRemoteStateDecoding = 2,
-    /** 3: The remote video is frozen, probably due to `AgoraVideoRemoteStateReasonNetworkCongestion(1)` or `AgoraVideoRemoteStateReasonAudioFallback(8)`.
+    /** 3: The remote video is frozen, probably due to AgoraVideoRemoteStateReasonNetworkCongestion(1) or AgoraVideoRemoteStateReasonAudioFallback(8).
      */
     AgoraVideoRemoteStateFrozen = 3,
-    /** 4: The remote video fails to start, probably due to `AgoraVideoRemoteStateReasonInternal(0)`.
+    /** 4: The remote video fails to start, probably due to AgoraVideoRemoteStateReasonInternal(0).
      */
     AgoraVideoRemoteStateFailed = 4,
 };
 
 /** The reason for the remote video state change. */
 typedef NS_ENUM(NSUInteger, AgoraVideoRemoteStateReason) {
-    /** 0: The SDK reports this reason when the video state changes. */
+    /** 0: Internal reasons. */
     AgoraVideoRemoteStateReasonInternal = 0,
     /** 1: Network congestion. */
     AgoraVideoRemoteStateReasonNetworkCongestion = 1,
@@ -898,18 +877,6 @@ typedef NS_ENUM(NSUInteger, AgoraVideoRemoteStateReason) {
     AgoraVideoRemoteStateReasonAudioFallback = 8,
     /** 9: The remote audio-only stream switches back to the audio-and-video stream after the network conditions improve. */
     AgoraVideoRemoteStateReasonAudioFallbackRecovery = 9,
-};
-
-/** The reason why the super-resolution algorithm is not successfully enabled. */
-typedef NS_ENUM(NSUInteger, AgoraSuperResolutionStateReason) {
-    /** 0: The super-resolution algorithm is successfully enabled. */
-    AgoraSRStateReasonSuccess = 0,
-    /** 1: The origin resolution of the remote video is beyond the range where the super-resolution algorithm can be applied. */
-    AgoraSRStateReasonStreamOverLimitation = 1,
-    /** 2: Another user is already using the super-resolution algorithm. */
-    AgoraSRStateReasonUserCountOverLimitation = 2,
-    /** 3: The device does not support the super-resolution algorithm. */
-    AgoraSRStateReasonDeviceNotSupported = 3,
 };
 
 /** Stream fallback option. */
@@ -938,39 +905,32 @@ typedef NS_ENUM(NSInteger, AgoraAudioProfile) {
      <li>In the Communication profile: A sample rate of 32 KHz, audio encoding, mono, and a bitrate of up to 18 Kbps.
      <li>In the live interactive streaming profile: A sample rate of 48 KHz, music encoding, mono, and a bitrate of up to 64 Kbps.</li> */
     AgoraAudioProfileDefault = 0,
-    /** 1: A sample rate of 32 KHz, audio encoding, mono, and a bitrate of up to 18 Kbps. */
+    /** A sample rate of 32 KHz, audio encoding, mono, and a bitrate of up to 18 Kbps. */
     AgoraAudioProfileSpeechStandard = 1,
-    /** 2: A sample rate of 48 KHz, music encoding, mono, and a bitrate of up to 64 Kbps. */
+    /** A sample rate of 48 KHz, music encoding, mono, and a bitrate of up to 64 Kbps. */
     AgoraAudioProfileMusicStandard = 2,
-    /** 3: A sample rate of 48 KHz, music encoding, stereo, and a bitrate of up to 80 Kbps. */
+    /** A sample rate of 48 KHz, music encoding, stereo, and a bitrate of up to 80 Kbps. */
     AgoraAudioProfileMusicStandardStereo = 3,
-    /** 4: A sample rate of 48 KHz, music encoding, mono, and a bitrate of up to 96 Kbps. */
+    /** A sample rate of 48 KHz, music encoding, mono, and a bitrate of up to 96 Kbps. */
     AgoraAudioProfileMusicHighQuality = 4,
-    /** 5: A sample rate of 48 KHz, music encoding, stereo, and a bitrate of up to 128 Kbps. */
+    /** A sample rate of 48 KHz, music encoding, stereo, and a bitrate of up to 128 Kbps. */
     AgoraAudioProfileMusicHighQualityStereo = 5,
 };
 
 /** Audio scenario. */
 typedef NS_ENUM(NSInteger, AgoraAudioScenario) {
-    /** 0: Default audio scenario. */
+    /** Default. */
     AgoraAudioScenarioDefault = 0,
-    /** 1: Entertainment scenario where users need to frequently switch the user role. */
+    /** Entertainment scenario, supporting voice during gameplay. */
     AgoraAudioScenarioChatRoomEntertainment = 1,
-    /** 2: Education scenario where users want smoothness and stability. */
+    /** Education scenario, prioritizing fluency and stability. */
     AgoraAudioScenarioEducation = 2,
-    /** 3: High-quality audio chatroom scenario where hosts mainly play music.*/
+    /** Live gaming scenario, enabling the gaming audio effects in the speaker mode in the live interactive streaming scenario. Choose this scenario for high-fidelity music playback.*/
     AgoraAudioScenarioGameStreaming = 3,
-    /** 4: Showroom scenario where a single host wants high-quality audio. */
+    /** Showroom scenario, optimizing the audio quality with external professional equipment. */
     AgoraAudioScenarioShowRoom = 4,
-    /** 5: Gaming scenario for group chat that only contains the human voice. */
-    AgoraAudioScenarioChatRoomGaming = 5,
-    /** 6: IoT (Internet of Things) scenario where users use IoT devices with low power consumption. */
-    AgoraAudioScenarioIot = 6,
-    /** 8: Meeting scenario that mainly contains the human voice.
-     
-     @since v3.2.0
-     */
-    AgoraAudioScenarioMeeting = 8,
+    /** Gaming scenario. */
+    AgoraAudioScenarioChatRoomGaming = 5
 };
 
 /** Audio output routing. */
@@ -989,13 +949,13 @@ typedef NS_ENUM(NSInteger, AgoraAudioOutputRouting) {
     AgoraAudioOutputRoutingLoudspeaker = 4,
     /** Bluetooth headset. */
     AgoraAudioOutputRoutingHeadsetBluetooth = 5,
-    /** USB peripheral (macOS only). */
+    /** USB peripheral. */
     AgoraAudioOutputRoutingUsb = 6,
-    /** HDMI peripheral (macOS only). */
+    /** HDMI peripheral. */
     AgoraAudioOutputRoutingHdmi = 7,
-    /** DisplayPort peripheral (macOS only). */
+    /** DisplayPort peripheral. */
     AgoraAudioOutputRoutingDisplayPort = 8,
-    /** Apple AirPlay (macOS only). */
+    /** Apple AirPlay. */
     AgoraAudioOutputRoutingAirPlay = 9
 };
 
@@ -1047,269 +1007,85 @@ typedef NS_ENUM(NSInteger, AgoraAudioReverbType) {
     AgoraAudioReverbStrength = 4,
 };
 
-/** **DEPRECATED** from v3.2.0. The preset audio voice configuration used to change the voice effect. */
+/** The preset audio voice configuration used to change the voice effect. */
 typedef NS_ENUM(NSInteger, AgoraAudioVoiceChanger) {
     /** Turn off the local voice changer, that is, to use the original voice. */
-    AgoraAudioVoiceChangerOff __deprecated_enum_msg("AgoraAudioVoiceChangerOff is deprecated.") = 0x00000000,
+    AgoraAudioVoiceChangerOff = 0x00000000,
     /** The voice of an old man. */
-    AgoraAudioVoiceChangerOldMan __deprecated_enum_msg("AgoraAudioVoiceChangerOldMan is deprecated.") = 0x00000001,
+    AgoraAudioVoiceChangerOldMan = 0x00000001,
     /** The voice of a little boy. */
-    AgoraAudioVoiceChangerBabyBoy __deprecated_enum_msg("AgoraAudioVoiceChangerBabyBoy is deprecated.") = 0x00000002,
+    AgoraAudioVoiceChangerBabyBoy = 0x00000002,
     /** The voice of a little girl. */
-    AgoraAudioVoiceChangerBabyGirl __deprecated_enum_msg("AgoraAudioVoiceChangerBabyGirl is deprecated.") = 0x00000003,
+    AgoraAudioVoiceChangerBabyGirl = 0x00000003,
     /** The voice of Zhu Bajie, a character in Journey to the West who has a voice like that of a growling bear. */
-    AgoraAudioVoiceChangerZhuBaJie __deprecated_enum_msg("AgoraAudioVoiceChangerZhuBaJie is deprecated.") = 0x00000004,
+    AgoraAudioVoiceChangerZhuBaJie = 0x00000004,
     /** The ethereal voice. */
-    AgoraAudioVoiceChangerEthereal __deprecated_enum_msg("AgoraAudioVoiceChangerEthereal is deprecated.") = 0x00000005,
+    AgoraAudioVoiceChangerEthereal = 0x00000005,
     /** The voice of Hulk. */
-    AgoraAudioVoiceChangerHulk __deprecated_enum_msg("AgoraAudioVoiceChangerHulk is deprecated.") = 0x00000006,
+    AgoraAudioVoiceChangerHulk = 0x00000006,
     /** A more vigorous voice. */
-    AgoraAudioVoiceBeautyVigorous __deprecated_enum_msg("AgoraAudioVoiceBeautyVigorous is deprecated.") = 0x00100001,
+    AgoraAudioVoiceBeautyVigorous = 0x00100001,
     /** A deeper voice. */
-    AgoraAudioVoiceBeautyDeep __deprecated_enum_msg("AgoraAudioVoiceBeautyDeep is deprecated.") = 0x00100002,
+    AgoraAudioVoiceBeautyDeep = 0x00100002,
     /** A mellower voice. */
-    AgoraAudioVoiceBeautyMellow __deprecated_enum_msg("AgoraAudioVoiceBeautyMellow is deprecated.") = 0x00100003,
+    AgoraAudioVoiceBeautyMellow = 0x00100003,
     /** Falsetto. */
-    AgoraAudioVoiceBeautyFalsetto __deprecated_enum_msg("AgoraAudioVoiceBeautyFalsetto is deprecated.") = 0x00100004,
+    AgoraAudioVoiceBeautyFalsetto = 0x00100004,
     /** A fuller voice. */
-    AgoraAudioVoiceBeautyFull __deprecated_enum_msg("AgoraAudioVoiceBeautyFull is deprecated.") = 0x00100005,
+    AgoraAudioVoiceBeautyFull = 0x00100005,
     /** A clearer voice. */
-    AgoraAudioVoiceBeautyClear __deprecated_enum_msg("AgoraAudioVoiceBeautyClear is deprecated.") = 0x00100006,
+    AgoraAudioVoiceBeautyClear = 0x00100006,
     /** A more resounding voice. */
-    AgoraAudioVoiceBeautyResounding __deprecated_enum_msg("AgoraAudioVoiceBeautyResounding is deprecated.") = 0x00100007,
+    AgoraAudioVoiceBeautyResounding = 0x00100007,
     /** A more ringing voice. */
-    AgoraAudioVoiceBeautyRinging __deprecated_enum_msg("AgoraAudioVoiceBeautyRinging is deprecated.") = 0x00100008,
+    AgoraAudioVoiceBeautyRinging = 0x00100008,
     /** A more spatially resonant voice. */
-    AgoraAudioVoiceBeautySpacial __deprecated_enum_msg("AgoraAudioVoiceBeautySpacial is deprecated.") = 0x00100009,
+    AgoraAudioVoiceBeautySpacial = 0x00100009,
     /** (For male only) A more magnetic voice. Do not use it when the speaker is a female; otherwise, voice distortion occurs. */
-    AgoraAudioGeneralBeautyVoiceMaleMagnetic __deprecated_enum_msg("AgoraAudioGeneralBeautyVoiceMaleMagnetic is deprecated.") = 0x00200001,
+    AgoraAudioGeneralBeautyVoiceMaleMagnetic = 0x00200001,
     /** (For female only) A fresher voice. Do not use it when the speaker is a male; otherwise, voice distortion occurs. */
-    AgoraAudioGeneralBeautyVoiceFemaleFresh __deprecated_enum_msg("AgoraAudioGeneralBeautyVoiceFemaleFresh is deprecated.") = 0x00200002,
+    AgoraAudioGeneralBeautyVoiceFemaleFresh = 0x00200002,
     /** (For female only) A more vital voice. Do not use it when the speaker is a male; otherwise, voice distortion occurs. */
-    AgoraAudioGeneralBeautyVoiceFemaleVitality __deprecated_enum_msg("AgoraAudioGeneralBeautyVoiceFemaleVitality is deprecated.") = 0x00200003,
+    AgoraAudioGeneralBeautyVoiceFemaleVitality = 0x00200003,
 };
 
-/** **DEPRECATED** from v3.2.0. The preset local voice reverberation option. */
+/** The preset local voice reverberation option. */
 typedef NS_ENUM(NSInteger, AgoraAudioReverbPreset) {
     /** Turn off local voice reverberation, that is, to use the original voice. */
-    AgoraAudioReverbPresetOff __deprecated_enum_msg("AgoraAudioReverbPresetOff is deprecated.") = 0x00000000,
+    AgoraAudioReverbPresetOff = 0x00000000,
     /** The reverberation style typical of a KTV venue (enhanced).  */
-    AgoraAudioReverbPresetFxKTV __deprecated_enum_msg("AgoraAudioReverbPresetFxKTV is deprecated.") = 0x00100001,
+    AgoraAudioReverbPresetFxKTV = 0x00100001,
     /** The reverberation style typical of a concert hall (enhanced). */
-    AgoraAudioReverbPresetFxVocalConcert __deprecated_enum_msg("AgoraAudioReverbPresetFxVocalConcert is deprecated.") = 0x00100002,
+    AgoraAudioReverbPresetFxVocalConcert = 0x00100002,
     /** The reverberation style typical of an uncle's voice. */
-    AgoraAudioReverbPresetFxUncle __deprecated_enum_msg("AgoraAudioReverbPresetFxUncle is deprecated.") = 0x00100003,
-    /** The reverberation style typical of a sister's voice. */
-    AgoraAudioReverbPresetFxSister __deprecated_enum_msg("AgoraAudioReverbPresetFxSister is deprecated.") = 0x00100004,
+    AgoraAudioReverbPresetFxUncle = 0x00100003,
+    /** The reverberation style typical of a little sister's voice. */
+    AgoraAudioReverbPresetFxSister = 0x00100004,
     /** The reverberation style typical of a recording studio (enhanced).  */
-    AgoraAudioReverbPresetFxStudio __deprecated_enum_msg("AgoraAudioReverbPresetFxStudio is deprecated.") = 0x00100005,
+    AgoraAudioReverbPresetFxStudio = 0x00100005,
     /** The reverberation style typical of popular music (enhanced). */
-    AgoraAudioReverbPresetFxPopular __deprecated_enum_msg("AgoraAudioReverbPresetFxPopular is deprecated.") = 0x00100006,
+    AgoraAudioReverbPresetFxPopular = 0x00100006,
     /** The reverberation style typical of R&B music (enhanced). */
-    AgoraAudioReverbPresetFxRNB __deprecated_enum_msg("AgoraAudioReverbPresetFxRNB is deprecated.") = 0x00100007,
+    AgoraAudioReverbPresetFxRNB = 0x00100007,
     /** The reverberation style typical of the vintage phonograph. */
-    AgoraAudioReverbPresetFxPhonograph __deprecated_enum_msg("AgoraAudioReverbPresetFxPhonograph is deprecated.") = 0x00100008,
+    AgoraAudioReverbPresetFxPhonograph = 0x00100008,
     /** The reverberation style typical of popular music. */
-    AgoraAudioReverbPresetPopular __deprecated_enum_msg("AgoraAudioReverbPresetPopular is deprecated.") = 0x00000001,
+    AgoraAudioReverbPresetPopular = 0x00000001,
     /** The reverberation style typical of R&B music. */
-    AgoraAudioReverbPresetRnB __deprecated_enum_msg("AgoraAudioReverbPresetRnB is deprecated.") = 0x00000002,
+    AgoraAudioReverbPresetRnB = 0x00000002,
     /** The reverberation style typical of rock music. */
-    AgoraAudioReverbPresetRock __deprecated_enum_msg("AgoraAudioReverbPresetRock is deprecated.") = 0x00000003,
+    AgoraAudioReverbPresetRock = 0x00000003,
     /** The reverberation style typical of hip-hop music. */
-    AgoraAudioReverbPresetHipHop __deprecated_enum_msg("AgoraAudioReverbPresetHipHop is deprecated.") = 0x00000004,
+    AgoraAudioReverbPresetHipHop = 0x00000004,
     /** The reverberation style typical of a concert hall. */
-    AgoraAudioReverbPresetVocalConcert __deprecated_enum_msg("AgoraAudioReverbPresetVocalConcert is deprecated.") = 0x00000005,
+    AgoraAudioReverbPresetVocalConcert = 0x00000005,
     /** The reverberation style typical of a KTV venue. */
-    AgoraAudioReverbPresetKTV __deprecated_enum_msg("AgoraAudioReverbPresetKTV is deprecated.") = 0x00000006,
+    AgoraAudioReverbPresetKTV = 0x00000006,
     /** The reverberation style typical of a recording studio. */
-    AgoraAudioReverbPresetStudio __deprecated_enum_msg("AgoraAudioReverbPresetStudio is deprecated.") = 0x00000007,
+    AgoraAudioReverbPresetStudio = 0x00000007,
     /** The reverberation of the virtual stereo. The virtual stereo is an effect that renders the monophonic audio as the stereo audio, so that all users in the channel can hear the stereo voice effect. To achieve better virtual stereo reverberation, Agora recommends setting the `profile` parameter in `setAudioProfile` as `AgoraAudioProfileMusicHighQualityStereo(5)`. */
-    AgoraAudioReverbPresetVirtualStereo __deprecated_enum_msg("AgoraAudioReverbPresetVirtualStereo is deprecated.") = 0x00200001,
-    /** The reverberation of the Electronic Voice */
-    AgoraAudioReverbPresetElectronicVoice __deprecated_enum_msg("AgoraAudioReverbPresetElectronicVoice is deprecated.") = 0x00300001,
-    /** 3D Voice */
-    AgoraAudioReverbPresetThreeDimVoice __deprecated_enum_msg("AgoraAudioReverbPresetThreeDimVoice is deprecated.") = 0x00400001
+    AgoraAudioReverbPresetVirtualStereo = 0x00200001
 
-};
-
-/** The options for SDK preset voice beautifier effects. */
-typedef NS_ENUM(NSInteger, AgoraVoiceBeautifierPreset) {
-    /** Turn off voice beautifier effects and use the original voice. */
-    AgoraVoiceBeautifierOff = 0x00000000,
-    /** A more magnetic voice.<p>**Note**</p><p>Agora recommends using this enumerator to process a male-sounding voice; otherwise, you 
-     may experience vocal distortion.</p>
-     */
-    AgoraChatBeautifierMagnetic = 0x01010100,
-    /** A fresher voice.<p>**Note**</p><p>Agora recommends using this enumerator to process a female-sounding voice; otherwise, you 
-     may experience vocal distortion.</p>
-     */
-    AgoraChatBeautifierFresh = 0x01010200,
-    /** A more vital voice.<p>**Note**</p><p>Agora recommends using this enumerator to process a female-sounding voice; otherwise, you 
-     may experience vocal distortion.</p>
-     */
-    AgoraChatBeautifierVitality = 0x01010300,
-    /** A more vigorous voice. */
-    AgoraTimbreTransformationVigorous = 0x01030100,
-    /** A deeper voice. */
-    AgoraTimbreTransformationDeep = 0x01030200,
-    /** A mellower voice. */
-    AgoraTimbreTransformationMellow = 0x01030300,
-    /** A falsetto voice. */
-    AgoraTimbreTransformationFalsetto = 0x01030400,
-    /** A fuller voice. */
-    AgoraTimbreTransformationFull = 0x01030500,
-    /** A clearer voice. */
-    AgoraTimbreTransformationClear = 0x01030600,
-    /** A more resounding voice. */
-    AgoraTimbreTransformationResounding = 0x01030700,
-    /** A more ringing voice. */
-    AgoraTimbreTransformationRinging = 0x01030800
-};
-
-/** The options for SDK preset audio effects. */
-typedef NS_ENUM(NSInteger, AgoraAudioEffectPreset) {
-    /** Turn off audio effects and use the original voice. */
-    AgoraAudioEffectOff = 0x00000000,
-    /** An audio effect typical of a KTV venue.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsKTV = 0x02010100,
-    /** An audio effect typical of a concert hall.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsVocalConcert = 0x02010200,
-    /** An audio effect typical of a recording studio.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsStudio = 0x02010300,
-    /** An audio effect typical of a vintage phonograph.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsPhonograph = 0x02010400,
-    /** A virtual stereo effect that renders monophonic audio as stereo audio.
-     <p>**Note**</p>
-     <p>Call [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and set the `profile` parameter to 
-     `AgoraAudioProfileMusicStandardStereo(3)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator; 
-     otherwise, the enumerator setting does not take effect.</p>
-     */
-    AgoraRoomAcousticsVirtualStereo = 0x02010500,
-    /** A more spatial audio effect.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsSpacial = 0x02010600,
-    /** A more ethereal audio effect.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraRoomAcousticsEthereal = 0x02010700,
-    /** A 3D voice effect that makes the voice appear to be moving around the user. The default cycle period of the 3D voice effect is 
-     10 seconds. To change the cycle period, call [setAudioEffectParameters]([AgoraRtcEngineKit setAudioEffectParameters:param1:param2:]) 
-     after this method.
-     <p>**Note**</p>
-     <li>Call [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and set the `profile` parameter to 
-     `AgoraAudioProfileMusicStandardStereo(3)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator; 
-     otherwise, the enumerator setting does not take effect.</li>
-     <li>If the 3D voice effect is enabled, users need to use stereo audio playback devices to hear the anticipated voice effect.</li>
-     */
-    AgoraRoomAcoustics3DVoice = 0x02010800,
-    /** The voice of an uncle.
-     <p>**Note**</p>
-     <li>Agora recommends using this enumerator to process a male-sounding voice; otherwise, you may not hear the anticipated voice 
-     effect.</li>
-     <li>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</li>
-     */
-    AgoraVoiceChangerEffectUncle = 0x02020100,
-    /** The voice of an old man.
-     <p>**Note**</p>
-     <li>Agora recommends using this enumerator to process a male-sounding voice; otherwise, you may not hear the anticipated voice 
-     effect.</li>
-     <li>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</li>
-     */
-    AgoraVoiceChangerEffectOldMan = 0x02020200,
-    /** The voice of a boy.
-     <p>**Note**</p>
-     <li>Agora recommends using this enumerator to process a male-sounding voice; otherwise, you may not hear the anticipated voice 
-     effect.</li>
-     <li>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</li>
-     */
-    AgoraVoiceChangerEffectBoy = 0x02020300,
-    /** The voice of a young woman.
-     <p>**Note**</p>
-     <li>Agora recommends using this enumerator to process a female-sounding voice; otherwise, you may not hear the anticipated voice 
-     effect.</li>
-     <li>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</li>
-     */
-    AgoraVoiceChangerEffectSister = 0x02020400,
-    /** The voice of a girl.
-     <p>**Note**</p>
-     <li>Agora recommends using this enumerator to process a female-sounding voice; otherwise, you may not hear the anticipated voice 
-     effect.</li>
-     <li>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</li>
-     */
-    AgoraVoiceChangerEffectGirl = 0x02020500,
-    /** The voice of Pig King, a character in Journey to the West who has a voice like a growling bear.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraVoiceChangerEffectPigKing = 0x02020600,
-    /** The voice of Hulk.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraVoiceChangerEffectHulk = 0x02020700,
-    /** An audio effect typical of R&B music.
-     <p>**Note**</p>
-     <p>Call [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and set the `profile` parameter to 
-     `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator; 
-     otherwise, the enumerator setting does not take effect.</p>
-     */
-    AgoraStyleTransformationRnB = 0x02030100,
-    /** An audio effect typical of popular music.
-     <p>**Note**</p>
-     <p>Call [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) and set the `profile` parameter to 
-     `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` before setting this enumerator; 
-     otherwise, the enumerator setting does not take effect.</p>
-     */
-    AgoraStyleTransformationPopular = 0x02030200,
-    /** A pitch correction effect that corrects the user's pitch based on the pitch of the natural C major scale. To change the basic 
-     mode and tonic pitch, call [setAudioEffectParameters]([AgoraRtcEngineKit setAudioEffectParameters:param1:param2:]) after this method.
-     <p>**Note**</p>
-     <p>To achieve better audio effect quality, Agora recommends calling [setAudioProfile]([AgoraRtcEngineKit setAudioProfile:scenario:]) 
-     and setting the `profile` parameter to `AgoraAudioProfileMusicHighQuality(4)` or `AgoraAudioProfileMusicHighQualityStereo(5)` 
-     before setting this enumerator.</p>
-     */
-    AgoraPitchCorrection = 0x02040100
 };
 
 /** Audio session restriction. */
@@ -1336,21 +1112,21 @@ typedef NS_ENUM(NSInteger, AgoraAudioCodecProfileType) {
 
 /** The state of the remote audio. */
 typedef NS_ENUM(NSUInteger, AgoraAudioRemoteState) {
-    /** 0: The remote audio is in the default state, probably due to `AgoraAudioRemoteReasonLocalMuted(3)`, `AgoraAudioRemoteReasonRemoteMuted(5)`, or `AgoraAudioRemoteReasonRemoteOffline(7)`. */
+    /** 0: The remote audio is in the default state, probably due to AgoraAudioRemoteReasonLocalMuted(3), AgoraAudioRemoteReasonRemoteMuted(5), or AgoraAudioRemoteReasonRemoteOffline(7). */
     AgoraAudioRemoteStateStopped = 0,
     /** 1: The first remote audio packet is received. */
     AgoraAudioRemoteStateStarting = 1,
-    /** 2: The remote audio stream is decoded and plays normally, probably due to `AgoraAudioRemoteReasonNetworkRecovery(2)`, `AgoraAudioRemoteReasonLocalUnmuted(4)`, or `AgoraAudioRemoteReasonRemoteUnmuted(6)`. */
+    /** 2: The remote audio stream is decoded and plays normally, probably due to AgoraAudioRemoteReasonNetworkRecovery(2), AgoraAudioRemoteReasonLocalUnmuted(4), or AgoraAudioRemoteReasonRemoteUnmuted(6). */
     AgoraAudioRemoteStateDecoding = 2,
-    /** 3: The remote audio is frozen, probably due to `AgoraAudioRemoteReasonNetworkCongestion(1)`. */
+    /** 3: The remote audio is frozen, probably due to AgoraAudioRemoteReasonNetworkCongestion(1). */
     AgoraAudioRemoteStateFrozen = 3,
-    /** 4: The remote audio fails to start, probably due to `AgoraAudioRemoteReasonInternal(0)`. */
+    /** 4: The remote audio fails to start, probably due to AgoraAudioRemoteReasonInternal(0). */
     AgoraAudioRemoteStateFailed = 4,
 };
 
 /** The reason of the remote audio state change. */
 typedef NS_ENUM(NSUInteger, AgoraAudioRemoteStateReason) {
-    /** 0: The SDK reports this reason when the audio state changes. */
+    /** 0: Internal reasons. */
     AgoraAudioRemoteReasonInternal = 0,
     /** 1: Network congestion. */
     AgoraAudioRemoteReasonNetworkCongestion = 1,
@@ -1413,14 +1189,16 @@ typedef NS_ENUM(NSInteger, AgoraMediaDeviceType) {
 /** Connection states. */
 typedef NS_ENUM(NSInteger, AgoraConnectionStateType) {
     /** <p>1: The SDK is disconnected from Agora's edge server.</p>
-<li>This is the initial state before [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).
-<li>The SDK also enters this state when the app calls [leaveChannel]([AgoraRtcEngineKit leaveChannel:]).
+This is the initial state before [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).<br>
+The SDK also enters this state when the app calls [leaveChannel]([AgoraRtcEngineKit leaveChannel:]).
     */
     AgoraConnectionStateDisconnected = 1,
-    /** <p>2: The SDK is connecting to Agora's edge server.
-<p>When the app calls [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]), the SDK starts to establish a connection to the specified channel, triggers the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback, and switches to the `AgoraConnectionStateConnecting` state.
-<p>When the SDK successfully joins the channel, the SDK triggers the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback and switches to the `AgoraConnectionStateConnected` state.
-<p>After the SDK joins the channel and when it finishes initializing the media engine, the SDK triggers the [didJoinChannel]([AgoraRtcEngineDelegate rtcEngine:didJoinChannel:withUid:elapsed:]) callback.
+    /** <p>2: The SDK is connecting to Agora's edge server.</p>
+When the app calls [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]), the SDK starts to establish a connection to the specified channel, triggers the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback, and switches to the `AgoraConnectionStateConnecting` state.<br>
+<br>
+When the SDK successfully joins the channel, the SDK triggers the [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callback and switches to the `AgoraConnectionStateConnected` state.<br>
+<br>
+After the SDK joins the channel and when it finishes initializing the media engine, the SDK triggers the [didJoinChannel]([AgoraRtcEngineDelegate rtcEngine:didJoinChannel:withUid:elapsed:]) callback.
 */
     AgoraConnectionStateConnecting = 2,
     /** <p>3: The SDK is connected to Agora's edge server and joins a channel. You can now publish or subscribe to a media stream in the channel.</p>
@@ -1435,8 +1213,9 @@ If the connection to the channel is lost because, for example, the network is do
     */
     AgoraConnectionStateReconnecting = 4,
     /** <p>5: The SDK fails to connect to Agora's edge server or join the channel.</p>
-<li>You must call [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) to leave this state, and call [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) again to rejoin the channel.
-<li>If the SDK is banned from joining the channel by Agora's edge server (through the RESTful API), the SDK triggers the [rtcEngineConnectionDidBanned]([AgoraRtcEngineDelegate rtcEngineConnectionDidBanned:])(deprecated) and [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callbacks.
+You must call [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) to leave this state, and call [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) again to rejoin the channel.<br>
+<br>
+If the SDK is banned from joining the channel by Agora's edge server (through the RESTful API), the SDK triggers the [rtcEngineConnectionDidBanned]([AgoraRtcEngineDelegate rtcEngineConnectionDidBanned:])(deprecated) and [connectionChangedToState]([AgoraRtcEngineDelegate rtcEngine:connectionChangedToState:reason:]) callbacks.
     */
     AgoraConnectionStateFailed = 5,
 };
@@ -1461,15 +1240,11 @@ typedef NS_ENUM(NSUInteger, AgoraConnectionChangedReason) {
     AgoraConnectionChangedInvalidChannelName = 7,
     /** 8: The generated token is invalid probably due to the following reasons:
 <li>The App Certificate for the project is enabled in Console, but you do not use Token when joining the channel. If you enable the App Certificate, you must use a token to join the channel.
-<li>The uid that you specify in the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method is different from the uid that you pass for generating the token. 
-     */
+<li>The uid that you specify in the [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]) method is different from the uid that you pass for generating the token. */
     AgoraConnectionChangedInvalidToken = 8,
     /** 9: The token has expired. Generate a new token from your server. */
     AgoraConnectionChangedTokenExpired = 9,
-    /** 10: The user is banned by the server. This error usually occurs in the following situations:
-<li>When the user is already in the channel, and still calls the method to join the channel, for example, [joinChannelByToken]([AgoraRtcEngineKit joinChannelByToken:channelId:info:uid:joinSuccess:]).</li>
-<li>When the user tries to join a channel during a call test ([startEchoTestWithInterval]([AgoraRtcEngineKit startEchoTestWithInterval:successBlock:])). Once you call `startEchoTest`, you need to call [stopEchoTest]([AgoraRtcEngineKit stopEchoTest]) before joining a channel.</li>
-     */
+    /** 10: The user is banned by the server. */
     AgoraConnectionChangedRejectedByServer = 10,
     /** 11: The SDK tries to reconnect after setting a proxy server. */
     AgoraConnectionChangedSettingProxyServer = 11,
@@ -1477,17 +1252,14 @@ typedef NS_ENUM(NSUInteger, AgoraConnectionChangedReason) {
     AgoraConnectionChangedRenewToken = 12,
     /** 13: The client IP address has changed, probably due to a change of the network type, IP address, or network port. */
     AgoraConnectionChangedClientIpAddressChanged = 13,
-    /** 14: Timeout for the keep-alive of the connection between the SDK and Agora's edge server. The connection state changes to `AgoraConnectionStateReconnecting(4)`. */
+    /** 14: Timeout for the keep-alive of the connection between the SDK and Agora's edge server. The connection state changes to AgoraConnectionStateReconnecting(4). */
     AgoraConnectionChangedKeepAliveTimeout = 14,
 };
 
 /** The state code in AgoraChannelMediaRelayState.
  */
 typedef NS_ENUM(NSInteger, AgoraChannelMediaRelayState) {
-    /** 0: The initial state. After you successfully stop the channel media relay by calling 
-     [stopChannelMediaRelay]([AgoraRtcEngineKit stopChannelMediaRelay]), the 
-     [channelMediaRelayStateDidChange]([AgoraRtcEngineDelegate rtcEngine:channelMediaRelayStateDidChange:error:]) callback 
-     returns this state.
+    /** 0: The SDK is initializing.
      */
     AgoraChannelMediaRelayStateIdle = 0,
     /** 1: The SDK tries to relay the media stream to the destination channel.
@@ -1551,7 +1323,7 @@ typedef NS_ENUM(NSInteger, AgoraChannelMediaRelayError) {
     /** 1: An error occurs in the server response.
      */
     AgoraChannelMediaRelayErrorServerErrorResponse = 1,
-    /** 2: No server response. This error can also occur if your project has not enabled co-host token authentication. Contact support@agora.io to enable the co-host token authentication service before starting a channel media relay.
+    /** 2: No server response. You can call the [leaveChannel]([AgoraRtcEngineKit leaveChannel:]) method to leave the channel.
      */
     AgoraChannelMediaRelayErrorServerNoResponse = 2,
     /** 3: The SDK fails to access the service, probably due to limited resources of the server.
@@ -1634,10 +1406,7 @@ typedef NS_ENUM(NSUInteger, AgoraLastmileProbeResultState) {
 typedef NS_ENUM(NSInteger, AgoraLocalVideoStreamState) {
   /** 0: The local video is in the initial state. */
   AgoraLocalVideoStreamStateStopped = 0,
-  /** 1: The local video capturing device starts successfully. The SDK also reports this state when you share a maximized window by calling [startScreenCaptureByWindowId]([AgoraRtcEngineKit startScreenCaptureByWindowId:rectangle:parameters:]).
-
-   @since v3.1.0
-   */
+  /** 1: The local video capturing device starts successfully. The SDK also reports this state when you share a maximized window by calling [startScreenCaptureByWindowId]([AgoraRtcEngineKit startScreenCaptureByWindowId:rectangle:parameters:]). */
   AgoraLocalVideoStreamStateCapturing = 1,
   /** 2: The first local video frame encodes successfully. */
   AgoraLocalVideoStreamStateEncoding = 2,
@@ -1659,49 +1428,31 @@ typedef NS_ENUM(NSInteger, AgoraLocalVideoStreamError) {
   AgoraLocalVideoStreamErrorCaptureFailure = 4,
   /** 5: The local video encoding fails. */
   AgoraLocalVideoStreamErrorEncodeFailure = 5,
-  /** 11: (macOS only) The shared window is minimized when you call
-   [startScreenCaptureByWindowId]([AgoraRtcEngineKit startScreenCaptureByWindowId:rectangle:parameters:]) to share a window.
-
-   @since v3.1.0
-   */
+  /** 11: The shared window is minimized when you call [startScreenCaptureByWindowId]([AgoraRtcEngineKit startScreenCaptureByWindowId:rectangle:parameters:]) to share a window. */
   AgoraLocalVideoStreamErrorScreenCaptureWindowMinimized = 11,
-  /** 12: (macOS only) The error code indicates that a window shared by the window ID has been closed, or a full-screen
-   window shared by the window ID has exited full-screen mode. After exiting
-   full-screen mode, remote users cannot see the shared window. To prevent remote users from seeing a black screen, Agora recommends
-   that you immediately stop screen sharing.
-   <p>Common scenarios for reporting this error code:</p>
-   <li>When the local user closes the shared window, the SDK reports this error code.</li>
-   <li>The local user shows some slides in full-screen mode first, and then shares the windows of the slides. After the user exis full-screen
-   mode, the SDK reports this error code.</li>
-   <li>The local user watches web video or reads web document in full-screen mode first, and then shares the window of the web video or
-   document. After the user exits full-screen mode, the SDK reports this error code.</li>
-
-   @since v3.2.0
-   */
-  AgoraLocalVideoStreamErrorScreenCaptureWindowClosed = 12,
 };
-/** Regions for connection
+/** IP areas.
  */
-typedef NS_ENUM(NSUInteger, AgoraAreaCode) {
+typedef NS_ENUM(NSUInteger, AgoraIpAreaCode) {
      /** Mainland China
      */
-     AgoraAreaCodeCN = 0x00000001,
+     AgoraIpAreaCode_CN = (1 << 0),
      /** North America
      */
-     AgoraAreaCodeNA = 0x00000002,
+     AgoraIpAreaCode_NA = (1 << 1),
      /** Europe
      */
-     AgoraAreaCodeEU = 0x00000004,
-     /** Asia, excluding Mainland China
+     AgoraIpAreaCode_EUR = (1 << 2),
+     /** Asia, excluding Mainland China, Japan and India
      */
-     AgoraAreaCodeAS = 0x00000008,
+     AgoraIpAreaCode_AS = (1 << 3),
      /** Japan
      */
-     AgoraAreaCodeJP = 0x00000010,
+     AgoraIpAreaCode_JAPAN = (1 << 4),
      /** India
      */
-     AgoraAreaCodeIN = 0x00000020,
+     AgoraIpAreaCode_INDIA = (1 << 5),
      /** (Default) Global
      */
-     AgoraAreaCodeGLOB = 0xFFFFFFFF
+     AgoraIpAreaCode_GLOBAL = (0xFFFFFFFF)
  };

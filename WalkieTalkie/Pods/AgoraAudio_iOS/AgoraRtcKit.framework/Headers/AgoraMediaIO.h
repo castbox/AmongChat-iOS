@@ -104,9 +104,7 @@ typedef NS_ENUM(NSInteger, AgoraVideoCaptureType) {
  * Enables the Video Source ([shouldStart](shouldStart))
  * Disables the Video Source ([shouldStop](shouldStop))
  * Releases the Video Source ([shouldDispose](shouldDispose))
- * Retrieves the Buffer Type (AgoraVideoBufferType)
- * Gets the capture type of the custom video source (AgoraVideoCaptureType)
- * Gets the content hint of the custom video source (AgoraVideoContentHint)
+ * Retrieves the Buffer Type ([bufferType](bufferType))
 
  Note:
 
@@ -119,11 +117,7 @@ typedef NS_ENUM(NSInteger, AgoraVideoCaptureType) {
  */
 @protocol AgoraVideoSourceProtocol <NSObject>
 @required
-/** An AgoraVideoFrameConsumer object that the SDK passes to you. You need to reserve this object and use it to send the video frame to 
- the SDK once the custom video source is started. See [AgoraVideoFrameConsumer](AgoraVideoFrameConsumer).
- 
- @note The SDK does not support the alpha channel, and discards any alpha value passed to the SDK.
- */
+/** See AgoraVideoFrameConsumer */
 @property (strong) id<AgoraVideoFrameConsumer> _Nullable consumer;
 /** Initializes the video source.
 

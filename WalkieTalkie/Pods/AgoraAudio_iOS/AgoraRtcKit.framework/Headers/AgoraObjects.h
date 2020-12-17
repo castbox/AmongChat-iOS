@@ -152,14 +152,10 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalVideoStats : NSOb
 @property (assign, nonatomic) AgoraVideoCodecType codecType;
 
 /** The video packet loss rate (%) from the local client to the Agora edge server before applying the anti-packet loss strategies.
- 
- @since v3.1.0
- */
+*/
 @property (assign, nonatomic) NSInteger txPacketLossRate;
 
 /** The capture frame rate (fps) of the local video.
- 
- @since v3.1.0
  */
 @property (assign, nonatomic) NSInteger captureFrameRate;
 @end
@@ -221,8 +217,6 @@ __attribute__((visibility("default"))) @interface AgoraRtcLocalAudioStats : NSOb
  */
 @property (assign, nonatomic) NSUInteger sentBitrate;
 /** The audio packet loss rate (%) from the local client to the Agora edge server before applying the anti-packet loss strategies.
- 
- @since v3.1.0
  */
 @property (assign, nonatomic) NSUInteger txPacketLossRate;
 @end
@@ -264,8 +258,6 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteAudioStats : NSO
  */
 @property (assign, nonatomic) NSUInteger totalActiveTime;
 /** The total publish duration (ms) of the remote audio stream.
- 
- @since v3.1.0
  */
 @property (assign, nonatomic) NSInteger publishDuration;
 @end
@@ -273,9 +265,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcRemoteAudioStats : NSO
 /** Properties of the audio volume information.
  */
 __attribute__((visibility("default"))) @interface AgoraRtcAudioVolumeInfo : NSObject
-/** <p>User ID of the speaker.</p>
-<li>The uid of the local user is 0.
-<li>On macOS, if you call [startRecordingDeviceTest]([AgoraRtcEngineKit startRecordingDeviceTest:]) or [startPlaybackDeviceTest]([AgoraRtcEngineKit startPlaybackDeviceTest:]) to test audio recording device or playback device, the `uid` of the audio recording device is `0`, and the `uid` of the audio playback device is `1`.
+/** User ID of the speaker. The `uid` of the local user is 0.
  */
 @property (assign, nonatomic) NSUInteger uid;
 /** The sum of the voice volume and audio-mixing volume of the speaker. The value ranges between 0 (lowest volume) and 255 (highest volume).
@@ -300,7 +290,7 @@ __attribute__((visibility("default"))) @interface AgoraRtcAudioVolumeInfo : NSOb
 /** Statistics of the channel
  */
 __attribute__((visibility("default"))) @interface AgoraChannelStats: NSObject
-/** Call duration of the local user in seconds, represented by an aggregate value.
+/** Call duration (s), represented by an aggregate value.
  */
 @property (assign, nonatomic) NSInteger duration;
 /** Total number of bytes transmitted, represented by an aggregate value.
@@ -363,24 +353,19 @@ __attribute__((visibility("default"))) @interface AgoraChannelStats: NSObject
 /** System CPU usage (%).
  */
 @property (assign, nonatomic) double cpuTotalUsage;
-/** The round-trip time delay (ms) from the client to the local router.
- 
- @note (iOS only) Since v3.1.2, this parameter is disabled by default. See [FAQ](https://docs.agora.io/en/faq/local_network_privacy) for details. If you need to enable this parameter, contact [support@agora.io](mailto:support@agora.io).
+/** The round-trip time delay from the client to the local router.
  */
 @property (assign, nonatomic) NSInteger gatewayRtt;
 /** The memory usage ratio of the app (%).
- 
- @note This value is for reference only. Due to system limitations, you may not get the value of this member.
+ **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) double memoryAppUsageRatio;
 /** The memory usage ratio of the system (%). 
- 
- @note This value is for reference only. Due to system limitations, you may not get the value of this member.
+ **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) double memoryTotalUsageRatio;
 /** The memory usage of the app (KB). 
- 
- @note This value is for reference only. Due to system limitations, you may not get the value of this member.
+ **Note** This value is for reference only. Due to system limitations, you may not get the value of this member.
  */
 @property (assign, nonatomic) NSInteger memoryAppUsageInKbytes;
 @end
@@ -533,10 +518,8 @@ AgoraDegradationPreference:
 @property (assign, nonatomic) AgoraDegradationPreference degradationPreference;
 
 /** Sets the mirror mode of the published local video stream. It only affects the video that the remote user sees. See [AgoraVideoMirrorMode](AgoraVideoMirrorMode).
- 
- **Note**
- 
- The SDK disables the mirror mode by default.
+ <p>**Note**</p>
+ <p>The SDK disables the mirror mode by default.</p>
  */
 @property (assign, nonatomic) AgoraVideoMirrorMode mirrorMode;
 
@@ -605,8 +588,6 @@ In either case, Agora uses the value of this parameter to calculate the charges.
  
  - YES: Bring the window to the front.
  - NO: (Default) Do not bring the window to the front.
-
- @since v3.1.0
  */ 
 @property (assign, nonatomic) BOOL windowFocus;
 
@@ -616,10 +597,8 @@ In either case, Agora uses the value of this parameter to calculate the charges.
  and pass `0` in the `displayId` parameter to start sharing a main screen, you can use this parameter to block the specified windows. When calling 
  [updateScreenCaptureParameters]([AgoraRtcEngineKit updateScreenCaptureParameters:]) to update the configuration for the main screen sharing, you can use this 
  parameter to dynamically block the specified windows during the main screen sharing.
-
- @since v3.1.0
  */ 
-@property (copy, nonatomic) NSArray * _Nullable excludeWindowList;
+@property (copy, nonatomic) NSArray * excludeWindowList;
 
 @end
 
@@ -669,9 +648,9 @@ Note: If your setting is not 0, you may need a specialized player.
 @end
 
 /** The advanced feature for high-quality video with a lower bitrate. */
-extern NSString* _Nonnull const LBHQ;
+extern NSString* const LBHQ;
 /** The advanced feature for the optimized video encoder. */
-extern NSString* _Nonnull const VEO;
+extern NSString* const VEO;
 
 /** The configuration for advanced features of the RTMP streaming with transcoding.
  */
@@ -755,7 +734,7 @@ Set this parameter according to the Video Bitrate Table. If you set a bitrate be
 
 The default value is 15 fps, and the value range is (0,30]. 
 
- @note The Agora server adjusts any value over 30 to 30.
+@note The Agora server adjusts any value over 30 to 30.
  */
 @property (assign, nonatomic) NSInteger videoFramerate;
 /** Latency mode. **DEPRECATED** from v2.8.0
@@ -773,11 +752,6 @@ Set it as 66, 77, or 100 (default), see [AgoraVideoCodecProfileType](AgoraVideoC
 If you set this parameter to other values, Agora adjusts it to the default value of 100.
  */
 @property (assign, nonatomic) AgoraVideoCodecProfileType videoCodecProfile;
-
-/** Video codec type
-Set it as 1(default), 2 , see AgoraVideoCodecType.
- */
-@property (assign, nonatomic) AgoraVideoCodecTypeForStream videoCodecType;
 
 /** An AgoraLiveTranscodingUser object managing the user layout configuration in the CDN live stream. Agora supports a maximum of 17 transcoding users in a CDN live stream channel. See AgoraLiveTranscodingUser.
  */
@@ -866,13 +840,13 @@ COLOR_CLASS is a general name for the type:
  <li>YES: Enable the advanced feature.</li>
  <li>NO: (Default) Disable the advanced feature.</li>
  */
--(void)setAdvancedFeatures:(NSString* _Nonnull) featureName opened:(BOOL) opened;
+-(void)setAdvancedFeatures:(NSString*) featureName opened:(BOOL) opened;
 
 /** Checks whether advanced features of the RTMP streaming with transcoding are enabled.
  
  @return The name of each advanced feature and whether the advanced feature is enabled.
  */
--(NSArray<AgoraLiveStreamAdvancedFeature *> * _Nullable)getAdvancedFeatures;
+-(NSArray<AgoraLiveStreamAdvancedFeature *> *)getAdvancedFeatures;
 
 @end
 
@@ -1101,7 +1075,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
 /** The information of the destination channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the destination channel.
- - `uid`: The unique ID to identify the relay stream in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). Do not set this parameter as the `uid` of the host in the destination channel, and ensure that this `uid` is different from any other `uid` in the channel. The default value is 0, which means the SDK generates a random UID.
+ - `uid`: ID of the host in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). To avoid UID conflicts, this `uid` must be different from any other UIDs in the destination channel. The default value is 0, which means the SDK generates a random UID.
  - `token`: The token for joining the destination channel. It is generated with the `channelName` and `uid` you set in `destinationInfos`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -1111,7 +1085,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
 /** The information of the source channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the source channel. The default value is `nil`, which means the SDK applies the name of the current channel.
- - `uid`: The unique ID to identify the relay stream in the source channel. The default value is 0, which means the SDK generates a random UID. You must set it as 0.
+ - `uid`: ID of the host whose media stream you want to relay. The default value is 0, which means the SDK generates a random UID. You must set it as 0.
  - `token`: The token for joining the source channel. It is generated with the `channelName` and `uid` you set in `sourceInfo`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -1125,7 +1099,7 @@ __attribute__((visibility("default"))) @interface AgoraChannelMediaRelayConfigur
  @param destinationInfo The information of the destination channel: AgoraChannelMediaRelayInfo. It contains the following members:
 
  - `channelName`: The name of the destination channel.
- - `uid`: The unique ID to identify the relay stream in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). Do not set this parameter as the `uid` of the host in the destination channel, and ensure that this `uid` is different from any other `uid` in the channel. The default value is 0, which means the SDK generates a random UID.
+ - `uid`: ID of the host in the destination channel. The value ranges from 0 to (2<sup>32</sup>-1). To avoid UID conflicts, this `uid` must be different from any other UIDs in the destination channel. The default value is 0, which means the SDK generates a random UID.
  - `token`: The token for joining the destination channel. It is generated with the `channelName` and `uid` you set in `destinationInfo`.
 
    - If you have not enabled the App Certificate, set this parameter as the default value `nil`, which means the SDK applies the App ID.
@@ -1245,12 +1219,10 @@ __attribute__((visibility("default"))) @interface AgoraFacePositionInfo : NSObje
 /** Configurations for the AgoraRtcEngineKit instance.
  */ 
 __attribute__((visibility("default"))) @interface AgoraRtcEngineConfig: NSObject
- /** The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance.  To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to `destroy` the current AgoraRtcEngineKit instance, and after `destroy` returns 0, call [sharedEngineWithConfig]([AgoraRtcEngineKit sharedEngineWithConfig:delegate:]) to create an AgoraRtcEngineKit instance with the new App ID.
+ /** The App ID issued to you by Agora. See [How to get the App ID](https://docs.agora.io/en/Agora%20Platform/token#get-an-app-id). Only users in apps with the same App ID can join the same channel and communicate with each other. Use an App ID to create only one AgoraRtcEngineKit instance. To change your App ID, call [destroy]([AgoraRtcEngineKit destroy]) to destroy the current AgoraRtcEngineKit instance and then call create to create an AgoraRtcEngineKit instance with the new App ID.
   */ 
  @property (copy, nonatomic) NSString * _Nullable appId;
- /** The region for connection. This advanced feature applies to scenarios that have regional restrictions. <p>For the regions that Agora supports, see AgoraAreaCode. After specifying the region, the SDK connects to the Agora servers within that region.</p>
-  
-  @note The SDK supports specifying only one region.
+ /** The region for connection. This advanced feature applies to scenarios that have regional restrictions. <p>For the regions that Agora supports, see AgoraIpAreaCode. After specifying the region, the app that integrates the Agora SDK connects to the Agora servers within that region.</p>
   */ 
  @property (nonatomic, assign) NSUInteger areaCode;
  @end
@@ -1271,13 +1243,3 @@ __attribute__((visibility("default"))) @interface AgoraEncryptionConfig: NSObjec
   */
  @property (copy, nonatomic) NSString * _Nullable encryptionKey;
  @end
-
-/** The detailed options of a user.
- */ 
-__attribute__((visibility("default"))) @interface AgoraClientRoleOptions: NSObject
-
-/** The latency level of an audience member in a live interactive streaming. See [AgoraAudienceLatencyLevelType](AgoraAudienceLatencyLevelType).
-  */
-@property (assign, nonatomic) AgoraAudienceLatencyLevelType audienceLatencyLevel;
-
-@end

@@ -93,7 +93,7 @@ class SettingContainerTableController: UITableViewController {
         if Settings.shared.isProValue.value {
             proCell.backgroundColor = UIColor(hex: 0x545454)
             diamondsIcon.image = R.image.icon_setting_diamonds()
-            diamondsNameLabel.text = "Walkie Talkie PRO"
+            diamondsNameLabel.text = "Among Chat PRO"
         } else {
             proCell.backgroundColor = UIColor(hex: 0xFFD52E)
             diamondsIcon.image = R.image.icon_setting_diamonds_u()
