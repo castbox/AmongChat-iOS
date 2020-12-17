@@ -10,8 +10,27 @@ import UIKit
 
 class JustChillingInfoView: XibLoadableView {
     
+    @IBOutlet weak var notesTitleButton: UIButton!
     @IBOutlet weak var notesDetailButton: UIButton!
     
+    var room: Entity.Room? {
+        didSet {
+            if let room = room {
+                
+                if room.topicId == .roblox {
+                    notesDetailButton.isHidden = true
+                    notesTitleButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
+                } else {
+                    notesDetailButton.isHidden = false
+                    guard let string = room.note else {
+                        notesDetailButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
+                        return
+                    }
+                    notesDetailButton.setTitle(string, for: .normal)
+                }
+            }
+        }
+    }
     
     var notes: String? {
         didSet {
@@ -36,6 +55,7 @@ class JustChillingInfoView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
+        notesTitleButton.titleLabel?.numberOfLines = 0
         notesDetailButton.titleLabel?.numberOfLines = 0
     }
     
@@ -44,6 +64,9 @@ class JustChillingInfoView: XibLoadableView {
     }
     
     @IBAction func hostNotesAction(_ sender: Any) {
+        guard room?.topicId == AmongChat.Topic.chilling else {
+            return
+        }
         hostNotesClick?()
     }
     /*

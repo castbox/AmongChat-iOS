@@ -28,25 +28,32 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
+            roomReplay.accept(room)
             //update
             updateRoomInfo(room)
         }
         
         func update(nickName: String) {
             var room = self.room
-//            room.isValidAmongConfig = publicType
-            //update
+//            room.amongUsCode = code
+            
             updateRoomInfo(room)
         }
         
         func update(notes: String) {
             var room = self.room
+            room.note = notes
+            roomReplay.accept(room)
 //            room.isValidAmongConfig = publicType
             //update
             updateRoomInfo(room)
         }
         
-        func updateAmong(code: String, aera: Int) {
+        func updateAmong(code: String, aera: Entity.AmongUsZone) {
+            var room = self.room
+            room.amongUsCode = code
+            room.amongUsZone = aera
+            roomReplay.accept(room)
             
         }
         

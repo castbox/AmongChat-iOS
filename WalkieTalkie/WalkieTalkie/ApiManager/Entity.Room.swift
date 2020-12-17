@@ -21,26 +21,32 @@ extension Entity {
         }
     }
     
+    enum AmongUsZone: Int, Codable {
+        case northAmercia
+        case asia
+        case europe
+    }
+    
     //房间类型
     struct Room: Codable {
         
-        let amongUsCode: String?
-        let amongUsZone: String?
-        let note: String?
+        var amongUsCode: String?
+        var amongUsZone: AmongUsZone?
+        var note: String?
         let roomId: String
         
         let roomUserList: [RoomUser]
         var state: RoomPublicType
-        let topicId: AmongChat.Topic
+        var topicId: AmongChat.Topic
         let topicName: String
         
         var isValidAmongConfig: Bool {
             guard topicId == .amongus,
                   let code = amongUsCode,
-                  let zone = amongUsZone else {
+                  amongUsZone != nil else {
                 return false
             }
-            return !code.isEmpty && !zone.isEmpty
+            return !code.isEmpty
         }
     }
     
@@ -88,6 +94,19 @@ extension Entity {
         
         static func randomUser(uid: UInt) -> ChannelUser {
             return ChannelUser(uid: String(uid), name: "User - \(uid)", avatar: "", robloxName: nil, seatNo: 0, prefix: tag.randomItem() ?? "A", iconColor: colors.randomItem() ?? "F5CEC7", status: .connected, isMuted: false)
+        }
+    }
+}
+
+extension Entity.AmongUsZone {
+    var title: String {
+        switch self {
+        case .northAmercia:
+            return "North America"
+        case .asia:
+            return "Asia"
+        case .europe:
+            return "Europe"
         }
     }
 }

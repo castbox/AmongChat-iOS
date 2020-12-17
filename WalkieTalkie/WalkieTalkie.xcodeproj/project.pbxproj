@@ -178,9 +178,7 @@
 		FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB53258A029F0067952C /* AmongRoomInfoSetupView.xib */; };
 		FE7CEB58258A029F0067952C /* AmongChatRoomConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB54258A029F0067952C /* AmongChatRoomConfigView.xib */; };
 		FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB55258A029F0067952C /* AmongChatRoomConfigView.swift */; };
-		FE7CEB5F258A05D60067952C /* JustChillingSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB5E258A05D60067952C /* JustChillingSetupView.swift */; };
 		FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */; };
-		FE7CEB67258A05F40067952C /* JustChillingSetupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB66258A05F40067952C /* JustChillingSetupView.xib */; };
 		FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */; };
 		FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */; };
 		FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */; };
@@ -270,6 +268,7 @@
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
 		FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */; };
 		FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */; };
+		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
 		FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEFF935D258B33480011A274 /* AmongInputNotesView.xib */; };
@@ -485,9 +484,7 @@
 		FE7CEB53258A029F0067952C /* AmongRoomInfoSetupView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmongRoomInfoSetupView.xib; sourceTree = "<group>"; };
 		FE7CEB54258A029F0067952C /* AmongChatRoomConfigView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AmongChatRoomConfigView.xib; sourceTree = "<group>"; };
 		FE7CEB55258A029F0067952C /* AmongChatRoomConfigView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmongChatRoomConfigView.swift; sourceTree = "<group>"; };
-		FE7CEB5E258A05D60067952C /* JustChillingSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustChillingSetupView.swift; sourceTree = "<group>"; };
 		FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustChillingInfoView.swift; sourceTree = "<group>"; };
-		FE7CEB66258A05F40067952C /* JustChillingSetupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JustChillingSetupView.xib; sourceTree = "<group>"; };
 		FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JustChillingInfoView.xib; sourceTree = "<group>"; };
 		FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputCodeView.xib; sourceTree = "<group>"; };
 		FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputCodeView.swift; sourceTree = "<group>"; };
@@ -578,6 +575,7 @@
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapChatCreativeShareView.swift; sourceTree = "<group>"; };
 		FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnapChatCreativeShareView.xib; sourceTree = "<group>"; };
+		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
 		FEFF935D258B33480011A274 /* AmongInputNotesView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNotesView.xib; sourceTree = "<group>"; };
@@ -669,8 +667,6 @@
 				FE7CEB53258A029F0067952C /* AmongRoomInfoSetupView.xib */,
 				FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */,
 				FE7CE9D62589C1C60067952C /* AmongRoomInfoView.xib */,
-				FE7CEB5E258A05D60067952C /* JustChillingSetupView.swift */,
-				FE7CEB66258A05F40067952C /* JustChillingSetupView.xib */,
 				FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */,
 				FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */,
 				FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */,
@@ -763,6 +759,7 @@
 				BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */,
 				26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */,
 				FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */,
+				FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1312,7 +1309,6 @@
 				FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */,
 				FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
-				FE7CEB67258A05F40067952C /* JustChillingSetupView.xib in Resources */,
 				FE7218832456DC36005274CA /* SecretChannelContainer.xib in Resources */,
 				FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */,
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
@@ -1623,7 +1619,6 @@
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
 				FE9CB1CF247D47CC00AA2199 /* Room.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
-				FE7CEB5F258A05D60067952C /* JustChillingSetupView.swift in Sources */,
 				BD6C36FA256E530100D1E708 /* AmongChat.Home.ViewController.swift in Sources */,
 				BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */,
 				FE86A588245AB28D00C35FCA /* ChannelType.swift in Sources */,
@@ -1668,6 +1663,7 @@
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,
 				FECA43AC24597B570075D139 /* Automator.swift in Sources */,
 				FE860D4A2446D1D700087B73 /* Size.swift in Sources */,
+				FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */,
 				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
 				FE86A58A245AC18200C35FCA /* ScreenContainer.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,

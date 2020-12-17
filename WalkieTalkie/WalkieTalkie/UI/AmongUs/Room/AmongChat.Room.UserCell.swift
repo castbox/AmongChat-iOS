@@ -146,7 +146,7 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.UserCell {
     
-    func bind(_ user: Entity.RoomUser?) {
+    func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic) {
         guard let user = user else {
             return
         }
@@ -157,18 +157,6 @@ extension AmongChat.Room.UserCell {
         }
         if user.uid != nil {
             avatarIV.image = nil
-//            let user = userViewModel.channelUser
-//            avatarDisposable?.dispose()
-//            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
-//                guard let `self` = self else { return }
-//
-//                if let _ = image {
-//                    self.avatarIV.backgroundColor = .clear
-//                } else {
-//                    self.avatarIV.backgroundColor = user.iconColor.color()
-//                }
-//                self.avatarIV.image = image
-//            })
             avatarIV.setImage(with: user.avatar)
             nameLabel.text = user.name
             if user.status == .talking {
@@ -177,9 +165,10 @@ extension AmongChat.Room.UserCell {
                 stopHaloAnimation()
             }
             gameNameButton.setTitle(user.robloxName, for: .normal)
-            gameNameButton.isHidden = user.robloxName?.isEmpty ?? true
             avatarIV.layer.borderWidth = 0.5
             haloView.isHidden = false
+            gameNameButton.isHidden = topic != .roblox
+            gameNameButton.isHidden = !user.robloxName.isValid
         } else {
             avatarIV.image = R.image.ac_icon_seat_add()
             avatarIV.contentMode = .center

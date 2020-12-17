@@ -18,14 +18,14 @@ class AmongInputCodeView: XibLoadableView {
     @IBOutlet weak var asiaButton: UIButton!
     @IBOutlet weak var europeButton: UIButton!
     
-    private var locationService: AmongChat.AmongServiceLocation = .northAmerica {
+    private var locationService: Entity.AmongUsZone = .northAmercia {
         didSet {
             northAmericaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
             asiaButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
             europeButton.setBackgroundImage("D8D8D8".color().image, for: .normal)
             
             switch locationService {
-            case .northAmerica:
+            case .northAmercia:
                 northAmericaButton.setBackgroundImage("FFF000".color().image, for: .normal)
             case .asia:
                 asiaButton.setBackgroundImage("FFF000".color().image, for: .normal)
@@ -35,7 +35,7 @@ class AmongInputCodeView: XibLoadableView {
         }
     }
     
-    var inputResultHandler: ((String, AmongChat.AmongServiceLocation) -> Void)?
+    var inputResultHandler: ((String, Entity.AmongUsZone) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,7 +52,7 @@ class AmongInputCodeView: XibLoadableView {
     }
     
     private func configureSubview() {
-        locationService = .northAmerica
+        locationService = .northAmercia
     }
     
     override func becomeFirstResponder() -> Bool {
@@ -64,7 +64,7 @@ class AmongInputCodeView: XibLoadableView {
     }
 
     @IBAction func serviceLocationAction(_ sender: UIButton) {
-        guard let location = AmongChat.AmongServiceLocation(rawValue: sender.tag) else {
+        guard let location = Entity.AmongUsZone(rawValue: sender.tag) else {
             return
         }
         locationService = location

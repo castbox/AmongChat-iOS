@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AmongInputNickNameView: UIView {
+class AmongInputNickNameView: XibLoadableView {
 
     @IBOutlet weak var textField: UITextField!
     

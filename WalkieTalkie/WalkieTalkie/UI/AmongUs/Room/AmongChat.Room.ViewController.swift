@@ -171,6 +171,7 @@ extension AmongChat.Room {
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
+            v.isScrollEnabled = false
             v.dataSource = self
             v.delegate = self
             v.backgroundColor = nil
@@ -416,7 +417,7 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UserCell.self), for: indexPath)
         if let cell = cell as? UserCell {
-            cell.bind(dataSource.safe(indexPath.item))
+            cell.bind(dataSource.safe(indexPath.item), topic: room.topicId)
         }
         return cell
     }
@@ -529,7 +530,7 @@ extension AmongChat.Room.ViewController {
         userCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(configView.snp.bottom).offset(40)
-            maker.height.equalTo(250)
+            maker.height.equalTo(251)
         }
         
         toolView.snp.makeConstraints { (maker) in
@@ -806,6 +807,7 @@ extension AmongChat.Room.ViewController {
             .subscribe(onNext: { [weak self] room in
                 self?.room = room
                 self?.topBar.set(room)
+                self?.configView.room = room
                 self?.toolView.set(room)
                 self?.dataSource = room.roomUserList
                 //update list and other
@@ -847,7 +849,7 @@ extension AmongChat.Room.ViewController {
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
-            self?.roomViewModel.updateAmong(code: code, aera: aera.rawValue)
+            self?.roomViewModel.updateAmong(code: code, aera: aera)
         }
         
         nickNameInputView.inputResultHandler = { [weak self] text in
@@ -866,21 +868,13 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else {
                 return
             }
-            let urlString: String
             switch self.room.topicId {
             case .amongus:
-                urlString = "itms-apps://itunes.apple.com/app/id1351168404"
+                self.showStoreProduct(with: 1351168404)
             case .roblox:
-                urlString = "itms-apps://itunes.apple.com/app/id431946152"
+                self.showStoreProduct(with: 431946152)
             case .chilling:
-                urlString = ""
-            }
-            guard let url = URL(string: urlString),
-                  UIApplication.shared.canOpenURL(url) else {
-                return
-            }
-            UIApplication.shared.open(url, options: [:]) { _ in
-                
+                ()
             }
         }
     }

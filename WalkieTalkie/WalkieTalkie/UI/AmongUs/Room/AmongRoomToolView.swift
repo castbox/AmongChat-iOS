@@ -32,6 +32,9 @@ class AmongRoomToolView: XibLoadableView {
         case .amongus:
             openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
         case .roblox:
+//            if room. {
+//                <#code#>
+//            }
             openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
             
         default:
@@ -47,11 +50,13 @@ class AmongRoomToolView: XibLoadableView {
     
     private func configureSubview() {
         openGameButton.setBackgroundImage("592DFF".color().image, for: .normal)
+        nickNameButton.setBackgroundImage(UIColor.white.image, for: .normal)
     }
     
     @IBAction func setupNickNameAction(_ sender: Any) {
         setNickNameHandler?()
     }
+    
     @IBAction func openGameAction(_ sender: Any) {
         openGameHandler?()
     }

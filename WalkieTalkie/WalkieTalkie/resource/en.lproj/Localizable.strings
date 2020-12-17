@@ -184,3 +184,6 @@
 "among.chat.room.tip.mic.on" = "MIC ON";
 "room.tag.open.game" = "Open Game";
 "room.tag.chilling" = "Just Chatting";
+"room.roblox.default.notes" = "add the host in roblox to join their game! tap to copy";
+"room.chilling.default.notes" = "wait till you have enough crewmates. then open a room in game and find each other thru private code";
+"room.hosts.notes" = "Host's notes:";

@@ -304,3 +304,14 @@ extension String {
         return lowerCasedString.replacingCharacters(in: lowerCasedString.startIndex...lowerCasedString.startIndex, with: String(lowerCasedString[lowerCasedString.startIndex]).uppercased())
     }
 }
+
+
+extension Optional where Wrapped == String {
+    
+    var isValid: Bool {
+        guard let string = self else {
+            return false
+        }
+        return !string.isEmpty
+    }
+}

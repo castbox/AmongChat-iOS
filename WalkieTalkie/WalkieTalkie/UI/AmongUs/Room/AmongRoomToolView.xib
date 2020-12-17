@@ -44,7 +44,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI6-Ps-Zb4">
-                    <rect key="frame" x="260" y="0.0" width="154" height="24"/>
+                    <rect key="frame" x="240" y="0.0" width="154" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="hZu-XW-Lwd"/>
                     </constraints>
@@ -59,13 +59,13 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="setupNickNameAction:" destination="-1" eventType="touchUpInside" id="ty3-f4-54q"/>
+                        <action selector="setupNickNameAction:" destination="-1" eventType="touchUpInside" id="xiR-SR-h4F"/>
                     </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstItem="bI6-Ps-Zb4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="EfD-UM-RLi"/>
+                <constraint firstItem="bI6-Ps-Zb4" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" constant="-20" id="EfD-UM-RLi"/>
                 <constraint firstItem="bI6-Ps-Zb4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="F5j-5S-lsi"/>
                 <constraint firstItem="cPB-NF-XN2" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="IJr-HG-37K"/>
                 <constraint firstItem="cPB-NF-XN2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="s1m-OO-qe5"/>

@@ -450,7 +450,7 @@ extension AmongChat.Home.ViewController {
             Entity.RoomUser(uid: nil, name: "", avatar: "", robloxName: nil, seatNo: 7, prefix: "", iconColor: "", status: .connected, isMuted: false),
             Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 8, prefix: "", iconColor: "", status: .connected, isMuted: false),
             Entity.RoomUser(uid: "2131", name: "Cass", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 9, prefix: "lisa", iconColor: "", status: .connected, isMuted: false),
-        ], state: .public, topicId: .amongus, topicName: "Among Us")
+        ], state: .public, topicId: .roblox, topicName: "Among Us")
         
         joinChannelSubject
             .filterNil()

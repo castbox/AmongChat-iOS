@@ -10,14 +10,18 @@ import UIKit
 import SnapKit
 
 class AmongChatRoomConfigView: XibLoadableView {
-
-    var room: Entity.Room
     //view
     lazy var amongSetupView = AmongRoomInfoSetupView()
     lazy var amongInfoView = AmongRoomInfoView()
     lazy var justChillingInfoView = JustChillingInfoView()
     
     var updateEditTypeHandler: ((RoomEditType) -> Void)?
+    
+    var room: Entity.Room {
+        didSet {
+            updateSubview()
+        }
+    }
     
     init(_ room: Entity.Room) {
         self.room = room
@@ -42,12 +46,15 @@ extension AmongChatRoomConfigView {
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
         case .roblox:
-            ()
+            justChillingInfoView.isHidden = false
+            amongSetupView.isHidden = true
+            amongInfoView.isHidden = true
+            justChillingInfoView.room = room
         case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
-            
+            justChillingInfoView.room = room
         }
     }
     

@@ -16,13 +16,18 @@ class AmongRoomInfoView: XibLoadableView {
     var room: Entity.Room? {
         didSet {
             codeLabel.text = room?.amongUsCode
-            aeraLabel.setTitle(room?.amongUsZone, for: .normal)
+            aeraLabel.setTitle(room?.amongUsZone?.title, for: .normal)
         }
     }
     
     @IBAction func copyButtonAction(_ sender: Any) {
-        room?.amongUsCode?.copyToPasteboard()
-        raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        //is self
+        if room?.roomUserList.first?.uid == "" {
+            
+        } else {
+            room?.amongUsCode?.copyToPasteboard()
+            raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        }
     }
     /*
     // Only override draw() if you perform custom drawing.

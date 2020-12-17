@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AmongInputNotesView: UIView {
+class AmongInputNotesView: XibLoadableView {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var inputContainerView: UIView!
@@ -31,12 +31,7 @@ class AmongInputNotesView: UIView {
     }
     
     private func configureSubview() {
-        
-
-    }
-    
-    override func awakeFromNib() {
-        textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 17, bottom: 20, right: 20)
     }
     
     override func becomeFirstResponder() -> Bool {
@@ -62,18 +57,18 @@ class AmongInputNotesView: UIView {
     
 }
 
-extension AmongInputNickNameView: UITextViewDelegate {
+extension AmongInputNotesView: UITextViewDelegate {
     
     // MARK: - UITextFieldDelegate
     
     func textViewDidEndEditing(_ textView: UITextView) {
 //        inputContainerView.isHidden = true
 //        isHidden = true
-        fadeOut(duration: 0.25, completion: nil)
+        fadeOut(duration: 0.1, completion: nil)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        fadeIn(duration: 0.25, completion: nil)
+        fadeIn(duration: 0.1, completion: nil)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -87,14 +82,14 @@ extension AmongInputNickNameView: UITextViewDelegate {
     }
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         
-        textField.resignFirstResponder()
+        textView.resignFirstResponder()
         
-        guard let text = textField.text,
+        guard let text = textView.text,
               text.count > 0 else {
             return true
         }
         
-        textField.clear()
+        textView.clear()
         return true
     }
 }

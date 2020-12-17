@@ -877,7 +877,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 28 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 27 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -921,8 +921,6 @@ struct R: Rswift.Validatable {
     static let guideThirdView = _R.nib._GuideThirdView()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
-    /// Nib `JustChillingSetupView`.
-    static let justChillingSetupView = _R.nib._JustChillingSetupView()
     /// Nib `PremiumContainer`.
     static let premiumContainer = _R.nib._PremiumContainer()
     /// Nib `ScreenContainer`.
@@ -1062,12 +1060,6 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
     }
     
-    /// `UINib(name: "JustChillingSetupView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingSetupView) instead")
-    static func justChillingSetupView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.justChillingSetupView)
-    }
-    
     /// `UINib(name: "PremiumContainer", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.premiumContainer) instead")
     static func premiumContainer(_: Void = ()) -> UIKit.UINib {
@@ -1188,10 +1180,6 @@ struct R: Rswift.Validatable {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func justChillingSetupView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.justChillingSetupView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func premiumContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.premiumContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1258,7 +1246,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 136 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 139 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1440,6 +1428,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en
+      static let roomHostsNotes = Rswift.StringResource(key: "room.hosts.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: I Know
       /// 
       /// Locales: en
@@ -1796,10 +1788,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: add the host in roblox to join their game! tap to copy
+      /// 
+      /// Locales: en
+      static let roomRobloxDefaultNotes = Rswift.StringResource(key: "room.roblox.default.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en
       static let premiumLifetime = Rswift.StringResource(key: "premium.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: wait till you have enough crewmates. then open a room in game and find each other thru private code
+      /// 
+      /// Locales: en
+      static let roomChillingDefaultNotes = Rswift.StringResource(key: "room.chilling.default.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en
@@ -2118,6 +2118,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectHarassment(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en
+      static func roomHostsNotes(_: Void = ()) -> String {
+        return NSLocalizedString("room.hosts.notes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: I Know
@@ -2743,11 +2750,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: add the host in roblox to join their game! tap to copy
+      /// 
+      /// Locales: en
+      static func roomRobloxDefaultNotes(_: Void = ()) -> String {
+        return NSLocalizedString("room.roblox.default.notes", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: lifetime
       /// 
       /// Locales: en
       static func premiumLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: wait till you have enough crewmates. then open a room in game and find each other thru private code
+      /// 
+      /// Locales: en
+      static func roomChillingDefaultNotes(_: Void = ()) -> String {
+        return NSLocalizedString("room.chilling.default.notes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
@@ -3105,17 +3126,6 @@ struct _R: Rswift.Validatable {
     struct _JustChillingInfoView: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "JustChillingInfoView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _JustChillingSetupView: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "JustChillingSetupView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView

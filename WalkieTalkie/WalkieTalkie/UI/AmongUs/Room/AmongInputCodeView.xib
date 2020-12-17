@@ -60,12 +60,12 @@
                             <rect key="frame" x="40" y="60" width="334" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXH-9e-wm8">
-                                    <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="132" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="saG-1H-Ych"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="17" maxY="0.0"/>
                                     <state key="normal" title="North America">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -79,12 +79,12 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-M6-xFk">
-                                    <rect key="frame" x="158" y="0.0" width="69" height="40"/>
+                                    <rect key="frame" x="161" y="0.0" width="63" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="yQ8-KA-QYr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="17" maxY="0.0"/>
                                     <state key="normal" title="Asia">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -98,12 +98,12 @@
                                     </connections>
                                 </button>
                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
-                                    <rect key="frame" x="247" y="0.0" width="87" height="40"/>
+                                    <rect key="frame" x="253" y="0.0" width="81" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="Axs-7i-8Fr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                    <inset key="contentEdgeInsets" minX="17" minY="0.0" maxX="17" maxY="0.0"/>
                                     <state key="normal" title="Europe">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
