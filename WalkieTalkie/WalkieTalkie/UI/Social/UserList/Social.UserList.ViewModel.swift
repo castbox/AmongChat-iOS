@@ -47,10 +47,10 @@ extension Social.UserList {
         }
         
         var online: Bool {
-            guard let selfUid = Settings.shared.loginResult.value?.uid,
-                !user.blockList.contains(selfUid) else {
-                return false
-            }
+//            guard let selfUid = Settings.shared.loginResult.value?.uid,
+//                !user.blockList.contains(selfUid) else {
+//                return false
+//            }
             return user.status.online
         }
         
@@ -92,10 +92,10 @@ extension Social.UserList {
         }
         
         var joinable: (Bool, String) {
-            guard let selfUid = Settings.shared.loginResult.value?.uid,
-                !user.blockList.contains(selfUid) else {
-                return (false, R.string.localizable.socialJoinAction())
-            }
+//            guard let selfUid = Settings.shared.loginResult.value?.uid,
+//                !user.blockList.contains(selfUid) else {
+//                return (false, R.string.localizable.socialJoinAction())
+//            }
             
             guard !Social.Module.shared.blockedValue.contains(user.profile.uid) else {
                 return (false, R.string.localizable.socialJoinAction())
@@ -132,10 +132,10 @@ extension Social.UserList {
         }
         
         var invitable: Bool {
-            guard let selfUid = Settings.shared.loginResult.value?.uid,
-                !user.blockList.contains(selfUid) else {
-                return false
-            }
+//            guard let selfUid = Settings.shared.loginResult.value?.uid,
+//                !user.blockList.contains(selfUid) else {
+//                return false
+//            }
 
             guard !Social.Module.shared.blockedValue.contains(user.profile.uid) else {
                 return false
@@ -153,7 +153,7 @@ extension Social.UserList {
         
         func invite() {
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            FireStore.shared.sendChannelInvitation(to: userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
+//            FireStore.shared.sendChannelInvitation(to: userId, toJoin: Social.Module.shared.currentChannelValue, from: selfUid)
             UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.channelInviteSentTip()))
         }
         

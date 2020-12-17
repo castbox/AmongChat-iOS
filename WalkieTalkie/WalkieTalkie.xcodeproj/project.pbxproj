@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
+		9BC713B11E43E853DC258727 /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */; };
 		BD1F050D24FFB55200712C24 /* ChannelUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */; };
 		BD1F050F2500E37400712C24 /* RoomSpeakingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050E2500E37300712C24 /* RoomSpeakingListView.swift */; };
 		BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */; };
@@ -45,14 +46,21 @@
 		BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */; };
 		BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */; };
 		BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */; };
+		BDC9D1382589BBC600412BDC /* AmongChat.Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */; };
+		BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */; };
+		BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1412589C92800412BDC /* PolicyLabel.swift */; };
+		BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */; };
+		BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */; };
+		BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D667258A4C5500412BDC /* APIService.Auth.swift */; };
 		BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */; };
 		BDD1F9F224FD144400B8563C /* Social.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */; };
 		BDD1F9F424FD1A3800B8563C /* Social.Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD1F9F324FD1A3800B8563C /* Social.Module.swift */; };
 		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
+		BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */; };
 		BDFEFEE12586043F007F40FC /* AmongChat.AllRooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */; };
 		BDFEFEE525860467007F40FC /* AmongChat.AllRooms.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */; };
 		BDFEFEE9258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */; };
-		BDFEFEF125864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */; };
+		BDFEFEF125864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
 		FE0D1A2524489BF300518793 /* AudioType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2424489BF300518793 /* AudioType.swift */; };
@@ -307,6 +315,8 @@
 		2694565F2519DFE6003AA34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		269456612519DFE6003AA34A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkieWidgetExtension.entitlements; sourceTree = "<group>"; };
+		79D7B9CB8308353481C1E294 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
+		A714B615680A3C004001D7F1 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUserViewModel.swift; sourceTree = "<group>"; };
 		BD1F050E2500E37300712C24 /* RoomSpeakingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSpeakingListView.swift; sourceTree = "<group>"; };
 		BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFriendUserCell.swift; sourceTree = "<group>"; };
@@ -344,14 +354,22 @@
 		BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsAPI.swift; sourceTree = "<group>"; };
 		BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.EditProfileViewController.swift; sourceTree = "<group>"; };
+		BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.swift; sourceTree = "<group>"; };
+		BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.ViewController.swift; sourceTree = "<group>"; };
+		BDC9D1412589C92800412BDC /* PolicyLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolicyLabel.swift; sourceTree = "<group>"; };
+		BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.Manager.swift; sourceTree = "<group>"; };
+		BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.Entity.swift; sourceTree = "<group>"; };
+		BDC9D667258A4C5500412BDC /* APIService.Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Auth.swift; sourceTree = "<group>"; };
 		BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+UIViewController.swift"; sourceTree = "<group>"; };
 		BDD1F9F124FD144200B8563C /* Social.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDD1F9F324FD1A3800B8563C /* Social.Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Module.swift; sourceTree = "<group>"; };
 		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
+		BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+AmongChat.swift"; sourceTree = "<group>"; };
 		BDFEFEE02586043F007F40FC /* AmongChat.AllRooms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.swift; sourceTree = "<group>"; };
 		BDFEFEE425860467007F40FC /* AmongChat.AllRooms.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ViewController.swift; sourceTree = "<group>"; };
 		BDFEFEE8258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.AllRooms.ChannelCell.swift; sourceTree = "<group>"; };
-		BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.ChannelInputViewController.swift; sourceTree = "<group>"; };
+		BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.CreateRoomViewController.swift; sourceTree = "<group>"; };
+		CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2224489BCC00518793 /* RoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2424489BF300518793 /* AudioType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioType.swift; sourceTree = "<group>"; };
@@ -582,6 +600,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BC713B11E43E853DC258727 /* Pods_WalkieTalkie.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,6 +617,8 @@
 		21322B40449618314E604481 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				A714B615680A3C004001D7F1 /* Pods-WalkieTalkie.debug.xcconfig */,
+				79D7B9CB8308353481C1E294 /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -623,6 +644,7 @@
 				BD6C36FE256E7CAD00D1E708 /* Room */,
 				BD6C36EB256E517E00D1E708 /* Home */,
 				BDFEFED5258603A9007F40FC /* AllRooms */,
+				BDC9D1362589BB2600412BDC /* Login */,
 			);
 			path = AmongUs;
 			sourceTree = "<group>";
@@ -635,7 +657,7 @@
 				BD6C370F256F564500D1E708 /* AmongChat.Home.HashTagCell.swift */,
 				BD6C3717256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift */,
 				BDB8D2092571003F001BE4E1 /* AmongChat.Home.JoinSecretViewController.swift */,
-				BDFEFEF025864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift */,
+				BDFEFEF025864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -713,6 +735,16 @@
 			path = Social;
 			sourceTree = "<group>";
 		};
+		BDC9D1362589BB2600412BDC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */,
+				BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */,
+				BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		BDFEFED5258603A9007F40FC /* AllRooms */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +760,7 @@
 			children = (
 				269456582519DFE2003AA34A /* WidgetKit.framework */,
 				2694565A2519DFE2003AA34A /* SwiftUI.framework */,
+				CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -912,6 +945,7 @@
 		FE684885244BDA0C00F87AF9 /* Widge */ = {
 			isa = PBXGroup;
 			children = (
+				BDC9D1412589C92800412BDC /* PolicyLabel.swift */,
 				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
 				FE684883244BD9F900F87AF9 /* GradientView.swift */,
@@ -994,7 +1028,10 @@
 			children = (
 				FEC17A4A24A9B957003719BC /* Request.swift */,
 				FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */,
+				BDED6A4F258B726A0078F165 /* Request+AmongChat.swift */,
+				BDC9D2A12589DA2D00412BDC /* Request.Entity.swift */,
 				FE8DEA5A243DB0970059C252 /* APIService.swift */,
+				BDC9D667258A4C5500412BDC /* APIService.Auth.swift */,
 				FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */,
 				FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */,
 				FE8DEA58243DB0960059C252 /* ApiManager.swift */,
@@ -1214,12 +1251,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE126D33243461EB00BEDD60 /* Build configuration list for PBXNativeTarget "WalkieTalkie" */;
 			buildPhases = (
+				D45DD0BFEEA84CC44539BF2F /* [CP] Check Pods Manifest.lock */,
 				FE4FDADC2435E32600CD5E97 /* R.swift */,
 				FE126D10243461E800BEDD60 /* Sources */,
 				FE126D11243461E800BEDD60 /* Frameworks */,
 				FE126D12243461E800BEDD60 /* Resources */,
 				FE8DEA56243CA1130059C252 /* Fabric */,
 				269456652519DFE6003AA34A /* Embed App Extensions */,
+				13D53F99C2DE237D4FD28148 /* [CP] Embed Pods Frameworks */,
+				87298DAD4EC5ADE799FA6A3E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1349,6 +1389,58 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		13D53F99C2DE237D4FD28148 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		87298DAD4EC5ADE799FA6A3E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D45DD0BFEEA84CC44539BF2F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WalkieTalkie-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		FE4FDADC2435E32600CD5E97 /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1397,7 +1489,7 @@
 				FE86A582245AA26900C35FCA /* FireStore.Modal.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				FE746BDD24629B0500CAC554 /* GuideFirstView.swift in Sources */,
-				BDFEFEF125864517007F40FC /* AmongChat.Home.ChannelInputViewController.swift in Sources */,
+				BDFEFEF125864517007F40FC /* AmongChat.Home.CreateRoomViewController.swift in Sources */,
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
@@ -1405,6 +1497,7 @@
 				BDFEFEE9258604DE007F40FC /* AmongChat.AllRooms.ChannelCell.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				BDFEFEE525860467007F40FC /* AmongChat.AllRooms.ViewController.swift in Sources */,
+				BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */,
 				FEAD54E02449C799006454F6 /* PrivateChannelController.swift in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
@@ -1451,8 +1544,10 @@
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				BD1F050F2500E37400712C24 /* RoomSpeakingListView.swift in Sources */,
+				BDED6A50258B726B0078F165 /* Request+AmongChat.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDB8F58B24F7DE75000027F8 /* Social.InitialProfileViewController.swift in Sources */,
+				BDC9D2A22589DA2D00412BDC /* Request.Entity.swift in Sources */,
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
 				FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */,
@@ -1475,6 +1570,7 @@
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
+				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */,
@@ -1562,6 +1658,7 @@
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,
 				BD73B0FF24FE2B44009D0AC7 /* Social.UserList.ViewModel.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
+				BDC9D668258A4C5500412BDC /* APIService.Auth.swift in Sources */,
 				FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */,
 				BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */,
 				FE49CEA1243625D700C36EC6 /* SearchViewModel.swift in Sources */,
@@ -1576,6 +1673,7 @@
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
+				BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */,
 				FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */,
 				FE7CE9E32589E5450067952C /* AmongRoomBottomBar.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
@@ -1587,6 +1685,7 @@
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				BD73B10324FE89CA009D0AC7 /* Social.UserList.ActionModal.swift in Sources */,
 				FE72187D2456DC19005274CA /* SecretChannelContainer.swift in Sources */,
+				BDC9D1382589BBC600412BDC /* AmongChat.Login.swift in Sources */,
 				FE6306A92450061500CEA651 /* XibLoadableView.swift in Sources */,
 				BD82844F253ED915009B23BC /* RoomViewController.SpeakingModal.swift in Sources */,
 				FE746BE124629B0500CAC554 /* GuideSecondView.swift in Sources */,
@@ -1777,6 +1876,7 @@
 		};
 		FE126D34243461EB00BEDD60 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A714B615680A3C004001D7F1 /* Pods-WalkieTalkie.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1803,6 +1903,7 @@
 		};
 		FE126D35243461EB00BEDD60 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79D7B9CB8308353481C1E294 /* Pods-WalkieTalkie.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

@@ -49,19 +49,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FireRemote.shared.refresh()
         _ = Social.Module.shared
         
-        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-//        #if DEBUG
-//        isFirstLogin = true
-//        #endif
+//        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
+////        #if DEBUG
+////        isFirstLogin = true
+////        #endif
+//
+//        if isFirstLogin {
+//            //MIGRATE
+//            migrateUserDefaults()
+//            setupInitialView(goRoom: true)
+//            firstOpenPremiumShowed = true
+//        } else {
+//            setupInitialView(goRoom: false)
+//        }
         
-        if isFirstLogin {
-            //MIGRATE
-            migrateUserDefaults()
-            setupInitialView(goRoom: true)
-            firstOpenPremiumShowed = true
-        } else {
-            setupInitialView(goRoom: false)
-        }
+        setupInitialView()
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
@@ -232,6 +234,40 @@ extension AppDelegate {
             // 推送服务
             FireMessaging.shared.requestPermissionIfNotGranted()
         }
+        self.window = window
+    }
+    
+    func setupInitialView() {
+        
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = .black
+        window.makeKeyAndVisible()
+        let rootVc: UIViewController
+        
+        let homeVc: (() -> UIViewController) = {
+            NavigationViewController(rootViewController: AmongChat.Home.ViewController.shared)
+        }
+        
+//        #if DEBUG
+//        let needLogin: Bool = true
+//        #else
+        let needLogin: Bool = Settings.shared.loginResult.value == nil
+//        #endif
+        
+        if needLogin {
+            let loginVc = AmongChat.Login.ViewController()
+            let _ = loginVc.loginFinishedSignal
+                .take(1)
+                .subscribe(onNext: { () in
+                    window.rootViewController = homeVc()
+                })
+            
+            rootVc = NavigationViewController(rootViewController: loginVc)
+        } else {
+            rootVc = homeVc()
+        }
+        
+        window.rootViewController = rootVc
         self.window = window
     }
     

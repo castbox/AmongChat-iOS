@@ -134,6 +134,10 @@ class ViewController: UIViewController, ScreenLifeLogable {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor(hex6: 0x00011B)
+
         replaceBackBarButtonIfNeed()
     }
     

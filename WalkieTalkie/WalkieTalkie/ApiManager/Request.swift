@@ -17,6 +17,10 @@ struct Request {
     static let castboxProvider = MoyaProvider<APIService.CastboxBackend>(plugins: [
         NetworkLoggerPlugin(),
     ])
+    
+    static let authProvider = MoyaProvider<APIService.Auth>(plugins: [
+        NetworkLoggerPlugin()
+    ])
 }
 
 extension Request {
@@ -47,7 +51,7 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.LoginResult.self)
     }
-    
+        
     static func devices(params: [String : Any]) -> Single<Bool> {
         return castboxProvider.rx.request(.devices(params))
             .mapJSON()

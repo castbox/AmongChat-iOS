@@ -131,7 +131,7 @@ class ChannelUserListViewModel {
         update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
-            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
+//            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
         }
     }
     
@@ -141,7 +141,7 @@ class ChannelUserListViewModel {
         update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
-            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
+//            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
         }
     }
     
@@ -149,14 +149,14 @@ class ChannelUserListViewModel {
         mutedUser.insert(user.channelUser.uid.int!.uInt)
         update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.addMuteUser(user.channelUser.uid.int!.uInt, to: selfUid)
+//        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
     }
     
     func unmuteUser(_ user: ChannelUserViewModel) {
         mutedUser.remove(user.channelUser.uid.int!.uInt)
         update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.removeMuteUser(user.channelUser.uid.int!.uInt, from: selfUid)
+//        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
     }
     
     func followUser(_ user: FireStore.Entity.User) {
@@ -165,7 +165,7 @@ class ChannelUserListViewModel {
     
     func unfollowUser(_ user: FireStore.Entity.User) {
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.removeFollowing(user.uid, from: selfUid)
+//        FireStore.shared.removeFollowing(user.uid, from: selfUid)
     }
     
     func didJoinedChannel(_ channel: String) {

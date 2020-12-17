@@ -188,3 +188,12 @@
 "room.chilling.default.notes" = "wait till you have enough crewmates. then open a room in game and find each other thru private code";
 "room.hosts.notes" = "Host's notes:";
 "room.user.list.muted" = "Muted";
+
+"terms.privacy" = "Privacy Policy";
+"terms.service" = "Terms of Service";
+"login.google" = "Google";
+"privacy.label" = "Privacy Policy & Terms of Service";
+"among.chat.home.create.room.input.placeholder" = "TYPE YOUR TOPIC HERE";
+"among.chat.home.create.room.confirm.btn" = "Create %1$@ room";
+"among.chat.home.create.room.private" = "Private";
+"among.chat.home.create.room.title" = "Create";

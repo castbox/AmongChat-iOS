@@ -60,10 +60,5 @@ class Automator {
                 cdPrint("[Automator]  Sync token result: \(result)")
             })
             .disposed(by: bag)
-        
-        _ = Request.login(deviceId: Constants.deviceID)
-            .subscribe(onSuccess: { result in
-                Settings.shared.loginResult.value = result
-            })
     }
 }

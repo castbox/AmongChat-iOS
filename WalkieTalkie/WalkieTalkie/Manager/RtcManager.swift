@@ -380,6 +380,6 @@ extension RtcManager {
             return
         }
         let status = FireStore.Entity.User.Status(currentChannel: channel, online: true)
-        FireStore.shared.updateStatus(status, of: uid)
+//        FireStore.shared.updateStatus(status, of: uid)
     }
 }

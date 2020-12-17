@@ -34,7 +34,7 @@ class Settings {
         let value: LoginResult?
         
         if let json = Defaults[\.loginResultKey],
-            let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
+           let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
             value = result
         } else {
             value = nil
@@ -43,7 +43,7 @@ class Settings {
         return DynamicProperty.stored(value)
             .didSet({ event in
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
-                SharedDefaults[\.loginResultTokenKey] = event.new?.token
+                SharedDefaults[\.loginResultTokenKey] = event.new?.access_token
             })
             .asPublishProperty()
     }()
@@ -348,7 +348,7 @@ extension DefaultsKeys {
     }
     
     var loginResultKey: DefaultsKey<[String : Any]?> {
-        .init("login.result", defaultValue: nil)
+        .init("among.chat.login.result", defaultValue: nil)
     }
     
     var blockedUsersKey: DefaultsKey<[ChannelUser]> {
