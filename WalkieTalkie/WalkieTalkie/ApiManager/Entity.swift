@@ -12,15 +12,6 @@ struct Entity {
     
 }
 
-//extension Entity {
-//    struct LoginResult: Codable {
-//        let uid: String
-//        let token: String
-//        let newUser: Bool
-//        let firebaseToken : String
-//    }
-//}
-
 extension Entity {
     
     struct Channel: Codable {
