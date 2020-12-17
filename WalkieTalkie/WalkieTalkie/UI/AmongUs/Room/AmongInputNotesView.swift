@@ -55,11 +55,12 @@ class AmongInputNotesView: XibLoadableView {
     }
     
     @IBAction func doneButtonAction(_ sender: Any) {
-        _ = textView.resignFirstResponder()
         guard let name = textView.text else {
+            _ = textView.resignFirstResponder()
             return
         }
         inputResultHandler?(name)
+        _ = textView.resignFirstResponder()
     }
     
 }
@@ -71,7 +72,7 @@ extension AmongInputNotesView: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
 //        inputContainerView.isHidden = true
 //        isHidden = true
-        fadeOut(duration: 0.1, completion: nil)
+        fadeOut(duration: 0.25, completion: nil)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {

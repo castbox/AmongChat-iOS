@@ -55,8 +55,10 @@ class JustChillingInfoView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
+        notesTitleButton.setTitle(R.string.localizable.roomHostsNotes(), for: .normal)
         notesTitleButton.titleLabel?.numberOfLines = 0
-        notesDetailButton.titleLabel?.numberOfLines = 0
+        notesDetailButton.titleLabel?.numberOfLines = 3
+//        notesDetailButton.titleLabel?.lineBreakMode = .byTruncatingTail
     }
     
     private func configureSubview() {

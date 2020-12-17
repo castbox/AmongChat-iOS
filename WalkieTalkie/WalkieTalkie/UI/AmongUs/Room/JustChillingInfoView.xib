@@ -24,7 +24,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="107"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pp-QH-sua">
@@ -38,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-Nt-qHV">
-                    <rect key="frame" x="56" y="48" width="338" height="32"/>
+                    <rect key="frame" x="56" y="50" width="338" height="32"/>
                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
                     <state key="normal" title="host could setup notes so everyone could see it when they join the room">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,10 +51,11 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="SqD-Nt-qHV" firstAttribute="leading" secondItem="9pp-QH-sua" secondAttribute="leading" id="1wS-VW-1eK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SqD-Nt-qHV" secondAttribute="bottom" constant="10" id="MaE-Ty-32U"/>
                 <constraint firstAttribute="trailing" secondItem="9pp-QH-sua" secondAttribute="trailing" constant="20" id="X1G-cU-meI"/>
                 <constraint firstItem="9pp-QH-sua" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="bMY-ae-DJb"/>
                 <constraint firstItem="9pp-QH-sua" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="56" id="cUH-pX-uIy"/>
-                <constraint firstItem="SqD-Nt-qHV" firstAttribute="top" secondItem="9pp-QH-sua" secondAttribute="bottom" id="csT-sq-1Uz"/>
+                <constraint firstItem="SqD-Nt-qHV" firstAttribute="top" secondItem="9pp-QH-sua" secondAttribute="bottom" constant="2" id="csT-sq-1Uz"/>
                 <constraint firstItem="SqD-Nt-qHV" firstAttribute="trailing" secondItem="9pp-QH-sua" secondAttribute="trailing" id="fQ8-2Z-v2h"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
