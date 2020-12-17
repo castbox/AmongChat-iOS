@@ -12,6 +12,7 @@ class AmongInputNotesView: XibLoadableView {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var inputContainerView: UIView!
+    @IBOutlet weak var hostNotesPlaceholderLabel: UILabel!
     
     var inputResultHandler: ((String) -> Void)?
     
@@ -31,7 +32,13 @@ class AmongInputNotesView: XibLoadableView {
     }
     
     private func configureSubview() {
-        textView.textContainerInset = UIEdgeInsets(top: 20, left: 17, bottom: 20, right: 20)
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 20)
+    }
+    
+    func show(with room: Entity.Room) {
+        hostNotesPlaceholderLabel.isHidden = room.note.isValid
+        textView.text = room.note
+        _ = becomeFirstResponder()
     }
     
     override func becomeFirstResponder() -> Bool {
@@ -78,6 +85,7 @@ extension AmongInputNotesView: UITextViewDelegate {
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + text.count
+        hostNotesPlaceholderLabel.isHidden = count > 0
         return count <= 256
     }
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {

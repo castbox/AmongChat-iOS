@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongInputNotesView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="hostNotesPlaceholderLabel" destination="sQi-nv-Qh1" id="Awv-et-eUX"/>
                 <outlet property="inputContainerView" destination="8PJ-kg-P8j" id="MZO-GU-wQf"/>
                 <outlet property="textView" destination="SM9-T1-bpH" id="FPR-GN-fnu"/>
             </connections>
@@ -37,6 +38,9 @@
                             <state key="normal" title="Done">
                                 <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <connections>
+                                <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="CQT-P5-WbP"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wC4-q1-D6R">
                             <rect key="frame" x="22" y="122" width="60" height="37"/>
@@ -47,6 +51,9 @@
                             <state key="normal" title="Cancel">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="rP5-5f-TwJ"/>
+                            </connections>
                         </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SM9-T1-bpH">
                             <rect key="frame" x="40" y="0.0" width="334" height="102"/>

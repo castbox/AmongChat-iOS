@@ -58,11 +58,12 @@ extension AmongChat.Room {
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             btn.backgroundColor = UIColor.white.alpha(0.2)
             btn.cornerRadius = 10
+            btn.addTarget(self, action: #selector(gameNameButtonAction), for: .touchUpInside)
             return btn
         }()
         
         private var avatarDisposable: Disposable?
-        
+        private var user: Entity.RoomUser?
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -79,6 +80,12 @@ extension AmongChat.Room {
         
         override func layoutSubviews() {
             super.layoutSubviews()
+        }
+        
+        @objc
+        func gameNameButtonAction() {
+            user?.robloxName?.copyToPasteboard()
+            viewController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
         private func setupLayout() {
