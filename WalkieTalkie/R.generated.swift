@@ -136,8 +136,22 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 96 images.
+  /// This `R.image` struct is generated, and contains static references to 103 images.
   struct image {
+    /// Image `ac_icon_leave`.
+    static let ac_icon_leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_leave")
+    /// Image `ac_icon_mic_on`.
+    static let ac_icon_mic_on = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_mic_on")
+    /// Image `ac_icon_minmize`.
+    static let ac_icon_minmize = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_minmize")
+    /// Image `ac_icon_not`.
+    static let ac_icon_not = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_not")
+    /// Image `ac_icon_seat_add`.
+    static let ac_icon_seat_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_seat_add")
+    /// Image `ac_icon_send_message`.
+    static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
+    /// Image `ac_icon_share`.
+    static let ac_icon_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_share")
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
     /// Image `btn_add`.
@@ -330,6 +344,41 @@ struct R: Rswift.Validatable {
     static let user_list_friend_light = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_light")
     /// Image `user_list_invite`.
     static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
+    
+    /// `UIImage(named: "ac_icon_leave", bundle: ..., traitCollection: ...)`
+    static func ac_icon_leave(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_leave, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_mic_on", bundle: ..., traitCollection: ...)`
+    static func ac_icon_mic_on(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_mic_on, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_minmize", bundle: ..., traitCollection: ...)`
+    static func ac_icon_minmize(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_minmize, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_not", bundle: ..., traitCollection: ...)`
+    static func ac_icon_not(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_not, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_seat_add", bundle: ..., traitCollection: ...)`
+    static func ac_icon_seat_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_seat_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_send_message", bundle: ..., traitCollection: ...)`
+    static func ac_icon_send_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_send_message, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_share", bundle: ..., traitCollection: ...)`
+    static func ac_icon_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_share, compatibleWith: traitCollection)
+    }
     
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
     static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {

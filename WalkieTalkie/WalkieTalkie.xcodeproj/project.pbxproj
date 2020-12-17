@@ -229,6 +229,7 @@
 		FE9CB1D7247D512400AA2199 /* CreateGlobalChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */; };
 		FE9CB1DA247D52C400AA2199 /* CreateSecretChannelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */; };
 		FE9CB1DB247D52C400AA2199 /* CreateSecretChannelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */; };
+		FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
 		FEA79E66249B551D0067C1C1 /* ShareContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E65249B551D0067C1C1 /* ShareContainerView.swift */; };
@@ -527,6 +528,7 @@
 		FE9CB1D5247D512400AA2199 /* CreateGlobalChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateGlobalChannelController.xib; sourceTree = "<group>"; };
 		FE9CB1D8247D52C400AA2199 /* CreateSecretChannelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSecretChannelController.swift; sourceTree = "<group>"; };
 		FE9CB1D9247D52C400AA2199 /* CreateSecretChannelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateSecretChannelController.xib; sourceTree = "<group>"; };
+		FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewNetwork.swift; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FEA79E65249B551D0067C1C1 /* ShareContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareContainerView.swift; sourceTree = "<group>"; };
@@ -737,6 +739,7 @@
 				FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */,
 				BDD1F9EF24FB974D00B8563C /* Reactive+UIViewController.swift */,
 				26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */,
+				FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1534,6 +1537,7 @@
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
+				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,
 				FE6306A7245005E700CEA651 /* PremiumContainer.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,

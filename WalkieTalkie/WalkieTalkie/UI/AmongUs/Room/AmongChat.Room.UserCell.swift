@@ -178,7 +178,11 @@ extension AmongChat.Room.UserCell {
         
         if let user = user {
             avatarIV.image = nil
-            indexLabel.text = user.seatNo.string
+            if user.seatNo == 0 {
+                indexLabel.text = user.seatNo.string+"-host"
+            } else {
+                indexLabel.text = user.seatNo.string
+            }
 //            let user = userViewModel.channelUser
 //            avatarDisposable?.dispose()
 //            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
@@ -191,7 +195,7 @@ extension AmongChat.Room.UserCell {
 //                }
 //                self.avatarIV.image = image
 //            })
-//            avatarIV.kf.setImage(with: user.avatar)
+            avatarIV.setImage(with: user.avatar)
             nameLabel.text = user.name
             if user.status == .talking {
                 haloAnimation()
