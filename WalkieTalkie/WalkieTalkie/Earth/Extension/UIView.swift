@@ -45,3 +45,11 @@ extension UIView {
     }
 }
 
+extension UIScrollView {
+    /// self.contentInsetAdjustmentBehavior = .never
+    func neverAdjustContentInset() {
+        if #available(iOS 11.0, *) {
+            self.contentInsetAdjustmentBehavior = .never
+        }
+    }
+}

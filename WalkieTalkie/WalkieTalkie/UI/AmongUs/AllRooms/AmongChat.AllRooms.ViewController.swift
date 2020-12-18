@@ -132,7 +132,7 @@ extension AmongChat.AllRooms.ViewController {
         return HashTag(channelCategory: channelCategory) { [weak self] in
             guard let `self` = self else { return }
             let _ = self.view.raft.show(.loading, userInteractionEnabled: false)
-            AmongChat.Home.ViewController.shared.joinRoom(with: FireStore.shared.findARoom(of: channelCategory))
+//            AmongChat.Home.ViewController.shared.joinRoom(with: FireStore.shared.findARoom(of: channelCategory))
             Logger.Channel.logChannelCategoryClick(id: channelCategory.id, source: .all_rooms)
         }
     }

@@ -53,3 +53,33 @@ extension Entity {
         }
     }
 }
+
+extension Entity {
+    
+    struct Summary: Codable {
+        var title: String?
+        var topicList: [SummaryTopic]
+    }
+    
+}
+
+extension Entity {
+    
+    struct SummaryTopic: Codable {
+        var topicId: AmongChat.Topic
+        var coverUrl: String?
+        var bgUrl: String?
+        var playerCount: Int?
+        var topicName: String?
+        
+        private enum CodingKeys: String, CodingKey {
+            case topicId
+            case coverUrl = "cover_url"
+            case bgUrl = "bg_url"
+            case playerCount
+            case topicName
+        }
+        
+    }
+    
+}

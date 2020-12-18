@@ -226,9 +226,7 @@ class ShareManager: NSObject {
         activityVC.completionWithItemsHandler = { activity, success, items, error in
             successHandler?()
         }
-        viewController.present(activityVC, animated: true, completion: { () -> Void in
-            
-        })
+        viewController.present(activityVC, animated: true, completion: nil)
     }
     
     private func showActivity(name: String?, dynamicLink: String, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
@@ -252,9 +250,7 @@ class ShareManager: NSObject {
 //            if success {
 //            }
         }
-        viewController.present(activityVC, animated: true, completion: { () -> Void in
-            
-        })
+        viewController.present(activityVC, animated: true, completion: nil)
     }
     
     private func createImagesForTikTok(_ channelName: String, viewController: UIViewController) -> Observable<[String]> {
