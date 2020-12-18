@@ -53,6 +53,19 @@ extension Request {
             .mapTo(Entity.Room.self)
     }
     
+    static func createRoom(_ room: Entity.RoomProto) -> Single<Entity.Room?> {
+        
+        guard let params = room.dictionary else {
+            return Observable.just(nil).asSingle()
+        }
+        
+        return amongchatProvider.rx.request(.createRoom(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Room.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
         guard let params = room?.dictionary else {
             return Observable<Bool>.empty().asSingle()
