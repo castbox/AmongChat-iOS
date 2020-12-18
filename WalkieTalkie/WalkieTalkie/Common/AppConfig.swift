@@ -63,8 +63,7 @@ struct Config {
     static var appVersionWithBuildVersion: String {
         if environment == .debug {
             return "\(appVersion) # Build-\(versionCode)"
-        }
-        else {
+        } else {
             return appVersion
         }
     }

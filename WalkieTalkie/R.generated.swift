@@ -182,6 +182,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_bottom_lead = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_bottom_lead")
     /// Image `ac_profile_close`.
     static let ac_profile_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close")
+    /// Image `ac_profile_communtiy`.
+    static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
     /// Image `ac_profile_edit`.
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_username`.
@@ -190,6 +192,8 @@ struct R: Rswift.Validatable {
     static let ac_rate_us = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_rate_us")
     /// Image `ac_right_arrow`.
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
+    /// Image `ac_setting_diamonds`.
+    static let ac_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_diamonds")
     /// Image `ac_share_app`.
     static let ac_share_app = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_app")
     /// Image `ac_topic_hot`.
@@ -316,8 +320,6 @@ struct R: Rswift.Validatable {
     static let icon_screen_bg_o_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow")
     /// Image `icon_screen_bg_o`.
     static let icon_screen_bg_o = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o")
-    /// Image `icon_setting_diamonds_u`.
-    static let icon_setting_diamonds_u = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds_u")
     /// Image `icon_setting_diamonds`.
     static let icon_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds")
     /// Image `icon_setting_star`.
@@ -497,6 +499,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_communtiy", bundle: ..., traitCollection: ...)`
+    static func ac_profile_communtiy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_communtiy, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_edit", bundle: ..., traitCollection: ...)`
     static func ac_profile_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
@@ -515,6 +522,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_right_arrow", bundle: ..., traitCollection: ...)`
     static func ac_right_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_right_arrow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_setting_diamonds", bundle: ..., traitCollection: ...)`
+    static func ac_setting_diamonds(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_setting_diamonds, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_share_app", bundle: ..., traitCollection: ...)`
@@ -840,11 +852,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_setting_diamonds", bundle: ..., traitCollection: ...)`
     static func icon_setting_diamonds(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_setting_diamonds, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_setting_diamonds_u", bundle: ..., traitCollection: ...)`
-    static func icon_setting_diamonds_u(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_setting_diamonds_u, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_setting_star", bundle: ..., traitCollection: ...)`
@@ -1473,6 +1480,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelChecking = Rswift.StringResource(key: "channel.checking", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Community guidelines
+      /// 
+      /// Locales: en
+      static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Continue
       /// 
       /// Locales: en
@@ -2145,6 +2156,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelChecking(_: Void = ()) -> String {
         return NSLocalizedString("channel.checking", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Community guidelines
+      /// 
+      /// Locales: en
+      static func profileCommunity(_: Void = ()) -> String {
+        return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Continue
@@ -3594,6 +3612,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "ac_rate_us", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_rate_us' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in storyboard 'Main', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_setting_diamonds", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_setting_diamonds' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_share_app", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_app' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_add", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_add' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "btn_call_on", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_call_on' is used in storyboard 'Main', but couldn't be loaded.") }
@@ -3612,7 +3631,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_push", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_push' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_setting_diamonds_u", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_setting_diamonds_u' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_dis", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_dis' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
