@@ -71,7 +71,7 @@ extension Routes {
             }
             
             let name = channel.channelName
-            roomVc.joinRoom(with: name)
+//            roomVc.joinRoom(with: name)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         

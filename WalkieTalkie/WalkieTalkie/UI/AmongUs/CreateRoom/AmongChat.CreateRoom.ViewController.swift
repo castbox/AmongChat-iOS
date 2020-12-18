@@ -234,7 +234,7 @@ extension AmongChat.CreateRoom.ViewController {
             roomProto.note = name
         }
         
-        let hudRemoval = view.raft.show(.loading)
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         let _ = Request.createRoom(roomProto)
             .do(onDispose: {
                 hudRemoval()
