@@ -80,8 +80,8 @@ extension APIService.AmongChatBackend: TargetType {
             baseParams["box_token"] = 1
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
             
-        case .createRoom(let params), .roomUpdate(let params):
-            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .createRoom(let params):
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .updateNickName(let params), .heartBeating(let params), .rtcToken(let params),
              .rtmToken(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

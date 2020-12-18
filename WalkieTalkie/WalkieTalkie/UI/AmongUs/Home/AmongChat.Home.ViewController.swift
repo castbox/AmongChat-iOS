@@ -245,7 +245,7 @@ extension AmongChat.Home.ViewController {
     
     @objc
     private func onHashBtn() {
-        let vc = AmongChat.Home.CreateRoomViewController()
+        let vc = AmongChat.CreateRoom.ViewController()
         
         vc.joinChannel = { [weak self] name, autoShare in
             guard let `self` = self else { return }

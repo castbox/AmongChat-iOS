@@ -136,7 +136,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
 
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
-        view.backgroundColor = UIColor(hex6: 0x00011B)
+        view.backgroundColor = UIColor(hexString: "#121212")
 
         replaceBackBarButtonIfNeed()
     }
