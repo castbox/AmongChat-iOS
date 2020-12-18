@@ -106,7 +106,7 @@ extension AmongChat.Room {
         
         func showAvatarLongPressSheet(with user: Entity.RoomUser) {
 //            AmongSheetController.show(with: <#T##Entity.RoomUser?#>, items: <#T##[AmongSheetController.ItemType]#>, in: <#T##ViewController#>, actionHandler: <#T##((AmongSheetController.ItemType) -> Void)?##((AmongSheetController.ItemType) -> Void)?##(AmongSheetController.ItemType) -> Void#>)
-            guard let viewController = viewController() else {
+            guard let viewController = viewContainingController() else {
                 return
             }
             AmongSheetController.show(with: user, items: [.block, .mute, .report, .cancel], in: viewController) { item in
