@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 111 images.
+  /// This `R.image` struct is generated, and contains static references to 112 images.
   struct image {
     /// Image `ac_back`.
     static let ac_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_back")
