@@ -56,8 +56,6 @@ extension AmongChat.Login {
             
             Settings.shared.loginResult.value = result
             
-            self?.loginFinishedSubject.onNext(())
-            
             self?.finish()
         }
         
@@ -145,6 +143,23 @@ extension AmongChat.Login.ViewController {
     }
     
     private func finish() {
+        
+        #if DEBUG
+        let newUser = true
+        #else
+        let newUser = Settings.shared.loginResult.value?.is_new_user ?? false
+        #endif
+        
+        if newUser {
+            let birthdayVC = Social.BirthdaySetViewController()
+            birthdayVC.modalPresentationStyle = .fullScreen
+            birthdayVC.onCompletion = { [weak self] _ in
+                self?.loginFinishedSubject.onNext(())
+            }
+            present(birthdayVC, animated: true)
+        } else {
+            loginFinishedSubject.onNext(())
+        }
         
     }
     
