@@ -22,30 +22,15 @@ class SettingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        statusBarStyle = .lightContent
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
-//        #if DEBUG
-//        tapGesture.isEnabled = true
-//        #else
-//        tapGesture.isEnabled = false
-//        #endif
+
     }
     
     @IBAction func policyAction(_ sender: Any) {
         open(urlSting: "https://walkietalkie.live/policy.html")
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 class SettingContainerTableController: UITableViewController {
@@ -57,6 +42,10 @@ class SettingContainerTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
        updateSubviewStyle()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

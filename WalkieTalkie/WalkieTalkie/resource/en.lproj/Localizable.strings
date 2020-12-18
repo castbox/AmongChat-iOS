@@ -103,7 +103,7 @@
 "profile.initial.confirm.btn" = "Yes, is me!";
 
 //Profile
-"profile.edit" = "Edit Profile";
+"profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
 "profile.invite.friends" = "Invite friends";

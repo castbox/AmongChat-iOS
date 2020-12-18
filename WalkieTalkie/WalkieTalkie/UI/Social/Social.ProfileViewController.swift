@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 extension Social {
     
@@ -14,15 +16,13 @@ extension Social {
         
         enum Option {
             case inviteFriends
-            case blockUser
+//            case blockUser
             case settings
             
             func image() -> UIImage? {
                 switch self {
                 case .inviteFriends:
-                    return R.image.profile_invite_friends()
-                case .blockUser:
-                    return R.image.profile_block_users()
+                    return UIImage(named: "profile_invite_friends")
                 case .settings:
                     return R.image.profile_settings()
                 }
@@ -32,8 +32,6 @@ extension Social {
                 switch self {
                 case .inviteFriends:
                     return R.string.localizable.profileInviteFriends()
-                case .blockUser:
-                    return R.string.localizable.profileBlockUser()
                 case .settings:
                     return R.string.localizable.profileSettings()
                 }
@@ -43,26 +41,24 @@ extension Social {
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.backNor(), for: .normal)
+            btn.setImage(R.image.ac_profile_close(), for: .normal)
             return btn
         }()
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView()
-            v.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 273)
+            v.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 298)
             v.editBtnHandler = { [weak self] in
                 let vc = Social.EditProfileViewController()
                 self?.navigationController?.pushViewController(vc)
             }
-            v.followingBtnHandler = { [weak self] in
-                let vc = Social.RelationsViewController(.followingTab)
-                self?.navigationController?.pushViewController(vc)
-            }
-            v.followerBtnHandler = { [weak self] in
-                let vc = Social.RelationsViewController(.followerTab)
-                self?.navigationController?.pushViewController(vc)
-            }
             return v
+        }()
+        
+        private lazy var bottomImage: UIImageView = {
+            let imageView = UIImageView(image: R.image.ac_profile_bottom_lead())
+            imageView.isUserInteractionEnabled = true
+            return imageView
         }()
         
         private lazy var table: UITableView = {
@@ -72,15 +68,16 @@ extension Social {
             tb.delegate = self
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
-            tb.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            tb.backgroundColor = UIColor.theme(.backgroundBlack)
             tb.rowHeight = 75
+            tb.neverAdjustContentInset()
             return tb
         }()
         
         private lazy var options: [Option] = {
             return [
             .inviteFriends,
-            .blockUser,
+//            .blockUser,
             .settings
             ]
         }()
@@ -90,33 +87,39 @@ extension Social {
             setupLayout()
             setupData()
             
-            rx.viewDidAppear
-                .take(1)
-                .subscribe(onNext: { [weak self] (_) in
-                    guard let `self` = self else { return }
-                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
-                })
-                .disposed(by: bag)
+//            rx.viewDidAppear
+//                .take(1)
+//                .subscribe(onNext: { [weak self] (_) in
+//                    guard let `self` = self else { return }
+//                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
+//                })
+//                .disposed(by: bag)
         }
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            statusBarStyle = .lightContent
+            view.backgroundColor = UIColor(hex6: 0x121212, alpha: 1.0)
 
-            view.addSubview(table)
+            view.addSubviews(views: table, backBtn, bottomImage)
             table.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
-                maker.top.equalTo(topLayoutGuide.snp.bottom)
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+                maker.edges.equalToSuperview()
             }
-            view.addSubview(backBtn)
             backBtn.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(15)
-                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(11.5)
+                maker.top.equalTo(56 - Frame.Height.safeAeraTopHeight)
                 maker.width.height.equalTo(25)
             }
             
             table.tableHeaderView = headerView
+            
+            bottomImage.snp.makeConstraints { (maker) in
+                maker.bottom.equalTo(-58)
+                maker.left.equalTo(20)
+                maker.right.equalTo(-20)
+                maker.height.equalTo(45)
+            }
+            
             table.reloadData()
         }
         
@@ -129,32 +132,37 @@ extension Social {
                 })
                 .disposed(by: bag)
             
-            Social.Module.shared.followingObservable
-                .map { $0.count }
-                .subscribe(onNext: { [weak self] (count) in
-                    self?.headerView.configFollowingCount(count)
-                })
-                .disposed(by: bag)
+//            Social.Module.shared.followingObservable
+//                .map { $0.count }
+//                .subscribe(onNext: { [weak self] (count) in
+//                    self?.headerView.configFollowingCount(count)
+//                })
+//                .disposed(by: bag)
+//
+//            Social.Module.shared.followerObservable
+//                .map { $0.count }
+//                .subscribe(onNext: {  [weak self] (count) in
+//                    self?.headerView.configFollowerCount(count)
+//                })
+//                .disposed(by: bag)
             
-            Social.Module.shared.followerObservable
-                .map { $0.count }
-                .subscribe(onNext: {  [weak self] (count) in
-                    self?.headerView.configFollowerCount(count)
-                })
-                .disposed(by: bag)
+            let tap = UITapGestureRecognizer()
+            bottomImage.addGestureRecognizer(tap)
+            tap.rx.event
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { (tap) in
+                    cdPrint("go to comutine")
+                }).disposed(by: bag)
         }
         
         @objc
         private func onBackBtn() {
             navigationController?.popViewController()
         }
-        
     }
 }
-
+// MARK: - UITableView
 extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // MARK: - UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return options.count
@@ -185,9 +193,9 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
                 }
-            case .blockUser:
-                let vc = Social.BlockedUserList.ViewController()
-                navigationController?.pushViewController(vc)
+//            case .blockUser:
+//                let vc = Social.BlockedUserList.ViewController()
+//                navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
@@ -203,9 +211,18 @@ extension Social.ProfileViewController {
     
     private class ProfileView: UIView {
         
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 24)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            lb.text = "Profile"
+            return lb
+        }()
+        
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 40
+            iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
             #if DEBUG
             iv.backgroundColor = .gray
@@ -215,8 +232,9 @@ extension Social.ProfileViewController {
         
         private lazy var nameLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 20)
-            lb.textColor = .black
+            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.textColor = .white
+            lb.textAlignment = .center
             return lb
         }()
         
@@ -246,13 +264,16 @@ extension Social.ProfileViewController {
         
         private lazy var editBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
-            btn.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.5)
-            btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
+            btn.backgroundColor = .white
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 12)
             btn.addTarget(self, action: #selector(onEditBtn), for: .primaryActionTriggered)
-            btn.layer.cornerRadius = 20
-            btn.setTitle(R.string.localizable.profileEdit(), for: .normal)
+            btn.layer.cornerRadius = 14
+            btn.contentHorizontalAlignment = .left
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12)
             btn.setTitleColor(.black, for: .normal)
-            btn.appendKern()
+            btn.setImage(R.image.ac_profile_edit(), for: .normal)
+            btn.setTitle(R.string.localizable.profileEdit(), for: .normal)
             return btn
         }()
         
@@ -267,61 +288,32 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            let seperator = UIView()
-            seperator.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.87)
-                        
-            let avatarBorder = UIView()
+            addSubviews(views: titleLabel, avatarIV, nameLabel, editBtn)
             
-            addSubviews(views: avatarBorder, avatarIV, nameLabel, followingBtn, seperator, followerBtn, editBtn)
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.top.equalTo(52 - Frame.Height.safeAeraTopHeight)
+                maker.centerX.equalToSuperview()
+            }
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview().offset(16)
+                maker.top.equalTo(titleLabel.snp.bottom).offset(28)
                 maker.centerX.equalToSuperview()
-                maker.height.width.equalTo(80)
+                maker.height.width.equalTo(90)
             }
-            
-            avatarBorder.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(avatarIV).inset(-2)
-            }
-            avatarBorder.layer.cornerRadius = 42
-            avatarBorder.layer.borderWidth = 2
-            avatarBorder.layer.borderColor = UIColor(hex6: 0xFFFFFF, alpha: 0.25).cgColor
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(10)
+                maker.top.equalTo(avatarIV.snp.bottom).offset(8)
                 maker.centerX.equalToSuperview()
                 maker.left.greaterThanOrEqualToSuperview().offset(25)
             }
             
-            seperator.snp.makeConstraints { (maker) in
-                maker.width.equalTo(1)
-                maker.height.equalTo(25)
-                maker.top.equalTo(nameLabel.snp.bottom).offset(15)
-                maker.centerX.equalToSuperview()
-            }
-            
-            followingBtn.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(seperator)
-                maker.right.equalTo(seperator.snp.left).offset(-15)
-            }
-            
-            followerBtn.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(seperator)
-                maker.left.equalTo(seperator.snp.right).offset(15)
-            }
-            
             editBtn.snp.makeConstraints { (maker) in
-                maker.top.equalTo(seperator.snp.bottom).offset(30)
-                maker.height.equalTo(40)
-                maker.width.greaterThanOrEqualTo(122)
+                maker.top.equalTo(nameLabel.snp.bottom).offset(12)
+                maker.height.equalTo(28)
+                maker.width.greaterThanOrEqualTo(74)
                 maker.centerX.equalToSuperview()
             }
             editBtn.isHidden = true
-            
-            seperator.isHidden = true
-            followingBtn.isHidden = true
-            followerBtn.isHidden = true
-            
         }
         
         @objc
@@ -340,7 +332,28 @@ extension Social.ProfileViewController {
         }
         
         func configProfile(_ profile: FireStore.Entity.User.Profile) {
-            nameLabel.text = profile.name
+            
+            if profile.birthday.isEmpty {
+                nameLabel.text = profile.name
+            } else {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy/MM/dd"
+
+                let startDate = dateFormatter.date(from: profile.birthday)
+                let endDate = Date()
+
+                let calendar = Calendar.current
+                let calcAge = calendar.dateComponents([.year], from: startDate!, to: endDate)
+                var age: String {
+                    if let age = calcAge.year?.string, !age.isEmpty {
+                        return ", \(age)"
+                    }
+                    return ""
+                }
+                
+                nameLabel.text = profile.name + age
+            }
             nameLabel.appendKern()
             
             let _ = profile.avatarObservable
@@ -417,9 +430,17 @@ extension Social.ProfileViewController {
         
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 16)
-            lb.textColor = .black
+            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.textColor = .white
             return lb
+        }()
+        
+        private lazy var backView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x232323)
+            v.layer.masksToBounds = true
+            v.layer.cornerRadius = 12
+            return v
         }()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -437,18 +458,29 @@ extension Social.ProfileViewController {
         }
         
         private func setupLayout() {
+            self.backgroundColor = UIColor.theme(.backgroundBlack)
             selectionStyle = .none
-            contentView.addSubviews(views: iconIV, titleLabel)
+            contentView.addSubviews(views: backView)
+            
+            backView.snp.makeConstraints { (maker) in
+                maker.left.equalTo(20)
+                maker.right.equalTo(-20)
+                maker.top.equalToSuperview()
+                maker.height.equalTo(76)
+                maker.bottom.equalTo(-12)
+            }
+            
+            backView.addSubviews(views: iconIV, titleLabel)
             
             iconIV.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(50)
-                maker.left.equalTo(25)
+                maker.width.height.equalTo(30)
+                maker.left.equalTo(20)
                 maker.centerY.equalToSuperview()
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.left.equalTo(90)
+                maker.left.equalTo(65)
             }
         }
         
