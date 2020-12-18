@@ -244,6 +244,23 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let amongChatUserProfile: PublishProperty<Entity.UserProfile?> = {
+        typealias Profile = Entity.UserProfile
+        let profile: Profile?
+        
+        if let dict = Defaults[\.amongChatUserProfileKey],
+           let p = try? JSONDecoder().decodeAnyData(Profile.self, from: dict) {
+            profile = p
+        } else {
+            profile = nil
+        }
+        
+        return DynamicProperty.stored(profile)
+            .didSet({ (event) in
+                Defaults[\.amongChatUserProfileKey] = event.new?.dictionary
+            })
+            .asPublishProperty()
+    }()
 }
 
 extension DefaultsKeys {
@@ -361,6 +378,10 @@ extension DefaultsKeys {
     
     var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
         .init("social.user.profile", defaultValue: nil)
+    }
+    
+    var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.user.profile", defaultValue: nil)
     }
     
     var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {

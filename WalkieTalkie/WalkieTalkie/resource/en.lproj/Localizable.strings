@@ -109,6 +109,8 @@
 "profile.invite.friends" = "Invite friends";
 "profile.block.user" = "Block users";
 "profile.settings" = "Settings";
+"profile.community" = "Community guidelines";
+
 
 // Edit Profile
 "profile.edit.save.btn" = "Save";
@@ -201,3 +203,4 @@
 "among.chat.home.team.up" = "Team up";
 "among.chat.home.nowplaying" = "%1$@ playing";
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
+"among.chat.room.just.chat.title" = "Host could setup notes so everyone could see it when they join the room";

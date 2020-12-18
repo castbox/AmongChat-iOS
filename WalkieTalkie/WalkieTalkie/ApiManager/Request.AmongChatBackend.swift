@@ -36,6 +36,23 @@ extension Request {
             .mapTo(Entity.LoginResult.self)
     }
     
+    static func profile() -> Single<Entity.UserProfile?> {
+        return amongchatProvider.rx.request(.profile)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserProfile.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func updateProfile(_ profileData: [String : Any]) -> Single<Entity.UserProfile?> {
+        let params = [ "profile_data" : profileData]
+        return amongchatProvider.rx.request(.updateProfile(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserProfile.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func summary(country: String? = nil, language: String? = nil) -> Single<Entity.Summary?> {
         
         var paras = [String : Any]()

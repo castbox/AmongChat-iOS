@@ -16,15 +16,18 @@ extension Social {
         
         enum Option {
             case inviteFriends
-//            case blockUser
+            //            case blockUser
             case settings
+            case community
             
             func image() -> UIImage? {
                 switch self {
                 case .inviteFriends:
-                    return UIImage(named: "profile_invite_friends")
+                    return R.image.profile_invite_friends()
                 case .settings:
                     return R.image.profile_settings()
+                case .community:
+                    return UIImage(named: "ac_profile_communtiy")
                 }
             }
             
@@ -34,6 +37,8 @@ extension Social {
                     return R.string.localizable.profileInviteFriends()
                 case .settings:
                     return R.string.localizable.profileSettings()
+                case .community:
+                    return "Community guidelines"
                 }
             }
         }
@@ -55,12 +60,6 @@ extension Social {
             return v
         }()
         
-        private lazy var bottomImage: UIImageView = {
-            let imageView = UIImageView(image: R.image.ac_profile_bottom_lead())
-            imageView.isUserInteractionEnabled = true
-            return imageView
-        }()
-        
         private lazy var table: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.register(TableCell.self, forCellReuseIdentifier: NSStringFromClass(TableCell.self))
@@ -76,9 +75,10 @@ extension Social {
         
         private lazy var options: [Option] = {
             return [
-            .inviteFriends,
-//            .blockUser,
-            .settings
+                .inviteFriends,
+                //            .blockUser,
+                .settings,
+                .community,
             ]
         }()
         
@@ -87,21 +87,21 @@ extension Social {
             setupLayout()
             setupData()
             
-//            rx.viewDidAppear
-//                .take(1)
-//                .subscribe(onNext: { [weak self] (_) in
-//                    guard let `self` = self else { return }
-//                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
-//                })
-//                .disposed(by: bag)
+            //            rx.viewDidAppear
+            //                .take(1)
+            //                .subscribe(onNext: { [weak self] (_) in
+            //                    guard let `self` = self else { return }
+            //                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
+            //                })
+            //                .disposed(by: bag)
         }
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
             statusBarStyle = .lightContent
             view.backgroundColor = UIColor(hex6: 0x121212, alpha: 1.0)
-
-            view.addSubviews(views: table, backBtn, bottomImage)
+            
+            view.addSubviews(views: table, backBtn)
             table.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
@@ -113,46 +113,35 @@ extension Social {
             
             table.tableHeaderView = headerView
             
-            bottomImage.snp.makeConstraints { (maker) in
-                maker.bottom.equalTo(-58)
-                maker.left.equalTo(20)
-                maker.right.equalTo(-20)
-                maker.height.equalTo(45)
-            }
-            
             table.reloadData()
         }
         
         private func setupData() {
-                        
-            Settings.shared.firestoreUserProfile.replay()
+            
+            Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
                     guard let profile = profile else { return }
                     self?.headerView.configProfile(profile)
                 })
                 .disposed(by: bag)
             
-//            Social.Module.shared.followingObservable
-//                .map { $0.count }
-//                .subscribe(onNext: { [weak self] (count) in
-//                    self?.headerView.configFollowingCount(count)
-//                })
-//                .disposed(by: bag)
-//
-//            Social.Module.shared.followerObservable
-//                .map { $0.count }
-//                .subscribe(onNext: {  [weak self] (count) in
-//                    self?.headerView.configFollowerCount(count)
-//                })
-//                .disposed(by: bag)
-            
-            let tap = UITapGestureRecognizer()
-            bottomImage.addGestureRecognizer(tap)
-            tap.rx.event
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { (tap) in
-                    cdPrint("go to comutine")
-                }).disposed(by: bag)
+            if Settings.shared.amongChatUserProfile.value == nil {
+                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+                Request.profile()
+                    .do(onDispose: {
+                        hudRemoval()
+                    })
+                    .subscribe(onSuccess: { (profile) in
+                        guard let p = profile else {
+                            return
+                        }
+                        Settings.shared.amongChatUserProfile.value = p
+                        cdPrint("")
+                    }, onError: { (error) in
+                        cdPrint("")
+                    })
+                    .disposed(by: bag)
+            }
         }
         
         @objc
@@ -172,7 +161,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TableCell.self), for: indexPath)
         cell.backgroundColor = .clear
         if let tableCell = cell as? TableCell,
-            let op = options.safe(indexPath.row) {
+           let op = options.safe(indexPath.row) {
             tableCell.configCell(with: op)
         }
         return cell
@@ -188,18 +177,20 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     self?.view.isUserInteractionEnabled = true
                     removeHUDBlock()
                 }
-
+                
                 self.view.isUserInteractionEnabled = false
                 ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
                 }
-//            case .blockUser:
-//                let vc = Social.BlockedUserList.ViewController()
-//                navigationController?.pushViewController(vc)
+            //            case .blockUser:
+            //                let vc = Social.BlockedUserList.ViewController()
+            //                navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
                 navigationController?.pushViewController(vc)
+            case .community:
+                self.open(urlSting: "https://among.chat/guideline.html")
             }
         }
     }
@@ -331,18 +322,15 @@ extension Social.ProfileViewController {
             followerBtnHandler?()
         }
         
-        func configProfile(_ profile: FireStore.Entity.User.Profile) {
+        func configProfile(_ profile: Entity.UserProfile) {
             
-            if profile.birthday.isEmpty {
-                nameLabel.text = profile.name
-            } else {
-                
+            if let b = profile.birthday,
+               !b.isEmpty {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy/MM/dd"
-
-                let startDate = dateFormatter.date(from: profile.birthday)
+                dateFormatter.dateFormat = "yyyyMMdd"
+                let startDate = dateFormatter.date(from: b)
                 let endDate = Date()
-
+                
                 let calendar = Calendar.current
                 let calcAge = calendar.dateComponents([.year], from: startDate!, to: endDate)
                 var age: String {
@@ -352,14 +340,14 @@ extension Social.ProfileViewController {
                     return ""
                 }
                 
-                nameLabel.text = profile.name + age
+                nameLabel.text = profile.name ?? "" + age
+            } else {
+                nameLabel.text = profile.name
             }
+            
             nameLabel.appendKern()
             
-            let _ = profile.avatarObservable
-                .subscribe(onSuccess: { [weak self] (image) in
-                    self?.avatarIV.image = image
-                })
+            avatarIV.setImage(with: profile.pictureUrl)
             editBtn.isHidden = false
         }
         

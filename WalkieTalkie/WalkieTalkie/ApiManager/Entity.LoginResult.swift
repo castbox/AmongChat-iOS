@@ -83,3 +83,56 @@ extension Entity {
     }
     
 }
+
+extension Entity {
+    struct UserProfile: Codable {
+        var googleAuthData: ThirdPartyAuthData?
+        var appleAuthData: ThirdPartyAuthData?
+        var pictureUrl: String?
+        var name: String?
+        var email: String?
+        var newGuide: Bool
+        var pictureUrlRaw: String?
+        var uid: Int
+        var birthday: String?
+        private enum CodingKeys: String, CodingKey {
+            case googleAuthData = "google_auth_data"
+            case appleAuthData = "apple_auth_data"
+            case pictureUrl = "picture_url"
+            case name
+            case email
+            case newGuide = "new_guide"
+            case pictureUrlRaw = "picture_url_raw"
+            case uid
+            case birthday
+        }
+    }
+    
+    struct ThirdPartyAuthData: Codable {
+        var id: String
+        var pictureUrl: String?
+        var name: String?
+        var email: String?
+        private enum CodingKeys: String, CodingKey {
+            case id
+            case pictureUrl = "picture_url"
+            case name
+            case email
+        }
+    }
+}
+
+extension Entity {
+    
+    struct ProfileProto: Codable {
+        var birthday: String?
+        var name: String?
+        var pictureUrl: String?
+        private enum CodingKeys: String, CodingKey {
+            case birthday
+            case name
+            case pictureUrl = "picture_url"
+        }
+    }
+    
+}
