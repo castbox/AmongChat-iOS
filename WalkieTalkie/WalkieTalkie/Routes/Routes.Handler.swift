@@ -37,6 +37,8 @@ extension Routes {
                     switch uri {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
+                    case let room as URI.Room:
+                        self.handleRoom(room)
                     case let channel as URI.Channel:
                         self.handleChannel(channel)
                     case _ as URI.Followers:
@@ -71,6 +73,20 @@ extension Routes {
             }
             
             let name = channel.channelName
+//            roomVc.joinRoom(with: name)
+            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+        }
+        
+        func handleRoom(_ room: URI.Room) {
+            UIApplication.navigationController?.popToRootViewController(animated: true)
+            
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
+                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+                return
+            }
+            
+            let name = room.roomId
+            roomVc.enterRoom(roomId: name, topicId: nil)
 //            roomVc.joinRoom(with: name)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }

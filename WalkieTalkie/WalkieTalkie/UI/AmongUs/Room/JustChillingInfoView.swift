@@ -19,26 +19,16 @@ class JustChillingInfoView: XibLoadableView {
                 
                 if room.topicId == .roblox {
                     notesDetailButton.isHidden = true
-                    notesTitleButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
+                    notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
                 } else {
                     notesDetailButton.isHidden = false
                     guard let string = room.note, !string.isEmpty else {
-                        notesDetailButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
+                        notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
                         return
                     }
                     notesDetailButton.setTitle(string, for: .normal)
                 }
             }
-        }
-    }
-    
-    var notes: String? {
-        didSet {
-            guard let string = notes else {
-                notesDetailButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
-                return
-            }
-            notesDetailButton.setTitle(string, for: .normal)
         }
     }
     

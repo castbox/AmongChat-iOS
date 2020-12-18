@@ -29,7 +29,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>walkietalkie</string>
+				<string>amongchat</string>
 			</array>
 		</dict>
 		<dict>
@@ -82,7 +82,7 @@
 		<string>Nunito-Black.ttf</string>
 		<string>Nunito-Regular.ttf</string>
 		<string>Nunito-BoldItalic.ttf</string>
-        <string>Nunito-ExtraBold.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

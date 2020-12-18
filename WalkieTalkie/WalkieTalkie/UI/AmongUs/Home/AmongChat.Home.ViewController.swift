@@ -112,6 +112,29 @@ extension AmongChat.Home.ViewController {
 
 extension AmongChat.Home.ViewController {
     
+    func enterRoom(roomId: String? = nil, topicId: String?) {
+        var topic = topicId
+        if roomId == nil {
+            topic = topicId ?? AmongChat.Topic.amongus.rawValue
+        }
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        Request.enterRoom(roomId: roomId, topicId: topic)
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { (room) in
+                // TODO: - 进入房间
+                guard let room = room else { return }
+                
+                AmongChat.Room.ViewController.join(room: room, from: self)
+
+            }, onError: { (error) in
+                cdPrint("error: \(error.localizedDescription)")
+            })
+            .disposed(by: bag)
+
+    }
+    
     // MARK: -
     
     private func setupLayout() {
@@ -195,21 +218,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-            Request.enterRoom(roomId: "hdD7erUW", topicId: topic.topic.topicId.rawValue)
-                .do(onDispose: {
-                    hudRemoval()
-                })
-                .subscribe(onSuccess: { (room) in
-                    // TODO: - 进入房间
-                    guard let room = room else { return }
-                    
-                    AmongChat.Room.ViewController.join(room: room, from: self)
-
-                }, onError: { (error) in
-                    cdPrint("error: \(error.localizedDescription)")
-                })
-                .disposed(by: bag)
+            enterRoom(roomId: "", topicId: topic.topic.topicId.rawValue)
         }
     }
     

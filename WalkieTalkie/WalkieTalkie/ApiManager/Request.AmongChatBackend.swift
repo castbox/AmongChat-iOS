@@ -45,12 +45,15 @@ extension Request {
     }
     
     static func updateProfile(_ profileData: [String : Any]) -> Single<Entity.UserProfile?> {
-        let params = [ "profile_data" : profileData]
+        let params = ["profile_data" : profileData]
         return amongchatProvider.rx.request(.updateProfile(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do { _ in
+                Settings.shared.updateProfile()
+            }
     }
     
     static func summary(country: String? = nil, language: String? = nil) -> Single<Entity.Summary?> {
@@ -67,7 +70,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterRoom(roomId: String? = nil, topicId: String) -> Single<Entity.Room?> {
+    static func enterRoom(roomId: String? = nil, topicId: String?) -> Single<Entity.Room?> {
         
         var paras = [String : Any]()
         if let rid = roomId { paras["room_id"] = rid }

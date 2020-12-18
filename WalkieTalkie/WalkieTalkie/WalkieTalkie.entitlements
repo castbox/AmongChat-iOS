@@ -11,7 +11,8 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:walkietalkie.live/amongchat</string>
-		<string>applinks:walkie.page.link/amongchat</string>
+		<string>applinks:among.chat</string>
+		<string>applinks:amongchat.page.link</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
 	<array>

@@ -1468,7 +1468,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 154 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 157 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1498,6 +1498,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelJoinRequestAccept = Rswift.StringResource(key: "channel.join.request.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Add the host in Roblox to join their game! Click to copy
+      /// 
+      /// Locales: en
+      static let amongChatRoomRebloxTitle = Rswift.StringResource(key: "among.chat.room.reblox.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en
@@ -1910,6 +1914,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Setup Roblox Username
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetRebloxName = Rswift.StringResource(key: "among.chat.room.set.reblox.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sexual content
       /// 
       /// Locales: en
@@ -2070,6 +2078,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You’ve been removed from this game
+      /// 
+      /// Locales: en
+      static let amongChatRoomKickout = Rswift.StringResource(key: "among.chat.room.kickout", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: add the host in roblox to join their game! tap to copy
       /// 
       /// Locales: en
@@ -2134,6 +2146,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelJoinRequestAccept(_: Void = ()) -> String {
         return NSLocalizedString("channel.join.request.accept", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Add the host in Roblox to join their game! Click to copy
+      /// 
+      /// Locales: en
+      static func amongChatRoomRebloxTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.reblox.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -2857,6 +2876,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Setup Roblox Username
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetRebloxName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.reblox.name", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sexual content
       /// 
       /// Locales: en
@@ -3135,6 +3161,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsRestoreSuccessTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You’ve been removed from this game
+      /// 
+      /// Locales: en
+      static func amongChatRoomKickout(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.kickout", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: add the host in roblox to join their game! tap to copy

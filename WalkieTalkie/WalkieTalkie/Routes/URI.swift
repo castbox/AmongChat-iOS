@@ -89,6 +89,23 @@ extension URI {
         
     }
     
+    struct Room: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/room/:roomId"
+            ]
+        }
+        
+        let roomId: String
+        
+        init?(_ paras: [String : Any]) {
+            guard let channelName = paras["roomId"] as? String else { return nil }
+            self.roomId = channelName
+        }
+        
+    }
+    
     struct Followers: URIRepresentable {
         static func patterns() -> [String] {
             return [

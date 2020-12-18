@@ -204,3 +204,6 @@
 "among.chat.home.nowplaying" = "%1$@ playing";
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
 "among.chat.room.just.chat.title" = "Host could setup notes so everyone could see it when they join the room";
+"among.chat.room.kickout" = "You’ve been removed from this game";
+"among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
+"among.chat.room.set.reblox.name" = "Setup Roblox Username";

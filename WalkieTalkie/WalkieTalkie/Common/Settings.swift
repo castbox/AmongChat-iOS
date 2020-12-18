@@ -261,6 +261,19 @@ class Settings {
             })
             .asPublishProperty()
     }()
+    
+    func updateProfile() {
+        _ = Request.profile()
+            .subscribe(onSuccess: { (profile) in
+                guard let p = profile else {
+                    return
+                }
+                Settings.shared.amongChatUserProfile.value = p
+                cdPrint("")
+            }, onError: { (error) in
+                cdPrint("")
+            })
+    }
 }
 
 extension DefaultsKeys {

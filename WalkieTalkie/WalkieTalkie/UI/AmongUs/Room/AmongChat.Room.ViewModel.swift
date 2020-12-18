@@ -348,8 +348,15 @@ extension AmongChat.Room {
         }
         
         func update(nickName: String) {
-            var room = self.room
-            updateRoomInfo(room)
+//            var room = self.room
+//            updateRoomInfo(room)
+            Request.updateProfile(["nickname": nickName])
+                .subscribe { profile in
+                    
+                } onError: { _ in
+                    
+                }
+                .disposed(by: bag)
         }
         
         func update(notes: String) {
@@ -534,7 +541,8 @@ extension AmongChat.Room.ViewModel {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
             update(message.room)
-        } else if let message = crMessage as? ChatRoom.KickOutMessage {
+        } else if let message = crMessage as? ChatRoom.KickOutMessage,
+                  message.user.uid == Settings.loginUserId {
             //自己
             endRoomHandler?(.kickout)
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {

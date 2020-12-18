@@ -98,7 +98,7 @@ extension AmongChat.Room {
         private lazy var bgView: UIView = {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
-            ship.contentMode = .scaleAspectFit
+            ship.contentMode = .scaleAspectFill
             if room.bgUrl != nil {
                 ship.setImage(with: room.bgUrl)
             }
@@ -406,13 +406,13 @@ extension AmongChat.Room.ViewController {
         }
 
         self.view.isUserInteractionEnabled = false
-//        ShareManager.default.share(with: room.roomId, type: <#T##ShareManager.ShareType#>, viewController: <#T##UIViewController#>, successHandler: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
-        ShareManager.default.showActivity(viewController: self) { () in
+
+        ShareManager.default.showActivity(name: nil, dynamicLink: "https://among.chat/room/\(room.roomId)", type: .more, viewController: self) { () in
             removeBlock()
         }
     }
     
-    func requestLeaveRoom() {
+    func requestLeaveRoom(completionHandler: CallBack? = nil) {
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
         let removeBlock = { [weak self] in
             self?.view.isUserInteractionEnabled = true
@@ -421,22 +421,29 @@ extension AmongChat.Room.ViewController {
         self.viewModel.leaveChannel()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe { [weak self] _ in
-                self?.dismissViewController()
+                removeBlock()
+                self?.dismissViewController(completionHandler: {
+                    completionHandler?()
+                })
             } onError: { [weak self] error in
-                self?.dismissViewController()
+                removeBlock()
+                self?.dismissViewController(completionHandler: {
+                    completionHandler?()
+                })
             }
             .disposed(by: bag)
     }
     
-    func dismissViewController() {
+    func dismissViewController(completionHandler: CallBack? = nil) {
         let transition = CATransition()
-        transition.duration = 0.5
+        transition.duration = 0.25
         transition.type = CATransitionType.push
         transition.subtype = CATransitionSubtype.fromLeft
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
         UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
         self.dismiss(animated: false) {
             guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
+            completionHandler?()
             Ad.InterstitialManager.shared.showAdIfReady(from: vc)
         }
     }
@@ -862,6 +869,11 @@ extension AmongChat.Room.ViewController {
         
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }
+            if action == .kickout {
+                self.requestLeaveRoom { [weak self] in
+                    self?.navigationController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomKickout()))
+                }
+            }
 //            guard action != .normalClose else {
 //                self.closeRoom()
 //                return

@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class AmongRoomToolView: XibLoadableView {
     
     @IBOutlet weak var openGameButton: UIButton!
     @IBOutlet weak var nickNameButton: UIButton!
+    
+    private let bag = DisposeBag()
     
     var openGameHandler: CallBack?
     var setNickNameHandler: CallBack?
@@ -45,7 +49,17 @@ class AmongRoomToolView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
-        
+        Settings.shared.amongChatUserProfile.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] profile in
+                if let nickName = profile?.nickname {
+                    self?.nickNameButton.setTitle(nickName, for: .normal)
+                } else {
+                    self?.nickNameButton.setTitle(R.string.localizable.amongChatRoomSetRebloxName(), for: .normal)
+                }
+            })
+            .disposed(by: bag)
+
     }
     
     private func configureSubview() {

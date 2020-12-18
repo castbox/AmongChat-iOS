@@ -55,7 +55,6 @@
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
-                        <action selector="kickOffButtonAction:" destination="-1" eventType="touchUpInside" id="QzT-5P-mXn"/>
                         <action selector="reportButtonAction:" destination="-1" eventType="touchUpInside" id="x63-Ut-ubL"/>
                     </connections>
                 </button>

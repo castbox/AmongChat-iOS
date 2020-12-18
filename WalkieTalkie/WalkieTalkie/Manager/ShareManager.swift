@@ -33,29 +33,36 @@ class ShareManager: NSObject {
         return SCSDKSnapAPI()
     }()
     
-    static func shareUrl(for channelName: String?) -> String {
-        guard let channelName = channelName,
-            let publicName = channelName.publicName else {
+//    static func shareUrl(for channelName: String?) -> String {
+//        guard let channelName = channelName,
+//            let publicName = channelName.publicName else {
+//            return "https://among.chat/"
+//        }
+//        if channelName.isPrivate {
+//            return "https://among.chat/?passcode=\(publicName)"
+//        }
+//        return "https://among.chat/?channel=\(publicName)"
+//    }
+    
+    static func shareUrl(with roomID: String?) -> String {
+        guard let roomID = roomID else {
             return "https://among.chat/"
         }
-        if channelName.isPrivate {
-            return "https://among.chat/?passcode=\(publicName)"
-        }
-        return "https://among.chat/?channel=\(publicName)"
+        return "https://among.chat/room/\(roomID)"
     }
     
-    static func makeDynamicLinks(with channel: String?, for type: ShareType, completionHandler: @escaping (String?) -> Void) {
-        guard let link = URL(string: shareUrl(for: channel)) else {
+    static func makeDynamicLinks(with roomID: String?, for type: ShareType, completionHandler: @escaping (String?) -> Void) {
+        guard let link = URL(string: shareUrl(with: roomID)) else {
             completionHandler(nil)
             return
         }
-        let dynamicLinksDomainURIPrefix = "https://walkie.page.link"
+        let dynamicLinksDomainURIPrefix = "https://amongchat.page.link"
         let iosParameters = DynamicLinkIOSParameters(bundleID: Bundle.main.bundleIdentifier!)
         iosParameters.fallbackURL = URL(string: "https://apps.apple.com/app/id1539641263")
         iosParameters.appStoreID = "1539641263"
         
         let androidParameters = DynamicLinkAndroidParameters(packageName: "walkie.talkie.among.us.friends")
-        androidParameters.fallbackURL = URL(string: "https://play.google.com/store/apps/details?id=walkie.talkie.talk")
+        androidParameters.fallbackURL = URL(string: "https://play.google.com/store/apps/details?id=walkie.talkie.among.us.friends")
         let googleAnalyticsParameters = DynamicLinkGoogleAnalyticsParameters(source: type.googleSource, medium: type.googleMedium, campaign: type.googleCampaign)
         
         let itcAnalyticsParameters = DynamicLinkItunesConnectAnalyticsParameters()
@@ -86,42 +93,38 @@ class ShareManager: NSObject {
     }
     
     static func shareTitle(for channelName: String?, topic: AmongChat.Topic = .amongus, dynamicLink: String) -> String? {
-        guard let channelName = channelName,
-            let publicName = channelName.publicName else {
-                return nil
-        }
-//        let deepLink = shareUrl(for: channelName)
-        var prefixString: String {
-            if channelName.isPrivate {
-                return "Hurry ！use passcode: \(publicName) to join our secret channel."
-            }
-            return "Hey, your friends are waiting for you, join us now"
-        }
+//        guard let channelName = channelName,
+//            let publicName = channelName.publicName else {
+//                return nil
+//        }
+////        let deepLink = shareUrl(for: channelName)
+//        var prefixString: String {
+//            if channelName.isPrivate {
+//                return "Hurry ！use passcode: \(publicName) to join our secret channel."
+//            }
+//            return "Hey, your friends are waiting for you, join us now"
+//        }
         
         
         let shareString =
         """
-        \(prefixString)
-        \(dynamicLink)
-
-        Over and out.
-        #WalkieTalkieTalktoFriends #WalkieTalkieEmoji
+        Hey I am playing Just Chatting on the AmongChat! We need 9 more people!!! Tap the link to join: \(dynamicLink)
         """
         return shareString
     }
     
-    func share(with channelName: String?, type: ShareType, topic: AmongChat.Topic = .amongus, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
-        guard let channelName = channelName else {
+    func share(with roomId: String?, type: ShareType, topic: AmongChat.Topic = .amongus, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
+        guard let roomId = roomId else {
             successHandler?()
             return
         }
         
-        ShareManager.makeDynamicLinks(with: channelName, for: type) { url in
+        ShareManager.makeDynamicLinks(with: roomId, for: type) { url in
             guard let url = url else {
                 successHandler?()
                 return
             }
-            guard let textToShare = Self.shareTitle(for: channelName, dynamicLink: url) else {
+            guard let textToShare = Self.shareTitle(for: roomId, dynamicLink: url) else {
                 successHandler?()
                 return
             }
@@ -152,7 +155,7 @@ class ShareManager: NSObject {
                     }
                 }
             case .snapchat:
-                let shareView = SnapChatCreativeShareView(with: channelName)
+                let shareView = SnapChatCreativeShareView(with: roomId)
                 viewController.view.addSubview(shareView)
                 guard let imageToShare = shareView.screenshot else {
                     successHandler?()
@@ -190,7 +193,7 @@ class ShareManager: NSObject {
                     print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
                 }
             case .ticktock:
-                _ = self.createImagesForTikTok(channelName, viewController: viewController)
+                _ = self.createImagesForTikTok(roomId, viewController: viewController)
                     .observeOn(MainScheduler.asyncInstance)
                     .subscribe(onNext: { localizlIdentifiers in
                         guard localizlIdentifiers.count == 2 else {
@@ -214,7 +217,7 @@ class ShareManager: NSObject {
                     })
                 
             case .more:
-                self.showActivity(name: channelName, dynamicLink: url, type: type, viewController: viewController, successHandler: successHandler)
+                self.showActivity(name: roomId, dynamicLink: url, type: type, viewController: viewController, successHandler: successHandler)
             }
         }
     }
@@ -229,20 +232,21 @@ class ShareManager: NSObject {
         viewController.present(activityVC, animated: true, completion: nil)
     }
     
-    private func showActivity(name: String?, dynamicLink: String, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
+    func showActivity(name: String?, dynamicLink: String, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
         guard let textToShare = Self.shareTitle(for: name, dynamicLink: dynamicLink) else {
             successHandler?()
             return
         }
-        let shareView = SnapChatCreativeShareView(with: name)
-        viewController.view.addSubview(shareView)
-        guard let imageToShare = shareView.screenshot else {
-            successHandler?()
-            return
-        }
-        shareView.removeFromSuperview()
+//        let shareView = SnapChatCreativeShareView(with: name)
+//        viewController.view.addSubview(shareView)
+//        guard let imageToShare = shareView.screenshot else {
+//            successHandler?()
+//            return
+//        }
+//        shareView.removeFromSuperview()
         
-        let items = [textToShare, imageToShare] as [Any]
+//        let items = [textToShare, imageToShare] as [Any]
+        let items = [textToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -305,7 +309,7 @@ extension ShareManager.ShareType {
     }
 
     var iosProviderToken: String {
-        "120002615"
+        "1539641263"
     }
     
     var isAppInstalled: Bool {

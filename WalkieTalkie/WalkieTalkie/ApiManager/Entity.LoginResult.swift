@@ -95,6 +95,8 @@ extension Entity {
         var pictureUrlRaw: String?
         var uid: Int
         var birthday: String?
+        var nickname: String?
+        
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
             case appleAuthData = "apple_auth_data"
@@ -105,6 +107,7 @@ extension Entity {
             case pictureUrlRaw = "picture_url_raw"
             case uid
             case birthday
+            case nickname
         }
     }
     
