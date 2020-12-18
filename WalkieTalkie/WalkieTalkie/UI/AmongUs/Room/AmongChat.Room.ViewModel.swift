@@ -369,7 +369,7 @@ extension AmongChat.Room {
         func requestRoomInfo() {
             Request.amongchatProvider.rx.request(.roomInfo(["room_id": room.roomId]))
                 .mapJSON()
-                .mapToDataJson()
+                .mapToDataKeyJsonValue()
                 .map { item -> [String : AnyObject] in
                     guard let roomData = item["room"] as? [String : AnyObject] else {
                         return [:]
@@ -395,6 +395,19 @@ extension AmongChat.Room {
                 .asObservable()
                 .bind(to: roomReplay)
                 .disposed(by: bag)
+        }
+        
+        func requestKick(users: [Int]) -> Single<Bool> {
+            let params: [String: Any] = [
+                "room_id": room.roomId, "uids": users.map { $0.string }.joined(separator: ",")
+            ]
+            return Request.amongchatProvider.rx.request(.kickUsers(params))
+                .mapJSON()
+                .map { $0 != nil }
+//                .catchErrorJustReturn(self.room)
+//                .asObservable()
+//                .bind(to: roomReplay)
+//                .disposed(by: bag)
         }
         
         func update(_ userList: [ChannelUser]) {

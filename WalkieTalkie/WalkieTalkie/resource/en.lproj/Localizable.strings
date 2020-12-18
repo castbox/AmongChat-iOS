@@ -200,3 +200,4 @@
 "among.chat.create.room.topic.title" = "Hot topic";
 "among.chat.home.team.up" = "Team up";
 "among.chat.home.nowplaying" = "%1$@ playing";
+"among.chat.room.kick.selected" = "Kick Selected (%@)";

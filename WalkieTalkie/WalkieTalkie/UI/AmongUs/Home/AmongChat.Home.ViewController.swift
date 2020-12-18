@@ -193,7 +193,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
             let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-            Request.enterRoom(topicId: topic.topic.topicId.rawValue)
+            Request.enterRoom(roomId: "hdD7erUW", topicId: topic.topic.topicId.rawValue)
                 .do(onDispose: {
                     hudRemoval()
                 })

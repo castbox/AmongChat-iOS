@@ -53,6 +53,21 @@ extension AmongChat.Room {
             }
         }
         
+        var style: AmongChat.Room.Style = .normal {
+            didSet {
+                selectedKickUser.removeAll()
+            }
+        }
+        
+        private var selectedKickUser = Set<Int>() {
+            didSet {
+                selectedKickUserHandler?(Array(selectedKickUser))
+                collectionView.reloadData()
+            }
+        }
+        
+        var selectedKickUserHandler: (([Int]) -> Void)?
+        
         var selectUserHandler: ((Entity.RoomUser?) -> Void)?
         
         init(room: Entity.Room) {
@@ -87,9 +102,17 @@ extension AmongChat.Room {
 //                maker.top.equalTo(configView.snp.bottom).offset(40)
 //                maker.height.equalTo(251)
             }
-
         }
-
+        
+        func showAvatarLongPressSheet(with user: Entity.RoomUser) {
+//            AmongSheetController.show(with: <#T##Entity.RoomUser?#>, items: <#T##[AmongSheetController.ItemType]#>, in: <#T##ViewController#>, actionHandler: <#T##((AmongSheetController.ItemType) -> Void)?##((AmongSheetController.ItemType) -> Void)?##(AmongSheetController.ItemType) -> Void#>)
+            guard let viewController = viewController() else {
+                return
+            }
+            AmongSheetController.show(with: user, items: [.block, .mute, .report, .cancel], in: viewController) { item in
+                
+            }
+        }
     }
 }
 
@@ -104,6 +127,14 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath)
         if let cell = cell as? AmongChat.Room.UserCell {
+            if style == .kick, let user = dataSource[indexPath.item] {
+                cell.isKickSelected = selectedKickUser.contains(user.uid)
+            } else {
+                cell.isKickSelected = false
+            }
+            cell.avatarLongPressHandler = { [weak self] user in
+//                self?.showAvatarLongPressSheet(with: user)
+            }
             cell.bind(dataSource[indexPath.item], topic: room.topicId, index: indexPath.item + 1)
         }
         return cell
@@ -114,13 +145,18 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
 extension AmongChat.Room.SeatView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectUserHandler?(dataSource[indexPath.item])
-//        guard let user =  else {
-//            //show
-////            self.onShareBtn()
-//            return
-//        }
-        //enter profile page
+        if style == .kick {
+            if let user = dataSource[indexPath.item],
+               user.uid != Settings.loginUserId {
+                if selectedKickUser.contains(user.uid) {
+                    selectedKickUser.remove(user.uid)
+                } else {
+                    selectedKickUser.insert(user.uid)
+                }
+            }
+        } else {
+            selectUserHandler?(dataSource[indexPath.item])
+        }
     }
     
 }
@@ -139,7 +175,6 @@ extension Reactive where Base: AmongChat.Room.SeatView {
     
     var soundAnimation: Binder<Int?> {
         return Binder(base) { view, index in
-            cdPrint("[soundAnimation] - \(index)")
             guard let index = index, let cell = view.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AmongChat.Room.UserCell else { return }
 //            guard let index = index, let cell = view.cacheCell[index] else { return }
             cell.startSoundAnimation()

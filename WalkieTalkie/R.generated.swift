@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 124 images.
+  /// This `R.image` struct is generated, and contains static references to 129 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -170,6 +170,16 @@ struct R: Rswift.Validatable {
     static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
     /// Image `ac_icon_share`.
     static let ac_icon_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_share")
+    /// Image `ac_icon_sheet_block`.
+    static let ac_icon_sheet_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_block")
+    /// Image `ac_icon_sheet_mute`.
+    static let ac_icon_sheet_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_mute")
+    /// Image `ac_icon_sheet_unblock`.
+    static let ac_icon_sheet_unblock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unblock")
+    /// Image `ac_icon_sheet_unmute`.
+    static let ac_icon_sheet_unmute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unmute")
+    /// Image `ac_kick_selected`.
+    static let ac_kick_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_kick_selected")
     /// Image `ac_medal_bronze`.
     static let ac_medal_bronze = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_bronze")
     /// Image `ac_medal_silver`.
@@ -465,6 +475,31 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_icon_share", bundle: ..., traitCollection: ...)`
     static func ac_icon_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_share, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_sheet_block", bundle: ..., traitCollection: ...)`
+    static func ac_icon_sheet_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_sheet_block, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_sheet_mute", bundle: ..., traitCollection: ...)`
+    static func ac_icon_sheet_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_sheet_mute, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_sheet_unblock", bundle: ..., traitCollection: ...)`
+    static func ac_icon_sheet_unblock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unblock, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_sheet_unmute", bundle: ..., traitCollection: ...)`
+    static func ac_icon_sheet_unmute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unmute, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_kick_selected", bundle: ..., traitCollection: ...)`
+    static func ac_kick_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_kick_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_medal_bronze", bundle: ..., traitCollection: ...)`
@@ -1010,7 +1045,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 27 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 30 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1030,6 +1065,12 @@ struct R: Rswift.Validatable {
     static let amongRoomInfoView = _R.nib._AmongRoomInfoView()
     /// Nib `AmongRoomToolView`.
     static let amongRoomToolView = _R.nib._AmongRoomToolView()
+    /// Nib `AmongSheetController`.
+    static let amongSheetController = _R.nib._AmongSheetController()
+    /// Nib `AmongSheetIconItemCell`.
+    static let amongSheetIconItemCell = _R.nib._AmongSheetIconItemCell()
+    /// Nib `AmongSheetUserCell`.
+    static let amongSheetUserCell = _R.nib._AmongSheetUserCell()
     /// Nib `ChannelUserCell`.
     static let channelUserCell = _R.nib._ChannelUserCell()
     /// Nib `ChannelUserListController`.
@@ -1119,6 +1160,24 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongRoomToolView) instead")
     static func amongRoomToolView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongRoomToolView)
+    }
+    
+    /// `UINib(name: "AmongSheetController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetController) instead")
+    static func amongSheetController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongSheetController)
+    }
+    
+    /// `UINib(name: "AmongSheetIconItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetIconItemCell) instead")
+    static func amongSheetIconItemCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongSheetIconItemCell)
+    }
+    
+    /// `UINib(name: "AmongSheetUserCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetUserCell) instead")
+    static func amongSheetUserCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongSheetUserCell)
     }
     
     /// `UINib(name: "ChannelUserCell", in: bundle)`
@@ -1265,6 +1324,18 @@ struct R: Rswift.Validatable {
       return R.nib.amongRoomToolView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func amongSheetController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongSheetController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongSheetIconItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetIconItemCell? {
+      return R.nib.amongSheetIconItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetIconItemCell
+    }
+    
+    static func amongSheetUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
+      return R.nib.amongSheetUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
+    }
+    
     static func channelUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
       return R.nib.channelUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ChannelUserCell
     }
@@ -1340,8 +1411,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 4 reuse identifiers.
   struct reuseIdentifier {
+    /// Reuse identifier `AmongSheetIconItemCell`.
+    static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
+    /// Reuse identifier `AmongSheetUserCell`.
+    static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
     /// Reuse identifier `ChannelUserCell`.
     static let channelUserCell: Rswift.ReuseIdentifier<ChannelUserCell> = Rswift.ReuseIdentifier(identifier: "ChannelUserCell")
     /// Reuse identifier `SearchCell`.
@@ -1379,7 +1454,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 151 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 152 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1637,6 +1712,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomTagChilling = Rswift.StringResource(key: "room.tag.chilling", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Kick Selected (%@)
+      /// 
+      /// Locales: en
+      static let amongChatRoomKickSelected = Rswift.StringResource(key: "among.chat.room.kick.selected", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: LISTEN
       /// 
       /// Locales: en
@@ -2434,6 +2513,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.tag.chilling", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Kick Selected (%@)
+      /// 
+      /// Locales: en
+      static func amongChatRoomKickSelected(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.room.kick.selected", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: LISTEN
       /// 
       /// Locales: en
@@ -3204,6 +3290,45 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongSheetController: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongSheetController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = AmongSheetIconItemCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "AmongSheetIconItemCell"
+      let name = "AmongSheetIconItemCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetIconItemCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetIconItemCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongSheetUserCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = AmongSheetUserCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "AmongSheetUserCell"
+      let name = "AmongSheetUserCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
       }
       
       fileprivate init() {}

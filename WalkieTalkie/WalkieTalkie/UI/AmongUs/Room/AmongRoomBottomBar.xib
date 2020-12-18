@@ -15,7 +15,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongRoomBottomBar" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="calcelKickButton" destination="dWS-gP-594" id="TkV-3A-V4y"/>
+                <outlet property="chatButton" destination="2Qu-aw-CJW" id="VSr-nq-c7Z"/>
+                <outlet property="kickButton" destination="5wo-hj-acl" id="Z9s-VF-xAW"/>
+                <outlet property="kickToolContainer" destination="CRg-lQ-K5E" id="t3U-1b-JMa"/>
                 <outlet property="micButton" destination="owO-VN-chC" id="Zr8-HH-3wQ"/>
+                <outlet property="shareButton" destination="q2H-0i-abU" id="wOX-Pi-0Pv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -67,18 +72,60 @@
                         <action selector="changeMicStateAction:" destination="-1" eventType="touchUpInside" id="VKb-0v-5mr"/>
                     </connections>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRg-lQ-K5E">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWS-gP-594">
+                            <rect key="frame" x="10" y="7" width="84" height="28"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                            <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                            <state key="normal" title="Cancel"/>
+                            <connections>
+                                <action selector="cancelKickAction:" destination="-1" eventType="touchUpInside" id="Dpm-Ki-Exp"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wo-hj-acl">
+                            <rect key="frame" x="192" y="0.0" width="202" height="42"/>
+                            <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="7iL-OD-Gn3"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                            <inset key="contentEdgeInsets" minX="20" minY="7.5" maxX="20" maxY="7.5"/>
+                            <state key="normal" title="Kick Selected (0)"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="21"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="kickSelectedAction:" destination="-1" eventType="touchUpInside" id="DAL-7S-Sfo"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="dWS-gP-594" firstAttribute="centerY" secondItem="CRg-lQ-K5E" secondAttribute="centerY" id="Lyb-wc-N2Z"/>
+                        <constraint firstItem="dWS-gP-594" firstAttribute="leading" secondItem="CRg-lQ-K5E" secondAttribute="leading" constant="10" id="jmh-pY-xvH"/>
+                        <constraint firstAttribute="trailing" secondItem="5wo-hj-acl" secondAttribute="trailing" constant="20" id="qQb-GD-9dt"/>
+                        <constraint firstItem="5wo-hj-acl" firstAttribute="centerY" secondItem="CRg-lQ-K5E" secondAttribute="centerY" id="x2P-ue-Hv4"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
+                <constraint firstItem="CRg-lQ-K5E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CfV-IE-rUe"/>
+                <constraint firstItem="CRg-lQ-K5E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XIQ-GK-m6H"/>
+                <constraint firstAttribute="bottom" secondItem="CRg-lQ-K5E" secondAttribute="bottom" id="Yp3-xa-9Ga"/>
                 <constraint firstItem="owO-VN-chC" firstAttribute="leading" secondItem="q2H-0i-abU" secondAttribute="trailing" constant="44" id="bHD-1K-w7C"/>
                 <constraint firstItem="2Qu-aw-CJW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="e5E-Bs-ft9"/>
                 <constraint firstItem="owO-VN-chC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gPW-Z5-mqD"/>
+                <constraint firstAttribute="trailing" secondItem="CRg-lQ-K5E" secondAttribute="trailing" id="gg3-2B-tH4"/>
                 <constraint firstItem="q2H-0i-abU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nfc-22-8e5"/>
                 <constraint firstItem="2Qu-aw-CJW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qw4-YR-7Mi"/>
                 <constraint firstAttribute="trailing" secondItem="owO-VN-chC" secondAttribute="trailing" constant="20" id="u8c-pd-5mL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="141" y="154"/>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
         </view>
     </objects>
     <resources>

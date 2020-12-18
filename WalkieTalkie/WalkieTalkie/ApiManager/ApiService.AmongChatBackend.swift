@@ -23,6 +23,7 @@ extension APIService {
         case leaveRoom([String: Any])
         case roomInfo([String: Any])
         case updateRoomInfo([String : Any])
+        case kickUsers([String : Any])
         case summary([String : Any])
     }
 }
@@ -60,12 +61,14 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/room"
         case .updateRoomInfo:
             return "/api/v1/rooms/update"
+        case .kickUsers:
+            return "/api/v1/rooms/kick"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom, .updateNickName, .updateRoomInfo:
+        case .login, .createRoom, .updateNickName, .updateRoomInfo, .kickUsers:
             return .post
         case .summary, .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .leaveRoom, .roomInfo:
             return .get
@@ -94,7 +97,8 @@ extension APIService.AmongChatBackend: TargetType {
              .roomInfo(let params),
              .rtcToken(let params),
              .rtmToken(let params),
-             .leaveRoom(let params):
+             .leaveRoom(let params),
+             .kickUsers(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }

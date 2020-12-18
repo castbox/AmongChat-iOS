@@ -10,11 +10,44 @@ import UIKit
 
 class AmongRoomBottomBar: XibLoadableView {
     
+    @IBOutlet weak var chatButton: UIButton!
     @IBOutlet weak var micButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    
+    @IBOutlet weak var kickButton: UIButton!
+    @IBOutlet weak var calcelKickButton: UIButton!
+    @IBOutlet weak var kickToolContainer: UIView!
+    
+    var style: AmongChat.Room.Style = .normal {
+        didSet {
+            switch style {
+            case .normal:
+                kickToolContainer.isHidden = true
+                chatButton.isHidden = false
+                micButton.isHidden = false
+                shareButton.isHidden = false
+            case .kick:
+                kickToolContainer.isHidden = false
+                chatButton.isHidden = true
+                micButton.isHidden = true
+                shareButton.isHidden = true
+            }
+        }
+    }
+    
+    var selectedKickUser: [Int] = [] {
+        didSet {
+            kickButton.setTitle(R.string.localizable.amongChatRoomKickSelected(selectedKickUser.count.string), for: .normal)
+            kickButton.backgroundColor = selectedKickUser.isEmpty ? UIColor.white.alpha(0.2) : "D30F0F".color()
+        }
+    }
     
     var sendMessageHandler: CallBack?
     var shareHandler: CallBack?
     var changeMicStateHandler: ((Bool) -> Void)?
+    
+    var cancelKickHandler: CallBack?
+    var kickSelectedHandler: (([Int]) -> Void)?
     
     var isMicOn: Bool = true {
         didSet {
@@ -28,6 +61,14 @@ class AmongRoomBottomBar: XibLoadableView {
                 micButton.setImage(R.image.ac_icon_mic_off(), for: .normal)
             }
         }
+    }
+    
+    @IBAction func cancelKickAction(_ sender: Any) {
+        cancelKickHandler?()
+    }
+    
+    @IBAction func kickSelectedAction(_ sender: Any) {
+        kickSelectedHandler?(selectedKickUser)
     }
     
     @IBAction func sendMessageButtonAction(_ sender: Any) {
