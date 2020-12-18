@@ -55,6 +55,7 @@ extension AmongChat.Home {
             v.dataSource = self
             v.delegate = self
             v.backgroundColor = .clear
+            v.alwaysBounceVertical = true
             return v
         }()
         
@@ -84,6 +85,8 @@ extension AmongChat.Home.ViewController {
     
     @objc
     private func onProfileBtn() {
+        let vc = Social.ProfileViewController()
+        navigationController?.pushViewController(vc)
     }
     
     @objc
@@ -143,7 +146,7 @@ extension AmongChat.Home.ViewController {
         topicCollectionView.snp.makeConstraints { (maker) in
             maker.top.equalTo(navLayoutGuide.snp.bottom)
             maker.left.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-20)
         }
     }
     

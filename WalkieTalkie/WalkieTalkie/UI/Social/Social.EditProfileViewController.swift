@@ -64,8 +64,6 @@ extension Social {
         
         private lazy var userInputView = UserNameInputView()
         
-        private var profile: FireStore.Entity.User.Profile = FireStore.Entity.User.Profile(avatar: "", birthday: "", name: Constants.defaultUsername, premium: false, uidInt: Constants.sUserId, uid: "")
-        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -129,17 +127,14 @@ extension Social {
                 removeHUDBlock()
             }
             
-            Settings.shared.firestoreUserProfile.replay()
+            Settings.shared.amongChatUserProfile.replay()
                 .filterNil()
-                .take(1)
-                .timeout(.seconds(5), scheduler: MainScheduler.instance)
                 .subscribe(onNext: { [weak self] (profile) in
                     removeBlock()
-                    self?.profile = profile
-                    self?.updateFields()
+                    self?.updateFields(profile: profile)
                 }, onError: { [weak self] (_) in
                     removeBlock()
-                    self?.updateFields()
+//                    self?.updateFields()
                 })
                 .disposed(by: bag)
             
@@ -156,9 +151,8 @@ extension Social {
             userInputView.doneHandle = { [weak self](text) in
                 guard let `self` = self else { return }
                 if !text.isEmpty {
-                    self.profile.name = text
-                    self.userButton.setRightLabelText(text)
-                    self.updateProfileIfNeeded()
+                    let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
+                    self.updateProfileIfNeeded(profileProto)
                 }
             }
             
@@ -187,22 +181,17 @@ extension Social {
             }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
-                self?.birthdayButton.setRightLabelText(birthdayStr)
-                self?.profile.birthday = birthdayStr
-                self?.updateProfileIfNeeded()
+                let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
+                self?.updateProfileIfNeeded(profile)
             }
             vc.showModal(in: self)
             view.endEditing(true)
         }
         
-        private func updateFields() {
-            userButton.setRightLabelText(profile.name)
-            birthdayButton.setRightLabelText(profile.birthday)
-            
-            let _ = profile.avatarObservable
-                .subscribe(onSuccess: { [weak self] (image) in
-                    self?.avatarIV.image = image
-                })
+        private func updateFields(profile: Entity.UserProfile) {
+            userButton.setRightLabelText(profile.name ?? "")
+            birthdayButton.setRightLabelText(profile.birthday ?? "")
+            avatarIV.setImage(with: profile.pictureUrl)
         }
         
         @objc
@@ -212,27 +201,33 @@ extension Social {
         
         @objc
         private func onAvatarTapped() {
-            // avatar_change log
-            GuruAnalytics.log(event: "avatar_change", category: nil, name: nil, value: nil, content: nil)
-            //
             let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
             avatarIV.image = avatar.0
-            profile.avatar = "\(avatar.1)"
-            updateProfileIfNeeded()
+//            profile.avatar = "\(avatar.1)"
+//            updateProfileIfNeeded()
         }
         
-        private func updateProfileIfNeeded() {
-            let currentProfile = Settings.shared.firestoreUserProfile.value
-            
-            if profile.name != currentProfile?.name ||
-                profile.avatar != currentProfile?.avatar ||
-                profile.birthday != currentProfile?.birthday {
-                
-                if profile.birthday != currentProfile?.birthday {
-                    Defaults[\.socialBirthdayUpdateAtTsKey] = Date().timeIntervalSince1970
-                }
-                
-                Settings.shared.firestoreUserProfile.value = profile
+        private func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
+            if let dict = profileProto.dictionary {
+                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+                Request.updateProfile(dict)
+                    .do(onDispose: {
+                        hudRemoval()
+                    })
+                    .subscribe(onSuccess: { (profile) in
+                        
+                        guard let p = profile else {
+                            return
+                        }
+                        
+                        Settings.shared.amongChatUserProfile.value = p
+                        
+                        cdPrint("")
+                        
+                    }, onError: { (error) in
+                        
+                    })
+                    .disposed(by: bag)
             }
         }
     }
@@ -345,7 +340,9 @@ private extension Social {
         
         @objc
         private func onConfirmBtn() {
-            let birthdayStr = birthdayPicker.selectedDate
+            let df = DateFormatter()
+            df.dateFormat = "yyyyMMdd"
+            let birthdayStr = df.string(from: birthdayPicker.date)
             dismissModal(animated: true) { [weak self] in
                 self?.onCompletion?(birthdayStr)
             }

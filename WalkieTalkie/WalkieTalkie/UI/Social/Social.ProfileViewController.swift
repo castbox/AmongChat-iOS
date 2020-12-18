@@ -23,7 +23,7 @@ extension Social {
             func image() -> UIImage? {
                 switch self {
                 case .inviteFriends:
-                    return UIImage(named: "profile_invite_friends")
+                    return R.image.profile_invite_friends()
                 case .settings:
                     return R.image.profile_settings()
                 case .community:
@@ -118,12 +118,38 @@ extension Social {
         
         private func setupData() {
             
-            Settings.shared.firestoreUserProfile.replay()
+            Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
                     guard let profile = profile else { return }
                     self?.headerView.configProfile(profile)
                 })
                 .disposed(by: bag)
+            
+            if Settings.shared.amongChatUserProfile.value == nil {
+                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+                Request.profile()
+                    .do(onDispose: {
+                        hudRemoval()
+                    })
+                    .subscribe(onSuccess: { (profile) in
+                        guard let p = profile else {
+                            return
+                        }
+                        Settings.shared.amongChatUserProfile.value = p
+                        cdPrint("")
+                    }, onError: { (error) in
+                        cdPrint("")
+                    })
+                    .disposed(by: bag)
+            }
+            
+            let tap = UITapGestureRecognizer()
+            bottomImage.addGestureRecognizer(tap)
+            tap.rx.event
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] (tap) in
+                    self?.open(urlSting: "https://among.chat/guideline.html")
+                }).disposed(by: bag)
         }
         
         @objc
@@ -304,16 +330,13 @@ extension Social.ProfileViewController {
             followerBtnHandler?()
         }
         
-        func configProfile(_ profile: FireStore.Entity.User.Profile) {
+        func configProfile(_ profile: Entity.UserProfile) {
             
-            if profile.birthday.isEmpty {
-                nameLabel.text = profile.name
-            } else {
-                
+            if let b = profile.birthday,
+               !b.isEmpty {
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy/MM/dd"
-                
-                let startDate = dateFormatter.date(from: profile.birthday)
+                dateFormatter.dateFormat = "yyyyMMdd"
+                let startDate = dateFormatter.date(from: b)
                 let endDate = Date()
                 
                 let calendar = Calendar.current
@@ -325,14 +348,14 @@ extension Social.ProfileViewController {
                     return ""
                 }
                 
-                nameLabel.text = profile.name + age
+                nameLabel.text = profile.name ?? "" + age
+            } else {
+                nameLabel.text = profile.name
             }
+            
             nameLabel.appendKern()
             
-            let _ = profile.avatarObservable
-                .subscribe(onSuccess: { [weak self] (image) in
-                    self?.avatarIV.image = image
-                })
+            avatarIV.setImage(with: profile.pictureUrl)
             editBtn.isHidden = false
         }
         
