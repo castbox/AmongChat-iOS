@@ -136,12 +136,18 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 113 images.
+  /// This `R.image` struct is generated, and contains static references to 116 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
     /// Image `ac_back`.
     static let ac_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_back")
+    /// Image `ac_home_banner`.
+    static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
+    /// Image `ac_home_create`.
+    static let ac_home_create = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_create")
+    /// Image `ac_home_profile`.
+    static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -373,6 +379,21 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_back", bundle: ..., traitCollection: ...)`
     static func ac_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_back, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
+    static func ac_home_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_banner, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_create", bundle: ..., traitCollection: ...)`
+    static func ac_home_create(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_create, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`
+    static func ac_home_profile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_profile, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
@@ -1302,12 +1323,16 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 149 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 151 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
       /// Locales: en
       static let channelJoinRequestEnterRoomMsg = Rswift.StringResource(key: "channel.join.request.enter.room.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: %1$@ playing
+      /// 
+      /// Locales: en
+      static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %1$@ refuses your request
       /// 
       /// Locales: en
@@ -1756,6 +1781,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Team up
+      /// 
+      /// Locales: en
+      static let amongChatHomeTeamUp = Rswift.StringResource(key: "among.chat.home.team.up", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en
@@ -1906,6 +1935,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelJoinRequestEnterRoomMsg(_ value1: String) -> String {
         return String(format: NSLocalizedString("channel.join.request.enter.room.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %1$@ playing
+      /// 
+      /// Locales: en
+      static func amongChatHomeNowplaying(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.home.nowplaying", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %1$@ refuses your request
@@ -2690,6 +2726,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatCreateRoomInputPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Team up
+      /// 
+      /// Locales: en
+      static func amongChatHomeTeamUp(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.team.up", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms of Service
