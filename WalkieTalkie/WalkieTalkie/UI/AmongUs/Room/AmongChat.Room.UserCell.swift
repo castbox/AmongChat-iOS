@@ -57,14 +57,14 @@ extension AmongChat.Room {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
-//            lb.backgroundColor = UIColor.black.alpha(0.69)
+            //            lb.backgroundColor = UIColor.black.alpha(0.69)
             lb.textAlignment = .center
             return lb
         }()
         
         private lazy var gameNameButton: UIButton = {
             let btn = UIButton(type: .custom)
-//            btn.setTitle("XXX", for: .normal)
+            //            btn.setTitle("XXX", for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 10)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             btn.backgroundColor = UIColor.white.alpha(0.2)
@@ -86,8 +86,8 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-//            stopHaloAnimation()
-//            haloView.stopLoading()
+            //            stopHaloAnimation()
+            //            haloView.stopLoading()
         }
         
         override func layoutSubviews() {
@@ -113,7 +113,7 @@ extension AmongChat.Room {
                 maker.height.equalTo(21.5)
             }
             
-//            haloView.soundWidth = 60
+            //            haloView.soundWidth = 60
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
                 maker.width.height.equalTo(60)
@@ -127,7 +127,7 @@ extension AmongChat.Room {
             
             disableMicView.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalTo(avatarIV)
-//                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+                //                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
             }
             
             mutedLabel.snp.makeConstraints { (maker) in
@@ -138,7 +138,7 @@ extension AmongChat.Room {
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
                 maker.left.right.equalToSuperview()
-//                maker.bottom.equalTo(gameNameButton.snp.top)
+                //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
             gameNameButton.snp.makeConstraints { maker in
@@ -148,32 +148,32 @@ extension AmongChat.Room {
             }
         }
         
-//        private func haloAnimation() {
-//
-//            let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
-//            borderWidthAni.fromValue = 1
-//            borderWidthAni.toValue = 0
-//
-//            let opacityAni = CABasicAnimation(keyPath: "opacity")
-//            opacityAni.fromValue = 1
-//            opacityAni.toValue = 0
-//
-//            let scaleAni = CABasicAnimation(keyPath: "transform.scale")
-//            scaleAni.fromValue = 1
-//            scaleAni.toValue = 1.5
-//
-//            let animationGroup = CAAnimationGroup()
-//            animationGroup.duration = 1.5;
-//            animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
-//            animationGroup.repeatCount = .greatestFiniteMagnitude
-//            animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-//
-//            haloView.layer.add(animationGroup, forKey: UserCell.haloViewAnimationKey)
-//        }
+        //        private func haloAnimation() {
+        //
+        //            let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
+        //            borderWidthAni.fromValue = 1
+        //            borderWidthAni.toValue = 0
+        //
+        //            let opacityAni = CABasicAnimation(keyPath: "opacity")
+        //            opacityAni.fromValue = 1
+        //            opacityAni.toValue = 0
+        //
+        //            let scaleAni = CABasicAnimation(keyPath: "transform.scale")
+        //            scaleAni.fromValue = 1
+        //            scaleAni.toValue = 1.5
+        //
+        //            let animationGroup = CAAnimationGroup()
+        //            animationGroup.duration = 1.5;
+        //            animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
+        //            animationGroup.repeatCount = .greatestFiniteMagnitude
+        //            animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+        //
+        //            haloView.layer.add(animationGroup, forKey: UserCell.haloViewAnimationKey)
+        //        }
         
-//        private func stopHaloAnimation() {
-//            haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
-//        }
+        //        private func stopHaloAnimation() {
+        //            haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
+        //        }
         
     }
 }
@@ -186,35 +186,40 @@ extension AmongChat.Room.UserCell {
         } else {
             indexLabel.text = index.string
         }
-
+        
         guard let user = user else {
             clearStyle()
             return
         }
-//        if user.uid != nil {
-            avatarIV.image = nil
-            avatarIV.setImage(with: user.pictureUrl)
-            nameLabel.text = user.name
-            if user.status == .talking {
-                haloView.startLoading()
-//                haloAnimation()
-            } else {
-//                stopHaloAnimation()
-                haloView.stopLoading()
-            }
-            gameNameButton.setTitle(user.nickname, for: .normal)
-            avatarIV.layer.borderWidth = 0.5
-            haloView.isHidden = false
-            gameNameButton.isHidden = topic != .roblox
-            gameNameButton.isHidden = !user.nickname.isValid
-            //自己 muted 其他用户
-//            mutedLabel.isHidden = !user.isMutedValue
-        disableMicView.isHidden = !user.isMutedValue
-            //自己 muted 自己
-//            disableMicView.isHidden = true
-//        } else {
-//            clearStyle()
-//        }
+        //        if user.uid != nil {
+        avatarIV.image = nil
+        avatarIV.setImage(with: user.pictureUrl)
+        nameLabel.text = user.name
+        if user.status == .talking {
+            haloView.startLoading()
+            //                haloAnimation()
+        } else {
+            //                stopHaloAnimation()
+            haloView.stopLoading()
+        }
+        gameNameButton.setTitle(user.nickname, for: .normal)
+        avatarIV.layer.borderWidth = 0.5
+        haloView.isHidden = false
+        gameNameButton.isHidden = topic != .roblox
+        gameNameButton.isHidden = !user.nickname.isValid
+        //自己 muted 其他用户
+        if user.isMutedByLoginUser == true {
+            mutedLabel.isHidden = !user.isMutedValue
+            disableMicView.isHidden = true
+        } else {
+            mutedLabel.isHidden = true
+            disableMicView.isHidden = !user.isMutedValue
+        }
+        //自己 muted 自己
+        //            disableMicView.isHidden = true
+        //        } else {
+        //            clearStyle()
+        //        }
     }
     
     func clearStyle() {

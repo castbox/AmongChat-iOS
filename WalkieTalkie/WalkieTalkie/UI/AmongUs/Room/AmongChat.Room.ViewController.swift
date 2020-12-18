@@ -646,7 +646,7 @@ extension AmongChat.Room.ViewController {
                 
                 let modal = ActionModal(with: userViewModel, actionType: .mute)
                 modal.actionHandler = { () in
-                    self?.viewModel.muteUser(userViewModel)
+//                    self?.viewModel.muteUser(userViewModel)
                     ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
                 }
                 modal.showModal(in: self)

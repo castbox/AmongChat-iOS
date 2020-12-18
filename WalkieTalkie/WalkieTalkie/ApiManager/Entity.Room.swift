@@ -87,6 +87,7 @@ extension Entity {
         let seatNo: Int
         var status: Status?
         var isMuted: Bool?
+        var isMutedByLoginUser: Bool?
         let nickname: String?
         
         var isMutedValue: Bool {
