@@ -18,8 +18,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
             if isNavigationBarHiddenWhenAppear {
                 if #available(iOS 11.0, *) {
                     
-                }
-                else {
+                } else {
                     automaticallyAdjustsScrollViewInsets = false
                 }
             }

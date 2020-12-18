@@ -12,11 +12,12 @@ import RxCocoa
 //import Alamofire
 import SwifterSwift
 import SnapKit
-import AgoraRtcKit
+import AgoraRtmKit
 import SwiftyUserDefaults
 import MoPub
 import RxGesture
 import BetterSegmentedControl
+import AgoraRtcKit
 
 enum UserStatus {
     case audiance
