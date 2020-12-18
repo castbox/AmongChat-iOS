@@ -123,5 +123,10 @@ extension Request {
                 return processed
             }
     }
+    
+    static func logout() -> Single<[String: AnyObject]> {
+        return amongchatProvider.rx.request(.logout)
+            .mapJSON().mapToDataJson()
+    }
 
 }

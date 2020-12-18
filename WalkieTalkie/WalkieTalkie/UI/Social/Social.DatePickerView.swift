@@ -43,7 +43,7 @@ extension Social {
         private var yearFont = R.font.nunitoExtraBold(size: 20)
         private let bigRowCount = 1000
         private let componentsCount = 3
-        private let formatter = DateFormatter.init()
+        private let formatter = DateFormatter()
         private var rowLabel : UILabel {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: componentWidth, height: rowHeight))
             label.textAlignment = .center
@@ -65,23 +65,25 @@ extension Social {
             return day.map({"\($0)"})
         }
         
-        private var currentMonthName: String{
+        private var currentDay = Date()
+        
+        private var currentMonthName: String {
             formatter.locale = Locale.init(identifier: "en_US")
             formatter.dateFormat = "MMMM"
-            let dateString = formatter.string(from: Date())
+            let dateString = formatter.string(from: currentDay)
             return NSLocalizedString(dateString, comment: "")
         }
         
         private var currentYearName: String {
             formatter.locale = Locale.init(identifier: "en_US")
             formatter.dateFormat = "yyyy"
-            return formatter.string(from: Date())
+            return formatter.string(from: currentDay)
         }
         
         private var currentDayName: String {
             formatter.locale = Locale.init(identifier: "en_US")
             formatter.dateFormat = "dd"
-            return formatter.string(from: Date())
+            return formatter.string(from: currentDay)
         }
         
         private var bigRowMonthCount: Int {
@@ -157,6 +159,13 @@ extension Social {
             selectRow(todayIndexPath.row, inComponent: DatePickerComponent.month.rawValue, animated: false)
             selectRow(todayIndexPath.section, inComponent: DatePickerComponent.year.rawValue, animated: false)
             selectRow(currentDayRow, inComponent: DatePickerComponent.day.rawValue, animated: false)
+        }
+        
+        func selectBirthday(_ text: String) {
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.dateFormat = "yyyy/MM/dd"
+            currentDay = formatter.date(from: text) ?? Date()
+            selectToday()
         }
                 
         private func loadDefaultsParameters() {

@@ -324,23 +324,26 @@ extension Social.ProfileViewController {
         
         func configProfile(_ profile: Entity.UserProfile) {
             
-            if let b = profile.birthday,
-               !b.isEmpty {
+            if let b = profile.birthday, !b.isEmpty {
+                
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyyMMdd"
-                let startDate = dateFormatter.date(from: b)
-                let endDate = Date()
                 
-                let calendar = Calendar.current
-                let calcAge = calendar.dateComponents([.year], from: startDate!, to: endDate)
-                var age: String {
+                if let startDate = dateFormatter.date(from: b)  {
+                    
+                    let endDate = Date()
+                    
+                    let calendar = Calendar.current
+                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
+                    
                     if let age = calcAge.year?.string, !age.isEmpty {
-                        return ", \(age)"
+                        nameLabel.text = "\(profile.name ?? ""), \(age)"
+                    } else {
+                        nameLabel.text = profile.name
                     }
-                    return ""
+                } else {
+                    nameLabel.text = profile.name
                 }
-                
-                nameLabel.text = profile.name ?? "" + age
             } else {
                 nameLabel.text = profile.name
             }
@@ -477,6 +480,5 @@ extension Social.ProfileViewController {
             titleLabel.text = option.text()
             titleLabel.appendKern()
         }
-        
     }
 }

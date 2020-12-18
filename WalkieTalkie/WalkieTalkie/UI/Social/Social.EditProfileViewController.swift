@@ -63,6 +63,7 @@ extension Social {
         }()
         
         private lazy var userInputView = UserNameInputView()
+        private var profile: Entity.UserProfile!
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -134,7 +135,6 @@ extension Social {
                     self?.updateFields(profile: profile)
                 }, onError: { [weak self] (_) in
                     removeBlock()
-//                    self?.updateFields()
                 })
                 .disposed(by: bag)
             
@@ -175,22 +175,47 @@ extension Social {
         }
         
         func selectBirthday() {
-            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
-                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
-                return
-            }
+//            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
+//                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
+//                return
+//            }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
+                guard let `self` = self else {
+                    return
+                }
                 let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
-                self?.updateProfileIfNeeded(profile)
+                self.updateProfileIfNeeded(profile)
             }
             vc.showModal(in: self)
+            
+            if let b = profile.birthday, !b.isEmpty {
+                vc.selectToBirthday(fixBirthdayString(b))
+            } else {
+                vc.selectToBirthday("")
+            }
             view.endEditing(true)
         }
         
+        private func fixBirthdayString(_ text: String) -> String {
+            var b = text
+            let index = b.index(b.startIndex, offsetBy: 4)
+            b.insert("/", at: index)
+            
+            let index1 = b.index(b.startIndex, offsetBy: 7)
+            b.insert("/", at: index1)
+            return b
+        }
+        
         private func updateFields(profile: Entity.UserProfile) {
+            self.profile = profile
             userButton.setRightLabelText(profile.name ?? "")
-            birthdayButton.setRightLabelText(profile.birthday ?? "")
+            if let b = profile.birthday, !b.isEmpty {
+                let birthday = self.fixBirthdayString(b)
+                birthdayButton.setRightLabelText(birthday)
+            } else {
+                birthdayButton.setRightLabelText("")
+            }
             avatarIV.setImage(with: profile.pictureUrl)
         }
         
@@ -335,7 +360,14 @@ private extension Social {
                 maker.top.equalTo(confirmBtn.snp.bottom).offset(16)
                 maker.height.equalTo(260)
             }
-            birthdayPicker.selectToday()
+        }
+        
+        func selectToBirthday(_ text: String) {
+            if text.isEmpty {
+                birthdayPicker.selectToday()
+            } else {
+                birthdayPicker.selectBirthday(text)
+            }
         }
         
         @objc

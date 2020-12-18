@@ -273,167 +273,170 @@ class Settings {
             }, onError: { (error) in
                 cdPrint("")
             })
-    }
-}
-
-extension DefaultsKeys {
-    var mode: DefaultsKey<Mode> { /// app 主题 {
-        .init("mode", defaultValue: .public)
-    }
-    
-    var channelName: DefaultsKey<String> {
-        .init("channelName", defaultValue: "WELCOME")
-    }
-    
-    var firstInstall: DefaultsKey<Bool> {
-        .init("first.install", defaultValue: true)
-    }
-    
-    var channel: DefaultsKey<Room> {
-        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
-    }
-    
-    var secretChannels: DefaultsKey<[Room]> {
-        .init("secret.channels.joined", defaultValue: [])
-    }
-    
-    var isProKey: DefaultsKey<Bool> {
-        .init("is.pro.key", defaultValue: false)
-    }
-    
-    var lockScreenOn: DefaultsKey<Bool> {
-        .init("lockscreen.key", defaultValue: false)
-    }
-    var pushTypeKey: DefaultsKey<Int> {
-        .init("push.type.key", defaultValue: 2)
-    }
-    var hasRequestedNotificationKey: DefaultsKey<Bool> {
-        .init("noti.has.requested.key", defaultValue: false)
-    }
-    var premiumShowRecordKey: DefaultsKey<String> {
-        .init("premium_show_record", defaultValue: "")
-    }
-    var firstOpenKey: DefaultsKey<Bool> {
-        .init("app.first.open.key", defaultValue: true)
-    }
-    var nearbyAlertDistance: DefaultsKey<Int> {
-        .init("noti.nearby.distance", defaultValue: 25) /// 推送设置中距离参数，默认250，单位miles
-    }
-    var useStandardFreetrialText: DefaultsKey<Bool> {
-        .init("use.standard.freetrial.text", defaultValue: true)
-    }
-    
-    var theme: DefaultsKey<Theme.Mode> { /// app 主题 {
-        .init("theme", defaultValue: .light)
-    }
-    
-    var browseSelectionKey: DefaultsKey<Int?> {
-        .init("browse.selection.key")
-    }
-    var appInstallDateKey: DefaultsKey<Date?> {
-        .init("app.install.date")
-    }
-    var latestLocationKey: DefaultsKey<CLLocation?> {
-        .init("latest.location")
-    }
-    var lastChatRoomKey: DefaultsKey<String?> {
-        .init("walkietalkie.last.room")
-    }
-    var interstitialLastShowDateKey: DefaultsKey<Date?> {
-        .init("interstitial.last.show")
-    }
-    var rateRequestDateKey: DefaultsKey<Date?> {
-        .init("rate.request.last")
-    }
-    
-    //    static let purchasedItemsKey = DefaultsKey<String?>.init("purchased.item.key")
-    
-    var purchasedItemsKey: DefaultsKey<String?> {
-        .init("purchased.item.key")
-    }
-    
-    
-    var userIdKey: DefaultsKey<String?> {
-        .init("generated.user.id")
-    }
-    
-    var debugAdsLogKey: DefaultsKey<Bool> {
-        .init("debug.ads.log", defaultValue: false)
-    }
-    
-    var isOpenSubscribeHotTopicKey: DefaultsKey<Bool> {
-        .init("subscrbe.hot.topic", defaultValue: true)
-    }
-    
-    var isFirstShowSecretChannel: DefaultsKey<Bool> {
-        .init("walkie.talkie.first.show.secret", defaultValue: true)
-    }
-    
-    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
-        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
-    }
-    
-    var emojiMaps: DefaultsKey<[String: Any]> {
-        .init("emoji.maps", defaultValue: [:])
-    }
-    
-    var loginResultKey: DefaultsKey<[String : Any]?> {
-        .init("among.chat.login.result", defaultValue: nil)
-    }
-    
-    var blockedUsersKey: DefaultsKey<[ChannelUser]> {
-        .init("blocked.users", defaultValue: [])
-    }
-    
-    var profileInitialShownTsKey: DefaultsKey<Double?> {
-        .init("profile.initial.shown.timestamp", defaultValue: nil)
-    }
-    
-    var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
-        .init("social.user.profile", defaultValue: nil)
-    }
-    
-    var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
-        .init("among.chat.user.profile", defaultValue: nil)
-    }
-    
-    var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {
-        .init("social.profile.birthday.updated.timestamp", defaultValue: 0)
-    }
-    
-    var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
-        .init("social.join.channel.request.sent.list", defaultValue: [:])
-    }
-    
-    /// 最近一次启动广告展示时间
-    var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
-
-}
-
-extension DefaultsAdapter {
-    func channel(for mode: Mode) -> Room {
-        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
-    }
-    
-    func set(channel: Room?, mode: Mode) {
-        //保护存储错误
-        if mode == .public,
-            channel?.name.isPrivate ?? false {
-            return
+        func clearAll() {
+            loginResult.value = nil
+            amongChatUserProfile.value = nil
         }
-        if mode == .private,
-        !(channel?.name.isPrivate ?? true) {
-            return
+    }
+    
+    extension DefaultsKeys {
+        var mode: DefaultsKey<Mode> { /// app 主题 {
+            .init("mode", defaultValue: .public)
         }
-        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+        
+        var channelName: DefaultsKey<String> {
+            .init("channelName", defaultValue: "WELCOME")
+        }
+        
+        var firstInstall: DefaultsKey<Bool> {
+            .init("first.install", defaultValue: true)
+        }
+        
+        var channel: DefaultsKey<Room> {
+            .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
+        }
+        
+        var secretChannels: DefaultsKey<[Room]> {
+            .init("secret.channels.joined", defaultValue: [])
+        }
+        
+        var isProKey: DefaultsKey<Bool> {
+            .init("is.pro.key", defaultValue: false)
+        }
+        
+        var lockScreenOn: DefaultsKey<Bool> {
+            .init("lockscreen.key", defaultValue: false)
+        }
+        var pushTypeKey: DefaultsKey<Int> {
+            .init("push.type.key", defaultValue: 2)
+        }
+        var hasRequestedNotificationKey: DefaultsKey<Bool> {
+            .init("noti.has.requested.key", defaultValue: false)
+        }
+        var premiumShowRecordKey: DefaultsKey<String> {
+            .init("premium_show_record", defaultValue: "")
+        }
+        var firstOpenKey: DefaultsKey<Bool> {
+            .init("app.first.open.key", defaultValue: true)
+        }
+        var nearbyAlertDistance: DefaultsKey<Int> {
+            .init("noti.nearby.distance", defaultValue: 25) /// 推送设置中距离参数，默认250，单位miles
+        }
+        var useStandardFreetrialText: DefaultsKey<Bool> {
+            .init("use.standard.freetrial.text", defaultValue: true)
+        }
+        
+        var theme: DefaultsKey<Theme.Mode> { /// app 主题 {
+            .init("theme", defaultValue: .light)
+        }
+        
+        var browseSelectionKey: DefaultsKey<Int?> {
+            .init("browse.selection.key")
+        }
+        var appInstallDateKey: DefaultsKey<Date?> {
+            .init("app.install.date")
+        }
+        var latestLocationKey: DefaultsKey<CLLocation?> {
+            .init("latest.location")
+        }
+        var lastChatRoomKey: DefaultsKey<String?> {
+            .init("walkietalkie.last.room")
+        }
+        var interstitialLastShowDateKey: DefaultsKey<Date?> {
+            .init("interstitial.last.show")
+        }
+        var rateRequestDateKey: DefaultsKey<Date?> {
+            .init("rate.request.last")
+        }
+        
+        //    static let purchasedItemsKey = DefaultsKey<String?>.init("purchased.item.key")
+        
+        var purchasedItemsKey: DefaultsKey<String?> {
+            .init("purchased.item.key")
+        }
+        
+        
+        var userIdKey: DefaultsKey<String?> {
+            .init("generated.user.id")
+        }
+        
+        var debugAdsLogKey: DefaultsKey<Bool> {
+            .init("debug.ads.log", defaultValue: false)
+        }
+        
+        var isOpenSubscribeHotTopicKey: DefaultsKey<Bool> {
+            .init("subscrbe.hot.topic", defaultValue: true)
+        }
+        
+        var isFirstShowSecretChannel: DefaultsKey<Bool> {
+            .init("walkie.talkie.first.show.secret", defaultValue: true)
+        }
+        
+        static func channel(for mode: Mode) -> DefaultsKey<Room?> {
+            .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
+        }
+        
+        var emojiMaps: DefaultsKey<[String: Any]> {
+            .init("emoji.maps", defaultValue: [:])
+        }
+        
+        var loginResultKey: DefaultsKey<[String : Any]?> {
+            .init("among.chat.login.result", defaultValue: nil)
+        }
+        
+        var blockedUsersKey: DefaultsKey<[ChannelUser]> {
+            .init("blocked.users", defaultValue: [])
+        }
+        
+        var profileInitialShownTsKey: DefaultsKey<Double?> {
+            .init("profile.initial.shown.timestamp", defaultValue: nil)
+        }
+        
+        var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
+            .init("social.user.profile", defaultValue: nil)
+        }
+        
+        var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
+            .init("among.chat.user.profile", defaultValue: nil)
+        }
+        
+        var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {
+            .init("social.profile.birthday.updated.timestamp", defaultValue: 0)
+        }
+        
+        var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
+            .init("social.join.channel.request.sent.list", defaultValue: [:])
+        }
+        
+        /// 最近一次启动广告展示时间
+        var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
+        
     }
-}
-
-extension CLLocation: DefaultsSerializable {}
-
-
-extension Settings {
-    static var loginUserId: Int? {
-        return shared.loginResult.value?.uid
+    
+    extension DefaultsAdapter {
+        func channel(for mode: Mode) -> Room {
+            return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+        }
+        
+        func set(channel: Room?, mode: Mode) {
+            //保护存储错误
+            if mode == .public,
+               channel?.name.isPrivate ?? false {
+                return
+            }
+            if mode == .private,
+               !(channel?.name.isPrivate ?? true) {
+                return
+            }
+            Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+        }
     }
-}
+    
+    extension CLLocation: DefaultsSerializable {}
+    
+    
+    extension Settings {
+        static var loginUserId: Int? {
+            return shared.loginResult.value?.uid
+        }
+    }

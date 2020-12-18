@@ -15,7 +15,6 @@ extension APIService {
         case secret([String : Any])
         case devices([String : Any])
         case pushEvent([String : Any])
-        case logout([String : Any])
     }
 }
 extension APIService.CastboxBackend: TargetType {
@@ -36,14 +35,12 @@ extension APIService.CastboxBackend: TargetType {
             return "device/api/v1/devices"
         case .pushEvent:
             return "push/api/v1/push/app/event"
-        case .logout:
-            return "auth/logout"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .secret, .devices, .pushEvent, .logout:
+        case .secret, .devices, .pushEvent:
             return .post
         }
     }
@@ -54,7 +51,7 @@ extension APIService.CastboxBackend: TargetType {
     
     var task: Task {
         switch self {
-        case .secret(let params), .devices(let params), .pushEvent(let params), .logout(let params):
+        case .secret(let params), .devices(let params), .pushEvent(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }
     }

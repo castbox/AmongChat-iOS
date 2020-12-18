@@ -87,39 +87,54 @@ extension Social {
         
         @objc
         private func onConfirmBtn() {
-            let birthdayStr = birthdayPicker.selectedDate
+            let df = DateFormatter()
+            df.dateFormat = "yyyyMMdd"
+            let birthdayStr = df.string(from: birthdayPicker.date)
             
-            dismissModal(animated: true) { [weak self] in
-                self?.onCompletion?(birthdayStr)
+            let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
+            
+            if let dict = profile.dictionary {
+                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+                let _ = Request.updateProfile(dict)
+                    .do(onDispose: {
+                        hudRemoval()
+                    })
+                    .subscribe(onSuccess: { [weak self] (profile) in
+                        guard let p = profile else { return }
+                        Settings.shared.amongChatUserProfile.value = p
+                        self?.onCompletion?(birthdayStr)
+                    }, onError: { (error) in
+                        
+                    })
             }
         }
     }
 }
 
-extension Social.BirthdaySetViewController: Modalable {
-    
-    func style() -> Modal.Style {
-        return .customHeight
-    }
-    
-    func height() -> CGFloat {
-        return Frame.Screen.height
-    }
-    
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 0
-    }
-    
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
-    }
-    
-}
+//extension Social.BirthdaySetViewController: Modalable {
+//    
+//    func style() -> Modal.Style {
+//        return .customHeight
+//    }
+//    
+//    func height() -> CGFloat {
+//        return Frame.Screen.height
+//    }
+//    
+//    func modalPresentationStyle() -> UIModalPresentationStyle {
+//        return .overCurrentContext
+//    }
+//    
+//    func cornerRadius() -> CGFloat {
+//        return 0
+//    }
+//    
+//    func coverAlpha() -> CGFloat {
+//        return 0.5
+//    }
+//    
+//    func canAutoDismiss() -> Bool {
+//        return true
+//    }
+//    
+//}
