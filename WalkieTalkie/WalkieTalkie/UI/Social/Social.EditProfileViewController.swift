@@ -181,18 +181,41 @@ extension Social {
 //            }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
+                guard let `self` = self else {
+                    return
+                }
                 let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
-                self?.updateProfileIfNeeded(profile)
+                self.updateProfileIfNeeded(profile)
             }
             vc.showModal(in: self)
-            vc.selectToBirthday(profile.birthday ?? "")
+            
+            if let b = profile.birthday, !b.isEmpty {
+                vc.selectToBirthday(fixBirthdayString(b))
+            } else {
+                vc.selectToBirthday("")
+            }
             view.endEditing(true)
+        }
+        
+        private func fixBirthdayString(_ text: String) -> String {
+            var b = text
+            let index = b.index(b.startIndex, offsetBy: 4)
+            b.insert("/", at: index)
+            
+            let index1 = b.index(b.startIndex, offsetBy: 7)
+            b.insert("/", at: index1)
+            return b
         }
         
         private func updateFields(profile: Entity.UserProfile) {
             self.profile = profile
             userButton.setRightLabelText(profile.name ?? "")
-            birthdayButton.setRightLabelText(profile.birthday ?? "")
+            if let b = profile.birthday, !b.isEmpty {
+                let birthday = self.fixBirthdayString(b)
+                birthdayButton.setRightLabelText(birthday)
+            } else {
+                birthdayButton.setRightLabelText("")
+            }
             avatarIV.setImage(with: profile.pictureUrl)
         }
         

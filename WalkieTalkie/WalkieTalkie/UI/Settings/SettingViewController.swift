@@ -54,7 +54,7 @@ class SettingContainerTableController: UITableViewController {
     let bag = DisposeBag()
     
     @IBOutlet weak var diamondsNameLabel: UILabel!
-    private let shareAppUrl = "https://walkie.page.link/amongchat"
+    private let shareAppUrl = "https://amongchat.page.link/app"
     
     override func viewDidLoad() {
         super.viewDidLoad()
