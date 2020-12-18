@@ -21,8 +21,10 @@ extension Request {
     
     static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
         
-        var paras = ["provider": provider.rawValue]
+        var paras = [String : Any]()
+        paras["provider"] = provider.rawValue
         paras["client_type"] = clientType
+        paras["box_token"] = 1
         
         if let token = token { paras["token"] = token }
         if let secret = secret { paras["secret"] = secret }
@@ -34,10 +36,24 @@ extension Request {
             .mapTo(Entity.LoginResult.self)
     }
     
-    static func enterRoom(roomId: String, topicId: String) -> Single<Entity.Room?> {
+    static func summary(country: String? = nil, language: String? = nil) -> Single<Entity.Summary?> {
         
         var paras = [String : Any]()
-        paras["room_id"] = roomId
+        
+        if let country = country { paras["country"] = country }
+        if let language = language { paras["language"] = language }
+        
+        return amongchatProvider.rx.request(.summary(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Summary.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func enterRoom(roomId: String? = nil, topicId: String) -> Single<Entity.Room?> {
+        
+        var paras = [String : Any]()
+        if let rid = roomId { paras["room_id"] = rid }
         paras["topic_id"] = topicId
         
         return amongchatProvider.rx.request(.enteryRoom(paras))
@@ -51,6 +67,7 @@ extension Request {
                 return roomData
             }
             .mapTo(Entity.Room.self)
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func createRoom(_ room: Entity.RoomProto) -> Single<Entity.Room?> {

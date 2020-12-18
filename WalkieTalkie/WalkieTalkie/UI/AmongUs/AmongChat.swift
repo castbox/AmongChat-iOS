@@ -18,7 +18,7 @@ extension AmongChat {
     enum Topic: String, Codable, CaseIterable {
         case amongus
         case roblox
-        case chilling
+        case chilling = "justchatting"
     }
     
     //用户身份
