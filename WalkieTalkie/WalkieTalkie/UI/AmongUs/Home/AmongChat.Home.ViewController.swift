@@ -236,20 +236,7 @@ extension AmongChat.Home.ViewController {
                 guard let room = room else { return }
                 
                 AmongChat.Room.ViewController.join(room: room, from: self)
-//                self._joinChannel(room) { (channel) in
-//                    AmongChat.Room.ViewController.show(from: self, with: room)
-////                    let vc = (room: room)
-////                    vc.modalPresentationStyle = .fullScreen
-////                    let transition = CATransition()
-////                    transition.duration = 0.5
-////                    transition.type = CATransitionType.push
-////                    transition.subtype = CATransitionSubtype.fromRight
-////                    transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-////                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
-////                    self.present(vc, animated: false) { [weak self] in
-////                        self?.navigationController?.popToRootViewController(animated: false)
-////                    }
-//                }
+
             }, onError: { (error) in
                 cdPrint("error: \(error.localizedDescription)")
             })
