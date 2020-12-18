@@ -142,14 +142,6 @@ extension Social {
                     })
                     .disposed(by: bag)
             }
-            
-            let tap = UITapGestureRecognizer()
-            bottomImage.addGestureRecognizer(tap)
-            tap.rx.event
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self] (tap) in
-                    self?.open(urlSting: "https://among.chat/guideline.html")
-                }).disposed(by: bag)
         }
         
         @objc
