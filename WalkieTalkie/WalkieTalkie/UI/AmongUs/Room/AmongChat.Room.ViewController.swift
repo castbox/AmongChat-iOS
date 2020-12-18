@@ -19,6 +19,12 @@ extension AmongChat.Room {
         case nickName
         case chillingSetup
     }
+    
+    //样式
+    enum Style {
+        case normal
+        case kick
+    }
 }
 
 typealias RoomEditType = AmongChat.Room.EditType
@@ -41,6 +47,19 @@ extension AmongChat.Room {
         private var nickNameInputView: AmongInputNickNameView!
         private var bottomBar: AmongRoomBottomBar!
         private var toolView: AmongRoomToolView!
+        
+        private var style = Style.normal {
+            didSet {
+                UIView.animate(withDuration: 0.2) { [unowned self] in
+                    topBar.alpha = style == .normal ? 1 : 0
+                    toolView.alpha = style == .normal ? 1 : 0
+                    messageView.alpha = style == .normal ? 1 : 0
+                }
+                seatView.style = style
+                bottomBar.style = style
+            }
+        }
+        
         private var editType: AmongChat.Room.EditType = .message {
             didSet {
                 switch editType {
@@ -841,6 +860,64 @@ extension AmongChat.Room.ViewController {
             }
         }
         
+        viewModel.endRoomHandler = { [weak self] action in
+            guard let `self` = self else { return }
+//            guard action != .normalClose else {
+//                self.closeRoom()
+//                return
+//            }
+//            guard action != .enterClosedRoom else {
+//                self.closeRoom(isEnterClosedRoom: true)
+//                return
+//            }
+//            let title: String
+//            let confirmEventBlock = { [weak self] in
+//                self?.leaveRoom()
+//            }
+//            switch action {
+//            case .accountKicked:
+//                title = NSLocalizedString("listener.multidevice.tip", comment: "")
+//            case .disconnected:
+//                title = R.string.localizable.listenerDisconnectedTip()
+//            case .tokenError:
+//                title = NSLocalizedString("Token error", comment: "")
+//            case .kickout:
+//                title = R.string.localizable.listenerEnterBeenKickout()
+//            case .beBlocked:
+//                title = NSLocalizedString("listener.blocked.tip", comment: "")
+//            // 主播封禁
+//            case .forbidden:
+//                title = NSLocalizedString("broadcaster.forbid.tip", comment: "")
+//            default:
+//                title = ""
+//            }
+//            guard !title.isEmpty else {
+//                return
+//            }
+//
+//            var currentVC: UIViewController? = self
+//            if (action == .accountKicked || action == .disconnected), let viewController = UIApplication.shared.keyWindow?.topViewController() {
+//                //ps: 处理转盘弹起的状态下，账号被顶掉
+//                currentVC = viewController
+//            }
+//            let alertVC = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+//
+//            let cancelAction = UIAlertAction(title: R.string.localizable.oK(), style: .cancel) { _ in
+//                if !(currentVC is Listener.ViewController) {
+//                    currentVC?.dismiss(animated: true, completion: nil)
+//                }
+//                confirmEventBlock()
+//            }
+//            alertVC.addAction(cancelAction)
+//            currentVC?.present(alertVC, animated: true, completion: nil)
+//            if action == .kickout || action == .beBlocked {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
+//                    alertVC.dismiss(animated: true, completion: nil)
+//                    self?.leaveRoom()
+//                }
+//            }
+        }
+        
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
         }
@@ -850,7 +927,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.kickOffHandler = { [weak self] in
-            
+            self?.style = .kick
         }
         
         topBar.reportHandler = { [weak self] in
@@ -875,6 +952,27 @@ extension AmongChat.Room.ViewController {
             self?.viewModel.isMuteMic = !micOn
             let tip = micOn ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
             self?.view.raft.autoShow(.text(tip), userInteractionEnabled: false)
+        }
+        
+        bottomBar.cancelKickHandler = { [weak self] in
+            self?.style = .normal
+        }
+        
+        bottomBar.kickSelectedHandler = { [weak self] user in
+            guard let `self` = self else { return }
+            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+            self.viewModel.requestKick(users: user)
+                .subscribe { [weak self] result in
+                    removeBlock()
+                    self?.style = .normal
+                } onError: { error in
+                    removeBlock()
+                }
+                .disposed(by: self.bag)
+        }
+        
+        seatView.selectedKickUserHandler = { [weak self] users in
+            self?.bottomBar.selectedKickUser = users
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in

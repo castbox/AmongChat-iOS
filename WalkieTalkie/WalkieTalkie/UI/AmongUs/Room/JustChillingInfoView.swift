@@ -22,7 +22,7 @@ class JustChillingInfoView: XibLoadableView {
                     notesTitleButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
                 } else {
                     notesDetailButton.isHidden = false
-                    guard let string = room.note else {
+                    guard let string = room.note, !string.isEmpty else {
                         notesDetailButton.setTitle("host could setup notes so everyone could see it when they join the room", for: .normal)
                         return
                     }
