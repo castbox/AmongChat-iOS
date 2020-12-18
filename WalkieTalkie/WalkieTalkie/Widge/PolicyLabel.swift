@@ -57,9 +57,9 @@ class PolicyLabel: YYLabel {
             let srvcRng = (text.string as NSString).range(of: R.string.localizable.termsService())
             var target: String = ""
             if NSIntersectionRange(range, plcRng).length > 0 {
-                target = "http://motivation.easylife.studio/policy.html"
+                target = "https://among.chat/policy.html"
             } else if NSIntersectionRange(range, srvcRng).length > 0 {
-                target = "http://motivation.easylife.studio/termsofservice.html"
+                target = "https://among.chat/term.html"
             } else {
                 return
             }
