@@ -22,15 +22,6 @@ extension Social {
             return btn
         }()
         
-        private lazy var saveBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoBold(size: 16)
-            btn.setTitleColor(UIColor.white, for: .normal)
-            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
-            btn.addTarget(self, action: #selector(onSaveBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
             iv.layer.cornerRadius = 45
@@ -53,15 +44,6 @@ extension Social {
             return iv
         }()
         
-        private lazy var userNameTitle: UILabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 12)
-            lb.text = R.string.localizable.profileEditUsername()
-            lb.textColor = .black
-            lb.appendKern()
-            return lb
-        }()
-        
         private lazy var userButton: ItemButton = {
             let btn = ItemButton()
             btn.setUserNameData()
@@ -75,59 +57,13 @@ extension Social {
         }()
         
         private lazy var userNameInputField: UITextField = {
-            let f = UITextField()
-//            f.clearButtonMode = .always
-//            f.keyboardType = .alphabet
-//            f.contentVerticalAlignment = .center
-//            f.backgroundColor = .white
-//            f.font = R.font.nunitoSemiBold(size: 12)
-//            f.textColor = .black
-//            f.borderStyle = .none
-//            f.delegate = self
-//            let leftMargin = UIView()
-//            leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-//            let rightMargin = UIView()
-//            rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-//            f.leftView = leftMargin
-//            f.rightView = rightMargin
-//            f.leftViewMode = .always
-//            f.cornerRadius = 15
-//            f.addTarget(self, action: #selector(onTextFieldDidChange), for: .editingChanged)
-            f.isHidden = true
-            return f
+            let textFiled = UITextField()
+            textFiled.isHidden = true
+            return textFiled
         }()
         
-        private lazy var birthdayTitle: UILabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 12)
-            lb.textColor = .black
-            lb.text = R.string.localizable.profileEditBirthday()
-            lb.appendKern()
-            lb.isHidden = true
-            return lb
-        }()
-        
-        private lazy var birthdayInputField: UITextField = {
-            let f = UITextField()
-//            f.contentVerticalAlignment = .center
-//            f.backgroundColor = .white
-//            f.font = R.font.nunitoSemiBold(size: 12)
-//            f.textColor = .black
-//            f.borderStyle = .none
-//            f.delegate = self
-//            let leftMargin = UIView()
-//            leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-//            let rightMargin = UIView()
-//            rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-//            f.leftView = leftMargin
-//            f.rightView = rightMargin
-//            f.leftViewMode = .always
-//            f.rightViewMode = .always
-//            f.cornerRadius = 15
-//            f.isHidden = true
-            return f
-        }()
         private lazy var userInputView = UserNameInputView()
+        
         private var profile: FireStore.Entity.User.Profile = FireStore.Entity.User.Profile(avatar: "", birthday: "", name: Constants.defaultUsername, premium: false, uidInt: Constants.sUserId, uid: "")
         
         override func viewDidLoad() {
@@ -152,17 +88,17 @@ extension Social {
                 maker.top.equalToSuperview().offset(56 - Frame.Height.safeAeraTopHeight)
                 maker.width.height.equalTo(25)
             }
-        
-             avatarIV.snp.makeConstraints { (maker) in
-                 maker.top.equalToSuperview().offset(113 - Frame.Height.safeAeraTopHeight)
-                 maker.width.height.equalTo(90)
-                 maker.centerX.equalToSuperview()
-             }
-             
-             randomIconIV.snp.makeConstraints { (maker) in
-                 maker.right.bottom.equalTo(avatarIV)
-                 maker.width.height.equalTo(24)
-             }
+            
+            avatarIV.snp.makeConstraints { (maker) in
+                maker.top.equalToSuperview().offset(113 - Frame.Height.safeAeraTopHeight)
+                maker.width.height.equalTo(90)
+                maker.centerX.equalToSuperview()
+            }
+            
+            randomIconIV.snp.makeConstraints { (maker) in
+                maker.right.bottom.equalTo(avatarIV)
+                maker.width.height.equalTo(24)
+            }
             
             userButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(-10)
@@ -184,7 +120,7 @@ extension Social {
             userInputView.isHidden = true
             view.addSubview(userInputView)
         }
-    
+        
         private func setupData() {
             
             let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
@@ -210,12 +146,12 @@ extension Social {
             userButton.rx.tap
                 .subscribe(onNext: { [weak self]() in
                     self?.userNameInputField.becomeFirstResponder()
-            }).disposed(by: bag)
+                }).disposed(by: bag)
             
             birthdayButton.rx.tap
                 .subscribe(onNext: { [weak self]() in
-                self?.selectBirthday()
-            }).disposed(by: bag)
+                    self?.selectBirthday()
+                }).disposed(by: bag)
             
             userInputView.doneHandle = { [weak self](text) in
                 guard let `self` = self else { return }
@@ -225,7 +161,7 @@ extension Social {
                     self.updateProfileIfNeeded()
                 }
             }
-
+            
             RxKeyboard.instance.isHidden
                 .drive(onNext: { [weak self](hidden) in
                     self?.userInputView.isHidden = hidden
@@ -266,18 +202,11 @@ extension Social {
             let _ = profile.avatarObservable
                 .subscribe(onSuccess: { [weak self] (image) in
                     self?.avatarIV.image = image
-            })
+                })
         }
         
         @objc
         private func onBackBtn() {
-            navigationController?.popViewController()
-        }
-        
-        @objc
-        private func onSaveBtn() {
-            view.endEditing(true)
-            updateProfileIfNeeded()
             navigationController?.popViewController()
         }
         
@@ -290,13 +219,6 @@ extension Social {
             avatarIV.image = avatar.0
             profile.avatar = "\(avatar.1)"
             updateProfileIfNeeded()
-        }
-        
-        @objc
-        private func onTextFieldDidChange() {
-            let name: String = userNameInputField.text?.trimmingCharacters(in: .whitespaces) ?? ""
-            saveBtn.alpha = name.isEmpty ? 0.5 : 1.0
-            saveBtn.isEnabled = !name.isEmpty
         }
         
         private func updateProfileIfNeeded() {
@@ -318,7 +240,7 @@ extension Social {
 
 private extension Social {
     
-     class ItemButton: UIButton {
+    class ItemButton: UIButton {
         
         private lazy var icon = UIImageView()
         
@@ -378,8 +300,8 @@ private extension Social {
         }
     }
     
-     class BirthdaySelectViewController: ViewController {
-
+    class BirthdaySelectViewController: ViewController {
+        
         private lazy var birthdayPicker: Social.DatePickerView = {
             let p = Social.DatePickerView(frame: CGRect(x: 0, y: 58, width: Frame.Screen.width - 80, height: 260))
             p.backgroundColor = UIColor(hex6: 0x222222)
@@ -390,7 +312,7 @@ private extension Social {
             let btn = WalkieButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.addTarget(self, action: #selector(onConfirmBtn), for: .primaryActionTriggered)
-            btn.setTitle("Save", for: .normal)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.layer.masksToBounds = true
@@ -400,12 +322,12 @@ private extension Social {
         }()
         
         var onCompletion: ((String) -> Void)? = nil
-
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             view.backgroundColor = UIColor(hex6: 0x222222)
             view.addSubviews(views: birthdayPicker, confirmBtn)
-
+            
             confirmBtn.snp.makeConstraints { (maker) in
                 maker.right.equalToSuperview().inset(20)
                 maker.top.equalToSuperview().offset(20)
@@ -468,7 +390,7 @@ private extension Social {
         }()
         
         let bag = DisposeBag()
-
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             
@@ -551,7 +473,7 @@ private extension Social {
         }
         
         func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
+            
             let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").inverted
             let filteredString = string.components(separatedBy: set).joined(separator: "")
             

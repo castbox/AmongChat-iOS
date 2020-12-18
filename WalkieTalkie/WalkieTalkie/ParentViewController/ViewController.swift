@@ -165,12 +165,16 @@ class ViewController: UIViewController, ScreenLifeLogable {
         addCustomBackButton()
     }
     
-    func addCustomBackButton() {
+    lazy var customBackButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(R.image.backNor(), for: .normal)
         button.frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
         button.addTarget(self, action: #selector(backButtonClick(button:)), for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: button)
+        return button
+    }()
+    
+    func addCustomBackButton() {
+        let barButtonItem = UIBarButtonItem(customView: customBackButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
     }
 }
