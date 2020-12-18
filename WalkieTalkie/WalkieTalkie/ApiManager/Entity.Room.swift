@@ -35,7 +35,7 @@ extension Entity {
         var note: String?
         let roomId: String
         
-        let roomUserList: [RoomUser]
+        var roomUserList: [RoomUser]
         var state: RoomPublicType
         var topicId: AmongChat.Topic
         let topicName: String
@@ -56,6 +56,10 @@ extension Entity {
                 map[user.seatNo - 1] = user
             }
             return map
+        }
+        
+        var loginUserIsAdmin: Bool {
+            return userListMap[0]?.uid == Settings.loginUserId
         }
     }
     
@@ -78,7 +82,7 @@ extension Entity {
         }
         
         let uid: Int
-        let name: String?
+        let name: String
         let pictureUrl: String
         let seatNo: Int
         var status: Status?

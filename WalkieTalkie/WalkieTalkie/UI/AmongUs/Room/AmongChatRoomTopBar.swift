@@ -55,7 +55,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     @IBOutlet weak var publicButton: UIButton!
     @IBOutlet weak var kickButton: BottomTitleButton!
     @IBOutlet weak var leaveButton: BottomTitleButton!
-    
+
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
@@ -70,6 +70,8 @@ class AmongChatRoomTopBar: XibLoadableView {
             publicButton.setTitle(R.string.localizable.roomPrivate(), for: .normal)
             publicButton.setBackgroundImage("E6309E".color().image, for: .normal)
         }
+        kickButton.isHidden = !room.loginUserIsAdmin
+        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
     }
     
     @IBAction func publicButtonAction(_ sender: Any) {

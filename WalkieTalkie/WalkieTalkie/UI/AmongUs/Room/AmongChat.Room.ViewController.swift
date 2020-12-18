@@ -65,34 +65,37 @@ extension AmongChat.Room {
 //            }
 //        }
         
-        private var messageListDataSource: [ChatRoomMessage] = [] {
-            didSet {
-                messageListTableView.reloadData()
-                mainQueueDispatchAsync(after: 0.2) { [weak self] in
-                    if self?.messageListTableView.contentSize.height ?? 0 > self?.messageListTableView.frame.size.height ?? 0 {
-                        self?.messageListTableView.scrollToBottom()
-                    }
-                }
-            }
-        }
+//        private var messageListDataSource: [ChatRoomMessage] = [] {
+//            didSet {
+//                messageView.reloadData()
+//                mainQueueDispatchAsync(after: 0.2) { [weak self] in
+//                    if self?.messageView.contentSize.height ?? 0 > self?.messageView.frame.size.height ?? 0 {
+//                        self?.messageView.scrollToBottom()
+//                    }
+//                }
+//            }
+//        }
 
         private lazy var bgView: UIView = {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
             ship.contentMode = .scaleAspectFit
-            let star = UIImageView(image: R.image.star_bg())
-            let mask = UIView()
-            mask.backgroundColor = UIColor.black.alpha(0.5)
-            v.addSubviews(views: star, ship, mask)
-            star.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+            if room.bgUrl != nil {
+                ship.setImage(with: room.bgUrl)
             }
+//            let star = UIImageView(image: R.image.star_bg())
+//            let mask = UIView()
+//            mask.backgroundColor = UIColor.black.alpha(0.5)
+            v.addSubviews(views: ship)
+//            star.snp.makeConstraints { (maker) in
+//                maker.edges.equalToSuperview()
+//            }
             ship.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
-            mask.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-            }
+//            mask.snp.makeConstraints { (maker) in
+//                maker.edges.equalToSuperview()
+//            }
             return v
         }()
         
@@ -161,13 +164,13 @@ extension AmongChat.Room {
             return view
         }()
         
-        private lazy var messageListTableView: UITableView = {
+        private lazy var messageView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.register(AmongChat.Room.MessageTextCell.self, forCellReuseIdentifier: NSStringFromClass(AmongChat.Room.MessageTextCell.self))
             tb.backgroundColor = .clear
             tb.dataSource = self
             tb.delegate = self
-            tb.isHidden = true
+//            tb.isHidden = true
             tb.separatorStyle = .none
             tb.rowHeight = UITableView.automaticDimension
             tb.estimatedRowHeight = 80
@@ -367,19 +370,7 @@ extension AmongChat.Room.ViewController {
         
         let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
             guard let `self` = self else { return }
-            
-            ChatRoomManager.shared.leaveChannel { (_) in
-                let transition = CATransition()
-                transition.duration = 0.5
-                transition.type = CATransitionType.push
-                transition.subtype = CATransitionSubtype.fromLeft
-                transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
-                self.dismiss(animated: false) {
-                    guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
-                    Ad.InterstitialManager.shared.showAdIfReady(from: vc)
-                }
-            }
+            self.requestLeaveRoom()
         })
         
         alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
@@ -396,8 +387,38 @@ extension AmongChat.Room.ViewController {
         }
 
         self.view.isUserInteractionEnabled = false
+//        ShareManager.default.share(with: room.roomId, type: <#T##ShareManager.ShareType#>, viewController: <#T##UIViewController#>, successHandler: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
         ShareManager.default.showActivity(viewController: self) { () in
             removeBlock()
+        }
+    }
+    
+    func requestLeaveRoom() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        self.viewModel.leaveChannel()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                self?.dismissViewController()
+            } onError: { [weak self] error in
+                self?.dismissViewController()
+            }
+            .disposed(by: bag)
+    }
+    
+    func dismissViewController() {
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+        self.dismiss(animated: false) {
+            guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
+            Ad.InterstitialManager.shared.showAdIfReady(from: vc)
         }
     }
 
@@ -464,7 +485,7 @@ extension AmongChat.Room.ViewController {
         inputNotesView = AmongInputNotesView()
         inputNotesView.alpha = 0
         
-        view.addSubviews(views: bgView, messageListTableView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
+        view.addSubviews(views: bgView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -506,7 +527,7 @@ extension AmongChat.Room.ViewController {
             maker.left.right.equalToSuperview()
         }
         
-        messageListTableView.snp.makeConstraints { (maker) in
+        messageView.snp.makeConstraints { (maker) in
             maker.top.equalTo(toolView.snp.bottom).offset(17)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
@@ -764,7 +785,7 @@ extension AmongChat.Room.ViewController {
 //            .filter({ $0 })
 //            .take(1)
 //            .subscribe(onNext: { [weak self] (_) in
-//                self?.messageListTableView.isHidden = false
+//                self?.messageView.isHidden = false
 ////                self?.messageBtn.isHidden = false
 //            })
 //            .disposed(by: bag)
@@ -787,6 +808,38 @@ extension AmongChat.Room.ViewController {
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
+        viewModel.messageEventHandler = { [weak self] in
+            guard let `self` = self else { return }
+            let contentHeight = self.messageView.contentSize.height
+            let height = self.messageView.bounds.size.height
+            let contentOffsetY = self.messageView.contentOffset.y
+            let bottomOffset = contentHeight - contentOffsetY
+//            self.newMessageButton.isHidden = true
+            // 消息不足一屏
+            if contentHeight < height {
+                self.messageView.reloadData()
+            } else {// 超过一屏
+                if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
+                    let rows = self.messageView.numberOfRows(inSection: 0)
+                    let newRow = self.viewModel.messages.count
+                    guard newRow > rows else { return }
+                    let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
+                    self.messageView.beginUpdates()
+                    self.messageView.insertRows(at: indexPaths, with: .none)
+                    self.messageView.endUpdates()
+                    if let endPath = indexPaths.last {
+                        self.messageView.scrollToRow(at: endPath, at: .bottom, animated: true)
+                    }
+                } else {
+//                    if self.messageView.numberOfRows(inSection: 0) <= 2 {
+//                        self.newMessageButton.isHidden = true
+//                    } else {
+//                        self.newMessageButton.isHidden = false
+//                    }
+                    self.messageView.reloadData()
+                }
+            }
+        }
         
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
@@ -818,7 +871,8 @@ extension AmongChat.Room.ViewController {
         
         bottomBar.changeMicStateHandler = { [weak self] micOn in
 //            self?.editType = .message
-            ChatRoomManager.shared.muteMyMic(muted: !micOn)
+//            ChatRoomManager.shared.muteMyMic(muted: !micOn)
+            self?.viewModel.isMuteMic = !micOn
             let tip = micOn ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
             self?.view.raft.autoShow(.text(tip), userInteractionEnabled: false)
         }
@@ -867,6 +921,13 @@ extension AmongChat.Room.ViewController {
 //        adView?.startAutomaticallyRefreshingContents()
     }
     
+    func messageListScrollToBottom() {
+        let rows = self.messageView.numberOfRows(inSection: 0)
+        if rows > 0 {
+            let endPath = IndexPath(row: rows - 1, section: 0)
+            self.messageView.scrollToRow(at: endPath, at: .bottom, animated: true)
+        }
+    }
 }
 
 extension AmongChat.Room.ViewController {

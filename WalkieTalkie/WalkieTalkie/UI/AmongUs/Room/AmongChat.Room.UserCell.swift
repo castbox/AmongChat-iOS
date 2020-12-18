@@ -191,7 +191,7 @@ extension AmongChat.Room.UserCell {
             clearStyle()
             return
         }
-        if user.uid != nil {
+//        if user.uid != nil {
             avatarIV.image = nil
             avatarIV.setImage(with: user.pictureUrl)
             nameLabel.text = user.name
@@ -208,12 +208,13 @@ extension AmongChat.Room.UserCell {
             gameNameButton.isHidden = topic != .roblox
             gameNameButton.isHidden = !user.nickname.isValid
             //自己 muted 其他用户
-            mutedLabel.isHidden = !user.isMutedValue
+//            mutedLabel.isHidden = !user.isMutedValue
+        disableMicView.isHidden = !user.isMutedValue
             //自己 muted 自己
 //            disableMicView.isHidden = true
-        } else {
-            clearStyle()
-        }
+//        } else {
+//            clearStyle()
+//        }
     }
     
     func clearStyle() {

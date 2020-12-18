@@ -12,7 +12,9 @@ class AmongRoomInfoView: XibLoadableView {
 
     @IBOutlet weak var aeraLabel: UIButton!
     @IBOutlet weak var codeLabel: UILabel!
-
+    
+    var tapHandler: CallBack?
+    
     var room: Entity.Room? {
         didSet {
             codeLabel.text = room?.amongUsCode
@@ -22,12 +24,7 @@ class AmongRoomInfoView: XibLoadableView {
     
     @IBAction func copyButtonAction(_ sender: Any) {
         //is self
-//        if room?.roomUserList.first?.uid == "" {
-//
-//        } else {
-            room?.amongUsCode?.copyToPasteboard()
-            raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
-//        }
+        tapHandler?()
     }
     /*
     // Only override draw() if you perform custom drawing.

@@ -45,16 +45,19 @@ extension AmongChatRoomConfigView {
             amongSetupView.isHidden = room.isValidAmongConfig
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
+            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
         case .roblox:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
             justChillingInfoView.room = room
+            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
         case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
             justChillingInfoView.room = room
+            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
         }
     }
     
@@ -65,6 +68,19 @@ extension AmongChatRoomConfigView {
         
         justChillingInfoView.hostNotesClick = { [weak self] in
             self?.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
+        }
+        
+        amongInfoView.tapHandler = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+                self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
+            } else {
+                self.room.amongUsCode?.copyToPasteboard()
+                self.viewController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+            }
+
         }
     }
     

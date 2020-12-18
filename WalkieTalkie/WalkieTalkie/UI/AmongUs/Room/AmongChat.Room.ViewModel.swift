@@ -12,6 +12,11 @@ import RxCocoa
 import SwifterSwift
 import SwiftyUserDefaults
 import AgoraRtcKit
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[AmongChat.Room.ViewModel]-\(message)")
+}
 
 extension AmongChat.Room {
     
@@ -36,7 +41,10 @@ extension AmongChat.Room {
         //麦位声音动画
         let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
 
+        private var messageEventEmitter = PublishSubject<ChatRoomMessage>()
+        private var messageListReloadTrigger = PublishSubject<()>()
         var endRoomHandler: ((_ action: EndRoomAction) -> Void)?
+        var messageEventHandler: () -> Void = { }
 
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
@@ -100,6 +108,10 @@ extension AmongChat.Room {
 
         }
         
+        deinit {
+            debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
+        }
+        
         init(room: Entity.Room) {
 //            self.room = room
             roomReplay = BehaviorRelay(value: room)
@@ -156,7 +168,8 @@ extension AmongChat.Room {
 //                            self.speakingUsersRelay.accept(viewModelList.filter { $0.channelUser.status == .talking })
 //                        })
                 })
-
+            
+            setObservableSubject()
         }
         
         @discardableResult
@@ -198,21 +211,99 @@ extension AmongChat.Room {
             return true
         }
         
-        private func leaveChannel() {
-            UIApplication.shared.isIdleTimerDisabled = false
-            mManager.leaveChannel { (name) in
-                ChannelUserListViewModel.shared.leavChannel(name)
+        func leaveChannel() -> Observable<()> {
+            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
+                .asObservable()
+                .flatMap { [weak self] _  -> Observable<()> in
+                    guard let `self` = self else { return .empty() }
+                    return Observable<()>.create { [weak self] observer -> Disposable in
+                        self?.mManager.leaveChannel { (name) in
+                            UIApplication.shared.isIdleTimerDisabled = false
+                            ChannelUserListViewModel.shared.leavChannel(name)
+                            ViewModel.shared = nil
+                            observer.onNext(())
+                            observer.onCompleted()
+                        }
+                        return Disposables.create {
+                            
+                        }
+                    }
+                }
+        }
+        
+        func setObservableSubject() {
+            
+            messageEventEmitter.asObserver()
+                .observeOn(SerialDispatchQueueScheduler(qos: .default))
+//                .map { message -> ChatRoomMessage in
+//                    //transfer
+//                    let content = message.content
+//                    if let text = content as? TextContent {
+//                        //过滤
+//                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
+//                        text.content = result
+//                        return LVEntity.Message(content: text, sendTime: message.sendTime, receivedTime: message.receivedTime)
+//                    } else if let whisper = content as? WhisperContent {
+//                        let (_, result) = SensitiveWordChecker.default.filter(text: whisper.whisper_msg)
+//                        whisper.whisper_msg = result
+//                        return LVEntity.Message(content: whisper, sendTime: message.sendTime, receivedTime: message.receivedTime)
+//                    } else {
+//                        return message
+//                    }
+//                }
+                .observeOn(MainScheduler.asyncInstance)
+                .do(onNext: { [weak self] message in
+                    self?.messages.append(message)
+                })
+                .map { _ -> Void in
+                    return ()
+                }
+                .bind(to: messageListReloadTrigger)
+                .disposed(by: bag)
+                        
+            messageListReloadTrigger
+                .asObserver()
+                .debounce(.fromSeconds(0.8), scheduler: MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.messageEventHandler()
+                })
+                .disposed(by: bag)
+        }
+        
+        let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
+        var isMuteMic: Bool {
+            set {
+                isMuteMicObservable.accept(newValue)
+//                LiveEngine.shared.mute(isMute: newValue)
+                ChatRoomManager.shared.muteMyMic(muted: newValue)
+                ////find
+                guard let userId = Settings.loginUserId?.uInt else {
+                    return
+                }
+                onUserStatusChanged(userId: userId, muted: newValue)
             }
+            get { isMuteMicObservable.value }
+        }
+        
+        // 添加消息
+        func addUIMessage(message: ChatRoomMessage) {
+            messageEventEmitter.onNext(message)
+        }
+        
+        func triggerMessageListReload() {
+            messageListReloadTrigger.onNext(())
         }
         
         func sendText(message: String?) {
             guard let message = message?.trimmed,
                   !message.isEmpty,
-                  let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId?.int }) else {
+                  let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
-            let textMessage = ChatRoom.TextMessage(text: message, user: user, msgType: .text)
+            let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
             imViewModel.sendText(message: textMessage)
+            //append
+            addUIMessage(message: textMessage)
         }
         
         func changePublicType() {
@@ -284,7 +375,7 @@ extension AmongChat.Room {
         }
 
         func updateVolumeIndication(userId: UInt, volume: UInt) {
-            cdPrint("userid: \(userId) volume: \(volume)")
+//            cdPrint("userid: \(userId) volume: \(volume)")
             let users = dataSource.value.map { item -> ChannelUser in
                 guard item.status != .blocked,
                     item.status != .muted,
@@ -350,22 +441,32 @@ extension AmongChat.Room {
                 })
         }
 
-        func leavChannel(_ channel: String) {
-            let _ = Request.reportLeaveRoom(channel)
-                .subscribe()
-            cachedFUsers.removeAll()
-            unfoundUserIds.removeAll()
-            dataSource.accept([])
-        }
+//        func leavChannel(_ channel: String) {
+//            let _ = Request.reportLeaveRoom(channel)
+//                .subscribe()
+//            cachedFUsers.removeAll()
+//            unfoundUserIds.removeAll()
+//            dataSource.accept([])
+//            ViewModel.shared = nil
+//        }
 
     }
 
 }
 
 extension AmongChat.Room.ViewModel {
+    func update(_ room: Entity.Room) {
+        roomReplay.accept(room)
+    }
+    
     func onReceiveChatRoom(crMessage: ChatRoomMessage) {
+        cdPrint("onReceiveChatRoom- \(crMessage)")
         if let message = crMessage as? ChatRoom.TextMessage {
-            
+            addUIMessage(message: message)
+        } else if let message = crMessage as? ChatRoom.SystemMessage {
+            addUIMessage(message: message)
+        } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
+            update(message.room)
         } else if let message = crMessage as? ChatRoom.KickOutMessage {
             //自己
 //            if message. {
@@ -510,16 +611,28 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
 
     func onUserStatusChanged(userId: UInt, muted: Bool) {
-        if Constants.isMyself(userId) {
-            
-        } else {
-            //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
-                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+        //        if Constants.isMyself(userId) {
+        //
+        //        } else {
+        var newRoom = room
+        var userList = newRoom.roomUserList
+        newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
+            guard user.uid == userId.int else {
+                return user
             }
+            var newUser = user
+            newUser.isMuted = muted
+            return newUser
         }
+        update(newRoom)
+        
+        //check block
+        if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
+            mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+        } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+            mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+        }
+        //        }
     }
     
     func onAudioMixingStateChanged(isPlaying: Bool) {
@@ -527,7 +640,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
 
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
-        cdPrint("userid: \(userId) volume: \(volume)")
+//        cdPrint("userid: \(userId) volume: \(volume)")
         if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
 //            if isActive {
                 self.soundAnimationIndex.accept(user.seatNo - 1)

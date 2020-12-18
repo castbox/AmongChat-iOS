@@ -14,6 +14,11 @@ import TikTokOpenSDK
 import RxSwift
 
 class ShareManager: NSObject {
+    enum ContentType {
+        case roomId
+        case app
+    }
+    
     enum ShareType: String, CaseIterable {
         case message
         case whatsapp
@@ -31,12 +36,12 @@ class ShareManager: NSObject {
     static func shareUrl(for channelName: String?) -> String {
         guard let channelName = channelName,
             let publicName = channelName.publicName else {
-            return "https://walkietalkie.live/"
+            return "https://among.chat/"
         }
         if channelName.isPrivate {
-            return "https://walkietalkie.live/?passcode=\(publicName)"
+            return "https://among.chat/?passcode=\(publicName)"
         }
-        return "https://walkietalkie.live/?channel=\(publicName)"
+        return "https://among.chat/?channel=\(publicName)"
     }
     
     static func makeDynamicLinks(with channel: String?, for type: ShareType, completionHandler: @escaping (String?) -> Void) {
@@ -80,7 +85,7 @@ class ShareManager: NSObject {
         })
     }
     
-    static func shareTitle(for channelName: String?, dynamicLink: String) -> String? {
+    static func shareTitle(for channelName: String?, topic: AmongChat.Topic = .amongus, dynamicLink: String) -> String? {
         guard let channelName = channelName,
             let publicName = channelName.publicName else {
                 return nil
@@ -105,7 +110,7 @@ class ShareManager: NSObject {
         return shareString
     }
     
-    func share(with channelName: String?, type: ShareType, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
+    func share(with channelName: String?, type: ShareType, topic: AmongChat.Topic = .amongus, viewController: UIViewController, successHandler: (() -> Void)? = nil) {
         guard let channelName = channelName else {
             successHandler?()
             return

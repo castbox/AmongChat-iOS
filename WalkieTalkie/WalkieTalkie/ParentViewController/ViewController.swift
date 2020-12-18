@@ -74,7 +74,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
     }
     
     deinit {
-        debugPrint("[VIEWCONTROLLER-DEINIT]")
+        debugPrint("[VIEWCONTROLLER-DEINIT-\(NSStringFromClass(type(of: self)))]")
     }
     
     override func willMove(toParent parent: UIViewController?) {

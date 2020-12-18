@@ -125,7 +125,7 @@ class ChatRoomManager: SeatManager {
             .subscribe { [weak self] token in
                 guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
                 self.updateRole(true)
-                self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uIntValue) { [weak self] in
+                self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
                     //set to audiance
 //                    self?.updateRole(false)
                     self?.channelName = channelId
@@ -173,6 +173,7 @@ class ChatRoomManager: SeatManager {
         }
         channelName = nil
         mRtcManager.leaveChannel()
+        
         mChannelData.release()
         HapticFeedback.Impact.medium()
         block?(name)

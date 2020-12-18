@@ -41,7 +41,6 @@ extension AmongChat.Room {
         init(with channelId: String) {
             self.channelId = channelId
             self.imManager = AmongChat.Room.IMManager(with: channelId)
-            
             bindEvents()
         }
                 
@@ -87,21 +86,25 @@ extension AmongChat.Room.IMViewModel {
                     switch type {
                     case .text:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.TextMessage.self, from: json) as ChatRoomMessage
-                    case .baseInfo:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomBaseMessage.self, from: json) as ChatRoomMessage
+//                    case .baseInfo:
+//                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomBaseMessage.self, from: json) as ChatRoomMessage
                     case .joinRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.JoinRoomMessage.self, from: json) as ChatRoomMessage
                     case .leaveRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
                     case .kickoutRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.KickOutMessage.self, from: json) as ChatRoomMessage
-                    case .roomUserListInfo:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.UserListMessage.self, from: json) as ChatRoomMessage
+                    case .roomInfo:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomInfoMessage.self, from: json) as ChatRoomMessage
+                    case .system:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.SystemMessage.self, from: json) as ChatRoomMessage
+                        
                     }
                 }
                 return item
             }
             .filterNil()
+            .debug("[newMessageObservable]", trimOutput: false)
             .observeOn(MainScheduler.asyncInstance)
 //            .subscribe(onNext: { [weak self] message in
 //                self?.appendNewMessage(message)
@@ -163,36 +166,26 @@ typealias ChatRoomMessage = ChatRoomMessageable & Codable
 extension ChatRoom {
     enum MessageType: String, Codable {
         case text = "AC:Chatroom:Text"
-        case baseInfo = "AC:Chatroom:RoomBase"
-        case roomUserListInfo = "AC:Chatroom:RoomUserList"
+        case roomInfo = "AC:Chatroom:RoomInfo"
         case joinRoom = "AC:Chatroom:Join"
         case leaveRoom = "AC:Chatroom:Leave"
         case kickoutRoom = "AC:Chatroom:Kick"
+        case system = "AC:Chatroom:SystemText"
     }
     
     struct TextMessage: ChatRoomMessage {
-        let text: String
+        let content: String
         let user: Entity.RoomUser
         let msgType: MessageType
         
         private enum CodingKeys: String, CodingKey {
-            case text
+            case content
             case user
             case msgType = "message_type"
         }
     }
-    
-    struct RoomBaseMessage: ChatRoomMessage {
-        let room: Entity.Room
-        let msgType: MessageType
-        
-        private enum CodingKeys: String, CodingKey {
-            case room
-            case msgType = "message_type"
-        }
-    }
 
-    struct UserListMessage: ChatRoomMessage {
+    struct RoomInfoMessage: ChatRoomMessage {
         let room: Entity.Room
         let msgType: MessageType
         
@@ -224,11 +217,27 @@ extension ChatRoom {
     }
     
     struct KickOutMessage: ChatRoomMessage {
-        let room: Entity.Room
+        let roomId: String
+        //被踢
+        let user: Entity.RoomUser
+        //操作者
+        let opUser: Entity.RoomUser
         let msgType: MessageType
         
         private enum CodingKeys: String, CodingKey {
-            case room
+            case roomId = "room_id"
+            case user
+            case opUser = "op_user"
+            case msgType = "message_type"
+        }
+    }
+    
+    struct SystemMessage: ChatRoomMessage {
+        let content: String
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case content
             case msgType = "message_type"
         }
     }
@@ -237,11 +246,11 @@ extension ChatRoom {
 extension ChatRoom.MessageType {
     static var structMap: [ChatRoom.MessageType: ChatRoomMessage.Type] {
         return [
-            .baseInfo: ChatRoom.RoomBaseMessage.self,
+//            .baseInfo: ChatRoom.RoomBaseMessage.self,
             .joinRoom: ChatRoom.JoinRoomMessage.self,
             .leaveRoom: ChatRoom.LeaveRoomMessage.self,
             .kickoutRoom: ChatRoom.KickOutMessage.self,
-            .roomUserListInfo: ChatRoom.UserListMessage.self,
+            .roomInfo: ChatRoom.RoomInfoMessage.self,
         ]
     }
 }

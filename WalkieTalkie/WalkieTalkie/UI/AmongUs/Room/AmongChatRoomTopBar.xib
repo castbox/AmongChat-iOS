@@ -15,7 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongChatRoomTopBar" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
-                <outlet property="kickButton" destination="gGA-VZ-FHM" id="Dfh-2s-b2f"/>
+                <outlet property="kickButton" destination="NIv-N4-bFM" id="kBX-Cf-iU3"/>
                 <outlet property="leaveButton" destination="39w-62-qes" id="lPI-Pw-mg4"/>
                 <outlet property="publicButton" destination="nnL-fi-G2g" id="6Tw-wY-g5A"/>
             </connections>

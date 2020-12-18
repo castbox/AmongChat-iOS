@@ -239,9 +239,18 @@ extension AmongChat.CreateRoom.ViewController {
             .do(onDispose: {
                 hudRemoval()
             })
-            .subscribe(onSuccess: { (room) in
+            .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 创建房间成功
-                cdPrint("")
+//                cdPrint("")
+                guard let `self` = self else {
+                    return
+                }
+                guard let room = room else {
+                    self.view.raft.autoShow(.text("failed to create room"))
+                    return
+                }
+                AmongChat.Room.ViewController.join(room: room, from: self)
+                
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
             })

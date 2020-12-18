@@ -399,7 +399,7 @@ extension CLLocation: DefaultsSerializable {}
 
 
 extension Settings {
-    static var loginUserId: String? {
-        return shared.loginResult.value?.uid.string
+    static var loginUserId: Int? {
+        return shared.loginResult.value?.uid
     }
 }

@@ -15,11 +15,12 @@ extension APIService {
         case login([String : Any])
         case createRoom([String : Any])
         case enteryRoom([String : Any])
-        case roomUpdate([String: Any])
+//        case roomUpdate([String: Any])
         case updateNickName([String: Any])
         case heartBeating([String: Any])
         case rtcToken([String: Any])
         case rtmToken([String: Any])
+        case leaveRoom([String: Any])
         case updateRoomInfo([String : Any])
     }
 }
@@ -41,8 +42,6 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/create"
         case .enteryRoom:
             return "/api/v1/rooms/enter"
-        case .roomUpdate:
-            return "/api/v1/rooms/update"
         case .updateNickName:
             return "/api/v1/rooms/nickname"
         case .heartBeating:
@@ -51,6 +50,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/room/token"
         case .rtmToken:
             return "/live/token/agora"
+        case .leaveRoom:
+            return "/api/v1/rooms/leave"
         case .updateRoomInfo:
             return "/api/v1/rooms/update"
         }
@@ -58,12 +59,12 @@ extension APIService.AmongChatBackend: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom, .roomUpdate, .updateNickName:
+        case .login, .createRoom, .updateNickName, .updateRoomInfo:
             return .post
-        case .enteryRoom, .heartBeating, .rtmToken, .rtcToken:
+        case .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .leaveRoom:
             return .get
-        case .updateRoomInfo:
-            return .put
+//        case .updateRoomInfo:
+//            return .put
 //        case .secret, .devices, .pushEvent:
 //            return .post
         }
@@ -80,18 +81,18 @@ extension APIService.AmongChatBackend: TargetType {
             baseParams["box_token"] = 1
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
             
-        case .roomUpdate(let params):
+        case .updateRoomInfo(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         case .createRoom(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .updateNickName(let params), .heartBeating(let params), .rtcToken(let params),
-             .rtmToken(let params):
+             .rtmToken(let params), .leaveRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
 
-        case .updateRoomInfo(let params):
-            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+//        case .updateRoomInfo(let params):
+//            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
 //        case .secret(let params), .devices(let params), .pushEvent(let params):
 //            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         }

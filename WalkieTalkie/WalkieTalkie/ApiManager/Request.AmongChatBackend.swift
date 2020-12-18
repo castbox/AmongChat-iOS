@@ -62,6 +62,12 @@ extension Request {
         return amongchatProvider.rx.request(.createRoom(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
+            .map { item -> [String : AnyObject] in
+                guard let roomData = item["room"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return roomData
+            }
             .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
     }

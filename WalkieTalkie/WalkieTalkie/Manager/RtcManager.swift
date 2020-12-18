@@ -11,6 +11,12 @@ import AgoraRtcKit
 import RxCocoa
 import RxSwift
 import Path
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[RtcManager]-\(message)")
+}
+
 
 protocol RtcDelegate: class {
     func onJoinChannelSuccess(channelId: String)
@@ -100,7 +106,7 @@ class RtcManager: NSObject {
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
-            self.updateFirestoreChannelStatus(with: channelId)
+//            self.updateFirestoreChannelStatus(with: channelId)
             
             if !self.talkedUsers.contains(where: { $0.uid.int!.uInt == uid }) {
                 self.talkedUsers.append(ChannelUser.randomUser(uid: uid))
