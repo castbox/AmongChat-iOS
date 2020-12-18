@@ -59,7 +59,7 @@ extension AmongChat.Room {
             }
         }
         
-        private var dataSource: [Entity.RoomUser] = [] {
+        private var dataSource: [Int: Entity.RoomUser] = [:] {
             didSet {
                 userCollectionView.reloadData()
             }
@@ -307,6 +307,41 @@ extension AmongChat.Room {
             f.font = R.font.nunitoRegular(size: 13)
             return f
         }()
+        
+        static func join(room: Entity.Room, from controller: UIViewController) {
+            controller.checkMicroPermission { [weak controller] in
+                guard let controller = controller else {
+                    return
+                }
+                let removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
+                //show loading
+    //            let hudRemoval = {
+    //                removeBlock()
+    //                self.view.isUserInteractionEnabled = true
+    //            }
+                let viewModel = ViewModel.make(room)
+                viewModel.join { [weak controller] error in
+                    removeBlock()
+                    if let vc = controller, error == nil {
+                        self.show(from: vc, with: room)
+                    }
+                }
+            }
+        }
+        
+        static func show(from controller: UIViewController, with room: Entity.Room) {
+            let vc = AmongChat.Room.ViewController(room: room)
+            vc.modalPresentationStyle = .fullScreen
+            let transition = CATransition()
+            transition.duration = 0.25
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromRight
+            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+            UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+            controller.present(vc, animated: false) { [weak controller] in
+                controller?.navigationController?.popToRootViewController(animated: false)
+            }
+        }
                 
         init(room: Entity.Room) {
             self.room = room
@@ -388,10 +423,6 @@ extension AmongChat.Room.ViewController {
         }
     }
 
-    @objc
-    private func onMoreBtn() {
-//        showMoreSheet(for: channel)
-    }
 }
 
 extension AmongChat.Room.ViewController: UICollectionViewDataSource {
@@ -405,7 +436,7 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UserCell.self), for: indexPath)
         if let cell = cell as? UserCell {
-            cell.bind(dataSource.safe(indexPath.item), topic: room.topicId)
+            cell.bind(dataSource[indexPath.item], topic: room.topicId)
         }
         return cell
     }
@@ -415,11 +446,11 @@ extension AmongChat.Room.ViewController: UICollectionViewDataSource {
 extension AmongChat.Room.ViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let user = dataSource.safe(indexPath.item), user.uid.isValid else {
-//            //show
-//            self.onShareBtn()
-//            return
-//        }
+        guard let user = dataSource[indexPath.item] else {
+            //show
+            self.onShareBtn()
+            return
+        }
         //enter profile page
     }
     
@@ -797,7 +828,8 @@ extension AmongChat.Room.ViewController {
                 self?.topBar.set(room)
                 self?.configView.room = room
                 self?.toolView.set(room)
-                self?.dataSource = room.roomUserList
+                self?.dataSource = room.userListMap
+                    
                 //update list and other
 //                self?.userCollectionView.reloadData()
             })
@@ -816,6 +848,9 @@ extension AmongChat.Room.ViewController {
             
         }
         
+        topBar.reportHandler = { [weak self] in
+            self?.showReportRoomSheet()
+        }
         topBar.changePublicStateHandler = { [weak self] in
             self?.viewModel.changePublicType()
         }
@@ -833,7 +868,7 @@ extension AmongChat.Room.ViewController {
 //            self?.editType = .message
             ChatRoomManager.shared.muteMyMic(muted: !micOn)
             let tip = micOn ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
-            self?.view.raft.autoShow(.text(tip))
+            self?.view.raft.autoShow(.text(tip), userInteractionEnabled: false)
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
@@ -877,7 +912,7 @@ extension AmongChat.Room.ViewController {
 
 extension AmongChat.Room.ViewController {
     
-    private func showMoreSheet(for channel: Room) {
+    private func showMoreSheet(for channel: Entity.Room) {
         let alertVC = UIAlertController(
             title: nil,
             message: nil,
@@ -886,7 +921,7 @@ extension AmongChat.Room.ViewController {
         
         let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
             guard let `self` = self else { return }
-//            self.showReportSheet(for: self.channel)
+//            self.showReportSheet(for: channel)
         })
         alertVC.addAction(reportAction)
         
@@ -894,10 +929,10 @@ extension AmongChat.Room.ViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    private func showReportSheet(for channel: Room) {
+    private func showReportRoomSheet() {
         let alertVC = UIAlertController(
             title: R.string.localizable.reportTitle(),
-            message: "\(R.string.localizable.reportRoomId()): \(channel.showName)",
+            message: "\(R.string.localizable.reportRoomId()): \(room.roomId)",
             preferredStyle: .actionSheet)
 
         let items = [
@@ -909,8 +944,9 @@ extension AmongChat.Room.ViewController {
 
         for (index, item) in items {
             let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: String(channel.showName))
+                guard let `self` = self else { return }
+                self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
+                Logger.Report.logImp(itemIndex: index, channelName: self.room.roomId)
             })
             alertVC.addAction(action)
         }

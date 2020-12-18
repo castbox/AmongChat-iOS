@@ -59,6 +59,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
+    var reportHandler: CallBack?
     
     func set(_ room: Entity.Room) {
         switch room.state {
@@ -81,6 +82,9 @@ class AmongChatRoomTopBar: XibLoadableView {
     
     @IBAction func kickOffButtonAction(_ sender: Any) {
         kickOffHandler?()
+    }
+    @IBAction func reportButtonAction(_ sender: Any) {
+        reportHandler?()
     }
     
 }

@@ -235,10 +235,23 @@ extension AmongChat.Home.ViewController {
                 // TODO: - 进入房间
                 guard let room = room else { return }
                 
-                cdPrint("")
-
+                AmongChat.Room.ViewController.join(room: room, from: self)
+//                self._joinChannel(room) { (channel) in
+//                    AmongChat.Room.ViewController.show(from: self, with: room)
+////                    let vc = (room: room)
+////                    vc.modalPresentationStyle = .fullScreen
+////                    let transition = CATransition()
+////                    transition.duration = 0.5
+////                    transition.type = CATransitionType.push
+////                    transition.subtype = CATransitionSubtype.fromRight
+////                    transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+////                    UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
+////                    self.present(vc, animated: false) { [weak self] in
+////                        self?.navigationController?.popToRootViewController(animated: false)
+////                    }
+//                }
             }, onError: { (error) in
-                cdPrint("")
+                cdPrint("error: \(error.localizedDescription)")
             })
             .disposed(by: bag)
     }
@@ -434,31 +447,7 @@ extension AmongChat.Home.ViewController {
                 self?.nameLabel.text = profile.name
             })
             .disposed(by: bag)
-//        let room = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "qq12345678", roomUserList: [
-////<<<<<<< HEAD
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////            Entity.RoomUser(uid: "2121", name: "Wilson", pictureUrl: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", seatNo: 0, status: .connected, isMuted: false, robloxName: "Stark"),
-////=======
-////            Entity.RoomUser(uid: "2121", name: "Wilson", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: "Stark", seatNo: 0, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "", avatar: "", robloxName: nil, seatNo: 1, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "Six", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 2, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 3, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: "213", name: "Jimmy", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 4, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 5, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: "213123", name: "King", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 6, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "", avatar: "", robloxName: nil, seatNo: 7, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: nil, name: "", avatar: nil, robloxName: nil, seatNo: 8, prefix: "", iconColor: "", status: .connected, isMuted: false),
-////            Entity.RoomUser(uid: "2131", name: "Cass", avatar: "https://s3.vivichatlive.com/2c/51/8b/8892e64a37aab316368de8401d_thn_200.jpg", robloxName: nil, seatNo: 9, prefix: "lisa", iconColor: "", status: .connected, isMuted: false),
-//>>>>>>> 97a9b8dd5f432058fec15c361923f9fedde73d4b
-//        ], state: .private, topicId: .chilling, topicName: "Among Us")
+
         
 //        joinChannelSubject
 //            .filterNil()
@@ -468,7 +457,7 @@ extension AmongChat.Home.ViewController {
 //            .subscribe(onNext: { [weak self] _ in
 //                guard let `self` = self else { return }
 //                self._joinChannel(room) { (channel) in
-//                    uid=100000, room_id=qq12345678 的rtc token
+////                    uid=100000, room_id=qq12345678 的rtc token
 //                    006db4ec67c84774be1ad7b1414fdca7979IAA1VzWiQ9tR/M+jYW1XZLTEFM05PScY2YNvkUYa0G5Sx4BUG+JD1hryIgBSbPMFvNfaXwQAAQA8EwFgAgA8EwFgAwA8EwFgBAA8EwFg
 //                    let vc = AmongChat.Room.ViewController(room: room)
 //                    vc.modalPresentationStyle = .fullScreen
@@ -554,20 +543,21 @@ extension AmongChat.Home.ViewController {
 //        }
 //        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
 //            guard let `self` = self else { return }
-            self.checkMicroPermission { [weak self] in
-                guard let `self` = self else { return }
-                self.mManager.joinChannel(channelId: room.roomId) {
-                    self.hudRemoval?()
-                    self.hudRemoval = nil
-//                    channel.updateJoinInterval()
-                    HapticFeedback.Impact.success()
-                    UIApplication.shared.isIdleTimerDisabled = true
-                    ChannelUserListViewModel.shared.didJoinedChannel(name)
-                    completionBlock?(channel)
-                }
+        guard let topController = UIApplication.shared.keyWindow?.topViewController() else {
+            return false
+        }
+        topController.checkMicroPermission { [weak self] in
+            guard let `self` = self else { return }
+            self.mManager.joinChannel(channelId: room.roomId) { error in
+                self.hudRemoval?()
+                self.hudRemoval = nil
+                //                    channel.updateJoinInterval()
+                HapticFeedback.Impact.success()
+                UIApplication.shared.isIdleTimerDisabled = true
+                ChannelUserListViewModel.shared.didJoinedChannel(name)
+                completionBlock?(channel)
             }
-//        }
-        
+        }
         return true
     }
     
@@ -579,35 +569,35 @@ extension AmongChat.Home.ViewController {
     }
     
     /// 获取麦克风权限
-    private func checkMicroPermission(completion: @escaping ()->()) {
-        weak var welf = self
-        AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
-            if !isOpen {
-                let alertVC = UIAlertController(title: NSLocalizedString("“WalkieTalkie” would like to Access the Microphone", comment: ""),
-                                                message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""),
-                                                preferredStyle: UIAlertController.Style.alert)
-                let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
-                    
-                    if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.openURL(url)
-                    }
-                })
-                
-                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    /// do nothing
-                }
-                alertVC.addAction(cancelAction)
-                alertVC.addAction(resetAction)
-                DispatchQueue.main.async {
-                    welf?.present(alertVC, animated: true, completion: nil)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    completion()
-                }
-            }
-        }
-    }
+//    private func checkMicroPermission(completion: @escaping ()->()) {
+//        weak var welf = self
+//        AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
+//            if !isOpen {
+//                let alertVC = UIAlertController(title: NSLocalizedString("“WalkieTalkie” would like to Access the Microphone", comment: ""),
+//                                                message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""),
+//                                                preferredStyle: UIAlertController.Style.alert)
+//                let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
+//
+//                    if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+//                        UIApplication.shared.openURL(url)
+//                    }
+//                })
+//
+//                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+//                    /// do nothing
+//                }
+//                alertVC.addAction(cancelAction)
+//                alertVC.addAction(resetAction)
+//                DispatchQueue.main.async {
+//                    welf?.present(alertVC, animated: true, completion: nil)
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    completion()
+//                }
+//            }
+//        }
+//    }
     
     private func _joinRoom(_ room: Single<Room>) {
         

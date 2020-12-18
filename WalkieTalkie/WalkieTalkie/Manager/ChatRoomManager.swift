@@ -112,10 +112,29 @@ class ChatRoomManager: SeatManager {
         delegate?.onSeatUpdated(position: position)
     }
 
-    func joinChannel(channelId: String, completionHandler: (() -> Void)?) {
+    func joinChannel(channelId: String, completionHandler: ((Error?) -> Void)?) {
         if state == .connected {
             leaveChannel()
         }
+        _ = Request.amongchatProvider.rx.request(.rtcToken(["room_id": channelId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RTCToken.self)
+            .retry(2)
+//                .filterNilAndEmpty()
+            .subscribe { [weak self] token in
+                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+                self.updateRole(true)
+                self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uIntValue) { [weak self] in
+                    //set to audiance
+//                    self?.updateRole(false)
+                    self?.channelName = channelId
+                    completionHandler?(nil)
+                }
+            } onError: { error in
+                completionHandler?(error)
+                cdPrint("error: \(error)")
+            }
 //        mRtmManager.login(Constants.sUserId, { [weak self] (code) in
 //            guard let `self` = self else {
 //                return
@@ -125,13 +144,13 @@ class ChatRoomManager: SeatManager {
 //                if let json = member.toJsonString() {
 //                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
 //                }
-                self.updateRole(true)
-                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
-                    //set to audiance
-//                    self?.updateRole(false)
-                    self?.channelName = channelId
-                    completionHandler?()
-                }
+//                self.updateRole(true)
+//                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
+//                    //set to audiance
+////                    self?.updateRole(false)
+//                    self?.channelName = channelId
+//                    completionHandler?()
+//                }
 //            } else if code == .timeout {
 //                self.delegate?.onJoinChannelTimeout(channelId: channelId)
 //            }
@@ -375,7 +394,7 @@ extension ChatRoomManager {
         if let channelId = mRtcManager.channelId {
             params["room_id"] = channelId
         }
-        _ = Request.authProvider.rx.request(.heartBeating(params))
+        _ = Request.amongchatProvider.rx.request(.heartBeating(params))
             .debug()
             .subscribe()
         

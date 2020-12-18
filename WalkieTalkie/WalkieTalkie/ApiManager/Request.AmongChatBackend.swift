@@ -12,7 +12,7 @@ import RxSwift
 
 extension Request {
     static let amongchatProvider = MoyaProvider<APIService.AmongChatBackend>(plugins: [
-        NetworkLoggerPlugin(),
+        NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(formatter: NetworkLoggerPlugin.Configuration.Formatter(), output: NetworkLoggerPlugin.Configuration.defaultOutput, logOptions: .verbose)),
     ])
 }
 

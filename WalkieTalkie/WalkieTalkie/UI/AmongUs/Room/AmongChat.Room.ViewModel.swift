@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import SwifterSwift
 import SwiftyUserDefaults
+import AgoraRtcKit
 
 extension AmongChat.Room {
     
@@ -28,6 +29,8 @@ extension AmongChat.Room {
     
     class ViewModel {
         
+        static var shared: ViewModel?
+        
         var messages: [ChatRoomMessage] = []
         let roomReplay: BehaviorRelay<Entity.Room>
         
@@ -37,6 +40,12 @@ extension AmongChat.Room {
         private let bag = DisposeBag()
         
         private var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
+        
+        private lazy var mManager: ChatRoomManager = {
+            let manager = ChatRoomManager.shared
+            manager.delegate = self
+            return manager
+        }()
         
         var userObservable: Observable<[ChannelUserViewModel]> {
             return dataSourceReplay.asObservable()
@@ -71,6 +80,22 @@ extension AmongChat.Room {
         
         private var room: Entity.Room {
             roomReplay.value
+        }
+        
+        static func make(_ room: Entity.Room) -> ViewModel {
+            guard let shared = self.shared,
+                  shared.room.roomId == room.roomId else {
+                let manager = ViewModel(room: room)
+                //退出之前房间
+//                self.shared?.quitRoom()
+                //设置新房间
+                self.shared = manager
+                return manager
+            }
+//            shared.createType = .restore
+//            shared.stateType = .default
+            return shared
+
         }
         
         init(room: Entity.Room) {
@@ -130,6 +155,52 @@ extension AmongChat.Room {
 //                        })
                 })
 
+        }
+        
+        @discardableResult
+        func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
+
+            let name = room.topicName
+//            var channel = room
+            
+    //        guard !name.isEmpty else {
+    //            return false
+    //        }
+    //
+    //        if mManager.isConnectedState && mManager.channelName == name {
+    //           return false
+    //        }
+            
+    //        guard !channel.isReachMaxUser else {
+    //            //离开当前房间
+    //            leaveChannel()
+    //            return false
+    //        }
+    //        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
+    //            guard let `self` = self else { return }
+            guard let topController = UIApplication.shared.keyWindow?.topViewController() else {
+                return false
+            }
+            topController.checkMicroPermission { [weak self] in
+                guard let `self` = self else { return }
+                self.mManager.joinChannel(channelId: self.room.roomId) { error in
+//                    self.hudRemoval?()
+//                    self.hudRemoval = nil
+                    //                    channel.updateJoinInterval()
+                    HapticFeedback.Impact.success()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                    ChannelUserListViewModel.shared.didJoinedChannel(name)
+                    completionBlock?(error)
+                }
+            }
+            return true
+        }
+        
+        private func leaveChannel() {
+            UIApplication.shared.isIdleTimerDisabled = false
+            mManager.leaveChannel { (name) in
+                ChannelUserListViewModel.shared.leavChannel(name)
+            }
         }
         
         func sendText(message: String?) {
@@ -209,7 +280,7 @@ extension AmongChat.Room {
             }
             dataSource.accept(users)
         }
-        
+
         func updateVolumeIndication(userId: UInt, volume: UInt) {
             cdPrint("userid: \(userId) volume: \(volume)")
             let users = dataSource.value.map { item -> ChannelUser in
@@ -227,7 +298,7 @@ extension AmongChat.Room {
             }
             dataSource.accept(users)
         }
-        
+
         func blockedUser(_ user: ChannelUserViewModel) {
             blockedUsers.append(user.channelUser)
             Defaults[\.blockedUsersKey] = blockedUsers
@@ -237,7 +308,7 @@ extension AmongChat.Room {
     //            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
             }
         }
-        
+
         func unblockedUser(_ user: ChannelUserViewModel) {
             blockedUsers.removeElement(ifExists: { $0.uid == user.channelUser.uid })
             Defaults[\.blockedUsersKey] = blockedUsers
@@ -247,36 +318,36 @@ extension AmongChat.Room {
     //            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
             }
         }
-        
+
         func muteUser(_ user: ChannelUserViewModel) {
             mutedUser.insert(user.channelUser.uid.int!.uInt)
             update(dataSource.value)
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
     //        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
         }
-        
+
         func unmuteUser(_ user: ChannelUserViewModel) {
             mutedUser.remove(user.channelUser.uid.int!.uInt)
             update(dataSource.value)
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
     //        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
         }
-        
+
         func followUser(_ user: FireStore.Entity.User) {
             Social.Module.shared.follow(user.uid)
         }
-        
+
         func unfollowUser(_ user: FireStore.Entity.User) {
             guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
     //        FireStore.shared.removeFollowing(user.uid, from: selfUid)
         }
-        
+
         func didJoinedChannel(_ channel: String) {
             let _ = Request.reportEnterRoom(channel)
                 .subscribe(onSuccess: { (_) in
                 })
         }
-        
+
         func leavChannel(_ channel: String) {
             let _ = Request.reportLeaveRoom(channel)
                 .subscribe()
@@ -304,83 +375,83 @@ extension AmongChat.Room.ViewModel {
         }
     }
     
-    private func fetchFirestoreUser(uids: [UInt]) -> Single<[FireStore.Entity.User]> {
-        
-        let hitUsers = uids.compactMap {
-            cachedFUsers[$0]
-        }
-        
-        let missedUids = uids.filter { (uid) in
-            !hitUsers.contains { $0.profile.uidInt == uid }
-        }
-        .filter { (uid) in
-            !unfoundUserIds.contains(uid)
-        }
-        
-        guard missedUids.isEmpty else {
-            
-            return Observable.create { [weak self] (subscriber) -> Disposable in
-                
-                guard let `self` = self else {
-                    return Disposables.create {}
-                }
-                
-                let _ = FireStore.shared.fetchUsers(missedUids)
-                    .do(onSuccess: { (users) in
-                        self.cachedFUsers.merge(users.map({ ($0.profile.uidInt, $0) })) { (_, new) in
-                            new
-                        }
-                        
-                        let unfoundIds = missedUids.filter { (uid) in
-                            !users.contains { $0.profile.uidInt == uid }
-                        }
-                        
-                        guard !unfoundIds.isEmpty else { return }
-                        
-                        self.unfoundUserIds.formUnion(Set(unfoundIds))
-                        
-                    })
-                    .subscribe(onSuccess: { (users) in
-                        
-                        var allUsers = hitUsers
-                        allUsers.append(contentsOf: users)
-                        
-                        allUsers.sort { (l, r) -> Bool in
-                            guard let lIdx = uids.firstIndex(of: l.profile.uidInt),
-                                  let rIdx = uids.firstIndex(of: r.profile.uidInt) else {
-                                return true
-                            }
-                            
-                            return lIdx < rIdx
-                        }
-                        
-                        subscriber.onNext(allUsers)
-                        subscriber.onCompleted()
-                        
-                    }) { (error) in
-                        subscriber.onError(error)
-                    }
-                
-                return Disposables.create {}
-            }
-            .asSingle()
-            
-        }
-        
-        return Observable.just(hitUsers).asSingle()
-    }
+//    private func fetchFirestoreUser(uids: [UInt]) -> Single<[FireStore.Entity.User]> {
+//
+//        let hitUsers = uids.compactMap {
+//            cachedFUsers[$0]
+//        }
+//
+//        let missedUids = uids.filter { (uid) in
+//            !hitUsers.contains { $0.profile.uidInt == uid }
+//        }
+//        .filter { (uid) in
+//            !unfoundUserIds.contains(uid)
+//        }
+//
+//        guard missedUids.isEmpty else {
+//
+//            return Observable.create { [weak self] (subscriber) -> Disposable in
+//
+//                guard let `self` = self else {
+//                    return Disposables.create {}
+//                }
+//
+//                let _ = FireStore.shared.fetchUsers(missedUids)
+//                    .do(onSuccess: { (users) in
+//                        self.cachedFUsers.merge(users.map({ ($0.profile.uidInt, $0) })) { (_, new) in
+//                            new
+//                        }
+//
+//                        let unfoundIds = missedUids.filter { (uid) in
+//                            !users.contains { $0.profile.uidInt == uid }
+//                        }
+//
+//                        guard !unfoundIds.isEmpty else { return }
+//
+//                        self.unfoundUserIds.formUnion(Set(unfoundIds))
+//
+//                    })
+//                    .subscribe(onSuccess: { (users) in
+//
+//                        var allUsers = hitUsers
+//                        allUsers.append(contentsOf: users)
+//
+//                        allUsers.sort { (l, r) -> Bool in
+//                            guard let lIdx = uids.firstIndex(of: l.profile.uidInt),
+//                                  let rIdx = uids.firstIndex(of: r.profile.uidInt) else {
+//                                return true
+//                            }
+//
+//                            return lIdx < rIdx
+//                        }
+//
+//                        subscriber.onNext(allUsers)
+//                        subscriber.onCompleted()
+//
+//                    }) { (error) in
+//                        subscriber.onError(error)
+//                    }
+//
+//                return Disposables.create {}
+//            }
+//            .asSingle()
+//
+//        }
+//
+//        return Observable.just(hitUsers).asSingle()
+//    }
 
 }
 
-//extension AmongChat.Room.ViewModel: ChatRoomDelegate {
-//    // MARK: - ChatRoomDelegate
-//    
-//    func onJoinChannelFailed(channelId: String?) {
+extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    // MARK: - ChatRoomDelegate
+    
+    func onJoinChannelFailed(channelId: String?) {
 //        self.hudRemoval?()
 //        self.hudRemoval = nil
-//        
+//
 //        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
-//        
+//
 //        Observable.just(())
 //            .delay(.fromSeconds(0.6), scheduler: MainScheduler.asyncInstance)
 //            .filter { [weak self] _  -> Bool in
@@ -390,14 +461,14 @@ extension AmongChat.Room.ViewModel {
 //            .subscribe(onNext: { _ in
 //            })
 //            .disposed(by: bag)
-//    }
-//    
-//    func onJoinChannelTimeout(channelId: String?) {
+    }
+    
+    func onJoinChannelTimeout(channelId: String?) {
 //        self.hudRemoval?()
 //        self.hudRemoval = nil
-//        
+//
 //        view.raft.autoShow(.text(R.string.localizable.amongChatRoomTipTimeout()))
-//        
+//
 //        Observable.just(())
 //            .observeOn(MainScheduler.asyncInstance)
 //            .filter { [weak self] _  -> Bool in
@@ -415,45 +486,49 @@ extension AmongChat.Room.ViewModel {
 //            .subscribe(onNext: { _ in
 //            })
 //            .disposed(by: bag)
-//    }
-//
-//    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
-//    }
-//    
-//    func onSeatUpdated(position: Int) {
-//    }
-//
-//    func onUserGivingGift(userId: String) {
-//    }
-//
-//    func onMessageAdded(position: Int) {
-//    }
-//
-//    func onMemberListUpdated(userId: String?) {
-//    }
-//
-//    func onUserStatusChanged(userId: UInt, muted: Bool) {
-//        if Constants.isMyself(userId) {
-//            
-//        } else {
-//            //check block
-//            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
-//                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-//            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-//                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
-//            }
-//        }
-//    }
-//    
-//    func onAudioMixingStateChanged(isPlaying: Bool) {
-//
-//    }
-//
-//    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
-//        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
-//    }
-//    
-//    func onChannelUserChanged(users: [ChannelUser]) {
-//        ChannelUserListViewModel.shared.update(users)
-//    }
-//}
+    }
+
+    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+        
+    }
+    
+    func onSeatUpdated(position: Int) {
+        
+    }
+
+    func onUserGivingGift(userId: String) {
+        
+    }
+
+    func onMessageAdded(position: Int) {
+    }
+
+    func onMemberListUpdated(userId: String?) {
+        
+    }
+
+    func onUserStatusChanged(userId: UInt, muted: Bool) {
+        if Constants.isMyself(userId) {
+            
+        } else {
+            //check block
+            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
+                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+            }
+        }
+    }
+    
+    func onAudioMixingStateChanged(isPlaying: Bool) {
+
+    }
+
+    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
+    }
+    
+    func onChannelUserChanged(users: [ChannelUser]) {
+        ChannelUserListViewModel.shared.update(users)
+    }
+}

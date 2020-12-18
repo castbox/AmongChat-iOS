@@ -12,15 +12,15 @@ func decoderCatcher(_ block: (() throws -> Void)) {
     do {
         try block()
     } catch let DecodingError.keyNotFound(key, context) {
-        cdPrint("keyNotFound- key:\(key), context: \(context)")
+        cdPrint("[decoderCatcher] keyNotFound- key:\(key), context: \(context)")
     } catch let DecodingError.typeMismatch(type, context) {
-        cdPrint("typeMismatch- type:\(type), context: \(context)")
+        cdPrint("[decoderCatcher] typeMismatch- type:\(type), context: \(context)")
     } catch let DecodingError.valueNotFound(type, context) {
-        cdPrint("valueNotFound- type:\(type), context: \(context)")
+        cdPrint("[decoderCatcher] valueNotFound- type:\(type), context: \(context)")
     } catch let DecodingError.dataCorrupted(context) {
-        cdPrint("dataCorrupted- context: \(context)")
+        cdPrint("[decoderCatcher] dataCorrupted- context: \(context)")
     } catch {
-        cdPrint("decode error: \(error.localizedDescription)")
+        cdPrint("[decoderCatcher] decode error: \(error.localizedDescription)")
     }
 }
 

@@ -15,6 +15,11 @@ extension APIService {
         case login([String : Any])
         case createRoom([String : Any])
         case enteryRoom([String : Any])
+        case roomUpdate([String: Any])
+        case updateNickName([String: Any])
+        case heartBeating([String: Any])
+        case rtcToken([String: Any])
+        case rtmToken([String: Any])
         case updateRoomInfo([String : Any])
     }
 }
@@ -36,6 +41,16 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/create"
         case .enteryRoom:
             return "/api/v1/rooms/enter"
+        case .roomUpdate:
+            return "/api/v1/rooms/update"
+        case .updateNickName:
+            return "/api/v1/rooms/nickname"
+        case .heartBeating:
+            return "/api/v1/rooms/heartbeat"
+        case .rtcToken:
+            return "/live/room/token"
+        case .rtmToken:
+            return "/live/token/agora"
         case .updateRoomInfo:
             return "/api/v1/rooms/update"
         }
@@ -43,9 +58,9 @@ extension APIService.AmongChatBackend: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom:
+        case .login, .createRoom, .roomUpdate, .updateNickName:
             return .post
-        case .enteryRoom:
+        case .enteryRoom, .heartBeating, .rtmToken, .rtcToken:
             return .get
         case .updateRoomInfo:
             return .put
@@ -65,9 +80,11 @@ extension APIService.AmongChatBackend: TargetType {
             baseParams["box_token"] = 1
             return .requestParameters(parameters: baseParams, encoding: URLEncoding.queryString)
             
-        case .createRoom(let params):
+        case .createRoom(let params), .roomUpdate(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-            
+        case .updateNickName(let params), .heartBeating(let params), .rtcToken(let params),
+             .rtmToken(let params):
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
 

@@ -15,10 +15,10 @@ extension Entity {
         case `public`
         case `private`
         
-        private enum CodingKeys: String, CodingKey {
-            case `public` = "PUBLIC"
-            case `private` = "PRIVATE"
-        }
+//        private enum CodingKeys: String, CodingKey {
+//            case `public` = "public"
+//            case `private` = "private"
+//        }
     }
     
     enum AmongUsZone: Int, Codable {
@@ -39,6 +39,7 @@ extension Entity {
         var state: RoomPublicType
         var topicId: AmongChat.Topic
         let topicName: String
+        var bgUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicId == .amongus,
@@ -47,6 +48,14 @@ extension Entity {
                 return false
             }
             return !code.isEmpty
+        }
+        
+        var userListMap: [Int: RoomUser] {
+            var map: [Int: RoomUser] = [:]
+            roomUserList.forEach { user in
+                map[user.seatNo - 1] = user
+            }
+            return map
         }
     }
     
@@ -74,31 +83,11 @@ extension Entity {
         let seatNo: Int
         var status: Status?
         var isMuted: Bool?
-        let robloxName: String?
+        let nickname: String?
         
-//<<<<<<< HEAD
         var isMutedValue: Bool {
             return isMuted ?? false
         }
-//=======
-//        let prefix: String?
-//        let iconColor: String?
-//        var status: Status = .connected
-//        var isMuted: Bool = false
-//        
-//        private static let colors: [String] = [
-//            "F5CEC7",
-//            "FFB384",
-//            "FFC98B",
-//            "C6C09C",
-//            "BD9DDE"
-//        ]
-//        
-//        private static let tag: [String] = [
-//            "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z",
-//        ]
-//>>>>>>> 97a9b8dd5f432058fec15c361923f9fedde73d4b
-        
         private enum CodingKeys: String, CodingKey {
             case uid
             case name
@@ -106,7 +95,7 @@ extension Entity {
             case seatNo
             case status
             case isMuted = "is_muted"
-            case robloxName = "roblox_name"
+            case nickname
         }
     }
 }

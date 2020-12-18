@@ -31,5 +31,21 @@ extension Entity {
             self.channel_exist = channel_exist
         }
     }
+    
+    struct RTMToken: Codable {
+        let rcToken: String
+        private enum CodingKeys: String, CodingKey {
+            case rcToken = "rc_token"
+        }
+    }
+    
+    struct RTCToken: Codable {
+        let roomToken: String
+        private enum CodingKeys: String, CodingKey {
+            case roomToken = "room_token"
+        }
+    }
+    
 }
+
 

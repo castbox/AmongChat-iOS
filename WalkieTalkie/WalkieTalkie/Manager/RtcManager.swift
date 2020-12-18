@@ -87,11 +87,11 @@ class RtcManager: NSObject {
 //        isLastmileProbeTesting = true
     }
 
-    func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         //清除数据
         unMuteUsers.removeAll()
         talkedUsers.removeAll()
-        let result = mRtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
+        let result = mRtcEngine.joinChannel(byToken: token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
@@ -140,7 +140,7 @@ class RtcManager: NSObject {
             cdPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
-        updateRecordStatus()
+//        updateRecordStatus()
     }
     
     func updateRecordStatus() {
@@ -164,7 +164,7 @@ class RtcManager: NSObject {
                         return
                     }
                     if self.role == .broadcaster {
-                        self.updateRecordStatus()
+//                        self.updateRecordStatus()
                     }
                 }
             })

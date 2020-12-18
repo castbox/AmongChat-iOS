@@ -63,10 +63,20 @@ extension AmongChat.Room {
                 return
             }
             
-            rtmKit?.login(byToken: KeyCenter.RtmToken, user: String(Constants.sUserId), completion: { [weak self] (code) in
-                self?.onlineSubject.onNext(code == .ok ? .online : .offline)
-            })
-            
+            _ = Request.amongchatProvider.rx.request(.rtmToken([:]))
+                .mapJSON()
+                .mapToDataKeyJsonValue()
+                .mapTo(Entity.RTMToken.self)
+                .retry(2)
+//                .filterNilAndEmpty()
+                .subscribe { [weak self] token in
+                    guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
+                        self?.onlineSubject.onNext(code == .ok ? .online : .offline)
+                    })
+                } onError: { error in
+                    cdPrint("error: \(error)")
+                }
         }
         
         private func logoutSDK() {

@@ -102,7 +102,7 @@ extension AmongChat.Room {
         
         @objc
         func gameNameButtonAction() {
-            user?.robloxName?.copyToPasteboard()
+            user?.nickname?.copyToPasteboard()
             viewController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
@@ -200,11 +200,11 @@ extension AmongChat.Room.UserCell {
             } else {
                 stopHaloAnimation()
             }
-            gameNameButton.setTitle(user.robloxName, for: .normal)
+            gameNameButton.setTitle(user.nickname, for: .normal)
             avatarIV.layer.borderWidth = 0.5
             haloView.isHidden = false
             gameNameButton.isHidden = topic != .roblox
-            gameNameButton.isHidden = !user.robloxName.isValid
+            gameNameButton.isHidden = !user.nickname.isValid
             //自己 muted 其他用户
             mutedLabel.isHidden = !user.isMutedValue
             //自己 muted 自己

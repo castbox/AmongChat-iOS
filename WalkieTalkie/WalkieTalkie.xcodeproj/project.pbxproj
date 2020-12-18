@@ -173,6 +173,7 @@
 		FE746BE124629B0500CAC554 /* GuideSecondView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BD924629B0500CAC554 /* GuideSecondView.swift */; };
 		FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BDA24629B0500CAC554 /* GuideFourthView.swift */; };
 		FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BDB24629B0500CAC554 /* GuideFirstView.xib */; };
+		FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */; };
 		FE7CE9CB2589BEBD0067952C /* AmongChatRoomTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */; };
 		FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */; };
 		FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */; };
@@ -485,6 +486,7 @@
 		FE746BD924629B0500CAC554 /* GuideSecondView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideSecondView.swift; sourceTree = "<group>"; };
 		FE746BDA24629B0500CAC554 /* GuideFourthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideFourthView.swift; sourceTree = "<group>"; };
 		FE746BDB24629B0500CAC554 /* GuideFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
+		FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPermissionExtension.swift; sourceTree = "<group>"; };
 		FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChatRoomTopBar.swift; sourceTree = "<group>"; };
 		FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongChatRoomTopBar.xib; sourceTree = "<group>"; };
 		FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongRoomInfoView.swift; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				FEFF935D258B33480011A274 /* AmongInputNotesView.xib */,
 				FE9EF527258B23B5008C0BAD /* AmongRoomToolView.swift */,
 				FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */,
+				FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -1699,6 +1702,7 @@
 				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
 				FE86A58A245AC18200C35FCA /* ScreenContainer.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
+				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
 				BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
