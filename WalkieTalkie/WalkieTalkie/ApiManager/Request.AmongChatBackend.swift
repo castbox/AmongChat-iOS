@@ -90,16 +90,18 @@ extension Request {
     }
     
     static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
-        guard let params = room?.dictionary else {
+        guard var params = room?.dictionary else {
             return Observable<Bool>.empty().asSingle()
         }
+        //
+        params.removeValue(forKey: "roomUserList")
         return amongchatProvider.rx.request(.updateRoomInfo(params))
             .mapJSON()
             .map { (jsonAny) -> Bool in
                 guard let jsonDict = jsonAny as? [String : Any],
-                    jsonDict.count == 0 else { return false }
-                return true
-        }
+                      let processed = jsonDict["processed"] as? Bool else { return false }
+                return processed
+            }
     }
 
 }

@@ -21,6 +21,7 @@ extension APIService {
         case rtcToken([String: Any])
         case rtmToken([String: Any])
         case leaveRoom([String: Any])
+        case roomInfo([String: Any])
         case updateRoomInfo([String : Any])
         case summary([String : Any])
     }
@@ -55,6 +56,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/token/agora"
         case .leaveRoom:
             return "/api/v1/rooms/leave"
+        case .roomInfo:
+            return "/api/v1/rooms/room"
         case .updateRoomInfo:
             return "/api/v1/rooms/update"
         }
@@ -64,7 +67,7 @@ extension APIService.AmongChatBackend: TargetType {
         switch self {
         case .login, .createRoom, .updateNickName, .updateRoomInfo:
             return .post
-        case .summary, .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .leaveRoom:
+        case .summary, .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .leaveRoom, .roomInfo:
             return .get
         //        case .updateRoomInfo:
         //            return .put
@@ -81,16 +84,16 @@ extension APIService.AmongChatBackend: TargetType {
         switch self {
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-            
-        case .createRoom(let params):
+        case .createRoom(let params),
+             .updateRoomInfo(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
         case .login(let params),
              .summary(let params),
              .updateNickName(let params),
              .heartBeating(let params),
+             .roomInfo(let params),
              .rtcToken(let params),
              .rtmToken(let params),
-             .updateRoomInfo(let params),
              .leaveRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

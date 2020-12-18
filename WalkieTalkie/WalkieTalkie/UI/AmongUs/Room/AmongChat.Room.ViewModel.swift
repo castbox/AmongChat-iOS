@@ -149,6 +149,14 @@ extension AmongChat.Room {
                 })
                 .disposed(by: bag)
             
+            imViewModel.imReadySignal
+                .filter { $0 }
+                .subscribe { [weak self] _ in
+                    self?.startUpdateBaseInfo()
+                }
+                .disposed(by: bag)
+
+            
             //            imViewModel.imReadySignal
             //                .filter({ $0 })
             //                .take(1)
@@ -255,6 +263,16 @@ extension AmongChat.Room {
                 }
         }
         
+        func startUpdateBaseInfo() {
+            Observable<Int>.interval(.seconds(180), scheduler: SerialDispatchQueueScheduler(qos: .default))
+                .startWith(0)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.requestRoomInfo()
+                })
+                .disposed(by: bag)
+
+        }
+        
         func setObservableSubject() {
             
             messageEventEmitter.asObserver()
@@ -324,24 +342,19 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-            roomReplay.accept(room)
+//            roomReplay.accept(room)
             //update
             updateRoomInfo(room)
         }
         
         func update(nickName: String) {
             var room = self.room
-            //            room.amongUsCode = code
-            
             updateRoomInfo(room)
         }
         
         func update(notes: String) {
             var room = self.room
             room.note = notes
-            roomReplay.accept(room)
-            //            room.isValidAmongConfig = publicType
-            //update
             updateRoomInfo(room)
         }
         
@@ -349,7 +362,26 @@ extension AmongChat.Room {
             var room = self.room
             room.amongUsCode = code
             room.amongUsZone = aera
-            roomReplay.accept(room)
+            updateRoomInfo(room)
+        }
+        
+        //MARK: -- Request
+        func requestRoomInfo() {
+            Request.amongchatProvider.rx.request(.roomInfo(["room_id": room.roomId]))
+                .mapJSON()
+                .mapToDataJson()
+                .map { item -> [String : AnyObject] in
+                    guard let roomData = item["room"] as? [String : AnyObject] else {
+                        return [:]
+                    }
+                    return roomData
+                }
+                .mapTo(Entity.Room.self)
+                .catchErrorJustReturn(self.room)
+                .asObservable()
+                .filterNilAndEmpty()
+                .bind(to: roomReplay)
+                .disposed(by: bag)
         }
         
         func updateRoomInfo(_ room: Entity.Room) {
@@ -491,12 +523,9 @@ extension AmongChat.Room.ViewModel {
             update(message.room)
         } else if let message = crMessage as? ChatRoom.KickOutMessage {
             //自己
-            //            if message. {
-            //                <#code#>
-            //            }
             endRoomHandler?(.kickout)
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
-            //
+            otherMutedUser.remove(message.user.uid.uInt)
         }
     }
     
@@ -633,20 +662,6 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onUserStatusChanged(userId: UInt, muted: Bool) {
-        //        if Constants.isMyself(userId) {
-        //
-        //        } else {
-        //        var newRoom = room
-        //        var userList = newRoom.roomUserList
-        //        newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
-        //            guard user.uid == userId.int else {
-        //                return user
-        //            }
-        //            var newUser = user
-        //            newUser.isMuted = muted
-        //            return newUser
-        //        }
-        
         if muted {
             otherMutedUser.insert(userId)
         } else {
