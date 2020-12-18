@@ -261,6 +261,11 @@ class Settings {
             })
             .asPublishProperty()
     }()
+    
+    func clearAll() {
+        loginResult.value = nil
+        amongChatUserProfile.value = nil
+    }
 }
 
 extension DefaultsKeys {

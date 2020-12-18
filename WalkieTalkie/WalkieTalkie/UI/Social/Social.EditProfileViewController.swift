@@ -63,6 +63,7 @@ extension Social {
         }()
         
         private lazy var userInputView = UserNameInputView()
+        private var profile: Entity.UserProfile!
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -134,7 +135,6 @@ extension Social {
                     self?.updateFields(profile: profile)
                 }, onError: { [weak self] (_) in
                     removeBlock()
-//                    self?.updateFields()
                 })
                 .disposed(by: bag)
             
@@ -175,20 +175,22 @@ extension Social {
         }
         
         func selectBirthday() {
-            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
-                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
-                return
-            }
+//            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
+//                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
+//                return
+//            }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
                 let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
                 self?.updateProfileIfNeeded(profile)
             }
             vc.showModal(in: self)
+            vc.selectToBirthday(profile.birthday ?? "")
             view.endEditing(true)
         }
         
         private func updateFields(profile: Entity.UserProfile) {
+            self.profile = profile
             userButton.setRightLabelText(profile.name ?? "")
             birthdayButton.setRightLabelText(profile.birthday ?? "")
             avatarIV.setImage(with: profile.pictureUrl)
@@ -335,7 +337,14 @@ private extension Social {
                 maker.top.equalTo(confirmBtn.snp.bottom).offset(16)
                 maker.height.equalTo(260)
             }
-            birthdayPicker.selectToday()
+        }
+        
+        func selectToBirthday(_ text: String) {
+            if text.isEmpty {
+                birthdayPicker.selectToday()
+            } else {
+                birthdayPicker.selectBirthday(text)
+            }
         }
         
         @objc

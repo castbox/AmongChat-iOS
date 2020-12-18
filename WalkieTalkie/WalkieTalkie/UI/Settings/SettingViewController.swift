@@ -27,9 +27,11 @@ class SettingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isNavigationBarHiddenWhenAppear = false
+        
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        statusBarStyle = .lightContent
+//        statusBarStyle = .lightContent
         self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
         self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
         self.customBackButton.setImage(R.image.ac_profile_back(), for: .normal)
@@ -66,6 +68,7 @@ class SettingContainerTableController: UITableViewController {
         Request.logout().asObservable()
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (data) in
+                Settings.shared.clearAll()
                 exit(1)
             }).disposed(by: bag)
     }

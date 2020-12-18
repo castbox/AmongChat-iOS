@@ -47,11 +47,6 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.LoginResult.self)
     }
-    
-    static func logout() -> Single<[String: AnyObject]> {
-        return castboxProvider.rx.request(.logout([:]))
-            .mapJSON().mapToDataJson()
-    }
         
     static func devices(params: [String : Any]) -> Single<Bool> {
         return castboxProvider.rx.request(.devices(params))
