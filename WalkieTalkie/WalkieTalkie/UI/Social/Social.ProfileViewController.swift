@@ -324,15 +324,19 @@ extension Social.ProfileViewController {
         
         func configProfile(_ profile: Entity.UserProfile) {
             
-            if let b = profile.birthday,
-               !b.isEmpty {
+            
+            let birthdate = { (dateStr: String) -> Date? in
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyyMMdd"
-                let startDate = dateFormatter.date(from: b)
+                return dateFormatter.date(from: dateStr)
+            }
+            
+            if let b = profile.birthday,
+               !b.isEmpty,
+               let startDate = birthdate(b) {
                 let endDate = Date()
-                
                 let calendar = Calendar.current
-                let calcAge = calendar.dateComponents([.year], from: startDate!, to: endDate)
+                let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
                 var age: String {
                     if let age = calcAge.year?.string, !age.isEmpty {
                         return ", \(age)"
