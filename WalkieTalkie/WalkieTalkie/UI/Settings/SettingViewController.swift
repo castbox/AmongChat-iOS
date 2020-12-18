@@ -8,6 +8,8 @@
 
 import UIKit
 import StoreKit
+import RxSwift
+import RxCocoa
 
 class SettingViewController: ViewController {
     
@@ -47,6 +49,8 @@ class SettingViewController: ViewController {
 
 class SettingContainerTableController: UITableViewController {
     
+    let bag = DisposeBag()
+    
     @IBOutlet weak var diamondsNameLabel: UILabel!
     private let shareAppUrl = "https://walkie.page.link/amongchat"
     
@@ -58,7 +62,12 @@ class SettingContainerTableController: UITableViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
-
+        
+        Request.logout().asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { (data) in
+                exit(1)
+            }).disposed(by: bag)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
