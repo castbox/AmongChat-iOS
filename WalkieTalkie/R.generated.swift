@@ -356,6 +356,8 @@ struct R: Rswift.Validatable {
     static let profile_avatar_random_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_avatar_random_btn")
     /// Image `profile_block_users`.
     static let profile_block_users = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_block_users")
+    /// Image `profile_invite_friends`.
+    static let profile_invite_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_invite_friends")
     /// Image `profile_settings`.
     static let profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_settings")
     /// Image `public_share_bg_2`.
@@ -932,6 +934,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "profile_block_users", bundle: ..., traitCollection: ...)`
     static func profile_block_users(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.profile_block_users, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "profile_invite_friends", bundle: ..., traitCollection: ...)`
+    static func profile_invite_friends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.profile_invite_friends, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "profile_settings", bundle: ..., traitCollection: ...)`
