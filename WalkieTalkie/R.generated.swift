@@ -136,8 +136,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 107 images.
+  /// This `R.image` struct is generated, and contains static references to 111 images.
   struct image {
+    /// Image `ac_back`.
+    static let ac_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_back")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -160,6 +162,14 @@ struct R: Rswift.Validatable {
     static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
     /// Image `ac_icon_share`.
     static let ac_icon_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_share")
+    /// Image `ac_medal_bronze`.
+    static let ac_medal_bronze = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_bronze")
+    /// Image `ac_medal_silver`.
+    static let ac_medal_silver = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_silver")
+    /// Image `ac_topic_hot`.
+    static let ac_topic_hot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_topic_hot")
+    /// Image `ac_trophy`.
+    static let ac_trophy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_trophy")
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
     /// Image `btn_add`.
@@ -353,6 +363,11 @@ struct R: Rswift.Validatable {
     /// Image `user_list_invite`.
     static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
     
+    /// `UIImage(named: "ac_back", bundle: ..., traitCollection: ...)`
+    static func ac_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_back, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
     static func ac_icon_kick_user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_kick_user, compatibleWith: traitCollection)
@@ -406,6 +421,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_icon_share", bundle: ..., traitCollection: ...)`
     static func ac_icon_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_share, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_medal_bronze", bundle: ..., traitCollection: ...)`
+    static func ac_medal_bronze(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_medal_bronze, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_medal_silver", bundle: ..., traitCollection: ...)`
+    static func ac_medal_silver(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_medal_silver, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_topic_hot", bundle: ..., traitCollection: ...)`
+    static func ac_topic_hot(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_topic_hot, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_trophy", bundle: ..., traitCollection: ...)`
+    static func ac_trophy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_trophy, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
@@ -1260,7 +1295,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 148 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 149 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1361,11 +1396,11 @@ struct R: Rswift.Validatable {
       /// en translation: Create
       /// 
       /// Locales: en
-      static let amongChatHomeCreateRoomTitle = Rswift.StringResource(key: "among.chat.home.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create %1$@ room
       /// 
       /// Locales: en
-      static let amongChatHomeCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.home.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
@@ -1458,6 +1493,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomHostsNotes = Rswift.StringResource(key: "room.hosts.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Hot topic
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomTopicTitle = Rswift.StringResource(key: "among.chat.create.room.topic.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: I Know
       /// 
       /// Locales: en
@@ -1613,7 +1652,7 @@ struct R: Rswift.Validatable {
       /// en translation: Private
       /// 
       /// Locales: en
-      static let amongChatHomeCreateRoomPrivate = Rswift.StringResource(key: "among.chat.home.create.room.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatCreateRoomPrivate = Rswift.StringResource(key: "among.chat.create.room.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Private
       /// 
       /// Locales: en
@@ -1709,7 +1748,7 @@ struct R: Rswift.Validatable {
       /// en translation: TYPE YOUR TOPIC HERE
       /// 
       /// Locales: en
-      static let amongChatHomeCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.home.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en
@@ -2026,15 +2065,15 @@ struct R: Rswift.Validatable {
       /// en translation: Create
       /// 
       /// Locales: en
-      static func amongChatHomeCreateRoomTitle(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.create.room.title", bundle: R.hostingBundle, comment: "")
+      static func amongChatCreateRoomTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Create %1$@ room
       /// 
       /// Locales: en
-      static func amongChatHomeCreateRoomConfirmBtn(_ value1: String) -> String {
-        return String(format: NSLocalizedString("among.chat.home.create.room.confirm.btn", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      static func amongChatCreateRoomConfirmBtn(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.create.room.confirm.btn", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Create Global Channel
@@ -2196,6 +2235,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func roomHostsNotes(_: Void = ()) -> String {
         return NSLocalizedString("room.hosts.notes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Hot topic
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomTopicTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.topic.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: I Know
@@ -2467,8 +2513,8 @@ struct R: Rswift.Validatable {
       /// en translation: Private
       /// 
       /// Locales: en
-      static func amongChatHomeCreateRoomPrivate(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.create.room.private", bundle: R.hostingBundle, comment: "")
+      static func amongChatCreateRoomPrivate(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.private", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Private
@@ -2635,8 +2681,8 @@ struct R: Rswift.Validatable {
       /// en translation: TYPE YOUR TOPIC HERE
       /// 
       /// Locales: en
-      static func amongChatHomeCreateRoomInputPlaceholder(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
+      static func amongChatCreateRoomInputPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms of Service
