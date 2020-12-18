@@ -33,7 +33,9 @@ extension AmongChat.Room {
         
         var messages: [ChatRoomMessage] = []
         let roomReplay: BehaviorRelay<Entity.Room>
-        
+        //麦位声音动画
+        let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
+
         var endRoomHandler: ((_ action: EndRoomAction) -> Void)?
 
         private let imViewModel: IMViewModel
@@ -525,7 +527,27 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
 
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
-        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
+        cdPrint("userid: \(userId) volume: \(volume)")
+        if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
+//            if isActive {
+                self.soundAnimationIndex.accept(user.seatNo - 1)
+//            }
+        }
+//        let users = dataSource.value.map { item -> ChannelUser in
+//            guard item.status != .blocked,
+//                item.status != .muted,
+//                item.status != .droped,
+//                item.uid.int!.uInt == userId,
+//                volume > 0 else {
+//                return item
+//            }
+//            var user = item
+//            user.status = .talking
+//            cdPrint("user: \(user)")
+//            return user
+//        }
+//        dataSource.accept(users)
+//        ChannelUserListViewModel.shared.updateVolumeIndication(userId: userId, volume: volume)
     }
     
     func onChannelUserChanged(users: [ChannelUser]) {

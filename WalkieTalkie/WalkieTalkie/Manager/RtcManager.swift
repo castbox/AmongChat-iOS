@@ -128,7 +128,7 @@ class RtcManager: NSObject {
         guard timeoutTimer != nil else {
             return
         }
-        timeoutTimer?.cancel()
+//        timeoutTimer?.cancel()
         timeoutTimer = nil
     }
 
@@ -181,7 +181,7 @@ class RtcManager: NSObject {
         guard recorderTimer != nil else {
             return
         }
-        recorderTimer?.cancel()
+//        recorderTimer?.cancel()
         recorderTimer = nil
     }
     
@@ -311,7 +311,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        cdPrint("didOfflineOfUid \(uid)")
+        cdPrint("didOfflineOfUid \(uid) resaon: \(reason.rawValue)")
         unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
 

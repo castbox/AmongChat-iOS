@@ -59,13 +59,12 @@ extension AmongChat.Room {
             }
         }
         
-        private var dataSource: [Int: Entity.RoomUser] = [:] {
-            didSet {
-                userCollectionView.reloadData()
-            }
-        }
+//        private var dataSource: [Int: Entity.RoomUser] = [:] {
+//            didSet {
+//                userCollectionView.reloadData()
+//            }
+//        }
         
-        private let fixedListLength = Int(10)
         private var messageListDataSource: [ChatRoomMessage] = [] {
             didSet {
                 messageListTableView.reloadData()
@@ -156,31 +155,10 @@ extension AmongChat.Room {
 //        }()
 //        private var infoView: Among
         
-        private lazy var userCollectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-//            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
-            let cellWidth: CGFloat = 60
-            var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
-            let itemSpacing: CGFloat
-            if hInset > 40 {
-                itemSpacing = (hInset - 40) * 2 / 4
-                hInset = 40
-            } else {
-                itemSpacing = 0
-            }
-            layout.itemSize = CGSize(width: cellWidth, height: 125.5)
-            layout.minimumInteritemSpacing = itemSpacing
-            layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
-            v.showsVerticalScrollIndicator = false
-            v.showsHorizontalScrollIndicator = false
-            v.isScrollEnabled = false
-            v.dataSource = self
-            v.delegate = self
-            v.backgroundColor = nil
-            return v
+        private lazy var seatView: AmongChat.Room.SeatView = {
+            let view = AmongChat.Room.SeatView(room: room)
+//            view.room = room
+            return view
         }()
         
         private lazy var messageListTableView: UITableView = {
@@ -323,14 +301,14 @@ extension AmongChat.Room {
                 viewModel.join { [weak controller] error in
                     removeBlock()
                     if let vc = controller, error == nil {
-                        self.show(from: vc, with: room)
+                        self.show(from: vc, with: viewModel)
                     }
                 }
             }
         }
         
-        static func show(from controller: UIViewController, with room: Entity.Room) {
-            let vc = AmongChat.Room.ViewController(room: room)
+        static func show(from controller: UIViewController, with viewModel: ViewModel) {
+            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
             vc.modalPresentationStyle = .fullScreen
             let transition = CATransition()
             transition.duration = 0.25
@@ -343,9 +321,9 @@ extension AmongChat.Room {
             }
         }
                 
-        init(room: Entity.Room) {
-            self.room = room
-            self.viewModel = ViewModel(room: room)
+        init(viewModel: ViewModel) {
+            self.room = viewModel.roomReplay.value
+            self.viewModel = viewModel
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -425,36 +403,6 @@ extension AmongChat.Room.ViewController {
 
 }
 
-extension AmongChat.Room.ViewController: UICollectionViewDataSource {
-    
-    // MARK: - UICollectionView
-        
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fixedListLength
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(UserCell.self), for: indexPath)
-        if let cell = cell as? UserCell {
-            cell.bind(dataSource[indexPath.item], topic: room.topicId)
-        }
-        return cell
-    }
-    
-}
-
-extension AmongChat.Room.ViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let user = dataSource[indexPath.item] else {
-            //show
-            self.onShareBtn()
-            return
-        }
-        //enter profile page
-    }
-    
-}
 
 //extension AmongChat.Room.ViewController: MPAdViewDelegate {
 //
@@ -516,7 +464,7 @@ extension AmongChat.Room.ViewController {
         inputNotesView = AmongInputNotesView()
         inputNotesView.alpha = 0
         
-        view.addSubviews(views: bgView, userCollectionView, messageListTableView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
+        view.addSubviews(views: bgView, messageListTableView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -546,14 +494,14 @@ extension AmongChat.Room.ViewController {
 //            maker.right.equalTo(-6)
 //        }
         
-        userCollectionView.snp.makeConstraints { (maker) in
+        seatView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(configView.snp.bottom).offset(40)
             maker.height.equalTo(251)
         }
         
         toolView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(userCollectionView.snp.bottom)
+            maker.top.equalTo(seatView.snp.bottom)
             maker.height.equalTo(24)
             maker.left.right.equalToSuperview()
         }
@@ -828,11 +776,15 @@ extension AmongChat.Room.ViewController {
                 self?.topBar.set(room)
                 self?.configView.room = room
                 self?.toolView.set(room)
-                self?.dataSource = room.userListMap
+                self?.seatView.room = room
                     
                 //update list and other
 //                self?.userCollectionView.reloadData()
             })
+            .disposed(by: bag)
+        
+        viewModel.soundAnimationIndex
+            .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
         
@@ -898,6 +850,13 @@ extension AmongChat.Room.ViewController {
                 self.showStoreProduct(with: 431946152)
             case .chilling:
                 ()
+            }
+        }
+        
+        seatView.selectUserHandler = { [weak self] user in
+            guard let user = user else {
+                self?.onShareBtn()
+                return
             }
         }
     }

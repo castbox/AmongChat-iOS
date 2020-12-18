@@ -24,14 +24,7 @@ extension AmongChat.Room {
             return lb
         }()
         
-        private lazy var haloView: UIView = {
-            let v = UIView()
-            v.backgroundColor = .clear
-            v.layer.borderColor = UIColor.white.cgColor
-            v.layer.borderWidth = 1
-            v.layer.cornerRadius = 20
-            return v
-        }()
+        private lazy var haloView = SoundAnimationView(frame: .zero)
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
@@ -64,7 +57,7 @@ extension AmongChat.Room {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
-            lb.backgroundColor = UIColor.black.alpha(0.69)
+//            lb.backgroundColor = UIColor.black.alpha(0.69)
             lb.textAlignment = .center
             return lb
         }()
@@ -93,11 +86,16 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-            stopHaloAnimation()
+//            stopHaloAnimation()
+//            haloView.stopLoading()
         }
         
         override func layoutSubviews() {
             super.layoutSubviews()
+        }
+        
+        func startSoundAnimation() {
+            haloView.startLoading()
         }
         
         @objc
@@ -108,16 +106,17 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, haloView, avatarIV, nameLabel, gameNameButton, disableMicView, mutedLabel)
+            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, mutedLabel)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
                 maker.height.equalTo(21.5)
             }
             
+//            haloView.soundWidth = 60
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.width.height.equalTo(40)
+                maker.width.height.equalTo(60)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
@@ -149,56 +148,59 @@ extension AmongChat.Room {
             }
         }
         
-        private func haloAnimation() {
-            
-            let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
-            borderWidthAni.fromValue = 1
-            borderWidthAni.toValue = 0
-            
-            let opacityAni = CABasicAnimation(keyPath: "opacity")
-            opacityAni.fromValue = 1
-            opacityAni.toValue = 0
-            
-            let scaleAni = CABasicAnimation(keyPath: "transform.scale")
-            scaleAni.fromValue = 1
-            scaleAni.toValue = 1.5
-            
-            let animationGroup = CAAnimationGroup()
-            animationGroup.duration = 1.5;
-            animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
-            animationGroup.repeatCount = .greatestFiniteMagnitude
-            animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            
-            haloView.layer.add(animationGroup, forKey: UserCell.haloViewAnimationKey)
-        }
+//        private func haloAnimation() {
+//
+//            let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
+//            borderWidthAni.fromValue = 1
+//            borderWidthAni.toValue = 0
+//
+//            let opacityAni = CABasicAnimation(keyPath: "opacity")
+//            opacityAni.fromValue = 1
+//            opacityAni.toValue = 0
+//
+//            let scaleAni = CABasicAnimation(keyPath: "transform.scale")
+//            scaleAni.fromValue = 1
+//            scaleAni.toValue = 1.5
+//
+//            let animationGroup = CAAnimationGroup()
+//            animationGroup.duration = 1.5;
+//            animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
+//            animationGroup.repeatCount = .greatestFiniteMagnitude
+//            animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+//
+//            haloView.layer.add(animationGroup, forKey: UserCell.haloViewAnimationKey)
+//        }
         
-        private func stopHaloAnimation() {
-            haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
-        }
+//        private func stopHaloAnimation() {
+//            haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
+//        }
         
     }
 }
 
 extension AmongChat.Room.UserCell {
     
-    func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic) {
+    func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
+        if index == 1 {
+            indexLabel.text = "\(index)-host"
+        } else {
+            indexLabel.text = index.string
+        }
+
         guard let user = user else {
             clearStyle()
             return
-        }
-        if user.seatNo == 0 {
-            indexLabel.text = user.seatNo.string+"-host"
-        } else {
-            indexLabel.text = user.seatNo.string
         }
         if user.uid != nil {
             avatarIV.image = nil
             avatarIV.setImage(with: user.pictureUrl)
             nameLabel.text = user.name
             if user.status == .talking {
-                haloAnimation()
+                haloView.startLoading()
+//                haloAnimation()
             } else {
-                stopHaloAnimation()
+//                stopHaloAnimation()
+                haloView.stopLoading()
             }
             gameNameButton.setTitle(user.nickname, for: .normal)
             avatarIV.layer.borderWidth = 0.5

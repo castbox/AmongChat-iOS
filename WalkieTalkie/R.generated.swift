@@ -136,8 +136,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 107 images.
+  /// This `R.image` struct is generated, and contains static references to 108 images.
   struct image {
+    /// Image `ac_animation_background`.
+    static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -352,6 +354,11 @@ struct R: Rswift.Validatable {
     static let user_list_friend_light = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_light")
     /// Image `user_list_invite`.
     static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
+    
+    /// `UIImage(named: "ac_animation_background", bundle: ..., traitCollection: ...)`
+    static func ac_animation_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_animation_background, compatibleWith: traitCollection)
+    }
     
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
     static func ac_icon_kick_user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {

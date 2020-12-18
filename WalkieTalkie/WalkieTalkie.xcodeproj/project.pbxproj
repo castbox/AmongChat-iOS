@@ -174,6 +174,8 @@
 		FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BDA24629B0500CAC554 /* GuideFourthView.swift */; };
 		FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BDB24629B0500CAC554 /* GuideFirstView.xib */; };
 		FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */; };
+		FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F374258C731400E9BC6C /* SoundAnimationView.swift */; };
+		FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */; };
 		FE7CE9CB2589BEBD0067952C /* AmongChatRoomTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */; };
 		FE7CE9CF2589BEC70067952C /* AmongChatRoomTopBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */; };
 		FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */; };
@@ -487,6 +489,8 @@
 		FE746BDA24629B0500CAC554 /* GuideFourthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideFourthView.swift; sourceTree = "<group>"; };
 		FE746BDB24629B0500CAC554 /* GuideFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
 		FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPermissionExtension.swift; sourceTree = "<group>"; };
+		FE79F374258C731400E9BC6C /* SoundAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundAnimationView.swift; sourceTree = "<group>"; };
+		FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.SeatView.swift; sourceTree = "<group>"; };
 		FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChatRoomTopBar.swift; sourceTree = "<group>"; };
 		FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongChatRoomTopBar.xib; sourceTree = "<group>"; };
 		FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongRoomInfoView.swift; sourceTree = "<group>"; };
@@ -667,6 +671,7 @@
 			children = (
 				BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */,
 				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */,
+				FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */,
 				FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */,
 				BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */,
 				BD8B4C0F257A533D00BE6520 /* AmongChat.Room.MessageCell.swift */,
@@ -947,6 +952,7 @@
 		FE684885244BDA0C00F87AF9 /* Widge */ = {
 			isa = PBXGroup;
 			children = (
+				FE79F374258C731400E9BC6C /* SoundAnimationView.swift */,
 				BDC9D1412589C92800412BDC /* PolicyLabel.swift */,
 				FE860D3B2446D13D00087B73 /* UIView.Raft.swift */,
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
@@ -1619,6 +1625,7 @@
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				BD8BEE1D2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
+				FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */,
 				FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */,
@@ -1693,6 +1700,7 @@
 				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,
 				FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */,
+				FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */,
 				FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */,
 				FE730E4D24ADCB0100680062 /* PhotoManager.swift in Sources */,
 				FE7CEB56258A029F0067952C /* AmongRoomInfoSetupView.swift in Sources */,

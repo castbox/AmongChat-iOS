@@ -10,6 +10,12 @@ import Foundation
 import RxSwift
 import RxCocoa
 import AgoraRtmKit
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[IMViewModel]-\(message)")
+}
+
 
 extension AmongChat.Room {
     
@@ -66,8 +72,8 @@ extension AmongChat.Room.IMViewModel {
         
         imManager.newMessageObservable
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
-            .debug()
             .map { (message, member) -> ChatRoomMessage? in
+                cdPrint("member: \(member.channelId) \(member.userId) \ntext: \(message.text)")
                 guard message.type == .text,
                       let json = message.text.jsonObject(),
                       let messageType = json["message_type"] as? String,
