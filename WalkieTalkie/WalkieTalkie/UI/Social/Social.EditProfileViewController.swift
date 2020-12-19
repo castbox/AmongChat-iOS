@@ -121,7 +121,7 @@ extension Social {
         }
         
         private func setupData() {
-            
+                        
             let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
             let removeBlock = { [weak self] in
                 self?.view.isUserInteractionEnabled = true
@@ -133,7 +133,7 @@ extension Social {
                 .subscribe(onNext: { [weak self] (profile) in
                     removeBlock()
                     self?.updateFields(profile: profile)
-                }, onError: { [weak self] (_) in
+                }, onError: { (_) in
                     removeBlock()
                 })
                 .disposed(by: bag)
@@ -226,7 +226,6 @@ extension Social {
         
         @objc
         private func onAvatarTapped() {
-            
             guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
                 return
             }
@@ -247,13 +246,8 @@ extension Social {
                         guard let p = profile else {
                             return
                         }
-                        
                         Settings.shared.amongChatUserProfile.value = p
-                        
-                        cdPrint("")
-                        
                     }, onError: { (error) in
-                        
                     })
                     .disposed(by: bag)
             }

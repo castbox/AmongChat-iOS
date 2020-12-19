@@ -18,7 +18,10 @@ extension Social {
         
         var minYear = 1900
         var maxYear = 2020
-        var rowHeight : CGFloat = 42
+        var rowHeight: CGFloat = 42
+        var lineWidth: CGFloat {
+            return self.bounds.size.width
+        }
         
         var date: Date {
             let month = months[selectedRow(inComponent: DatePickerComponent.month.rawValue) % months.count]
@@ -136,10 +139,6 @@ extension Social {
                 }
             }
             return row
-        }
-        
-        private var lineWidth: CGFloat {
-            return self.bounds.size.width * 0.95
         }
         
         //MARK: - Override

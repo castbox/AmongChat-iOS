@@ -13,6 +13,7 @@ import Alamofire
 extension APIService {
     enum AmongChatBackend {
         case login([String : Any])
+        case logout
         case createRoom([String : Any])
         case enteryRoom([String : Any])
         //        case roomUpdate([String: Any])
@@ -27,7 +28,6 @@ extension APIService {
         case summary([String : Any])
         case profile
         case updateProfile([String : Any])
-        case logout
         case defaultAvatars
     }
 }
@@ -99,10 +99,6 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultAvatars,
              .roomInfo:
             return .get
-        //        case .updateRoomInfo:
-        //            return .put
-        //        case .secret, .devices, .pushEvent:
-        //            return .post
         }
     }
     
@@ -118,6 +114,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .profile,
              .defaultAvatars,
              .logout:
+
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),

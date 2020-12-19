@@ -53,6 +53,7 @@ class SettingContainerTableController: UITableViewController {
     let bag = DisposeBag()
     
     @IBOutlet weak var diamondsNameLabel: UILabel!
+    @IBOutlet weak var logotButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +89,12 @@ class SettingContainerTableController: UITableViewController {
         } else if indexPath.row == 2 {
             upgradePro()
         }
+//        else if indexPath.row == 3 {
+//            let vc = Social.BlockedUserList.ViewController()
+//            navigationController?.pushViewController(vc)
+//        }
     }
+    
     
     func shareApp() {
         open(urlSting: Config.PolicyType.url(.appShare))
@@ -116,6 +122,12 @@ class SettingContainerTableController: UITableViewController {
             diamondsNameLabel.text = "PRO"
         } else {
             diamondsNameLabel.text = "Unlock PRO"
+        }
+        logotButton.snp.makeConstraints { (make) in
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
         }
     }
     

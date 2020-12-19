@@ -136,9 +136,7 @@ extension Social {
                             return
                         }
                         Settings.shared.amongChatUserProfile.value = p
-                        cdPrint("")
                     }, onError: { (error) in
-                        cdPrint("")
                     })
                     .disposed(by: bag)
             }

@@ -123,6 +123,15 @@ extension Entity {
             case email
         }
     }
+    
+    struct AvatarData: Codable {
+        
+        let avatarList: [String]?
+        
+        private enum CodingKeys: String, CodingKey {
+            case avatarList = "avatar_list"
+        }
+    }
 }
 
 extension Entity {
