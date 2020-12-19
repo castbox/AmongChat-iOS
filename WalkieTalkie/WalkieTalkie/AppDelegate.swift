@@ -267,10 +267,10 @@ extension AppDelegate {
             rootVc = NavigationViewController(rootViewController: loginVc)
         } else {
             rootVc = homeVc()
+            FireMessaging.shared.requestPermissionIfNotGranted()
         }
         
         self.window?.replaceRootViewController(rootVc)
-        FireMessaging.shared.requestPermissionIfNotGranted()
     }
     
     func setGlobalAppearance() {
