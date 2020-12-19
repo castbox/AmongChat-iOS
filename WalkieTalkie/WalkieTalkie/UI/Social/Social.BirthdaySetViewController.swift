@@ -110,8 +110,8 @@ extension Social {
                         }
                         guard let p = profile else { return }
                         Settings.shared.amongChatUserProfile.value = p
-                    }, onError: { (error) in
-                        
+                    }, onError: { [weak self] (error) in
+                        self?.view.raft.autoShow(.text("\(error.localizedDescription)"))
                     })
             }
         }
