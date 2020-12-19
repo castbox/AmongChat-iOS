@@ -297,12 +297,12 @@ private extension Social {
         
         func setUserNameData() {
             icon.image = R.image.ac_profile_username()
-            userNameTitle.text = "Nickname"
+            userNameTitle.text = R.string.localizable.profileNickname()// "Nickname"
         }
         
         func setBirthdayData() {
             icon.image = R.image.ac_profile_birthday()
-            userNameTitle.text = "Birthday"
+            userNameTitle.text = R.string.localizable.profileBirthday()//"Birthday"
         }
         
         func setRightLabelText(_ text: String) {
@@ -394,7 +394,7 @@ private extension Social {
             f.leftViewMode = .always
             let style = NSMutableParagraphStyle()
             style.alignment = .center
-            f.attributedPlaceholder = NSAttributedString(string: "NICKNAME", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex6: 0xD8D8D8), NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16), NSAttributedString.Key.paragraphStyle: style])
+            f.attributedPlaceholder = NSAttributedString(string: R.string.localizable.profileBagNickname(), attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex6: 0xD8D8D8), NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16), NSAttributedString.Key.paragraphStyle: style])
             return f
         }()
         
@@ -409,7 +409,7 @@ private extension Social {
         private lazy var doneBtn: UIButton = {
             let btn = UIButton()
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.setTitle("Done", for: .normal)
+            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             return btn
         }()

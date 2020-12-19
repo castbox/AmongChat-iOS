@@ -16,7 +16,7 @@ extension Social {
             let label = UILabel()
             label.textColor = UIColor(hex6: 0xFFF000)
             label.font = R.font.nunitoExtraBold(size: 48)
-            label.text = "Brithday"
+            label.text = R.string.localizable.profileBigBirthday()//"BIrthday"
             label.textAlignment = .center
             return label
         }()
@@ -25,7 +25,7 @@ extension Social {
             let label = UILabel()
             label.textColor = .white
             label.font = R.font.nunitoExtraBold(size: 16)
-            label.text = "Find friends of the same age"
+            label.text = R.string.localizable.profileBirthdaySubtitle()//"Find friends of the same age"
             label.textAlignment = .center
             label.numberOfLines = 2
             return label
@@ -41,7 +41,7 @@ extension Social {
             let btn = WalkieButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoBlack(size: 20)
             btn.addTarget(self, action: #selector(onConfirmBtn), for: .primaryActionTriggered)
-            btn.setTitle("Done", for: .normal)
+            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.appendKern()
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
@@ -105,11 +105,13 @@ extension Social {
                         hudRemoval()
                     })
                     .subscribe(onSuccess: { [weak self] (profile) in
+                        defer {
+                            self?.onCompletion?(birthdayStr)
+                        }
                         guard let p = profile else { return }
                         Settings.shared.amongChatUserProfile.value = p
-                        self?.onCompletion?(birthdayStr)
-                    }, onError: { (error) in
-                        
+                    }, onError: { [weak self] (error) in
+                        self?.view.raft.autoShow(.text("\(error.localizedDescription)"))
                     })
             }
         }

@@ -51,15 +51,28 @@ extension Social {
         private var rowLabel : UILabel {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: componentWidth, height: rowHeight))
             label.textAlignment = .center
-            label.backgroundColor = UIColor.clear
+            label.backgroundColor = .clear
             return label
         }
+    
+        private var months = [R.string.localizable.monthJan(),
+                              R.string.localizable.monthFeb(),
+                              R.string.localizable.monthMar(),
+                              R.string.localizable.monthApr(),
+                              R.string.localizable.monthMay(),
+                              R.string.localizable.monthJun(),
+                              R.string.localizable.monthJul(),
+                              R.string.localizable.monthAug(),
+                              R.string.localizable.monthSep(),
+                              R.string.localizable.monthOct(),
+                              R.string.localizable.monthNov(),
+                              R.string.localizable.monthDec(), ]
         
-        private var months = ["Jan", "Feb", "Mar", "Apr",
-                              "May", "Jun", "Jul","Aug", "Sep",
-                              "Oct", "Nov", "Dec", ]
+//        R.string.localizable.mon
+
         
         private var years : Array<String> {
+            
             let years = [Int](minYear...maxYear)
             return years.map({ "\($0)"})
         }

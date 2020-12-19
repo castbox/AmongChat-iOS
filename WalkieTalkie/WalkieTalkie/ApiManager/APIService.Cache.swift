@@ -35,14 +35,18 @@ final class ResponseInterceptPlugin: PluginType {
         cdPrint("==\(NSStringFromClass(Self.self))==receive response:\(result)")
 
         //only continue if result is a failure
-        guard case Result.failure(let error) = result else { return }
+        guard case Result.success(let success) = result else { return }
         
-        guard let code = error.response?.statusCode,
-              code == 401 else {
+        let code = success.statusCode
+        
+        guard code == 401 else {
             return
         }
         
         cdPrint("==\(NSStringFromClass(Self.self))==catch a 401 error")
+        
+        Settings.shared.clearAll()
+        (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
     }
     
 }

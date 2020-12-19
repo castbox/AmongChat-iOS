@@ -37,7 +37,6 @@ extension AmongChat.Home {
             btn.setTitleColor(UIColor.black, for: .normal)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.setTitle(R.string.localizable.amongChatHomeTeamUp(), for: .normal)
-            btn.layer.cornerRadius = 18
             btn.layer.masksToBounds = true
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             btn.isUserInteractionEnabled = false
@@ -80,7 +79,12 @@ extension AmongChat.Home {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                        
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            teamUpBtn.layer.cornerRadius = teamUpBtn.bounds.height / 2
+        }
+        
         private func setupLayout() {
             contentView.backgroundColor = .clear
             
@@ -112,6 +116,17 @@ extension AmongChat.Home {
             teamUpBtn.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalToSuperview().inset(12)
                 maker.height.equalTo(36)
+            }
+            
+            if UIScreen.main.bounds.width < 375 {
+                
+                nameLabel.font = R.font.nunitoExtraBold(size: 16)
+                nowPlayingLabel.font = R.font.nunitoSemiBold(size: 12)
+                teamUpBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+                teamUpBtn.snp.remakeConstraints { (maker) in
+                    maker.right.bottom.equalToSuperview().inset(12)
+                    maker.height.equalTo(30)
+                }
             }
             
         }

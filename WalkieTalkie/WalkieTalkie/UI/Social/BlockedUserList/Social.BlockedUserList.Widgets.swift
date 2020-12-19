@@ -38,7 +38,7 @@ extension Social.BlockedUserList.Widgets {
         private lazy var unlockBtn: UIButton = {
             let btn = UIButton()
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
-            btn.setTitle("Unblock", for: .normal)
+            btn.setTitle(R.string.localizable.profileUnblock(), for: .normal)
             btn.setTitleColor(.white, for: .normal)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16

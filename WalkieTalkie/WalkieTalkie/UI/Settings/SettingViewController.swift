@@ -128,9 +128,9 @@ class SettingContainerTableController: UITableViewController {
     func updateSubviewStyle() {
         
         if Settings.shared.isProValue.value {
-            diamondsNameLabel.text = "PRO"
+            diamondsNameLabel.text = R.string.localizable.profilePro()// "PRO"
         } else {
-            diamondsNameLabel.text = "Unlock PRO"
+            diamondsNameLabel.text = R.string.localizable.profileUnlockPro()// "Unlock PRO"
         }
         logotButton.snp.makeConstraints { (make) in
             make.left.equalTo(40)
