@@ -422,8 +422,7 @@ extension Social.ProfileViewController {
             
             iconIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(20)
-                maker.centerY.equalToSuperview()
+                maker.left.centerY.equalToSuperview()
             }
             
             titleLabel.snp.makeConstraints { (maker) in
