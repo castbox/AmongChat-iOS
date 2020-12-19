@@ -171,9 +171,14 @@ extension AmongChat.Home.ViewController {
             maker.left.right.equalToSuperview()
             maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-20)
         }
+        
     }
     
-    func setupData() {
+    private func setupData() {
+        fetchSummaryData()
+    }
+    
+    private func fetchSummaryData() {
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.summary()
             .do(onDispose: {
@@ -188,7 +193,18 @@ extension AmongChat.Home.ViewController {
                 self?.topicsDataSource = s.topicList.map({ TopicViewModel(with: $0) })
                 
                 cdPrint("")
-            }, onError: { (error) in
+            }, onError: { [weak self] (error) in
+                
+                let v = AmongChat.Home.LoadErrorView()
+                self?.view.addSubview(v)
+                v.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }
+                v.showUp { [weak self, weak v] in
+                    v?.removeFromSuperview()
+                    self?.fetchSummaryData()
+                }
+                
                 cdPrint("")
             })
             .disposed(by: bag)

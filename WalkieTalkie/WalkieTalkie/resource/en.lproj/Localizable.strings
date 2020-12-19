@@ -209,3 +209,6 @@
 "among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
 "among.chat.room.set.reblox.name" = "Setup Roblox Username";
 "among.chat.room.kick" = "Kick";
+"among.chat.home.load.error.title" = "Oops, no Internet!";
+"among.chat.home.load.error.msg" = "Please check your connection and try again";
+"among.chat.try.again" = "Try again";
