@@ -105,9 +105,11 @@ extension Social {
                         hudRemoval()
                     })
                     .subscribe(onSuccess: { [weak self] (profile) in
+                        defer {
+                            self?.onCompletion?(birthdayStr)
+                        }
                         guard let p = profile else { return }
                         Settings.shared.amongChatUserProfile.value = p
-                        self?.onCompletion?(birthdayStr)
                     }, onError: { (error) in
                         
                     })
