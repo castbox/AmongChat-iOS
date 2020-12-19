@@ -31,6 +31,7 @@ extension AmongChat.Room {
             iv.layer.cornerRadius = 20
             iv.layer.masksToBounds = true
             iv.layer.borderWidth = 0.5
+            iv.contentMode = .scaleAspectFill
             iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
             iv.backgroundColor = UIColor.white.alpha(0.2)
             iv.isUserInteractionEnabled = true
@@ -202,15 +203,12 @@ extension AmongChat.Room.UserCell {
             return
         }
         self.user = user
-        //        if user.uid != nil {
-        avatarIV.image = nil
+        avatarIV.contentMode = .scaleAspectFill
         avatarIV.setImage(with: user.pictureUrl)
         nameLabel.text = user.name
         if user.status == .talking {
             haloView.startLoading()
-            //                haloAnimation()
         } else {
-            //                stopHaloAnimation()
             haloView.stopLoading()
         }
         gameNameButton.setTitle(user.nickname, for: .normal)
@@ -239,6 +237,7 @@ extension AmongChat.Room.UserCell {
     }
     
     func clearStyle() {
+        avatarIV.kf.cancelDownloadTask()
         avatarIV.image = R.image.ac_icon_seat_add()
         avatarIV.contentMode = .center
         avatarIV.layer.borderWidth = 0

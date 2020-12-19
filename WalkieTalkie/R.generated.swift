@@ -1503,7 +1503,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 159 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 160 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1849,6 +1849,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Only the channel owner can change this
+      /// 
+      /// Locales: en
+      static let amongChatRoomUserChangeNotesTitle = Rswift.StringResource(key: "among.chat.room.user.change.notes.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en
@@ -2742,6 +2746,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialStatusOnline(_: Void = ()) -> String {
         return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Only the channel owner can change this
+      /// 
+      /// Locales: en
+      static func amongChatRoomUserChangeNotesTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.user.change.notes.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Open Game

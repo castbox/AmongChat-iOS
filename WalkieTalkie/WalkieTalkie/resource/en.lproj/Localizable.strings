@@ -209,3 +209,4 @@
 "among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
 "among.chat.room.set.reblox.name" = "Setup Roblox Username";
 "among.chat.room.kick" = "Kick";
+"among.chat.room.user.change.notes.title" = "Only the channel owner can change this";

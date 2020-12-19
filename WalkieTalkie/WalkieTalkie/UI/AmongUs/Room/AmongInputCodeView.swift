@@ -110,7 +110,7 @@ extension AmongInputCodeView: UITextFieldDelegate {
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
-        return count <= 256
+        return count <= 10
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

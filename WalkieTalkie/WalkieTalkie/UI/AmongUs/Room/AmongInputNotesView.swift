@@ -80,7 +80,7 @@ extension AmongInputNotesView: UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        fadeIn(duration: 0.1, completion: nil)
+        fadeIn(duration: 0.25, completion: nil)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -91,7 +91,7 @@ extension AmongInputNotesView: UITextViewDelegate {
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + text.count
         hostNotesPlaceholderLabel.isHidden = count > 0
-        return count <= 256
+        return count <= 140
     }
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         

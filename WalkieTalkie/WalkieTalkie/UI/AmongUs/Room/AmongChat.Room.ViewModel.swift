@@ -348,7 +348,8 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-            roomReplay.accept(room)
+//            roomReplay.accept(room)
+            update(room)
             //update
             updateRoomInfo(room)
         }
@@ -393,7 +394,9 @@ extension AmongChat.Room {
                 .catchErrorJustReturn(self.room)
                 .asObservable()
                 .filterNilAndEmpty()
-                .bind(to: roomReplay)
+                .subscribe(onNext: { [weak self] room in
+                    self?.update(room)
+                })
                 .disposed(by: bag)
         }
         
@@ -406,7 +409,9 @@ extension AmongChat.Room {
                 }
                 .catchErrorJustReturn(self.room)
                 .asObservable()
-                .bind(to: roomReplay)
+                .subscribe(onNext: { [weak self] room in
+                    self?.update(room)
+                })
                 .disposed(by: bag)
         }
         
@@ -711,7 +716,8 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else {
             otherMutedUser.remove(userId)
         }
-        
+        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
+
         //check block
         if let user = blockedUsers.first(where: { $0.uid == userId.int }) {
             mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)

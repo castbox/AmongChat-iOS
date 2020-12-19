@@ -11,6 +11,7 @@ import Kingfisher
 
 extension UIImageView {
     func setImage(with urlString: String?) {
+        kf.cancelDownloadTask()
         guard let url = URL(string: urlString) else {
             image = nil
             return
@@ -18,6 +19,6 @@ extension UIImageView {
         let resource = ImageResource(downloadURL: url, cacheKey: urlString)
         var kf = self.kf
         kf.indicatorType = .activity
-        self.kf.setImage(with: resource)
+        kf.setImage(with: resource)
     }
 }

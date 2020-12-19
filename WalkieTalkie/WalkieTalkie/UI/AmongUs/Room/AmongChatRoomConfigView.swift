@@ -45,29 +45,44 @@ extension AmongChatRoomConfigView {
             amongSetupView.isHidden = room.isValidAmongConfig
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
-            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
+//            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
         case .roblox:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
             justChillingInfoView.room = room
-            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
+//            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
         case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
             justChillingInfoView.room = room
-            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
+//            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
         }
     }
     
     func bindSubviewEvent() {
         amongSetupView.setupHandler = { [weak self] in
-            self?.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
+            guard let `self` = self else {
+                return
+            }
+            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+                self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
+            } else {
+                self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+            }
         }
         
         justChillingInfoView.hostNotesClick = { [weak self] in
-            self?.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
+            guard let `self` = self else {
+                return
+            }
+            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+                self.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
+            } else {
+                self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+            }
+            
         }
         
         amongInfoView.tapHandler = { [weak self] in
