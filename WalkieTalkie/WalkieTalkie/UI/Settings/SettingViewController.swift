@@ -44,7 +44,7 @@ class SettingViewController: ViewController {
         isNavigationBarHiddenWhenAppear = false
         self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
         self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
-        self.customBackButton.setImage(R.image.ac_profile_back(), for: .normal)
+        self.customBackButton.setImage(R.image.ac_back(), for: .normal)
     }
 }
 

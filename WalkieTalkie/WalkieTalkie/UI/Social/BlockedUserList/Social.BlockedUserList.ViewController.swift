@@ -22,7 +22,7 @@ extension Social.BlockedUserList {
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.ac_profile_back(), for: .normal)
+            btn.setImage(R.image.ac_back(), for: .normal)
             return btn
         }()
         
