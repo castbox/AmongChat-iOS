@@ -27,3 +27,22 @@ final class NetworkCachePolicyPlugin: PluginType {
     }
     
 }
+
+final class ResponseInterceptPlugin: PluginType {
+        
+    func didReceive(_ result: Result<Moya.Response, MoyaError>, target: TargetType) {
+        
+        cdPrint("==\(NSStringFromClass(Self.self))==receive response:\(result)")
+
+        //only continue if result is a failure
+        guard case Result.failure(let error) = result else { return }
+        
+        guard let code = error.response?.statusCode,
+              code == 401 else {
+            return
+        }
+        
+        cdPrint("==\(NSStringFromClass(Self.self))==catch a 401 error")
+    }
+    
+}

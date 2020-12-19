@@ -40,6 +40,7 @@ extension AmongChat.Home {
             btn.layer.cornerRadius = 18
             btn.layer.masksToBounds = true
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.isUserInteractionEnabled = false
             return btn
         }()
         
@@ -56,7 +57,21 @@ extension AmongChat.Home {
             lb.textColor = .white
             return lb
         }()
-                                
+        
+        override var isHighlighted: Bool {
+            didSet {
+                if isHighlighted {
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .transitionCurlUp, animations: {
+                        self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+                    }, completion: nil)
+                } else {
+                    UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseOut, animations: {
+                        self.transform = .identity
+                    }, completion: nil)
+                }
+            }
+        }
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()

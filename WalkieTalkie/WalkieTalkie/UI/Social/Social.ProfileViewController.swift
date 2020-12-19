@@ -383,13 +383,7 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var backView: UIView = {
-            let v = UIView()
-//            v.backgroundColor = UIColor(hex6: 0x232323)
-//            v.layer.masksToBounds = true
-//            v.layer.cornerRadius = 12
-            return v
-        }()
+        private lazy var backView = UIView()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
