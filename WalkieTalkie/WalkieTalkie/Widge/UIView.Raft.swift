@@ -71,8 +71,9 @@ extension Raft where Base: UIView {
     private func hudFor(type: ShowType) -> MBProgressHUD {
         let hud = MBProgressHUD(view: self.base)
         hud.removeFromSuperViewOnHide = true
-        hud.offset = CGPoint(x: 0, y: -base.bounds.height * 0.1)
-
+//        hud.offset = CGPoint(x: 0, y: -base.bounds.height * 0.1)
+        hud.bezelView.color = "222222".color()
+        hud.bezelView.style = .solidColor
         switch type {
         case .loading:
             hud.contentColor = .theme(.main)
@@ -84,6 +85,8 @@ extension Raft where Base: UIView {
         case .text(let text):
             hud.mode = .text
             hud.label.text = text
+            hud.label.textColor = .white
+            hud.label.font = R.font.nunitoExtraBold(size: 16)
         }
         base.addSubview(hud)
         return hud
@@ -193,20 +196,20 @@ extension Loading {
         
         lazy var indicator: UIActivityIndicatorView = {
             let indicator: UIActivityIndicatorView
-            switch Settings.shared.theme.value {
-            case .light:
-                indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
-            case .dark:
+//            switch Settings.shared.theme.value {
+//            case .light:
+//                indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+//            case .dark:
                 indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
-            }
+//            }
             indicator.hidesWhenStopped = false
             return indicator
         }()
         
         private lazy var titleLabel: UILabel = {
             let label = UILabel(frame: .zero)
-            label.textColor = .theme(.textGray)
-            label.font = Font.caption.value
+            label.textColor = .white
+            label.font = R.font.nunitoExtraBold(size: 16)
             label.text = NSLocalizedString("Loading", comment: "")
             return label
         }()
