@@ -77,7 +77,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -85,20 +85,13 @@ class SettingContainerTableController: UITableViewController {
         if indexPath.row == 0 {
             rateApp()
         } else if indexPath.row == 1 {
-            shareApp()
-        } else if indexPath.row == 2 {
-            upgradePro()
+            open(urlSting: Config.PolicyType.url(.appShare))
         }
-//        else if indexPath.row == 3 {
-//            let vc = Social.BlockedUserList.ViewController()
-//            navigationController?.pushViewController(vc)
+//        else if indexPath.row == 2 {
+//            upgradePro()
 //        }
     }
     
-    
-    func shareApp() {
-        open(urlSting: Config.PolicyType.url(.appShare))
-    }
     
     func upgradePro() {
         guard !Settings.shared.isProValue.value,

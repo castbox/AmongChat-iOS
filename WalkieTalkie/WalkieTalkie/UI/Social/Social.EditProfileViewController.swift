@@ -216,7 +216,7 @@ extension Social {
             } else {
                 birthdayButton.setRightLabelText("")
             }
-            avatarIV.setImage(with: profile.pictureUrl)
+            avatarIV.setAvatarImage(with: profile.pictureUrl)
         }
         
         @objc

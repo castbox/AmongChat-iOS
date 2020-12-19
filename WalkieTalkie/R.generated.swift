@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 136 images.
+  /// This `R.image` struct is generated, and contains static references to 137 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -194,12 +194,14 @@ struct R: Rswift.Validatable {
     static let ac_medal_bronze = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_bronze")
     /// Image `ac_medal_silver`.
     static let ac_medal_silver = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_silver")
+    /// Image `ac_profile_avatar`.
+    static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_back`.
     static let ac_profile_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_back")
     /// Image `ac_profile_birthday`.
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
-    /// Image `ac_profile_bottom_lead`.
-    static let ac_profile_bottom_lead = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_bottom_lead")
+    /// Image `ac_profile_block`.
+    static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
     /// Image `ac_profile_close`.
     static let ac_profile_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close")
     /// Image `ac_profile_communtiy`.
@@ -551,6 +553,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_medal_silver, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
+    static func ac_profile_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_avatar, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_back", bundle: ..., traitCollection: ...)`
     static func ac_profile_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_back, compatibleWith: traitCollection)
@@ -561,9 +568,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_birthday, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_bottom_lead", bundle: ..., traitCollection: ...)`
-    static func ac_profile_bottom_lead(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_bottom_lead, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_profile_block", bundle: ..., traitCollection: ...)`
+    static func ac_profile_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_block, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_close", bundle: ..., traitCollection: ...)`
@@ -1569,10 +1576,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListBlockActionTitle = Rswift.StringResource(key: "channel.user.list.block.action.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Block users
+      /// en translation: Block list
       /// 
       /// Locales: en
       static let profileBlockUser = Rswift.StringResource(key: "profile.block.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Block list
+      /// 
+      /// Locales: en
+      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Break the mic max limit
       /// 
       /// Locales: en
@@ -2077,10 +2088,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileEditUsername = Rswift.StringResource(key: "profile.edit.username", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Users
-      /// 
-      /// Locales: en
-      static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Users Talked in the Channel
       /// 
       /// Locales: en
@@ -2266,11 +2273,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.block.action.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Block users
+      /// en translation: Block list
       /// 
       /// Locales: en
       static func profileBlockUser(_: Void = ()) -> String {
         return NSLocalizedString("profile.block.user", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Block list
+      /// 
+      /// Locales: en
+      static func socialBlockedUserTitle(_: Void = ()) -> String {
+        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Break the mic max limit
@@ -3153,13 +3167,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileEditUsername(_: Void = ()) -> String {
         return NSLocalizedString("profile.edit.username", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Users
-      /// 
-      /// Locales: en
-      static func socialBlockedUserTitle(_: Void = ()) -> String {
-        return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Users Talked in the Channel

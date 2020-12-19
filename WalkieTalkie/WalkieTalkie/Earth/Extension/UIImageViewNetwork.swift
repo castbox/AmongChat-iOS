@@ -10,6 +10,7 @@ import Foundation
 import Kingfisher
 
 extension UIImageView {
+    
     func setImage(with urlString: String?, placeholder: UIImage? = nil) {
         guard let url = URL(string: urlString) else {
             image = nil
@@ -19,5 +20,9 @@ extension UIImageView {
         var kf = self.kf
         kf.indicatorType = .activity
         self.kf.setImage(with: resource, placeholder: placeholder)
+    }
+    
+    func setAvatarImage(with urlString: String?) {
+        setImage(with: urlString, placeholder: R.image.ac_profile_avatar())
     }
 }

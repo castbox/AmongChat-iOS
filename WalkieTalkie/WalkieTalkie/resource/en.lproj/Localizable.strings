@@ -107,7 +107,7 @@
 "profile.following" = "Following";
 "profile.follower" = "Follower";
 "profile.invite.friends" = "Invite friends";
-"profile.block.user" = "Block users";
+"profile.block.user" = "Block list";
 "profile.settings" = "Settings";
 "profile.community" = "Community guidelines";
 
@@ -118,7 +118,7 @@
 "profile.edit.birthday" = "Birthday";
 "profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";
 "social.follower.follow.action" = "Follow Back";
-"social.blocked.user.title" = "Users";
+"social.blocked.user.title" = "Block list";
 "social.relation.friend" = "Friends";
 "social.join.action" = "Join";
 "social.unfollow" = "Unfollow";
