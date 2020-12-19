@@ -29,7 +29,7 @@ extension Social {
                 case .community:
                     return R.image.ac_profile_communtiy()
                 case .blockUser:
-                    return UIImage(named: "ac_profile_block")
+                    return R.image.ac_profile_block()
                 }
             }
             
@@ -56,7 +56,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView()
-            v.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 298)
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 298)
             v.editBtnHandler = { [weak self] in
                 let vc = Social.EditProfileViewController()
                 self?.navigationController?.pushViewController(vc)

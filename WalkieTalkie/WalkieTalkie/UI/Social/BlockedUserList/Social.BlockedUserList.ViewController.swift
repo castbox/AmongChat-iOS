@@ -43,7 +43,7 @@ extension Social.BlockedUserList {
             tb.delegate = self
             tb.register(BlockedUserCell.self, forCellReuseIdentifier: NSStringFromClass(BlockedUserCell.self))
             tb.separatorStyle = .none
-            tb.backgroundColor = .clear//UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            tb.backgroundColor = .clear
             return tb
         }()
         
@@ -62,7 +62,7 @@ extension Social.BlockedUserList {
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
-
+            
             view.addSubviews(views: backBtn, titleLabel)
             
             let navLayoutGuide = UILayoutGuide()
@@ -117,7 +117,7 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(BlockedUserCell.self), for: indexPath)
         cell.backgroundColor = .clear
         if let cell = cell as? BlockedUserCell,
-            let user = userList.safe(indexPath.row) {
+           let user = userList.safe(indexPath.row) {
             cell.configView(with: user)
             cell.unlockHandle = { [weak self] in
                 self?.removeLockedUser(at: indexPath.row)
@@ -137,16 +137,16 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
         Defaults[\.blockedUsersV2Key] = userList
     }
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//
-//        guard let user = userList.safe(indexPath.row) else { return }
-//
-//        let modal = Social.BlockedUserList.ActionModal(with: user)
-//        modal.showModal(in: parent ?? self)
-//        modal.unblockedCallback = { [weak self] in
-//            self?.userList.remove(at: indexPath.row)
-//            self?.tableView.reloadData()
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    //        tableView.deselectRow(at: indexPath, animated: true)
+    //
+    //        guard let user = userList.safe(indexPath.row) else { return }
+    //
+    //        let modal = Social.BlockedUserList.ActionModal(with: user)
+    //        modal.showModal(in: parent ?? self)
+    //        modal.unblockedCallback = { [weak self] in
+    //            self?.userList.remove(at: indexPath.row)
+    //            self?.tableView.reloadData()
+    //        }
+    //    }
 }
