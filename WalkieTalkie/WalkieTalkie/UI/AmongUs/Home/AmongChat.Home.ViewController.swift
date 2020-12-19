@@ -92,20 +92,7 @@ extension AmongChat.Home.ViewController {
     @objc
     private func onCreateRoomBtn() {
         let vc = AmongChat.CreateRoom.ViewController()
-        
-        vc.joinChannel = { [weak self] name, autoShare in
-            guard let `self` = self else { return }
-            guard let cat = FireStore.shared.allChannelCategories.first(where: { $0.name == name }),
-            cat.type != .joinSecret,
-            cat.type != .createSecret else {
-//                self._joinRoom(FireStore.shared.findAGroupChatRoom(with: name))
-                return
-            }
-//            self._joinRoom(FireStore.shared.findARoom(of: cat))
-        }
-        
         present(vc, animated: true)
-        
     }
     
 }

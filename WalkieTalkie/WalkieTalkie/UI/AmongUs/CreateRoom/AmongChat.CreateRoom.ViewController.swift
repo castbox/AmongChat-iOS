@@ -29,9 +29,24 @@ extension AmongChat.CreateRoom {
             return btn
         }()
         
-        private lazy var codeField: ChannelNameField = {
-            let f = ChannelNameField()
-            f.clearButtonMode = .never
+        private lazy var codeFieldContainer: UIView = {
+            let v = UIView()
+            v.addSubview(codeField)
+            
+            codeField.snp.makeConstraints { (maker) in
+                maker.left.right.equalToSuperview().inset(24)
+                maker.top.bottom.equalToSuperview()
+            }
+            v.backgroundColor = .white
+            v.layer.cornerRadius = 24
+            return v
+        }()
+        
+        private lazy var codeField: UITextField = {
+            let f = UITextField()
+            f.borderStyle = .none
+            f.delegate = self
+            f.clearButtonMode = .whileEditing
             let pStyle = NSMutableParagraphStyle()
             pStyle.alignment = .center
             
@@ -43,10 +58,8 @@ extension AmongChat.CreateRoom {
                                           ])
             f.attributedPlaceholder = attP
             f.font = R.font.nunitoExtraBold(size: 16)
-            f.keyboardType = .asciiCapable
-            f.backgroundColor = .white
-            f.layer.cornerRadius = 24
             f.textAlignment = .center
+            f.backgroundColor = .clear
             return f
         }()
         
@@ -117,8 +130,6 @@ extension AmongChat.CreateRoom {
             return sw
         }()
         
-        var joinChannel: (String, Bool) -> Void = { _, _ in }
-        
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
         private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
                 
@@ -148,20 +159,12 @@ extension AmongChat.CreateRoom.ViewController {
         
     @objc
     private func onConfirmBtn() {
-        guard let name = codeField.text,
+        guard let name = codeField.text?.trim(),
               !name.isEmpty else {
             return
         }
-
-        let joinBlock = { [weak self] in
-            guard let `self` = self else { return }
-            _ = self.codeField.resignFirstResponder()
-            self.joinChannel(name, false)
-            self.dismiss(animated: true)
-        }
         
         createRoom(with: name)
-//        joinBlock()
     }
 }
 
@@ -169,7 +172,7 @@ extension AmongChat.CreateRoom.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, codeField, topicTable, privateStateLabel, privateStateSwitch, confirmButton)
+        view.addSubviews(views: backBtn, titleLabel, codeFieldContainer, topicTable, privateStateLabel, privateStateSwitch, confirmButton)
         
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
@@ -188,14 +191,14 @@ extension AmongChat.CreateRoom.ViewController {
             maker.center.equalTo(navLayoutGuide)
         }
                 
-        codeField.snp.makeConstraints { (maker) in
+        codeFieldContainer.snp.makeConstraints { (maker) in
             maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
             maker.left.right.equalToSuperview().inset(40)
             maker.height.equalTo(48)
         }
         
         topicTable.snp.makeConstraints { (maker) in
-            maker.top.equalTo(codeField.snp.bottom).offset(40)
+            maker.top.equalTo(codeFieldContainer.snp.bottom).offset(40)
             maker.left.right.equalToSuperview()
             maker.bottom.equalTo(privateStateSwitch.snp.top).offset(-40)
         }
@@ -231,7 +234,14 @@ extension AmongChat.CreateRoom.ViewController {
             roomProto.topicId = topic
         } else {
             roomProto.topicId = .chilling
+        }
+        
+        switch roomProto.topicId {
+        case .chilling:
             roomProto.note = name
+            
+        default:
+            ()
         }
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -241,20 +251,47 @@ extension AmongChat.CreateRoom.ViewController {
             })
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 创建房间成功
-//                cdPrint("")
-                guard let `self` = self else {
+                guard let `self` = self,
+                      let presentingVC = self.presentingViewController else {
                     return
                 }
                 guard let room = room else {
                     self.view.raft.autoShow(.text("failed to create room"))
                     return
                 }
-                AmongChat.Room.ViewController.join(room: room, from: self)
+                
+                self.view.endEditing(true)
+                self.dismiss(animated: true) {
+                    AmongChat.Room.ViewController.join(room: room, from: presentingVC)
+                }
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
             })
     }
+}
+
+extension AmongChat.CreateRoom.ViewController: UITextFieldDelegate {
+    
+    private var maxInputLength: Int {
+        return 140
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentCharacterCount = textField.text?.count ?? 0
+        if range.length + range.location > currentCharacterCount {
+            return false
+        }
+        let newLength = currentCharacterCount + string.count - range.length
+        return (newLength <= maxInputLength) || newLength < currentCharacterCount
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        onConfirmBtn()
+        return true
+    }
+    
 }
 
 extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableViewDelegate {
