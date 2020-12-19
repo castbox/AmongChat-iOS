@@ -85,11 +85,24 @@ class SettingContainerTableController: UITableViewController {
         if indexPath.row == 0 {
             rateApp()
         } else if indexPath.row == 1 {
-            open(urlSting: Config.PolicyType.url(.appShare))
+            shareApp()
         }
 //        else if indexPath.row == 2 {
 //            upgradePro()
 //        }
+    }
+    
+    func shareApp() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(viewController: self) { () in
+            removeBlock()
+        }
     }
     
     

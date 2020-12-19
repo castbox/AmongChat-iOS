@@ -385,9 +385,9 @@ extension Social.ProfileViewController {
         
         private lazy var backView: UIView = {
             let v = UIView()
-            v.backgroundColor = UIColor(hex6: 0x232323)
-            v.layer.masksToBounds = true
-            v.layer.cornerRadius = 12
+//            v.backgroundColor = UIColor(hex6: 0x232323)
+//            v.layer.masksToBounds = true
+//            v.layer.cornerRadius = 12
             return v
         }()
         
@@ -422,8 +422,7 @@ extension Social.ProfileViewController {
             
             iconIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(20)
-                maker.centerY.equalToSuperview()
+                maker.left.centerY.equalToSuperview()
             }
             
             titleLabel.snp.makeConstraints { (maker) in
