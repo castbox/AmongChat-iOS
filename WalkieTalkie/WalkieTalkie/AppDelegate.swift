@@ -25,7 +25,12 @@ import FirebaseDynamicLinks
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    lazy var window: UIWindow? = {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = .black
+        window.makeKeyAndVisible()
+        return window
+    }()
     var firstOpenPremiumShowed: Bool = false
     
     var navigationController: NavigationViewController? {
@@ -242,27 +247,20 @@ extension AppDelegate {
     
     func setupInitialView() {
         
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .black
-        window.makeKeyAndVisible()
         let rootVc: UIViewController
         
         let homeVc: (() -> UIViewController) = {
             NavigationViewController(rootViewController: AmongChat.Home.ViewController())
         }
         
-//        #if DEBUG
-//        let needLogin: Bool = true
-//        #else
         let needLogin: Bool = Settings.shared.loginResult.value == nil
-//        #endif
         
         if needLogin {
             let loginVc = AmongChat.Login.ViewController()
             let _ = loginVc.loginFinishedSignal
                 .take(1)
-                .subscribe(onNext: { () in
-                    window.rootViewController = homeVc()
+                .subscribe(onNext: { [weak self] () in
+                    self?.window?.replaceRootViewController(homeVc())
                 })
             
             rootVc = NavigationViewController(rootViewController: loginVc)
@@ -270,8 +268,7 @@ extension AppDelegate {
             rootVc = homeVc()
         }
         
-        window.rootViewController = rootVc
-        self.window = window
+        self.window?.replaceRootViewController(rootVc)
     }
     
     func setGlobalAppearance() {

@@ -67,7 +67,7 @@ class SettingContainerTableController: UITableViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (data) in
                 Settings.shared.clearAll()
-                exit(1)
+                (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
             }).disposed(by: bag)
     }
     
