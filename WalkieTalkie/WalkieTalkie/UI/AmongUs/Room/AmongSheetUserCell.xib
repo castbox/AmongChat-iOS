@@ -47,7 +47,9 @@
                     </stackView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="lsL-jA-4Cg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="QST-Ly-Ug0"/>
                     <constraint firstItem="lsL-jA-4Cg" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="b5G-Km-0qe"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lsL-jA-4Cg" secondAttribute="trailing" constant="20" id="dhP-Js-rQX"/>
                     <constraint firstItem="lsL-jA-4Cg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="whm-az-XbN"/>
                 </constraints>
             </tableViewCellContentView>

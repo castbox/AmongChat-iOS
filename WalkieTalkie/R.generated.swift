@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 138 images.
+  /// This `R.image` struct is generated, and contains static references to 139 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -178,6 +178,8 @@ struct R: Rswift.Validatable {
     static let ac_icon_sheet_kick = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_kick")
     /// Image `ac_icon_sheet_mute`.
     static let ac_icon_sheet_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_mute")
+    /// Image `ac_icon_sheet_report`.
+    static let ac_icon_sheet_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_report")
     /// Image `ac_icon_sheet_unblock`.
     static let ac_icon_sheet_unblock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unblock")
     /// Image `ac_icon_sheet_unmute`.
@@ -513,6 +515,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_icon_sheet_mute", bundle: ..., traitCollection: ...)`
     static func ac_icon_sheet_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_sheet_mute, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_sheet_report", bundle: ..., traitCollection: ...)`
+    static func ac_icon_sheet_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_sheet_report, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_sheet_unblock", bundle: ..., traitCollection: ...)`
