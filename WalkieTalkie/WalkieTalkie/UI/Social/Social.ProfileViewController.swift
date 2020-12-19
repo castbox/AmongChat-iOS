@@ -385,9 +385,9 @@ extension Social.ProfileViewController {
         
         private lazy var backView: UIView = {
             let v = UIView()
-            v.backgroundColor = UIColor(hex6: 0x232323)
-            v.layer.masksToBounds = true
-            v.layer.cornerRadius = 12
+//            v.backgroundColor = UIColor(hex6: 0x232323)
+//            v.layer.masksToBounds = true
+//            v.layer.cornerRadius = 12
             return v
         }()
         
