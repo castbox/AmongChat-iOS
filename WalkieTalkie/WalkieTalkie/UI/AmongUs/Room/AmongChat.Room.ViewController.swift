@@ -248,35 +248,33 @@ extension AmongChat.Room.ViewController {
     //MARK: - UI Action
     
     @objc
-    private func onCopyNameBtn() {
-//        channel.code.copyToPasteboard()
-//        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
-    }
-    
-    @objc
     private func onCloseBtn() {
-        
-        let alertVC = UIAlertController(
-            title: R.string.localizable.amongChatLeaveRoomTipTitle(),
-            message: nil,
-            preferredStyle: .alert
-        )
-        alertVC.setBackgroundColor(color: "222222".color())
-        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
-        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
-        
-        let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
+  
+        showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
             self.requestLeaveRoom()
-        })
-        confirm.titleTextColor = .white
-        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .default)
-        cancel.titleTextColor = .white
-//        cancel.setTitlet(font: R.font.nunitoExtraBold(size: 15), color: .white)
-        
-        alertVC.addAction(cancel)
-        alertVC.addAction(confirm)
-        present(alertVC, animated: true, completion: nil)
+        }
+//        let alertVC = UIAlertController(
+//            title: R.string.localizable.amongChatLeaveRoomTipTitle(),
+//            message: nil,
+//            preferredStyle: .alert
+//        )
+//        alertVC.setBackgroundColor(color: "222222".color())
+//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
+//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
+//
+//        let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
+//            guard let `self` = self else { return }
+//            self.requestLeaveRoom()
+//        })
+//        confirm.titleTextColor = .white
+//        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .default)
+//        cancel.titleTextColor = .white
+////        cancel.setTitlet(font: R.font.nunitoExtraBold(size: 15), color: .white)
+//
+//        alertVC.addAction(cancel)
+//        alertVC.addAction(confirm)
+//        present(alertVC, animated: true, completion: nil)
     }
     
     @objc
@@ -324,8 +322,8 @@ extension AmongChat.Room.ViewController {
         transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
         UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
         self.dismiss(animated: false) {
-            guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
             completionHandler?()
+            
             //Ad.InterstitialManager.shared.showAdIfReady(from: vc)
         }
     }
@@ -414,22 +412,11 @@ extension AmongChat.Room.ViewController {
         bgView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
-        
-//        copyNameBtn.snp.makeConstraints { (maker) in
-//            maker.left.equalToSuperview().inset(17)
-//            maker.centerY.equalTo(closeBtn)
-//            maker.height.equalTo(30)
-//        }
-//
-//        closeBtn.snp.makeConstraints { (maker) in
-//            maker.height.width.equalTo(44)
-//            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(2)
-//            maker.right.equalTo(-6)
-//        }
-        
+
+        let seatViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 40
         seatView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
-            maker.top.equalTo(configView.snp.bottom).offset(40)
+            maker.top.equalTo(configView.snp.bottom).offset(seatViewTopEdge)
             maker.height.equalTo(251)
         }
         
@@ -438,9 +425,9 @@ extension AmongChat.Room.ViewController {
             maker.height.equalTo(24)
             maker.left.right.equalToSuperview()
         }
-        
+        let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(toolView.snp.bottom).offset(17)
+            maker.top.equalTo(toolView.snp.bottom).offset(messageViewTopEdge)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
         }
@@ -543,18 +530,6 @@ extension AmongChat.Room.ViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-//    private func showBlockAlert(with user: Entity.RoomUser) {
-//        guard user.status != .blocked else {
-//            viewModel.unblockedUser(user)
-//            return
-//        }
-//        let modal = ActionModal(with: user, actionType: .block)
-//        modal.actionHandler = { [weak self] in
-//            self?.viewModel.blockedUser(user)
-//        }
-//        modal.showModal(in: self)
-//    }
-    
     private func bindSubviewEvent() {
         
 //        AdsManager.shared.mopubInitializeSuccessSubject
@@ -613,19 +588,7 @@ extension AmongChat.Room.ViewController {
                 }
             })
             .disposed(by: bag)
-        
-//        viewModel.userObservable
-//            .subscribe(onNext: { [weak self] (channelUsers) in
-////                self?.dataSource = channelUsers
-//            })
-//            .disposed(by: bag)
-        
-//        imViewModel.messagesObservable
-//            .subscribe(onNext: { [weak self] (msgs) in
-//                self?.messageListDataSource = msgs
-//            })
-//            .disposed(by: bag)
-//        
+
 //        imViewModel.imReadySignal
 //            .filter({ $0 })
 //            .take(1)
@@ -689,8 +652,9 @@ extension AmongChat.Room.ViewController {
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }
             if action == .kickout {
-                self.requestLeaveRoom { [weak self] in
-                    self?.navigationController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomKickout()))
+                self.requestLeaveRoom {
+                    let vc = UIApplication.navigationController?.viewControllers.first
+                    vc?.showKickedAlert()
                 }
             }
 //            guard action != .normalClose else {
@@ -755,6 +719,7 @@ extension AmongChat.Room.ViewController {
         
         topBar.leaveHandler = { [weak self] in
             self?.onCloseBtn()
+//            self?.viewModel.endRoomHandler?(.kickout)
         }
         
         topBar.kickOffHandler = { [weak self] in

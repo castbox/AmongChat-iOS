@@ -464,6 +464,7 @@ PODS:
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
+  - SDCAlertView (11.1.2)
   - SnapKit (4.2.0)
   - SnapSDK (1.4.4):
     - SnapSDK/SCSDKBitmojiKit (= 1.4.4)
@@ -546,6 +547,7 @@ DEPENDENCIES:
   - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
+  - SDCAlertView
   - SnapKit (~> 4.2.0)
   - SnapSDK
   - SwifterSwift
@@ -624,6 +626,7 @@ SPEC REPOS:
     - RxGesture
     - RxRelay
     - RxSwift
+    - SDCAlertView
     - SnapKit
     - SnapSDK
     - SSZipArchive
@@ -702,6 +705,7 @@ SPEC CHECKSUMS:
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SDCAlertView: 26b5dabdd3c2e6f16c88bad231c84447fa42b0dc
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
@@ -717,6 +721,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 677bfa4032915b4d607e4082867cced8b989d663
+PODFILE CHECKSUM: c4d9bc582a47c2d23c8bad97e78a96d1b08ed578
 
 COCOAPODS: 1.10.0

@@ -20,32 +20,31 @@ extension UIAlertController {
     //Set title font and title color
     func setTitlet(font: UIFont?, color: UIColor?) {
         guard let title = self.title else { return }
-        let attributeString = NSMutableAttributedString(string: title)//1
+        var attribates: [NSAttributedString.Key: Any] = [:]
         if let titleFont = font {
-            attributeString.addAttributes([NSAttributedString.Key.font : titleFont],//2
-                                          range: NSMakeRange(0, title.utf8.count))
+            attribates[NSAttributedString.Key.font] = titleFont
         }
 
         if let titleColor = color {
-            attributeString.addAttributes([NSAttributedString.Key.foregroundColor : titleColor],//3
-                                          range: NSMakeRange(0, title.utf8.count))
+            attribates[NSAttributedString.Key.foregroundColor] = titleColor
         }
+        let attributeString = NSMutableAttributedString(string: title, attributes: attribates)//1
         self.setValue(attributeString, forKey: "attributedTitle")//4
     }
 
     //Set message font and message color
     func setMessage(font: UIFont?, color: UIColor?) {
         guard let message = self.message else { return }
-        let attributeString = NSMutableAttributedString(string: message)
-        if let messageFont = font {
-            attributeString.addAttributes([NSAttributedString.Key.font : messageFont],
-                                          range: NSMakeRange(0, message.utf8.count))
+        var attribates: [NSAttributedString.Key: Any] = [:]
+        if let titleFont = font {
+            attribates[NSAttributedString.Key.font] = titleFont
         }
 
-        if let messageColorColor = color {
-            attributeString.addAttributes([NSAttributedString.Key.foregroundColor : messageColorColor],
-                                          range: NSMakeRange(0, message.utf8.count))
+        if let titleColor = color {
+            attribates[NSAttributedString.Key.foregroundColor] = titleColor
         }
+
+        let attributeString = NSMutableAttributedString(string: message, attributes: attribates)
         self.setValue(attributeString, forKey: "attributedMessage")
     }
 

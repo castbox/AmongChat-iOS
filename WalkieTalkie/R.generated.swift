@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   struct string {
     /// This `R.string.localizable` struct is generated, and contains static references to 164 localization keys.
     struct localizable {
-      /// en translation: %1$@ enters room
+      /// en translation: %1$@ enters channel
       /// 
       /// Locales: en
       static let channelJoinRequestEnterRoomMsg = Rswift.StringResource(key: "channel.join.request.enter.room.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1556,7 +1556,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatHomeTagAmongB = Rswift.StringResource(key: "among.chat.home.tag.among.b", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Are you sure to exit the room?
+      /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1608,6 +1608,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumPrivAutomatically = Rswift.StringResource(key: "premium.priv.automatically", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Channel ID
+      /// 
+      /// Locales: en
+      static let reportRoomId = Rswift.StringResource(key: "report.room.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Channel does not exist
       /// 
       /// Locales: en
@@ -1652,7 +1656,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatHomeTagCreatePrivate = Rswift.StringResource(key: "among.chat.home.tag.create.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room
+      /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any channel
       /// 
       /// Locales: en
       static let channelUserListMuteActionMsg = Rswift.StringResource(key: "channel.user.list.mute.action.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1756,10 +1760,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
+      /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
-      static let amongChatRoomStartGameTip1 = Rswift.StringResource(key: "among.chat.room.start.game.tip1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatChannelStartGameTip1 = Rswift.StringResource(key: "among.chat.channel.start.game.tip1", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Join
       /// 
       /// Locales: en
@@ -1944,10 +1948,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreTitle = Rswift.StringResource(key: "settings.restore.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Room ID
-      /// 
-      /// Locales: en
-      static let reportRoomId = Rswift.StringResource(key: "report.room.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: SECRET
       /// 
       /// Locales: en
@@ -2024,7 +2024,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: They won’t be able to add you friend or invite you in room. We won’t let them know you blocked them
+      /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
       static let channelUserListBlockActionMsg = Rswift.StringResource(key: "channel.user.list.block.action.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2132,7 +2132,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelJoinRequestModalTitle = Rswift.StringResource(key: "channel.join.request.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like
+      /// en translation: Your friend wants to join your secret channel and chat with you and your friends, would you like
       /// 
       /// Locales: en
       static let channelJoinRequestModalMsg = Rswift.StringResource(key: "channel.join.request.modal.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2148,7 +2148,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsRestoreSuccessTitle = Rswift.StringResource(key: "settings.restore.success.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: You’ve been removed from this game
+      /// en translation: You’ve been removed from this channel
       /// 
       /// Locales: en
       static let amongChatRoomKickout = Rswift.StringResource(key: "among.chat.room.kickout", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2160,7 +2160,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumLifetime = Rswift.StringResource(key: "premium.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: wait till you have enough crewmates. then open a room in game and find each other thru private code
+      /// en translation: wait till you have enough crewmates. then open a channel in game and find each other thru private code
       /// 
       /// Locales: en
       static let roomChillingDefaultNotes = Rswift.StringResource(key: "room.chilling.default.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2169,7 +2169,7 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static let settingsRestoreSuccessBody = Rswift.StringResource(key: "settings.restore.success.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
-      /// en translation: %1$@ enters room
+      /// en translation: %1$@ enters channel
       /// 
       /// Locales: en
       static func channelJoinRequestEnterRoomMsg(_ value1: String) -> String {
@@ -2246,7 +2246,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.tag.among.b", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Are you sure to exit the room?
+      /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en
       static func amongChatLeaveRoomTipTitle(_: Void = ()) -> String {
@@ -2337,6 +2337,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.priv.automatically", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Channel ID
+      /// 
+      /// Locales: en
+      static func reportRoomId(_: Void = ()) -> String {
+        return NSLocalizedString("report.room.id", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Channel does not exist
       /// 
       /// Locales: en
@@ -2414,7 +2421,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.tag.create.private", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room
+      /// en translation: Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any channel
       /// 
       /// Locales: en
       static func channelUserListMuteActionMsg(_: Void = ()) -> String {
@@ -2596,11 +2603,11 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: It's time to start the game! Let's pick a lucky guy to open a room in Among Us.
+      /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
-      static func amongChatRoomStartGameTip1(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.start.game.tip1", bundle: R.hostingBundle, comment: "")
+      static func amongChatChannelStartGameTip1(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.channel.start.game.tip1", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Join
@@ -2925,13 +2932,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.restore.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Room ID
-      /// 
-      /// Locales: en
-      static func reportRoomId(_: Void = ()) -> String {
-        return NSLocalizedString("report.room.id", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: SECRET
       /// 
       /// Locales: en
@@ -3065,7 +3065,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: They won’t be able to add you friend or invite you in room. We won’t let them know you blocked them
+      /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
       static func channelUserListBlockActionMsg(_: Void = ()) -> String {
@@ -3254,7 +3254,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.join.request.modal.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Your friend wants to join your secret room and chat with you and your friends, would you like
+      /// en translation: Your friend wants to join your secret channel and chat with you and your friends, would you like
       /// 
       /// Locales: en
       static func channelJoinRequestModalMsg(_: Void = ()) -> String {
@@ -3282,7 +3282,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("settings.restore.success.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: You’ve been removed from this game
+      /// en translation: You’ve been removed from this channel
       /// 
       /// Locales: en
       static func amongChatRoomKickout(_: Void = ()) -> String {
@@ -3303,7 +3303,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: wait till you have enough crewmates. then open a room in game and find each other thru private code
+      /// en translation: wait till you have enough crewmates. then open a channel in game and find each other thru private code
       /// 
       /// Locales: en
       static func roomChillingDefaultNotes(_: Void = ()) -> String {

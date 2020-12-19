@@ -44,7 +44,7 @@
                             <constraint firstItem="Qzu-Le-fuj" firstAttribute="leading" secondItem="CqC-uI-Fg2" secondAttribute="leading" id="s5n-Ok-4so"/>
                         </constraints>
                     </view>
-                    <blurEffect style="dark"/>
+                    <blurEffect style="light"/>
                 </visualEffectView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_icon_not" translatesAutoresizingMaskIntoConstraints="NO" id="wEn-OU-Cfa">
                     <rect key="frame" x="20" y="16" width="24" height="24"/>

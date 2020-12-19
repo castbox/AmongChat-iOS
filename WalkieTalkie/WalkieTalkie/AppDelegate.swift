@@ -156,22 +156,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard cfg.forceUpgrade else {
                     return
                 }
-                
-                let alert = UIAlertController(title: nil, message: R.string.localizable.forceUpgradeTip(), preferredStyle: .alert)
-                let okAction = UIAlertAction(title: R.string.localizable.alertOk(), style: .default) { (_) in
+                UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {
                     let appID = Constants.appId
                     let urlStr = "https://itunes.apple.com/app/id\(appID)?mt=8" // (Option 2) Open App Review Page
                     
                     guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
                     
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-                
-                alert.addAction(okAction)
-                
-                UIApplication.topViewController()?.present(alert, animated: true, completion: {
                 })
-                
             })
 //        Ad.AppOpenAdManager.shared.tryToPresentAd()
     }

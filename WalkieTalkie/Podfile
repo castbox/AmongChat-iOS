@@ -145,6 +145,10 @@ target 'WalkieTalkie' do
     pod 'Kingfisher'
     pod 'YYText'
     pod 'GoogleSignIn'
+    
+    #https://github.com/sberrevoets/SDCAlertView
+    pod 'SDCAlertView'
+
 end
 
 #target 'WalkieTalkieWidgetExtension' do

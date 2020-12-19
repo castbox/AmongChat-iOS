@@ -85,7 +85,7 @@
 
 "i.know" = "I Know";
 "report.title" = "Report";
-"report.room.id" = "Room ID";
+"report.room.id" = "Channel ID";
 "report.incorrect.information" = "Incorrect information";
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
@@ -139,17 +139,17 @@
 "channel.user.list.listen.empty.text" = "Nobody listens yet";
 "channel.user.list.mute.action" = "Mute Now";
 "channel.user.list.mute.action.title" = "Someone Noisy?";
-"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room";
+"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any channel";
 "channel.user.list.block.action.title" = "Block Username?";
-"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in room. We won’t let them know you blocked them";
+"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them";
 "channel.user.list.pro.badge" = "PRO";
 
 "channel.join.request.modal.title" = "Your friend wants to join you";
-"channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";
+"channel.join.request.modal.msg" = "Your friend wants to join your secret channel and chat with you and your friends, would you like";
 "channel.join.request.refuse" = "Refuse";
 "channel.join.request.accept" = "Accept";
 "channel.join.request.refused.msg" = "%1$@ refuses your request";
-"channel.join.request.enter.room.msg" = "%1$@ enters room";
+"channel.join.request.enter.room.msg" = "%1$@ enters channel";
 "channel.invite.sent.tip" = "Invitation has been sent";
 "channel.join.request.sent.tip" = "Request has been sent";
 
@@ -164,8 +164,8 @@
 "among.chat.home.tag.group" = "GroupChat";
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";
-"among.chat.leave.room.tip.title" = "Are you sure to exit the room?";
-"among.chat.room.start.game.tip1" = "It's time to start the game! Let's pick a lucky guy to open a room in Among Us.";
+"among.chat.leave.room.tip.title" = "Are you sure to exit the channel?";
+"among.chat.channel.start.game.tip1" = "It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.";
 "among.chat.room.start.game.tip2" = "What about you, %1$@";
 "among.chat.room.tip.timeout" = "Timeout";
 "among.chat.room.tip.failed" = "Failed";
@@ -187,7 +187,7 @@
 "room.tag.open.game" = "Open Game";
 "room.tag.chilling" = "Just Chatting";
 "room.roblox.default.notes" = "add the host in roblox to join their game! tap to copy";
-"room.chilling.default.notes" = "wait till you have enough crewmates. then open a room in game and find each other thru private code";
+"room.chilling.default.notes" = "wait till you have enough crewmates. then open a channel in game and find each other thru private code";
 "room.hosts.notes" = "Host's notes:";
 "room.user.list.muted" = "Muted";
 
@@ -205,7 +205,7 @@
 "among.chat.home.nowplaying" = "%1$@ online";
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
 "among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
-"among.chat.room.kickout" = "You’ve been removed from this game";
+"among.chat.room.kickout" = "You’ve been removed from this channel";
 "among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
 "among.chat.room.set.reblox.name" = "Setup Roblox Username";
 "among.chat.room.kick" = "Kick";

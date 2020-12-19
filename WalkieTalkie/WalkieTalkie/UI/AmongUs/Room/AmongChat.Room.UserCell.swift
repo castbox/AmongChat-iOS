@@ -206,7 +206,7 @@ extension AmongChat.Room.UserCell {
         }
         self.user = user
         avatarIV.contentMode = .scaleAspectFill
-        avatarIV.setImage(with: user.pictureUrl)
+        avatarIV.setAvatarImage(with: user.pictureUrl)
         nameLabel.text = user.name
         if user.status == .talking {
             haloView.startLoading()

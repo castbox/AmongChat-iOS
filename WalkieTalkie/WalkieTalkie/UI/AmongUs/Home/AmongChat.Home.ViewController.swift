@@ -241,3 +241,9 @@ extension AmongChat.Home.ViewController: UICollectionViewDelegate {
     }
     
 }
+
+extension UIViewController {
+    func showKickedAlert() {
+        showAmongAlert(title: R.string.localizable.amongChatRoomKickout(), message: nil, cancelTitle: nil, confirmTitle: R.string.localizable.alertOk())
+    }
+}
