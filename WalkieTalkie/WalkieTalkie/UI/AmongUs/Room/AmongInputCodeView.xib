@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -56,16 +57,16 @@
                                 <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="Kdl-Ib-e2a"/>
                             </connections>
                         </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0b-cg-aua">
-                            <rect key="frame" x="59" y="60" width="296" height="40"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hex-5e-ewn">
+                            <rect key="frame" x="40" y="60" width="334" height="40"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXH-9e-wm8">
-                                    <rect key="frame" x="0.0" y="0.0" width="130" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="saG-1H-Ych"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                     <state key="normal" title="North America">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -78,32 +79,13 @@
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="6YT-Jr-vMi"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
-                                    <rect key="frame" x="217" y="0.0" width="79" height="40"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="Axs-7i-8Fr"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
-                                    <state key="normal" title="Europe">
-                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </state>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                            <real key="value" value="20"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="qjd-k2-6oc"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-M6-xFk">
-                                    <rect key="frame" x="143" y="0.0" width="61" height="40"/>
+                                    <rect key="frame" x="163" y="0.0" width="59" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="yQ8-KA-QYr"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
-                                    <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                     <state key="normal" title="Asia">
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
@@ -116,18 +98,27 @@
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="pWM-6V-EUo"/>
                                     </connections>
                                 </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
+                                    <rect key="frame" x="257" y="0.0" width="77" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="Axs-7i-8Fr"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    <state key="normal" title="Europe">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="qjd-k2-6oc"/>
+                                    </connections>
+                                </button>
                             </subviews>
-                            <constraints>
-                                <constraint firstItem="5dZ-M6-xFk" firstAttribute="top" secondItem="dXH-9e-wm8" secondAttribute="top" id="0Nl-NT-8fR"/>
-                                <constraint firstAttribute="height" constant="40" id="2rT-1S-hfX"/>
-                                <constraint firstItem="0iq-1F-esu" firstAttribute="leading" secondItem="5dZ-M6-xFk" secondAttribute="trailing" constant="13" id="6SB-kZ-aoL"/>
-                                <constraint firstItem="dXH-9e-wm8" firstAttribute="top" secondItem="d0b-cg-aua" secondAttribute="top" id="8vd-XA-Yyj"/>
-                                <constraint firstAttribute="trailing" secondItem="0iq-1F-esu" secondAttribute="trailing" id="NUY-LT-Psp"/>
-                                <constraint firstItem="dXH-9e-wm8" firstAttribute="leading" secondItem="d0b-cg-aua" secondAttribute="leading" id="SLi-Td-Qom"/>
-                                <constraint firstItem="5dZ-M6-xFk" firstAttribute="leading" secondItem="dXH-9e-wm8" secondAttribute="trailing" constant="13" id="aHh-yO-hzT"/>
-                                <constraint firstItem="0iq-1F-esu" firstAttribute="top" secondItem="dXH-9e-wm8" secondAttribute="top" id="hdV-8J-eDd"/>
-                            </constraints>
-                        </view>
+                        </stackView>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ENTER YOUR PRIVATE CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rBY-vE-r6X">
                             <rect key="frame" x="40" y="0.0" width="334" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -149,15 +140,16 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="F3s-57-zD1" firstAttribute="centerY" secondItem="Utn-kV-aYU" secondAttribute="centerY" id="063-4E-gAa"/>
-                        <constraint firstItem="d0b-cg-aua" firstAttribute="centerX" secondItem="rBY-vE-r6X" secondAttribute="centerX" id="5VW-Xd-BRe"/>
-                        <constraint firstItem="d0b-cg-aua" firstAttribute="top" secondItem="rBY-vE-r6X" secondAttribute="bottom" constant="12" id="9vf-Hh-blT"/>
-                        <constraint firstItem="F3s-57-zD1" firstAttribute="top" secondItem="d0b-cg-aua" secondAttribute="bottom" constant="20" id="Ejg-KV-RvP"/>
                         <constraint firstAttribute="bottom" secondItem="Utn-kV-aYU" secondAttribute="bottom" constant="29" id="Gkr-8a-S8E"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="top" secondItem="rBY-vE-r6X" secondAttribute="bottom" constant="12" id="O0o-a7-NkQ"/>
                         <constraint firstItem="rBY-vE-r6X" firstAttribute="leading" secondItem="tkh-KN-1Sl" secondAttribute="leading" priority="750" constant="40" id="QSD-24-3Jc"/>
                         <constraint firstAttribute="trailing" secondItem="F3s-57-zD1" secondAttribute="trailing" constant="13" id="Ts2-tU-ldm"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="trailing" secondItem="rBY-vE-r6X" secondAttribute="trailing" id="Xnp-kE-JH2"/>
                         <constraint firstAttribute="trailing" secondItem="rBY-vE-r6X" secondAttribute="trailing" priority="750" constant="40" id="dGO-z3-E93"/>
+                        <constraint firstItem="F3s-57-zD1" firstAttribute="top" secondItem="hex-5e-ewn" secondAttribute="bottom" constant="20" id="fFW-jJ-dHM"/>
                         <constraint firstItem="Utn-kV-aYU" firstAttribute="leading" secondItem="tkh-KN-1Sl" secondAttribute="leading" constant="22" id="lvJ-3l-8O5"/>
                         <constraint firstItem="rBY-vE-r6X" firstAttribute="top" secondItem="tkh-KN-1Sl" secondAttribute="top" id="mAv-fW-lpa"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="leading" secondItem="rBY-vE-r6X" secondAttribute="leading" id="xxY-i2-mX2"/>
                     </constraints>
                 </view>
             </subviews>
