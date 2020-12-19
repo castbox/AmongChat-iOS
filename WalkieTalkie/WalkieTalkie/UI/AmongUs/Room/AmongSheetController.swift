@@ -108,7 +108,13 @@ extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        if offset.y < -64 && scrollView.isTracking {
+            self.hideModal()
+        }
+    }
 }
 
 extension AmongSheetController.ItemType {

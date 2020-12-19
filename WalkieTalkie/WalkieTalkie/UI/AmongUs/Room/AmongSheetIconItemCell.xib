@@ -26,7 +26,7 @@
                         <rect key="frame" x="12.5" y="6" width="295" height="48"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="SNM-pr-Fjz"/>
-                            <constraint firstAttribute="width" constant="295" id="tka-0f-hcC"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="tka-0f-hcC"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -45,7 +45,9 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="IIC-Wl-Fli" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="IND-KE-5vT"/>
+                    <constraint firstItem="IIC-Wl-Fli" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" priority="750" constant="40" id="K1E-YW-mP1"/>
                     <constraint firstItem="IIC-Wl-Fli" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UCV-5h-n22"/>
+                    <constraint firstAttribute="trailing" secondItem="IIC-Wl-Fli" secondAttribute="trailing" priority="750" constant="40" id="Wgp-BJ-1AJ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

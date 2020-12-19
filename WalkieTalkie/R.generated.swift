@@ -1496,7 +1496,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 158 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 159 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1766,6 +1766,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomTagChilling = Rswift.StringResource(key: "room.tag.chilling", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Kick
+      /// 
+      /// Locales: en
+      static let amongChatRoomKick = Rswift.StringResource(key: "among.chat.room.kick", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Kick Selected (%@)
       /// 
       /// Locales: en
@@ -2598,6 +2602,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func roomTagChilling(_: Void = ()) -> String {
         return NSLocalizedString("room.tag.chilling", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Kick
+      /// 
+      /// Locales: en
+      static func amongChatRoomKick(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.kick", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Kick Selected (%@)
