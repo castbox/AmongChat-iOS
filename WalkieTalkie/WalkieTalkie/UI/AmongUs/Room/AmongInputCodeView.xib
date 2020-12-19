@@ -149,6 +149,7 @@
                         <constraint firstItem="F3s-57-zD1" firstAttribute="top" secondItem="hex-5e-ewn" secondAttribute="bottom" constant="20" id="fFW-jJ-dHM"/>
                         <constraint firstItem="Utn-kV-aYU" firstAttribute="leading" secondItem="tkh-KN-1Sl" secondAttribute="leading" constant="22" id="lvJ-3l-8O5"/>
                         <constraint firstItem="rBY-vE-r6X" firstAttribute="top" secondItem="tkh-KN-1Sl" secondAttribute="top" id="mAv-fW-lpa"/>
+                        <constraint firstItem="rBY-vE-r6X" firstAttribute="centerX" secondItem="tkh-KN-1Sl" secondAttribute="centerX" id="uhG-Zc-Jxd"/>
                         <constraint firstItem="hex-5e-ewn" firstAttribute="leading" secondItem="rBY-vE-r6X" secondAttribute="leading" id="xxY-i2-mX2"/>
                     </constraints>
                 </view>

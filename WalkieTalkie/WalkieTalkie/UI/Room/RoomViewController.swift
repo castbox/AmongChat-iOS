@@ -59,8 +59,8 @@ class RoomViewController: ViewController {
         return v
     }()
     
-    private lazy var avatarBtn: Social.Widgets.AvatarView = {
-        let iv = Social.Widgets.AvatarView()
+    private lazy var avatarBtn: Social.Widgets.OuterBorderdImageView = {
+        let iv = Social.Widgets.OuterBorderdImageView()
         iv.isUserInteractionEnabled = true
         let tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(reportButtonAction(_:)))
@@ -79,8 +79,8 @@ class RoomViewController: ViewController {
         return btn
     }()
     
-    private lazy var avatarDot: Social.Widgets.AvatarView = {
-        let iv = Social.Widgets.AvatarView()
+    private lazy var avatarDot: Social.Widgets.OuterBorderdImageView = {
+        let iv = Social.Widgets.OuterBorderdImageView()
         iv.a_backgroundColor = UIColor(hex6: 0xFF6679, alpha: 1.0)
         iv.a_cornerRadius = 5
         iv.a_borderWidth = 1

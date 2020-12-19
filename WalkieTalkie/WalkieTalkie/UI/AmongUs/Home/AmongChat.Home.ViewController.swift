@@ -109,16 +109,22 @@ extension AmongChat.Home.ViewController {
         }
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.enterRoom(roomId: roomId, topicId: topic)
-            .do(onDispose: {
-                hudRemoval()
-            })
-            .subscribe(onSuccess: { (room) in
+//            .do(onDispose: {
+//                hudRemoval()
+//            })
+            .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
-                guard let room = room else { return }
+                guard let `self` = self, let room = room else {
+                    hudRemoval()
+                    return
+                }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self)
+                AmongChat.Room.ViewController.join(room: room, from: self) { error in
+                    hudRemoval()
+                }
 
-            }, onError: { (error) in
+            }, onError: { [weak self] (error) in
+                hudRemoval()
                 cdPrint("error: \(error.localizedDescription)")
             })
             .disposed(by: bag)
@@ -169,10 +175,14 @@ extension AmongChat.Home.ViewController {
     }
     
     private func fetchSummaryData() {
-        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        var hudRemoval: Raft.RemoveBlock? = nil
+        if topicsDataSource.count == 0 {
+           hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        }
+        
         Request.summary()
             .do(onDispose: {
-                hudRemoval()
+                hudRemoval?()
             })
             .subscribe(onSuccess: { [weak self] (summary) in
                 
@@ -184,7 +194,9 @@ extension AmongChat.Home.ViewController {
                 
                 cdPrint("")
             }, onError: { [weak self] (error) in
-                
+                guard self?.topicsDataSource.count == 0 else {
+                    return
+                }
                 let v = AmongChat.Home.LoadErrorView()
                 self?.view.addSubview(v)
                 v.snp.makeConstraints { (maker) in

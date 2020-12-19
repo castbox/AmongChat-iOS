@@ -183,7 +183,8 @@ extension AmongChat.Room {
             
             gameNameButton.snp.makeConstraints { maker in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(4)
-                maker.left.right.equalToSuperview()
+                maker.left.equalTo(3)
+                maker.right.equalTo(-3)
                 maker.height.equalTo(20)
             }
         }

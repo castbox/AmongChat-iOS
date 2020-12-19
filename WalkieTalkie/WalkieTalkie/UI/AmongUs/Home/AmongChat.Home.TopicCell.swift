@@ -13,13 +13,13 @@ extension AmongChat.Home {
     
     class TopicCell: UICollectionViewCell {
         
-        private lazy var coverIV: UIImageView = {
-            let iv = UIImageView()
+        typealias OuterBorderdImageView = Social.Widgets.OuterBorderdImageView
+        private lazy var coverIV: OuterBorderdImageView = {
+            let iv = OuterBorderdImageView()
             iv.contentMode = .scaleAspectFill
-            iv.layer.cornerRadius = 12
-            iv.layer.masksToBounds = true
-            iv.layer.borderWidth = 4
-            iv.layer.borderColor = UIColor.white.alpha(0.7).cgColor
+            iv.a_cornerRadius = 12
+            iv.a_borderWidth = 4
+            iv.a_borderColor = UIColor.white.alpha(0.7)
             return iv
         }()
         
