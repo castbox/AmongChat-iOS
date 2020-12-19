@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 138 images.
+  /// This `R.image` struct is generated, and contains static references to 137 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -198,8 +198,6 @@ struct R: Rswift.Validatable {
     static let ac_medal_silver = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_silver")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
-    /// Image `ac_profile_back`.
-    static let ac_profile_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_back")
     /// Image `ac_profile_birthday`.
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
     /// Image `ac_profile_block`.
@@ -563,11 +561,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
     static func ac_profile_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_avatar, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_back", bundle: ..., traitCollection: ...)`
-    static func ac_profile_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_back, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_birthday", bundle: ..., traitCollection: ...)`
