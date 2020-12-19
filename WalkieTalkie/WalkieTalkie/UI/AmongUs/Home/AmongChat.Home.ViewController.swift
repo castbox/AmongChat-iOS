@@ -194,7 +194,9 @@ extension AmongChat.Home.ViewController {
                 
                 cdPrint("")
             }, onError: { [weak self] (error) in
-                
+                guard self?.topicsDataSource.count == 0 else {
+                    return
+                }
                 let v = AmongChat.Home.LoadErrorView()
                 self?.view.addSubview(v)
                 v.snp.makeConstraints { (maker) in
