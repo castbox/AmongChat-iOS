@@ -201,8 +201,8 @@
 "among.chat.create.room.private" = "Private";
 "among.chat.create.room.title" = "Create a Channel";
 "among.chat.create.room.topic.title" = "Hot topics";
-"among.chat.home.team.up" = "Team up";
-"among.chat.home.nowplaying" = "%1$@ playing";
+"among.chat.home.team.up" = "Play Now";
+"among.chat.home.nowplaying" = "%1$@ online";
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
 "among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
 "among.chat.room.kickout" = "You’ve been removed from this game";

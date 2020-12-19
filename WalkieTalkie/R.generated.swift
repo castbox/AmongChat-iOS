@@ -1523,7 +1523,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelJoinRequestEnterRoomMsg = Rswift.StringResource(key: "channel.join.request.enter.room.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: %1$@ playing
+      /// en translation: %1$@ online
       /// 
       /// Locales: en
       static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1899,6 +1899,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Play Now
+      /// 
+      /// Locales: en
+      static let amongChatHomeTeamUp = Rswift.StringResource(key: "among.chat.home.team.up", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please check your connection and try again
       /// 
       /// Locales: en
@@ -2019,10 +2023,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Team up
-      /// 
-      /// Locales: en
-      static let amongChatHomeTeamUp = Rswift.StringResource(key: "among.chat.home.team.up", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en
@@ -2183,7 +2183,7 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("channel.join.request.enter.room.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
-      /// en translation: %1$@ playing
+      /// en translation: %1$@ online
       /// 
       /// Locales: en
       static func amongChatHomeNowplaying(_ value1: String) -> String {
@@ -2841,6 +2841,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Play Now
+      /// 
+      /// Locales: en
+      static func amongChatHomeTeamUp(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.team.up", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Please check your connection and try again
       /// 
       /// Locales: en
@@ -3049,13 +3056,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Team up
-      /// 
-      /// Locales: en
-      static func amongChatHomeTeamUp(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.team.up", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms of Service
