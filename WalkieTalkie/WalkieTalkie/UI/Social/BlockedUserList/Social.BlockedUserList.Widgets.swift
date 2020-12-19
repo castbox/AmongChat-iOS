@@ -68,15 +68,15 @@ extension Social.BlockedUserList.Widgets {
             contentView.addSubviews(views: avatarIV, usernameLabel, unlockBtn)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(40)
+                maker.left.equalToSuperview().offset(20)
                 maker.centerY.equalToSuperview()
-                maker.left.equalToSuperview().offset(15)
+                maker.width.height.equalTo(40)
             }
             
             usernameLabel.snp.makeConstraints { (maker) in
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
                 maker.right.equalTo(-100)
-                maker.height.equalTo(27)
+                maker.height.equalTo(30)
                 maker.centerY.equalToSuperview()
             }
             
