@@ -125,8 +125,10 @@ extension AmongChat.CreateRoom {
             let sw = UISwitch()
             sw.isOn = false
             sw.onTintColor = UIColor(hexString: "#FFF000")
-            sw.backgroundColor = UIColor(hexString: "#101017")
+            sw.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.3)
             sw.layer.cornerRadius = sw.bounds.height / 2
+            sw.layer.borderWidth = 0
+            sw.layer.borderColor = UIColor.clear.cgColor
             return sw
         }()
         
@@ -138,6 +140,7 @@ extension AmongChat.CreateRoom {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            setupEvents()
         }
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -221,6 +224,17 @@ extension AmongChat.CreateRoom.ViewController {
         
     }
     
+    private func setupEvents() {
+        
+        privateStateSwitch.rx.isOn
+            .subscribe(onNext: { [weak self] (_) in
+                
+                self?.confirmButton.setTitle(R.string.localizable.amongChatCreateRoomConfirmBtn(self?.privateStateSwitch.roomPublicType.rawValue ?? ""), for: .normal)
+                
+            })
+            .disposed(by: bag)
+    }
+    
     private func createRoom(with name: String) {
         
         view.endEditing(true)
@@ -228,7 +242,7 @@ extension AmongChat.CreateRoom.ViewController {
         typealias Topic = AmongChat.Topic
                 
         var roomProto = Entity.RoomProto()
-        roomProto.state = privateStateSwitch.isOn ? .private : .public
+        roomProto.state = privateStateSwitch.roomPublicType
         
         if let topic = Topic(rawValue: name) {
             roomProto.topicId = topic
@@ -322,4 +336,14 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
         createRoom(with: topic.topic.rawValue)
     }
 
+}
+
+fileprivate extension UISwitch {
+    
+    var roomPublicType: Entity.RoomPublicType {
+        
+        return isOn ? .private : .public
+        
+    }
+    
 }

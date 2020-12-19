@@ -1635,11 +1635,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let copied = Rswift.StringResource(key: "copied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Create
-      /// 
-      /// Locales: en
-      static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Create %1$@ room
+      /// en translation: Create %1$@ channel
       /// 
       /// Locales: en
       static let amongChatCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1647,6 +1643,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTipsTitle = Rswift.StringResource(key: "add.channel.global.tips.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Create a Channel
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create a channel visible to everyone and chat with them
       /// 
       /// Locales: en
@@ -1667,6 +1667,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let shareTiktokContentDowload = Rswift.StringResource(key: "share.tiktok.content.dowload", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: ENTER YOUR TOPIC
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ERROR MAX USERS
       /// 
       /// Locales: en
@@ -1735,7 +1739,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomHostsNotes = Rswift.StringResource(key: "room.hosts.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Hot topic
+      /// en translation: Hot topics
       /// 
       /// Locales: en
       static let amongChatCreateRoomTopicTitle = Rswift.StringResource(key: "among.chat.create.room.topic.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2015,10 +2019,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: TYPE YOUR TOPIC HERE
-      /// 
-      /// Locales: en
-      static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Team up
       /// 
       /// Locales: en
@@ -2379,14 +2379,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("copied", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Create
-      /// 
-      /// Locales: en
-      static func amongChatCreateRoomTitle(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Create %1$@ room
+      /// en translation: Create %1$@ channel
       /// 
       /// Locales: en
       static func amongChatCreateRoomConfirmBtn(_ value1: String) -> String {
@@ -2398,6 +2391,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelGlobalTipsTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.tips.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create a Channel
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Create a channel visible to everyone and chat with them
@@ -2433,6 +2433,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func shareTiktokContentDowload(_: Void = ()) -> String {
         return NSLocalizedString("share.tiktok.content.dowload", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: ENTER YOUR TOPIC
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomInputPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: ERROR MAX USERS
@@ -2554,7 +2561,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.hosts.notes", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Hot topic
+      /// en translation: Hot topics
       /// 
       /// Locales: en
       static func amongChatCreateRoomTopicTitle(_: Void = ()) -> String {
@@ -3042,13 +3049,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: TYPE YOUR TOPIC HERE
-      /// 
-      /// Locales: en
-      static func amongChatCreateRoomInputPlaceholder(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Team up
