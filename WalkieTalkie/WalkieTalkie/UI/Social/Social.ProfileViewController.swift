@@ -107,7 +107,7 @@ extension Social {
             }
             backBtn.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(15)
-                maker.top.equalTo(56 - Frame.Height.safeAeraTopHeight)
+                maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
                 maker.width.height.equalTo(25)
             }
             
@@ -282,7 +282,7 @@ extension Social.ProfileViewController {
             addSubviews(views: titleLabel, avatarIV, nameLabel, editBtn)
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(52 - Frame.Height.safeAeraTopHeight)
+                maker.top.equalTo(12 + Frame.Height.safeAeraTopHeight)
                 maker.centerX.equalToSuperview()
             }
             
