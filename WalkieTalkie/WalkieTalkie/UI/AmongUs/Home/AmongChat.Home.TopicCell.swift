@@ -39,6 +39,7 @@ extension AmongChat.Home {
             btn.setTitle(R.string.localizable.amongChatHomeTeamUp(), for: .normal)
             btn.layer.cornerRadius = 18
             btn.layer.masksToBounds = true
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return btn
         }()
         
@@ -96,7 +97,6 @@ extension AmongChat.Home {
             teamUpBtn.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalToSuperview().inset(12)
                 maker.height.equalTo(36)
-                maker.width.greaterThanOrEqualTo(106)
             }
             
         }
