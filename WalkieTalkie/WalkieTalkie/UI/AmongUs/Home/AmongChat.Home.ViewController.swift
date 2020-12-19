@@ -175,10 +175,14 @@ extension AmongChat.Home.ViewController {
     }
     
     private func fetchSummaryData() {
-        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        var hudRemoval: Raft.RemoveBlock? = nil
+        if topicsDataSource.count == 0 {
+           hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        }
+        
         Request.summary()
             .do(onDispose: {
-                hudRemoval()
+                hudRemoval?()
             })
             .subscribe(onSuccess: { [weak self] (summary) in
                 
