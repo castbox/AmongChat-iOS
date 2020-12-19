@@ -84,12 +84,12 @@ extension Social {
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(15)
-                maker.top.equalToSuperview().offset(56 - Frame.Height.safeAeraTopHeight)
+                maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
                 maker.width.height.equalTo(25)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview().offset(113 - Frame.Height.safeAeraTopHeight)
+                maker.top.equalTo(backBtn.snp.bottom).offset(32.5)
                 maker.width.height.equalTo(90)
                 maker.centerX.equalToSuperview()
             }
@@ -175,10 +175,10 @@ extension Social {
         }
         
         func selectBirthday() {
-//            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
-//                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
-//                return
-//            }
+            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
+                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
+                return
+            }
             let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
                 guard let `self` = self else {

@@ -23,42 +23,49 @@ class PolicyLabel: YYLabel {
     }
     
     var onInteration: LabelInteration?
-    
-    static let highlightedColor = UIColor(hex6: 0xb2b2b2)
-    
+        
     private func setup() {
         numberOfLines = 0
         textAlignment = .center
-        preferredMaxLayoutWidth = UIScreen.main.bounds.size.width - 20 * 2
+        preferredMaxLayoutWidth = 300
         lineBreakMode = .byWordWrapping
-        let text = R.string.localizable.privacyLabel()
+        let terms = R.string.localizable.amongChatTermsService()
+        let privacy = R.string.localizable.amongChatPrivacyPolicy()
+        let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+        let privacyRange = (text as NSString).range(of: privacy)
+        let termsRange = (text as NSString).range(of: terms)
+        
         let attTxt = NSMutableAttributedString(string: text)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : PolicyLabel.highlightedColor,
-                              NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: UIFont.Weight.regular.rawValue)),
+        
+        let font: UIFont = R.font.nunitoExtraBold(size: 10) ?? UIFont.systemFont(ofSize: 10, weight: UIFont.Weight(rawValue: UIFont.Weight.bold.rawValue))
+        
+        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.white,
+                              NSAttributedString.Key.font : font,
                               NSAttributedString.Key.paragraphStyle : paragraphStyle],
                              range: NSRange(location: 0, length: text.count)
         )
         
-        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : PolicyLabel.highlightedColor],
-                             range: (text as NSString).range(of: R.string.localizable.termsPrivacy())
+        attTxt.addAttributes([NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue],
+                             range: termsRange
         )
         
-        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : PolicyLabel.highlightedColor],
-                             range: (text as NSString).range(of: R.string.localizable.termsService())
+        attTxt.addAttributes([NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue],
+                             range: privacyRange
         )
         
         attributedText = attTxt
         
-        textTapAction = { [weak self] (containerView:UIView, text:NSAttributedString, range:NSRange, rect:CGRect) -> Void in
-            guard let `self` = self, let handler = self.onInteration else { return }
-            let plcRng = (text.string as NSString).range(of: R.string.localizable.termsPrivacy())
-            let srvcRng = (text.string as NSString).range(of: R.string.localizable.termsService())
+        textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
+            guard let `self` = self,
+                  let handler = self.onInteration else {
+                return
+            }
             var target: String = ""
-            if NSIntersectionRange(range, plcRng).length > 0 {
+            if NSIntersectionRange(range, privacyRange).length > 0 {
                 target = "https://among.chat/policy.html"
-            } else if NSIntersectionRange(range, srvcRng).length > 0 {
+            } else if NSIntersectionRange(range, termsRange).length > 0 {
                 target = "https://among.chat/term.html"
             } else {
                 return

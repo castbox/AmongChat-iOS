@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 131 images.
+  /// This `R.image` struct is generated, and contains static references to 135 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -180,6 +180,14 @@ struct R: Rswift.Validatable {
     static let ac_icon_sheet_unmute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unmute")
     /// Image `ac_kick_selected`.
     static let ac_kick_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_kick_selected")
+    /// Image `ac_login_apple`.
+    static let ac_login_apple = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_apple")
+    /// Image `ac_login_bg`.
+    static let ac_login_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_bg")
+    /// Image `ac_login_google`.
+    static let ac_login_google = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_google")
+    /// Image `ac_login_logo`.
+    static let ac_login_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_logo")
     /// Image `ac_medal_bronze`.
     static let ac_medal_bronze = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_bronze")
     /// Image `ac_medal_silver`.
@@ -504,6 +512,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_kick_selected", bundle: ..., traitCollection: ...)`
     static func ac_kick_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_kick_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_apple", bundle: ..., traitCollection: ...)`
+    static func ac_login_apple(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_apple, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_bg", bundle: ..., traitCollection: ...)`
+    static func ac_login_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_google", bundle: ..., traitCollection: ...)`
+    static func ac_login_google(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_google, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_logo", bundle: ..., traitCollection: ...)`
+    static func ac_login_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_logo, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_medal_bronze", bundle: ..., traitCollection: ...)`
@@ -1468,7 +1496,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 157 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 158 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1542,6 +1570,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelSpeakingLimitModalTitle = Rswift.StringResource(key: "channel.speaking.limit.modal.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: By continuing, you agree to our %1$@ and %2$@
+      /// 
+      /// Locales: en
+      static let amongChatPrivacyLabel = Rswift.StringResource(key: "among.chat.privacy.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
@@ -1662,10 +1694,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelGlobalTitle = Rswift.StringResource(key: "add.channel.global.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Google
-      /// 
-      /// Locales: en
-      static let loginGoogle = Rswift.StringResource(key: "login.google", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GroupChat
       /// 
       /// Locales: en
@@ -1837,11 +1865,7 @@ struct R: Rswift.Validatable {
       /// en translation: Privacy Policy
       /// 
       /// Locales: en
-      static let termsPrivacy = Rswift.StringResource(key: "terms.privacy", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Privacy Policy & Terms of Service
-      /// 
-      /// Locales: en
-      static let privacyLabel = Rswift.StringResource(key: "privacy.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatPrivacyPolicy = Rswift.StringResource(key: "among.chat.privacy.policy", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Private
       /// 
       /// Locales: en
@@ -1922,6 +1946,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sign in with Apple
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInWithApple = Rswift.StringResource(key: "among.chat.login.sign.in.with.apple", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sign in with Google
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInWithGoogle = Rswift.StringResource(key: "among.chat.login.sign.in.with.google", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Social
       /// 
       /// Locales: en
@@ -1953,7 +1985,7 @@ struct R: Rswift.Validatable {
       /// en translation: Terms of Service
       /// 
       /// Locales: en
-      static let termsService = Rswift.StringResource(key: "terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      static let amongChatTermsService = Rswift.StringResource(key: "among.chat.terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Thanks for reporting. It would be processed within 24 hours.
       /// 
       /// Locales: en
@@ -2225,6 +2257,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.speaking.limit.modal.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: By continuing, you agree to our %1$@ and %2$@
+      /// 
+      /// Locales: en
+      static func amongChatPrivacyLabel(_ value1: String, _ value2: String) -> String {
+        return String(format: NSLocalizedString("among.chat.privacy.label", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
       /// en translation: CHANNEL NAME
       /// 
       /// Locales: en
@@ -2433,13 +2472,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelGlobalTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Google
-      /// 
-      /// Locales: en
-      static func loginGoogle(_: Void = ()) -> String {
-        return NSLocalizedString("login.google", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: GroupChat
@@ -2739,15 +2771,8 @@ struct R: Rswift.Validatable {
       /// en translation: Privacy Policy
       /// 
       /// Locales: en
-      static func termsPrivacy(_: Void = ()) -> String {
-        return NSLocalizedString("terms.privacy", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Privacy Policy & Terms of Service
-      /// 
-      /// Locales: en
-      static func privacyLabel(_: Void = ()) -> String {
-        return NSLocalizedString("privacy.label", bundle: R.hostingBundle, comment: "")
+      static func amongChatPrivacyPolicy(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.privacy.policy", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Private
@@ -2890,6 +2915,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Sign in with Apple
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInWithApple(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.with.apple", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sign in with Google
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInWithGoogle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.with.google", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Social
       /// 
       /// Locales: en
@@ -2942,8 +2981,8 @@ struct R: Rswift.Validatable {
       /// en translation: Terms of Service
       /// 
       /// Locales: en
-      static func termsService(_: Void = ()) -> String {
-        return NSLocalizedString("terms.service", bundle: R.hostingBundle, comment: "")
+      static func amongChatTermsService(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.terms.service", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Thanks for reporting. It would be processed within 24 hours.

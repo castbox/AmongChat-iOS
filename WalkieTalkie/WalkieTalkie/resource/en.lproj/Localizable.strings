@@ -191,10 +191,11 @@
 "room.hosts.notes" = "Host's notes:";
 "room.user.list.muted" = "Muted";
 
-"terms.privacy" = "Privacy Policy";
-"terms.service" = "Terms of Service";
-"login.google" = "Google";
-"privacy.label" = "Privacy Policy & Terms of Service";
+"among.chat.privacy.policy" = "Privacy Policy";
+"among.chat.terms.service" = "Terms of Service";
+"among.chat.privacy.label" = "By continuing, you agree to our %1$@ and %2$@";
+"among.chat.login.sign.in.with.google" = "Sign in with Google";
+"among.chat.login.sign.in.with.apple" = "Sign in with Apple";
 "among.chat.create.room.input.placeholder" = "TYPE YOUR TOPIC HERE";
 "among.chat.create.room.confirm.btn" = "Create %1$@ room";
 "among.chat.create.room.private" = "Private";

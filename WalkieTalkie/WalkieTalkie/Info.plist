@@ -67,9 +67,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>need mic to join the room</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow WalkieTalkie to use your photo library</string>
+	<string>Please allow Among Chat to use your photo library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Please allow WalkieTalkie to use your speech recognition</string>
+	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>SCSDKClientId</key>
 	<string>944a91d7-5a1f-4812-9821-7e823d680baf</string>
 	<key>TikTokAppID</key>
