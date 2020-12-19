@@ -152,3 +152,10 @@ extension APIService.AmongChatBackend: TargetType {
     
 }
 
+extension APIService.AmongChatBackend: CachePolicyGettableType {
+    
+    var cachePolicy: URLRequest.CachePolicy? {
+        return nil
+    }
+    
+}
