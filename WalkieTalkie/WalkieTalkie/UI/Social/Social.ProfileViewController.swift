@@ -16,10 +16,10 @@ extension Social {
         
         enum Option {
             case inviteFriends
-            //            case blockUser
             case settings
             case community
-            
+            case blockUser
+
             func image() -> UIImage? {
                 switch self {
                 case .inviteFriends:
@@ -28,6 +28,8 @@ extension Social {
                     return R.image.profile_settings()
                 case .community:
                     return R.image.ac_profile_communtiy()
+                case .blockUser:
+                    return UIImage(named: "ac_profile_block")
                 }
             }
             
@@ -39,6 +41,8 @@ extension Social {
                     return R.string.localizable.profileSettings()
                 case .community:
                     return R.string.localizable.profileCommunity()
+                case .blockUser:
+                    return R.string.localizable.profileBlockUser()
                 }
             }
         }
@@ -76,9 +80,9 @@ extension Social {
         private lazy var options: [Option] = {
             return [
                 .inviteFriends,
-                //            .blockUser,
                 .settings,
                 .community,
+                .blockUser,
             ]
         }()
         
@@ -180,9 +184,9 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
                 }
-            //            case .blockUser:
-//                            let vc = Social.BlockedUserList.ViewController()
-//                            navigationController?.pushViewController(vc)
+            case .blockUser:
+                let vc = Social.BlockedUserList.ViewController()
+                navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
@@ -348,7 +352,8 @@ extension Social.ProfileViewController {
             
             nameLabel.appendKern()
             
-            avatarIV.setImage(with: profile.pictureUrl)
+            avatarIV.setAvatarImage(with: profile.pictureUrl)
+            
             editBtn.isHidden = false
         }
         
@@ -358,52 +363,6 @@ extension Social.ProfileViewController {
         
         func configFollowingCount(_ followingCount: Int) {
             followingBtn.setTitle("\(followingCount)")
-        }
-        
-        private class VerticalTitleButton: UIView {
-            private lazy var titleLabel: WalkieLabel = {
-                let lb = WalkieLabel()
-                lb.textAlignment = .center
-                lb.font = R.font.nunitoSemiBold(size: 14)
-                lb.textColor = .black
-                return lb
-            }()
-            
-            private lazy var subtitleLabel: WalkieLabel = {
-                let lb = WalkieLabel()
-                lb.textAlignment = .center
-                lb.font = R.font.nunitoSemiBold(size: 12)
-                lb.textColor = UIColor(hex6: 0x000000, alpha: 0.5)
-                return lb
-            }()
-            
-            init() {
-                super.init(frame: .zero)
-                addSubviews(views: titleLabel, subtitleLabel)
-                titleLabel.snp.makeConstraints { (maker) in
-                    maker.left.top.right.equalToSuperview()
-                    maker.height.equalTo(19)
-                }
-                subtitleLabel.snp.makeConstraints { (maker) in
-                    maker.left.right.bottom.equalToSuperview()
-                    maker.height.equalTo(16)
-                    maker.top.equalTo(titleLabel.snp.bottom)
-                }
-            }
-            
-            required init?(coder: NSCoder) {
-                fatalError("init(coder:) has not been implemented")
-            }
-            
-            func setTitle(_ title: String) {
-                titleLabel.text = title
-                titleLabel.appendKern()
-            }
-            
-            func setSubtitle(_ subtitle: String) {
-                subtitleLabel.text = subtitle
-                subtitleLabel.appendKern()
-            }
         }
     }
 }
@@ -477,6 +436,51 @@ extension Social.ProfileViewController {
             iconIV.image = option.image()
             titleLabel.text = option.text()
             titleLabel.appendKern()
+        }
+    }
+    private class VerticalTitleButton: UIView {
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.textAlignment = .center
+            lb.font = R.font.nunitoSemiBold(size: 14)
+            lb.textColor = .black
+            return lb
+        }()
+        
+        private lazy var subtitleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.textAlignment = .center
+            lb.font = R.font.nunitoSemiBold(size: 12)
+            lb.textColor = UIColor(hex6: 0x000000, alpha: 0.5)
+            return lb
+        }()
+        
+        init() {
+            super.init(frame: .zero)
+            addSubviews(views: titleLabel, subtitleLabel)
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.left.top.right.equalToSuperview()
+                maker.height.equalTo(19)
+            }
+            subtitleLabel.snp.makeConstraints { (maker) in
+                maker.left.right.bottom.equalToSuperview()
+                maker.height.equalTo(16)
+                maker.top.equalTo(titleLabel.snp.bottom)
+            }
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func setTitle(_ title: String) {
+            titleLabel.text = title
+            titleLabel.appendKern()
+        }
+        
+        func setSubtitle(_ subtitle: String) {
+            subtitleLabel.text = subtitle
+            subtitleLabel.appendKern()
         }
     }
 }

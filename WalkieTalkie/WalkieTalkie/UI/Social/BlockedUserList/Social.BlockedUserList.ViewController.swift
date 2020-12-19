@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 extension Social {
     struct BlockedUserList {}
@@ -46,7 +47,7 @@ extension Social.BlockedUserList {
             return tb
         }()
         
-        private var userList: [ChannelUserViewModel] = [] {
+        private var userList: [Entity.RoomUser] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -60,7 +61,7 @@ extension Social.BlockedUserList {
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor.theme(.backgroundBlack)//UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            view.backgroundColor = UIColor.theme(.backgroundBlack)
 
             view.addSubviews(views: backBtn, titleLabel)
             
@@ -85,48 +86,14 @@ extension Social.BlockedUserList {
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(25)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             
         }
         
         private func bindData() {
-            
-            var removeHUDBlock: (() -> Void)? = nil
-            
-            Social.Module.shared.blockedObservable
-                .map({ Set($0) })
-                .distinctUntilChanged()
-                .map({ Array($0) })
-                .do(onNext: { [weak self] (_) in
-                    removeHUDBlock = self?.view.raft.show(.loading, userInteractionEnabled: false)
-                })
-                .flatMap({ FireStore.shared.fetchUsers($0) })
-                .map ({ (users) -> [ChannelUserViewModel] in
-                    var viewModels = users.map {
-                        ChannelUserViewModel(with: ChannelUser.randomUser(uid: $0.profile.uidInt), firestoreUser: $0)
-                    }
-                    
-                    //老版本用户
-                    let oldUsers = ChannelUserListViewModel.shared.blockedUsers.filter({ (cUser) -> Bool in
-                        !users.contains { (fUser) -> Bool in
-                            fUser.profile.uid == cUser.uid
-                        }
-                    })
-                        .map { ChannelUserViewModel(with: $0, firestoreUser: nil) }
-                    
-                    viewModels.append(contentsOf: oldUsers)
-                    
-                    return viewModels
-                })
-                .subscribe(onNext: { [weak self] (users) in
-                    removeHUDBlock?()
-                    self?.userList = users
-                    }, onError: { (_) in
-                        removeHUDBlock?()
-                })
-                .disposed(by: bag)
+            self.userList = Defaults[\.blockedUsersV2Key]
         }
         
         @objc
@@ -146,11 +113,15 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(BlockedUserCell.self), for: indexPath)
         cell.backgroundColor = .clear
         if let cell = cell as? BlockedUserCell,
             let user = userList.safe(indexPath.row) {
             cell.configView(with: user)
+            cell.unlockHandle = { [weak self] in
+                self?.removeLockedUser(at: indexPath.row)
+            }
         }
         
         return cell
@@ -160,18 +131,22 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
         return 64
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard let user = userList.safe(indexPath.row) else { return }
-        
-        let modal = Social.BlockedUserList.ActionModal(with: user)
-        modal.showModal(in: parent ?? self)
-        modal.unblockedCallback = { [weak self] in
-            self?.userList.remove(at: indexPath.row)
-            self?.tableView.reloadData()
-        }
+    private func removeLockedUser(at index: Int) {
+        userList.remove(at: index)
+        tableView.reloadData()
+        Defaults[\.blockedUsersV2Key] = userList
     }
-
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//
+//        guard let user = userList.safe(indexPath.row) else { return }
+//
+//        let modal = Social.BlockedUserList.ActionModal(with: user)
+//        modal.showModal(in: parent ?? self)
+//        modal.unblockedCallback = { [weak self] in
+//            self?.userList.remove(at: indexPath.row)
+//            self?.tableView.reloadData()
+//        }
+//    }
 }

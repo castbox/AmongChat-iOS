@@ -10,20 +10,6 @@ import UIKit
 import Kingfisher
 import RxSwift
 
-extension UIImageView {
-//    func setImage(with urlString: String?, placeholder: UIImage? = nil) {
-//        kf.cancelDownloadTask()
-//        guard let url = URL(string: urlString) else {
-//            image = placeholder
-//            return
-//        }
-//        let resource = ImageResource(downloadURL: url, cacheKey: urlString)
-//        var kf = self.kf
-//        kf.indicatorType = .activity
-//        self.kf.setImage(with: resource, placeholder: placeholder)
-//    }
-}
-
 
 protocol ResourceComaptible {
     func asResource() -> Resource?
@@ -50,7 +36,7 @@ extension UIImageView {
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil,
         completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask? {
-    
+        
         switch resource?.asResource() {
         case .some(let element):
             var optionsInfo: KingfisherOptionsInfo = [.transition(.fade(0.3))]
@@ -67,6 +53,10 @@ extension UIImageView {
             }
             return nil
         }
+    }
+    
+    func setAvatarImage(with urlString: String?) {
+        setImage(with: urlString, placeholder: R.image.ac_profile_avatar())
     }
 }
 
