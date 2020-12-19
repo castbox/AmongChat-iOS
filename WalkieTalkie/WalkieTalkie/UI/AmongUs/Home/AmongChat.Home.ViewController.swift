@@ -72,10 +72,14 @@ extension AmongChat.Home {
         
         //MARK: - inherited
         
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            setupData()
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            setupData()
         }
         
     }
