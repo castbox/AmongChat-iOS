@@ -348,7 +348,7 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-//            roomReplay.accept(room)
+            roomReplay.accept(room)
             //update
             updateRoomInfo(room)
         }
@@ -356,8 +356,8 @@ extension AmongChat.Room {
         func update(nickName: String) {
 //            var room = self.room
 //            updateRoomInfo(room)
-            Request.updateProfile(["nickname": nickName])
-                .subscribe { profile in
+            Request.updateRoom(nickName: nickName, with: room.roomId)
+                .subscribe { _ in
                     
                 } onError: { _ in
                     
@@ -534,26 +534,7 @@ extension AmongChat.Room.ViewModel {
     func update(_ room: Entity.Room) {
         var newRoom = room
         let userList = newRoom.roomUserList
-        
         let blockedUsers = self.blockedUsers
-//        var copyOfUserList = userList
-//        if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
-//            copyOfUserList.insert(selfUser, at: 0)
-//        }
-//        let users = copyOfUserList.map { item -> ChannelUser in
-//            var user = item
-//            if blockedUsers.contains(where: { $0.uid == item.uid }) {
-//                user.isMuted = true
-//                user.status = .blocked
-//            } else if mutedUser.contains(item.uid.int!.uInt) {
-//                user.isMuted = true
-//                user.status = .muted
-//            } else {
-//                user.isMuted = false
-//                user.status = .connected
-//            }
-//            return user
-//        }
         newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
             var newUser = user
             if blockedUsers.contains(where: { $0.uid == user.uid }) {
@@ -570,8 +551,6 @@ extension AmongChat.Room.ViewModel {
                 }
 
             }
-//            newUser.isMuted = otherMutedUser.contains(user.uid)
-//            newUser.isMutedByLoginUser = mutedUser.contains(user.uid)
             return newUser
         }
         roomReplay.accept(newRoom)

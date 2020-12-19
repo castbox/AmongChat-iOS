@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwifterSwift
 
 class AmongInputNickNameView: XibLoadableView {
 
@@ -17,6 +18,7 @@ class AmongInputNickNameView: XibLoadableView {
     var inputResultHandler: ((String) -> Void)?
     
     override func becomeFirstResponder() -> Bool {
+        textField.text = Settings.shared.amongChatUserProfile.value?.nickname
         return textField.becomeFirstResponder()
     }
     
@@ -31,7 +33,7 @@ class AmongInputNickNameView: XibLoadableView {
     
     @IBAction func doneButtonAction(_ sender: Any) {
         _ = textField.resignFirstResponder()
-        guard let name = textField.text else {
+        guard let name = textField.text?.trimmed else {
             return
         }
         inputResultHandler?(name)

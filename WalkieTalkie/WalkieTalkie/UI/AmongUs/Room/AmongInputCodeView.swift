@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwifterSwift
 
 class AmongInputCodeView: XibLoadableView {
 
@@ -77,7 +78,7 @@ class AmongInputCodeView: XibLoadableView {
     
     @IBAction func doneButtonAction(_ sender: Any) {
         _ = textField.resignFirstResponder()
-        guard let code = textField.text else {
+        guard let code = textField.text?.trimmed else {
             return
         }
         inputResultHandler?(code, locationService)

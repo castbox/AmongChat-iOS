@@ -67,6 +67,12 @@ extension ObservableType where Element == [String: AnyObject] {
                 return item
             }
     }
+    
+    func mapToProcessedValue() -> Observable<Bool> {
+        return observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .mapTo(Entity.Processed.self)
+            .map { $0?.processed ?? false }
+    }
 }
 
 extension ObservableType where Element == Any {
@@ -112,6 +118,7 @@ extension ObservableType where Element == Any {
                 return listData
             }
     }
+    
 }
 
 
@@ -161,6 +168,7 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Any {
 }
 
 extension PrimitiveSequence where Trait == SingleTrait, Element == [[String: AnyObject]] {
+    
     func mapTo<T: Decodable>(_ type: T.Type) -> Single<T?> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { value in
@@ -173,6 +181,13 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == [[String: Any
     }
 }
 extension PrimitiveSequence where Trait == SingleTrait, Element == [String: AnyObject] {
+    
+    func mapToProcessedValue() -> Single<Bool> {
+        return observeOn(SerialDispatchQueueScheduler(qos: .default))
+            .mapTo(Entity.Processed.self)
+            .map { $0?.processed ?? false }
+    }
+    
     func mapToListJson() -> Single<[[String: AnyObject]]> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { json in

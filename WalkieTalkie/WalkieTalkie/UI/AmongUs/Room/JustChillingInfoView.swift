@@ -15,20 +15,21 @@ class JustChillingInfoView: XibLoadableView {
     
     var room: Entity.Room? {
         didSet {
-            if let room = room {
-                
-                if room.topicId == .roblox {
-                    notesDetailButton.isHidden = true
-                    notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
-                } else {
-                    notesDetailButton.isHidden = false
-                    guard let string = room.note, !string.isEmpty else {
-                        notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
-                        return
-                    }
-                    notesDetailButton.setTitle(string, for: .normal)
-                }
+            guard let room = room else {
+                return
             }
+            if room.topicId == .roblox {
+                notesDetailButton.isHidden = true
+                notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
+            } else {
+                notesDetailButton.isHidden = false
+                guard let string = room.note, !string.isEmpty else {
+                    notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
+                    return
+                }
+                notesDetailButton.setTitle(string, for: .normal)
+            }
+            
         }
     }
     
@@ -48,7 +49,6 @@ class JustChillingInfoView: XibLoadableView {
         notesTitleButton.setTitle(R.string.localizable.roomHostsNotes(), for: .normal)
         notesTitleButton.titleLabel?.numberOfLines = 0
         notesDetailButton.titleLabel?.numberOfLines = 3
-//        notesDetailButton.titleLabel?.lineBreakMode = .byTruncatingTail
     }
     
     private func configureSubview() {
@@ -62,11 +62,11 @@ class JustChillingInfoView: XibLoadableView {
         hostNotesClick?()
     }
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
+    
 }

@@ -15,7 +15,11 @@ class AmongInputNotesView: XibLoadableView {
     @IBOutlet weak var hostNotesPlaceholderLabel: UILabel!
     
     var inputResultHandler: ((String) -> Void)?
-    
+    var notes: String? {
+        didSet {
+            textView.text = notes
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

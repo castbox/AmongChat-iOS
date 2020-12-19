@@ -71,6 +71,7 @@ extension AmongChat.Room {
                     nickNameInputView.becomeFirstResponder()
                 case .chillingSetup:
                     self.view.bringSubviewToFront(inputNotesView)
+                    inputNotesView.notes = room.note
                     inputNotesView.show(with: room)
                 default:
                     messageInputField.becomeFirstResponder()

@@ -25,10 +25,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-yU-WC6">
-                    <rect key="frame" x="0.0" y="732" width="414" height="130"/>
+                    <rect key="frame" x="0.0" y="728" width="414" height="134"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-Aa-jd8">
-                            <rect key="frame" x="341" y="68" width="60" height="33"/>
+                            <rect key="frame" x="341" y="68" width="60" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="6E3-wP-8ud"/>
                             </constraints>
@@ -41,7 +41,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-bm-zBR">
-                            <rect key="frame" x="22" y="68" width="60" height="33"/>
+                            <rect key="frame" x="22" y="68" width="60" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="60" id="abN-ba-1MX"/>
                             </constraints>
@@ -61,7 +61,7 @@
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="vPP-7A-gdi"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                            <textInputTraits key="textInputTraits"/>
+                            <textInputTraits key="textInputTraits" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="24"/>

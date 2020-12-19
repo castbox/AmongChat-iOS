@@ -124,6 +124,15 @@ extension Request {
             }
     }
     
+    static func updateRoom(nickName: String, with roomId: String) -> Single<Bool> {
+        return amongchatProvider.rx.request(.roomNickName(["nickname": nickName, "room_id": roomId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    
     static func logout() -> Single<[String: AnyObject]> {
         return amongchatProvider.rx.request(.logout)
             .mapJSON().mapToDataJson()

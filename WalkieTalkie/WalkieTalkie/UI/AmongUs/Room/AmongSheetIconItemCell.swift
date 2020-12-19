@@ -43,7 +43,7 @@ class AmongSheetIconItemCell: UITableViewCell {
                 button.setTitle(R.string.localizable.reportTitle(), for: .normal)
             case .kick:
                 button.setTitleColor("FB5858".color(), for: .normal)
-                button.setImage(nil, for: .normal)
+                button.setImage(R.image.ac_icon_sheet_kick(), for: .normal)
                 button.setBackgroundImage("333333".color().image, for: .normal)
                 button.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
             case .cancel:

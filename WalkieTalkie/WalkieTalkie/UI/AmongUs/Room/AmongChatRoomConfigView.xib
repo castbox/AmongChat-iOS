@@ -27,13 +27,33 @@
                                     <constraint firstAttribute="height" constant="24" id="lSi-wC-A9v"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJR-Rt-5Gk">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="0.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.47999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="cpf-ir-bSd"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzu-Le-fuj">
+                                <rect key="frame" x="0.0" y="99.5" width="414" height="0.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.47999999999999998" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="ASg-rt-ybA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="wEn-OU-Cfa" firstAttribute="top" secondItem="CqC-uI-Fg2" secondAttribute="top" constant="16" id="3fg-Rs-Tcu"/>
+                            <constraint firstItem="dJR-Rt-5Gk" firstAttribute="top" secondItem="CqC-uI-Fg2" secondAttribute="top" id="CAi-5d-NeZ"/>
+                            <constraint firstItem="dJR-Rt-5Gk" firstAttribute="leading" secondItem="CqC-uI-Fg2" secondAttribute="leading" id="DcS-Iu-bEX"/>
+                            <constraint firstAttribute="trailing" secondItem="dJR-Rt-5Gk" secondAttribute="trailing" id="DwV-tx-mqz"/>
+                            <constraint firstAttribute="bottom" secondItem="Qzu-Le-fuj" secondAttribute="bottom" id="WIe-NX-Q5e"/>
+                            <constraint firstAttribute="trailing" secondItem="Qzu-Le-fuj" secondAttribute="trailing" id="kpk-yC-Hnv"/>
+                            <constraint firstItem="Qzu-Le-fuj" firstAttribute="leading" secondItem="CqC-uI-Fg2" secondAttribute="leading" id="s5n-Ok-4so"/>
                             <constraint firstItem="wEn-OU-Cfa" firstAttribute="leading" secondItem="CqC-uI-Fg2" secondAttribute="leading" constant="20" id="scE-lD-xJE"/>
                         </constraints>
                     </view>
-                    <blurEffect style="systemThinMaterialLight"/>
+                    <blurEffect style="light"/>
                 </visualEffectView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -44,7 +64,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="83e-N6-o5A" secondAttribute="bottom" id="drn-qp-MCr"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-246" y="154"/>
+            <point key="canvasLocation" x="-246.37681159420291" y="153.34821428571428"/>
         </view>
     </objects>
     <resources>
