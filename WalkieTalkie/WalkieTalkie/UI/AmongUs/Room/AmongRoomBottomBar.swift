@@ -57,7 +57,7 @@ class AmongRoomBottomBar: XibLoadableView {
                 micButton.setImage(R.image.ac_icon_mic_on(), for: .normal)
             } else {
                 micButton.setBackgroundImage("FB5858".color().image, for: .normal)
-                micButton.setTitle(R.string.localizable.amongChatRoomTipMicOff(), for: .normal)
+                micButton.setTitle(R.string.localizable.roomUserListMuted(), for: .normal)
                 micButton.setImage(R.image.ac_icon_mic_off(), for: .normal)
             }
         }

@@ -53,7 +53,7 @@
                                 <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="BPe-2J-0mP"/>
                             </connections>
                         </button>
-                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ROBLOX USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-qs-9HB">
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="ROBLOX USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-qs-9HB">
                             <rect key="frame" x="40" y="0.0" width="334" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>

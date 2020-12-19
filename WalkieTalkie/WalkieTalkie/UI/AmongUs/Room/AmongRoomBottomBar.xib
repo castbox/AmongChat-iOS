@@ -40,7 +40,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2H-0i-abU">
-                    <rect key="frame" x="184" y="0.0" width="42" height="42"/>
+                    <rect key="frame" x="193" y="0.0" width="42" height="42"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="VcP-34-YLq"/>
                         <constraint firstAttribute="height" constant="42" id="xJf-H6-O1f"/>
@@ -53,13 +53,13 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owO-VN-chC">
-                    <rect key="frame" x="270" y="0.0" width="124" height="42"/>
+                    <rect key="frame" x="259" y="0.0" width="135" height="42"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="Eqs-Yh-K1H"/>
-                        <constraint firstAttribute="width" constant="124" id="K9N-Ju-7Hk"/>
+                        <constraint firstAttribute="width" constant="135" id="K9N-Ju-7Hk"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
-                    <inset key="titleEdgeInsets" minX="4.5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="titleEdgeInsets" minX="2.5" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="MIC ON" image="ac_icon_mic_on">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
@@ -116,7 +116,7 @@
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CfV-IE-rUe"/>
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XIQ-GK-m6H"/>
                 <constraint firstAttribute="bottom" secondItem="CRg-lQ-K5E" secondAttribute="bottom" id="Yp3-xa-9Ga"/>
-                <constraint firstItem="owO-VN-chC" firstAttribute="leading" secondItem="q2H-0i-abU" secondAttribute="trailing" constant="44" id="bHD-1K-w7C"/>
+                <constraint firstItem="owO-VN-chC" firstAttribute="leading" secondItem="q2H-0i-abU" secondAttribute="trailing" constant="24" id="bHD-1K-w7C"/>
                 <constraint firstItem="2Qu-aw-CJW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="e5E-Bs-ft9"/>
                 <constraint firstItem="owO-VN-chC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gPW-Z5-mqD"/>
                 <constraint firstAttribute="trailing" secondItem="CRg-lQ-K5E" secondAttribute="trailing" id="gg3-2B-tH4"/>
