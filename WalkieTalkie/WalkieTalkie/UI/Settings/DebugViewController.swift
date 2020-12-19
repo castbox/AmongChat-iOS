@@ -19,6 +19,8 @@ class DebugViewController: ViewController {
         textView.text = Constants.deviceInfo().map { (key, value) -> String in
             return key + ": \(value)"
         }.joined(separator: "\n")
+        .appending("\n")
+        .appending("fcmToken: \(FireMessaging.shared.fcmToken ?? "") \n")
     }
     
 

@@ -261,6 +261,7 @@ extension AppDelegate {
                 .take(1)
                 .subscribe(onNext: { [weak self] () in
                     self?.window?.replaceRootViewController(homeVc())
+                    FireMessaging.shared.requestPermissionIfNotGranted()
                 })
             
             rootVc = NavigationViewController(rootViewController: loginVc)
@@ -269,6 +270,7 @@ extension AppDelegate {
         }
         
         self.window?.replaceRootViewController(rootVc)
+        FireMessaging.shared.requestPermissionIfNotGranted()
     }
     
     func setGlobalAppearance() {
