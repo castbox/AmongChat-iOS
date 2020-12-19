@@ -73,7 +73,9 @@ extension Social {
         
         private var currentMonthName: String {
             formatter.dateFormat = "MM"
-            return formatter.string(from: currentDay)
+            var index = (formatter.string(from: currentDay).int ?? 1) - 1
+            index = index <= 0 ? 0 : index
+            return months.safe(index) ?? "Jan"
         }
         
         private var currentYearName: String {
@@ -128,8 +130,9 @@ extension Social {
         
         private var currentDayRow: Int {
             var row = 0
+            let currentName = (currentDayName.int ?? 1).string
             for day in days {
-                if day == currentDayName {
+                if day ==  currentName {
                     row = days.firstIndex(of: day)!
                     row += bigRowDayCount / 2
                     break;
