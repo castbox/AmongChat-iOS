@@ -47,6 +47,8 @@ extension AmongChat.Room {
             }
         }
         
+        let viewModel: AmongChat.Room.ViewModel
+        
         var room: Entity.Room! {
             didSet {
                 dataSource = room.userListMap
@@ -70,8 +72,11 @@ extension AmongChat.Room {
         
         var selectUserHandler: ((Entity.RoomUser?) -> Void)?
         
-        init(room: Entity.Room) {
+        var userProfileSheetActionHandler: ((AmongSheetController.ItemType, _ user: Entity.RoomUser) -> Void)?
+        
+        init(room: Entity.Room, viewModel: AmongChat.Room.ViewModel) {
             self.room = room
+            self.viewModel = viewModel
             super.init(frame: .zero)
             bindSubviewEvent()
             configureSubview()
@@ -98,19 +103,22 @@ extension AmongChat.Room {
             
             collectionView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
-//                maker.left.right.equalToSuperview()
-//                maker.top.equalTo(configView.snp.bottom).offset(40)
-//                maker.height.equalTo(251)
             }
         }
         
         func showAvatarLongPressSheet(with user: Entity.RoomUser) {
-//            AmongSheetController.show(with: <#T##Entity.RoomUser?#>, items: <#T##[AmongSheetController.ItemType]#>, in: <#T##ViewController#>, actionHandler: <#T##((AmongSheetController.ItemType) -> Void)?##((AmongSheetController.ItemType) -> Void)?##(AmongSheetController.ItemType) -> Void#>)
             guard let viewController = viewContainingController() else {
                 return
             }
-            AmongSheetController.show(with: user, items: [.block, .mute, .report, .cancel], in: viewController) { item in
-                
+            let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
+            let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
+            var items: [AmongSheetController.ItemType] = [.userInfo]
+            if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
+                items.append(.kick)
+            }
+            items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
+            AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+                self?.userProfileSheetActionHandler?(item, user)
             }
         }
     }
@@ -133,7 +141,7 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
                 cell.isKickSelected = false
             }
             cell.avatarLongPressHandler = { [weak self] user in
-//                self?.showAvatarLongPressSheet(with: user)
+                self?.showAvatarLongPressSheet(with: user)
             }
             cell.bind(dataSource[indexPath.item], topic: room.topicId, index: indexPath.item + 1)
         }

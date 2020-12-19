@@ -277,7 +277,7 @@ extension ChannelUserListController {
                 GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
                 //
                 self?.viewModel.unmuteUser(userViewModel)
-                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+//                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
             }
             alertVC.addAction(unmuteAction)
             
@@ -291,12 +291,12 @@ extension ChannelUserListController {
                 GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
                 //
                 
-                let modal = ActionModal(with: userViewModel, actionType: .mute)
-                modal.actionHandler = { () in
-                    self?.viewModel.muteUser(userViewModel)
-                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-                }
-                modal.showModal(in: self)
+//                let modal = ActionModal(with: userViewModel, actionType: .mute)
+//                modal.actionHandler = { () in
+//                    self?.viewModel.muteUser(userViewModel)
+////                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+//                }
+//                modal.showModal(in: self)
             }
             alertVC.addAction(muteAction)
         }
@@ -346,15 +346,15 @@ extension ChannelUserListController {
     func showBlockAlert(with userViewModel: ChannelUserViewModel) {
         guard userViewModel.channelUser.status != .blocked else {
             viewModel.unblockedUser(userViewModel)
-            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+//            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
             return
         }
-        let modal = ActionModal(with: userViewModel, actionType: .block)
-        modal.actionHandler = { [weak self] in
-            self?.viewModel.blockedUser(userViewModel)
-            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-        }
-        modal.showModal(in: self)
+//        let modal = ActionModal(with: userViewModel, actionType: .block)
+//        modal.actionHandler = { [weak self] in
+//            self?.viewModel.blockedUser(userViewModel)
+////            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+//        }
+//        modal.showModal(in: self)
     }
     
     func bindSubviewEvent() {
@@ -406,7 +406,7 @@ extension ChannelUserListController {
             .take(1)
             .subscribe(onNext: { [weak self] (_) in
                 guard let `self` = self else { return }
-                Ad.InterstitialManager.shared.showAdIfReady(from: self)
+                //Ad.InterstitialManager.shared.showAdIfReady(from: self)
             })
             .disposed(by: bag)        
     }

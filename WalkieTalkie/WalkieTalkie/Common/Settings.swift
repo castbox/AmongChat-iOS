@@ -389,6 +389,10 @@ extension DefaultsKeys {
         .init("blocked.users", defaultValue: [])
     }
     
+    var blockedUsersV2Key: DefaultsKey<[Entity.RoomUser]> {
+        .init("blocked.users.v2", defaultValue: [])
+    }
+    
     var profileInitialShownTsKey: DefaultsKey<Double?> {
         .init("profile.initial.shown.timestamp", defaultValue: nil)
     }

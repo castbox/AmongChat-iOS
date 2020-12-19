@@ -70,30 +70,36 @@ extension AmongChat.Room {
         
         private let dataSource = BehaviorRelay<[ChannelUser]>(value: [])
         
-        private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
+//        private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
         
-        var speakingUserObservable: Observable<[ChannelUserViewModel]> {
-            return speakingUsersRelay.asObservable()
+//        var speakingUserObservable: Observable<[ChannelUserViewModel]> {
+//            return speakingUsersRelay.asObservable()
+//        }
+        
+        var blockedUsers = [Entity.RoomUser]() {
+            didSet {
+                update(room)
+            }
         }
         
-        var blockedUsers = [ChannelUser]()
-        
         //登录用户主动 muted
-        private var mutedUser = Set<UInt>() {
+        private(set) var mutedUser = Set<UInt>() {
             didSet {
-                update(dataSource.value)
+//                update(dataSource.value)
+                update(room)
             }
         }
         //其他用户自己 muted
-        private var otherMutedUser = Set<UInt>() {
+        private(set) var otherMutedUser = Set<UInt>() {
             didSet {
-                //                update(dataSource.value)
+                update(room)
+//                                update(dataSource.value)
             }
         }
         
-        var mutedUserValue: Set<UInt> {
-            return mutedUser
-        }
+//        var mutedUserValue: Set<UInt> {
+//            return mutedUser
+//        }
         
         private var room: Entity.Room {
             roomReplay.value
@@ -166,7 +172,7 @@ extension AmongChat.Room {
             //                })
             //                .disposed(by: bag)
             
-            blockedUsers = Defaults[\.blockedUsersKey]
+            blockedUsers = Defaults[\.blockedUsersV2Key]
             
             //            let _ = Social.Module.shared.mutedObservable
             //                .map({ Set($0) })
@@ -404,7 +410,7 @@ extension AmongChat.Room {
                 .disposed(by: bag)
         }
         
-        func requestKick(users: [Int]) -> Single<Bool> {
+        func requestKick(_ users: [Int]) -> Single<Bool> {
             let params: [String: Any] = [
                 "room_id": room.roomId, "uids": users.map { $0.string }.joined(separator: ",")
             ]
@@ -417,28 +423,28 @@ extension AmongChat.Room {
 //                .disposed(by: bag)
         }
         
-        func update(_ userList: [ChannelUser]) {
-            let blockedUsers = self.blockedUsers
-            var copyOfUserList = userList
-            if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
-                copyOfUserList.insert(selfUser, at: 0)
-            }
-            let users = copyOfUserList.map { item -> ChannelUser in
-                var user = item
-                if blockedUsers.contains(where: { $0.uid == item.uid }) {
-                    user.isMuted = true
-                    user.status = .blocked
-                } else if mutedUser.contains(item.uid.int!.uInt) {
-                    user.isMuted = true
-                    user.status = .muted
-                } else {
-                    user.isMuted = false
-                    user.status = .connected
-                }
-                return user
-            }
-            dataSource.accept(users)
-        }
+//        func update(_ userList: [Entity.RoomUser]) {
+//            let blockedUsers = self.blockedUsers
+//            var copyOfUserList = userList
+//            if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
+//                copyOfUserList.insert(selfUser, at: 0)
+//            }
+//            let users = copyOfUserList.map { item -> ChannelUser in
+//                var user = item
+//                if blockedUsers.contains(where: { $0.uid == item.uid }) {
+//                    user.isMuted = true
+//                    user.status = .blocked
+//                } else if mutedUser.contains(item.uid.int!.uInt) {
+//                    user.isMuted = true
+//                    user.status = .muted
+//                } else {
+//                    user.isMuted = false
+//                    user.status = .connected
+//                }
+//                return user
+//            }
+//            dataSource.accept(users)
+//        }
         
         func updateVolumeIndication(userId: UInt, volume: UInt) {
             //            cdPrint("userid: \(userId) volume: \(volume)")
@@ -458,37 +464,41 @@ extension AmongChat.Room {
             dataSource.accept(users)
         }
         
-        func blockedUser(_ user: ChannelUserViewModel) {
-            blockedUsers.append(user.channelUser)
-            Defaults[\.blockedUsersKey] = blockedUsers
-            update(dataSource.value)
-            if let firestoreUser = user.firestoreUser,
-               let selfUid = Settings.shared.loginResult.value?.uid {
+        func blockedUser(_ user: Entity.RoomUser) {
+            blockedUsers.append(user)
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+//            update(dataSource.value)
+//            if let firestoreUser = user.firestoreUser,
+//               let selfUid = Settings.shared.loginResult.value?.uid {
                 //            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
-            }
+//            }
         }
         
-        func unblockedUser(_ user: ChannelUserViewModel) {
-            blockedUsers.removeElement(ifExists: { $0.uid == user.channelUser.uid })
-            Defaults[\.blockedUsersKey] = blockedUsers
-            update(dataSource.value)
-            if let firestoreUser = user.firestoreUser,
-               let selfUid = Settings.shared.loginResult.value?.uid {
+        func unblockedUser(_ user: Entity.RoomUser) {
+            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+//            update(dataSource.value)
+//            if let firestoreUser = user.firestoreUser,
+//               let selfUid = Settings.shared.loginResult.value?.uid {
                 //            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
-            }
+//            }
         }
         
         func muteUser(_ user: Entity.RoomUser) {
             mutedUser.insert(user.uid.uInt)
-            update(dataSource.value)
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+//            update(dataSource.value)
+//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             //        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
         }
         
-        func unmuteUser(_ user: ChannelUserViewModel) {
-            mutedUser.remove(user.channelUser.uid.int!.uInt)
-            update(dataSource.value)
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+        func unmuteUser(_ user: Entity.RoomUser) {
+            mutedUser.remove(user.uid.uInt)
+            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+//            update(dataSource.value)
+//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             //        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
         }
         
@@ -524,10 +534,44 @@ extension AmongChat.Room.ViewModel {
     func update(_ room: Entity.Room) {
         var newRoom = room
         let userList = newRoom.roomUserList
+        
+        let blockedUsers = self.blockedUsers
+//        var copyOfUserList = userList
+//        if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
+//            copyOfUserList.insert(selfUser, at: 0)
+//        }
+//        let users = copyOfUserList.map { item -> ChannelUser in
+//            var user = item
+//            if blockedUsers.contains(where: { $0.uid == item.uid }) {
+//                user.isMuted = true
+//                user.status = .blocked
+//            } else if mutedUser.contains(item.uid.int!.uInt) {
+//                user.isMuted = true
+//                user.status = .muted
+//            } else {
+//                user.isMuted = false
+//                user.status = .connected
+//            }
+//            return user
+//        }
         newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
             var newUser = user
-            newUser.isMuted = otherMutedUser.contains(user.uid.uInt)
-            newUser.isMutedByLoginUser = mutedUser.contains(user.uid.uInt)
+            if blockedUsers.contains(where: { $0.uid == user.uid }) {
+                newUser.status = .blocked
+                newUser.isMuted = true
+            } else {
+                if otherMutedUser.contains(user.uid.uInt) || mutedUser.contains(user.uid.uInt) {
+                    newUser.isMuted = true
+                    newUser.status = .muted
+                    newUser.isMutedByLoginUser = mutedUser.contains(user.uid.uInt)
+                } else {
+                    newUser.isMuted = false
+                    newUser.status = .connected
+                }
+
+            }
+//            newUser.isMuted = otherMutedUser.contains(user.uid)
+//            newUser.isMutedByLoginUser = mutedUser.contains(user.uid)
             return newUser
         }
         roomReplay.accept(newRoom)
@@ -688,15 +732,13 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else {
             otherMutedUser.remove(userId)
         }
-        update(room)
         
         //check block
-        if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
-            mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-        } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-            mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+        if let user = blockedUsers.first(where: { $0.uid == userId.int }) {
+            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+        } else if mutedUser.contains(userId) {
+            mManager.adjustUserPlaybackSignalVolume(userId.int, volume: 0)
         }
-        //        }
     }
     
     func onAudioMixingStateChanged(isPlaying: Bool) {

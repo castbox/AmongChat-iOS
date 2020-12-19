@@ -20,7 +20,6 @@ class AmongRoomToolView: XibLoadableView {
     var openGameHandler: CallBack?
     var setNickNameHandler: CallBack?
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         bindSubviewEvent()

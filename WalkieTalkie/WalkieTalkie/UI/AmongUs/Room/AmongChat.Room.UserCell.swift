@@ -216,8 +216,7 @@ extension AmongChat.Room.UserCell {
         gameNameButton.setTitle(user.nickname, for: .normal)
         avatarIV.layer.borderWidth = 0.5
         haloView.isHidden = false
-        gameNameButton.isHidden = topic != .roblox
-        gameNameButton.isHidden = !user.nickname.isValid
+        gameNameButton.isHidden = !(topic == .roblox && user.nickname.isValid)
         //自己 muted 其他用户
         if isKickSelected {
             mutedLabel.isHidden = true

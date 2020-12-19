@@ -41,7 +41,7 @@ class AmongSheetIconItemCell: UITableViewCell {
                 button.setImage(nil, for: .normal)
                 button.setBackgroundImage("333333".color().image, for: .normal)
                 button.setTitle(R.string.localizable.reportTitle(), for: .normal)
-            case .cancel:
+            case .cancel, .kick:
                 button.setTitleColor(.white, for: .normal)
                 button.setImage(nil, for: .normal)
                 button.setBackgroundImage(nil, for: .normal)

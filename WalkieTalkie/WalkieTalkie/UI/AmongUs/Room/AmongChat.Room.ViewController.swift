@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-//import MoPub
+////import MoPub
 
 extension AmongChat.Room {
     enum EditType {
@@ -178,7 +178,7 @@ extension AmongChat.Room {
 //        private var infoView: Among
         
         private lazy var seatView: AmongChat.Room.SeatView = {
-            let view = AmongChat.Room.SeatView(room: room)
+            let view = AmongChat.Room.SeatView(room: room, viewModel: viewModel)
 //            view.room = room
             return view
         }()
@@ -444,7 +444,7 @@ extension AmongChat.Room.ViewController {
         self.dismiss(animated: false) {
             guard let vc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController else { return }
             completionHandler?()
-            Ad.InterstitialManager.shared.showAdIfReady(from: vc)
+            //Ad.InterstitialManager.shared.showAdIfReady(from: vc)
         }
     }
 
@@ -624,11 +624,11 @@ extension AmongChat.Room.ViewController {
     }
     
     private func showMoreSheet(for userViewModel: ChannelUserViewModel) {
-        let alertVC = UIAlertController(
-            title: nil,
-            message: R.string.localizable.userListMoreSheet(),
-            preferredStyle: .actionSheet
-        )
+//        let alertVC = UIAlertController(
+//            title: nil,
+//            message: R.string.localizable.userListMoreSheet(),
+//            preferredStyle: .actionSheet
+//        )
         
 //        if let firestoreUser = userViewModel.firestoreUser {
 //            let followingUids = Social.Module.shared.followingValue.map { $0.uid }
@@ -652,52 +652,51 @@ extension AmongChat.Room.ViewController {
 //            }
 //        }
         
-        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid.uIntValue)
-        if isMuted {
-            let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
-                // unmute_clk log
-                GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
-                //
-                self?.viewModel.unmuteUser(userViewModel)
-                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
-            }
-            alertVC.addAction(unmuteAction)
-            
-        } else {
-            let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
-                
-                // mute_clk log
-                GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
-                //
-                
-                let modal = ActionModal(with: userViewModel, actionType: .mute)
-                modal.actionHandler = { () in
-//                    self?.viewModel.muteUser(userViewModel)
-                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-                }
-                modal.showModal(in: self)
-            }
-            alertVC.addAction(muteAction)
-        }
-        
-        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
-            self?.showReportSheet(for: userViewModel)
-        })
-        let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
-            // block_clk log
-            GuruAnalytics.log(event: "block_clk", category: "user_list", name: nil, value: nil, content: nil)
-            //
-            self?.showBlockAlert(with: userViewModel)
-        })
-        alertVC.addAction(reportAction)
-        alertVC.addAction(blockAction)
-        
-        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
-        present(alertVC, animated: true, completion: nil)
+//        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid.uIntValue)
+//        if isMuted {
+//            let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
+//                // unmute_clk log
+//                GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
+//                //
+//                self?.viewModel.unmuteUser(userViewModel)
+//                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
+//            }
+//            alertVC.addAction(unmuteAction)
+//
+//        } else {
+//            let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
+//
+//                // mute_clk log
+//                GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
+//                //
+//self?.viewModel.unmuteUser(userViewModel)
+//                let modal = ActionModal(with: userViewModel, actionType: .mute)
+//                modal.actionHandler = { () in
+////                    self?.viewModel.muteUser(userViewModel)
+//                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
+//                }
+//                modal.showModal(in: self)
+//            }
+//            alertVC.addAction(muteAction)
+//        }
+//
+//        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+//            self?.showReportSheet(for: userViewModel)
+//        })
+//        let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
+//            // block_clk log
+//            GuruAnalytics.log(event: "block_clk", category: "user_list", name: nil, value: nil, content: nil)
+//            //
+////            self?.showBlockAlert(with: userViewModel)
+//        })
+//        alertVC.addAction(reportAction)
+//        alertVC.addAction(blockAction)
+//
+//        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+//        present(alertVC, animated: true, completion: nil)
     }
     
-    private func showReportSheet(for userViewModel: ChannelUserViewModel) {
-        let user = userViewModel.channelUser
+    private func showReportSheet(for user: Entity.RoomUser) {
         let alertVC = UIAlertController(
             title: R.string.localizable.reportTitle(),
             message: "\(R.string.localizable.reportUserId()): \(user.uid)",
@@ -722,19 +721,17 @@ extension AmongChat.Room.ViewController {
         present(alertVC, animated: true, completion: nil)
     }
     
-    private func showBlockAlert(with userViewModel: ChannelUserViewModel) {
-        guard userViewModel.channelUser.status != .blocked else {
-            viewModel.unblockedUser(userViewModel)
-            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
-            return
-        }
-        let modal = ActionModal(with: userViewModel, actionType: .block)
-        modal.actionHandler = { [weak self] in
-            self?.viewModel.blockedUser(userViewModel)
-            ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-        }
-        modal.showModal(in: self)
-    }
+//    private func showBlockAlert(with user: Entity.RoomUser) {
+//        guard user.status != .blocked else {
+//            viewModel.unblockedUser(user)
+//            return
+//        }
+//        let modal = ActionModal(with: user, actionType: .block)
+//        modal.actionHandler = { [weak self] in
+//            self?.viewModel.blockedUser(user)
+//        }
+//        modal.showModal(in: self)
+//    }
     
     private func bindSubviewEvent() {
         
@@ -970,21 +967,17 @@ extension AmongChat.Room.ViewController {
             self?.style = .normal
         }
         
-        bottomBar.kickSelectedHandler = { [weak self] user in
+        bottomBar.kickSelectedHandler = { [weak self] users in
             guard let `self` = self else { return }
-            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
-            self.viewModel.requestKick(users: user)
-                .subscribe { [weak self] result in
-                    removeBlock()
-                    self?.style = .normal
-                } onError: { error in
-                    removeBlock()
-                }
-                .disposed(by: self.bag)
+            self.requestKick(users)
         }
         
         seatView.selectedKickUserHandler = { [weak self] users in
             self?.bottomBar.selectedKickUser = users
+        }
+        
+        seatView.userProfileSheetActionHandler = { [weak self] item, user in
+            self?.onUserProfileSheet(action: item, user: user)
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
@@ -1023,6 +1016,37 @@ extension AmongChat.Room.ViewController {
                 return
             }
         }
+    }
+    
+    func onUserProfileSheet(action: AmongSheetController.ItemType, user: Entity.RoomUser) {
+        switch action {
+        case .block:
+            viewModel.blockedUser(user)
+        case .mute:
+            viewModel.muteUser(user)
+        case .unblock:
+            viewModel.unblockedUser(user)
+        case .unmute:
+            viewModel.unmuteUser(user)
+        case .report:
+            showReportSheet(for: user)
+        case .kick:
+            requestKick([user.uid])
+        default:
+            ()
+        }
+    }
+    
+    func requestKick(_ users: [Int]) {
+        let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+        self.viewModel.requestKick(users)
+            .subscribe { [weak self] result in
+                removeBlock()
+                self?.style = .normal
+            } onError: { error in
+                removeBlock()
+            }
+            .disposed(by: self.bag)
     }
     
     private func loadAdView() {

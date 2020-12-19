@@ -196,9 +196,14 @@ class RtcManager: NSObject {
         mRtcEngine.muteAllRemoteAudioStreams(muted)
     }
     
-    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-        let uid = user.uid
-        mRtcEngine.adjustUserPlaybackSignalVolume(uid.intValue.uInt, volume: volume)
+    //remove
+//    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
+//        let uid = user.uid
+//        mRtcEngine.adjustUserPlaybackSignalVolume(uid.intValue.uInt, volume: volume)
+//    }
+    
+    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) {
+        mRtcEngine.adjustUserPlaybackSignalVolume(uid.uInt, volume: volume)
     }
 
     func muteLocalAudioStream(_ muted: Bool) {

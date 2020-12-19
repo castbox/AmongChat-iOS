@@ -70,6 +70,7 @@ extension Entity {
             case blocked
             case muted
             case droped //已下麦
+//            case mutedByLoginUser
             
 
             static var _defaults: DefaultsRawRepresentableBridge<Status> {
@@ -85,9 +86,9 @@ extension Entity {
         let name: String
         let pictureUrl: String
         let seatNo: Int
-        var status: Status?
-        var isMuted: Bool?
-        var isMutedByLoginUser: Bool?
+        var status: Status
+        var isMuted: Bool
+        var isMutedByLoginUser: Bool
         let nickname: String?
         
         var isMutedValue: Bool {
@@ -101,6 +102,21 @@ extension Entity {
             case status
             case isMuted = "is_muted"
             case nickname
+            case isMutedByLoginUser
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            var statusValue = try container.decodeStringIfPresent(.status)
+            self.status = Status(rawValue: statusValue ?? Status.connected.rawValue) ?? .connected
+            self.uid = try container.decodeInt(.uid)
+            self.name = try container.decodeString(.name)
+            self.pictureUrl = try container.decodeString(.pictureUrl)
+            self.seatNo = try container.decodeInt(.seatNo)
+//            self.status = try container.decodeString(.status)
+            self.isMuted = try container.decodeBoolIfPresent(.isMuted) ?? false
+            self.isMutedByLoginUser = try container.decodeBoolIfPresent(.isMutedByLoginUser) ?? false
+            self.nickname = try container.decodeStringIfPresent(.nickname)
         }
     }
 }

@@ -17,6 +17,7 @@ class AmongSheetController: ViewController {
         case unblock
         case unmute
         case report
+        case kick
         case cancel
     }
 
@@ -58,7 +59,7 @@ class AmongSheetController: ViewController {
     }
 }
 
-extension AmongSheetController: UITableViewDataSource {
+extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
 //    func numberOfSections(in tableView: UITableView) -> Int {
 //        return 1
 //    }
@@ -68,22 +69,22 @@ extension AmongSheetController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongSheetUserCell.self), for: indexPath) as! AmongSheetUserCell
-        if let item = items.safe(indexPath.count) {
-            if item == .userInfo {
-                cell.userIconView.setImage(with: user?.pictureUrl)
-                cell.nameLabel.text = user?.name
-            } else {
-                let iconCell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(AmongSheetIconItemCell.self), for: indexPath) as! AmongSheetIconItemCell
-                iconCell.item = item
-                iconCell.clickHandler = { [weak self] item in
-                    self?.onClick(item)
-                }
-                return iconCell
-            }
+        guard let item = items.safe(indexPath.row) else {
+            return tableView.dequeueReusableCell(withIdentifier: "AmongSheetUserCell", for: indexPath)
         }
-        return cell
+        if item == .userInfo {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AmongSheetUserCell", for: indexPath) as! AmongSheetUserCell
+            cell.userIconView.setImage(with: user?.pictureUrl)
+            cell.nameLabel.text = user?.name
+            return cell
+        } else {
+            let iconCell = tableView.dequeueReusableCell(withIdentifier: "AmongSheetIconItemCell", for: indexPath) as! AmongSheetIconItemCell
+            iconCell.item = item
+            iconCell.clickHandler = { [weak self] item in
+                self?.onClick(item)
+            }
+            return iconCell
+        }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,9 +92,13 @@ extension AmongSheetController: UITableViewDataSource {
 //        let room = dataSource[indexPath.row]
 //        selectRoomHandler(room)
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return items.safe(indexPath.row)?.itemHeight ?? 60
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -102,7 +107,6 @@ extension AmongSheetController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
-        
     }
 
 }
