@@ -126,6 +126,7 @@ extension AmongChat.Home.ViewController {
             }, onError: { [weak self] (error) in
                 hudRemoval()
                 cdPrint("error: \(error.localizedDescription)")
+                self?.view.raft.autoShow(.text("\(error.localizedDescription)"))
             })
             .disposed(by: bag)
 
