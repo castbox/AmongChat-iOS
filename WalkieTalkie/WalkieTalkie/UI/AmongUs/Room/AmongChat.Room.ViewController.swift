@@ -470,22 +470,19 @@ extension AmongChat.Room.ViewController {
         
         messageInputContainerView.snp.makeConstraints { (maker) in
             maker.left.top.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.bottom.equalToSuperview()
         }
         
         amongInputCodeView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.left.top.right.bottom.equalToSuperview()
         }
         
         nickNameInputView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.left.top.right.bottom.equalToSuperview()
         }
         
         inputNotesView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.left.top.right.bottom.equalToSuperview()
         }
         
         bottomBar.snp.makeConstraints { maker in
@@ -596,19 +593,19 @@ extension AmongChat.Room.ViewController {
                 switch self.editType {
                 case .amongSetup:
                     self.amongInputCodeView.snp.updateConstraints { (maker) in
-                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                        maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
                 case .nickName:
                     self.nickNameInputView.snp.updateConstraints { (maker) in
-                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                        maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
                 case .chillingSetup:
                     self.inputNotesView.snp.updateConstraints { (maker) in
-                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                        maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
                 default:
                     self.messageInputContainerView.snp.updateConstraints { (maker) in
-                        maker.bottom.equalTo(self.bottomLayoutGuide.snp.top).offset(-keyboardVisibleHeight)
+                        maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
                 }
                 UIView.animate(withDuration: 0) {
