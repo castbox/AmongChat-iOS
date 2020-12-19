@@ -244,7 +244,7 @@ extension AmongChat.CreateRoom.ViewController {
         var roomProto = Entity.RoomProto()
         roomProto.state = privateStateSwitch.roomPublicType
         
-        if let topic = Topic(rawValue: name) {
+        if let topic = Topic(rawValue: name.lowercased()) {
             roomProto.topicId = topic
         } else {
             roomProto.topicId = .chilling

@@ -36,7 +36,7 @@ extension AmongChat.CreateRoom {
             case .roblox:
                 return "# Roblox"
             case .chilling:
-                return "# Just Chilling"
+                return "# Just Chatting"
             }
         }
         
