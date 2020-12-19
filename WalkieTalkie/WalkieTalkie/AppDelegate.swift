@@ -81,6 +81,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 路由模块待优化
         _ = Routes.shared
         _ = Routes.Handler.shared
+        //heart beating
+        _ = ChatRoomManager.shared
+        
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0

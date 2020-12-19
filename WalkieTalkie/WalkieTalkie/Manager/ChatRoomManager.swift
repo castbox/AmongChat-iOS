@@ -87,9 +87,18 @@ class ChatRoomManager: SeatManager {
     private let stateObservable = BehaviorSubject<ConnectState>(value: .disconnected)
     
     private var mChannelData = ChannelData()
+    private var scheduleDispose: Disposable?
 
     private init() {
-        self.startHeartBeating()
+        _ = Settings.shared.loginResult.replay()
+            .subscribe(onNext: { [weak self] result in
+                guard let result = result, result.uid > 0 else {
+                    self?.scheduleDispose?.dispose()
+                    return
+                }
+                self?.startHeartBeating()
+            })
+            
     }
 
     func getChannelData() -> ChannelData {
@@ -270,6 +279,7 @@ class ChatRoomManager: SeatManager {
 
 extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {
+        requestHeartBeating()
 //        mRtmManager.joinChannel(channelId, nil)
     }
     
@@ -379,18 +389,15 @@ extension ChatRoomManager: RtcDelegate {
 
 extension ChatRoomManager {
     func startHeartBeating() {
-        _ = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
+        scheduleDispose = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
             .startWith(0)
-//            .flatMap { _ -> Observable<[String: Any]?> in
-//
-//            }
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
-                self.requestALive()
+                self.requestHeartBeating()
             })
     }
     
-    func requestALive() {
+    func requestHeartBeating() {
         var params: [String: Any] = [:]
         if let channelId = mRtcManager.channelId {
             params["room_id"] = channelId
