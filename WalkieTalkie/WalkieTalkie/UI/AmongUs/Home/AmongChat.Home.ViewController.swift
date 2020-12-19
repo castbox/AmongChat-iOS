@@ -109,16 +109,22 @@ extension AmongChat.Home.ViewController {
         }
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.enterRoom(roomId: roomId, topicId: topic)
-            .do(onDispose: {
-                hudRemoval()
-            })
-            .subscribe(onSuccess: { (room) in
+//            .do(onDispose: {
+//                hudRemoval()
+//            })
+            .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
-                guard let room = room else { return }
+                guard let `self` = self, let room = room else {
+                    hudRemoval()
+                    return
+                }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self)
+                AmongChat.Room.ViewController.join(room: room, from: self) { error in
+                    hudRemoval()
+                }
 
-            }, onError: { (error) in
+            }, onError: { [weak self] (error) in
+                hudRemoval()
                 cdPrint("error: \(error.localizedDescription)")
             })
             .disposed(by: bag)

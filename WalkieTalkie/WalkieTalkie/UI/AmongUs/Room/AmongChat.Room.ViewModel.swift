@@ -359,7 +359,8 @@ extension AmongChat.Room {
 //            updateRoomInfo(room)
             Request.updateRoom(nickName: nickName, with: room.roomId)
                 .subscribe { _ in
-                    
+                    //refresh nick name
+                    Settings.shared.updateProfile()
                 } onError: { _ in
                     
                 }

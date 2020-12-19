@@ -87,79 +87,20 @@ extension AmongChat.Room {
                 ship.setImage(with: room.bgUrl)
             }
 //            let star = UIImageView(image: R.image.star_bg())
-//            let mask = UIView()
-//            mask.backgroundColor = UIColor.black.alpha(0.5)
-            v.addSubviews(views: ship)
+            let mask = UIView()
+            mask.backgroundColor = UIColor.black.alpha(0.5)
+            v.addSubviews(views: ship, mask)
 //            star.snp.makeConstraints { (maker) in
 //                maker.edges.equalToSuperview()
 //            }
             ship.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
-//            mask.snp.makeConstraints { (maker) in
-//                maker.edges.equalToSuperview()
-//            }
+            mask.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
             return v
         }()
-        
-//        private lazy var copyNameBtn: UIView = {
-//            let v = UIView()
-//
-//            let tapGR = UITapGestureRecognizer(target: self, action: #selector(onCopyNameBtn))
-//            v.addGestureRecognizer(tapGR)
-//
-//            v.backgroundColor = UIColor.white.alpha(0.2)
-//            v.layer.cornerRadius = 15
-//
-//            let hashSymbol: UILabel = {
-//                let lb = UILabel()
-//                lb.font = R.font.blackOpsOneRegular(size: 20)
-//                lb.textColor = UIColor.white.alpha(0.5)
-//                lb.text = "#"
-//                return lb
-//            }()
-//
-//            let nameLabel: UILabel = {
-//                let lb = UILabel()
-//                lb.font = R.font.nunitoRegular(size: 14)
-//                lb.textColor = .white
-//                lb.text = room.roomId
-//                return lb
-//            }()
-//
-//            let icon = UIImageView(image: R.image.btn_room_copy())
-//            icon.contentMode = .scaleAspectFill
-//            icon.backgroundColor = .clear
-//
-//            v.addSubviews(views: hashSymbol, nameLabel, icon)
-//
-//            hashSymbol.snp.makeConstraints { (maker) in
-//                maker.top.bottom.equalToSuperview()
-//                maker.left.equalToSuperview().offset(10)
-//            }
-//
-//            nameLabel.snp.makeConstraints { (maker) in
-//                maker.left.equalTo(hashSymbol.snp.right).offset(5)
-//                maker.top.bottom.equalToSuperview()
-//            }
-//
-//            icon.snp.makeConstraints { (maker) in
-//                maker.left.equalTo(nameLabel.snp.right).offset(5)
-//                maker.right.equalToSuperview().inset(10)
-//                maker.width.height.equalTo(20)
-//                maker.centerY.equalToSuperview()
-//            }
-//
-//            return v
-//        }()
-        
-//        private lazy var closeBtn: UIButton = {
-//            let btn = UIButton(type: .custom)
-//            btn.setImage(R.image.icon_close(), for: .normal)
-//            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
-//            return btn
-//        }()
-//        private var infoView: Among
         
         private lazy var seatView: AmongChat.Room.SeatView = {
             let view = AmongChat.Room.SeatView(room: room, viewModel: viewModel)
@@ -177,72 +118,16 @@ extension AmongChat.Room {
             tb.separatorStyle = .none
             tb.rowHeight = UITableView.automaticDimension
             tb.estimatedRowHeight = 80
+            
             return tb
         }()
         
-//        private lazy var messageBtn: UIButton = {
-//            let btn = UIButton(type: .custom)
-//            btn.addTarget(self, action: #selector(onMessageBtn), for: .primaryActionTriggered)
-//            btn.backgroundColor = UIColor.white.alpha(0.8)
-//            btn.layer.cornerRadius = 25
-//            let image = R.image.btn_room_message()?.withRenderingMode(.alwaysTemplate)
-//            btn.setImage(image, for: .normal)
-//            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
-//            btn.isHidden = true
-//            return btn
-//        }()
-        
-//        private lazy var micSwitchBtn: UIButton = {
-//            let btn = UIButton(type: .custom)
-//            btn.addTarget(self, action: #selector(onMicSwitchBtn(_:)), for: .primaryActionTriggered)
-//            btn.backgroundColor = UIColor.white.alpha(0.8)
-//            btn.layer.cornerRadius = 25
-//            btn.setImage(R.image.icon_mic(), for: .normal)
-//            btn.setImage(R.image.icon_mic_disable(), for: .selected)
-//            return btn
-//        }()
-        
-//        private lazy var shareBtn: UIButton = {
-//            let btn = UIButton(type: .custom)
-//            btn.addTarget(self, action: #selector(onShareBtn), for: .primaryActionTriggered)
-//            btn.backgroundColor = UIColor.white.alpha(0.8)
-//            btn.layer.cornerRadius = 25
-//            let image = R.image.btn_room_share()?.withRenderingMode(.alwaysTemplate)
-//            btn.setImage(image, for: .normal)
-//            btn.tintColor = UIColor(red: 38, green: 38, blue: 38)
-//            return btn
-//        }()
-        
-//        private lazy var moreBtn: UIButton = {
-//            let btn = UIButton(type: .custom)
-//            btn.addTarget(self, action: #selector(onMoreBtn), for: .primaryActionTriggered)
-//            btn.backgroundColor = UIColor.white.alpha(0.8)
-//            btn.layer.cornerRadius = 25
-//            btn.setImage(R.image.btn_more_action(), for: .normal)
-//            return btn
-//        }()
-        
-//        private lazy var bottomBtnStack: UIStackView = {
-//            let s = UIStackView(arrangedSubviews: [micSwitchBtn, shareBtn, moreBtn],
-//                                axis: .horizontal,
-//                                spacing: 12,
-//                                alignment: .fill,
-//                                distribution: .fillEqually)
-//
-//            micSwitchBtn.snp.makeConstraints { (maker) in
-//                maker.height.width.equalTo(50)
-//            }
-//
-//            shareBtn.snp.makeConstraints { (maker) in
-//                maker.height.width.equalTo(50)
-//            }
-//
-//            moreBtn.snp.makeConstraints { (maker) in
-//                maker.height.width.equalTo(50)
-//            }
-//
-//            return s
-//        }()
+        private lazy var messageBackgroundLayer = CAGradientLayer()
+        private lazy var messageBackgroundView: UIView = {
+           let view = UIView()
+            view.layer.insertSublayer(messageBackgroundLayer, at: 0)
+            return view
+        }()
         
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -292,20 +177,22 @@ extension AmongChat.Room {
             return f
         }()
         
-        static func join(room: Entity.Room, from controller: UIViewController) {
+        static func join(room: Entity.Room, from controller: UIViewController, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                let removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
+                let removeBlock: CallBack?
+                if completionHandler == nil {
+                    removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
+                } else {
+                    removeBlock = nil
+                }
                 //show loading
-    //            let hudRemoval = {
-    //                removeBlock()
-    //                self.view.isUserInteractionEnabled = true
-    //            }
                 let viewModel = ViewModel.make(room)
                 viewModel.join { [weak controller] error in
-                    removeBlock()
+                    removeBlock?()
+                    completionHandler?(error)
                     if let vc = controller, error == nil {
                         self.show(from: vc, with: viewModel)
                     }
@@ -348,6 +235,10 @@ extension AmongChat.Room {
             view.endEditing(true)
         }
         
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            messageBackgroundLayer.frame = messageBackgroundView.bounds
+        }
     }
     
 }
@@ -370,29 +261,36 @@ extension AmongChat.Room.ViewController {
             message: nil,
             preferredStyle: .alert
         )
+        alertVC.setBackgroundColor(color: "222222".color())
+        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
+        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
         
         let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
             guard let `self` = self else { return }
             self.requestLeaveRoom()
         })
+        confirm.titleTextColor = .white
+        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .default)
+        cancel.titleTextColor = .white
+//        cancel.setTitlet(font: R.font.nunitoExtraBold(size: 15), color: .white)
         
-        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        alertVC.addAction(cancel)
         alertVC.addAction(confirm)
         present(alertVC, animated: true, completion: nil)
     }
     
     @objc
     private func onShareBtn() {
-        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-        let removeBlock = { [weak self] in
-            self?.view.isUserInteractionEnabled = true
-            removeHUDBlock()
-        }
-
-        self.view.isUserInteractionEnabled = false
+//        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+//        let removeBlock = { [weak self] in
+//            self?.view.isUserInteractionEnabled = true
+//            removeHUDBlock()
+//        }
+//
+//        self.view.isUserInteractionEnabled = false
 
         ShareManager.default.showActivity(name: nil, dynamicLink: "https://among.chat/room/\(room.roomId)", type: .more, viewController: self) { () in
-            removeBlock()
+//            removeBlock()
         }
     }
     
@@ -495,7 +393,11 @@ extension AmongChat.Room.ViewController {
         inputNotesView = AmongInputNotesView()
         inputNotesView.alpha = 0
         
-        view.addSubviews(views: bgView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
+        messageBackgroundLayer.startPoint = CGPoint(x: 0, y: 0)
+        messageBackgroundLayer.endPoint = CGPoint(x: 0, y: 1)
+        messageBackgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.6).cgColor]
+        
+        view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -541,6 +443,11 @@ extension AmongChat.Room.ViewController {
             maker.top.equalTo(toolView.snp.bottom).offset(17)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
+        }
+        
+        messageBackgroundView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalTo(messageView)
+            maker.bottom.equalToSuperview()
         }
         
 //        messageBtn.snp.makeConstraints { (maker) in
@@ -607,84 +514,14 @@ extension AmongChat.Room.ViewController {
         controller?.showModal(in: self)
     }
     
-    private func showMoreSheet(for userViewModel: ChannelUserViewModel) {
-//        let alertVC = UIAlertController(
-//            title: nil,
-//            message: R.string.localizable.userListMoreSheet(),
-//            preferredStyle: .actionSheet
-//        )
-        
-//        if let firestoreUser = userViewModel.firestoreUser {
-//            let followingUids = Social.Module.shared.followingValue.map { $0.uid }
-//            if !followingUids.contains(firestoreUser.uid) {
-//                //未添加到following
-//                let followAction = UIAlertAction(title: R.string.localizable.channelUserListFollow(), style: .default) { [weak self] (_) in
-//                    // follow_clk log
-//                    GuruAnalytics.log(event: "follow_clk", category: nil, name: nil, value: nil, content: nil)
-//                    //
-//                    self?.viewModel.followUser(firestoreUser)
-//                }
-//                alertVC.addAction(followAction)
-//            } else {
-//                let unfollowAction = UIAlertAction(title: R.string.localizable.socialUnfollow(), style: .destructive) { [weak self] (_) in
-//                    // unfollow_clk log
-//                    GuruAnalytics.log(event: "unfollow_clk", category: nil, name: nil, value: nil, content: nil)
-//                    //
-//                    self?.viewModel.unfollowUser(firestoreUser)
-//                }
-//                alertVC.addAction(unfollowAction)
-//            }
-//        }
-        
-//        let isMuted = Social.Module.shared.mutedValue.contains(userViewModel.channelUser.uid.uIntValue)
-//        if isMuted {
-//            let unmuteAction = UIAlertAction(title: R.string.localizable.channelUserListUnmute(), style: .default) { [weak self] (_) in
-//                // unmute_clk log
-//                GuruAnalytics.log(event: "unmute_clk", category: nil, name: nil, value: nil, content: nil)
-//                //
-//                self?.viewModel.unmuteUser(userViewModel)
-//                ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 100)
-//            }
-//            alertVC.addAction(unmuteAction)
-//
-//        } else {
-//            let muteAction = UIAlertAction(title: R.string.localizable.channelUserListMute(), style: .default) { [weak self] (_) in
-//
-//                // mute_clk log
-//                GuruAnalytics.log(event: "mute_clk", category: nil, name: nil, value: nil, content: nil)
-//                //
-//self?.viewModel.unmuteUser(userViewModel)
-//                let modal = ActionModal(with: userViewModel, actionType: .mute)
-//                modal.actionHandler = { () in
-////                    self?.viewModel.muteUser(userViewModel)
-//                    ChatRoomManager.shared.adjustUserPlaybackSignalVolume(userViewModel.channelUser, volume: 0)
-//                }
-//                modal.showModal(in: self)
-//            }
-//            alertVC.addAction(muteAction)
-//        }
-//
-//        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
-//            self?.showReportSheet(for: userViewModel)
-//        })
-//        let blockAction = UIAlertAction(title:userViewModel.channelUser.status == .blocked ? R.string.localizable.alertUnblock() : R.string.localizable.alertBlock(), style: .default, handler: { [weak self] _ in
-//            // block_clk log
-//            GuruAnalytics.log(event: "block_clk", category: "user_list", name: nil, value: nil, content: nil)
-//            //
-////            self?.showBlockAlert(with: userViewModel)
-//        })
-//        alertVC.addAction(reportAction)
-//        alertVC.addAction(blockAction)
-//
-//        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
-//        present(alertVC, animated: true, completion: nil)
-    }
-    
     private func showReportSheet(for user: Entity.RoomUser) {
         let alertVC = UIAlertController(
             title: R.string.localizable.reportTitle(),
             message: "\(R.string.localizable.reportUserId()): \(user.uid)",
             preferredStyle: .actionSheet)
+//        alertVC.setBackgroundColor(color: "222222".color())
+//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
+//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
 
         let items = [
             R.string.localizable.reportIncorrectInformation(),
@@ -698,10 +535,14 @@ extension AmongChat.Room.ViewController {
                 self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
                 Logger.Report.logImp(itemIndex: index, channelName: String(user.uid))
             })
+//            action.titleTextColor = .white
+            
             alertVC.addAction(action)
         }
 
-        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
+//        cancel.titleTextColor = .white
+        alertVC.addAction(cancel)
         present(alertVC, animated: true, completion: nil)
     }
     
@@ -1046,28 +887,35 @@ extension AmongChat.Room.ViewController {
 
 extension AmongChat.Room.ViewController {
     
-    private func showMoreSheet(for channel: Entity.Room) {
-        let alertVC = UIAlertController(
-            title: nil,
-            message: nil,
-            preferredStyle: .actionSheet
-        )
-        
-        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
-            guard let `self` = self else { return }
-//            self.showReportSheet(for: channel)
-        })
-        alertVC.addAction(reportAction)
-        
-        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
-        present(alertVC, animated: true, completion: nil)
-    }
+//    private func showMoreSheet(for channel: Entity.Room) {
+//        let alertVC = UIAlertController(
+//            title: nil,
+//            message: nil,
+//            preferredStyle: .actionSheet
+//        )
+////        alertVC.setBackgroundColor(color: "222222".color())
+////        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
+//        let reportAction = UIAlertAction(title: R.string.localizable.reportTitle(), style: .default, handler: { [weak self] _ in
+//            guard let `self` = self else { return }
+////            self.showReportSheet(for: channel)
+//        })
+////        reportAction.titleTextColor = .white
+//        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
+////        cancel.titleTextColor = .white
+//
+//        alertVC.addAction(reportAction)
+//        alertVC.addAction(cancel)
+//        present(alertVC, animated: true, completion: nil)
+//    }
     
     private func showReportRoomSheet() {
         let alertVC = UIAlertController(
             title: R.string.localizable.reportTitle(),
             message: "\(R.string.localizable.reportRoomId()): \(room.roomId)",
             preferredStyle: .actionSheet)
+//        alertVC.setBackgroundColor(color: "222222".color())
+//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
+//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
 
         let items = [
             R.string.localizable.reportIncorrectInformation(),
@@ -1082,10 +930,12 @@ extension AmongChat.Room.ViewController {
                 self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
                 Logger.Report.logImp(itemIndex: index, channelName: self.room.roomId)
             })
+//            action.titleTextColor = .white
             alertVC.addAction(action)
         }
-
-        alertVC.addAction(UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel))
+        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
+//        cancel.titleTextColor = .white
+        alertVC.addAction(cancel)
         present(alertVC, animated: true, completion: nil)
     }
 }
@@ -1095,11 +945,11 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        view.bringSubviewToFront(messageInputContainerView)
         messageInputContainerView.isHidden = true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        view.bringSubviewToFront(messageInputContainerView)
         messageInputContainerView.isHidden = false
     }
         
