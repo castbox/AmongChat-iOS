@@ -164,6 +164,8 @@ extension AmongChat.CreateRoom.ViewController {
     private func onConfirmBtn() {
         guard let name = codeField.text?.trim(),
               !name.isEmpty else {
+            codeFieldContainer.shake()
+            HapticFeedback.Impact.error()
             return
         }
         
