@@ -262,6 +262,25 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let amongChatDefaultAvatars: PublishProperty<Entity.DefaultAvatars?> = {
+        
+        typealias DefaultAvatars = Entity.DefaultAvatars
+        let defaultAvatars: DefaultAvatars?
+        
+        if let dict = Defaults[\.amongChatDefaultAvatarsKey],
+           let d = try? JSONDecoder().decodeAnyData(DefaultAvatars.self, from: dict) {
+            defaultAvatars = d
+        } else {
+            defaultAvatars = nil
+        }
+        
+        return DynamicProperty.stored(defaultAvatars)
+            .didSet({ (event) in
+                Defaults[\.amongChatDefaultAvatarsKey] = event.new?.dictionary
+            })
+            .asPublishProperty()
+    }()
+    
     func updateProfile() {
         _ = Request.profile()
             .subscribe(onSuccess: { (profile) in
@@ -416,6 +435,9 @@ extension DefaultsKeys {
     /// 最近一次启动广告展示时间
     var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
     
+    var amongChatDefaultAvatarsKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.default.avatars", defaultValue: nil)
+    }
 }
 
 extension DefaultsAdapter {

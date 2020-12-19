@@ -80,8 +80,8 @@ extension Request {
             .mapJSON()
             .map { item -> [String : AnyObject] in
                 guard let json = item as? [String: AnyObject],
-                 let data = json["data"] as? [String: AnyObject],
-                 let roomData = data["room"] as? [String : AnyObject] else {
+                      let data = json["data"] as? [String: AnyObject],
+                      let roomData = data["room"] as? [String : AnyObject] else {
                     return [:]
                 }
                 return roomData
@@ -128,5 +128,15 @@ extension Request {
         return amongchatProvider.rx.request(.logout)
             .mapJSON().mapToDataJson()
     }
-
+    
+    static func defaultAvatars() -> Single<Entity.DefaultAvatars?> {
+        return amongchatProvider.rx.request(.defaultAvatars)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.DefaultAvatars.self)
+            .do(onSuccess: { (defaultAvatars) in
+                guard let d = defaultAvatars else { return }
+                Settings.shared.amongChatDefaultAvatars.value = d
+            })
+    }
 }

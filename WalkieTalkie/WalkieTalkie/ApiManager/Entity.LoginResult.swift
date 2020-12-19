@@ -139,3 +139,24 @@ extension Entity {
     }
     
 }
+
+extension Entity {
+    
+    struct DefaultAvatars: Codable {
+        
+        var avatarList: [String]
+        
+        private enum CodingKeys: String, CodingKey {
+            case avatarList = "avatar_list"
+        }
+    }
+    
+}
+
+extension Entity.DefaultAvatars {
+    
+    var randomAvatar: String? {
+        return avatarList.randomItem()
+    }
+    
+}

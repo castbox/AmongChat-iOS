@@ -28,6 +28,7 @@ extension APIService {
         case profile
         case updateProfile([String : Any])
         case logout
+        case defaultAvatars
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -72,14 +73,31 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/profile"
         case .logout:
             return "auth/logout"
+        case .defaultAvatars:
+            return "/account/default/avatars"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom, .updateNickName, .updateRoomInfo, .kickUsers, .updateProfile, .logout:
+        case .login,
+             .createRoom,
+             .updateNickName,
+             .updateRoomInfo,
+             .kickUsers,
+             .updateProfile,
+             .logout:
             return .post
-        case .summary, .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .profile, .leaveRoom, .roomInfo:
+            
+        case .summary,
+             .enteryRoom,
+             .heartBeating,
+             .rtmToken,
+             .rtcToken,
+             .profile,
+             .leaveRoom,
+             .defaultAvatars,
+             .roomInfo:
             return .get
         //        case .updateRoomInfo:
         //            return .put
@@ -97,13 +115,16 @@ extension APIService.AmongChatBackend: TargetType {
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
-        case .profile, .logout:
+        case .profile,
+             .defaultAvatars,
+             .logout:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            
         case .login(let params),
              .summary(let params),
              .updateNickName(let params),

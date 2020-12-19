@@ -226,10 +226,13 @@ extension Social {
         
         @objc
         private func onAvatarTapped() {
-            let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
-            avatarIV.image = avatar.0
-//            profile.avatar = "\(avatar.1)"
-//            updateProfileIfNeeded()
+            
+            guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
+                return
+            }
+            
+            let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
+            updateProfileIfNeeded(profileProto)
         }
         
         private func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
