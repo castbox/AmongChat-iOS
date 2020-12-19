@@ -175,11 +175,9 @@ extension Social {
         }
         
         func selectBirthday() {
-            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
-                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
-                return
-            }
-            let vc = Social.BirthdaySelectViewController()
+
+//            let vc = Social.BirthdaySelectViewController()
+            let vc = Social.BirthdaySetViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
                 guard let `self` = self else {
                     return
@@ -189,11 +187,11 @@ extension Social {
             }
             vc.showModal(in: self)
             
-            if let b = profile.birthday, !b.isEmpty {
-                vc.selectToBirthday(fixBirthdayString(b))
-            } else {
-                vc.selectToBirthday("")
-            }
+//            if let b = profile.birthday, !b.isEmpty {
+//                vc.selectToBirthday(fixBirthdayString(b))
+//            } else {
+//                vc.selectToBirthday("")
+//            }
             view.endEditing(true)
         }
         

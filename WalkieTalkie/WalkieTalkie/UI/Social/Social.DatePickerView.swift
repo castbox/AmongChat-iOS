@@ -19,9 +19,6 @@ extension Social {
         var minYear = 1900
         var maxYear = 2020
         var rowHeight: CGFloat = 42
-        var lineWidth: CGFloat {
-            return self.bounds.size.width
-        }
         
         var date: Date {
             let month = months[selectedRow(inComponent: DatePickerComponent.month.rawValue) % months.count]
@@ -193,7 +190,6 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
         for v in pickerView.subviews where v.frame.size.height < 1 {
             v.backgroundColor = .white
             v.alpha = 0.16
-            v.size.width = lineWidth
         }
         label.font = yearFont
         label.textColor = .white

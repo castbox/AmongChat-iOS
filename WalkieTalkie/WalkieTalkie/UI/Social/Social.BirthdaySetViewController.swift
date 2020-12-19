@@ -32,7 +32,7 @@ extension Social {
         }()
         
         private lazy var birthdayPicker: Social.DatePickerView = {
-            let p = Social.DatePickerView(frame: CGRect(x: 40, y: 305, width: Frame.Screen.width - 80, height: 290))
+            let p = Social.DatePickerView(frame: CGRect(x: 40, y: 305, width: Frame.Screen.width - 70, height: 290))
             p.backgroundColor = UIColor(hex6: 0x121212)
             return p
         }()
@@ -59,7 +59,7 @@ extension Social {
             view.addSubviews(views: mainTitle, subTitle, birthdayPicker, confirmBtn)
             
             mainTitle.snp.makeConstraints { (maker) in
-                maker.top.equalTo(140)
+                maker.top.equalTo(140.scalValue)
                 maker.centerX.equalToSuperview()
                 maker.height.equalTo(65.5)
             }
@@ -69,12 +69,15 @@ extension Social {
                 maker.left.equalTo(40)
                 maker.right.equalTo(-40)
             }
-            
+            var gap = 50
+            if Frame.Height.deviceDiagonalIsMinThan5_5 {
+                gap = 40
+            }
             birthdayPicker.snp.makeConstraints { (maker) in
                 maker.left.equalTo(35)
                 maker.right.equalTo(-35)
                 maker.height.equalTo(290)
-                maker.top.equalTo(subTitle.snp.bottom).offset(50)
+                maker.top.equalTo(subTitle.snp.bottom).offset(gap)
             }
             
             confirmBtn.snp.makeConstraints { (maker) in

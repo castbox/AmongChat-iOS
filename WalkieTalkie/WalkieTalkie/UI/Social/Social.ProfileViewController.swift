@@ -427,7 +427,7 @@ extension Social.ProfileViewController {
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.left.equalTo(65)
+                maker.left.equalTo(iconIV.snp.right).offset(12)
             }
         }
         
