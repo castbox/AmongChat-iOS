@@ -45,7 +45,7 @@ extension Social.BlockedUserList.Widgets {
             btn.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.2)
             return btn
         }()
-                
+        
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupLayout()
@@ -57,7 +57,7 @@ extension Social.BlockedUserList.Widgets {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-
+            
         }
         
         private func setupLayout() {
@@ -97,8 +97,7 @@ extension Social.BlockedUserList.Widgets {
         func configView(with model: Entity.RoomUser) {
             usernameLabel.text = model.name
             usernameLabel.appendKern()
-            
-            avatarIV.setImage(with: model.pictureUrl, placeholder: UIImage(named: "ac_profile_avatar"))
+            avatarIV.setAvatarImage(with: model.pictureUrl)
         }
     }
 }
