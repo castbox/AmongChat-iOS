@@ -43,7 +43,11 @@ extension Social {
         private var yearFont = R.font.nunitoExtraBold(size: 20)
         private let bigRowCount = 1000
         private let componentsCount = 3
-        private let formatter = DateFormatter()
+        private lazy var formatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            return formatter
+        }()
         private var rowLabel : UILabel {
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: componentWidth, height: rowHeight))
             label.textAlignment = .center
@@ -51,9 +55,9 @@ extension Social {
             return label
         }
         
-        private var months = ["January", "February", "March", "April",
-                              "May", "June", "July","August", "September",
-                              "October", "November", "December", ]
+        private var months = ["Jan", "Feb", "Mar", "Apr",
+                              "May", "Jun", "Jul","Aug", "Sep",
+                              "Oct", "Nov", "Dec", ]
         
         private var years : Array<String> {
             let years = [Int](minYear...maxYear)
@@ -68,20 +72,16 @@ extension Social {
         private var currentDay = Date()
         
         private var currentMonthName: String {
-            formatter.locale = Locale.init(identifier: "en_US")
-            formatter.dateFormat = "MMMM"
-            let dateString = formatter.string(from: currentDay)
-            return NSLocalizedString(dateString, comment: "")
+            formatter.dateFormat = "MM"
+            return formatter.string(from: currentDay)
         }
         
         private var currentYearName: String {
-            formatter.locale = Locale.init(identifier: "en_US")
             formatter.dateFormat = "yyyy"
             return formatter.string(from: currentDay)
         }
         
         private var currentDayName: String {
-            formatter.locale = Locale.init(identifier: "en_US")
             formatter.dateFormat = "dd"
             return formatter.string(from: currentDay)
         }
@@ -162,7 +162,6 @@ extension Social {
         }
         /// text: "2005/01/01"
         func selectBirthday(_ text: String) {
-            formatter.locale = Locale(identifier: "en_US")
             formatter.dateFormat = "yyyy/MM/dd"
             currentDay = formatter.date(from: text) ?? Date()
             selectToday()

@@ -100,7 +100,7 @@ extension Social {
             }
             
             userButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(-10)
+                maker.top.equalTo(avatarIV.snp.bottom).offset(36)
                 maker.left.right.equalToSuperview()
                 maker.height.equalTo(77)
             }
@@ -175,9 +175,8 @@ extension Social {
         }
         
         func selectBirthday() {
-
-//            let vc = Social.BirthdaySelectViewController()
-            let vc = Social.BirthdaySetViewController()
+            //let vc = Social.BirthdaySetViewController()
+            let vc = Social.BirthdaySelectViewController()
             vc.onCompletion = { [weak self] (birthdayStr) in
                 guard let `self` = self else {
                     return
@@ -187,11 +186,11 @@ extension Social {
             }
             vc.showModal(in: self)
             
-//            if let b = profile.birthday, !b.isEmpty {
-//                vc.selectToBirthday(fixBirthdayString(b))
-//            } else {
-//                vc.selectToBirthday("")
-//            }
+            if let b = profile.birthday, !b.isEmpty {
+                vc.selectToBirthday(fixBirthdayString(b))
+            } else {
+                vc.selectToBirthday("")
+            }
             view.endEditing(true)
         }
         
@@ -383,7 +382,7 @@ private extension Social {
         
         private lazy var textFiled: UITextField = {
             let f = UITextField()
-            f.clearButtonMode = .always
+//            f.clearButtonMode = .always
             f.keyboardType = .alphabet
             f.contentVerticalAlignment = .center
             f.backgroundColor = .white
@@ -393,7 +392,9 @@ private extension Social {
             f.borderStyle = .none
             f.delegate = self
             f.leftViewMode = .always
-            f.attributedPlaceholder = NSAttributedString(string: "NICKNAME", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex6: 0xD8D8D8), NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16)])
+            let style = NSMutableParagraphStyle()
+            style.alignment = .center
+            f.attributedPlaceholder = NSAttributedString(string: "NICKNAME", attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex6: 0xD8D8D8), NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16), NSAttributedString.Key.paragraphStyle: style])
             return f
         }()
         
@@ -451,7 +452,7 @@ private extension Social {
             contentView.addSubview(textFiled)
             textFiled.snp.makeConstraints { (make) in
                 make.left.equalTo(24)
-                make.right.equalTo(-20)
+                make.right.equalTo(-24)
                 make.centerY.equalToSuperview()
             }
             
