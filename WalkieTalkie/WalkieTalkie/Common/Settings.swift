@@ -276,10 +276,33 @@ class Settings {
         
         return DynamicProperty.stored(defaultAvatars)
             .didSet({ (event) in
-                Defaults[\.amongChatDefaultAvatarsKey] = event.new?.dictionary
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatDefaultAvatarsKey] = dict
             })
             .asPublishProperty()
     }()
+    
+    // 首页Summary缓存临时方案
+    let amongChatHomeSummary: PublishProperty<Entity.Summary?> = {
+        
+        typealias Summary = Entity.Summary
+        let summary: Summary?
+        
+        if let dict = Defaults[\.amongChatHomeSummaryKey],
+           let s = try? JSONDecoder().decodeAnyData(Summary.self, from: dict) {
+            summary = s
+        } else {
+            summary = nil
+        }
+        
+        return DynamicProperty.stored(summary)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatHomeSummaryKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    //end
     
     func updateProfile() {
         _ = Request.profile()
@@ -438,6 +461,12 @@ extension DefaultsKeys {
     var amongChatDefaultAvatarsKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.default.avatars", defaultValue: nil)
     }
+    
+    // 首页Summary缓存临时方案
+    var amongChatHomeSummaryKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.home.summary", defaultValue: nil)
+    }
+    //end
 }
 
 extension DefaultsAdapter {

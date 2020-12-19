@@ -61,7 +61,10 @@ extension AmongChat.Home {
         
         private var hudRemoval: (() -> Void)? = nil
         
-        private lazy var topicsDataSource: [TopicViewModel] = [] {
+        private lazy var topicsDataSource: [TopicViewModel] = {
+            return Settings.shared.amongChatHomeSummary.value?.topicList.map({ TopicViewModel(with: $0) }) ?? []
+        }()
+        {
             didSet {
                 topicCollectionView.reloadData()
             }
