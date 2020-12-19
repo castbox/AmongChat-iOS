@@ -209,7 +209,7 @@ extension Social.ProfileViewController {
             lb.font = R.font.nunitoExtraBold(size: 24)
             lb.textColor = .white
             lb.textAlignment = .center
-            lb.text = "Profile"
+            lb.text = R.string.localizable.profileProfile()
             return lb
         }()
         
