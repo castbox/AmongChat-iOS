@@ -232,13 +232,16 @@ extension ChatRoom {
         }
     }
     
+    //red color
     struct SystemMessage: ChatRoomMessage {
         let content: String
+        let textColor: String?
         let msgType: MessageType
         
         private enum CodingKeys: String, CodingKey {
             case content
             case msgType = "message_type"
+            case textColor = "text_color"
         }
     }
 }

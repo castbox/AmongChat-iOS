@@ -123,6 +123,15 @@ extension Entity {
             case email
         }
     }
+    
+    struct AvatarData: Codable {
+        
+        let avatarList: [String]?
+        
+        private enum CodingKeys: String, CodingKey {
+            case avatarList = "avatar_list"
+        }
+    }
 }
 
 extension Entity {
@@ -136,6 +145,27 @@ extension Entity {
             case name
             case pictureUrl = "picture_url"
         }
+    }
+    
+}
+
+extension Entity {
+    
+    struct DefaultAvatars: Codable {
+        
+        var avatarList: [String]
+        
+        private enum CodingKeys: String, CodingKey {
+            case avatarList = "avatar_list"
+        }
+    }
+    
+}
+
+extension Entity.DefaultAvatars {
+    
+    var randomAvatar: String? {
+        return avatarList.randomItem()
     }
     
 }

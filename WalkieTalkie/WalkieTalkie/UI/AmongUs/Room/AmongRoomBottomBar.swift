@@ -68,6 +68,9 @@ class AmongRoomBottomBar: XibLoadableView {
     }
     
     @IBAction func kickSelectedAction(_ sender: Any) {
+        guard !selectedKickUser.isEmpty else {
+            return
+        }
         kickSelectedHandler?(selectedKickUser)
     }
     

@@ -13,6 +13,7 @@ import Alamofire
 extension APIService {
     enum AmongChatBackend {
         case login([String : Any])
+        case logout
         case createRoom([String : Any])
         case enteryRoom([String : Any])
         //        case roomUpdate([String: Any])
@@ -28,7 +29,7 @@ extension APIService {
         case roomNickName([String: Any])
         case profile
         case updateProfile([String : Any])
-        case logout
+        case defaultAvatars
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -75,19 +76,33 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/nickname"
         case .logout:
             return "auth/logout"
+        case .defaultAvatars:
+            return "/account/default/avatars"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .login, .createRoom, .updateNickName, .updateRoomInfo, .kickUsers, .updateProfile, .logout, .roomNickName:
+        case .login,
+             .createRoom,
+             .updateNickName,
+             .updateRoomInfo,
+             .kickUsers,
+             .updateProfile,
+             .roomNickName,
+             .logout:
             return .post
-        case .summary, .enteryRoom, .heartBeating, .rtmToken, .rtcToken, .profile, .leaveRoom, .roomInfo:
+            
+        case .summary,
+             .enteryRoom,
+             .heartBeating,
+             .rtmToken,
+             .rtcToken,
+             .profile,
+             .leaveRoom,
+             .defaultAvatars,
+             .roomInfo:
             return .get
-        //        case .updateRoomInfo:
-        //            return .put
-        //        case .secret, .devices, .pushEvent:
-        //            return .post
         }
     }
     
@@ -100,13 +115,17 @@ extension APIService.AmongChatBackend: TargetType {
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
-        case .profile, .logout:
+        case .profile,
+             .defaultAvatars,
+             .logout:
+
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+            
         case .login(let params),
              .summary(let params),
              .updateNickName(let params),

@@ -16,10 +16,7 @@ class SettingViewController: ViewController {
     @IBOutlet weak var versionLabel: UILabel!
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-    
-    private let termsUrl = "https://among.chat/term.html"
-    private let policyUrl = "https://among.chat/policy.html"
-    
+        
     override var screenName: Logger.Screen.Node.Start {
         return .settings
     }
@@ -27,25 +24,27 @@ class SettingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isNavigationBarHiddenWhenAppear = false
-        
+        showSystemNavigationBar()
+
         view.backgroundColor = UIColor.theme(.backgroundBlack)
-        
-//        statusBarStyle = .lightContent
-        self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
-        self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
-        self.customBackButton.setImage(R.image.ac_profile_back(), for: .normal)
         
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
     }
     
     @IBAction func policyAction(_ sender: Any) {
-        open(urlSting: policyUrl)
+        open(urlSting: Config.PolicyType.url(.policy))
     }
     
     @IBAction func termsAction(_ sender: Any) {
-        open(urlSting: termsUrl)
+        open(urlSting: Config.PolicyType.url(.terms))
+    }
+    
+    private func showSystemNavigationBar() {
+        isNavigationBarHiddenWhenAppear = false
+        self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
+        self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
+        self.customBackButton.setImage(R.image.ac_profile_back(), for: .normal)
     }
 }
 
@@ -54,12 +53,12 @@ class SettingContainerTableController: UITableViewController {
     let bag = DisposeBag()
     
     @IBOutlet weak var diamondsNameLabel: UILabel!
-    private let shareAppUrl = "https://amongchat.page.link/app"
+    @IBOutlet weak var logotButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         updateSubviewStyle()
-        
+                
         tableView.backgroundColor = UIColor.theme(.backgroundBlack)
     }
     
@@ -69,7 +68,7 @@ class SettingContainerTableController: UITableViewController {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (data) in
                 Settings.shared.clearAll()
-                exit(1)
+                (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
             }).disposed(by: bag)
     }
     
@@ -90,10 +89,15 @@ class SettingContainerTableController: UITableViewController {
         } else if indexPath.row == 2 {
             upgradePro()
         }
+//        else if indexPath.row == 3 {
+//            let vc = Social.BlockedUserList.ViewController()
+//            navigationController?.pushViewController(vc)
+//        }
     }
     
+    
     func shareApp() {
-        open(urlSting: shareAppUrl)
+        open(urlSting: Config.PolicyType.url(.appShare))
     }
     
     func upgradePro() {
@@ -118,6 +122,12 @@ class SettingContainerTableController: UITableViewController {
             diamondsNameLabel.text = "PRO"
         } else {
             diamondsNameLabel.text = "Unlock PRO"
+        }
+        logotButton.snp.makeConstraints { (make) in
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
         }
     }
     

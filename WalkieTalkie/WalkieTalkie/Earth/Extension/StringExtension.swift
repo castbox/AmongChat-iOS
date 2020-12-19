@@ -14,7 +14,11 @@ import RxSwift
 public extension String {
     
     func color() -> UIColor {
-        return UIColor("#\(self)")
+        if self.hasPrefix("#") {
+            return UIColor(self)
+        } else {
+            return UIColor("#\(self)")
+        }
     }
     
 //    var md5: String {

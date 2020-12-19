@@ -65,3 +65,11 @@ extension APIService.CastboxBackend: TargetType {
     }
     
 }
+
+extension APIService.AmongChatBackend: CachePolicyGettableType {
+    
+    var cachePolicy: URLRequest.CachePolicy? {        
+        return nil
+    }
+    
+}

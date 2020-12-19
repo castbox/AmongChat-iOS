@@ -121,7 +121,7 @@ extension Social {
         }
         
         private func setupData() {
-            
+                        
             let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
             let removeBlock = { [weak self] in
                 self?.view.isUserInteractionEnabled = true
@@ -133,7 +133,7 @@ extension Social {
                 .subscribe(onNext: { [weak self] (profile) in
                     removeBlock()
                     self?.updateFields(profile: profile)
-                }, onError: { [weak self] (_) in
+                }, onError: { (_) in
                     removeBlock()
                 })
                 .disposed(by: bag)
@@ -226,10 +226,12 @@ extension Social {
         
         @objc
         private func onAvatarTapped() {
-            let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
-            avatarIV.image = avatar.0
-//            profile.avatar = "\(avatar.1)"
-//            updateProfileIfNeeded()
+            guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
+                return
+            }
+            
+            let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
+            updateProfileIfNeeded(profileProto)
         }
         
         private func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
@@ -244,13 +246,8 @@ extension Social {
                         guard let p = profile else {
                             return
                         }
-                        
                         Settings.shared.amongChatUserProfile.value = p
-                        
-                        cdPrint("")
-                        
                     }, onError: { (error) in
-                        
                     })
                     .disposed(by: bag)
             }

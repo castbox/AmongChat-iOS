@@ -397,7 +397,7 @@
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bPa-Q9-pgs">
-                                            <rect key="frame" x="10" y="12.5" width="20" height="19"/>
+                                            <rect key="frame" x="10" y="12" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="gWq-Yq-hsO"/>
                                             </constraints>
@@ -490,7 +490,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z8j-7O-rDC">
-                                <rect key="frame" x="174" y="736" width="66" height="38"/>
+                                <rect key="frame" x="169.5" y="736" width="75" height="38"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="tle-jO-Cx9"/>
                                 </constraints>
@@ -534,7 +534,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zxv-bD-dsW">
-                                <rect key="frame" x="174" y="745" width="30" height="20"/>
+                                <rect key="frame" x="169.5" y="745" width="30" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="Mdc-YQ-T0w"/>
                                     <constraint firstAttribute="width" constant="30" id="exO-7g-kLZ"/>
@@ -640,11 +640,11 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Rcu-qs-BQ5">
-                            <rect key="frame" x="0.0" y="294.5" width="414" height="100"/>
+                            <rect key="frame" x="0.0" y="294.5" width="414" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rth-po-1tb">
-                                    <rect key="frame" x="59" y="50" width="295" height="50"/>
+                                    <rect key="frame" x="59" y="40" width="295" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.13725490196078433" green="0.13725490196078433" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
@@ -768,7 +768,7 @@
                                                     <rect key="frame" x="15" y="9.5" width="25" height="25"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w76-pL-yh7" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                                                    <rect key="frame" x="55" y="12" width="97" height="20"/>
+                                                    <rect key="frame" x="55" y="10.5" width="100.5" height="23.5"/>
                                                     <string key="text">Push Setting
 </string>
                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
@@ -799,6 +799,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="diamondsNameLabel" destination="uSh-wn-uid" id="yBG-1V-uyX"/>
+                        <outlet property="logotButton" destination="Rth-po-1tb" id="0fk-xO-tez"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2vF-u4-C6L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -995,7 +996,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZu-oa-bM7">
-                                <rect key="frame" x="0.0" y="44" width="414" height="308"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="313.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Friends to chat?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zJ-yu-xTv">
                                         <rect key="frame" x="25" y="25" width="208" height="24"/>
@@ -1004,16 +1005,16 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After your friend accepts the invitation, the secret channel will exist for you forever" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOv-Ur-D6g">
-                                        <rect key="frame" x="25" y="54" width="364" height="33"/>
+                                        <rect key="frame" x="25" y="54" width="364" height="38.5"/>
                                         <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="14"/>
                                         <color key="textColor" red="0.56470588235294117" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bIw-9Z-4lp">
-                                        <rect key="frame" x="25" y="106" width="364" height="50"/>
+                                        <rect key="frame" x="25" y="111.5" width="364" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="AAAAAAAA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P25-qQ-tsl">
-                                                <rect key="frame" x="0.0" y="16.5" width="308" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="15" width="308" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1058,7 +1059,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="asP-bg-3Mi">
-                                        <rect key="frame" x="50" y="192" width="314" height="44"/>
+                                        <rect key="frame" x="50" y="197.5" width="314" height="44"/>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.65098039220000004" blue="0.14901960780000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="ons-ZJ-2WB"/>
@@ -1077,14 +1078,14 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0P-cf-lVh">
-                                        <rect key="frame" x="0.0" y="308" width="414" height="0.0"/>
+                                        <rect key="frame" x="0.0" y="313.5" width="414" height="0.0"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="a3e-zI-Tyl"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L9t-4g-OaD">
-                                        <rect key="frame" x="167" y="246" width="80" height="40"/>
+                                        <rect key="frame" x="166" y="251.5" width="82" height="40"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="h0R-bA-5Ud"/>
@@ -1182,13 +1183,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Walkie Talkie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9F-JV-73G">
-                                                <rect key="frame" x="101" y="161" width="114.5" height="23.5"/>
+                                                <rect key="frame" x="101" y="160" width="140.5" height="25"/>
                                                 <fontDescription key="fontDescription" name="BlackOpsOne-Regular" family="Black Ops One" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pro" translatesAutoresizingMaskIntoConstraints="NO" id="CuV-bT-ntk">
-                                                <rect key="frame" x="227" y="157.5" width="65" height="30"/>
+                                                <rect key="frame" x="253" y="157.5" width="65" height="30"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_pro_select" translatesAutoresizingMaskIntoConstraints="NO" id="UBa-M7-TDR">
                                                 <rect key="frame" x="27.5" y="212.5" width="25" height="25"/>
@@ -1507,7 +1508,7 @@ Cg
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Global Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOG-db-lVp" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                                                    <rect key="frame" x="15" y="12" width="117" height="20"/>
+                                                    <rect key="frame" x="15" y="10.5" width="119" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

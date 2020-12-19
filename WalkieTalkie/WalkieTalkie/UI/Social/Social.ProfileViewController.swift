@@ -27,7 +27,7 @@ extension Social {
                 case .settings:
                     return R.image.profile_settings()
                 case .community:
-                    return UIImage(named: "ac_profile_communtiy")
+                    return R.image.ac_profile_communtiy()
                 }
             }
             
@@ -38,7 +38,7 @@ extension Social {
                 case .settings:
                     return R.string.localizable.profileSettings()
                 case .community:
-                    return "Community guidelines"
+                    return R.string.localizable.profileCommunity()
                 }
             }
         }
@@ -136,9 +136,7 @@ extension Social {
                             return
                         }
                         Settings.shared.amongChatUserProfile.value = p
-                        cdPrint("")
                     }, onError: { (error) in
-                        cdPrint("")
                     })
                     .disposed(by: bag)
             }
@@ -183,8 +181,8 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     removeBlock()
                 }
             //            case .blockUser:
-            //                let vc = Social.BlockedUserList.ViewController()
-            //                navigationController?.pushViewController(vc)
+//                            let vc = Social.BlockedUserList.ViewController()
+//                            navigationController?.pushViewController(vc)
             case .settings:
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")

@@ -20,9 +20,9 @@ extension AmongChat.Room {
             let cellWidth: CGFloat = 60
             var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
             let itemSpacing: CGFloat
-            if hInset > 40 {
-                itemSpacing = (hInset - 40) * 2 / 4
-                hInset = 40
+            if hInset > 20 {
+                itemSpacing = (hInset - 20) * 2 / 4
+                hInset = 20
             } else {
                 itemSpacing = 0
             }

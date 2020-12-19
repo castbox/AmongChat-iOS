@@ -26,6 +26,8 @@ extension Social {
         
         private let blockedListRelay = BehaviorRelay<[String]>(value: [])
         
+        private let avatarListRelay = BehaviorRelay<[String]>(value: [])
+        
         private let muteListRelay = BehaviorRelay<[UInt]>(value: [])
         
         private typealias CommonMessge = FireStore.Entity.User.CommonMessage
@@ -42,7 +44,7 @@ extension Social {
         private var currentChannel: String = ""
         
         private init() {
-            
+                        
             Observable.combineLatest(Settings.shared.loginResult.replay().filterNil(), FireStore.shared.firebaseSignedInObservable)
                 .take(1)
                 .subscribe(onNext: { [weak self] (t) in
@@ -55,7 +57,6 @@ extension Social {
 //                    self?.bindProfileToFirestore(result.uid)
                 })
                 .disposed(by: bag)
-            
         }
         
         private func startHeartbeat(_ uid: String) {
@@ -248,6 +249,10 @@ extension Social.Module {
     
     var blockedValue: [String] {
         return blockedListRelay.value
+    }
+    
+    var avatarList: [String] {
+        return avatarListRelay.value
     }
     
     var currentChannelValue: String {

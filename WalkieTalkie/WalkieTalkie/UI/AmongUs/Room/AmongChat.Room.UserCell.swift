@@ -84,6 +84,7 @@ extension AmongChat.Room {
             let btn = UIButton(type: .custom)
             //            btn.setTitle("XXX", for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 10)
+            btn.titleLabel?.lineBreakMode = .byTruncatingTail
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             btn.backgroundColor = UIColor.white.alpha(0.2)
             btn.cornerRadius = 10
@@ -221,19 +222,13 @@ extension AmongChat.Room.UserCell {
             disableMicView.isHidden = true
         } else {
             if user.isMutedByLoginUser == true {
-                mutedLabel.isHidden = !user.isMutedValue
+                mutedLabel.isHidden = false
                 disableMicView.isHidden = true
             } else {
                 mutedLabel.isHidden = true
-                disableMicView.isHidden = !user.isMutedValue
+                disableMicView.isHidden = !user.isMuted
             }
         }
-        
-        //自己 muted 自己
-        //            disableMicView.isHidden = true
-        //        } else {
-        //            clearStyle()
-        //        }
     }
     
     func clearStyle() {

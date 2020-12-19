@@ -78,23 +78,6 @@ extension AmongChat.Room {
                 }
             }
         }
-        
-//        private var dataSource: [Int: Entity.RoomUser] = [:] {
-//            didSet {
-//                userCollectionView.reloadData()
-//            }
-//        }
-        
-//        private var messageListDataSource: [ChatRoomMessage] = [] {
-//            didSet {
-//                messageView.reloadData()
-//                mainQueueDispatchAsync(after: 0.2) { [weak self] in
-//                    if self?.messageView.contentSize.height ?? 0 > self?.messageView.frame.size.height ?? 0 {
-//                        self?.messageView.scrollToBottom()
-//                    }
-//                }
-//            }
-//        }
 
         private lazy var bgView: UIView = {
             let v = UIView()
@@ -957,11 +940,7 @@ extension AmongChat.Room.ViewController {
         }
         
         bottomBar.changeMicStateHandler = { [weak self] micOn in
-//            self?.editType = .message
-//            ChatRoomManager.shared.muteMyMic(muted: !micOn)
             self?.viewModel.isMuteMic = !micOn
-            let tip = micOn ? R.string.localizable.amongChatRoomTipMicOff() : R.string.localizable.amongChatRoomTipMicOn()
-            self?.view.raft.autoShow(.text(tip), userInteractionEnabled: false)
         }
         
         bottomBar.cancelKickHandler = { [weak self] in
@@ -1116,6 +1095,7 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        view.bringSubviewToFront(messageInputContainerView)
         messageInputContainerView.isHidden = true
     }
     

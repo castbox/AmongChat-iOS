@@ -91,9 +91,6 @@ extension Entity {
         var isMutedByLoginUser: Bool
         let nickname: String?
         
-        var isMutedValue: Bool {
-            return isMuted ?? false
-        }
         private enum CodingKeys: String, CodingKey {
             case uid
             case name

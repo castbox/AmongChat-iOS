@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 136 images.
+  /// This `R.image` struct is generated, and contains static references to 137 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -146,6 +146,8 @@ struct R: Rswift.Validatable {
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
     static let ac_home_create = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_create")
+    /// Image `ac_home_load_error`.
+    static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
     /// Image `ac_icon_kick_user`.
@@ -429,6 +431,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_create", bundle: ..., traitCollection: ...)`
     static func ac_home_create(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_create, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_load_error", bundle: ..., traitCollection: ...)`
+    static func ac_home_load_error(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_load_error, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`
@@ -1503,7 +1510,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 160 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 164 localization keys.
     struct localizable {
       /// en translation: %1$@ enters room
       /// 
@@ -1709,7 +1716,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Host could setup notes so everyone could see it when they join the room
+      /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en
       static let amongChatRoomJustChatTitle = Rswift.StringResource(key: "among.chat.room.just.chat.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1853,6 +1860,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRoomUserChangeNotesTitle = Rswift.StringResource(key: "among.chat.room.user.change.notes.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Oops, no Internet!
+      /// 
+      /// Locales: en
+      static let amongChatHomeLoadErrorTitle = Rswift.StringResource(key: "among.chat.home.load.error.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en
@@ -1873,6 +1884,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Please check your connection and try again
+      /// 
+      /// Locales: en
+      static let amongChatHomeLoadErrorMsg = Rswift.StringResource(key: "among.chat.home.load.error.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please update to the newest version of the app to continue playing.
       /// 
       /// Locales: en
@@ -2021,6 +2036,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelSpeakingLimitModalMsg = Rswift.StringResource(key: "channel.speaking.limit.modal.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Try again
+      /// 
+      /// Locales: en
+      static let amongChatTryAgain = Rswift.StringResource(key: "among.chat.try.again", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Try it FREE
       /// 
       /// Locales: en
@@ -2081,6 +2100,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatAllRoomsVoteGame = Rswift.StringResource(key: "among.chat.all.rooms.vote.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en
+      static let amongChatWelcomeMessage = Rswift.StringResource(key: "among.chat.welcome.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: What about you, %1$@
       /// 
       /// Locales: en
@@ -2503,7 +2526,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Host could setup notes so everyone could see it when they join the room
+      /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en
       static func amongChatRoomJustChatTitle(_: Void = ()) -> String {
@@ -2755,6 +2778,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.user.change.notes.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no Internet!
+      /// 
+      /// Locales: en
+      static func amongChatHomeLoadErrorTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.load.error.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Open Game
       /// 
       /// Locales: en
@@ -2788,6 +2818,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please check your connection and try again
+      /// 
+      /// Locales: en
+      static func amongChatHomeLoadErrorMsg(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.load.error.msg", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please update to the newest version of the app to continue playing.
@@ -3049,6 +3086,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.speaking.limit.modal.msg", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Try again
+      /// 
+      /// Locales: en
+      static func amongChatTryAgain(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.try.again", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Try it FREE
       /// 
       /// Locales: en
@@ -3152,6 +3196,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatAllRoomsVoteGame(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.all.rooms.vote.game", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en
+      static func amongChatWelcomeMessage(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.welcome.message", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: What about you, %1$@

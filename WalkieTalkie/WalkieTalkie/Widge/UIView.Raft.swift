@@ -74,6 +74,7 @@ extension Raft where Base: UIView {
 //        hud.offset = CGPoint(x: 0, y: -base.bounds.height * 0.1)
         hud.bezelView.color = "222222".color()
         hud.bezelView.style = .solidColor
+        hud.bezelView.layer.cornerRadius = 12
         switch type {
         case .loading:
             hud.contentColor = .theme(.main)

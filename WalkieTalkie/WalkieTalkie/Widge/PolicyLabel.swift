@@ -64,9 +64,9 @@ class PolicyLabel: YYLabel {
             }
             var target: String = ""
             if NSIntersectionRange(range, privacyRange).length > 0 {
-                target = "https://among.chat/policy.html"
+                target = Config.PolicyType.url(.policy)
             } else if NSIntersectionRange(range, termsRange).length > 0 {
-                target = "https://among.chat/term.html"
+                target = Config.PolicyType.url(.terms)
             } else {
                 return
             }

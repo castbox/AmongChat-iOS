@@ -226,18 +226,10 @@ extension AmongChat.Room.MessageTextCell {
             pargraph.lineHeightMultiple = 0
             
             let nameAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: "FB5858".color(),
+                .foregroundColor: systemMessage.textColor?.color() ?? "FB5858".color(),
                 .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
                 .paragraphStyle: pargraph
-    //            .kern: 0.5
             ]
-            
-//            let contentAttr: [NSAttributedString.Key: Any] = [
-//                .foregroundColor: UIColor.white,
-//                .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
-//                .paragraphStyle: pargraph
-//    //            .kern: 0.5
-//            ]
             
             let mutableNormalString = NSMutableAttributedString()
             mutableNormalString.append(NSAttributedString(string: "\(systemMessage.content)", attributes: nameAttr))

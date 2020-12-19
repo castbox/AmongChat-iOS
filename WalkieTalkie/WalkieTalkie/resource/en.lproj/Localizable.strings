@@ -204,9 +204,13 @@
 "among.chat.home.team.up" = "Team up";
 "among.chat.home.nowplaying" = "%1$@ playing";
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
-"among.chat.room.just.chat.title" = "Host could setup notes so everyone could see it when they join the room";
+"among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
 "among.chat.room.kickout" = "You’ve been removed from this game";
 "among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
 "among.chat.room.set.reblox.name" = "Setup Roblox Username";
 "among.chat.room.kick" = "Kick";
 "among.chat.room.user.change.notes.title" = "Only the channel owner can change this";
+"among.chat.home.load.error.title" = "Oops, no Internet!";
+"among.chat.home.load.error.msg" = "Please check your connection and try again";
+"among.chat.try.again" = "Try again";
+"among.chat.welcome.message" = "Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";

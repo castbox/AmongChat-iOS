@@ -21,15 +21,15 @@ extension Social.BlockedUserList {
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.backNor(), for: .normal)
+            btn.setImage(R.image.ac_profile_back(), for: .normal)
             return btn
         }()
         
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoBold(size: 16)
+            lb.font = R.font.nunitoExtraBold(size: 24)
             lb.text = R.string.localizable.socialBlockedUserTitle()
-            lb.textColor = .black
+            lb.textColor = .white
             lb.appendKern()
             return lb
         }()
@@ -42,7 +42,7 @@ extension Social.BlockedUserList {
             tb.delegate = self
             tb.register(BlockedUserCell.self, forCellReuseIdentifier: NSStringFromClass(BlockedUserCell.self))
             tb.separatorStyle = .none
-            tb.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            tb.backgroundColor = .clear//UIColor(hex6: 0xFFD52E, alpha: 1.0)
             return tb
         }()
         
@@ -60,7 +60,7 @@ extension Social.BlockedUserList {
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
+            view.backgroundColor = UIColor.theme(.backgroundBlack)//UIColor(hex6: 0xFFD52E, alpha: 1.0)
 
             view.addSubviews(views: backBtn, titleLabel)
             

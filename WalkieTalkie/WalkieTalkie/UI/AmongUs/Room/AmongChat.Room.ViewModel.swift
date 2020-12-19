@@ -319,7 +319,7 @@ extension AmongChat.Room {
         }
         
         func addSystemMessage() {
-            let system = ChatRoom.SystemMessage(content: "Welcome to \(room.topicName) channel. Any pornography, political, religions, gambling and other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.", msgType: .system)
+            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", msgType: .system)
             addUIMessage(message: system)
         }
         

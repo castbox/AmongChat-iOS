@@ -18,7 +18,10 @@ extension Social {
         
         var minYear = 1900
         var maxYear = 2020
-        var rowHeight : CGFloat = 42
+        var rowHeight: CGFloat = 42
+        var lineWidth: CGFloat {
+            return self.bounds.size.width
+        }
         
         var date: Date {
             let month = months[selectedRow(inComponent: DatePickerComponent.month.rawValue) % months.count]
@@ -160,7 +163,7 @@ extension Social {
             selectRow(todayIndexPath.section, inComponent: DatePickerComponent.year.rawValue, animated: false)
             selectRow(currentDayRow, inComponent: DatePickerComponent.day.rawValue, animated: false)
         }
-        
+        /// text: "2005/01/01"
         func selectBirthday(_ text: String) {
             formatter.locale = Locale(identifier: "en_US")
             formatter.dateFormat = "yyyy/MM/dd"
@@ -187,7 +190,11 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
         } else {
             label = rowLabel
         }
-        
+        for v in pickerView.subviews where v.frame.size.height < 1 {
+            v.backgroundColor = .white
+            v.alpha = 0.16
+            v.size.width = lineWidth
+        }
         label.font = yearFont
         label.textColor = .white
         label.text = titleForRow(row, component: component)

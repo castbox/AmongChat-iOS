@@ -32,7 +32,7 @@ extension Social {
         }()
         
         private lazy var birthdayPicker: Social.DatePickerView = {
-            let p = Social.DatePickerView(frame: CGRect(x: 0, y: 305, width: Frame.Screen.width - 40, height: 320))
+            let p = Social.DatePickerView(frame: CGRect(x: 40, y: 305, width: Frame.Screen.width - 80, height: 290))
             p.backgroundColor = UIColor(hex6: 0x121212)
             return p
         }()
@@ -71,8 +71,10 @@ extension Social {
             }
             
             birthdayPicker.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
-                maker.top.equalTo(subTitle.snp.bottom).offset(49)
+                maker.left.equalTo(35)
+                maker.right.equalTo(-35)
+                maker.height.equalTo(290)
+                maker.top.equalTo(subTitle.snp.bottom).offset(50)
             }
             
             confirmBtn.snp.makeConstraints { (maker) in
@@ -82,7 +84,7 @@ extension Social {
                 maker.bottom.equalTo(-58 - Frame.Height.safeAeraBottomHeight)
             }
             
-            birthdayPicker.selectToday()
+            birthdayPicker.selectBirthday("2005/01/01")
         }
         
         @objc
@@ -111,30 +113,30 @@ extension Social {
     }
 }
 
-//extension Social.BirthdaySetViewController: Modalable {
-//    
-//    func style() -> Modal.Style {
-//        return .customHeight
-//    }
-//    
-//    func height() -> CGFloat {
-//        return Frame.Screen.height
-//    }
-//    
-//    func modalPresentationStyle() -> UIModalPresentationStyle {
-//        return .overCurrentContext
-//    }
-//    
-//    func cornerRadius() -> CGFloat {
-//        return 0
-//    }
-//    
-//    func coverAlpha() -> CGFloat {
-//        return 0.5
-//    }
-//    
-//    func canAutoDismiss() -> Bool {
-//        return true
-//    }
-//    
-//}
+extension Social.BirthdaySetViewController: Modalable {
+    
+    func style() -> Modal.Style {
+        return .customHeight
+    }
+    
+    func height() -> CGFloat {
+        return Frame.Screen.height
+    }
+    
+    func modalPresentationStyle() -> UIModalPresentationStyle {
+        return .overCurrentContext
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 0
+    }
+    
+    func coverAlpha() -> CGFloat {
+        return 0.5
+    }
+    
+    func canAutoDismiss() -> Bool {
+        return true
+    }
+    
+}
