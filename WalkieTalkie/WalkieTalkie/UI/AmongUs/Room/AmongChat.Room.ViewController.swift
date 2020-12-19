@@ -173,7 +173,7 @@ extension AmongChat.Room {
                                                          ])
             f.textColor = .white
             f.delegate = self
-            f.font = R.font.nunitoRegular(size: 13)
+            f.font = R.font.nunitoSemiBold(size: 13)
             return f
         }()
         

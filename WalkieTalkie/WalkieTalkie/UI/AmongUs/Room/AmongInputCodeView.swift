@@ -11,7 +11,8 @@ import SwifterSwift
 
 class AmongInputCodeView: XibLoadableView {
 
-    @IBOutlet weak var textField: UITextField!
+    
+    @IBOutlet weak var textField: PaddingTextField!
     
     @IBOutlet weak var inputContainerView: UIView!
         

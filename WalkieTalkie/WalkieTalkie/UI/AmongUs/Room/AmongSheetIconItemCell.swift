@@ -37,7 +37,7 @@ class AmongSheetIconItemCell: UITableViewCell {
                 button.setBackgroundImage("333333".color().image, for: .normal)
                 button.setTitle(R.string.localizable.channelUserListUnmute(), for: .normal)
             case .report:
-                button.setTitleColor(.white, for: .normal)
+                button.setTitleColor("FB5858".color(), for: .normal)
                 button.setImage(R.image.ac_icon_sheet_report(), for: .normal)
                 button.setBackgroundImage("333333".color().image, for: .normal)
                 button.setTitle(R.string.localizable.reportTitle(), for: .normal)

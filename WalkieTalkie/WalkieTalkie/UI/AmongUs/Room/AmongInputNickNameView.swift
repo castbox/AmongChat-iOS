@@ -11,7 +11,8 @@ import SwifterSwift
 
 class AmongInputNickNameView: XibLoadableView {
 
-    @IBOutlet weak var textField: UITextField!
+    
+    @IBOutlet weak var textField: PaddingTextField!
     
     @IBOutlet weak var inputContainerView: UIView!
     
@@ -65,7 +66,7 @@ extension AmongInputNickNameView: UITextFieldDelegate {
         }
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
-        return count <= 256
+        return count <= 30
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -183,6 +183,7 @@
 		FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE746BDA24629B0500CAC554 /* GuideFourthView.swift */; };
 		FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BDB24629B0500CAC554 /* GuideFirstView.xib */; };
 		FE7720BF258E1521006A2F1B /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7720BE258E1521006A2F1B /* UIAlertControllerExtension.swift */; };
+		FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE775CE7258E5262002A21F6 /* UITextFieldInspectable.swift */; };
 		FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */; };
 		FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F374258C731400E9BC6C /* SoundAnimationView.swift */; };
 		FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */; };
@@ -514,6 +515,7 @@
 		FE746BDA24629B0500CAC554 /* GuideFourthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideFourthView.swift; sourceTree = "<group>"; };
 		FE746BDB24629B0500CAC554 /* GuideFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
 		FE7720BE258E1521006A2F1B /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
+		FE775CE7258E5262002A21F6 /* UITextFieldInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldInspectable.swift; sourceTree = "<group>"; };
 		FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPermissionExtension.swift; sourceTree = "<group>"; };
 		FE79F374258C731400E9BC6C /* SoundAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundAnimationView.swift; sourceTree = "<group>"; };
 		FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.SeatView.swift; sourceTree = "<group>"; };
@@ -847,6 +849,7 @@
 				FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */,
 				FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */,
 				FE7720BE258E1521006A2F1B /* UIAlertControllerExtension.swift */,
+				FE775CE7258E5262002A21F6 /* UITextFieldInspectable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1647,6 +1650,7 @@
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
 				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
+				FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				BD8B4E57257E1E5000BE6520 /* AmongChat.Room.IMManager.swift in Sources */,
