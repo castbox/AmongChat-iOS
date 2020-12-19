@@ -1524,7 +1524,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 185 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 186 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1583,6 +1583,10 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static let monthAug = Rswift.StringResource(key: "month.aug", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: BIrthday
+      /// 
+      /// Locales: en
+      static let profileBigBirthday = Rswift.StringResource(key: "profile.big.birthday", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Birthday
       /// 
       /// Locales: en
       static let profileBirthday = Rswift.StringResource(key: "profile.birthday", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2366,6 +2370,13 @@ struct R: Rswift.Validatable {
       }
       
       /// en translation: BIrthday
+      /// 
+      /// Locales: en
+      static func profileBigBirthday(_: Void = ()) -> String {
+        return NSLocalizedString("profile.big.birthday", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Birthday
       /// 
       /// Locales: en
       static func profileBirthday(_: Void = ()) -> String {

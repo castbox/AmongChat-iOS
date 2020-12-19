@@ -113,7 +113,8 @@
 "profile.block.user" = "Block list";
 "profile.settings" = "Settings";
 "profile.community" = "Community guidelines";
-"profile.birthday" = "BIrthday";
+"profile.big.birthday" = "BIrthday";
+"profile.birthday" = "Birthday";
 "profile.birthday.subtitle" = "Find friends of the same age";
 "profile.done" = "Done";
 "profile.pro" = "PRO";
