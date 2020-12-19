@@ -82,12 +82,6 @@ extension AmongChat.Room {
             configureSubview()
         }
         
-//        override init(frame: CGRect) {
-//            super.init(frame: frame)
-//            bindSubviewEvent()
-//            configureSubview()
-//        }
-        
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -107,7 +101,8 @@ extension AmongChat.Room {
         }
         
         func showAvatarLongPressSheet(with user: Entity.RoomUser) {
-            guard let viewController = viewContainingController() else {
+            guard user.uid != Settings.loginUserId,
+                  let viewController = viewContainingController() else {
                 return
             }
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
