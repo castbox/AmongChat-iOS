@@ -138,6 +138,10 @@ extension Social {
             return row
         }
         
+        private var lineWidth: CGFloat {
+            return self.bounds.size.width * 0.95
+        }
+        
         //MARK: - Override
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -160,7 +164,7 @@ extension Social {
             selectRow(todayIndexPath.section, inComponent: DatePickerComponent.year.rawValue, animated: false)
             selectRow(currentDayRow, inComponent: DatePickerComponent.day.rawValue, animated: false)
         }
-        
+        /// text: "2005/01/01"
         func selectBirthday(_ text: String) {
             formatter.locale = Locale(identifier: "en_US")
             formatter.dateFormat = "yyyy/MM/dd"
@@ -187,7 +191,11 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
         } else {
             label = rowLabel
         }
-        
+        for v in pickerView.subviews where v.frame.size.height < 1 {
+            v.backgroundColor = .white
+            v.alpha = 0.16
+            v.size.width = lineWidth
+        }
         label.font = yearFont
         label.textColor = .white
         label.text = titleForRow(row, component: component)
