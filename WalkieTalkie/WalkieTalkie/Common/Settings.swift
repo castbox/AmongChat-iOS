@@ -311,7 +311,6 @@ class Settings {
                     return
                 }
                 Settings.shared.amongChatUserProfile.value = p
-                cdPrint("")
             }, onError: { (error) in
                 cdPrint("")
             })

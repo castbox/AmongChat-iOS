@@ -91,7 +91,7 @@ extension Entity {
         var pictureUrl: String?
         var name: String?
         var email: String?
-        var newGuide: Bool
+        var newGuide: Bool?
         var pictureUrlRaw: String?
         var uid: Int
         var birthday: String?

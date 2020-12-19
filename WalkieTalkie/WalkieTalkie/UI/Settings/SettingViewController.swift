@@ -63,9 +63,12 @@ class SettingContainerTableController: UITableViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
-        
+        let removeBlock = view.raft.show(.loading)
         Request.logout().asObservable()
             .observeOn(MainScheduler.instance)
+            .do(onDispose: {
+                removeBlock()
+            })
             .subscribe(onNext: { (data) in
                 Settings.shared.clearAll()
                 (UIApplication.shared.delegate as! AppDelegate).setupInitialView()

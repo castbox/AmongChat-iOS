@@ -16,7 +16,7 @@ extension Social {
             let label = UILabel()
             label.textColor = UIColor(hex6: 0xFFF000)
             label.font = R.font.nunitoExtraBold(size: 48)
-            label.text = "BIrthday"
+            label.text = "Brithday"
             label.textAlignment = .center
             return label
         }()

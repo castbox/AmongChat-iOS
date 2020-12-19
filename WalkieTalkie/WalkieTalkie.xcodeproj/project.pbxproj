@@ -403,7 +403,7 @@
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FE11DC2E245AFF6A009B7E08 /* ConnectState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectState.swift; sourceTree = "<group>"; };
-		FE126D14243461E800BEDD60 /* WalkieTalkie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WalkieTalkie.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE126D14243461E800BEDD60 /* AmongChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmongChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D17243461E800BEDD60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE126D1B243461E800BEDD60 /* RoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomViewController.swift; sourceTree = "<group>"; };
 		FE126D1E243461E800BEDD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -878,7 +878,7 @@
 		FE126D15243461E800BEDD60 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FE126D14243461E800BEDD60 /* WalkieTalkie.app */,
+				FE126D14243461E800BEDD60 /* AmongChat.app */,
 				FE126D2A243461EB00BEDD60 /* WalkieTalkieTests.xctest */,
 			);
 			name = Products;
@@ -1332,7 +1332,7 @@
 			);
 			name = WalkieTalkie;
 			productName = WalkieTalkie;
-			productReference = FE126D14243461E800BEDD60 /* WalkieTalkie.app */;
+			productReference = FE126D14243461E800BEDD60 /* AmongChat.app */;
 			productType = "com.apple.product-type.application";
 		};
 		FE126D29243461EB00BEDD60 /* WalkieTalkieTests */ = {
@@ -1978,7 +1978,8 @@
 				);
 				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = WalkieTalkie;
+				PRODUCT_NAME = AmongChat;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2004,7 +2005,8 @@
 				);
 				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_MODULE_NAME = WalkieTalkie;
+				PRODUCT_NAME = AmongChat;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
