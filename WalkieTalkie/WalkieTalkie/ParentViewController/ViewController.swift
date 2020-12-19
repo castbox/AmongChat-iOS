@@ -180,7 +180,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
     func addCustomBackButton() {
         let barButtonItem = UIBarButtonItem(customView: customBackButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
-    }
+    }    
 }
 
 extension ViewController {
