@@ -8,8 +8,8 @@
 
 import UIKit
 import Firebase
-import MoPub
-import MoPub_AdMob_Adapters
+//import MoPub
+//import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
-        _ = AdsManager.shared
+//        _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
         _ = FireStore.shared
@@ -168,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
                 
             })
-        Ad.AppOpenAdManager.shared.tryToPresentAd()
+//        Ad.AppOpenAdManager.shared.tryToPresentAd()
     }
     
     func handle(_ uri: URL) -> Bool {

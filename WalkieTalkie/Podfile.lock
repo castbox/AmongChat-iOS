@@ -234,7 +234,7 @@ PODS:
   - CastboxDebuger (1.3.2):
     - SSZipArchive (~> 2.1.4)
     - SwiftyBeaver (~> 1.9.0)
-  - DeviceKit (3.2.0)
+  - DeviceKit (4.2.1)
   - DoraemonKit/Core (3.0.2)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
@@ -360,9 +360,6 @@ PODS:
     - GoogleUtilities/Environment (~> 6.2)
     - "GoogleUtilities/NSData+zlib (~> 6.2)"
     - Protobuf (>= 3.9.2, ~> 3.9)
-  - Google-Mobile-Ads-SDK (7.66.0):
-    - GoogleAppMeasurement (~> 6.0)
-    - GoogleUserMessagingPlatform (~> 1.1)
   - GoogleAppMeasurement (6.5.1):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
     - GoogleUtilities/MethodSwizzler (~> 6.0)
@@ -377,7 +374,6 @@ PODS:
     - AppAuth (~> 1.2)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
-  - GoogleUserMessagingPlatform (1.3.0)
   - GoogleUtilities/AppDelegateSwizzler (6.6.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -440,27 +436,6 @@ PODS:
   - leveldb-library (1.22)
   - loady (1.0.5)
   - MBProgressHUD (1.0.0)
-  - MoPub-AdMob-Adapters (7.66.0.1):
-    - MoPub-AdMob-Adapters/MoPub (= 7.66.0.1)
-    - MoPub-AdMob-Adapters/Network (= 7.66.0.1)
-  - MoPub-AdMob-Adapters/MoPub (7.66.0.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-    - mopub-ios-sdk/NativeAds (~> 5.13)
-  - MoPub-AdMob-Adapters/Network (7.66.0.1):
-    - Google-Mobile-Ads-SDK (= 7.66.0)
-    - mopub-ios-sdk/Core (~> 5.13)
-    - mopub-ios-sdk/NativeAds (~> 5.13)
-  - mopub-ios-sdk/Core (5.14.1)
-  - mopub-ios-sdk/NativeAds (5.14.1):
-    - mopub-ios-sdk/Core
-  - MoPub-UnityAds-Adapters (3.4.8.1):
-    - MoPub-UnityAds-Adapters/MoPub (= 3.4.8.1)
-    - MoPub-UnityAds-Adapters/Network (= 3.4.8.1)
-  - MoPub-UnityAds-Adapters/MoPub (3.4.8.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-  - MoPub-UnityAds-Adapters/Network (3.4.8.1):
-    - mopub-ios-sdk/Core (~> 5.13)
-    - UnityAds (= 3.4.8)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -536,7 +511,6 @@ PODS:
   - TikTokOpenSDK (3.0.2):
     - BytedanceOpenPlatformSDK (= 3.0.1)
   - UIColor_Hex_Swift (4.2.0)
-  - UnityAds (3.4.8)
   - WSFlexibleTouch (0.1.1)
   - YYText (1.0.7)
 
@@ -546,7 +520,7 @@ DEPENDENCIES:
   - AgoraRtm_iOS
   - BetterSegmentedControl
   - CastboxDebuger (~> 1.3.2)
-  - DeviceKit
+  - DeviceKit (~> 4.0)
   - DoraemonKit/Core (~> 3.0.2)
   - Firebase/Analytics
   - Firebase/Auth
@@ -566,9 +540,6 @@ DEPENDENCIES:
   - Kingfisher
   - loady
   - MBProgressHUD (~> 1.0.0)
-  - MoPub-AdMob-Adapters
-  - mopub-ios-sdk/Core
-  - MoPub-UnityAds-Adapters (= 3.4.8.1)
   - Moya/RxSwift
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
@@ -621,12 +592,10 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseRemoteConfig
-    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleSignIn
-    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - "gRPC-C++"
     - gRPC-Core
@@ -641,9 +610,6 @@ SPEC REPOS:
     - leveldb-library
     - loady
     - MBProgressHUD
-    - MoPub-AdMob-Adapters
-    - mopub-ios-sdk
-    - MoPub-UnityAds-Adapters
     - Moya
     - nanopb
     - Path.swift
@@ -670,7 +636,6 @@ SPEC REPOS:
     - SwiftyUserDefaults
     - TikTokOpenSDK
     - UIColor_Hex_Swift
-    - UnityAds
     - WSFlexibleTouch
     - YYText
 
@@ -685,7 +650,7 @@ SPEC CHECKSUMS:
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   BytedanceOpenPlatformSDK: 48b6b7603f81daf50dd90cb337cd690bf3c51371
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
-  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
+  DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
@@ -705,12 +670,10 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: cef67c4967c7cecb56ea65d8acbb4834825c587b
   FirebaseMessaging: 29543feb343b09546ab3aa04d008ee8595b43c44
   FirebaseRemoteConfig: 3d189cf0c3c5abc0c924ef1cce60c4add8d3262c
-  Google-Mobile-Ads-SDK: 7d7074359c040f5add4e0963bf860e14690060d0
   GoogleAppMeasurement: 137afe68bfa406c3f4221b9395253d9e5d4654cf
   GoogleDataTransport: ad884314b81cdb808fb1d23787b367ff8da4e28a
   GoogleDataTransportCCTSupport: d70a561f7d236af529fee598835caad5e25f6d3d
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GoogleUserMessagingPlatform: 1d4b6946710d18cec34742054092e2c2bddae61f
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
@@ -725,9 +688,6 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  MoPub-AdMob-Adapters: 70274439efc4914639b340d8ccb4462c9bdde756
-  mopub-ios-sdk: b60afe997d7631e6bea6e1ae8a3d3727be9cd171
-  MoPub-UnityAds-Adapters: 267a3e5f23252c01895fc220b958639e1c1343e2
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
@@ -754,10 +714,9 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   TikTokOpenSDK: f81840227b18ba43c294b2839e5cfe46610647bf
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
-  UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 01d61b819ec4a682681c8e26d26817794eed41cd
+PODFILE CHECKSUM: 677bfa4032915b4d607e4082867cced8b989d663
 
 COCOAPODS: 1.10.0

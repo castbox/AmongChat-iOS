@@ -14,7 +14,7 @@ import SwifterSwift
 import SnapKit
 import AgoraRtmKit
 import SwiftyUserDefaults
-import MoPub
+//import MoPub
 import RxGesture
 import BetterSegmentedControl
 import AgoraRtcKit
@@ -104,7 +104,7 @@ class RoomViewController: ViewController {
     
     private var confetti: ConfettiView!
 
-    private var adView: MPAdView!
+//    private var adView: MPAdView!
     
     private var isFirstConnectSecretChannel: String = ""
     
@@ -188,7 +188,7 @@ class RoomViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        adView?.frame = adContainer.bounds
+//        adView?.frame = adContainer.bounds
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -510,11 +510,11 @@ extension RoomViewController: ChatRoomDelegate {
             #endif
         } else {
             //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
-                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
-            }
+//            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
+//                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+//            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+//                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+//            }
         }
     }
     
@@ -603,40 +603,40 @@ extension RoomViewController: ScreenContainerDelegate {
     }
 }
 
-extension RoomViewController: MPAdViewDelegate {
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        if let naviVC = self.navigationController {
-            return naviVC
-        } else {
-            return self
-        }
-    }
-
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        cdPrint("[AD]-adViewDidLoadAd")
-        Logger.Ads.logEvent(.ads_loaded, .channel)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
-        Logger.Ads.logEvent(.ads_failed, .channel)
-    }
-
-    func willPresentModalView(forAd view: MPAdView!) {
-//        showSource = .adModal
-        Logger.Ads.logEvent(.ads_imp, .channel)
-    }
-    
-    
-    func willLeaveApplication(fromAd view: MPAdView!) {
-        Logger.Ads.logEvent(.ads_clk, .channel)
-//        showSource = .adLeave
-    }
-    
-    func didDismissModalView(forAd view: MPAdView!) {
+//extension RoomViewController: MPAdViewDelegate {
+//    func viewControllerForPresentingModalView() -> UIViewController! {
+//        if let naviVC = self.navigationController {
+//            return naviVC
+//        } else {
+//            return self
+//        }
+//    }
+//
+//    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+//        cdPrint("[AD]-adViewDidLoadAd")
+//        Logger.Ads.logEvent(.ads_loaded, .channel)
+//    }
+//
+//    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+//        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
+//        Logger.Ads.logEvent(.ads_failed, .channel)
+//    }
+//
+//    func willPresentModalView(forAd view: MPAdView!) {
+////        showSource = .adModal
+//        Logger.Ads.logEvent(.ads_imp, .channel)
+//    }
+//
+//
+//    func willLeaveApplication(fromAd view: MPAdView!) {
 //        Logger.Ads.logEvent(.ads_clk, .channel)
-    }
-}
+////        showSource = .adLeave
+//    }
+//
+//    func didDismissModalView(forAd view: MPAdView!) {
+////        Logger.Ads.logEvent(.ads_clk, .channel)
+//    }
+//}
 
 //MARK: Private method
 private extension RoomViewController {
@@ -906,26 +906,26 @@ private extension RoomViewController {
             })
             .disposed(by: bag)
         
-        AdsManager.shared.mopubInitializeSuccessSubject
-            .filter { _ -> Bool in
-                return !Settings.shared.isProValue.value
-            }
-            .filter { $0 }
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.loadAdView()
-            })
-            .disposed(by: bag)
-        
-        Settings.shared.isProValue.replay()
-            .observeOn(MainScheduler.asyncInstance)
-            .filter { $0 }
-            .subscribe(onNext: { [weak self] _ in
-                //remove ad
-                self?.adView?.stopAutomaticallyRefreshingContents()
-                self?.adView?.removeSubviews()
-            })
-            .disposed(by: bag)
+//        AdsManager.shared.mopubInitializeSuccessSubject
+//            .filter { _ -> Bool in
+//                return !Settings.shared.isProValue.value
+//            }
+//            .filter { $0 }
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.loadAdView()
+//            })
+//            .disposed(by: bag)
+//
+//        Settings.shared.isProValue.replay()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .filter { $0 }
+//            .subscribe(onNext: { [weak self] _ in
+//                //remove ad
+//                self?.adView?.stopAutomaticallyRefreshingContents()
+//                self?.adView?.removeSubviews()
+//            })
+//            .disposed(by: bag)
         
         musicButton.tapHandler = { [weak self] in
             self?.playMusicAction()
@@ -1064,20 +1064,20 @@ private extension RoomViewController {
         present(premium, animated: true, completion: nil)
     }
     
-    func loadAdView() {
-        adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
-        adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
-        adContainer.addSubview(adView)
-        adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
-//        if adContainerHeightConstraint.constant > 50 {
-//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
-//        } else {
-//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSize50Height)
-//        }
-        Logger.Ads.logEvent(.ads_load, .channel)
-        adView.startAutomaticallyRefreshingContents()
-    }
+//    func loadAdView() {
+//        adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
+//        adView.delegate = self
+//        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
+//        adContainer.addSubview(adView)
+//        adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+////        if adContainerHeightConstraint.constant > 50 {
+////            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+////        } else {
+////            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSize50Height)
+////        }
+//        Logger.Ads.logEvent(.ads_load, .channel)
+//        adView.startAutomaticallyRefreshingContents()
+//    }
 }
 
 extension Reactive where Base: UIButton {

@@ -3228,6 +3228,7 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
+      try _AmongSheetIconItemCell.validate()
       try _ChannelUserCell.validate()
       try _ChannelUserListController.validate()
       try _GuideFirstView.validate()
@@ -3375,7 +3376,7 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
       typealias ReusableType = AmongSheetIconItemCell
       
       let bundle = R.hostingBundle
@@ -3384,6 +3385,12 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetIconItemCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetIconItemCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongSheetIconItemCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

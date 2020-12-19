@@ -107,7 +107,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
             setNeedsStatusBarUpdate()
         }
         
-        AdsManager.shared.requestRewardVideoIfNeed()
+//        AdsManager.shared.requestRewardVideoIfNeed()
         screenLifeStartTime = Date()
         loggerScreenShow()
     }

@@ -52,7 +52,7 @@ target 'WalkieTalkie' do
     
     # Objective-C Pods
     pod 'MBProgressHUD', '~> 1.0.0'
-    pod 'DeviceKit'
+    pod 'DeviceKit', '~> 4.0'
 #    pod 'LYEmptyView'
     ui_pods
 
@@ -102,9 +102,9 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-    pod 'mopub-ios-sdk/Core'
-    pod 'MoPub-AdMob-Adapters'
-    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
+#    pod 'mopub-ios-sdk/Core'
+#    pod 'MoPub-AdMob-Adapters'
+#    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
     
