@@ -22,9 +22,9 @@ extension Entity {
     }
     
     enum AmongUsZone: Int, Codable {
-        case northAmercia
-        case asia
-        case europe
+        case northAmercia = 1
+        case asia = 2
+        case europe = 3
     }
     
     //房间类型
