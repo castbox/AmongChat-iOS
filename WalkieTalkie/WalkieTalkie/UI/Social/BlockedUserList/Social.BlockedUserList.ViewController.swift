@@ -132,9 +132,14 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     }
     
     private func removeLockedUser(at index: Int) {
-        userList.remove(at: index)
-        tableView.reloadData()
-        Defaults[\.blockedUsersV2Key] = userList
+        let removeBlock = view.raft.show(.loading)
+        mainQueueDispatchAsync(after: 0.5) { [weak self] in
+            guard let `self` = self else { return }
+            self.userList.remove(at: index)
+            Defaults[\.blockedUsersV2Key] = self.userList
+            self.tableView.reloadData()
+            removeBlock()
+        }
     }
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -75,179 +75,180 @@ extension Social {
             super.touchesBegan(touches, with: event)
             view.endEditing(true)
         }
+    }
+}
+private extension Social.EditProfileViewController {
+    func setupLayout() {
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor.theme(.backgroundBlack)
+        view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
         
-        private func setupLayout() {
-            isNavigationBarHiddenWhenAppear = true
-            statusBarStyle = .lightContent
-            view.backgroundColor = UIColor.theme(.backgroundBlack)
-            view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(15)
-                maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
-                maker.width.height.equalTo(25)
-            }
-            
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(backBtn.snp.bottom).offset(32.5)
-                maker.width.height.equalTo(90)
-                maker.centerX.equalToSuperview()
-            }
-            
-            randomIconIV.snp.makeConstraints { (maker) in
-                maker.right.bottom.equalTo(avatarIV)
-                maker.width.height.equalTo(24)
-            }
-            
-            userButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(36)
-                maker.left.right.equalToSuperview()
-                maker.height.equalTo(77)
-            }
-            
-            birthdayButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(userButton.snp.bottom)
-                maker.left.right.equalToSuperview()
-                maker.height.equalTo(77)
-            }
-            userButton.addSubview(userNameInputField)
-            userNameInputField.snp.makeConstraints { (make) in
-                make.right.equalTo(-20)
-            }
-            
-            userInputView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 520)
-            userInputView.isHidden = true
-            view.addSubview(userInputView)
+        backBtn.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(15)
+            maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(25)
         }
         
-        private func setupData() {
-                        
-            let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-            let removeBlock = { [weak self] in
-                self?.view.isUserInteractionEnabled = true
-                removeHUDBlock()
+        avatarIV.snp.makeConstraints { (maker) in
+            maker.top.equalTo(backBtn.snp.bottom).offset(32.5)
+            maker.width.height.equalTo(90)
+            maker.centerX.equalToSuperview()
+        }
+        
+        randomIconIV.snp.makeConstraints { (maker) in
+            maker.right.bottom.equalTo(avatarIV)
+            maker.width.height.equalTo(24)
+        }
+        
+        userButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(avatarIV.snp.bottom).offset(36)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(77)
+        }
+        
+        birthdayButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(userButton.snp.bottom)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(77)
+        }
+        userButton.addSubview(userNameInputField)
+        userNameInputField.snp.makeConstraints { (make) in
+            make.right.equalTo(-20)
+        }
+        
+        userInputView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 520)
+        userInputView.isHidden = true
+        view.addSubview(userInputView)
+    }
+    
+    func setupData() {
+        
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        Settings.shared.amongChatUserProfile.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (profile) in
+                removeBlock()
+                self?.updateFields(profile: profile)
+            }, onError: { (_) in
+                removeBlock()
+            })
+            .disposed(by: bag)
+        
+        userButton.rx.tap
+            .subscribe(onNext: { [weak self]() in
+                self?.userNameInputField.becomeFirstResponder()
+            }).disposed(by: bag)
+        
+        birthdayButton.rx.tap
+            .subscribe(onNext: { [weak self]() in
+                self?.selectBirthday()
+            }).disposed(by: bag)
+        
+        userInputView.doneHandle = { [weak self](text) in
+            guard let `self` = self else { return }
+            if !text.isEmpty {
+                let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
+                self.updateProfileIfNeeded(profileProto)
             }
-            
-            Settings.shared.amongChatUserProfile.replay()
-                .filterNil()
-                .subscribe(onNext: { [weak self] (profile) in
-                    removeBlock()
-                    self?.updateFields(profile: profile)
-                }, onError: { (_) in
-                    removeBlock()
-                })
-                .disposed(by: bag)
-            
-            userButton.rx.tap
-                .subscribe(onNext: { [weak self]() in
-                    self?.userNameInputField.becomeFirstResponder()
-                }).disposed(by: bag)
-            
-            birthdayButton.rx.tap
-                .subscribe(onNext: { [weak self]() in
-                    self?.selectBirthday()
-                }).disposed(by: bag)
-            
-            userInputView.doneHandle = { [weak self](text) in
+        }
+        
+        RxKeyboard.instance.isHidden
+            .drive(onNext: { [weak self](hidden) in
+                self?.userInputView.isHidden = hidden
+                if !hidden {
+                    self?.userInputView.becomeActive()
+                }
+            }).disposed(by: bag)
+        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self](height) in
                 guard let `self` = self else { return }
-                if !text.isEmpty {
-                    let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
-                    self.updateProfileIfNeeded(profileProto)
+                UIView.animate(withDuration: 0) {
+                    self.userInputView.bottom = Frame.Screen.height - height
+                    self.view.layoutIfNeeded()
                 }
-            }
-            
-            RxKeyboard.instance.isHidden
-                .drive(onNext: { [weak self](hidden) in
-                    self?.userInputView.isHidden = hidden
-                    if !hidden {
-                        self?.userInputView.becomeActive()
-                    }
-                }).disposed(by: bag)
-            
-            RxKeyboard.instance.visibleHeight
-                .drive(onNext: { [weak self](height) in
-                    guard let `self` = self else { return }
-                    UIView.animate(withDuration: 0) {
-                        self.userInputView.bottom = Frame.Screen.height - height
-                        self.view.layoutIfNeeded()
-                    }
-                }).disposed(by: bag)
-        }
-        
-        func selectBirthday() {
-            //let vc = Social.BirthdaySetViewController()
-            let vc = Social.BirthdaySelectViewController()
-            vc.onCompletion = { [weak self] (birthdayStr) in
-                guard let `self` = self else {
-                    return
-                }
-                let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
-                self.updateProfileIfNeeded(profile)
-            }
-            vc.showModal(in: self)
-            
-            if let b = profile.birthday, !b.isEmpty {
-                vc.selectToBirthday(fixBirthdayString(b))
-            } else {
-                vc.selectToBirthday("")
-            }
-            view.endEditing(true)
-        }
-        
-        private func fixBirthdayString(_ text: String) -> String {
-            var b = text
-            let index = b.index(b.startIndex, offsetBy: 4)
-            b.insert("/", at: index)
-            
-            let index1 = b.index(b.startIndex, offsetBy: 7)
-            b.insert("/", at: index1)
-            return b
-        }
-        
-        private func updateFields(profile: Entity.UserProfile) {
-            self.profile = profile
-            userButton.setRightLabelText(profile.name ?? "")
-            if let b = profile.birthday, !b.isEmpty {
-                let birthday = self.fixBirthdayString(b)
-                birthdayButton.setRightLabelText(birthday)
-            } else {
-                birthdayButton.setRightLabelText("")
-            }
-            avatarIV.setAvatarImage(with: profile.pictureUrl)
-        }
-        
-        @objc
-        private func onBackBtn() {
-            navigationController?.popViewController()
-        }
-        
-        @objc
-        private func onAvatarTapped() {
-            guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
+            }).disposed(by: bag)
+    }
+    
+    func selectBirthday() {
+        //let vc = Social.BirthdaySetViewController()
+        let vc = Social.BirthdaySelectViewController()
+        vc.onCompletion = { [weak self] (birthdayStr) in
+            guard let `self` = self else {
                 return
             }
-            
-            let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
-            updateProfileIfNeeded(profileProto)
+            let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
+            self.updateProfileIfNeeded(profile)
+        }
+        vc.showModal(in: self)
+        
+        if let b = profile.birthday, !b.isEmpty {
+            vc.selectToBirthday(fixBirthdayString(b))
+        } else {
+            vc.selectToBirthday("")
+        }
+        view.endEditing(true)
+    }
+    
+    func fixBirthdayString(_ text: String) -> String {
+        var b = text
+        let index = b.index(b.startIndex, offsetBy: 4)
+        b.insert("/", at: index)
+        
+        let index1 = b.index(b.startIndex, offsetBy: 7)
+        b.insert("/", at: index1)
+        return b
+    }
+    
+    func updateFields(profile: Entity.UserProfile) {
+        self.profile = profile
+        userButton.setRightLabelText(profile.name ?? "")
+        if let b = profile.birthday, !b.isEmpty {
+            let birthday = self.fixBirthdayString(b)
+            birthdayButton.setRightLabelText(birthday)
+        } else {
+            birthdayButton.setRightLabelText("")
+        }
+        avatarIV.setAvatarImage(with: profile.pictureUrl)
+    }
+    
+    @objc
+    func onBackBtn() {
+        navigationController?.popViewController()
+    }
+    
+    @objc
+    func onAvatarTapped() {
+        guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
+            return
         }
         
-        private func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
-            if let dict = profileProto.dictionary {
-                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-                Request.updateProfile(dict)
-                    .do(onDispose: {
-                        hudRemoval()
-                    })
-                    .subscribe(onSuccess: { (profile) in
-                        
-                        guard let p = profile else {
-                            return
-                        }
-                        Settings.shared.amongChatUserProfile.value = p
-                    }, onError: { (error) in
-                    })
-                    .disposed(by: bag)
-            }
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
+        updateProfileIfNeeded(profileProto)
+    }
+    
+    func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
+        if let dict = profileProto.dictionary {
+            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+            Request.updateProfile(dict)
+                .do(onDispose: {
+                    hudRemoval()
+                })
+                .subscribe(onSuccess: { (profile) in
+                    
+                    guard let p = profile else {
+                        return
+                    }
+                    Settings.shared.amongChatUserProfile.value = p
+                }, onError: { (error) in
+                })
+                .disposed(by: bag)
         }
     }
 }
@@ -317,7 +318,7 @@ private extension Social {
     class BirthdaySelectViewController: ViewController {
         
         private lazy var birthdayPicker: Social.DatePickerView = {
-            let p = Social.DatePickerView(frame: CGRect(x: 0, y: 58, width: Frame.Screen.width - 80, height: 260))
+            let p = Social.DatePickerView(frame: CGRect(x: 0, y: 58, width: Frame.Screen.width, height: 260))
             p.backgroundColor = UIColor(hex6: 0x222222)
             return p
         }()
@@ -382,7 +383,7 @@ private extension Social {
         
         private lazy var textFiled: UITextField = {
             let f = UITextField()
-//            f.clearButtonMode = .always
+            //            f.clearButtonMode = .always
             f.keyboardType = .alphabet
             f.contentVerticalAlignment = .center
             f.backgroundColor = .white
@@ -469,6 +470,7 @@ private extension Social {
             }
             addEvents()
         }
+        
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
@@ -527,7 +529,7 @@ extension Social.BirthdaySelectViewController: Modalable {
     }
     
     func cornerRadius() -> CGFloat {
-        return 6
+        return 20
     }
     
     func coverAlpha() -> CGFloat {

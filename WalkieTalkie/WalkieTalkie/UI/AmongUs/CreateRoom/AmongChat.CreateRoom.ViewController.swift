@@ -246,7 +246,13 @@ extension AmongChat.CreateRoom.ViewController {
         var roomProto = Entity.RoomProto()
         roomProto.state = privateStateSwitch.roomPublicType
         
-        if let topic = Topic(rawValue: name.lowercased()) {
+        let alphabetCode = { (originString: String) -> String in
+            let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").inverted
+            let filteredString = originString.components(separatedBy: set).joined(separator: "")
+            return filteredString
+        }
+        
+        if let topic = Topic(rawValue: alphabetCode(name).lowercased()) {
             roomProto.topicId = topic
         } else {
             roomProto.topicId = .chilling

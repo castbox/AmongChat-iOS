@@ -84,8 +84,10 @@ extension Social.Widgets {
                 maker.edges.equalTo(iv).inset(-a_borderWidth)
             }
             
+            let overlap: CGFloat = 1
+            
             border.layer.cornerRadius = a_borderWidth + a_cornerRadius
-            border.layer.borderWidth = a_borderWidth
+            border.layer.borderWidth = a_borderWidth + overlap
             border.layer.borderColor = a_borderColor?.cgColor
             
             iv.layer.cornerRadius = a_cornerRadius
