@@ -196,7 +196,7 @@ extension AmongChat.Room.UserCell {
     
     func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
         if index == 1 {
-            indexLabel.text = "\(index)-host"
+            indexLabel.text = "\(index)-Host"
         } else {
             indexLabel.text = index.string
         }

@@ -108,7 +108,7 @@ class ShareManager: NSObject {
         
         let shareString =
         """
-        Hey I’m in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: \(dynamicLink)
+        Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: \(dynamicLink)
         """
         return shareString
     }
