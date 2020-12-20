@@ -176,7 +176,8 @@ class ChatRoomManager: SeatManager {
         mRtcManager.setClientRole(joinRole)
     }
 
-    func leaveChannel(_ block: ((String) -> Void)? = nil) {
+//    func leaveChannel(_ block: ((String) -> Void)? = nil) {
+    func leaveChannel() {
         guard let name = channelName else {
             return
         }
@@ -185,7 +186,7 @@ class ChatRoomManager: SeatManager {
         
         mChannelData.release()
         HapticFeedback.Impact.medium()
-        block?(name)
+//        block?(name)
     }
     
 //    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
@@ -282,7 +283,6 @@ class ChatRoomManager: SeatManager {
 
 extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {
-        requestHeartBeating()
 //        mRtmManager.joinChannel(channelId, nil)
     }
     
