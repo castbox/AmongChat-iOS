@@ -75,7 +75,7 @@ extension Social.BlockedUserList {
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalTo(navLayoutGuide)
-                maker.left.equalToSuperview().offset(15)
+                maker.left.equalToSuperview().offset(20)
                 maker.width.height.equalTo(25)
             }
             
