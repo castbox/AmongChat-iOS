@@ -410,17 +410,11 @@ extension AmongChat.Room {
         func muteUser(_ user: Entity.RoomUser) {
             mutedUser.insert(user.uid.uInt)
             mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
-//            update(dataSource.value)
-//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            //        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
         }
         
         func unmuteUser(_ user: Entity.RoomUser) {
             mutedUser.remove(user.uid.uInt)
             mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
-//            update(dataSource.value)
-//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            //        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
         }
         
         func followUser(_ user: FireStore.Entity.User) {
@@ -428,7 +422,7 @@ extension AmongChat.Room {
         }
         
         func unfollowUser(_ user: FireStore.Entity.User) {
-            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
+//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
             //        FireStore.shared.removeFollowing(user.uid, from: selfUid)
         }
         
@@ -461,6 +455,7 @@ extension AmongChat.Room.ViewModel {
             if blockedUsers.contains(where: { $0.uid == user.uid }) {
                 newUser.status = .blocked
                 newUser.isMuted = true
+                newUser.isMutedByLoginUser = true
             } else {
                 if otherMutedUser.contains(user.uid.uInt) || mutedUser.contains(user.uid.uInt) {
                     newUser.isMuted = true
@@ -469,6 +464,7 @@ extension AmongChat.Room.ViewModel {
                 } else {
                     newUser.isMuted = false
                     newUser.status = .connected
+                    newUser.isMutedByLoginUser = false
                 }
 
             }
@@ -564,7 +560,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     
     func onUserStatusChanged(userId: UInt, muted: Bool) {
         let userList = room.roomUserList
-        if userList.contains(where: { $0.uid.uInt == userId }) && muted {
+        if userList.contains(where: { $0.uid.uInt == userId }), muted {
             otherMutedUser.insert(userId)
         } else {
             otherMutedUser.remove(userId)
