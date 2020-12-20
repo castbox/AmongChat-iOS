@@ -66,7 +66,7 @@ extension AmongChat.Room {
                 switch editType {
                 case .amongSetup:
                     self.view.bringSubviewToFront(amongInputCodeView)
-                    amongInputCodeView.becomeFirstResponder()
+                    amongInputCodeView.becomeFirstResponder(with: room)
                 case .nickName:
                     self.view.bringSubviewToFront(nickNameInputView)
                     nickNameInputView.becomeFirstResponder()

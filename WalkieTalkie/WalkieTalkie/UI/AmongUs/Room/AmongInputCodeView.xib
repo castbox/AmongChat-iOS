@@ -60,7 +60,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hex-5e-ewn">
                             <rect key="frame" x="40" y="60" width="334" height="40"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXH-9e-wm8">
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXH-9e-wm8">
                                     <rect key="frame" x="0.0" y="0.0" width="128" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="saG-1H-Ych"/>
@@ -79,7 +79,7 @@
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="6YT-Jr-vMi"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-M6-xFk">
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-M6-xFk">
                                     <rect key="frame" x="163" y="0.0" width="59" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="yQ8-KA-QYr"/>
@@ -98,7 +98,7 @@
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="pWM-6V-EUo"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
                                     <rect key="frame" x="257" y="0.0" width="77" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="40" id="Axs-7i-8Fr"/>

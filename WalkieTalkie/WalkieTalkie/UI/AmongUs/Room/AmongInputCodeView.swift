@@ -54,7 +54,13 @@ class AmongInputCodeView: XibLoadableView {
     }
     
     private func configureSubview() {
-        locationService = .northAmercia
+//        locationService = .northAmercia
+    }
+    
+    func becomeFirstResponder(with room: Entity.Room) {
+        locationService = room.amongUsZone ?? .northAmercia
+        textField.text = room.amongUsCode?.uppercased()
+        textField.becomeFirstResponder()
     }
     
     override func becomeFirstResponder() -> Bool {
