@@ -37,12 +37,12 @@ extension Entity {
         
         var roomUserList: [RoomUser]
         var state: RoomPublicType
-        var topicId: AmongChat.Topic
+        var topicId: String
         let topicName: String
         var bgUrl: String?
         
         var isValidAmongConfig: Bool {
-            guard topicId == .amongus,
+            guard topicType == .amongus,
                   let code = amongUsCode,
                   amongUsZone != nil else {
                 return false
@@ -60,6 +60,14 @@ extension Entity {
         
         var loginUserIsAdmin: Bool {
             return userListMap[0]?.uid == Settings.loginUserId
+        }
+        
+        var topicType: AmongChat.Topic {
+            guard let topic = AmongChat.Topic(rawValue: topicId) else {
+                return .chilling
+            }
+            
+            return topic
         }
     }
     

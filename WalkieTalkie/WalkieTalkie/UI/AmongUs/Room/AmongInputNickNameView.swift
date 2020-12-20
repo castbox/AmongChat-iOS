@@ -10,7 +10,6 @@ import UIKit
 import SwifterSwift
 
 class AmongInputNickNameView: XibLoadableView {
-
     
     @IBOutlet weak var textField: PaddingTextField!
     
@@ -18,8 +17,15 @@ class AmongInputNickNameView: XibLoadableView {
     
     var inputResultHandler: ((String) -> Void)?
     
+    var usedInRoom = true
+    
     override func becomeFirstResponder() -> Bool {
-        textField.text = Settings.shared.amongChatUserProfile.value?.nickname
+        if usedInRoom {
+            textField.text = Settings.shared.amongChatUserProfile.value?.nickname
+        } else {
+            textField.placeholder = R.string.localizable.profileBagNickname()
+            textField.text =  Settings.shared.amongChatUserProfile.value?.name
+        }
         return textField.becomeFirstResponder()
     }
     

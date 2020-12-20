@@ -18,7 +18,7 @@ class JustChillingInfoView: XibLoadableView {
             guard let room = room else {
                 return
             }
-            if room.topicId == .roblox {
+            if room.topicType == .roblox {
                 notesDetailButton.isHidden = true
                 notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
             } else {
@@ -56,7 +56,7 @@ class JustChillingInfoView: XibLoadableView {
     }
     
     @IBAction func hostNotesAction(_ sender: Any) {
-        guard room?.topicId == AmongChat.Topic.chilling else {
+        guard room?.topicType == AmongChat.Topic.chilling else {
             return
         }
         hostNotesClick?()

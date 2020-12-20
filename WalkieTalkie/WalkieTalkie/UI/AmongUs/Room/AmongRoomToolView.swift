@@ -32,8 +32,8 @@ class AmongRoomToolView: XibLoadableView {
     
     func set(_ room: Entity.Room) {
         openGameButton.setTitle(room.topicName, for: .normal)
-        openGameButton.isUserInteractionEnabled = room.topicId != .chilling
-        nickNameButton.isHidden = room.topicId != .roblox
+        openGameButton.isUserInteractionEnabled = room.topicType != .chilling
+        nickNameButton.isHidden = room.topicType != .roblox
     }
     
     private func bindSubviewEvent() {

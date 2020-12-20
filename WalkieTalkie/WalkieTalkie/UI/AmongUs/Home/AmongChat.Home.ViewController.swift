@@ -113,13 +113,14 @@ extension AmongChat.Home.ViewController {
         }
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.enterRoom(roomId: roomId, topicId: topic)
-//            .do(onDispose: {
-//                hudRemoval()
-//            })
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
-                guard let `self` = self, let room = room else {
+                guard let `self` = self else {
+                    return
+                }
+                guard let room = room else {
                     hudRemoval()
+                    self.view.raft.autoShow(.text("Failed to enter channel"))
                     return
                 }
                 
@@ -241,7 +242,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-            enterRoom(topicId: topic.topic.topicId.rawValue)
+            enterRoom(topicId: topic.topic.topicId)
         }
     }
     

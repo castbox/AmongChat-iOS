@@ -112,7 +112,7 @@ private extension Social.ProfileViewController {
             maker.edges.equalToSuperview()
         }
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(15)
+            maker.left.equalToSuperview().offset(20)
             maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
             maker.width.height.equalTo(25)
         }

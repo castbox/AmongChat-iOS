@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,14 +25,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-yU-WC6">
-                    <rect key="frame" x="0.0" y="732" width="414" height="130"/>
+                    <rect key="frame" x="0.0" y="725" width="414" height="137"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-Aa-jd8">
-                            <rect key="frame" x="341" y="68" width="60" height="33"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="6E3-wP-8ud"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                            <rect key="frame" x="323" y="68" width="51" height="40"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
                             <state key="normal" title="Done">
                                 <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -41,11 +38,8 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-bm-zBR">
-                            <rect key="frame" x="22" y="68" width="60" height="33"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="60" id="abN-ba-1MX"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                            <rect key="frame" x="40" y="68" width="64" height="40"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
                             <state key="normal" title="Cancel">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -85,8 +79,8 @@
                         <constraint firstAttribute="bottom" secondItem="mFI-bm-zBR" secondAttribute="bottom" constant="29" id="H7h-SA-M3I"/>
                         <constraint firstItem="BfB-Aa-jd8" firstAttribute="top" secondItem="g0S-qs-9HB" secondAttribute="bottom" constant="20" id="KnE-Hk-NEk"/>
                         <constraint firstItem="g0S-qs-9HB" firstAttribute="centerX" secondItem="MQ1-yU-WC6" secondAttribute="centerX" id="WyH-Oq-BLx"/>
-                        <constraint firstItem="mFI-bm-zBR" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="22" id="cxd-tE-Dnl"/>
-                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="13" id="xgk-14-spq"/>
+                        <constraint firstItem="mFI-bm-zBR" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="40" id="cxd-tE-Dnl"/>
+                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="40" id="xgk-14-spq"/>
                         <constraint firstItem="BfB-Aa-jd8" firstAttribute="centerY" secondItem="mFI-bm-zBR" secondAttribute="centerY" id="zDr-mT-FkV"/>
                     </constraints>
                 </view>

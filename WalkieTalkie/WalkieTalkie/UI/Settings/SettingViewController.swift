@@ -40,6 +40,10 @@ class SettingViewController: ViewController {
         open(urlSting: Config.PolicyType.url(.terms))
     }
     
+    @IBAction func updateEnvironment(_ sender: Any) {
+        cdPrint("among chat")
+    }
+    
     private func showSystemNavigationBar() {
         isNavigationBarHiddenWhenAppear = false
         self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
