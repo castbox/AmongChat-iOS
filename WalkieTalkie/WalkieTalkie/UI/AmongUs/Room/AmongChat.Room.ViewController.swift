@@ -249,32 +249,10 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onCloseBtn() {
-  
         showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
             self.requestLeaveRoom()
         }
-//        let alertVC = UIAlertController(
-//            title: R.string.localizable.amongChatLeaveRoomTipTitle(),
-//            message: nil,
-//            preferredStyle: .alert
-//        )
-//        alertVC.setBackgroundColor(color: "222222".color())
-//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
-//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
-//
-//        let confirm = UIAlertAction(title: R.string.localizable.toastConfirm(), style: .destructive, handler: { [weak self] _ in
-//            guard let `self` = self else { return }
-//            self.requestLeaveRoom()
-//        })
-//        confirm.titleTextColor = .white
-//        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .default)
-//        cancel.titleTextColor = .white
-////        cancel.setTitlet(font: R.font.nunitoExtraBold(size: 15), color: .white)
-//
-//        alertVC.addAction(cancel)
-//        alertVC.addAction(confirm)
-//        present(alertVC, animated: true, completion: nil)
     }
     
     @objc
@@ -293,25 +271,36 @@ extension AmongChat.Room.ViewController {
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
-        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-        let removeBlock = { [weak self] in
-            self?.view.isUserInteractionEnabled = true
-            removeHUDBlock()
-        }
-        self.viewModel.leaveChannel()
+        self.viewModel.requestLeaveChannel()
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe { [weak self] _ in
-                removeBlock()
-                self?.dismissViewController(completionHandler: {
-                    completionHandler?()
-                })
-            } onError: { [weak self] error in
-                removeBlock()
-                self?.dismissViewController(completionHandler: {
-                    completionHandler?()
-                })
+            .subscribe { _ in
+                cdPrint("requestLeaveRoom success")
+            } onError: { error in
+                cdPrint("requestLeaveRoom error: \(error)")
             }
-            .disposed(by: bag)
+        
+        dismissViewController(completionHandler: {
+            completionHandler?()
+        })
+//        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+//        let removeBlock = { [weak self] in
+//            self?.view.isUserInteractionEnabled = true
+//            removeHUDBlock()
+//        }
+//        self.viewModel.leaveChannel()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe { [weak self] _ in
+//                removeBlock()
+//                self?.dismissViewController(completionHandler: {
+//                    completionHandler?()
+//                })
+//            } onError: { [weak self] error in
+//                removeBlock()
+//                self?.dismissViewController(completionHandler: {
+//                    completionHandler?()
+//                })
+//            }
+//            .disposed(by: bag)
     }
     
     func dismissViewController(completionHandler: CallBack? = nil) {

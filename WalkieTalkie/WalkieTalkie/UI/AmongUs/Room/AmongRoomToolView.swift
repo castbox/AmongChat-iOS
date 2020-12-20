@@ -31,18 +31,7 @@ class AmongRoomToolView: XibLoadableView {
     }
     
     func set(_ room: Entity.Room) {
-        switch room.topicId {
-        case .amongus:
-            openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
-        case .roblox:
-//            if room. {
-//                <#code#>
-//            }
-            openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
-            
-        default:
-            openGameButton.setTitle(R.string.localizable.roomTagChilling(), for: .normal)
-        }
+        openGameButton.setTitle(room.topicName, for: .normal)
         openGameButton.isUserInteractionEnabled = room.topicId != .chilling
         nickNameButton.isHidden = room.topicId != .roblox
     }

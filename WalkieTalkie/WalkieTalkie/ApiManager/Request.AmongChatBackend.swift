@@ -150,7 +150,12 @@ extension Request {
             }
             .mapTo(Entity.Room.self)
     }
-
+    static func requestLeave(with roomId: String) -> Single<Bool> {
+        return amongchatProvider.rx.request(.leaveRoom(["room_id": roomId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+    }
     
     static func logout() -> Single<[String: AnyObject]> {
         return amongchatProvider.rx.request(.logout)

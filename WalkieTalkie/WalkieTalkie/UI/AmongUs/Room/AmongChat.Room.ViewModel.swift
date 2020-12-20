@@ -174,31 +174,36 @@ extension AmongChat.Room {
                     //                    channel.updateJoinInterval()
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
-                    ChannelUserListViewModel.shared.didJoinedChannel(name)
+//                    ChannelUserListViewModel.shared.didJoinedChannel(name)
                     completionBlock?(error)
                 }
             }
             return true
         }
         
-        func leaveChannel() -> Observable<()> {
-            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
-                .asObservable()
-                .flatMap { [weak self] _  -> Observable<()> in
-                    guard let `self` = self else { return .empty() }
-                    return Observable<()>.create { [weak self] observer -> Disposable in
-                        self?.mManager.leaveChannel { (name) in
-                            UIApplication.shared.isIdleTimerDisabled = false
-                            ChannelUserListViewModel.shared.leavChannel(name)
-                            ViewModel.shared = nil
-                            observer.onNext(())
-                            observer.onCompleted()
-                        }
-                        return Disposables.create {
-                            
-                        }
-                    }
-                }
+        func requestLeaveChannel() -> Single<Bool> {
+            mManager.leaveChannel()
+            ViewModel.shared = nil
+            UIApplication.shared.isIdleTimerDisabled = false
+            return Request.requestLeave(with: room.roomId)
+
+//            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
+//                .asObservable()
+//                .flatMap { [weak self] _  -> Observable<()> in
+//                    guard let `self` = self else { return .empty() }
+//                    return Observable<()>.create { [weak self] observer -> Disposable in
+//                        self?.mManager.leaveChannel { (name) in
+//                            UIApplication.shared.isIdleTimerDisabled = false
+//                            ChannelUserListViewModel.shared.leavChannel(name)
+//                            ViewModel.shared = nil
+//                            observer.onNext(())
+//                            observer.onCompleted()
+//                        }
+//                        return Disposables.create {
+//
+//                        }
+//                    }
+//                }
         }
         
         func startUpdateBaseInfo() {
@@ -600,6 +605,6 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onChannelUserChanged(users: [ChannelUser]) {
-        ChannelUserListViewModel.shared.update(users)
+//        ChannelUserListViewModel.shared.update(users)
     }
 }

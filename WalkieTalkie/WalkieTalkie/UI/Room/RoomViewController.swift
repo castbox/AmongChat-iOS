@@ -347,9 +347,8 @@ class RoomViewController: ViewController {
     func leaveChannel() {
         UIApplication.shared.isIdleTimerDisabled = false
         speakButtonTrigger.isUserInteractionEnabled = false
-        mManager.leaveChannel { [weak self] (name) in
-            ChannelUserListViewModel.shared.leavChannel(name)
-        }
+        mManager.leaveChannel()
+        ChannelUserListViewModel.shared.leavChannel(channelName)
         speakButtonTrigger.isUserInteractionEnabled = true
         speakingListView.isUserInteractionEnabled = false
         speakingModalRecord = nil
