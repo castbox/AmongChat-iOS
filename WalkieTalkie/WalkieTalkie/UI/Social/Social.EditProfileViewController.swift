@@ -56,12 +56,6 @@ extension Social {
             return btn
         }()
         
-        private lazy var userNameInputField: UITextField = {
-            let textFiled = UITextField()
-            textFiled.isHidden = true
-            return textFiled
-        }()
-        
         private lazy var userInputView = AmongInputNickNameView()
         
         private var profile: Entity.UserProfile!
@@ -112,10 +106,6 @@ private extension Social.EditProfileViewController {
             maker.top.equalTo(userButton.snp.bottom)
             maker.left.right.equalToSuperview()
             maker.height.equalTo(77)
-        }
-        userButton.addSubview(userNameInputField)
-        userNameInputField.snp.makeConstraints { (make) in
-            make.right.equalTo(-20)
         }
         
         view.addSubview(userInputView)
