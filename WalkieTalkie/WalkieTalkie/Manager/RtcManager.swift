@@ -245,6 +245,7 @@ class RtcManager: NSObject {
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
+        self.channelId = nil
         updateFirestoreChannelStatus(with: "")
     }
     

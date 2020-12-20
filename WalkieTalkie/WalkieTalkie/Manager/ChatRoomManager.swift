@@ -178,12 +178,8 @@ class ChatRoomManager: SeatManager {
 
 //    func leaveChannel(_ block: ((String) -> Void)? = nil) {
     func leaveChannel() {
-        guard let name = channelName else {
-            return
-        }
         channelName = nil
         mRtcManager.leaveChannel()
-        
         mChannelData.release()
         HapticFeedback.Impact.medium()
 //        block?(name)
