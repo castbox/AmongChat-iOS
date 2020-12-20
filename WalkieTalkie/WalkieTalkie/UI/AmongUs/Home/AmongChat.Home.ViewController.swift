@@ -72,14 +72,10 @@ extension AmongChat.Home {
         
         //MARK: - inherited
         
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            setupData()
-        }
-        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            setupEvent()
         }
         
     }
@@ -175,9 +171,15 @@ extension AmongChat.Home.ViewController {
         }
         
     }
-    
-    private func setupData() {
-        fetchSummaryData()
+        
+    private func setupEvent() {
+        
+        rx.viewWillAppear
+            .throttle(.seconds(30), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                self?.fetchSummaryData()
+            })
+            .disposed(by: bag)
     }
     
     private func fetchSummaryData() {
