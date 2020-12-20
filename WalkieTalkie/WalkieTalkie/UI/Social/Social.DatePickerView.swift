@@ -68,11 +68,7 @@ extension Social {
                               R.string.localizable.monthNov(),
                               R.string.localizable.monthDec(), ]
         
-//        R.string.localizable.mon
-
-        
-        private var years : Array<String> {
-            
+        private var years: [String] {
             let years = [Int](minYear...maxYear)
             return years.map({ "\($0)"})
         }
@@ -88,7 +84,7 @@ extension Social {
             formatter.dateFormat = "MM"
             var index = (formatter.string(from: currentDay).int ?? 1) - 1
             index = index <= 0 ? 0 : index
-            return months.safe(index) ?? "Jan"
+            return months.safe(index) ?? R.string.localizable.monthJan()
         }
         
         private var currentYearName: String {

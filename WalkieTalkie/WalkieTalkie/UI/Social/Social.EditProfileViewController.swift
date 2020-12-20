@@ -62,7 +62,8 @@ extension Social {
             return textFiled
         }()
         
-        private lazy var userInputView = UserNameInputView()
+        private lazy var userInputView = AmongInputNickNameView()
+        
         private var profile: Entity.UserProfile!
         
         override func viewDidLoad() {
@@ -85,9 +86,9 @@ private extension Social.EditProfileViewController {
         view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(15)
+            maker.left.equalToSuperview().offset(20)
             maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
-            maker.width.height.equalTo(25)
+            maker.width.height.equalTo(24)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
@@ -117,9 +118,12 @@ private extension Social.EditProfileViewController {
             make.right.equalTo(-20)
         }
         
-        userInputView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 520)
-        userInputView.isHidden = true
         view.addSubview(userInputView)
+        userInputView.usedInRoom = false
+        userInputView.alpha = 0
+        userInputView.snp.makeConstraints { (make) in
+            make.left.right.top.bottom.equalToSuperview()
+        }
     }
     
     func setupData() {
@@ -142,7 +146,7 @@ private extension Social.EditProfileViewController {
         
         userButton.rx.tap
             .subscribe(onNext: { [weak self]() in
-                self?.userNameInputField.becomeFirstResponder()
+                _ = self?.userInputView.becomeFirstResponder()
             }).disposed(by: bag)
         
         birthdayButton.rx.tap
@@ -150,27 +154,19 @@ private extension Social.EditProfileViewController {
                 self?.selectBirthday()
             }).disposed(by: bag)
         
-        userInputView.doneHandle = { [weak self](text) in
+        userInputView.inputResultHandler = { [weak self](text) in
             guard let `self` = self else { return }
-            if !text.isEmpty {
-                let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
-                self.updateProfileIfNeeded(profileProto)
-            }
+            let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
+            self.updateProfileIfNeeded(profileProto)
         }
-        
-        RxKeyboard.instance.isHidden
-            .drive(onNext: { [weak self](hidden) in
-                self?.userInputView.isHidden = hidden
-                if !hidden {
-                    self?.userInputView.becomeActive()
-                }
-            }).disposed(by: bag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self](height) in
                 guard let `self` = self else { return }
+                self.userInputView.snp.updateConstraints { (maker) in
+                    maker.bottom.equalToSuperview().offset(-height)
+                }
                 UIView.animate(withDuration: 0) {
-                    self.userInputView.bottom = Frame.Screen.height - height
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: bag)
@@ -375,142 +371,6 @@ private extension Social {
             }
         }
         
-    }
-    
-    class UserNameInputView: UIView, UITextFieldDelegate {
-        
-        var doneHandle:((_ text: String) -> Void)?
-        
-        private lazy var textFiled: UITextField = {
-            let f = UITextField()
-            //            f.clearButtonMode = .always
-            f.keyboardType = .alphabet
-            f.contentVerticalAlignment = .center
-            f.backgroundColor = .white
-            f.font = R.font.nunitoExtraBold(size: 20)
-            f.textColor = .black
-            f.textAlignment = .center
-            f.borderStyle = .none
-            f.delegate = self
-            f.leftViewMode = .always
-            let style = NSMutableParagraphStyle()
-            style.alignment = .center
-            f.attributedPlaceholder = NSAttributedString(string: R.string.localizable.profileBagNickname(), attributes: [NSAttributedString.Key.foregroundColor: UIColor(hex6: 0xD8D8D8), NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16), NSAttributedString.Key.paragraphStyle: style])
-            return f
-        }()
-        
-        private lazy var cancelBtn: UIButton = {
-            let btn = UIButton()
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.setTitle(R.string.localizable.toastCancel(), for: .normal)
-            btn.setTitleColor(.white, for: .normal)
-            return btn
-        }()
-        
-        private lazy var doneBtn: UIButton = {
-            let btn = UIButton()
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
-            return btn
-        }()
-        
-        let bag = DisposeBag()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            backgroundColor = .clear
-            
-            let backView = UIView()
-            backView.alpha = 0.7
-            backView.backgroundColor = .black
-            addSubview(backView)
-            backView.snp.makeConstraints { (make) in
-                make.edges.equalToSuperview()
-            }
-            
-            let bottoView = UIView()
-            bottoView.backgroundColor = .black
-            addSubview(bottoView)
-            bottoView.snp.makeConstraints { (make) in
-                make.left.right.bottom.equalToSuperview()
-                make.height.equalTo(127)
-            }
-            
-            let contentView = UIView()
-            contentView.backgroundColor = .white
-            bottoView.addSubview(contentView)
-            contentView.layer.masksToBounds = true
-            contentView.layer.cornerRadius = 24
-            contentView.snp.makeConstraints { (make) in
-                make.top.equalToSuperview()
-                make.left.equalTo(40)
-                make.right.equalTo(-40)
-                make.height.equalTo(48)
-            }
-            
-            contentView.addSubview(textFiled)
-            textFiled.snp.makeConstraints { (make) in
-                make.left.equalTo(24)
-                make.right.equalTo(-24)
-                make.centerY.equalToSuperview()
-            }
-            
-            bottoView.addSubview(cancelBtn)
-            cancelBtn.snp.makeConstraints { (make) in
-                make.left.equalTo(40)
-                make.top.equalTo(contentView.snp.bottom).offset(20)
-            }
-            
-            bottoView.addSubview(doneBtn)
-            doneBtn.snp.makeConstraints { (make) in
-                make.right.equalTo(-40)
-                make.top.equalTo(contentView.snp.bottom).offset(20)
-            }
-            addEvents()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func addEvents() {
-            cancelBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.hidden()
-                }).disposed(by: bag)
-            
-            doneBtn.rx.tap
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    guard let `self` = self else { return }
-                    self.doneHandle?(self.textFiled.text ?? "")
-                    self.hidden()
-                }).disposed(by: bag)
-        }
-        
-        func hidden() {
-            textFiled.resignFirstResponder()
-        }
-        
-        func becomeActive() {
-            textFiled.becomeFirstResponder()
-        }
-        
-        func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-            
-            let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").inverted
-            let filteredString = string.components(separatedBy: set).joined(separator: "")
-            
-            let currentCharacterCount = textField.text?.count ?? 0
-            if range.length + range.location > currentCharacterCount {
-                return false
-            }
-            let newLength = currentCharacterCount + string.count - range.length
-            return (filteredString == string && newLength <= 10) || newLength < currentCharacterCount
-        }
     }
 }
 

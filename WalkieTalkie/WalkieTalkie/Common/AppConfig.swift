@@ -42,10 +42,6 @@ struct Config {
         return ""
     }
     
-//    static func policyUrl(_ type: PolicyType) -> String {
-//
-//        return type.rawValue
-//    }
 //
 //    static var supportUrl: String {
 //        return "\(Api.host_H5)/help"
@@ -90,7 +86,6 @@ struct Config {
         let shortVersion = infoDictionary["CFBundleIdentifier"] as? String
         return shortVersion ?? defaultBundleIdentifier
     }
-    
     
     static var dateFormat: String {
         return "MM/dd/yyyy HH:mm:ss"

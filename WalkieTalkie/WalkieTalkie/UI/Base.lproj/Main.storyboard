@@ -456,11 +456,15 @@
                                     <segue destination="9ur-nQ-4vV" kind="embed" id="MZw-RA-jhb"/>
                                 </connections>
                             </containerView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_setting_among_chat" translatesAutoresizingMaskIntoConstraints="NO" id="RVt-dB-yC2">
-                                <rect key="frame" x="105.5" y="694" width="203" height="20"/>
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_setting_among_chat" translatesAutoresizingMaskIntoConstraints="NO" id="RVt-dB-yC2">
+                                <rect key="frame" x="105.5" y="699" width="203" height="20"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="f8C-rS-PKg" appends="YES" id="Pht-j9-06e"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUp-M0-5V0">
-                                <rect key="frame" x="187.5" y="722" width="39.5" height="14"/>
+                                <rect key="frame" x="187.5" y="727" width="39.5" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -530,7 +534,7 @@
                             <constraint firstItem="2hf-w6-jzO" firstAttribute="leading" secondItem="yCI-U6-REy" secondAttribute="leading" id="27b-YU-uVW"/>
                             <constraint firstItem="EUp-M0-5V0" firstAttribute="centerX" secondItem="yCI-U6-REy" secondAttribute="centerX" id="2Gt-GN-xt5"/>
                             <constraint firstItem="yCI-U6-REy" firstAttribute="trailing" secondItem="2hf-w6-jzO" secondAttribute="trailing" id="3tO-qs-b5X"/>
-                            <constraint firstItem="Z8j-7O-rDC" firstAttribute="top" secondItem="EUp-M0-5V0" secondAttribute="bottom" id="6UC-lE-YwD"/>
+                            <constraint firstItem="Z8j-7O-rDC" firstAttribute="top" secondItem="EUp-M0-5V0" secondAttribute="bottom" constant="-5" id="6UC-lE-YwD"/>
                             <constraint firstItem="EUp-M0-5V0" firstAttribute="top" secondItem="RVt-dB-yC2" secondAttribute="bottom" constant="8" id="Dgw-Ij-BxU"/>
                             <constraint firstItem="2hf-w6-jzO" firstAttribute="top" secondItem="yCI-U6-REy" secondAttribute="top" id="OEg-ve-KRv"/>
                             <constraint firstItem="Zxv-bD-dsW" firstAttribute="leading" secondItem="Z8j-7O-rDC" secondAttribute="leading" id="PCG-Xc-Adc"/>
@@ -555,6 +559,11 @@
                 <tapGestureRecognizer numberOfTapsRequired="5" id="4Vt-Wr-BOT">
                     <connections>
                         <segue destination="uhD-HK-ZY1" kind="show" id="2Fg-jp-oRY"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="f8C-rS-PKg">
+                    <connections>
+                        <action selector="updateEnvironment:" destination="So9-oX-cun" id="R5n-vA-arB"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
