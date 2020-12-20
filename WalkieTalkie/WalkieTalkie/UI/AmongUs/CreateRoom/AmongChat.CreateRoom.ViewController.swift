@@ -253,12 +253,12 @@ extension AmongChat.CreateRoom.ViewController {
         }
         
         if let topic = Topic(rawValue: alphabetCode(name).lowercased()) {
-            roomProto.topicId = topic
+            roomProto.topicId = topic.rawValue
         } else {
-            roomProto.topicId = .chilling
+            roomProto.topicId = AmongChat.Topic.chilling.rawValue
         }
         
-        switch roomProto.topicId {
+        switch roomProto.topicType {
         case .chilling:
             roomProto.note = name
             

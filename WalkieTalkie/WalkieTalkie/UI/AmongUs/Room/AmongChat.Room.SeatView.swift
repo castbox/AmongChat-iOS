@@ -138,7 +138,7 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
             cell.avatarLongPressHandler = { [weak self] user in
                 self?.showAvatarLongPressSheet(with: user)
             }
-            cell.bind(dataSource[indexPath.item], topic: room.topicId, index: indexPath.item + 1)
+            cell.bind(dataSource[indexPath.item], topic: room.topicType, index: indexPath.item + 1)
         }
         return cell
     }

@@ -44,12 +44,20 @@ extension Entity {
     struct RoomProto: Encodable {
         var note: String
         var state: RoomPublicType
-        var topicId: AmongChat.Topic
+        var topicId: String
         
         init() {
             note = ""
             state = .public
-            topicId = .amongus
+            topicId = AmongChat.Topic.chilling.rawValue
+        }
+        
+        var topicType: AmongChat.Topic {
+            guard let topic = AmongChat.Topic(rawValue: topicId) else {
+                return .chilling
+            }
+            
+            return topic
         }
     }
 }
@@ -66,7 +74,7 @@ extension Entity {
 extension Entity {
     
     struct SummaryTopic: Codable {
-        var topicId: AmongChat.Topic
+        var topicId: String
         var coverUrl: String?
         var bgUrl: String?
         var playerCount: Int?

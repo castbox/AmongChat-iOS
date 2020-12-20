@@ -241,7 +241,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-            enterRoom(topicId: topic.topic.topicId.rawValue)
+            enterRoom(topicId: topic.topic.topicId)
         }
     }
     

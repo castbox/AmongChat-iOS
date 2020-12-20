@@ -783,7 +783,7 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else {
                 return
             }
-            switch self.room.topicId {
+            switch self.room.topicType {
             case .amongus:
                 self.showStoreProduct(with: 1351168404)
             case .roblox:

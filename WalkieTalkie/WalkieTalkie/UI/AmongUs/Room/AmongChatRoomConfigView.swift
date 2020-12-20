@@ -39,7 +39,7 @@ class AmongChatRoomConfigView: XibLoadableView {
 extension AmongChatRoomConfigView {
     
     func updateSubview() {
-        switch room.topicId {
+        switch room.topicType {
         case .amongus:
             justChillingInfoView.isHidden = true
             amongSetupView.isHidden = room.isValidAmongConfig

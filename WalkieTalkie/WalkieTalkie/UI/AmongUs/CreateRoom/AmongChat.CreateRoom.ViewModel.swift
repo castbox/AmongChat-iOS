@@ -23,7 +23,7 @@ extension AmongChat.CreateRoom {
         lazy var roomProto: Entity.RoomProto = {
             var proto = Entity.RoomProto()
             proto.note = ""
-            proto.topicId = topic
+            proto.topicId = topic.rawValue
             proto.state = .public
             return proto
         }()
