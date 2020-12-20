@@ -183,21 +183,21 @@ extension AmongChat.Room {
                 guard let controller = controller else {
                     return
                 }
-                let removeBlock: CallBack?
-                if completionHandler == nil {
-                    removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
-                } else {
-                    removeBlock = nil
-                }
+//                let removeBlock: CallBack?
+//                if completionHandler == nil {
+//                    removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
+//                } else {
+//                    removeBlock = nil
+//                }
                 //show loading
                 let viewModel = ViewModel.make(room)
-                viewModel.join { [weak controller] error in
-                    removeBlock?()
-                    completionHandler?(error)
-                    if let vc = controller, error == nil {
-                        self.show(from: vc, with: viewModel)
-                    }
-                }
+//                viewModel.join { [weak controller] error in
+//                    removeBlock?()
+                     completionHandler?(nil)
+//                    if let vc = controller, error == nil {
+                        self.show(from: controller, with: viewModel)
+//                    }
+//                }
             }
         }
         
@@ -521,6 +521,17 @@ extension AmongChat.Room.ViewController {
     }
     
     private func bindSubviewEvent() {
+//        let removeBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        topBar.isIndicatorAnimate = true
+//        view.isUserInteractionEnabled = false
+        viewModel.join { [weak self] error in
+//            removeBlock()
+            self?.topBar.isIndicatorAnimate = false
+//            self.view.isUserInteractionEnabled = false
+            if error != nil {
+                self?.requestLeaveRoom()
+            }
+        }
         
 //        AdsManager.shared.mopubInitializeSuccessSubject
 //            .filter { _ -> Bool in

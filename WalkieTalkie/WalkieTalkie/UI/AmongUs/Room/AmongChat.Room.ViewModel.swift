@@ -160,23 +160,10 @@ extension AmongChat.Room {
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
-            
-            let name = room.topicName
-
-            guard let topController = UIApplication.shared.keyWindow?.topViewController() else {
-                return false
-            }
-            topController.checkMicroPermission { [weak self] in
-                guard let `self` = self else { return }
-                self.mManager.joinChannel(channelId: self.room.roomId) { error in
-                    //                    self.hudRemoval?()
-                    //                    self.hudRemoval = nil
-                    //                    channel.updateJoinInterval()
-                    HapticFeedback.Impact.success()
-                    UIApplication.shared.isIdleTimerDisabled = true
-//                    ChannelUserListViewModel.shared.didJoinedChannel(name)
-                    completionBlock?(error)
-                }
+            self.mManager.joinChannel(channelId: self.room.roomId) { error in
+                HapticFeedback.Impact.success()
+                UIApplication.shared.isIdleTimerDisabled = true
+                completionBlock?(error)
             }
             return true
         }

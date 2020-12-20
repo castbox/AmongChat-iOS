@@ -55,11 +55,21 @@ class AmongChatRoomTopBar: XibLoadableView {
     @IBOutlet weak var publicButton: UIButton!
     @IBOutlet weak var kickButton: BottomTitleButton!
     @IBOutlet weak var leaveButton: BottomTitleButton!
-
+    @IBOutlet weak var indicatorView: UIActivityIndicatorView!
+    
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
     var reportHandler: CallBack?
+    var isIndicatorAnimate: Bool = false {
+        didSet {
+            if isIndicatorAnimate {
+                indicatorView.startAnimating()
+            } else {
+                indicatorView.stopAnimating()
+            }
+        }
+    }
     
     func set(_ room: Entity.Room) {
         switch room.state {
