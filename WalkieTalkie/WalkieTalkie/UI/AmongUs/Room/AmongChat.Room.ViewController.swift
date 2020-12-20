@@ -50,10 +50,11 @@ extension AmongChat.Room {
         
         private var style = Style.normal {
             didSet {
-                UIView.animate(withDuration: 0.2) { [unowned self] in
+                UIView.animate(withDuration: 0.1) { [unowned self] in
                     topBar.alpha = style == .normal ? 1 : 0
                     toolView.alpha = style == .normal ? 1 : 0
                     messageView.alpha = style == .normal ? 1 : 0
+                    configView.alpha = style == .normal ? 1 : 0
                 }
                 seatView.style = style
                 bottomBar.style = style
