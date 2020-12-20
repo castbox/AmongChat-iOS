@@ -18,6 +18,27 @@ extension Request {
     ])
 }
 
+extension Request {
+    struct MsgError: Error, Codable {
+        static let `default` = MsgError(code: 202, msg: "Please try again.")
+        
+        let code: Int
+        let msg: String?
+        
+        static func from(dic: [String: Any]) -> MsgError {
+            var item: MsgError?
+            decoderCatcher {
+                item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
+            }
+            return item ?? .default
+        }
+    }
+}
+extension Request.MsgError: LocalizedError {
+    var errorDescription: String? {
+        return msg
+    }
+}
 
 extension Request {
     
@@ -85,12 +106,15 @@ extension Request {
         return amongchatProvider.rx.request(.enteryRoom(paras))
             .mapJSON()
             .map { item -> [String : AnyObject] in
-                guard let json = item as? [String: AnyObject],
-                      let data = json["data"] as? [String: AnyObject],
-                      let roomData = data["room"] as? [String : AnyObject] else {
-                    return [:]
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
                 }
-                return roomData
+                if let data = json["data"] as? [String: AnyObject],
+                      let roomData = data["room"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
             }
             .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
