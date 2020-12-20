@@ -389,22 +389,14 @@ extension AmongChat.Room {
             blockedUsers.append(user)
             Defaults[\.blockedUsersV2Key] = blockedUsers
             mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
-//            update(dataSource.value)
-//            if let firestoreUser = user.firestoreUser,
-//               let selfUid = Settings.shared.loginResult.value?.uid {
-                //            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
-//            }
         }
         
         func unblockedUser(_ user: Entity.RoomUser) {
             blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
             Defaults[\.blockedUsersV2Key] = blockedUsers
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
-//            update(dataSource.value)
-//            if let firestoreUser = user.firestoreUser,
-//               let selfUid = Settings.shared.loginResult.value?.uid {
-                //            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
-//            }
+            if !mutedUser.contains(user.uid.uInt) {
+                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            }
         }
         
         func muteUser(_ user: Entity.RoomUser) {
@@ -414,7 +406,9 @@ extension AmongChat.Room {
         
         func unmuteUser(_ user: Entity.RoomUser) {
             mutedUser.remove(user.uid.uInt)
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if !blockedUsers.contains(where: { $0.uid == user.uid }) {
+                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            }
         }
         
         func followUser(_ user: FireStore.Entity.User) {
