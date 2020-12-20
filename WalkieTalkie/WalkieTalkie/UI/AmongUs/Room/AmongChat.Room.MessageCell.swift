@@ -190,54 +190,9 @@ extension AmongChat.Room {
 extension AmongChat.Room.MessageTextCell {
     
     func configCell(with message: ChatRoomMessage) {
-//        let userViewModel = viewModel.user
-//        let channelUser = userViewModel.channelUser
-        var user: Entity.RoomUser?
-        var text: String = ""
-        if let textMessage = message as? ChatRoom.TextMessage {
-//            user = textMessage.user
-//            text = textMessage.text
-            
-            let pargraph = NSMutableParagraphStyle()
-            pargraph.lineBreakMode = .byTruncatingTail
-            pargraph.lineHeightMultiple = 0
-            
-            let nameAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: "ABABAB".color(),
-                .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
-                .paragraphStyle: pargraph
-    //            .kern: 0.5
-            ]
-            
-            let contentAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.white,
-                .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
-                .paragraphStyle: pargraph
-    //            .kern: 0.5
-            ]
-            
-            let mutableNormalString = NSMutableAttributedString()
-            mutableNormalString.append(NSAttributedString(string: "#\(textMessage.user.seatNo) \(textMessage.user.name)", attributes: nameAttr))
-            mutableNormalString.append(NSAttributedString(string: " \(textMessage.content)", attributes: contentAttr))
-            nameLabel.attributedText = mutableNormalString
-        } else if let systemMessage = message as? ChatRoom.SystemMessage {
-            let pargraph = NSMutableParagraphStyle()
-            pargraph.lineBreakMode = .byTruncatingTail
-            pargraph.lineHeightMultiple = 0
-            
-            let nameAttr: [NSAttributedString.Key: Any] = [
-                .foregroundColor: systemMessage.textColor?.color() ?? "FB5858".color(),
-                .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
-                .paragraphStyle: pargraph
-            ]
-            
-            let mutableNormalString = NSMutableAttributedString()
-            mutableNormalString.append(NSAttributedString(string: "\(systemMessage.content)", attributes: nameAttr))
-//            mutableNormalString.append(NSAttributedString(string: " \(textMessage.text)", attributes: contentAttr))
-            nameLabel.attributedText = mutableNormalString
-
-        }
-//        messageLabel.text = viewModel.text
+        if let textMessage = message as? MessageListable {
+            nameLabel.attributedText = textMessage.attrString
+        } 
     }
     
 }

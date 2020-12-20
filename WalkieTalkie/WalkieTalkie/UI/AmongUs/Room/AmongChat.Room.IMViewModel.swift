@@ -167,6 +167,10 @@ protocol ChatRoomMessageable {
     var msgType: ChatRoom.MessageType { get }
 }
 
+protocol MessageListable {
+    var attrString: NSAttributedString { get }
+}
+
 typealias ChatRoomMessage = ChatRoomMessageable & Codable
 
 extension ChatRoom {
@@ -224,9 +228,6 @@ extension ChatRoom {
         }
     }
     
-    
-    
-    
     struct KickOutMessage: ChatRoomMessage {
         let roomId: String
         //被踢
@@ -266,5 +267,77 @@ extension ChatRoom.MessageType {
             .kickoutRoom: ChatRoom.KickOutMessage.self,
             .roomInfo: ChatRoom.RoomInfoMessage.self,
         ]
+    }
+}
+
+extension ChatRoom.SystemMessage: MessageListable {
+    var attrString: NSAttributedString {
+        let pargraph = NSMutableParagraphStyle()
+        pargraph.lineBreakMode = .byTruncatingTail
+        pargraph.lineHeightMultiple = 0
+        
+        let nameAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: textColor?.color() ?? "FB5858".color(),
+            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+        mutableNormalString.append(NSAttributedString(string: "\(content)", attributes: nameAttr))
+        return mutableNormalString
+    }
+}
+
+extension ChatRoom.TextMessage: MessageListable {
+    var attrString: NSAttributedString {
+        let pargraph = NSMutableParagraphStyle()
+        pargraph.lineBreakMode = .byTruncatingTail
+        pargraph.lineHeightMultiple = 0
+        
+        let nameAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: "ABABAB".color(),
+            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+//            .kern: 0.5
+        ]
+        
+        let contentAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+//            .kern: 0.5
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
+        mutableNormalString.append(NSAttributedString(string: " \(content)", attributes: contentAttr))
+        return mutableNormalString
+    }
+}
+
+extension ChatRoom.JoinRoomMessage: MessageListable {
+    var attrString: NSAttributedString {
+        let pargraph = NSMutableParagraphStyle()
+        pargraph.lineBreakMode = .byTruncatingTail
+        pargraph.lineHeightMultiple = 0
+        
+        let nameAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: "ABABAB".color(),
+            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let contentAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
+        mutableNormalString.append(NSAttributedString(string: " joined", attributes: contentAttr))
+        return mutableNormalString
     }
 }

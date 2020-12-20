@@ -17,7 +17,7 @@ class AmongRoomInfoView: XibLoadableView {
     
     var room: Entity.Room? {
         didSet {
-            codeLabel.text = room?.amongUsCode
+            codeLabel.text = room?.amongUsCode?.uppercased()
             aeraLabel.setTitle(room?.amongUsZone?.title, for: .normal)
         }
     }

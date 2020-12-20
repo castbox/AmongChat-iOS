@@ -481,6 +481,8 @@ extension AmongChat.Room.ViewModel {
         cdPrint("onReceiveChatRoom- \(crMessage)")
         if let message = crMessage as? ChatRoom.TextMessage {
             addUIMessage(message: message)
+        } else if let message = crMessage as? ChatRoom.JoinRoomMessage {
+            addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.SystemMessage {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
