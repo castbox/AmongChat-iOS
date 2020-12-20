@@ -67,7 +67,9 @@ extension AmongChat.Room {
             lb.textColor = "FB5858".color()
             lb.textAlignment = .center
             lb.text = R.string.localizable.roomUserListMuted()
+            lb.backgroundColor = UIColor.black.alpha(0.7)
             lb.isHidden = true
+            lb.cornerRadius = 20
             return lb
         }()
         
@@ -75,7 +77,6 @@ extension AmongChat.Room {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
-            //            lb.backgroundColor = UIColor.black.alpha(0.69)
             lb.textAlignment = .center
             return lb
         }()
@@ -92,8 +93,8 @@ extension AmongChat.Room {
             return btn
         }()
         
-        private var avatarDisposable: Disposable?
         private var user: Entity.RoomUser?
+
         var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
         
         var isKickSelected: Bool = false {
@@ -121,8 +122,8 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-            //            stopHaloAnimation()
-            //            haloView.stopLoading()
+            haloView.stopLoading()
+            avatarIV.kf.cancelDownloadTask()
         }
         
         override func layoutSubviews() {
@@ -172,7 +173,7 @@ extension AmongChat.Room {
             
             mutedLabel.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.width.height.equalTo(38)
+                maker.width.height.equalTo(avatarIV)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
