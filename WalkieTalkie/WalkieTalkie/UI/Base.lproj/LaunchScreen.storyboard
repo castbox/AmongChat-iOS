@@ -27,7 +27,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.0" green="0.0039215686274509803" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mCI-RU-7ql" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="J8U-5Y-Scd"/>
                             <constraint firstAttribute="bottom" secondItem="mCI-RU-7ql" secondAttribute="bottom" id="LMI-FC-OUT"/>
