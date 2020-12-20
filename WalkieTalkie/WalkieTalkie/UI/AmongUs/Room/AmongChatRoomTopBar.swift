@@ -57,6 +57,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     @IBOutlet weak var leaveButton: BottomTitleButton!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
+    var room: Entity.Room?
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
@@ -81,11 +82,16 @@ class AmongChatRoomTopBar: XibLoadableView {
             publicButton.setBackgroundImage("E6309E".color().image, for: .normal)
         }
         kickButton.isHidden = !room.loginUserIsAdmin
-        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
+        self.room = room
+//        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
     }
     
     @IBAction func publicButtonAction(_ sender: Any) {
-        changePublicStateHandler?()
+        if room?.roomUserList.first?.uid == Settings.loginUserId {
+            changePublicStateHandler?()
+        } else {
+            self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+        }
     }
 
     @IBAction func leaveButtonAction(_ sender: Any) {

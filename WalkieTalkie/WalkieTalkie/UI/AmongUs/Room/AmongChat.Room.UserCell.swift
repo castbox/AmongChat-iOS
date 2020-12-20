@@ -122,7 +122,7 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-            haloView.stopLoading()
+//            haloView.stopLoading()
             avatarIV.kf.cancelDownloadTask()
         }
         
@@ -234,6 +234,7 @@ extension AmongChat.Room.UserCell {
     }
     
     func clearStyle() {
+        user = nil
         avatarIV.kf.cancelDownloadTask()
         avatarIV.image = R.image.ac_icon_seat_add()
         avatarIV.contentMode = .center
