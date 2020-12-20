@@ -529,7 +529,7 @@ extension Social.BirthdaySelectViewController: Modalable {
     }
     
     func cornerRadius() -> CGFloat {
-        return 6
+        return 20
     }
     
     func coverAlpha() -> CGFloat {
