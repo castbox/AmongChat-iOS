@@ -30,15 +30,16 @@ extension APIService {
         case profile
         case updateProfile([String : Any])
         case defaultAvatars
+        case firebaseToken([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
-        #if DEBUG
-        let url = "https://dev.api.among.chat"
-        #else
+//        #if DEBUG
+//        let url = "https://dev.api.among.chat"
+//        #else
         let url = "https://api.among.chat"
-        #endif
+//        #endif
         return URL(string: url)!
     }
     
@@ -78,6 +79,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "auth/logout"
         case .defaultAvatars:
             return "/account/default/avatars"
+        case .firebaseToken:
+            return "/auth/firebase/token"
         }
     }
     
@@ -101,7 +104,8 @@ extension APIService.AmongChatBackend: TargetType {
              .profile,
              .leaveRoom,
              .defaultAvatars,
-             .roomInfo:
+             .roomInfo,
+            .firebaseToken:
             return .get
         }
     }
@@ -135,7 +139,8 @@ extension APIService.AmongChatBackend: TargetType {
              .rtmToken(let params),
              .leaveRoom(let params),
              .kickUsers(let params),
-             .roomNickName(let params):
+             .roomNickName(let params),
+             .firebaseToken(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }

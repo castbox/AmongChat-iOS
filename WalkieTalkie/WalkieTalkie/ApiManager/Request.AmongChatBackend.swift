@@ -196,4 +196,18 @@ extension Request {
                 Settings.shared.amongChatDefaultAvatars.value = d
             })
     }
+    
+    static func requestFirebaseToken(_ uid: Int) -> Single<String> {
+        let paras = ["uid": uid]
+        return amongchatProvider.rx.request(.firebaseToken(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { values -> String in
+                guard let token = values["firebase_custom_token"] as? String else {
+                    throw Request.MsgError.default
+                }
+                return token
+            }
+        
+    }
 }

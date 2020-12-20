@@ -55,15 +55,22 @@ class SettingViewController: ViewController {
 class SettingContainerTableController: UITableViewController {
     
     let bag = DisposeBag()
+    private var showVipPro = true {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     @IBOutlet weak var diamondsNameLabel: UILabel!
+    @IBOutlet weak var diamondArrowView: UIImageView!
     @IBOutlet weak var logotButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateSubviewStyle()
-        
         tableView.backgroundColor = UIColor.theme(.backgroundBlack)
+        
+        showVipPro = FireStore.shared.isInReviewSubject.value || Settings.shared.isProValue.value
+        updateSubviewStyle()
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -84,7 +91,11 @@ class SettingContainerTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if showVipPro {
+            return 3
+        } else {
+            return 2
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -94,9 +105,9 @@ class SettingContainerTableController: UITableViewController {
         } else if indexPath.row == 1 {
             shareApp()
         }
-        //        else if indexPath.row == 2 {
-        //            upgradePro()
-        //        }
+        else if indexPath.row == 2 {
+            upgradePro()
+        }
     }
     
     private func shareApp() {
@@ -133,6 +144,7 @@ class SettingContainerTableController: UITableViewController {
         
         if Settings.shared.isProValue.value {
             diamondsNameLabel.text = R.string.localizable.profilePro()// "PRO"
+            diamondArrowView.isHidden = true
         } else {
             diamondsNameLabel.text = R.string.localizable.profileUnlockPro()// "Unlock PRO"
         }

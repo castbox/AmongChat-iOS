@@ -95,7 +95,8 @@ class FireStore {
     var firebaseSignedInObservable: Observable<Void> {
         return firebaseSignedInSubject.asObservable()
     }
-
+    
+    private var signInRetryCount = 0
     init() {
         #if DEBUG
         //        Firestore.enableLogging(true)
@@ -152,14 +153,33 @@ class FireStore {
     }
     
     private func signIn(with token: String) {
-        
-        Auth.auth().signIn(withCustomToken: token) { [weak self] (user, error) in
+        Auth.auth().signIn(withCustomToken: token) { [unowned self] (user, error) in
             if let error = error {
                 cdPrint("fire store auth error: \(error)")
+                if self.signInRetryCount < 3 {
+                    //retry count
+                    self.signInRetryCount += 1
+                    self.fetchToken()
+                }
             } else {
-                self?.firebaseSignedInSubject.onNext(())
+                self.firebaseSignedInSubject.onNext(())
             }
         }
+    }
+    
+    func fetchToken() {
+        guard let uid = Settings.shared.loginResult.value?.uid else {
+            return
+        }
+        _ = Request
+            .requestFirebaseToken(uid)
+            .retry(2)
+            .subscribe(onSuccess: { token in
+                // 保存token
+                guard var result = Settings.shared.loginResult.value else { return }
+                result.firebase_custom_token = token
+                Settings.shared.loginResult.value = result
+            })
     }
     
     func getAppConfigValue() {
