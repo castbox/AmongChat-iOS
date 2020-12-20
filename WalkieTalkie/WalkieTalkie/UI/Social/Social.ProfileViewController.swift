@@ -19,7 +19,7 @@ extension Social {
             case settings
             case community
             case blockUser
-
+            
             func image() -> UIImage? {
                 switch self {
                 case .inviteFriends:
@@ -85,12 +85,12 @@ extension Social {
                 .blockUser,
             ]
         }()
-        
+        // MARK: - life
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            
+            //            //AD
             //            rx.viewDidAppear
             //                .take(1)
             //                .subscribe(onNext: { [weak self] (_) in
@@ -99,57 +99,58 @@ extension Social {
             //                })
             //                .disposed(by: bag)
         }
+    }
+}
+private extension Social.ProfileViewController {
+    func setupLayout() {
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor(hex6: 0x121212, alpha: 1.0)
         
-        private func setupLayout() {
-            isNavigationBarHiddenWhenAppear = true
-            statusBarStyle = .lightContent
-            view.backgroundColor = UIColor(hex6: 0x121212, alpha: 1.0)
-            
-            view.addSubviews(views: table, backBtn)
-            table.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-            }
-            backBtn.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(15)
-                maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
-                maker.width.height.equalTo(25)
-            }
-            
-            table.tableHeaderView = headerView
-            
-            table.reloadData()
+        view.addSubviews(views: table, backBtn)
+        table.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        backBtn.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(15)
+            maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(25)
         }
         
-        private func setupData() {
-            
-            Settings.shared.amongChatUserProfile.replay()
-                .subscribe(onNext: { [weak self] (profile) in
-                    guard let profile = profile else { return }
-                    self?.headerView.configProfile(profile)
+        table.tableHeaderView = headerView
+        
+        table.reloadData()
+    }
+    
+    func setupData() {
+        
+        Settings.shared.amongChatUserProfile.replay()
+            .subscribe(onNext: { [weak self] (profile) in
+                guard let profile = profile else { return }
+                self?.headerView.configProfile(profile)
+            })
+            .disposed(by: bag)
+        
+        if Settings.shared.amongChatUserProfile.value == nil {
+            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+            Request.profile()
+                .do(onDispose: {
+                    hudRemoval()
+                })
+                .subscribe(onSuccess: { (profile) in
+                    guard let p = profile else {
+                        return
+                    }
+                    Settings.shared.amongChatUserProfile.value = p
+                }, onError: { (error) in
                 })
                 .disposed(by: bag)
-            
-            if Settings.shared.amongChatUserProfile.value == nil {
-                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-                Request.profile()
-                    .do(onDispose: {
-                        hudRemoval()
-                    })
-                    .subscribe(onSuccess: { (profile) in
-                        guard let p = profile else {
-                            return
-                        }
-                        Settings.shared.amongChatUserProfile.value = p
-                    }, onError: { (error) in
-                    })
-                    .disposed(by: bag)
-            }
         }
-        
-        @objc
-        private func onBackBtn() {
-            navigationController?.popViewController()
-        }
+    }
+    
+    @objc
+    func onBackBtn() {
+        navigationController?.popViewController()
     }
 }
 // MARK: - UITableView
@@ -192,17 +193,20 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
                 navigationController?.pushViewController(vc)
             case .community:
-                self.open(urlSting: "https://among.chat/guideline.html")
+                self.open(urlSting: Config.PolicyType.url(.guideline))
             }
         }
     }
 }
 
 // MARK: - Widgets
-
 extension Social.ProfileViewController {
     
     private class ProfileView: UIView {
+        
+        var editBtnHandler: (() -> Void)? = nil
+        var followingBtnHandler: (() -> Void)? = nil
+        var followerBtnHandler: (() -> Void)? = nil
         
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
@@ -217,9 +221,6 @@ extension Social.ProfileViewController {
             let iv = UIImageView()
             iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
-            #if DEBUG
-            iv.backgroundColor = .gray
-            #endif
             return iv
         }()
         
@@ -251,10 +252,6 @@ extension Social.ProfileViewController {
             return v
         }()
         
-        var followingBtnHandler: (() -> Void)? = nil
-        var followerBtnHandler: (() -> Void)? = nil
-        var editBtnHandler: (() -> Void)? = nil
-        
         private lazy var editBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
             btn.backgroundColor = .white
@@ -277,6 +274,47 @@ extension Social.ProfileViewController {
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        func configProfile(_ profile: Entity.UserProfile) {
+            
+            if let b = profile.birthday, !b.isEmpty {
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyyMMdd"
+                
+                if let startDate = dateFormatter.date(from: b)  {
+                    
+                    let endDate = Date()
+                    
+                    let calendar = Calendar.current
+                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
+                    
+                    if let age = calcAge.year?.string, !age.isEmpty {
+                        nameLabel.text = "\(profile.name ?? ""), \(age)"
+                    } else {
+                        nameLabel.text = profile.name
+                    }
+                } else {
+                    nameLabel.text = profile.name
+                }
+            } else {
+                nameLabel.text = profile.name
+            }
+            
+            nameLabel.appendKern()
+            
+            avatarIV.setAvatarImage(with: profile.pictureUrl)
+            
+            editBtn.isHidden = false
+        }
+        
+        func configFollowerCount(_ followerCount: Int) {
+            followerBtn.setTitle("\(followerCount)")
+        }
+        
+        func configFollowingCount(_ followingCount: Int) {
+            followingBtn.setTitle("\(followingCount)")
         }
         
         private func setupLayout() {
@@ -323,47 +361,6 @@ extension Social.ProfileViewController {
         private func onFollowerBtn() {
             followerBtnHandler?()
         }
-        
-        func configProfile(_ profile: Entity.UserProfile) {
-            
-            if let b = profile.birthday, !b.isEmpty {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMdd"
-                
-                if let startDate = dateFormatter.date(from: b)  {
-                    
-                    let endDate = Date()
-                    
-                    let calendar = Calendar.current
-                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                    
-                    if let age = calcAge.year?.string, !age.isEmpty {
-                        nameLabel.text = "\(profile.name ?? ""), \(age)"
-                    } else {
-                        nameLabel.text = profile.name
-                    }
-                } else {
-                    nameLabel.text = profile.name
-                }
-            } else {
-                nameLabel.text = profile.name
-            }
-            
-            nameLabel.appendKern()
-            
-            avatarIV.setAvatarImage(with: profile.pictureUrl)
-            
-            editBtn.isHidden = false
-        }
-        
-        func configFollowerCount(_ followerCount: Int) {
-            followerBtn.setTitle("\(followerCount)")
-        }
-        
-        func configFollowingCount(_ followingCount: Int) {
-            followingBtn.setTitle("\(followingCount)")
-        }
     }
 }
 
@@ -394,9 +391,10 @@ extension Social.ProfileViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            
+        func configCell(with option: Option) {
+            iconIV.image = option.image()
+            titleLabel.text = option.text()
+            titleLabel.appendKern()
         }
         
         private func setupLayout() {
@@ -425,11 +423,6 @@ extension Social.ProfileViewController {
             }
         }
         
-        func configCell(with option: Option) {
-            iconIV.image = option.image()
-            titleLabel.text = option.text()
-            titleLabel.appendKern()
-        }
     }
     private class VerticalTitleButton: UIView {
         private lazy var titleLabel: WalkieLabel = {

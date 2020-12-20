@@ -16,7 +16,7 @@ class SettingViewController: ViewController {
     @IBOutlet weak var versionLabel: UILabel!
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-        
+    
     override var screenName: Logger.Screen.Node.Start {
         return .settings
     }
@@ -25,7 +25,7 @@ class SettingViewController: ViewController {
         super.viewDidLoad()
         
         showSystemNavigationBar()
-
+        
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
         self.title = R.string.localizable.settingsTitle()
@@ -58,7 +58,7 @@ class SettingContainerTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateSubviewStyle()
-                
+        
         tableView.backgroundColor = UIColor.theme(.backgroundBlack)
     }
     
@@ -90,12 +90,12 @@ class SettingContainerTableController: UITableViewController {
         } else if indexPath.row == 1 {
             shareApp()
         }
-//        else if indexPath.row == 2 {
-//            upgradePro()
-//        }
+        //        else if indexPath.row == 2 {
+        //            upgradePro()
+        //        }
     }
     
-    func shareApp() {
+    private func shareApp() {
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
         let removeBlock = { [weak self] in
             self?.view.isUserInteractionEnabled = true
@@ -109,7 +109,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     
-    func upgradePro() {
+    private func upgradePro() {
         guard !Settings.shared.isProValue.value,
               let premiun = R.storyboard.main.premiumViewController() else {
             return
@@ -125,7 +125,7 @@ class SettingContainerTableController: UITableViewController {
         Logger.UserAction.log(.update_pro, "settings")
     }
     
-    func updateSubviewStyle() {
+    private func updateSubviewStyle() {
         
         if Settings.shared.isProValue.value {
             diamondsNameLabel.text = R.string.localizable.profilePro()// "PRO"
@@ -140,7 +140,7 @@ class SettingContainerTableController: UITableViewController {
         }
     }
     
-    func rateApp() {//rate us
+    private func rateApp() {//rate us
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {
