@@ -70,12 +70,6 @@ extension AmongChat.Room {
         
         private let dataSource = BehaviorRelay<[ChannelUser]>(value: [])
         
-//        private let speakingUsersRelay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
-        
-//        var speakingUserObservable: Observable<[ChannelUserViewModel]> {
-//            return speakingUsersRelay.asObservable()
-//        }
-        
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
                 update(room)
@@ -97,10 +91,6 @@ extension AmongChat.Room {
             }
         }
         
-//        var mutedUserValue: Set<UInt> {
-//            return mutedUser
-//        }
-        
         private var room: Entity.Room {
             roomReplay.value
         }
@@ -110,7 +100,6 @@ extension AmongChat.Room {
         var isMuteMic: Bool {
             set {
                 isMuteMicObservable.accept(newValue)
-                //                LiveEngine.shared.mute(isMute: newValue)
                 ChatRoomManager.shared.muteMyMic(muted: newValue)
                 ////find
                 guard let userId = Settings.loginUserId?.uInt else {
@@ -163,48 +152,7 @@ extension AmongChat.Room {
                 .disposed(by: bag)
 
             
-            //            imViewModel.imReadySignal
-            //                .filter({ $0 })
-            //                .take(1)
-            //                .subscribe(onNext: { [weak self] (_) in
-            //                    self?.messageListTableView.isHidden = false
-            //                self?.messageBtn.isHidden = false
-            //                })
-            //                .disposed(by: bag)
-            
             blockedUsers = Defaults[\.blockedUsersV2Key]
-            
-            //            let _ = Social.Module.shared.mutedObservable
-            //                .map({ Set($0) })
-            //                .distinctUntilChanged()
-            //                .subscribe(onNext: { [weak self] (users) in
-            //                    self?.mutedUser = users
-            //                })
-            
-            //            let _ = dataSource
-            //                .throttle(.seconds(5), scheduler: MainScheduler.instance)
-            //                .subscribe(onNext: { [weak self] (channelUsers) in
-            //
-            //                    guard let `self` = self else { return }
-            //
-            //                    let uids: [UInt] = channelUsers.map { $0.uid.int!.uInt }
-            //
-            //                    let hitUsers = uids.compactMap {
-            //                        self.cachedFUsers[$0]
-            //                    }
-            //
-            ////                    let _ = Observable.of(self.fetchFirestoreUser(uids: uids), Observable.just(hitUsers).asSingle()).merge()
-            ////                        .take(2)
-            ////                        .subscribe(onNext: { (users) in
-            ////
-            ////                            let viewModelList = channelUsers.map { (channelUser) -> ChannelUserViewModel in
-            ////                                let firestoreUser = users.first(where: { $0.profile.uid == channelUser.uid })
-            ////                                return ChannelUserViewModel.init(with: channelUser, firestoreUser: firestoreUser)
-            ////                            }
-            ////                            self.dataSourceReplay.accept(viewModelList)
-            ////                            self.speakingUsersRelay.accept(viewModelList.filter { $0.channelUser.status == .talking })
-            ////                        })
-            //                })
             
             setObservableSubject()
             addSystemMessage()
@@ -214,23 +162,7 @@ extension AmongChat.Room {
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
             
             let name = room.topicName
-            //            var channel = room
-            
-            //        guard !name.isEmpty else {
-            //            return false
-            //        }
-            //
-            //        if mManager.isConnectedState && mManager.channelName == name {
-            //           return false
-            //        }
-            
-            //        guard !channel.isReachMaxUser else {
-            //            //离开当前房间
-            //            leaveChannel()
-            //            return false
-            //        }
-            //        SpeechRecognizer.default.requestAuthorize { [weak self] _ in
-            //            guard let `self` = self else { return }
+
             guard let topController = UIApplication.shared.keyWindow?.topViewController() else {
                 return false
             }
@@ -382,16 +314,7 @@ extension AmongChat.Room {
         
         //MARK: -- Request
         func requestRoomInfo() {
-            Request.amongchatProvider.rx.request(.roomInfo(["room_id": room.roomId]))
-                .mapJSON()
-                .mapToDataKeyJsonValue()
-                .map { item -> [String : AnyObject] in
-                    guard let roomData = item["room"] as? [String : AnyObject] else {
-                        return [:]
-                    }
-                    return roomData
-                }
-                .mapTo(Entity.Room.self)
+            Request.requestRoomInfo(with: room.roomId)
                 .catchErrorJustReturn(self.room)
                 .asObservable()
                 .filterNilAndEmpty()
@@ -579,72 +502,6 @@ extension AmongChat.Room.ViewModel {
         }
     }
     
-    //    private func fetchFirestoreUser(uids: [UInt]) -> Single<[FireStore.Entity.User]> {
-    //
-    //        let hitUsers = uids.compactMap {
-    //            cachedFUsers[$0]
-    //        }
-    //
-    //        let missedUids = uids.filter { (uid) in
-    //            !hitUsers.contains { $0.profile.uidInt == uid }
-    //        }
-    //        .filter { (uid) in
-    //            !unfoundUserIds.contains(uid)
-    //        }
-    //
-    //        guard missedUids.isEmpty else {
-    //
-    //            return Observable.create { [weak self] (subscriber) -> Disposable in
-    //
-    //                guard let `self` = self else {
-    //                    return Disposables.create {}
-    //                }
-    //
-    //                let _ = FireStore.shared.fetchUsers(missedUids)
-    //                    .do(onSuccess: { (users) in
-    //                        self.cachedFUsers.merge(users.map({ ($0.profile.uidInt, $0) })) { (_, new) in
-    //                            new
-    //                        }
-    //
-    //                        let unfoundIds = missedUids.filter { (uid) in
-    //                            !users.contains { $0.profile.uidInt == uid }
-    //                        }
-    //
-    //                        guard !unfoundIds.isEmpty else { return }
-    //
-    //                        self.unfoundUserIds.formUnion(Set(unfoundIds))
-    //
-    //                    })
-    //                    .subscribe(onSuccess: { (users) in
-    //
-    //                        var allUsers = hitUsers
-    //                        allUsers.append(contentsOf: users)
-    //
-    //                        allUsers.sort { (l, r) -> Bool in
-    //                            guard let lIdx = uids.firstIndex(of: l.profile.uidInt),
-    //                                  let rIdx = uids.firstIndex(of: r.profile.uidInt) else {
-    //                                return true
-    //                            }
-    //
-    //                            return lIdx < rIdx
-    //                        }
-    //
-    //                        subscriber.onNext(allUsers)
-    //                        subscriber.onCompleted()
-    //
-    //                    }) { (error) in
-    //                        subscriber.onError(error)
-    //                    }
-    //
-    //                return Disposables.create {}
-    //            }
-    //            .asSingle()
-    //
-    //        }
-    //
-    //        return Observable.just(hitUsers).asSingle()
-    //    }
-    
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
@@ -725,6 +582,10 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
             mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
         } else if mutedUser.contains(userId) {
             mManager.adjustUserPlaybackSignalVolume(userId.int, volume: 0)
+        }
+        
+        if !imViewModel.imIsReady {
+            requestRoomInfo()
         }
     }
     

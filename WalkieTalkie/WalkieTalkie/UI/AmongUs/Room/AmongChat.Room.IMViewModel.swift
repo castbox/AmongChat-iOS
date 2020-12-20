@@ -38,6 +38,10 @@ extension AmongChat.Room {
             return imManager.joinedChannelSignal
         }
         
+        var imIsReady: Bool {
+            return imManager.imIsReady
+        }
+        
         init(with channelId: String) {
             self.channelId = channelId
             self.imManager = AmongChat.Room.IMManager(with: channelId)
@@ -91,6 +95,8 @@ extension AmongChat.Room.IMViewModel {
                     case .joinRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.JoinRoomMessage.self, from: json) as ChatRoomMessage
                     case .leaveRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
+                    case .systemLeave:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
                     case .kickoutRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.KickOutMessage.self, from: json) as ChatRoomMessage
@@ -169,6 +175,8 @@ extension ChatRoom {
         case roomInfo = "AC:Chatroom:RoomInfo"
         case joinRoom = "AC:Chatroom:Join"
         case leaveRoom = "AC:Chatroom:Leave"
+        ////系统踢人， 如： 用户无心跳
+        case systemLeave = "AC:Chatroom:SystemLeave"
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
     }
@@ -215,6 +223,9 @@ extension ChatRoom {
             case msgType = "message_type"
         }
     }
+    
+    
+    
     
     struct KickOutMessage: ChatRoomMessage {
         let roomId: String

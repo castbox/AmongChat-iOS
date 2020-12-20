@@ -76,15 +76,16 @@ extension URI {
         
         static func patterns() -> [String] {
             return [
-                "/channel/:channelName"
+                "/channel/:channel_id",
+                "/channel"
             ]
         }
         
-        let channelName: String
+        let channelId: String
         
         init?(_ paras: [String : Any]) {
-            guard let channelName = paras["channelName"] as? String else { return nil }
-            self.channelName = channelName
+            guard let channelId = paras["channel_id"] as? String else { return nil }
+            self.channelId = channelId
         }
         
     }

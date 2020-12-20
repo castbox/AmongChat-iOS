@@ -137,6 +137,19 @@ extension Request {
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func requestRoomInfo(with roomId: String) -> Single<Entity.Room?> {
+        return amongchatProvider.rx.request(.roomInfo(["room_id": roomId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { item -> [String : AnyObject] in
+                guard let roomData = item["room"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return roomData
+            }
+            .mapTo(Entity.Room.self)
+    }
 
     
     static func logout() -> Single<[String: AnyObject]> {

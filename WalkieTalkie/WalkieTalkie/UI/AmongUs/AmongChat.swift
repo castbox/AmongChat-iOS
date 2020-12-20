@@ -27,22 +27,22 @@ extension AmongChat {
         case host
     }
     
-    enum AmongServiceLocation: Int {
-        case northAmerica = 0
-        case asia = 1
-        case europe = 2
-    }
+//    enum AmongServiceLocation: Int {
+//        case northAmerica = 0
+//        case asia = 1
+//        case europe = 2
+//    }
 }
 
-extension AmongChat.AmongServiceLocation {
-    var text: String {
-        switch self {
-        case .northAmerica:
-            return "North America"
-        case .asia:
-            return "Asia"
-        case .europe:
-            return "Europe"
-        }
-    }
-}
+//extension AmongChat.AmongServiceLocation {
+//    var text: String {
+//        switch self {
+//        case .northAmerica:
+//            return "North America"
+//        case .asia:
+//            return "Asia"
+//        case .europe:
+//            return "Europe"
+//        }
+//    }
+//}

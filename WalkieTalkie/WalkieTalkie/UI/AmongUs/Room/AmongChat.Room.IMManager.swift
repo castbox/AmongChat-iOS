@@ -38,6 +38,10 @@ extension AmongChat.Room {
             return joinedSubject.asObservable()
         }
         
+        var imIsReady: Bool {
+            return (try? joinedSubject.value()) ?? false
+        }
+        
         init(with channelId: String) {
             self.channelId = channelId
             super.init()

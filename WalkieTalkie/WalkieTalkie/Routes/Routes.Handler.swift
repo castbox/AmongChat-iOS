@@ -38,9 +38,9 @@ extension Routes {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
                     case let room as URI.Room:
-                        self.handleRoom(room)
+                        self.handleRoom(room.roomId)
                     case let channel as URI.Channel:
-                        self.handleChannel(channel)
+                        self.handleRoom(channel.channelId)
                     case _ as URI.Followers:
                         self.handleFollowers()
                     case let undefined as URI.Undefined:
@@ -58,13 +58,26 @@ extension Routes {
                 let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
                 return
             }
-            
+            UIApplication.navigationController?.popToRootViewController(animated: true)
             roomVc.joinRoom(name)
-            UIApplication.navigationController?.popToRootViewController(animated: true)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
-        func handleChannel(_ channel: URI.Channel) {
+//        func handleChannel(_ channel: URI.Channel) {
+//            UIApplication.navigationController?.popToRootViewController(animated: true)
+//
+//            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
+//                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+//                return
+//            }
+//
+//            let name = channel.roomId
+//            roomVc.enterRoom(roomId: name, topicId: nil)
+////            roomVc.joinRoom(with: name)
+//            Logger.Channel.log(.deeplink, name, value: 0)
+//        }
+        
+        func handleRoom(_ roomId: String) {
             UIApplication.navigationController?.popToRootViewController(animated: true)
             
             guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
@@ -72,23 +85,9 @@ extension Routes {
                 return
             }
             
-            let name = channel.channelName
+            roomVc.enterRoom(roomId: roomId, topicId: nil)
 //            roomVc.joinRoom(with: name)
-            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-        }
-        
-        func handleRoom(_ room: URI.Room) {
-            UIApplication.navigationController?.popToRootViewController(animated: true)
-            
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
-                return
-            }
-            
-            let name = room.roomId
-            roomVc.enterRoom(roomId: name, topicId: nil)
-//            roomVc.joinRoom(with: name)
-            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+            Logger.Channel.log(.deeplink, roomId, value: 0)
         }
         
         func handleFollowers() {
