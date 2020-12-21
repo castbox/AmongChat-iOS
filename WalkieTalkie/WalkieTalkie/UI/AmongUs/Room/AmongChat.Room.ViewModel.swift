@@ -380,28 +380,33 @@ extension AmongChat.Room {
         }
         
         func blockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.append(user)
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
-        }
-        
-        func unblockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            if !mutedUser.contains(user.uid.uInt) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                blockedUsers.append(user)
+                Defaults[\.blockedUsersV2Key] = blockedUsers
             }
         }
         
+        func unblockedUser(_ user: Entity.RoomUser) {
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                removeBlocked(user)
+            }
+        }
+        
+        func removeBlocked(_ user: Entity.RoomUser) {
+            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+        }
+        
         func muteUser(_ user: Entity.RoomUser) {
-            mutedUser.insert(user.uid.uInt)
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+            if mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                mutedUser.insert(user.uid.uInt)
+            }
         }
         
         func unmuteUser(_ user: Entity.RoomUser) {
-            mutedUser.remove(user.uid.uInt)
-            if !blockedUsers.contains(where: { $0.uid == user.uid }) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if !blockedUsers.contains(where: { $0.uid == user.uid }),
+               mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                mutedUser.remove(user.uid.uInt)
             }
         }
         
@@ -572,6 +577,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
             self.soundAnimationIndex.accept(user.seatNo - 1)
         }
