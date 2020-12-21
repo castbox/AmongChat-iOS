@@ -1,6 +1,0 @@
-framework module Path {
-  umbrella header "Path.swift-umbrella.h"
-
-  export *
-  module * { export * }
-}

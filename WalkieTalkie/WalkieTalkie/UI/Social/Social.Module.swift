@@ -26,6 +26,8 @@ extension Social {
         
         private let blockedListRelay = BehaviorRelay<[String]>(value: [])
         
+        private let avatarListRelay = BehaviorRelay<[String]>(value: [])
+        
         private let muteListRelay = BehaviorRelay<[UInt]>(value: [])
         
         private typealias CommonMessge = FireStore.Entity.User.CommonMessage
@@ -42,20 +44,19 @@ extension Social {
         private var currentChannel: String = ""
         
         private init() {
-            
+                        
             Observable.combineLatest(Settings.shared.loginResult.replay().filterNil(), FireStore.shared.firebaseSignedInObservable)
                 .take(1)
                 .subscribe(onNext: { [weak self] (t) in
                     let (result, _) = t
 //                    self?.startHeartbeat(result.uid)
-                    self?.initializeProfileIfNeeded(result.uid)
+//                    self?.initializeProfileIfNeeded(result.uid)
 //                    self?.observeRelations(result.uid)
 //                    self?.observeCommonMsg(result.uid)
 //                    self?.bindProToProfile(result.uid)
-                    self?.bindProfileToFirestore(result.uid)
+//                    self?.bindProfileToFirestore(result.uid)
                 })
                 .disposed(by: bag)
-            
         }
         
         private func startHeartbeat(_ uid: String) {
@@ -250,6 +251,10 @@ extension Social.Module {
         return blockedListRelay.value
     }
     
+    var avatarList: [String] {
+        return avatarListRelay.value
+    }
+    
     var currentChannelValue: String {
         return currentChannel
     }
@@ -274,7 +279,7 @@ extension Social.Module {
             UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.socialFollowingMaximiumTip("\(maximumFollowings)")))
             return
         }
-        FireStore.shared.addFollowing(user, to: selfUid)
+//        FireStore.shared.addFollowing(user, to: selfUid)
     }
     
 }

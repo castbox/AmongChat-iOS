@@ -39,7 +39,7 @@ class ChannelUserViewModel {
                 })
                 
             } else {
-                subscriber.onNext(FireStore.Entity.User.Profile.defaultAvatar(of: Int.init(self?.channelUser.uid ?? 0)).0)
+                subscriber.onNext(FireStore.Entity.User.Profile.defaultAvatar(of: self?.channelUser.uid.int ?? 0).0)
                 subscriber.onCompleted()
             }
             
@@ -51,6 +51,6 @@ class ChannelUserViewModel {
     }
     
     var isSelf: Bool {
-        return Constants.isMyself(channelUser.uid)
+        return Constants.isMyself(channelUser.uid.uIntValue)
     }
 }

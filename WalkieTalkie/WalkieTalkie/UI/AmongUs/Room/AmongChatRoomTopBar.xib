@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongChatRoomTopBar" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="indicatorView" destination="xwU-py-alq" id="h4p-5e-xli"/>
+                <outlet property="kickButton" destination="NIv-N4-bFM" id="kBX-Cf-iU3"/>
+                <outlet property="leaveButton" destination="39w-62-qes" id="lPI-Pw-mg4"/>
+                <outlet property="publicButton" destination="nnL-fi-G2g" id="6Tw-wY-g5A"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nnL-fi-G2g">
+                    <rect key="frame" x="20" y="13" width="55" height="24"/>
+                    <color key="backgroundColor" red="0.34901960784313724" green="0.1764705882352941" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="1KR-pa-uDU"/>
+                        <constraint firstAttribute="width" constant="55" id="7Ed-XP-oim"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
+                    <state key="normal" title="Public">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="publicButtonAction:" destination="-1" eventType="touchUpInside" id="dAn-TU-yS0"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGA-VZ-FHM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="85" y="13" width="44" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Ake-cj-s3g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                    <state key="normal" title="Report" image="ac_icon_room_report">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="reportButtonAction:" destination="-1" eventType="touchUpInside" id="x63-Ut-ubL"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39w-62-qes" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="360" y="13" width="44" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="ipA-dK-yhb"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                    <state key="normal" title="Leave" image="ac_icon_leave">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="NWD-QO-Psh"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="133" y="13" width="44" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="W8l-0G-L5k"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="WlO-S3-hoM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                    <state key="normal" title="Kick" image="ac_icon_kick_user">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="kickOffButtonAction:" destination="-1" eventType="touchUpInside" id="avl-G3-4v0"/>
+                    </connections>
+                </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="xwU-py-alq">
+                    <rect key="frame" x="330" y="15" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstItem="nnL-fi-G2g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="6dW-0H-78X"/>
+                <constraint firstItem="nnL-fi-G2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="8xl-nf-yx6"/>
+                <constraint firstItem="gGA-VZ-FHM" firstAttribute="leading" secondItem="nnL-fi-G2g" secondAttribute="trailing" constant="10" id="DP8-1M-iH4"/>
+                <constraint firstItem="xwU-py-alq" firstAttribute="centerY" secondItem="39w-62-qes" secondAttribute="centerY" id="GK8-JX-1fv"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="gGA-VZ-FHM" secondAttribute="centerY" id="KTm-Yf-80V"/>
+                <constraint firstItem="gGA-VZ-FHM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="NWV-LH-l6W"/>
+                <constraint firstItem="39w-62-qes" firstAttribute="leading" secondItem="xwU-py-alq" secondAttribute="trailing" constant="10" id="YVt-PD-CM6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="39w-62-qes" secondAttribute="trailing" constant="10" id="Zoh-4f-pw5"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="gGA-VZ-FHM" secondAttribute="trailing" constant="4" id="aI6-5a-Mv3"/>
+                <constraint firstItem="39w-62-qes" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="hEc-Nh-eGn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-246.37681159420291" y="141.29464285714286"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ac_icon_kick_user" width="24" height="24"/>
+        <image name="ac_icon_leave" width="24" height="24"/>
+        <image name="ac_icon_room_report" width="24.5" height="24"/>
+    </resources>
+</document>

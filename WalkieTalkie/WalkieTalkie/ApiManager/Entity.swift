@@ -13,12 +13,6 @@ struct Entity {
 }
 
 extension Entity {
-    struct LoginResult: Codable {
-        let uid: String
-        let token: String
-        let newUser: Bool
-        let firebaseToken : String
-    }
     
     struct Channel: Codable {
         let name: String
@@ -37,4 +31,25 @@ extension Entity {
             self.channel_exist = channel_exist
         }
     }
+    
+    struct RTMToken: Codable {
+        let rcToken: String
+        private enum CodingKeys: String, CodingKey {
+            case rcToken = "rc_token"
+        }
+    }
+    
+    struct RTCToken: Codable {
+        let roomToken: String
+        private enum CodingKeys: String, CodingKey {
+            case roomToken = "room_token"
+        }
+    }
+    
+    struct Processed: Codable {
+        let processed: Bool
+    }
+    
 }
+
+

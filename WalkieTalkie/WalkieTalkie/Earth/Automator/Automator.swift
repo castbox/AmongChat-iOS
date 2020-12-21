@@ -61,9 +61,10 @@ class Automator {
             })
             .disposed(by: bag)
         
-        _ = Request.login(deviceId: Constants.deviceID)
-            .subscribe(onSuccess: { result in
-                Settings.shared.loginResult.value = result
+        // 获取系统头像
+        let _ = Request.defaultAvatars()
+            .subscribe(onSuccess: { (_) in
+                
             })
     }
 }

@@ -87,9 +87,18 @@ class ChatRoomManager: SeatManager {
     private let stateObservable = BehaviorSubject<ConnectState>(value: .disconnected)
     
     private var mChannelData = ChannelData()
+    private var scheduleDispose: Disposable?
 
     private init() {
-        
+        _ = Settings.shared.loginResult.replay()
+            .subscribe(onNext: { [weak self] result in
+                guard let result = result, result.uid > 0 else {
+                    self?.scheduleDispose?.dispose()
+                    return
+                }
+                self?.startHeartBeating()
+            })
+            
     }
 
     func getChannelData() -> ChannelData {
@@ -112,10 +121,29 @@ class ChatRoomManager: SeatManager {
         delegate?.onSeatUpdated(position: position)
     }
 
-    func joinChannel(channelId: String, completionHandler: (() -> Void)?) {
+    func joinChannel(channelId: String, completionHandler: ((Error?) -> Void)?) {
         if state == .connected {
             leaveChannel()
         }
+        _ = Request.amongchatProvider.rx.request(.rtcToken(["room_id": channelId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RTCToken.self)
+            .retry(2)
+//                .filterNilAndEmpty()
+            .subscribe { [weak self] token in
+                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+                self.updateRole(true)
+                self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
+                    //set to audiance
+//                    self?.updateRole(false)
+                    self?.channelName = channelId
+                    completionHandler?(nil)
+                }
+            } onError: { error in
+                completionHandler?(error)
+                cdPrint("error: \(error)")
+            }
 //        mRtmManager.login(Constants.sUserId, { [weak self] (code) in
 //            guard let `self` = self else {
 //                return
@@ -125,13 +153,13 @@ class ChatRoomManager: SeatManager {
 //                if let json = member.toJsonString() {
 //                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
 //                }
-                self.updateRole(true)
-                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
-                    //set to audiance
-//                    self?.updateRole(false)
-                    self?.channelName = channelId
-                    completionHandler?()
-                }
+//                self.updateRole(true)
+//                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
+//                    //set to audiance
+////                    self?.updateRole(false)
+//                    self?.channelName = channelId
+//                    completionHandler?()
+//                }
 //            } else if code == .timeout {
 //                self.delegate?.onJoinChannelTimeout(channelId: channelId)
 //            }
@@ -148,19 +176,20 @@ class ChatRoomManager: SeatManager {
         mRtcManager.setClientRole(joinRole)
     }
 
-    func leaveChannel(_ block: ((String) -> Void)? = nil) {
-        guard let name = channelName else {
-            return
-        }
+//    func leaveChannel(_ block: ((String) -> Void)? = nil) {
+    func leaveChannel() {
         channelName = nil
         mRtcManager.leaveChannel()
         mChannelData.release()
         HapticFeedback.Impact.medium()
-        block?(name)
+//        block?(name)
     }
     
-    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
+//    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
+//        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
+//    }
+    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) {
+        mRtcManager.adjustUserPlaybackSignalVolume(uid, volume: volume)
     }
 
 //    private func checkAndBeAnchor() {
@@ -356,3 +385,25 @@ extension ChatRoomManager: RtcDelegate {
 //        processMessage(rtmMessage: message)
 //    }
 //}
+
+extension ChatRoomManager {
+    func startHeartBeating() {
+        scheduleDispose = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
+            .startWith(0)
+            .subscribe(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.requestHeartBeating()
+            })
+    }
+    
+    func requestHeartBeating() {
+        var params: [String: Any] = [:]
+        if let channelId = mRtcManager.channelId {
+            params["room_id"] = channelId
+        }
+        _ = Request.amongchatProvider.rx.request(.heartBeating(params))
+            .debug()
+            .subscribe()
+        
+    }
+}

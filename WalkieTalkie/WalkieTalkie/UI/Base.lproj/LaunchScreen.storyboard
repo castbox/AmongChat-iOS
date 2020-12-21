@@ -16,18 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star_bg" translatesAutoresizingMaskIntoConstraints="NO" id="mCI-RU-7ql">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_login_bg" translatesAutoresizingMaskIntoConstraints="NO" id="mCI-RU-7ql">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OLD-hG-3aT">
                                 <rect key="frame" x="157" y="244.5" width="100" height="100"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_name" translatesAutoresizingMaskIntoConstraints="NO" id="Alc-cz-XgW">
-                                <rect key="frame" x="126" y="767" width="162" height="47"/>
+                                <rect key="frame" x="67" y="774" width="280" height="40"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.0" green="0.0039215686274509803" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mCI-RU-7ql" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="J8U-5Y-Scd"/>
                             <constraint firstAttribute="bottom" secondItem="mCI-RU-7ql" secondAttribute="bottom" id="LMI-FC-OUT"/>
@@ -46,8 +46,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ac_login_bg" width="375.5" height="812"/>
         <image name="launch_logo" width="100" height="100"/>
-        <image name="launch_name" width="162" height="47"/>
-        <image name="star_bg" width="375" height="811.66668701171875"/>
+        <image name="launch_name" width="280.5" height="40"/>
     </resources>
 </document>

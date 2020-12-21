@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongInputCodeView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="asiaButton" destination="5dZ-M6-xFk" id="OGt-aO-R0V"/>
+                <outlet property="europeButton" destination="0iq-1F-esu" id="QZ5-wS-k8L"/>
+                <outlet property="inputContainerView" destination="tkh-KN-1Sl" id="I2u-wY-SoH"/>
+                <outlet property="northAmericaButton" destination="dXH-9e-wm8" id="EeM-XU-qQ4"/>
+                <outlet property="textField" destination="rBY-vE-r6X" id="br2-mZ-eUB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tkh-KN-1Sl">
+                    <rect key="frame" x="0.0" y="676" width="414" height="186"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3s-57-zD1">
+                            <rect key="frame" x="341" y="120" width="60" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="dsc-FP-l9G"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="pog-sT-KbS"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Utn-kV-aYU">
+                            <rect key="frame" x="22" y="120" width="60" height="37"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="QXp-az-SlM"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                            <state key="normal" title="Cancel">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="Kdl-Ib-e2a"/>
+                            </connections>
+                        </button>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hex-5e-ewn">
+                            <rect key="frame" x="40" y="60" width="334" height="40"/>
+                            <subviews>
+                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXH-9e-wm8">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="saG-1H-Ych"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    <state key="normal" title="North America">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="6YT-Jr-vMi"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5dZ-M6-xFk">
+                                    <rect key="frame" x="163" y="0.0" width="59" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="yQ8-KA-QYr"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    <state key="normal" title="Asia">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="pWM-6V-EUo"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0iq-1F-esu">
+                                    <rect key="frame" x="257" y="0.0" width="77" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="Axs-7i-8Fr"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                    <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                    <state key="normal" title="Europe">
+                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="20"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="qjd-k2-6oc"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="ENTER YOUR PRIVATE CODE" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rBY-vE-r6X" customClass="PaddingTextField" customModule="WalkieTalkie" customModuleProvider="target">
+                            <rect key="frame" x="40" y="0.0" width="334" height="48"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="7ar-M0-KGO"/>
+                                <constraint firstAttribute="height" constant="48" id="wAj-h9-Ae4"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="24"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="paddingLeft">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
+                                    <real key="value" value="20"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="VOf-oh-YCz"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="F3s-57-zD1" firstAttribute="centerY" secondItem="Utn-kV-aYU" secondAttribute="centerY" id="063-4E-gAa"/>
+                        <constraint firstAttribute="bottom" secondItem="Utn-kV-aYU" secondAttribute="bottom" constant="29" id="Gkr-8a-S8E"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="top" secondItem="rBY-vE-r6X" secondAttribute="bottom" constant="12" id="O0o-a7-NkQ"/>
+                        <constraint firstItem="rBY-vE-r6X" firstAttribute="leading" secondItem="tkh-KN-1Sl" secondAttribute="leading" priority="750" constant="40" id="QSD-24-3Jc"/>
+                        <constraint firstAttribute="trailing" secondItem="F3s-57-zD1" secondAttribute="trailing" constant="13" id="Ts2-tU-ldm"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="trailing" secondItem="rBY-vE-r6X" secondAttribute="trailing" id="Xnp-kE-JH2"/>
+                        <constraint firstAttribute="trailing" secondItem="rBY-vE-r6X" secondAttribute="trailing" priority="750" constant="40" id="dGO-z3-E93"/>
+                        <constraint firstItem="F3s-57-zD1" firstAttribute="top" secondItem="hex-5e-ewn" secondAttribute="bottom" constant="20" id="fFW-jJ-dHM"/>
+                        <constraint firstItem="Utn-kV-aYU" firstAttribute="leading" secondItem="tkh-KN-1Sl" secondAttribute="leading" constant="22" id="lvJ-3l-8O5"/>
+                        <constraint firstItem="rBY-vE-r6X" firstAttribute="top" secondItem="tkh-KN-1Sl" secondAttribute="top" id="mAv-fW-lpa"/>
+                        <constraint firstItem="rBY-vE-r6X" firstAttribute="centerX" secondItem="tkh-KN-1Sl" secondAttribute="centerX" id="uhG-Zc-Jxd"/>
+                        <constraint firstItem="hex-5e-ewn" firstAttribute="leading" secondItem="rBY-vE-r6X" secondAttribute="leading" id="xxY-i2-mX2"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tkh-KN-1Sl" secondAttribute="bottom" id="755-rp-X94"/>
+                <constraint firstAttribute="trailing" secondItem="tkh-KN-1Sl" secondAttribute="trailing" id="92v-oj-A7E"/>
+                <constraint firstItem="tkh-KN-1Sl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iJm-Sk-FiD"/>
+            </constraints>
+            <point key="canvasLocation" x="140.57971014492756" y="153.34821428571428"/>
+        </view>
+    </objects>
+</document>

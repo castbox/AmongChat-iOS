@@ -12,11 +12,12 @@ import RxCocoa
 //import Alamofire
 import SwifterSwift
 import SnapKit
-import AgoraRtcKit
+import AgoraRtmKit
 import SwiftyUserDefaults
-import MoPub
+//import MoPub
 import RxGesture
 import BetterSegmentedControl
+import AgoraRtcKit
 
 enum UserStatus {
     case audiance
@@ -58,8 +59,8 @@ class RoomViewController: ViewController {
         return v
     }()
     
-    private lazy var avatarBtn: Social.Widgets.AvatarView = {
-        let iv = Social.Widgets.AvatarView()
+    private lazy var avatarBtn: Social.Widgets.OuterBorderdImageView = {
+        let iv = Social.Widgets.OuterBorderdImageView()
         iv.isUserInteractionEnabled = true
         let tapGR = UITapGestureRecognizer()
         tapGR.addTarget(self, action: #selector(reportButtonAction(_:)))
@@ -78,8 +79,8 @@ class RoomViewController: ViewController {
         return btn
     }()
     
-    private lazy var avatarDot: Social.Widgets.AvatarView = {
-        let iv = Social.Widgets.AvatarView()
+    private lazy var avatarDot: Social.Widgets.OuterBorderdImageView = {
+        let iv = Social.Widgets.OuterBorderdImageView()
         iv.a_backgroundColor = UIColor(hex6: 0xFF6679, alpha: 1.0)
         iv.a_cornerRadius = 5
         iv.a_borderWidth = 1
@@ -103,7 +104,7 @@ class RoomViewController: ViewController {
     
     private var confetti: ConfettiView!
 
-    private var adView: MPAdView!
+//    private var adView: MPAdView!
     
     private var isFirstConnectSecretChannel: String = ""
     
@@ -187,7 +188,7 @@ class RoomViewController: ViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        adView?.frame = adContainer.bounds
+//        adView?.frame = adContainer.bounds
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -346,9 +347,8 @@ class RoomViewController: ViewController {
     func leaveChannel() {
         UIApplication.shared.isIdleTimerDisabled = false
         speakButtonTrigger.isUserInteractionEnabled = false
-        mManager.leaveChannel { [weak self] (name) in
-            ChannelUserListViewModel.shared.leavChannel(name)
-        }
+        mManager.leaveChannel()
+        ChannelUserListViewModel.shared.leavChannel(channelName)
         speakButtonTrigger.isUserInteractionEnabled = true
         speakingListView.isUserInteractionEnabled = false
         speakingModalRecord = nil
@@ -379,15 +379,15 @@ class RoomViewController: ViewController {
             guard let `self` = self else { return }
             self.checkMicroPermission { [weak self] in
                 guard let `self` = self else { return }
-                self.mManager.joinChannel(channelId: name) { [weak self] in
-                    HapticFeedback.Impact.success()
-                    UIApplication.shared.isIdleTimerDisabled = true
-                    self?.isSegmentControlEnable = true
-                    completionBlock?()
-                    self?.joinedChannelSubject.onNext(name)
-                    self?.speakingListView.isUserInteractionEnabled = true
-                    ChannelUserListViewModel.shared.didJoinedChannel(name)
-                }
+//                self.mManager.joinChannel(channelId: name) { [weak self] in
+//                    HapticFeedback.Impact.success()
+//                    UIApplication.shared.isIdleTimerDisabled = true
+//                    self?.isSegmentControlEnable = true
+//                    completionBlock?()
+//                    self?.joinedChannelSubject.onNext(name)
+//                    self?.speakingListView.isUserInteractionEnabled = true
+//                    ChannelUserListViewModel.shared.didJoinedChannel(name)
+//                }
             }
         }
         
@@ -509,11 +509,11 @@ extension RoomViewController: ChatRoomDelegate {
             #endif
         } else {
             //check block
-            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid == userId }) {
-                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
-            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
-                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
-            }
+//            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {
+//                mManager.adjustUserPlaybackSignalVolume(user, volume: 0)
+//            } else if ChannelUserListViewModel.shared.mutedUserValue.contains(userId) {
+//                mManager.adjustUserPlaybackSignalVolume(ChannelUser.randomUser(uid: userId), volume: 0)
+//            }
         }
     }
     
@@ -602,40 +602,40 @@ extension RoomViewController: ScreenContainerDelegate {
     }
 }
 
-extension RoomViewController: MPAdViewDelegate {
-    func viewControllerForPresentingModalView() -> UIViewController! {
-        if let naviVC = self.navigationController {
-            return naviVC
-        } else {
-            return self
-        }
-    }
-
-    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
-        cdPrint("[AD]-adViewDidLoadAd")
-        Logger.Ads.logEvent(.ads_loaded, .channel)
-    }
-
-    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
-        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
-        Logger.Ads.logEvent(.ads_failed, .channel)
-    }
-
-    func willPresentModalView(forAd view: MPAdView!) {
-//        showSource = .adModal
-        Logger.Ads.logEvent(.ads_imp, .channel)
-    }
-    
-    
-    func willLeaveApplication(fromAd view: MPAdView!) {
-        Logger.Ads.logEvent(.ads_clk, .channel)
-//        showSource = .adLeave
-    }
-    
-    func didDismissModalView(forAd view: MPAdView!) {
+//extension RoomViewController: MPAdViewDelegate {
+//    func viewControllerForPresentingModalView() -> UIViewController! {
+//        if let naviVC = self.navigationController {
+//            return naviVC
+//        } else {
+//            return self
+//        }
+//    }
+//
+//    func adViewDidLoadAd(_ view: MPAdView!, adSize: CGSize) {
+//        cdPrint("[AD]-adViewDidLoadAd")
+//        Logger.Ads.logEvent(.ads_loaded, .channel)
+//    }
+//
+//    func adView(_ view: MPAdView!, didFailToLoadAdWithError error: Error!) {
+//        cdPrint("[AD]-load ad error: \(error.localizedDescription)")
+//        Logger.Ads.logEvent(.ads_failed, .channel)
+//    }
+//
+//    func willPresentModalView(forAd view: MPAdView!) {
+////        showSource = .adModal
+//        Logger.Ads.logEvent(.ads_imp, .channel)
+//    }
+//
+//
+//    func willLeaveApplication(fromAd view: MPAdView!) {
 //        Logger.Ads.logEvent(.ads_clk, .channel)
-    }
-}
+////        showSource = .adLeave
+//    }
+//
+//    func didDismissModalView(forAd view: MPAdView!) {
+////        Logger.Ads.logEvent(.ads_clk, .channel)
+//    }
+//}
 
 //MARK: Private method
 private extension RoomViewController {
@@ -708,35 +708,35 @@ private extension RoomViewController {
     }
     
     /// 获取麦克风权限
-    func checkMicroPermission(completion: @escaping ()->()) {
-        weak var welf = self
-        AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
-            if !isOpen {
-                let alertVC = UIAlertController(title: NSLocalizedString("“WalkieTalkie” would like to Access the Microphone", comment: ""),
-                                                message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""),
-                                                preferredStyle: UIAlertController.Style.alert)
-                let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
-                    
-                    if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.openURL(url)
-                    }
-                })
-                
-                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
-                    /// do nothing
-                }
-                alertVC.addAction(cancelAction)
-                alertVC.addAction(resetAction)
-                DispatchQueue.main.async {
-                    welf?.present(alertVC, animated: true, completion: nil)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    completion()
-                }
-            }
-        }
-    }
+//    func checkMicroPermission(completion: @escaping ()->()) {
+//        weak var welf = self
+//        AVAudioSession.sharedInstance().requestRecordPermission { isOpen in
+//            if !isOpen {
+//                let alertVC = UIAlertController(title: NSLocalizedString("“WalkieTalkie” would like to Access the Microphone", comment: ""),
+//                                                message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""),
+//                                                preferredStyle: UIAlertController.Style.alert)
+//                let resetAction = UIAlertAction(title: NSLocalizedString("Go Settings", comment: ""), style: .default, handler: { _ in
+//                    
+//                    if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+//                        UIApplication.shared.openURL(url)
+//                    }
+//                })
+//                
+//                let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel) { _ in
+//                    /// do nothing
+//                }
+//                alertVC.addAction(cancelAction)
+//                alertVC.addAction(resetAction)
+//                DispatchQueue.main.async {
+//                    welf?.present(alertVC, animated: true, completion: nil)
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    completion()
+//                }
+//            }
+//        }
+//    }
     
     func updateObserverEmojiState() {
         guard state.isConnectedState || state.isConnectingState else {
@@ -905,26 +905,26 @@ private extension RoomViewController {
             })
             .disposed(by: bag)
         
-        AdsManager.shared.mopubInitializeSuccessSubject
-            .filter { _ -> Bool in
-                return !Settings.shared.isProValue.value
-            }
-            .filter { $0 }
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] _ in
-                self?.loadAdView()
-            })
-            .disposed(by: bag)
-        
-        Settings.shared.isProValue.replay()
-            .observeOn(MainScheduler.asyncInstance)
-            .filter { $0 }
-            .subscribe(onNext: { [weak self] _ in
-                //remove ad
-                self?.adView?.stopAutomaticallyRefreshingContents()
-                self?.adView?.removeSubviews()
-            })
-            .disposed(by: bag)
+//        AdsManager.shared.mopubInitializeSuccessSubject
+//            .filter { _ -> Bool in
+//                return !Settings.shared.isProValue.value
+//            }
+//            .filter { $0 }
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] _ in
+//                self?.loadAdView()
+//            })
+//            .disposed(by: bag)
+//
+//        Settings.shared.isProValue.replay()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .filter { $0 }
+//            .subscribe(onNext: { [weak self] _ in
+//                //remove ad
+//                self?.adView?.stopAutomaticallyRefreshingContents()
+//                self?.adView?.removeSubviews()
+//            })
+//            .disposed(by: bag)
         
         musicButton.tapHandler = { [weak self] in
             self?.playMusicAction()
@@ -1063,20 +1063,20 @@ private extension RoomViewController {
         present(premium, animated: true, completion: nil)
     }
     
-    func loadAdView() {
-        adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
-        adView.delegate = self
-        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
-        adContainer.addSubview(adView)
-        adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
-//        if adContainerHeightConstraint.constant > 50 {
-//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
-//        } else {
-//            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSize50Height)
-//        }
-        Logger.Ads.logEvent(.ads_load, .channel)
-        adView.startAutomaticallyRefreshingContents()
-    }
+//    func loadAdView() {
+//        adView = MPAdView(adUnitId: "4334cad9c4e244f8b432635d48104bb9")
+//        adView.delegate = self
+//        adView.frame = CGRect(x: 0, y: 0, width: adContainer.width, height: adContainerHeightConstraint.constant)
+//        adContainer.addSubview(adView)
+//        adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+////        if adContainerHeightConstraint.constant > 50 {
+////            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSizeMatchFrame)
+////        } else {
+////            adView.loadAd(withMaxAdSize: kMPPresetMaxAdSize50Height)
+////        }
+//        Logger.Ads.logEvent(.ads_load, .channel)
+//        adView.startAutomaticallyRefreshingContents()
+//    }
 }
 
 extension Reactive where Base: UIButton {

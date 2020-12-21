@@ -12,9 +12,14 @@ import RxCocoa
 import AgoraRtmKit
 import CastboxDebuger
 
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[IMManager]-\(message)")
+}
+
 extension AmongChat.Room {
     
     class IMManager: NSObject {
+//        static let shared = IMManager()
         
         private var rtmKit: AgoraRtmKit?
         private let onlineSubject = BehaviorSubject<LoginStatus>(value: .offline)
@@ -33,19 +38,23 @@ extension AmongChat.Room {
             return joinedSubject.asObservable()
         }
         
+        var imIsReady: Bool {
+            return (try? joinedSubject.value()) ?? false
+        }
+        
         init(with channelId: String) {
-            rtmKit = AgoraRtmKit.init(appId: KeyCenter.AppId, delegate: nil)
             self.channelId = channelId
             super.init()
+            rtmKit = AgoraRtmKit(appId: KeyCenter.AppId, delegate: self)
             rtmKit?.agoraRtmDelegate = self
             bindEvents()
             loginSDK()
         }
         
         deinit {
-            clean()
+//            clean()
         }
-        
+        //hdD9gjNe //hdDYMjNf
         private func bindEvents() {
             onlineSubject
                 .filter { $0 == .online }
@@ -62,11 +71,23 @@ extension AmongChat.Room {
                   status == .offline else {
                 return
             }
-            
-            rtmKit?.login(byToken: KeyCenter.RtmToken, user: String(Constants.sUserId), completion: { [weak self] (code) in
-                self?.onlineSubject.onNext(code == .ok ? .online : .offline)
-            })
-            
+            cdPrint("requet loginSDK-token")
+            _ = Request.amongchatProvider.rx.request(.rtmToken([:]))
+                .mapJSON()
+                .mapToDataKeyJsonValue()
+                .mapTo(Entity.RTMToken.self)
+                .retry(2)
+//                .filterNilAndEmpty()
+                .subscribe { [weak self] token in
+                    guard let `self` = self, let token = token, let uid = Settings.loginUserId?.string else { return }
+                    cdPrint("requet loginSDK")
+                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
+                        cdPrint("requet loginSDK code: \(code.rawValue)")
+                        self?.onlineSubject.onNext(code == .ok ? .online : .offline)
+                    })
+                } onError: { error in
+                    cdPrint("error: \(error)")
+                }
         }
         
         private func logoutSDK() {
@@ -85,13 +106,14 @@ extension AmongChat.Room {
         
         
         private func joinChannel(_ channel: String) {
-            
             guard let rtmChannel = rtmKit?.createChannel(withId: channel, delegate: self) else { return }
             
+            cdPrint("joinChannel: \(channel)")
             rtmChannel.join { [weak self] (code) in
                 guard code == .channelErrorOk else {
                     return
                 }
+                cdPrint("joinChannel: \(channel) code: \(code.rawValue)")
                 self?.joinedSubject.onNext(true)
             }
             
@@ -99,13 +121,16 @@ extension AmongChat.Room {
         }
         
         private func clean() {
+            cdPrint("clean: \(channelId)")
+
             rtmChannel?.leave(completion: { (code) in
+                cdPrint("clean leave: \(code.rawValue)")
                 guard code == .ok else {
                     return
                 }
             })
-            rtmKit?.destroyChannel(withId: channelId)
-            logoutSDK()
+//            rtmKit?.destroyChannel(withId: channelId)
+//            logoutSDK()
         }
         
         func send(message: String) -> Single<Bool> {
@@ -143,20 +168,28 @@ extension AmongChat.Room.IMManager {
 // MARK: AgoraRtmDelegate
 extension AmongChat.Room.IMManager: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit, connectionStateChanged state: AgoraRtmConnectionState, reason: AgoraRtmConnectionChangeReason) {
-        
+        cdPrint("connectionStateChanged: \(state.rawValue) reason: \(reason.rawValue)")
     }
 }
 
 // MARK: AgoraRtmChannelDelegate
 extension AmongChat.Room.IMManager: AgoraRtmChannelDelegate {
     func channel(_ channel: AgoraRtmChannel, memberJoined member: AgoraRtmMember) {
+        cdPrint("memberJoined: \(member.channelId) \(member.userId)")
     }
     
     func channel(_ channel: AgoraRtmChannel, memberLeft member: AgoraRtmMember) {
+        cdPrint("memberLeft: \(member.channelId) \(member.userId)")
     }
     
     func channel(_ channel: AgoraRtmChannel, messageReceived message: AgoraRtmMessage, from member: AgoraRtmMember) {
+        cdPrint("messageReceived: \(member.channelId + "  " + member.userId + " text: " +  message.text)")
         newMessageSubject.onNext((message, member))
+    }
+    
+    func channel(_ channel: AgoraRtmChannel, memberCount count: Int32) {
+        cdPrint("memberCount: \(count)")
+
     }
 }
 

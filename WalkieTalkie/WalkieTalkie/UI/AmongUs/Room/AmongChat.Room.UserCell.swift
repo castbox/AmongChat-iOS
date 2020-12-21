@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 extension AmongChat.Room {
     
@@ -15,33 +16,92 @@ extension AmongChat.Room {
         
         private static let haloViewAnimationKey = "halo_animation"
         
-        private lazy var haloView: UIView = {
-            let v = UIView()
-            v.backgroundColor = .clear
-            v.layer.borderColor = UIColor.white.cgColor
-            v.layer.borderWidth = 1
-            v.layer.cornerRadius = 25
-            return v
-        }()
-        
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 25
-            iv.layer.masksToBounds = true
-            iv.layer.borderWidth = 0.5
-            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
-            return iv
-        }()
-        
-        private lazy var nameLabel: UILabel = {
+        private lazy var indexLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoRegular(size: 11)
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
             lb.textAlignment = .center
             return lb
         }()
         
-        private var avatarDisposable: Disposable?
+        private lazy var haloView = SoundAnimationView(frame: .zero)
+        
+        private lazy var avatarIV: UIImageView = {
+            let iv = UIImageView()
+            iv.layer.cornerRadius = 20
+            iv.layer.masksToBounds = true
+            iv.layer.borderWidth = 0.5
+            iv.contentMode = .scaleAspectFill
+            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+            iv.backgroundColor = UIColor.white.alpha(0.2)
+            iv.isUserInteractionEnabled = true
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
+            longPressGesture.minimumPressDuration = 0.5
+            iv.addGestureRecognizer(longPressGesture)
+            return iv
+        }()
+        
+        private lazy var kickSelectedView: UIImageView = {
+            let iv = UIImageView()
+            iv.layer.cornerRadius = 20
+            iv.layer.masksToBounds = true
+            iv.image = R.image.ac_kick_selected()
+            iv.isHidden = true
+            iv.contentMode = .center
+//            iv.layer.borderWidth = 0.5
+//            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+            iv.backgroundColor = "D30F0F".color().alpha(0.62)
+            return iv
+        }()
+        
+        private lazy var disableMicView: UIImageView = {
+            let iv = UIImageView()
+            iv.image = R.image.ac_icon_room_disable_mic()
+            iv.isHidden = true
+            return iv
+        }()
+        
+        private lazy var mutedLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 10)
+            lb.textColor = "FB5858".color()
+            lb.textAlignment = .center
+            lb.text = R.string.localizable.roomUserListMuted()
+            lb.backgroundColor = UIColor.black.alpha(0.7)
+            lb.isHidden = true
+            lb.cornerRadius = 20
+            return lb
+        }()
+        
+        private lazy var nameLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 12)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            return lb
+        }()
+        
+        private lazy var gameNameButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            //            btn.setTitle("XXX", for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 10)
+            btn.titleLabel?.lineBreakMode = .byTruncatingTail
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+            btn.backgroundColor = UIColor.white.alpha(0.2)
+            btn.cornerRadius = 10
+            btn.addTarget(self, action: #selector(gameNameButtonAction), for: .touchUpInside)
+            return btn
+        }()
+        
+        private var user: Entity.RoomUser?
+
+        var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
+        
+        var isKickSelected: Bool = false {
+            didSet {
+                kickSelectedView.isHidden = !isKickSelected
+            }
+        }
         
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -52,95 +112,139 @@ extension AmongChat.Room {
             fatalError("init(coder:) has not been implemented")
         }
         
+        @objc
+        func longPressGestureAction() {
+            guard let user = user else {
+                return
+            }
+            avatarLongPressHandler?(user)
+        }
+        
         override func prepareForReuse() {
             super.prepareForReuse()
-            stopHaloAnimation()
+//            haloView.stopLoading()
+            avatarIV.kf.cancelDownloadTask()
         }
         
         override func layoutSubviews() {
             super.layoutSubviews()
         }
         
+        func startSoundAnimation() {
+            haloView.startLoading()
+        }
+        
+        @objc
+        func gameNameButtonAction() {
+            user?.nickname?.copyToPasteboard()
+            viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        }
+        
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: haloView, avatarIV, nameLabel)
+            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, mutedLabel, kickSelectedView)
             
+            indexLabel.snp.makeConstraints { (maker) in
+                maker.left.right.top.equalToSuperview()
+                maker.height.equalTo(21.5)
+            }
+            
+            //            haloView.soundWidth = 60
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
-                maker.size.equalTo(avatarIV)
+                maker.width.height.equalTo(60)
             }
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.size.equalTo(CGSize(width: 50, height: 50))
-                maker.top.centerX.equalToSuperview()
+                maker.size.equalTo(CGSize(width: 40, height: 40))
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+            }
+            
+            kickSelectedView.snp.makeConstraints { (maker) in
+                maker.center.equalTo(avatarIV)
+                maker.width.height.equalTo(40)
+            }
+            
+            disableMicView.snp.makeConstraints { (maker) in
+                maker.right.bottom.equalTo(avatarIV)
+                //                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+            }
+            
+            mutedLabel.snp.makeConstraints { (maker) in
+                maker.center.equalTo(avatarIV)
+                maker.width.height.equalTo(avatarIV)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.left.right.bottom.equalToSuperview()
+                maker.top.equalTo(avatarIV.snp.bottom).offset(4)
+                maker.left.right.equalToSuperview()
+                //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
+            gameNameButton.snp.makeConstraints { maker in
+                maker.top.equalTo(nameLabel.snp.bottom).offset(4)
+                maker.left.equalTo(3)
+                maker.right.equalTo(-3)
+                maker.height.equalTo(20)
+            }
         }
-        
-        private func haloAnimation() {
-            
-            let borderWidthAni = CABasicAnimation(keyPath: "borderWidth")
-            borderWidthAni.fromValue = 1
-            borderWidthAni.toValue = 0
-            
-            let opacityAni = CABasicAnimation(keyPath: "opacity")
-            opacityAni.fromValue = 1
-            opacityAni.toValue = 0
-            
-            let scaleAni = CABasicAnimation(keyPath: "transform.scale")
-            scaleAni.fromValue = 1
-            scaleAni.toValue = 1.5
-            
-            let animationGroup = CAAnimationGroup()
-            animationGroup.duration = 1.5;
-            animationGroup.animations = [borderWidthAni, opacityAni, scaleAni]
-            animationGroup.repeatCount = .greatestFiniteMagnitude
-            animationGroup.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-            
-            haloView.layer.add(animationGroup, forKey: UserCell.haloViewAnimationKey)
-        }
-        
-        private func stopHaloAnimation() {
-            haloView.layer.removeAnimation(forKey: UserCell.haloViewAnimationKey)
-        }
-        
     }
 }
 
 extension AmongChat.Room.UserCell {
     
-    func bind(_ userViewModel: ChannelUserViewModel?) {
-        
-        if let userViewModel = userViewModel {
-            avatarIV.image = nil
-            let user = userViewModel.channelUser
-            avatarDisposable?.dispose()
-            avatarDisposable = userViewModel.avatar.subscribe(onSuccess: { [weak self] (image) in
-                guard let `self` = self else { return }
-                
-                if let _ = image {
-                    self.avatarIV.backgroundColor = .clear
-                } else {
-                    self.avatarIV.backgroundColor = user.iconColor.color()
-                }
-                self.avatarIV.image = image
-            })
-            
-            nameLabel.text = userViewModel.name
-            if userViewModel.channelUser.status == .talking {
-                haloAnimation()
-            } else {
-                stopHaloAnimation()
-            }
+    func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
+        if index == 1 {
+            indexLabel.text = "\(index)-Host"
         } else {
-            avatarIV.image = R.image.speak_list_add()
-            avatarIV.backgroundColor = nil
-            nameLabel.text = ""
+            indexLabel.text = index.string
         }
+        
+        guard let user = user else {
+            clearStyle()
+            return
+        }
+        self.user = user
+        avatarIV.contentMode = .scaleAspectFill
+        avatarIV.setAvatarImage(with: user.pictureUrl)
+        nameLabel.text = user.name
+        if user.status == .talking {
+            haloView.startLoading()
+        } else {
+            haloView.stopLoading()
+        }
+        gameNameButton.setTitle(user.nickname, for: .normal)
+        avatarIV.layer.borderWidth = 0.5
+        haloView.isHidden = false
+        gameNameButton.isHidden = !(topic == .roblox && user.nickname.isValid)
+        //自己 muted 其他用户
+        if isKickSelected {
+            mutedLabel.isHidden = true
+            disableMicView.isHidden = true
+        } else {
+            if user.isMutedByLoginUser == true {
+                mutedLabel.isHidden = false
+                disableMicView.isHidden = true
+            } else {
+                mutedLabel.isHidden = true
+                disableMicView.isHidden = !user.isMuted
+            }
+        }
+    }
+    
+    func clearStyle() {
+        user = nil
+        avatarIV.kf.cancelDownloadTask()
+        avatarIV.image = R.image.ac_icon_seat_add()
+        avatarIV.contentMode = .center
+        avatarIV.layer.borderWidth = 0
+        haloView.isHidden = true
+        nameLabel.text = ""
+        gameNameButton.setTitle(nil, for: .normal)
+        gameNameButton.isHidden = true
+        mutedLabel.isHidden = true
+        disableMicView.isHidden = true
     }
     
 }

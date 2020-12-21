@@ -8,9 +8,11 @@
 
 import UIKit
 import StoreKit
+import RxSwift
+import RxCocoa
 
 class SettingViewController: ViewController {
-
+    
     @IBOutlet weak var versionLabel: UILabel!
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
@@ -22,41 +24,66 @@ class SettingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        showSystemNavigationBar()
+        
+        view.backgroundColor = UIColor.theme(.backgroundBlack)
+        
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
-//        #if DEBUG
-//        tapGesture.isEnabled = true
-//        #else
-//        tapGesture.isEnabled = false
-//        #endif
     }
     
     @IBAction func policyAction(_ sender: Any) {
-        open(urlSting: "https://walkietalkie.live/policy.html")
+        open(urlSting: Config.PolicyType.url(.policy))
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func termsAction(_ sender: Any) {
+        open(urlSting: Config.PolicyType.url(.terms))
     }
-    */
-
+    
+    @IBAction func updateEnvironment(_ sender: Any) {
+        cdPrint("among chat")
+    }
+    
+    private func showSystemNavigationBar() {
+        isNavigationBarHiddenWhenAppear = false
+        self.navigationController?.navigationBar.setColors(background: UIColor.theme(.backgroundBlack), text: .white)
+        self.navigationController?.navigationBar.setTitleFont(R.font.nunitoExtraBold(size: 24) ?? .systemFont(ofSize: 24, weight: .medium), color: .white)
+        self.customBackButton.setImage(R.image.ac_back(), for: .normal)
+    }
 }
 
 class SettingContainerTableController: UITableViewController {
     
-    @IBOutlet weak var proCell: UITableViewCell!
-    @IBOutlet weak var diamondsIcon: UIImageView!
+    let bag = DisposeBag()
+    private var showVipPro = true {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     @IBOutlet weak var diamondsNameLabel: UILabel!
+    @IBOutlet weak var diamondArrowView: UIImageView!
+    @IBOutlet weak var logotButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       updateSubviewStyle()
+        tableView.backgroundColor = UIColor.theme(.backgroundBlack)
+        
+        showVipPro = FireStore.shared.isInReviewSubject.value || Settings.shared.isProValue.value
+        updateSubviewStyle()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        let removeBlock = view.raft.show(.loading)
+        Request.logout().asObservable()
+            .observeOn(MainScheduler.instance)
+            .do(onDispose: {
+                removeBlock()
+            })
+            .subscribe(onNext: { (data) in
+                Settings.shared.clearAll()
+                (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
+            }).disposed(by: bag)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,53 +91,81 @@ class SettingContainerTableController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        if showVipPro {
+            return 3
+        } else {
+            return 2
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 2 {
-          //rate us
+        if indexPath.row == 0 {
             rateApp()
-        } else if indexPath.row == 0 {
-            guard !Settings.shared.isProValue.value,
-                let premiun = R.storyboard.main.premiumViewController() else {
-                return
-            }
-            premiun.style = .likeGuide
-            premiun.source = .setting
-            premiun.dismissHandler = { [weak self] in
-                self?.updateSubviewStyle()
-                premiun.dismiss(animated: true, completion: nil)
-            }
-            premiun.modalPresentationStyle = .fullScreen
-            present(premiun, animated: true, completion: nil)
-            Logger.UserAction.log(.update_pro, "settings")
+        } else if indexPath.row == 1 {
+            shareApp()
+        }
+        else if indexPath.row == 2 {
+            upgradePro()
         }
     }
     
-    func updateSubviewStyle() {
+    private func shareApp() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(viewController: self) { () in
+            removeBlock()
+        }
+    }
+    
+    
+    private func upgradePro() {
+        guard !Settings.shared.isProValue.value,
+              let premiun = R.storyboard.main.premiumViewController() else {
+            return
+        }
+        premiun.style = .likeGuide
+        premiun.source = .setting
+        premiun.dismissHandler = { [weak self] in
+            self?.updateSubviewStyle()
+            premiun.dismiss(animated: true, completion: nil)
+        }
+        premiun.modalPresentationStyle = .fullScreen
+        present(premiun, animated: true, completion: nil)
+        Logger.UserAction.log(.update_pro, "settings")
+    }
+    
+    private func updateSubviewStyle() {
+        
         if Settings.shared.isProValue.value {
-            proCell.backgroundColor = UIColor(hex: 0x545454)
-            diamondsIcon.image = R.image.icon_setting_diamonds()
-            diamondsNameLabel.text = "Among Chat PRO"
+            diamondsNameLabel.text = R.string.localizable.profilePro()// "PRO"
+            diamondArrowView.isHidden = true
         } else {
-            proCell.backgroundColor = UIColor(hex: 0xFFD52E)
-            diamondsIcon.image = R.image.icon_setting_diamonds_u()
+            diamondsNameLabel.text = R.string.localizable.profileUnlockPro()// "Unlock PRO"
+        }
+        logotButton.snp.makeConstraints { (make) in
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+            make.height.equalTo(50)
+            make.bottom.equalToSuperview()
         }
     }
     
-    func rateApp() {
-
+    private func rateApp() {//rate us
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {
             let appID = Constants.appId
-//            let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
+            //            let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
             let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
-
+            
             guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
-
+            
             if #available(iOS 10.0, *) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
@@ -119,5 +174,3 @@ class SettingContainerTableController: UITableViewController {
         }
     }
 }
-
-

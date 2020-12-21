@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import MoPub
+//import MoPub
 
 //class NativeToMrectContainerView: UIView, MPNativeAdRendering {
 //    override func layoutSubviews() {

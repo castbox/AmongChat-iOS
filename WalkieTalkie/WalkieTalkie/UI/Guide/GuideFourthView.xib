@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -73,10 +73,10 @@
                             </constraints>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AS9-om-rTk">
-                            <rect key="frame" x="9.6666666666666572" y="106.66666666666664" width="376.33333333333337" height="132.33333333333337"/>
+                            <rect key="frame" x="9.6666666666666572" y="106.66666666666666" width="376.33333333333337" height="106.66666666666666"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="87h-kM-y5o" customClass="WalkieLabel" customModule="WalkieTalkie" customModuleProvider="target">
-                                    <rect key="frame" x="25" y="15" width="331.33333333333331" height="97.333333333333329"/>
+                                    <rect key="frame" x="25" y="15" width="331.33333333333331" height="71.666666666666671"/>
                                     <attributedString key="attributedText">
                                         <fragment content="Enjoy these awesome things!">
                                             <attributes>
@@ -112,63 +112,9 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" metaFont="message" size="11"/>
+                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                    <tabStops/>
-                                                </paragraphStyle>
-                                                <color key="NSStrokeColor" red="0.054901960784313725" green="0.090196078431372548" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <real key="NSStrokeWidth" value="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content=" ">
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="11" name="Nunito-Regular"/>
-                                                <real key="NSKern" value="0.0"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                    <tabStops/>
-                                                </paragraphStyle>
-                                                <color key="NSStrokeColor" red="0.054901960784313725" green="0.090196078431372548" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <real key="NSStrokeWidth" value="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="No ads">
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="14.5" name="Nunito-Bold"/>
-                                                <real key="NSKern" value="0.0"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                    <tabStops/>
-                                                </paragraphStyle>
-                                                <color key="NSStrokeColor" red="0.054901960784313725" green="0.090196078431372548" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <real key="NSStrokeWidth" value="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment>
-                                            <string key="content" base64-UTF8="YES">
-Cg
-</string>
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" size="11" name="Nunito-Regular"/>
-                                                <real key="NSKern" value="0.0"/>
-                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                    <tabStops/>
-                                                </paragraphStyle>
-                                                <color key="NSStrokeColor" red="0.054901960784313725" green="0.090196078431372548" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <real key="NSStrokeWidth" value="0.0"/>
-                                            </attributes>
-                                        </fragment>
-                                        <fragment content="✔️">
-                                            <attributes>
-                                                <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" metaFont="message" size="11"/>
-                                                <real key="NSKern" value="0.0"/>
+                                                <font key="NSOriginalFont" metaFont="message" size="11"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
                                                 </paragraphStyle>
@@ -219,8 +165,9 @@ Cg
                                             <attributes>
                                                 <color key="NSBackgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                <font key="NSFont" metaFont="message" size="11"/>
+                                                <font key="NSFont" size="11" name=".AppleColorEmojiUI"/>
                                                 <real key="NSKern" value="0.0"/>
+                                                <font key="NSOriginalFont" metaFont="message" size="11"/>
                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" lineSpacing="6" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
                                                     <tabStops/>
                                                 </paragraphStyle>
@@ -276,7 +223,7 @@ Cg
                             <rect key="frame" x="290.33333333333331" y="429.33333333333331" width="50" height="50"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgz-9l-nDL">
-                            <rect key="frame" x="9.6666666666666572" y="248" width="264" height="162.33333333333337"/>
+                            <rect key="frame" x="9.6666666666666572" y="222.33333333333331" width="264" height="162.33333333333331"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MRQ-Nv-667" customClass="GuideProductButton" customModule="WalkieTalkie" customModuleProvider="target">
                                     <rect key="frame" x="16" y="0.0" width="218" height="44"/>
@@ -311,7 +258,7 @@ Cg
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Jl-u1-CMT" customClass="GuideProductButton" customModule="WalkieTalkie" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="56.333333333333314" width="218" height="44"/>
+                                    <rect key="frame" x="16" y="56.333333333333371" width="218" height="44"/>
                                     <color key="backgroundColor" red="1" green="0.96078431372549022" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="14"/>
                                     <state key="normal">
@@ -339,7 +286,7 @@ Cg
                                     </connections>
                                 </button>
                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aDW-jL-SVe">
-                                    <rect key="frame" x="16" y="120.33333333333331" width="218" height="32"/>
+                                    <rect key="frame" x="16" y="120.33333333333337" width="218" height="32"/>
                                     <gestureRecognizers/>
                                     <attributedString key="attributedText">
                                         <fragment>
@@ -358,7 +305,7 @@ Recurring bilking.Cancel any times</string>
                                     </connections>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="👍🏻" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mRL-f4-yFr">
-                                    <rect key="frame" x="33" y="9.3333333333333144" width="23" height="21"/>
+                                    <rect key="frame" x="33" y="9.3333333333333712" width="23" height="21"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -457,6 +404,7 @@ Recurring bilking.Cancel any times</string>
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" red="1" green="0.79215686269999996" blue="0.1176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="IDQ-35-XKc" secondAttribute="bottom" id="2Kr-VD-pMM"/>
@@ -464,7 +412,6 @@ Recurring bilking.Cancel any times</string>
                 <constraint firstItem="IDQ-35-XKc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="M8U-Y8-1Xu"/>
                 <constraint firstItem="IDQ-35-XKc" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="l2E-et-Dcz"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </view>
         <tapGestureRecognizer id="ZwP-h4-0Mf">

@@ -8,8 +8,8 @@
 
 import UIKit
 import Firebase
-import MoPub
-import MoPub_AdMob_Adapters
+//import MoPub
+//import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
@@ -25,7 +25,12 @@ import FirebaseDynamicLinks
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    lazy var window: UIWindow? = {
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.backgroundColor = .black
+        window.makeKeyAndVisible()
+        return window
+    }()
     var firstOpenPremiumShowed: Bool = false
     
     var navigationController: NavigationViewController? {
@@ -42,27 +47,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
-        _ = AdsManager.shared
+//        _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
         _ = FireStore.shared
         FireRemote.shared.refresh()
         _ = Social.Module.shared
-        _ = AdjustAnalytics.sharedInstance
-
-        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-//        #if DEBUG
-//        isFirstLogin = true
-//        #endif
         
-        if isFirstLogin {
-            //MIGRATE
-            migrateUserDefaults()
-            setupInitialView(goRoom: true)
-            firstOpenPremiumShowed = true
-        } else {
-            setupInitialView(goRoom: false)
-        }
+//        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
+////        #if DEBUG
+////        isFirstLogin = true
+////        #endif
+//
+//        if isFirstLogin {
+//            //MIGRATE
+//            migrateUserDefaults()
+//            setupInitialView(goRoom: true)
+//            firstOpenPremiumShowed = true
+//        } else {
+//            setupInitialView(goRoom: false)
+//        }
+        _ = AdjustAnalytics.sharedInstance
+        
+        setupInitialView()
         
         DispatchQueue.global(qos: .background).async {
             IAP.verifyLocalReceipts()
@@ -80,6 +87,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 路由模块待优化
         _ = Routes.shared
         _ = Routes.Handler.shared
+        //heart beating
+        _ = ChatRoomManager.shared
+        
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -147,24 +157,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard cfg.forceUpgrade else {
                     return
                 }
-                
-                let alert = UIAlertController(title: nil, message: R.string.localizable.forceUpgradeTip(), preferredStyle: .alert)
-                let okAction = UIAlertAction(title: R.string.localizable.alertOk(), style: .default) { (_) in
+                UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {
                     let appID = Constants.appId
                     let urlStr = "https://itunes.apple.com/app/id\(appID)?mt=8" // (Option 2) Open App Review Page
                     
                     guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
                     
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
-                
-                alert.addAction(okAction)
-                
-                UIApplication.topViewController()?.present(alert, animated: true, completion: {
                 })
-                
             })
-        Ad.AppOpenAdManager.shared.tryToPresentAd()
+//        Ad.AppOpenAdManager.shared.tryToPresentAd()
     }
     
     func handle(_ uri: URL) -> Bool {
@@ -213,7 +215,7 @@ extension AppDelegate {
     
     func setupInitialView(goRoom: Bool) {
 //        let rootVc = R.storyboard.main.instantiateInitialViewController()!
-        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController.shared)
+        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .black
         window.makeKeyAndVisible()
@@ -234,6 +236,34 @@ extension AppDelegate {
             FireMessaging.shared.requestPermissionIfNotGranted()
         }
         self.window = window
+    }
+    
+    func setupInitialView() {
+        
+        let rootVc: UIViewController
+        
+        let homeVc: (() -> UIViewController) = {
+            NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+        }
+        
+        let needLogin: Bool = Settings.shared.loginResult.value == nil
+        
+        if needLogin {
+            let loginVc = AmongChat.Login.ViewController()
+            let _ = loginVc.loginFinishedSignal
+                .take(1)
+                .subscribe(onNext: { [weak self] () in
+                    self?.window?.replaceRootViewController(homeVc())
+                    FireMessaging.shared.requestPermissionIfNotGranted()
+                })
+            
+            rootVc = NavigationViewController(rootViewController: loginVc)
+        } else {
+            rootVc = homeVc()
+            FireMessaging.shared.requestPermissionIfNotGranted()
+        }
+        
+        self.window?.replaceRootViewController(rootVc)
     }
     
     func setGlobalAppearance() {

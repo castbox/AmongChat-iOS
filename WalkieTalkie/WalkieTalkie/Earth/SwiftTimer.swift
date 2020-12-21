@@ -14,6 +14,8 @@ public class SwiftTimer {
     
     private var isRunning = false
     
+    private var isCancel = false
+    
     public let repeats: Bool
     
     public typealias SwiftTimerHandler = (SwiftTimer) -> Void
@@ -43,10 +45,9 @@ public class SwiftTimer {
     }
     
     deinit {
-//        if !self.isRunning {
-//            internalTimer.resume()
-//            internalTimer.suspend()
-//        }
+        if !isRunning {
+            internalTimer.resume()
+        }
     }
     
     //You can use this method to fire a repeating timer without interrupting its regular firing schedule. If the timer is non-repeating, it is automatically invalidated after firing, even if its scheduled fire date has not arrived.
@@ -56,6 +57,7 @@ public class SwiftTimer {
         } else {
             handler(self)
             internalTimer.cancel()
+            isCancel = true
         }
     }
     
@@ -70,6 +72,7 @@ public class SwiftTimer {
         if isRunning {
             internalTimer.suspend()
             isRunning = false
+            isCancel = true
         }
     }
     
@@ -77,6 +80,7 @@ public class SwiftTimer {
         if isRunning {
             internalTimer.cancel()
             isRunning = false
+            isCancel = true
         }
     }
     
@@ -97,7 +101,7 @@ public class SwiftTimer {
     }
 }
 
-//MARK: Throttle
+// MARK: - Throttle
 public extension SwiftTimer {
     
     private static var timers = [String:DispatchSourceTimer]()
@@ -131,7 +135,7 @@ public class SwiftCountDownTimer {
     
     private let handler: (SwiftCountDownTimer, _ leftTimes: Int) -> Void
     
-    public init(interval: DispatchTimeInterval, times: Int,queue: DispatchQueue = .main, handler: @escaping (SwiftCountDownTimer, _ leftTimes: Int) -> Void ) {
+    public init(interval: DispatchTimeInterval, times: Int, queue: DispatchQueue = .main, handler: @escaping (SwiftCountDownTimer, _ leftTimes: Int) -> Void ) {
         
         self.leftTimes = times
         self.originalTimes = times
@@ -170,3 +174,4 @@ public extension DispatchTimeInterval {
         return .milliseconds(Int(seconds * 1000))
     }
 }
+

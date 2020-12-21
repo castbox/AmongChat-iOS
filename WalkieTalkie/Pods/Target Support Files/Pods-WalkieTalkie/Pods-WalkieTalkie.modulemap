@@ -1,6 +1,0 @@
-framework module Pods_WalkieTalkie {
-  umbrella header "Pods-WalkieTalkie-umbrella.h"
-
-  export *
-  module * { export * }
-}

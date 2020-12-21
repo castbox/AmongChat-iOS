@@ -60,7 +60,7 @@ extension APIService.CastboxBackend: TargetType {
         var additionalHeaders = HTTPHeaders.default.dictionary
         additionalHeaders["User-Agent"] = APIService.Config.userAgent
         additionalHeaders["X-APP-ID"] = "walkietalkie"
-        additionalHeaders["X-ACCESS-TOKEN"] = Settings.shared.loginResult.value?.token ?? ""
+        additionalHeaders["X-ACCESS-TOKEN"] = Settings.shared.loginResult.value?.access_token ?? ""
         return additionalHeaders
     }
     
