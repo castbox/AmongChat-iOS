@@ -18,9 +18,10 @@ class FireRemote {
         let fig = RemoteConfig.remoteConfig()
         fig.setDefaults(fromPlist: "DefaultRemoteConfig")
         let settings = RemoteConfigSettings()
-        #if DEBUG
-        settings.minimumFetchInterval = 0
-        #endif
+        
+        if Config.environment == .debug {
+            settings.minimumFetchInterval = 0
+        }
         fig.configSettings = settings
         return fig
     }()

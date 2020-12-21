@@ -215,11 +215,12 @@ class Settings {
     
     var userInAGroup: Bool {
         get {
-            #if DEBUG
-            return true
-            #endif
-            if let c = userId.unicodeScalars.last {
-                return c.value % 2 == 0
+            if Config.environment == .debug {
+                return true
+            } else {
+                if let c = userId.unicodeScalars.last {
+                    return c.value % 2 == 0
+                }
             }
             return true
         }
@@ -465,6 +466,11 @@ extension DefaultsKeys {
     var sensitiveWords: DefaultsKey<[String]?> {
         .init("setting.sensitive.words")
     }
+    
+    var isReleaseMode: DefaultsKey<Bool> {
+        .init("settings.isReleaseMode", defaultValue: true)
+    }
+
     //end
 }
 

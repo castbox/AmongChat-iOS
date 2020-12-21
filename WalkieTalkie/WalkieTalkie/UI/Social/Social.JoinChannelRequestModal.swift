@@ -14,9 +14,9 @@ extension Social {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            #if DEBUG
-            iv.backgroundColor = UIColor(hex6: 0xF8E71C, alpha: 1.0)
-            #endif
+            if Config.environment == .debug {
+                iv.backgroundColor = UIColor(hex6: 0xF8E71C, alpha: 1.0)
+            }
             iv.layer.cornerRadius = 15
             iv.layer.masksToBounds = true
             return iv

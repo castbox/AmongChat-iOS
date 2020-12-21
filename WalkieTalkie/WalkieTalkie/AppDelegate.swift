@@ -54,19 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FireRemote.shared.refresh()
         _ = Social.Module.shared
         
-//        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-////        #if DEBUG
-////        isFirstLogin = true
-////        #endif
-//
-//        if isFirstLogin {
-//            //MIGRATE
-//            migrateUserDefaults()
-//            setupInitialView(goRoom: true)
-//            firstOpenPremiumShowed = true
-//        } else {
-//            setupInitialView(goRoom: false)
-//        }
         _ = AdjustAnalytics.sharedInstance
         
         setupInitialView()

@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 class SettingViewController: ViewController {
     
@@ -42,6 +43,9 @@ class SettingViewController: ViewController {
     
     @IBAction func updateEnvironment(_ sender: Any) {
         cdPrint("among chat")
+        let isReleaseMode = Defaults[\.isReleaseMode]
+        Defaults[\.isReleaseMode] = !isReleaseMode
+        exit(0)
     }
     
     private func showSystemNavigationBar() {

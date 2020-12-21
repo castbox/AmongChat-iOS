@@ -36,11 +36,13 @@ extension APIService {
 }
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
-//        #if DEBUG
-//        let url = "https://dev.api.among.chat"
-//        #else
-        let url = "https://api.among.chat"
-//        #endif
+        let url: String
+        switch Config.environment {
+        case .debug:
+            url = "https://dev.api.among.chat"
+        case .release:
+            url = "https://api.among.chat"
+        }
         return URL(string: url)!
     }
     
