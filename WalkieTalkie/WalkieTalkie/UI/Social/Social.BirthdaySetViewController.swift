@@ -50,13 +50,26 @@ extension Social {
             return btn
         }()
         
+        private lazy var skipBtn: UIButton = {
+            let btn = WalkieButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoBlack(size: 20)
+            btn.addTarget(self, action: #selector(onSkipBtn), for: .primaryActionTriggered)
+            btn.setTitle(R.string.localizable.profileBirthdaySkip(), for: .normal)
+            btn.setTitleColor(.white, for: .normal)
+            btn.appendKern()
+//            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+//            btn.layer.masksToBounds = true
+//            btn.layer.cornerRadius = 25
+            return btn
+        }()
+        
         var onCompletion: ((String) -> Void)? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
             view.backgroundColor = UIColor(hex6: 0x121212)
             
-            view.addSubviews(views: mainTitle, subTitle, birthdayPicker, confirmBtn)
+            view.addSubviews(views: mainTitle, subTitle, birthdayPicker, confirmBtn, skipBtn)
             
             mainTitle.snp.makeConstraints { (maker) in
                 maker.top.equalTo(140.scalValue)
@@ -86,8 +99,19 @@ extension Social {
                 maker.height.equalTo(50)
                 maker.bottom.equalTo(-58 - Frame.Height.safeAeraBottomHeight)
             }
-            
+
+            skipBtn.snp.makeConstraints { (maker) in
+                maker.right.equalTo(-20)
+                maker.height.equalTo(40)
+                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(20)
+            }
+
             birthdayPicker.selectBirthday("2005/01/01")
+        }
+        
+        @objc
+        private func onSkipBtn() {
+            onCompletion?("")
         }
         
         @objc

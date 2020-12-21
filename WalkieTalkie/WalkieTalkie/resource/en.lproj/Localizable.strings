@@ -117,6 +117,7 @@
 "profile.birthday" = "Birthday";
 "profile.birthday.subtitle" = "Find friends of the same age";
 "profile.done" = "Done";
+"profile.birthday.skip" = "Skip";
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";

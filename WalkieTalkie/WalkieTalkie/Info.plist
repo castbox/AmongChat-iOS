@@ -65,7 +65,7 @@
 		<true/>
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>need mic to join the room</string>
+	<string>Enable microphone to talk to others in channels</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Please allow Among Chat to use your photo library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>

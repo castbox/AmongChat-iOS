@@ -1525,7 +1525,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 185 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 186 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2087,6 +2087,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLoginSignInWithGoogle = Rswift.StringResource(key: "among.chat.login.sign.in.with.google", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Skip
+      /// 
+      /// Locales: en
+      static let profileBirthdaySkip = Rswift.StringResource(key: "profile.birthday.skip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Social
       /// 
       /// Locales: en
@@ -3246,6 +3250,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLoginSignInWithGoogle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.sign.in.with.google", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Skip
+      /// 
+      /// Locales: en
+      static func profileBirthdaySkip(_: Void = ()) -> String {
+        return NSLocalizedString("profile.birthday.skip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Social
