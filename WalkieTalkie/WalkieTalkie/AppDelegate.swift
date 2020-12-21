@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Routes.Handler.shared
         //heart beating
         _ = ChatRoomManager.shared
+        //敏感词
+        _ = SensitiveWordChecker.default
         
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

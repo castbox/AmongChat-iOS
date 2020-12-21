@@ -210,4 +210,16 @@ extension Request {
             }
         
     }
+    
+    static func seneitiveWords() -> Single<[String]> {
+        return amongchatProvider.rx.request(.sensitiveWords)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { values -> [String] in
+                guard let token = values["datas"] as? [String] else {
+                    throw Request.MsgError.default
+                }
+                return token
+            }
+    }
 }

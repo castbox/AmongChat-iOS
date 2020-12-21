@@ -207,22 +207,16 @@ extension AmongChat.Room {
             
             messageEventEmitter.asObserver()
                 .observeOn(SerialDispatchQueueScheduler(qos: .default))
-                //                .map { message -> ChatRoomMessage in
-                //                    //transfer
-                //                    let content = message.content
-                //                    if let text = content as? TextContent {
-                //                        //过滤
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
-                //                        text.content = result
-                //                        return LVEntity.Message(content: text, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else if let whisper = content as? WhisperContent {
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: whisper.whisper_msg)
-                //                        whisper.whisper_msg = result
-                //                        return LVEntity.Message(content: whisper, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else {
-                //                        return message
-                //                    }
-                //                }
+                .map { message -> ChatRoomMessage in
+                    //transfer
+                    if let text = message as? ChatRoom.TextMessage {
+                        //过滤
+                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
+                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType)
+                    } else {
+                        return message
+                    }
+                }
                 .observeOn(MainScheduler.asyncInstance)
                 .do(onNext: { [weak self] message in
                     self?.messages.append(message)

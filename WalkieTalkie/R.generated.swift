@@ -1525,7 +1525,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 186 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 187 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1651,6 +1651,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Content contains sensitive words, please modify
+      /// 
+      /// Locales: en
+      static let contentContainSensitiveWords = Rswift.StringResource(key: "content.contain.sensitive.words", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Continue
       /// 
       /// Locales: en
@@ -2487,6 +2491,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileCommunity(_: Void = ()) -> String {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Content contains sensitive words, please modify
+      /// 
+      /// Locales: en
+      static func contentContainSensitiveWords(_: Void = ()) -> String {
+        return NSLocalizedString("content.contain.sensitive.words", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Continue

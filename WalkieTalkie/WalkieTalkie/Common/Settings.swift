@@ -461,6 +461,10 @@ extension DefaultsKeys {
     var amongChatHomeSummaryKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.home.summary", defaultValue: nil)
     }
+    
+    var sensitiveWords: DefaultsKey<[String]?> {
+        .init("setting.sensitive.words")
+    }
     //end
 }
 

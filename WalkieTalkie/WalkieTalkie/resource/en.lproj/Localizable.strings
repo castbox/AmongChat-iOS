@@ -121,6 +121,7 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
+"content.contain.sensitive.words" = "Content contains sensitive words, please modify";
 
 
 
