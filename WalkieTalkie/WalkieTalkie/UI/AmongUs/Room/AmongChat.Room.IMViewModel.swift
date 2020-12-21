@@ -169,6 +169,7 @@ protocol ChatRoomMessageable {
 
 protocol MessageListable {
     var attrString: NSAttributedString { get }
+    var rawContent: String? { get }
 }
 
 typealias ChatRoomMessage = ChatRoomMessageable & Codable
@@ -271,6 +272,10 @@ extension ChatRoom.MessageType {
 }
 
 extension ChatRoom.SystemMessage: MessageListable {
+    var rawContent: String? {
+        content
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail
@@ -289,6 +294,10 @@ extension ChatRoom.SystemMessage: MessageListable {
 }
 
 extension ChatRoom.TextMessage: MessageListable {
+    var rawContent: String? {
+        content
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail
@@ -316,6 +325,10 @@ extension ChatRoom.TextMessage: MessageListable {
 }
 
 extension ChatRoom.JoinRoomMessage: MessageListable {
+    var rawContent: String? {
+        nil
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail

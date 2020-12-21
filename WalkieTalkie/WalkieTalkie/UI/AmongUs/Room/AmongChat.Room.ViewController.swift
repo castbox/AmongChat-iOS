@@ -966,9 +966,9 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        if let model = viewModel.messages.safe(indexPath.row) {
-//            model.text.copyToPasteboard()
-//            view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        if let message = viewModel.messages.safe(indexPath.row) as? MessageListable {
+            message.rawContent?.copyToPasteboard()
+            view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
     }
