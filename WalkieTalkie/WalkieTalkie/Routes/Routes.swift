@@ -26,7 +26,8 @@ final class Routes {
         let types: [URIRepresentable.Type] = [
             URI.Homepage.self,
             URI.Followers.self,
-            URI.Channel.self
+            URI.Channel.self,
+            URI.Room.self
             ]
         
         types.forEach { (type) in
@@ -82,7 +83,7 @@ final class Routes {
     }
 
     static func canHandle(_ url: URL)->Bool {
-        guard url.host == "www.walkietalkie.live" || url.host == "walkietalkie.live" else { return false }
+        guard url.host == "www.walkietalkie.live" || url.host == "walkietalkie.live" || url.host == "among.chat" else { return false }
         _ = Routes.shared
         return JLRoutes.global().canRouteURL(url)
     }

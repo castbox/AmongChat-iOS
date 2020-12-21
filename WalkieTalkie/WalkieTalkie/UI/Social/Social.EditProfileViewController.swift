@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import SnapKit
 
 extension Social {
     class EditProfileViewController: ViewController {
@@ -17,22 +18,13 @@ extension Social {
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.backNor(), for: .normal)
-            return btn
-        }()
-        
-        private lazy var saveBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoBold(size: 16)
-            btn.setTitleColor(UIColor(hex6: 0x000000), for: .normal)
-            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
-            btn.addTarget(self, action: #selector(onSaveBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_back(), for: .normal)
             return btn
         }()
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 40
+            iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
@@ -46,75 +38,27 @@ extension Social {
         
         private lazy var randomIconIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 15
+            iv.layer.cornerRadius = 12
             iv.layer.masksToBounds = true
             iv.image = R.image.profile_avatar_random_btn()
             return iv
         }()
         
-        private lazy var userNameTitle: UILabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 12)
-            lb.text = R.string.localizable.profileEditUsername()
-            lb.textColor = .black
-            lb.appendKern()
-            return lb
+        private lazy var userButton: ItemButton = {
+            let btn = ItemButton()
+            btn.setUserNameData()
+            return btn
         }()
         
-        private lazy var userNameInputField: UITextField = {
-            let f = UITextField()
-            f.clearButtonMode = .always
-            f.keyboardType = .alphabet
-            f.contentVerticalAlignment = .center
-            f.backgroundColor = .white
-            f.font = R.font.nunitoSemiBold(size: 12)
-            f.textColor = .black
-            f.borderStyle = .none
-            f.delegate = self
-            let leftMargin = UIView()
-            leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-            let rightMargin = UIView()
-            rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-            f.leftView = leftMargin
-            f.rightView = rightMargin
-            f.leftViewMode = .always
-            f.cornerRadius = 15
-            f.addTarget(self, action: #selector(onTextFieldDidChange), for: .editingChanged)
-            return f
+        private lazy var birthdayButton: ItemButton = {
+            let btn = ItemButton()
+            btn.setBirthdayData()
+            return btn
         }()
         
-        private lazy var birthdayTitle: UILabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoSemiBold(size: 12)
-            lb.textColor = .black
-            lb.text = R.string.localizable.profileEditBirthday()
-            lb.appendKern()
-            lb.isHidden = true
-            return lb
-        }()
+        private lazy var userInputView = AmongInputNickNameView()
         
-        private lazy var birthdayInputField: UITextField = {
-            let f = UITextField()
-            f.contentVerticalAlignment = .center
-            f.backgroundColor = .white
-            f.font = R.font.nunitoSemiBold(size: 12)
-            f.textColor = .black
-            f.borderStyle = .none
-            f.delegate = self
-            let leftMargin = UIView()
-            leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-            let rightMargin = UIView()
-            rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
-            f.leftView = leftMargin
-            f.rightView = rightMargin
-            f.leftViewMode = .always
-            f.rightViewMode = .always
-            f.cornerRadius = 15
-            f.isHidden = true
-            return f
-        }()
-        
-        private var profile: FireStore.Entity.User.Profile = FireStore.Entity.User.Profile(avatar: "", birthday: "", name: Constants.defaultUsername, premium: false, uidInt: Constants.sUserId, uid: "")
+        private var profile: Entity.UserProfile!
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -126,234 +70,285 @@ extension Social {
             super.touchesBegan(touches, with: event)
             view.endEditing(true)
         }
+    }
+}
+private extension Social.EditProfileViewController {
+    func setupLayout() {
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor.theme(.backgroundBlack)
+        view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
         
-        private func setupLayout() {
-            isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor(hex6: 0xFFD52E, alpha: 1.0)
-            view.addSubviews(views: backBtn, avatarIV, saveBtn, randomIconIV, userNameTitle, userNameInputField, birthdayTitle, birthdayInputField)
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(15)
-                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(11.5)
-                maker.width.height.equalTo(25)
-            }
-            
-            saveBtn.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(backBtn)
-                maker.right.equalToSuperview().offset(-10)
-            }
-            
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(16)
-                maker.width.height.equalTo(80)
-                maker.centerX.equalToSuperview()
-            }
-            
-            randomIconIV.snp.makeConstraints { (maker) in
-                maker.right.bottom.equalTo(avatarIV)
-                maker.width.height.equalTo(30)
-            }
-            
-            userNameTitle.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(44.5)
-                maker.left.equalToSuperview().offset(29)
-                maker.height.equalTo(16.5)
-            }
-            
-            userNameInputField.snp.makeConstraints { (maker) in
-                maker.top.equalTo(userNameTitle.snp.bottom).offset(16)
-                maker.left.right.equalToSuperview().inset(29)
-                maker.height.equalTo(50)
-            }
-            
-            birthdayTitle.snp.makeConstraints { (maker) in
-                maker.left.height.equalTo(userNameTitle)
-                maker.top.equalTo(userNameInputField.snp.bottom).offset(23)
-            }
-            
-            birthdayInputField.snp.makeConstraints { (maker) in
-                maker.left.right.height.equalTo(userNameInputField)
-                maker.top.equalTo(birthdayTitle.snp.bottom).offset(16)
-            }
-            
+        backBtn.snp.makeConstraints { (maker) in
+            maker.left.equalToSuperview().offset(20)
+            maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(24)
         }
         
-        private func setupData() {
-            
-            let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-            let removeBlock = { [weak self] in
-                self?.view.isUserInteractionEnabled = true
-                removeHUDBlock()
+        avatarIV.snp.makeConstraints { (maker) in
+            maker.top.equalTo(backBtn.snp.bottom).offset(32.5)
+            maker.width.height.equalTo(90)
+            maker.centerX.equalToSuperview()
+        }
+        
+        randomIconIV.snp.makeConstraints { (maker) in
+            maker.right.bottom.equalTo(avatarIV)
+            maker.width.height.equalTo(24)
+        }
+        
+        userButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(avatarIV.snp.bottom).offset(36)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(77)
+        }
+        
+        birthdayButton.snp.makeConstraints { (maker) in
+            maker.top.equalTo(userButton.snp.bottom)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(77)
+        }
+        
+        view.addSubview(userInputView)
+        userInputView.usedInRoom = false
+        userInputView.alpha = 0
+        userInputView.snp.makeConstraints { (make) in
+            make.left.right.top.bottom.equalToSuperview()
+        }
+    }
+    
+    func setupData() {
+        
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        Settings.shared.amongChatUserProfile.replay()
+            .filterNil()
+            .subscribe(onNext: { [weak self] (profile) in
+                removeBlock()
+                self?.updateFields(profile: profile)
+            }, onError: { (_) in
+                removeBlock()
+            })
+            .disposed(by: bag)
+        
+        userButton.rx.tap
+            .subscribe(onNext: { [weak self]() in
+                _ = self?.userInputView.becomeFirstResponder()
+            }).disposed(by: bag)
+        
+        birthdayButton.rx.tap
+            .subscribe(onNext: { [weak self]() in
+                self?.selectBirthday()
+            }).disposed(by: bag)
+        
+        userInputView.inputResultHandler = { [weak self](text) in
+            guard let `self` = self else { return }
+            let profileProto = Entity.ProfileProto(birthday: nil, name: text, pictureUrl: nil)
+            self.updateProfileIfNeeded(profileProto)
+        }
+        
+        RxKeyboard.instance.visibleHeight
+            .drive(onNext: { [weak self](height) in
+                guard let `self` = self else { return }
+                self.userInputView.snp.updateConstraints { (maker) in
+                    maker.bottom.equalToSuperview().offset(-height)
+                }
+                UIView.animate(withDuration: 0) {
+                    self.view.layoutIfNeeded()
+                }
+            }).disposed(by: bag)
+    }
+    
+    func selectBirthday() {
+        //let vc = Social.BirthdaySetViewController()
+        let vc = Social.BirthdaySelectViewController()
+        vc.onCompletion = { [weak self] (birthdayStr) in
+            guard let `self` = self else {
+                return
             }
-            
-            Settings.shared.firestoreUserProfile.replay()
-                .filterNil()
-                .take(1)
-                .timeout(.seconds(5), scheduler: MainScheduler.instance)
-                .subscribe(onNext: { [weak self] (profile) in
-                    removeBlock()
-                    self?.profile = profile
-                    self?.updateFields()
-                }, onError: { [weak self] (_) in
-                    removeBlock()
-                    self?.updateFields()
+            let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
+            self.updateProfileIfNeeded(profile)
+        }
+        vc.showModal(in: self)
+        
+        if let b = profile.birthday, !b.isEmpty {
+            vc.selectToBirthday(fixBirthdayString(b))
+        } else {
+            vc.selectToBirthday("")
+        }
+        view.endEditing(true)
+    }
+    
+    func fixBirthdayString(_ text: String) -> String {
+        var b = text
+        let index = b.index(b.startIndex, offsetBy: 4)
+        b.insert("/", at: index)
+        
+        let index1 = b.index(b.startIndex, offsetBy: 7)
+        b.insert("/", at: index1)
+        return b
+    }
+    
+    func updateFields(profile: Entity.UserProfile) {
+        self.profile = profile
+        userButton.setRightLabelText(profile.name ?? "")
+        if let b = profile.birthday, !b.isEmpty {
+            let birthday = self.fixBirthdayString(b)
+            birthdayButton.setRightLabelText(birthday)
+        } else {
+            birthdayButton.setRightLabelText("")
+        }
+        avatarIV.setAvatarImage(with: profile.pictureUrl)
+    }
+    
+    @objc
+    func onBackBtn() {
+        navigationController?.popViewController()
+    }
+    
+    @objc
+    func onAvatarTapped() {
+        guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
+            return
+        }
+        
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
+        updateProfileIfNeeded(profileProto)
+    }
+    
+    func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
+        if let dict = profileProto.dictionary {
+            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+            Request.updateProfile(dict)
+                .do(onDispose: {
+                    hudRemoval()
+                })
+                .subscribe(onSuccess: { (profile) in
+                    
+                    guard let p = profile else {
+                        return
+                    }
+                    Settings.shared.amongChatUserProfile.value = p
+                }, onError: { (error) in
                 })
                 .disposed(by: bag)
-            
         }
-        
-        private func updateFields() {
-            userNameInputField.text = profile.name
-            birthdayInputField.text = profile.birthday
-            let _ = profile.avatarObservable
-                .subscribe(onSuccess: { [weak self] (image) in
-                    self?.avatarIV.image = image
-            })
-            let name: String = userNameInputField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            saveBtn.alpha = name.isEmpty ? 0.5 : 1.0
-            saveBtn.isEnabled = !name.isEmpty
-        }
-        
-        @objc
-        private func onBackBtn() {
-            navigationController?.popViewController()
-        }
-        
-        @objc
-        private func onSaveBtn() {
-            view.endEditing(true)
-            updateProfileIfNeeded()
-            navigationController?.popViewController()
-        }
-        
-        @objc
-        private func onAvatarTapped() {
-            // avatar_change log
-            GuruAnalytics.log(event: "avatar_change", category: nil, name: nil, value: nil, content: nil)
-            //
-            let avatar = FireStore.Entity.User.Profile.randomDefaultAvatar()
-            avatarIV.image = avatar.0
-            profile.avatar = "\(avatar.1)"
-        }
-        
-        @objc
-        private func onTextFieldDidChange() {
-            let name: String = userNameInputField.text?.trimmingCharacters(in: .whitespaces) ?? ""
-            saveBtn.alpha = name.isEmpty ? 0.5 : 1.0
-            saveBtn.isEnabled = !name.isEmpty
-        }
-        
-        private func updateProfileIfNeeded() {
-            profile.name = userNameInputField.text?.trim() ?? Constants.defaultUsername
-            profile.birthday = birthdayInputField.text ?? ""
-            
-            let currentProfile = Settings.shared.firestoreUserProfile.value
-            
-            if profile.name != currentProfile?.name ||
-                profile.avatar != currentProfile?.avatar ||
-                profile.birthday != currentProfile?.birthday {
-                
-                if profile.birthday != currentProfile?.birthday {
-                    Defaults[\.socialBirthdayUpdateAtTsKey] = Date().timeIntervalSince1970
-                }
-                
-                Settings.shared.firestoreUserProfile.value = profile
-            }
-        }
-        
     }
 }
 
-extension Social.EditProfileViewController: UITextFieldDelegate {
+private extension Social {
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == birthdayInputField {
-            guard Date().timeIntervalSince(Date(timeIntervalSince1970: Defaults[\.socialBirthdayUpdateAtTsKey])) > 24 * 60 * 60 * 7 else {
-                view.raft.autoShow(.text(R.string.localizable.profielEditBirthdayCantTip()), interval: 2, userInteractionEnabled: false)
-                return false
+    class ItemButton: UIButton {
+        
+        private lazy var icon = UIImageView()
+        
+        private lazy var userNameTitle: UILabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.textColor = .white
+            return lb
+        }()
+        
+        private lazy var userNameLabel: UILabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.textColor = .white
+            lb.textAlignment = .right
+            return lb
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            
+            addSubviews(views: icon, userNameTitle, userNameLabel)
+            
+            icon.snp.makeConstraints { (make) in
+                make.left.equalTo(20)
+                make.top.equalTo(43)
+                make.width.height.equalTo(30)
             }
-            let vc = Social.BirthdaySelectViewController()
-            vc.onCompletion = { [weak self] (birthdayStr) in
-                self?.birthdayInputField.text = birthdayStr
+            
+            userNameTitle.snp.makeConstraints { (make) in
+                make.left.equalTo(icon.snp.right).offset(12)
+                make.centerY.equalTo(icon.snp.centerY)
             }
-            vc.showModal(in: self)
-            view.endEditing(true)
-            return false
-        } else {
-            return true
+            
+            userNameLabel.snp.makeConstraints { (make) in
+                make.right.equalTo(-20)
+                make.centerY.equalTo(icon.snp.centerY)
+            }
+        }
+        
+        func setUserNameData() {
+            icon.image = R.image.ac_profile_username()
+            userNameTitle.text = R.string.localizable.profileNickname()// "Nickname"
+        }
+        
+        func setBirthdayData() {
+            icon.image = R.image.ac_profile_birthday()
+            userNameTitle.text = R.string.localizable.profileBirthday()//"Birthday"
+        }
+        
+        func setRightLabelText(_ text: String) {
+            userNameLabel.text = text
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        guard textField == userNameInputField else {
-            return true
-        }
-        
-        let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789").inverted
-        let filteredString = string.components(separatedBy: set).joined(separator: "")
-        
-        let currentCharacterCount = textField.text?.count ?? 0
-        if range.length + range.location > currentCharacterCount {
-            return false
-        }
-        let newLength = currentCharacterCount + string.count - range.length
-        return (filteredString == string && newLength <= 10) || newLength < currentCharacterCount
-    }
-    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//
-//        if textField == userNameInputField {
-//            birthdayInputField.becomeFirstResponder()
-//        }
-//
-//        return false
-//    }
-    
-}
-
-extension Social {
     
     class BirthdaySelectViewController: ViewController {
         
-        private lazy var birthdayPicker: UIDatePicker = {
-            let p = UIDatePicker()
-            p.datePickerMode = .date
-            p.date = Date()
-            p.maximumDate = Date()
-            p.minimumDate = Date(timeIntervalSince1970: 0)
+        private lazy var birthdayPicker: Social.DatePickerView = {
+            let p = Social.DatePickerView(frame: CGRect(x: 0, y: 58, width: Frame.Screen.width, height: 260))
+            p.backgroundColor = UIColor(hex6: 0x222222)
             return p
         }()
         
         private lazy var confirmBtn: UIButton = {
             let btn = WalkieButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoSemiBold(size: 14)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.addTarget(self, action: #selector(onConfirmBtn), for: .primaryActionTriggered)
-            btn.setTitle("Done", for: .normal)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
             btn.appendKern()
             return btn
         }()
         
         var onCompletion: ((String) -> Void)? = nil
-
+        
         override func viewDidLoad() {
             super.viewDidLoad()
-            view.backgroundColor = .white
+            view.backgroundColor = UIColor(hex6: 0x222222)
             view.addSubviews(views: birthdayPicker, confirmBtn)
-
+            
             confirmBtn.snp.makeConstraints { (maker) in
-                maker.right.equalToSuperview().inset(15)
-                maker.top.equalTo(topLayoutGuide.snp.bottom).offset(10)
-                maker.width.equalTo(80)
-                maker.height.equalTo(30)
+                maker.right.equalToSuperview().inset(20)
+                maker.top.equalToSuperview().offset(20)
+                maker.width.equalTo(77)
+                maker.height.equalTo(32)
             }
             
             birthdayPicker.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(confirmBtn.snp.bottom).offset(10)
+                maker.top.equalTo(confirmBtn.snp.bottom).offset(16)
+                maker.height.equalTo(260)
             }
-            
+        }
+        
+        func selectToBirthday(_ text: String) {
+            if text.isEmpty {
+                birthdayPicker.selectToday()
+            } else {
+                birthdayPicker.selectBirthday(text)
+            }
         }
         
         @objc
@@ -371,13 +366,12 @@ extension Social {
 
 extension Social.BirthdaySelectViewController: Modalable {
     
-    
     func style() -> Modal.Style {
         return .customHeight
     }
     
     func height() -> CGFloat {
-        return 300 + Frame.Height.safeAeraBottomHeight
+        return 320 + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {
@@ -385,7 +379,7 @@ extension Social.BirthdaySelectViewController: Modalable {
     }
     
     func cornerRadius() -> CGFloat {
-        return 6
+        return 20
     }
     
     func coverAlpha() -> CGFloat {
@@ -395,5 +389,4 @@ extension Social.BirthdaySelectViewController: Modalable {
     func canAutoDismiss() -> Bool {
         return true
     }
-    
 }

@@ -56,7 +56,7 @@ extension ChannelUserListController {
             return btn
         }()
         
-        private let viewModel: ChannelUserViewModel
+        private let viewModel: Entity.RoomUser
         
         private let actionType: ActionType
         
@@ -67,8 +67,8 @@ extension ChannelUserListController {
             case block
         }
         
-        init(with userViewModel: ChannelUserViewModel, actionType: ActionType) {
-            viewModel = userViewModel
+        init(with viewModel: Entity.RoomUser, actionType: ActionType) {
+            self.viewModel = viewModel
             self.actionType = actionType
             super.init(nibName: nil, bundle: nil)
         }

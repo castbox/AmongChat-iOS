@@ -124,7 +124,7 @@ extension Theme {
             case .backgroundGray:
                 return UIColor(hex6: 0xF7F7F7)
             case .backgroundBlack:
-                return UIColor(hex6: 0x1F2022)
+                return UIColor(hex6: 0x121212)
             case .backgroundBlackAlpha(let alpha):
                 return UIColor(hex6: 0x000000, alpha: alpha)
                 

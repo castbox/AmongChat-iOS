@@ -14,7 +14,11 @@ import RxSwift
 public extension String {
     
     func color() -> UIColor {
-        return UIColor("#\(self)")
+        if self.hasPrefix("#") {
+            return UIColor(self)
+        } else {
+            return UIColor("#\(self)")
+        }
     }
     
 //    var md5: String {
@@ -302,5 +306,30 @@ extension String {
         guard !isEmpty else { return nil }
         let lowerCasedString = self.lowercased()
         return lowerCasedString.replacingCharacters(in: lowerCasedString.startIndex...lowerCasedString.startIndex, with: String(lowerCasedString[lowerCasedString.startIndex]).uppercased())
+    }
+}
+
+
+extension Optional where Wrapped == String {
+    
+    var isValid: Bool {
+        guard let string = self else {
+            return false
+        }
+        return !string.isEmpty
+    }
+}
+
+extension String {
+    
+    func jsonObject() -> [String: Any]? {
+
+        guard let data = data(using: .utf8) else {
+            return nil
+        }
+        guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String: Any] else {
+            return nil
+        }
+        return jsonData
     }
 }

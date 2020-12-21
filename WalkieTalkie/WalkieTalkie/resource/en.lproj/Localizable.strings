@@ -85,7 +85,7 @@
 
 "i.know" = "I Know";
 "report.title" = "Report";
-"report.room.id" = "Room ID";
+"report.room.id" = "Channel ID";
 "report.incorrect.information" = "Incorrect information";
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
@@ -103,12 +103,41 @@
 "profile.initial.confirm.btn" = "Yes, is me!";
 
 //Profile
-"profile.edit" = "Edit Profile";
+"profile.profile" = "Profile";
+"profile.nickname" = "Nickname";
+"profile.bag.nickname" = "NICKNAME";
+"profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
 "profile.invite.friends" = "Invite friends";
-"profile.block.user" = "Block users";
+"profile.block.user" = "Block list";
 "profile.settings" = "Settings";
+"profile.community" = "Community guidelines";
+//"profile.big.birthday" = "Birthday";
+"profile.birthday" = "Birthday";
+"profile.birthday.subtitle" = "Find friends of the same age";
+"profile.done" = "Done";
+"profile.birthday.skip" = "Skip";
+"profile.pro" = "PRO";
+"profile.unlock.pro" = "Unlock PRO";
+"profile.Unblock" = "Unblock";
+
+
+
+//month
+
+"month.jan" = "Jan";
+"month.feb" = "Feb";
+"month.mar" = "Mar";
+"month.apr" = "Apr";
+"month.may" = "May";
+"month.jun" = "Jun";
+"month.jul" = "Jul";
+"month.aug" = "Aug";
+"month.sep" = "Sep";
+"month.oct" = "Oct";
+"month.nov" = "Nov";
+"month.dec" = "Dec";
 
 // Edit Profile
 "profile.edit.save.btn" = "Save";
@@ -116,7 +145,7 @@
 "profile.edit.birthday" = "Birthday";
 "profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";
 "social.follower.follow.action" = "Follow Back";
-"social.blocked.user.title" = "Users";
+"social.blocked.user.title" = "Block list";
 "social.relation.friend" = "Friends";
 "social.join.action" = "Join";
 "social.unfollow" = "Unfollow";
@@ -137,17 +166,17 @@
 "channel.user.list.listen.empty.text" = "Nobody listens yet";
 "channel.user.list.mute.action" = "Mute Now";
 "channel.user.list.mute.action.title" = "Someone Noisy?";
-"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any room";
+"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any channel";
 "channel.user.list.block.action.title" = "Block Username?";
-"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in room. We won’t let them know you blocked them";
+"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them";
 "channel.user.list.pro.badge" = "PRO";
 
 "channel.join.request.modal.title" = "Your friend wants to join you";
-"channel.join.request.modal.msg" = "Your friend wants to join your secret room and chat with you and your friends, would you like";
+"channel.join.request.modal.msg" = "Your friend wants to join your secret channel and chat with you and your friends, would you like";
 "channel.join.request.refuse" = "Refuse";
 "channel.join.request.accept" = "Accept";
 "channel.join.request.refused.msg" = "%1$@ refuses your request";
-"channel.join.request.enter.room.msg" = "%1$@ enters room";
+"channel.join.request.enter.room.msg" = "%1$@ enters channel";
 "channel.invite.sent.tip" = "Invitation has been sent";
 "channel.join.request.sent.tip" = "Request has been sent";
 
@@ -157,24 +186,58 @@
 
 "amomg.chat.home.hash.tags.title" = "Let's match & chat";
 "among.chat.home.hash.tags.more" = "All Channels";
-"among.chat.home.community.guideline" = "Community guideline";
 "among.chat.home.tag.among.a" = "FindCrewmates";
 "among.chat.home.tag.among.b" = "AmongUs";
 "among.chat.home.tag.group" = "GroupChat";
 "among.chat.home.tag.create.private" = "CreatePrivateChannel";
 "among.chat.home.tag.join.private" = "JoinPrivateChannel";
-"among.chat.leave.room.tip.title" = "Are you sure to exit the room?";
+"among.chat.leave.room.tip.title" = "Are you sure to exit the channel?";
+"among.chat.channel.start.game.tip1" = "It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.";
+"among.chat.room.start.game.tip2" = "What about you, %1$@";
 "among.chat.room.tip.timeout" = "Timeout";
 "among.chat.room.tip.failed" = "Failed";
-"among.chat.room.tip.mic.off" = "mic off";
-"among.chat.room.tip.mic.on" = "mic on";
-"among.chat.room.chat.rule.tip" = "Welcome to #%1$@# channel. Any pornography, political, religions, gambling and other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";
 "among.chat.room.message.placeholder" = "Say something...";
 "among.chat.all.rooms.more" = "More channels coming soon!";
 "among.chat.all.rooms.vote.game" = "Vote which games we should support next!";
 "premium.subscription.terms" = "Subscription Terms:";
-"premium.subscription.detail.free" = "After the free trial, %1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
-"premium.subscription.detail.normal" = "%1$@ subscription is %2$@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+"premium.subscription.detail.free" = "After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
+"premium.subscription.detail.normal" = "%@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
 "premium.lifetime" = "lifetime";
 "premium.subscription.detail.lifetime" = "Pay once, No Subscription";
 "force.upgrade.tip" = "Please update to the newest version of the app to continue playing.";
+
+//new
+"room.public" = "Public";
+"room.private" = "Private";
+"among.chat.room.tip.mic.off" = "MIC OFF";
+"among.chat.room.tip.mic.on" = "MIC ON";
+"room.tag.open.game" = "Open Game";
+"room.tag.chilling" = "Just Chatting";
+"room.roblox.default.notes" = "add the host in roblox to join their game! tap to copy";
+"room.chilling.default.notes" = "wait till you have enough crewmates. then open a channel in game and find each other thru private code";
+"room.hosts.notes" = "Host's notes:";
+"room.user.list.muted" = "Muted";
+
+"among.chat.privacy.policy" = "Privacy Policy";
+"among.chat.terms.service" = "Terms of Service";
+"among.chat.privacy.label" = "By continuing, you agree to our %1$@ and %2$@";
+"among.chat.login.sign.in.with.google" = "Sign in with Google";
+"among.chat.login.sign.in.with.apple" = "Sign in with Apple";
+"among.chat.create.room.input.placeholder" = "ENTER YOUR TOPIC";
+"among.chat.create.room.confirm.btn" = "Create %1$@ channel";
+"among.chat.create.room.private" = "Private";
+"among.chat.create.room.title" = "Create a Channel";
+"among.chat.create.room.topic.title" = "Hot topics";
+"among.chat.home.team.up" = "Play Now";
+"among.chat.home.nowplaying" = "%1$@ online";
+"among.chat.room.kick.selected" = "Kick Selected (%@)";
+"among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
+"among.chat.room.kickout" = "You’ve been removed from this channel";
+"among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
+"among.chat.room.set.reblox.name" = "Setup Roblox Username";
+"among.chat.room.kick" = "Kick";
+"among.chat.room.user.change.notes.title" = "Only the channel owner can change this";
+"among.chat.home.load.error.title" = "Oops, no Internet!";
+"among.chat.home.load.error.msg" = "Please check your connection and try again";
+"among.chat.try.again" = "Try again";
+"among.chat.welcome.message" = "Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";

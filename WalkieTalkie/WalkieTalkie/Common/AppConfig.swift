@@ -23,6 +23,17 @@ struct Config {
         return environment
     }
     
+    enum PolicyType: String {
+        case terms = "https://among.chat/term.html"
+        case policy = "https://among.chat/policy.html"
+        case appShare = "https://amongchat.page.link/app"
+        case guideline = "https://among.chat/guideline.html"
+        
+        static func url(_ type: Self) -> String {
+            return type.rawValue
+        }
+    }
+    
     struct AppKey {
 
     }
@@ -30,6 +41,7 @@ struct Config {
     static var appStoreUrl: String {
         return ""
     }
+    
 //
 //    static var supportUrl: String {
 //        return "\(Api.host_H5)/help"
@@ -63,8 +75,7 @@ struct Config {
     static var appVersionWithBuildVersion: String {
         if environment == .debug {
             return "\(appVersion) # Build-\(versionCode)"
-        }
-        else {
+        } else {
             return appVersion
         }
     }
@@ -76,8 +87,8 @@ struct Config {
         return shortVersion ?? defaultBundleIdentifier
     }
     
-    
     static var dateFormat: String {
         return "MM/dd/yyyy HH:mm:ss"
     }
+    
 }

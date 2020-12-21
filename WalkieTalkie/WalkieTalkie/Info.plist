@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Among Chat</string>
+	<string>AmongChat</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
@@ -29,7 +29,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>walkietalkie</string>
+				<string>amongchat</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.476395756522-7emgmljelqou676e9rggb5n7cjf7br6o</string>
 			</array>
 		</dict>
 	</array>
@@ -57,11 +65,11 @@
 		<true/>
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>need mic to join the room</string>
+	<string>Enable microphone to talk to others in channels</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Please allow WalkieTalkie to use your photo library</string>
+	<string>Please allow Among Chat to use your photo library</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Please allow WalkieTalkie to use your speech recognition</string>
+	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>SCSDKClientId</key>
 	<string>944a91d7-5a1f-4812-9821-7e823d680baf</string>
 	<key>TikTokAppID</key>
@@ -74,6 +82,7 @@
 		<string>Nunito-Black.ttf</string>
 		<string>Nunito-Regular.ttf</string>
 		<string>Nunito-BoldItalic.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

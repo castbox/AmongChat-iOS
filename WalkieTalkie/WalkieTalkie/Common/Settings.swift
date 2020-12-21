@@ -34,7 +34,7 @@ class Settings {
         let value: LoginResult?
         
         if let json = Defaults[\.loginResultKey],
-            let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
+           let result = try? JSONDecoder().decodeAnyData(Entity.LoginResult.self, from: json) {
             value = result
         } else {
             value = nil
@@ -43,7 +43,7 @@ class Settings {
         return DynamicProperty.stored(value)
             .didSet({ event in
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
-                SharedDefaults[\.loginResultTokenKey] = event.new?.token
+                SharedDefaults[\.loginResultTokenKey] = event.new?.access_token
             })
             .asPublishProperty()
     }()
@@ -244,6 +244,81 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let amongChatUserProfile: PublishProperty<Entity.UserProfile?> = {
+        typealias Profile = Entity.UserProfile
+        let profile: Profile?
+        
+        if let dict = Defaults[\.amongChatUserProfileKey],
+           let p = try? JSONDecoder().decodeAnyData(Profile.self, from: dict) {
+            profile = p
+        } else {
+            profile = nil
+        }
+        
+        return DynamicProperty.stored(profile)
+            .didSet({ (event) in
+                Defaults[\.amongChatUserProfileKey] = event.new?.dictionary
+            })
+            .asPublishProperty()
+    }()
+    
+    let amongChatDefaultAvatars: PublishProperty<Entity.DefaultAvatars?> = {
+        
+        typealias DefaultAvatars = Entity.DefaultAvatars
+        let defaultAvatars: DefaultAvatars?
+        
+        if let dict = Defaults[\.amongChatDefaultAvatarsKey],
+           let d = try? JSONDecoder().decodeAnyData(DefaultAvatars.self, from: dict) {
+            defaultAvatars = d
+        } else {
+            defaultAvatars = nil
+        }
+        
+        return DynamicProperty.stored(defaultAvatars)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatDefaultAvatarsKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    
+    // 首页Summary缓存临时方案
+    let amongChatHomeSummary: PublishProperty<Entity.Summary?> = {
+        
+        typealias Summary = Entity.Summary
+        let summary: Summary?
+        
+        if let dict = Defaults[\.amongChatHomeSummaryKey],
+           let s = try? JSONDecoder().decodeAnyData(Summary.self, from: dict) {
+            summary = s
+        } else {
+            summary = nil
+        }
+        
+        return DynamicProperty.stored(summary)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatHomeSummaryKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    //end
+    
+    func updateProfile() {
+        _ = Request.profile()
+            .subscribe(onSuccess: { (profile) in
+                guard let p = profile else {
+                    return
+                }
+                Settings.shared.amongChatUserProfile.value = p
+            }, onError: { (error) in
+                cdPrint("")
+            })
+    }
+    func clearAll() {
+        loginResult.value = nil
+        amongChatUserProfile.value = nil
+    }
 }
 
 extension DefaultsKeys {
@@ -348,11 +423,15 @@ extension DefaultsKeys {
     }
     
     var loginResultKey: DefaultsKey<[String : Any]?> {
-        .init("login.result", defaultValue: nil)
+        .init("among.chat.login.result", defaultValue: nil)
     }
     
     var blockedUsersKey: DefaultsKey<[ChannelUser]> {
         .init("blocked.users", defaultValue: [])
+    }
+    
+    var blockedUsersV2Key: DefaultsKey<[Entity.RoomUser]> {
+        .init("blocked.users.v2", defaultValue: [])
     }
     
     var profileInitialShownTsKey: DefaultsKey<Double?> {
@@ -363,8 +442,8 @@ extension DefaultsKeys {
         .init("social.user.profile", defaultValue: nil)
     }
     
-    var socialBirthdayUpdateAtTsKey: DefaultsKey<Double> {
-        .init("social.profile.birthday.updated.timestamp", defaultValue: 0)
+    var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.user.profile", defaultValue: nil)
     }
     
     var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
@@ -373,7 +452,16 @@ extension DefaultsKeys {
     
     /// 最近一次启动广告展示时间
     var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
-
+    
+    var amongChatDefaultAvatarsKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.default.avatars", defaultValue: nil)
+    }
+    
+    // 首页Summary缓存临时方案
+    var amongChatHomeSummaryKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.home.summary", defaultValue: nil)
+    }
+    //end
 }
 
 extension DefaultsAdapter {
@@ -384,11 +472,11 @@ extension DefaultsAdapter {
     func set(channel: Room?, mode: Mode) {
         //保护存储错误
         if mode == .public,
-            channel?.name.isPrivate ?? false {
+           channel?.name.isPrivate ?? false {
             return
         }
         if mode == .private,
-        !(channel?.name.isPrivate ?? true) {
+           !(channel?.name.isPrivate ?? true) {
             return
         }
         Defaults[key: DefaultsKeys.channel(for: mode)] = channel
@@ -396,3 +484,10 @@ extension DefaultsAdapter {
 }
 
 extension CLLocation: DefaultsSerializable {}
+
+
+extension Settings {
+    static var loginUserId: Int? {
+        return shared.loginResult.value?.uid
+    }
+}

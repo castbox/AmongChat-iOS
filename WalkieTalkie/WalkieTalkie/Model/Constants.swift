@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AdSupport
 
 struct Constants {
     static let sUserId: UInt = UInt(UInt32(bitPattern: MemberUtil.getUserId()))
@@ -64,33 +65,52 @@ struct Constants {
         return Locale.current.identifier
     }()
     
+    static let idfa: String = {
+        guard ASIdentifierManager.shared().isAdvertisingTrackingEnabled else { return "" }
+        return ASIdentifierManager.shared().advertisingIdentifier.uuidString
+    }()
+    
+    static let modelName: String = {
+        return UIDevice.current.model
+    }()
+    
     static var deviceToken: String {
         FireMessaging.shared.fcmToken ?? ""
     }
     
+    static var localTime: String {
+        get {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
+            formatter.locale = Locale(identifier: "en_US")
+            return formatter.string(from: Date())
+        }
+    }
+    
     static func deviceInfo() -> [String : Any] {
         return [
-            "uid" : Settings.shared.loginResult.value?.uid ?? "",
-            "deviceCountry" : countryCode,
-            "language" : languageCode,
+            "countryCode" : countryCode,
+            "lang" : languageCode,
             "locale" : localeCode,
             "timezone" : timeZone,
             "appVersion" : appVersion,
             "deviceId" : deviceID,
-            "deviceToken" : deviceToken,
-            "deviceType" : "iOS",
+            "deviceType" : modelName,
             "pushType" : "FCM",
+            "IDFA_ios" : idfa,
+            "localTime" : localTime,
+            "appIdentifier" : Bundle.main.bundleIdentifier ?? "",
             "pushNotificationEnable": Settings.shared.isOpenSubscribeHotTopic.value
         ]
     }
 
     static var defaultUsername: String {
         
-        if let loginResult = Settings.shared.loginResult.value,
-           let uidSufix = loginResult.uid.split(bySeparator: "-").last {
-            return "\(uidSufix)"
-        } else {
+//        if let loginResult = Settings.shared.loginResult.value,
+//           let uidSufix = loginResult.uid.split(bySeparator: "-").last {
+//            return "\(uidSufix)"
+//        } else {
             return "\(sUserId)"
-        }
+//        }
     }
 }

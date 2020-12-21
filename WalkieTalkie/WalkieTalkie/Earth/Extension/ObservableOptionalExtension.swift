@@ -49,3 +49,33 @@ extension ObservableType where Element: OptionalType {
         }
     }
 }
+
+
+//extension PrimitiveSequence where Trait == SingleTrait, Element: OptionalType {
+//    func filterNil() -> Single<Element.Wrapped> {
+//        return self.flatMap { element -> Single<Element.Wrapped> in
+//            guard let value = element.value else {
+//                return Single.em
+//            }
+//            return Observable<Element.Wrapped>.just(value)
+//        }
+//    }
+//    
+//    func filterNilAndEmpty() -> Single<Element.Wrapped> {
+//        return self.flatMap { element -> Single<Element.Wrapped> in
+//            guard let value = element.value else {
+//                return Observable<Element.Wrapped>.empty()
+//            }
+//            return Observable<Element.Wrapped>.just(value)
+//        }
+//    }
+//    
+//    func errorOnNil(_ error: Error) -> Single<Element.Wrapped> {
+//        return self.flatMap { element -> Single<Element.Wrapped> in
+//            guard let value = element.value else {
+//                throw error
+//            }
+//            return Single<Element.Wrapped>.just(value)
+//        }
+//    }
+//}

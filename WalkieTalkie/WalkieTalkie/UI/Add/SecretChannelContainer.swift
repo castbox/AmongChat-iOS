@@ -10,7 +10,7 @@ import UIKit
 import JXPagingView
 import RxCocoa
 import RxSwift
-import MoPub
+//import MoPub
 
 class SecretChannelContainer: XibLoadableView {
     
@@ -197,50 +197,50 @@ extension SecretChannelContainer {
             self?.viewController?.present(alert, animated: true, completion: nil)
         }
         
-        createButton.rx.tap.asObservable()
-            .observeOn(MainScheduler.asyncInstance)
-            .filter { _ -> Bool in
-                guard Reachability.shared.canReachable else {
-                    networkNotReachAlertBlock()
-                    return false
-                }
-                return true
-            }
-            .flatMap { [weak self] _ -> Observable<Void> in
-                Logger.UserAction.log(.create_secret)
-                guard let `self` = self,
-                    !Settings.shared.isProValue.value,
-                    let reward = AdsManager.shared.aviliableRewardVideo else {
-                        return Observable.just(())
-                }
-                
-                return Observable.just(())
-                    .filter({ [weak self] _ in
-                        guard let controller = self?.viewController else {
-                            //                                    noAdAlertBlock()
-                            return true
-                        }
-                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
-                        return true
-                    })
-                    .flatMap { _ -> Observable<Void> in
-                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
-                }
-                .do(onNext: { _ in
-                    AdsManager.shared.requestRewardVideoIfNeed()
-                })
-                    .flatMap { _ -> Observable<Void> in
-                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                }
-            }
-            .subscribe(onNext: { [weak self] _ in
-                guard let `self` = self else { return }
-                //create one
-                let channelName = self.createUniqueChannelName()
-                //check if in private channels
-                self.joinChannel("_\(channelName)", true)
-            })
-            .disposed(by: bag)
+//        createButton.rx.tap.asObservable()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .filter { _ -> Bool in
+//                guard Reachability.shared.canReachable else {
+//                    networkNotReachAlertBlock()
+//                    return false
+//                }
+//                return true
+//            }
+//            .flatMap { [weak self] _ -> Observable<Void> in
+//                Logger.UserAction.log(.create_secret)
+//                guard let `self` = self,
+//                    !Settings.shared.isProValue.value,
+//                    let reward = AdsManager.shared.aviliableRewardVideo else {
+//                        return Observable.just(())
+//                }
+//
+//                return Observable.just(())
+//                    .filter({ [weak self] _ in
+//                        guard let controller = self?.viewController else {
+//                            //                                    noAdAlertBlock()
+//                            return true
+//                        }
+//                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: controller, with: reward)
+//                        return true
+//                    })
+//                    .flatMap { _ -> Observable<Void> in
+//                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+//                }
+//                .do(onNext: { _ in
+//                    AdsManager.shared.requestRewardVideoIfNeed()
+//                })
+//                    .flatMap { _ -> Observable<Void> in
+//                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+//                }
+//            }
+//            .subscribe(onNext: { [weak self] _ in
+//                guard let `self` = self else { return }
+//                //create one
+//                let channelName = self.createUniqueChannelName()
+//                //check if in private channels
+//                self.joinChannel("_\(channelName)", true)
+//            })
+//            .disposed(by: bag)
     }
     
     func configureSubview() {

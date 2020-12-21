@@ -232,6 +232,7 @@
         /// 应用启动时会调用一次
         /// FCM token 更新，也可监听 Notification.Name.MessagingRegistrationTokenRefreshed 通知，读取 Messaging.messaging().fcmToken 属性
         self.fcmToken = fcmToken
+        cdPrint("fcmToken: \(fcmToken)")
     }
     
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {

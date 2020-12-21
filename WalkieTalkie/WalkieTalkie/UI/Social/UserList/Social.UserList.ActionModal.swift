@@ -287,7 +287,7 @@ extension Social.UserList {
                 //
                 guard let `self` = self,
                     let selfUid = Settings.shared.loginResult.value?.uid else { return }
-                FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
+//                FireStore.shared.removeFollowing(self.viewModel.userId, from: selfUid)
             }
             
             let unblockAction = UIAlertAction(title: R.string.localizable.alertUnblock(), style: .default) { (_) in
@@ -297,7 +297,7 @@ extension Social.UserList {
                 ChannelUserListViewModel.shared.unblockedUser(channelUserViewModel)
             }
             
-            if ChannelUserListViewModel.shared.blockedUsers.contains(where: { $0.uid == viewModel.user.profile.uidInt }) {
+            if ChannelUserListViewModel.shared.blockedUsers.contains(where: { $0.uid == viewModel.user.profile.uid }) {
                 alert.addAction(unblockAction)
             } else {
                 alert.addAction(blockAction)

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "FE126D13243461E800BEDD60"
-               BuildableName = "WalkieTalkie.app"
+               BuildableName = "AmongChat.app"
                BlueprintName = "WalkieTalkie"
                ReferencedContainer = "container:WalkieTalkie.xcodeproj">
             </BuildableReference>
@@ -44,6 +44,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      disableMainThreadChecker = "YES"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -55,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE126D13243461E800BEDD60"
-            BuildableName = "WalkieTalkie.app"
+            BuildableName = "AmongChat.app"
             BlueprintName = "WalkieTalkie"
             ReferencedContainer = "container:WalkieTalkie.xcodeproj">
          </BuildableReference>
@@ -72,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "FE126D13243461E800BEDD60"
-            BuildableName = "WalkieTalkie.app"
+            BuildableName = "AmongChat.app"
             BlueprintName = "WalkieTalkie"
             ReferencedContainer = "container:WalkieTalkie.xcodeproj">
          </BuildableReference>

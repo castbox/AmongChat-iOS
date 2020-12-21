@@ -11,6 +11,12 @@ import AgoraRtcKit
 import RxCocoa
 import RxSwift
 import Path
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[RtcManager]-\(message)")
+}
+
 
 protocol RtcDelegate: class {
     func onJoinChannelSuccess(channelId: String)
@@ -48,7 +54,7 @@ class RtcManager: NSObject {
     }
 
     ///current channel IDz
-    private var channelId: String?
+    private(set) var channelId: String?
     private(set) var role: AgoraClientRole?
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
@@ -87,22 +93,23 @@ class RtcManager: NSObject {
 //        isLastmileProbeTesting = true
     }
 
-    func joinChannel(_ channelId: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         //清除数据
         unMuteUsers.removeAll()
         talkedUsers.removeAll()
-        let result = mRtcEngine.joinChannel(byToken: KeyCenter.Token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
+        self.channelId = channelId
+        let result = mRtcEngine.joinChannel(byToken: token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("rtc join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
-            self.channelId = channelId
+//            self.channelId = channelId
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: channelId)
-            self.updateFirestoreChannelStatus(with: channelId)
+//            self.updateFirestoreChannelStatus(with: channelId)
             
-            if !self.talkedUsers.contains(where: { $0.uid == uid }) {
+            if !self.talkedUsers.contains(where: { $0.uid.int!.uInt == uid }) {
                 self.talkedUsers.append(ChannelUser.randomUser(uid: uid))
             }
             
@@ -128,7 +135,7 @@ class RtcManager: NSObject {
         guard timeoutTimer != nil else {
             return
         }
-        timeoutTimer?.cancel()
+//        timeoutTimer?.cancel()
         timeoutTimer = nil
     }
 
@@ -140,7 +147,7 @@ class RtcManager: NSObject {
             cdPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
-        updateRecordStatus()
+//        updateRecordStatus()
     }
     
     func updateRecordStatus() {
@@ -164,7 +171,7 @@ class RtcManager: NSObject {
                         return
                     }
                     if self.role == .broadcaster {
-                        self.updateRecordStatus()
+//                        self.updateRecordStatus()
                     }
                 }
             })
@@ -181,7 +188,7 @@ class RtcManager: NSObject {
         guard recorderTimer != nil else {
             return
         }
-        recorderTimer?.cancel()
+//        recorderTimer?.cancel()
         recorderTimer = nil
     }
     
@@ -189,9 +196,14 @@ class RtcManager: NSObject {
         mRtcEngine.muteAllRemoteAudioStreams(muted)
     }
     
-    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-        let uid = user.uid
-        mRtcEngine.adjustUserPlaybackSignalVolume(uid, volume: volume)
+    //remove
+//    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
+//        let uid = user.uid
+//        mRtcEngine.adjustUserPlaybackSignalVolume(uid.intValue.uInt, volume: volume)
+//    }
+    
+    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) {
+        mRtcEngine.adjustUserPlaybackSignalVolume(uid.uInt, volume: volume)
     }
 
     func muteLocalAudioStream(_ muted: Bool) {
@@ -233,6 +245,7 @@ class RtcManager: NSObject {
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
+        self.channelId = nil
         updateFirestoreChannelStatus(with: "")
     }
     
@@ -267,11 +280,11 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
         if newRole == .broadcaster {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
-            if !talkedUsers.contains(where: { $0.uid == mUserId }) {
+            if !talkedUsers.contains(where: { $0.uid.intValue == mUserId }) {
                 talkedUsers.append(ChannelUser.randomUser(uid: mUserId))
             } else {
                 talkedUsers = talkedUsers.map { item -> ChannelUser in
-                    guard item.uid == mUserId else {
+                    guard item.uid.uIntValue == mUserId else {
                         return item
                     }
                     var user = item
@@ -282,7 +295,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
         } else if newRole == .audience {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: false)
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == mUserId else {
+                guard item.uid.uIntValue == mUserId else {
                     return item
                 }
                 var user = item
@@ -296,11 +309,11 @@ extension RtcManager: AgoraRtcEngineDelegate {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
         unMuteUsers.append(uid)
-        if !talkedUsers.contains(where: { $0.uid == uid }) {
+        if !talkedUsers.contains(where: { $0.uid.uIntValue == uid }) {
             talkedUsers.append(ChannelUser.randomUser(uid: uid))
         } else {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == uid else {
+                guard item.uid.uIntValue == uid else {
                     return item
                 }
                 var user = item
@@ -311,15 +324,15 @@ extension RtcManager: AgoraRtcEngineDelegate {
     }
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
-        cdPrint("didOfflineOfUid \(uid)")
+        cdPrint("didOfflineOfUid \(uid) resaon: \(reason.rawValue)")
         unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
 
         if reason == .quit {
-            talkedUsers.removeAll(where: { $0.uid == uid })
+            talkedUsers.removeAll(where: { $0.uid.uIntValue == uid })
         } else if reason == .dropped || reason == .becomeAudience {
             talkedUsers = talkedUsers.map { item -> ChannelUser in
-                guard item.uid == uid else {
+                guard item.uid.uIntValue == uid else {
                     return item
                 }
                 var user = item
@@ -332,7 +345,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didAudioMuted muted: Bool, byUid uid: UInt) {
         cdPrint("didAudioMuted \(uid) \(muted)")
         let talkedUsers = self.talkedUsers.map { user -> ChannelUser in
-            guard user.uid == uid else {
+            guard user.uid.uIntValue == uid else {
                 return user
             }
             var user = user
@@ -380,6 +393,8 @@ extension RtcManager {
             return
         }
         let status = FireStore.Entity.User.Status(currentChannel: channel, online: true)
-        FireStore.shared.updateStatus(status, of: uid)
+//        FireStore.shared.updateStatus(status, of: uid)
     }
 }
+
+

@@ -63,7 +63,7 @@ class ChannelUserListViewModel {
                 
                 guard let `self` = self else { return }
                 
-                let uids: [UInt] = channelUsers.map { $0.uid }
+                let uids: [UInt] = channelUsers.map { $0.uid.int!.uInt }
                 
                 let hitUsers = uids.compactMap {
                     self.cachedFUsers[$0]
@@ -74,7 +74,7 @@ class ChannelUserListViewModel {
                     .subscribe(onNext: { (users) in
                         
                         let viewModelList = channelUsers.map { (channelUser) -> ChannelUserViewModel in
-                            let firestoreUser = users.first(where: { $0.profile.uidInt == channelUser.uid })
+                            let firestoreUser = users.first(where: { $0.profile.uid == channelUser.uid })
                             return ChannelUserViewModel.init(with: channelUser, firestoreUser: firestoreUser)
                         }
                         self.dataSourceReplay.accept(viewModelList)
@@ -87,7 +87,7 @@ class ChannelUserListViewModel {
     func update(_ userList: [ChannelUser]) {
         let blockedUsers = self.blockedUsers
         var copyOfUserList = userList
-        if let selfUser = copyOfUserList.removeFirst(where: { $0.uid == Constants.sUserId }) {
+        if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
             copyOfUserList.insert(selfUser, at: 0)
         }
         let users = copyOfUserList.map { item -> ChannelUser in
@@ -95,7 +95,7 @@ class ChannelUserListViewModel {
             if blockedUsers.contains(where: { $0.uid == item.uid }) {
                 user.isMuted = true
                 user.status = .blocked
-            } else if mutedUser.contains(item.uid) {
+            } else if mutedUser.contains(item.uid.int!.uInt) {
                 user.isMuted = true
                 user.status = .muted
             } else {
@@ -113,7 +113,7 @@ class ChannelUserListViewModel {
             guard item.status != .blocked,
                 item.status != .muted,
                 item.status != .droped,
-                item.uid == userId,
+                item.uid.int!.uInt == userId,
                 volume > 0 else {
                 return item
             }
@@ -131,7 +131,7 @@ class ChannelUserListViewModel {
         update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
-            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
+//            FireStore.shared.addBlockUser(firestoreUser.uid, to: selfUid)
         }
     }
     
@@ -141,22 +141,22 @@ class ChannelUserListViewModel {
         update(dataSource.value)
         if let firestoreUser = user.firestoreUser,
             let selfUid = Settings.shared.loginResult.value?.uid {
-            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
+//            FireStore.shared.removeBlockUser(firestoreUser.uid, from: selfUid)
         }
     }
     
     func muteUser(_ user: ChannelUserViewModel) {
-        mutedUser.insert(user.channelUser.uid)
+        mutedUser.insert(user.channelUser.uid.int!.uInt)
         update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
+//        FireStore.shared.addMuteUser(user.channelUser.uid, to: selfUid)
     }
     
     func unmuteUser(_ user: ChannelUserViewModel) {
-        mutedUser.remove(user.channelUser.uid)
+        mutedUser.remove(user.channelUser.uid.int!.uInt)
         update(dataSource.value)
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
+//        FireStore.shared.removeMuteUser(user.channelUser.uid, from: selfUid)
     }
     
     func followUser(_ user: FireStore.Entity.User) {
@@ -165,7 +165,7 @@ class ChannelUserListViewModel {
     
     func unfollowUser(_ user: FireStore.Entity.User) {
         guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-        FireStore.shared.removeFollowing(user.uid, from: selfUid)
+//        FireStore.shared.removeFollowing(user.uid, from: selfUid)
     }
     
     func didJoinedChannel(_ channel: String) {

@@ -18,8 +18,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
             if isNavigationBarHiddenWhenAppear {
                 if #available(iOS 11.0, *) {
                     
-                }
-                else {
+                } else {
                     automaticallyAdjustsScrollViewInsets = false
                 }
             }
@@ -74,7 +73,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
     }
     
     deinit {
-        debugPrint("[VIEWCONTROLLER-DEINIT]")
+        debugPrint("[VIEWCONTROLLER-DEINIT-\(NSStringFromClass(type(of: self)))]")
     }
     
     override func willMove(toParent parent: UIViewController?) {
@@ -108,7 +107,7 @@ class ViewController: UIViewController, ScreenLifeLogable {
             setNeedsStatusBarUpdate()
         }
         
-        AdsManager.shared.requestRewardVideoIfNeed()
+//        AdsManager.shared.requestRewardVideoIfNeed()
         screenLifeStartTime = Date()
         loggerScreenShow()
     }
@@ -133,6 +132,10 @@ class ViewController: UIViewController, ScreenLifeLogable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor(hexString: "#121212")
 
         replaceBackBarButtonIfNeed()
     }
@@ -166,14 +169,18 @@ class ViewController: UIViewController, ScreenLifeLogable {
         addCustomBackButton()
     }
     
-    func addCustomBackButton() {
+    lazy var customBackButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(R.image.backNor(), for: .normal)
         button.frame = CGRect(x: 0.0, y: 0.0, width: 30.0, height: 30.0)
         button.addTarget(self, action: #selector(backButtonClick(button:)), for: .touchUpInside)
-        let barButtonItem = UIBarButtonItem(customView: button)
+        return button
+    }()
+    
+    func addCustomBackButton() {
+        let barButtonItem = UIBarButtonItem(customView: customBackButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
-    }
+    }    
 }
 
 extension ViewController {

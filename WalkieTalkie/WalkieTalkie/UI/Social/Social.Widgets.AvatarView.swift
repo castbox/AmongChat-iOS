@@ -14,7 +14,7 @@ extension Social {
 
 extension Social.Widgets {
     
-    class AvatarView: UIView {
+    class OuterBorderdImageView: UIView {
         
         var a_borderWidth: CGFloat = 0 {
             didSet {
@@ -22,7 +22,7 @@ extension Social.Widgets {
             }
         }
         
-        var a_borderColor: UIColor? = nil {
+        var a_borderColor: UIColor? = .clear {
             didSet {
                 updateLayout()
             }
@@ -34,7 +34,7 @@ extension Social.Widgets {
             }
         }
         
-        var a_backgroundColor: UIColor? = nil {
+        var a_backgroundColor: UIColor? = .clear {
             didSet {
                 updateLayout()
             }
@@ -84,12 +84,18 @@ extension Social.Widgets {
                 maker.edges.equalTo(iv).inset(-a_borderWidth)
             }
             
+            let overlap: CGFloat = 1
+            
             border.layer.cornerRadius = a_borderWidth + a_cornerRadius
-            border.layer.borderWidth = a_borderWidth
+            border.layer.borderWidth = a_borderWidth + overlap
             border.layer.borderColor = a_borderColor?.cgColor
             
             iv.layer.cornerRadius = a_cornerRadius
             iv.backgroundColor = a_backgroundColor
+        }
+        
+        func setImage(with url: String?) {
+            iv.setImage(with: url)
         }
         
     }
