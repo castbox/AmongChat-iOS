@@ -171,10 +171,22 @@ extension AmongChat.Home.ViewController {
         }
         
     }
-        
+    
     private func setupEvent() {
         
-        rx.viewWillAppear
+        Observable.combineLatest(
+            Observable<Bool>.merge(
+                rx.viewWillAppear.map({ _ in true }),
+                rx.viewDidDisappear.map({ _ in false })
+            ),
+            Observable<Void>.merge(
+                rx.viewWillAppear.map({ _ in }),
+                NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification).map({ _ in })
+            )
+        )
+            .filter({ visible, _ in
+                return visible
+            })
             .throttle(.seconds(30), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (_) in
                 self?.fetchSummaryData()
