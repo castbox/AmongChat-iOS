@@ -57,6 +57,9 @@ extension AmongChat.Home {
             return lb
         }()
         
+        private var coverDisposable: Disposable?
+        private var bgDisposable: Disposable?
+        
         override var isHighlighted: Bool {
             didSet {
                 if isHighlighted {
@@ -141,8 +144,21 @@ extension AmongChat.Home.TopicCell {
         nameLabel.text = topic.name
         nowPlayingLabel.text = topic.nowPlaying
         
-        coverIV.setImage(with: topic.cover)
-        bgIV.setImage(with: topic.bg)
+        coverDisposable?.dispose()
+        coverDisposable = topic.coverObvervable
+            .subscribe(onSuccess: { [weak self] (img) in
+                self?.coverIV.image = img
+            }, onError: { [weak self] (_) in
+                self?.coverIV.image = nil
+            })
+        
+        bgDisposable?.dispose()
+        bgDisposable = topic.bgObservable
+            .subscribe(onSuccess: { [weak self] (img) in
+                self?.bgIV.image = img
+            }, onError: { [weak self] (_) in
+                self?.bgIV.image = nil
+            })
     }
     
 }
