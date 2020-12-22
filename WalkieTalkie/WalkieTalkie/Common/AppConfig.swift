@@ -37,6 +37,10 @@ struct Config {
         return ""
     }
     
+    static var scheme: String {
+        return "amongchat"
+    }
+    
 //
 //    static var supportUrl: String {
 //        return "\(Api.host_H5)/help"

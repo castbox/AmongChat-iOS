@@ -224,6 +224,12 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - BetterSegmentedControl (1.3.0)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -520,6 +526,7 @@ DEPENDENCIES:
   - AgoraAudio_iOS (= 3.1.0)
   - AgoraRtm_iOS
   - BetterSegmentedControl
+  - Bolts (from `https://github.com/roremeol/Bolts-ObjC.git`, branch `master`)
   - CastboxDebuger (~> 1.3.2)
   - DeviceKit (~> 4.0)
   - DoraemonKit/Core (~> 3.0.2)
@@ -642,6 +649,16 @@ SPEC REPOS:
     - WSFlexibleTouch
     - YYText
 
+EXTERNAL SOURCES:
+  Bolts:
+    :branch: master
+    :git: https://github.com/roremeol/Bolts-ObjC.git
+
+CHECKOUT OPTIONS:
+  Bolts:
+    :commit: 3122920f097d94e3d65bda41f32970f00a6795f4
+    :git: https://github.com/roremeol/Bolts-ObjC.git
+
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
@@ -650,6 +667,7 @@ SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
+  Bolts: 6ca038afe82c84106a3aa0c570a58d03e0f7e7f8
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   BytedanceOpenPlatformSDK: 48b6b7603f81daf50dd90cb337cd690bf3c51371
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
@@ -721,6 +739,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e01d5d2ab5ddf01e87ea6de6a579022b71dee5a6
+PODFILE CHECKSUM: 741bf569be40845ac270c6fd6329bda8381dba02
 
 COCOAPODS: 1.10.0

@@ -21,6 +21,7 @@ import FirebaseInAppMessaging
 import FirebaseCrashlytics
 import TikTokOpenSDK
 import FirebaseDynamicLinks
+import Bolts
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -92,8 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        if Routes.canHandle(url) {
-            return handle(url)
+        if url.scheme == Config.scheme  {
+            guard let parsedURL = BFURL(url: url) else { return false }
+            return Routes.handle(parsedURL.targetURL)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
             return true
         }
@@ -102,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = url else {
                 return
             }
-            _ = self?.handle(url)
+            Routes.handle(url)
 //            _ = Routes.canHandle(url)
         }
     }
@@ -113,15 +115,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch userActivity.activityType {
         case NSUserActivityTypeBrowsingWeb:
             guard let url = userActivity.webpageURL else { return false }
-            if Routes.canHandle(url) {
-                return handle(url)
+            if url.scheme == Config.scheme  {
+                return Routes.handle(url)
             } 
             return FireLink.handle(dynamicLink: url) { [weak self] url in
                 cdPrint("url: \(String(describing: url))")
                 guard let url = url else {
                     return
                 }
-                _ = self?.handle(url)
+                Routes.handle(url)
 //                _ = Routes.canHandle(url)
             }
         default:
@@ -156,36 +158,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 })
             })
 //        Ad.AppOpenAdManager.shared.tryToPresentAd()
-    }
-    
-    func handle(_ uri: URL) -> Bool {
-        return Routes.handle(uri)
-//        guard let params = uri.queryParameters else {
-//            return false
-//        }
-//        let home = URI.Homepage(params)
-//        guard let name = home?.channelName,
-//            let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-//            return false
-//        }
-//        guard name.isPrivate else {
-//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-//            roomVc.update(mode: Mode.public.intValue)
-//            roomVc.joinChannel(name)
-//            return true
-//        }
-//        let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
-//        FireStore.shared.checkIsValidSecretChannel(name) { result in
-//            removeHandler()
-//            if result {
-//                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-//                roomVc.update(mode: Mode.private.intValue)
-//                roomVc.joinChannel(name)
-//            } else {
-//                roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-//            }
-//        }
-//        return true
     }
 }
 
@@ -276,7 +248,7 @@ extension AppDelegate {
         guard let url = URL(string: uri) else {
             return
         }
-        let result = UIApplication.appDelegate?.handle(url) ?? false
+        let result = Routes.handle(url)
         print("[AppDelegate] handle url: \(url) result: \(result)")
     }
 }
