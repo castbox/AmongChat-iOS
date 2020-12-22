@@ -178,43 +178,44 @@ extension AppDelegate {
         GuruAnalytics.setUserProperty(Constants.abGroup.rawValue, forName: "ab_group")
     }
     
-    func migrateUserDefaults() {
-        let room = Defaults[\.channel]
-        let mode = Mode(index: room.isPrivate.int)
-        Defaults.set(channel: room, mode: mode)
-    }
+//    func migrateUserDefaults() {
+//        let room = Defaults[\.channel]
+//        let mode = Mode(index: room.isPrivate.int)
+//        Defaults.set(channel: room, mode: mode)
+//    }
     
-    func setupInitialView(goRoom: Bool) {
-//        let rootVc = R.storyboard.main.instantiateInitialViewController()!
-        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .black
-        window.makeKeyAndVisible()
-                
-        if goRoom {
-            InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
-            let guide = R.storyboard.guide.guideViewController()!
-            guide.dismissHandler = { [unowned self] in
-                self.window?.replaceRootViewController(rootVc)
-                // 推送服务
-                FireMessaging.shared.requestPermissionIfNotGranted()
-                InAppMessaging.inAppMessaging().messageDisplaySuppressed = true
-            }
-            window.rootViewController = guide
-        } else {
-            window.rootViewController = rootVc
-            // 推送服务
-            FireMessaging.shared.requestPermissionIfNotGranted()
-        }
-        self.window = window
-    }
+//    func setupInitialView(goRoom: Bool) {
+////        let rootVc = R.storyboard.main.instantiateInitialViewController()!
+//        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.backgroundColor = .black
+//        window.makeKeyAndVisible()
+//
+//        if goRoom {
+//            InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
+//            let guide = R.storyboard.guide.guideViewController()!
+//            guide.dismissHandler = { [unowned self] in
+//                self.window?.replaceRootViewController(rootVc)
+//                // 推送服务
+//                FireMessaging.shared.requestPermissionIfNotGranted()
+//                InAppMessaging.inAppMessaging().messageDisplaySuppressed = true
+//            }
+//            window.rootViewController = guide
+//        } else {
+//            window.rootViewController = rootVc
+//            // 推送服务
+//            FireMessaging.shared.requestPermissionIfNotGranted()
+//        }
+//        self.window = window
+//    }
     
     func setupInitialView() {
         
         let rootVc: UIViewController
         
         let homeVc: (() -> UIViewController) = {
-            NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+            GuruAnalytics.log(userID: Settings.loginUserId?.string)
+            return NavigationViewController(rootViewController: AmongChat.Home.ViewController())
         }
         
         let needLogin: Bool = Settings.shared.loginResult.value == nil

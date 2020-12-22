@@ -70,6 +70,10 @@ extension AmongChat.Home {
             }
         }
         
+        override var screenName: Logger.Screen.Node.Start {
+            return .home
+        }
+        
         //MARK: - inherited
         
         override func viewDidLoad() {
@@ -88,12 +92,14 @@ extension AmongChat.Home.ViewController {
     
     @objc
     private func onProfileBtn() {
+        Logger.Action.log(.profile_imp, category: nil)
         let vc = Social.ProfileViewController()
         navigationController?.pushViewController(vc)
     }
     
     @objc
     private func onCreateRoomBtn() {
+        Logger.Action.log(.create_topic_imp, category: nil)
         let vc = AmongChat.CreateRoom.ViewController()
         present(vc, animated: true)
     }
@@ -103,6 +109,8 @@ extension AmongChat.Home.ViewController {
 extension AmongChat.Home.ViewController {
     
     func enterRoom(roomId: String? = nil, topicId: String?) {
+        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
+        
         var topic = topicId
         if roomId == nil {
             topic = topicId ?? AmongChat.Topic.amongus.rawValue

@@ -67,13 +67,16 @@ extension AmongChat.Room {
                 case .amongSetup:
                     self.view.bringSubviewToFront(amongInputCodeView)
                     amongInputCodeView.becomeFirstResponder(with: room)
+                    Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 case .nickName:
                     self.view.bringSubviewToFront(nickNameInputView)
                     nickNameInputView.becomeFirstResponder()
+                    Logger.Action.log(.room_edit_nickname, categoryValue: room.topicId)
                 case .chillingSetup:
                     self.view.bringSubviewToFront(inputNotesView)
                     inputNotesView.notes = room.note
                     inputNotesView.show(with: room)
+                    Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 default:
                     messageInputField.becomeFirstResponder()
                 }
@@ -178,11 +181,16 @@ extension AmongChat.Room {
             return f
         }()
         
+        override var screenName: Logger.Screen.Node.Start {
+            return .room
+        }
+        
         static func join(room: Entity.Room, from controller: UIViewController, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
+                Logger.Action.log(.room_enter)
 //                let removeBlock: CallBack?
 //                if completionHandler == nil {
 //                    removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
@@ -265,13 +273,15 @@ extension AmongChat.Room.ViewController {
 //        }
 //
 //        self.view.isUserInteractionEnabled = false
-
+        Logger.Action.log(.room_share_clk, categoryValue: room.topicId)
         ShareManager.default.showActivity(name: nil, dynamicLink: "https://among.chat/room/\(room.roomId)", type: .more, viewController: self) { () in
 //            removeBlock()
         }
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
+        Logger.Action.log(.room_leave_clk)
+        
         self.viewModel.requestLeaveChannel()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe { _ in
@@ -724,6 +734,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.kickOffHandler = { [weak self] in
+            Logger.Action.log(.admin_kick_imp, categoryValue: self?.room.topicId)
             self?.style = .kick
         }
         
@@ -732,6 +743,7 @@ extension AmongChat.Room.ViewController {
         }
         topBar.changePublicStateHandler = { [weak self] in
             self?.viewModel.changePublicType()
+            Logger.Action.log(.admin_change_state, categoryValue: self?.room.state.rawValue)
         }
         
         bottomBar.sendMessageHandler = { [weak self] in
@@ -744,6 +756,7 @@ extension AmongChat.Room.ViewController {
         }
         
         bottomBar.changeMicStateHandler = { [weak self] micOn in
+            Logger.Action.log(.room_send_message, categoryValue: self?.room.topicId, nil, micOn.int)
             self?.viewModel.isMuteMic = !micOn
         }
         
@@ -753,6 +766,7 @@ extension AmongChat.Room.ViewController {
         
         bottomBar.kickSelectedHandler = { [weak self] users in
             guard let `self` = self else { return }
+            Logger.Action.log(.admin_kick_success, categoryValue: self.room.topicId)
             self.requestKick(users)
         }
         
@@ -766,13 +780,16 @@ extension AmongChat.Room.ViewController {
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
             self?.viewModel.updateAmong(code: code, aera: aera)
+            Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
         }
         
         nickNameInputView.inputResultHandler = { [weak self] text in
+            Logger.Action.log(.room_edit_nickname_success, categoryValue: self?.room.topicId)
             self?.viewModel.update(nickName: text)
         }
         
         inputNotesView.inputResultHandler = { [weak self] notes in
+            Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
             self?.viewModel.update(notes: notes)
         }
         
@@ -792,6 +809,7 @@ extension AmongChat.Room.ViewController {
             case .chilling:
                 ()
             }
+            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
         }
         
         seatView.selectUserHandler = { [weak self] user in
@@ -938,6 +956,7 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
         textField.clear()
         //text
         viewModel.sendText(message: text)
+        Logger.Action.log(.room_send_message, categoryValue: self.room.topicId)
         return true
     }
 }

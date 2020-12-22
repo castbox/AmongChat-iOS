@@ -79,6 +79,41 @@ extension Logger {
             case secret_channel_share_pop_cancel
             case emoji_sent
             case emoji_imp
+            
+            //new for amongchat
+            case enter_home_topic
+            case profile_imp
+            case profile_avatar_imp
+            case profile_avatar_clk
+            case profile_avatar_get
+            case profile_avatar_get_success
+            case profile_nikename_clk
+            case profile_birthday_clk
+            case profile_invite_friend_clk
+            case settings_share_app_clk
+            case create_topic_imp
+            case create_topic_edit
+            case create_topic_create
+            case create_topic_hot_clk
+            case room_share_clk
+            case room_open_game
+            case room_send_message
+            case room_mute
+            case room_user_profile_imp
+            case room_user_profile_clk
+            case room_amongus_code_copy
+            case room_enter
+            case room_leave_clk
+            case room_edit_nickname
+            case room_edit_nickname_success
+            
+            //for admin
+            case admin_imp
+            case admin_edit_imp
+            case admin_edit_success
+            case admin_kick_imp
+            case admin_kick_success
+            case admin_change_state
         }
         
         enum Category: String {
@@ -104,8 +139,12 @@ extension Logger {
             case invaild //房间失效"
         }
         
-        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil) {
-            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: nil, content: nil)
+        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value?.int64, content: nil)
+        }
+        
+        static func log(_ eventName: EventName, categoryValue: String?, _ itemName: String? = nil, _ value: Int? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: categoryValue, name: itemName, value: value?.int64, content: nil)
         }
     }
 }

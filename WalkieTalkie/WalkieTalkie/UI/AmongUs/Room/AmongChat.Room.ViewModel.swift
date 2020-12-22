@@ -131,7 +131,10 @@ extension AmongChat.Room {
         }
         
         init(room: Entity.Room) {
-            //            self.room = room
+            if room.loginUserIsAdmin {
+                Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+            }
+            
             roomReplay = BehaviorRelay(value: room)
             imViewModel = IMViewModel(with: room.roomId)
             
@@ -440,6 +443,13 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.ViewModel {
     func update(_ room: Entity.Room) {
+        
+        //when first to admin logger
+        if room.loginUserIsAdmin,
+           self.room.loginUserIsAdmin != room.loginUserIsAdmin {
+            Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+        }
+        
         var newRoom = room
         let userList = newRoom.roomUserList
         let blockedUsers = self.blockedUsers

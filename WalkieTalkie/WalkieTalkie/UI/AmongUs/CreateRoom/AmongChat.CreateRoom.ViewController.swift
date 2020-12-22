@@ -168,7 +168,7 @@ extension AmongChat.CreateRoom.ViewController {
             HapticFeedback.Impact.error()
             return
         }
-        
+        Logger.Action.log(.create_topic_create, categoryValue: name, privateStateSwitch.roomPublicType.rawValue)
         createRoom(with: name)
     }
 }
@@ -257,7 +257,7 @@ extension AmongChat.CreateRoom.ViewController {
         } else {
             roomProto.topicId = AmongChat.Topic.chilling.rawValue
         }
-        
+                
         switch roomProto.topicType {
         case .chilling:
             roomProto.note = name
@@ -297,6 +297,11 @@ extension AmongChat.CreateRoom.ViewController: UITextFieldDelegate {
     
     private var maxInputLength: Int {
         return 140
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        Logger.Action.log(.create_topic_edit, category: nil)
+        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -340,7 +345,7 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
         guard let topic = topicDataSource.safe(indexPath.row) else {
             return
         }
-        
+        Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
         createRoom(with: topic.topic.rawValue)
     }
 

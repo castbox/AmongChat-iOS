@@ -60,6 +60,10 @@ extension Social {
         
         private var profile: Entity.UserProfile!
         
+        override var screenName: Logger.Screen.Node.Start {
+            return .profile_edit
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -136,11 +140,13 @@ private extension Social.EditProfileViewController {
         
         userButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_nikename_clk, category: nil)
                 _ = self?.userInputView.becomeFirstResponder()
             }).disposed(by: bag)
         
         birthdayButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_birthday_clk, category: nil)
                 self?.selectBirthday()
             }).disposed(by: bag)
         

@@ -92,6 +92,7 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
+                Logger.Action.log(.room_amongus_code_copy)
                 self.room.amongUsCode?.copyToPasteboard()
                 self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
             }

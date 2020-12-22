@@ -21,7 +21,12 @@ extension Logger {
                 case settings
                 case premium
                 case tutorial
-                case secret_channel_create_pop_imp
+//                case secret_channel_create_pop_imp
+                //new
+                case home
+                case room
+                case profile
+                case profile_edit
             }
             
             case start(Start)

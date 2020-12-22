@@ -115,6 +115,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     private func shareApp() {
+        Logger.Action.log(.settings_share_app_clk, category: nil)
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
         let removeBlock = { [weak self] in
             self?.view.isUserInteractionEnabled = true

@@ -102,11 +102,13 @@ extension AmongChat.Room {
             }
         }
         
-        func showAvatarLongPressSheet(with user: Entity.RoomUser) {
+        func showAvatarSheet(with user: Entity.RoomUser) {
             guard user.uid != Settings.loginUserId,
                   let viewController = viewContainingController() else {
                 return
             }
+            Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
             let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
             var items: [AmongSheetController.ItemType] = [.userInfo]
@@ -115,6 +117,7 @@ extension AmongChat.Room {
             }
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+                Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
                 self?.userProfileSheetActionHandler?(item, user)
             }
         }
@@ -141,9 +144,8 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
             } else {
                 cell.isKickSelected = false
             }
-            cell.avatarLongPressHandler = { [weak self] user in
-                self?.showAvatarLongPressSheet(with: user)
-            }
+//            cell.avatarLongPressHandler = { [weak self] user in
+//            }
             cell.bind(dataSource[indexPath.item], topic: room.topicType, index: indexPath.item + 1)
         }
         return cell!
@@ -164,7 +166,12 @@ extension AmongChat.Room.SeatView: UICollectionViewDelegate {
                 }
             }
         } else {
-            selectUserHandler?(dataSource[indexPath.item])
+            guard let user = dataSource[indexPath.item] else {
+//                self.onShareBtn()
+                selectUserHandler?(nil)
+                return
+            }
+            showAvatarSheet(with: user)
         }
     }
     

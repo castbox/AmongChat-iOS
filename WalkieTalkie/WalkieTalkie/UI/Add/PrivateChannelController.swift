@@ -32,7 +32,7 @@ class PrivateChannelController: ViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared.enable = true
-        Logger.PageShow.log(.secret_channel_create_pop_imp)
+//        Logger.PageShow.log(.secret_channel_create_pop_imp)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -95,7 +95,7 @@ extension PrivateChannelController: UITextFieldDelegate {
 extension PrivateChannelController {
     
     func dismiss() {
-        Logger.PageShow.log(.secret_channel_create_pop_close)
+//        Logger.PageShow.log(.secret_channel_create_pop_close)
         hideModal()
     }
     
