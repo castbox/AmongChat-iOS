@@ -184,11 +184,8 @@ private extension Social.EditProfileViewController {
     
     func fixBirthdayString(_ text: String) -> String {
         var b = text
-        let index = b.index(b.startIndex, offsetBy: 4)
-        b.insert("/", at: index)
-        
-        let index1 = b.index(b.startIndex, offsetBy: 7)
-        b.insert("/", at: index1)
+        b.addString("/", at: 4)
+        b.addString("/", at: 7)
         return b
     }
     
