@@ -192,6 +192,17 @@ extension AmongChat.Home.ViewController {
                 self?.fetchSummaryData()
             })
             .disposed(by: bag)
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.profileBtn.redDotOff()
+                } else {
+                    self?.profileBtn.redDotOn(rightOffset: -8, topOffset: 7)
+                }
+            })
+            .disposed(by: bag)
+
     }
     
     private func fetchSummaryData() {

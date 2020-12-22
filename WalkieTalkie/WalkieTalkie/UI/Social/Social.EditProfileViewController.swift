@@ -38,8 +38,6 @@ extension Social {
         
         private lazy var randomIconIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 12
-            iv.layer.masksToBounds = true
             iv.image = R.image.profile_avatar_random_btn()
             return iv
         }()
@@ -160,6 +158,23 @@ private extension Social.EditProfileViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: bag)
+        
+        Settings.shared.amongChatDefaultAvatars.replay()
+            .subscribe(onNext: { (value) in
+                
+            })
+            .disposed(by: bag)
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.randomIconIV.redDotOff()
+                } else {
+                    self?.randomIconIV.redDotOn()
+                }
+            })
+            .disposed(by: bag)
+
     }
     
     func selectBirthday() {
@@ -207,13 +222,9 @@ private extension Social.EditProfileViewController {
     }
     
     @objc
-    func onAvatarTapped() {
-        guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
-            return
-        }
-        
-        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
-        updateProfileIfNeeded(profileProto)
+    func onAvatarTapped() {        
+        let vc = Social.SelectAvatarViewController()
+        navigationController?.pushViewController(vc)
     }
     
     func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {

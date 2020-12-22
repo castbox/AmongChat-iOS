@@ -61,6 +61,10 @@ extension Social {
                 let vc = Social.EditProfileViewController()
                 self?.navigationController?.pushViewController(vc)
             }
+            v.avatarBtnHandler = { [weak self] in
+                let vc = Social.SelectAvatarViewController()
+                self?.navigationController?.pushViewController(vc)
+            }
             return v
         }()
         
@@ -146,6 +150,17 @@ private extension Social.ProfileViewController {
                 })
                 .disposed(by: bag)
         }
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.headerView.changeIcon.redDotOff()
+                } else {
+                    self?.headerView.changeIcon.redDotOn()
+                }
+            })
+            .disposed(by: bag)
+
     }
     
     @objc
@@ -216,11 +231,21 @@ extension Social.ProfileViewController {
             lb.text = R.string.localizable.profileProfile()
             return lb
         }()
+        var avatarBtnHandler: (() -> Void)? = nil
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
             iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
+            let tapGR = UITapGestureRecognizer()
+            tapGR.addTarget(self, action: #selector(onAvatarTapped))
+            iv.isUserInteractionEnabled = true
+            iv.addGestureRecognizer(tapGR)
+            return iv
+        }()
+        
+        private(set) lazy var changeIcon: UIImageView = {
+            let iv = UIImageView(image: R.image.profile_avatar_random_btn())
             return iv
         }()
         
@@ -319,7 +344,7 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            addSubviews(views: titleLabel, avatarIV, nameLabel, editBtn)
+            addSubviews(views: titleLabel, avatarIV, changeIcon,nameLabel, editBtn)
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(12 + Frame.Height.safeAeraTopHeight)
@@ -330,6 +355,11 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(titleLabel.snp.bottom).offset(28)
                 maker.centerX.equalToSuperview()
                 maker.height.width.equalTo(90)
+            }
+            
+            changeIcon.snp.makeConstraints { (maker) in
+                maker.bottom.equalTo(avatarIV)
+                maker.right.equalTo(avatarIV).offset(1)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -360,6 +390,11 @@ extension Social.ProfileViewController {
         @objc
         private func onFollowerBtn() {
             followerBtnHandler?()
+        }
+        
+        @objc
+        private func onAvatarTapped() {
+            avatarBtnHandler?()
         }
     }
 }

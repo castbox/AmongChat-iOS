@@ -186,8 +186,15 @@ extension Request {
             .mapJSON().mapToDataJson()
     }
     
-    static func defaultAvatars() -> Single<Entity.DefaultAvatars?> {
-        return amongchatProvider.rx.request(.defaultAvatars)
+    static func defaultAvatars(withLocked: Int? = nil) -> Single<Entity.DefaultAvatars?> {
+        
+        var params = [String : Any]()
+        
+        if let l = withLocked {
+            params["with_locked"] = l
+        }
+        
+        return amongchatProvider.rx.request(.defaultAvatars(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.DefaultAvatars.self)
@@ -195,6 +202,28 @@ extension Request {
                 guard let d = defaultAvatars else { return }
                 Settings.shared.amongChatDefaultAvatars.value = d
             })
+    }
+    
+    static func unlockAvatar(_ avatar: Entity.DefaultAvatar) -> Single<Bool> {
+        
+        var params = [String : Any]()
+        
+        params["avatar_id"] = avatar.avatarId
+        
+        return amongchatProvider.rx.request(.unlockAvatar(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let data = json["data"] as? [String : AnyObject],
+                      let process = data["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+        
     }
     
     static func requestFirebaseToken(_ uid: Int) -> Single<String> {

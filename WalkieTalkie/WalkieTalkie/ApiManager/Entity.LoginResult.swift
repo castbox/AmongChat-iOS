@@ -161,7 +161,7 @@ extension Entity {
     
     struct DefaultAvatars: Codable {
         
-        var avatarList: [String]
+        var avatarList: [DefaultAvatar]
         
         private enum CodingKeys: String, CodingKey {
             case avatarList = "avatar_list"
@@ -170,9 +170,28 @@ extension Entity {
     
 }
 
+extension Entity {
+    
+    struct DefaultAvatar: Codable {
+        var avatarId: String
+        var url: String
+        var lock: Bool
+        var unlockType: String
+        var selected: Bool
+        private enum CodingKeys: String, CodingKey {
+            case avatarId = "avatar_id"
+            case url
+            case lock
+            case unlockType = "type"
+            case selected
+        }
+    }
+    
+}
+
 extension Entity.DefaultAvatars {
     
-    var randomAvatar: String? {
+    var randomAvatar: Entity.DefaultAvatar? {
         return avatarList.randomItem()
     }
     

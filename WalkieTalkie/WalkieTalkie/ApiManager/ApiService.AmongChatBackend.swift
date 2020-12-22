@@ -29,8 +29,9 @@ extension APIService {
         case roomNickName([String: Any])
         case profile
         case updateProfile([String : Any])
-        case defaultAvatars
+        case defaultAvatars([String : Any])
         case firebaseToken([String: Any])
+        case unlockAvatar([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -81,6 +82,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/default/avatars"
         case .firebaseToken:
             return "/auth/firebase/token"
+        case .unlockAvatar:
+            return "/account/unlock/avatar"
         }
     }
     
@@ -93,6 +96,7 @@ extension APIService.AmongChatBackend: TargetType {
              .kickUsers,
              .updateProfile,
              .roomNickName,
+             .unlockAvatar,
              .logout:
             return .post
             
@@ -120,7 +124,6 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-             .defaultAvatars,
              .logout:
 
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
@@ -140,6 +143,8 @@ extension APIService.AmongChatBackend: TargetType {
              .leaveRoom(let params),
              .kickUsers(let params),
              .roomNickName(let params),
+             .defaultAvatars(let params),
+             .unlockAvatar(let params),
              .firebaseToken(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

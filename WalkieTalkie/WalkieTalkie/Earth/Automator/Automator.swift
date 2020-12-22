@@ -60,11 +60,5 @@ class Automator {
                 cdPrint("[Automator]  Sync token result: \(result)")
             })
             .disposed(by: bag)
-        
-        // 获取系统头像
-        let _ = Request.defaultAvatars()
-            .subscribe(onSuccess: { (_) in
-                
-            })
     }
 }

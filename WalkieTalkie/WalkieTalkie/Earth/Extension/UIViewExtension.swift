@@ -110,3 +110,43 @@ extension UIView {
 //        fatalError("init(coder:) has not been implemented")
 //    }
 //}
+
+extension UIView {
+    
+    private struct AssociateKey {
+        static var key = "redDotImageView"
+    }
+    
+    func redDotOn(rightOffset: CGFloat? = nil, topOffset: CGFloat? = nil) {
+        guard let i = R.image.ac_red_dot() else {
+            return
+        }
+        
+        let iv = UIImageView(image: i)
+        addSubview(iv)
+        iv.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(8)
+            maker.top.equalToSuperview().offset(topOffset ?? 0)
+            maker.right.equalToSuperview().offset(2 + (rightOffset ?? 0))
+        }
+        redDotIV = iv
+    }
+    
+    func redDotOff() {
+        guard let iv = redDotIV else {
+            return
+        }
+        
+        iv.removeFromSuperview()
+        redDotIV = nil
+    }
+    
+    private weak var redDotIV: UIImageView? {
+        get {
+            return objc_getAssociatedObject(self, &AssociateKey.key) as? UIImageView
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociateKey.key, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}

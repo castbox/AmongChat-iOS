@@ -304,6 +304,16 @@ class Settings {
     }()
     //end
     
+    let amongChatAvatarListShown: PublishProperty<Double?> = {
+    var value = Defaults[\.amongChatAvatarListShownTsKey]
+    return DynamicProperty.stored(value)
+        .didSet({ event in
+            Defaults[\.amongChatAvatarListShownTsKey] = event.new
+        })
+        .asPublishProperty()
+}()
+
+    
     func updateProfile() {
         _ = Request.profile()
             .subscribe(onSuccess: { (profile) in
@@ -462,6 +472,10 @@ extension DefaultsKeys {
         .init("among.chat.home.summary", defaultValue: nil)
     }
     //end
+    
+    var amongChatAvatarListShownTsKey: DefaultsKey<Double?> {
+        .init("among.chat.avatar.list.shown.timestamp", defaultValue: nil)
+    }
 }
 
 extension DefaultsAdapter {
