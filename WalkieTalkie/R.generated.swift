@@ -1867,7 +1867,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amomgChatHomeHashTagsTitle = Rswift.StringResource(key: "amomg.chat.home.hash.tags.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Login is cancelled
+      /// en translation: Login Cancelled
       /// 
       /// Locales: en
       static let amongChatLoginSignInCancelled = Rswift.StringResource(key: "among.chat.login.sign.in.cancelled", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2875,7 +2875,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("amomg.chat.home.hash.tags.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Login is cancelled
+      /// en translation: Login Cancelled
       /// 
       /// Locales: en
       static func amongChatLoginSignInCancelled(_: Void = ()) -> String {
