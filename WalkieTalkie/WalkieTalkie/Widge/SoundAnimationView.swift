@@ -79,21 +79,21 @@ class SoundAnimationView: UIView {
     }
     
     func startLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
+//        DispatchQueue.main.async { [weak self] in
+//            guard let `self` = self else { return }
             self.isHidden = false
             self.displayLink.isPaused = false
             self.countDown = 2
             self.timer?.start()
-        }
+//        }
     }
     
     @objc func stopLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
+//        DispatchQueue.main.async { [weak self] in
+//            guard let `self` = self else { return }
             self.isHidden = true
             self.displayLink.isPaused = true
-        }
+//        }
     }
     
     @objc func soundAnimation() {

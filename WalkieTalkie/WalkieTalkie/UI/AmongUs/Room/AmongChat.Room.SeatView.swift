@@ -47,6 +47,8 @@ extension AmongChat.Room {
             }
         }
         
+        private var viewCache: [Int: AmongChat.Room.UserCell] = [:]
+        
         let viewModel: AmongChat.Room.ViewModel
         
         var room: Entity.Room! {
@@ -128,8 +130,12 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath)
-        if let cell = cell as? AmongChat.Room.UserCell {
+        var cell = viewCache[indexPath.item]
+        if cell == nil {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath) as? AmongChat.Room.UserCell
+            viewCache[indexPath.item] = cell
+        }
+        if let cell = cell {
             if style == .kick, let user = dataSource[indexPath.item] {
                 cell.isKickSelected = selectedKickUser.contains(user.uid)
             } else {
@@ -140,7 +146,7 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
             }
             cell.bind(dataSource[indexPath.item], topic: room.topicType, index: indexPath.item + 1)
         }
-        return cell
+        return cell!
     }
     
 }
