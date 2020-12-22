@@ -76,7 +76,7 @@ extension AmongChat.Login {
             self?.loadingRemoval?()
                         
             guard error == nil else {
-                self?.view.raft.autoShow(.text(error!.localizedDescription))
+                self?.view.raft.autoShow(.text(error!.localizedDescription), userInteractionEnabled: false)
                 return
             }
             

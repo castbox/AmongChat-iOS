@@ -1525,7 +1525,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 187 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 188 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1867,6 +1867,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amomgChatHomeHashTagsTitle = Rswift.StringResource(key: "amomg.chat.home.hash.tags.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Login is cancelled
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInCancelled = Rswift.StringResource(key: "among.chat.login.sign.in.cancelled", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MAX
       /// 
       /// Locales: en
@@ -2869,6 +2873,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amomgChatHomeHashTagsTitle(_: Void = ()) -> String {
         return NSLocalizedString("amomg.chat.home.hash.tags.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Login is cancelled
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInCancelled(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.cancelled", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: MAX
