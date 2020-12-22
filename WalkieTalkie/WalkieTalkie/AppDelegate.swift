@@ -22,6 +22,7 @@ import FirebaseCrashlytics
 import TikTokOpenSDK
 import FirebaseDynamicLinks
 import Bolts
+import Kingfisher
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -79,7 +80,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = ChatRoomManager.shared
         //敏感词
         _ = SensitiveWordChecker.default
-        
+
+        // 缓存清理，主要大户是图片，设置为 128 MB 上线
+        KingfisherManager.shared.cache.diskStorage.config.sizeLimit = 128 * 1024 * 1024 // 128 MB
+        //设置内存缓存失效时间为12h,修复直播间内“闪“的问题
+        KingfisherManager.shared.cache.memoryStorage.config.expiration = .seconds(60 * 60 * 24) //12 h
+
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
