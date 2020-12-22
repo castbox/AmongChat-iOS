@@ -102,12 +102,12 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-#    pod 'mopub-ios-sdk/Core'
-#    pod 'MoPub-AdMob-Adapters'
-#    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
+    pod 'mopub-ios-sdk/Core'
+    pod 'MoPub-AdMob-Adapters'
+    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
-    `
+    
     pod 'CastboxDebuger', '~> 1.3.2'
     
     # pod for iap
