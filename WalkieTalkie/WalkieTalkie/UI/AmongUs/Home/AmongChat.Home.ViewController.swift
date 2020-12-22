@@ -116,6 +116,13 @@ extension AmongChat.Home.ViewController {
             topic = topicId ?? AmongChat.Topic.amongus.rawValue
         }
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let completion = { [weak self] in
+            self?.topicCollectionView.isUserInteractionEnabled = true
+            hudRemoval()
+        }
+        
+        topicCollectionView.isUserInteractionEnabled = false
         Request.enterRoom(roomId: roomId, topicId: topic)
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
@@ -123,17 +130,17 @@ extension AmongChat.Home.ViewController {
                     return
                 }
                 guard let room = room else {
-                    hudRemoval()
+                    completion()
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
                 
                 AmongChat.Room.ViewController.join(room: room, from: self) { error in
-                    hudRemoval()
+                    completion()
                 }
 
             }, onError: { [weak self] (error) in
-                hudRemoval()
+                completion()
                 cdPrint("error: \(error.localizedDescription)")
                 var msg: String {
                     if let error = error as? MsgError,
