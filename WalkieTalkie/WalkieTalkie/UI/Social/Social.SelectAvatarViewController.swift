@@ -284,6 +284,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                                 return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
                             }
                     }
+                    .observeOn(MainScheduler.asyncInstance)
                     .subscribe(onNext: { [weak self] (_) in
                         guard let `self` = self else { return }
                         
