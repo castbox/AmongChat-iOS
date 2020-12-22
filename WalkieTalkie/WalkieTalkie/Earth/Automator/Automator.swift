@@ -52,9 +52,7 @@ class Automator {
                 guard let token = message.fcmToken else {
                     return .just(false)
                 }
-                var params = Constants.deviceInfo()
-                params["deviceToken"] = token
-                return Request.devices(params: params)
+                return Request.devices(fcmToken: token)
             }
             .subscribe(onNext: { result in
                 cdPrint("[Automator]  Sync token result: \(result)")

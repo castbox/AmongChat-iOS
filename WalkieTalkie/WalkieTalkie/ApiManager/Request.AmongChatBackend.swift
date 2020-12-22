@@ -211,6 +211,13 @@ extension Request {
         
     }
     
+    static func devices(fcmToken: String) -> Single<Bool>{
+        return amongchatProvider.rx.request(.updateDevice(["token": fcmToken, "push_type": "fcm"]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+    }
+    
     static func seneitiveWords() -> Single<[String]> {
         return amongchatProvider.rx.request(.sensitiveWords)
             .mapJSON()

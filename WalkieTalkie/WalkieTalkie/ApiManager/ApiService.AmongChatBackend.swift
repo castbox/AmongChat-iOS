@@ -32,6 +32,7 @@ extension APIService {
         case defaultAvatars
         case firebaseToken([String: Any])
         case sensitiveWords
+        case updateDevice([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -84,6 +85,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/default/avatars"
         case .firebaseToken:
             return "/auth/firebase/token"
+        case .updateDevice:
+            return "/account/device"
         case .sensitiveWords:
             return "/live/keyword/blacklist"
         }
@@ -98,6 +101,7 @@ extension APIService.AmongChatBackend: TargetType {
              .kickUsers,
              .updateProfile,
              .roomNickName,
+             .updateDevice,
              .logout:
             return .post
             
@@ -133,7 +137,8 @@ extension APIService.AmongChatBackend: TargetType {
             
         case .createRoom(let params),
              .updateProfile(let params),
-             .updateRoomInfo(let params):
+             .updateRoomInfo(let params),
+             .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
