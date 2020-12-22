@@ -47,7 +47,7 @@ extension AmongChat.Home {
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 20
-            layout.sectionInset = UIEdgeInsets(top: 35, left: hInset, bottom: 12, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 35, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(TopicCell.self, forCellWithReuseIdentifier: NSStringFromClass(TopicCell.self))
             v.showsVerticalScrollIndicator = false
@@ -167,7 +167,7 @@ extension AmongChat.Home.ViewController {
         topicCollectionView.snp.makeConstraints { (maker) in
             maker.top.equalTo(navLayoutGuide.snp.bottom)
             maker.left.right.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-20)
+            maker.bottom.equalToSuperview()
         }
         
     }
