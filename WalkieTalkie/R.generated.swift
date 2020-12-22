@@ -144,10 +144,16 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 138 images.
+  /// This `R.image` struct is generated, and contains static references to 142 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
+    /// Image `ac_avatar_ad`.
+    static let ac_avatar_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_ad")
+    /// Image `ac_avatar_selected`.
+    static let ac_avatar_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_selected")
+    /// Image `ac_avatar_unselected`.
+    static let ac_avatar_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_unselected")
     /// Image `ac_back`.
     static let ac_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_back")
     /// Image `ac_home_banner`.
@@ -222,6 +228,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
     static let ac_rate_us = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_rate_us")
+    /// Image `ac_red_dot`.
+    static let ac_red_dot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_red_dot")
     /// Image `ac_right_arrow`.
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
     /// Image `ac_setting_diamonds`.
@@ -428,6 +436,21 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_animation_background, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_avatar_ad", bundle: ..., traitCollection: ...)`
+    static func ac_avatar_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_avatar_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_avatar_selected", bundle: ..., traitCollection: ...)`
+    static func ac_avatar_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_avatar_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_avatar_unselected", bundle: ..., traitCollection: ...)`
+    static func ac_avatar_unselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_avatar_unselected, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_back", bundle: ..., traitCollection: ...)`
     static func ac_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_back, compatibleWith: traitCollection)
@@ -611,6 +634,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_rate_us", bundle: ..., traitCollection: ...)`
     static func ac_rate_us(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_rate_us, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_red_dot", bundle: ..., traitCollection: ...)`
+    static func ac_red_dot(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_red_dot, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_right_arrow", bundle: ..., traitCollection: ...)`
