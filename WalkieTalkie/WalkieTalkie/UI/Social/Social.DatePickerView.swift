@@ -17,7 +17,10 @@ extension Social {
         }
         
         var minYear = 1900
-        var maxYear = 2020
+        var maxYear: Int {
+            formatter.dateFormat = "yyyy"
+            return formatter.string(from: Date()).int ?? 2021
+        }
         var rowHeight: CGFloat = 42
         
         var date: Date {
@@ -211,7 +214,6 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
         return rowHeight
     }
-    
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return componentsCount
