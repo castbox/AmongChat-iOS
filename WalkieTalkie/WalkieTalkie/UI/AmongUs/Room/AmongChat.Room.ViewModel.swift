@@ -568,7 +568,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else {
             otherMutedUser.remove(userId)
         }
-        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
+//        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
 
         //check block
         if let user = blockedUsers.first(where: { $0.uid == userId.int }) {
@@ -587,7 +587,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
-        cdPrint("userId: \(userId) volume: \(volume)")
+//        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
             self.soundAnimationIndex.accept(user.seatNo - 1)
         }

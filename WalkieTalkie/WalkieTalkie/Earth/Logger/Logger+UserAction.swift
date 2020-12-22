@@ -98,7 +98,7 @@ extension Logger {
             case room_share_clk
             case room_open_game
             case room_send_message
-            case room_mute
+            case room_mic_state
             case room_user_profile_imp
             case room_user_profile_clk
             case room_amongus_code_copy
@@ -106,6 +106,8 @@ extension Logger {
             case room_leave_clk
             case room_edit_nickname
             case room_edit_nickname_success
+            case room_edit_clk
+            case room_change_state_clk
             
             //for admin
             case admin_imp

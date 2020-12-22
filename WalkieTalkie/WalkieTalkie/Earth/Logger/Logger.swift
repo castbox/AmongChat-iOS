@@ -90,7 +90,16 @@ class GuruAnalytics {
             var info = firebaseInfo
             info["event_name"] = event
             #if DEBUG
-                cdPrint("GuruAnalytics.log.event: \(info)")
+            let valueString = info.keys.sorted().map { key -> String in
+                let value = info[key]
+                if let stringValue = value as? String {
+                    return "\(key): " + stringValue
+                } else if let intValue = value as? Int {
+                    return "\(key): \(intValue)"
+                }
+                return ""
+            }.joined(separator: "  ")
+            cdPrint("[GuruAnalytics.log] " + valueString)
             #else
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
             #endif

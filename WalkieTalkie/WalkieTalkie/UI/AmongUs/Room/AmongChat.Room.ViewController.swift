@@ -190,7 +190,7 @@ extension AmongChat.Room {
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter)
+                Logger.Action.log(.room_enter, room.topicId)
 //                let removeBlock: CallBack?
 //                if completionHandler == nil {
 //                    removeBlock = controller.view.raft.show(.loading, userInteractionEnabled: false)
@@ -273,7 +273,6 @@ extension AmongChat.Room.ViewController {
 //        }
 //
 //        self.view.isUserInteractionEnabled = false
-        Logger.Action.log(.room_share_clk, categoryValue: room.topicId)
         ShareManager.default.showActivity(name: nil, dynamicLink: "https://among.chat/room/\(room.roomId)", type: .more, viewController: self) { () in
 //            removeBlock()
         }
@@ -753,10 +752,11 @@ extension AmongChat.Room.ViewController {
         bottomBar.shareHandler = { [weak self] in
 //            self?.editType = .message
             self?.onShareBtn()
+            Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "btn")
         }
         
         bottomBar.changeMicStateHandler = { [weak self] micOn in
-            Logger.Action.log(.room_send_message, categoryValue: self?.room.topicId, nil, micOn.int)
+            Logger.Action.log(.room_mic_state, categoryValue: self?.room.topicId, micOn ? "on" : "off")
             self?.viewModel.isMuteMic = !micOn
         }
         
@@ -814,6 +814,7 @@ extension AmongChat.Room.ViewController {
         
         seatView.selectUserHandler = { [weak self] user in
             guard let user = user else {
+                Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
                 self?.onShareBtn()
                 return
             }

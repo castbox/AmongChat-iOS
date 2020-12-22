@@ -69,6 +69,7 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
+                Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
                 self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
             }
         }
@@ -80,6 +81,7 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
             } else {
+                Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
                 self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
             }
             
