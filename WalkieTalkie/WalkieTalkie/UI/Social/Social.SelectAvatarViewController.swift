@@ -312,7 +312,6 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                                 }
                                 
                                 self.avatarCollectionView.reloadData()
-                                self.fetchDefaultAvatars()
                             }, onError: { (error) in
                                 hudRemoval()
                             })
