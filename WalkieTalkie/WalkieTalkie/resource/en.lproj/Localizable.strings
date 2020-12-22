@@ -245,3 +245,4 @@
 "among.chat.welcome.message" = "Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";
 
 "among.chat.home.enter.room.failed" = "Failed to enter channel";
+"among.chat.reward.video.load.failed" = "Failed to load video";

@@ -243,8 +243,11 @@ class AdsManager: NSObject {
 //    }
     
     func requestRewardVideoIfNeed() {
-        guard aviliableRewardVideo == nil,
-            !Settings.shared.isProValue.value else {
+//        guard aviliableRewardVideo == nil,
+//            !Settings.shared.isProValue.value else {
+//            return
+//        }
+        guard aviliableRewardVideo == nil else {
             return
         }
         Logger.Ads.logEvent(.rads_load)

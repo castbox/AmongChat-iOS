@@ -92,7 +92,7 @@ struct Constants {
             "countryCode" : countryCode,
             "lang" : languageCode,
             "locale" : localeCode,
-            "timezone" : timeZone,
+            "timeZone" : timeZone,
             "appVersion" : appVersion,
             "deviceId" : deviceID,
             "deviceType" : modelName,

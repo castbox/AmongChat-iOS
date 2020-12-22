@@ -136,7 +136,7 @@ extension AmongChat.Home.ViewController {
                 hudRemoval()
                 cdPrint("error: \(error.localizedDescription)")
                 var msg: String {
-                    if let error = error as? Request.MsgError,
+                    if let error = error as? MsgError,
                        error.codeType != nil {
                         return error.localizedDescription
                     } else {

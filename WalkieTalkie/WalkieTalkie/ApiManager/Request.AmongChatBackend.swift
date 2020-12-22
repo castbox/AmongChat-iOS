@@ -18,38 +18,38 @@ extension Request {
     ])
 }
 
-extension Request {
-    
-    struct MsgError: Error, Codable {
-        //通用错误码
-        enum CodeType: Int {
-            case notRoomHost = 3000 //'Only the room host can operate'
-            case roomSeatsFull = 3001 //'The room is full'
-            case roomUserKick = 3002 //'You are kicked off, can not enter this room'
-            case roomNotFound = 202 //'can not find this room'
-        }
+struct MsgError: Error, Codable {
+    //通用错误码
+    enum CodeType: Int {
+        case notRoomHost = 3000 //'Only the room host can operate'
+        case roomSeatsFull = 3001 //'The room is full'
+        case roomUserKick = 3002 //'You are kicked off, can not enter this room'
+        case roomNotFound = 202 //'can not find this room'
+    }
 
-        static let `default` = MsgError(code: 202, msg: "Please try again.")
-        
-        let code: Int
-        let msg: String?
-        
-        //
-        var codeType: CodeType? {
-            return CodeType(rawValue: code)
+    static let `default` = MsgError(code: 202, msg: "Please try again.")
+    
+    let code: Int
+    let msg: String?
+    
+    //
+    var codeType: CodeType? {
+        return CodeType(rawValue: code)
+    }
+    
+    static func from(dic: [String: Any]) -> MsgError {
+        var item: MsgError?
+        decoderCatcher {
+            item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
         }
-        
-        static func from(dic: [String: Any]) -> MsgError {
-            var item: MsgError?
-            decoderCatcher {
-                item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
-            }
-            return item ?? .default
-        }
+        return item ?? .default
     }
 }
 
-extension Request.MsgError: LocalizedError {
+extension Request {
+}
+
+extension MsgError: LocalizedError {
     var errorDescription: String? {
         return msg
     }
@@ -248,7 +248,7 @@ extension Request {
             .mapToDataKeyJsonValue()
             .map { values -> String in
                 guard let token = values["firebase_custom_token"] as? String else {
-                    throw Request.MsgError.default
+                    throw MsgError.default
                 }
                 return token
             }
@@ -268,7 +268,7 @@ extension Request {
             .mapToDataKeyJsonValue()
             .map { values -> [String] in
                 guard let token = values["datas"] as? [String] else {
-                    throw Request.MsgError.default
+                    throw MsgError.default
                 }
                 return token
             }

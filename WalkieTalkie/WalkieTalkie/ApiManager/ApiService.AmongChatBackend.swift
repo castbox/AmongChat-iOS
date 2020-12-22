@@ -134,7 +134,7 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-             .defaultAvatars,
+//             .defaultAvatars,
              .logout,
              .sensitiveWords:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)

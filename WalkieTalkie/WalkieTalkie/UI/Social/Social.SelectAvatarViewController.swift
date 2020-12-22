@@ -69,6 +69,8 @@ extension Social {
             }
         }
         
+        private var rewardVideoDispose: Disposable?
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -229,6 +231,78 @@ extension Social.SelectAvatarViewController {
         }
     }
     
+    
+    func showRewardVideo(for avatar: AvatarViewModel, _ indexPath: IndexPath) {
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        AdsManager.shared.requestRewardVideoIfNeed()
+        rewardVideoDispose =
+            AdsManager.shared.isRewardVideoReadyRelay
+            .filter { $0 }
+            .take(1)
+            .flatMap { [weak self] _ -> Observable<Void> in
+                guard let `self` = self else { return  .empty() }
+                guard let reward = AdsManager.shared.aviliableRewardVideo else {
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
+                    hudRemoval()
+                    return Observable.empty()
+                }
+                
+                return Observable.just(())
+                    .filter({ [weak self] _ in
+                        guard let `self` = self else {
+                            return true
+                        }
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
+                        return true
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
+                    }
+                    .do(onNext: { _ in
+                        AdsManager.shared.requestRewardVideoIfNeed()
+                    })
+                    .flatMap { _ -> Observable<Void> in
+                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
+                    }
+            }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                guard let `self` = self else { return }
+                
+                cdPrint("")
+                
+                Request.unlockAvatar(avatar.avatar)
+                    .observeOn(MainScheduler.asyncInstance)
+                    .subscribe(onSuccess: { (success) in
+                        Logger.Action.log(.profile_avatar_get_success, category: .rewarded, "\(avatar.avatar.avatarId)")
+                        hudRemoval()
+                        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
+                        self.updateProfileIfNeeded(profileProto)
+                        avatar.unlock()
+                        
+                        for (idx, element) in self.avatarDataSource.enumerated() {
+                            
+                            if idx == indexPath.item {
+                                element.selected = true
+                            } else {
+                                element.selected = false
+                            }
+                        }
+                        
+                        self.avatarCollectionView.reloadData()
+                        self.fetchDefaultAvatars()
+                    }, onError: { (error) in
+                        hudRemoval()
+                    })
+                    .disposed(by: self.bag)
+                
+                
+            }, onError: { (error) in
+                hudRemoval()
+            })
+        rewardVideoDispose?.addDisposableTo(bag)
+
+    }
 }
 
 extension Social.SelectAvatarViewController: UICollectionViewDataSource {
@@ -256,74 +330,8 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
         if let avatar = avatarDataSource.safe(indexPath.item) {
             
             if avatar.locked {
-                
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatar.avatarId)")
-                
-                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-                
-                AdsManager.shared.requestRewardVideoIfNeed()
-                
-                AdsManager.shared.isRewardVideoReadyRelay
-                    .flatMap { _ -> Observable<Void> in
-                        guard let reward = AdsManager.shared.aviliableRewardVideo else {
-                            return Observable.empty()
-                        }
-                        
-                        return Observable.just(())
-                            .filter({ [weak self] _ in
-                                guard let `self` = self else {
-                                    return true
-                                }
-                                MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
-                                return true
-                            })
-                            .flatMap { _ -> Observable<Void> in
-                                return AdsManager.shared.rewardVideoShouldReward.asObserver()
-                            }
-                            .do(onNext: { _ in
-                                AdsManager.shared.requestRewardVideoIfNeed()
-                            })
-                            .flatMap { _ -> Observable<Void> in
-                                return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                            }
-                    }
-                    .observeOn(MainScheduler.asyncInstance)
-                    .subscribe(onNext: { [weak self] (_) in
-                        guard let `self` = self else { return }
-                        
-                        cdPrint("")
-                        
-                        Request.unlockAvatar(avatar.avatar)
-                            .observeOn(MainScheduler.asyncInstance)
-                            .subscribe(onSuccess: { (success) in
-                                Logger.Action.log(.profile_avatar_get_success, category: .rewarded, "\(avatar.avatar.avatarId)")
-                                hudRemoval()
-                                let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
-                                self.updateProfileIfNeeded(profileProto)
-                                avatar.unlock()
-                                
-                                for (idx, element) in self.avatarDataSource.enumerated() {
-                                    
-                                    if idx == indexPath.item {
-                                        element.selected = true
-                                    } else {
-                                        element.selected = false
-                                    }
-                                }
-                                
-                                self.avatarCollectionView.reloadData()
-                                self.fetchDefaultAvatars()
-                            }, onError: { (error) in
-                                hudRemoval()
-                            })
-                            .disposed(by: self.bag)
-                        
-                        
-                    }, onError: { (error) in
-                        hudRemoval()
-                    })
-                    .disposed(by: bag)
-                
+                showRewardVideo(for: avatar, indexPath)
             } else {
                 Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatar.avatarId)")
                 let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
