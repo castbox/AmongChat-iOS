@@ -21,6 +21,7 @@ import FirebaseInAppMessaging
 import FirebaseCrashlytics
 import TikTokOpenSDK
 import FirebaseDynamicLinks
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -103,7 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        if Routes.canHandle(url) {
+        if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
+            return GIDSignIn.sharedInstance().handle(url)
+        } else if Routes.canHandle(url) {
             return handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
             return true
