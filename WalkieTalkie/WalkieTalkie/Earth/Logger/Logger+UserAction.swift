@@ -139,6 +139,10 @@ extension Logger {
             case empty //列表为空、点击按钮/
             case wrong_passcode //：输入passcode错误/
             case invaild //房间失效"
+            
+            //头像
+            case rewarded
+            case free
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {

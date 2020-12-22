@@ -153,6 +153,7 @@ extension Social.SelectAvatarViewController {
             .take(1)
             .subscribe(onNext: { (_) in
                 Settings.shared.amongChatAvatarListShown.value = Date().timeIntervalSince1970
+                Logger.Action.log(.profile_avatar_imp)
             })
             .disposed(by: bag)
     }
@@ -256,6 +257,8 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             
             if avatar.locked {
                 
+                Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatar.avatarId)")
+                
                 let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
                 
                 AdsManager.shared.requestRewardVideoIfNeed()
@@ -293,6 +296,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                         Request.unlockAvatar(avatar.avatar)
                             .observeOn(MainScheduler.asyncInstance)
                             .subscribe(onSuccess: { (success) in
+                                Logger.Action.log(.profile_avatar_get_success, category: .rewarded, "\(avatar.avatar.avatarId)")
                                 hudRemoval()
                                 let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
                                 self.updateProfileIfNeeded(profileProto)
@@ -321,6 +325,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                     .disposed(by: bag)
                 
             } else {
+                Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatar.avatarId)")
                 let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
                 self.updateProfileIfNeeded(profileProto)
                 for (idx, element) in self.avatarDataSource.enumerated() {
