@@ -331,6 +331,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             
             if avatar.locked {
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatar.avatarId)")
+
                 showRewardVideo(for: avatar, indexPath)
             } else {
                 Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatar.avatarId)")
@@ -359,9 +360,9 @@ extension Social.SelectAvatarViewController {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
+            iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
             iv.contentMode = .scaleToFill
-            iv.isHidden = true
             return iv
         }()
         
@@ -379,12 +380,6 @@ extension Social.SelectAvatarViewController {
             iv.isHidden = true
             return iv
         }()
-                        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            avatarIV.isHidden = false
-            avatarIV.layer.cornerRadius = avatarIV.bounds.width / 2
-        }
         
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -402,9 +397,8 @@ extension Social.SelectAvatarViewController {
             contentView.addSubviews(views: avatarIV, selectedIcon, adBadge)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview().inset(34)
-                maker.width.equalTo(avatarIV.snp.height).multipliedBy(1)
-                maker.centerY.equalToSuperview()
+                maker.width.height.equalTo(90)
+                maker.center.equalToSuperview()
             }
             
             selectedIcon.snp.makeConstraints { (maker) in
