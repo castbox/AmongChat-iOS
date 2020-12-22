@@ -173,7 +173,7 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
     }
     
     @IBAction func privacyAction(_ sender: Any) {
-        parentViewController?.open(urlSting: "https://walkietalkie.live/policy.html")
+        parentViewController?.open(urlSting: Config.PolicyType.url(.policy))
         policyHandler()
     }
     

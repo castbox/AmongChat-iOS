@@ -32,15 +32,19 @@ extension APIService {
         case defaultAvatars([String : Any])
         case firebaseToken([String: Any])
         case unlockAvatar([String : Any])
+        case sensitiveWords
+        case updateDevice([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
-//        #if DEBUG
-//        let url = "https://dev.api.among.chat"
-//        #else
-        let url = "https://api.among.chat"
-//        #endif
+        let url: String
+        switch Config.environment {
+        case .debug:
+            url = "https://dev.api.among.chat"
+        case .release:
+            url = "https://api.among.chat"
+        }
         return URL(string: url)!
     }
     
@@ -84,6 +88,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/auth/firebase/token"
         case .unlockAvatar:
             return "/account/unlock/avatar"
+        case .updateDevice:
+            return "/account/device"
+        case .sensitiveWords:
+            return "/live/keyword/blacklist"
         }
     }
     
@@ -97,6 +105,7 @@ extension APIService.AmongChatBackend: TargetType {
              .updateProfile,
              .roomNickName,
              .unlockAvatar,
+             .updateDevice,
              .logout:
             return .post
             
@@ -109,6 +118,7 @@ extension APIService.AmongChatBackend: TargetType {
              .leaveRoom,
              .defaultAvatars,
              .roomInfo,
+             .sensitiveWords,
             .firebaseToken:
             return .get
         }
@@ -124,13 +134,15 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-             .logout:
-
+             .defaultAvatars,
+             .logout,
+             .sensitiveWords:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
-             .updateRoomInfo(let params):
+             .updateRoomInfo(let params),
+             .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),

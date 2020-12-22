@@ -18,12 +18,12 @@ class PrivateShareController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Logger.PageShow.log(.secret_channel_share_pop_imp)
+//        Logger.PageShow.log(.secret_channel_share_pop_imp)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Logger.PageShow.log(.secret_channel_share_pop_close)
+//        Logger.PageShow.log(.secret_channel_share_pop_close)
     }
     
     override func viewDidAppear(_ animated: Bool) {

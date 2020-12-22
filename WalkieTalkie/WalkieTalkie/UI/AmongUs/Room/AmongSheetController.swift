@@ -10,7 +10,7 @@ import UIKit
 
 class AmongSheetController: ViewController {
     
-    enum ItemType {
+    enum ItemType: String {
         case userInfo
         case block
         case mute

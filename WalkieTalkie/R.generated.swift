@@ -1553,7 +1553,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 186 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 189 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1679,6 +1679,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Content contains sensitive words, please modify
+      /// 
+      /// Locales: en
+      static let contentContainSensitiveWords = Rswift.StringResource(key: "content.contain.sensitive.words", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Continue
       /// 
       /// Locales: en
@@ -1751,6 +1755,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRoomTipFailed = Rswift.StringResource(key: "among.chat.room.tip.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to enter channel
+      /// 
+      /// Locales: en
+      static let amongChatHomeEnterRoomFailed = Rswift.StringResource(key: "among.chat.home.enter.room.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Feb
       /// 
       /// Locales: en
@@ -1891,6 +1899,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amomgChatHomeHashTagsTitle = Rswift.StringResource(key: "amomg.chat.home.hash.tags.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Login Cancelled
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInCancelled = Rswift.StringResource(key: "among.chat.login.sign.in.cancelled", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: MAX
       /// 
       /// Locales: en
@@ -2517,6 +2529,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Content contains sensitive words, please modify
+      /// 
+      /// Locales: en
+      static func contentContainSensitiveWords(_: Void = ()) -> String {
+        return NSLocalizedString("content.contain.sensitive.words", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Continue
       /// 
       /// Locales: en
@@ -2641,6 +2660,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatRoomTipFailed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.tip.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to enter channel
+      /// 
+      /// Locales: en
+      static func amongChatHomeEnterRoomFailed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.enter.room.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Feb
@@ -2886,6 +2912,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amomgChatHomeHashTagsTitle(_: Void = ()) -> String {
         return NSLocalizedString("amomg.chat.home.hash.tags.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Login Cancelled
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInCancelled(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.cancelled", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: MAX

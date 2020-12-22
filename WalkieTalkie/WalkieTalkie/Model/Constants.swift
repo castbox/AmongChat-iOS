@@ -99,8 +99,8 @@ struct Constants {
             "pushType" : "FCM",
             "IDFA_ios" : idfa,
             "localTime" : localTime,
-            "appIdentifier" : Bundle.main.bundleIdentifier ?? "",
-            "pushNotificationEnable": Settings.shared.isOpenSubscribeHotTopic.value
+            "appIdentifier" : Config.appBundleIdentifier,
+//            "pushNotificationEnable": Settings.shared.isOpenSubscribeHotTopic.value
         ]
     }
 

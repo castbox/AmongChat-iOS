@@ -68,13 +68,14 @@ extension AmongChat.Login {
                     
                     self.googleAgent.signIn(from: vc) { (error, user) in
                         
-                        guard error == nil else {
-                            subscriber.onError(error!)
-                            return
-                        }
-                        
                         guard let token = user?.authentication.idToken else {
-                            subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+                            var newError: Error? {
+                                guard let nsError = error as? NSError, nsError.code == GIDSignInErrorCode.canceled.rawValue else {
+                                    return error
+                                }
+                                return NSError(domain: "chat.among.knife.user", code: GIDSignInErrorCode.canceled.rawValue, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+                            }
+                            subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
                             return
                         }
                         
@@ -98,13 +99,20 @@ extension AmongChat.Login {
                         
                         self.appleProxy.signIn(completion: { (authCode, error) in
                             
-                            guard error == nil else {
-                                subscriber.onError(error!)
-                                return
-                            }
-                            
                             guard let code = authCode else {
-                                subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+                                var newError: Error? {
+                                    if #available(iOS 13.0, *) {
+                                        guard let wrappedError = error,
+                                            (wrappedError as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
+                                            return error
+                                        }
+                                        return NSError(domain: "chat.among.knife.user", code: ASAuthorizationError.Code.canceled.rawValue, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+                                    } else {
+                                        // Fallback on earlier versions
+                                        return error
+                                    }
+                                }
+                                subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
                                 return
                             }
                             

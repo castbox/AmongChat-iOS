@@ -47,6 +47,8 @@ extension AmongChat.Room {
             }
         }
         
+        private var viewCache: [Int: AmongChat.Room.UserCell] = [:]
+        
         let viewModel: AmongChat.Room.ViewModel
         
         var room: Entity.Room! {
@@ -100,11 +102,13 @@ extension AmongChat.Room {
             }
         }
         
-        func showAvatarLongPressSheet(with user: Entity.RoomUser) {
+        func showAvatarSheet(with user: Entity.RoomUser) {
             guard user.uid != Settings.loginUserId,
                   let viewController = viewContainingController() else {
                 return
             }
+            Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
             let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
             var items: [AmongSheetController.ItemType] = [.userInfo]
@@ -113,6 +117,7 @@ extension AmongChat.Room {
             }
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+                Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
                 self?.userProfileSheetActionHandler?(item, user)
             }
         }
@@ -128,19 +133,22 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath)
-        if let cell = cell as? AmongChat.Room.UserCell {
+        var cell = viewCache[indexPath.item]
+        if cell == nil {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath) as? AmongChat.Room.UserCell
+            viewCache[indexPath.item] = cell
+        }
+        if let cell = cell {
             if style == .kick, let user = dataSource[indexPath.item] {
                 cell.isKickSelected = selectedKickUser.contains(user.uid)
             } else {
                 cell.isKickSelected = false
             }
-            cell.avatarLongPressHandler = { [weak self] user in
-                self?.showAvatarLongPressSheet(with: user)
-            }
+//            cell.avatarLongPressHandler = { [weak self] user in
+//            }
             cell.bind(dataSource[indexPath.item], topic: room.topicType, index: indexPath.item + 1)
         }
-        return cell
+        return cell!
     }
     
 }
@@ -158,7 +166,12 @@ extension AmongChat.Room.SeatView: UICollectionViewDelegate {
                 }
             }
         } else {
-            selectUserHandler?(dataSource[indexPath.item])
+            guard let user = dataSource[indexPath.item] else {
+//                self.onShareBtn()
+                selectUserHandler?(nil)
+                return
+            }
+            showAvatarSheet(with: user)
         }
     }
     

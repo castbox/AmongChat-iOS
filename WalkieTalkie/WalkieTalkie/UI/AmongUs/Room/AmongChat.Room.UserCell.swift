@@ -35,9 +35,9 @@ extension AmongChat.Room {
             iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
             iv.backgroundColor = UIColor.white.alpha(0.2)
             iv.isUserInteractionEnabled = true
-            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
-            longPressGesture.minimumPressDuration = 0.5
-            iv.addGestureRecognizer(longPressGesture)
+//            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
+//            longPressGesture.minimumPressDuration = 0.5
+//            iv.addGestureRecognizer(longPressGesture)
             return iv
         }()
         
@@ -95,7 +95,7 @@ extension AmongChat.Room {
         
         private var user: Entity.RoomUser?
 
-        var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
+//        var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
         
         var isKickSelected: Bool = false {
             didSet {
@@ -112,17 +112,16 @@ extension AmongChat.Room {
             fatalError("init(coder:) has not been implemented")
         }
         
-        @objc
-        func longPressGestureAction() {
-            guard let user = user else {
-                return
-            }
-            avatarLongPressHandler?(user)
-        }
+//        @objc
+//        func longPressGestureAction() {
+//            guard let user = user else {
+//                return
+//            }
+//            avatarLongPressHandler?(user)
+//        }
         
         override func prepareForReuse() {
             super.prepareForReuse()
-//            haloView.stopLoading()
             avatarIV.kf.cancelDownloadTask()
         }
         
@@ -216,7 +215,6 @@ extension AmongChat.Room.UserCell {
         }
         gameNameButton.setTitle(user.nickname, for: .normal)
         avatarIV.layer.borderWidth = 0.5
-        haloView.isHidden = false
         gameNameButton.isHidden = !(topic == .roblox && user.nickname.isValid)
         //自己 muted 其他用户
         if isKickSelected {
@@ -235,6 +233,7 @@ extension AmongChat.Room.UserCell {
     
     func clearStyle() {
         user = nil
+        haloView.stopLoading()
         avatarIV.kf.cancelDownloadTask()
         avatarIV.image = R.image.ac_icon_seat_add()
         avatarIV.contentMode = .center

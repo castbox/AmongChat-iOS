@@ -121,6 +121,7 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
+"content.contain.sensitive.words" = "Content contains sensitive words, please modify";
 
 
 
@@ -223,6 +224,7 @@
 "among.chat.privacy.label" = "By continuing, you agree to our %1$@ and %2$@";
 "among.chat.login.sign.in.with.google" = "Sign in with Google";
 "among.chat.login.sign.in.with.apple" = "Sign in with Apple";
+"among.chat.login.sign.in.cancelled" = "Login Cancelled";
 "among.chat.create.room.input.placeholder" = "ENTER YOUR TOPIC";
 "among.chat.create.room.confirm.btn" = "Create %1$@ channel";
 "among.chat.create.room.private" = "Private";
@@ -241,3 +243,5 @@
 "among.chat.home.load.error.msg" = "Please check your connection and try again";
 "among.chat.try.again" = "Try again";
 "among.chat.welcome.message" = "Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";
+
+"among.chat.home.enter.room.failed" = "Failed to enter channel";

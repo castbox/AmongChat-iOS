@@ -502,11 +502,11 @@ extension RoomViewController: ChatRoomDelegate {
             } else {
                 perform(#selector(updateIsMuted(_:)), with: value)
             }
-            #if DEBUG
-            if !SpeechRecognizer.default.isAvaliable {
-                view.raft.autoShow(.text("Speech text is not avaliable"))
+            if Config.environment == .debug {
+                if !SpeechRecognizer.default.isAvaliable {
+                    view.raft.autoShow(.text("Speech text is not avaliable"))
+                }
             }
-            #endif
         } else {
             //check block
 //            if let user = ChannelUserListViewModel.shared.blockedUsers.first(where: { $0.uid.uIntValue == userId }) {

@@ -21,6 +21,8 @@ import FirebaseInAppMessaging
 import FirebaseCrashlytics
 import TikTokOpenSDK
 import FirebaseDynamicLinks
+import Bolts
+import Kingfisher
 import GoogleSignIn
 
 @UIApplicationMain
@@ -55,19 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FireRemote.shared.refresh()
         _ = Social.Module.shared
         
-//        var isFirstLogin = Settings.shared.isFirstOpen && !firstOpenPremiumShowed
-////        #if DEBUG
-////        isFirstLogin = true
-////        #endif
-//
-//        if isFirstLogin {
-//            //MIGRATE
-//            migrateUserDefaults()
-//            setupInitialView(goRoom: true)
-//            firstOpenPremiumShowed = true
-//        } else {
-//            setupInitialView(goRoom: false)
-//        }
         _ = AdjustAnalytics.sharedInstance
         
         setupInitialView()
@@ -90,7 +79,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Routes.Handler.shared
         //heart beating
         _ = ChatRoomManager.shared
-        
+        //敏感词
+        _ = SensitiveWordChecker.default
+
+        // 缓存清理，主要大户是图片，设置为 128 MB 上线
+        KingfisherManager.shared.cache.diskStorage.config.sizeLimit = 128 * 1024 * 1024 // 128 MB
+        //设置内存缓存失效时间为12h,修复直播间内“闪“的问题
+        KingfisherManager.shared.cache.memoryStorage.config.expiration = .seconds(60 * 60 * 24) //12 h
+
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -104,10 +100,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
+        if url.scheme == Config.scheme  {
+            guard let parsedURL = BFURL(url: url) else { return false }
+            return Routes.handle(parsedURL.targetURL)
+        }
+        else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
-        } else if Routes.canHandle(url) {
-            return handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
             return true
         }
@@ -116,7 +114,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = url else {
                 return
             }
-            _ = self?.handle(url)
+            Routes.handle(url)
 //            _ = Routes.canHandle(url)
         }
     }
@@ -127,15 +125,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         switch userActivity.activityType {
         case NSUserActivityTypeBrowsingWeb:
             guard let url = userActivity.webpageURL else { return false }
-            if Routes.canHandle(url) {
-                return handle(url)
+            if url.scheme == Config.scheme  {
+                return Routes.handle(url)
             } 
             return FireLink.handle(dynamicLink: url) { [weak self] url in
                 cdPrint("url: \(String(describing: url))")
                 guard let url = url else {
                     return
                 }
-                _ = self?.handle(url)
+                Routes.handle(url)
 //                _ = Routes.canHandle(url)
             }
         default:
@@ -171,36 +169,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
 //        Ad.AppOpenAdManager.shared.tryToPresentAd()
     }
-    
-    func handle(_ uri: URL) -> Bool {
-        return Routes.handle(uri)
-//        guard let params = uri.queryParameters else {
-//            return false
-//        }
-//        let home = URI.Homepage(params)
-//        guard let name = home?.channelName,
-//            let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-//            return false
-//        }
-//        guard name.isPrivate else {
-//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-//            roomVc.update(mode: Mode.public.intValue)
-//            roomVc.joinChannel(name)
-//            return true
-//        }
-//        let removeHandler = roomVc.view.raft.show(.doing(R.string.localizable.channelChecking()))
-//        FireStore.shared.checkIsValidSecretChannel(name) { result in
-//            removeHandler()
-//            if result {
-//                Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-//                roomVc.update(mode: Mode.private.intValue)
-//                roomVc.joinChannel(name)
-//            } else {
-//                roomVc.view.raft.autoShow(.text(R.string.localizable.channelNotExist()))
-//            }
-//        }
-//        return true
-    }
 }
 
 extension AppDelegate {
@@ -210,43 +178,44 @@ extension AppDelegate {
         GuruAnalytics.setUserProperty(Constants.abGroup.rawValue, forName: "ab_group")
     }
     
-    func migrateUserDefaults() {
-        let room = Defaults[\.channel]
-        let mode = Mode(index: room.isPrivate.int)
-        Defaults.set(channel: room, mode: mode)
-    }
+//    func migrateUserDefaults() {
+//        let room = Defaults[\.channel]
+//        let mode = Mode(index: room.isPrivate.int)
+//        Defaults.set(channel: room, mode: mode)
+//    }
     
-    func setupInitialView(goRoom: Bool) {
-//        let rootVc = R.storyboard.main.instantiateInitialViewController()!
-        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .black
-        window.makeKeyAndVisible()
-                
-        if goRoom {
-            InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
-            let guide = R.storyboard.guide.guideViewController()!
-            guide.dismissHandler = { [unowned self] in
-                self.window?.replaceRootViewController(rootVc)
-                // 推送服务
-                FireMessaging.shared.requestPermissionIfNotGranted()
-                InAppMessaging.inAppMessaging().messageDisplaySuppressed = true
-            }
-            window.rootViewController = guide
-        } else {
-            window.rootViewController = rootVc
-            // 推送服务
-            FireMessaging.shared.requestPermissionIfNotGranted()
-        }
-        self.window = window
-    }
+//    func setupInitialView(goRoom: Bool) {
+////        let rootVc = R.storyboard.main.instantiateInitialViewController()!
+//        let rootVc = NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+//        let window = UIWindow(frame: UIScreen.main.bounds)
+//        window.backgroundColor = .black
+//        window.makeKeyAndVisible()
+//
+//        if goRoom {
+//            InAppMessaging.inAppMessaging().messageDisplaySuppressed = false
+//            let guide = R.storyboard.guide.guideViewController()!
+//            guide.dismissHandler = { [unowned self] in
+//                self.window?.replaceRootViewController(rootVc)
+//                // 推送服务
+//                FireMessaging.shared.requestPermissionIfNotGranted()
+//                InAppMessaging.inAppMessaging().messageDisplaySuppressed = true
+//            }
+//            window.rootViewController = guide
+//        } else {
+//            window.rootViewController = rootVc
+//            // 推送服务
+//            FireMessaging.shared.requestPermissionIfNotGranted()
+//        }
+//        self.window = window
+//    }
     
     func setupInitialView() {
         
         let rootVc: UIViewController
         
         let homeVc: (() -> UIViewController) = {
-            NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+            GuruAnalytics.log(userID: Settings.loginUserId?.string)
+            return NavigationViewController(rootViewController: AmongChat.Home.ViewController())
         }
         
         let needLogin: Bool = Settings.shared.loginResult.value == nil
@@ -290,7 +259,7 @@ extension AppDelegate {
         guard let url = URL(string: uri) else {
             return
         }
-        let result = UIApplication.appDelegate?.handle(url) ?? false
+        let result = Routes.handle(url)
         print("[AppDelegate] handle url: \(url) result: \(result)")
     }
 }

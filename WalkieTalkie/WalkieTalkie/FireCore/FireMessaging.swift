@@ -116,6 +116,28 @@
         }
     }
     
+//    private func scheduleNotifications()
+//    {
+//        for notification in notifications
+//        {
+//            let content      = UNMutableNotificationContent()
+//            content.title    = notification.title
+//            content.sound    = .default
+//
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
+//
+//            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
+//
+//            UNUserNotificationCenter.current().add(request) { error in
+//
+//                guard error == nil else { return }
+//
+//                print("Notification scheduled! --- ID = \(notification.id)")
+//            }
+//        }
+//    }
+
+    
     func openAppSettingUrlIfNeed() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             mainQueueDispatchAsync {
@@ -135,7 +157,7 @@
         // 打开推送 埋点
         let uriList = msg.uri.split(separator: "/")
         if let type = uriList.safe(0), let id = uriList.safe(1) {
-            //            Analytics.log(event: "push_open", category: String(type), name: String(id), value: nil)
+//            Analytics.log(event: "push_open", category: String(type), name: String(id), value: nil)
 //            Logger.PageShow.logger("push_open", String(type), String(id), nil)
 //            if type == "live"{
 //                Logger.PageShow.logger("lv_rm_imp", "lv_notifi", String(id), nil)

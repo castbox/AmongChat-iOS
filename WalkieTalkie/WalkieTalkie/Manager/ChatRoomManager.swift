@@ -188,8 +188,8 @@ class ChatRoomManager: SeatManager {
 //    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
 //        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
 //    }
-    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) {
-        mRtcManager.adjustUserPlaybackSignalVolume(uid, volume: volume)
+    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) -> Bool {
+        return mRtcManager.adjustUserPlaybackSignalVolume(uid, volume: volume)
     }
 
 //    private func checkAndBeAnchor() {

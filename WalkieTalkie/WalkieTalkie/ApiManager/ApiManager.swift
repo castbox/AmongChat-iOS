@@ -52,12 +52,7 @@ class ApiManager<T: TargetType> {
 //            delegate: SessionDelegate()
 //        )
         
-        #if DEBUG
-//        let stubBehavior = MoyaProvider<Cuddle>.immediatelyStub
         let stubBehavior = MoyaProvider<T>.neverStub
-        #else
-        let stubBehavior = MoyaProvider<T>.neverStub
-        #endif
 //        NetworkLoggerPlugin.Configuration(formatter: JSONResponseDataFormatter, logOptions: <#T##NetworkLoggerPlugin.Configuration.LogOptions#>)
         provider = MoyaProvider<T>(
             stubClosure: stubBehavior,

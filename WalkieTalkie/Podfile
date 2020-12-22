@@ -92,6 +92,8 @@ target 'WalkieTalkie' do
     pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
     #https://github.com/realm/SwiftLint
     pod 'SwiftLint', '0.31.0',        :configurations => ["Debug"]
+    pod 'Bolts',  :git => 'https://github.com/roremeol/Bolts-ObjC.git', :branch => 'master'
+
     
     #https://github.com/SwifterSwift/SwifterSwift
     # SwifterSwift is a collection of over 500 native Swift extensions, with handy methods, syntactic sugar,

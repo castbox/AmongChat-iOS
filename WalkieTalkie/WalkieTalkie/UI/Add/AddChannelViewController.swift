@@ -111,7 +111,7 @@ extension AddChannelViewController: JXSegmentedViewDelegate {
 extension AddChannelViewController {
     
     func dismiss() {
-        Logger.PageShow.log(.secret_channel_create_pop_close)
+//        Logger.PageShow.log(.secret_channel_create_pop_close)
         hideModal()
     }
     

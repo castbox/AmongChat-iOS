@@ -89,6 +89,11 @@ extension Social {
                 .blockUser,
             ]
         }()
+        
+        override var screenName: Logger.Screen.Node.Start {
+            return .profile
+        }
+        
         // MARK: - life
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -190,6 +195,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         if let op = options.safe(indexPath.row) {
             switch op {
             case .inviteFriends:
+                Logger.Action.log(.profile_invite_friend_clk, category: nil)
                 let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
                 let removeBlock = { [weak self] in
                     self?.view.isUserInteractionEnabled = true

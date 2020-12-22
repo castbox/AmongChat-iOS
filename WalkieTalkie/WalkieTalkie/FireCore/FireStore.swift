@@ -134,15 +134,15 @@ class FireStore {
 //                            })
 //                    })
                 
-                #if DEBUG
-                _ = self.channelConfigObservalbe()
-                    .catchErrorJustReturn(.default)
-                    .bind(to: self.channelConfigSubject)
-                #else
-                _ = self.channelConfigObservalbe()
-                    .catchErrorJustReturn(.default)
-                    .bind(to: self.channelConfigSubject)
-                #endif
+                if Config.environment == .debug {
+                    _ = self.channelConfigObservalbe()
+                        .catchErrorJustReturn(.default)
+                        .bind(to: self.channelConfigSubject)
+                } else {
+                    _ = self.channelConfigObservalbe()
+                        .catchErrorJustReturn(.default)
+                        .bind(to: self.channelConfigSubject)
+                }
             })
         
         let _ = Settings.shared.loginResult.replay()

@@ -17,7 +17,7 @@ class CreateSecretChannelController: ViewController {
     }
     
     var container: SecretChannelContainer!
-    var source: Logger.PageShow.Category = .empty
+//    var source: Logger.PageShow.Category = .empty
     var joinChannel: (String, Bool) -> Void = { _, _ in }
     var alert: AlertType = .none
     
@@ -89,15 +89,15 @@ class CreateSecretChannelController: ViewController {
             self.container.alertEmojiLabel.shake()
         }
         
-        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_imp.rawValue,
-                               alert.loggerCategoryName)
+//        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_imp.rawValue,
+//                               alert.loggerCategoryName)
     }
 }
 
 extension CreateSecretChannelController {
     func dismiss() {
-        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_close.rawValue,
-                               alert.loggerCategoryName)
+//        Logger.PageShow.logger(Logger.PageShow.EventName.secret_channel_create_pop_close.rawValue,
+//                               alert.loggerCategoryName)
         hideModal()
     }
     
@@ -173,16 +173,17 @@ extension CreateSecretChannelController.AlertType {
     }
     
     var loggerCategoryName: String? {
-        switch self {
-        case .emptySecretRooms:
-            return Logger.PageShow.Category.empty.rawValue
-        case .errorPasscode:
-            return Logger.PageShow.Category.wrong_passcode.rawValue
-        case .invalid:
-            return Logger.PageShow.Category.invaild.rawValue
-        case .none:
-            return Logger.PageShow.Category.normal.rawValue
-        }
+//        switch self {
+//        case .emptySecretRooms:
+//            return Logger.PageShow.Category.empty.rawValue
+//        case .errorPasscode:
+//            return Logger.PageShow.Category.wrong_passcode.rawValue
+//        case .invalid:
+//            return Logger.PageShow.Category.invaild.rawValue
+//        case .none:
+//            return Logger.PageShow.Category.normal.rawValue
+//        }
+        return ""
     }
 }
 

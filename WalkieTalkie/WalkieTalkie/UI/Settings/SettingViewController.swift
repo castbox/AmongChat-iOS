@@ -10,6 +10,7 @@ import UIKit
 import StoreKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 class SettingViewController: ViewController {
     
@@ -42,6 +43,9 @@ class SettingViewController: ViewController {
     
     @IBAction func updateEnvironment(_ sender: Any) {
         cdPrint("among chat")
+        let isReleaseMode = Defaults[\.isReleaseMode]
+        Defaults[\.isReleaseMode] = !isReleaseMode
+        exit(0)
     }
     
     private func showSystemNavigationBar() {
@@ -111,6 +115,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     private func shareApp() {
+        Logger.Action.log(.settings_share_app_clk, category: nil)
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
         let removeBlock = { [weak self] in
             self?.view.isUserInteractionEnabled = true

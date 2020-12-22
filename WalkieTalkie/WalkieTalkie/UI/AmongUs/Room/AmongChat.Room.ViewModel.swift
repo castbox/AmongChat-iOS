@@ -131,7 +131,10 @@ extension AmongChat.Room {
         }
         
         init(room: Entity.Room) {
-            //            self.room = room
+            if room.loginUserIsAdmin {
+                Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+            }
+            
             roomReplay = BehaviorRelay(value: room)
             imViewModel = IMViewModel(with: room.roomId)
             
@@ -207,22 +210,16 @@ extension AmongChat.Room {
             
             messageEventEmitter.asObserver()
                 .observeOn(SerialDispatchQueueScheduler(qos: .default))
-                //                .map { message -> ChatRoomMessage in
-                //                    //transfer
-                //                    let content = message.content
-                //                    if let text = content as? TextContent {
-                //                        //过滤
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
-                //                        text.content = result
-                //                        return LVEntity.Message(content: text, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else if let whisper = content as? WhisperContent {
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: whisper.whisper_msg)
-                //                        whisper.whisper_msg = result
-                //                        return LVEntity.Message(content: whisper, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else {
-                //                        return message
-                //                    }
-                //                }
+                .map { message -> ChatRoomMessage in
+                    //transfer
+                    if let text = message as? ChatRoom.TextMessage {
+                        //过滤
+                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
+                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType)
+                    } else {
+                        return message
+                    }
+                }
                 .observeOn(MainScheduler.asyncInstance)
                 .do(onNext: { [weak self] message in
                     self?.messages.append(message)
@@ -386,28 +383,33 @@ extension AmongChat.Room {
         }
         
         func blockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.append(user)
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
-        }
-        
-        func unblockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            if !mutedUser.contains(user.uid.uInt) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                blockedUsers.append(user)
+                Defaults[\.blockedUsersV2Key] = blockedUsers
             }
         }
         
+        func unblockedUser(_ user: Entity.RoomUser) {
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                removeBlocked(user)
+            }
+        }
+        
+        func removeBlocked(_ user: Entity.RoomUser) {
+            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+        }
+        
         func muteUser(_ user: Entity.RoomUser) {
-            mutedUser.insert(user.uid.uInt)
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+            if mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                mutedUser.insert(user.uid.uInt)
+            }
         }
         
         func unmuteUser(_ user: Entity.RoomUser) {
-            mutedUser.remove(user.uid.uInt)
-            if !blockedUsers.contains(where: { $0.uid == user.uid }) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if !blockedUsers.contains(where: { $0.uid == user.uid }),
+               mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                mutedUser.remove(user.uid.uInt)
             }
         }
         
@@ -441,6 +443,13 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.ViewModel {
     func update(_ room: Entity.Room) {
+        
+        //when first to admin logger
+        if room.loginUserIsAdmin,
+           self.room.loginUserIsAdmin != room.loginUserIsAdmin {
+            Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+        }
+        
         var newRoom = room
         let userList = newRoom.roomUserList
         let blockedUsers = self.blockedUsers
@@ -559,7 +568,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else {
             otherMutedUser.remove(userId)
         }
-        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
+//        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
 
         //check block
         if let user = blockedUsers.first(where: { $0.uid == userId.int }) {
@@ -578,6 +587,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+//        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
             self.soundAnimationIndex.accept(user.seatNo - 1)
         }

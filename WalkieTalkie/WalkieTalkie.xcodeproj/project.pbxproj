@@ -187,6 +187,7 @@
 		FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE746BDB24629B0500CAC554 /* GuideFirstView.xib */; };
 		FE7720BF258E1521006A2F1B /* UIAlertControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7720BE258E1521006A2F1B /* UIAlertControllerExtension.swift */; };
 		FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE775CE7258E5262002A21F6 /* UITextFieldInspectable.swift */; };
+		FE789E562590539100DAF5D3 /* SensitiveWordChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE789E552590539100DAF5D3 /* SensitiveWordChecker.swift */; };
 		FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */; };
 		FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F374258C731400E9BC6C /* SoundAnimationView.swift */; };
 		FE79F379258C76A800E9BC6C /* AmongChat.Room.SeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */; };
@@ -522,6 +523,7 @@
 		FE746BDB24629B0500CAC554 /* GuideFirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideFirstView.xib; sourceTree = "<group>"; };
 		FE7720BE258E1521006A2F1B /* UIAlertControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAlertControllerExtension.swift; sourceTree = "<group>"; };
 		FE775CE7258E5262002A21F6 /* UITextFieldInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldInspectable.swift; sourceTree = "<group>"; };
+		FE789E552590539100DAF5D3 /* SensitiveWordChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensitiveWordChecker.swift; sourceTree = "<group>"; };
 		FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerPermissionExtension.swift; sourceTree = "<group>"; };
 		FE79F374258C731400E9BC6C /* SoundAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundAnimationView.swift; sourceTree = "<group>"; };
 		FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.SeatView.swift; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 		FE126D542434821900BEDD60 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				FE789E552590539100DAF5D3 /* SensitiveWordChecker.swift */,
 				FE730E4C24ADCB0100680062 /* PhotoManager.swift */,
 				FE126D592434825900BEDD60 /* KeyCenter.swift */,
 				FE0D1A1F24488FE100518793 /* Utils */,
@@ -1627,6 +1630,7 @@
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDB8F58B24F7DE75000027F8 /* Social.InitialProfileViewController.swift in Sources */,
 				BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */,
+				FE789E562590539100DAF5D3 /* SensitiveWordChecker.swift in Sources */,
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,

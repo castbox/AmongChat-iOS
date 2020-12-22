@@ -544,24 +544,16 @@
                             <constraint firstItem="RVt-dB-yC2" firstAttribute="centerX" secondItem="2hf-w6-jzO" secondAttribute="centerX" id="uMW-T6-5ci"/>
                             <constraint firstAttribute="bottomMargin" secondItem="Z8j-7O-rDC" secondAttribute="bottom" id="y1c-hc-pQW"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="4Vt-Wr-BOT" appends="YES" id="EwN-RW-8JZ"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="LlO-vQ-Osb"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="tapGesture" destination="4Vt-Wr-BOT" id="uay-rc-SQg"/>
                         <outlet property="versionLabel" destination="EUp-M0-5V0" id="W55-hr-xPQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wrd-f3-6Cl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="5" id="4Vt-Wr-BOT">
-                    <connections>
-                        <segue destination="uhD-HK-ZY1" kind="show" id="2Fg-jp-oRY"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="f8C-rS-PKg">
+                <tapGestureRecognizer numberOfTapsRequired="5" id="4Vt-Wr-BOT"/>
+                <tapGestureRecognizer numberOfTapsRequired="5" id="f8C-rS-PKg">
                     <connections>
                         <action selector="updateEnvironment:" destination="So9-oX-cun" id="R5n-vA-arB"/>
                     </connections>
@@ -574,18 +566,18 @@
             <objects>
                 <viewController id="uhD-HK-ZY1" customClass="DebugViewController" customModule="WalkieTalkie" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1gs-9R-W69">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s9Z-XM-Ima">
-                                <rect key="frame" x="10" y="46" width="394" height="728"/>
+                                <rect key="frame" x="10" y="90" width="394" height="772"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Info:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTs-Vr-sVg">
-                                <rect key="frame" x="15" y="15" width="90" height="21"/>
+                                <rect key="frame" x="15" y="59" width="90" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

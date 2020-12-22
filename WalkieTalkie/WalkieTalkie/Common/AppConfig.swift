@@ -7,20 +7,15 @@
 //
 
 import Foundation
+import SwiftyUserDefaults
 
 struct Config {
-    enum AppEnvironment {
+    enum AppEnvironment: Int {
         case debug, release
     }
     
     static var environment: AppEnvironment {
-        let environment: AppEnvironment
-        #if DEBUG
-        environment = .debug
-        #else
-        environment = .release
-        #endif
-        return environment
+        return AppEnvironment(rawValue: Defaults[\.isReleaseMode].int) ?? .release
     }
     
     enum PolicyType: String {
@@ -40,6 +35,10 @@ struct Config {
     
     static var appStoreUrl: String {
         return ""
+    }
+    
+    static var scheme: String {
+        return "amongchat"
     }
     
 //
@@ -74,7 +73,7 @@ struct Config {
     
     static var appVersionWithBuildVersion: String {
         if environment == .debug {
-            return "\(appVersion) # Build-\(versionCode)"
+            return "\(appVersion) # - Build-\(versionCode) - dev"
         } else {
             return appVersion
         }
@@ -91,4 +90,15 @@ struct Config {
         return "MM/dd/yyyy HH:mm:ss"
     }
     
+}
+
+extension Config.AppEnvironment {
+//    var heartBeatingInterval: Int {
+//        switch self {
+//        case .debug:
+//            return 10
+//        default:
+//            return 60
+//        }
+//    }
 }

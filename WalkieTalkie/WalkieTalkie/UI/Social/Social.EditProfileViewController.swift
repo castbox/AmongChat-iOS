@@ -30,9 +30,9 @@ extension Social {
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGR)
-            #if DEBUG
-            iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
-            #endif
+            if Config.environment == .debug {
+                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
+            }
             return iv
         }()
         
@@ -57,6 +57,10 @@ extension Social {
         private lazy var userInputView = AmongInputNickNameView()
         
         private var profile: Entity.UserProfile!
+        
+        override var screenName: Logger.Screen.Node.Start {
+            return .profile_edit
+        }
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -134,11 +138,13 @@ private extension Social.EditProfileViewController {
         
         userButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_nikename_clk, category: nil)
                 _ = self?.userInputView.becomeFirstResponder()
             }).disposed(by: bag)
         
         birthdayButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_birthday_clk, category: nil)
                 self?.selectBirthday()
             }).disposed(by: bag)
         

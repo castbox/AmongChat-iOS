@@ -48,15 +48,15 @@ extension Request {
             .mapTo(Entity.LoginResult.self)
     }
         
-    static func devices(params: [String : Any]) -> Single<Bool> {
-        return castboxProvider.rx.request(.devices(params))
-            .mapJSON()
-            .map { (jsonAny) -> Bool in
-                guard let jsonDict = jsonAny as? [String : Any],
-                    jsonDict.count == 0 else { return false }
-                return true
-        }
-    }
+//    static func devices(params: [String : Any]) -> Single<Bool> {
+//        return castboxProvider.rx.request(.devices(params))
+//            .mapJSON()
+//            .map { (jsonAny) -> Bool in
+//                guard let jsonDict = jsonAny as? [String : Any],
+//                    jsonDict.count == 0 else { return false }
+//                return true
+//        }
+//    }
     
     enum PushEventType: String {
         case DeviceOpen
