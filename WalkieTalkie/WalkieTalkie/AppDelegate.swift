@@ -23,6 +23,7 @@ import TikTokOpenSDK
 import FirebaseDynamicLinks
 import Bolts
 import Kingfisher
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -102,6 +103,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if url.scheme == Config.scheme  {
             guard let parsedURL = BFURL(url: url) else { return false }
             return Routes.handle(parsedURL.targetURL)
+        }
+        else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
+            return GIDSignIn.sharedInstance().handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
             return true
         }
