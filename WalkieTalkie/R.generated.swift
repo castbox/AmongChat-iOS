@@ -1525,7 +1525,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 188 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 189 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1727,6 +1727,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRoomTipFailed = Rswift.StringResource(key: "among.chat.room.tip.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to enter channel
+      /// 
+      /// Locales: en
+      static let amongChatHomeEnterRoomFailed = Rswift.StringResource(key: "among.chat.home.enter.room.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Feb
       /// 
       /// Locales: en
@@ -2628,6 +2632,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatRoomTipFailed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.tip.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to enter channel
+      /// 
+      /// Locales: en
+      static func amongChatHomeEnterRoomFailed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.enter.room.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Feb

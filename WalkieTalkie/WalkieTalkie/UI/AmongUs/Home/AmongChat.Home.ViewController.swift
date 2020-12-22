@@ -124,7 +124,7 @@ extension AmongChat.Home.ViewController {
                 }
                 guard let room = room else {
                     hudRemoval()
-                    self.view.raft.autoShow(.text("Failed to enter channel"))
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
                 
@@ -135,7 +135,15 @@ extension AmongChat.Home.ViewController {
             }, onError: { [weak self] (error) in
                 hudRemoval()
                 cdPrint("error: \(error.localizedDescription)")
-                self?.view.raft.autoShow(.text("\(error.localizedDescription)"), userInteractionEnabled: false)
+                var msg: String {
+                    if let error = error as? Request.MsgError,
+                       error.codeType != nil {
+                        return error.localizedDescription
+                    } else {
+                        return R.string.localizable.amongChatHomeEnterRoomFailed()
+                    }
+                }
+                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
             })
             .disposed(by: bag)
 
