@@ -422,7 +422,7 @@ extension Social.SelectAvatarViewController {
         
         func bind(viewmModel avatar: AvatarViewModel) {
             
-            avatarIV.setImage(with: URL(string: avatar.avatarUrl), options: [.fromMemoryCacheOrRefresh])
+            avatarIV.setImage(with: URL(string: avatar.avatarUrl))
             
             selectedIcon.isHidden = avatar.locked
             adBadge.isHidden = !avatar.locked
