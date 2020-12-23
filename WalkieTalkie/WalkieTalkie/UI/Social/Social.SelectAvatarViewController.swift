@@ -360,7 +360,6 @@ extension Social.SelectAvatarViewController {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 45
             iv.layer.masksToBounds = true
             iv.contentMode = .scaleToFill
             return iv
@@ -380,6 +379,12 @@ extension Social.SelectAvatarViewController {
             iv.isHidden = true
             return iv
         }()
+                        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            avatarIV.layoutIfNeeded()
+            avatarIV.layer.cornerRadius = avatarIV.bounds.width / 2
+        }
         
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -397,8 +402,9 @@ extension Social.SelectAvatarViewController {
             contentView.addSubviews(views: avatarIV, selectedIcon, adBadge)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(90)
-                maker.center.equalToSuperview()
+                maker.left.right.equalToSuperview().inset(34)
+                maker.width.equalTo(avatarIV.snp.height).multipliedBy(1)
+                maker.centerY.equalToSuperview()
             }
             
             selectedIcon.snp.makeConstraints { (maker) in
