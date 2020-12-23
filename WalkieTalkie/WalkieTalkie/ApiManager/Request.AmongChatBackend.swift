@@ -213,10 +213,7 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.DefaultAvatars.self)
-            .do(onSuccess: { (defaultAvatars) in
-                guard let d = defaultAvatars else { return }
-                Settings.shared.amongChatDefaultAvatars.value = d
-            })
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func unlockAvatar(_ avatar: Entity.DefaultAvatar) -> Single<Bool> {
