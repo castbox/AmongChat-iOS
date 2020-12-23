@@ -52,7 +52,7 @@ class AdsManager: NSObject {
     
     var rewardedVideoAdDidDisappear = PublishSubject<Void>()
     
-    var rewardVideoShouldReward = PublishSubject<Void>()
+    var rewardVideoShouldReward = PublishSubject<Bool>()
     
     override init() {
         super.init()
@@ -139,7 +139,7 @@ class AdsManager: NSObject {
         guard hasAdAvailableRewardsVideo else {
             return nil
         }
-        return MPRewardedVideo.availableRewards(forAdUnitID: AdsManager.shared.rewardedVideoId)?.last as? MPRewardedVideoReward
+        return MPRewardedVideo.availableRewards(forAdUnitID: rewardedVideoId)?.last as? MPRewardedVideoReward
     }
     
     
@@ -250,6 +250,7 @@ class AdsManager: NSObject {
         guard aviliableRewardVideo == nil else {
             return
         }
+        cdPrint("[rewarded-ad] requestRewardVideo")
         Logger.Ads.logEvent(.rads_load)
         MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
         MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
@@ -434,7 +435,7 @@ extension AdsManager: MPRewardedVideoDelegate {
     
     func rewardedVideoAdShouldReward(forAdUnitID adUnitID: String!, reward: MPRewardedVideoReward!) {
         //should reward
-        rewardVideoShouldReward.onNext(())
+        rewardVideoShouldReward.onNext(true)
         cdPrint("[rewarded-ad] rewardedVideoAdShouldReward")
     }
     
@@ -445,6 +446,7 @@ extension AdsManager: MPRewardedVideoDelegate {
     
     func rewardedVideoAdDidFailToPlay(forAdUnitID adUnitID: String!, error: Error!) {
         cdPrint("[rewarded-ad] rewardedVideoAdDidFailToPlay: \(String(describing: error))")
+        rewardVideoShouldReward.onNext(false)
     }
     
 }

@@ -75,6 +75,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
+            AdsManager.shared.requestRewardVideoIfNeed()
         }
     }
     
@@ -237,6 +238,7 @@ extension Social.SelectAvatarViewController {
         AdsManager.shared.requestRewardVideoIfNeed()
         rewardVideoDispose =
             AdsManager.shared.isRewardVideoReadyRelay
+            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
             .filter { $0 }
             .take(1)
             .flatMap { [weak self] _ -> Observable<Void> in
@@ -255,12 +257,20 @@ extension Social.SelectAvatarViewController {
                         MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
                         return true
                     })
-                    .flatMap { _ -> Observable<Void> in
+                    .flatMap { _ -> Observable<Bool> in
                         return AdsManager.shared.rewardVideoShouldReward.asObserver()
                     }
                     .do(onNext: { _ in
                         AdsManager.shared.requestRewardVideoIfNeed()
                     })
+                    .filter { [weak self] shouldReward -> Bool in
+                        guard let `self` = self else { return false }
+                        if !shouldReward {
+                            self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
+                            hudRemoval()
+                        }
+                        return shouldReward
+                    }
                     .flatMap { _ -> Observable<Void> in
                         return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
                     }
@@ -298,6 +308,7 @@ extension Social.SelectAvatarViewController {
                 
                 
             }, onError: { (error) in
+                self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
                 hudRemoval()
             })
         rewardVideoDispose?.addDisposableTo(bag)
@@ -347,9 +358,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                 }
                 self.avatarCollectionView.reloadData()
             }
-            
         }
-        
     }
     
 }
