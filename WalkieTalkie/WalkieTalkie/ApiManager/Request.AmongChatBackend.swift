@@ -82,7 +82,25 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
     static func updateProfile(_ profileData: [String : Any]) -> Single<Entity.UserProfile?> {
+        let params = ["profile_data" : profileData]
+        return amongchatProvider.rx.request(.updateProfile(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserProfile.self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do { _ in
+                Settings.shared.updateProfile()
+            }
+    }
+    
+    static func updateProfile(_ profile: Entity.ProfileProto) -> Single<Entity.UserProfile?> {
+        
+        guard let profileData = profile.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
         let params = ["profile_data" : profileData]
         return amongchatProvider.rx.request(.updateProfile(params))
             .mapJSON()
