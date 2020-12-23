@@ -108,6 +108,7 @@ extension Logger {
             case room_edit_nickname_success
             case room_edit_clk
             case room_change_state_clk
+            case rtc_call_roominfo
             
             //for admin
             case admin_imp
