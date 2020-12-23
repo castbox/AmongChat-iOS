@@ -559,7 +559,7 @@ extension Social.SelectAvatarViewController {
         }
         
         func unlock() {
-            avatar.lock = true
+            avatar.lock = false
         }
         
     }
