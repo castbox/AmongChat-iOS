@@ -245,8 +245,7 @@ extension Request {
             .mapToDataKeyJsonValue()
             .map { (json) -> Bool in
                 
-                guard let data = json["data"] as? [String : AnyObject],
-                      let process = data["process"] as? Bool,
+                guard let process = json["process"] as? Bool,
                       process else {
                     return false
                 }
