@@ -48,8 +48,18 @@ extension Logger {
             case recommend
         }
         
+        enum Event: String {
+            case receive = "push_receive"
+            case open = "push_open"
+            case impression = "push_imp"
+        }
+        
         static func log(_ category: Category? = nil, _ itemName: String? = nil, _ value: Int64? = nil, content: String? = nil) {
             GuruAnalytics.log(event: "push_receive", category: category?.rawValue, name: itemName, value: value, content: content)
+        }
+        
+        static func log(event: Event, source: String? = nil) {
+            GuruAnalytics.log(event: event.rawValue, category: source, name: nil, value: nil, content: nil)
         }
     }
 }

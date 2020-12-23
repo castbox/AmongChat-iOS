@@ -166,6 +166,7 @@
         anpsMessageSubject.onNext(msg)
         let _ = Request.pushEvent(.DeviceOpen, notiUserInfo: userInfo)
             .subscribe()
+        addPushLogger(.open, msg: msg)
     }
  }
  
@@ -204,6 +205,7 @@
         }
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: userInfo)
             .subscribe()
+        addPushLogger(.receive, msg: APNSMessage(userInfo))
         completionHandler(.noData)
     }
     
@@ -223,7 +225,8 @@
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let nilableMessage = APNSMessage(notification.request.content.userInfo)
-        addPushReceiveLogger(msg: nilableMessage)
+        addPushLogger(.receive, msg: nilableMessage)
+        addPushLogger(.impression, msg: nilableMessage)
         guard let msg = nilableMessage else {
             return
         }
@@ -240,12 +243,15 @@
         completionHandler()
     }
     
-    func addPushReceiveLogger(msg: APNSMessage?) {
-        var category: Logger.Push.Category {
-            msg?.uri != nil ? .hot : .recommend
-        }
-        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
-        Logger.Push.log(category, home?.channelName)
+    func addPushLogger(_ event: Logger.Push.Event, msg: APNSMessage?) {
+//        var category: Logger.Push.Category {
+//            msg?.uri != nil ? .hot : .recommend
+//        }
+//        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
+//        Logger.Push.log(category, home?.channelName)
+        let queries: [String : Any] = msg?.uri.url?.queryParameters ?? [:]
+        let sourceType = queries["push_source_type"] as? String
+        Logger.Push.log(event: event, source: sourceType)
     }
  }
  
