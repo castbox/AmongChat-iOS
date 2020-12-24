@@ -19,19 +19,18 @@ fileprivate func cdPrint(_ message: Any) {
 extension AmongChat.Room {
     
     class IMManager: NSObject {
-//        static let shared = IMManager()
+        static let shared = IMManager()
         
         private var rtmKit: AgoraRtmKit?
-        private let onlineSubject = BehaviorSubject<LoginStatus>(value: .offline)
+        private let onlineRelay = BehaviorRelay<LoginStatus>(value: .offline)
         private var rtmChannel: AgoraRtmChannel?
-        private let joinedSubject = BehaviorSubject<Bool>(value: false)
-        private let newMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
-        private let channelId: String
+        private let joinedSubject = BehaviorRelay<Bool>(value: false)
+        private let newChannelMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
         
         private let bag = DisposeBag()
         
-        var newMessageObservable: Observable<(AgoraRtmMessage, AgoraRtmMember)> {
-            return newMessageSubject.asObservable()
+        var newChannelMessageObservable: Observable<(AgoraRtmMessage, AgoraRtmMember)> {
+            return newChannelMessageSubject.asObservable()
         }
         
         var joinedChannelSignal: Observable<Bool> {
@@ -39,60 +38,65 @@ extension AmongChat.Room {
         }
         
         var imIsReady: Bool {
-            return (try? joinedSubject.value()) ?? false
+            return joinedSubject.value
         }
         
-        init(with channelId: String) {
-            self.channelId = channelId
+        override private init() {
             super.init()
             rtmKit = AgoraRtmKit(appId: KeyCenter.AppId, delegate: self)
-            rtmKit?.agoraRtmDelegate = self
             bindEvents()
-            loginSDK()
         }
         
-        deinit {
-//            clean()
-        }
         //hdD9gjNe //hdDYMjNf
         private func bindEvents() {
-            onlineSubject
-                .filter { $0 == .online }
-                .take(1)
-                .subscribe(onNext: { [weak self] (_) in
-                    guard let `self` = self else { return }
-                    self.joinChannel(self.channelId)
+            Settings.shared.loginResult.replay()
+                .subscribe(onNext: { [weak self] (result) in
+                    
+                    if let _ = result {
+                        self?.loginSDK()
+                    } else {
+                        self?.logoutSDK()
+                    }
+                    
                 })
                 .disposed(by: bag)
         }
         
         private func loginSDK() {
-            guard let status = try? onlineSubject.value(),
-                  status == .offline else {
-                return
-            }
-            cdPrint("requet loginSDK-token")
-            _ = Request.amongchatProvider.rx.request(.rtmToken([:]))
-                .mapJSON()
-                .mapToDataKeyJsonValue()
-                .mapTo(Entity.RTMToken.self)
-                .retry(2)
-//                .filterNilAndEmpty()
-                .subscribe { [weak self] token in
+            onlineRelay
+                .do(onNext: { [weak self] (status) in
+                    
+                    guard status == .online else {
+                        return
+                    }
+                    
+                    self?.logoutSDK()
+                })
+                .filter { $0 == .offline }
+                .take(1)
+                .flatMap({ (_) -> Single<Entity.RTMToken?> in
+                    cdPrint("requet loginSDK-token")
+                    return Request.amongchatProvider.rx.request(.rtmToken([:]))
+                        .mapJSON()
+                        .mapToDataKeyJsonValue()
+                        .mapTo(Entity.RTMToken.self)
+                        .retry(2)
+                })
+                .subscribe(onNext: { [weak self] token in
                     guard let `self` = self, let token = token, let uid = Settings.loginUserId?.string else { return }
                     cdPrint("requet loginSDK")
-                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
+                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { (code) in
                         cdPrint("requet loginSDK code: \(code.rawValue)")
-                        self?.onlineSubject.onNext(code == .ok ? .online : .offline)
+                        self.onlineRelay.accept(code == .ok ? .online : .offline)
                     })
-                } onError: { error in
+                }, onError: { error in
                     cdPrint("error: \(error)")
-                }
+                })
+                .disposed(by: bag)
         }
         
         private func logoutSDK() {
-            guard let status = try? onlineSubject.value(),
-                  status == .online else {
+            guard onlineRelay.value == .online else {
                 return
             }
             
@@ -104,52 +108,76 @@ extension AmongChat.Room {
             
         }
         
-        
-        private func joinChannel(_ channel: String) {
-            guard let rtmChannel = rtmKit?.createChannel(withId: channel, delegate: self) else { return }
+        private func rtmJoinChannel(_ channel: String) -> Single<String> {
             
-            cdPrint("joinChannel: \(channel)")
-            rtmChannel.join { [weak self] (code) in
-                guard code == .channelErrorOk else {
-                    return
-                }
-                cdPrint("joinChannel: \(channel) code: \(code.rawValue)")
-                self?.joinedSubject.onNext(true)
+            guard let rtmChannel = rtmKit?.createChannel(withId: channel, delegate: self) else {
+                return Single.error(MsgError(code: 500, msg:  R.string.localizable.amongChatHomeEnterRoomFailed()))
             }
             
-            self.rtmChannel = rtmChannel
+            return Single<String>.create { [weak self] (subscriber) -> Disposable in
+                
+                guard let `self` = self else {
+                    subscriber(.error(MsgError(code: 500, msg:  R.string.localizable.amongChatHomeEnterRoomFailed())))
+                    return Disposables.create()
+                }
+                
+                
+                cdPrint("joinChannel: \(channel)")
+                rtmChannel.join { (code) in
+                    guard code == .channelErrorOk else {
+                        subscriber(.error(MsgError(code: 500, msg:  R.string.localizable.amongChatHomeEnterRoomFailed())))
+                        return
+                    }
+                    cdPrint("joinChannel: \(channel) code: \(code.rawValue)")
+                    self.rtmChannel = rtmChannel
+                    subscriber(.success(channel))
+                }
+                
+                return Disposables.create()
+            }
+            
         }
         
-        private func clean() {
+        func joinChannel(_ channel: String) {
+            onlineRelay.filter { $0 == .online }.take(1)
+                .flatMap { [weak self] (_) -> Single<String> in
+                    guard let `self` = self else {
+                        return Single.error(MsgError(code: 500, msg: R.string.localizable.amongChatHomeEnterRoomFailed()))
+                    }
+                    return self.rtmJoinChannel(channel)
+                }
+                .subscribe(onNext: { [weak self] (channelId) in
+                    cdPrint("joinChannel: \(channelId)")
+                    self?.joinedSubject.accept(true)
+                })
+                .disposed(by: bag)
+        }
+        
+        func leaveChannel(_ channelId: String) {
             cdPrint("clean: \(channelId)")
-
+            joinedSubject.accept(false)
             rtmChannel?.leave(completion: { (code) in
                 cdPrint("clean leave: \(code.rawValue)")
                 guard code == .ok else {
                     return
                 }
             })
-//            rtmKit?.destroyChannel(withId: channelId)
-//            logoutSDK()
+            rtmKit?.destroyChannel(withId: channelId)
         }
         
-        func send(message: String) -> Single<Bool> {
+        func sendChannelMessage(_ message: String) -> Single<Bool> {
             
-            return Observable<Bool>.create { [weak self] (subsciber) -> Disposable in
+            return Single<Bool>.create { [weak self] (subsciber) -> Disposable in
                 let rtmMessage = AgoraRtmMessage(text: message)
                 
                 self?.rtmChannel?.send(rtmMessage, sendMessageOptions: AgoraRtmSendMessageOptions(), completion: { (code) in
-                    
-                    subsciber.onNext(code == .errorOk)
-                    subsciber.onCompleted()
-                    
+                    subsciber(.success(code == .errorOk))
                 })
                 
                 return Disposables.create {
                     
                 }
             }
-            .asSingle()
             
         }
         
@@ -184,7 +212,7 @@ extension AmongChat.Room.IMManager: AgoraRtmChannelDelegate {
     
     func channel(_ channel: AgoraRtmChannel, messageReceived message: AgoraRtmMessage, from member: AgoraRtmMember) {
         cdPrint("messageReceived: \(member.channelId + "  " + member.userId + " text: " +  message.text)")
-        newMessageSubject.onNext((message, member))
+        newChannelMessageSubject.onNext((message, member))
     }
     
     func channel(_ channel: AgoraRtmChannel, memberCount count: Int32) {

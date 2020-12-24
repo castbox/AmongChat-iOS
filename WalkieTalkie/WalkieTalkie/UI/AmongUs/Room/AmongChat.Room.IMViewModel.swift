@@ -44,8 +44,13 @@ extension AmongChat.Room {
         
         init(with channelId: String) {
             self.channelId = channelId
-            self.imManager = AmongChat.Room.IMManager(with: channelId)
+            self.imManager = AmongChat.Room.IMManager.shared
+            imManager.joinChannel(channelId)
             bindEvents()
+        }
+        
+        deinit {
+            imManager.leaveChannel(channelId)
         }
                 
     }
@@ -73,7 +78,7 @@ extension AmongChat.Room.IMViewModel {
     
     private func bindEvents() {
         
-        imManager.newMessageObservable
+        imManager.newChannelMessageObservable
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { (message, member) -> ChatRoomMessage? in
                 cdPrint("member: \(member.channelId) \(member.userId) \ntext: \(message.text)")
@@ -128,7 +133,7 @@ extension AmongChat.Room.IMViewModel {
         guard let string = message.asString else {
             return
         }
-        imManager.send(message: string)
+        imManager.sendChannelMessage(string)
             .catchErrorJustReturn(false)
             .filter { _ -> Bool in
                 return message.msgType == .text
