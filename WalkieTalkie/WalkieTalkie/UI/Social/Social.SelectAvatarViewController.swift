@@ -76,7 +76,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            AdsManager.shared.requestRewardVideoIfNeed()
+//            AdsManager.shared.requestRewardVideoIfNeed()
         }
     }
     
@@ -223,8 +223,9 @@ extension Social.SelectAvatarViewController {
     
     @available(*, deprecated)
     func showRewardVideo(for avatar: AvatarViewModel, _ indexPath: IndexPath) {
-        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        AdsManager.shared.requestRewardVideoIfNeed()
+        let hudRemoval = view.raft.show(.loading)
+//        AdsManager.shared.requestRewardVideoIfNeed()
+        rewardVideoDispose?.dispose()
         rewardVideoDispose =
             AdsManager.shared.isRewardVideoReadyRelay
             .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
@@ -232,26 +233,26 @@ extension Social.SelectAvatarViewController {
             .take(1)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
-                guard let reward = AdsManager.shared.aviliableRewardVideo else {
-                    self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
-                    hudRemoval()
-                    return Observable.empty()
-                }
+//                guard let reward = AdsManager.shared.aviliableRewardVideo else {
+//                    self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
+//                    hudRemoval()
+//                    return Observable.empty()
+//                }
                 
                 return Observable.just(())
                     .filter({ [weak self] _ in
                         guard let `self` = self else {
                             return true
                         }
-                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
+                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: nil)
                         return true
                     })
                     .flatMap { _ -> Observable<Bool> in
                         return AdsManager.shared.rewardVideoShouldReward.asObserver()
                     }
-                    .do(onNext: { _ in
-                        AdsManager.shared.requestRewardVideoIfNeed()
-                    })
+//                    .do(onNext: { _ in
+//                        AdsManager.shared.requestRewardVideoIfNeed()
+//                    })
                     .filter { [weak self] shouldReward -> Bool in
                         guard let `self` = self else { return false }
                         if !shouldReward {
@@ -389,7 +390,6 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let avatar = avatarDataSource.safe(indexPath.item) {
-            
             guard avatar.selected == false else {
                 return
             }

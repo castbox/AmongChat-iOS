@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import MoPub
-import MoPub_AdMob_Adapters
+//import MoPub_AdMob_Adapters
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults

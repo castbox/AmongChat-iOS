@@ -35,7 +35,8 @@ def firebase_pods
     pod 'Firebase/Auth'
 
     # log
-    pod 'Firebase/Analytics'
+#    pod 'Firebase/Analytics'
+    pod 'FirebaseAnalytics'#, '7.3.0'
     #, '6.1.0'
     
     # in app messageing
@@ -105,8 +106,8 @@ target 'WalkieTalkie' do
 #    pod 'SwifterSwift'
     
     pod 'mopub-ios-sdk/Core'
-    pod 'MoPub-AdMob-Adapters'
-    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
+#    pod 'MoPub-AdMob-Adapters', '7.69.0.0'
+    pod 'MoPub-UnityAds-Adapters', '3.6.0.0'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
     
