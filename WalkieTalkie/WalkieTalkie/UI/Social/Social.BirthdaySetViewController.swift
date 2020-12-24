@@ -107,15 +107,20 @@ extension Social {
             }
 
             birthdayPicker.selectBirthday("2005/01/01")
+            
+            Logger.Action.log(.login_birthday_imp)
         }
         
         @objc
         private func onSkipBtn() {
+            Logger.Action.log(.login_birthday_skip)
             onCompletion?("")
         }
         
         @objc
         private func onConfirmBtn() {
+            Logger.Action.log(.login_birthday_done)
+            
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
             let birthdayStr = df.string(from: birthdayPicker.date)
@@ -130,6 +135,7 @@ extension Social {
                     })
                     .subscribe(onSuccess: { [weak self] (profile) in
                         defer {
+                            Logger.Action.log(.login_birthday_success)
                             self?.onCompletion?(birthdayStr)
                         }
                         guard let p = profile else { return }

@@ -509,6 +509,14 @@ PODS:
   - SnapSDK/SCSDKLoginKit (1.4.4)
   - SnapSDK/SCSDKStoryKit (1.4.4)
   - SSZipArchive (2.1.5)
+  - SVGAPlayer (2.5.6):
+    - SVGAPlayer/Core (= 2.5.6)
+    - SVGAPlayer/ProtoFiles (= 2.5.6)
+  - SVGAPlayer/Core (2.5.6):
+    - SSZipArchive (>= 1.8.1)
+    - SVGAPlayer/ProtoFiles
+  - SVGAPlayer/ProtoFiles (2.5.6):
+    - Protobuf (~> 3.4)
   - SwifterSwift (5.2.0):
     - SwifterSwift/AppKit (= 5.2.0)
     - SwifterSwift/CoreAnimation (= 5.2.0)
@@ -586,6 +594,7 @@ DEPENDENCIES:
   - SDCAlertView
   - SnapKit (~> 4.2.0)
   - SnapSDK
+  - SVGAPlayer
   - SwifterSwift
   - SwiftHash
   - SwiftLint (= 0.31.0)
@@ -671,6 +680,7 @@ SPEC REPOS:
     - SnapKit
     - SnapSDK
     - SSZipArchive
+    - SVGAPlayer
     - SwifterSwift
     - SwiftHash
     - SwiftLint
@@ -767,6 +777,7 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
+  SVGAPlayer: f3b3792ae66f7cb3f944ae373a40864db9a04331
   SwifterSwift: 334181863c416882d97b7a60c05054d9e4d799e2
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
@@ -780,6 +791,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 32a1d2a2b431f1169c2105ea45177c214a0ca921
+PODFILE CHECKSUM: 3966e23d47213b5cc501785c15fbfc2d60108580
 
 COCOAPODS: 1.10.0

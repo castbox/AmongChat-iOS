@@ -196,7 +196,7 @@ extension Request {
     }
     
     static func requestRoomInfo(with roomId: String) -> Single<Entity.Room?> {
-        return amongchatProvider.rx.request(.roomInfo(["room_id": roomId]))
+        return amongchatProvider.rx.request(.roomInfo(["room_id": roomId, "exclude_fields": "bgUrl"]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in

@@ -55,10 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Automator.shared
         _ = FireStore.shared
         FireRemote.shared.refresh()
-        _ = Social.Module.shared
+//        _ = Social.Module.shared
         
         _ = AdjustAnalytics.sharedInstance
         
+        Settings.shared.startObserver()
         setupInitialView()
         
         DispatchQueue.global(qos: .background).async {

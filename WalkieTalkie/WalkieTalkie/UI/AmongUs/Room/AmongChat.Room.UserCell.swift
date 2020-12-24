@@ -9,6 +9,16 @@
 import UIKit
 import RxSwift
 import Kingfisher
+import SVGAPlayer
+
+class SVGAGlobalParser: SVGAParser {
+    static let defaut = SVGAGlobalParser()
+    
+    override init() {
+        super.init()
+        self.enabledMemoryCache = true
+    }
+}
 
 extension AmongChat.Room {
     
@@ -93,7 +103,20 @@ extension AmongChat.Room {
             return btn
         }()
         
+        lazy var svgaView: SVGAPlayer = {
+            let player = SVGAPlayer(frame: .zero)
+            player.clearsAfterStop = true
+            player.delegate = self
+            player.loops = 1
+            player.contentMode = .scaleAspectFill
+            player.isUserInteractionEnabled = false
+            return player
+        }()
+        
+        var emojis: [URL] = []
+        
         private var user: Entity.RoomUser?
+        private var isPlaySvgaEmoji: Bool = false
 
 //        var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
         
@@ -131,6 +154,33 @@ extension AmongChat.Room {
         
         func startSoundAnimation() {
             haloView.startLoading()
+            playSvga(emojis.randomItem())
+        }
+        
+        func stopSoundAnimation() {
+            isPlaySvgaEmoji = false
+            haloView.stopLoading()
+            svgaView.stopAnimation()
+        }
+        
+        func playSvga(_ resource: URL?) {
+            guard let resource = resource else {
+                return
+            }
+            //如果正在播放，则不用再次播放
+            guard !isPlaySvgaEmoji else  {
+                return
+            }
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(with: resource,
+                         completionBlock: { [weak self] (item) in
+                            self?.isPlaySvgaEmoji = true
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                         },
+                         failureBlock: { error in
+                            debugPrint("error: \(error?.localizedDescription ?? "")")
+                         })
         }
         
         @objc
@@ -141,7 +191,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, svgaView, nameLabel, disableMicView, mutedLabel, kickSelectedView)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
@@ -158,6 +208,11 @@ extension AmongChat.Room {
                 maker.size.equalTo(CGSize(width: 40, height: 40))
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+            }
+            
+            svgaView.snp.makeConstraints { make in
+                make.center.equalTo(avatarIV)
+                make.width.height.equalTo(avatarIV)
             }
             
             kickSelectedView.snp.makeConstraints { (maker) in
@@ -191,6 +246,12 @@ extension AmongChat.Room {
     }
 }
 
+extension AmongChat.Room.UserCell: SVGAPlayerDelegate {
+    func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
+        isPlaySvgaEmoji = false
+    }
+}
+
 extension AmongChat.Room.UserCell {
     
     func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
@@ -209,9 +270,10 @@ extension AmongChat.Room.UserCell {
         avatarIV.setAvatarImage(with: user.pictureUrl)
         nameLabel.text = user.name
         if user.status == .talking {
-            haloView.startLoading()
+//            haloView.startLoading()
+            startSoundAnimation()
         } else {
-            haloView.stopLoading()
+            stopSoundAnimation()
         }
         gameNameButton.setTitle(user.nickname, for: .normal)
         avatarIV.layer.borderWidth = 0.5
@@ -233,7 +295,7 @@ extension AmongChat.Room.UserCell {
     
     func clearStyle() {
         user = nil
-        haloView.stopLoading()
+        stopSoundAnimation()
         avatarIV.kf.cancelDownloadTask()
         avatarIV.image = R.image.ac_icon_seat_add()
         avatarIV.contentMode = .center

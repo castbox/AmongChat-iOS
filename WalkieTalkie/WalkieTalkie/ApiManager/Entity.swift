@@ -49,6 +49,37 @@ extension Entity {
     struct Processed: Codable {
         let processed: Bool
     }
+}
+
+extension Entity {
+    struct GlobalSetting: Codable {
+        
+        struct RoomBg: Codable {
+            let topicId: String
+            let bgUrl: URL
+            
+            var topicType: AmongChat.Topic {
+                return AmongChat.Topic(rawValue: topicId) ?? .chilling
+            }
+        }
+        
+        struct RoomEmoji: Codable {
+            let topicId: String
+            let emojiList: [URL]
+            
+            var topicType: AmongChat.Topic {
+                return AmongChat.Topic(rawValue: topicId) ?? .chilling
+            }
+        }
+
+        let roomBg: [RoomBg]
+        let roomEmoji: [RoomEmoji]
+        
+        private enum CodingKeys: String, CodingKey {
+            case roomBg = "room_bg"
+            case roomEmoji = "room_emoji"
+        }
+    }
     
 }
 

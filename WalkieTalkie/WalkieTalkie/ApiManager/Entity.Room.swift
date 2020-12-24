@@ -39,7 +39,7 @@ extension Entity {
         var state: RoomPublicType
         var topicId: String
         let topicName: String
-        var bgUrl: String?
+//        var bgUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,

@@ -198,7 +198,6 @@ extension AmongChat.Room {
         
         func startUpdateBaseInfo() {
             Observable<Int>.interval(.seconds(180), scheduler: SerialDispatchQueueScheduler(qos: .default))
-                .startWith(0)
                 .subscribe(onNext: { [weak self] _ in
                     self?.requestRoomInfo()
                 })
@@ -304,7 +303,6 @@ extension AmongChat.Room {
         //MARK: -- Request
         func requestRoomInfo() {
             Request.requestRoomInfo(with: room.roomId)
-                .catchErrorJustReturn(self.room)
                 .asObservable()
                 .filterNilAndEmpty()
                 .subscribe(onNext: { [weak self] room in
@@ -578,6 +576,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         }
         
         if !imViewModel.imIsReady {
+            Logger.Action.log(.rtc_call_roominfo)
             requestRoomInfo()
         }
     }

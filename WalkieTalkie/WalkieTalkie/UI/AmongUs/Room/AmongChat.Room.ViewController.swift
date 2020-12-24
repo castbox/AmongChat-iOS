@@ -78,6 +78,7 @@ extension AmongChat.Room {
                     inputNotesView.show(with: room)
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 default:
+                    Logger.Action.log(.room_send_message_clk, categoryValue: self.room.topicId)
                     messageInputField.becomeFirstResponder()
                 }
             }
@@ -87,9 +88,7 @@ extension AmongChat.Room {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
             ship.contentMode = .scaleAspectFill
-            if room.bgUrl != nil {
-                ship.setImage(with: room.bgUrl)
-            }
+            ship.setImage(with: room.topicType.roomBgUrl)
 //            let star = UIImageView(image: R.image.star_bg())
             let mask = UIView()
             mask.backgroundColor = UIColor.black.alpha(0.5)
@@ -957,7 +956,7 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
         textField.clear()
         //text
         viewModel.sendText(message: text)
-        Logger.Action.log(.room_send_message, categoryValue: self.room.topicId)
+        Logger.Action.log(.room_send_message_success, categoryValue: self.room.topicId)
         return true
     }
 }
