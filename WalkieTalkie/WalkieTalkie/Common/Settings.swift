@@ -306,14 +306,43 @@ class Settings {
     //end
     
     let amongChatAvatarListShown: PublishProperty<Double?> = {
-    var value = Defaults[\.amongChatAvatarListShownTsKey]
-    return DynamicProperty.stored(value)
-        .didSet({ event in
-            Defaults[\.amongChatAvatarListShownTsKey] = event.new
-        })
-        .asPublishProperty()
-}()
-
+        var value = Defaults[\.amongChatAvatarListShownTsKey]
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                Defaults[\.amongChatAvatarListShownTsKey] = event.new
+            })
+            .asPublishProperty()
+    }()
+    
+    let globalSetting: PublishProperty<Entity.GlobalSetting?> = {
+        
+        let settings: Entity.GlobalSetting?
+        
+        if let dict = Defaults[\.amongChatGlobalSettingKey],
+           let s = try? JSONDecoder().decodeAnyData(Entity.GlobalSetting.self, from: dict) {
+            settings = s
+        } else {
+            settings = nil
+        }
+        
+        return DynamicProperty.stored(settings)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatGlobalSettingKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    
+    
+    func startObserver() {
+        loginResult.replay()
+            .subscribe(onNext: { [weak self] result in
+                guard let result = result, result.uid > 0 else {
+                    return
+                }
+                self?.fetchGlobalConfig()
+            })
+    }
     
     func updateProfile() {
         _ = Request.profile()
@@ -331,6 +360,25 @@ class Settings {
         amongChatUserProfile.value = nil
     }
 }
+
+
+extension Settings {
+    static var loginUserId: Int? {
+        return shared.loginResult.value?.uid
+    }
+    
+    func fetchGlobalConfig() {
+        _ = Request.amongchatProvider.rx.request(.globalSetting)
+            .retry(2)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.GlobalSetting.self)
+            .subscribe(onSuccess: { [unowned self] value in
+                self.globalSetting.value = value
+            })
+    }
+}
+
 
 extension DefaultsKeys {
     var mode: DefaultsKey<Mode> { /// app 主题 {
@@ -480,11 +528,15 @@ extension DefaultsKeys {
     var isReleaseMode: DefaultsKey<Bool> {
         .init("settings.isReleaseMode", defaultValue: true)
     }
-
+    
     //end
     
     var amongChatAvatarListShownTsKey: DefaultsKey<Double?> {
         .init("among.chat.avatar.list.shown.timestamp", defaultValue: nil)
+    }
+    
+    var amongChatGlobalSettingKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.global.setting", defaultValue: [:])
     }
 }
 
@@ -508,10 +560,3 @@ extension DefaultsAdapter {
 }
 
 extension CLLocation: DefaultsSerializable {}
-
-
-extension Settings {
-    static var loginUserId: Int? {
-        return shared.loginResult.value?.uid
-    }
-}

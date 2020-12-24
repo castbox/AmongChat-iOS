@@ -34,6 +34,7 @@ extension APIService {
         case unlockAvatar([String : Any])
         case sensitiveWords
         case updateDevice([String: Any])
+        case globalSetting
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -92,6 +93,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/device"
         case .sensitiveWords:
             return "/live/keyword/blacklist"
+        case .globalSetting:
+            return "/api/v1/setting"
         }
     }
     
@@ -119,6 +122,7 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultAvatars,
              .roomInfo,
              .sensitiveWords,
+             .globalSetting,
             .firebaseToken:
             return .get
         }
@@ -136,7 +140,8 @@ extension APIService.AmongChatBackend: TargetType {
         case .profile,
 //             .defaultAvatars,
              .logout,
-             .sensitiveWords:
+             .sensitiveWords,
+             .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SVGAPlayer
 
 extension AmongChat.Room {
     class SeatView: UIView {
@@ -50,7 +51,7 @@ extension AmongChat.Room {
         private var viewCache: [Int: AmongChat.Room.UserCell] = [:]
         
         let viewModel: AmongChat.Room.ViewModel
-        
+                
         var room: Entity.Room! {
             didSet {
                 dataSource = room.userListMap
@@ -137,6 +138,7 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
         if cell == nil {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath) as? AmongChat.Room.UserCell
             viewCache[indexPath.item] = cell
+            cell?.emojis = room.topicType.roomEmojis
         }
         if let cell = cell {
             if style == .kick, let user = dataSource[indexPath.item] {

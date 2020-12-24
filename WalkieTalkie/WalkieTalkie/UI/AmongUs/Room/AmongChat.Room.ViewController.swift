@@ -87,9 +87,7 @@ extension AmongChat.Room {
             let v = UIView()
             let ship = UIImageView(image: R.image.space_ship_bg())
             ship.contentMode = .scaleAspectFill
-            if room.bgUrl != nil {
-                ship.setImage(with: room.bgUrl)
-            }
+            ship.setImage(with: room.topicType.roomBgUrl)
 //            let star = UIImageView(image: R.image.star_bg())
             let mask = UIView()
             mask.backgroundColor = UIColor.black.alpha(0.5)
