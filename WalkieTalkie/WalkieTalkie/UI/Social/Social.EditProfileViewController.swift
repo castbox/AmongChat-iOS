@@ -165,12 +165,6 @@ private extension Social.EditProfileViewController {
                 }
             }).disposed(by: bag)
         
-        Settings.shared.amongChatDefaultAvatars.replay()
-            .subscribe(onNext: { (value) in
-                
-            })
-            .disposed(by: bag)
-        
         Settings.shared.amongChatAvatarListShown.replay()
             .subscribe(onNext: { [weak self] (ts) in
                 if let _ = ts {

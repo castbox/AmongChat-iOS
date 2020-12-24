@@ -82,7 +82,25 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
     static func updateProfile(_ profileData: [String : Any]) -> Single<Entity.UserProfile?> {
+        let params = ["profile_data" : profileData]
+        return amongchatProvider.rx.request(.updateProfile(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserProfile.self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do { _ in
+                Settings.shared.updateProfile()
+            }
+    }
+    
+    static func updateProfile(_ profile: Entity.ProfileProto) -> Single<Entity.UserProfile?> {
+        
+        guard let profileData = profile.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
         let params = ["profile_data" : profileData]
         return amongchatProvider.rx.request(.updateProfile(params))
             .mapJSON()
@@ -213,10 +231,7 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.DefaultAvatars.self)
-            .do(onSuccess: { (defaultAvatars) in
-                guard let d = defaultAvatars else { return }
-                Settings.shared.amongChatDefaultAvatars.value = d
-            })
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func unlockAvatar(_ avatar: Entity.DefaultAvatar) -> Single<Bool> {
@@ -230,8 +245,7 @@ extension Request {
             .mapToDataKeyJsonValue()
             .map { (json) -> Bool in
                 
-                guard let data = json["data"] as? [String : AnyObject],
-                      let process = data["process"] as? Bool,
+                guard let process = json["process"] as? Bool,
                       process else {
                     return false
                 }

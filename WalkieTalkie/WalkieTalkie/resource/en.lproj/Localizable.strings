@@ -246,3 +246,5 @@
 
 "among.chat.home.enter.room.failed" = "Failed to enter channel";
 "among.chat.reward.video.load.failed" = "Failed to load video";
+"among.chat.unlock.avatar.failed" = "Failed to unlock avatar";
+"among.chat.update.profile.failed" = "Failed to update profile";

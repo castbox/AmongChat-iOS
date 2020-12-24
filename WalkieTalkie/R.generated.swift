@@ -1553,7 +1553,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 190 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 192 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1763,6 +1763,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRewardVideoLoadFailed = Rswift.StringResource(key: "among.chat.reward.video.load.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to unlock avatar
+      /// 
+      /// Locales: en
+      static let amongChatUnlockAvatarFailed = Rswift.StringResource(key: "among.chat.unlock.avatar.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to update profile
+      /// 
+      /// Locales: en
+      static let amongChatUpdateProfileFailed = Rswift.StringResource(key: "among.chat.update.profile.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Feb
       /// 
       /// Locales: en
@@ -2678,6 +2686,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatRewardVideoLoadFailed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.reward.video.load.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to unlock avatar
+      /// 
+      /// Locales: en
+      static func amongChatUnlockAvatarFailed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.unlock.avatar.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to update profile
+      /// 
+      /// Locales: en
+      static func amongChatUpdateProfileFailed(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.update.profile.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Feb
