@@ -122,6 +122,26 @@ extension AmongChat.Room {
                 self?.userProfileSheetActionHandler?(item, user)
             }
         }
+        
+        func select(_ user: Entity.RoomUser?) {
+            if style == .kick {
+                if let user = user,
+                   user.uid != Settings.loginUserId {
+                    if selectedKickUser.contains(user.uid) {
+                        selectedKickUser.remove(user.uid)
+                    } else {
+                        selectedKickUser.insert(user.uid)
+                    }
+                }
+            } else {
+                guard let user = user else {
+    //                self.onShareBtn()
+                    selectUserHandler?(nil)
+                    return
+                }
+                showAvatarSheet(with: user)
+            }
+        }
     }
 }
 
@@ -139,6 +159,9 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath) as? AmongChat.Room.UserCell
             viewCache[indexPath.item] = cell
             cell?.emojis = room.topicType.roomEmojis
+            cell?.clickAvatarHandler = { [weak self] user in
+                self?.select(user)
+            }
         }
         if let cell = cell {
             if style == .kick, let user = dataSource[indexPath.item] {
@@ -157,40 +180,13 @@ extension AmongChat.Room.SeatView: UICollectionViewDataSource {
 
 extension AmongChat.Room.SeatView: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if style == .kick {
-            if let user = dataSource[indexPath.item],
-               user.uid != Settings.loginUserId {
-                if selectedKickUser.contains(user.uid) {
-                    selectedKickUser.remove(user.uid)
-                } else {
-                    selectedKickUser.insert(user.uid)
-                }
-            }
-        } else {
-            guard let user = dataSource[indexPath.item] else {
-//                self.onShareBtn()
-                selectUserHandler?(nil)
-                return
-            }
-            showAvatarSheet(with: user)
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
+//    }
     
 }
 
 extension Reactive where Base: AmongChat.Room.SeatView {
-//    var multiHostItems: Binder<[Seats.Item]> {
-//        return Binder(base) { view, items in
-//            cdPrint("[HostSeat] - will trigger reload: \(items.map { $0.userInfo.suid })")
-//            guard items.count == Room.HostSeat.countOfSeat || items.count == Room.Dating.countOfSeat else {
-//                return
-//            }
-//            cdPrint("[HostSeat] - did trigger reload: \(items.map { $0.userInfo.suid })")
-//            view.multiHostItems = items
-//        }
-//    }
-    
     var soundAnimation: Binder<Int?> {
         return Binder(base) { view, index in
             guard let index = index, let cell = view.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AmongChat.Room.UserCell else { return }
