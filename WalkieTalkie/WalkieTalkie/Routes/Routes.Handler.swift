@@ -80,8 +80,8 @@ extension Routes {
         func handleRoom(_ roomId: String) {
             UIApplication.navigationController?.popToRootViewController(animated: true)
             
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.TopicsViewController,
+                  UIApplication.topViewController() is AmongChat.Home.TopicsViewController else {
                 return
             }
             

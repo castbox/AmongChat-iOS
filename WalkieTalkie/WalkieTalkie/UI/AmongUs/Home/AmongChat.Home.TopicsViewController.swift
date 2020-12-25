@@ -1,5 +1,5 @@
 //
-//  AmongChat.Home.ViewController.swift
+//  AmongChat.Home.TopicsViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue_work on 2020/11/25.
@@ -12,7 +12,7 @@ import RxSwift
 
 extension AmongChat.Home {
     
-    class ViewController: WalkieTalkie.ViewController {
+    class TopicsViewController: WalkieTalkie.ViewController {
         
         // MARK: - members
         
@@ -86,7 +86,7 @@ extension AmongChat.Home {
     
 }
 
-extension AmongChat.Home.ViewController {
+extension AmongChat.Home.TopicsViewController {
 
     //MARK: - UI Action
     
@@ -106,7 +106,7 @@ extension AmongChat.Home.ViewController {
     
 }
 
-extension AmongChat.Home.ViewController {
+extension AmongChat.Home.TopicsViewController {
     
     func enterRoom(roomId: String? = nil, topicId: String?) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
@@ -267,7 +267,7 @@ extension AmongChat.Home.ViewController {
     }
 }
 
-extension AmongChat.Home.ViewController: UICollectionViewDataSource {
+extension AmongChat.Home.TopicsViewController: UICollectionViewDataSource {
 
     // MARK: - UICollectionView
 
@@ -286,7 +286,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDataSource {
 
 }
 
-extension AmongChat.Home.ViewController: UICollectionViewDelegate {
+extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
