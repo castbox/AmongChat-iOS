@@ -108,6 +108,13 @@ extension Social {
             //                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
             //                })
             //                .disposed(by: bag)
+            
+            rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: { (_) in
+                    Logger.Action.log(.profile_imp, category: nil)
+                })
+                .disposed(by: bag)
         }
     }
 }

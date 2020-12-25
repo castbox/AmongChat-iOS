@@ -235,6 +235,13 @@ extension AmongChat.CreateRoom.ViewController {
                 
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.create_topic_imp, category: nil)
+            })
+            .disposed(by: bag)
     }
     
     private func createRoom(with name: String) {

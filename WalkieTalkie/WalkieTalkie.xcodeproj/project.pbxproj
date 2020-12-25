@@ -65,6 +65,8 @@
 		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
 		BDE20C0F258DD45B00245CBA /* APIService.Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20C0E258DD45B00245CBA /* APIService.Cache.swift */; };
 		BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */; };
+		BDFCA4AD2594A9A3000ABB39 /* AmongChat.Home.MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */; };
+		BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */; };
 		BDFEFEF125864517007F40FC /* AmongChat.CreateRoom.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2224489BCC00518793 /* RoomViewModel.swift */; };
@@ -390,6 +392,8 @@
 		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
 		BDE20C0E258DD45B00245CBA /* APIService.Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Cache.swift; sourceTree = "<group>"; };
 		BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.LoadErrorView.swift; sourceTree = "<group>"; };
+		BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.MainTabController.swift; sourceTree = "<group>"; };
+		BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.ViewController.swift; sourceTree = "<group>"; };
 		CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
@@ -687,7 +691,9 @@
 			isa = PBXGroup;
 			children = (
 				BD6C36F4256E526B00D1E708 /* AmongChat.Home.swift */,
+				BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */,
 				BD6C36F9256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift */,
+				BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */,
 				BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */,
 				BD91A398258C9153008931AD /* AmongChat.Home.TopicCell.swift */,
 				BD91A39C258C981F008931AD /* AmongChat.Home.TopicViewModel.swift */,
@@ -1683,6 +1689,7 @@
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
 				FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */,
 				FE0D1A2324489BCD00518793 /* RoomViewModel.swift in Sources */,
+				BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				BD73B0F824FDEE4B009D0AC7 /* Social.UserList.ViewController.swift in Sources */,
 				BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */,
@@ -1697,6 +1704,7 @@
 				FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */,
 				FE401E48244DAD680081F793 /* Scheduler.swift in Sources */,
 				FE126D4C243481FF00BEDD60 /* ChannelData.swift in Sources */,
+				BDFCA4AD2594A9A3000ABB39 /* AmongChat.Home.MainTabController.swift in Sources */,
 				FEC17A4B24A9B957003719BC /* Request.swift in Sources */,
 				BDD1F9F024FB974D00B8563C /* Reactive+UIViewController.swift in Sources */,
 				FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */,

@@ -74,6 +74,10 @@ extension AmongChat.Home {
             return .home
         }
         
+        override var isHidesBottomBarWhenPushed: Bool {
+            return false
+        }
+        
         //MARK: - inherited
         
         override func viewDidLoad() {
@@ -92,16 +96,12 @@ extension AmongChat.Home.TopicsViewController {
     
     @objc
     private func onProfileBtn() {
-        Logger.Action.log(.profile_imp, category: nil)
-        let vc = Social.ProfileViewController()
-        navigationController?.pushViewController(vc)
+        Routes.handle("/profile")
     }
     
     @objc
     private func onCreateRoomBtn() {
-        Logger.Action.log(.create_topic_imp, category: nil)
-        let vc = AmongChat.CreateRoom.ViewController()
-        present(vc, animated: true)
+        Routes.handle("/createRoom")
     }
     
 }
