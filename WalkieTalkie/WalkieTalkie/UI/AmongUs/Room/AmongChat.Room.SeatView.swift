@@ -12,12 +12,18 @@ import RxCocoa
 import SVGAPlayer
 
 extension AmongChat.Room {
-    class SeatView: UIView {
-        private let fixedListLength = Int(10)
-
-        fileprivate lazy var collectionView: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-    //            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - itemSpacing * 4) / 5
+    
+    class SeatFlowLayout: UICollectionViewFlowLayout {
+//        var margin: CGFloat = 15
+//        var padding: CGFloat = 4
+//        let itemWidth: CGFloat = 60
+//        let itemHeight: CGFloat = 125.5
+//        var activityItemWidth: CGFloat = (Frame.Screen.width - 30 - 4) / 2
+        var itemAttributesArray = [UICollectionViewLayoutAttributes]()
+        
+        override func prepare() {
+            super.prepare()
+            
             let cellWidth: CGFloat = 60
             var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
             let itemSpacing: CGFloat
@@ -26,12 +32,58 @@ extension AmongChat.Room {
                 hInset = 20
             } else {
                 itemSpacing = 0
+                hInset = hInset.floor
             }
-            layout.itemSize = CGSize(width: cellWidth, height: 125.5)
-            layout.minimumInteritemSpacing = itemSpacing
-            layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            itemSize = CGSize(width: cellWidth, height: 125.5)
+            minimumInteritemSpacing = itemSpacing
+            minimumLineSpacing = 0
+            sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
+
+//            itemSize = CGSize(width: itemWidth, height: itemHeight)
+//            minimumLineSpacing = 4
+//            minimumInteritemSpacing = 0
+            scrollDirection = .horizontal
+            
+            // 刷新清空
+            itemAttributesArray.removeAll()
+            
+            
+//            let sectionCount = collectionView?.numberOfSections ?? 0
+//            for section in 0..<sectionCount {
+            let itemCount = collectionView?.numberOfItems(inSection: 0) ?? 0
+            for item in 0..<itemCount {
+                let indexPath = IndexPath(item: item, section: 0)
+                let attribute = layoutAttributesForItem(at: indexPath)
+                if let attr = attribute {
+                    itemAttributesArray.append(attr)
+                }
+            }
+        }
+
+        override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+            return itemAttributesArray
+        }
+        
+        override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+            let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+//            let page: CGFloat = CGFloat(indexPath.item / 8)
+            let row: CGFloat = CGFloat(indexPath.item % 5)
+            let col: CGFloat = CGFloat(indexPath.item / 5)
+            let x = sectionInset.left + row * (itemSize.width + minimumInteritemSpacing)
+            let y = sectionInset.top + col * itemSize.height
+            cdPrint("x: \(x) \ny: \(y)")
+            attribute.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
+            return attribute
+        }
+    }
+}
+
+extension AmongChat.Room {
+    class SeatView: UIView {
+        private let fixedListLength = Int(10)
+
+        fileprivate lazy var collectionView: UICollectionView = {
+            let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false

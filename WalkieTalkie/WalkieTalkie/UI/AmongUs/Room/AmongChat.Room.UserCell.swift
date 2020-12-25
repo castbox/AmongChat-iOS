@@ -313,7 +313,7 @@ extension AmongChat.Room.UserCell {
         user = nil
         stopSoundAnimation()
         avatarIV.kf.cancelImageDownloadTask()
-        avatarIV.setBackgroundImage(R.image.ac_icon_seat_add(), for: .normal)
+        avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
         avatarIV.imageView?.contentMode = .center
         avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
