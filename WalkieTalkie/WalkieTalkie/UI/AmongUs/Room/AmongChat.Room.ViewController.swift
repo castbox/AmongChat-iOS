@@ -78,6 +78,7 @@ extension AmongChat.Room {
                     inputNotesView.show(with: room)
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 default:
+                    Logger.Action.log(.room_send_message_clk, categoryValue: self.room.topicId)
                     messageInputField.becomeFirstResponder()
                 }
             }
@@ -955,7 +956,7 @@ extension AmongChat.Room.ViewController: UITextFieldDelegate {
         textField.clear()
         //text
         viewModel.sendText(message: text)
-        Logger.Action.log(.room_send_message, categoryValue: self.room.topicId)
+        Logger.Action.log(.room_send_message_success, categoryValue: self.room.topicId)
         return true
     }
 }

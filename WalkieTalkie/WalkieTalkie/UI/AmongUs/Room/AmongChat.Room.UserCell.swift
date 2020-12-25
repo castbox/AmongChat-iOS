@@ -36,20 +36,32 @@ extension AmongChat.Room {
         
         private lazy var haloView = SoundAnimationView(frame: .zero)
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
-            iv.layer.borderWidth = 0.5
-            iv.contentMode = .scaleAspectFill
-            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
-            iv.backgroundColor = UIColor.white.alpha(0.2)
-            iv.isUserInteractionEnabled = true
-//            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
-//            longPressGesture.minimumPressDuration = 0.5
-//            iv.addGestureRecognizer(longPressGesture)
-            return iv
+        private lazy var avatarIV: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.layer.cornerRadius = 20
+            btn.layer.masksToBounds = true
+            btn.layer.borderWidth = 0.5
+            btn.imageView?.contentMode = .scaleAspectFill
+            btn.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+            btn.backgroundColor = UIColor.white.alpha(0.2)
+            btn.addTarget(self, action: #selector(userIconButtonAction), for: .touchUpInside)
+            return btn
         }()
+        
+//        private lazy var avatarIV: UIImageView = {
+//            let iv = UIImageView()
+//            iv.layer.cornerRadius = 20
+//            iv.layer.masksToBounds = true
+//            iv.layer.borderWidth = 0.5
+//            iv.contentMode = .scaleAspectFill
+//            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+//            iv.backgroundColor = UIColor.white.alpha(0.2)
+//            iv.isUserInteractionEnabled = true
+////            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
+////            longPressGesture.minimumPressDuration = 0.5
+////            iv.addGestureRecognizer(longPressGesture)
+//            return iv
+//        }()
         
         private lazy var kickSelectedView: UIImageView = {
             let iv = UIImageView()
@@ -118,7 +130,7 @@ extension AmongChat.Room {
         private var user: Entity.RoomUser?
         private var isPlaySvgaEmoji: Bool = false
 
-//        var avatarLongPressHandler: ((Entity.RoomUser) -> Void)?
+        var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
         
         var isKickSelected: Bool = false {
             didSet {
@@ -145,7 +157,7 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-            avatarIV.kf.cancelDownloadTask()
+            avatarIV.kf.cancelImageDownloadTask()
         }
         
         override func layoutSubviews() {
@@ -181,6 +193,11 @@ extension AmongChat.Room {
                          failureBlock: { error in
                             debugPrint("error: \(error?.localizedDescription ?? "")")
                          })
+        }
+        
+        @objc
+        func userIconButtonAction() {
+            clickAvatarHandler?(user)
         }
         
         @objc
@@ -266,11 +283,10 @@ extension AmongChat.Room.UserCell {
             return
         }
         self.user = user
-        avatarIV.contentMode = .scaleAspectFill
-        avatarIV.setAvatarImage(with: user.pictureUrl)
+        avatarIV.imageView?.contentMode = .scaleAspectFill
+        avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
         nameLabel.text = user.name
         if user.status == .talking {
-//            haloView.startLoading()
             startSoundAnimation()
         } else {
             stopSoundAnimation()
@@ -296,9 +312,9 @@ extension AmongChat.Room.UserCell {
     func clearStyle() {
         user = nil
         stopSoundAnimation()
-        avatarIV.kf.cancelDownloadTask()
-        avatarIV.image = R.image.ac_icon_seat_add()
-        avatarIV.contentMode = .center
+        avatarIV.kf.cancelImageDownloadTask()
+        avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
+        avatarIV.imageView?.contentMode = .center
         avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
         nameLabel.text = ""

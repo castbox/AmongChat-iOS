@@ -99,6 +99,7 @@ extension AmongChat.Login {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            Logger.Action.log(.login_imp)
         }
         
     }
@@ -112,6 +113,8 @@ extension AmongChat.Login.ViewController {
     @available(iOS 13.0, *)
     @objc
     private func onAppleButtonTouched() {
+        Logger.Action.log(.login_clk, category: .apple_id)
+
         loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginApple(from: navigationController ?? self)
             .observeOn(MainScheduler.asyncInstance)
@@ -120,6 +123,9 @@ extension AmongChat.Login.ViewController {
             })
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .apple_id)
+                }
             }) { [weak self] (error) in
                 self?.loginHandler(nil, error)
             }
@@ -128,7 +134,7 @@ extension AmongChat.Login.ViewController {
     
     @objc
     private func onGoogleButton() {
-        
+        Logger.Action.log(.login_clk, category: .google)
         loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginGoogle(from: navigationController ?? self)
             .observeOn(MainScheduler.asyncInstance)
@@ -137,6 +143,9 @@ extension AmongChat.Login.ViewController {
             })
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .google)
+                }
             }, onError: { [weak self] (error) in
                 self?.loginHandler(nil, error)
             })

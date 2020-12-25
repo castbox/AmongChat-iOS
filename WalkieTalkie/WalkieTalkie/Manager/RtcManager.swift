@@ -87,7 +87,7 @@ class RtcManager: NSObject {
         mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         mRtcEngine.setLogFile(logFilePath())
         mRtcEngine.setChannelProfile(.liveBroadcasting)
-        mRtcEngine.setAudioProfile(.musicHighQuality, scenario: .chatRoomEntertainment)
+        mRtcEngine.setAudioProfile(.musicStandard, scenario: .gameStreaming)
         mRtcEngine.enableAudioVolumeIndication(500, smooth: 3, report_vad: false)
         //先开始测试
 //        isLastmileProbeTesting = true

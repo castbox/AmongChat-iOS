@@ -97,7 +97,8 @@ extension Logger {
             case create_topic_hot_clk
             case room_share_clk
             case room_open_game
-            case room_send_message
+            case room_send_message_clk
+            case room_send_message_success
             case room_mic_state
             case room_user_profile_imp
             case room_user_profile_clk
@@ -117,6 +118,16 @@ extension Logger {
             case admin_kick_imp
             case admin_kick_success
             case admin_change_state
+            
+            case login_imp
+            case login_clk
+            case login_success
+            case login_birthday_imp
+            case login_birthday_skip
+            case login_birthday_done
+            case login_birthday_success
+            case logout_clk
+            case logout_success
         }
         
         enum Category: String {
@@ -144,6 +155,9 @@ extension Logger {
             //头像
             case rewarded
             case free
+            
+            case google
+            case apple_id
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
