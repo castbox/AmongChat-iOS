@@ -10,6 +10,7 @@
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
+		2BA2DB462594AB320050BF8E /* FollowerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2DB452594AB320050BF8E /* FollowerViewController.swift */; };
 		2BAC1459258E5D6A0064F55D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC1458258E5D690064F55D /* R.generated.swift */; };
 		9BC713B11E43E853DC258727 /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */; };
 		BD1F050D24FFB55200712C24 /* ChannelUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */; };
@@ -340,6 +341,7 @@
 		2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkieWidgetExtension.entitlements; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
+		2BA2DB452594AB320050BF8E /* FollowerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerViewController.swift; sourceTree = "<group>"; };
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		79D7B9CB8308353481C1E294 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		A714B615680A3C004001D7F1 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
@@ -683,6 +685,14 @@
 			path = WalkieTalkieWidget;
 			sourceTree = "<group>";
 		};
+		2BA2DB492594AB510050BF8E /* Follower */ = {
+			isa = PBXGroup;
+			children = (
+				2BA2DB452594AB320050BF8E /* FollowerViewController.swift */,
+			);
+			path = Follower;
+			sourceTree = "<group>";
+		};
 		BD6C36EA256E516900D1E708 /* AmongUs */ = {
 			isa = PBXGroup;
 			children = (
@@ -800,6 +810,7 @@
 				BD8BEE1C2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift */,
 				BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */,
 				BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */,
+				2BA2DB492594AB510050BF8E /* Follower */,
 				BDA05E9C250B229D0087933F /* BlockedUserList */,
 				BD73B0FB24FE1705009D0AC7 /* UserList */,
 			);
@@ -1720,6 +1731,7 @@
 				BD6C3718256F5F3A00D1E708 /* AmongChat.Home.HashTag.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
+				2BA2DB462594AB320050BF8E /* FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
 				FE3BC99324BC31BB0078A667 /* GuideFourthView_b.swift in Sources */,
 				FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */,

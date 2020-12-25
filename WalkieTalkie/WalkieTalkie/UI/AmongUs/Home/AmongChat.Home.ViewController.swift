@@ -93,7 +93,7 @@ extension AmongChat.Home.ViewController {
     @objc
     private func onProfileBtn() {
         Logger.Action.log(.profile_imp, category: nil)
-        let vc = Social.ProfileViewController()
+        let vc = Social.ProfileViewController(with: 110010)
         navigationController?.pushViewController(vc)
     }
     
