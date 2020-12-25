@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 142 images.
+  /// This `R.image` struct is generated, and contains static references to 144 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -160,10 +160,14 @@ struct R: Rswift.Validatable {
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
     static let ac_home_create = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_create")
+    /// Image `ac_home_friends_tab`.
+    static let ac_home_friends_tab = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_friends_tab")
     /// Image `ac_home_load_error`.
     static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
+    /// Image `ac_home_topic_tab`.
+    static let ac_home_topic_tab = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -466,6 +470,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_home_create, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_home_friends_tab", bundle: ..., traitCollection: ...)`
+    static func ac_home_friends_tab(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_friends_tab, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_home_load_error", bundle: ..., traitCollection: ...)`
     static func ac_home_load_error(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_load_error, compatibleWith: traitCollection)
@@ -474,6 +483,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`
     static func ac_home_profile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_profile, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_topic_tab", bundle: ..., traitCollection: ...)`
+    static func ac_home_topic_tab(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_topic_tab, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
