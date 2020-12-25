@@ -84,9 +84,9 @@ extension FireRemote {
         init(config: RemoteConfig) {
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
-            adsFreeMinutes = config["ads_free_minutes"].numberValue?.intValue ?? 5
+            adsFreeMinutes = config["ads_free_minutes"].numberValue.intValue
             popularProduct = config["popular_product"].stringValue ?? ""
-            reviewProtectMinutes = config["review_protect_minutes"].numberValue? .intValue ?? 1440
+            reviewProtectMinutes = config["review_protect_minutes"].numberValue.intValue
             
             notificationAutoPlay = config["notification_auto_play"].boolValue
             
@@ -111,13 +111,13 @@ extension FireRemote {
             }
             
             let minInterval: Int = 20
-            nativeRefreshSeconds = max(minInterval, config["native_ads_refresh_seconds"].numberValue?.intValue ?? minInterval)
+            nativeRefreshSeconds = max(minInterval, config["native_ads_refresh_seconds"].numberValue.intValue)
             
             let interstitialString = config["iad_config"].stringValue ?? ""
             interstitialConfig = InterstitialConfig(interstitialString)
             
-            rateIntervalSeconds = config["i_rate_interval_sec"].numberValue?.intValue ?? 86400
-                    delayShowShareDialog = config["delay_show_share_dialog"].numberValue?.intValue ?? 10
+            rateIntervalSeconds = config["i_rate_interval_sec"].numberValue.intValue
+                    delayShowShareDialog = config["delay_show_share_dialog"].numberValue.intValue
             
             app_open_ad_config = AppOpenAdConfig(config["app_open_ad_config"].stringValue ?? "")
         }

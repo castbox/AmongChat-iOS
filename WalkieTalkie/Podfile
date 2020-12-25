@@ -35,17 +35,20 @@ def firebase_pods
     pod 'Firebase/Auth'
 
     # log
-#    pod 'Firebase/Analytics'
-    pod 'FirebaseAnalytics'#, '7.3.0'
+    pod 'Firebase/Analytics'
+#    pod 'FirebaseAnalytics', '7.3.0'
     #, '6.1.0'
     
     # in app messageing
-    pod 'Firebase/InAppMessaging'
+    pod 'Firebase/InAppMessaging', '7.3.0'
     
     # in app messageing
-    pod 'Firebase/InAppMessagingDisplay'
+#    pod 'Firebase/InAppMessagingDisplay'
+#      pod 'FirebaseInAppMessaging'
     
     pod 'Firebase/DynamicLinks'
+    
+    pod 'Firebase/Crashlytics'#, '7.3.0'
 end
 
 # specify the version numbers in case of Podfile.lock missing
@@ -59,11 +62,6 @@ target 'WalkieTalkie' do
 
 #    pod 'Moya'
     pod 'Moya/RxSwift'
-
-#    pod 'Firebase/Crashlytics'
-#    pod 'Fabric', '~> 1.10.2'
-#    pod 'Crashlytics', '~> 3.14.0'
-    pod 'Firebase/Crashlytics'
 
     firebase_pods
 
@@ -105,8 +103,8 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-    pod 'mopub-ios-sdk/Core'
-#    pod 'MoPub-AdMob-Adapters', '7.69.0.0'
+#    pod 'mopub-ios-sdk/Core'
+    pod 'MoPub-AdMob-Adapters', '7.69.0.0'
     pod 'MoPub-UnityAds-Adapters', '3.6.0.0'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
