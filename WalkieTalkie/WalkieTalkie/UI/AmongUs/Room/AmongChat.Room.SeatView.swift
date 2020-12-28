@@ -117,18 +117,14 @@ extension AmongChat.Room {
                 items.append(.kick)
             }
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
-            
-            let vc = Social.ProfileViewController(with: user.uid)
-            let nav = NavigationViewController(rootViewController: viewController)
-//            nav.pushViewController(vc)
-            viewController.navigationController?.pushViewController(vc)
-            
-//            viewController.present(vc, animated: true, completion: nil)
-
-//            AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
-//                Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
-//                self?.userProfileSheetActionHandler?(item, user)
-//            }
+//            let vc = Social.ProfileViewController(with: user.uid)
+//            let nav = NavigationViewController(rootViewController: viewController)
+//            nav.navigationController?.pushViewController(vc, completion: nil)
+//            vc.showModal(in: viewController)
+            AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+                Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+                self?.userProfileSheetActionHandler?(item, user)
+            }
         }
     }
 }

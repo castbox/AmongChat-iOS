@@ -48,12 +48,19 @@ extension Social {
             }
         }
         
+        var isPresent = true
+        
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
-                    self?.navigationController?.popViewController()
+                    guard let `self` = self else { return }
+                    if self.isPresent {
+                        self.hideModal()
+                    } else {
+                        self.navigationController?.popViewController()
+                    }
                 }).disposed(by: bag)
             return btn
         }()
@@ -113,10 +120,14 @@ extension Social {
         private var uid = 0
         private var isSelfProfile = true
         private var blocked = false
+        private var userProfile: Entity.UserProfile?
         
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
             self.uid = uid
+            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
+            self.isSelfProfile = uid == selfUid
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -131,6 +142,34 @@ extension Social {
         }
     }
 }
+
+extension Social.ProfileViewController: Modalable {
+    func style() -> Modal.Style {
+        return .customHeight
+    }
+    
+    func height() -> CGFloat {
+        return Frame.Screen.height
+    }
+    
+    func modalPresentationStyle() -> UIModalPresentationStyle {
+        return .overCurrentContext
+    }
+    
+    func cornerRadius() -> CGFloat {
+        return 0
+    }
+    
+    func coverAlpha() -> CGFloat {
+        return 0.5
+    }
+    
+    func canAutoDismiss() -> Bool {
+        return true
+    }
+
+}
+
 private extension Social.ProfileViewController {
     func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
@@ -146,12 +185,6 @@ private extension Social.ProfileViewController {
             maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
             maker.width.height.equalTo(25)
         }
-        
-        let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-        
-        cdPrint("self uid is \(selfUid)")
-        self.isSelfProfile = uid == selfUid
-        
         if !isSelfProfile {
             options.removeAll()
             view.addSubview(moreBtn)
@@ -168,7 +201,12 @@ private extension Social.ProfileViewController {
     func loadData() {
         let removeBlock = view.raft.show(.loading)
         Request.profilePage(uid: uid)
-            .subscribe(onSuccess: { (success) in
+            .subscribe(onSuccess: { [weak self](data) in
+                guard let data = data, let `self` = self else { return }
+                self.userProfile = data.profile
+                if let profile = data.profile {
+                    self.headerView.configProfile(profile)
+                }
                 removeBlock()
             }, onError: { (error) in
                 removeBlock()
@@ -234,14 +272,14 @@ private extension Social.ProfileViewController {
     func followAction() {
         let removeBlock = view.raft.show(.loading)
         let isFollowed = relationData?.isFollowed ?? false
-        if  isFollowed {
+        if isFollowed {
             Request.unFollow(uid: uid, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
                         self.relationData?.isFollowed = false
-                        self.headerView.setFollowButton(true)
+                        self.headerView.setFollowButton(false)
                     }
                 }, onError: { (error) in
                     removeBlock()
@@ -254,7 +292,7 @@ private extension Social.ProfileViewController {
                     removeBlock()
                     if success {
                         self.relationData?.isFollowed = true
-                        self.headerView.setFollowButton(false)
+                        self.headerView.setFollowButton(true)
                     }
                 }, onError: { (error) in
                     removeBlock()
@@ -548,7 +586,9 @@ extension Social.ProfileViewController {
         
         private func yellowFollowButton() {
             followButton.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            followButton.backgroundColor = UIColor(hex6: 0x898989)
+            followButton.backgroundColor = UIColor(hex6: 0xFFF000)
+            followButton.layer.borderWidth = 3
+            followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             followButton.setTitleColor(.black, for: .normal)
         }
         
@@ -740,12 +780,11 @@ extension Social.ProfileViewController {
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.left.top.right.equalToSuperview()
-                maker.height.equalTo(19)
             }
             subtitleLabel.snp.makeConstraints { (maker) in
-                maker.left.right.bottom.equalToSuperview()
-                maker.height.equalTo(16)
                 maker.top.equalTo(titleLabel.snp.bottom)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(18)
             }
         }
         

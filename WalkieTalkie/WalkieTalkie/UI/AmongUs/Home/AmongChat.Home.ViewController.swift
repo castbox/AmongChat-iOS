@@ -95,6 +95,7 @@ extension AmongChat.Home.ViewController {
         Logger.Action.log(.profile_imp, category: nil)
         let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
         let vc = Social.ProfileViewController(with: selfUid)
+        vc.isPresent = false
         navigationController?.pushViewController(vc)
     }
     

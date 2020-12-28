@@ -179,11 +179,9 @@ extension APIService.AmongChatBackend: TargetType {
              .updateDevice(let params),
              .follow(let params),
              .unFollow(let params),
-             .relationData(let params),
              .blockList(let params),
              .followingList(let params),
-             .followerList(let params),
-             .profilePage(let params):
+             .followerList(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
@@ -198,6 +196,8 @@ extension APIService.AmongChatBackend: TargetType {
              .roomNickName(let params),
              .defaultAvatars(let params),
              .unlockAvatar(let params),
+             .relationData(let params),
+             .profilePage(let params),
              .firebaseToken(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

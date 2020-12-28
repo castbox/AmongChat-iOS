@@ -10,6 +10,19 @@ import Foundation
 
 extension Entity {
     
+    struct ProfilePage: Codable {
+        var profile: UserProfile?
+        var followData: RelationData?
+        var relationData: RelationData?
+        
+        private enum CodingKeys: String, CodingKey {
+            case profile
+            case followData = "follow_data"
+            case relationData = "relation_data"
+        }
+    }
+    
+    
     struct RelationData: Codable {
         var followingCount: Int?
         var followersCount: Int?
@@ -23,4 +36,5 @@ extension Entity {
             case isFollowed = "is_followed"
         }
     }
+
 }

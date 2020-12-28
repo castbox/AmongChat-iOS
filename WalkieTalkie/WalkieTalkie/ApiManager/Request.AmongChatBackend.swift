@@ -288,12 +288,12 @@ extension Request {
             }
     }
     
-    static func profilePage(uid: Int) -> Single<Bool> {
+    static func profilePage(uid: Int) -> Single<Entity.ProfilePage?> {
         let paras = ["uid": uid]
         return amongchatProvider.rx.request(.profilePage(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapToProcessedValue()
+            .mapTo(Entity.ProfilePage.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
