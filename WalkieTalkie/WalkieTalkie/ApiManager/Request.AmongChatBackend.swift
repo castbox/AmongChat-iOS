@@ -356,6 +356,16 @@ extension Request {
             .mapTo(Entity.FollowData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func endUsers(roomId: Int) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId]
+        return amongchatProvider.rx.request(.exitRoomRecommend(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
         
     static func friendsPlayingList() -> Single<[Entity.FriendPlaying]> {
         return amongchatProvider.rx.request(.playingList)

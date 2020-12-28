@@ -147,7 +147,9 @@ extension Social {
         }
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            getRealation()
+            if isSelfProfile {
+                getRealation()
+            }
         }
     }
 }

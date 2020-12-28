@@ -43,6 +43,7 @@ extension APIService {
         case followerList([String: Any])
         case profilePage([String: Any])
         case playingList
+        case exitRoomRecommend([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -119,6 +120,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/profile/page"
         case .playingList:
             return "/api/v1/friends/play/list"
+        case .exitRoomRecommend:
+            return "/api/v1/end/user/list"
         }
     }
     
@@ -153,7 +156,8 @@ extension APIService.AmongChatBackend: TargetType {
              .followingList,
              .followerList,
              .profilePage,
-             .playingList:
+             .playingList,
+             .exitRoomRecommend:
             return .get
         case .follow:
             return .put
@@ -203,6 +207,7 @@ extension APIService.AmongChatBackend: TargetType {
              .followingList(let params),
              .followerList(let params),
              .follow(let params),
+             .exitRoomRecommend(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

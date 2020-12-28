@@ -48,11 +48,11 @@ extension Social {
             }
         }
         
-        private var uid = 0
+        private var roomId = 0
         
-        init(with uid: Int) {
+        init(with roomId: Int) {
             super.init(nibName: nil, bundle: nil)
-            self.uid = uid
+            self.roomId = roomId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -112,7 +112,7 @@ extension Social {
         
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
-            Request.followingList(uid: uid, skipMs: 0)
+            Request.endUsers(roomId: roomId)
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let data = data else { return }
@@ -125,8 +125,7 @@ extension Social {
         
         private func loadMore() {
             let removeBlock = view.raft.show(.loading)
-            let skipMS = userList.last?.opTime ?? 0
-            Request.followingList(uid: uid, skipMs: skipMS)
+            Request.endUsers(roomId: roomId)
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let data = data else { return }
