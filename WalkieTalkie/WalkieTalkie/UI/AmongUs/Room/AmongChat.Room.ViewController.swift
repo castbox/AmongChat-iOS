@@ -314,7 +314,6 @@ extension AmongChat.Room.ViewController {
             //Ad.InterstitialManager.shared.showAdIfReady(from: vc)
         }
     }
-
 }
 
 
@@ -485,38 +484,6 @@ extension AmongChat.Room.ViewController {
         let controller = R.storyboard.main.privateShareController()
         controller?.channelName = channelName
         controller?.showModal(in: self)
-    }
-    
-    private func showReportSheet(for user: Entity.RoomUser) {
-        let alertVC = UIAlertController(
-            title: R.string.localizable.reportTitle(),
-            message: "\(R.string.localizable.reportUserId()): \(user.uid)",
-            preferredStyle: .actionSheet)
-//        alertVC.setBackgroundColor(color: "222222".color())
-//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
-//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
-
-        let items = [
-            R.string.localizable.reportIncorrectInformation(),
-            R.string.localizable.reportIncorrectSexual(),
-            R.string.localizable.reportIncorrectHarassment(),
-            R.string.localizable.reportIncorrectUnreasonable(),
-            ].enumerated()
-
-        for (index, item) in items {
-            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: String(user.uid))
-            })
-//            action.titleTextColor = .white
-            
-            alertVC.addAction(action)
-        }
-
-        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
-//        cancel.titleTextColor = .white
-        alertVC.addAction(cancel)
-        present(alertVC, animated: true, completion: nil)
     }
     
     private func bindSubviewEvent() {
@@ -813,6 +780,9 @@ extension AmongChat.Room.ViewController {
     
     func onUserProfileSheet(action: AmongSheetController.ItemType, user: Entity.RoomUser) {
         switch action {
+        case .profile:
+            let vc = Social.ProfileViewController(with: user.uid)
+            navigationController?.pushViewController(vc)
         case .block:
             viewModel.blockedUser(user)
         case .mute:
@@ -822,7 +792,7 @@ extension AmongChat.Room.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            showReportSheet(for: user)
+            self.showReportSheet(for: user)
         case .kick:
             requestKick([user.uid])
         default:

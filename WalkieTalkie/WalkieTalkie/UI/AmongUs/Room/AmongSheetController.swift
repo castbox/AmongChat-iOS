@@ -12,6 +12,7 @@ class AmongSheetController: ViewController {
     
     enum ItemType: String {
         case userInfo
+        case profile
         case block
         case mute
         case unblock
@@ -20,25 +21,30 @@ class AmongSheetController: ViewController {
         case kick
         case cancel
     }
-
+    
+    enum UIStyleType {
+        case room
+        case profile
+    }
+    
     @IBOutlet weak var tableView: UITableView!
     
     var items: [ItemType] = []
     var user: Entity.RoomUser?
     var actionHandler: ((ItemType) -> Void)?
+    private var uiType: UIStyleType = .room
     
-    static func show(with user: Entity.RoomUser? = nil, items: [ItemType], in viewController: UIViewController, actionHandler: ((ItemType) -> Void)?) {
+    static func show(with user: Entity.RoomUser? = nil, items: [ItemType], in viewController: UIViewController, uiType: UIStyleType? = .room, actionHandler: ((ItemType) -> Void)?) {
         let sheetController = AmongSheetController()
         sheetController.items = items
         sheetController.user = user
+        sheetController.uiType = uiType ?? .room
         sheetController.actionHandler = actionHandler
         sheetController.showModal(in: viewController)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
         tableView.register(UINib(nibName: "AmongSheetIconItemCell", bundle: nil),
                            forCellReuseIdentifier: "AmongSheetIconItemCell")
@@ -46,7 +52,7 @@ class AmongSheetController: ViewController {
                            forCellReuseIdentifier: "AmongSheetUserCell")
         
     }
-
+    
     func onClick(_ item: ItemType) {
         switch item {
         case .cancel:
@@ -60,14 +66,11 @@ class AmongSheetController: ViewController {
 }
 
 extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let item = items.safe(indexPath.row) else {
             return tableView.dequeueReusableCell(withIdentifier: "AmongSheetUserCell", for: indexPath)
@@ -83,14 +86,15 @@ extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
             iconCell.clickHandler = { [weak self] item in
                 self?.onClick(item)
             }
+            if uiType == .profile {
+                iconCell.setProfileUI()
+            }
             return iconCell
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        let room = dataSource[indexPath.row]
-//        selectRoomHandler(room)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -100,7 +104,7 @@ extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
-
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
@@ -151,9 +155,4 @@ extension AmongSheetController: Modalable {
     func coverAlpha() -> CGFloat {
         return 0.5
     }
-    
-//    func canAutoDismiss() -> Bool {
-//        return shouldDismiss()
-//    }
-
 }

@@ -21,7 +21,10 @@ extension Social.BlockedUserList {
         
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.navigationController?.popViewController()
+                }).disposed(by: bag)
             btn.setImage(R.image.ac_back(), for: .normal)
             return btn
         }()
@@ -60,6 +63,7 @@ extension Social.BlockedUserList {
         }
         
         private func setupLayout() {
+            
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
@@ -94,19 +98,25 @@ extension Social.BlockedUserList {
         
         private func bindData() {
             self.userList = Defaults[\.blockedUsersV2Key]
+            loadData()
         }
         
-        @objc
-        private func onBackBtn() {
-            navigationController?.popViewController()
+        private func loadData() {
+            let removeBlock = view.raft.show(.loading)
+            let uid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            Request.blockList(uid: uid, skipMs: 0)
+                .subscribe(onSuccess: { (data) in
+                    
+                    removeBlock()
+                }, onError: { (error) in
+                    removeBlock()
+                }).disposed(by: bag)
         }
     }
-    
 }
 
+// MARK: - UITableView
 extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    // MARK: - UITableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userList.count
@@ -132,14 +142,23 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     }
     
     private func removeLockedUser(at index: Int) {
-        let removeBlock = view.raft.show(.loading)
-        mainQueueDispatchAsync(after: 0.5) { [weak self] in
-            guard let `self` = self else { return }
-            self.userList.remove(at: index)
-            Defaults[\.blockedUsersV2Key] = self.userList
-            self.tableView.reloadData()
-            removeBlock()
-        }
+        
+//        let removeBlock = view.raft.show(.loading)
+//
+//        Request.unFollow(uid: uid, type: "block")
+//            .subscribe(onSuccess: { (success) in
+//                removeBlock()
+//            }, onError: { (error) in
+//                removeBlock()
+//            }).disposed(by: bag)
+        //
+        //        mainQueueDispatchAsync(after: 0.5) { [weak self] in
+        //            guard let `self` = self else { return }
+        //            self.userList.remove(at: index)
+        //            Defaults[\.blockedUsersV2Key] = self.userList
+        //            self.tableView.reloadData()
+        //            removeBlock()
+        //        }
     }
     
     //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

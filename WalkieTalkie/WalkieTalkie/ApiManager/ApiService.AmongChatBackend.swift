@@ -35,6 +35,13 @@ extension APIService {
         case sensitiveWords
         case updateDevice([String: Any])
         case globalSetting
+        case follow([String: Any])
+        case unFollow([String: Any])
+        case relationData([String: Any])
+        case blockList([String: Any])
+        case followingList([String: Any])
+        case followerList([String: Any])
+        case profilePage([String: Any])
         case playingList
     }
 }
@@ -96,6 +103,20 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/keyword/blacklist"
         case .globalSetting:
             return "/api/v1/setting"
+        case .follow:
+            return "/social/relation"
+        case .unFollow:
+            return "/social/relation"
+        case .relationData:
+            return "/social/relation/data"
+        case .blockList:
+            return "/social/relation"
+        case .followingList:
+            return "/social/relation"
+        case .followerList:
+            return "/social/relation/followers"
+        case .profilePage:
+            return "/account/profile/page"
         case .playingList:
             return "/api/v1/friends/play/list"
         }
@@ -126,9 +147,18 @@ extension APIService.AmongChatBackend: TargetType {
              .roomInfo,
              .sensitiveWords,
              .globalSetting,
-             .playingList,
-            .firebaseToken:
+             .firebaseToken,
+             .relationData,
+             .blockList,
+             .followingList,
+             .followerList,
+             .profilePage,
+             .playingList:
             return .get
+        case .follow:
+            return .put
+        case .unFollow:
+            return .delete
         }
     }
     
@@ -142,7 +172,6 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-//             .defaultAvatars,
              .logout,
              .sensitiveWords,
              .playingList,
@@ -167,7 +196,14 @@ extension APIService.AmongChatBackend: TargetType {
              .roomNickName(let params),
              .defaultAvatars(let params),
              .unlockAvatar(let params),
-             .firebaseToken(let params):
+             .relationData(let params),
+             .profilePage(let params),
+             .firebaseToken(let params),
+             .blockList(let params),
+             .followingList(let params),
+             .followerList(let params),
+             .follow(let params),
+             .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }
@@ -189,5 +225,4 @@ extension APIService.AmongChatBackend: CachePolicyGettableType {
     var cachePolicy: URLRequest.CachePolicy? {
         return nil
     }
-    
 }
