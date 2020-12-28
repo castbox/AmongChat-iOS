@@ -137,8 +137,8 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: false)
-            cell.followHandle = { [weak self] in
-                self?.removeLockedUser(at: indexPath.row)
+            cell.updateFollowData = { [weak self](follow) in
+//                self?.removeLockedUser(at: indexPath.row)
             }
         }
         return cell

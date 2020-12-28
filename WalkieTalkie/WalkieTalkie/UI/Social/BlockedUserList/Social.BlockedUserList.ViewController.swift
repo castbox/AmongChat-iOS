@@ -50,7 +50,7 @@ extension Social.BlockedUserList {
             return tb
         }()
         
-        private var userList: [Entity.RoomUser] = [] {
+        private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -93,11 +93,15 @@ extension Social.BlockedUserList {
                 maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
-            
+            tableView.pullToRefresh { [weak self] in
+                self?.loadData()
+            }
+            tableView.pullToLoadMore { [weak self] in
+                self?.loadMore()
+            }
         }
         
         private func bindData() {
-            self.userList = Defaults[\.blockedUsersV2Key]
             loadData()
         }
         
@@ -105,9 +109,29 @@ extension Social.BlockedUserList {
             let removeBlock = view.raft.show(.loading)
             let uid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             Request.blockList(uid: uid, skipMs: 0)
-                .subscribe(onSuccess: { (data) in
-                    
+                .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
+                    guard let `self` = self else { return }
+                    self.userList = data?.list ?? []
+                    self.tableView.endLoadMore(data?.more ?? false)
+                }, onError: { (error) in
+                    removeBlock()
+                }).disposed(by: bag)
+        }
+        
+        private func loadMore() {
+            let removeBlock = view.raft.show(.loading)
+            let uid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            let skipMS = userList.last?.opTime ?? 0
+            Request.blockList(uid: uid, skipMs: skipMS)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let `self` = self else { return }
+                    let list =  data?.list ?? []
+                    var origenList = self.userList
+                    list.forEach({ origenList.append($0)})
+                    self.userList = origenList
+                    self.tableView.endLoadMore(data?.more ?? false)
                 }, onError: { (error) in
                     removeBlock()
                 }).disposed(by: bag)
@@ -130,10 +154,9 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
            let user = userList.safe(indexPath.row) {
             cell.configView(with: user)
             cell.unlockHandle = { [weak self] in
-                self?.removeLockedUser(at: indexPath.row)
+                self?.unblockUser(index: indexPath.row)
             }
         }
-        
         return cell
     }
     
@@ -141,36 +164,18 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
         return 64
     }
     
-    private func removeLockedUser(at index: Int) {
-        
-//        let removeBlock = view.raft.show(.loading)
-//
-//        Request.unFollow(uid: uid, type: "block")
-//            .subscribe(onSuccess: { (success) in
-//                removeBlock()
-//            }, onError: { (error) in
-//                removeBlock()
-//            }).disposed(by: bag)
-        //
-        //        mainQueueDispatchAsync(after: 0.5) { [weak self] in
-        //            guard let `self` = self else { return }
-        //            self.userList.remove(at: index)
-        //            Defaults[\.blockedUsersV2Key] = self.userList
-        //            self.tableView.reloadData()
-        //            removeBlock()
-        //        }
+    func unblockUser(index: Int) {
+        let removeBlock = view.raft.show(.loading)
+        let user = userList.safe(index)
+        Request.unFollow(uid: user?.uid ?? 0, type: "block")
+            .subscribe(onSuccess: { [weak self](success) in
+                if success {
+                    self?.userList.remove(at: index)
+                    self?.tableView.reloadData()
+                }
+                removeBlock()
+            }, onError: { (error) in
+                removeBlock()
+            }).disposed(by: bag)
     }
-    
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        tableView.deselectRow(at: indexPath, animated: true)
-    //
-    //        guard let user = userList.safe(indexPath.row) else { return }
-    //
-    //        let modal = Social.BlockedUserList.ActionModal(with: user)
-    //        modal.showModal(in: parent ?? self)
-    //        modal.unblockedCallback = { [weak self] in
-    //            self?.userList.remove(at: indexPath.row)
-    //            self?.tableView.reloadData()
-    //        }
-    //    }
 }

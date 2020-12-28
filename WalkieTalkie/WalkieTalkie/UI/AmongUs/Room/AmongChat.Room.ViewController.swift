@@ -267,9 +267,14 @@ extension AmongChat.Room.ViewController {
 //        }
 //
 //        self.view.isUserInteractionEnabled = false
-        ShareManager.default.showActivity(name: nil, dynamicLink: "https://among.chat/room/\(room.roomId)", type: .more, viewController: self) { () in
-//            removeBlock()
-        }
+        let link = "https://among.chat/room/\(room.roomId)"
+
+//        ShareManager.default.showActivity(name: nil, dynamicLink: link, type: .more, viewController: self) { () in
+////            removeBlock()
+//        }
+        
+        let vc = Social.ShareRoomViewController(with: link, uid: room.roomId.int ?? 0)
+        vc.showModal(in: self)
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {

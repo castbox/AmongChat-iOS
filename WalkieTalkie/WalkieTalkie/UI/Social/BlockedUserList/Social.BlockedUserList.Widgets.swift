@@ -94,7 +94,7 @@ extension Social.BlockedUserList.Widgets {
                 }).disposed(by: bag)
         }
         
-        func configView(with model: Entity.RoomUser) {
+        func configView(with model: Entity.UserProfile) {
             usernameLabel.text = model.name
             usernameLabel.appendKern()
             avatarIV.setAvatarImage(with: model.pictureUrl)

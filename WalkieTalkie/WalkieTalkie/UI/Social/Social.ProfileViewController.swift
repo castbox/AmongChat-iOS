@@ -62,7 +62,7 @@ extension Social {
         
         private lazy var moreBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(UIImage(named: "ac_profile_more_icon"), for: .normal)
+            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     self?.moreAction()
@@ -308,10 +308,11 @@ private extension Social.ProfileViewController {
     }
     
     func showBlockAlter() {
-        var message = "Are you sure to block this person"
+        
+        var message = R.string.localizable.profileBlockMessage()
         var confirmString = R.string.localizable.alertBlock()
         if blocked {
-            message = "Are you sure to unblock this person"
+            message = R.string.localizable.profileUnblockMessage()
             confirmString = R.string.localizable.alertUnblock()
         }
         showAmongAlert(title: nil, message: message,
@@ -382,7 +383,6 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     self?.view.isUserInteractionEnabled = true
                     removeHUDBlock()
                 }
-                
                 self.view.isUserInteractionEnabled = false
                 ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
@@ -454,7 +454,7 @@ extension Social.ProfileViewController {
         private lazy var followingBtn: VerticalTitleButton = {
             let v = VerticalTitleButton()
             v.setTitle("0")
-            v.setSubtitle(R.string.localizable.profileFollowing())
+            v.setSubtitle(R.string.localizable.profileLittleFollowing())
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onFollowingBtn))
             v.isUserInteractionEnabled = true
@@ -465,7 +465,7 @@ extension Social.ProfileViewController {
         private lazy var followerBtn: VerticalTitleButton = {
             let v = VerticalTitleButton()
             v.setTitle("0")
-            v.setSubtitle(R.string.localizable.profileFollower())
+            v.setSubtitle(R.string.localizable.profileLittleFollower())
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onFollowerBtn))
             v.isUserInteractionEnabled = true
@@ -552,7 +552,7 @@ extension Social.ProfileViewController {
         }
         
         private func greyFollowButton() {
-            followButton.setTitle("Following", for: .normal)
+            followButton.setTitle(R.string.localizable.profileFollowing(), for: .normal)
             followButton.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followButton.layer.borderWidth = 3
             followButton.layer.borderColor = UIColor(hex6: 0x898989).cgColor

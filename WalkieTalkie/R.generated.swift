@@ -1630,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 197 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 204 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1680,10 +1680,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let monthApr = Rswift.StringResource(key: "month.apr", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Are you sure to block this person
+      /// 
+      /// Locales: en
+      static let profileBlockMessage = Rswift.StringResource(key: "profile.block.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Are you sure to unblock this person
+      /// 
+      /// Locales: en
+      static let profileUnblockMessage = Rswift.StringResource(key: "profile.unblock.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Aug
       /// 
       /// Locales: en
@@ -1768,6 +1776,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let copied = Rswift.StringResource(key: "copied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Copy link
+      /// 
+      /// Locales: en
+      static let socialCopyLink = Rswift.StringResource(key: "social.copy.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create %1$@ channel
       /// 
       /// Locales: en
@@ -1864,6 +1876,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListFollow = Rswift.StringResource(key: "channel.user.list.follow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static let profileFollow = Rswift.StringResource(key: "profile.follow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Follow Back
       /// 
       /// Locales: en
@@ -1932,10 +1948,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invite friends
+      /// 
+      /// Locales: en
+      static let socialInviteFriends = Rswift.StringResource(key: "social.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Invite your friends to play together
       /// 
       /// Locales: en
       static let amongChatHomeFriendsShareTitle = Rswift.StringResource(key: "among.chat.home.friends.share.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invtie
+      /// 
+      /// Locales: en
+      static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
@@ -2180,6 +2204,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSkipTrial = Rswift.StringResource(key: "premium.skip.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: SMS
+      /// 
+      /// Locales: en
+      static let socialSms = Rswift.StringResource(key: "social.sms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: SPEAKING
       /// 
       /// Locales: en
@@ -2400,7 +2428,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomRobloxDefaultNotes = Rswift.StringResource(key: "room.roblox.default.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: follower
+      /// en translation: followers
       /// 
       /// Locales: en
       static let profileLittleFollower = Rswift.StringResource(key: "profile.little.follower", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2505,11 +2533,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.apr", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Are you sure to block this person
+      /// 
+      /// Locales: en
+      static func profileBlockMessage(_: Void = ()) -> String {
+        return NSLocalizedString("profile.block.message", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en
       static func amongChatLeaveRoomTipTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.leave.room.tip.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure to unblock this person
+      /// 
+      /// Locales: en
+      static func profileUnblockMessage(_: Void = ()) -> String {
+        return NSLocalizedString("profile.unblock.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Aug
@@ -2657,6 +2699,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func copied(_: Void = ()) -> String {
         return NSLocalizedString("copied", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Copy link
+      /// 
+      /// Locales: en
+      static func socialCopyLink(_: Void = ()) -> String {
+        return NSLocalizedString("social.copy.link", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Create %1$@ channel
@@ -2827,6 +2876,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.follow", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Follow
+      /// 
+      /// Locales: en
+      static func profileFollow(_: Void = ()) -> String {
+        return NSLocalizedString("profile.follow", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Follow Back
       /// 
       /// Locales: en
@@ -2946,11 +3002,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Invite friends
+      /// 
+      /// Locales: en
+      static func socialInviteFriends(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite.friends", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Invite your friends to play together
       /// 
       /// Locales: en
       static func amongChatHomeFriendsShareTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.friends.share.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Invtie
+      /// 
+      /// Locales: en
+      static func socialInvite(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
@@ -3380,6 +3450,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.skip.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: SMS
+      /// 
+      /// Locales: en
+      static func socialSms(_: Void = ()) -> String {
+        return NSLocalizedString("social.sms", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: SPEAKING
       /// 
       /// Locales: en
@@ -3765,7 +3842,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.roblox.default.notes", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: follower
+      /// en translation: followers
       /// 
       /// Locales: en
       static func profileLittleFollower(_: Void = ()) -> String {

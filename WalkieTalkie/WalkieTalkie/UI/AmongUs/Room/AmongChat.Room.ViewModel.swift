@@ -384,13 +384,28 @@ extension AmongChat.Room {
             if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
                 blockedUsers.append(user)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
+                requestBlock(uid: user.uid)
             }
         }
         
         func unblockedUser(_ user: Entity.RoomUser) {
             if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
                 removeBlocked(user)
+                requestUnblock(uid: user.uid)
             }
+        }
+        private func requestBlock(uid: Int) {
+            Request.follow(uid: uid, type: "block")
+                .subscribe(onSuccess: {(success) in
+                }, onError: { (error) in
+                }).disposed(by: bag)
+        }
+        
+        private func requestUnblock(uid: Int) {
+            Request.unFollow(uid: uid, type: "block")
+                .subscribe(onSuccess: {(success) in
+                }, onError: { (error) in
+                }).disposed(by: bag)
         }
         
         func removeBlocked(_ user: Entity.RoomUser) {

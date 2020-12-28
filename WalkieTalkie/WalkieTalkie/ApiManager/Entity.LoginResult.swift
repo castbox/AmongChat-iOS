@@ -105,6 +105,7 @@ extension Entity {
         var birthday: String?
         var nickname: String?
         var isFollowed: Bool?
+        var opTime: Double?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -118,6 +119,7 @@ extension Entity {
             case birthday
             case nickname
             case isFollowed = "is_followed"
+            case opTime = "op_time"
         }
     }
     
