@@ -360,7 +360,7 @@ extension Request {
     static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.playingList)
             .mapJSON()
-            .mapToDataJson()
+            .mapToDataKeyJsonValue()
             .mapToListJson()
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
@@ -368,7 +368,7 @@ extension Request {
     static func suggestionList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.recommendedUsers)
             .mapJSON()
-            .mapToDataJson()
+            .mapToDataKeyJsonValue()
             .mapToListJson()
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
