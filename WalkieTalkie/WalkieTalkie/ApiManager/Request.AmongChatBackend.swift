@@ -364,4 +364,12 @@ extension Request {
             .mapToListJson()
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
+    
+    static func suggestionList() -> Single<[Entity.PlayingUser]> {
+        return amongchatProvider.rx.request(.recommendedUsers)
+            .mapJSON()
+            .mapToDataJson()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
 }
