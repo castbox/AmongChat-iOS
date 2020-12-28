@@ -12,6 +12,10 @@ extension AmongChat.Home {
     
     class RelationsViewController: WalkieTalkie.ViewController {
         
+        private typealias FriendCell = AmongChat.Home.FriendCell
+        private typealias SectionHeader = AmongChat.Home.FriendSectionHeader
+        private typealias ShareFooter = AmongChat.Home.FriendShareFooter
+        
         private lazy var profileBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_home_profile(), for: .normal)
@@ -29,6 +33,28 @@ extension AmongChat.Home {
             btn.setImage(R.image.ac_home_create(), for: .normal)
             btn.addTarget(self, action: #selector(onCreateRoomBtn), for: .primaryActionTriggered)
             return btn
+        }()
+        
+        private lazy var friendsCollectionView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            let hInset: CGFloat = 0
+            let cellWidth: CGFloat = UIScreen.main.bounds.width - hInset * 2
+            let cellHeight: CGFloat = 69
+            layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+            layout.minimumLineSpacing = 0
+            layout.sectionInset = UIEdgeInsets(top: 16.5, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
+            v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
+            v.register(ShareFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self))
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
+            v.dataSource = self
+            v.delegate = self
+            v.backgroundColor = .clear
+            v.alwaysBounceVertical = true
+            return v
         }()
         
         override var screenName: Logger.Screen.Node.Start {
@@ -66,7 +92,7 @@ extension AmongChat.Home.RelationsViewController {
             maker.top.equalTo(topLayoutGuide.snp.bottom)
         }
         
-        view.addSubviews(views: profileBtn, bannerIV, createRoomBtn)
+        view.addSubviews(views: profileBtn, bannerIV, createRoomBtn, friendsCollectionView)
         
         profileBtn.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(42)
@@ -82,6 +108,11 @@ extension AmongChat.Home.RelationsViewController {
         
         bannerIV.snp.makeConstraints { (maker) in
             maker.center.equalTo(navLayoutGuide)
+        }
+        
+        friendsCollectionView.snp.makeConstraints { (maker) in
+            maker.left.right.bottom.equalToSuperview()
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
     }
@@ -101,5 +132,34 @@ extension AmongChat.Home.RelationsViewController {
     private func onCreateRoomBtn() {
         Routes.handle("/createRoom")
     }
+
+}
+
+extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
+
+    // MARK: - UICollectionView
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
+        return cell
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+//
+//
+//
+//    }
+    
+}
+
+extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLayout {
+
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        
+//    }
 
 }

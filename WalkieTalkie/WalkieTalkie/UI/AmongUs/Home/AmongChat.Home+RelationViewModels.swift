@@ -7,3 +7,11 @@
 //
 
 import Foundation
+
+extension AmongChat.Home {
+    
+    class RelationViewModel {
+        
+    }
+    
+}
