@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 143 images.
+  /// This `R.image` struct is generated, and contains static references to 147 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -226,6 +226,10 @@ struct R: Rswift.Validatable {
     static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
     /// Image `ac_profile_edit`.
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
+    /// Image `ac_profile_more_icon`.
+    static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
+    /// Image `ac_profile_report`.
+    static let ac_profile_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_report")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -234,6 +238,10 @@ struct R: Rswift.Validatable {
     static let ac_red_dot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_red_dot")
     /// Image `ac_right_arrow`.
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
+    /// Image `ac_room_copylink`.
+    static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
+    /// Image `ac_room_share`.
+    static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_setting_diamonds`.
     static let ac_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_diamonds")
     /// Image `ac_share_app`.
@@ -633,6 +641,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
+    static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_report", bundle: ..., traitCollection: ...)`
+    static func ac_profile_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_report, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
     static func ac_profile_username(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_username, compatibleWith: traitCollection)
@@ -651,6 +669,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_right_arrow", bundle: ..., traitCollection: ...)`
     static func ac_right_arrow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_right_arrow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_room_copylink", bundle: ..., traitCollection: ...)`
+    static func ac_room_copylink(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_copylink, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
+    static func ac_room_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_share, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_setting_diamonds", bundle: ..., traitCollection: ...)`
@@ -1560,7 +1588,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 192 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 194 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2318,6 +2346,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let roomRobloxDefaultNotes = Rswift.StringResource(key: "room.roblox.default.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: follower
+      /// 
+      /// Locales: en
+      static let profileLittleFollower = Rswift.StringResource(key: "profile.little.follower", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: following
+      /// 
+      /// Locales: en
+      static let profileLittleFollowing = Rswift.StringResource(key: "profile.little.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en
@@ -3652,6 +3688,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func roomRobloxDefaultNotes(_: Void = ()) -> String {
         return NSLocalizedString("room.roblox.default.notes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: follower
+      /// 
+      /// Locales: en
+      static func profileLittleFollower(_: Void = ()) -> String {
+        return NSLocalizedString("profile.little.follower", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: following
+      /// 
+      /// Locales: en
+      static func profileLittleFollowing(_: Void = ()) -> String {
+        return NSLocalizedString("profile.little.following", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: lifetime

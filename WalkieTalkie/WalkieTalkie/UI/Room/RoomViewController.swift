@@ -324,6 +324,7 @@ class RoomViewController: ViewController {
 //        let vc = ChannelUserListController(channel: channel)
 //        navigationController?.pushViewController(vc)
         
+        
         let vc = Social.ProfileViewController(with: 0)
         navigationController?.pushViewController(vc)
         avatarDot.isHidden = true

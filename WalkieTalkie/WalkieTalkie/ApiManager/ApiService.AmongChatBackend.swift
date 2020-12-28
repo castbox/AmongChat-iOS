@@ -35,6 +35,13 @@ extension APIService {
         case sensitiveWords
         case updateDevice([String: Any])
         case globalSetting
+        case follow([String: Any])
+        case unFollow([String: Any])
+        case relationData([String: Any])
+        case blockList([String: Any])
+        case followingList([String: Any])
+        case followerList([String: Any])
+        case profilePage([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -95,6 +102,20 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/keyword/blacklist"
         case .globalSetting:
             return "/api/v1/setting"
+        case .follow:
+            return "/social/relation"
+        case .unFollow:
+            return "/social/relation"
+        case .relationData:
+            return "/social/relation/data"
+        case .blockList:
+            return "/social/relation"
+        case .followingList:
+            return "/social/relation"
+        case .followerList:
+            return "/social/relation"
+        case .profilePage:
+            return "/account/profile/page"
         }
     }
     
@@ -123,8 +144,17 @@ extension APIService.AmongChatBackend: TargetType {
              .roomInfo,
              .sensitiveWords,
              .globalSetting,
-            .firebaseToken:
+             .firebaseToken,
+             .relationData,
+             .blockList,
+             .followingList,
+             .followerList,
+             .profilePage:
             return .get
+        case .follow:
+            return .put
+        case .unFollow:
+            return .delete
         }
     }
     
@@ -138,7 +168,6 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-//             .defaultAvatars,
              .logout,
              .sensitiveWords,
              .globalSetting:
@@ -147,7 +176,14 @@ extension APIService.AmongChatBackend: TargetType {
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
-             .updateDevice(let params):
+             .updateDevice(let params),
+             .follow(let params),
+             .unFollow(let params),
+             .relationData(let params),
+             .blockList(let params),
+             .followingList(let params),
+             .followerList(let params),
+             .profilePage(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
@@ -184,5 +220,4 @@ extension APIService.AmongChatBackend: CachePolicyGettableType {
     var cachePolicy: URLRequest.CachePolicy? {
         return nil
     }
-    
 }

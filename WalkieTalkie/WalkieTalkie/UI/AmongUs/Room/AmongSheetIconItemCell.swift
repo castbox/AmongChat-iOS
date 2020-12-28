@@ -63,6 +63,18 @@ class AmongSheetIconItemCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func setProfileUI() {
+        button.setTitleColor(.white, for: .normal)
+        switch item {
+        case .block:
+            button.setImage(UIImage(named: "ac_profile_block_icon"), for: .normal)
+        case .report:
+            button.setImage(UIImage(named: "ac_profile_report"), for: .normal)
+        default:
+            break
+        }
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

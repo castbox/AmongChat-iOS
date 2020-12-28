@@ -109,6 +109,8 @@
 "profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
+"profile.little.follower" = "follower";
+"profile.little.following" = "following";
 "profile.invite.friends" = "Invite friends";
 "profile.block.user" = "Block list";
 "profile.settings" = "Settings";

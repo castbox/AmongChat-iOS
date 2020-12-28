@@ -93,7 +93,8 @@ extension AmongChat.Home.ViewController {
     @objc
     private func onProfileBtn() {
         Logger.Action.log(.profile_imp, category: nil)
-        let vc = Social.ProfileViewController(with: 110010)
+        let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+        let vc = Social.ProfileViewController(with: selfUid)
         navigationController?.pushViewController(vc)
     }
     
