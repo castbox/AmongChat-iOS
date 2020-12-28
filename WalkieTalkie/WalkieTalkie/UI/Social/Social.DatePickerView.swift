@@ -251,6 +251,15 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
                 }
             }
         }
+        //            1\3\5\7\8\10\12
+        //30 days
+        if [4,6,9,11].contains(month) {
+            if day == 30 {
+                let gap = day - 29
+                let daySelectedRow = selectedRow(inComponent: DatePickerComponent.day.rawValue)
+                selectRow(daySelectedRow - gap, inComponent: DatePickerComponent.day.rawValue, animated: true)
+            }
+        }
     }
     
     private func titleForRow(_ row : Int, component : Int) -> String {
