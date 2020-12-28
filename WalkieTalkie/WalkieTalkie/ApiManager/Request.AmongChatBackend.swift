@@ -287,4 +287,12 @@ extension Request {
                 return token
             }
     }
+    
+    static func friendsPlayingList() -> Single<[Entity.FriendPlaying]> {
+        return amongchatProvider.rx.request(.playingList)
+            .mapJSON()
+            .mapToDataJson()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.FriendPlaying.self)
+    }
 }

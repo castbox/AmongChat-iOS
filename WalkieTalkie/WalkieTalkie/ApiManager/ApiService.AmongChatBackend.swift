@@ -35,6 +35,7 @@ extension APIService {
         case sensitiveWords
         case updateDevice([String: Any])
         case globalSetting
+        case playingList
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -95,6 +96,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/keyword/blacklist"
         case .globalSetting:
             return "/api/v1/setting"
+        case .playingList:
+            return "/api/v1/friends/play/list"
         }
     }
     
@@ -123,6 +126,7 @@ extension APIService.AmongChatBackend: TargetType {
              .roomInfo,
              .sensitiveWords,
              .globalSetting,
+             .playingList,
             .firebaseToken:
             return .get
         }
@@ -141,6 +145,7 @@ extension APIService.AmongChatBackend: TargetType {
 //             .defaultAvatars,
              .logout,
              .sensitiveWords,
+             .playingList,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
