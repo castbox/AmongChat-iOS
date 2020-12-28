@@ -248,3 +248,6 @@
 "among.chat.reward.video.load.failed" = "Failed to load video";
 "among.chat.unlock.avatar.failed" = "Failed to unlock avatar";
 "among.chat.update.profile.failed" = "Failed to update profile";
+"among.chat.home.friends.online.title" = "Your online friends";
+"among.chat.home.friends.suggestion.title" = "Friends you may like to play with";
+"among.chat.home.friends.share.title" = "Invite your friends to play together";
