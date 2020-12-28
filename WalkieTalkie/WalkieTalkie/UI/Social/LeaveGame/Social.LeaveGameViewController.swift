@@ -42,7 +42,7 @@ extension Social {
             return tb
         }()
         
-        private var userList: [Entity.RoomUser] = [] {
+        private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -107,6 +107,7 @@ extension Social {
         
         private func bindData() {
             self.userList = []
+            loadData()
         }
         
         private func loadData() {
@@ -127,7 +128,7 @@ extension Social {
 extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20//userList.count
+        return userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

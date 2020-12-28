@@ -48,19 +48,14 @@ extension Social {
             }
         }
         
-        var isPresent = true
-        
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    if self.isPresent {
-                        self.hideModal()
-                    } else {
-                        self.navigationController?.popViewController()
-                    }
+                    
+                    self.navigationController?.popViewController()
                 }).disposed(by: bag)
             return btn
         }()
@@ -68,6 +63,10 @@ extension Social {
         private lazy var moreBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(UIImage(named: "ac_profile_more_icon"), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.moreAction()
+                }).disposed(by: bag)
             return btn
         }()
         
@@ -149,33 +148,6 @@ extension Social {
     }
 }
 
-extension Social.ProfileViewController: Modalable {
-    func style() -> Modal.Style {
-        return .customHeight
-    }
-    
-    func height() -> CGFloat {
-        return Frame.Screen.height
-    }
-    
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 0
-    }
-    
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
-    }
-
-}
-
 private extension Social.ProfileViewController {
     func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
@@ -255,11 +227,6 @@ private extension Social.ProfileViewController {
                     }
                 })
                 .disposed(by: bag)
-        } else {
-            moreBtn.rx.tap
-                .subscribe(onNext: { [weak self]() in
-                    self?.moreAction()
-                }).disposed(by: bag)
         }
     }
     
@@ -319,9 +286,8 @@ private extension Social.ProfileViewController {
     }
     
     func moreAction() {
-        let block = relationData?.isBlocked ?? false
         var type:[AmongSheetController.ItemType]!
-        if block {
+        if blocked {
             type = [.unblock, .report, .cancel]
         } else {
             type = [.block, .report, .cancel]
@@ -332,6 +298,8 @@ private extension Social.ProfileViewController {
             case.report:
                 self?.reportUser()
             case .block:
+                self?.showBlockAlter()
+            case .unblock:
                 self?.showBlockAlter()
             default:
                 break
@@ -382,10 +350,8 @@ private extension Social.ProfileViewController {
     }
     
     func reportUser() {
-        let removeBlock = view.raft.show(.loading)
-        mainQueueDispatchAsync(after: 1.0) {
-            removeBlock()
-        }
+        let user = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "")
+        self.showReportSheet(for: user)
     }
 }
 // MARK: - UITableView
@@ -487,6 +453,7 @@ extension Social.ProfileViewController {
         
         private lazy var followingBtn: VerticalTitleButton = {
             let v = VerticalTitleButton()
+            v.setTitle("0")
             v.setSubtitle(R.string.localizable.profileFollowing())
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onFollowingBtn))
@@ -497,6 +464,7 @@ extension Social.ProfileViewController {
         
         private lazy var followerBtn: VerticalTitleButton = {
             let v = VerticalTitleButton()
+            v.setTitle("0")
             v.setSubtitle(R.string.localizable.profileFollower())
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onFollowerBtn))
@@ -580,6 +548,7 @@ extension Social.ProfileViewController {
             } else {
                 yellowFollowButton()
             }
+            followButton.isHidden = false
         }
         
         private func greyFollowButton() {
@@ -689,7 +658,6 @@ extension Social.ProfileViewController {
             
             editBtn.isHidden = true
             changeIcon.isHidden = true
-            followButton.isHidden = false
         }
         
         

@@ -12,6 +12,7 @@ class AmongSheetController: ViewController {
     
     enum ItemType: String {
         case userInfo
+        case profile
         case block
         case mute
         case unblock

@@ -99,7 +99,8 @@ extension Routes {
         }
         
         func handleProfile(uid: Int? = nil) {
-            let vc = Social.ProfileViewController()
+            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            let vc = Social.ProfileViewController(with: uid ?? selfUid)
             UIApplication.navigationController?.pushViewController(vc)
         }
         

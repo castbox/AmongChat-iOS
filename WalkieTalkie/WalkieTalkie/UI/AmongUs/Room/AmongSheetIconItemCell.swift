@@ -15,6 +15,11 @@ class AmongSheetIconItemCell: UITableViewCell {
     var item: AmongSheetController.ItemType = .cancel {
         didSet {
             switch item {
+            case .profile:
+                button.setTitleColor(.white, for: .normal)
+                button.setImage(UIImage(named: "ac_room_profile_icon"), for: .normal)
+                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setTitle(R.string.localizable.profileProfile(), for: .normal)
             case .block:
                 button.setTitleColor("FB5858".color(), for: .normal)
                 button.setImage(R.image.ac_icon_sheet_block(), for: .normal)
@@ -69,6 +74,8 @@ class AmongSheetIconItemCell: UITableViewCell {
         switch item {
         case .block:
             button.setImage(UIImage(named: "ac_profile_block_icon"), for: .normal)
+        case .unblock:
+            button.setImage(UIImage(named: "ac_profile_unblock_icon"), for: .normal)
         case .report:
             button.setImage(UIImage(named: "ac_profile_report"), for: .normal)
         default:

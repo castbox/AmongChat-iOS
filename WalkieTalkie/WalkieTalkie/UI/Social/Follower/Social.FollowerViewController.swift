@@ -43,7 +43,7 @@ extension Social {
             return tb
         }()
         
-        private var userList: [Entity.RoomUser] = [] {
+        private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -73,9 +73,9 @@ extension Social {
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
             if isFollowing {
-                titleLabel.text = "following"
+                titleLabel.text = "Following"
             } else {
-                titleLabel.text = "follower"
+                titleLabel.text = "Followers"
             }
             
             view.addSubviews(views: backBtn, titleLabel)
@@ -114,8 +114,7 @@ extension Social {
         }
         
         private func bindData() {
-            
-            self.userList = []
+            loadData()
         }
         
         private func loadData() {
@@ -124,8 +123,9 @@ extension Social {
                 Request.followingList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        
-                        self?.tableView.endRefresh()
+                        guard let data = data else { return }
+                        self?.userList = data.list ?? []
+                        self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
                         removeBlock()
                     }).disposed(by: bag)
@@ -133,8 +133,9 @@ extension Social {
                 Request.followerList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        
-                        self?.tableView.endRefresh()
+                        guard let data = data else { return }
+                        self?.userList = data.list ?? []
+                        self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
                         removeBlock()
                     }).disposed(by: bag)
@@ -147,8 +148,12 @@ extension Social {
                 Request.followingList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        
-                        self?.tableView.endRefresh()
+                        guard let data = data else { return }
+                        let list =  data.list ?? []
+                        var origenList = self?.userList
+                        list.forEach({ origenList?.append($0)})
+                        self?.tableView.endLoadMore(data.more ?? false)
+
                     }, onError: { (error) in
                         removeBlock()
                     }).disposed(by: bag)
@@ -169,7 +174,7 @@ extension Social {
 extension Social.FollowerViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20//userList.count
+        return userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,7 +184,11 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
            let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: isFollowing)
             cell.followHandle = { [weak self] in
-                self?.removeLockedUser(at: indexPath.row)
+                self?.followUser(at: indexPath.row)
+            }
+            cell.avaterHandle = { [weak self](info) in
+                let vc = Social.ProfileViewController(with: info.uid)
+                self?.navigationController?.pushViewController(vc)
             }
         }
         return cell
@@ -189,9 +198,44 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         return 64
     }
     
-    private func removeLockedUser(at index: Int) {
+    private func followUser(at index: Int) {
+        let user = userList.safe(index)
         let removeBlock = view.raft.show(.loading)
-        
+        let isFollowed = user?.isFollowed ?? false
+        if isFollowed {
+            Request.unFollow(uid: user?.uid ?? 0, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    guard let `self` = self else { return }
+                    removeBlock()
+                    if success {
+                        self.updateCell(index: index, false)
+                    }
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("unfollow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
+        } else {
+            Request.follow(uid: user?.uid ?? 0, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    guard let `self` = self else { return }
+                    removeBlock()
+                    if success {
+                        self.updateCell(index: index, true)
+                    }
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("follow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+    }
+    
+    private func updateCell(index: Int, _ isFollow: Bool) {
+        let rows = tableView.numberOfRows(inSection: 0)
+        if index < rows {
+            userList[index].isFollowed = isFollow
+            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! Social.FollowerCell
+            cell.setFollow(isFollow)
+        }
     }
 }
 
@@ -200,6 +244,7 @@ extension Social {
     class FollowerCell: UITableViewCell {
         
         var followHandle: (() -> Void)?
+        var avaterHandle: ((Entity.UserProfile) -> Void)?
         
         let bag = DisposeBag()
         
@@ -229,6 +274,9 @@ extension Social {
             btn.backgroundColor = UIColor.theme(.backgroundBlack)
             return btn
         }()
+        
+        private var userInfo: Entity.UserProfile!
+
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -277,11 +325,18 @@ extension Social {
                     self?.followHandle?()
                 }).disposed(by: bag)
             
-            avatarIV.setAvatarImage(with: "")
-            usernameLabel.text = "hello Kitty"
+            let tap = UITapGestureRecognizer()
+            avatarIV.addGestureRecognizer(tap)
+            avatarIV.isUserInteractionEnabled = true
+            tap.rx.event.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self](tap) in
+                    guard let `self` = self else { return }
+                    self.avaterHandle?(self.userInfo)
+            }).disposed(by: bag)
         }
-        
-        func configView(with model: Entity.RoomUser, isFollowing: Bool) {
+                
+        func configView(with model: Entity.UserProfile, isFollowing: Bool) {
+            self.userInfo = model
             if isFollowing {
                 followBtn.isHidden = true
             } else {
@@ -289,6 +344,16 @@ extension Social {
             }
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
+            let isfollow = model.isFollowed ?? false
+            setFollow(isfollow)
+        }
+        
+        func setFollow(_ isFolllow: Bool) {
+            if isFolllow {
+                grayFollowStyle()
+            } else {
+                yellowFollowStyle()
+            }
         }
         
         func setCellDataForShare(with model: Entity.RoomUser) {
@@ -303,6 +368,18 @@ extension Social {
             followBtn.snp.updateConstraints { (maker) in
                 maker.width.equalTo(78)
             }
+        }
+        
+        private func grayFollowStyle() {
+            followBtn.setTitle("Following", for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+        }
+        
+        private func yellowFollowStyle() {
+            followBtn.setTitle("Follow", for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
         }
     }
 }

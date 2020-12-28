@@ -116,11 +116,8 @@ extension AmongChat.Room {
             if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
                 items.append(.kick)
             }
-            items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
-//            let vc = Social.ProfileViewController(with: user.uid)
-//            let nav = NavigationViewController(rootViewController: viewController)
-//            nav.navigationController?.pushViewController(vc, completion: nil)
-//            vc.showModal(in: viewController)
+            items.append(contentsOf: [.profile, blockItem, muteItem, .report, .cancel])
+
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
                 Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
                 self?.userProfileSheetActionHandler?(item, user)

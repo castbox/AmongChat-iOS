@@ -31,6 +31,7 @@ extension UIScrollView {
         footer.stateLabel?.textColor = .white
         footer.setTitle("loading...", for: .refreshing)
         footer.setTitle("", for: .noMoreData)
+        footer.setTitle("", for: .idle)
 
         self.mj_footer = footer
         self.mj_footer?.isHidden = false

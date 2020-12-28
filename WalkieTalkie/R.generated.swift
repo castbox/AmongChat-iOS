@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 147 images.
+  /// This `R.image` struct is generated, and contains static references to 153 images.
   struct image {
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
@@ -238,6 +238,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
     /// Image `ac_profile_report`.
     static let ac_profile_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_report")
+    /// Image `ac_profile_unblock_icon`.
+    static let ac_profile_unblock_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_unblock_icon")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -248,6 +250,8 @@ struct R: Rswift.Validatable {
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
     /// Image `ac_room_copylink`.
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
+    /// Image `ac_room_profile_icon`.
+    static let ac_room_profile_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_profile_icon")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_setting_diamonds`.
@@ -679,6 +683,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_report, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_unblock_icon", bundle: ..., traitCollection: ...)`
+    static func ac_profile_unblock_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_unblock_icon, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
     static func ac_profile_username(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_username, compatibleWith: traitCollection)
@@ -702,6 +711,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_copylink", bundle: ..., traitCollection: ...)`
     static func ac_room_copylink(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_copylink, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_room_profile_icon", bundle: ..., traitCollection: ...)`
+    static func ac_room_profile_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_profile_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
@@ -1616,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 195 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 197 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 

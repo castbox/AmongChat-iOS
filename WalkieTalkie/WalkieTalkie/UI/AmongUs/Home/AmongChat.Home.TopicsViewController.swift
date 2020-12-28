@@ -96,15 +96,7 @@ extension AmongChat.Home.TopicsViewController {
     
     @objc
     private func onProfileBtn() {
-<<<<<<< HEAD:WalkieTalkie/WalkieTalkie/UI/AmongUs/Home/AmongChat.Home.ViewController.swift
-        Logger.Action.log(.profile_imp, category: nil)
-        let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-        let vc = Social.ProfileViewController(with: selfUid)
-        vc.isPresent = false
-        navigationController?.pushViewController(vc)
-=======
         Routes.handle("/profile")
->>>>>>> feature/relationship:WalkieTalkie/WalkieTalkie/UI/AmongUs/Home/AmongChat.Home.TopicsViewController.swift
     }
     
     @objc

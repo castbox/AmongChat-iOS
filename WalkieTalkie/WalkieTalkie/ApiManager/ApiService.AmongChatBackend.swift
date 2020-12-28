@@ -103,7 +103,6 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/keyword/blacklist"
         case .globalSetting:
             return "/api/v1/setting"
-<<<<<<< HEAD
         case .follow:
             return "/social/relation"
         case .unFollow:
@@ -115,7 +114,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .followingList:
             return "/social/relation"
         case .followerList:
-            return "/social/relation"
+            return "/social/relation/followers"
         case .profilePage:
             return "/account/profile/page"
         case .playingList:
@@ -182,12 +181,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
-             .updateDevice(let params),
-             .follow(let params),
-             .unFollow(let params),
-             .blockList(let params),
-             .followingList(let params),
-             .followerList(let params):
+             .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
@@ -204,7 +198,12 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockAvatar(let params),
              .relationData(let params),
              .profilePage(let params),
-             .firebaseToken(let params):
+             .firebaseToken(let params),
+             .blockList(let params),
+             .followingList(let params),
+             .followerList(let params),
+             .follow(let params),
+             .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }

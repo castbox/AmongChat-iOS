@@ -337,24 +337,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.RelationData?> {
+    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
         
         let paras = ["relation_type": "follow", "uid": uid,
                      "limit": 20, "skip_ms": skipMs] as [String : Any]
-        return amongchatProvider.rx.request(.relationData(paras))
+        return amongchatProvider.rx.request(.followingList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapTo(Entity.RelationData.self)
+            .mapTo(Entity.FollowData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func followerList(uid: Int, skipMs: Double) -> Single<Entity.RelationData?> {
-        let paras = ["relation_type": "followers", "uid": uid,
-                     "limit": 20, "skip_ms": skipMs] as [String : Any]
-        return amongchatProvider.rx.request(.relationData(paras))
+    static func followerList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["uid": uid, "limit": 20, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.followerList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapTo(Entity.RelationData.self)
+            .mapTo(Entity.FollowData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
         
