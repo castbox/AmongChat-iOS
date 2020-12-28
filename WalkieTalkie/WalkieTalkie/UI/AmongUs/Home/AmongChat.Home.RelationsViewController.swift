@@ -13,8 +13,10 @@ extension AmongChat.Home {
     class RelationsViewController: WalkieTalkie.ViewController {
         
         private typealias FriendCell = AmongChat.Home.FriendCell
+        private typealias SuggestionCell = AmongChat.Home.SuggestionCell
         private typealias SectionHeader = AmongChat.Home.FriendSectionHeader
         private typealias ShareFooter = AmongChat.Home.FriendShareFooter
+        private typealias EmptyView = AmongChat.Home.EmptyReusableView
         
         private lazy var profileBtn: UIButton = {
             let btn = UIButton(type: .custom)
@@ -43,11 +45,13 @@ extension AmongChat.Home {
             let cellHeight: CGFloat = 69
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 16.5, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
+            v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
             v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
             v.register(ShareFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self))
+            v.register(EmptyView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
@@ -65,9 +69,18 @@ extension AmongChat.Home {
             return false
         }
         
+        private let viewModel = RelationViewModel()
+        
+        private var dataSource = [[PlayingViewModel]]() {
+            didSet {
+                friendsCollectionView.reloadData()
+            }
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            setupEvent()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -112,9 +125,20 @@ extension AmongChat.Home.RelationsViewController {
         
         friendsCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(16.5)
         }
         
+    }
+    
+    private func setupEvent() {
+        
+        viewModel.dataSource
+            .subscribe(onNext: { [weak self] (data) in
+                self?.dataSource = data
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
     }
     
 }
@@ -138,28 +162,83 @@ extension AmongChat.Home.RelationsViewController {
 extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 
     // MARK: - UICollectionView
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return dataSource.count
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return dataSource.safe(section)?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
-        return cell
+        
+        switch indexPath.section {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
+            if let cell = cell as? FriendCell,
+               let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
+                cell.bind(viewModel: playing)
+            }
+            return cell
+
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
+            if let cell = cell as? SuggestionCell,
+               let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
+                cell.bind(viewModel: playing)
+            }
+            return cell
+        default:
+            return collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
+        }
+
     }
     
-//    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//
-//
-//
-//    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        let reusableView: UICollectionReusableView
+        
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
+            
+            if indexPath.section == 0 {
+                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle())
+            } else {
+                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle())
+            }
+            
+            reusableView = header
+            
+        case UICollectionView.elementKindSectionFooter:
+            
+            if indexPath.section == 0 {
+                reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath)
+            } else {
+                reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
+                reusableView.isHidden = true
+            }
+            
+        default:
+            reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
+            reusableView.isHidden = true
+        }
+        
+        return reusableView
+    }
     
 }
 
 extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLayout {
-
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        
-//    }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.width, height: 31)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: Frame.Screen.width, height: 113)
+    }
+    
 }

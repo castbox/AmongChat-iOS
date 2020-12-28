@@ -10,7 +10,7 @@ import UIKit
 
 extension AmongChat.Home {
     
-    class FriendCell: UICollectionViewCell {
+    class UserView: UIView {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
@@ -33,34 +33,6 @@ extension AmongChat.Home {
             return lb
         }()
         
-        private lazy var joinBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
-            btn.setTitleColor(UIColor.black, for: .normal)
-            btn.backgroundColor = UIColor(hex6: 0xFFF000)
-            btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
-            btn.layer.masksToBounds = true
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-            return btn
-        }()
-        
-        private lazy var lockedIcon: UIImageView = {
-            let iv = UIImageView(image: R.image.ac_home_friends_locked())
-            return iv
-        }()
-        
-        private lazy var followBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
-            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
-            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            btn.setTitle(R.string.localizable.profileFollowing(), for: .disabled)
-            btn.layer.masksToBounds = true
-            return btn
-        }()
-        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -69,32 +41,25 @@ extension AmongChat.Home {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
-            contentView.backgroundColor = .clear
+            backgroundColor = .clear
             
-            contentView.addSubviews(views: avatarIV, nameLabel, statusLabel, joinBtn, followBtn, lockedIcon)
+            addSubviews(views: avatarIV, nameLabel, statusLabel)
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.centerY.equalToSuperview()
-                maker.left.equalToSuperview().offset(20)
+                maker.left.equalToSuperview()
             }
             
             let textLayout = UILayoutGuide()
-            contentView.addLayoutGuide(textLayout)
-            
-            let buttonLayout = UILayoutGuide()
-            contentView.addLayoutGuide(buttonLayout)
-            buttonLayout.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().inset(20)
-            }
-            
+            addLayoutGuide(textLayout)
+                        
             textLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
-                maker.right.equalTo(buttonLayout.snp.left).offset(-20)
+                maker.right.equalToSuperview()
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -106,12 +71,74 @@ extension AmongChat.Home {
                 maker.left.right.bottom.equalTo(textLayout)
             }
             
-            followBtn.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(buttonLayout)
+        }
+        
+        func bind(viewModel: PlayingViewModel) {
+            
+            avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl))
+            
+            nameLabel.text = viewModel.userName
+            
+            statusLabel.text = viewModel.channelName
+            
+        }
+        
+    }
+    
+    class FriendCell: UICollectionViewCell {
+        
+        private lazy var userView: UserView = {
+            let v = UserView()
+            return v
+        }()
+                
+        private lazy var joinBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor.black, for: .normal)
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            return btn
+        }()
+        
+        private lazy var lockedIcon: UIImageView = {
+            let iv = UIImageView(image: R.image.ac_home_friends_locked())
+            return iv
+        }()
+                
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            contentView.backgroundColor = .clear
+            
+            contentView.addSubviews(views: userView, joinBtn, lockedIcon)
+                        
+            let buttonLayout = UILayoutGuide()
+            contentView.addLayoutGuide(buttonLayout)
+            buttonLayout.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().inset(20)
+                maker.height.equalTo(32)
+            }
+            
+            userView.snp.makeConstraints { (maker) in
+                maker.left.equalToSuperview().offset(20)
+                maker.top.bottom.equalToSuperview()
+                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
             }
             
             joinBtn.snp.makeConstraints { (maker) in
-                maker.top.bottom.right.equalTo(buttonLayout)
+                maker.edges.equalTo(buttonLayout)
             }
             
             lockedIcon.snp.makeConstraints { (maker) in
@@ -120,6 +147,75 @@ extension AmongChat.Home {
             
         }
         
+        func bind(viewModel: PlayingViewModel) {
+            userView.bind(viewModel: viewModel)
+            joinBtn.isHidden = !viewModel.joinable
+            lockedIcon.isHidden = viewModel.joinable
+        }
+        
+    }
+    
+    class SuggestionCell: UICollectionViewCell {
+        
+        private lazy var userView: UserView = {
+            let v = UserView()
+            return v
+        }()
+        
+        private lazy var followBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+            btn.setTitle(R.string.localizable.profileFollowing(), for: .disabled)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.layer.borderWidth = 2.5
+            return btn
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            contentView.backgroundColor = .clear
+            
+            contentView.addSubviews(views: userView, followBtn)
+            
+            let buttonLayout = UILayoutGuide()
+            contentView.addLayoutGuide(buttonLayout)
+            buttonLayout.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().inset(20)
+                maker.height.equalTo(32)
+            }
+            
+            userView.snp.makeConstraints { (maker) in
+                maker.left.equalToSuperview().offset(20)
+                maker.top.bottom.equalToSuperview()
+                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
+            }
+            
+            followBtn.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(buttonLayout)
+            }
+
+        }
+        
+        func bind(viewModel: PlayingViewModel) {
+            userView.bind(viewModel: viewModel)
+        }
+
+        
     }
     
     class FriendSectionHeader: UICollectionReusableView {
@@ -127,8 +223,7 @@ extension AmongChat.Home {
         private var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
-            lb.textColor = UIColor(hex6: 0x898989)
-            lb.text = R.string.localizable.amongChatHomeFriendsOnlineTitle()
+            lb.textColor = .white
             return lb
         }()
         
@@ -147,6 +242,10 @@ extension AmongChat.Home {
                 maker.top.bottom.equalToSuperview()
                 maker.left.right.equalToSuperview().inset(20)
             }
+        }
+        
+        func configTitle(_ title: String) {
+            titleLabel.text = title
         }
     }
     
@@ -178,17 +277,21 @@ extension AmongChat.Home {
         private func setupLayout() {
             addSubviews(views: icon, titleLabel)
             icon.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
+                maker.top.equalToSuperview().offset(14.5)
                 maker.left.equalToSuperview().offset(20)
                 maker.width.height.equalTo(40)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.left.equalTo(icon.snp.right).offset(12)
-                maker.centerY.equalToSuperview()
+                maker.centerY.equalTo(icon)
                 maker.right.equalToSuperview().offset(-20)
             }
         }
+    }
+    
+    class EmptyReusableView: UICollectionReusableView {
+        
     }
     
 }
