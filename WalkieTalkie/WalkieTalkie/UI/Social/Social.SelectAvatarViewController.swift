@@ -75,7 +75,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            AdsManager.shared.requestRewardVideoIfNeed()
+//            AdsManager.shared.requestRewardVideoIfNeed()
         }
     }
     
@@ -219,7 +219,7 @@ extension Social.SelectAvatarViewController {
         let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
         return Request.updateProfile(profileProto)
     }
-        
+
     private func unlockAvatar(for avatar: AvatarViewModel, _ indexPath: IndexPath) -> Observable<Void> {
         AdsManager.shared.requestRewardVideoIfNeed()
         return AdsManager.shared.isRewardVideoReadyRelay
@@ -313,7 +313,6 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let avatar = avatarDataSource.safe(indexPath.item) {
-            
             guard avatar.selected == false else {
                 return
             }
