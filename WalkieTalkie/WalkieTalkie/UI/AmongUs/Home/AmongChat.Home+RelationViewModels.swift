@@ -51,9 +51,9 @@ extension AmongChat.Home {
     
     class PlayingViewModel {
         
-        private let playingModel: Entity.FriendPlaying
+        private let playingModel: Entity.PlayingUser
         
-        init(with model: Entity.FriendPlaying) {
+        init(with model: Entity.PlayingUser) {
             playingModel = model
         }
         

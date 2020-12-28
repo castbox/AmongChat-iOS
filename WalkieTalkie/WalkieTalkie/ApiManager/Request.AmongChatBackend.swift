@@ -357,11 +357,11 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
         
-    static func friendsPlayingList() -> Single<[Entity.FriendPlaying]> {
+    static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.playingList)
             .mapJSON()
             .mapToDataJson()
             .mapToListJson()
-            .mapJsonListToModelList(Entity.FriendPlaying.self)
+            .mapJsonListToModelList(Entity.PlayingUser.self)
     }
 }

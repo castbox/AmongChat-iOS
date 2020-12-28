@@ -201,7 +201,7 @@ extension Entity.DefaultAvatars {
 
 extension Entity {
     
-    struct FriendPlaying: Codable {
+    struct PlayingUser: Codable {
         var user: UserProfile
         
         struct Room: Codable {
