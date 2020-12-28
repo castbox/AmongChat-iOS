@@ -79,7 +79,6 @@ extension AmongChat.Room {
         //登录用户主动 muted
         private(set) var mutedUser = Set<UInt>() {
             didSet {
-//                update(dataSource.value)
                 update(room)
             }
         }
@@ -87,7 +86,6 @@ extension AmongChat.Room {
         private(set) var otherMutedUser = Set<UInt>() {
             didSet {
                 update(room)
-//                                update(dataSource.value)
             }
         }
         
@@ -164,8 +162,10 @@ extension AmongChat.Room {
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
             self.mManager.joinChannel(channelId: self.room.roomId) { error in
-                HapticFeedback.Impact.success()
-                UIApplication.shared.isIdleTimerDisabled = true
+                mainQueueDispatchAsync {
+                    HapticFeedback.Impact.success()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                }
                 completionBlock?(error)
             }
             return true
@@ -175,7 +175,7 @@ extension AmongChat.Room {
             mManager.leaveChannel()
             ViewModel.shared = nil
             UIApplication.shared.isIdleTimerDisabled = false
-            return Request.requestLeave(with: room.roomId)
+            return Request.leave(with: room.roomId)
 
 //            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
 //                .asObservable()
@@ -268,15 +268,10 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-//            roomReplay.accept(room)
             update(room)
-            //update
-            updateRoomInfo(room)
         }
         
         func update(nickName: String) {
-//            var room = self.room
-//            updateRoomInfo(room)
             Request.updateRoom(nickName: nickName, with: room.roomId)
                 .subscribe { _ in
                     //refresh nick name
@@ -302,7 +297,7 @@ extension AmongChat.Room {
         
         //MARK: -- Request
         func requestRoomInfo() {
-            Request.requestRoomInfo(with: room.roomId)
+            Request.roomInfo(with: room.roomId)
                 .asObservable()
                 .filterNilAndEmpty()
                 .subscribe(onNext: { [weak self] room in
@@ -327,16 +322,7 @@ extension AmongChat.Room {
         }
         
         func requestKick(_ users: [Int]) -> Single<Bool> {
-            let params: [String: Any] = [
-                "room_id": room.roomId, "uids": users.map { $0.string }.joined(separator: ",")
-            ]
-            return Request.amongchatProvider.rx.request(.kickUsers(params))
-                .mapJSON()
-                .map { $0 != nil }
-//                .catchErrorJustReturn(self.room)
-//                .asObservable()
-//                .bind(to: roomReplay)
-//                .disposed(by: bag)
+            return Request.kick(users, roomId: room.roomId)
         }
         
 //        func update(_ userList: [Entity.RoomUser]) {

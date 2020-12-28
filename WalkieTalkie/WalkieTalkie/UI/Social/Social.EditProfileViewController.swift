@@ -363,7 +363,12 @@ private extension Social {
         private func onConfirmBtn() {
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
-            let birthdayStr = df.string(from: birthdayPicker.date)
+            let birthdayStr: String
+            if let date = birthdayPicker.date {
+                birthdayStr = df.string(from: date)
+            } else {
+                birthdayStr = "20050101"
+            }
             dismissModal(animated: true) { [weak self] in
                 self?.onCompletion?(birthdayStr)
             }

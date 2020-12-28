@@ -69,7 +69,6 @@ extension Social {
             }
         }
         
-        @available(*, deprecated)
         private var rewardVideoDispose: Disposable?
         
         override func viewDidLoad() {
@@ -342,7 +341,10 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             
             if avatar.locked {
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
-                unlockAvatar(for: avatar, indexPath)
+                rewardVideoDispose?.dispose()
+                
+                rewardVideoDispose =
+                    unlockAvatar(for: avatar, indexPath)
                     .flatMap { (_) -> Single<Entity.UserProfile> in
                         return updateProfile
                     }
@@ -358,7 +360,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                             self?.view.raft.autoShow(.text(error.localizedDescription))
                         }
                     })
-                    .disposed(by: bag)
+                rewardVideoDispose?.disposed(by: bag)
                 
             } else {
                 Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatarId)")

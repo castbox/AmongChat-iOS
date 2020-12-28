@@ -123,7 +123,12 @@ extension Social {
             
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
-            let birthdayStr = df.string(from: birthdayPicker.date)
+            let birthdayStr: String
+            if let date = birthdayPicker.date {
+                birthdayStr = df.string(from: date)
+            } else {
+                birthdayStr = "20050101"
+            }
             
             let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
             

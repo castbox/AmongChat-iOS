@@ -23,15 +23,15 @@ extension Social {
         }
         var rowHeight: CGFloat = 42
         
-        var date: Date {
+        var date: Date? {
             let month = months[selectedRow(inComponent: DatePickerComponent.month.rawValue) % months.count]
             let year = years[selectedRow(inComponent: DatePickerComponent.year.rawValue) % years.count]
             let day = days[selectedRow(inComponent: DatePickerComponent.day.rawValue) % days.count]
             
             let formatter = DateFormatter()
-            formatter.dateFormat = "MMMM:yyyy:dddd"
+            formatter.dateFormat = "MMM:yyyy:dd"
             let date = formatter.date(from: "\(month):\(year):\(day)")
-            return date!
+            return date
         }
         
         var selectedDate: String {
