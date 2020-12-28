@@ -211,8 +211,9 @@ extension AmongChat.Room {
         static func show(from controller: UIViewController, with viewModel: ViewModel) {
             let vc = AmongChat.Room.ViewController(viewModel: viewModel)
             controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-                guard let acient = controller else { return }
-                acient.navigationController?.viewControllers.removeAll(acient)
+                guard let ancient = controller,
+                      ancient is AmongChat.CreateRoom.ViewController else { return }
+                ancient.navigationController?.viewControllers.removeAll(ancient)
             })
         }
                 
