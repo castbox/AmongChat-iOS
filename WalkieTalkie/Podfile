@@ -105,7 +105,7 @@ target 'WalkieTalkie' do
 #    pod 'SwifterSwift'
     
     pod 'mopub-ios-sdk/Core'
-    pod 'MoPub-AdMob-Adapters'
+#    pod 'MoPub-AdMob-Adapters'
     pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'

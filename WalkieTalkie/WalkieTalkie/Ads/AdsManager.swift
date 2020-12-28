@@ -12,12 +12,12 @@ import RxCocoa
 //import AppMonet_Mopub
 import MoPub
 //import MoPub_FacebookAudienceNetwork_Adapters
-import MoPub_AdMob_Adapters
+//import MoPub_AdMob_Adapters
 //import DTBiOSSDK
 //import FBAudienceNetwork
 import CastboxDebuger
 import SwifterSwift
-import GoogleMobileAds
+//import GoogleMobileAds
 
 enum AdsState: Int {
     case preparing = 0
@@ -91,13 +91,13 @@ class AdsManager: NSObject {
     }
     
     private func setupAdmob() {
-        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
-        GADMobileAds.sharedInstance().applicationVolume = 0
-        GADMobileAds.sharedInstance().applicationMuted = true
-        #if DEBUG
-        //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
-        #endif
+//        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
+//        GADMobileAds.sharedInstance().applicationVolume = 0
+//        GADMobileAds.sharedInstance().applicationMuted = true
+//        #if DEBUG
+//        //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
+//        #endif
     }
     
     //    private func setupAws() {
@@ -195,7 +195,7 @@ class AdsManager: NSObject {
     
     var onNativeRequestFailed: ()->Void = {}
     
-    var nativeAd: MPNativeAd?
+//    var nativeAd: MPNativeAd?
     var latestNativeAdView: UIView?
     
 //    func requestNativeAds() {
