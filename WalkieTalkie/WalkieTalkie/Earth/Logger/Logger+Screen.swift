@@ -27,6 +27,7 @@ extension Logger {
                 case room
                 case profile
                 case profile_edit
+                case friends
             }
             
             case start(Start)

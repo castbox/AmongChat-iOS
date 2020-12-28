@@ -37,7 +37,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var firstOpenPremiumShowed: Bool = false
     
     var navigationController: NavigationViewController? {
-        return window?.rootViewController as? NavigationViewController
+        if let tab = window?.rootViewController as? UITabBarController {
+            return tab.selectedViewController as? NavigationViewController
+        } else {
+            return window?.rootViewController as? NavigationViewController
+        }
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -216,7 +220,7 @@ extension AppDelegate {
         
         let homeVc: (() -> UIViewController) = {
             GuruAnalytics.log(userID: Settings.loginUserId?.string)
-            return NavigationViewController(rootViewController: AmongChat.Home.ViewController())
+            return AmongChat.Home.MainTabController()
         }
         
         let needLogin: Bool = Settings.shared.loginResult.value == nil

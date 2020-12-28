@@ -196,3 +196,21 @@ extension Entity.DefaultAvatars {
     }
     
 }
+
+extension Entity {
+    
+    struct FriendPlaying: Codable {
+        var user: UserProfile
+        
+        struct Room: Codable {
+            var roomId: String
+            var state: RoomPublicType
+            var topicId: String
+            var playerCount: Int
+            var topicName: String
+        }
+        
+        var room: Room
+        
+    }
+}

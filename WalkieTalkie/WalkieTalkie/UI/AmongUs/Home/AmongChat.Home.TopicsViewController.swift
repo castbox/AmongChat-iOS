@@ -1,5 +1,5 @@
 //
-//  AmongChat.Home.ViewController.swift
+//  AmongChat.Home.TopicsViewController.swift
 //  WalkieTalkie
 //
 //  Created by mayue_work on 2020/11/25.
@@ -12,7 +12,7 @@ import RxSwift
 
 extension AmongChat.Home {
     
-    class ViewController: WalkieTalkie.ViewController {
+    class TopicsViewController: WalkieTalkie.ViewController {
         
         // MARK: - members
         
@@ -74,6 +74,10 @@ extension AmongChat.Home {
             return .home
         }
         
+        override var isHidesBottomBarWhenPushed: Bool {
+            return false
+        }
+        
         //MARK: - inherited
         
         override func viewDidLoad() {
@@ -86,29 +90,31 @@ extension AmongChat.Home {
     
 }
 
-extension AmongChat.Home.ViewController {
+extension AmongChat.Home.TopicsViewController {
 
     //MARK: - UI Action
     
     @objc
     private func onProfileBtn() {
+<<<<<<< HEAD:WalkieTalkie/WalkieTalkie/UI/AmongUs/Home/AmongChat.Home.ViewController.swift
         Logger.Action.log(.profile_imp, category: nil)
         let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
         let vc = Social.ProfileViewController(with: selfUid)
         vc.isPresent = false
         navigationController?.pushViewController(vc)
+=======
+        Routes.handle("/profile")
+>>>>>>> feature/relationship:WalkieTalkie/WalkieTalkie/UI/AmongUs/Home/AmongChat.Home.TopicsViewController.swift
     }
     
     @objc
     private func onCreateRoomBtn() {
-        Logger.Action.log(.create_topic_imp, category: nil)
-        let vc = AmongChat.CreateRoom.ViewController()
-        present(vc, animated: true)
+        Routes.handle("/createRoom")
     }
     
 }
 
-extension AmongChat.Home.ViewController {
+extension AmongChat.Home.TopicsViewController {
     
     func enterRoom(roomId: String? = nil, topicId: String?) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
@@ -269,7 +275,7 @@ extension AmongChat.Home.ViewController {
     }
 }
 
-extension AmongChat.Home.ViewController: UICollectionViewDataSource {
+extension AmongChat.Home.TopicsViewController: UICollectionViewDataSource {
 
     // MARK: - UICollectionView
 
@@ -288,7 +294,7 @@ extension AmongChat.Home.ViewController: UICollectionViewDataSource {
 
 }
 
-extension AmongChat.Home.ViewController: UICollectionViewDelegate {
+extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {

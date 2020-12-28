@@ -45,7 +45,10 @@ extension Routes {
                         self.handleFollowers()
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
-                        
+                    case _ as URI.CreateRoom:
+                        self.handleCreateRoom()
+                    case let profile as URI.Profile:
+                        self.handleProfile(uid: profile.uid)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -80,14 +83,24 @@ extension Routes {
         func handleRoom(_ roomId: String) {
             UIApplication.navigationController?.popToRootViewController(animated: true)
             
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.TopicsViewController,
+                  UIApplication.topViewController() is AmongChat.Home.TopicsViewController else {
                 return
             }
             
             roomVc.enterRoom(roomId: roomId, topicId: nil)
 //            roomVc.joinRoom(with: name)
             Logger.Channel.log(.deeplink, roomId, value: 0)
+        }
+        
+        func handleCreateRoom() {
+            let vc = AmongChat.CreateRoom.ViewController()
+            UIApplication.navigationController?.pushViewController(vc)
+        }
+        
+        func handleProfile(uid: Int? = nil) {
+            let vc = Social.ProfileViewController()
+            UIApplication.navigationController?.pushViewController(vc)
         }
         
         func handleFollowers() {

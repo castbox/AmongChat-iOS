@@ -210,16 +210,10 @@ extension AmongChat.Room {
         
         static func show(from controller: UIViewController, with viewModel: ViewModel) {
             let vc = AmongChat.Room.ViewController(viewModel: viewModel)
-            vc.modalPresentationStyle = .fullScreen
-            let transition = CATransition()
-            transition.duration = 0.25
-            transition.type = CATransitionType.push
-            transition.subtype = CATransitionSubtype.fromRight
-            transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-            UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
-            controller.present(vc, animated: false) { [weak controller] in
-                controller?.navigationController?.popToRootViewController(animated: false)
-            }
+            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
+                guard let acient = controller else { return }
+                acient.navigationController?.viewControllers.removeAll(acient)
+            })
         }
                 
         init(viewModel: ViewModel) {
@@ -313,13 +307,7 @@ extension AmongChat.Room.ViewController {
     }
     
     func dismissViewController(completionHandler: CallBack? = nil) {
-        let transition = CATransition()
-        transition.duration = 0.25
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromLeft
-        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        UIApplication.shared.keyWindow?.layer.add(transition, forKey: kCATransition)
-        self.dismiss(animated: false) {
+        navigationController?.popViewController(animated: true) {
             completionHandler?()
             
             //Ad.InterstitialManager.shared.showAdIfReady(from: vc)
@@ -371,6 +359,8 @@ extension AmongChat.Room.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         topBar = AmongChatRoomTopBar()
         configView = AmongChatRoomConfigView(room)
