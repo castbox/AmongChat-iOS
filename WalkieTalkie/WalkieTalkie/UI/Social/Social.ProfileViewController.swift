@@ -145,6 +145,10 @@ extension Social {
                 })
                 .disposed(by: bag)
         }
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            getRealation()
+        }
     }
 }
 
@@ -193,7 +197,6 @@ private extension Social.ProfileViewController {
     
     func setupData() {
         loadData()
-        getRealation()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
@@ -276,7 +279,7 @@ private extension Social.ProfileViewController {
     
     func followerAction() {
         let vc = Social.FollowerViewController(with: uid, isFollowing: false)
-        //        let vc = Social.LeaveGameViewController(with: uid)
+//        let vc = Social.LeaveGameViewController(with: uid)
         navigationController?.pushViewController(vc)
     }
     

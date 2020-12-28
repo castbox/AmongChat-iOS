@@ -1630,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 204 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 206 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1840,6 +1840,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertTitle = Rswift.StringResource(key: "enter.secret.channel.alert.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Exit channel
+      /// 
+      /// Locales: en
+      static let socialExitChannel = Rswift.StringResource(key: "social.exit.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed
       /// 
       /// Locales: en
@@ -1884,6 +1888,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialFollowerFollowAction = Rswift.StringResource(key: "social.follower.follow.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Follow your teammates to play together  next time
+      /// 
+      /// Locales: en
+      static let socialFollowTeammates = Rswift.StringResource(key: "social.follow.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Followed user
       /// 
       /// Locales: en
@@ -2813,6 +2821,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("enter.secret.channel.alert.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Exit channel
+      /// 
+      /// Locales: en
+      static func socialExitChannel(_: Void = ()) -> String {
+        return NSLocalizedString("social.exit.channel", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed
       /// 
       /// Locales: en
@@ -2888,6 +2903,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialFollowerFollowAction(_: Void = ()) -> String {
         return NSLocalizedString("social.follower.follow.action", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Follow your teammates to play together  next time
+      /// 
+      /// Locales: en
+      static func socialFollowTeammates(_: Void = ()) -> String {
+        return NSLocalizedString("social.follow.teammates", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Followed user

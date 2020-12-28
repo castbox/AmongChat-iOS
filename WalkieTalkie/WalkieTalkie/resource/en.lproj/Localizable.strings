@@ -163,6 +163,8 @@
 "social.copy.link" = "Copy link";
 "social.invite.friends" = "Invite friends";
 "social.invite" = "Invtie";
+"social.exit.channel" = "Exit channel";
+"social.follow.teammates" = "Follow your teammates to play together \nnext time";
 
 
 "channel.user.list.speaking.title" = "SPEAKING";

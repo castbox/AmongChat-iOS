@@ -166,11 +166,14 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     
     func unblockUser(index: Int) {
         let removeBlock = view.raft.show(.loading)
-        let user = userList.safe(index)
-        Request.unFollow(uid: user?.uid ?? 0, type: "block")
+        let uid = userList.safe(index)?.uid ?? 0
+        Request.unFollow(uid: uid, type: "block")
             .subscribe(onSuccess: { [weak self](success) in
                 if success {
                     self?.userList.remove(at: index)
+                    var blockedUsers = Defaults[\.blockedUsersV2Key]
+                    blockedUsers.removeElement(ifExists: { $0.uid == uid })
+                    Defaults[\.blockedUsersV2Key] = blockedUsers
                     self?.tableView.reloadData()
                 }
                 removeBlock()
