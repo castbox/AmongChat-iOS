@@ -206,7 +206,7 @@ extension Social {
         var updateFollowData: ((Bool) -> Void)?
         var avaterHandle: ((Entity.UserProfile) -> Void)?
         var inviteHandle: ((Entity.UserProfile) -> Void)?
-
+        
         let bag = DisposeBag()
         
         private lazy var avatarIV: UIImageView = {
@@ -285,7 +285,9 @@ extension Social {
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
                     if self.isInvite {
-                        self.inviteHandle?(self.userInfo)
+                        if self.userInfo != nil {
+                            self.inviteHandle?(self.userInfo)
+                        }
                     } else {
                         self.followUser()
                     }
@@ -323,6 +325,7 @@ extension Social {
         }
         
         func setCellDataForShare(with model: Entity.UserProfile) {
+            self.userInfo = model
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name

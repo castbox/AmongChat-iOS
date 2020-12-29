@@ -1896,7 +1896,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListFollowedTitle = Rswift.StringResource(key: "channel.user.list.followed.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Follower
+      /// en translation: Followers
       /// 
       /// Locales: en
       static let profileFollower = Rswift.StringResource(key: "profile.follower", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2927,7 +2927,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.followed.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Follower
+      /// en translation: Followers
       /// 
       /// Locales: en
       static func profileFollower(_: Void = ()) -> String {

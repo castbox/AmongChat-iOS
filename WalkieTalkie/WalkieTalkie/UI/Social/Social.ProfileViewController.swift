@@ -137,7 +137,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-        
+            
             rx.viewDidAppear
                 .take(1)
                 .subscribe(onNext: { (_) in

@@ -59,7 +59,7 @@ extension Social.BlockedUserList {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            bindData()
+            loadData()
         }
         
         private func setupLayout() {
@@ -99,10 +99,6 @@ extension Social.BlockedUserList {
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
-        }
-        
-        private func bindData() {
-            loadData()
         }
         
         private func loadData() {

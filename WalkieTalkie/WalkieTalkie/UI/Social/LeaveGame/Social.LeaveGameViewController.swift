@@ -17,7 +17,7 @@ extension Social {
             let btn = UIButton(type: .custom)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
-//                    self?.hideModal()
+                    self?.hideModal()
                     self?.navigationController?.popViewController()
                 }).disposed(by: bag)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
@@ -69,7 +69,7 @@ extension Social {
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
-                    
+            
             view.addSubviews(views: backBtn, titleLabel)
             
             let navLayoutGuide = UILayoutGuide()
@@ -103,7 +103,7 @@ extension Social {
                 self?.loadMore()
             }
         }
-       
+        
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             Request.endUsers(roomId: roomId)

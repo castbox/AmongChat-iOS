@@ -61,9 +61,9 @@ extension Social {
                 maker.top.left.right.equalToSuperview()
                 maker.height.equalTo(500)
             }
-//            tableView.pullToRefresh { [weak self] in
-//                self?.loadData()
-//            }
+            //            tableView.pullToRefresh { [weak self] in
+            //                self?.loadData()
+            //            }
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
