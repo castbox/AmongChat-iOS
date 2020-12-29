@@ -221,7 +221,7 @@ extension AmongChat.Home.ViewController {
                 if let _ = ts {
                     self?.profileBtn.redDotOff()
                 } else {
-                    self?.profileBtn.redDotOn(rightOffset: -8, topOffset: 7)
+                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
                 }
             })
             .disposed(by: bag)

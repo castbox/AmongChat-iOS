@@ -89,10 +89,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
-            .observeOn(MainScheduler.asyncInstance)
             .do { _ in
                 Settings.shared.updateProfile()
             }
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func updateProfile(_ profile: Entity.ProfileProto) -> Single<Entity.UserProfile?> {
@@ -106,10 +106,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
-            .observeOn(MainScheduler.asyncInstance)
             .do { _ in
                 Settings.shared.updateProfile()
             }
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func summary(country: String? = nil, language: String? = nil) -> Single<Entity.Summary?> {
@@ -185,6 +185,7 @@ extension Request {
                       let processed = jsonDict["processed"] as? Bool else { return false }
                 return processed
             }
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func updateRoom(nickName: String, with roomId: String) -> Single<Bool> {
@@ -192,10 +193,9 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
-            .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func requestRoomInfo(with roomId: String) -> Single<Entity.Room?> {
+    static func roomInfo(with roomId: String) -> Single<Entity.Room?> {
         return amongchatProvider.rx.request(.roomInfo(["room_id": roomId, "exclude_fields": "bgUrl"]))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -206,12 +206,14 @@ extension Request {
                 return roomData
             }
             .mapTo(Entity.Room.self)
+            .observeOn(MainScheduler.asyncInstance)
     }
-    static func requestLeave(with roomId: String) -> Single<Bool> {
+    static func leave(with roomId: String) -> Single<Bool> {
         return amongchatProvider.rx.request(.leaveRoom(["room_id": roomId]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func logout() -> Single<[String: AnyObject]> {
@@ -286,5 +288,15 @@ extension Request {
                 }
                 return token
             }
+    }
+    
+    static func kick(_ users: [Int], roomId: String) -> Single<Bool> {
+        let params: [String: Any] = [
+            "room_id": roomId, "uids": users.map { $0.string }.joined(separator: ",")
+        ]
+        return Request.amongchatProvider.rx.request(.kickUsers(params))
+            .mapJSON()
+            .map { $0 != nil }
+            .observeOn(MainScheduler.asyncInstance)
     }
 }

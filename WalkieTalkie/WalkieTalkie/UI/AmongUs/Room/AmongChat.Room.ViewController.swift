@@ -281,7 +281,6 @@ extension AmongChat.Room.ViewController {
         Logger.Action.log(.room_leave_clk)
         
         self.viewModel.requestLeaveChannel()
-            .observeOn(MainScheduler.asyncInstance)
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
             } onError: { error in

@@ -95,7 +95,7 @@ private extension Social.EditProfileViewController {
         
         randomIconIV.snp.makeConstraints { (maker) in
             maker.right.bottom.equalTo(avatarIV)
-            maker.width.height.equalTo(24)
+            maker.width.height.equalTo(28)
         }
         
         userButton.snp.makeConstraints { (maker) in
@@ -170,7 +170,7 @@ private extension Social.EditProfileViewController {
                 if let _ = ts {
                     self?.randomIconIV.redDotOff()
                 } else {
-                    self?.randomIconIV.redDotOn()
+                    self?.randomIconIV.redDotOn(rightOffset: 5, topOffset: 5)
                 }
             })
             .disposed(by: bag)
@@ -363,7 +363,12 @@ private extension Social {
         private func onConfirmBtn() {
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
-            let birthdayStr = df.string(from: birthdayPicker.date)
+            let birthdayStr: String
+            if let date = birthdayPicker.date {
+                birthdayStr = df.string(from: date)
+            } else {
+                birthdayStr = "20050101"
+            }
             dismissModal(animated: true) { [weak self] in
                 self?.onCompletion?(birthdayStr)
             }

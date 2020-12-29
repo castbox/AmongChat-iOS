@@ -118,14 +118,18 @@ extension UIView {
     }
     
     func redDotOn(rightOffset: CGFloat? = nil, topOffset: CGFloat? = nil) {
-        guard let i = R.image.ac_red_dot() else {
-            return
-        }
+//        guard let i = R.image.ac_red_dot() else {
+//            return
+//        }
         
-        let iv = UIImageView(image: i)
+//        let iv = UIImageView(image: i)
+//        iv.contentMode = .scaleAspectFill
+        let iv = UIImageView()
+        iv.backgroundColor = "FA4E4E".color()
+        iv.cornerRadius = 6
         addSubview(iv)
         iv.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(8)
+            maker.width.height.equalTo(12)
             maker.top.equalToSuperview().offset(topOffset ?? 0)
             maker.right.equalToSuperview().offset(2 + (rightOffset ?? 0))
         }

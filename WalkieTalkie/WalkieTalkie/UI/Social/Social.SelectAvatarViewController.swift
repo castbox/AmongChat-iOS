@@ -60,6 +60,8 @@ extension Social {
             return v
         }()
         
+        var hasRetryForAdLoadFailed = false
+        
         private lazy var avatarDataSource: [AvatarViewModel] = {
             return []
         }()
@@ -69,14 +71,13 @@ extension Social {
             }
         }
         
-        @available(*, deprecated)
         private var rewardVideoDispose: Disposable?
         
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            AdsManager.shared.requestRewardVideoIfNeed()
+//            AdsManager.shared.requestRewardVideoIfNeed()
         }
     }
     
@@ -220,98 +221,27 @@ extension Social.SelectAvatarViewController {
         let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
         return Request.updateProfile(profileProto)
     }
-    
-    @available(*, deprecated)
-    func showRewardVideo(for avatar: AvatarViewModel, _ indexPath: IndexPath) {
-        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        AdsManager.shared.requestRewardVideoIfNeed()
-        rewardVideoDispose =
-            AdsManager.shared.isRewardVideoReadyRelay
-            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
-            .filter { $0 }
-            .take(1)
-            .flatMap { [weak self] _ -> Observable<Void> in
-                guard let `self` = self else { return  .empty() }
-                guard let reward = AdsManager.shared.aviliableRewardVideo else {
-                    self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
-                    hudRemoval()
-                    return Observable.empty()
-                }
-                
-                return Observable.just(())
-                    .filter({ [weak self] _ in
-                        guard let `self` = self else {
-                            return true
-                        }
-                        MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
-                        return true
-                    })
-                    .flatMap { _ -> Observable<Bool> in
-                        return AdsManager.shared.rewardVideoShouldReward.asObserver()
-                    }
-                    .do(onNext: { _ in
-                        AdsManager.shared.requestRewardVideoIfNeed()
-                    })
-                    .filter { [weak self] shouldReward -> Bool in
-                        guard let `self` = self else { return false }
-                        if !shouldReward {
-                            self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
-                            hudRemoval()
-                        }
-                        return shouldReward
-                    }
-                    .flatMap { _ -> Observable<Void> in
-                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                    }
-            }
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (_) in
-                guard let `self` = self else { return }
-                
-                cdPrint("")
-                
-                Request.unlockAvatar(avatar.avatar)
-                    .observeOn(MainScheduler.asyncInstance)
-                    .subscribe(onSuccess: { (success) in
-                        Logger.Action.log(.profile_avatar_get_success, category: .rewarded, "\(avatar.avatar.avatarId)")
-                        hudRemoval()
-                        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
-                        self.updateProfileIfNeeded(profileProto)
-                        avatar.unlock()
-                        
-                        for (idx, element) in self.avatarDataSource.enumerated() {
-                            
-                            if idx == indexPath.item {
-                                element.selected = true
-                            } else {
-                                element.selected = false
-                            }
-                        }
-                        
-                        self.avatarCollectionView.reloadData()
-                        self.fetchDefaultAvatars()
-                    }, onError: { (error) in
-                        hudRemoval()
-                    })
-                    .disposed(by: self.bag)
-                
-                
-            }, onError: { (error) in
-                self.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
-                hudRemoval()
-            })
-        rewardVideoDispose?.addDisposableTo(bag)
 
-    }
-    
     private func unlockAvatar(for avatar: AvatarViewModel, _ indexPath: IndexPath) -> Observable<Void> {
-        AdsManager.shared.requestRewardVideoIfNeed()
         return AdsManager.shared.isRewardVideoReadyRelay
-            .filter { $0 }
+            .filter { [weak self] isReady -> Bool in
+                guard let `self` = self else { return false }
+                if isReady, AdsManager.shared.aviliableRewardVideo == nil {
+                    //如果 Load 成功，但拿不到 reward video， 则重新请求
+                    if !self.hasRetryForAdLoadFailed {
+                        self.hasRetryForAdLoadFailed = true
+                        AdsManager.shared.isRewardVideoReadyRelay.accept(false)
+                        AdsManager.shared.requestRewardVideoIfNeed()
+                    }
+                    return false
+                }
+                return isReady
+            }
             .take(1)
             .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
+                self.hasRetryForAdLoadFailed = false
                 guard let reward = AdsManager.shared.aviliableRewardVideo else {
                     return Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                 }
@@ -324,9 +254,6 @@ extension Social.SelectAvatarViewController {
                             return Observable.error(MsgError(code: 500, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                         }
                         return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                            .do(onNext: { _ in
-                                AdsManager.shared.requestRewardVideoIfNeed()
-                            })
                     }
             }
             .flatMap({ _ -> Single<Void> in
@@ -389,7 +316,6 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if let avatar = avatarDataSource.safe(indexPath.item) {
-            
             guard avatar.selected == false else {
                 return
             }
@@ -417,7 +343,12 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             
             if avatar.locked {
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
-                unlockAvatar(for: avatar, indexPath)
+                
+                hasRetryForAdLoadFailed = false
+                rewardVideoDispose?.dispose()
+                
+                rewardVideoDispose =
+                    unlockAvatar(for: avatar, indexPath)
                     .flatMap { (_) -> Single<Entity.UserProfile> in
                         return updateProfile
                     }
@@ -427,9 +358,13 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                         completion()
                     }, onError: { [weak self] (error) in
                         completion()
-                        self?.view.raft.autoShow(.text(error.localizedDescription))
+                        if let _ = error as? RxError {
+                            self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
+                        } else {
+                            self?.view.raft.autoShow(.text(error.localizedDescription))
+                        }
                     })
-                    .disposed(by: bag)
+                rewardVideoDispose?.disposed(by: bag)
                 
             } else {
                 Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatarId)")

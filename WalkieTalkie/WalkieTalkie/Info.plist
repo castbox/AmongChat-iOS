@@ -110,5 +110,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+    <key>gad_preferred_webview</key>
+    <string>wkwebview</string>
 </dict>
 </plist>

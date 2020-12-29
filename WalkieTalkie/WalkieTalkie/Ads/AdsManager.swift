@@ -12,12 +12,12 @@ import RxCocoa
 //import AppMonet_Mopub
 import MoPub
 //import MoPub_FacebookAudienceNetwork_Adapters
-import MoPub_AdMob_Adapters
+//import MoPub_AdMob_Adapters
 //import DTBiOSSDK
 //import FBAudienceNetwork
 import CastboxDebuger
 import SwifterSwift
-import GoogleMobileAds
+//import GoogleMobileAds
 
 enum AdsState: Int {
     case preparing = 0
@@ -32,6 +32,10 @@ enum ShowSelection: Int {
 }
 
 let debugAds: Bool = false
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[AdsManager]-\(message)")
+}
 
 class AdsManager: NSObject {
     static let shared = AdsManager()
@@ -77,9 +81,9 @@ class AdsManager: NSObject {
     
     
     private func setupMopub() {
-        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: "a545cd81a6814a4bb06a6e6055ed5e58")
+        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: rewardedVideoId)
         #if DEBUG
-        config.loggingLevel = .info
+        config.loggingLevel = .debug
         #endif
         MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
             //send notification
@@ -88,16 +92,18 @@ class AdsManager: NSObject {
             self?.requestRewardVideoIfNeed()
 //            Ad.InterstitialManager.shared.loadAd()
         }
+        
+        MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
     }
     
     private func setupAdmob() {
-        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
-        GADMobileAds.sharedInstance().applicationVolume = 0
-        GADMobileAds.sharedInstance().applicationMuted = true
-        #if DEBUG
-        //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
-        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
-        #endif
+//        GADMobileAds.sharedInstance().audioVideoManager.audioSessionIsApplicationManaged = true
+//        GADMobileAds.sharedInstance().applicationVolume = 0
+//        GADMobileAds.sharedInstance().applicationMuted = true
+//        #if DEBUG
+//        //        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = [kGADSimulatorID as! String]
+//        GADMobileAds.sharedInstance().requestConfiguration.testDeviceIdentifiers = []
+//        #endif
     }
     
     //    private func setupAws() {
@@ -136,10 +142,11 @@ class AdsManager: NSObject {
     }
     
     var aviliableRewardVideo: MPRewardedVideoReward? {
+        cdPrint("aviliableRewardVideo: \(MPRewardedVideo.availableRewards(forAdUnitID: rewardedVideoId))")
         guard hasAdAvailableRewardsVideo else {
             return nil
         }
-        return MPRewardedVideo.availableRewards(forAdUnitID: rewardedVideoId)?.last as? MPRewardedVideoReward
+        return MPRewardedVideo.selectedReward(forAdUnitID: rewardedVideoId)
     }
     
     
@@ -195,7 +202,7 @@ class AdsManager: NSObject {
     
     var onNativeRequestFailed: ()->Void = {}
     
-    var nativeAd: MPNativeAd?
+//    var nativeAd: MPNativeAd?
     var latestNativeAdView: UIView?
     
 //    func requestNativeAds() {
@@ -247,13 +254,18 @@ class AdsManager: NSObject {
 //            !Settings.shared.isProValue.value else {
 //            return
 //        }
-        guard aviliableRewardVideo == nil else {
+        cdPrint("requestRewardVideo hasLoaded: \(isRewardVideoReadyRelay.value)")
+//        guard aviliableRewardVideo == nil else {
+//            return
+//        }
+        guard !isRewardVideoReadyRelay.value else {
             return
         }
-        cdPrint("[rewarded-ad] requestRewardVideo")
+        cdPrint("requestRewardVideo")
         Logger.Ads.logEvent(.rads_load)
+        
         MPRewardedVideo.loadAd(withAdUnitID: rewardedVideoId, withMediationSettings: nil)
-        MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
+        
     }
     
 //    private func refreshNative(after interval: RxTimeInterval) {
@@ -317,18 +329,23 @@ class AdsManager: NSObject {
 //    }
 //
     var rewardedVideoId: String {
-           #if DEBUG
-           /// aws ad id
-           //        return "2fc098daa08643f8a632323364d8c478"
-           /// debug ad id
-           //        return "2aae44d2ab91424d9850870af33e5af7"
-           /// online ad id
-           //        return "156615c0b77140bfa9465efe32a6b39b"
-           /// adview with only appmonet
-           return "a545cd81a6814a4bb06a6e6055ed5e58"
-           #else
-           return "a545cd81a6814a4bb06a6e6055ed5e58"
-           #endif
+//        if Config.environment == .debug {
+//            return "8f000bd5e00246de9c789eed39ff6096"
+//        } else {
+            return "a545cd81a6814a4bb06a6e6055ed5e58"
+//        }
+//           #if DEBUG
+//           /// aws ad id
+//           //        return "2fc098daa08643f8a632323364d8c478"
+//           /// debug ad id
+//           //        return "2aae44d2ab91424d9850870af33e5af7"
+//           /// online ad id
+//           //        return "156615c0b77140bfa9465efe32a6b39b"
+//           /// adview with only appmonet
+//           return "a545cd81a6814a4bb06a6e6055ed5e58"
+//           #else
+//           return "a545cd81a6814a4bb06a6e6055ed5e58"
+//           #endif
        }
     
 //    func shouldShowInterstitial() -> Bool {
@@ -401,52 +418,62 @@ extension AdsManager: MPRewardedVideoDelegate {
         //reward did load
         isRewardVideoReadyRelay.accept(true)
         Logger.Ads.logEvent(.rads_loaded)
-        cdPrint("[rewarded-ad] rewardedVideoAdDidLoad")
+        cdPrint("rewardedVideoAdDidLoad")
     }
     
     func rewardedVideoAdDidExpire(forAdUnitID adUnitID: String!) {
         isRewardVideoReadyRelay.accept(false)
-        cdPrint("[rewarded-ad] rewardedVideoAdDidExpire")
+        cdPrint("rewardedVideoAdDidExpire")
+        requestRewardVideoIfNeed()
     }
     
     func rewardedVideoAdWillAppear(forAdUnitID adUnitID: String!) {
-        cdPrint("[rewarded-ad] rewardedVideoAdWillAppear")
+        cdPrint("rewardedVideoAdWillAppear")
         Logger.Ads.logEvent(.rads_imp)
     }
 
     func rewardedVideoAdDidAppear(forAdUnitID adUnitID: String!) {
         isRewardVideoReadyRelay.accept(false)
-        //request new one
-        requestRewardVideoIfNeed()
-        cdPrint("[rewarded-ad] rewardedVideoAdDidAppear")
+        cdPrint("rewardedVideoAdDidAppear")
     }
     
     func rewardedVideoAdDidDisappear(forAdUnitID adUnitID: String!) {
-        cdPrint("[rewarded-ad] rewardedVideoAdDidDisappear")
+        cdPrint("rewardedVideoAdDidDisappear")
+        //request new one
         rewardedVideoAdDidDisappear.onNext(())
         Logger.Ads.logEvent(.rads_close)
+        mainQueueDispatchAsync(after: 0.1) {
+            self.requestRewardVideoIfNeed()
+        }
     }
 
     func rewardedVideoAdDidFailToLoad(forAdUnitID adUnitID: String!, error: Error!) {
         isRewardVideoReadyRelay.accept(false)
-        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToLoad: \(String(describing: error))")
+        cdPrint("rewardedVideoAdDidFailToLoad: \(String(describing: error))")
         Logger.Ads.logEvent(.rads_failed)
+        //did error
+        mainQueueDispatchAsync(after: 15) { [weak self] in
+            self?.requestRewardVideoIfNeed()
+        }
     }
     
     func rewardedVideoAdShouldReward(forAdUnitID adUnitID: String!, reward: MPRewardedVideoReward!) {
         //should reward
         rewardVideoShouldReward.onNext(true)
-        cdPrint("[rewarded-ad] rewardedVideoAdShouldReward")
+        cdPrint("rewardedVideoAdShouldReward")
     }
     
     func rewardedVideoAdDidReceiveTapEvent(forAdUnitID adUnitID: String!) {
-        cdPrint("[rewarded-ad] rewardedVideoAdDidReceiveTapEvent")
+        cdPrint("rewardedVideoAdDidReceiveTapEvent")
         Logger.Ads.logEvent(.rads_clk)
     }
     
     func rewardedVideoAdDidFailToPlay(forAdUnitID adUnitID: String!, error: Error!) {
-        cdPrint("[rewarded-ad] rewardedVideoAdDidFailToPlay: \(String(describing: error))")
+        cdPrint("rewardedVideoAdDidFailToPlay: \(String(describing: error))")
         rewardVideoShouldReward.onNext(false)
+        mainQueueDispatchAsync(after: 15) { [weak self] in
+            self?.requestRewardVideoIfNeed()
+        }
     }
     
 }

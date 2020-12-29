@@ -99,7 +99,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            AdsManager.shared.requestRewardVideoIfNeed()
+//            AdsManager.shared.requestRewardVideoIfNeed()
             //            //AD
             //            rx.viewDidAppear
             //                .take(1)
