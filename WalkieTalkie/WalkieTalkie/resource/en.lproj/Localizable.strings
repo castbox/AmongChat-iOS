@@ -109,6 +109,8 @@
 "profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
+"profile.little.follower" = "follower";
+"profile.little.following" = "following";
 "profile.invite.friends" = "Invite friends";
 "profile.block.user" = "Block list";
 "profile.settings" = "Settings";
@@ -248,3 +250,7 @@
 "among.chat.reward.video.load.failed" = "Failed to load video";
 "among.chat.unlock.avatar.failed" = "Failed to unlock avatar";
 "among.chat.update.profile.failed" = "Failed to update profile";
+"among.chat.home.friends.online.title" = "Your online friends";
+"among.chat.home.friends.suggestion.title" = "Friends you may like to play with";
+"among.chat.home.friends.share.title" = "Invite your friends to play together";
+"among.chat.home.friends.in.channel" = "in %1$@ channel";

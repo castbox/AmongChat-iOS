@@ -72,6 +72,35 @@ extension URI {
         }
     }
     
+    struct Profile: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/profile/:uid",
+                "/profile"
+            ]
+        }
+        
+        let uid: Int?
+        
+        init?(_ paras: [String: Any]) {
+            self.uid = paras["uid"] as? Int
+        }
+        
+    }
+    
+    struct CreateRoom: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/createRoom"
+            ]
+        }
+        
+        init?(_ paras: [String: Any]) {
+        }
+    }
+    
     struct Channel: URIRepresentable {
         
         static func patterns() -> [String] {

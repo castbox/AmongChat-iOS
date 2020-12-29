@@ -104,6 +104,7 @@ extension Entity {
         var uid: Int
         var birthday: String?
         var nickname: String?
+        var isFollowed: Bool?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -116,6 +117,7 @@ extension Entity {
             case uid
             case birthday
             case nickname
+            case isFollowed = "is_followed"
         }
     }
     
@@ -195,4 +197,37 @@ extension Entity.DefaultAvatars {
         return avatarList.randomItem()
     }
     
+}
+
+extension Entity {
+    
+    struct PlayingUser: Codable {
+        var user: UserProfile
+        
+        struct Room: Codable {
+            var roomId: String
+            var state: RoomPublicType
+            var topicId: String
+            var playerCount: Int
+            var topicName: String
+        }
+        
+        var room: Room?
+        
+    }
+}
+
+extension Entity {
+    struct FriendUpdatingInfo: Codable {
+        typealias Room = PlayingUser.Room
+        var user: UserProfile
+        var room: Room?
+        var isOnline: Bool
+        var messageType: String
+        
+        func asPlayingUser() -> PlayingUser {
+            return PlayingUser(user: user, room: room)
+        }
+        
+    }
 }

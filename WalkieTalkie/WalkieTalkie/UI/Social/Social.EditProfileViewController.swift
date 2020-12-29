@@ -178,7 +178,6 @@ private extension Social.EditProfileViewController {
     }
     
     func selectBirthday() {
-        //let vc = Social.BirthdaySetViewController()
         let vc = Social.BirthdaySelectViewController()
         vc.onCompletion = { [weak self] (birthdayStr) in
             guard let `self` = self else {

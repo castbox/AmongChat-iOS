@@ -26,11 +26,16 @@ extension AmongChat.Room {
         private var rtmChannel: AgoraRtmChannel?
         private let joinedSubject = BehaviorRelay<Bool>(value: false)
         private let newChannelMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
+        private let newPeerMessageSubject = PublishSubject<(AgoraRtmMessage, String)>()
         
         private let bag = DisposeBag()
         
         var newChannelMessageObservable: Observable<(AgoraRtmMessage, AgoraRtmMember)> {
             return newChannelMessageSubject.asObservable()
+        }
+        
+        var newPeerMessageObservable: Observable<(AgoraRtmMessage, String)> {
+            return newPeerMessageSubject.asObservable()
         }
         
         var joinedChannelSignal: Observable<Bool> {
@@ -197,6 +202,11 @@ extension AmongChat.Room.IMManager {
 extension AmongChat.Room.IMManager: AgoraRtmDelegate {
     func rtmKit(_ kit: AgoraRtmKit, connectionStateChanged state: AgoraRtmConnectionState, reason: AgoraRtmConnectionChangeReason) {
         cdPrint("connectionStateChanged: \(state.rawValue) reason: \(reason.rawValue)")
+    }
+    
+    func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
+        cdPrint("receive peer message: \(message) peer: \(peerId)")
+        newPeerMessageSubject.onNext((message, peerId))
     }
 }
 

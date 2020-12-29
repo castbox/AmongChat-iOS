@@ -26,7 +26,7 @@ struct MsgError: Error, Codable {
         case roomUserKick = 3002 //'You are kicked off, can not enter this room'
         case roomNotFound = 202 //'can not find this room'
     }
-
+    
     static let `default` = MsgError(code: 202, msg: "Please try again.")
     
     let code: Int
@@ -143,7 +143,7 @@ extension Request {
                     throw MsgError.default
                 }
                 if let data = json["data"] as? [String: AnyObject],
-                      let roomData = data["room"] as? [String : AnyObject] {
+                   let roomData = data["room"] as? [String : AnyObject] {
                     return roomData
                 } else {
                     throw MsgError.from(dic: json)
@@ -299,4 +299,90 @@ extension Request {
             .map { $0 != nil }
             .observeOn(MainScheduler.asyncInstance)
     }
+
+    static func profilePage(uid: Int) -> Single<Entity.ProfilePage?> {
+        let paras = ["uid": uid]
+        return amongchatProvider.rx.request(.profilePage(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ProfilePage.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    /// type: follow / block
+    static func follow(uid: Int, type: String) -> Single<Bool> {
+        let paras = ["target_uid": uid, "relation_type": type] as [String : Any]
+        return amongchatProvider.rx.request(.follow(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    /// type: follow / block
+    static func unFollow(uid: Int, type: String) -> Single<Bool> {
+        let paras = ["target_uid": uid, "relation_type": type] as [String : Any]
+        return amongchatProvider.rx.request(.unFollow(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func relationData(uid: Int) -> Single<Entity.RelationData?> {
+        let paras = ["target_uid": uid]
+        return amongchatProvider.rx.request(.relationData(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RelationData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func blockList(uid: Int, skipMs: Double) -> Single<Entity.RelationData?> {
+        
+        let paras = ["relation_type": "block", "uid": uid,
+                     "limit": 20, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.blockList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RelationData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        
+        let paras = ["relation_type": "follow", "uid": uid,
+                     "limit": 20, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.followingList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func followerList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["uid": uid, "limit": 20, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.followerList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
+        return amongchatProvider.rx.request(.playingList)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
+    
+    static func suggestionUserList() -> Single<[Entity.PlayingUser]> {
+        return amongchatProvider.rx.request(.recommendedUsers)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
+
 }

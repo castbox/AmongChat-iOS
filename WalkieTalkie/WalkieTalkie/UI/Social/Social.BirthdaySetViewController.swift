@@ -152,31 +152,3 @@ extension Social {
         }
     }
 }
-
-extension Social.BirthdaySetViewController: Modalable {
-    
-    func style() -> Modal.Style {
-        return .customHeight
-    }
-    
-    func height() -> CGFloat {
-        return Frame.Screen.height
-    }
-    
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 0
-    }
-    
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
-    }
-    
-}

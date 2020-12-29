@@ -157,7 +157,7 @@ extension AmongChat.CreateRoom.ViewController {
     
     @objc
     private func onBackBtn() {
-        dismiss(animated: true)
+        navigationController?.popViewController()
     }
         
     @objc
@@ -235,6 +235,13 @@ extension AmongChat.CreateRoom.ViewController {
                 
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.create_topic_imp, category: nil)
+            })
+            .disposed(by: bag)
     }
     
     private func createRoom(with name: String) {
@@ -273,8 +280,7 @@ extension AmongChat.CreateRoom.ViewController {
             })
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 创建房间成功
-                guard let `self` = self,
-                      let presentingVC = self.presentingViewController else {
+                guard let `self` = self else {
                     return
                 }
                 guard let room = room else {
@@ -283,9 +289,8 @@ extension AmongChat.CreateRoom.ViewController {
                 }
                 
                 self.view.endEditing(true)
-                self.dismiss(animated: true) {
-                    AmongChat.Room.ViewController.join(room: room, from: presentingVC)
-                }
+                
+                AmongChat.Room.ViewController.join(room: room, from: self)
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
