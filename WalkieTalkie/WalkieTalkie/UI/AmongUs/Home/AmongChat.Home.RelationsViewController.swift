@@ -181,6 +181,28 @@ extension AmongChat.Home.RelationsViewController {
             .disposed(by: bag)
         
     }
+    
+    private func followUser(uid: Int, updateData: @escaping () -> Void) {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        let completion = { [weak self] in
+            self?.friendsCollectionView.isUserInteractionEnabled = true
+            hudRemoval()
+        }
+        friendsCollectionView.isUserInteractionEnabled = false
+        
+        let _ = Request.follow(uid: uid, type: "follow")
+            .subscribe(onSuccess: { [weak self] (success) in
+                completion()
+                guard success else { return }
+                updateData()
+                self?.friendsCollectionView.reloadData()
+            }, onError: { [weak self] (error) in
+                completion()
+                self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
+            })
+        
+    }
 
 }
 
@@ -230,24 +252,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             if let cell = cell as? SuggestionCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
                 cell.bind(viewModel: playing) { [weak self] (uid, updateData) in
-                    
-                    let hudRemoval = self?.view.raft.show(.loading, userInteractionEnabled: false)
-                    let completion = {
-                        self?.friendsCollectionView.isUserInteractionEnabled = true
-                        hudRemoval?()
-                    }
-                    self?.friendsCollectionView.isUserInteractionEnabled = false
-                    
-                    let _ = Request.follow(uid: uid, type: "follow")
-                        .subscribe(onSuccess: { (success) in
-                            completion()
-                            guard success else { return }
-                            updateData()
-                            self?.friendsCollectionView.reloadData()
-                        }, onError: { (error) in
-                            completion()
-                            self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
-                        })
+                    self?.followUser(uid: uid, updateData: updateData)
                 }
             }
             return cell
