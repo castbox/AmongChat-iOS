@@ -224,7 +224,7 @@ extension Entity {
         typealias Room = PlayingUser.Room
         var user: UserProfile
         var room: Room?
-        var isOnline: Bool
+        var isOnline: Bool?
         var messageType: String
         
         private enum CodingKeys: String, CodingKey {

@@ -1630,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 208 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 210 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2448,10 +2448,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileLittleFollowing = Rswift.StringResource(key: "profile.little.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: ignore
+      /// 
+      /// Locales: en
+      static let amongChatIgnore = Rswift.StringResource(key: "among.chat.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: in %1$@ channel
       /// 
       /// Locales: en
       static let amongChatHomeFriendsInChannel = Rswift.StringResource(key: "among.chat.home.friends.in.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: is inviting you to their %1$@ channel
+      /// 
+      /// Locales: en
+      static let amongChatChannelInvitationMsg = Rswift.StringResource(key: "among.chat.channel.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en
@@ -3893,11 +3901,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.little.following", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: ignore
+      /// 
+      /// Locales: en
+      static func amongChatIgnore(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.ignore", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: in %1$@ channel
       /// 
       /// Locales: en
       static func amongChatHomeFriendsInChannel(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.home.friends.in.channel", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: is inviting you to their %1$@ channel
+      /// 
+      /// Locales: en
+      static func amongChatChannelInvitationMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.channel.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: lifetime
