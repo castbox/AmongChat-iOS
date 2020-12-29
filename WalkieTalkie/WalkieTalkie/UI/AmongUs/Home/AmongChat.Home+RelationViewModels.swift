@@ -40,10 +40,15 @@ extension AmongChat.Home {
                 })
                 .disposed(by: bag)
             
-            #if DEBUG
-            playingsSubject.bind(to: suggestionsSubject)
+            Request.suggestionUserList()
+                .subscribe(onSuccess: { [weak self] (playingList) in
+                    self?.suggestionsSubject.onNext(playingList.map({
+                        PlayingViewModel(with: $0)
+                    }))
+                }, onError: { [weak self] (error) in
+                    self?.suggestionsSubject.onError(error)
+                })
                 .disposed(by: bag)
-            #endif
             
         }
         
@@ -64,14 +69,25 @@ extension AmongChat.Home {
         var userAvatarUrl: String? {
             return playingModel.user.pictureUrl
         }
-        
-        var channelName: String {
-            return playingModel.room.topicName
+                
+        var playingStatus: String? {
+            
+            guard let room = playingModel.room else {
+                return nil
+            }
+            
+            return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
         }
         
         var joinable: Bool {
-            return playingModel.room.state == .public
-        }        
+            
+            guard let room = playingModel.room else {
+                return false
+            }
+            
+            return room.state == .public
+        }
+        
     }
     
 }

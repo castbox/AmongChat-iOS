@@ -79,7 +79,7 @@ extension AmongChat.Home {
             
             nameLabel.text = viewModel.userName
             
-            statusLabel.text = viewModel.channelName
+            statusLabel.text = viewModel.playingStatus
             
         }
         

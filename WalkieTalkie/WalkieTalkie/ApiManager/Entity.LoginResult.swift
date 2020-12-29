@@ -212,7 +212,7 @@ extension Entity {
             var topicName: String
         }
         
-        var room: Room
+        var room: Room?
         
     }
 }

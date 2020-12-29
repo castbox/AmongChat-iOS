@@ -356,7 +356,7 @@ extension Request {
             .mapTo(Entity.FollowData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
-        
+    
     static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.playingList)
             .mapJSON()
@@ -365,7 +365,7 @@ extension Request {
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
     
-    static func suggestionList() -> Single<[Entity.PlayingUser]> {
+    static func suggestionUserList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.recommendedUsers)
             .mapJSON()
             .mapToDataKeyJsonValue()

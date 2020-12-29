@@ -1630,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 197 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 198 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2408,6 +2408,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileLittleFollowing = Rswift.StringResource(key: "profile.little.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: in %1$@ channel
+      /// 
+      /// Locales: en
+      static let amongChatHomeFriendsInChannel = Rswift.StringResource(key: "among.chat.home.friends.in.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en
@@ -3777,6 +3781,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileLittleFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.little.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: in %1$@ channel
+      /// 
+      /// Locales: en
+      static func amongChatHomeFriendsInChannel(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.home.friends.in.channel", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: lifetime
