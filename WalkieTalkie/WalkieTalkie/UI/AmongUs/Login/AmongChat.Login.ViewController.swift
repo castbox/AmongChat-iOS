@@ -75,15 +75,21 @@ extension AmongChat.Login {
             
             self?.loadingRemoval?()
                         
-            guard error == nil else {
-                self?.view.raft.autoShow(.text(error!.localizedDescription), userInteractionEnabled: false)
+            if let error = error {
+                if let nsError = error as? NSError,
+                   nsError.code == AmongChat.Login.cancelErrorCode {
+                    Logger.Action.log(.login_result, category: .fail, "cancel")
+                } else {
+                    Logger.Action.log(.login_result, category: .fail, error.localizedDescription)
+                }
+                self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
                 return
             }
             
             guard let result = result else {
                 return
             }
-            
+            Logger.Action.log(.login_result, category: .success)
             Settings.shared.loginResult.value = result
             Settings.shared.updateProfile()
             

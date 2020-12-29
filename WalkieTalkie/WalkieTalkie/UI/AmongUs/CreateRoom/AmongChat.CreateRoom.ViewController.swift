@@ -290,7 +290,7 @@ extension AmongChat.CreateRoom.ViewController {
                 
                 self.view.endEditing(true)
                 
-                AmongChat.Room.ViewController.join(room: room, from: self)
+                AmongChat.Room.ViewController.join(room: room, from: self, source: "create")
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))

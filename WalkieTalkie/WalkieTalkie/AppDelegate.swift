@@ -34,10 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         return window
     }()
-    var firstOpenPremiumShowed: Bool = false
+    
+    var tabBarController: UITabBarController? {
+        window?.rootViewController as? UITabBarController
+    }
     
     var navigationController: NavigationViewController? {
-        if let tab = window?.rootViewController as? UITabBarController {
+        if let tab = tabBarController {
             return tab.selectedViewController as? NavigationViewController
         } else {
             return window?.rootViewController as? NavigationViewController
@@ -275,7 +278,11 @@ extension UIApplication {
     }
     
     static var navigationController: NavigationViewController? {
-        return (shared.delegate as? AppDelegate)?.navigationController
+        appDelegate?.navigationController
+    }
+    
+    static var tabBarController: UITabBarController? {
+        appDelegate?.tabBarController
     }
     
     class func topViewController(_ viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {

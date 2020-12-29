@@ -14,6 +14,8 @@ import Firebase
 
 extension AmongChat.Login {
     
+    static let cancelErrorCode = 999
+    
     class Manager {
         
 //        private typealias Entity = Request.Entity
@@ -73,7 +75,7 @@ extension AmongChat.Login {
                                 guard let nsError = error as? NSError, nsError.code == GIDSignInErrorCode.canceled.rawValue else {
                                     return error
                                 }
-                                return NSError(domain: "chat.among.knife.user", code: GIDSignInErrorCode.canceled.rawValue, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+                                return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
                             }
                             subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
                             return
@@ -106,7 +108,7 @@ extension AmongChat.Login {
                                             (wrappedError as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
                                             return error
                                         }
-                                        return NSError(domain: "chat.among.knife.user", code: ASAuthorizationError.Code.canceled.rawValue, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+                                        return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
                                     } else {
                                         // Fallback on earlier versions
                                         return error

@@ -108,7 +108,7 @@ extension AmongChat.Home.TopicsViewController {
 
 extension AmongChat.Home.TopicsViewController {
     
-    func enterRoom(roomId: String? = nil, topicId: String?) {
+    func enterRoom(roomId: String? = nil, topicId: String?, source: String = "match") {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         
         var topic = topicId
@@ -135,7 +135,7 @@ extension AmongChat.Home.TopicsViewController {
                     return
                 }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self) { error in
+                AmongChat.Room.ViewController.join(room: room, from: self, source: source) { error in
                     completion()
                 }
 

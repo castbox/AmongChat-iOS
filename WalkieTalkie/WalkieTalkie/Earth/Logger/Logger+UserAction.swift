@@ -122,6 +122,7 @@ extension Logger {
             case login_imp
             case login_clk
             case login_success
+            case login_result
             case login_birthday_imp
             case login_birthday_skip
             case login_birthday_done
@@ -158,6 +159,8 @@ extension Logger {
             
             case google
             case apple_id
+            case success
+            case fail
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
