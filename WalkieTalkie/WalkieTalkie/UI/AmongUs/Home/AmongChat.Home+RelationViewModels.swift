@@ -9,19 +9,24 @@
 import Foundation
 import RxSwift
 import RxRelay
+import AgoraRtmKit
 
 extension AmongChat.Home {
     
     class RelationViewModel {
         
+        private typealias IMManager = AmongChat.Room.IMManager
+        
         private let bag = DisposeBag()
         
-        private let playingsSubject = BehaviorSubject<[PlayingViewModel]>(value: [])
+        private let playingsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
         
-        private let suggestionsSubject = BehaviorSubject<[PlayingViewModel]>(value: [])
+        private let suggestionsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
+        
+        private let imManager = IMManager.shared
                 
         var dataSource: Observable<[[PlayingViewModel]]> {
-            return Observable.combineLatest(playingsSubject, suggestionsSubject)
+            return Observable.combineLatest(playingsRelay, suggestionsRelay)
                 .map { playings, suggestions in
                     [playings, suggestions]
                 }
@@ -29,27 +34,63 @@ extension AmongChat.Home {
         }
         
         init() {
+            imManager.newPeerMessageObservable
+                .subscribe(onNext: { [weak self] message, sender in
+                    self?.handleIMMessage(message: message, sender: sender)
+                })
+                .disposed(by: bag)
+            
+            refreshData()
+        }
+        
+        private let systemAgoraUid = Int(99999)
+        private let friendsInfoMessageType = "AC:PEER:FriendsInfo"
+        
+        private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
+            
+            guard sender == "\(systemAgoraUid)" else {
+                return
+            }
+            
+            guard message.type == .text,
+                  let json = message.text.jsonObject(),
+                  let friendInfo = JSONDecoder().mapTo(Entity.FriendUpdatingInfo.self, from: json),
+                  friendInfo.messageType == friendsInfoMessageType else {
+                return
+            }
+            
+            var onlineFriends = playingsRelay.value
+            
+            if let idx = onlineFriends.firstIndex(where: { $0.uid == friendInfo.user.uid }) {
+                if friendInfo.isOnline == false {
+                    onlineFriends.removeAll { $0.uid == friendInfo.user.uid }
+                } else {
+                    onlineFriends.replaceSubrange(idx...idx, with: [PlayingViewModel(with: friendInfo.asPlayingUser())])
+                }
+            } else {
+                if friendInfo.isOnline == true {
+                    onlineFriends.append(PlayingViewModel(with: friendInfo.asPlayingUser()))
+                }
+            }
+            playingsRelay.accept(onlineFriends)
+        }
+        
+        func refreshData() {
             Request.friendsPlayingList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
-                    self?.playingsSubject.onNext(playingList.map({
+                    self?.playingsRelay.accept(playingList.map({
                         PlayingViewModel(with: $0)
                     }))
-                    
-                }, onError: { [weak self] (error) in
-                    self?.playingsSubject.onError(error)
                 })
                 .disposed(by: bag)
             
             Request.suggestionUserList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
-                    self?.suggestionsSubject.onNext(playingList.map({
+                    self?.suggestionsRelay.accept(playingList.map({
                         PlayingViewModel(with: $0)
                     }))
-                }, onError: { [weak self] (error) in
-                    self?.suggestionsSubject.onError(error)
                 })
                 .disposed(by: bag)
-            
         }
         
     }
@@ -60,6 +101,10 @@ extension AmongChat.Home {
         
         init(with model: Entity.PlayingUser) {
             playingModel = model
+        }
+        
+        var uid: Int {
+            return playingModel.user.uid
         }
         
         var userName: String? {

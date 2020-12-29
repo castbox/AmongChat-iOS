@@ -214,13 +214,19 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == [[String : An
     func mapJsonListToModelList<T: Decodable>(_ type: T.Type) -> Single<[T]> {
         return observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { list in
-                list.compactMap { (json) -> T? in
-                    var item: T?
-                    decoderCatcher {
-                        item = try JSONDecoder().decodeAnyData(type, from: json) as T
-                    }
-                    return item
-                }
+                list.compactMap { JSONDecoder().mapTo(type, from: $0) }
             }
     }
+}
+
+extension JSONDecoder {
+    
+    func mapTo<T: Decodable>(_ type: T.Type, from json: Any) -> T? {
+        var item: T?
+        decoderCatcher {
+            item = try decodeAnyData(type, from: json) as T
+        }
+        return item
+    }
+    
 }

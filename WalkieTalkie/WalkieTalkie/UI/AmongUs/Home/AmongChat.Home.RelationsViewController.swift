@@ -135,8 +135,6 @@ extension AmongChat.Home.RelationsViewController {
         viewModel.dataSource
             .subscribe(onNext: { [weak self] (data) in
                 self?.dataSource = data
-            }, onError: { (error) in
-                
             })
             .disposed(by: bag)
     }
@@ -209,6 +207,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             } else {
                 header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle())
             }
+            
+            header.isHidden = (dataSource.safe(indexPath.section)?.count ?? 0) == 0
             
             reusableView = header
             

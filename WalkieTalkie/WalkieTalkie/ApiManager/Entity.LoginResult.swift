@@ -216,3 +216,18 @@ extension Entity {
         
     }
 }
+
+extension Entity {
+    struct FriendUpdatingInfo: Codable {
+        typealias Room = PlayingUser.Room
+        var user: UserProfile
+        var room: Room?
+        var isOnline: Bool
+        var messageType: String
+        
+        func asPlayingUser() -> PlayingUser {
+            return PlayingUser(user: user, room: room)
+        }
+        
+    }
+}
