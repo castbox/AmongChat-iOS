@@ -155,6 +155,11 @@ extension Social.ProfileViewController {
             }
         }
         
+        func setProfileData(_ model: Entity.RoomUser) {
+            nameLabel.text = model.name
+            avatarIV.setAvatarImage(with: model.pictureUrl)
+        }
+        
         func setViewData(_ model: Entity.RelationData) {
             let followersCount = model.followersCount ?? 0
             followerBtn.setTitle("\(followersCount)")

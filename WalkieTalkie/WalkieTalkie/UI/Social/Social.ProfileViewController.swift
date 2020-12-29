@@ -54,7 +54,6 @@ extension Social {
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    
                     self.navigationController?.popViewController()
                 }).disposed(by: bag)
             return btn
@@ -107,9 +106,8 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = {
-            return [.inviteFriends, .settings, .community, .blockUser, ]
-        }()
+        private lazy var options: [Option] = [.inviteFriends, .settings, .community, .blockUser, ]
+        
         private var relationData: Entity.RelationData?
         
         override var screenName: Logger.Screen.Node.Start {
@@ -119,6 +117,7 @@ extension Social {
         private var uid = 0
         private var isSelfProfile = true
         private var blocked = false
+        var roomUser: Entity.RoomUser!
         private var userProfile: Entity.UserProfile?
         
         init(with uid: Int) {
@@ -137,7 +136,6 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            
             rx.viewDidAppear
                 .take(1)
                 .subscribe(onNext: { (_) in
@@ -181,21 +179,21 @@ private extension Social.ProfileViewController {
     }
     
     func loadData() {
-        let removeBlock = view.raft.show(.loading)
         Request.profilePage(uid: uid)
+            .map({$0?.profile})
             .subscribe(onSuccess: { [weak self](data) in
                 guard let data = data, let `self` = self else { return }
-                self.userProfile = data.profile
-                if let profile = data.profile {
-                    self.headerView.configProfile(profile)
-                }
-                removeBlock()
-            }, onError: { (error) in
-                removeBlock()
+                self.userProfile = data
+                self.headerView.configProfile(data)
+            }, onError: {(error) in
+                cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
     }
     
     func setupData() {
+        if roomUser != nil {
+            self.headerView.setProfileData(self.roomUser)
+        }
         loadData()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
@@ -216,7 +214,6 @@ private extension Social.ProfileViewController {
                             return
                         }
                         Settings.shared.amongChatUserProfile.value = p
-                    }, onError: { (error) in
                     })
                     .disposed(by: bag)
             }
@@ -297,7 +294,6 @@ private extension Social.ProfileViewController {
         } else {
             type = [.block, .report, .cancel]
         }
-        
         AmongSheetController.show(items: type, in: self, uiType: .profile) { [weak self](type) in
             switch type {
             case.report:

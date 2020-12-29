@@ -789,6 +789,7 @@ extension AmongChat.Room.ViewController {
         switch action {
         case .profile:
             let vc = Social.ProfileViewController(with: user.uid)
+            vc.roomUser = user
             navigationController?.pushViewController(vc)
         case .block:
             viewModel.blockedUser(user)
