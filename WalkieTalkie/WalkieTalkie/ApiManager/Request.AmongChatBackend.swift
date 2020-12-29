@@ -55,6 +55,8 @@ extension MsgError: LocalizedError {
     }
 }
 
+private let limit: Int = 20
+
 extension Request {
     
     static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
@@ -326,7 +328,6 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
-        
     }
     
     static func relationData(uid: Int) -> Single<Entity.RelationData?> {
@@ -341,7 +342,7 @@ extension Request {
     static func blockList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
         
         let paras = ["relation_type": "block", "uid": uid,
-                     "limit": 20, "skip_ms": skipMs] as [String : Any]
+                     "limit": limit, "skip_ms": skipMs] as [String : Any]
         return amongchatProvider.rx.request(.blockList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -352,7 +353,7 @@ extension Request {
     static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
         
         let paras = ["relation_type": "follow", "uid": uid,
-                     "limit": 20, "skip_ms": skipMs] as [String : Any]
+                     "limit": limit, "skip_ms": skipMs] as [String : Any]
         return amongchatProvider.rx.request(.followingList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -361,7 +362,7 @@ extension Request {
     }
     
     static func followerList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
-        let paras = ["uid": uid, "limit": 20, "skip_ms": skipMs] as [String : Any]
+        let paras = ["uid": uid, "limit": limit, "skip_ms": skipMs] as [String : Any]
         return amongchatProvider.rx.request(.followerList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -369,7 +370,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func endUsers(roomId: Int) -> Single<Entity.FollowData?> {
+    static func endUsers(roomId: String) -> Single<Entity.FollowData?> {
         let paras = ["room_id": roomId]
         return amongchatProvider.rx.request(.exitRoomRecommend(paras))
             .mapJSON()
@@ -378,6 +379,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func inviteFriends(skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.inviteFriends(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func inviteUser(roomId: String, uid: Int) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId, "uid": uid] as [String : Any]
+        return amongchatProvider.rx.request(.inviteUser(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
         
     static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.playingList)

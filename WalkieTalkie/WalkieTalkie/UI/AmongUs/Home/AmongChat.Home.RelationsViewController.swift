@@ -139,6 +139,84 @@ extension AmongChat.Home.RelationsViewController {
             .disposed(by: bag)
     }
     
+    private func enterRoom(roomId: String, topicId: String) {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let completion = { [weak self] in
+            self?.friendsCollectionView.isUserInteractionEnabled = true
+            hudRemoval()
+        }
+        
+        friendsCollectionView.isUserInteractionEnabled = false
+        Request.enterRoom(roomId: roomId, topicId: topicId)
+            .subscribe(onSuccess: { [weak self] (room) in
+                // TODO: - 进入房间
+                guard let `self` = self else {
+                    return
+                }
+                guard let room = room else {
+                    completion()
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
+                    return
+                }
+                
+                AmongChat.Room.ViewController.join(room: room, from: self) { error in
+                    completion()
+                }
+
+            }, onError: { [weak self] (error) in
+                completion()
+                cdPrint("error: \(error.localizedDescription)")
+                var msg: String {
+                    if let error = error as? MsgError,
+                       error.codeType != nil {
+                        return error.localizedDescription
+                    } else {
+                        return R.string.localizable.amongChatHomeEnterRoomFailed()
+                    }
+                }
+                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
+            })
+            .disposed(by: bag)
+        
+    }
+    
+    private func followUser(uid: Int, updateData: @escaping () -> Void) {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        let completion = { [weak self] in
+            self?.friendsCollectionView.isUserInteractionEnabled = true
+            hudRemoval()
+        }
+        friendsCollectionView.isUserInteractionEnabled = false
+        
+        let _ = Request.follow(uid: uid, type: "follow")
+            .subscribe(onSuccess: { [weak self] (success) in
+                completion()
+                guard success else { return }
+                updateData()
+                self?.friendsCollectionView.reloadData()
+            }, onError: { [weak self] (error) in
+                completion()
+                self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
+            })
+        
+    }
+    
+    private func shareApp() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(viewController: self) { () in
+            removeBlock()
+        }
+    }
+
 }
 
 extension AmongChat.Home.RelationsViewController {
@@ -176,7 +254,9 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing)
+                cell.bind(viewModel: playing) { [weak self] (roomId, topicId) in
+                    self?.enterRoom(roomId: roomId, topicId: topicId)
+                }
             }
             return cell
 
@@ -184,7 +264,9 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing)
+                cell.bind(viewModel: playing) { [weak self] (uid, updateData) in
+                    self?.followUser(uid: uid, updateData: updateData)
+                }
             }
             return cell
         default:
@@ -215,7 +297,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionFooter:
             
             if indexPath.section == 0 {
-                reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath)
+                let shareFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath) as! ShareFooter
+                shareFooter.onSelect = { [weak self] in
+                    self?.shareApp()
+                }
+                reusableView = shareFooter
             } else {
                 reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
                 reusableView.isHidden = true

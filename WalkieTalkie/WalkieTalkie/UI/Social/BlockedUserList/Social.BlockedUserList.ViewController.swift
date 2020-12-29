@@ -59,7 +59,7 @@ extension Social.BlockedUserList {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            bindData()
+            loadData()
         }
         
         private func setupLayout() {
@@ -99,10 +99,6 @@ extension Social.BlockedUserList {
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
-        }
-        
-        private func bindData() {
-            loadData()
         }
         
         private func loadData() {
@@ -164,21 +160,25 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
         return 64
     }
     
-    func unblockUser(index: Int) {
+    private func unblockUser(index: Int) {
         let removeBlock = view.raft.show(.loading)
         let uid = userList.safe(index)?.uid ?? 0
         Request.unFollow(uid: uid, type: "block")
             .subscribe(onSuccess: { [weak self](success) in
                 if success {
-                    self?.userList.remove(at: index)
-                    var blockedUsers = Defaults[\.blockedUsersV2Key]
-                    blockedUsers.removeElement(ifExists: { $0.uid == uid })
-                    Defaults[\.blockedUsersV2Key] = blockedUsers
-                    self?.tableView.reloadData()
+                    self?.handleUnblock(at: index, uid: uid)
                 }
                 removeBlock()
             }, onError: { (error) in
                 removeBlock()
             }).disposed(by: bag)
+    }
+    
+    private func handleUnblock(at index: Int, uid: Int) {
+        userList.remove(at: index)
+        var blockedUsers = Defaults[\.blockedUsersV2Key]
+        blockedUsers.removeElement(ifExists: { $0.uid == uid })
+        Defaults[\.blockedUsersV2Key] = blockedUsers
+        tableView.reloadData()
     }
 }

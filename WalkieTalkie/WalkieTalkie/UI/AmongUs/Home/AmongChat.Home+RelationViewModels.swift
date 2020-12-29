@@ -99,6 +99,8 @@ extension AmongChat.Home {
         
         private let playingModel: Entity.PlayingUser
         
+        private var followStateUpdated = false
+        
         init(with model: Entity.PlayingUser) {
             playingModel = model
         }
@@ -131,6 +133,22 @@ extension AmongChat.Home {
             }
             
             return room.state == .public
+        }
+        
+        var roomId: String? {
+            return playingModel.room?.roomId
+        }
+        
+        var roomTopicId: String? {
+            return playingModel.room?.topicId
+        }
+        
+        var followable: Bool {
+            return !followStateUpdated
+        }
+        
+        func updateFollowState() {
+            followStateUpdated = true
         }
         
     }
