@@ -229,7 +229,26 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing)
+                cell.bind(viewModel: playing) { [weak self] (uid, updateData) in
+                    
+                    let hudRemoval = self?.view.raft.show(.loading, userInteractionEnabled: false)
+                    let completion = {
+                        self?.friendsCollectionView.isUserInteractionEnabled = true
+                        hudRemoval?()
+                    }
+                    self?.friendsCollectionView.isUserInteractionEnabled = false
+                    
+                    let _ = Request.follow(uid: uid, type: "follow")
+                        .subscribe(onSuccess: { (success) in
+                            completion()
+                            guard success else { return }
+                            updateData()
+                            self?.friendsCollectionView.reloadData()
+                        }, onError: { (error) in
+                            completion()
+                            self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
+                        })
+                }
             }
             return cell
         default:
