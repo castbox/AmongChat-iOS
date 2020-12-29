@@ -157,7 +157,7 @@ extension AmongChat.Room {
         
         override func prepareForReuse() {
             super.prepareForReuse()
-            avatarIV.kf.cancelImageDownloadTask()
+//            avatarIV.kf.cancelImageDownloadTask()
         }
         
         override func layoutSubviews() {
@@ -170,9 +170,9 @@ extension AmongChat.Room {
         }
         
         func stopSoundAnimation() {
-            isPlaySvgaEmoji = false
+//            isPlaySvgaEmoji = false
             haloView.stopLoading()
-            svgaView.stopAnimation()
+//            svgaView.stopAnimation()
         }
         
         func playSvga(_ resource: URL?) {
@@ -282,19 +282,19 @@ extension AmongChat.Room.UserCell {
             clearStyle()
             return
         }
-        self.user = user
-        avatarIV.imageView?.contentMode = .scaleAspectFill
-        avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
-        nameLabel.text = user.name
         if user.status == .talking {
             startSoundAnimation()
         } else {
             stopSoundAnimation()
         }
+        if self.user?.uid != user.uid {
+            avatarIV.imageView?.contentMode = .scaleAspectFill
+            avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
+            avatarIV.layer.borderWidth = 0.5
+            nameLabel.text = user.name
+        }
         gameNameButton.setTitle(user.nickname, for: .normal)
-        avatarIV.layer.borderWidth = 0.5
         gameNameButton.isHidden = !(topic == .roblox && user.nickname.isValid)
-        //自己 muted 其他用户
         if isKickSelected {
             mutedLabel.isHidden = true
             disableMicView.isHidden = true
@@ -307,6 +307,7 @@ extension AmongChat.Room.UserCell {
                 disableMicView.isHidden = !user.isMuted
             }
         }
+        self.user = user
     }
     
     func clearStyle() {

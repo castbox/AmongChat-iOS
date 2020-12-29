@@ -587,6 +587,7 @@ extension AmongChat.Room.ViewController {
             .disposed(by: bag)
         
         viewModel.soundAnimationIndex
+            .throttle(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
