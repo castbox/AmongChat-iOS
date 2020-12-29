@@ -31,7 +31,9 @@ typealias RoomEditType = AmongChat.Room.EditType
 
 extension AmongChat.Room {
     
-    class ViewController: WalkieTalkie.ViewController {
+    class ViewController: WalkieTalkie.ViewController, GestureBackable {
+        
+        var isEnableScreenEdgeGesture: Bool = false
         
         private typealias UserCell = AmongChat.Room.UserCell
         private typealias ActionModal = ChannelUserListController.ActionModal
@@ -363,9 +365,7 @@ extension AmongChat.Room.ViewController {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor(hex6: 0x00011B)
-        
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        
+                
         topBar = AmongChatRoomTopBar()
         configView = AmongChatRoomConfigView(room)
         
