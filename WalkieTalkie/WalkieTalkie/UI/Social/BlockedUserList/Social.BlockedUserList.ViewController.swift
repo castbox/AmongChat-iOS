@@ -110,8 +110,11 @@ extension Social.BlockedUserList {
                     guard let `self` = self else { return }
                     self.userList = data?.list ?? []
                     self.tableView.endLoadMore(data?.more ?? false)
-                }, onError: { (error) in
+                }, onError: { [weak self](error) in
                     removeBlock()
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
                 }).disposed(by: bag)
         }
         

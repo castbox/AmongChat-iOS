@@ -185,7 +185,19 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
     func addCustomBackButton() {
         let barButtonItem = UIBarButtonItem(customView: customBackButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
-    }    
+    }
+    
+    func addErrorView(_ retryAction: (() -> Void)? = nil) {
+        let v = AmongChat.Home.LoadErrorView()
+        self.view.addSubview(v)
+        v.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        v.showUp { [weak v] in
+            v?.removeFromSuperview()
+            retryAction?()
+        }
+    }
 }
 
 extension ViewController {

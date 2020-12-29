@@ -7,15 +7,20 @@
 //
 
 import UIKit
+import RxSwift
 
 extension AmongChat.Home {
     
     class MainTabController: UITabBarController {
         
+        private let imViewModel = IMViewModel()
+        private let bag = DisposeBag()
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             setupViewControllers()
+            setupEvent()
         }
         
     }
@@ -47,6 +52,25 @@ extension AmongChat.Home.MainTabController {
     
     private func setupViewControllers() {
         viewControllers = Tab.allCases.map({ $0.viewController })
+    }
+    
+    private func setupEvent() {
+        imViewModel.invitationObservable
+            .subscribe(onNext: { user, room in
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                    return
+                }
+                let invitationModal = AmongChat.Home.RoomInvitationModal(with: user, room: room)
+                invitationModal.modalPresentationStyle = .overCurrentContext
+                invitationModal.bindEvent(join: {
+                    topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                    invitationModal.dismiss(animated: false)
+                }, ignore: {
+                    invitationModal.dismiss(animated: false)
+                })
+                topVC.present(invitationModal, animated: false)
+            })
+            .disposed(by: bag)
     }
     
 }

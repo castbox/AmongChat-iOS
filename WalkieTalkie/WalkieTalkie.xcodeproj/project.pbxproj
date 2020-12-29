@@ -11,6 +11,7 @@
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
 		2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9566F9259ADD2E001C7B91 /* R.generated.swift */; };
+		2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */; };
 		2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2DB452594AB320050BF8E /* Social.FollowerViewController.swift */; };
 		2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4EF62595C6F200A1C8DC /* Social.LeaveGameViewController.swift */; };
 		2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */; };
@@ -70,6 +71,8 @@
 		BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */; };
 		BDE20C0F258DD45B00245CBA /* APIService.Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20C0E258DD45B00245CBA /* APIService.Cache.swift */; };
 		BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */; };
+		BDF3D8D7259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3D8D6259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift */; };
+		BDF3D8DB259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF3D8DA259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift */; };
 		BDFCA4AD2594A9A3000ABB39 /* AmongChat.Home.MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */; };
 		BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */; };
 		BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */; };
@@ -345,6 +348,7 @@
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B9566F9259ADD2E001C7B91 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewcontrollerExtension.swift; sourceTree = "<group>"; };
 		2BA2DB452594AB320050BF8E /* Social.FollowerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.FollowerViewController.swift; sourceTree = "<group>"; };
 		2BAB4EF62595C6F200A1C8DC /* Social.LeaveGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.LeaveGameViewController.swift; sourceTree = "<group>"; };
 		2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
@@ -407,6 +411,8 @@
 		BDD692762536DE2900260F1F /* Ad.InterstitialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.InterstitialManager.swift; sourceTree = "<group>"; };
 		BDE20C0E258DD45B00245CBA /* APIService.Cache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.Cache.swift; sourceTree = "<group>"; };
 		BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.LoadErrorView.swift; sourceTree = "<group>"; };
+		BDF3D8D6259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.MainTabController.IMViewModel.swift; sourceTree = "<group>"; };
+		BDF3D8DA259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RoomInvitationModal.swift; sourceTree = "<group>"; };
 		BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.MainTabController.swift; sourceTree = "<group>"; };
 		BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RelationsViewController.swift; sourceTree = "<group>"; };
 		BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationsViews.swift"; sourceTree = "<group>"; };
@@ -692,6 +698,14 @@
 			path = WalkieTalkieWidget;
 			sourceTree = "<group>";
 		};
+		2B956709259B182A001C7B91 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		2BA2DB492594AB510050BF8E /* Follower */ = {
 			isa = PBXGroup;
 			children = (
@@ -733,6 +747,8 @@
 			children = (
 				BD6C36F4256E526B00D1E708 /* AmongChat.Home.swift */,
 				BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */,
+				BDF3D8D6259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift */,
+				BDF3D8DA259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift */,
 				BD6C36F9256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift */,
 				BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */,
 				BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */,
@@ -827,6 +843,7 @@
 				BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */,
 				2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */,
 				BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */,
+				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
 				BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */,
 				2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */,
 				BDB8F58A24F7DE75000027F8 /* Social.InitialProfileViewController.swift */,
@@ -851,6 +868,14 @@
 				BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		BDF3D8D5259B25680047A460 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		ED5947D0B791715A1554FB38 /* Frameworks */ = {
@@ -1621,6 +1646,7 @@
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
+				BDF3D8DB259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
 				FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */,
 				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
@@ -1649,6 +1675,7 @@
 				FEAD54DC2449C74F006454F6 /* Modal.swift in Sources */,
 				BD1F050D24FFB55200712C24 /* ChannelUserViewModel.swift in Sources */,
 				FE860D4C2446D1D700087B73 /* AnimationDuration.swift in Sources */,
+				BDF3D8D7259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
@@ -1681,6 +1708,7 @@
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */,
+				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
