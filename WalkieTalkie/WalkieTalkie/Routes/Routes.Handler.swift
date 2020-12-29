@@ -58,28 +58,15 @@ extension Routes {
         }
         
         func handleHomepage(_ channelName: String?) {
-            guard let name = channelName,
-                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-                return
-            }
-            UIApplication.navigationController?.popToRootViewController(animated: true)
-//            roomVc.joinRoom(name)
-            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-        }
-        
-//        func handleChannel(_ channel: URI.Channel) {
-//            UIApplication.navigationController?.popToRootViewController(animated: true)
-//
-//            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-//                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+//            guard let name = channelName,
+//                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
 //                return
 //            }
-//
-//            let name = channel.roomId
-//            roomVc.enterRoom(roomId: name, topicId: nil)
-////            roomVc.joinRoom(with: name)
-//            Logger.Channel.log(.deeplink, name, value: 0)
-//        }
+            UIApplication.navigationController?.popToRootViewController(animated: true)
+//            roomVc.joinRoom(name)
+//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+        }
+    
         
         func handleRoom(_ roomId: String) {
                         
@@ -124,7 +111,7 @@ extension Routes {
             if !FireLink.handle(dynamicLink: url, completion: { (url) in
                 Routes.handle(url)
             }) {
-                guard !url.absoluteString.contains("cuddlelive.com/share-app") else { return }
+                guard !url.absoluteString.contains("among.chat") else { return }
                 cdPrint("open url on webpage: \(url.absoluteString)")
                 showWebViewController(urlString: url.absoluteString)
             }
