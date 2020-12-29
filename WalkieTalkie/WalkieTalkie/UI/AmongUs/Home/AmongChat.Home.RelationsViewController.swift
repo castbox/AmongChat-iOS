@@ -203,6 +203,19 @@ extension AmongChat.Home.RelationsViewController {
             })
         
     }
+    
+    private func shareApp() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(viewController: self) { () in
+            removeBlock()
+        }
+    }
 
 }
 
@@ -284,7 +297,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionFooter:
             
             if indexPath.section == 0 {
-                reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath)
+                let shareFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath) as! ShareFooter
+                shareFooter.onSelect = { [weak self] in
+                    self?.shareApp()
+                }
+                reusableView = shareFooter
             } else {
                 reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
                 reusableView.isHidden = true

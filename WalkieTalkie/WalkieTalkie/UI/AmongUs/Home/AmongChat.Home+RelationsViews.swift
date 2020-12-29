@@ -294,6 +294,8 @@ extension AmongChat.Home {
             return lb
         }()
         
+        var onSelect: (() -> Void)? = nil
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -316,6 +318,13 @@ extension AmongChat.Home {
                 maker.centerY.equalTo(icon)
                 maker.right.equalToSuperview().offset(-20)
             }
+            
+            isUserInteractionEnabled = true
+            let tap = UITapGestureRecognizer()
+            addGestureRecognizer(tap)
+            tap.rx.event.bind(onNext: { [weak self] (_) in
+                self?.onSelect?()
+            })
         }
     }
     
