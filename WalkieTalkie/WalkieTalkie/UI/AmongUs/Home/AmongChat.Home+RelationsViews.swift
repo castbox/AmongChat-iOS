@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 extension AmongChat.Home {
     
@@ -104,6 +105,8 @@ extension AmongChat.Home {
             return btn
         }()
         
+        private var joinDisposable: Disposable? = nil
+        
         private lazy var lockedIcon: UIImageView = {
             let iv = UIImageView(image: R.image.ac_home_friends_locked())
             return iv
@@ -147,10 +150,19 @@ extension AmongChat.Home {
             
         }
         
-        func bind(viewModel: PlayingViewModel) {
+        func bind(viewModel: PlayingViewModel, onJoin: @escaping (_ roomId: String, _ topicId: String) -> Void) {
             userView.bind(viewModel: viewModel)
             joinBtn.isHidden = !viewModel.joinable
             lockedIcon.isHidden = viewModel.joinable
+            joinDisposable?.dispose()
+            joinDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { (_) in
+                    guard let roomId = viewModel.roomId,
+                          let topicId = viewModel.roomTopicId else {
+                        return
+                    }
+                    onJoin(roomId, topicId)
+                })
         }
         
     }

@@ -133,6 +133,14 @@ extension AmongChat.Home {
             return room.state == .public
         }
         
+        var roomId: String? {
+            return playingModel.room?.roomId
+        }
+        
+        var roomTopicId: String? {
+            return playingModel.room?.topicId
+        }
+        
     }
     
 }
