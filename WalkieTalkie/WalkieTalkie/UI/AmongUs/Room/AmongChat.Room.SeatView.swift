@@ -75,6 +75,10 @@ extension AmongChat.Room {
             attribute.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
             return attribute
         }
+        
+        override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
+            return true
+        }
     }
 }
 
