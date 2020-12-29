@@ -16,8 +16,6 @@
 		2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */; };
 		2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */; };
 		2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F862596031600A1C8DC /* Entity.Profile.swift */; };
-		2BAC1459258E5D6A0064F55D /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAC1458258E5D690064F55D /* R.generated.swift */; };
-		9BC713B11E43E853DC258727 /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC52766580A94FFE3D3BFAE5 /* Pods_WalkieTalkie.framework */; };
 		BD1F050D24FFB55200712C24 /* ChannelUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */; };
 		BD1F050F2500E37400712C24 /* RoomSpeakingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050E2500E37300712C24 /* RoomSpeakingListView.swift */; };
 		BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */; };
@@ -303,6 +301,7 @@
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
 		FED7D4E92480E07300EA9AFC /* SnapChatCreativeShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */; };
 		FED7D4EB2480E07A00EA9AFC /* SnapChatCreativeShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */; };
+		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
@@ -354,8 +353,6 @@
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		71A6690FF0550B1005BB7022 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		9E854ECD4DE35AE9FE7830E2 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		79D7B9CB8308353481C1E294 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
-		A714B615680A3C004001D7F1 /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
 		BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUserViewModel.swift; sourceTree = "<group>"; };
 		BD1F050E2500E37300712C24 /* RoomSpeakingListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomSpeakingListView.swift; sourceTree = "<group>"; };
 		BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelFriendUserCell.swift; sourceTree = "<group>"; };
@@ -646,6 +643,7 @@
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FED7D4E82480E07300EA9AFC /* SnapChatCreativeShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapChatCreativeShareView.swift; sourceTree = "<group>"; };
 		FED7D4EA2480E07A00EA9AFC /* SnapChatCreativeShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SnapChatCreativeShareView.xib; sourceTree = "<group>"; };
+		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
@@ -742,6 +740,7 @@
 				BD91A39C258C981F008931AD /* AmongChat.Home.TopicViewModel.swift */,
 				BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */,
 				BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */,
+				FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -910,6 +909,7 @@
 				FE126D15243461E800BEDD60 /* Products */,
 				21322B40449618314E604481 /* Pods */,
 				ED5947D0B791715A1554FB38 /* Frameworks */,
+				FEE8502B259B2EA500CF9A74 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1351,6 +1351,14 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
+		FEE8502B259B2EA500CF9A74 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1699,6 +1707,7 @@
 				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
 				FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
+				FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,
 				BD8B4E57257E1E5000BE6520 /* AmongChat.Room.IMManager.swift in Sources */,
 				FE72186F2456D696005274CA /* MJMaterialSwitch.swift in Sources */,

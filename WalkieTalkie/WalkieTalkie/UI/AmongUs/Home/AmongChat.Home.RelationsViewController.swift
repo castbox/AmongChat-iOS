@@ -69,6 +69,10 @@ extension AmongChat.Home {
             return false
         }
         
+        override var contentScrollView: UIScrollView? {
+            friendsCollectionView
+        }
+        
         private let viewModel = RelationViewModel()
         
         private var dataSource = [[PlayingViewModel]]() {
@@ -137,49 +141,6 @@ extension AmongChat.Home.RelationsViewController {
                 self?.dataSource = data
             })
             .disposed(by: bag)
-    }
-    
-    private func enterRoom(roomId: String, topicId: String) {
-        
-        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        
-        let completion = { [weak self] in
-            self?.friendsCollectionView.isUserInteractionEnabled = true
-            hudRemoval()
-        }
-        
-        friendsCollectionView.isUserInteractionEnabled = false
-        Request.enterRoom(roomId: roomId, topicId: topicId)
-            .subscribe(onSuccess: { [weak self] (room) in
-                // TODO: - 进入房间
-                guard let `self` = self else {
-                    return
-                }
-                guard let room = room else {
-                    completion()
-                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
-                    return
-                }
-                
-                AmongChat.Room.ViewController.join(room: room, from: self) { error in
-                    completion()
-                }
-
-            }, onError: { [weak self] (error) in
-                completion()
-                cdPrint("error: \(error.localizedDescription)")
-                var msg: String {
-                    if let error = error as? MsgError,
-                       error.codeType != nil {
-                        return error.localizedDescription
-                    } else {
-                        return R.string.localizable.amongChatHomeEnterRoomFailed()
-                    }
-                }
-                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
-            })
-            .disposed(by: bag)
-        
     }
     
     private func followUser(uid: Int, updateData: @escaping () -> Void) {
@@ -255,7 +216,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
                 cell.bind(viewModel: playing) { [weak self] (roomId, topicId) in
-                    self?.enterRoom(roomId: roomId, topicId: topicId)
+                    self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
                 }
             }
             return cell

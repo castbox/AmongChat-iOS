@@ -12,7 +12,8 @@ import RxCocoa
 import SCSDKCreativeKit
 import SwifterSwift
 
-class ViewController: UIViewController, ScreenLifeLogable {
+class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
+    
     var isNavigationBarHiddenWhenAppear = false {
         didSet {
             if isNavigationBarHiddenWhenAppear {
@@ -60,6 +61,10 @@ class ViewController: UIViewController, ScreenLifeLogable {
     
     var screenName: Logger.Screen.Node.Start {
         return .ios_ignore
+    }
+    
+    var contentScrollView: UIScrollView? {
+        nil
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
