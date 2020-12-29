@@ -60,6 +60,8 @@ extension Social {
             return v
         }()
         
+        var hasRetryForAdLoadFailed = false
+        
         private lazy var avatarDataSource: [AvatarViewModel] = {
             return []
         }()
@@ -221,13 +223,16 @@ extension Social.SelectAvatarViewController {
     }
 
     private func unlockAvatar(for avatar: AvatarViewModel, _ indexPath: IndexPath) -> Observable<Void> {
-        AdsManager.shared.requestRewardVideoIfNeed()
         return AdsManager.shared.isRewardVideoReadyRelay
-            .filter { isReady -> Bool in
+            .filter { [weak self] isReady -> Bool in
+                guard let `self` = self else { return false }
                 if isReady, AdsManager.shared.aviliableRewardVideo == nil {
                     //如果 Load 成功，但拿不到 reward video， 则重新请求
-                    AdsManager.shared.isRewardVideoReadyRelay.accept(false)
-                    AdsManager.shared.requestRewardVideoIfNeed()
+                    if !self.hasRetryForAdLoadFailed {
+                        self.hasRetryForAdLoadFailed = true
+                        AdsManager.shared.isRewardVideoReadyRelay.accept(false)
+                        AdsManager.shared.requestRewardVideoIfNeed()
+                    }
                     return false
                 }
                 return isReady
@@ -236,6 +241,7 @@ extension Social.SelectAvatarViewController {
             .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
+                self.hasRetryForAdLoadFailed = false
                 guard let reward = AdsManager.shared.aviliableRewardVideo else {
                     return Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                 }
@@ -248,9 +254,6 @@ extension Social.SelectAvatarViewController {
                             return Observable.error(MsgError(code: 500, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                         }
                         return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                            .do(onNext: { _ in
-                                AdsManager.shared.requestRewardVideoIfNeed()
-                            })
                     }
             }
             .flatMap({ _ -> Single<Void> in
@@ -340,6 +343,8 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             
             if avatar.locked {
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
+                
+                hasRetryForAdLoadFailed = false
                 rewardVideoDispose?.dispose()
                 
                 rewardVideoDispose =
