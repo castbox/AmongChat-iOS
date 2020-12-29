@@ -227,6 +227,12 @@ extension Entity {
         var isOnline: Bool
         var messageType: String
         
+        private enum CodingKeys: String, CodingKey {
+            case user
+            case room
+            case messageType = "message_type"
+        }
+        
         func asPlayingUser() -> PlayingUser {
             return PlayingUser(user: user, room: room)
         }
