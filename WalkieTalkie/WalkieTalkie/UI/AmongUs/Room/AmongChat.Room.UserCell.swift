@@ -170,9 +170,9 @@ extension AmongChat.Room {
         }
         
         func stopSoundAnimation() {
-//            isPlaySvgaEmoji = false
-//            haloView.stopLoading()
-//            svgaView.stopAnimation()
+            isPlaySvgaEmoji = false
+            haloView.stopLoading()
+            svgaView.stopAnimation()
         }
         
         func playSvga(_ resource: URL?) {
@@ -284,9 +284,7 @@ extension AmongChat.Room.UserCell {
         }
         if user.status == .talking {
             startSoundAnimation()
-        } else {
-            stopSoundAnimation()
-        }
+        } 
         if self.user?.uid != user.uid {
             avatarIV.imageView?.contentMode = .scaleAspectFill
             avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
