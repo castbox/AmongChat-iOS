@@ -81,26 +81,17 @@ extension Routes {
 //        }
         
         func handleRoom(_ roomId: String) {
-            //找到 home 的 tab
-            guard let tabBarController = UIApplication.tabBarController,
-                  let selectedNavigationController = tabBarController.selectedViewController as? NavigationViewController else {
-                return
-            }
                         
-            selectedNavigationController.popToRootViewController(animated: false)
-            
-            //当前选中的是第二个 tab
-            if selectedNavigationController.viewControllers.first is AmongChat.Home.RelationsViewController {
-                //切换到 0
-                tabBarController.selectedIndex = 0
+            //如果当前有在直播间内，退出后再加入
+            if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ViewController }) as? AmongChat.Room.ViewController {
+                roomViewController.requestLeaveRoom()
+                //pop to room
+                UIApplication.navigationController?.popToRootViewController(animated: false)
             }
             
-            
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.TopicsViewController,
-                  UIApplication.topViewController() is AmongChat.Home.TopicsViewController else {
+            guard let roomVc = UIApplication.navigationController?.topViewController as? ViewController else {
                 return
             }
-            
             roomVc.enterRoom(roomId: roomId, topicId: nil, source: "link")
             Logger.Channel.log(.deeplink, roomId, value: 0)
         }
