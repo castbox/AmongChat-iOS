@@ -102,13 +102,12 @@ extension Social.ProfileViewController {
         
         lazy var redCountLabel: UILabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 14)
+            lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
-            lb.layer.cornerRadius = 8
-            lb.backgroundColor = .red
-            lb.isHidden = true
+            lb.backgroundColor = UIColor(hex6: 0xFB5858)
             lb.layer.masksToBounds = true
-            lb.layer.cornerRadius = 8
+            lb.layer.cornerRadius = 9
+            lb.isHidden = true
             return lb
         }()
         private var isSelf = true
@@ -256,8 +255,8 @@ extension Social.ProfileViewController {
             }
             redCountLabel.snp.makeConstraints { (make) in
                 make.left.equalTo(followerBtn.snp.right).offset(-20)
-                make.top.equalTo(followerBtn.snp.top)
-                make.height.equalTo(16)
+                make.top.equalTo(followerBtn.snp.top).offset(7)
+                make.height.equalTo(18)
             }
         }
         
@@ -372,7 +371,7 @@ extension Social.ProfileViewController {
     }
     
     class VerticalTitleButton: UIView {
-        private lazy var titleLabel: WalkieLabel = {
+         lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.textAlignment = .center
             lb.font = R.font.nunitoExtraBold(size: 26)

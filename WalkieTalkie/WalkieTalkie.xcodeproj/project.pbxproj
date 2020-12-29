@@ -12,6 +12,7 @@
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
 		2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9566F9259ADD2E001C7B91 /* R.generated.swift */; };
 		2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */; };
+		2B956771259B5781001C7B91 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B956770259B5781001C7B91 /* NoDataView.swift */; };
 		2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA2DB452594AB320050BF8E /* Social.FollowerViewController.swift */; };
 		2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4EF62595C6F200A1C8DC /* Social.LeaveGameViewController.swift */; };
 		2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */; };
@@ -349,6 +350,7 @@
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B9566F9259ADD2E001C7B91 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewcontrollerExtension.swift; sourceTree = "<group>"; };
+		2B956770259B5781001C7B91 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
 		2BA2DB452594AB320050BF8E /* Social.FollowerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.FollowerViewController.swift; sourceTree = "<group>"; };
 		2BAB4EF62595C6F200A1C8DC /* Social.LeaveGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.LeaveGameViewController.swift; sourceTree = "<group>"; };
 		2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollViewExtension.swift; sourceTree = "<group>"; };
@@ -698,14 +700,6 @@
 			path = WalkieTalkieWidget;
 			sourceTree = "<group>";
 		};
-		2B956709259B182A001C7B91 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		2BA2DB492594AB510050BF8E /* Follower */ = {
 			isa = PBXGroup;
 			children = (
@@ -868,14 +862,6 @@
 				BDC9D29D2589D69B00412BDC /* AmongChat.Login.Manager.swift */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		BDF3D8D5259B25680047A460 /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				2B9566F9259ADD2E001C7B91 /* R.generated.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		ED5947D0B791715A1554FB38 /* Frameworks */ = {
@@ -1080,6 +1066,7 @@
 				FE72186E2456D696005274CA /* MJMaterialSwitch.swift */,
 				FE684883244BD9F900F87AF9 /* GradientView.swift */,
 				FE392C672466C5AA00A2CCF3 /* KernUI.swift */,
+				2B956770259B5781001C7B91 /* NoDataView.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -1871,6 +1858,7 @@
 				FEAAE838247E85CF00D5FD39 /* RoomToolsView.swift in Sources */,
 				FE86A58A245AC18200C35FCA /* ScreenContainer.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
+				2B956771259B5781001C7B91 /* NoDataView.swift in Sources */,
 				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
 				BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */,

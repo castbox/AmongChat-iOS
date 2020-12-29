@@ -38,6 +38,7 @@ extension Social {
             tb.dataSource = self
             tb.delegate = self
             tb.register(Social.FollowerCell.self, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
+            tb.register(cellWithClass: NoDatacell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -124,6 +125,9 @@ extension Social {
 extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if userList.isEmpty {
+            return 1
+        }
         return userList.count
     }
     
@@ -136,12 +140,20 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
             cell.updateFollowData = { [weak self](follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
+        } else {
+            let cell = tableView.dequeueReusableCell(withClass: NoDatacell.self)
+            cell.setCellMeessage(R.string.localizable.errorNoTeammates())
+            return cell
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        
+        if userList.isEmpty {
+            return 64
+        }
+        return 500
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -161,7 +173,6 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         lable.textColor = UIColor(hex6: 0x898989)
         lable.font = R.font.nunitoExtraBold(size: 16)
         lable.text = R.string.localizable.socialFollowTeammates()
-        
         return v
     }
     
