@@ -109,13 +109,13 @@
 "profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Follower";
-"profile.little.follower" = "follower";
+"profile.follow" = "Follow";
+"profile.little.follower" = "followers";
 "profile.little.following" = "following";
 "profile.invite.friends" = "Invite friends";
 "profile.block.user" = "Block list";
 "profile.settings" = "Settings";
 "profile.community" = "Community guidelines";
-//"profile.big.birthday" = "Birthday";
 "profile.birthday" = "Birthday";
 "profile.birthday.subtitle" = "Find friends of the same age";
 "profile.done" = "Done";
@@ -123,12 +123,14 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
+"profile.block.message" = "Are you sure to block this person";
+"profile.unblock.message" = "Are you sure to unblock this person";
+
+
+
 "content.contain.sensitive.words" = "Content contains sensitive words, please modify";
 
-
-
 //month
-
 "month.jan" = "Jan";
 "month.feb" = "Feb";
 "month.mar" = "Mar";
@@ -157,6 +159,13 @@
 "social.status.online" = "Online";
 "social.status.in.someroom" = "In %1$@";
 "social.following.maximium.tip" = "Your followings has reached maximum of %1$@";
+"social.sms" = "SMS";
+"social.copy.link" = "Copy link";
+"social.invite.friends" = "Invite friends";
+"social.invite" = "Invtie";
+"social.exit.channel" = "Exit channel";
+"social.follow.teammates" = "Follow your teammates to play together \nnext time";
+
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";

@@ -51,7 +51,7 @@ extension Social {
         
         private var uid = 0
         private var isFollowing = true
-
+        
         init(with uid: Int, isFollowing: Bool) {
             super.init(nibName: nil, bundle: nil)
             self.uid = uid
@@ -65,7 +65,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            bindData()
+            loadData()
         }
         
         private func setupLayout() {
@@ -73,9 +73,9 @@ extension Social {
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
             if isFollowing {
-                titleLabel.text = "Following"
+                titleLabel.text = R.string.localizable.profileFollowing()// "Following"
             } else {
-                titleLabel.text = "Followers"
+                titleLabel.text = R.string.localizable.profileFollower()// "Followers"
             }
             
             view.addSubviews(views: backBtn, titleLabel)
@@ -113,10 +113,6 @@ extension Social {
             }
         }
         
-        private func bindData() {
-            loadData()
-        }
-        
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             if isFollowing {
@@ -144,25 +140,30 @@ extension Social {
         
         private func loadMore() {
             let removeBlock = view.raft.show(.loading)
+            let skipMS = userList.last?.opTime ?? 0
             if isFollowing {
-                Request.followingList(uid: uid, skipMs: 0)
+                Request.followingList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
                         guard let data = data else { return }
                         let list =  data.list ?? []
                         var origenList = self?.userList
                         list.forEach({ origenList?.append($0)})
+                        self?.userList = origenList ?? []
                         self?.tableView.endLoadMore(data.more ?? false)
-
                     }, onError: { (error) in
                         removeBlock()
                     }).disposed(by: bag)
             } else {
-                Request.followerList(uid: uid, skipMs: 0)
+                Request.followerList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        
-                        self?.tableView.endRefresh()
+                        guard let data = data else { return }
+                        let list =  data.list ?? []
+                        var origenList = self?.userList
+                        list.forEach({ origenList?.append($0)})
+                        self?.userList = origenList ?? []
+                        self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
                         removeBlock()
                     }).disposed(by: bag)
@@ -183,8 +184,8 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: isFollowing)
-            cell.followHandle = { [weak self] in
-                self?.followUser(at: indexPath.row)
+            cell.updateFollowData = { [weak self] (follow) in
+                self?.userList[indexPath.row].isFollowed = follow
             }
             cell.avaterHandle = { [weak self](info) in
                 let vc = Social.ProfileViewController(with: info.uid)
@@ -197,53 +198,13 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
-    
-    private func followUser(at index: Int) {
-        let user = userList.safe(index)
-        let removeBlock = view.raft.show(.loading)
-        let isFollowed = user?.isFollowed ?? false
-        if isFollowed {
-            Request.unFollow(uid: user?.uid ?? 0, type: "follow")
-                .subscribe(onSuccess: { [weak self](success) in
-                    guard let `self` = self else { return }
-                    removeBlock()
-                    if success {
-                        self.updateCell(index: index, false)
-                    }
-                }, onError: { (error) in
-                    removeBlock()
-                    cdPrint("unfollow error:\(error.localizedDescription)")
-                }).disposed(by: bag)
-        } else {
-            Request.follow(uid: user?.uid ?? 0, type: "follow")
-                .subscribe(onSuccess: { [weak self](success) in
-                    guard let `self` = self else { return }
-                    removeBlock()
-                    if success {
-                        self.updateCell(index: index, true)
-                    }
-                }, onError: { (error) in
-                    removeBlock()
-                    cdPrint("follow error:\(error.localizedDescription)")
-                }).disposed(by: bag)
-        }
-    }
-    
-    private func updateCell(index: Int, _ isFollow: Bool) {
-        let rows = tableView.numberOfRows(inSection: 0)
-        if index < rows {
-            userList[index].isFollowed = isFollow
-            let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) as! Social.FollowerCell
-            cell.setFollow(isFollow)
-        }
-    }
 }
 
 extension Social {
     
     class FollowerCell: UITableViewCell {
         
-        var followHandle: (() -> Void)?
+        var updateFollowData: ((Bool) -> Void)?
         var avaterHandle: ((Entity.UserProfile) -> Void)?
         
         let bag = DisposeBag()
@@ -276,7 +237,7 @@ extension Social {
         }()
         
         private var userInfo: Entity.UserProfile!
-
+        private var isInvite = false
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -322,7 +283,12 @@ extension Social {
             followBtn.rx.tap
                 .observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
-                    self?.followHandle?()
+                    guard let `self` = self else { return }
+                    if self.isInvite {
+                        self.inviteUser()
+                    } else {
+                        self.followUser()
+                    }
                 }).disposed(by: bag)
             
             let tap = UITapGestureRecognizer()
@@ -332,9 +298,9 @@ extension Social {
                 .subscribe(onNext: { [weak self](tap) in
                     guard let `self` = self else { return }
                     self.avaterHandle?(self.userInfo)
-            }).disposed(by: bag)
+                }).disposed(by: bag)
         }
-                
+        
         func configView(with model: Entity.UserProfile, isFollowing: Bool) {
             self.userInfo = model
             if isFollowing {
@@ -356,14 +322,15 @@ extension Social {
             }
         }
         
-        func setCellDataForShare(with model: Entity.RoomUser) {
+        func setCellDataForShare(with model: Entity.UserProfile) {
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
         }
         
-        
         private func setUIForShare() {
+            isInvite = true
+            followBtn.setTitle(R.string.localizable.socialInvite(), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0xFFF000)
             followBtn.snp.updateConstraints { (maker) in
                 maker.width.equalTo(78)
@@ -371,15 +338,54 @@ extension Social {
         }
         
         private func grayFollowStyle() {
-            followBtn.setTitle("Following", for: .normal)
+            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
         }
         
         private func yellowFollowStyle() {
-            followBtn.setTitle("Follow", for: .normal)
+            followBtn.setTitle(R.string.localizable.profileFollow(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+        }
+        
+        private func followUser() {
+            
+            let removeBlock = self.superview?.raft.show(.loading)
+            
+            let isFollowed = userInfo?.isFollowed ?? false
+            
+            if isFollowed {
+                Request.unFollow(uid: userInfo?.uid ?? 0, type: "follow")
+                    .subscribe(onSuccess: { [weak self](success) in
+                        guard let `self` = self else { return }
+                        removeBlock?()
+                        if success {
+                            self.setFollow(false)
+                            self.updateFollowData?(false)
+                        }
+                    }, onError: { (error) in
+                        removeBlock?()
+                        cdPrint("unfollow error:\(error.localizedDescription)")
+                    }).disposed(by: bag)
+            } else {
+                Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
+                    .subscribe(onSuccess: { [weak self](success) in
+                        guard let `self` = self else { return }
+                        removeBlock?()
+                        if success {
+                            self.setFollow(true)
+                            self.updateFollowData?(true)
+                        }
+                    }, onError: { (error) in
+                        removeBlock?()
+                        cdPrint("follow error:\(error.localizedDescription)")
+                    }).disposed(by: bag)
+            }
+        }
+        
+        private func inviteUser() {
+            
         }
     }
 }

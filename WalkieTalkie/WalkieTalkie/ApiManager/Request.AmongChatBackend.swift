@@ -338,14 +338,14 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func blockList(uid: Int, skipMs: Double) -> Single<Entity.RelationData?> {
+    static func blockList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
         
         let paras = ["relation_type": "block", "uid": uid,
                      "limit": 20, "skip_ms": skipMs] as [String : Any]
         return amongchatProvider.rx.request(.blockList(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapTo(Entity.RelationData.self)
+            .mapTo(Entity.FollowData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -369,6 +369,16 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func endUsers(roomId: Int) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId]
+        return amongchatProvider.rx.request(.exitRoomRecommend(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+        
     static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
         return amongchatProvider.rx.request(.playingList)
             .mapJSON()

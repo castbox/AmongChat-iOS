@@ -48,11 +48,11 @@ extension Social {
             }
         }
         
-        private var uid = 0
+        private var roomId = 0
         
-        init(with uid: Int) {
+        init(with roomId: Int) {
             super.init(nibName: nil, bundle: nil)
-            self.uid = uid
+            self.roomId = roomId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -69,7 +69,7 @@ extension Social {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
-            titleLabel.text = "Leave game"
+            titleLabel.text = R.string.localizable.socialExitChannel()
             
             view.addSubviews(views: backBtn, titleLabel)
             
@@ -111,15 +111,32 @@ extension Social {
         }
         
         private func loadData() {
-            mainQueueDispatchAsync(after: 1) {[weak self] in
-                self?.tableView.endRefresh()
-            }
+            let removeBlock = view.raft.show(.loading)
+            Request.endUsers(roomId: roomId)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let data = data else { return }
+                    self?.userList = data.list ?? []
+                    self?.tableView.endLoadMore(data.more ?? false)
+                }, onError: { (error) in
+                    removeBlock()
+                }).disposed(by: bag)
         }
         
         private func loadMore() {
-            mainQueueDispatchAsync(after: 1) {[weak self] in
-                self?.tableView.endLoadMore(false)
-            }
+            let removeBlock = view.raft.show(.loading)
+            Request.endUsers(roomId: roomId)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let data = data else { return }
+                    let list =  data.list ?? []
+                    var origenList = self?.userList
+                    list.forEach({ origenList?.append($0)})
+                    self?.userList = origenList ?? []
+                    self?.tableView.endLoadMore(data.more ?? false)
+                }, onError: { (error) in
+                    removeBlock()
+                }).disposed(by: bag)
         }
     }
 }
@@ -137,8 +154,8 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: false)
-            cell.followHandle = { [weak self] in
-                self?.removeLockedUser(at: indexPath.row)
+            cell.updateFollowData = { [weak self](follow) in
+                self?.userList[indexPath.row].isFollowed = follow
             }
         }
         return cell
@@ -164,7 +181,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         lable.numberOfLines = 0
         lable.textColor = UIColor(hex6: 0x898989)
         lable.font = R.font.nunitoExtraBold(size: 16)
-        lable.text = "Follow you crewmates \nyou can play together next time"
+        lable.text = R.string.localizable.socialFollowTeammates()
         
         return v
     }
@@ -175,10 +192,6 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
-    }
-    
-    private func removeLockedUser(at index: Int) {
-        let removeBlock = view.raft.show(.loading)
     }
 }
 

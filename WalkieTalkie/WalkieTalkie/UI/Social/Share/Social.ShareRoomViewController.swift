@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MessageUI
 
 extension Social {
     
@@ -26,7 +27,7 @@ extension Social {
         
         private lazy var headerView = ShareHeaderView()
         
-        private var userList: [Entity.RoomUser] = [] {
+        private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -34,6 +35,7 @@ extension Social {
         
         private var linkUrl = ""
         private var uid = 0
+        private var hiddened = false
         
         init(with linkUrl: String, uid: Int) {
             super.init(nibName: nil, bundle: nil)
@@ -48,14 +50,12 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            bindData()
+            loadData()
         }
         
         private func setupLayout() {
             
-            view.backgroundColor = UIColor.theme(.backgroundBlack)
-            
-            
+            view.backgroundColor = UIColor(hex6: 0x222222)
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.top.left.right.equalToSuperview()
@@ -81,37 +81,60 @@ extension Social {
             headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 195)
             tableView.tableHeaderView = headerView
             
-            headerView.smsHandle = {
-                
+            headerView.smsHandle = { [weak self] in
+                guard let `self` = self else { return }
+                self.smsAction()
             }
             
-            headerView.copyLinkHandle = {
-                
+            headerView.copyLinkHandle = { [weak self] in
+                guard let `self` = self else { return }
+                self.copyLink()
             }
         }
+    }
+}
+private extension Social.ShareRoomViewController {
+    func loadData() {
         
-        private func bindData() {
-            self.userList = []
-        }
         
-        private func loadData() {
-            mainQueueDispatchAsync(after: 1) {[weak self] in
-                self?.tableView.endRefresh()
+    }
+    
+    func loadMore() {
+        
+        
+    }
+    func smsAction() {
+        if MFMessageComposeViewController.canSendText() {
+            let vc = MFMessageComposeViewController()
+            vc.body = linkUrl
+            vc.messageComposeDelegate = self
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            let removeBlock = view.raft.show(.text("Sorry ,your device can not support message"))
+            mainQueueDispatchAsync(after: 2.5) {
+                removeBlock()
             }
         }
-        
-        private func loadMore() {
-            mainQueueDispatchAsync(after: 1) {[weak self] in
-                self?.tableView.endLoadMore(false)
-            }
+    }
+    
+    func copyLink() {
+        let removeBlock = view.raft.show(.text("Copied!"))
+        mainQueueDispatchAsync(after: 1.5) {
+            removeBlock()
         }
+    }
+}
+
+extension Social.ShareRoomViewController: MFMessageComposeViewControllerDelegate {
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        dismiss(animated: true, completion: nil)
     }
 }
 // MARK: - UITableView
 extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20//userList.count
+        return userList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -120,8 +143,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
             cell.setCellDataForShare(with: user)
-            cell.followHandle = { [weak self] in
-                self?.removeLockedUser(at: indexPath.row)
+            cell.updateFollowData = { [weak self] (follow) in
+                self?.userList[indexPath.row].isFollowed = follow
             }
         }
         return cell
@@ -131,8 +154,11 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         return 64
     }
     
-    private func removeLockedUser(at index: Int) {
-        let removeBlock = view.raft.show(.loading)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < -15 && !hiddened {
+            self.hideModal()
+            hiddened = true
+        }
     }
 }
 extension Social.ShareRoomViewController {
@@ -145,19 +171,19 @@ extension Social.ShareRoomViewController {
         var copyLinkHandle:(()-> Void)?
         
         private lazy var smsBtn: LinkButton = {
-            let btn = LinkButton(with: UIImage(named: "ac_room_share"), title: "SMS")
+            let btn = LinkButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
             return btn
         }()
         
         private lazy var copyLinkBtn:LinkButton = {
-            let btn = LinkButton(with: UIImage(named: "ac_room_copylink"), title: "Copy link")
+            let btn = LinkButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
             return btn
         }()
         
         private lazy var inviteLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
-            lb.text = "Invite friends"
+            lb.text = R.string.localizable.socialInviteFriends()
             lb.textColor = .white
             return lb
         }()
