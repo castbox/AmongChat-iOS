@@ -26,7 +26,7 @@ extension Social {
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.text = R.string.localizable.profileFollower()
+            lb.text = R.string.localizable.socialExitChannel()
             lb.textColor = .white
             lb.appendKern()
             return lb
@@ -48,9 +48,9 @@ extension Social {
             }
         }
         
-        private var roomId = 0
+        private var roomId = ""
         
-        init(with roomId: Int) {
+        init(with roomId: String) {
             super.init(nibName: nil, bundle: nil)
             self.roomId = roomId
         }
@@ -62,15 +62,13 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            bindData()
+            loadData()
         }
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
-            
-            titleLabel.text = R.string.localizable.socialExitChannel()
-            
+                    
             view.addSubviews(views: backBtn, titleLabel)
             
             let navLayoutGuide = UILayoutGuide()
@@ -104,12 +102,7 @@ extension Social {
                 self?.loadMore()
             }
         }
-        
-        private func bindData() {
-            self.userList = []
-            loadData()
-        }
-        
+       
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             Request.endUsers(roomId: roomId)
@@ -120,14 +113,13 @@ extension Social {
                     self?.tableView.endLoadMore(data.more ?? false)
                 }, onError: { (error) in
                     removeBlock()
+                    cdPrint("Exit channel error: \(error.localizedDescription)")
                 }).disposed(by: bag)
         }
         
         private func loadMore() {
-            let removeBlock = view.raft.show(.loading)
             Request.endUsers(roomId: roomId)
                 .subscribe(onSuccess: { [weak self](data) in
-                    removeBlock()
                     guard let data = data else { return }
                     let list =  data.list ?? []
                     var origenList = self?.userList
@@ -135,7 +127,7 @@ extension Social {
                     self?.userList = origenList ?? []
                     self?.tableView.endLoadMore(data.more ?? false)
                 }, onError: { (error) in
-                    removeBlock()
+                    cdPrint("Exit channel error: \(error.localizedDescription)")
                 }).disposed(by: bag)
         }
     }

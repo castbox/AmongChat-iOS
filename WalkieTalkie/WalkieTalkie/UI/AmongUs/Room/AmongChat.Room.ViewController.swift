@@ -275,7 +275,7 @@ extension AmongChat.Room.ViewController {
 ////            removeBlock()
 //        }
         
-        let vc = Social.ShareRoomViewController(with: link, uid: room.roomId.int ?? 0)
+        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId)
         vc.showModal(in: self)
     }
     

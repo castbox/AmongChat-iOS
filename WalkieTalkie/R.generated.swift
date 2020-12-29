@@ -1630,7 +1630,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 207 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 208 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1924,6 +1924,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// 
+      /// Locales: en
+      static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en
@@ -2970,6 +2974,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func reportIncorrectHarassment(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// 
+      /// Locales: en
+      static func socialShareUrl(_ value1: String) -> String {
+        return String(format: NSLocalizedString("social.share.url", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Host could set up note so everyone could see it when they join

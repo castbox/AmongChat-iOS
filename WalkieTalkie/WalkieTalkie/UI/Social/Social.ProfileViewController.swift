@@ -147,9 +147,7 @@ extension Social {
         }
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            if isSelfProfile {
-                getRealation()
-            }
+            getRealation()
         }
     }
 }
@@ -256,6 +254,7 @@ private extension Social.ProfileViewController {
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
+                        self.getRealation()
                         self.relationData?.isFollowed = false
                         self.headerView.setFollowButton(false)
                     }
@@ -269,6 +268,7 @@ private extension Social.ProfileViewController {
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
+                        self.getRealation()
                         self.relationData?.isFollowed = true
                         self.headerView.setFollowButton(true)
                     }
@@ -281,7 +281,6 @@ private extension Social.ProfileViewController {
     
     func followerAction() {
         let vc = Social.FollowerViewController(with: uid, isFollowing: false)
-//        let vc = Social.LeaveGameViewController(with: uid)
         navigationController?.pushViewController(vc)
     }
     
@@ -333,8 +332,7 @@ private extension Social.ProfileViewController {
             Request.unFollow(uid: uid, type: "block")
                 .subscribe(onSuccess: { [weak self](success) in
                     if success {
-                        self?.blocked = false
-                        self?.relationData?.isBlocked = false
+                        self?.handleBlockResult(isBlocked: false)
                     }
                     removeBlock()
                 }, onError: { (error) in
@@ -345,13 +343,29 @@ private extension Social.ProfileViewController {
             Request.follow(uid: uid, type: "block")
                 .subscribe(onSuccess: { [weak self](success) in
                     if success {
-                        self?.blocked = true
-                        self?.relationData?.isBlocked = true
+                        self?.handleBlockResult(isBlocked: true)
                     }
                     removeBlock()
                 }, onError: { (error) in
                     removeBlock()
                 }).disposed(by: bag)
+        }
+    }
+    
+    func handleBlockResult(isBlocked: Bool) {
+        var blockedUsers = Defaults[\.blockedUsersV2Key]
+        if isBlocked {
+            blocked = true
+            relationData?.isBlocked = true
+            blockedUsers.removeElement(ifExists: { $0.uid == uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+        } else {
+            blocked = false
+            relationData?.isBlocked = false
+            if !blockedUsers.contains(where: { $0.uid == uid}) {
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "", nickname: userProfile?.nickname ?? "")
+                blockedUsers.append(newUser)
+            }
         }
     }
     

@@ -165,7 +165,7 @@
 "social.invite" = "Invtie";
 "social.exit.channel" = "Exit channel";
 "social.follow.teammates" = "Follow your teammates to play together \nnext time";
-
+"social.share.url" = "Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@";
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";

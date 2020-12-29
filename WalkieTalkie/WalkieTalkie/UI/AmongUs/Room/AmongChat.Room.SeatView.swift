@@ -164,11 +164,11 @@ extension AmongChat.Room {
 
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
             let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
-            var items: [AmongSheetController.ItemType] = [.userInfo]
+            var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
             if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
                 items.append(.kick)
             }
-            items.append(contentsOf: [.profile, blockItem, muteItem, .report, .cancel])
+            items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
 
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
                 Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)

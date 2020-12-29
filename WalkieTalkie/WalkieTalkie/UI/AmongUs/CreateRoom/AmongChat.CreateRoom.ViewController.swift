@@ -287,7 +287,6 @@ extension AmongChat.CreateRoom.ViewController {
                     self.view.raft.autoShow(.text("failed to create room"))
                     return
                 }
-                
                 self.view.endEditing(true)
                 
                 AmongChat.Room.ViewController.join(room: room, from: self)

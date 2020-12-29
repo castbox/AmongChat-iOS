@@ -124,6 +124,7 @@ extension Social {
                         self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
                         removeBlock()
+                        cdPrint("followingList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
             } else {
                 Request.followerList(uid: uid, skipMs: 0)
@@ -134,17 +135,16 @@ extension Social {
                         self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
                         removeBlock()
+                        cdPrint("followerList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
             }
         }
         
         private func loadMore() {
-            let removeBlock = view.raft.show(.loading)
             let skipMS = userList.last?.opTime ?? 0
             if isFollowing {
                 Request.followingList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
-                        removeBlock()
                         guard let data = data else { return }
                         let list =  data.list ?? []
                         var origenList = self?.userList
@@ -152,12 +152,11 @@ extension Social {
                         self?.userList = origenList ?? []
                         self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
-                        removeBlock()
+                        cdPrint("followingList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
             } else {
                 Request.followerList(uid: uid, skipMs: skipMS)
                     .subscribe(onSuccess: { [weak self](data) in
-                        removeBlock()
                         guard let data = data else { return }
                         let list =  data.list ?? []
                         var origenList = self?.userList
@@ -165,7 +164,7 @@ extension Social {
                         self?.userList = origenList ?? []
                         self?.tableView.endLoadMore(data.more ?? false)
                     }, onError: { (error) in
-                        removeBlock()
+                        cdPrint("followerList error: \(error.localizedDescription)")
                     }).disposed(by: bag)
             }
         }
@@ -206,7 +205,8 @@ extension Social {
         
         var updateFollowData: ((Bool) -> Void)?
         var avaterHandle: ((Entity.UserProfile) -> Void)?
-        
+        var inviteHandle: ((Entity.UserProfile) -> Void)?
+
         let bag = DisposeBag()
         
         private lazy var avatarIV: UIImageView = {
@@ -285,7 +285,7 @@ extension Social {
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
                     if self.isInvite {
-                        self.inviteUser()
+                        self.inviteHandle?(self.userInfo)
                     } else {
                         self.followUser()
                     }
@@ -330,6 +330,7 @@ extension Social {
         
         private func setUIForShare() {
             isInvite = true
+            followBtn.setTitleColor(.black, for: .normal)
             followBtn.setTitle(R.string.localizable.socialInvite(), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0xFFF000)
             followBtn.snp.updateConstraints { (maker) in
@@ -382,10 +383,6 @@ extension Social {
                         cdPrint("follow error:\(error.localizedDescription)")
                     }).disposed(by: bag)
             }
-        }
-        
-        private func inviteUser() {
-            
         }
     }
 }

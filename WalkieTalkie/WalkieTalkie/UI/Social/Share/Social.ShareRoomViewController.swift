@@ -34,13 +34,13 @@ extension Social {
         }
         
         private var linkUrl = ""
-        private var uid = 0
+        private var roomId = ""
         private var hiddened = false
         
-        init(with linkUrl: String, uid: Int) {
+        init(with linkUrl: String, roomId: String) {
             super.init(nibName: nil, bundle: nil)
-            self.linkUrl = linkUrl
-            self.uid = uid
+            self.linkUrl = R.string.localizable.socialShareUrl(linkUrl)
+            self.roomId = roomId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -61,7 +61,9 @@ extension Social {
                 maker.top.left.right.equalToSuperview()
                 maker.height.equalTo(500)
             }
-            
+//            tableView.pullToRefresh { [weak self] in
+//                self?.loadData()
+//            }
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
@@ -95,14 +97,34 @@ extension Social {
 }
 private extension Social.ShareRoomViewController {
     func loadData() {
-        
-        
+        let removeBlock = view.raft.show(.loading)
+        Request.inviteFriends(skipMs: 0)
+            .subscribe(onSuccess: { [weak self](data) in
+                removeBlock()
+                guard let data = data else { return }
+                self?.userList = data.list ?? []
+                self?.tableView.endLoadMore(data.more ?? false)
+            }, onError: { (error) in
+                removeBlock()
+                cdPrint("inviteFriends error: \(error.localizedDescription)")
+            }).disposed(by: bag)
     }
     
     func loadMore() {
-        
-        
+        let skipMS = userList.last?.opTime ?? 0
+        Request.inviteFriends(skipMs: skipMS)
+            .subscribe(onSuccess: { [weak self](data) in
+                guard let data = data else { return }
+                let list =  data.list ?? []
+                var origenList = self?.userList
+                list.forEach({ origenList?.append($0)})
+                self?.userList = origenList ?? []
+                self?.tableView.endLoadMore(data.more ?? false)
+            }, onError: { (error) in
+                cdPrint("inviteFriends error: \(error.localizedDescription)")
+            }).disposed(by: bag)
     }
+    
     func smsAction() {
         if MFMessageComposeViewController.canSendText() {
             let vc = MFMessageComposeViewController()
@@ -110,7 +132,7 @@ private extension Social.ShareRoomViewController {
             vc.messageComposeDelegate = self
             self.present(vc, animated: true, completion: nil)
         } else {
-            let removeBlock = view.raft.show(.text("Sorry ,your device can not support message"))
+            let removeBlock = view.raft.show(.text("Sorry ,your device do not support message"))
             mainQueueDispatchAsync(after: 2.5) {
                 removeBlock()
             }
@@ -118,10 +140,8 @@ private extension Social.ShareRoomViewController {
     }
     
     func copyLink() {
-        let removeBlock = view.raft.show(.text("Copied!"))
-        mainQueueDispatchAsync(after: 1.5) {
-            removeBlock()
-        }
+        linkUrl.copyToPasteboard()
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
     }
 }
 
@@ -146,6 +166,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             cell.updateFollowData = { [weak self] (follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
+            cell.inviteHandle = {[weak self] (user) in
+                self?.inviteUserAction(user)
+            }
         }
         return cell
     }
@@ -159,6 +182,16 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             self.hideModal()
             hiddened = true
         }
+    }
+    private func inviteUserAction(_ user: Entity.UserProfile) {
+        let removeBlock = view.raft.show(.loading)
+        Request.inviteUser(roomId: roomId, uid: user.uid)
+            .subscribe(onSuccess: { (data) in
+                removeBlock()
+            }, onError: { (error) in
+                removeBlock()
+                cdPrint("invite user error:\(error.localizedDescription)")
+            }).disposed(by: bag)
     }
 }
 extension Social.ShareRoomViewController {
