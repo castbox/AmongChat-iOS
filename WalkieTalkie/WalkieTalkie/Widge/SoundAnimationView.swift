@@ -85,7 +85,8 @@ class SoundAnimationView: UIView {
             countDown = 2
             return
         }
-        self.isHidden = false
+        fadeIn(duration: 0.2)
+//        self.isHidden = false
         self.displayLink.isPaused = false
         self.countDown = 2
         self.timer?.start()
@@ -93,11 +94,9 @@ class SoundAnimationView: UIView {
     }
     
     @objc func stopLoading() {
-//        DispatchQueue.main.async { [weak self] in
-//            guard let `self` = self else { return }
-            self.isHidden = true
-            self.displayLink.isPaused = true
-//        }
+        fadeOut(duration: 0.2)
+        self.alpha = 0
+        self.displayLink.isPaused = true
     }
     
     @objc func soundAnimation() {

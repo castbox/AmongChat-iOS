@@ -171,7 +171,7 @@ extension AmongChat.Room {
         
         func stopSoundAnimation() {
 //            isPlaySvgaEmoji = false
-            haloView.stopLoading()
+//            haloView.stopLoading()
 //            svgaView.stopAnimation()
         }
         
