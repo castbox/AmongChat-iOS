@@ -99,9 +99,6 @@ extension Social {
             tableView.pullToRefresh { [weak self] in
                 self?.loadData()
             }
-            tableView.pullToLoadMore { [weak self] in
-                self?.loadMore()
-            }
         }
         
         private func loadData() {
@@ -112,22 +109,11 @@ extension Social {
                     guard let data = data else { return }
                     self?.userList = data.list ?? []
                     self?.tableView.endLoadMore(data.more ?? false)
-                }, onError: { (error) in
+                }, onError: { [weak self](error) in
                     removeBlock()
-                    cdPrint("Exit channel error: \(error.localizedDescription)")
-                }).disposed(by: bag)
-        }
-        
-        private func loadMore() {
-            Request.endUsers(roomId: roomId)
-                .subscribe(onSuccess: { [weak self](data) in
-                    guard let data = data else { return }
-                    let list =  data.list ?? []
-                    var origenList = self?.userList
-                    list.forEach({ origenList?.append($0)})
-                    self?.userList = origenList ?? []
-                    self?.tableView.endLoadMore(data.more ?? false)
-                }, onError: { (error) in
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
                     cdPrint("Exit channel error: \(error.localizedDescription)")
                 }).disposed(by: bag)
         }

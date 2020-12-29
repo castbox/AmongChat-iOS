@@ -473,6 +473,10 @@ extension DefaultsKeys {
         .init("blocked.users.v2", defaultValue: [])
     }
     
+    var followersCount: DefaultsKey<Int> {
+        .init("followers.count", defaultValue: 0)
+    }
+    
     var profileInitialShownTsKey: DefaultsKey<Double?> {
         .init("profile.initial.shown.timestamp", defaultValue: nil)
     }
