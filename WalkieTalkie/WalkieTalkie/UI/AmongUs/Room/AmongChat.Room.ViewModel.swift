@@ -92,7 +92,10 @@ extension AmongChat.Room {
         private var room: Entity.Room {
             roomReplay.value
         }
-        
+        private var enteredTimestamp: Int!
+        var showRecommendUser: Bool {
+            return (Date().second - enteredTimestamp) / 60 > 6
+        }
         
         let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
         var isMuteMic: Bool {
@@ -157,6 +160,7 @@ extension AmongChat.Room {
             
             setObservableSubject()
             addSystemMessage()
+            enteredTimestamp = Date().second
         }
         
         @discardableResult

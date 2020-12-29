@@ -256,7 +256,21 @@ extension AmongChat.Room.ViewController {
     private func onCloseBtn() {
         showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
-            self.requestLeaveRoom()
+            self.requestLeaveRoom {
+                self.showRecommendUser()
+            }
+        }
+    }
+    
+    private func showRecommendUser() {
+        if viewModel.showRecommendUser {
+            let currentVC = UIApplication.navigationController?.viewControllers.first
+            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId)
+            if currentVC?.navigationController != nil {
+                currentVC?.navigationController?.pushViewController(vc)
+            } else {
+                vc.showModal(in: currentVC)
+            }
         }
     }
     
