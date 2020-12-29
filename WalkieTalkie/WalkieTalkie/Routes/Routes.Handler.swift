@@ -28,10 +28,11 @@ extension Routes {
             weak var welf = self
             //
             Routes.shared.uriValue()
-                .flatMap { item -> Observable<URIRepresentable> in
-                    return Observable.just(item)
-                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
-                }
+                .observeOn(MainScheduler.asyncInstance)
+//                .flatMap { item -> Observable<URIRepresentable> in
+//                    return Observable.just(item)
+//                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
+//                }
                 .subscribe(onNext: { (uri) in
                     guard let `self` = welf else { return }
                     switch uri {
