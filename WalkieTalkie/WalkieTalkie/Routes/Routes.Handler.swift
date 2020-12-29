@@ -62,7 +62,7 @@ extension Routes {
                 return
             }
             UIApplication.navigationController?.popToRootViewController(animated: true)
-            roomVc.joinRoom(name)
+//            roomVc.joinRoom(name)
             Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
         }
         
@@ -81,15 +81,27 @@ extension Routes {
 //        }
         
         func handleRoom(_ roomId: String) {
-            UIApplication.navigationController?.popToRootViewController(animated: true)
+            //找到 home 的 tab
+            guard let tabBarController = UIApplication.tabBarController,
+                  let selectedNavigationController = tabBarController.selectedViewController as? NavigationViewController else {
+                return
+            }
+                        
+            selectedNavigationController.popToRootViewController(animated: false)
+            
+            //当前选中的是第二个 tab
+            if selectedNavigationController.viewControllers.first is AmongChat.Home.RelationsViewController {
+                //切换到 0
+                tabBarController.selectedIndex = 0
+            }
+            
             
             guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.TopicsViewController,
                   UIApplication.topViewController() is AmongChat.Home.TopicsViewController else {
                 return
             }
             
-            roomVc.enterRoom(roomId: roomId, topicId: nil)
-//            roomVc.joinRoom(with: name)
+            roomVc.enterRoom(roomId: roomId, topicId: nil, source: "link")
             Logger.Channel.log(.deeplink, roomId, value: 0)
         }
         
