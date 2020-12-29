@@ -60,15 +60,29 @@ extension AmongChat.Home.MainTabController {
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
                     return
                 }
-                let invitationModal = AmongChat.Home.RoomInvitationModal(with: user, room: room)
-                invitationModal.modalPresentationStyle = .overCurrentContext
+                
+                let invitationModal: AmongChat.Home.RoomInvitationModal
+                
+                if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
+                    invitationModal = currentModal
+                } else {
+                    invitationModal = AmongChat.Home.RoomInvitationModal()
+                    invitationModal.modalPresentationStyle = .overCurrentContext
+                    topVC.present(invitationModal, animated: false)
+                }
+                
+                invitationModal.updateContent(user: user, room: room)
                 invitationModal.bindEvent(join: {
-                    topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
-                    invitationModal.dismiss(animated: false)
+                    invitationModal.dismiss(animated: false) {
+                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                            return
+                        }
+                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                    }
                 }, ignore: {
                     invitationModal.dismiss(animated: false)
                 })
-                topVC.present(invitationModal, animated: false)
+                
             })
             .disposed(by: bag)
     }

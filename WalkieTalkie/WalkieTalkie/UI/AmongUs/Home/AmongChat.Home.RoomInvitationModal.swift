@@ -31,7 +31,6 @@ extension AmongChat.Home {
             let iv = UIImageView()
             iv.layer.cornerRadius = 40
             iv.layer.masksToBounds = true
-            iv.setImage(with: URL(string: user.pictureUrl))
             return iv
         }()
                 
@@ -40,7 +39,6 @@ extension AmongChat.Home {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             lb.textAlignment = .center
-            lb.text = user.name
             return lb
         }()
         
@@ -50,7 +48,6 @@ extension AmongChat.Home {
             lb.textColor = .white
             lb.textAlignment = .center
             lb.numberOfLines = 0
-            lb.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             return lb
         }()
         
@@ -85,18 +82,9 @@ extension AmongChat.Home {
             return v
         }()
         
-        private let user: Entity.UserProfile
-        private let room: Entity.FriendUpdatingInfo.Room
-        
-        init(with inviter: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
-            self.user = inviter
-            self.room = room
-            super.init(nibName: nil, bundle: nil)
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+        private var countdownDisposable: Disposable? = nil
+        private var joinBtnDisposable: Disposable? = nil
+        private var ignoreBtnDisposable: Disposable? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -164,39 +152,43 @@ extension AmongChat.Home {
             tap.rx.event.subscribe(onNext: { [weak self] (_) in
                 self?.dismiss(animated: false)
             })
-            .disposed(by: bag)
-            
-            rx.viewDidAppear
-                .take(1)
-                .subscribe(onNext: { [weak self] (_) in
-                    self?.countDownLabel.text = "15"
-                    let countDown = 15 // 15 seconds
-                    let _ = Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
-                            .take(countDown+1)
-                            .subscribe(onNext: { timePassed in
-                                let count = countDown - timePassed
-                                self?.countDownLabel.text = "\(count)"
-                            }, onCompleted: {
-                                self?.dismiss(animated: false)
-                            })
+            .disposed(by: bag)            
+        }
+        
+        private func startCountDown() {
+            countDownLabel.text = "15"
+            let countDown = 15 // 15 seconds
+            countdownDisposable?.dispose()
+            countdownDisposable = Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+                .take(countDown + 1)
+                .subscribe(onNext: { [weak self] timePassed in
+                    let count = countDown - timePassed
+                    self?.countDownLabel.text = "\(count)"
+                }, onCompleted: { [weak self] in
+                    self?.dismiss(animated: false)
                 })
-                .disposed(by: bag)
-
+        }
+        
+        func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+            avatarIV.setImage(with: URL(string: user.pictureUrl))
+            nameLabel.text = user.name
+            msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
+            startCountDown()
         }
         
         func bindEvent(join: @escaping () -> Void, ignore: @escaping () -> Void) {
             
-            joinBtn.rx.controlEvent(.primaryActionTriggered)
+            joinBtnDisposable?.dispose()
+            joinBtnDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
                     join()
                 })
-                .disposed(by: bag)
             
-            ignoreBtn.rx.controlEvent(.primaryActionTriggered)
+            ignoreBtnDisposable?.dispose()
+            ignoreBtnDisposable = ignoreBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
                     ignore()
                 })
-                .disposed(by: bag)
             
         }
         
