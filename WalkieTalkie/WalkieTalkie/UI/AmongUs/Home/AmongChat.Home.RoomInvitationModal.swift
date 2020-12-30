@@ -175,10 +175,10 @@ extension AmongChat.Home {
                 .subscribe(onNext: { [weak self] timePassed in
                     let count = countDown - timePassed
                     self?.countDownLabel.text = "\(count)"
-                    self?.circleView.updateProgress(progress: CGFloat(Float(count) / Float(countDown)), animationDuration: 0.25)
                 }, onCompleted: { [weak self] in
                     self?.dismiss(animated: false)
                 })
+            circleView.updateProgress(fromValue: 1, toValue: 0, animationDuration: 15)
         }
         
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
@@ -226,8 +226,6 @@ extension AmongChat.Home.RoomInvitationModal {
             return l
         }()
         
-        private var previousProgress: CGFloat = 1.0
-        
         var progressLineColor: UIColor? = nil
         var progressBackgroundColor: UIColor? = nil
         var progressLineWidth: CGFloat = 0.0
@@ -270,15 +268,14 @@ extension AmongChat.Home.RoomInvitationModal {
             progressLayer.strokeColor = progressLineColor?.cgColor
         }
         
-        func updateProgress(progress: CGFloat, animationDuration: TimeInterval) {
+        func updateProgress(fromValue: CGFloat, toValue: CGFloat, animationDuration: TimeInterval) {
             let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
             circularProgressAnimation.duration = animationDuration
-            circularProgressAnimation.fromValue = previousProgress
-            circularProgressAnimation.toValue = max(min(1, progress), 0)
+            circularProgressAnimation.fromValue = max(min(1, fromValue), 0)
+            circularProgressAnimation.toValue = max(min(1, toValue), 0)
             circularProgressAnimation.fillMode = .forwards
             circularProgressAnimation.isRemovedOnCompletion = false
             progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
-            previousProgress = progress
         }
         
     }
