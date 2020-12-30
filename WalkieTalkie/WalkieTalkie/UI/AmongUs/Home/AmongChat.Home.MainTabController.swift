@@ -33,7 +33,7 @@ extension AmongChat.Home.MainTabController {
                 
         if #available(iOS 13.0, *) {
             let appearance = tabBar.standardAppearance
-            appearance.shadowImage = nil
+            appearance.shadowImage = R.image.ac_home_tab_shadow()
             appearance.shadowColor = nil
             appearance.backgroundColor = Theme.mainBgColor
             appearance.stackedLayoutAppearance.selected.iconColor = Theme.mainTintColor
@@ -45,7 +45,7 @@ extension AmongChat.Home.MainTabController {
             tabBar.backgroundImage = UIImage()
             tabBar.tintColor = Theme.mainTintColor
             tabBar.unselectedItemTintColor = UIColor(hex6: 0x5D5D5D)
-            tabBar.shadowImage = UIImage()
+            tabBar.shadowImage = R.image.ac_home_tab_shadow()
         }
         
     }
