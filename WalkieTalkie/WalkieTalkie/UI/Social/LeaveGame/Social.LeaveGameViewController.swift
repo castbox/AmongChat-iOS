@@ -37,7 +37,8 @@ extension Social {
             let tb = UITableView(frame: .zero, style: .grouped)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(Social.FollowerCell.self, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
+            tb.register(cellWithClass: Social.FollowerCell.self)
+//            tb.register(, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
             tb.register(cellWithClass: NoDatacell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
@@ -132,28 +133,25 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(Social.FollowerCell.self), for: indexPath)
-        if let cell = cell as? Social.FollowerCell,
-           let user = userList.safe(indexPath.row) {
-            cell.configView(with: user, isFollowing: false)
+        if !userList.isEmpty {
+            let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
+            cell.configView(with: userList[indexPath.row], isFollowing: false)
             cell.updateFollowData = { [weak self](follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: NoDatacell.self)
             cell.setCellMeessage(R.string.localizable.errorNoTeammates())
             return cell
         }
-        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
         if userList.isEmpty {
-            return 64
+            return 500
         }
-        return 500
+        return 64
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

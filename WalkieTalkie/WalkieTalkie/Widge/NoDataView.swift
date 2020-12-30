@@ -56,6 +56,7 @@ class NoDatacell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .clear
+        selectionStyle = .none
         
         contentView.addSubview(noDataView)
         
