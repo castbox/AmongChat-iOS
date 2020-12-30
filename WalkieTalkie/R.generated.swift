@@ -1790,10 +1790,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialRelationFriend = Rswift.StringResource(key: "social.relation.friend", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Friends you may like to play with
-      /// 
-      /// Locales: en
-      static let amongChatHomeFriendsSuggestionTitle = Rswift.StringResource(key: "among.chat.home.friends.suggestion.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -2042,6 +2038,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static let amongChatHomeFriendsSuggestionTitle = Rswift.StringResource(key: "among.chat.home.friends.suggestion.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en
@@ -2854,13 +2854,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.relation.friend", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Friends you may like to play with
-      /// 
-      /// Locales: en
-      static func amongChatHomeFriendsSuggestionTitle(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.friends.suggestion.title", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -3293,6 +3286,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumSubscriptionDetailLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static func amongChatHomeFriendsSuggestionTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.friends.suggestion.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Play Now
