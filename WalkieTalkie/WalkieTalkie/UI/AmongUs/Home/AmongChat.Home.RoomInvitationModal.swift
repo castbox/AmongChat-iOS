@@ -67,7 +67,7 @@ extension AmongChat.Home {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            btn.setTitle(R.string.localizable.amongChatIgnore(), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatIgnore().uppercased(), for: .normal)
             btn.layer.masksToBounds = true
             btn.layer.borderWidth = 2
             btn.layer.cornerRadius = 18
