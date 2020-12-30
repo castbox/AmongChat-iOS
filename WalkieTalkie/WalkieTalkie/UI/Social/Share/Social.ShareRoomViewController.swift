@@ -132,7 +132,7 @@ private extension Social.ShareRoomViewController {
             vc.messageComposeDelegate = self
             self.present(vc, animated: true, completion: nil)
         } else {
-            let removeBlock = view.raft.show(.text("Sorry ,your device do not support message"))
+            let removeBlock = view.raft.show(.text("Sorry, your device do not support message"))
             mainQueueDispatchAsync(after: 2.5) {
                 removeBlock()
             }
@@ -141,7 +141,7 @@ private extension Social.ShareRoomViewController {
     
     func copyLink() {
         linkUrl.copyToPasteboard()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
 }
 

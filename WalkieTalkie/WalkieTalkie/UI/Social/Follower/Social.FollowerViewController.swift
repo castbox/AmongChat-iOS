@@ -217,7 +217,6 @@ extension Social {
     class FollowerCell: UITableViewCell {
         
         var updateFollowData: ((Bool) -> Void)?
-        var avaterHandle: ((Entity.UserProfile) -> Void)?
         var inviteHandle: ((Entity.UserProfile) -> Void)?
         
         let bag = DisposeBag()
@@ -305,15 +304,15 @@ extension Social {
                         self.followUser()
                     }
                 }).disposed(by: bag)
-            
-            let tap = UITapGestureRecognizer()
-            avatarIV.addGestureRecognizer(tap)
-            avatarIV.isUserInteractionEnabled = true
-            tap.rx.event.observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self](tap) in
-                    guard let `self` = self else { return }
-                    self.avaterHandle?(self.userInfo)
-                }).disposed(by: bag)
+//
+//            let tap = UITapGestureRecognizer()
+//            avatarIV.addGestureRecognizer(tap)
+//            avatarIV.isUserInteractionEnabled = true
+//            tap.rx.event.observeOn(MainScheduler.instance)
+//                .subscribe(onNext: { [weak self](tap) in
+//                    guard let `self` = self else { return }
+//                    self.avaterHandle?(self.userInfo)
+//                }).disposed(by: bag)
         }
         
         func configView(with model: Entity.UserProfile, isFollowing: Bool) {

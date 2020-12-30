@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 155 images.
+  /// This `R.image` struct is generated, and contains static references to 144 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -198,18 +198,6 @@ struct R: Rswift.Validatable {
     static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
     /// Image `ac_icon_share`.
     static let ac_icon_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_share")
-    /// Image `ac_icon_sheet_block`.
-    static let ac_icon_sheet_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_block")
-    /// Image `ac_icon_sheet_kick`.
-    static let ac_icon_sheet_kick = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_kick")
-    /// Image `ac_icon_sheet_mute`.
-    static let ac_icon_sheet_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_mute")
-    /// Image `ac_icon_sheet_report`.
-    static let ac_icon_sheet_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_report")
-    /// Image `ac_icon_sheet_unblock`.
-    static let ac_icon_sheet_unblock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unblock")
-    /// Image `ac_icon_sheet_unmute`.
-    static let ac_icon_sheet_unmute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unmute")
     /// Image `ac_kick_selected`.
     static let ac_kick_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_kick_selected")
     /// Image `ac_login_apple`.
@@ -228,8 +216,6 @@ struct R: Rswift.Validatable {
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_birthday`.
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
-    /// Image `ac_profile_block_icon`.
-    static let ac_profile_block_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block_icon")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
     /// Image `ac_profile_close`.
@@ -240,10 +226,6 @@ struct R: Rswift.Validatable {
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
-    /// Image `ac_profile_report`.
-    static let ac_profile_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_report")
-    /// Image `ac_profile_unblock_icon`.
-    static let ac_profile_unblock_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_unblock_icon")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -254,8 +236,6 @@ struct R: Rswift.Validatable {
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
     /// Image `ac_room_copylink`.
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
-    /// Image `ac_room_profile_icon`.
-    static let ac_room_profile_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_profile_icon")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_setting_diamonds`.
@@ -587,36 +567,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_icon_share, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_icon_sheet_block", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_block, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_kick", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_kick(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_kick, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_mute", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_mute, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_report", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_report, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_unblock", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_unblock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unblock, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_unmute", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_unmute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unmute, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_kick_selected", bundle: ..., traitCollection: ...)`
     static func ac_kick_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_kick_selected, compatibleWith: traitCollection)
@@ -667,11 +617,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_block, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_block_icon", bundle: ..., traitCollection: ...)`
-    static func ac_profile_block_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_block_icon, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_profile_close", bundle: ..., traitCollection: ...)`
     static func ac_profile_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
@@ -690,16 +635,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
     static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_report", bundle: ..., traitCollection: ...)`
-    static func ac_profile_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_report, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_unblock_icon", bundle: ..., traitCollection: ...)`
-    static func ac_profile_unblock_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_unblock_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
@@ -725,11 +660,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_copylink", bundle: ..., traitCollection: ...)`
     static func ac_room_copylink(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_copylink, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_room_profile_icon", bundle: ..., traitCollection: ...)`
-    static func ac_room_profile_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_room_profile_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
@@ -3969,7 +3899,6 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
-      try _AmongSheetIconItemCell.validate()
       try _ChannelUserCell.validate()
       try _ChannelUserListController.validate()
       try _GuideFirstView.validate()
@@ -4115,7 +4044,7 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
       typealias ReusableType = AmongSheetIconItemCell
       
       let bundle = R.hostingBundle
@@ -4124,12 +4053,6 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetIconItemCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetIconItemCell
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongSheetIconItemCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
       }
       
       fileprivate init() {}
