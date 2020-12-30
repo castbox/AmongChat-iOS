@@ -106,8 +106,9 @@ extension Social.ProfileViewController {
             lb.textColor = .white
             lb.backgroundColor = UIColor(hex6: 0xFB5858)
             lb.layer.masksToBounds = true
-            lb.layer.cornerRadius = 9
+            lb.layer.cornerRadius = 8
             lb.isHidden = true
+            lb.textAlignment = .center
             return lb
         }()
         private var isSelf = true
@@ -259,9 +260,10 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(43)
             }
             redCountLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(followerBtn.snp.right).offset(-20)
-                make.top.equalTo(followerBtn.snp.top).offset(7)
-                make.height.equalTo(18)
+                make.left.equalTo(followerBtn.titleLabel.snp.right).offset(4)
+                make.centerY.equalTo(followerBtn.titleLabel.snp.centerY)
+                make.height.equalTo(16)
+                make.width.greaterThanOrEqualTo(30)
             }
         }
         
