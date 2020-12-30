@@ -203,7 +203,7 @@ extension AmongChat.Room {
         @objc
         func gameNameButtonAction() {
             user?.nickname?.copyToPasteboard()
-            viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
         private func setupLayout() {

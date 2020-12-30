@@ -68,7 +68,6 @@ extension AmongChat.Room {
         private var cachedFUsers = [UInt : FireStore.Entity.User]()
         private var unfoundUserIds = Set<UInt>()
         
-        private let dataSource = BehaviorRelay<[ChannelUser]>(value: [])
         
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
@@ -352,23 +351,23 @@ extension AmongChat.Room {
 //            dataSource.accept(users)
 //        }
         
-        func updateVolumeIndication(userId: UInt, volume: UInt) {
-            //            cdPrint("userid: \(userId) volume: \(volume)")
-            let users = dataSource.value.map { item -> ChannelUser in
-                guard item.status != .blocked,
-                      item.status != .muted,
-                      item.status != .droped,
-                      item.uid.int!.uInt == userId,
-                      volume > 0 else {
-                    return item
-                }
-                var user = item
-                user.status = .talking
-                cdPrint("user: \(user)")
-                return user
-            }
-            dataSource.accept(users)
-        }
+//        func updateVolumeIndication(userId: UInt, volume: UInt) {
+//            //            cdPrint("userid: \(userId) volume: \(volume)")
+//            let users = dataSource.value.map { item -> ChannelUser in
+//                guard item.status != .blocked,
+//                      item.status != .muted,
+//                      item.status != .droped,
+//                      item.uid.int!.uInt == userId,
+//                      volume > 0 else {
+//                    return item
+//                }
+//                var user = item
+//                user.status = .talking
+//                cdPrint("user: \(user)")
+//                return user
+//            }
+//            dataSource.accept(users)
+//        }
         
         func blockedUser(_ user: Entity.RoomUser) {
             if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
@@ -597,7 +596,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         }
     }
     
-    func onChannelUserChanged(users: [ChannelUser]) {
-//        ChannelUserListViewModel.shared.update(users)
-    }
+//    func onChannelUserChanged(users: [ChannelUser]) {
+////        ChannelUserListViewModel.shared.update(users)
+//    }
 }

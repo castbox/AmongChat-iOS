@@ -19,6 +19,21 @@ extension UIView {
         shape.path = maskPath.cgPath
         layer.mask = shape
     }
+    
+    var containingController: UIViewController? {
+        
+        var nextResponder: UIResponder? = self
+        
+        repeat {
+            nextResponder = nextResponder?.next
+            
+            if let viewController = nextResponder as? UIViewController {
+                return viewController
+            }
+            
+        } while nextResponder != nil
+        return nil
+    }
 }
 
 extension UIView {

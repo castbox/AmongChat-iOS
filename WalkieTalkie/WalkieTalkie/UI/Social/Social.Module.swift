@@ -186,21 +186,21 @@ extension Social {
             joinChannelAcceptedSubject
                 .subscribe(onNext: { (msg) in
                     
-                    guard let channel = msg.channel,
-                        let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-                        return
-                    }
+//                    guard let channel = msg.channel,
+//                        let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+//                        return
+//                    }
                     // join channel directly
-                    roomVC.joinRoom(channel)
-                    
-                    let _ = roomVC.joinedChannelObservable
-                        .skipWhile({ $0 != channel })
-                        .take(1)
-                        .subscribe(onNext: { (channelName) in
-                            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
-                            FireStore.shared.sendJoinedChannelMsg(to: msg.uid, from: profile)
-                            UIApplication.navigationController?.popToRootViewController(animated: true)
-                        })
+//                    roomVC.joinRoom(channel)
+//
+//                    let _ = roomVC.joinedChannelObservable
+//                        .skipWhile({ $0 != channel })
+//                        .take(1)
+//                        .subscribe(onNext: { (channelName) in
+//                            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
+//                            FireStore.shared.sendJoinedChannelMsg(to: msg.uid, from: profile)
+//                            UIApplication.navigationController?.popToRootViewController(animated: true)
+//                        })
                 })
                 .disposed(by: bag)
             

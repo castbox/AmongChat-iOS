@@ -361,9 +361,9 @@ extension Settings {
 
 
 extension DefaultsKeys {
-    var mode: DefaultsKey<Mode> { /// app 主题 {
-        .init("mode", defaultValue: .public)
-    }
+//    var mode: DefaultsKey<Mode> { /// app 主题 {
+//        .init("mode", defaultValue: .public)
+//    }
     
     var channelName: DefaultsKey<String> {
         .init("channelName", defaultValue: "WELCOME")
@@ -373,13 +373,13 @@ extension DefaultsKeys {
         .init("first.install", defaultValue: true)
     }
     
-    var channel: DefaultsKey<Room> {
-        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
-    }
+//    var channel: DefaultsKey<Room> {
+//        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
+//    }
     
-    var secretChannels: DefaultsKey<[Room]> {
-        .init("secret.channels.joined", defaultValue: [])
-    }
+//    var secretChannels: DefaultsKey<[Room]> {
+//        .init("secret.channels.joined", defaultValue: [])
+//    }
     
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
@@ -453,9 +453,9 @@ extension DefaultsKeys {
         .init("walkie.talkie.first.show.secret", defaultValue: true)
     }
     
-    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
-        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
-    }
+//    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
+//        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
+//    }
     
     var emojiMaps: DefaultsKey<[String: Any]> {
         .init("emoji.maps", defaultValue: [:])
@@ -520,23 +520,23 @@ extension DefaultsKeys {
     }
 }
 
-extension DefaultsAdapter {
-    func channel(for mode: Mode) -> Room {
-        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
-    }
-    
-    func set(channel: Room?, mode: Mode) {
-        //保护存储错误
-        if mode == .public,
-           channel?.name.isPrivate ?? false {
-            return
-        }
-        if mode == .private,
-           !(channel?.name.isPrivate ?? true) {
-            return
-        }
-        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
-    }
-}
+//extension DefaultsAdapter {
+//    func channel(for mode: Mode) -> Room {
+//        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+//    }
+//    
+//    func set(channel: Room?, mode: Mode) {
+//        //保护存储错误
+//        if mode == .public,
+//           channel?.name.isPrivate ?? false {
+//            return
+//        }
+//        if mode == .private,
+//           !(channel?.name.isPrivate ?? true) {
+//            return
+//        }
+//        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+//    }
+//}
 
 extension CLLocation: DefaultsSerializable {}

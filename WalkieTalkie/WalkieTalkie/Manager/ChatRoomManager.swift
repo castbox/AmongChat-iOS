@@ -33,7 +33,7 @@ protocol ChatRoomDelegate: class {
     
     func onJoinChannelTimeout(channelId: String?)
     
-    func onChannelUserChanged(users: [ChannelUser])
+//    func onChannelUserChanged(users: [ChannelUser])
 }
 
 class ChatRoomManager: SeatManager {
@@ -69,17 +69,18 @@ class ChatRoomManager: SeatManager {
         return mRtcManager.role
     }
     
-    var isReachMaxUnmuteUserCount: Bool {
-        guard let name = channelName,
-            !Settings.shared.isProValue.value else { //非会员
-            return false
-        }
-        if name.isPrivate {
-            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.sSpeakerLimit
-        } else {
-            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.gSpeakerLimit
-        }
-    }
+//    var isReachMaxUnmuteUserCount: Bool {
+//        guard let name = channelName,
+//            !Settings.shared.isProValue.value else { //非会员
+//            return false
+//        }
+////        if name.isPrivate {
+////            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.sSpeakerLimit
+////        } else {
+////            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.gSpeakerLimit
+////        }
+//        return false
+//    }
 
     //current channel name
     private(set) var channelName: String?
@@ -320,9 +321,9 @@ extension ChatRoomManager: RtcDelegate {
         delegate?.onAudioVolumeIndication(userId: uid, volume: volume)
     }
     
-    func onChannelUserChanged(users: [ChannelUser]) {
-        delegate?.onChannelUserChanged(users: users)
-    }
+//    func onChannelUserChanged(users: [ChannelUser]) {
+//        delegate?.onChannelUserChanged(users: users)
+//    }
 }
 
 //extension ChatRoomManager: RtmDelegate {

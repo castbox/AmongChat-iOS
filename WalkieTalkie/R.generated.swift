@@ -1228,7 +1228,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 30 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1258,14 +1258,8 @@ struct R: Rswift.Validatable {
     static let channelUserCell = _R.nib._ChannelUserCell()
     /// Nib `ChannelUserListController`.
     static let channelUserListController = _R.nib._ChannelUserListController()
-    /// Nib `CreateGlobalChannelController`.
-    static let createGlobalChannelController = _R.nib._CreateGlobalChannelController()
-    /// Nib `CreateSecretChannelController`.
-    static let createSecretChannelController = _R.nib._CreateSecretChannelController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
-    /// Nib `GlobalChannelContainer`.
-    static let globalChannelContainer = _R.nib._GlobalChannelContainer()
     /// Nib `GuideFirstView`.
     static let guideFirstView = _R.nib._GuideFirstView()
     /// Nib `GuideFourthView_b`.
@@ -1280,10 +1274,6 @@ struct R: Rswift.Validatable {
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
     /// Nib `PremiumContainer`.
     static let premiumContainer = _R.nib._PremiumContainer()
-    /// Nib `ScreenContainer`.
-    static let screenContainer = _R.nib._ScreenContainer()
-    /// Nib `SecretChannelContainer`.
-    static let secretChannelContainer = _R.nib._SecretChannelContainer()
     /// Nib `ShareContainerView`.
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
@@ -1375,28 +1365,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.channelUserListController)
     }
     
-    /// `UINib(name: "CreateGlobalChannelController", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.createGlobalChannelController) instead")
-    static func createGlobalChannelController(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.createGlobalChannelController)
-    }
-    
-    /// `UINib(name: "CreateSecretChannelController", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.createSecretChannelController) instead")
-    static func createSecretChannelController(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.createSecretChannelController)
-    }
-    
     /// `UINib(name: "EndUserLicenseController", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.endUserLicenseController) instead")
     static func endUserLicenseController(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
-    }
-    
-    /// `UINib(name: "GlobalChannelContainer", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.globalChannelContainer) instead")
-    static func globalChannelContainer(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.globalChannelContainer)
     }
     
     /// `UINib(name: "GuideFirstView", in: bundle)`
@@ -1439,18 +1411,6 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.premiumContainer) instead")
     static func premiumContainer(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.premiumContainer)
-    }
-    
-    /// `UINib(name: "ScreenContainer", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.screenContainer) instead")
-    static func screenContainer(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.screenContainer)
-    }
-    
-    /// `UINib(name: "SecretChannelContainer", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.secretChannelContainer) instead")
-    static func secretChannelContainer(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.secretChannelContainer)
     }
     
     /// `UINib(name: "ShareContainerView", in: bundle)`
@@ -1527,20 +1487,8 @@ struct R: Rswift.Validatable {
       return R.nib.channelUserListController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func createGlobalChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.createGlobalChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func createSecretChannelController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.createSecretChannelController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func globalChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.globalChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func guideFirstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1571,14 +1519,6 @@ struct R: Rswift.Validatable {
       return R.nib.premiumContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func screenContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.screenContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func secretChannelContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.secretChannelContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.shareContainerView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1594,7 +1534,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 4 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
@@ -1602,8 +1542,6 @@ struct R: Rswift.Validatable {
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
     /// Reuse identifier `ChannelUserCell`.
     static let channelUserCell: Rswift.ReuseIdentifier<ChannelUserCell> = Rswift.ReuseIdentifier(identifier: "ChannelUserCell")
-    /// Reuse identifier `SearchCell`.
-    static let searchCell: Rswift.ReuseIdentifier<SearchCell> = Rswift.ReuseIdentifier(identifier: "SearchCell")
     
     fileprivate init() {}
   }
@@ -4033,8 +3971,6 @@ struct _R: Rswift.Validatable {
       try _GuideSecondView.validate()
       try _GuideThirdView.validate()
       try _PremiumContainer.validate()
-      try _ScreenContainer.validate()
-      try _SecretChannelContainer.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _TikTokShareView.validate()
@@ -4245,42 +4181,9 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _CreateGlobalChannelController: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "CreateGlobalChannelController"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _CreateSecretChannelController: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "CreateSecretChannelController"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
     struct _EndUserLicenseController: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "EndUserLicenseController"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _GlobalChannelContainer: Rswift.NibResourceType {
-      let bundle = R.hostingBundle
-      let name = "GlobalChannelContainer"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
@@ -4418,44 +4321,6 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _ScreenContainer: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "ScreenContainer"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_mic' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg_g_d_pdf", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_d_pdf' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_screen_bg_g_shadow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_screen_bg_g_shadow' is used in nib 'ScreenContainer', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _SecretChannelContainer: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "SecretChannelContainer"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in nib 'SecretChannelContainer', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
     struct _ShareContainerView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "ShareContainerView"
@@ -4558,30 +4423,15 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "Main"
       let premiumViewController = StoryboardViewControllerResource<PremiumViewController>(identifier: "PremiumViewController")
-      let privateChannelController = StoryboardViewControllerResource<PrivateChannelController>(identifier: "PrivateChannelController")
-      let privateShareController = StoryboardViewControllerResource<PrivateShareController>(identifier: "PrivateShareController")
       let pushSettingController = StoryboardViewControllerResource<PushSettingController>(identifier: "PushSettingController")
-      let searchViewController = StoryboardViewControllerResource<SearchViewController>(identifier: "SearchViewController")
       let settingViewController = StoryboardViewControllerResource<SettingViewController>(identifier: "SettingViewController")
       
       func premiumViewController(_: Void = ()) -> PremiumViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: premiumViewController)
       }
       
-      func privateChannelController(_: Void = ()) -> PrivateChannelController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: privateChannelController)
-      }
-      
-      func privateShareController(_: Void = ()) -> PrivateShareController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: privateShareController)
-      }
-      
       func pushSettingController(_: Void = ()) -> PushSettingController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pushSettingController)
-      }
-      
-      func searchViewController(_: Void = ()) -> SearchViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: searchViewController)
       }
       
       func settingViewController(_: Void = ()) -> SettingViewController? {
@@ -4594,34 +4444,16 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_setting_diamonds", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_setting_diamonds' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_share_app", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_app' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_add", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_add' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_call_on", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_call_on' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_down", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_down' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_power", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_power' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_private_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_private_icon' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_share", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_share' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_up", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_up' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "home_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "home_connect_btn_bg_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'home_connect_btn_bg_b' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pri_ad", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_ad' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pri_join", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pri_join' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_push", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_push' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_room_lock", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_room_lock' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "speak_button_dis", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_dis' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "speak_button_nor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_nor' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "speak_button_pre", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'speak_button_pre' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
           if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'Main', but couldn't be loaded.") }
         }
         if _R.storyboard.main().premiumViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'premiumViewController' could not be loaded from storyboard 'Main' as 'PremiumViewController'.") }
-        if _R.storyboard.main().privateChannelController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateChannelController' could not be loaded from storyboard 'Main' as 'PrivateChannelController'.") }
-        if _R.storyboard.main().privateShareController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'privateShareController' could not be loaded from storyboard 'Main' as 'PrivateShareController'.") }
         if _R.storyboard.main().pushSettingController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pushSettingController' could not be loaded from storyboard 'Main' as 'PushSettingController'.") }
-        if _R.storyboard.main().searchViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'searchViewController' could not be loaded from storyboard 'Main' as 'SearchViewController'.") }
         if _R.storyboard.main().settingViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'settingViewController' could not be loaded from storyboard 'Main' as 'SettingViewController'.") }
       }
       

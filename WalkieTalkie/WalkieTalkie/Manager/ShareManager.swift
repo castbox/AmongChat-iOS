@@ -155,66 +155,68 @@ class ShareManager: NSObject {
                     }
                 }
             case .snapchat:
-                let shareView = SnapChatCreativeShareView(with: roomId)
-                viewController.view.addSubview(shareView)
-                guard let imageToShare = shareView.screenshot else {
-                    successHandler?()
-                    return
-                }
-                shareView.removeFromSuperview()
-                //            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
-                
-                /* Sticker to be used in the Snap */
-                //            let stickerImage = imageToShare!/* Prepare a sticker image */
-                let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
-                sticker.width = shareView.width
-                sticker.height = shareView.height
-                /* Alternatively, use a URL instead */
-                // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
-                
-                /* Modeling a Snap using SCSDKPhotoSnapContent */
-                let snapContent = SCSDKNoSnapContent()
-                snapContent.sticker = sticker /* Optional */
-                //            snapContent.caption = textToShare /* Optional */
-                snapContent.attachmentUrl = url /* Optional */
-                
-                // Send it over to Snapchat
-                
-                // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
-                //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
-                //       Either synchronize the method call yourself or disable user interaction until the share is over.
-                //                    let removeHandler = viewController.view.raft.show(.loading)
-                //            self.view.isUserInteractionEnabled = false
-                self.snapAPI.startSending(snapContent) { (error: Error?) in
-                    //                        removeHandler()
-                    successHandler?()
-                    //                self?.view.isUserInteractionEnabled = true
-                    //                self?.isSharing = false
-                    print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
-                }
+//                let shareView = SnapChatCreativeShareView(with: roomId)
+//                viewController.view.addSubview(shareView)
+//                guard let imageToShare = shareView.screenshot else {
+//                    successHandler?()
+//                    return
+//                }
+//                shareView.removeFromSuperview()
+//                //            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
+//
+//                /* Sticker to be used in the Snap */
+//                //            let stickerImage = imageToShare!/* Prepare a sticker image */
+//                let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
+//                sticker.width = shareView.width
+//                sticker.height = shareView.height
+//                /* Alternatively, use a URL instead */
+//                // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
+//
+//                /* Modeling a Snap using SCSDKPhotoSnapContent */
+//                let snapContent = SCSDKNoSnapContent()
+//                snapContent.sticker = sticker /* Optional */
+//                //            snapContent.caption = textToShare /* Optional */
+//                snapContent.attachmentUrl = url /* Optional */
+//
+//                // Send it over to Snapchat
+//
+//                // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
+//                //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
+//                //       Either synchronize the method call yourself or disable user interaction until the share is over.
+//                //                    let removeHandler = viewController.view.raft.show(.loading)
+//                //            self.view.isUserInteractionEnabled = false
+//                self.snapAPI.startSending(snapContent) { (error: Error?) in
+//                    //                        removeHandler()
+//                    successHandler?()
+//                    //                self?.view.isUserInteractionEnabled = true
+//                    //                self?.isSharing = false
+//                    print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
+//                }
+            ()
             case .ticktock:
-                _ = self.createImagesForTikTok(roomId, viewController: viewController)
-                    .observeOn(MainScheduler.asyncInstance)
-                    .subscribe(onNext: { localizlIdentifiers in
-                        guard localizlIdentifiers.count == 2 else {
-                            successHandler?()
-                            return
-                        }
-                        let request = TikTokOpenSDKShareRequest()
-                        request.mediaType = .image
-                        request.localIdentifiers = localizlIdentifiers
-//                        request.extraInfo =
-                        request.send { response in
-                            cdPrint(response.debugDescription)
-                            if response.errCode == .success {
-                                
-                            } else {
-                                //
-                            }
-                            successHandler?()
-
-                        }
-                    })
+                ()
+//                _ = self.createImagesForTikTok(roomId, viewController: viewController)
+//                    .observeOn(MainScheduler.asyncInstance)
+//                    .subscribe(onNext: { localizlIdentifiers in
+//                        guard localizlIdentifiers.count == 2 else {
+//                            successHandler?()
+//                            return
+//                        }
+//                        let request = TikTokOpenSDKShareRequest()
+//                        request.mediaType = .image
+//                        request.localIdentifiers = localizlIdentifiers
+////                        request.extraInfo =
+//                        request.send { response in
+//                            cdPrint(response.debugDescription)
+//                            if response.errCode == .success {
+//
+//                            } else {
+//                                //
+//                            }
+//                            successHandler?()
+//
+//                        }
+//                    })
                 
             case .more:
                 self.showActivity(name: roomId, dynamicLink: url, type: type, viewController: viewController, successHandler: successHandler)
@@ -257,30 +259,30 @@ class ShareManager: NSObject {
         viewController.present(activityVC, animated: true, completion: nil)
     }
     
-    private func createImagesForTikTok(_ channelName: String, viewController: UIViewController) -> Observable<[String]> {
-        var shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_1 : .public_1)
-        viewController.view.addSubview(shareView)
-        guard let imageToShare = shareView.screenshot else {
-            return .just([])
-        }
-        shareView.removeFromSuperview()
-        
-        shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_2 : .public_2)
-        viewController.view.addSubview(shareView)
-        guard let image2ToShare = shareView.screenshot else {
-            return .just([])
-        }
-        shareView.removeFromSuperview()
-        //save image to
-        return Observable.zip(PhotoManager.shared.saveImageObserve(imageToShare), PhotoManager.shared.saveImageObserve(image2ToShare))
-            .map { (item1, item2) -> [String] in
-                guard let item1 = item1, let item2 = item2 else {
-                    return []
-                }
-                return [item1, item2]
-            }
-            .subscribeOn(MainScheduler.asyncInstance)
-    }
+//    private func createImagesForTikTok(_ channelName: String, viewController: UIViewController) -> Observable<[String]> {
+//        var shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_1 : .public_1)
+//        viewController.view.addSubview(shareView)
+//        guard let imageToShare = shareView.screenshot else {
+//            return .just([])
+//        }
+//        shareView.removeFromSuperview()
+//        
+//        shareView = TikTokShareView(channelName, content: channelName.isPrivate ? .private_2 : .public_2)
+//        viewController.view.addSubview(shareView)
+//        guard let image2ToShare = shareView.screenshot else {
+//            return .just([])
+//        }
+//        shareView.removeFromSuperview()
+//        //save image to
+//        return Observable.zip(PhotoManager.shared.saveImageObserve(imageToShare), PhotoManager.shared.saveImageObserve(image2ToShare))
+//            .map { (item1, item2) -> [String] in
+//                guard let item1 = item1, let item2 = item2 else {
+//                    return []
+//                }
+//                return [item1, item2]
+//            }
+//            .subscribeOn(MainScheduler.asyncInstance)
+//    }
 }
 
 extension ShareManager: MFMessageComposeViewControllerDelegate {

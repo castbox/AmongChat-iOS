@@ -42,10 +42,10 @@ class ChannelUserCell: UITableViewCell {
             self.userAvatar.image = image            
         })
         
-        uidLabel.text = userViewModel.name
-        statuLabel.text = user.status.title
-        statuLabel.textColor = user.status.textColor
-        micView.image = user.status.micImage
+//        uidLabel.text = userViewModel.name
+//        statuLabel.text = user.status.title
+//        statuLabel.textColor = user.status.textColor
+//        micView.image = user.status.micImage
         prefixLabel.text = user.prefix
         if user.status == .talking {
             statuLabel.font = R.font.nunitoBold(size: 14)

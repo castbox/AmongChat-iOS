@@ -18,14 +18,14 @@ class ShareView: UIView, UIGestureRecognizerDelegate {
     private var contentView: ShareContainerView!
     private var isAutomaticShow: Bool = false
     
-    static func showWith(channel: Room, shareButton: UIButton, isAutomaticShow: Bool) {
-        let shareView = ShareView(frame: Frame.Screen.bounds, forView: shareButton)
-        shareView.alpha = 0
-        shareView.set(channel)
-        shareView.isAutomaticShow = isAutomaticShow
-        shareButton.parentViewController?.view.addSubview(shareView)
-        shareView.fadeIn(duration: AnimationDuration.fast.rawValue)
-    }
+//    static func showWith(channel: Room, shareButton: UIButton, isAutomaticShow: Bool) {
+//        let shareView = ShareView(frame: Frame.Screen.bounds, forView: shareButton)
+//        shareView.alpha = 0
+//        shareView.set(channel)
+//        shareView.isAutomaticShow = isAutomaticShow
+//        shareButton.parentViewController?.view.addSubview(shareView)
+//        shareView.fadeIn(duration: AnimationDuration.fast.rawValue)
+//    }
     
     init(frame: CGRect, forView: UIView) {
         super.init(frame: frame)
@@ -59,9 +59,9 @@ class ShareView: UIView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func set(_ channel: Room) {
-        contentView.set(channel)
-    }
+//    func set(_ channel: Room) {
+//        contentView.set(channel)
+//    }
     
     func hideView() {
        self.fadeOut(duration: AnimationDuration.fast.rawValue, completion: { [weak self] _ in
@@ -85,7 +85,7 @@ class ShareContainerView: XibLoadableView {
     var isAutomaticShow: Bool = false
 
     private var source: [Item] = []
-    private var channel: Room!
+//    private var channel: Room!
     var completionHandler: (() -> Void)? = nil
     
     override init(frame: CGRect) {
@@ -107,10 +107,10 @@ class ShareContainerView: XibLoadableView {
 //        return true
 //    }
     
-    func set(_ channel: Room) {
-        self.channel = channel
-        titleLabel.text = "Invite Friends to \(channel.name.showName)"
-    }
+//    func set(_ channel: Room) {
+//        self.channel = channel
+//        titleLabel.text = "Invite Friends to \(channel.name.showName)"
+//    }
     
     func updateSource() {
         ShareManager.ShareType.allCases
@@ -211,18 +211,18 @@ extension ShareContainerView: UICollectionViewDataSource {
 extension ShareContainerView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //select
-        guard let cell = collectionView.cellForItem(at: indexPath) as? Cell,
-            let item = source.safe(indexPath.item),
-            let channel = self.channel else {
-                return
-        }
-        self.isUserInteractionEnabled = false
-        cell.isAnimate = true
-        Logger.Share.log(.share, category: item.type.rawValue, isAutomaticShow.int.string)
-        ShareManager.default.share(with: channel.name, type: item.type, viewController: self.parentViewController!) { [weak self] in
-            self?.isUserInteractionEnabled = true
-            cell.isAnimate = false
-            self?.completionHandler?()
-        }
+//        guard let cell = collectionView.cellForItem(at: indexPath) as? Cell,
+//            let item = source.safe(indexPath.item),
+//            let channel = self.channel else {
+//                return
+//        }
+//        self.isUserInteractionEnabled = false
+//        cell.isAnimate = true
+//        Logger.Share.log(.share, category: item.type.rawValue, isAutomaticShow.int.string)
+//        ShareManager.default.share(with: channel.name, type: item.type, viewController: self.parentViewController!) { [weak self] in
+//            self?.isUserInteractionEnabled = true
+//            cell.isAnimate = false
+//            self?.completionHandler?()
+//        }
     }
 }
