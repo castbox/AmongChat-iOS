@@ -36,7 +36,6 @@ extension AmongChat.Room {
         var isEnableScreenEdgeGesture: Bool = false
         
         private typealias UserCell = AmongChat.Room.UserCell
-        private typealias ActionModal = ChannelUserListController.ActionModal
         
         private var room: Entity.Room
         private let viewModel: ViewModel
@@ -472,11 +471,7 @@ extension AmongChat.Room.ViewController {
             maker.left.right.equalToSuperview()
             maker.height.equalTo(42)
         }
-        
-//        if channel.name.isPrivate {
-//            showShareController(channelName: channel.name)
-//        }
-        
+                
 //        if let adView = self.adView {
 //            adContainer.addSubview(adView)
 //            adView.snp.makeConstraints { (maker) in
@@ -487,11 +482,6 @@ extension AmongChat.Room.ViewController {
 
     }
     
-    private func showShareController(channelName: String) {
-        let controller = R.storyboard.main.privateShareController()
-        controller?.channelName = channelName
-        controller?.showModal(in: self)
-    }
     
     private func bindSubviewEvent() {
 //        let removeBlock = view.raft.show(.loading, userInteractionEnabled: false)

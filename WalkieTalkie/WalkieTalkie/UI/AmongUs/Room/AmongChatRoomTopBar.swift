@@ -91,7 +91,7 @@ class AmongChatRoomTopBar: XibLoadableView {
             changePublicStateHandler?()
         } else {
             Logger.Action.log(.room_change_state_clk, categoryValue: room?.topicId)
-            self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+            self.containingController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
         }
     }
 

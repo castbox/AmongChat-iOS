@@ -30,8 +30,8 @@ class TikTokShareView: XibLoadableView {
         self.channelName = channelName
         super.init(frame: CGRect(x: 0, y: 0, width: 375, height: 812))
         backgroundImageView.image = content.backgroundImage
-        channelNameLabel.text = channelName.showName
-        shareContentLabel.text = content.contentTitle(channelName.showName)
+//        channelNameLabel.text = channelName.showName
+//        shareContentLabel.text = content.contentTitle(channelName.showName)
         shareContentleftConstraint.constant = content.titleleftEdge
 //        layoutIfNeeded()
     }

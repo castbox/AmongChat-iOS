@@ -32,16 +32,16 @@ class Automator {
         FireMessaging.shared.anpsMessageWillShowValue()
             .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { (message) in
-                guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-                    return
-                }
-                
-                roomVc.onPushReceived()
+//                guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+//                    return
+//                }
+//
+//                roomVc.onPushReceived()
             })
             .disposed(by: bag)
         
         //只有登录才上报
-        Observable.combineLatest(Settings.shared.loginResult.replay(), FireMessaging.shared.fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+        Observable.combineLatest(Settings.shared.loginResult.replay(), FireMessaging.shared.fcmTokenValue()) //, Settings.shared.isOpenSubscribeHotTopic.replay()
             .filter { $0.0 != nil }
             .map { $0.1 }
             .do(onNext: { (message) in

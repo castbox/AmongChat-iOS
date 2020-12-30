@@ -161,7 +161,7 @@ extension AmongChat.Room {
         
         func showAvatarSheet(with user: Entity.RoomUser) {
             guard user.uid != Settings.loginUserId,
-                  let viewController = viewContainingController() else {
+                  let viewController = containingController else {
                 return
             }
             Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)

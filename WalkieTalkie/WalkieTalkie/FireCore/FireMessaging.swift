@@ -41,27 +41,27 @@
                 }
             })
         
-        _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
-            .filter { $0.0.fcmToken != nil }
-            .map { $0.1 }
-            .debug()
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { value in
-                oldHotTopic.forEach { topic in
-                    Messaging.messaging().unsubscribe(fromTopic: topic)
-                }
-                defaultHotTopic.forEach { topic in
-                    if value {
-                        Messaging.messaging().subscribe(toTopic: topic) { error in
-                            cdPrint("[Messaging.messaging()] subscribe result: \(error.debugDescription)")
-                        }
-                    } else {
-                        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-                            cdPrint("[Messaging.messaging()] unsubscribe result: \(error.debugDescription)")
-                        }
-                    }
-                }
-            })
+//        _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+//            .filter { $0.0.fcmToken != nil }
+//            .map { $0.1 }
+//            .debug()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { value in
+//                oldHotTopic.forEach { topic in
+//                    Messaging.messaging().unsubscribe(fromTopic: topic)
+//                }
+//                defaultHotTopic.forEach { topic in
+//                    if value {
+//                        Messaging.messaging().subscribe(toTopic: topic) { error in
+//                            cdPrint("[Messaging.messaging()] subscribe result: \(error.debugDescription)")
+//                        }
+//                    } else {
+//                        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+//                            cdPrint("[Messaging.messaging()] unsubscribe result: \(error.debugDescription)")
+//                        }
+//                    }
+//                }
+//            })
         
     }
     

@@ -14,7 +14,7 @@ class SnapChatCreativeShareView: XibLoadableView {
     
     init(with channel: String?) {
         super.init(frame: CGRect(x: 0, y: 0, width: 243, height: 180))
-        channelNameLabel.text = channel?.showName ?? "WELCOME"
+//        channelNameLabel.text = channel?.showName ?? "WELCOME"
     }
     
     override init(frame: CGRect) {

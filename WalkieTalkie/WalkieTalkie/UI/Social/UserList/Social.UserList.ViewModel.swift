@@ -35,16 +35,16 @@ extension Social.UserList {
         }
         
         var channelName: String {
-            if channelIsSecrete {
-                return "Secret Room"
-            } else {
+//            if channelIsSecrete {
+//                return "Secret Room"
+//            } else {
                 return user.status.currentChannel
-            }
+//            }
         }
         
-        var channelIsSecrete: Bool {
-            return user.status.currentChannel.isPrivate
-        }
+//        var channelIsSecrete: Bool {
+//            return user.status.currentChannel.isPrivate
+//        }
         
         var online: Bool {
 //            guard let selfUid = Settings.shared.loginResult.value?.uid,
@@ -101,33 +101,33 @@ extension Social.UserList {
                 return (false, R.string.localizable.socialJoinAction())
             }
             
-            guard channelIsSecrete == false else {
-
-                if let lastSent = Defaults[\.joinChannelRequestsSentKey][userId],
-                    Date().timeIntervalSince(Date(timeIntervalSince1970: lastSent)) < 5 * 60 {
-                    return (false, R.string.localizable.socialJoinActionSent())
-                } else {
-                    return (true, R.string.localizable.socialJoinAction())
-                }
-            }
+//            guard channelIsSecrete == false else {
+//
+//                if let lastSent = Defaults[\.joinChannelRequestsSentKey][userId],
+//                    Date().timeIntervalSince(Date(timeIntervalSince1970: lastSent)) < 5 * 60 {
+//                    return (false, R.string.localizable.socialJoinActionSent())
+//                } else {
+//                    return (true, R.string.localizable.socialJoinAction())
+//                }
+//            }
             
             return (!channelName.isEmpty, R.string.localizable.socialJoinAction())
         }
         
         func joinUserRoom() {
-            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
-            if channelIsSecrete {
-                FireStore.shared.sendJoinChannelRequest(from: profile, to: userId, toJoin: channelId)
-                UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.channelJoinRequestSentTip()))
-                var sentList = Defaults[\.joinChannelRequestsSentKey]
-                sentList[userId] = Date().timeIntervalSince1970
-                Defaults[\.joinChannelRequestsSentKey] = sentList
-                viewRefresh?()
-            } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
-                // join channel directly
-                roomVC.joinRoom(channelId)
-                UIApplication.navigationController?.popToRootViewController(animated: true)
-            }
+//            guard let profile = Settings.shared.firestoreUserProfile.value else { return }
+//            if channelIsSecrete {
+//                FireStore.shared.sendJoinChannelRequest(from: profile, to: userId, toJoin: channelId)
+//                UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.channelJoinRequestSentTip()))
+//                var sentList = Defaults[\.joinChannelRequestsSentKey]
+//                sentList[userId] = Date().timeIntervalSince1970
+//                Defaults[\.joinChannelRequestsSentKey] = sentList
+//                viewRefresh?()
+//            } else if let roomVC = UIApplication.navigationController?.viewControllers.first as? RoomViewController {
+//                // join channel directly
+//                roomVC.joinRoom(channelId)
+//                UIApplication.navigationController?.popToRootViewController(animated: true)
+//            }
             
         }
         

@@ -31,7 +31,7 @@ class FireStore {
     //
     static let shared = FireStore()
     
-    static let defaultRoom = Room(name: "WELCOME", user_count: 0)
+//    static let defaultRoom = Room(name: "WELCOME", user_count: 0)
     
     let channels = [
         ChannelCategory(id: 101, name: "AmongUs", type: .amongUs),
@@ -59,20 +59,20 @@ class FireStore {
     
     private static let amongUsMaxOnlineUser = Int(10)
     
-    let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
-    var secretChannels: [Room] {
-        return secretChannelsSubject.value
-    }
+//    let secretChannelsSubject = BehaviorRelay<[Room]>(value: [])
+//    var secretChannels: [Room] {
+//        return secretChannelsSubject.value
+//    }
+//
+//    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
+//    var publicChannels: [Room] {
+//        return publicChannelsSubject.value
+//    }
     
-    let publicChannelsSubject = BehaviorRelay<[Room]>(value: [])
-    var publicChannels: [Room] {
-        return publicChannelsSubject.value
-    }
-    
-    let channelConfigSubject = BehaviorRelay<ChannelConfig>(value: .default)
-    static var channelConfig: ChannelConfig {
-        return shared.channelConfigSubject.value
-    }
+//    let channelConfigSubject = BehaviorRelay<ChannelConfig>(value: .default)
+//    static var channelConfig: ChannelConfig {
+//        return shared.channelConfigSubject.value
+//    }
     
     lazy var db: Firestore = {
         let db = Firestore.firestore()
@@ -134,15 +134,15 @@ class FireStore {
 //                            })
 //                    })
                 
-                if Config.environment == .debug {
-                    _ = self.channelConfigObservalbe()
-                        .catchErrorJustReturn(.default)
-                        .bind(to: self.channelConfigSubject)
-                } else {
-                    _ = self.channelConfigObservalbe()
-                        .catchErrorJustReturn(.default)
-                        .bind(to: self.channelConfigSubject)
-                }
+//                if Config.environment == .debug {
+//                    _ = self.channelConfigObservalbe()
+//                        .catchErrorJustReturn(.default)
+//                        .bind(to: self.channelConfigSubject)
+//                } else {
+//                    _ = self.channelConfigObservalbe()
+//                        .catchErrorJustReturn(.default)
+//                        .bind(to: self.channelConfigSubject)
+//                }
             })
         
         let _ = Settings.shared.loginResult.replay()
@@ -208,41 +208,41 @@ class FireStore {
             })
     }
     
-    func findValidRoom(with name: String, defaultUserCount: Int = 1) -> Room {
-        var room: Room?
-        if name.isPrivate {
-            room = FireStore.shared.secretChannels.first(where: { $0.name == name })
-        } else {
-            room = FireStore.shared.publicChannels.first(where: { $0.name == name })
-        }
-        return room ?? Room(name: name, user_count: defaultUserCount)
-    }
-    
-    func isValidSecretChannel(_ name: String?) -> Bool {
-        guard let name = name else {
-            return false
-        }
-        return FireStore.shared.secretChannels.contains(where: { $0.name == name }) //则检查是否存在
-    }
-    
-    func checkIsValidSecretChannel(_ name: String?, completionHandler: @escaping (Bool) -> Void) {
-        db.collection(Root.secrets)
-            .getDocuments(source: .server, completion: { (query, error) in
-                if let error = error {
-                    cdPrint("FireStore Error new: \(error)")
-                    completionHandler(false)
-                    return
-                } else {
-                    guard let query = query else {
-                        completionHandler(false)
-                        return
-                    }
-                    let result = query.toRoomList().contains(where: { $0.name == name })
-                    completionHandler(result)
-                }
-            })
-        
-    }
+//    func findValidRoom(with name: String, defaultUserCount: Int = 1) -> Room {
+//        var room: Room?
+//        if name.isPrivate {
+//            room = FireStore.shared.secretChannels.first(where: { $0.name == name })
+//        } else {
+//            room = FireStore.shared.publicChannels.first(where: { $0.name == name })
+//        }
+//        return room ?? Room(name: name, user_count: defaultUserCount)
+//    }
+//
+//    func isValidSecretChannel(_ name: String?) -> Bool {
+//        guard let name = name else {
+//            return false
+//        }
+//        return FireStore.shared.secretChannels.contains(where: { $0.name == name }) //则检查是否存在
+//    }
+//
+//    func checkIsValidSecretChannel(_ name: String?, completionHandler: @escaping (Bool) -> Void) {
+//        db.collection(Root.secrets)
+//            .getDocuments(source: .server, completion: { (query, error) in
+//                if let error = error {
+//                    cdPrint("FireStore Error new: \(error)")
+//                    completionHandler(false)
+//                    return
+//                } else {
+//                    guard let query = query else {
+//                        completionHandler(false)
+//                        return
+//                    }
+//                    let result = query.toRoomList().contains(where: { $0.name == name })
+//                    completionHandler(result)
+//                }
+//            })
+//
+//    }
     
     func channelConfigObservalbe() -> Observable<FireStore.ChannelConfig> {
         return Observable<FireStore.ChannelConfig>.create({ [weak self] (observer) -> Disposable in
@@ -271,316 +271,316 @@ class FireStore {
         })
     }
     
-    private func onlineChannelList() -> Observable<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            let ref = self?.db.collection(Root.channels)
-                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onNext([])
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onNext([])
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                    }
-                })
-            
-            return Disposables.create {
-                ref?.remove()
-            }
-        })
-            .startWith([FireStore.defaultRoom])
-    }
+//    private func onlineChannelList() -> Observable<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//            let ref = self?.db.collection(Root.channels)
+//                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onNext([])
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onNext([])
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                    }
+//                })
+//
+//            return Disposables.create {
+//                ref?.remove()
+//            }
+//        })
+//            .startWith([FireStore.defaultRoom])
+//    }
     
-    private func fetchOnlineChannelList() -> Single<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            self?.db.collection(Root.channels)
-                .getDocuments(completion: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onError(error)
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                        observer.onCompleted()
-                    }
-                })
-            
-            return Disposables.create { }
-        })
-            .asSingle()
-    }
+//    private func fetchOnlineChannelList() -> Single<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//            self?.db.collection(Root.channels)
+//                .getDocuments(completion: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onError(error)
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                        observer.onCompleted()
+//                    }
+//                })
+//
+//            return Disposables.create { }
+//        })
+//            .asSingle()
+//    }
     
-    private func fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            
-            guard let `self` = self,
-                channelIds.count > 0 else {
-                observer.onNext([])
-                observer.onCompleted()
-                return Disposables.create { }
-            }
-            
-            let idsChunk = channelIds.chunked(into: 10)
-            
-            let obs = idsChunk.map { self._fetchSecretChannelList(of: $0).catchErrorJustReturn([]) }
-            
-            let d = Observable.from(obs)
-                .flatMap { $0 }
-                .subscribe(onNext: { (rooms) in
-                    observer.onNext(rooms)
-                    observer.onCompleted()
-                }, onError: { (error) in
-                    observer.onError(error)
-                })
-            
-            return Disposables.create {
-                d.dispose()
-            }
-        })
-            .asSingle()
-    }
+//    private func fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//
+//            guard let `self` = self,
+//                channelIds.count > 0 else {
+//                observer.onNext([])
+//                observer.onCompleted()
+//                return Disposables.create { }
+//            }
+//
+//            let idsChunk = channelIds.chunked(into: 10)
+//
+//            let obs = idsChunk.map { self._fetchSecretChannelList(of: $0).catchErrorJustReturn([]) }
+//
+//            let d = Observable.from(obs)
+//                .flatMap { $0 }
+//                .subscribe(onNext: { (rooms) in
+//                    observer.onNext(rooms)
+//                    observer.onCompleted()
+//                }, onError: { (error) in
+//                    observer.onError(error)
+//                })
+//
+//            return Disposables.create {
+//                d.dispose()
+//            }
+//        })
+//            .asSingle()
+//    }
     
-    private func _fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            
-            guard channelIds.count > 0 else {
-                observer.onNext([])
-                observer.onCompleted()
-                return Disposables.create { }
-            }
-            
-            self?.db.collection(Root.secrets)
-                .whereField(FieldPath.documentID(), in: channelIds)
-                .getDocuments(completion: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onError(error)
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                        observer.onCompleted()
-                    }
-                })
-            
-            return Disposables.create { }
-        })
-            .asSingle()
-    }
+//    private func _fetchSecretChannelList(of channelIds: [String]) -> Single<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//
+//            guard channelIds.count > 0 else {
+//                observer.onNext([])
+//                observer.onCompleted()
+//                return Disposables.create { }
+//            }
+//
+//            self?.db.collection(Root.secrets)
+//                .whereField(FieldPath.documentID(), in: channelIds)
+//                .getDocuments(completion: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onError(error)
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                        observer.onCompleted()
+//                    }
+//                })
+//
+//            return Disposables.create { }
+//        })
+//            .asSingle()
+//    }
     
-    private func secretChannelList() -> Observable<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            let ref = self?.db.collection(Root.secrets)
-                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onNext([])
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onNext([])
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                    }
-                })
-            
-            return Disposables.create {
-                ref?.remove()
-            }
-        })
-        .startWith([])
-    }
+//    private func secretChannelList() -> Observable<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//            let ref = self?.db.collection(Root.secrets)
+//                .addSnapshotListener(includeMetadataChanges: true, listener: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onNext([])
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onNext([])
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                    }
+//                })
+//
+//            return Disposables.create {
+//                ref?.remove()
+//            }
+//        })
+//        .startWith([])
+//    }
     
-    func update(emoji: [String], for channel: String, completionHandler: ((Bool) -> Void)? = nil) -> String {
-        let updated = String(Date().timeIntervalSince1970).hashed(.md5) ?? ""
-        let data: [String: Any] = ["emoji": [
-            "chars": emoji,
-            "updated": updated, ]
-        ]
-        
-        if !channel.isPrivate {
-            guard publicChannels.contains(where: { $0.name == channel }) else {
-                completionHandler?(false)
-                return updated
-            }
-            //检查是否存在
-            db.collection(Root.channels)
-                .document(channel)
-                .setData(data, merge: true, completion: { (error) in
-                    if let error = error {
-                        cdPrint("failed: \(error)")
-                        completionHandler?(false)
-                    } else {
-                        cdPrint("success")
-                        completionHandler?(true)
-                    }
-                })
-            
-        } else {
-            guard secretChannels.contains(where: { $0.name == channel }) else {
-                completionHandler?(false)
-                return updated
-            }
-            //检查是否存在
-            db.collection(Root.secrets)
-                .document(channel)
-                .setData(data, merge: true, completion: { (error) in
-                    if let error = error {
-                        cdPrint("failed: \(error)")
-                        completionHandler?(false)
-                    } else {
-                        cdPrint("success")
-                        completionHandler?(true)
-                    }
-                })
-        }
-        return updated
-    }
+//    func update(emoji: [String], for channel: String, completionHandler: ((Bool) -> Void)? = nil) -> String {
+//        let updated = String(Date().timeIntervalSince1970).hashed(.md5) ?? ""
+//        let data: [String: Any] = ["emoji": [
+//            "chars": emoji,
+//            "updated": updated, ]
+//        ]
+//
+//        if !channel.isPrivate {
+//            guard publicChannels.contains(where: { $0.name == channel }) else {
+//                completionHandler?(false)
+//                return updated
+//            }
+//            //检查是否存在
+//            db.collection(Root.channels)
+//                .document(channel)
+//                .setData(data, merge: true, completion: { (error) in
+//                    if let error = error {
+//                        cdPrint("failed: \(error)")
+//                        completionHandler?(false)
+//                    } else {
+//                        cdPrint("success")
+//                        completionHandler?(true)
+//                    }
+//                })
+//
+//        } else {
+//            guard secretChannels.contains(where: { $0.name == channel }) else {
+//                completionHandler?(false)
+//                return updated
+//            }
+//            //检查是否存在
+//            db.collection(Root.secrets)
+//                .document(channel)
+//                .setData(data, merge: true, completion: { (error) in
+//                    if let error = error {
+//                        cdPrint("failed: \(error)")
+//                        completionHandler?(false)
+//                    } else {
+//                        cdPrint("success")
+//                        completionHandler?(true)
+//                    }
+//                })
+//        }
+//        return updated
+//    }
     
-    func observerEmoji(at channel: String) -> Observable<Room?> {
-        return Observable<Room?>.create({ [weak self] (observer) -> Disposable in
-            var documentRef: DocumentReference? {
-                if channel.isPrivate {
-                    return self?.db.collection(Root.secrets)
-                        .document(channel)
-                }  else {
-                    return self?.db.collection(Root.channels)
-                        .document(channel)
-                }
-            }
-            let ref = documentRef?
-                .addSnapshotListener({ snapshot, error in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        //                        observer.onNext()
-                        return
-                    } else {
-                        guard let data = snapshot?.toRoom() else {
-                            //                            observer.onNext([])
-                            return
-                        }
-                        observer.onNext(data)
-                    }
-                })
-            return Disposables.create {
-                ref?.remove()
-            }
-        })
-    }
+//    func observerEmoji(at channel: String) -> Observable<Room?> {
+//        return Observable<Room?>.create({ [weak self] (observer) -> Disposable in
+//            var documentRef: DocumentReference? {
+//                if channel.isPrivate {
+//                    return self?.db.collection(Root.secrets)
+//                        .document(channel)
+//                }  else {
+//                    return self?.db.collection(Root.channels)
+//                        .document(channel)
+//                }
+//            }
+//            let ref = documentRef?
+//                .addSnapshotListener({ snapshot, error in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        //                        observer.onNext()
+//                        return
+//                    } else {
+//                        guard let data = snapshot?.toRoom() else {
+//                            //                            observer.onNext([])
+//                            return
+//                        }
+//                        observer.onNext(data)
+//                    }
+//                })
+//            return Disposables.create {
+//                ref?.remove()
+//            }
+//        })
+//    }
     
-    func fetchSecretChannel(of channel: String) -> Single<Room?> {
-        
-        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
-            self?.db.collection(Root.secrets)
-                .document(channel)
-                .getDocument(completion: { (doc, error) in
-                    if let error = error {
-                        subscriber.onError(error)
-                    } else {
-                        let room = doc?.toRoom()
-                        subscriber.onNext(room)
-                        subscriber.onCompleted()
-                        
-                        if let room = room,
-                            let `self` = self {
-                            var secretRooms = self.secretChannelsSubject.value
-                            if let idx = secretRooms.firstIndex(where: { $0.name == room.name }) {
-                                secretRooms[idx] = room
-                            } else {
-                                secretRooms.append(room)
-                            }
-                            self.secretChannelsSubject.accept(secretRooms)
-                        }
-                    }
-                })
-            
-            return Disposables.create { }
-        }
-        .asSingle()
-        
-    }
+//    func fetchSecretChannel(of channel: String) -> Single<Room?> {
+//
+//        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
+//            self?.db.collection(Root.secrets)
+//                .document(channel)
+//                .getDocument(completion: { (doc, error) in
+//                    if let error = error {
+//                        subscriber.onError(error)
+//                    } else {
+//                        let room = doc?.toRoom()
+//                        subscriber.onNext(room)
+//                        subscriber.onCompleted()
+//
+//                        if let room = room,
+//                            let `self` = self {
+//                            var secretRooms = self.secretChannelsSubject.value
+//                            if let idx = secretRooms.firstIndex(where: { $0.name == room.name }) {
+//                                secretRooms[idx] = room
+//                            } else {
+//                                secretRooms.append(room)
+//                            }
+//                            self.secretChannelsSubject.accept(secretRooms)
+//                        }
+//                    }
+//                })
+//
+//            return Disposables.create { }
+//        }
+//        .asSingle()
+//
+//    }
     
-    func channelObservable(of channel: String) -> Observable<Room?> {
-        let root: String
-        
-        if channel.isPrivate {
-            root = Root.secrets
-        } else {
-            root = Root.channels
-        }
-        return _channelObservable(of: channel, root: root)
-    }
+//    func channelObservable(of channel: String) -> Observable<Room?> {
+//        let root: String
+//
+//        if channel.isPrivate {
+//            root = Root.secrets
+//        } else {
+//            root = Root.channels
+//        }
+//        return _channelObservable(of: channel, root: root)
+//    }
     
-    private func _channelObservable(of channel: String, root: String) -> Observable<Room?> {
-        
-        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
-            
-            let ref = self?.db.collection(root)
-                .document(channel)
-                .addSnapshotListener({ (doc, error) in
-                    guard error == nil else {
-                        subscriber.onError(error!)
-                        return
-                    }
-                    
-                    guard let doc = doc else {
-                        subscriber.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
-                        return
-                    }
-                    
-                    subscriber.onNext(doc.toRoom())
-                })
-            
-            return Disposables.create {
-                ref?.remove()
-            }
-        }
-        
-    }
+//    private func _channelObservable(of channel: String, root: String) -> Observable<Room?> {
+//
+//        return Observable<Room?>.create { [weak self] (subscriber) -> Disposable in
+//
+//            let ref = self?.db.collection(root)
+//                .document(channel)
+//                .addSnapshotListener({ (doc, error) in
+//                    guard error == nil else {
+//                        subscriber.onError(error!)
+//                        return
+//                    }
+//
+//                    guard let doc = doc else {
+//                        subscriber.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+//                        return
+//                    }
+//
+//                    subscriber.onNext(doc.toRoom())
+//                })
+//
+//            return Disposables.create {
+//                ref?.remove()
+//            }
+//        }
+//
+//    }
     
 }
 
 extension QuerySnapshot {
-    func toRoomList() -> [Room] {
-        return documents
-            .map { $0.toRoom() }
-            .compactMap { $0 }
-    }
+//    func toRoomList() -> [Room] {
+//        return documents
+//            .map { $0.toRoom() }
+//            .compactMap { $0 }
+//    }
 }
 
 extension DocumentSnapshot {
-    func toRoom() -> Room? {
-        guard let data = data() else {
-            return nil
-        }
-        let count = data["user_count"] as? Int ?? 0
-        let persistence = data["persistence"] as? Bool ?? false
-        var emoji: Room.Emoji?
-        if let emojiData = data["emoji"] as? [String: Any] {
-            emoji = try? JSONDecoder().decodeAnyData(Room.Emoji.self, from: emojiData)
-        }
-        
-        let userList: [UInt] = data["user_list"] as? [UInt] ?? []
-        var room = Room(name: documentID, user_count: count, persistence: persistence, emoji: emoji)
-        room.user_list = userList
-        return room
-    }
+//    func toRoom() -> Room? {
+//        guard let data = data() else {
+//            return nil
+//        }
+//        let count = data["user_count"] as? Int ?? 0
+//        let persistence = data["persistence"] as? Bool ?? false
+//        var emoji: Room.Emoji?
+//        if let emojiData = data["emoji"] as? [String: Any] {
+//            emoji = try? JSONDecoder().decodeAnyData(Room.Emoji.self, from: emojiData)
+//        }
+//
+//        let userList: [UInt] = data["user_list"] as? [UInt] ?? []
+//        var room = Room(name: documentID, user_count: count, persistence: persistence, emoji: emoji)
+//        room.user_list = userList
+//        return room
+//    }
 }
 
 extension WalkieTalkie.FireStore {
@@ -626,81 +626,81 @@ extension WalkieTalkie.FireStore {
     
 extension WalkieTalkie.FireStore {
     
-    private func fetchChannels(of root: String) -> Single<[Room]> {
-        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
-            self?.db.collection(root)
-                .getDocuments(completion: { (query, error) in
-                    if let error = error {
-                        cdPrint("FireStore Error new: \(error)")
-                        observer.onError(error)
-                        return
-                    } else {
-                        guard let query = query else {
-                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
-                            return
-                        }
-                        let list = query.toRoomList()
-                        observer.onNext(list)
-                        observer.onCompleted()
-                    }
-                })
-            
-            return Disposables.create { }
-        })
-        .asSingle()
-    }
+//    private func fetchChannels(of root: String) -> Single<[Room]> {
+//        return Observable<[Room]>.create({ [weak self] (observer) -> Disposable in
+//            self?.db.collection(root)
+//                .getDocuments(completion: { (query, error) in
+//                    if let error = error {
+//                        cdPrint("FireStore Error new: \(error)")
+//                        observer.onError(error)
+//                        return
+//                    } else {
+//                        guard let query = query else {
+//                            observer.onError(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Error fetching snapshots"]))
+//                            return
+//                        }
+//                        let list = query.toRoomList()
+//                        observer.onNext(list)
+//                        observer.onCompleted()
+//                    }
+//                })
+//
+//            return Disposables.create { }
+//        })
+//        .asSingle()
+//    }
     
-    func findAPrivateRoom(with name: String? = nil) -> Single<Room> {
-        
-        let newRoomName: String
-        
-        if let name = name {
-            newRoomName = ChannelCategory.secretCategory.roomPrefix + name
-        } else {
-            newRoomName = createUniqueChannelName(of: .secretCategory, exclude: [])
-        }
-        
-        var room = Room(name: newRoomName, user_count: 0)
-        room.channelCategory = ChannelCategory.secretCategory
-        return Observable.of(room).asSingle()
-    }
-    
-    func findAGroupChatRoom(with name: String) -> Single<Room> {
-        
-        guard let cat = allChannelCategories.first(where: { $0.type == .groupChat }) else {
-            return findAPrivateRoom(with: name)
-        }
-        
-        let newRoomName = cat.roomPrefix + name
-        var room = Room(name: newRoomName, user_count: 0)
-        room.channelCategory = cat
-        return Observable.of(room).asSingle()
-    }
-    
-    private func createUniqueChannelName(of channelCategory: ChannelCategory, exclude nameSet: [String]) -> String {
-        
-        let channelName = channelCategory.roomPrefix + PasswordGenerator.shared.generate()
-        guard !nameSet.contains(channelName) else {
-            return createUniqueChannelName(of: channelCategory, exclude: nameSet)
-        }
-        return channelName
-    }
-    
-    func findARoom(of channelCategory: ChannelCategory) -> Single<Room> {
-        return fetchChannels(of: channelCategory.rootName)
-            .catchErrorJustReturn([])
-            .map({ (rooms) -> Room in
-                if var room = rooms
-                    .sorted(by: \.user_count, with: >)
-                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
-                    room.channelCategory = channelCategory
-                    return room
-                } else {
-                    let newRoomName = self.createUniqueChannelName(of: channelCategory, exclude: rooms.map({ $0.name }))
-                    var room = Room(name: newRoomName, user_count: 0)
-                    room.channelCategory = channelCategory
-                    return room
-                }
-            })
-    }
+//    func findAPrivateRoom(with name: String? = nil) -> Single<Room> {
+//
+//        let newRoomName: String
+//
+//        if let name = name {
+//            newRoomName = ChannelCategory.secretCategory.roomPrefix + name
+//        } else {
+//            newRoomName = createUniqueChannelName(of: .secretCategory, exclude: [])
+//        }
+//
+//        var room = Room(name: newRoomName, user_count: 0)
+//        room.channelCategory = ChannelCategory.secretCategory
+//        return Observable.of(room).asSingle()
+//    }
+//
+//    func findAGroupChatRoom(with name: String) -> Single<Room> {
+//
+//        guard let cat = allChannelCategories.first(where: { $0.type == .groupChat }) else {
+//            return findAPrivateRoom(with: name)
+//        }
+//
+//        let newRoomName = cat.roomPrefix + name
+//        var room = Room(name: newRoomName, user_count: 0)
+//        room.channelCategory = cat
+//        return Observable.of(room).asSingle()
+//    }
+//
+//    private func createUniqueChannelName(of channelCategory: ChannelCategory, exclude nameSet: [String]) -> String {
+//
+//        let channelName = channelCategory.roomPrefix + PasswordGenerator.shared.generate()
+//        guard !nameSet.contains(channelName) else {
+//            return createUniqueChannelName(of: channelCategory, exclude: nameSet)
+//        }
+//        return channelName
+//    }
+//
+//    func findARoom(of channelCategory: ChannelCategory) -> Single<Room> {
+//        return fetchChannels(of: channelCategory.rootName)
+//            .catchErrorJustReturn([])
+//            .map({ (rooms) -> Room in
+//                if var room = rooms
+//                    .sorted(by: \.user_count, with: >)
+//                    .first(where: { $0.user_count < FireStore.amongUsMaxOnlineUser }) {
+//                    room.channelCategory = channelCategory
+//                    return room
+//                } else {
+//                    let newRoomName = self.createUniqueChannelName(of: channelCategory, exclude: rooms.map({ $0.name }))
+//                    var room = Room(name: newRoomName, user_count: 0)
+//                    room.channelCategory = channelCategory
+//                    return room
+//                }
+//            })
+//    }
 }
