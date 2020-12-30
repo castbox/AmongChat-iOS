@@ -193,7 +193,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
         if let user = userList.safe(indexPath.row) {
-            cell.configView(with: user, isFollowing: isFollowing)
+            cell.configView(with: user)
             cell.updateFollowData = { [weak self] (follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
@@ -307,13 +307,9 @@ extension Social {
                 }).disposed(by: bag)
         }
         
-        func configView(with model: Entity.UserProfile, isFollowing: Bool) {
+        func configView(with model: Entity.UserProfile) {
             self.userInfo = model
-            if isFollowing {
-                followBtn.isHidden = true
-            } else {
-                followBtn.isHidden = false
-            }
+            followBtn.isHidden = false
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
             let isfollow = model.isFollowed ?? false
