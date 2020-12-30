@@ -212,6 +212,17 @@ extension Entity {
             var topicId: String
             var playerCount: Int
             var topicName: String
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                
+                self.roomId = try container.decodeString(.roomId)
+                let stateStr = (try? container.decodeString(.state)) ?? ""
+                self.state = RoomPublicType(rawValue: stateStr) ?? .private
+                self.topicId = try container.decodeString(.topicId)
+                self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
+                self.topicName = try container.decodeString(.topicName)
+            }
         }
         
         var room: Room?

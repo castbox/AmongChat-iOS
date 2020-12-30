@@ -146,12 +146,7 @@ extension AmongChat.Home {
         }
         
         var roomState: Entity.RoomPublicType? {
-            
-            guard let room = playingModel.room else {
-                return nil
-            }
-            
-            return room.state
+            return playingModel.room?.state
         }
         
         var roomId: String? {
