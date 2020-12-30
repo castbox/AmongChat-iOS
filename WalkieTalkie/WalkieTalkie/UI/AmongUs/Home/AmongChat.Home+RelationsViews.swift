@@ -264,7 +264,7 @@ extension AmongChat.Home {
         
         private var titleLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             return lb
         }()
