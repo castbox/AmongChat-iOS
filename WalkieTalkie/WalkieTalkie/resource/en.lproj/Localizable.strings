@@ -254,7 +254,7 @@
 "among.chat.login.sign.in.with.apple" = "Sign in with Apple";
 "among.chat.login.sign.in.cancelled" = "Login Cancelled";
 "among.chat.create.room.input.placeholder" = "ENTER YOUR TOPIC";
-"among.chat.create.room.confirm.btn" = "Create %1$@ channel";
+"among.chat.create.room.confirm.btn" = "Create a %1$@ channel";
 "among.chat.create.room.private" = "Private";
 "among.chat.create.room.title" = "Create a Channel";
 "among.chat.create.room.topic.title" = "Hot topics";
