@@ -45,7 +45,7 @@ extension AmongChat.Home {
             let cellHeight: CGFloat = 69
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
