@@ -143,6 +143,12 @@ extension AmongChat.Home.RelationsViewController {
             })
             .disposed(by: bag)
 
+        rx.viewWillAppear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
+            })
+            .disposed(by: bag)
+
     }
     
     private func followUser(user: AmongChat.Home.PlayingViewModel) {

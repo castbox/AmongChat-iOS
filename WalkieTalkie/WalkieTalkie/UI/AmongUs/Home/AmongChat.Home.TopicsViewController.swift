@@ -181,7 +181,12 @@ extension AmongChat.Home.TopicsViewController {
                 }
             })
             .disposed(by: bag)
-
+        
+        rx.viewWillAppear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.topicCollectionView.setContentOffset(.zero, animated: false)
+            })
+            .disposed(by: bag)
     }
     
     private func fetchSummaryData() {
