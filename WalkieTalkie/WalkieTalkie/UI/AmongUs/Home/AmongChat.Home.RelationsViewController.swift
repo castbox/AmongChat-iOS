@@ -87,11 +87,6 @@ extension AmongChat.Home {
             setupEvent()
         }
         
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            hidesBottomBarWhenPushed = false
-        }
-        
     }
     
 }
