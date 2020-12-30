@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import MessageUI
+import SwiftyUserDefaults
 
 extension Social {
     
@@ -53,6 +54,11 @@ extension Social {
             loadData()
         }
         
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            Social.Module.shared.roomShareFriends = userList
+        }
+        
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
@@ -60,9 +66,6 @@ extension Social {
             tableView.snp.makeConstraints { (maker) in
                 maker.top.left.right.equalToSuperview()
                 maker.height.equalTo(500)
-            }
-            tableView.pullToLoadMore { [weak self] in
-                self?.loadMore()
             }
             
             let line = UIView()
@@ -94,32 +97,22 @@ extension Social {
 }
 private extension Social.ShareRoomViewController {
     func loadData() {
-        let removeBlock = view.raft.show(.loading)
-        Request.inviteFriends(skipMs: 0)
-            .subscribe(onSuccess: { [weak self](data) in
-                removeBlock()
-                guard let data = data else { return }
-                self?.userList = data.list ?? []
-                self?.tableView.endLoadMore(data.more ?? false)
-            }, onError: { (error) in
-                removeBlock()
-                cdPrint("inviteFriends error: \(error.localizedDescription)")
-            }).disposed(by: bag)
-    }
-    
-    func loadMore() {
-        let skipMS = userList.last?.opTime ?? 0
-        Request.inviteFriends(skipMs: skipMS)
-            .subscribe(onSuccess: { [weak self](data) in
-                guard let data = data else { return }
-                let list =  data.list ?? []
-                var origenList = self?.userList
-                list.forEach({ origenList?.append($0)})
-                self?.userList = origenList ?? []
-                self?.tableView.endLoadMore(data.more ?? false)
-            }, onError: { (error) in
-                cdPrint("inviteFriends error: \(error.localizedDescription)")
-            }).disposed(by: bag)
+        let users = Social.Module.shared.roomShareFriends
+        if users.isEmpty {
+            let removeBlock = view.raft.show(.loading)
+            Request.inviteFriends(skipMs: 0)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let data = data else { return }
+                    self?.userList = data.list ?? []
+                    Social.Module.shared.roomShareFriends = self?.userList ?? []
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("inviteFriends error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+        } else {
+            userList = users
+        }
     }
     
     func smsAction() {
@@ -160,8 +153,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
             cell.setCellDataForShare(with: user, roomId: roomId)
-            cell.updateFollowData = { [weak self] (follow) in
-                self?.userList[indexPath.row].isFollowed = follow
+            cell.updateInviteData = { [weak self] (follow) in
+                self?.userList[indexPath.row].invited = follow
             }
         }
         return cell

@@ -260,6 +260,7 @@ extension AmongChat.Room.ViewController {
                 vc.showModal(in: currentVC)
             }
         }
+        Social.Module.shared.clear()
     }
     
     @objc

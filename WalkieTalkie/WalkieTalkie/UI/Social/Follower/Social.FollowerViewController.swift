@@ -217,7 +217,7 @@ extension Social {
     class FollowerCell: UITableViewCell {
         
         var updateFollowData: ((Bool) -> Void)?
-        var inviteHandle: ((Entity.UserProfile) -> Void)?
+        var updateInviteData: ((Bool) -> Void)?
         
         let bag = DisposeBag()
         
@@ -336,6 +336,11 @@ extension Social {
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
+            
+            let invited = userInfo.invited ?? false
+            if invited {
+                grayInviteStyle()
+            }
         }
         
         private func setUIForShare() {
@@ -406,8 +411,7 @@ extension Social {
                 Request.inviteUser(roomId: roomId, uid: user.uid)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock?()
-                        self?.grayInviteStyle()
-                        self?.userInfo.invited = true
+                        self?.updateInviteData?(true)
                     }, onError: { (error) in
                         removeBlock?()
                         cdPrint("invite user error:\(error.localizedDescription)")

@@ -357,6 +357,7 @@ private extension Social.ProfileViewController {
             blocked = false
             blockedUsers.removeElement(ifExists: { $0.uid == uid })
             Defaults[\.blockedUsersV2Key] = blockedUsers
+            view.raft.autoShow(.text(R.string.localizable.profileUnblockUserSuccess()))
         }
         
     }

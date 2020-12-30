@@ -90,7 +90,9 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "Thanks for reporting. It would be processed within 24 hours.";
+"report.success" = "You have reported this person successfully";
+//Thanks for reporting. It would be processed within 24 hours.
+
 
 "alert.block" = "Block";
 "alert.unblock" = "Unblock";
@@ -126,6 +128,7 @@
 "profile.block.message" = "Are you sure to block \nthis person";
 "profile.unblock.message" = "Are you sure to \nunblock this person";
 "profile.block.user.success" = "You have successfully \nblocked this person";
+"profile.unblock.user.success" = "This person has been \nunblocked";
 
 
 // error message

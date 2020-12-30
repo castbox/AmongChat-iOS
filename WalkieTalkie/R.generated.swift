@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 216 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 217 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2186,10 +2186,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatTermsService = Rswift.StringResource(key: "among.chat.terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Thanks for reporting. It would be processed within 24 hours.
-      /// 
-      /// Locales: en
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
@@ -2202,6 +2198,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let enterSecretChannelAlertDesc = Rswift.StringResource(key: "enter.secret.channel.alert.desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This person has been  unblocked
+      /// 
+      /// Locales: en
+      static let profileUnblockUserSuccess = Rswift.StringResource(key: "profile.unblock.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Timeout
       /// 
       /// Locales: en
@@ -2298,6 +2298,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have reported this person successfully
+      /// 
+      /// Locales: en
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en
@@ -3559,13 +3563,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.terms.service", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Thanks for reporting. It would be processed within 24 hours.
-      /// 
-      /// Locales: en
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
@@ -3585,6 +3582,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func enterSecretChannelAlertDesc(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.desc", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: This person has been  unblocked
+      /// 
+      /// Locales: en
+      static func profileUnblockUserSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("profile.unblock.user.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Timeout
@@ -3753,6 +3757,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have reported this person successfully
+      /// 
+      /// Locales: en
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have successfully  blocked this person

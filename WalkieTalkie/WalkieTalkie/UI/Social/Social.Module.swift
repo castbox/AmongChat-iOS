@@ -43,6 +43,9 @@ extension Social {
         
         private var currentChannel: String = ""
         
+        /// room share
+        var roomShareFriends = [Entity.UserProfile]()
+        
         private init() {
                         
             Observable.combineLatest(Settings.shared.loginResult.replay().filterNil(), FireStore.shared.firebaseSignedInObservable)
@@ -280,6 +283,11 @@ extension Social.Module {
             return
         }
 //        FireStore.shared.addFollowing(user, to: selfUid)
+    }
+    
+    /// clear temp data
+    func clear() {
+        roomShareFriends = []
     }
     
 }
