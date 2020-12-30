@@ -223,6 +223,13 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
+                    
+                    guard let roomState = playing.roomState,
+                          roomState == .public else {
+                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatHomeFirendsPrivateChannelTip()))
+                        return
+                    }
+                    
                     self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)

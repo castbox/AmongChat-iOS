@@ -273,3 +273,4 @@
 "among.chat.home.friends.in.channel" = "in %1$@ channel";
 "among.chat.ignore" = "ignore";
 "among.chat.channel.invitation.msg" = "is inviting you to their %1$@ channel";
+"among.chat.home.firends.private.channel.tip" = "This channel is private";

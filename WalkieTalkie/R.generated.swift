@@ -2194,6 +2194,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let channelUserListBlockActionMsg = Rswift.StringResource(key: "channel.user.list.block.action.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This channel is private
+      /// 
+      /// Locales: en
+      static let amongChatHomeFirendsPrivateChannelTip = Rswift.StringResource(key: "among.chat.home.firends.private.channel.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This passcode can enter a secret channel, enter now?
       /// 
       /// Locales: en
@@ -3567,6 +3571,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func channelUserListBlockActionMsg(_: Void = ()) -> String {
         return NSLocalizedString("channel.user.list.block.action.msg", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: This channel is private
+      /// 
+      /// Locales: en
+      static func amongChatHomeFirendsPrivateChannelTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.firends.private.channel.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: This passcode can enter a secret channel, enter now?
