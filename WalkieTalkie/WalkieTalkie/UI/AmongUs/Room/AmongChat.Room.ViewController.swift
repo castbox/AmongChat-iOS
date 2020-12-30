@@ -677,6 +677,40 @@ extension AmongChat.Room.ViewController {
 //                }
 //            }
         }
+        viewModel.followUserSuccess = { [weak self] (status, success) in
+            guard let `self` = self else { return }
+            let removeBlock =  self.view.raft.show(.loading)
+            if status == .end {
+                removeBlock()
+                if success {
+                    self.view.raft.autoShow(.text(R.string.localizable.socialFollowedSucess()))
+                } else {
+                    self.view.raft.autoShow(.text(R.string.localizable.socialFollowFailed()))
+                }
+            }
+        }
+        viewModel.blockUserResult = { [weak self](status, type, success) in
+            guard let `self` = self else { return }
+            let removeBlock =  self.view.raft.show(.loading)
+            if status == .end {
+                removeBlock()
+                var message = ""
+                if type == .block {
+                    if success {
+                        message = R.string.localizable.profileBlockUserSuccess()
+                    } else {
+                        message = R.string.localizable.socialBlockFailed()
+                    }
+                } else {
+                    if success {
+                        message = R.string.localizable.profileUnblockUserSuccess()
+                    } else {
+                        message = R.string.localizable.socialUnblockFailed()
+                    }
+                }
+                self.view.raft.autoShow(.text(message))
+            }
+        }
         
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
@@ -684,7 +718,6 @@ extension AmongChat.Room.ViewController {
         
         topBar.leaveHandler = { [weak self] in
             self?.onCloseBtn()
-//            self?.viewModel.endRoomHandler?(.kickout)
         }
         
         topBar.kickOffHandler = { [weak self] in
@@ -782,6 +815,8 @@ extension AmongChat.Room.ViewController {
             let vc = Social.ProfileViewController(with: user.uid)
             vc.roomUser = user
             navigationController?.pushViewController(vc)
+        case .follow:
+            viewModel.followUser(user)
         case .block:
             viewModel.blockedUser(user)
         case .mute:

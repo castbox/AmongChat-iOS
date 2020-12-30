@@ -85,6 +85,9 @@ extension AmongChat.Room {
 
 extension AmongChat.Room {
     class SeatView: UIView {
+        
+        let bag = DisposeBag()
+        
         private let fixedListLength = Int(10)
 
         fileprivate lazy var collectionView: UICollectionView = {
@@ -160,22 +163,38 @@ extension AmongChat.Room {
             }
         }
         
-        func showAvatarSheet(with user: Entity.RoomUser) {
+        func fetchRealation(with user: Entity.RoomUser) {
+            Request.relationData(uid: user.uid).retry(2)
+                .subscribe(onSuccess: { [weak self](data) in
+                    guard let `self` = self,
+                          let data = data else { return }
+                    self.showAvatarSheet(with: user, relation: data)
+                }, onError: { (error) in
+                    cdPrint("relationData error :\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
+        func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
             guard user.uid != Settings.loginUserId,
                   let viewController = containingController else {
                 return
             }
             Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
-
-            let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-//            let blockedUsers = Defaults[\.blockedUsersV2Key]
-//            let blockItem: AmongSheetController.ItemType = blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
-            let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
             
             var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
+
+            let isFollowed = relation.isFollowed ?? false
+            if !isFollowed {
+                items.append(.follow)
+            }
+            let isBlocked = relation.isBlocked ?? false
+            let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
+            
+            let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
             if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
                 items.append(.kick)
             }
+            
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
 
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
@@ -196,11 +215,10 @@ extension AmongChat.Room {
                 }
             } else {
                 guard let user = user else {
-    //                self.onShareBtn()
                     selectUserHandler?(nil)
                     return
                 }
-                showAvatarSheet(with: user)
+                fetchRealation(with: user)
             }
         }
     }

@@ -191,7 +191,7 @@ private extension Social.ProfileViewController {
             self.headerView.setProfileData(self.roomUser)
         }
         loadData()
-        getRealation()
+        fetchRealation()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
@@ -227,7 +227,7 @@ private extension Social.ProfileViewController {
         }
     }
     
-    func getRealation() {
+    func fetchRealation() {
         Request.relationData(uid: uid)
             .subscribe(onSuccess: { [weak self](data) in
                 guard let `self` = self, let data = data else { return }
@@ -248,7 +248,7 @@ private extension Social.ProfileViewController {
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
-                        self.getRealation()
+                        self.fetchRealation()
                         self.relationData?.isFollowed = false
                         self.headerView.setFollowButton(false)
                     }
@@ -262,7 +262,7 @@ private extension Social.ProfileViewController {
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
-                        self.getRealation()
+                        self.fetchRealation()
                         self.relationData?.isFollowed = true
                         self.headerView.setFollowButton(true)
                     }

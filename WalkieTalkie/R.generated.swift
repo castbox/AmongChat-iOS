@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 218 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 223 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1730,14 +1730,30 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRoomTipFailed = Rswift.StringResource(key: "among.chat.room.tip.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to block this person,  please try again.
+      /// 
+      /// Locales: en
+      static let socialBlockFailed = Rswift.StringResource(key: "social.block.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to enter channel
       /// 
       /// Locales: en
       static let amongChatHomeEnterRoomFailed = Rswift.StringResource(key: "among.chat.home.enter.room.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to follow this person,  please try again.
+      /// 
+      /// Locales: en
+      static let socialFollowFailed = Rswift.StringResource(key: "social.follow.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to load video
       /// 
       /// Locales: en
       static let amongChatRewardVideoLoadFailed = Rswift.StringResource(key: "among.chat.reward.video.load.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to report this person,  please try again.
+      /// 
+      /// Locales: en
+      static let socialReportFailed = Rswift.StringResource(key: "social.report.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Failed to unblock this person,  please try again.
+      /// 
+      /// Locales: en
+      static let socialUnblockFailed = Rswift.StringResource(key: "social.unblock.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to unlock avatar
       /// 
       /// Locales: en
@@ -2306,6 +2322,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileBlockUserSuccess = Rswift.StringResource(key: "profile.block.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have successfully followed  this person
+      /// 
+      /// Locales: en
+      static let socialFollowedSucess = Rswift.StringResource(key: "social.followed.sucess", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en
@@ -2765,6 +2785,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.tip.failed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Failed to block this person,  please try again.
+      /// 
+      /// Locales: en
+      static func socialBlockFailed(_: Void = ()) -> String {
+        return NSLocalizedString("social.block.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to enter channel
       /// 
       /// Locales: en
@@ -2772,11 +2799,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.enter.room.failed", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Failed to follow this person,  please try again.
+      /// 
+      /// Locales: en
+      static func socialFollowFailed(_: Void = ()) -> String {
+        return NSLocalizedString("social.follow.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to load video
       /// 
       /// Locales: en
       static func amongChatRewardVideoLoadFailed(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.reward.video.load.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to report this person,  please try again.
+      /// 
+      /// Locales: en
+      static func socialReportFailed(_: Void = ()) -> String {
+        return NSLocalizedString("social.report.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Failed to unblock this person,  please try again.
+      /// 
+      /// Locales: en
+      static func socialUnblockFailed(_: Void = ()) -> String {
+        return NSLocalizedString("social.unblock.failed", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Failed to unlock avatar
@@ -3771,6 +3819,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileBlockUserSuccess(_: Void = ()) -> String {
         return NSLocalizedString("profile.block.user.success", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have successfully followed  this person
+      /// 
+      /// Locales: en
+      static func socialFollowedSucess(_: Void = ()) -> String {
+        return NSLocalizedString("social.followed.sucess", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.
