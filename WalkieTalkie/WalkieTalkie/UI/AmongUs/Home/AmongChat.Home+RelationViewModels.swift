@@ -136,22 +136,22 @@ extension AmongChat.Home {
             return playingModel.user.pictureUrl
         }
                 
-        var playingStatus: String? {
+        var playingStatus: String {
             
             guard let room = playingModel.room else {
-                return nil
+                return R.string.localizable.socialStatusOnline().lowercased()
             }
             
             return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
         }
         
-        var joinable: Bool {
+        var roomState: Entity.RoomPublicType? {
             
             guard let room = playingModel.room else {
-                return false
+                return nil
             }
             
-            return room.state == .public
+            return room.state
         }
         
         var roomId: String? {

@@ -167,8 +167,15 @@ extension AmongChat.Home {
                   onJoin: @escaping (_ roomId: String, _ topicId: String) -> Void,
                   onAvatarTap: @escaping () -> Void) {
             userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
-            joinBtn.isHidden = !viewModel.joinable
-            lockedIcon.isHidden = viewModel.joinable
+            
+            if let state = viewModel.roomState {
+                joinBtn.isHidden = !(state == .public)
+                lockedIcon.isHidden = !(state == .private)
+            } else {
+                joinBtn.isHidden = true
+                lockedIcon.isHidden = true
+            }
+            
             joinDisposable?.dispose()
             joinDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
