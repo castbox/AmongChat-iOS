@@ -298,7 +298,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: Frame.Screen.width, height: 113)
+        if section == 0 {
+            return CGSize(width: Frame.Screen.width, height: 113)
+        } else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
     }
     
 }
