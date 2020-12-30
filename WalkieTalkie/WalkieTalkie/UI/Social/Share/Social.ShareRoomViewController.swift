@@ -61,9 +61,6 @@ extension Social {
                 maker.top.left.right.equalToSuperview()
                 maker.height.equalTo(500)
             }
-            //            tableView.pullToRefresh { [weak self] in
-            //                self?.loadData()
-            //            }
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
@@ -162,12 +159,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(Social.FollowerCell.self), for: indexPath)
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
-            cell.setCellDataForShare(with: user)
+            cell.setCellDataForShare(with: user, roomId: roomId)
             cell.updateFollowData = { [weak self] (follow) in
                 self?.userList[indexPath.row].isFollowed = follow
-            }
-            cell.inviteHandle = {[weak self] (user) in
-                self?.inviteUserAction(user)
             }
         }
         return cell
@@ -183,17 +177,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             hiddened = true
         }
     }
-    private func inviteUserAction(_ user: Entity.UserProfile) {
-        let removeBlock = view.raft.show(.loading)
-        Request.inviteUser(roomId: roomId, uid: user.uid)
-            .subscribe(onSuccess: { (data) in
-                removeBlock()
-            }, onError: { (error) in
-                removeBlock()
-                cdPrint("invite user error:\(error.localizedDescription)")
-            }).disposed(by: bag)
-    }
 }
+
 extension Social.ShareRoomViewController {
     
     private class ShareHeaderView: UIView {

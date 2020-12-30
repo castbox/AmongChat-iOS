@@ -17,43 +17,35 @@ class AmongSheetIconItemCell: UITableViewCell {
             switch item {
             case .profile:
                 button.setTitleColor(.white, for: .normal)
-//                button.setImage(R.image.ac_room_profile_icon(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)//333333
                 button.setTitle(R.string.localizable.profileProfile(), for: .normal)
             case .block:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_block(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.alertBlock(), for: .normal)
             case .unblock:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_unblock(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.alertUnblock(), for: .normal)
             case .mute:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_mute(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.channelUserListMute(), for: .normal)
 
             case .unmute:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_unmute(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.channelUserListUnmute(), for: .normal)
             case .report:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_report(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.reportTitle(), for: .normal)
             case .kick:
                 button.setTitleColor("FB5858".color(), for: .normal)
-//                button.setImage(R.image.ac_icon_sheet_kick(), for: .normal)
-                button.setBackgroundImage("333333".color().image, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
                 button.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
             case .cancel:
                 button.setTitleColor("898989".color(), for: .normal)
-//                button.setImage(nil, for: .normal)
                 button.setBackgroundImage(nil, for: .normal)
                 button.setTitle(R.string.localizable.toastCancel(), for: .normal)
             case .userInfo:
@@ -66,6 +58,7 @@ class AmongSheetIconItemCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        backgroundColor = UIColor(hex6: 0x1D1D1D)
     }
     
     func setProfileUI() {

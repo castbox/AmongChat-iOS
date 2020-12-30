@@ -45,6 +45,8 @@ class AmongSheetController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(hex6: 0x1D1D1D)
+        tableView.backgroundColor = UIColor(hex6: 0x1D1D1D)
         
         tableView.register(UINib(nibName: "AmongSheetIconItemCell", bundle: nil),
                            forCellReuseIdentifier: "AmongSheetIconItemCell")

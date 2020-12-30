@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 215 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 216 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1850,6 +1850,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invtied
+      /// 
+      /// Locales: en
+      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
@@ -2961,6 +2965,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialInvite(_: Void = ()) -> String {
         return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Invtied
+      /// 
+      /// Locales: en
+      static func socialInvited(_: Void = ()) -> String {
+        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.

@@ -97,9 +97,6 @@ extension Social {
                 maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
-            tableView.pullToRefresh { [weak self] in
-                self?.loadData()
-            }
         }
         
         private func loadData() {
