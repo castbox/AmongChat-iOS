@@ -144,8 +144,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 153 images.
+  /// This `R.image` struct is generated, and contains static references to 154 images.
   struct image {
+    /// Image `ac_among_no_data`.
+    static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
     /// Image `ac_avatar_ad`.
@@ -452,6 +454,11 @@ struct R: Rswift.Validatable {
     static let user_list_friend_light = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_light")
     /// Image `user_list_invite`.
     static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
+    
+    /// `UIImage(named: "ac_among_no_data", bundle: ..., traitCollection: ...)`
+    static func ac_among_no_data(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_among_no_data, compatibleWith: traitCollection)
+    }
     
     /// `UIImage(named: "ac_animation_background", bundle: ..., traitCollection: ...)`
     static func ac_animation_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -1630,7 +1637,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 210 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 214 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2128,6 +2135,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatHomeLoadErrorTitle = Rswift.StringResource(key: "among.chat.home.load.error.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Oops, no followers yet!
+      /// 
+      /// Locales: en
+      static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Oops, no teammates yet!
+      /// 
+      /// Locales: en
+      static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en
@@ -2400,6 +2415,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You haven't blocked others yet.
+      /// 
+      /// Locales: en
+      static let errorNoBlocker = Rswift.StringResource(key: "error.no.blocker", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You haven't followed others yet.
+      /// 
+      /// Locales: en
+      static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You only have one secret channel
       /// 
       /// Locales: en
@@ -3341,6 +3364,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.load.error.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no followers yet!
+      /// 
+      /// Locales: en
+      static func errorNoFollowers(_: Void = ()) -> String {
+        return NSLocalizedString("error.no.followers", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no teammates yet!
+      /// 
+      /// Locales: en
+      static func errorNoTeammates(_: Void = ()) -> String {
+        return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Open Game
       /// 
       /// Locales: en
@@ -3815,6 +3852,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You haven't blocked others yet.
+      /// 
+      /// Locales: en
+      static func errorNoBlocker(_: Void = ()) -> String {
+        return NSLocalizedString("error.no.blocker", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You haven't followed others yet.
+      /// 
+      /// Locales: en
+      static func errorNoFollowing(_: Void = ()) -> String {
+        return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You only have one secret channel

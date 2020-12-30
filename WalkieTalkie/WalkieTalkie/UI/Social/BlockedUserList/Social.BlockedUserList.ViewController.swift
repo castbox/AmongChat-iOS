@@ -109,6 +109,9 @@ extension Social.BlockedUserList {
                     removeBlock()
                     guard let `self` = self else { return }
                     self.userList = data?.list ?? []
+                    if self.userList.isEmpty {
+                        self.addNoDataView(R.string.localizable.errorNoBlocker())
+                    }
                     self.tableView.endLoadMore(data?.more ?? false)
                 }, onError: { [weak self](error) in
                     removeBlock()

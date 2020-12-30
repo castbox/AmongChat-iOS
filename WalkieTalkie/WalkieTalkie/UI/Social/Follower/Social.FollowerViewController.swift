@@ -119,9 +119,12 @@ extension Social {
                 Request.followingList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        guard let data = data else { return }
-                        self?.userList = data.list ?? []
-                        self?.tableView.endLoadMore(data.more ?? false)
+                        guard let `self` = self, let data = data else { return }
+                        self.userList = data.list ?? []
+                        if self.userList.isEmpty {
+                            self.addNoDataView(R.string.localizable.errorNoFollowing())
+                        }
+                        self.tableView.endLoadMore(data.more ?? false)
                     }, onError: { [weak self](error) in
                         removeBlock()
                         self?.addErrorView({ [weak self] in
@@ -133,9 +136,12 @@ extension Social {
                 Request.followerList(uid: uid, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        guard let data = data else { return }
-                        self?.userList = data.list ?? []
-                        self?.tableView.endLoadMore(data.more ?? false)
+                        guard let `self` = self, let data = data else { return }
+                        self.userList = data.list ?? []
+                        if self.userList.isEmpty {
+                            self.addNoDataView(R.string.localizable.errorNoFollowers())
+                        }
+                        self.tableView.endLoadMore(data.more ?? false)
                     }, onError: { [weak self](error) in
                         removeBlock()
                         self?.addErrorView({ [weak self] in

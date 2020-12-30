@@ -22,8 +22,19 @@ extension AmongChat.Home {
             return lb
         }()
         
-        private lazy var circleView: UIView = {
-            let v = UIView()
+        private lazy var circleView: CircularProgressView = {
+            let v = CircularProgressView()
+            
+            v.backgroundColor = .clear
+            
+            v.circleLineWidth = 2.5
+            v.circleLineColor = UIColor.white.alpha(0.19)
+            v.circleBackgroundColor = .clear
+            
+            v.progressLineWidth = 2.5
+            v.progressLineColor = .white
+            v.progressBackgroundColor = .clear
+            
             return v
         }()
 
@@ -164,6 +175,7 @@ extension AmongChat.Home {
                 .subscribe(onNext: { [weak self] timePassed in
                     let count = countDown - timePassed
                     self?.countDownLabel.text = "\(count)"
+                    self?.circleView.updateProgress(progress: CGFloat(Float(count) / Float(countDown)), animationDuration: 0.25)
                 }, onCompleted: { [weak self] in
                     self?.dismiss(animated: false)
                 })
@@ -194,4 +206,80 @@ extension AmongChat.Home {
         
     }
     
+}
+
+extension AmongChat.Home.RoomInvitationModal {
+    
+    class CircularProgressView: UIView {
+        // First create two layer properties
+        private lazy var circleLayer: CAShapeLayer = {
+            let l = CAShapeLayer()
+            l.shouldRasterize = true
+            l.rasterizationScale = 2 * UIScreen.main.scale
+            return l
+        }()
+        
+        private lazy var progressLayer: CAShapeLayer = {
+            let l = CAShapeLayer()
+            l.shouldRasterize = true
+            l.rasterizationScale = 2 * UIScreen.main.scale
+            return l
+        }()
+        
+        private var previousProgress: CGFloat = 1.0
+        
+        var progressLineColor: UIColor? = nil
+        var progressBackgroundColor: UIColor? = nil
+        var progressLineWidth: CGFloat = 0.0
+
+        var circleLineColor: UIColor? = nil
+        var circleBackgroundColor: UIColor? = nil
+        var circleLineWidth: CGFloat = 0.0
+        
+        init() {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            createCircularPath()
+        }
+        
+        private func setupLayout() {
+            layer.addSublayer(circleLayer)
+            layer.addSublayer(progressLayer)
+        }
+        
+        private func createCircularPath() {
+            let circularPath = UIBezierPath(arcCenter: CGPoint(x: frame.width / 2.0, y: frame.height / 2.0), radius: min(frame.width / 2, frame.height / 2), startAngle: 3 * .pi / 2, endAngle: -.pi / 2, clockwise: false)
+            circleLayer.path = circularPath.cgPath
+            circleLayer.fillColor = circleBackgroundColor?.cgColor
+            circleLayer.lineCap = .round
+            circleLayer.lineWidth = circleLineWidth
+            circleLayer.strokeColor = circleLineColor?.cgColor
+            progressLayer.path = circularPath.cgPath
+            progressLayer.fillColor = progressBackgroundColor?.cgColor
+            progressLayer.lineCap = .round
+            progressLayer.lineWidth = progressLineWidth
+            progressLayer.strokeEnd = 1.0
+            progressLayer.strokeColor = progressLineColor?.cgColor
+        }
+        
+        func updateProgress(progress: CGFloat, animationDuration: TimeInterval) {
+            let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
+            circularProgressAnimation.duration = animationDuration
+            circularProgressAnimation.fromValue = previousProgress
+            circularProgressAnimation.toValue = max(min(1, progress), 0)
+            circularProgressAnimation.fillMode = .forwards
+            circularProgressAnimation.isRemovedOnCompletion = false
+            progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
+            previousProgress = progress
+        }
+        
+    }
 }

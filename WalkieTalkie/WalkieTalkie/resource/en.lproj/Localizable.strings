@@ -126,6 +126,11 @@
 "profile.block.message" = "Are you sure to block this person";
 "profile.unblock.message" = "Are you sure to unblock this person";
 
+// error message
+"error.no.following" = "You haven't followed others yet.";
+"error.no.teammates" = "Oops, no teammates yet!";
+"error.no.followers" = "Oops, no followers yet!";
+"error.no.blocker" = "You haven't blocked others yet.";
 
 
 "content.contain.sensitive.words" = "Content contains sensitive words, please modify";

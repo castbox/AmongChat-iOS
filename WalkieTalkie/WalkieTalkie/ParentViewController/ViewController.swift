@@ -198,6 +198,15 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
             retryAction?()
         }
     }
+    
+    func addNoDataView(_ message: String) {
+        let v = NoDataView(with: message)
+        view.addSubview(v)
+        v.snp.makeConstraints { (maker) in
+            maker.top.equalTo(Frame.Height.navigation)
+            maker.left.right.bottom.equalToSuperview()
+        }
+    }
 }
 
 extension ViewController {
