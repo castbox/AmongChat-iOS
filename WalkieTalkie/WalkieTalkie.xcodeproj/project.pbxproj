@@ -18,6 +18,7 @@
 		2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F7D2595D53D00A1C8DC /* UIScrollViewExtension.swift */; };
 		2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */; };
 		2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F862596031600A1C8DC /* Entity.Profile.swift */; };
+		2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */; };
 		BD1F050D24FFB55200712C24 /* ChannelUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */; };
 		BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD29DBC625124B2200D67737 /* ChannelFriendUserCell.swift */; };
 		BD4DEE1225061F88006476E0 /* Social.TopToastModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */; };
@@ -336,6 +337,7 @@
 		2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ShareRoomViewController.swift; sourceTree = "<group>"; };
 		2BAB4F862596031600A1C8DC /* Entity.Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Profile.swift; sourceTree = "<group>"; };
 		2BAC1458258E5D690064F55D /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ReportViewController.swift; sourceTree = "<group>"; };
 		71A6690FF0550B1005BB7022 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		9E854ECD4DE35AE9FE7830E2 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD1F050C24FFB55200712C24 /* ChannelUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUserViewModel.swift; sourceTree = "<group>"; };
@@ -682,6 +684,14 @@
 			path = Share;
 			sourceTree = "<group>";
 		};
+		2BBBFD2B259CA9EF00A3AB2C /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
 		BD6C36EA256E516900D1E708 /* AmongUs */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +813,7 @@
 				BD8BEE1C2502287400E4DCE6 /* Social.JoinChannelRequestModal.swift */,
 				BD4DEE1125061F88006476E0 /* Social.TopToastModal.swift */,
 				BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */,
+				2BBBFD2B259CA9EF00A3AB2C /* Report */,
 				2BAB4F812595E1DC00A1C8DC /* Share */,
 				2BAB4EF52595C6D600A1C8DC /* LeaveGame */,
 				2BA2DB492594AB510050BF8E /* Follower */,
@@ -1608,6 +1619,7 @@
 				FECFC4FE24666FBD00B10EEE /* GuideThirdView.swift in Sources */,
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */,
+				2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
 				BD29DBC725124B2400D67737 /* ChannelFriendUserCell.swift in Sources */,
 				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,

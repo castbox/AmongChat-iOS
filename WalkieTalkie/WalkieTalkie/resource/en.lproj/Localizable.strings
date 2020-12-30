@@ -90,7 +90,7 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "You have reported this person successfully";
+"report.success" = "You have successfully reported \nthis person";
 //Thanks for reporting. It would be processed within 24 hours.
 
 

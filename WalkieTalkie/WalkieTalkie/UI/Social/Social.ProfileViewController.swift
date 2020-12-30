@@ -143,6 +143,10 @@ extension Social {
                 })
                 .disposed(by: bag)
         }
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            fetchRealation()
+        }
     }
 }
 
@@ -191,7 +195,6 @@ private extension Social.ProfileViewController {
             self.headerView.setProfileData(self.roomUser)
         }
         loadData()
-        fetchRealation()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
@@ -294,7 +297,7 @@ private extension Social.ProfileViewController {
         AmongSheetController.show(items: type, in: self, uiType: .profile) { [weak self](type) in
             switch type {
             case.report:
-                self?.reportUser()
+                self?.showReportSheet()
             case .block, .unblock:
                 self?.showBlockAlter()
             default:
@@ -360,11 +363,6 @@ private extension Social.ProfileViewController {
             view.raft.autoShow(.text(R.string.localizable.profileUnblockUserSuccess()))
         }
         
-    }
-    
-    func reportUser() {
-        let user = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "")
-        self.showReportSheet(for: user)
     }
 }
 // MARK: - UITableView

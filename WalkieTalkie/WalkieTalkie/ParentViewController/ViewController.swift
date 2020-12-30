@@ -335,29 +335,13 @@ extension ViewController {
 }
 
 extension ViewController {
-    func showReportSheet(for user: Entity.RoomUser) {
-        let alertVC = UIAlertController(
-            title: R.string.localizable.reportTitle(),
-            message: "\(R.string.localizable.reportUserId()): \(user.uid)",
-            preferredStyle: .actionSheet)
-        let items = [
-            R.string.localizable.reportIncorrectInformation(),
-            R.string.localizable.reportIncorrectSexual(),
-            R.string.localizable.reportIncorrectHarassment(),
-            R.string.localizable.reportIncorrectUnreasonable(),
-            ].enumerated()
-
-        for (index, item) in items {
-            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-                self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: String(user.uid))
-            })
-            alertVC.addAction(action)
+    func showReportSheet() {
+        
+        let vc = Social.ReportViewController()
+        vc.showModal(in: self)
+        vc.selectedReason = {[weak self] (reason) in
+            self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
         }
-
-        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
-        alertVC.addAction(cancel)
-        present(alertVC, animated: true, completion: nil)
     }
 }
 

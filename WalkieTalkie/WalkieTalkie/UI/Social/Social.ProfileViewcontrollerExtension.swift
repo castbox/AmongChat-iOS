@@ -56,7 +56,7 @@ extension Social.ProfileViewController {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 26)
             lb.textColor = .white
-            lb.textAlignment = .center
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -160,21 +160,25 @@ extension Social.ProfileViewController {
         }
         
         func setViewData(_ model: Entity.RelationData) {
-            let followersCount = model.followersCount ?? 0
-            followerBtn.setTitle("\(followersCount)")
-            followingBtn.setTitle("\(model.followingCount ?? 0)")
-            
-            let follow = model.isFollowed ?? false
-            setFollowButton(follow)
             
             let lastCount = Defaults[\.followersCount]
+            
+            let followersCount = model.followersCount ?? 0
+            
+            Defaults[\.followersCount] = followersCount
+            
+            followingBtn.setTitle("\(model.followingCount ?? 0)")
+            followerBtn.setTitle("\(followersCount)")
+
             if followersCount > lastCount {
                 redCountLabel.text = " +\(followersCount - lastCount) "
                 redCountLabel.isHidden = false
             } else {
                 redCountLabel.isHidden = true
             }
-            Defaults[\.followersCount] = followersCount
+            
+            let follow = model.isFollowed ?? false
+            setFollowButton(follow)
         }
         
         func setFollowButton(_ isFollowed: Bool) {
@@ -233,6 +237,7 @@ extension Social.ProfileViewController {
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.top)
                 maker.left.equalTo(avatarIV.snp.right).offset(20)
+                maker.right.equalTo(-65)
             }
             
             editBtn.snp.makeConstraints { (maker) in
@@ -270,8 +275,10 @@ extension Social.ProfileViewController {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.centerX.equalToSuperview()
+                maker.left.equalTo(20)
+                maker.right.equalTo(-20)
             }
+            nameLabel.textAlignment = .center
             
             followingBtn.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(8)

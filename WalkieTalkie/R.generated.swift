@@ -2314,10 +2314,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: You have reported this person successfully
-      /// 
-      /// Locales: en
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en
@@ -2326,6 +2322,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialFollowedSucess = Rswift.StringResource(key: "social.followed.sucess", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have successfully reported  this person
+      /// 
+      /// Locales: en
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en
@@ -3807,13 +3807,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: You have reported this person successfully
-      /// 
-      /// Locales: en
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en
@@ -3826,6 +3819,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialFollowedSucess(_: Void = ()) -> String {
         return NSLocalizedString("social.followed.sucess", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have successfully reported  this person
+      /// 
+      /// Locales: en
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.

@@ -726,7 +726,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.reportHandler = { [weak self] in
-            self?.showReportRoomSheet()
+            self?.showReportSheet()
         }
         topBar.changePublicStateHandler = { [weak self] in
             self?.viewModel.changePublicType()
@@ -826,7 +826,7 @@ extension AmongChat.Room.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            self.showReportSheet(for: user)
+            self.showReportSheet()
         case .kick:
             requestKick([user.uid])
         default:
@@ -883,37 +883,6 @@ extension AmongChat.Room.ViewController {
 //        alertVC.addAction(cancel)
 //        present(alertVC, animated: true, completion: nil)
 //    }
-    
-    private func showReportRoomSheet() {
-        let alertVC = UIAlertController(
-            title: R.string.localizable.reportTitle(),
-            message: "\(R.string.localizable.reportRoomId()): \(room.roomId)",
-            preferredStyle: .actionSheet)
-//        alertVC.setBackgroundColor(color: "222222".color())
-//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
-//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
-
-        let items = [
-            R.string.localizable.reportIncorrectInformation(),
-            R.string.localizable.reportIncorrectSexual(),
-            R.string.localizable.reportIncorrectHarassment(),
-            R.string.localizable.reportIncorrectUnreasonable(),
-            ].enumerated()
-
-        for (index, item) in items {
-            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-                guard let `self` = self else { return }
-                self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: self.room.roomId)
-            })
-//            action.titleTextColor = .white
-            alertVC.addAction(action)
-        }
-        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
-//        cancel.titleTextColor = .white
-        alertVC.addAction(cancel)
-        present(alertVC, animated: true, completion: nil)
-    }
 }
 
 extension AmongChat.Room.ViewController: UITextFieldDelegate {

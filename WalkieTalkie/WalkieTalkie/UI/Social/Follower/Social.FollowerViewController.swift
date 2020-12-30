@@ -353,12 +353,14 @@ extension Social {
             followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+            followBtn.isEnabled = false
         }
         
         private func yellowFollowStyle() {
             followBtn.setTitle(R.string.localizable.profileFollow(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            followBtn.isEnabled = true
         }
         
         private func grayInviteStyle() {
