@@ -57,7 +57,8 @@ extension AmongChat.Home.MainTabController {
     private func setupEvent() {
         imViewModel.invitationObservable
             .subscribe(onNext: { user, room in
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
+                      !(topVC is AmongChat.Room.ViewController) else {
                     return
                 }
                 
