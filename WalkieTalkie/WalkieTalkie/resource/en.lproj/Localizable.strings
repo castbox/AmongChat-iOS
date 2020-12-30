@@ -123,8 +123,10 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
-"profile.block.message" = "Are you sure to block this person";
-"profile.unblock.message" = "Are you sure to unblock this person";
+"profile.block.message" = "Are you sure to block \nthis person";
+"profile.unblock.message" = "Are you sure to \nunblock this person";
+"profile.block.user.success" = "You have successfully \nblocked this person";
+
 
 // error message
 "error.no.following" = "You haven't followed others yet.";

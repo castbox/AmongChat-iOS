@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 144 images.
+  /// This `R.image` struct is generated, and contains static references to 145 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 214 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 215 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1562,7 +1562,11 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let monthApr = Rswift.StringResource(key: "month.apr", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Are you sure to block this person
+      /// en translation: Are you sure to  unblock this person
+      /// 
+      /// Locales: en
+      static let profileUnblockMessage = Rswift.StringResource(key: "profile.unblock.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Are you sure to block  this person
       /// 
       /// Locales: en
       static let profileBlockMessage = Rswift.StringResource(key: "profile.block.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1570,10 +1574,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Are you sure to unblock this person
-      /// 
-      /// Locales: en
-      static let profileUnblockMessage = Rswift.StringResource(key: "profile.unblock.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Aug
       /// 
       /// Locales: en
@@ -2290,6 +2290,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have successfully  blocked this person
+      /// 
+      /// Locales: en
+      static let profileBlockUserSuccess = Rswift.StringResource(key: "profile.block.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en
@@ -2455,7 +2459,14 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.apr", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Are you sure to block this person
+      /// en translation: Are you sure to  unblock this person
+      /// 
+      /// Locales: en
+      static func profileUnblockMessage(_: Void = ()) -> String {
+        return NSLocalizedString("profile.unblock.message", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure to block  this person
       /// 
       /// Locales: en
       static func profileBlockMessage(_: Void = ()) -> String {
@@ -2467,13 +2478,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLeaveRoomTipTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.leave.room.tip.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Are you sure to unblock this person
-      /// 
-      /// Locales: en
-      static func profileUnblockMessage(_: Void = ()) -> String {
-        return NSLocalizedString("profile.unblock.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Aug
@@ -3727,6 +3731,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have successfully  blocked this person
+      /// 
+      /// Locales: en
+      static func profileBlockUserSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("profile.block.user.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.
