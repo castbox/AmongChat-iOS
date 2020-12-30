@@ -143,7 +143,7 @@ extension AmongChat.Home.RelationsViewController {
             .disposed(by: bag)
     }
     
-    private func followUser(uid: Int, updateData: @escaping () -> Void) {
+    private func followUser(user: AmongChat.Home.PlayingViewModel) {
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         let completion = { [weak self] in
@@ -152,12 +152,11 @@ extension AmongChat.Home.RelationsViewController {
         }
         friendsCollectionView.isUserInteractionEnabled = false
         
-        let _ = Request.follow(uid: uid, type: "follow")
+        let _ = Request.follow(uid: user.uid, type: "follow")
             .subscribe(onSuccess: { [weak self] (success) in
                 completion()
                 guard success else { return }
-                updateData()
-                self?.friendsCollectionView.reloadData()
+                self?.viewModel.updateSuggestionUser(user: user)
             }, onError: { [weak self] (error) in
                 completion()
                 self?.view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
@@ -225,8 +224,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing) { [weak self] (uid, updateData) in
-                    self?.followUser(uid: uid, updateData: updateData)
+                cell.bind(viewModel: playing) { [weak self] in
+                    self?.followUser(user: playing)
                 }
             }
             return cell
