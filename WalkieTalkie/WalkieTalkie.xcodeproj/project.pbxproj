@@ -962,13 +962,7 @@
 				FE126D3D243481BC00BEDD60 /* SeatManager.swift */,
 				FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */,
 				FE9B29F32488D250009A4969 /* ConfettiView.swift */,
-				FEA79E62249B52EF0067C1C1 /* ShareManager.swift */,
-				FE730E4E24ADCC4C00680062 /* TikTokShareView.swift */,
-				FE730E5024ADCC5A00680062 /* TikTokShareView.xib */,
-				FE87C2CF259C2EC100799883 /* ShareContainerView.swift */,
-				FE87C2D2259C2EC200799883 /* ShareContainerView.xib */,
-				FE87C2D1259C2EC200799883 /* SnapChatCreativeShareView.swift */,
-				FE87C2D0259C2EC200799883 /* SnapChatCreativeShareView.xib */,
+				FE87C2DD259C5ADD00799883 /* ShareManager */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1103,6 +1097,20 @@
 				FE860D592446D2A800087B73 /* DynamicProperty.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		FE87C2DD259C5ADD00799883 /* ShareManager */ = {
+			isa = PBXGroup;
+			children = (
+				FEA79E62249B52EF0067C1C1 /* ShareManager.swift */,
+				FE730E4E24ADCC4C00680062 /* TikTokShareView.swift */,
+				FE730E5024ADCC5A00680062 /* TikTokShareView.xib */,
+				FE87C2CF259C2EC100799883 /* ShareContainerView.swift */,
+				FE87C2D2259C2EC200799883 /* ShareContainerView.xib */,
+				FE87C2D1259C2EC200799883 /* SnapChatCreativeShareView.swift */,
+				FE87C2D0259C2EC200799883 /* SnapChatCreativeShareView.xib */,
+			);
+			path = ShareManager;
 			sourceTree = "<group>";
 		};
 		FE8DEA6F243DB0A20059C252 /* ApiManager */ = {
