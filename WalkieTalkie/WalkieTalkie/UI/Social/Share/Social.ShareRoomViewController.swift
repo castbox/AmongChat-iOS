@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import MessageUI
+import SwiftyUserDefaults
 
 extension Social {
     
@@ -53,6 +54,11 @@ extension Social {
             loadData()
         }
         
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            Social.Module.shared.roomShareFriends = userList
+        }
+        
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
@@ -60,12 +66,6 @@ extension Social {
             tableView.snp.makeConstraints { (maker) in
                 maker.top.left.right.equalToSuperview()
                 maker.height.equalTo(500)
-            }
-            //            tableView.pullToRefresh { [weak self] in
-            //                self?.loadData()
-            //            }
-            tableView.pullToLoadMore { [weak self] in
-                self?.loadMore()
             }
             
             let line = UIView()
@@ -97,32 +97,22 @@ extension Social {
 }
 private extension Social.ShareRoomViewController {
     func loadData() {
-        let removeBlock = view.raft.show(.loading)
-        Request.inviteFriends(skipMs: 0)
-            .subscribe(onSuccess: { [weak self](data) in
-                removeBlock()
-                guard let data = data else { return }
-                self?.userList = data.list ?? []
-                self?.tableView.endLoadMore(data.more ?? false)
-            }, onError: { (error) in
-                removeBlock()
-                cdPrint("inviteFriends error: \(error.localizedDescription)")
-            }).disposed(by: bag)
-    }
-    
-    func loadMore() {
-        let skipMS = userList.last?.opTime ?? 0
-        Request.inviteFriends(skipMs: skipMS)
-            .subscribe(onSuccess: { [weak self](data) in
-                guard let data = data else { return }
-                let list =  data.list ?? []
-                var origenList = self?.userList
-                list.forEach({ origenList?.append($0)})
-                self?.userList = origenList ?? []
-                self?.tableView.endLoadMore(data.more ?? false)
-            }, onError: { (error) in
-                cdPrint("inviteFriends error: \(error.localizedDescription)")
-            }).disposed(by: bag)
+        let users = Social.Module.shared.roomShareFriends
+        if users.isEmpty {
+            let removeBlock = view.raft.show(.loading)
+            Request.inviteFriends(skipMs: 0)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let data = data else { return }
+                    self?.userList = data.list ?? []
+                    Social.Module.shared.roomShareFriends = self?.userList ?? []
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("inviteFriends error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+        } else {
+            userList = users
+        }
     }
     
     func smsAction() {
@@ -132,7 +122,7 @@ private extension Social.ShareRoomViewController {
             vc.messageComposeDelegate = self
             self.present(vc, animated: true, completion: nil)
         } else {
-            let removeBlock = view.raft.show(.text("Sorry ,your device do not support message"))
+            let removeBlock = view.raft.show(.text("Sorry, your device do not support message"))
             mainQueueDispatchAsync(after: 2.5) {
                 removeBlock()
             }
@@ -141,7 +131,7 @@ private extension Social.ShareRoomViewController {
     
     func copyLink() {
         linkUrl.copyToPasteboard()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
 }
 
@@ -162,12 +152,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(Social.FollowerCell.self), for: indexPath)
         if let cell = cell as? Social.FollowerCell,
            let user = userList.safe(indexPath.row) {
-            cell.setCellDataForShare(with: user)
-            cell.updateFollowData = { [weak self] (follow) in
-                self?.userList[indexPath.row].isFollowed = follow
-            }
-            cell.inviteHandle = {[weak self] (user) in
-                self?.inviteUserAction(user)
+            cell.setCellDataForShare(with: user, roomId: roomId)
+            cell.updateInviteData = { [weak self] (follow) in
+                self?.userList[indexPath.row].invited = follow
             }
         }
         return cell
@@ -183,17 +170,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             hiddened = true
         }
     }
-    private func inviteUserAction(_ user: Entity.UserProfile) {
-        let removeBlock = view.raft.show(.loading)
-        Request.inviteUser(roomId: roomId, uid: user.uid)
-            .subscribe(onSuccess: { (data) in
-                removeBlock()
-            }, onError: { (error) in
-                removeBlock()
-                cdPrint("invite user error:\(error.localizedDescription)")
-            }).disposed(by: bag)
-    }
 }
+
 extension Social.ShareRoomViewController {
     
     private class ShareHeaderView: UIView {

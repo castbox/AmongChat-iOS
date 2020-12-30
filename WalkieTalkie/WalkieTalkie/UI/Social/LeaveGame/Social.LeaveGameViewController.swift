@@ -97,9 +97,6 @@ extension Social {
                 maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
-            tableView.pullToRefresh { [weak self] in
-                self?.loadData()
-            }
         }
         
         private func loadData() {
@@ -134,7 +131,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !userList.isEmpty {
             let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
-            cell.configView(with: userList[indexPath.row], isFollowing: false)
+            cell.configView(with: userList[indexPath.row])
             cell.updateFollowData = { [weak self](follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }

@@ -73,7 +73,7 @@ extension UIScrollView {
 }
 
 extension UITableView {
-    ///deefault count is 20
+    ///default count is 20
     func endLoadMore(by array:[Any]){
         if !array.isEmpty {
             self.reloadData()

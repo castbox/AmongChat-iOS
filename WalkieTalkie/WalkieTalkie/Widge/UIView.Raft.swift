@@ -54,9 +54,13 @@ extension Raft where Base: UIView {
 //        }
     }
     
-    func autoShow(_ type: ShowType, interval: TimeInterval = 2, userInteractionEnabled: Bool = true, completion: (() -> Void)? = nil) {
+    func autoShow(_ type: ShowType, interval: TimeInterval = 2,
+                  userInteractionEnabled: Bool = true,
+                  backColor: UIColor? = nil,
+                  completion: (() -> Void)? = nil) {
+        
         MBProgressHUD.hide(for: self.base, animated: false)
-        let hud = hudFor(type: type)
+        let hud = hudFor(type: type, backColor: backColor)
         hud.isUserInteractionEnabled = userInteractionEnabled
         hud.show(animated: true)
         hud.hide(animated: true, afterDelay: interval > 0 ? interval : 2)
@@ -68,11 +72,15 @@ extension Raft where Base: UIView {
         MBProgressHUD.hide(for: self.base, animated: true)
     }
     
-    private func hudFor(type: ShowType) -> MBProgressHUD {
+    private func hudFor(type: ShowType, backColor: UIColor? = nil) -> MBProgressHUD {
         let hud = MBProgressHUD(view: self.base)
         hud.removeFromSuperViewOnHide = true
 //        hud.offset = CGPoint(x: 0, y: -base.bounds.height * 0.1)
-        hud.bezelView.color = "222222".color()
+        if let backColor = backColor {
+            hud.bezelView.color = backColor
+        } else {
+            hud.bezelView.color = "222222".color()
+        }
         hud.bezelView.style = .solidColor
         hud.bezelView.layer.cornerRadius = 12
         switch type {

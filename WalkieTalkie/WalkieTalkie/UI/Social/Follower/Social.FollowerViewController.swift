@@ -193,7 +193,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
         if let user = userList.safe(indexPath.row) {
-            cell.configView(with: user, isFollowing: isFollowing)
+            cell.configView(with: user)
             cell.updateFollowData = { [weak self] (follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
@@ -217,8 +217,7 @@ extension Social {
     class FollowerCell: UITableViewCell {
         
         var updateFollowData: ((Bool) -> Void)?
-        var avaterHandle: ((Entity.UserProfile) -> Void)?
-        var inviteHandle: ((Entity.UserProfile) -> Void)?
+        var updateInviteData: ((Bool) -> Void)?
         
         let bag = DisposeBag()
         
@@ -250,6 +249,7 @@ extension Social {
         }()
         
         private var userInfo: Entity.UserProfile!
+        private var roomId = ""
         private var isInvite = false
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -299,30 +299,17 @@ extension Social {
                     guard let `self` = self else { return }
                     if self.isInvite {
                         if self.userInfo != nil {
-                            self.inviteHandle?(self.userInfo)
+                            self.inviteUserAction(self.userInfo)
                         }
                     } else {
                         self.followUser()
                     }
                 }).disposed(by: bag)
-            
-            let tap = UITapGestureRecognizer()
-            avatarIV.addGestureRecognizer(tap)
-            avatarIV.isUserInteractionEnabled = true
-            tap.rx.event.observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self](tap) in
-                    guard let `self` = self else { return }
-                    self.avaterHandle?(self.userInfo)
-                }).disposed(by: bag)
         }
         
-        func configView(with model: Entity.UserProfile, isFollowing: Bool) {
+        func configView(with model: Entity.UserProfile) {
             self.userInfo = model
-            if isFollowing {
-                followBtn.isHidden = true
-            } else {
-                followBtn.isHidden = false
-            }
+            followBtn.isHidden = false
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
             let isfollow = model.isFollowed ?? false
@@ -337,11 +324,19 @@ extension Social {
             }
         }
         
-        func setCellDataForShare(with model: Entity.UserProfile) {
+        func setCellDataForShare(with model: Entity.UserProfile, roomId: String) {
+            
             self.userInfo = model
+            self.roomId = roomId
+            
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
+            
+            let invited = userInfo.invited ?? false
+            if invited {
+                grayInviteStyle()
+            }
         }
         
         private func setUIForShare() {
@@ -364,6 +359,13 @@ extension Social {
             followBtn.setTitle(R.string.localizable.profileFollow(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+        }
+        
+        private func grayInviteStyle() {
+            followBtn.setTitle(R.string.localizable.socialInvited(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.backgroundColor = UIColor(hex6: 0x222222)
+            followBtn.layer.borderColor = UIColor(hex6: 0x222222).cgColor
         }
         
         private func followUser() {
@@ -394,6 +396,21 @@ extension Social {
                     }, onError: { (error) in
                         removeBlock?()
                         cdPrint("follow error:\(error.localizedDescription)")
+                    }).disposed(by: bag)
+            }
+        }
+        
+        private func inviteUserAction(_ user: Entity.UserProfile) {
+            let invited = userInfo.invited ?? false
+            if !invited {
+                let removeBlock = self.superview?.raft.show(.loading)
+                Request.inviteUser(roomId: roomId, uid: user.uid)
+                    .subscribe(onSuccess: { [weak self](data) in
+                        removeBlock?()
+                        self?.updateInviteData?(true)
+                    }, onError: { (error) in
+                        removeBlock?()
+                        cdPrint("invite user error:\(error.localizedDescription)")
                     }).disposed(by: bag)
             }
         }

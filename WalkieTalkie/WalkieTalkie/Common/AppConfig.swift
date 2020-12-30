@@ -29,14 +29,6 @@ struct Config {
         }
     }
     
-    struct AppKey {
-
-    }
-    
-    static var appStoreUrl: String {
-        return ""
-    }
-    
     static var scheme: String {
         return "amongchat"
     }

@@ -45,7 +45,7 @@ extension AmongChat.Home {
             let cellHeight: CGFloat = 69
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 0
-            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
@@ -85,11 +85,6 @@ extension AmongChat.Home {
             super.viewDidLoad()
             setupLayout()
             setupEvent()
-        }
-        
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            hidesBottomBarWhenPushed = false
         }
         
     }
@@ -145,6 +140,12 @@ extension AmongChat.Home.RelationsViewController {
         rx.viewDidAppear
             .subscribe(onNext: { [weak self] (_) in
                 self?.viewModel.refreshData()
+            })
+            .disposed(by: bag)
+
+        rx.viewWillAppear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
             })
             .disposed(by: bag)
 
@@ -222,6 +223,13 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
+                    
+                    guard let roomState = playing.roomState,
+                          roomState == .public else {
+                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatHomeFirendsPrivateChannelTip()))
+                        return
+                    }
+                    
                     self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)
@@ -293,11 +301,19 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: Frame.Screen.width, height: 31)
+        if dataSource.safe(section)?.count ?? 0 > 0 {
+            return CGSize(width: Frame.Screen.width, height: 31)
+        } else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: Frame.Screen.width, height: 113)
+        if section == 0 {
+            return CGSize(width: Frame.Screen.width, height: 113)
+        } else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
     }
     
 }

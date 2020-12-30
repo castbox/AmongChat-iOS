@@ -226,14 +226,19 @@
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let nilableMessage = APNSMessage(notification.request.content.userInfo)
         addPushLogger(.receive, msg: nilableMessage)
-        addPushLogger(.impression, msg: nilableMessage)
         guard let msg = nilableMessage else {
             return
         }
         anpsMessageWillShowSubject.onNext(msg)
         
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: notification.request.content.userInfo).subscribe(onSuccess: { (_) in })
-        completionHandler([.alert, .badge, .sound])
+        
+        if nilableMessage?.pushSourceType == "invite_join_room" {
+            completionHandler([])
+        } else {
+            addPushLogger(.impression, msg: nilableMessage)
+            completionHandler([.alert, .badge, .sound])
+        }
     }
     
     @available(iOS 10.0, *)
@@ -249,9 +254,7 @@
 //        }
 //        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
 //        Logger.Push.log(category, home?.channelName)
-        let queries: [String : Any] = msg?.uri.url?.queryParameters ?? [:]
-        let sourceType = queries["push_source_type"] as? String
-        Logger.Push.log(event: event, source: sourceType)
+        Logger.Push.log(event: event, source: msg?.pushSourceType)
     }
  }
  
@@ -277,6 +280,12 @@
             guard let uri = userInfo["uri"] as? String else { return nil }
             self.userInfo = userInfo
             self.uri = uri
+        }
+        
+        var pushSourceType: String {
+            let queries: [String : Any] = uri.url?.queryParameters ?? [:]
+            let sourceType = queries["push_source_type"] as? String ?? ""
+            return sourceType
         }
     }
  }

@@ -106,6 +106,7 @@ extension Entity {
         var nickname: String?
         var isFollowed: Bool?
         var opTime: Double?
+        var invited: Bool?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -120,6 +121,7 @@ extension Entity {
             case nickname
             case isFollowed = "is_followed"
             case opTime = "op_time"
+            case invited = "invited"
         }
     }
     
@@ -212,6 +214,17 @@ extension Entity {
             var topicId: String
             var playerCount: Int
             var topicName: String
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                
+                self.roomId = try container.decodeString(.roomId)
+                let stateStr = (try? container.decodeString(.state)) ?? ""
+                self.state = RoomPublicType(rawValue: stateStr) ?? .private
+                self.topicId = try container.decodeString(.topicId)
+                self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
+                self.topicName = try container.decodeString(.topicName)
+            }
         }
         
         var room: Room?

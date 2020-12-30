@@ -352,11 +352,14 @@ private extension Social.ProfileViewController {
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
+            view.raft.autoShow(.text(R.string.localizable.profileBlockUserSuccess()))
         } else {
             blocked = false
             blockedUsers.removeElement(ifExists: { $0.uid == uid })
             Defaults[\.blockedUsersV2Key] = blockedUsers
+            view.raft.autoShow(.text(R.string.localizable.profileUnblockUserSuccess()))
         }
+        
     }
     
     func reportUser() {

@@ -90,7 +90,9 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "Thanks for reporting. It would be processed within 24 hours.";
+"report.success" = "You have reported this person successfully";
+//Thanks for reporting. It would be processed within 24 hours.
+
 
 "alert.block" = "Block";
 "alert.unblock" = "Unblock";
@@ -123,8 +125,11 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
-"profile.block.message" = "Are you sure to block this person";
-"profile.unblock.message" = "Are you sure to unblock this person";
+"profile.block.message" = "Are you sure to block \nthis person";
+"profile.unblock.message" = "Are you sure to \nunblock this person";
+"profile.block.user.success" = "You have successfully \nblocked this person";
+"profile.unblock.user.success" = "This person has been \nunblocked";
+
 
 // error message
 "error.no.following" = "You haven't followed others yet.";
@@ -168,6 +173,7 @@
 "social.copy.link" = "Copy link";
 "social.invite.friends" = "Invite friends";
 "social.invite" = "Invtie";
+"social.invited" = "Invtied";
 "social.exit.channel" = "Exit channel";
 "social.follow.teammates" = "Follow your teammates to play together \nnext time";
 "social.share.url" = "Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@";
@@ -265,8 +271,9 @@
 "among.chat.unlock.avatar.failed" = "Failed to unlock avatar";
 "among.chat.update.profile.failed" = "Failed to update profile";
 "among.chat.home.friends.online.title" = "Your online friends";
-"among.chat.home.friends.suggestion.title" = "Friends you may like to play with";
+"among.chat.home.friends.suggestion.title" = "People you may like to play with";
 "among.chat.home.friends.share.title" = "Invite your friends to play together";
 "among.chat.home.friends.in.channel" = "in %1$@ channel";
 "among.chat.ignore" = "ignore";
 "among.chat.channel.invitation.msg" = "is inviting you to their %1$@ channel";
+"among.chat.home.firends.private.channel.tip" = "This channel is private";

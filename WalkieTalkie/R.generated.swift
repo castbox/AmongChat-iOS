@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 154 images.
+  /// This `R.image` struct is generated, and contains static references to 145 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -172,6 +172,8 @@ struct R: Rswift.Validatable {
     static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
+    /// Image `ac_home_tab_shadow`.
+    static let ac_home_tab_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_tab_shadow")
     /// Image `ac_home_topic_tab`.
     static let ac_home_topic_tab = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab")
     /// Image `ac_icon_kick_user`.
@@ -196,18 +198,6 @@ struct R: Rswift.Validatable {
     static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
     /// Image `ac_icon_share`.
     static let ac_icon_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_share")
-    /// Image `ac_icon_sheet_block`.
-    static let ac_icon_sheet_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_block")
-    /// Image `ac_icon_sheet_kick`.
-    static let ac_icon_sheet_kick = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_kick")
-    /// Image `ac_icon_sheet_mute`.
-    static let ac_icon_sheet_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_mute")
-    /// Image `ac_icon_sheet_report`.
-    static let ac_icon_sheet_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_report")
-    /// Image `ac_icon_sheet_unblock`.
-    static let ac_icon_sheet_unblock = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unblock")
-    /// Image `ac_icon_sheet_unmute`.
-    static let ac_icon_sheet_unmute = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_sheet_unmute")
     /// Image `ac_kick_selected`.
     static let ac_kick_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_kick_selected")
     /// Image `ac_login_apple`.
@@ -226,8 +216,6 @@ struct R: Rswift.Validatable {
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_birthday`.
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
-    /// Image `ac_profile_block_icon`.
-    static let ac_profile_block_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block_icon")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
     /// Image `ac_profile_close`.
@@ -238,10 +226,6 @@ struct R: Rswift.Validatable {
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
-    /// Image `ac_profile_report`.
-    static let ac_profile_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_report")
-    /// Image `ac_profile_unblock_icon`.
-    static let ac_profile_unblock_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_unblock_icon")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -252,8 +236,6 @@ struct R: Rswift.Validatable {
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
     /// Image `ac_room_copylink`.
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
-    /// Image `ac_room_profile_icon`.
-    static let ac_room_profile_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_profile_icon")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_setting_diamonds`.
@@ -520,6 +502,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_home_profile, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_home_tab_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_home_tab_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_tab_shadow, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_home_topic_tab", bundle: ..., traitCollection: ...)`
     static func ac_home_topic_tab(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_topic_tab, compatibleWith: traitCollection)
@@ -580,36 +567,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_icon_share, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_icon_sheet_block", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_block, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_kick", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_kick(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_kick, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_mute", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_mute, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_report", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_report, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_unblock", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_unblock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unblock, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_icon_sheet_unmute", bundle: ..., traitCollection: ...)`
-    static func ac_icon_sheet_unmute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_icon_sheet_unmute, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_kick_selected", bundle: ..., traitCollection: ...)`
     static func ac_kick_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_kick_selected, compatibleWith: traitCollection)
@@ -660,11 +617,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_block, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_block_icon", bundle: ..., traitCollection: ...)`
-    static func ac_profile_block_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_block_icon, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_profile_close", bundle: ..., traitCollection: ...)`
     static func ac_profile_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
@@ -683,16 +635,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
     static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_report", bundle: ..., traitCollection: ...)`
-    static func ac_profile_report(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_report, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_unblock_icon", bundle: ..., traitCollection: ...)`
-    static func ac_profile_unblock_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_unblock_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
@@ -718,11 +660,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_copylink", bundle: ..., traitCollection: ...)`
     static func ac_room_copylink(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_copylink, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_room_profile_icon", bundle: ..., traitCollection: ...)`
-    static func ac_room_profile_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_room_profile_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
@@ -1575,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 214 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 218 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -1625,7 +1562,11 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let monthApr = Rswift.StringResource(key: "month.apr", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Are you sure to block this person
+      /// en translation: Are you sure to  unblock this person
+      /// 
+      /// Locales: en
+      static let profileUnblockMessage = Rswift.StringResource(key: "profile.unblock.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Are you sure to block  this person
       /// 
       /// Locales: en
       static let profileBlockMessage = Rswift.StringResource(key: "profile.block.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -1633,10 +1574,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Are you sure to unblock this person
-      /// 
-      /// Locales: en
-      static let profileUnblockMessage = Rswift.StringResource(key: "profile.unblock.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Aug
       /// 
       /// Locales: en
@@ -1853,10 +1790,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialRelationFriend = Rswift.StringResource(key: "social.relation.friend", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Friends you may like to play with
-      /// 
-      /// Locales: en
-      static let amongChatHomeFriendsSuggestionTitle = Rswift.StringResource(key: "among.chat.home.friends.suggestion.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -1917,6 +1850,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invtied
+      /// 
+      /// Locales: en
+      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
@@ -2105,6 +2042,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumSubscriptionDetailLifetime = Rswift.StringResource(key: "premium.subscription.detail.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static let amongChatHomeFriendsSuggestionTitle = Rswift.StringResource(key: "among.chat.home.friends.suggestion.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en
@@ -2245,18 +2186,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatTermsService = Rswift.StringResource(key: "among.chat.terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Thanks for reporting. It would be processed within 24 hours.
-      /// 
-      /// Locales: en
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
       static let channelUserListBlockActionMsg = Rswift.StringResource(key: "channel.user.list.block.action.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This channel is private
+      /// 
+      /// Locales: en
+      static let amongChatHomeFirendsPrivateChannelTip = Rswift.StringResource(key: "among.chat.home.firends.private.channel.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This passcode can enter a secret channel, enter now?
       /// 
       /// Locales: en
       static let enterSecretChannelAlertDesc = Rswift.StringResource(key: "enter.secret.channel.alert.desc", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: This person has been  unblocked
+      /// 
+      /// Locales: en
+      static let profileUnblockUserSuccess = Rswift.StringResource(key: "profile.unblock.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Timeout
       /// 
       /// Locales: en
@@ -2353,6 +2298,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let addChannelSecretEmptyJoined = Rswift.StringResource(key: "add.channel.secret.empty.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have reported this person successfully
+      /// 
+      /// Locales: en
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have successfully  blocked this person
+      /// 
+      /// Locales: en
+      static let profileBlockUserSuccess = Rswift.StringResource(key: "profile.block.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en
@@ -2518,7 +2471,14 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.apr", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Are you sure to block this person
+      /// en translation: Are you sure to  unblock this person
+      /// 
+      /// Locales: en
+      static func profileUnblockMessage(_: Void = ()) -> String {
+        return NSLocalizedString("profile.unblock.message", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure to block  this person
       /// 
       /// Locales: en
       static func profileBlockMessage(_: Void = ()) -> String {
@@ -2530,13 +2490,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLeaveRoomTipTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.leave.room.tip.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Are you sure to unblock this person
-      /// 
-      /// Locales: en
-      static func profileUnblockMessage(_: Void = ()) -> String {
-        return NSLocalizedString("profile.unblock.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Aug
@@ -2917,13 +2870,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.relation.friend", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Friends you may like to play with
-      /// 
-      /// Locales: en
-      static func amongChatHomeFriendsSuggestionTitle(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.home.friends.suggestion.title", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: GLOBAL
       /// 
       /// Locales: en
@@ -3027,6 +2973,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialInvite(_: Void = ()) -> String {
         return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Invtied
+      /// 
+      /// Locales: en
+      static func socialInvited(_: Void = ()) -> String {
+        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
@@ -3358,6 +3311,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.subscription.detail.lifetime", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static func amongChatHomeFriendsSuggestionTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.friends.suggestion.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Play Now
       /// 
       /// Locales: en
@@ -3603,13 +3563,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.terms.service", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Thanks for reporting. It would be processed within 24 hours.
-      /// 
-      /// Locales: en
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them
       /// 
       /// Locales: en
@@ -3617,11 +3570,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("channel.user.list.block.action.msg", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: This channel is private
+      /// 
+      /// Locales: en
+      static func amongChatHomeFirendsPrivateChannelTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.home.firends.private.channel.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: This passcode can enter a secret channel, enter now?
       /// 
       /// Locales: en
       static func enterSecretChannelAlertDesc(_: Void = ()) -> String {
         return NSLocalizedString("enter.secret.channel.alert.desc", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: This person has been  unblocked
+      /// 
+      /// Locales: en
+      static func profileUnblockUserSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("profile.unblock.user.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Timeout
@@ -3790,6 +3757,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func addChannelSecretEmptyJoined(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.secret.empty.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have reported this person successfully
+      /// 
+      /// Locales: en
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have successfully  blocked this person
+      /// 
+      /// Locales: en
+      static func profileBlockUserSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("profile.block.user.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.
@@ -3962,7 +3943,6 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
-      try _AmongSheetIconItemCell.validate()
       try _ChannelUserCell.validate()
       try _ChannelUserListController.validate()
       try _GuideFirstView.validate()
@@ -4108,7 +4088,7 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+    struct _AmongSheetIconItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
       typealias ReusableType = AmongSheetIconItemCell
       
       let bundle = R.hostingBundle
@@ -4117,12 +4097,6 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetIconItemCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetIconItemCell
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongSheetIconItemCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
       }
       
       fileprivate init() {}

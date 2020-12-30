@@ -120,11 +120,13 @@ extension AmongChat.Home {
         
         private var joinDisposable: Disposable? = nil
         
-        private lazy var lockedIcon: UIImageView = {
-            let iv = UIImageView(image: R.image.ac_home_friends_locked())
-            return iv
+        private lazy var lockedIcon: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_home_friends_locked(), for: .normal)
+            return btn
         }()
-                
+        private var lockedDisposable: Disposable? = nil
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -178,6 +180,16 @@ extension AmongChat.Home {
             
             joinDisposable?.dispose()
             joinDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { (_) in
+                    guard let roomId = viewModel.roomId,
+                          let topicId = viewModel.roomTopicId else {
+                        return
+                    }
+                    onJoin(roomId, topicId)
+                })
+            
+            lockedDisposable?.dispose()
+            lockedDisposable = lockedIcon.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
                     guard let roomId = viewModel.roomId,
                           let topicId = viewModel.roomTopicId else {
@@ -264,7 +276,7 @@ extension AmongChat.Home {
         
         private var titleLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             return lb
         }()
