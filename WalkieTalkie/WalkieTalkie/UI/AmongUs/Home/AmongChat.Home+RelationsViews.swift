@@ -224,23 +224,12 @@ extension AmongChat.Home {
 
         }
         
-        func bind(viewModel: PlayingViewModel, onFollow: @escaping (_ uid: Int, _ updateData: @escaping () -> Void) -> Void) {
+        func bind(viewModel: PlayingViewModel, onFollow: @escaping () -> Void) {
             userView.bind(viewModel: viewModel)
-            
-            followBtn.isEnabled = viewModel.followable
-            
-            if viewModel.followable {
-                followBtn.layer.borderColor = followBtn.titleColor(for: .normal)?.cgColor
-            } else {
-                followBtn.layer.borderColor = followBtn.titleColor(for: .disabled)?.cgColor
-            }
-            
             followDisposable?.dispose()
             followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
-                    onFollow(viewModel.uid, {
-                        viewModel.updateFollowState()
-                    })
+                    onFollow()
                 })
         }
 

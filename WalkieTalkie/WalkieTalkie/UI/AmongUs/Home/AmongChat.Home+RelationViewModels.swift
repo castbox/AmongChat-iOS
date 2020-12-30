@@ -40,7 +40,8 @@ extension AmongChat.Home {
                 })
                 .disposed(by: bag)
             
-            refreshData()
+            refreshOnlineFriends()
+            refreshSuggestionUsers()
         }
         
         private let systemAgoraUid = Int(99999)
@@ -74,8 +75,8 @@ extension AmongChat.Home {
             }
             playingsRelay.accept(onlineFriends)
         }
-        
-        func refreshData() {
+                
+        func refreshOnlineFriends() {
             Request.friendsPlayingList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
                     self?.playingsRelay.accept(playingList.map({
@@ -83,7 +84,9 @@ extension AmongChat.Home {
                     }))
                 })
                 .disposed(by: bag)
-            
+        }
+        
+        func refreshSuggestionUsers() {
             Request.suggestionUserList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
                     self?.suggestionsRelay.accept(playingList.map({
@@ -93,13 +96,27 @@ extension AmongChat.Home {
                 .disposed(by: bag)
         }
         
+        func updateSuggestionUser(user: PlayingViewModel) {
+            
+            var suggestionUsers = suggestionsRelay.value
+            suggestionUsers.removeAll { $0.uid == user.uid }
+            
+            if suggestionUsers.count == 0 {
+                refreshSuggestionUsers()
+            }
+            
+            var onlineFriends = playingsRelay.value
+            onlineFriends.append(user)
+            
+            suggestionsRelay.accept(suggestionUsers)
+            playingsRelay.accept(onlineFriends)
+        }
+        
     }
     
     class PlayingViewModel {
         
         private let playingModel: Entity.PlayingUser
-        
-        private var followStateUpdated = false
         
         init(with model: Entity.PlayingUser) {
             playingModel = model
@@ -141,14 +158,6 @@ extension AmongChat.Home {
         
         var roomTopicId: String? {
             return playingModel.room?.topicId
-        }
-        
-        var followable: Bool {
-            return !followStateUpdated
-        }
-        
-        func updateFollowState() {
-            followStateUpdated = true
         }
         
     }

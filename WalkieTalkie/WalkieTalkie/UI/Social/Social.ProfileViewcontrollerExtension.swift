@@ -171,10 +171,10 @@ extension Social.ProfileViewController {
             if followersCount > lastCount {
                 redCountLabel.text = " +\(followersCount - lastCount) "
                 redCountLabel.isHidden = false
-                Defaults[\.followersCount] = followersCount
             } else {
                 redCountLabel.isHidden = true
             }
+            Defaults[\.followersCount] = followersCount
         }
         
         func setFollowButton(_ isFollowed: Bool) {
