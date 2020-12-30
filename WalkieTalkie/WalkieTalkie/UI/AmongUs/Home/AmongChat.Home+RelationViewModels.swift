@@ -39,9 +39,6 @@ extension AmongChat.Home {
                     self?.handleIMMessage(message: message, sender: sender)
                 })
                 .disposed(by: bag)
-            
-            refreshOnlineFriends()
-            refreshSuggestionUsers()
         }
         
         private let systemAgoraUid = Int(99999)
@@ -75,8 +72,13 @@ extension AmongChat.Home {
             }
             playingsRelay.accept(onlineFriends)
         }
+        
+        func refreshData() {
+            refreshOnlineFriends()
+            refreshSuggestionUsers()
+        }
                 
-        func refreshOnlineFriends() {
+        private func refreshOnlineFriends() {
             Request.friendsPlayingList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
                     self?.playingsRelay.accept(playingList.map({
@@ -86,7 +88,7 @@ extension AmongChat.Home {
                 .disposed(by: bag)
         }
         
-        func refreshSuggestionUsers() {
+        private func refreshSuggestionUsers() {
             Request.suggestionUserList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
                     self?.suggestionsRelay.accept(playingList.map({

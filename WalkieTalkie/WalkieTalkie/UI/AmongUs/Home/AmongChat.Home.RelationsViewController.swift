@@ -141,6 +141,13 @@ extension AmongChat.Home.RelationsViewController {
                 self?.dataSource = data
             })
             .disposed(by: bag)
+                
+        rx.viewDidAppear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.viewModel.refreshData()
+            })
+            .disposed(by: bag)
+
     }
     
     private func followUser(user: AmongChat.Home.PlayingViewModel) {
@@ -214,9 +221,12 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing) { [weak self] (roomId, topicId) in
+                cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
                     self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
-                }
+                }, onAvatarTap: { [weak self] in
+                    let vc = Social.ProfileViewController(with: playing.uid)
+                    self?.navigationController?.pushViewController(vc)
+                })
             }
             return cell
 
@@ -224,9 +234,12 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
-                cell.bind(viewModel: playing) { [weak self] in
+                cell.bind(viewModel: playing, onFollow: { [weak self] in
                     self?.followUser(user: playing)
-                }
+                }, onAvatarTap: { [weak self] in
+                    let vc = Social.ProfileViewController(with: playing.uid)
+                    self?.navigationController?.pushViewController(vc)
+                })
             }
             return cell
         default:

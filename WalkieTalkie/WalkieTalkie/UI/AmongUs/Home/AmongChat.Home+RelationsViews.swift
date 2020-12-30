@@ -20,6 +20,15 @@ extension AmongChat.Home {
             return iv
         }()
         
+        private lazy var avatarTap: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            avatarIV.isUserInteractionEnabled = true
+            avatarIV.addGestureRecognizer(g)
+            return g
+        }()
+        
+        private var avatarTapDisposable: Disposable? = nil
+        
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -74,7 +83,7 @@ extension AmongChat.Home {
             
         }
         
-        func bind(viewModel: PlayingViewModel) {
+        func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
             
             avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl))
             
@@ -82,6 +91,10 @@ extension AmongChat.Home {
             
             statusLabel.text = viewModel.playingStatus
             
+            avatarTapDisposable?.dispose()
+            avatarTapDisposable = avatarTap.rx.event.subscribe(onNext: { (_) in
+                onAvatarTap()
+            })
         }
         
     }
@@ -150,8 +163,10 @@ extension AmongChat.Home {
             
         }
         
-        func bind(viewModel: PlayingViewModel, onJoin: @escaping (_ roomId: String, _ topicId: String) -> Void) {
-            userView.bind(viewModel: viewModel)
+        func bind(viewModel: PlayingViewModel,
+                  onJoin: @escaping (_ roomId: String, _ topicId: String) -> Void,
+                  onAvatarTap: @escaping () -> Void) {
+            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
             joinBtn.isHidden = !viewModel.joinable
             lockedIcon.isHidden = viewModel.joinable
             joinDisposable?.dispose()
@@ -224,8 +239,10 @@ extension AmongChat.Home {
 
         }
         
-        func bind(viewModel: PlayingViewModel, onFollow: @escaping () -> Void) {
-            userView.bind(viewModel: viewModel)
+        func bind(viewModel: PlayingViewModel,
+                  onFollow: @escaping () -> Void,
+                  onAvatarTap: @escaping () -> Void) {
+            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
             followDisposable?.dispose()
             followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
