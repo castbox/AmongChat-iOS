@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SVGAPlayer
+import SwiftyUserDefaults
 
 extension AmongChat.Room {
     
@@ -167,7 +168,10 @@ extension AmongChat.Room {
             Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
 
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
+//            let blockedUsers = Defaults[\.blockedUsersV2Key]
+//            let blockItem: AmongSheetController.ItemType = blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
             let blockItem: AmongSheetController.ItemType = viewModel.blockedUsers.contains(where: { $0.uid == user.uid}) ? .unblock : .block
+            
             var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
             if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
                 items.append(.kick)

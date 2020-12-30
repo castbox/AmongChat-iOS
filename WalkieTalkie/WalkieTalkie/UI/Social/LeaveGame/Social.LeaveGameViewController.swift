@@ -38,7 +38,6 @@ extension Social {
             tb.dataSource = self
             tb.delegate = self
             tb.register(cellWithClass: Social.FollowerCell.self)
-//            tb.register(, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
             tb.register(cellWithClass: NoDatacell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
@@ -156,6 +155,13 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 90
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let user = userList.safe(indexPath.row) {
+            let vc = Social.ProfileViewController(with: user.uid)
+            self.navigationController?.pushViewController(vc)
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

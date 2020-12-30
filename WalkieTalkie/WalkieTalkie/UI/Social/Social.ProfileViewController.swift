@@ -143,10 +143,6 @@ extension Social {
                 })
                 .disposed(by: bag)
         }
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            getRealation()
-        }
     }
 }
 
@@ -195,6 +191,7 @@ private extension Social.ProfileViewController {
             self.headerView.setProfileData(self.roomUser)
         }
         loadData()
+        getRealation()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
@@ -307,7 +304,6 @@ private extension Social.ProfileViewController {
     }
     
     func showBlockAlter() {
-        
         var message = R.string.localizable.profileBlockMessage()
         var confirmString = R.string.localizable.alertBlock()
         if blocked {
@@ -351,17 +347,15 @@ private extension Social.ProfileViewController {
         var blockedUsers = Defaults[\.blockedUsersV2Key]
         if isBlocked {
             blocked = true
-            relationData?.isBlocked = true
-            blockedUsers.removeElement(ifExists: { $0.uid == uid })
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-        } else {
-            blocked = false
-            relationData?.isBlocked = false
             if !blockedUsers.contains(where: { $0.uid == uid}) {
                 let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "", nickname: userProfile?.nickname ?? "")
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
+        } else {
+            blocked = false
+            blockedUsers.removeElement(ifExists: { $0.uid == uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
         }
     }
     

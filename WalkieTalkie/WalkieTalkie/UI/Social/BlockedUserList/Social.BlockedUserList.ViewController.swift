@@ -44,7 +44,7 @@ extension Social.BlockedUserList {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(BlockedUserCell.self, forCellReuseIdentifier: NSStringFromClass(BlockedUserCell.self))
+            tb.register(cellWithClass: BlockedUserCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -150,10 +150,9 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(BlockedUserCell.self), for: indexPath)
-        cell.backgroundColor = .clear
-        if let cell = cell as? BlockedUserCell,
-           let user = userList.safe(indexPath.row) {
+        let cell = tableView.dequeueReusableCell(withClass: BlockedUserCell.self)
+
+        if let user = userList.safe(indexPath.row) {
             cell.configView(with: user)
             cell.unlockHandle = { [weak self] in
                 self?.unblockUser(index: indexPath.row)
@@ -164,6 +163,13 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let user = userList.safe(indexPath.row) {
+            let vc = Social.ProfileViewController(with: user.uid)
+            navigationController?.pushViewController(vc)
+        }
     }
     
     private func unblockUser(index: Int) {

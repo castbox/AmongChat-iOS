@@ -162,7 +162,6 @@ extension AmongChat.Room {
             setObservableSubject()
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
-            cdPrint("enteredTimestamp : \(enteredTimestamp)")
         }
         
         @discardableResult
@@ -390,6 +389,7 @@ extension AmongChat.Room {
             Request.follow(uid: uid, type: "block")
                 .subscribe(onSuccess: {(success) in
                 }, onError: { (error) in
+                    cdPrint("room block error :\(error.localizedDescription)")
                 }).disposed(by: bag)
         }
         
@@ -397,6 +397,7 @@ extension AmongChat.Room {
             Request.unFollow(uid: uid, type: "block")
                 .subscribe(onSuccess: {(success) in
                 }, onError: { (error) in
+                    cdPrint("room Unblock error :\(error.localizedDescription)")
                 }).disposed(by: bag)
         }
         

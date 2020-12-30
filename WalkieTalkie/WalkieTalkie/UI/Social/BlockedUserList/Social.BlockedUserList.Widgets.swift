@@ -62,7 +62,6 @@ extension Social.BlockedUserList.Widgets {
         
         private func setupLayout() {
             selectionStyle = .none
-            
             backgroundColor = .clear
             
             contentView.addSubviews(views: avatarIV, usernameLabel, unlockBtn)

@@ -37,7 +37,7 @@ extension Social {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(Social.FollowerCell.self, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
+            tb.register(cellWithClass: Social.FollowerCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -191,16 +191,11 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(Social.FollowerCell.self), for: indexPath)
-        if let cell = cell as? Social.FollowerCell,
-           let user = userList.safe(indexPath.row) {
+        let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
+        if let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: isFollowing)
             cell.updateFollowData = { [weak self] (follow) in
                 self?.userList[indexPath.row].isFollowed = follow
-            }
-            cell.avaterHandle = { [weak self](info) in
-                let vc = Social.ProfileViewController(with: info.uid)
-                self?.navigationController?.pushViewController(vc)
             }
         }
         return cell
@@ -208,6 +203,12 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let user = userList.safe(indexPath.row) {
+            let vc = Social.ProfileViewController(with: user.uid)
+            self.navigationController?.pushViewController(vc)
+        }
     }
 }
 
@@ -366,25 +367,22 @@ extension Social {
         }
         
         private func followUser() {
-            
-            let removeBlock = self.superview?.raft.show(.loading)
-            
             let isFollowed = userInfo?.isFollowed ?? false
-            
             if isFollowed {
-                Request.unFollow(uid: userInfo?.uid ?? 0, type: "follow")
-                    .subscribe(onSuccess: { [weak self](success) in
-                        guard let `self` = self else { return }
-                        removeBlock?()
-                        if success {
-                            self.setFollow(false)
-                            self.updateFollowData?(false)
-                        }
-                    }, onError: { (error) in
-                        removeBlock?()
-                        cdPrint("unfollow error:\(error.localizedDescription)")
-                    }).disposed(by: bag)
+//                Request.unFollow(uid: userInfo?.uid ?? 0, type: "follow")
+//                    .subscribe(onSuccess: { [weak self](success) in
+//                        guard let `self` = self else { return }
+//                        removeBlock?()
+//                        if success {
+//                            self.setFollow(false)
+//                            self.updateFollowData?(false)
+//                        }
+//                    }, onError: { (error) in
+//                        removeBlock?()
+//                        cdPrint("unfollow error:\(error.localizedDescription)")
+//                    }).disposed(by: bag)
             } else {
+                let removeBlock = self.superview?.raft.show(.loading)
                 Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
                     .subscribe(onSuccess: { [weak self](success) in
                         guard let `self` = self else { return }
