@@ -244,23 +244,8 @@ extension AmongChat.Room.ViewController {
     private func onCloseBtn() {
         showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
-            self.requestLeaveRoom {
-                self.showRecommendUser()
-            }
+            self.requestLeaveRoom()
         }
-    }
-    
-    private func showRecommendUser() {
-        if viewModel.showRecommendUser {
-            let currentVC = UIApplication.navigationController?.viewControllers.first
-            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId)
-            if currentVC?.navigationController != nil {
-                currentVC?.navigationController?.pushViewController(vc)
-            } else {
-                vc.showModal(in: currentVC)
-            }
-        }
-        Social.Module.shared.clear()
     }
     
     @objc
@@ -291,10 +276,8 @@ extension AmongChat.Room.ViewController {
             } onError: { error in
                 cdPrint("requestLeaveRoom error: \(error)")
             }
+        self.showRecommendUser()
         
-        dismissViewController(completionHandler: {
-            completionHandler?()
-        })
 //        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
 //        let removeBlock = { [weak self] in
 //            self?.view.isUserInteractionEnabled = true
@@ -315,6 +298,20 @@ extension AmongChat.Room.ViewController {
 //            }
 //            .disposed(by: bag)
     }
+    
+    
+    private func showRecommendUser(completionHandler: CallBack? = nil) {
+        if viewModel.showRecommendUser {
+            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId)
+            navigationController?.pushViewController(vc)
+        } else {
+            dismissViewController(completionHandler: {
+                completionHandler?()
+            })
+        }
+        Social.Module.shared.clear()
+    }
+    
     
     func dismissViewController(completionHandler: CallBack? = nil) {
         navigationController?.popViewController(animated: true) {

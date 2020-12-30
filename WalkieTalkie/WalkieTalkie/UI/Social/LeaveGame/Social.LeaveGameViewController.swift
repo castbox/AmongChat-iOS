@@ -17,8 +17,7 @@ extension Social {
             let btn = UIButton(type: .custom)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
-                    self?.hideModal()
-                    self?.navigationController?.popViewController()
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }).disposed(by: bag)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
             return btn

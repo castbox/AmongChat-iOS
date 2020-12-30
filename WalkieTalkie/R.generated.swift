@@ -1866,10 +1866,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Invtied
-      /// 
-      /// Locales: en
-      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
@@ -2142,6 +2138,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sent
       /// 
       /// Locales: en
@@ -3023,13 +3023,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Invtied
-      /// 
-      /// Locales: en
-      static func socialInvited(_: Void = ()) -> String {
-        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.
       /// 
       /// Locales: en
@@ -3504,6 +3497,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatRoomMessagePlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.message.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sent
+      /// 
+      /// Locales: en
+      static func socialInvited(_: Void = ()) -> String {
+        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sent

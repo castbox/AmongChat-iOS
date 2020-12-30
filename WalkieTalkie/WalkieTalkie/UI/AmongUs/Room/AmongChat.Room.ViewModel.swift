@@ -105,7 +105,8 @@ extension AmongChat.Room {
         var showRecommendUser: Bool {
             let gap = Date().timeIntervalSince1970 - enteredTimestamp
             cdPrint("now time stamp gap : \(gap.int)")
-            return (gap.int / 60) > 6
+//            return (gap.int / 60) > 6
+            return (gap.int) > 3
         }
         
         let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
