@@ -132,6 +132,10 @@ extension AmongChat.CreateRoom {
             return sw
         }()
         
+        override var contentScrollView: UIScrollView? {
+            topicTable
+        }
+        
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
         private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
                 
@@ -350,7 +354,8 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
             return
         }
         Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
-        createRoom(with: topic.topic.rawValue)
+        enterRoom(topicId: topic.topic.rawValue, logSource: .creatingMatchSource)
+//        createRoom(with: topic.topic.rawValue)
     }
 
 }

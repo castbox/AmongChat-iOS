@@ -20,6 +20,8 @@ extension WalkieTalkie.ViewController {
         static let friendsSource = EnterRoomLogSource(key: "friends")
         static let urlSource = EnterRoomLogSource(key: "link")
         static let creatingSource = EnterRoomLogSource(key: "create")
+        //hottopic
+        static let creatingMatchSource = EnterRoomLogSource(key: "create_match")
     }
     
     struct EnterRoomApiSource {
