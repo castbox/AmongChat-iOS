@@ -148,7 +148,17 @@ extension AmongChat.Home.RelationsViewController {
                 self?.friendsCollectionView.setContentOffset(.zero, animated: false)
             })
             .disposed(by: bag)
-
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.profileBtn.redDotOff()
+                } else {
+                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
+                }
+            })
+            .disposed(by: bag)
+        
     }
     
     private func followUser(user: AmongChat.Home.PlayingViewModel) {
