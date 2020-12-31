@@ -166,6 +166,13 @@ extension AmongChat.Home {
                 self?.dismiss(animated: false)
             })
             .disposed(by: bag)
+            
+            let containerTap = UITapGestureRecognizer()
+            container.addGestureRecognizer(containerTap)
+            containerTap.rx.event.subscribe(onNext: { (_) in
+                
+            })
+            .disposed(by: bag)
         }
         
         private func startCountDown() {
