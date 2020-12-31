@@ -79,7 +79,12 @@ extension Routes {
                 return
             }
             
-            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: .urlSource, apiSource: ViewController.EnterRoomApiSource(key: channel.sourceType ?? ""))
+            var apiSource: ViewController.EnterRoomApiSource? = nil
+            if let source = channel.sourceType {
+                apiSource = ViewController.EnterRoomApiSource(key: source)
+            }
+            
+            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: .urlSource, apiSource: apiSource)
             Logger.Channel.log(.deeplink, channel.channelId, value: 0)
         }
         
