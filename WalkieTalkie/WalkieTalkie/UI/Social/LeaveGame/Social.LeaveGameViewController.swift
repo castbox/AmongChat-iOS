@@ -48,12 +48,17 @@ extension Social {
                 tableView.reloadData()
             }
         }
-        
         private var roomId = ""
+        private var topicId = ""
         
-        init(with roomId: String) {
+        override var screenName: Logger.Screen.Node.Start {
+            return .exit_channel
+        }
+        
+        init(with roomId: String, topicId: String) {
             super.init(nibName: nil, bundle: nil)
             self.roomId = roomId
+            self.topicId = topicId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -93,7 +98,7 @@ extension Social {
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
+                maker.top.equalTo(navLayoutGuide.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
         }
@@ -132,7 +137,9 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
             let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
             cell.configView(with: userList[indexPath.row], isFollowing: false, isSelf: false)
             cell.updateFollowData = { [weak self](follow) in
-                self?.userList[indexPath.row].isFollowed = follow
+                guard let `self` = self else { return }
+                self.userList[indexPath.row].isFollowed = follow
+                Logger.Action.log(.room_exit_following_imp, category: Logger.Action.Category(rawValue: self.topicId), "follow")
             }
             return cell
         } else {
@@ -155,6 +162,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
+            Logger.Action.log(.room_exit_following_imp, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
         }

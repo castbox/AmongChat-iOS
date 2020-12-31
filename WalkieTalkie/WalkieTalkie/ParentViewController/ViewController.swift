@@ -191,7 +191,8 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
         let v = AmongChat.Home.LoadErrorView()
         self.view.addSubview(v)
         v.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            maker.top.equalTo(Frame.Height.navigation)
+            maker.left.right.bottom.equalToSuperview()
         }
         v.showUp { [weak v] in
             v?.removeFromSuperview()

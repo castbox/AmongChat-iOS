@@ -36,12 +36,14 @@ extension Social {
         
         private var linkUrl = ""
         private var roomId = ""
+        private var topicId = ""
         private var hiddened = false
         
-        init(with linkUrl: String, roomId: String) {
+        init(with linkUrl: String, roomId: String, topicId: String) {
             super.init(nibName: nil, bundle: nil)
             self.linkUrl = R.string.localizable.socialShareUrl(linkUrl)
             self.roomId = roomId
+            self.topicId = topicId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -114,6 +116,7 @@ private extension Social.ShareRoomViewController {
     }
     
     func smsAction() {
+        Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "sms")
         if MFMessageComposeViewController.canSendText() {
             let vc = MFMessageComposeViewController()
             vc.body = linkUrl
@@ -128,6 +131,7 @@ private extension Social.ShareRoomViewController {
     }
     
     func copyLink() {
+        Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "copy")
         linkUrl.copyToPasteboard()
         view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
@@ -151,7 +155,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         if let user = userList.safe(indexPath.row) {
             cell.setCellDataForShare(with: user, roomId: roomId)
             cell.updateInviteData = { [weak self] (follow) in
-                self?.userList[indexPath.row].invited = follow
+                guard let `self` = self else { return }
+                self.userList[indexPath.row].invited = follow
+                Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), "invite")
             }
         }
         return cell
@@ -162,6 +168,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
+            Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
         }

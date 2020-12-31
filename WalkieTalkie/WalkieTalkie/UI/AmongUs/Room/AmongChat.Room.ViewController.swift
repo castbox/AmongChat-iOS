@@ -263,7 +263,7 @@ extension AmongChat.Room.ViewController {
 ////            removeBlock()
 //        }
         
-        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId)
+        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
     }
     
@@ -302,7 +302,8 @@ extension AmongChat.Room.ViewController {
     
     private func showRecommendUser(completionHandler: CallBack? = nil) {
         if viewModel.showRecommendUser {
-            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId)
+            
+            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId, topicId: viewModel.roomReplay.value.topicId)
             navigationController?.pushViewController(vc)
         } else {
             dismissViewController(completionHandler: {

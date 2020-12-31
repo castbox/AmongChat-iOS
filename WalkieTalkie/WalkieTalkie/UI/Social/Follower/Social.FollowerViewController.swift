@@ -48,11 +48,17 @@ extension Social {
                 tableView.reloadData()
             }
         }
-        
         private var uid = 0
         private var isFollowing = true
         private var isSelf = false
-
+        
+        override var screenName: Logger.Screen.Node.Start {
+            if isFollowing {
+                return .following
+            }
+            return .followers
+        }
+        
         init(with uid: Int, isFollowing: Bool) {
             super.init(nibName: nil, bundle: nil)
             self.uid = uid
@@ -78,8 +84,10 @@ extension Social {
             
             if isFollowing {
                 titleLabel.text = R.string.localizable.profileFollowing()// "Following"
+                Logger.Action.log(.profile_following_imp, category: nil)
             } else {
                 titleLabel.text = R.string.localizable.profileFollower()// "Followers"
+                Logger.Action.log(.profile_followers_imp, category: nil)
             }
             
             view.addSubviews(views: backBtn, titleLabel)
@@ -199,7 +207,9 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         if let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
             cell.updateFollowData = { [weak self] (follow) in
-                self?.userList[indexPath.row].isFollowed = follow
+                guard let `self` = self else { return }
+                self.userList[indexPath.row].isFollowed = follow
+                self.addLogForFollow(with: self.userList[indexPath.row].uid)
             }
         }
         return cell
@@ -208,10 +218,43 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
+            addLogForProfile(with: user.uid)
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
+        }
+    }
+    
+    private func addLogForFollow(with uid: Int) {
+        if isSelf {
+            if isFollowing {
+                Logger.Action.log(.profile_following_clk, category: .follow, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_followers_clk, category: .follow, "\(uid)")
+            }
+        } else {
+            if isFollowing {
+                Logger.Action.log(.profile_other_followers_clk, category: .follow, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_other_following_clk, category: .follow, "\(uid)")
+            }
+        }
+    }
+    private func addLogForProfile(with uid: Int) {
+        if isSelf {
+            if isFollowing {
+                Logger.Action.log(.profile_following_clk, category: .profile, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_followers_clk, category: .profile, "\(uid)")
+            }
+        } else {
+            if isFollowing {
+                Logger.Action.log(.profile_other_following_clk, category: .profile, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_other_followers_clk, category: .profile, "\(uid)")
+            }
         }
     }
 }

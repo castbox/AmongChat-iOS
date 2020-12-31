@@ -111,7 +111,10 @@ extension Social {
         private var relationData: Entity.RelationData?
         
         override var screenName: Logger.Screen.Node.Start {
-            return .profile
+            if isSelfProfile {
+                return .profile
+            }
+            return .profile_other
         }
         
         private var uid = 0
@@ -138,8 +141,13 @@ extension Social {
             setupData()
             rx.viewDidAppear
                 .take(1)
-                .subscribe(onNext: { (_) in
-                    Logger.Action.log(.profile_imp, category: nil)
+                .subscribe(onNext: { [weak self](_) in
+                    guard let `self` = self else { return }
+                    if self.isSelfProfile {
+                        Logger.Action.log(.profile_imp, category: nil)
+                    } else {
+                        Logger.Action.log(.profile_other_imp, category: nil, "\(self.uid)")
+                    }
                 })
                 .disposed(by: bag)
         }
@@ -169,9 +177,9 @@ private extension Social.ProfileViewController {
             options.removeAll()
             view.addSubview(moreBtn)
             moreBtn.snp.makeConstraints { (make) in
-                make.right.equalTo(-20)
+                make.right.equalTo(-15)
                 make.centerY.equalTo(backBtn.snp.centerY)
-                make.width.height.equalTo(24)
+                make.width.height.equalTo(40)//24
             }
         }
         table.tableHeaderView = headerView
@@ -246,6 +254,8 @@ private extension Social.ProfileViewController {
         let removeBlock = view.raft.show(.loading)
         let isFollowed = relationData?.isFollowed ?? false
         if isFollowed {
+                
+            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
             Request.unFollow(uid: uid, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -260,6 +270,7 @@ private extension Social.ProfileViewController {
                     cdPrint("unfollow error:\(error.localizedDescription)")
                 }).disposed(by: bag)
         } else {
+            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
             Request.follow(uid: uid, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
@@ -277,12 +288,18 @@ private extension Social.ProfileViewController {
     }
     
     func followerAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .followers, "\(uid)")
+        }
         headerView.redCountLabel.isHidden = true
         let vc = Social.FollowerViewController(with: uid, isFollowing: false)
         navigationController?.pushViewController(vc)
     }
     
     func followingAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .following, "\(uid)")
+        }
         let vc = Social.FollowerViewController(with: uid, isFollowing: true)
         navigationController?.pushViewController(vc)
     }

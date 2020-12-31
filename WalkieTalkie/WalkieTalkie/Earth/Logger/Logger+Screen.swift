@@ -28,6 +28,10 @@ extension Logger {
                 case profile
                 case profile_edit
                 case friends
+                case profile_other
+                case following
+                case followers
+                case exit_channel
             }
             
             case start(Start)
