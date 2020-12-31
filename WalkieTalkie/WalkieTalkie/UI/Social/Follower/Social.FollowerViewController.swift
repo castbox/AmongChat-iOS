@@ -75,7 +75,16 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            loadData()
+            if isSelf {
+                loadData()
+            }
+        }
+        
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            if !isSelf {
+                loadData()
+            }
         }
         
         private func setupLayout() {

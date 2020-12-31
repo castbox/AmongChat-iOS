@@ -123,10 +123,7 @@ private extension Social.ShareRoomViewController {
             vc.messageComposeDelegate = self
             self.present(vc, animated: true, completion: nil)
         } else {
-            let removeBlock = view.raft.show(.text("Sorry, your device do not support message"))
-            mainQueueDispatchAsync(after: 2.5) {
-                removeBlock()
-            }
+            view.raft.autoShow(.text("Sorry, your device do not \nsupport message"))
         }
     }
     
