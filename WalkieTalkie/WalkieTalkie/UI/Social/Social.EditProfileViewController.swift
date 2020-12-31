@@ -191,7 +191,7 @@ private extension Social.EditProfileViewController {
         if let b = profile.birthday, !b.isEmpty {
             vc.selectToBirthday(fixBirthdayString(b))
         } else {
-            vc.selectToBirthday("")
+            vc.selectToBirthday("2005/01/01")
         }
         view.endEditing(true)
     }
