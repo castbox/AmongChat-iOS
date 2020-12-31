@@ -168,10 +168,11 @@ private extension Social.ProfileViewController {
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
-            maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
-            maker.width.height.equalTo(25)
+            maker.left.equalToSuperview().offset(12.5)
+            maker.top.equalTo(8.5 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(40)//25
         }
         if !isSelfProfile {
             options.removeAll()
@@ -244,7 +245,7 @@ private extension Social.ProfileViewController {
                 guard let `self` = self, let data = data else { return }
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
-                self.headerView.setViewData(data)
+                self.headerView.setViewData(data, isSelf: self.isSelfProfile)
             }, onError: { (error) in
                 cdPrint("relationData error :\(error.localizedDescription)")
             }).disposed(by: bag)

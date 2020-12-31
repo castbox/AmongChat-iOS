@@ -162,24 +162,24 @@ extension Social.ProfileViewController {
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }
         
-        func setViewData(_ model: Entity.RelationData) {
+        func setViewData(_ model: Entity.RelationData, isSelf: Bool) {
             
             let lastCount = Defaults[\.followersCount]
             
             let followersCount = model.followersCount ?? 0
             
-            Defaults[\.followersCount] = followersCount
-            
             followingBtn.setTitle("\(model.followingCount ?? 0)")
             followerBtn.setTitle("\(followersCount)")
 
-            if followersCount > lastCount {
-                redCountLabel.text = "+\(followersCount - lastCount)"
-                redCountLabel.isHidden = false
-            } else {
-                redCountLabel.isHidden = true
+            if isSelf {
+                Defaults[\.followersCount] = followersCount
+                if followersCount > lastCount {
+                    redCountLabel.text = "+\(followersCount - lastCount)"
+                    redCountLabel.isHidden = false
+                } else {
+                    redCountLabel.isHidden = true
+                }
             }
-            
             let follow = model.isFollowed ?? false
             setFollowButton(follow)
         }
