@@ -69,6 +69,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             loadData()
+            Logger.Action.log(.room_exit_channel_imp)
         }
         
         private func setupLayout() {
@@ -139,7 +140,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
             cell.updateFollowData = { [weak self](follow) in
                 guard let `self` = self else { return }
                 self.userList[indexPath.row].isFollowed = follow
-                Logger.Action.log(.room_exit_following_imp, category: Logger.Action.Category(rawValue: self.topicId), "follow")
+                Logger.Action.log(.room_exit_channel_clk, category: Logger.Action.Category(rawValue: self.topicId), "follow")
             }
             return cell
         } else {
@@ -162,7 +163,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
-            Logger.Action.log(.room_exit_following_imp, category: Logger.Action.Category(rawValue: topicId), "profile")
+            Logger.Action.log(.room_exit_channel_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
         }

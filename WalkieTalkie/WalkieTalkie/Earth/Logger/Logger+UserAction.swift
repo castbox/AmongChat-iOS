@@ -119,7 +119,8 @@ extension Logger {
             case room_edit_nickname_success
             case room_edit_clk
             case room_change_state_clk
-            case room_exit_following_imp
+            case room_exit_channel_imp
+            case room_exit_channel_clk
             case room_share_item_clk
             case rtc_call_roominfo
             
