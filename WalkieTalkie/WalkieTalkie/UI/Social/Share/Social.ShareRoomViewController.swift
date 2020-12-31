@@ -20,7 +20,7 @@ extension Social {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(Social.FollowerCell.self, forCellReuseIdentifier: NSStringFromClass(Social.FollowerCell.self))
+            tb.register(cellWithClass: Social.FollowerCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -82,12 +82,10 @@ extension Social {
             
             headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 195)
             tableView.tableHeaderView = headerView
-            
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.smsAction()
             }
-            
             headerView.copyLinkHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.copyLink()
@@ -149,9 +147,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(Social.FollowerCell.self), for: indexPath)
-        if let cell = cell as? Social.FollowerCell,
-           let user = userList.safe(indexPath.row) {
+        let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
+        if let user = userList.safe(indexPath.row) {
             cell.setCellDataForShare(with: user, roomId: roomId)
             cell.updateInviteData = { [weak self] (follow) in
                 self?.userList[indexPath.row].invited = follow
@@ -162,6 +159,12 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let user = userList.safe(indexPath.row) {
+            let vc = Social.ProfileViewController(with: user.uid)
+            self.navigationController?.pushViewController(vc)
+        }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

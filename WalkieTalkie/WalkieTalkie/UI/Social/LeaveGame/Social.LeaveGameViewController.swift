@@ -130,7 +130,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !userList.isEmpty {
             let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
-            cell.configView(with: userList[indexPath.row])
+            cell.configView(with: userList[indexPath.row], isFollowing: false, isSelf: false)
             cell.updateFollowData = { [weak self](follow) in
                 self?.userList[indexPath.row].isFollowed = follow
             }
@@ -146,11 +146,11 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         if userList.isEmpty {
             return 500
         }
-        return 64
+        return 69
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 90
+        return 85
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -167,7 +167,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         lable.snp.makeConstraints { (make) in
             make.left.equalTo(20)
             make.right.equalTo(-20)
-            make.bottom.equalTo(-17)
+            make.bottom.equalTo(-16.5)
         }
         lable.numberOfLines = 0
         lable.textColor = UIColor(hex6: 0x898989)

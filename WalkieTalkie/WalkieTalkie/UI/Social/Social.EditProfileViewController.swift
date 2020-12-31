@@ -264,6 +264,7 @@ private extension Social {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             lb.textAlignment = .right
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -284,6 +285,7 @@ private extension Social {
             }
             
             userNameLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(userNameTitle.snp.right).offset(20)
                 make.right.equalTo(-20)
                 make.centerY.equalTo(icon.snp.centerY)
             }

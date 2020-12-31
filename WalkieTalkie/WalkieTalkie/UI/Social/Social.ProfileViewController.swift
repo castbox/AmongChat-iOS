@@ -106,7 +106,7 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = [.inviteFriends, .settings, .community, .blockUser, ]
+        private lazy var options: [Option] = [.inviteFriends, .blockUser, .community, .settings, ]
         
         private var relationData: Entity.RelationData?
         
@@ -313,7 +313,7 @@ private extension Social.ProfileViewController {
             message = R.string.localizable.profileUnblockMessage()
             confirmString = R.string.localizable.alertUnblock()
         }
-        showAmongAlert(title: nil, message: message,
+        showAmongAlert(title: message, message: nil,
                        cancelTitle: R.string.localizable.toastCancel(),
                        confirmTitle: confirmString) { [weak self] in
             self?.blockUser()

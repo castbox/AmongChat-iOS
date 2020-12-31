@@ -2141,10 +2141,6 @@ struct R: Rswift.Validatable {
       /// en translation: Sent
       /// 
       /// Locales: en
-      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Sent
-      /// 
-      /// Locales: en
       static let socialJoinActionSent = Rswift.StringResource(key: "social.join.action.sent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sep
       /// 
@@ -2398,6 +2394,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumLifetime = Rswift.StringResource(key: "premium.lifetime", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: sent
+      /// 
+      /// Locales: en
+      static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: wait till you have enough crewmates. then open a channel in game and find each other thru private code
       /// 
       /// Locales: en
@@ -3502,13 +3502,6 @@ struct R: Rswift.Validatable {
       /// en translation: Sent
       /// 
       /// Locales: en
-      static func socialInvited(_: Void = ()) -> String {
-        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Sent
-      /// 
-      /// Locales: en
       static func socialJoinActionSent(_: Void = ()) -> String {
         return NSLocalizedString("social.join.action.sent", bundle: R.hostingBundle, comment: "")
       }
@@ -3952,6 +3945,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumLifetime(_: Void = ()) -> String {
         return NSLocalizedString("premium.lifetime", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: sent
+      /// 
+      /// Locales: en
+      static func socialInvited(_: Void = ()) -> String {
+        return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: wait till you have enough crewmates. then open a channel in game and find each other thru private code

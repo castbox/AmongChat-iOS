@@ -112,6 +112,7 @@ extension Social.ProfileViewController {
             return lb
         }()
         private var isSelf = true
+        private var uid = ""
         
         init(with isSelf: Bool) {
             super.init(frame: .zero)
@@ -124,7 +125,7 @@ extension Social.ProfileViewController {
         }
         
         func configProfile(_ profile: Entity.UserProfile) {
-            
+            uid = profile.uid.string
             if let b = profile.birthday, !b.isEmpty {
                 
                 let dateFormatter = DateFormatter()
@@ -148,7 +149,7 @@ extension Social.ProfileViewController {
             } else {
                 nameLabel.text = profile.name
             }
-            
+            currentName = nameLabel.text ?? ""
             avatarIV.setAvatarImage(with: profile.pictureUrl)
             if isSelf {
                 editBtn.isHidden = false
@@ -156,6 +157,7 @@ extension Social.ProfileViewController {
         }
         
         func setProfileData(_ model: Entity.RoomUser) {
+            uid = model.uid.string
             nameLabel.text = model.name
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }
@@ -172,7 +174,7 @@ extension Social.ProfileViewController {
             followerBtn.setTitle("\(followersCount)")
 
             if followersCount > lastCount {
-                redCountLabel.text = " +\(followersCount - lastCount) "
+                redCountLabel.text = "+\(followersCount - lastCount)"
                 redCountLabel.isHidden = false
             } else {
                 redCountLabel.isHidden = true
@@ -220,6 +222,25 @@ extension Social.ProfileViewController {
             } else {
                 setLayoutForOther()
             }
+            
+            let tap = UITapGestureRecognizer()
+            tap.numberOfTapsRequired = 5
+            nameLabel.isUserInteractionEnabled = true
+            nameLabel.addGestureRecognizer(tap)
+            tap.rx.event.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self](tap) in
+                    self?.addUidForName()
+                }).disposed(by: bag)
+        }
+        private var changedName = false
+        private var currentName = ""
+        private func addUidForName() {
+            if changedName {
+                nameLabel.text = currentName
+            } else {
+                nameLabel.text = "\(currentName) - \(uid)"
+            }
+            changedName = !changedName
         }
         
         private func setLayoutForSelf() {
@@ -400,8 +421,9 @@ extension Social.ProfileViewController {
             super.init(frame: .zero)
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
-                maker.left.top.right.equalToSuperview()
+                maker.top.centerX.equalToSuperview()
             }
+            
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(titleLabel.snp.bottom)
                 maker.left.right.equalToSuperview()
