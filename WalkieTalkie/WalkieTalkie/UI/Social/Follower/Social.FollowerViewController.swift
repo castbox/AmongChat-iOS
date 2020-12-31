@@ -75,16 +75,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            if !isSelf {
-                loadData()
-            }
-        }
-        
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            if isSelf {
-                loadData()
-            }
+            loadData()
         }
         
         private func setupLayout() {
@@ -232,6 +223,16 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         if let user = userList.safe(indexPath.row) {
             addLogForProfile(with: user.uid)
             let vc = Social.ProfileViewController(with: user.uid)
+            vc.followedHandle = { [weak self](followed) in
+                guard let `self` = self else { return }
+                if self.isSelf && self.isFollowing {
+                    if followed {
+                        self.userList.insert(user, at: indexPath.row)
+                    } else {
+                        self.userList.remove(at: indexPath.row)
+                    }
+                }
+            }
             self.navigationController?.pushViewController(vc)
         }
     }

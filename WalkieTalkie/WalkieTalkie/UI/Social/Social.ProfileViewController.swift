@@ -47,7 +47,7 @@ extension Social {
                 }
             }
         }
-        
+        var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
@@ -264,6 +264,7 @@ private extension Social.ProfileViewController {
                         self.fetchRealation()
                         self.relationData?.isFollowed = false
                         self.headerView.setFollowButton(false)
+                        self.followedHandle?(false)
                     }
                 }, onError: { (error) in
                     removeBlock()
@@ -279,6 +280,7 @@ private extension Social.ProfileViewController {
                         self.fetchRealation()
                         self.relationData?.isFollowed = true
                         self.headerView.setFollowButton(true)
+                        self.followedHandle?(true)
                     }
                 }, onError: { (error) in
                     removeBlock()
