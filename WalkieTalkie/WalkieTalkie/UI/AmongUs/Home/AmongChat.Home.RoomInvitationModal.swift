@@ -97,6 +97,8 @@ extension AmongChat.Home {
         private var joinBtnDisposable: Disposable? = nil
         private var ignoreBtnDisposable: Disposable? = nil
         
+        private var room: Entity.FriendUpdatingInfo.Room? = nil
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -163,7 +165,7 @@ extension AmongChat.Home {
             tap.rx.event.subscribe(onNext: { [weak self] (_) in
                 self?.dismiss(animated: false)
             })
-            .disposed(by: bag)            
+            .disposed(by: bag)
         }
         
         private func startCountDown() {
@@ -177,15 +179,18 @@ extension AmongChat.Home {
                     self?.countDownLabel.text = "\(count)"
                 }, onCompleted: { [weak self] in
                     self?.dismiss(animated: false)
+                    Logger.Action.log(.invite_dialog_auto_dimiss, categoryValue: self?.room?.topicId)
                 })
             circleView.updateProgress(fromValue: 1, toValue: 0, animationDuration: 15)
         }
         
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+            self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl))
             nameLabel.text = user.name
             msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             startCountDown()
+            Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)
         }
         
         func bindEvent(join: @escaping () -> Void, ignore: @escaping () -> Void) {

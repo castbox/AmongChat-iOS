@@ -18,6 +18,7 @@ extension AmongChat.Home {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            delegate = self
             setupLayout()
             setupViewControllers()
             setupEvent()
@@ -80,8 +81,10 @@ extension AmongChat.Home.MainTabController {
                         }
                         topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
                 }, ignore: {
                     invitationModal.dismiss(animated: false)
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
                 
             })
@@ -114,6 +117,20 @@ extension AmongChat.Home.MainTabController {
             
         }
         
+    }
+    
+}
+
+extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let nav = viewController as? UINavigationController else { return }
+        
+        if let _ = nav.viewControllers.first as? AmongChat.Home.TopicsViewController {
+            Logger.Action.log(.home_tab, categoryValue: "game")
+        } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
+            Logger.Action.log(.home_tab, categoryValue: "friends")
+        }
     }
     
 }
