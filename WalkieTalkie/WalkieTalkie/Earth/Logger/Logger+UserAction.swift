@@ -159,6 +159,7 @@ extension Logger {
             
             case google
             case apple_id
+            case snapchat
             case success
             case fail
         }

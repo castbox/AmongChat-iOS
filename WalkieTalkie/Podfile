@@ -152,7 +152,6 @@ target 'WalkieTalkie' do
     #https://github.com/sberrevoets/SDCAlertView
     pod 'SDCAlertView'
     pod 'SVGAPlayer'
-
 end
 
 #target 'WalkieTalkieWidgetExtension' do

@@ -24,6 +24,7 @@ import FirebaseDynamicLinks
 import Bolts
 import Kingfisher
 import GoogleSignIn
+import SCSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -115,6 +116,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
+            return true
+        } else if SCSDKLoginClient.application(app, open: url, options: options) {
             return true
         }
         return FireLink.handle(dynamicLink: url) { [weak self] url in

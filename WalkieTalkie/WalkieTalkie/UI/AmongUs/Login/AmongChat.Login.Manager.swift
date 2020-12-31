@@ -11,6 +11,7 @@ import RxSwift
 import AuthenticationServices
 import GoogleSignIn
 import Firebase
+import SCSDKLoginKit
 
 extension AmongChat.Login {
     
@@ -38,6 +39,16 @@ extension AmongChat.Login {
         
         func loginGoogle(from vc: UIViewController) -> Single<Entity.LoginResult?> {
             return signin(via: .google, from: vc)
+                .flatMap { [weak self] (result) in
+                    guard let `self` = self else {
+                        return Observable.just(nil).asSingle()
+                    }
+                    return self.login(via: .google, token: result.token, secret: nil)
+                }
+        }
+        
+        func loginSnapchat(from vc: UIViewController) -> Single<Entity.LoginResult?> {
+            return signin(via: .snapchat, from: vc)
                 .flatMap { [weak self] (result) in
                     guard let `self` = self else {
                         return Observable.just(nil).asSingle()
@@ -133,6 +144,64 @@ extension AmongChat.Login {
                     }
                     .asSingle()
                 }
+            case .snapchat:
+                return Observable.create { [weak self] (subscriber) -> Disposable in
+                    
+                    guard let `self` = self else {
+                        subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+                        return Disposables.create()
+                    }
+                    
+                    SCSDKLoginClient.login(from: vc) { (sucess, error) in
+                        let successBlock = { (response: [AnyHashable: Any]?) in
+                            guard let response = response as? [String: Any],
+                                let data = response["data"] as? [String: Any],
+                                let me = data["me"] as? [String: Any],
+                                let displayName = me["displayName"] as? String,
+                                let bitmoji = me["bitmoji"] as? [String: Any],
+                                let avatar = bitmoji["avatar"] as? String else {
+                                    return
+                            }
+                            debugPrint("response: \(response)")
+                            // Needs to be on the main thread to control the UI.
+//                            DispatchQueue.main.async {
+//                                self.loadAndDisplayAvatar(url: URL(string: avatar))
+//                                self.nameLabel?.text = displayName
+//                            }
+                        }
+                        
+                        let failureBlock = { (error: Error?, success: Bool) in
+                            if let error = error {
+                                print(String.init(format: "Failed to fetch user data. Details: %@", error.localizedDescription))
+                            }
+                        }
+                        
+                        let queryString = "{me{externalId, displayName, bitmoji{avatar}}}"
+                        SCSDKLoginClient.fetchUserData(withQuery: queryString,
+                                                       variables: nil,
+                                                       success: successBlock,
+                                                       failure: failureBlock)
+
+                    }
+//                    self.googleAgent.signIn(from: vc) { (error, user) in
+//
+//                        guard let token = user?.authentication.idToken else {
+//                            var newError: Error? {
+//                                guard let nsError = error as? NSError, nsError.code == GIDSignInErrorCode.canceled.rawValue else {
+//                                    return error
+//                                }
+//                                return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+//                            }
+//                            subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+//                            return
+//                        }
+//
+//                        subscriber.onNext(ThirdPartySignInResult(token:token, secret: nil))
+//                        subscriber.onCompleted()
+//                    }
+                    
+                    return Disposables.create()
+                }.asSingle()
             }
         }
                 

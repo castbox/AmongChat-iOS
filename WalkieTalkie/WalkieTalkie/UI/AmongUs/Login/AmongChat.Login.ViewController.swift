@@ -26,6 +26,22 @@ extension AmongChat.Login {
             return iv
         }()
         
+        private lazy var snapchatButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatLoginSignInWithSnapchat(), for: .normal)
+            btn.addTarget(self, action: #selector(onSnapchatButton), for: .primaryActionTriggered)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.setTitleColor(.black, for: .normal)
+            btn.setImage(R.image.ac_login_snapchat(), for: .normal)
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#FFFC00".color()
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+            return btn
+        }()
+        
         private lazy var googleButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
@@ -139,6 +155,26 @@ extension AmongChat.Login.ViewController {
     }
     
     @objc
+    private func onSnapchatButton() {
+        Logger.Action.log(.login_clk, category: .snapchat)
+        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginSnapchat(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: { [weak self] in
+                self?.loadingRemoval?()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .google)
+                }
+            }, onError: { [weak self] (error) in
+                self?.loginHandler(nil, error)
+            })
+            .disposed(by: bag)
+    }
+    
+    @objc
     private func onGoogleButton() {
         Logger.Action.log(.login_clk, category: .google)
         loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -166,7 +202,7 @@ extension AmongChat.Login.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: bg, logoIV, policyLabel, googleButton)
+        view.addSubviews(views: bg, logoIV, policyLabel, googleButton, snapchatButton)
         
         bg.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -192,6 +228,20 @@ extension AmongChat.Login.ViewController {
         if #available(iOS 13.0, *) {
             view.addSubview(appleButton)
             appleButton.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.bottom.equalTo(googleButton.snp.top).offset(-20)
+                maker.width.equalTo(295)
+                maker.height.equalTo(48)
+            }
+            
+            snapchatButton.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.bottom.equalTo(appleButton.snp.top).offset(-20)
+                maker.width.equalTo(295)
+                maker.height.equalTo(48)
+            }
+        } else {
+            snapchatButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.bottom.equalTo(googleButton.snp.top).offset(-20)
                 maker.width.equalTo(295)
