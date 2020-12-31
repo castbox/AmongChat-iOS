@@ -105,34 +105,20 @@ extension URI {
         
         static func patterns() -> [String] {
             return [
+                "/room/:channel_id",
+                "/room",
                 "/channel/:channel_id",
-                "/channel"
+                "/channel",
             ]
         }
         
         let channelId: String
+        let sourceType: String?
         
         init?(_ paras: [String : Any]) {
             guard let channelId = paras["channel_id"] as? String else { return nil }
             self.channelId = channelId
-        }
-        
-    }
-    
-    struct Room: URIRepresentable {
-        
-        static func patterns() -> [String] {
-            return [
-                "/room/:room_id",
-                "/room"
-            ]
-        }
-        
-        let roomId: String
-        
-        init?(_ paras: [String : Any]) {
-            guard let channelName = paras["room_id"] as? String else { return nil }
-            self.roomId = channelName
+            sourceType = paras["push_source_type"] as? String
         }
         
     }

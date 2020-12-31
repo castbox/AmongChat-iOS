@@ -27,7 +27,6 @@ final class Routes {
             URI.Homepage.self,
             URI.Followers.self,
             URI.Channel.self,
-            URI.Room.self,
             URI.CreateRoom.self,
             URI.Profile.self
             ]
