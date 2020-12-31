@@ -151,6 +151,7 @@ extension AmongChat.Room {
             imViewModel = IMViewModel(with: room.roomId)
             
             imViewModel.messagesObservable
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (msg) in
                     //处理消息
                     //                    self?.messageListDataSource = msgs
@@ -180,8 +181,8 @@ extension AmongChat.Room {
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
+                    completionBlock?(error)
                 }
-                completionBlock?(error)
             }
             return true
         }
