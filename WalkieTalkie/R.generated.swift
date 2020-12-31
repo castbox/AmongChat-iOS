@@ -1662,14 +1662,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialCopyLink = Rswift.StringResource(key: "social.copy.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Create %1$@ channel
-      /// 
-      /// Locales: en
-      static let amongChatCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
       static let addChannelGlobalTipsTitle = Rswift.StringResource(key: "add.channel.global.tips.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Create a %1$@ channel
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomConfirmBtn = Rswift.StringResource(key: "among.chat.create.room.confirm.btn", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create a Channel
       /// 
       /// Locales: en
@@ -2666,18 +2666,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.copy.link", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Create %1$@ channel
-      /// 
-      /// Locales: en
-      static func amongChatCreateRoomConfirmBtn(_ value1: String) -> String {
-        return String(format: NSLocalizedString("among.chat.create.room.confirm.btn", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
-      }
-      
       /// en translation: Create Global Channel
       /// 
       /// Locales: en
       static func addChannelGlobalTipsTitle(_: Void = ()) -> String {
         return NSLocalizedString("add.channel.global.tips.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create a %1$@ channel
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomConfirmBtn(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.create.room.confirm.btn", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Create a Channel

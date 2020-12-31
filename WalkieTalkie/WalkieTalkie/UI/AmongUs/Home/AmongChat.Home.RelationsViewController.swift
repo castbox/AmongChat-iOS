@@ -230,7 +230,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         return
                     }
                     
-                    self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
+                    self?.enterRoom(roomId: roomId, topicId: topicId, logSource: .friendsSource, apiSource: .joinFriendSource)
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)
                     self?.navigationController?.pushViewController(vc)

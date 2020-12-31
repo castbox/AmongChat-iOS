@@ -185,12 +185,12 @@ extension AmongChat.Room {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, source: String = "match", completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(room: Entity.Room, from controller: UIViewController, logSource: EnterRoomLogSource = .matchSource, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, source)
+                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource.key)
                 //show loading
                 let viewModel = ViewModel.make(room)
                 completionHandler?(nil)

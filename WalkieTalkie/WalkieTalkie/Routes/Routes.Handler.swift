@@ -80,7 +80,7 @@ extension Routes {
             guard let roomVc = UIApplication.navigationController?.topViewController as? ViewController else {
                 return
             }
-            roomVc.enterRoom(roomId: roomId, topicId: nil, source: "link")
+            roomVc.enterRoom(roomId: roomId, topicId: nil, logSource: .urlSource)
             Logger.Channel.log(.deeplink, roomId, value: 0)
         }
         

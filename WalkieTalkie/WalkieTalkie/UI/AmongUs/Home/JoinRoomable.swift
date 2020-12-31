@@ -12,8 +12,25 @@ protocol JoinRoomable {
     var contentScrollView: UIScrollView? { get }
 }
 
+extension WalkieTalkie.ViewController {
+    struct EnterRoomLogSource {
+        let key: String
+        
+        static let matchSource = EnterRoomLogSource(key: "match")
+        static let friendsSource = EnterRoomLogSource(key: "friends")
+        static let urlSource = EnterRoomLogSource(key: "link")
+        static let creatingSource = EnterRoomLogSource(key: "create")
+    }
+    
+    struct EnterRoomApiSource {
+        let key: String
+        
+        static let joinFriendSource = EnterRoomApiSource(key: "join_friend_room")
+    }
+}
+
 extension JoinRoomable where Self: ViewController {
-    func enterRoom(roomId: String? = nil, topicId: String?, source: String = "match") {
+    func enterRoom(roomId: String? = nil, topicId: String?, logSource: EnterRoomLogSource = .matchSource, apiSource: EnterRoomApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         
         var topic = topicId
@@ -28,7 +45,7 @@ extension JoinRoomable where Self: ViewController {
         }
         
         contentScrollView?.isUserInteractionEnabled = false
-        Request.enterRoom(roomId: roomId, topicId: topic)
+        Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
                 guard let `self` = self else {
@@ -40,7 +57,7 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, source: source) { error in
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
                 }
 
