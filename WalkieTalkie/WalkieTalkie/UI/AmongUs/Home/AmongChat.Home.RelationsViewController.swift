@@ -131,6 +131,8 @@ extension AmongChat.Home.RelationsViewController {
     
     private func setupEvent() {
         
+        viewModel.refreshData()
+        
         viewModel.dataSource
             .subscribe(onNext: { [weak self] (data) in
                 self?.dataSource = data

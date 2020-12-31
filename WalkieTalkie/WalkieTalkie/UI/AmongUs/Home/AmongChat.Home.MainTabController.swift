@@ -113,6 +113,7 @@ extension AmongChat.Home.MainTabController {
                 let relationVC = AmongChat.Home.RelationsViewController()
                 relationVC.tabBarItem.image = R.image.ac_home_friends_tab()
                 relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
             }
             
