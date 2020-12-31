@@ -109,15 +109,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        if url.scheme == Config.scheme  {
+        if SCSDKLoginClient.application(app, open: url, options: options) {
+            return true
+        } else if url.scheme == Config.scheme  {
             guard let parsedURL = BFURL(url: url) else { return false }
             return Routes.handle(parsedURL.targetURL)
         }
         else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
-            return true
-        } else if SCSDKLoginClient.application(app, open: url, options: options) {
             return true
         }
         return FireLink.handle(dynamicLink: url) { [weak self] url in

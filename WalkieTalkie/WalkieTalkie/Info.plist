@@ -71,10 +71,13 @@
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>SCSDKClientId</key>
-	<string>decc5db8-b5a1-499b-bce9-71767041b0ef</string>
+	<string>fe9236ab-e095-4e6c-a211-35c1c64465df</string>
+    <key>SCSDKRedirectUrl</key>
+    <string>amongchat://snaplogin</string>
     <key>SCSDKScopes</key>
       <array>
         <string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
+        <string>https://auth.snapchat.com/oauth2/api/user.external_id</string>
       </array>
 	<key>TikTokAppID</key>
 	<string>1669310519218182</string>
