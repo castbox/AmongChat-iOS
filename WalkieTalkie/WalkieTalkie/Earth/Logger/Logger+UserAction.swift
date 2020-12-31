@@ -89,6 +89,7 @@ extension Logger {
             case profile_avatar_get_success
             case profile_nikename_clk
             case profile_birthday_clk
+            case profile_birthday_update_success
             case profile_invite_friend_clk
             case profile_followers_imp
             case profile_followers_clk

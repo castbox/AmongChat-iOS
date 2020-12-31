@@ -239,6 +239,9 @@ private extension Social.EditProfileViewController {
                         return
                     }
                     Settings.shared.amongChatUserProfile.value = p
+                    if let birthdayStr = profileProto.birthday {
+                        Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
+                    }
                 }, onError: { (error) in
                 })
                 .disposed(by: bag)
