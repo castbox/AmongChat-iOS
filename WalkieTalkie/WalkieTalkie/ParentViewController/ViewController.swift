@@ -14,6 +14,8 @@ import SwifterSwift
 
 class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
     
+    var isRequestingRoom: Bool = false
+    
     var isNavigationBarHiddenWhenAppear = false {
         didSet {
             if isNavigationBarHiddenWhenAppear {

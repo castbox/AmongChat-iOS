@@ -10,6 +10,7 @@ import UIKit
 
 protocol JoinRoomable {
     var contentScrollView: UIScrollView? { get }
+    var isRequestingRoom: Bool { get set }
 }
 
 extension WalkieTalkie.ViewController {
@@ -43,10 +44,12 @@ extension JoinRoomable where Self: ViewController {
         
         let completion = { [weak self] in
             self?.contentScrollView?.isUserInteractionEnabled = true
+            self?.isRequestingRoom = false
             hudRemoval()
         }
         
         contentScrollView?.isUserInteractionEnabled = false
+        isRequestingRoom = true
         Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
