@@ -78,7 +78,7 @@ class GuideFourthView_b: XibLoadableView, PremiumContainerable {
         
         selectedProductId = IAP.productYear
         
-        FireStore.shared.isInReviewSubject
+        Settings.shared.isInReview.replay()
             .filter { !$0 }
             .map { !$0 }
             .observeOn(MainScheduler.asyncInstance)

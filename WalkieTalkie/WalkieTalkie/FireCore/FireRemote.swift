@@ -83,6 +83,8 @@ extension FireRemote {
         
         let allowed_minimum_version: String
         
+        let auditVersion: String
+        
         init(config: RemoteConfig) {
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
@@ -124,6 +126,7 @@ extension FireRemote {
             app_open_ad_config = AppOpenAdConfig(config["app_open_ad_config"].stringValue ?? "")
             
             allowed_minimum_version = config["allowed_minimum_version"].stringValue ?? ""
+            auditVersion = config["ios_audit_version"].stringValue ?? ""
         }
     }
 }

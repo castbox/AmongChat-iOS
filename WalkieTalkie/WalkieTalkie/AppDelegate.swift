@@ -77,11 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        _ = FireStore.shared.isInReviewSubject
-//            .filter { !$0 }
-            .subscribe(onNext: { _ in
-                IAP.prefetchProducts()
-            })
+        IAP.prefetchProducts()
         // 路由模块待优化
         _ = Routes.shared
         _ = Routes.Handler.shared

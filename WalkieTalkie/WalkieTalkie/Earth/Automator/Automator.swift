@@ -58,5 +58,11 @@ class Automator {
                 cdPrint("[Automator]  Sync token result: \(result)")
             })
             .disposed(by: bag)
+        
+        FireRemote.shared.remoteValue()
+            .subscribe(onNext: { (cfg) in
+                Settings.shared.isInReview.value = (cfg.value.auditVersion == Config.appVersion)
+            })
+            .disposed(by: bag)
     }
 }

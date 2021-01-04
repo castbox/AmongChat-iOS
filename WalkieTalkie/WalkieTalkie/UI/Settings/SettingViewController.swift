@@ -73,7 +73,7 @@ class SettingContainerTableController: UITableViewController {
         super.viewDidLoad()
         tableView.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        showVipPro = FireStore.shared.isInReviewSubject.value || Settings.shared.isProValue.value
+        showVipPro = Settings.shared.isInReview.value || Settings.shared.isProValue.value
         updateSubviewStyle()
     }
     

@@ -113,6 +113,11 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let isInReview: PublishProperty<Bool> = {
+        return DynamicProperty.stored(false)
+            .asPublishProperty()
+    }()
+    
     var appInstallDate: Date {
         get {
             if let dt = Defaults[\.appInstallDateKey] {
