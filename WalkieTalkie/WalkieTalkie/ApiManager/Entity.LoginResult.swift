@@ -14,6 +14,7 @@ extension Entity {
         case google
         case apple
         case snapchat
+        case facebook
     }
 }
 

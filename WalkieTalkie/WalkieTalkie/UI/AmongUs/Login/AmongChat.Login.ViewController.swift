@@ -42,6 +42,22 @@ extension AmongChat.Login {
             return btn
         }()
         
+        private lazy var facebookButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatLoginSignInWithFacebook(), for: .normal)
+            btn.addTarget(self, action: #selector(onFacebookButton), for: .primaryActionTriggered)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.setTitleColor(.white, for: .normal)
+            btn.setImage(R.image.ac_login_facebook(), for: .normal)
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#1877F2".color()
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+            return btn
+        }()
+        
         private lazy var googleButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
@@ -175,6 +191,26 @@ extension AmongChat.Login.ViewController {
     }
     
     @objc
+    private func onFacebookButton() {
+        Logger.Action.log(.login_clk, category: .facebook)
+        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginFacebook(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: { [weak self] in
+                self?.loadingRemoval?()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .google)
+                }
+            }, onError: { [weak self] (error) in
+                self?.loginHandler(nil, error)
+            })
+            .disposed(by: bag)
+    }
+    
+    @objc
     private func onGoogleButton() {
         Logger.Action.log(.login_clk, category: .google)
         loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -202,7 +238,7 @@ extension AmongChat.Login.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: bg, logoIV, policyLabel, googleButton, snapchatButton)
+        view.addSubviews(views: bg, logoIV, policyLabel, googleButton, facebookButton/*, snapchatButton*/)
         
         bg.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -234,19 +270,33 @@ extension AmongChat.Login.ViewController {
                 maker.height.equalTo(48)
             }
             
-            snapchatButton.snp.makeConstraints { (maker) in
+            facebookButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.bottom.equalTo(appleButton.snp.top).offset(-20)
                 maker.width.equalTo(295)
                 maker.height.equalTo(48)
             }
+            
+//            snapchatButton.snp.makeConstraints { (maker) in
+//                maker.centerX.equalToSuperview()
+//                maker.bottom.equalTo(facebookButton.snp.top).offset(-20)
+//                maker.width.equalTo(295)
+//                maker.height.equalTo(48)
+//            }
         } else {
-            snapchatButton.snp.makeConstraints { (maker) in
+            facebookButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.bottom.equalTo(googleButton.snp.top).offset(-20)
                 maker.width.equalTo(295)
                 maker.height.equalTo(48)
             }
+            
+//            snapchatButton.snp.makeConstraints { (maker) in
+//                maker.centerX.equalToSuperview()
+//                maker.bottom.equalTo(facebookButton.snp.top).offset(-20)
+//                maker.width.equalTo(295)
+//                maker.height.equalTo(48)
+//            }
         }
         
     }

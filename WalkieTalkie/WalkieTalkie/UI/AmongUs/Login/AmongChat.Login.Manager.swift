@@ -12,6 +12,8 @@ import AuthenticationServices
 import GoogleSignIn
 import Firebase
 import SCSDKLoginKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 extension AmongChat.Login {
     
@@ -53,7 +55,17 @@ extension AmongChat.Login {
                     guard let `self` = self else {
                         return Observable.just(nil).asSingle()
                     }
-                    return self.login(via: .google, token: result.token, secret: nil)
+                    return self.login(via: .snapchat, token: result.token, secret: nil)
+                }
+        }
+        
+        func loginFacebook(from vc: UIViewController) -> Single<Entity.LoginResult?> {
+            return signin(via: .facebook, from: vc)
+                .flatMap { [weak self] (result) in
+                    guard let `self` = self else {
+                        return Observable.just(nil).asSingle()
+                    }
+                    return self.login(via: .facebook, token: result.token, secret: nil)
                 }
         }
                 
@@ -144,6 +156,31 @@ extension AmongChat.Login {
                     }
                     .asSingle()
                 }
+            case .facebook:
+                AccessToken.current = nil /// 清空 FBSDKAccessToken
+                
+                return Observable.create { [weak self] (subscriber) -> Disposable in
+                    
+                    let loginManager: LoginManager = LoginManager()
+                    loginManager.logOut() // 先退出登录
+                    
+                    loginManager.logIn(permissions: ["public_profile"], from: vc) { (result, error) -> Void in
+                        
+                        var newError: Error? {
+                            if result?.isCancelled == true {
+                                return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+                            }
+                            return error
+                        }
+                        guard let token = result?.token?.tokenString, error == nil else {
+                            subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
+                            return
+                        }
+                        subscriber.onNext(ThirdPartySignInResult(token: token, secret: nil))
+                        subscriber.onCompleted()
+                    }
+                    return Disposables.create()
+                }.asSingle()
             case .snapchat:
                 return Observable.create { [weak self] (subscriber) -> Disposable in
                     
@@ -158,21 +195,13 @@ extension AmongChat.Login {
                             return
                         }
                         let successBlock = { (response: [AnyHashable: Any]?) in
-                            guard let response = response as? [String: Any],
-                                let data = response["data"] as? [String: Any],
-                                let me = data["me"] as? [String: Any],
-                                let displayName = me["displayName"] as? String,
-                                let texternalId = me["texternalId"] as? String
-//                                let bitmoji = me["bitmoji"] as? [String: Any],
-//                                let avatar = bitmoji["avatar"] as? String
-                                else {
-                                    return
-                            }
                             let token = SCSDKLoginClient.getAccessToken()
-                            debugPrint("SCSDKLoginClient.getAccessToken token: \(token) \ndisplayName: \(displayName) texternalId: \(texternalId)")
+                            guard !token.isEmpty else {
+                                subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+                                return
+                            }
                             subscriber.onNext(ThirdPartySignInResult(token: token, secret: nil))
                             subscriber.onCompleted()
-
                         }
                         
                         let failureBlock = { (error: Error?, success: Bool) in

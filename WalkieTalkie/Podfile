@@ -152,6 +152,9 @@ target 'WalkieTalkie' do
     #https://github.com/sberrevoets/SDCAlertView
     pod 'SDCAlertView'
     pod 'SVGAPlayer'
+    
+    #https://developers.facebook.com/docs/facebook-login/ios?sdk=cocoapods
+    pod 'FBSDKLoginKit'
 end
 
 #target 'WalkieTalkieWidgetExtension' do

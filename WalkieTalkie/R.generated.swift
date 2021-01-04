@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 146 images.
+  /// This `R.image` struct is generated, and contains static references to 147 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -204,6 +204,8 @@ struct R: Rswift.Validatable {
     static let ac_login_apple = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_apple")
     /// Image `ac_login_bg`.
     static let ac_login_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_bg")
+    /// Image `ac_login_facebook`.
+    static let ac_login_facebook = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_facebook")
     /// Image `ac_login_google`.
     static let ac_login_google = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_google")
     /// Image `ac_login_logo`.
@@ -582,6 +584,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_bg", bundle: ..., traitCollection: ...)`
     static func ac_login_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_facebook", bundle: ..., traitCollection: ...)`
+    static func ac_login_facebook(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_facebook, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_login_google", bundle: ..., traitCollection: ...)`
@@ -1519,7 +1526,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 224 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 225 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2173,6 +2180,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLoginSignInWithApple = Rswift.StringResource(key: "among.chat.login.sign.in.with.apple", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sign in with Facebook
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInWithFacebook = Rswift.StringResource(key: "among.chat.login.sign.in.with.facebook", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sign in with Google
       /// 
       /// Locales: en
@@ -3557,6 +3568,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLoginSignInWithApple(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.sign.in.with.apple", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sign in with Facebook
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInWithFacebook(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.with.facebook", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sign in with Google

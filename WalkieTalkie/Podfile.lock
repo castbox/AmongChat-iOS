@@ -242,6 +242,16 @@ PODS:
     - SwiftyBeaver (~> 1.9.0)
   - DeviceKit (4.2.1)
   - DoraemonKit/Core (3.0.2)
+  - FBSDKCoreKit (8.2.0):
+    - FBSDKCoreKit/Basics (= 8.2.0)
+    - FBSDKCoreKit/Core (= 8.2.0)
+  - FBSDKCoreKit/Basics (8.2.0)
+  - FBSDKCoreKit/Core (8.2.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (8.2.0):
+    - FBSDKLoginKit/Login (= 8.2.0)
+  - FBSDKLoginKit/Login (8.2.0):
+    - FBSDKCoreKit (~> 8.2.0)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
   - Firebase/Auth (6.25.0):
@@ -549,6 +559,7 @@ DEPENDENCIES:
   - CastboxDebuger (~> 1.3.2)
   - DeviceKit (~> 4.0)
   - DoraemonKit/Core (~> 3.0.2)
+  - FBSDKLoginKit
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
@@ -606,6 +617,8 @@ SPEC REPOS:
     - BytedanceOpenPlatformSDK
     - DeviceKit
     - DoraemonKit
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -701,6 +714,8 @@ SPEC CHECKSUMS:
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
+  FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
+  FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -772,6 +787,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 8747b1f3a11d3f85aa0c06dacf6a42a2fcda4dc2
+PODFILE CHECKSUM: 76940796582b075ab67e7f5ee2d72b05daf1dab8
 
 COCOAPODS: 1.10.0
