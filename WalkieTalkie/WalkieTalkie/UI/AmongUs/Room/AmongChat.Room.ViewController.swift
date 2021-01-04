@@ -310,7 +310,7 @@ extension AmongChat.Room.ViewController {
                 completionHandler?()
             })
         }
-        Social.Module.shared.clear()
+        Social.ShareRoomViewController.clear()
     }
     
     

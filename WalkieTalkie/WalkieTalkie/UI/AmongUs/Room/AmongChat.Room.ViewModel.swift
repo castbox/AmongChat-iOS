@@ -58,26 +58,12 @@ extension AmongChat.Room {
 
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
-        
-        private var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
-        
+                
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
             manager.delegate = self
             return manager
         }()
-        
-        var userObservable: Observable<[ChannelUserViewModel]> {
-            return dataSourceReplay.asObservable()
-        }
-        
-        var channelUserViewModelList: [ChannelUserViewModel] {
-            return dataSourceReplay.value
-        }
-        
-        private var cachedFUsers = [UInt : FireStore.Entity.User]()
-        private var unfoundUserIds = Set<UInt>()
-        
         
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
@@ -458,31 +444,13 @@ extension AmongChat.Room {
                 mutedUser.remove(user.uid.uInt)
             }
         }
-        
-        func followUser(_ user: FireStore.Entity.User) {
-            Social.Module.shared.follow(user.uid)
-        }
-        
-        func unfollowUser(_ user: FireStore.Entity.User) {
-//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            //        FireStore.shared.removeFollowing(user.uid, from: selfUid)
-        }
-        
+                        
         func didJoinedChannel(_ channel: String) {
             let _ = Request.reportEnterRoom(channel)
                 .subscribe(onSuccess: { (_) in
                 })
         }
-        
-        //        func leavChannel(_ channel: String) {
-        //            let _ = Request.reportLeaveRoom(channel)
-        //                .subscribe()
-        //            cachedFUsers.removeAll()
-        //            unfoundUserIds.removeAll()
-        //            dataSource.accept([])
-        //            ViewModel.shared = nil
-        //        }
-        
+                
     }
     
 }

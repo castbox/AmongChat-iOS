@@ -100,9 +100,6 @@ extension Routes {
         }
         
         func handleFollowers() {
-            guard let nav = UIApplication.navigationController else { return }
-            let vc = Social.RelationsViewController(.followerTab)
-            nav.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

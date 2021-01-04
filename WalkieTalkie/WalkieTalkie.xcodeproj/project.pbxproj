@@ -33,7 +33,6 @@
 		BD754CB3258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD754CB2258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift */; };
 		BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD754CB8258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift */; };
 		BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD754CBD258B9D0E00ECC177 /* AmongChat.CreateRoom.swift */; };
-		BD7B126324F6623900C94836 /* FireStore.FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */; };
 		BD8B4C10257A533D00BE6520 /* AmongChat.Room.MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B4C0F257A533D00BE6520 /* AmongChat.Room.MessageCell.swift */; };
 		BD8B4E57257E1E5000BE6520 /* AmongChat.Room.IMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B4E56257E1E5000BE6520 /* AmongChat.Room.IMManager.swift */; };
 		BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD8B4E5E257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift */; };
@@ -45,7 +44,6 @@
 		BDB8F58724F7D925000027F8 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58624F7D925000027F8 /* Social.swift */; };
 		BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */; };
 		BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */; };
-		BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */; };
 		BDC06EEF24F51E780016770D /* Social.EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */; };
 		BDC9D1382589BBC600412BDC /* AmongChat.Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */; };
 		BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */; };
@@ -118,7 +116,6 @@
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
 		FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */; };
 		FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */; };
-		FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDACE2435B93600CD5E97 /* FireStore.swift */; };
 		FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD22435B98D00CD5E97 /* Frame.swift */; };
 		FE4FDAD52435B9AF00CD5E97 /* Globe.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD42435B9AE00CD5E97 /* Globe.swift */; };
 		FE4FDAD72435C5B400CD5E97 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */; };
@@ -209,7 +206,6 @@
 		FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D572446D2A800087B73 /* Castbox+Rx.swift */; };
 		FE860D5C2446D2A800087B73 /* PublishProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D582446D2A800087B73 /* PublishProperty.swift */; };
 		FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D592446D2A800087B73 /* DynamicProperty.swift */; };
-		FE86A582245AA26900C35FCA /* FireStore.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE86A581245AA26900C35FCA /* FireStore.Modal.swift */; };
 		FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2C3259C29F000799883 /* ConnectState.swift */; };
 		FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2C7259C2A8300799883 /* UIColorExtension.swift */; };
 		FE87C2CC259C2C4400799883 /* ChannelUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2CB259C2C4400799883 /* ChannelUser.swift */; };
@@ -336,7 +332,6 @@
 		BD754CB2258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.ViewModel.swift; sourceTree = "<group>"; };
 		BD754CB8258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.TopicCell.swift; sourceTree = "<group>"; };
 		BD754CBD258B9D0E00ECC177 /* AmongChat.CreateRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.swift; sourceTree = "<group>"; };
-		BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsModel.swift; sourceTree = "<group>"; };
 		BD8B4C0F257A533D00BE6520 /* AmongChat.Room.MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.MessageCell.swift; sourceTree = "<group>"; };
 		BD8B4E56257E1E5000BE6520 /* AmongChat.Room.IMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.IMManager.swift; sourceTree = "<group>"; };
 		BD8B4E5E257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.IMViewModel.swift; sourceTree = "<group>"; };
@@ -348,7 +343,6 @@
 		BDB8F58624F7D925000027F8 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
 		BDB8F58824F7DA46000027F8 /* Social.ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewController.swift; sourceTree = "<group>"; };
 		BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Regular.ttf"; sourceTree = "<group>"; };
-		BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.FriendsAPI.swift; sourceTree = "<group>"; };
 		BDC06EEE24F51E780016770D /* Social.EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.EditProfileViewController.swift; sourceTree = "<group>"; };
 		BDC9D1372589BBC600412BDC /* AmongChat.Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.swift; sourceTree = "<group>"; };
 		BDC9D13D2589BBF700412BDC /* AmongChat.Login.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.ViewController.swift; sourceTree = "<group>"; };
@@ -425,7 +419,6 @@
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		FE49CEAA2436EFE600C36EC6 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		FE49CEAC2436F00100C36EC6 /* UILabelExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtension.swift; sourceTree = "<group>"; };
-		FE4FDACE2435B93600CD5E97 /* FireStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStore.swift; sourceTree = "<group>"; };
 		FE4FDAD22435B98D00CD5E97 /* Frame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
 		FE4FDAD42435B9AE00CD5E97 /* Globe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globe.swift; sourceTree = "<group>"; };
 		FE4FDAD62435C5B400CD5E97 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
@@ -516,7 +509,6 @@
 		FE860D572446D2A800087B73 /* Castbox+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Castbox+Rx.swift"; sourceTree = "<group>"; };
 		FE860D582446D2A800087B73 /* PublishProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PublishProperty.swift; sourceTree = "<group>"; };
 		FE860D592446D2A800087B73 /* DynamicProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicProperty.swift; sourceTree = "<group>"; };
-		FE86A581245AA26900C35FCA /* FireStore.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStore.Modal.swift; sourceTree = "<group>"; };
 		FE87C2C3259C29F000799883 /* ConnectState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectState.swift; sourceTree = "<group>"; };
 		FE87C2C7259C2A8300799883 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		FE87C2CB259C2C4400799883 /* ChannelUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUser.swift; sourceTree = "<group>"; };
@@ -992,11 +984,7 @@
 			children = (
 				FE7218702456D8FF005274CA /* FireMessaging.swift */,
 				FE68488B244BDD0300F87AF9 /* UserProperty.swift */,
-				FE4FDACE2435B93600CD5E97 /* FireStore.swift */,
-				BDC06EEC24F3D92F0016770D /* FireStore.FriendsAPI.swift */,
 				FE684886244BDBEC00F87AF9 /* FireRemote.swift */,
-				FE86A581245AA26900C35FCA /* FireStore.Modal.swift */,
-				BD7B126224F6623800C94836 /* FireStore.FriendsModel.swift */,
 			);
 			path = FireCore;
 			sourceTree = "<group>";
@@ -1480,7 +1468,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE86A582245AA26900C35FCA /* FireStore.Modal.swift in Sources */,
 				FE8DEA65243DB09A0059C252 /* ApiManager.Plugin.swift in Sources */,
 				2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */,
 				FE746BDD24629B0500CAC554 /* GuideFirstView.swift in Sources */,
@@ -1504,7 +1491,6 @@
 				BD754CB3258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift in Sources */,
 				FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */,
 				FE746BE024629B0500CAC554 /* GuideViewController.swift in Sources */,
-				BD7B126324F6623900C94836 /* FireStore.FriendsModel.swift in Sources */,
 				FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */,
 				BD67FF0E2571276400144477 /* AmongChat.Room.UserCell.swift in Sources */,
 				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,
@@ -1571,7 +1557,6 @@
 				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
-				BDC06EED24F3D92F0016770D /* FireStore.FriendsAPI.swift in Sources */,
 				FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */,
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
@@ -1594,7 +1579,6 @@
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,
-				FE4FDACF2435B93700CD5E97 /* FireStore.swift in Sources */,
 				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,
 				FE6306A7245005E700CEA651 /* PremiumContainer.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,

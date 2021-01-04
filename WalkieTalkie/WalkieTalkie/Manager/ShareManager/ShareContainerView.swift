@@ -122,10 +122,10 @@ class ShareContainerView: XibLoadableView {
                 case .whatsapp:
                     source.append(Item(icon: R.image.icon_share_whatsapp(), type: .whatsapp))
                 case .snapchat:
-                    let isInreview = FireStore.shared.appConfigSubject.value?.isSnapchatInreview ?? false
-                    if !isInreview {
+//                    let isInreview = FireStore.shared.appConfigSubject.value?.isSnapchatInreview ?? false
+//                    if !isInreview {
                         source.append(Item(icon: R.image.icon_share_snapchat(), type: .snapchat))
-                    }
+//                    }
                 case .ticktock:
                     ()
 //                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))

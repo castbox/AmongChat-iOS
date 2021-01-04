@@ -60,9 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
-        _ = FireStore.shared
         FireRemote.shared.refresh()
-//        _ = Social.Module.shared
         
         _ = AdjustAnalytics.sharedInstance
         
