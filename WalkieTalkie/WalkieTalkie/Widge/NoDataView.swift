@@ -10,7 +10,7 @@ import UIKit
 
 class NoDataView: UIView {
     
-    private lazy var icon: UIImageView = {
+    lazy var icon: UIImageView = {
         let i = UIImageView(image: R.image.ac_among_no_data())
         i.contentMode = .scaleAspectFit
         return i
@@ -68,6 +68,12 @@ class NoDatacell: UITableViewCell {
     
     func setCellMeessage(_ message: String) {
         noDataView.messageLabel.text = message
+    }
+    
+    func updateCellUI() {
+        noDataView.icon.snp.updateConstraints { (maker) in
+            maker.top.equalTo(75.scalValue)
+        }
     }
     
     required init?(coder: NSCoder) {

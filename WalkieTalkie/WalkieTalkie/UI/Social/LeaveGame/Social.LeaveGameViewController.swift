@@ -146,6 +146,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         } else {
             let cell = tableView.dequeueReusableCell(withClass: NoDatacell.self)
             cell.setCellMeessage(R.string.localizable.errorNoTeammates())
+            cell.updateCellUI()
             return cell
         }
     }
