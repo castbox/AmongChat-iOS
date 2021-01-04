@@ -140,7 +140,7 @@ extension Social {
                     })
                     .subscribe(onSuccess: { [weak self] (profile) in
                         defer {
-                            Logger.Action.log(.login_birthday_success)
+                            Logger.Action.log(.login_birthday_success, category: nil, birthdayStr)
                             self?.onCompletion?(birthdayStr)
                         }
                         guard let p = profile else { return }

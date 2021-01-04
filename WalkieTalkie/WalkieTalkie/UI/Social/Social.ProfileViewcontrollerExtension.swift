@@ -56,7 +56,7 @@ extension Social.ProfileViewController {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 26)
             lb.textColor = .white
-            lb.textAlignment = .center
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -106,11 +106,13 @@ extension Social.ProfileViewController {
             lb.textColor = .white
             lb.backgroundColor = UIColor(hex6: 0xFB5858)
             lb.layer.masksToBounds = true
-            lb.layer.cornerRadius = 9
+            lb.layer.cornerRadius = 8
             lb.isHidden = true
+            lb.textAlignment = .center
             return lb
         }()
         private var isSelf = true
+        private var uid = ""
         
         init(with isSelf: Bool) {
             super.init(frame: .zero)
@@ -123,7 +125,7 @@ extension Social.ProfileViewController {
         }
         
         func configProfile(_ profile: Entity.UserProfile) {
-            
+            uid = profile.uid.string
             if let b = profile.birthday, !b.isEmpty {
                 
                 let dateFormatter = DateFormatter()
@@ -147,7 +149,7 @@ extension Social.ProfileViewController {
             } else {
                 nameLabel.text = profile.name
             }
-            
+            currentName = nameLabel.text ?? ""
             avatarIV.setAvatarImage(with: profile.pictureUrl)
             if isSelf {
                 editBtn.isHidden = false
@@ -155,26 +157,31 @@ extension Social.ProfileViewController {
         }
         
         func setProfileData(_ model: Entity.RoomUser) {
+            uid = model.uid.string
             nameLabel.text = model.name
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }
         
-        func setViewData(_ model: Entity.RelationData) {
-            let followersCount = model.followersCount ?? 0
-            followerBtn.setTitle("\(followersCount)")
-            followingBtn.setTitle("\(model.followingCount ?? 0)")
-            
-            let follow = model.isFollowed ?? false
-            setFollowButton(follow)
+        func setViewData(_ model: Entity.RelationData, isSelf: Bool) {
             
             let lastCount = Defaults[\.followersCount]
-            if followersCount > lastCount {
-                redCountLabel.text = " +\(followersCount - lastCount) "
-                redCountLabel.isHidden = false
-            } else {
-                redCountLabel.isHidden = true
+            
+            let followersCount = model.followersCount ?? 0
+            
+            followingBtn.setTitle("\(model.followingCount ?? 0)")
+            followerBtn.setTitle("\(followersCount)")
+
+            if isSelf {
+                Defaults[\.followersCount] = followersCount
+                if followersCount > lastCount {
+                    redCountLabel.text = "+\(followersCount - lastCount)"
+                    redCountLabel.isHidden = false
+                } else {
+                    redCountLabel.isHidden = true
+                }
             }
-            Defaults[\.followersCount] = followersCount
+            let follow = model.isFollowed ?? false
+            setFollowButton(follow)
         }
         
         func setFollowButton(_ isFollowed: Bool) {
@@ -215,6 +222,25 @@ extension Social.ProfileViewController {
             } else {
                 setLayoutForOther()
             }
+            
+            let tap = UITapGestureRecognizer()
+            tap.numberOfTapsRequired = 5
+            nameLabel.isUserInteractionEnabled = true
+            nameLabel.addGestureRecognizer(tap)
+            tap.rx.event.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self](tap) in
+                    self?.addUidForName()
+                }).disposed(by: bag)
+        }
+        private var changedName = false
+        private var currentName = ""
+        private func addUidForName() {
+            if changedName {
+                nameLabel.text = currentName
+            } else {
+                nameLabel.text = "\(currentName) - \(uid)"
+            }
+            changedName = !changedName
         }
         
         private func setLayoutForSelf() {
@@ -233,6 +259,7 @@ extension Social.ProfileViewController {
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.top)
                 maker.left.equalTo(avatarIV.snp.right).offset(20)
+                maker.right.equalTo(-65)
             }
             
             editBtn.snp.makeConstraints { (maker) in
@@ -254,9 +281,10 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(43)
             }
             redCountLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(followerBtn.snp.right).offset(-20)
-                make.top.equalTo(followerBtn.snp.top).offset(7)
-                make.height.equalTo(18)
+                make.left.equalTo(followerBtn.titleLabel.snp.right).offset(4)
+                make.centerY.equalTo(followerBtn.titleLabel.snp.centerY)
+                make.height.equalTo(16)
+                make.width.greaterThanOrEqualTo(30)
             }
         }
         
@@ -270,8 +298,10 @@ extension Social.ProfileViewController {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.centerX.equalToSuperview()
+                maker.left.equalTo(20)
+                maker.right.equalTo(-20)
             }
+            nameLabel.textAlignment = .center
             
             followingBtn.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom).offset(8)
@@ -391,8 +421,9 @@ extension Social.ProfileViewController {
             super.init(frame: .zero)
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
-                maker.left.top.right.equalToSuperview()
+                maker.top.centerX.equalToSuperview()
             }
+            
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(titleLabel.snp.bottom)
                 maker.left.right.equalToSuperview()

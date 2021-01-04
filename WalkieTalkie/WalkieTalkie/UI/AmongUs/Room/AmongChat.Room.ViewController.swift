@@ -185,12 +185,12 @@ extension AmongChat.Room {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, source: String = "match", completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(room: Entity.Room, from controller: UIViewController, logSource: EnterRoomLogSource = .matchSource, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, source)
+                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource.key)
                 //show loading
                 let viewModel = ViewModel.make(room)
                 completionHandler?(nil)
@@ -244,23 +244,8 @@ extension AmongChat.Room.ViewController {
     private func onCloseBtn() {
         showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
-            self.requestLeaveRoom {
-                self.showRecommendUser()
-            }
+            self.requestLeaveRoom()
         }
-    }
-    
-    private func showRecommendUser() {
-        if viewModel.showRecommendUser {
-            let currentVC = UIApplication.navigationController?.viewControllers.first
-            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId)
-            if currentVC?.navigationController != nil {
-                currentVC?.navigationController?.pushViewController(vc)
-            } else {
-                vc.showModal(in: currentVC)
-            }
-        }
-        Social.Module.shared.clear()
     }
     
     @objc
@@ -278,7 +263,7 @@ extension AmongChat.Room.ViewController {
 ////            removeBlock()
 //        }
         
-        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId)
+        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
     }
     
@@ -291,10 +276,8 @@ extension AmongChat.Room.ViewController {
             } onError: { error in
                 cdPrint("requestLeaveRoom error: \(error)")
             }
+        self.showRecommendUser()
         
-        dismissViewController(completionHandler: {
-            completionHandler?()
-        })
 //        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
 //        let removeBlock = { [weak self] in
 //            self?.view.isUserInteractionEnabled = true
@@ -315,6 +298,21 @@ extension AmongChat.Room.ViewController {
 //            }
 //            .disposed(by: bag)
     }
+    
+    
+    private func showRecommendUser(completionHandler: CallBack? = nil) {
+        if viewModel.showRecommendUser {
+            
+            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId, topicId: viewModel.roomReplay.value.topicId)
+            navigationController?.pushViewController(vc)
+        } else {
+            dismissViewController(completionHandler: {
+                completionHandler?()
+            })
+        }
+        Social.Module.shared.clear()
+    }
+    
     
     func dismissViewController(completionHandler: CallBack? = nil) {
         navigationController?.popViewController(animated: true) {
@@ -677,6 +675,40 @@ extension AmongChat.Room.ViewController {
 //                }
 //            }
         }
+        viewModel.followUserSuccess = { [weak self] (status, success) in
+            guard let `self` = self else { return }
+            let removeBlock =  self.view.raft.show(.loading)
+            if status == .end {
+                removeBlock()
+                if success {
+                    self.view.raft.autoShow(.text(R.string.localizable.socialFollowedSucess()))
+                } else {
+                    self.view.raft.autoShow(.text(R.string.localizable.socialFollowFailed()))
+                }
+            }
+        }
+        viewModel.blockUserResult = { [weak self](status, type, success) in
+            guard let `self` = self else { return }
+            let removeBlock =  self.view.raft.show(.loading)
+            if status == .end {
+                removeBlock()
+                var message = ""
+                if type == .block {
+                    if success {
+                        message = R.string.localizable.profileBlockUserSuccess()
+                    } else {
+                        message = R.string.localizable.socialBlockFailed()
+                    }
+                } else {
+                    if success {
+                        message = R.string.localizable.profileUnblockUserSuccess()
+                    } else {
+                        message = R.string.localizable.socialUnblockFailed()
+                    }
+                }
+                self.view.raft.autoShow(.text(message))
+            }
+        }
         
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
@@ -684,7 +716,6 @@ extension AmongChat.Room.ViewController {
         
         topBar.leaveHandler = { [weak self] in
             self?.onCloseBtn()
-//            self?.viewModel.endRoomHandler?(.kickout)
         }
         
         topBar.kickOffHandler = { [weak self] in
@@ -693,7 +724,7 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.reportHandler = { [weak self] in
-            self?.showReportRoomSheet()
+            self?.showReportSheet()
         }
         topBar.changePublicStateHandler = { [weak self] in
             self?.viewModel.changePublicType()
@@ -782,6 +813,8 @@ extension AmongChat.Room.ViewController {
             let vc = Social.ProfileViewController(with: user.uid)
             vc.roomUser = user
             navigationController?.pushViewController(vc)
+        case .follow:
+            viewModel.followUser(user)
         case .block:
             viewModel.blockedUser(user)
         case .mute:
@@ -791,7 +824,7 @@ extension AmongChat.Room.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            self.showReportSheet(for: user)
+            self.showReportSheet()
         case .kick:
             requestKick([user.uid])
         default:
@@ -848,37 +881,6 @@ extension AmongChat.Room.ViewController {
 //        alertVC.addAction(cancel)
 //        present(alertVC, animated: true, completion: nil)
 //    }
-    
-    private func showReportRoomSheet() {
-        let alertVC = UIAlertController(
-            title: R.string.localizable.reportTitle(),
-            message: "\(R.string.localizable.reportRoomId()): \(room.roomId)",
-            preferredStyle: .actionSheet)
-//        alertVC.setBackgroundColor(color: "222222".color())
-//        alertVC.setTitlet(font: R.font.nunitoExtraBold(size: 17), color: .white)
-//        alertVC.setMessage(font: R.font.nunitoExtraBold(size: 13), color: .white)
-
-        let items = [
-            R.string.localizable.reportIncorrectInformation(),
-            R.string.localizable.reportIncorrectSexual(),
-            R.string.localizable.reportIncorrectHarassment(),
-            R.string.localizable.reportIncorrectUnreasonable(),
-            ].enumerated()
-
-        for (index, item) in items {
-            let action = UIAlertAction(title: item, style: .default, handler: { [weak self] _ in
-                guard let `self` = self else { return }
-                self.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
-                Logger.Report.logImp(itemIndex: index, channelName: self.room.roomId)
-            })
-//            action.titleTextColor = .white
-            alertVC.addAction(action)
-        }
-        let cancel = UIAlertAction(title: R.string.localizable.toastCancel(), style: .cancel)
-//        cancel.titleTextColor = .white
-        alertVC.addAction(cancel)
-        present(alertVC, animated: true, completion: nil)
-    }
 }
 
 extension AmongChat.Room.ViewController: UITextFieldDelegate {

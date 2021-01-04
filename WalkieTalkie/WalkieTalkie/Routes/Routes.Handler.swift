@@ -38,10 +38,8 @@ extension Routes {
                     switch uri {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
-                    case let room as URI.Room:
-                        self.handleRoom(room.roomId)
                     case let channel as URI.Channel:
-                        self.handleRoom(channel.channelId)
+                        self.handleRoom(channel)
                     case _ as URI.Followers:
                         self.handleFollowers()
                     case let undefined as URI.Undefined:
@@ -68,7 +66,7 @@ extension Routes {
         }
     
         
-        func handleRoom(_ roomId: String) {
+        func handleRoom(_ channel: URI.Channel) {
                         
             //如果当前有在直播间内，退出后再加入
             if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ViewController }) as? AmongChat.Room.ViewController {
@@ -80,8 +78,14 @@ extension Routes {
             guard let roomVc = UIApplication.navigationController?.topViewController as? ViewController else {
                 return
             }
-            roomVc.enterRoom(roomId: roomId, topicId: nil, source: "link")
-            Logger.Channel.log(.deeplink, roomId, value: 0)
+            
+            var apiSource: ViewController.EnterRoomApiSource? = nil
+            if let source = channel.sourceType {
+                apiSource = ViewController.EnterRoomApiSource(key: source)
+            }
+            
+            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: .urlSource, apiSource: apiSource)
+            Logger.Channel.log(.deeplink, channel.channelId, value: 0)
         }
         
         func handleCreateRoom() {

@@ -226,6 +226,24 @@ extension Entity {
                 self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
                 self.topicName = try container.decodeString(.topicName)
             }
+            
+            #if DEBUG
+            
+            init() {
+                roomId = "asdfasf"
+                state = .public
+                topicId = "amongus"
+                playerCount = 0
+                topicName = "Among Us"
+            }
+            
+            static func defaultRoom() -> Room {
+                
+                var room = Room()
+                
+                return room
+            }
+            #endif
         }
         
         var room: Room?

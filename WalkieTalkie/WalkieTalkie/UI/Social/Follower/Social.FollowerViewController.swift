@@ -48,14 +48,24 @@ extension Social {
                 tableView.reloadData()
             }
         }
-        
         private var uid = 0
         private var isFollowing = true
+        private var isSelf = false
+        
+        override var screenName: Logger.Screen.Node.Start {
+            if isFollowing {
+                return .following
+            }
+            return .followers
+        }
         
         init(with uid: Int, isFollowing: Bool) {
             super.init(nibName: nil, bundle: nil)
             self.uid = uid
             self.isFollowing = isFollowing
+            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
+            self.isSelf = uid == selfUid
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -74,8 +84,10 @@ extension Social {
             
             if isFollowing {
                 titleLabel.text = R.string.localizable.profileFollowing()// "Following"
+                Logger.Action.log(.profile_following_imp, category: nil)
             } else {
                 titleLabel.text = R.string.localizable.profileFollower()// "Followers"
+                Logger.Action.log(.profile_followers_imp, category: nil)
             }
             
             view.addSubviews(views: backBtn, titleLabel)
@@ -193,9 +205,11 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
         if let user = userList.safe(indexPath.row) {
-            cell.configView(with: user)
+            cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
             cell.updateFollowData = { [weak self] (follow) in
-                self?.userList[indexPath.row].isFollowed = follow
+                guard let `self` = self else { return }
+                self.userList[indexPath.row].isFollowed = follow
+                self.addLogForFollow(with: self.userList[indexPath.row].uid)
             }
         }
         return cell
@@ -204,10 +218,53 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 64
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
+            addLogForProfile(with: user.uid)
             let vc = Social.ProfileViewController(with: user.uid)
+            vc.followedHandle = { [weak self](followed) in
+                guard let `self` = self else { return }
+                if self.isSelf && self.isFollowing {
+                    if followed {
+                        self.userList.insert(user, at: indexPath.row)
+                    } else {
+                        self.userList.remove(at: indexPath.row)
+                    }
+                }
+            }
             self.navigationController?.pushViewController(vc)
+        }
+    }
+    
+    private func addLogForFollow(with uid: Int) {
+        if isSelf {
+            if isFollowing {
+                Logger.Action.log(.profile_following_clk, category: .follow, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_followers_clk, category: .follow, "\(uid)")
+            }
+        } else {
+            if isFollowing {
+                Logger.Action.log(.profile_other_followers_clk, category: .follow, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_other_following_clk, category: .follow, "\(uid)")
+            }
+        }
+    }
+    private func addLogForProfile(with uid: Int) {
+        if isSelf {
+            if isFollowing {
+                Logger.Action.log(.profile_following_clk, category: .profile, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_followers_clk, category: .profile, "\(uid)")
+            }
+        } else {
+            if isFollowing {
+                Logger.Action.log(.profile_other_following_clk, category: .profile, "\(uid)")
+            } else {
+                Logger.Action.log(.profile_other_followers_clk, category: .profile, "\(uid)")
+            }
         }
     }
 }
@@ -275,7 +332,7 @@ extension Social {
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(20)
-                maker.centerY.equalToSuperview()
+                maker.top.equalToSuperview()
                 maker.width.height.equalTo(40)
             }
             
@@ -283,14 +340,14 @@ extension Social {
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
                 maker.right.equalTo(-115)
                 maker.height.equalTo(30)
-                maker.centerY.equalToSuperview()
+                maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
             followBtn.snp.makeConstraints { (maker) in
                 maker.width.equalTo(90)
                 maker.height.equalTo(32)
                 maker.right.equalTo(-20)
-                maker.centerY.equalToSuperview()
+                maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
             followBtn.rx.tap
@@ -307,9 +364,25 @@ extension Social {
                 }).disposed(by: bag)
         }
         
-        func configView(with model: Entity.UserProfile) {
+        func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
+            
             self.userInfo = model
-            followBtn.isHidden = false
+            if isSelf {
+                if isFollowing {
+                    followBtn.isHidden = true
+                } else {
+                    followBtn.isHidden = false
+                }
+            } else {
+                followBtn.isHidden = false
+                if !isFollowing {
+                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+                    if selfUid == model.uid {
+                        followBtn.isHidden = true
+                    }
+                }
+            }
+            
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.text = model.name
             let isfollow = model.isFollowed ?? false
@@ -353,19 +426,21 @@ extension Social {
             followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+            followBtn.isEnabled = false
         }
         
         private func yellowFollowStyle() {
             followBtn.setTitle(R.string.localizable.profileFollow(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            followBtn.isEnabled = true
         }
         
         private func grayInviteStyle() {
             followBtn.setTitle(R.string.localizable.socialInvited(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0x222222)
-            followBtn.layer.borderColor = UIColor(hex6: 0x222222).cgColor
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
         }
         
         private func followUser() {

@@ -32,10 +32,10 @@ extension AmongChat.Home.MainTabController {
                 .disposed(by: bag)
             
             #if DEBUG
-//            let _ = Observable<Int>.timer(.seconds(0), period: .seconds(1), scheduler: MainScheduler.instance)
+//            let _ = Observable<Int>.timer(.seconds(0), period: .seconds(5), scheduler: MainScheduler.instance)
 //                    .take(5)
 //                    .subscribe(onNext: { count in
-//                        self.invitationSubject.onNext((Settings.shared.amongChatUserProfile.value!, Entity.FriendUpdatingInfo.Room(roomId: "", state: .public, topicId: "", playerCount: 10, topicName: "\(count)")))
+//                        self.invitationSubject.onNext((Settings.shared.amongChatUserProfile.value!, Entity.FriendUpdatingInfo.Room.defaultRoom()))
 //                    }, onCompleted: {
 //
 //                    })

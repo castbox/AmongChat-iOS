@@ -34,7 +34,7 @@ struct Frame {
         static var bottomBar: CGFloat {
             return 49 + safeAeraBottomHeight
         }
-        
+        /// 88: 64
         static var navigation: CGFloat {
             return isXStyle ? 88: 64
         }

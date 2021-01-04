@@ -18,6 +18,7 @@ extension AmongChat.Home {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            delegate = self
             setupLayout()
             setupViewControllers()
             setupEvent()
@@ -58,7 +59,8 @@ extension AmongChat.Home.MainTabController {
         imViewModel.invitationObservable
             .subscribe(onNext: { user, room in
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
-                      !(topVC is AmongChat.Room.ViewController) else {
+                      !(topVC is AmongChat.Room.ViewController),
+                      !topVC.isRequestingRoom else {
                     return
                 }
                 
@@ -80,8 +82,10 @@ extension AmongChat.Home.MainTabController {
                         }
                         topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
                     }
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
                 }, ignore: {
                     invitationModal.dismiss(animated: false)
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
                 
             })
@@ -109,11 +113,26 @@ extension AmongChat.Home.MainTabController {
                 let relationVC = AmongChat.Home.RelationsViewController()
                 relationVC.tabBarItem.image = R.image.ac_home_friends_tab()
                 relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
             }
             
         }
         
+    }
+    
+}
+
+extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        guard let nav = viewController as? UINavigationController else { return }
+        
+        if let _ = nav.viewControllers.first as? AmongChat.Home.TopicsViewController {
+            Logger.Action.log(.home_tab, categoryValue: "game")
+        } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
+            Logger.Action.log(.home_tab, categoryValue: "friends")
+        }
     }
     
 }

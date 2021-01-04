@@ -47,7 +47,7 @@ extension Social {
                 }
             }
         }
-        
+        var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
@@ -106,12 +106,15 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = [.inviteFriends, .settings, .community, .blockUser, ]
+        private lazy var options: [Option] = [.inviteFriends, .blockUser, .community, .settings, ]
         
         private var relationData: Entity.RelationData?
         
         override var screenName: Logger.Screen.Node.Start {
-            return .profile
+            if isSelfProfile {
+                return .profile
+            }
+            return .profile_other
         }
         
         private var uid = 0
@@ -138,10 +141,19 @@ extension Social {
             setupData()
             rx.viewDidAppear
                 .take(1)
-                .subscribe(onNext: { (_) in
-                    Logger.Action.log(.profile_imp, category: nil)
+                .subscribe(onNext: { [weak self](_) in
+                    guard let `self` = self else { return }
+                    if self.isSelfProfile {
+                        Logger.Action.log(.profile_imp, category: nil)
+                    } else {
+                        Logger.Action.log(.profile_other_imp, category: nil, "\(self.uid)")
+                    }
                 })
                 .disposed(by: bag)
+        }
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            fetchRealation()
         }
     }
 }
@@ -156,18 +168,19 @@ private extension Social.ProfileViewController {
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
-            maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
-            maker.width.height.equalTo(25)
+            maker.left.equalToSuperview().offset(12.5)
+            maker.top.equalTo(8.5 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(40)//25
         }
         if !isSelfProfile {
             options.removeAll()
             view.addSubview(moreBtn)
             moreBtn.snp.makeConstraints { (make) in
-                make.right.equalTo(-20)
+                make.right.equalTo(-15)
                 make.centerY.equalTo(backBtn.snp.centerY)
-                make.width.height.equalTo(24)
+                make.width.height.equalTo(40)//24
             }
         }
         table.tableHeaderView = headerView
@@ -191,7 +204,6 @@ private extension Social.ProfileViewController {
             self.headerView.setProfileData(self.roomUser)
         }
         loadData()
-        getRealation()
         if isSelfProfile {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
@@ -227,13 +239,13 @@ private extension Social.ProfileViewController {
         }
     }
     
-    func getRealation() {
+    func fetchRealation() {
         Request.relationData(uid: uid)
             .subscribe(onSuccess: { [weak self](data) in
                 guard let `self` = self, let data = data else { return }
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
-                self.headerView.setViewData(data)
+                self.headerView.setViewData(data, isSelf: self.isSelfProfile)
             }, onError: { (error) in
                 cdPrint("relationData error :\(error.localizedDescription)")
             }).disposed(by: bag)
@@ -243,28 +255,33 @@ private extension Social.ProfileViewController {
         let removeBlock = view.raft.show(.loading)
         let isFollowed = relationData?.isFollowed ?? false
         if isFollowed {
+                
+            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
             Request.unFollow(uid: uid, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
-                        self.getRealation()
+                        self.fetchRealation()
                         self.relationData?.isFollowed = false
                         self.headerView.setFollowButton(false)
+                        self.followedHandle?(false)
                     }
                 }, onError: { (error) in
                     removeBlock()
                     cdPrint("unfollow error:\(error.localizedDescription)")
                 }).disposed(by: bag)
         } else {
+            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
             Request.follow(uid: uid, type: "follow")
                 .subscribe(onSuccess: { [weak self](success) in
                     guard let `self` = self else { return }
                     removeBlock()
                     if success {
-                        self.getRealation()
+                        self.fetchRealation()
                         self.relationData?.isFollowed = true
                         self.headerView.setFollowButton(true)
+                        self.followedHandle?(true)
                     }
                 }, onError: { (error) in
                     removeBlock()
@@ -274,12 +291,18 @@ private extension Social.ProfileViewController {
     }
     
     func followerAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .followers, "\(uid)")
+        }
         headerView.redCountLabel.isHidden = true
         let vc = Social.FollowerViewController(with: uid, isFollowing: false)
         navigationController?.pushViewController(vc)
     }
     
     func followingAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .following, "\(uid)")
+        }
         let vc = Social.FollowerViewController(with: uid, isFollowing: true)
         navigationController?.pushViewController(vc)
     }
@@ -294,7 +317,7 @@ private extension Social.ProfileViewController {
         AmongSheetController.show(items: type, in: self, uiType: .profile) { [weak self](type) in
             switch type {
             case.report:
-                self?.reportUser()
+                self?.showReportSheet()
             case .block, .unblock:
                 self?.showBlockAlter()
             default:
@@ -310,7 +333,7 @@ private extension Social.ProfileViewController {
             message = R.string.localizable.profileUnblockMessage()
             confirmString = R.string.localizable.alertUnblock()
         }
-        showAmongAlert(title: nil, message: message,
+        showAmongAlert(title: message, message: nil,
                        cancelTitle: R.string.localizable.toastCancel(),
                        confirmTitle: confirmString) { [weak self] in
             self?.blockUser()
@@ -360,11 +383,6 @@ private extension Social.ProfileViewController {
             view.raft.autoShow(.text(R.string.localizable.profileUnblockUserSuccess()))
         }
         
-    }
-    
-    func reportUser() {
-        let user = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "")
-        self.showReportSheet(for: user)
     }
 }
 // MARK: - UITableView

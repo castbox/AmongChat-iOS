@@ -17,8 +17,7 @@ extension Social {
             let btn = UIButton(type: .custom)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
-                    self?.hideModal()
-                    self?.navigationController?.popViewController()
+                    self?.navigationController?.popToRootViewController(animated: true)
                 }).disposed(by: bag)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
             return btn
@@ -49,12 +48,17 @@ extension Social {
                 tableView.reloadData()
             }
         }
-        
         private var roomId = ""
+        private var topicId = ""
         
-        init(with roomId: String) {
+        override var screenName: Logger.Screen.Node.Start {
+            return .exit_channel
+        }
+        
+        init(with roomId: String, topicId: String) {
             super.init(nibName: nil, bundle: nil)
             self.roomId = roomId
+            self.topicId = topicId
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -65,6 +69,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             loadData()
+            Logger.Action.log(.room_exit_channel_imp)
         }
         
         private func setupLayout() {
@@ -94,7 +99,7 @@ extension Social {
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
+                maker.top.equalTo(navLayoutGuide.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
         }
@@ -131,14 +136,17 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !userList.isEmpty {
             let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
-            cell.configView(with: userList[indexPath.row])
+            cell.configView(with: userList[indexPath.row], isFollowing: false, isSelf: false)
             cell.updateFollowData = { [weak self](follow) in
-                self?.userList[indexPath.row].isFollowed = follow
+                guard let `self` = self else { return }
+                self.userList[indexPath.row].isFollowed = follow
+                Logger.Action.log(.room_exit_channel_clk, category: Logger.Action.Category(rawValue: self.topicId), "follow")
             }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: NoDatacell.self)
             cell.setCellMeessage(R.string.localizable.errorNoTeammates())
+            cell.updateCellUI()
             return cell
         }
     }
@@ -147,15 +155,16 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         if userList.isEmpty {
             return 500
         }
-        return 64
+        return 69
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 90
+        return 85
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
+            Logger.Action.log(.room_exit_channel_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
         }
@@ -168,7 +177,7 @@ extension Social.LeaveGameViewController: UITableViewDataSource, UITableViewDele
         lable.snp.makeConstraints { (make) in
             make.left.equalTo(20)
             make.right.equalTo(-20)
-            make.bottom.equalTo(-17)
+            make.bottom.equalTo(-16.5)
         }
         lable.numberOfLines = 0
         lable.textColor = UIColor(hex6: 0x898989)

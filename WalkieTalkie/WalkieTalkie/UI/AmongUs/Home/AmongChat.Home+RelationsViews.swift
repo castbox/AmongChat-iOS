@@ -85,7 +85,7 @@ extension AmongChat.Home {
         
         func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
             
-            avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl))
+            avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl), placeholder: R.image.ac_profile_avatar())
             
             nameLabel.text = viewModel.userName
             

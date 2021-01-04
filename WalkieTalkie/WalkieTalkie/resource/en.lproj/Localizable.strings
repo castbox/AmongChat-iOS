@@ -90,7 +90,7 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "You have reported this person successfully";
+"report.success" = "You have successfully reported \nthis person";
 //Thanks for reporting. It would be processed within 24 hours.
 
 
@@ -129,7 +129,6 @@
 "profile.unblock.message" = "Are you sure to \nunblock this person";
 "profile.block.user.success" = "You have successfully \nblocked this person";
 "profile.unblock.user.success" = "This person has been \nunblocked";
-
 
 // error message
 "error.no.following" = "You haven't followed others yet.";
@@ -173,10 +172,17 @@
 "social.copy.link" = "Copy link";
 "social.invite.friends" = "Invite friends";
 "social.invite" = "Invtie";
-"social.invited" = "Invtied";
+"social.invited" = "sent";
 "social.exit.channel" = "Exit channel";
 "social.follow.teammates" = "Follow your teammates to play together \nnext time";
 "social.share.url" = "Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@";
+"social.followed.sucess" = "You have successfully followed \nthis person";
+"social.block.failed" = "Failed to block this person, \nplease try again.";
+"social.unblock.failed" = "Failed to unblock this person, \nplease try again.";
+"social.report.failed" = "Failed to report this person, \nplease try again.";
+"social.follow.failed" = "Failed to follow this person, \nplease try again.";
+
+
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";

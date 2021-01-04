@@ -132,6 +132,10 @@ extension AmongChat.CreateRoom {
             return sw
         }()
         
+        override var contentScrollView: UIScrollView? {
+            topicTable
+        }
+        
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
         private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
                 
@@ -289,7 +293,7 @@ extension AmongChat.CreateRoom.ViewController {
                 }
                 self.view.endEditing(true)
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, source: "create")
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: .creatingSource)
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
@@ -350,7 +354,8 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
             return
         }
         Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
-        createRoom(with: topic.topic.rawValue)
+        enterRoom(topicId: topic.topic.rawValue, logSource: .creatingMatchSource)
+//        createRoom(with: topic.topic.rawValue)
     }
 
 }

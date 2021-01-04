@@ -19,6 +19,10 @@ class AmongSheetIconItemCell: UITableViewCell {
                 button.setTitleColor(.white, for: .normal)
                 button.setBackgroundImage("3D3D3D".color().image, for: .normal)//333333
                 button.setTitle(R.string.localizable.profileProfile(), for: .normal)
+            case .follow:
+                button.setTitleColor(.white, for: .normal)
+                button.setBackgroundImage("3D3D3D".color().image, for: .normal)
+                button.setTitle(R.string.localizable.profileFollow(), for: .normal)
             case .block:
                 button.setTitleColor("FB5858".color(), for: .normal)
                 button.setBackgroundImage("3D3D3D".color().image, for: .normal)

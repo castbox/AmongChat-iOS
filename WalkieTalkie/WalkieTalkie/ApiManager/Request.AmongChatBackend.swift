@@ -132,11 +132,12 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterRoom(roomId: String? = nil, topicId: String?) -> Single<Entity.Room?> {
+    static func enterRoom(roomId: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.Room?> {
         
         var paras = [String : Any]()
         if let rid = roomId { paras["room_id"] = rid }
         paras["topic_id"] = topicId
+        if let s = source { paras["source"] = s }
         
         return amongchatProvider.rx.request(.enteryRoom(paras))
             .mapJSON()

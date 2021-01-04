@@ -89,7 +89,18 @@ extension Logger {
             case profile_avatar_get_success
             case profile_nikename_clk
             case profile_birthday_clk
+            case profile_birthday_update_success
             case profile_invite_friend_clk
+            case profile_followers_imp
+            case profile_followers_clk
+            case profile_following_imp
+            case profile_following_clk
+            case profile_other_imp
+            case profile_other_clk
+            case profile_other_followers_imp
+            case profile_other_followers_clk
+            case profile_other_following_imp
+            case profile_other_following_clk
             case settings_share_app_clk
             case create_topic_imp
             case create_topic_edit
@@ -109,7 +120,18 @@ extension Logger {
             case room_edit_nickname_success
             case room_edit_clk
             case room_change_state_clk
+            case room_exit_channel_imp
+            case room_exit_channel_clk
+            case room_share_item_clk
             case rtc_call_roominfo
+            case invite_dialog_imp
+            case invite_dialog_clk
+            case invite_dialog_auto_dimiss
+            case home_tab
+            case home_friends_profile_clk
+            case home_friends_following_join
+            case home_friends_invite_clk
+            case home_friends_suggestion_following_clk
             
             //for admin
             case admin_imp
@@ -156,6 +178,11 @@ extension Logger {
             //头像
             case rewarded
             case free
+            case profile
+            case follow
+            case following
+            case followers
+            case unfollow
             
             case google
             case apple_id

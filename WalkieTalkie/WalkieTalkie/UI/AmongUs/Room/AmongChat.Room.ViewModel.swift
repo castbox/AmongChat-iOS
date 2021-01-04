@@ -34,6 +34,14 @@ extension AmongChat.Room {
     
     class ViewModel {
         
+        enum BlockType {
+            case block
+            case unblock
+        }
+        enum LoadDataStatus {
+            case begin
+            case end
+        }
         static var shared: ViewModel?
         
         var messages: [ChatRoomMessage] = []
@@ -45,7 +53,9 @@ extension AmongChat.Room {
         private var messageListReloadTrigger = PublishSubject<()>()
         var endRoomHandler: ((_ action: EndRoomAction) -> Void)?
         var messageEventHandler: () -> Void = { }
-        
+        var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
+        var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
+
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
         
@@ -141,6 +151,7 @@ extension AmongChat.Room {
             imViewModel = IMViewModel(with: room.roomId)
             
             imViewModel.messagesObservable
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (msg) in
                     //处理消息
                     //                    self?.messageListDataSource = msgs
@@ -170,8 +181,8 @@ extension AmongChat.Room {
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
+                    completionBlock?(error)
                 }
-                completionBlock?(error)
             }
             return true
         }
@@ -371,32 +382,61 @@ extension AmongChat.Room {
 //            dataSource.accept(users)
 //        }
         
+        func followUser(_ user: Entity.RoomUser) {
+            followUserSuccess?(.begin, false)
+            Request.follow(uid: user.uid, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.followUserSuccess?(.end, true)
+                    } else {
+                        self?.followUserSuccess?(.end, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.followUserSuccess?(.end, false)
+                    cdPrint("room follow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
         func blockedUser(_ user: Entity.RoomUser) {
             if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
-                blockedUsers.append(user)
-                Defaults[\.blockedUsersV2Key] = blockedUsers
-                requestBlock(uid: user.uid)
+                requestBlock(user: user)
             }
         }
         
         func unblockedUser(_ user: Entity.RoomUser) {
             if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
-                removeBlocked(user)
-                requestUnblock(uid: user.uid)
+                requestUnblock(user: user)
             }
         }
-        private func requestBlock(uid: Int) {
-            Request.follow(uid: uid, type: "block")
-                .subscribe(onSuccess: {(success) in
-                }, onError: { (error) in
+        private func requestBlock(user: Entity.RoomUser) {
+            blockUserResult?(.begin, .block, false)
+            Request.follow(uid: user.uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.blockUserResult?(.end, .block, true)
+                        self?.blockedUsers.append(user)
+                        Defaults[\.blockedUsersV2Key] = self?.blockedUsers ?? []
+                    } else {
+                        self?.blockUserResult?(.end,.block, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.blockUserResult?(.end, .block, false)
                     cdPrint("room block error :\(error.localizedDescription)")
                 }).disposed(by: bag)
         }
         
-        private func requestUnblock(uid: Int) {
-            Request.unFollow(uid: uid, type: "block")
-                .subscribe(onSuccess: {(success) in
-                }, onError: { (error) in
+        private func requestUnblock(user: Entity.RoomUser) {
+            blockUserResult?(.begin, .unblock, false)
+            Request.unFollow(uid: user.uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.blockUserResult?(.end, .unblock, true)
+                        self?.removeBlocked(user)
+                    } else {
+                        self?.blockUserResult?(.end, .unblock, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.blockUserResult?(.end, .unblock, false)
                     cdPrint("room Unblock error :\(error.localizedDescription)")
                 }).disposed(by: bag)
         }

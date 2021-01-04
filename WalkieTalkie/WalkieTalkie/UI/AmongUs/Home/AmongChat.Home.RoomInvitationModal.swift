@@ -67,7 +67,7 @@ extension AmongChat.Home {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            btn.setTitle(R.string.localizable.amongChatIgnore(), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatIgnore().uppercased(), for: .normal)
             btn.layer.masksToBounds = true
             btn.layer.borderWidth = 2
             btn.layer.cornerRadius = 18
@@ -96,6 +96,8 @@ extension AmongChat.Home {
         private var countdownDisposable: Disposable? = nil
         private var joinBtnDisposable: Disposable? = nil
         private var ignoreBtnDisposable: Disposable? = nil
+        
+        private var room: Entity.FriendUpdatingInfo.Room? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -163,7 +165,14 @@ extension AmongChat.Home {
             tap.rx.event.subscribe(onNext: { [weak self] (_) in
                 self?.dismiss(animated: false)
             })
-            .disposed(by: bag)            
+            .disposed(by: bag)
+            
+            let containerTap = UITapGestureRecognizer()
+            container.addGestureRecognizer(containerTap)
+            containerTap.rx.event.subscribe(onNext: { (_) in
+                
+            })
+            .disposed(by: bag)
         }
         
         private func startCountDown() {
@@ -175,17 +184,20 @@ extension AmongChat.Home {
                 .subscribe(onNext: { [weak self] timePassed in
                     let count = countDown - timePassed
                     self?.countDownLabel.text = "\(count)"
-                    self?.circleView.updateProgress(progress: CGFloat(Float(count) / Float(countDown)), animationDuration: 0.25)
                 }, onCompleted: { [weak self] in
                     self?.dismiss(animated: false)
+                    Logger.Action.log(.invite_dialog_auto_dimiss, categoryValue: self?.room?.topicId)
                 })
+            circleView.updateProgress(fromValue: 1, toValue: 0, animationDuration: 15)
         }
         
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+            self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl))
             nameLabel.text = user.name
             msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             startCountDown()
+            Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)
         }
         
         func bindEvent(join: @escaping () -> Void, ignore: @escaping () -> Void) {
@@ -225,8 +237,6 @@ extension AmongChat.Home.RoomInvitationModal {
             l.rasterizationScale = 2 * UIScreen.main.scale
             return l
         }()
-        
-        private var previousProgress: CGFloat = 1.0
         
         var progressLineColor: UIColor? = nil
         var progressBackgroundColor: UIColor? = nil
@@ -270,15 +280,14 @@ extension AmongChat.Home.RoomInvitationModal {
             progressLayer.strokeColor = progressLineColor?.cgColor
         }
         
-        func updateProgress(progress: CGFloat, animationDuration: TimeInterval) {
+        func updateProgress(fromValue: CGFloat, toValue: CGFloat, animationDuration: TimeInterval) {
             let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
             circularProgressAnimation.duration = animationDuration
-            circularProgressAnimation.fromValue = previousProgress
-            circularProgressAnimation.toValue = max(min(1, progress), 0)
+            circularProgressAnimation.fromValue = max(min(1, fromValue), 0)
+            circularProgressAnimation.toValue = max(min(1, toValue), 0)
             circularProgressAnimation.fillMode = .forwards
             circularProgressAnimation.isRemovedOnCompletion = false
             progressLayer.add(circularProgressAnimation, forKey: "progressAnim")
-            previousProgress = progress
         }
         
     }

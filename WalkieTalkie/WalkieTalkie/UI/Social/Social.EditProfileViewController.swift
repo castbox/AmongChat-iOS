@@ -191,7 +191,7 @@ private extension Social.EditProfileViewController {
         if let b = profile.birthday, !b.isEmpty {
             vc.selectToBirthday(fixBirthdayString(b))
         } else {
-            vc.selectToBirthday("")
+            vc.selectToBirthday("2005/01/01")
         }
         view.endEditing(true)
     }
@@ -239,6 +239,9 @@ private extension Social.EditProfileViewController {
                         return
                     }
                     Settings.shared.amongChatUserProfile.value = p
+                    if let birthdayStr = profileProto.birthday {
+                        Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
+                    }
                 }, onError: { (error) in
                 })
                 .disposed(by: bag)
@@ -264,6 +267,7 @@ private extension Social {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             lb.textAlignment = .right
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -284,6 +288,7 @@ private extension Social {
             }
             
             userNameLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(userNameTitle.snp.right).offset(20)
                 make.right.equalTo(-20)
                 make.centerY.equalTo(icon.snp.centerY)
             }

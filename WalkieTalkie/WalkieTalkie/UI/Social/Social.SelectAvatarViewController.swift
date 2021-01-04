@@ -289,6 +289,7 @@ extension Social.SelectAvatarViewController {
             }
         }
         avatarCollectionView.reloadData()
+        
     }
 }
 
@@ -359,9 +360,9 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
                     }, onError: { [weak self] (error) in
                         completion()
                         if let _ = error as? RxError {
-                            self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()))
+                            self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()), backColor: UIColor(hex6: 0x2E2E2E))
                         } else {
-                            self?.view.raft.autoShow(.text(error.localizedDescription))
+                            self?.view.raft.autoShow(.text(error.localizedDescription), backColor: UIColor(hex6: 0x2E2E2E))
                         }
                     })
                 rewardVideoDispose?.disposed(by: bag)

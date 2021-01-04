@@ -62,6 +62,8 @@ extension AmongChat.Home {
         
         private func setupLayout() {
             
+            self.backgroundColor = UIColor.theme(.backgroundBlack)
+            
             let contentLayoutGuide = UILayoutGuide()
             addLayoutGuide(contentLayoutGuide)
             

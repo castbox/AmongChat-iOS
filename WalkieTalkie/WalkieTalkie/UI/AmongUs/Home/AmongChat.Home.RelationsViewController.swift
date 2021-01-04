@@ -131,6 +131,8 @@ extension AmongChat.Home.RelationsViewController {
     
     private func setupEvent() {
         
+        viewModel.refreshData()
+        
         viewModel.dataSource
             .subscribe(onNext: { [weak self] (data) in
                 self?.dataSource = data
@@ -148,7 +150,17 @@ extension AmongChat.Home.RelationsViewController {
                 self?.friendsCollectionView.setContentOffset(.zero, animated: false)
             })
             .disposed(by: bag)
-
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.profileBtn.redDotOff()
+                } else {
+                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
+                }
+            })
+            .disposed(by: bag)
+        
     }
     
     private func followUser(user: AmongChat.Home.PlayingViewModel) {
@@ -230,10 +242,12 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         return
                     }
                     
-                    self?.enterRoom(roomId: roomId, topicId: topicId, source: "friends")
+                    self?.enterRoom(roomId: roomId, topicId: topicId, logSource: .friendsSource, apiSource: .joinFriendSource)
+                    Logger.Action.log(.home_friends_following_join, categoryValue: playing.roomTopicId)
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)
                     self?.navigationController?.pushViewController(vc)
+                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "following")
                 })
             }
             return cell
@@ -244,9 +258,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onFollow: { [weak self] in
                     self?.followUser(user: playing)
+                    Logger.Action.log(.home_friends_suggestion_following_clk)
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)
                     self?.navigationController?.pushViewController(vc)
+                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "suggestion")
                 })
             }
             return cell
@@ -281,6 +297,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 let shareFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath) as! ShareFooter
                 shareFooter.onSelect = { [weak self] in
                     self?.shareApp()
+                    Logger.Action.log(.home_friends_invite_clk)
                 }
                 reusableView = shareFooter
             } else {

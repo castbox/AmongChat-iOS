@@ -10,10 +10,30 @@ import UIKit
 
 protocol JoinRoomable {
     var contentScrollView: UIScrollView? { get }
+    var isRequestingRoom: Bool { get set }
+}
+
+extension WalkieTalkie.ViewController {
+    struct EnterRoomLogSource {
+        let key: String
+        
+        static let matchSource = EnterRoomLogSource(key: "match")
+        static let friendsSource = EnterRoomLogSource(key: "friends")
+        static let urlSource = EnterRoomLogSource(key: "link")
+        static let creatingSource = EnterRoomLogSource(key: "create")
+        //hottopic
+        static let creatingMatchSource = EnterRoomLogSource(key: "create_match")
+    }
+    
+    struct EnterRoomApiSource {
+        let key: String
+        
+        static let joinFriendSource = EnterRoomApiSource(key: "join_friend_room")
+    }
 }
 
 extension JoinRoomable where Self: ViewController {
-    func enterRoom(roomId: String? = nil, topicId: String?, source: String = "match") {
+    func enterRoom(roomId: String? = nil, topicId: String?, logSource: EnterRoomLogSource = .matchSource, apiSource: EnterRoomApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         
         var topic = topicId
@@ -24,11 +44,13 @@ extension JoinRoomable where Self: ViewController {
         
         let completion = { [weak self] in
             self?.contentScrollView?.isUserInteractionEnabled = true
+            self?.isRequestingRoom = false
             hudRemoval()
         }
         
         contentScrollView?.isUserInteractionEnabled = false
-        Request.enterRoom(roomId: roomId, topicId: topic)
+        isRequestingRoom = true
+        Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 进入房间
                 guard let `self` = self else {
@@ -40,7 +62,7 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, source: source) { error in
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
                 }
 
