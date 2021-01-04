@@ -81,6 +81,8 @@ extension FireRemote {
         /// 启动广告
         let app_open_ad_config: AppOpenAdConfig
         
+        let allowed_minimum_version: String
+        
         init(config: RemoteConfig) {
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
@@ -120,6 +122,8 @@ extension FireRemote {
                     delayShowShareDialog = config["delay_show_share_dialog"].numberValue?.intValue ?? 10
             
             app_open_ad_config = AppOpenAdConfig(config["app_open_ad_config"].stringValue ?? "")
+            
+            allowed_minimum_version = config["allowed_minimum_version"].stringValue ?? ""
         }
     }
 }
@@ -172,6 +176,20 @@ extension FireRemote.Value {
             interval_s = json["interval_s"].double ?? 300
             adId = json["adId"].string ?? "ca-app-pub-2436733915645843/3571875937"
             delay_s = json["delay_s"].double ?? 0.5
+        }
+    }
+    
+}
+
+extension FireRemote.Value {
+    
+    var forceUpgrade: Bool {
+        
+        switch Config.appVersion.compare(allowed_minimum_version, options: .numeric) {
+        case .orderedSame, .orderedDescending:
+            return false
+        case .orderedAscending:
+            return true
         }
     }
     

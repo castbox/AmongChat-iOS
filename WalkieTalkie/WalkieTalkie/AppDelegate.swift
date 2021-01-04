@@ -161,9 +161,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
         // your other code here....
-        _ = FireStore.shared.appConfigObservable
+        _ = FireRemote.shared.remoteValue()
             .subscribe(onNext: { (cfg) in
-                guard cfg.forceUpgrade else {
+                guard cfg.value.forceUpgrade else {
                     return
                 }
                 UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {
