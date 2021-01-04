@@ -95,13 +95,13 @@ extension Social {
         
         private lazy var table: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
-            tb.register(TableCell.self, forCellReuseIdentifier: NSStringFromClass(TableCell.self))
             tb.dataSource = self
             tb.delegate = self
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
             tb.rowHeight = 75
+            tb.register(cellWithClass: ProfileTableCell.self)
             tb.neverAdjustContentInset()
             return tb
         }()
@@ -139,8 +139,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            rx.viewDidAppear
-                .take(1)
+            rx.viewDidAppear.take(1)
                 .subscribe(onNext: { [weak self](_) in
                     guard let `self` = self else { return }
                     if self.isSelfProfile {
@@ -151,6 +150,7 @@ extension Social {
                 })
                 .disposed(by: bag)
         }
+        
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             fetchRealation()
@@ -393,11 +393,12 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TableCell.self), for: indexPath)
-        cell.backgroundColor = .clear
-        if let tableCell = cell as? TableCell,
-           let op = options.safe(indexPath.row) {
-            tableCell.configCell(with: op)
+        
+        let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
+
+        if let op = options.safe(indexPath.row) {
+            
+            cell.configCell(with: op)
         }
         return cell
     }

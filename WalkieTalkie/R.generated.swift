@@ -1512,7 +1512,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 223 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 224 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2058,6 +2058,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatHomeFriendsSuggestionTitle = Rswift.StringResource(key: "among.chat.home.friends.suggestion.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static let socialInvitePlayWith = Rswift.StringResource(key: "social.invite.play.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en
@@ -3357,6 +3361,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatHomeFriendsSuggestionTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.friends.suggestion.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: People you may like to play with
+      /// 
+      /// Locales: en
+      static func socialInvitePlayWith(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite.play.with", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Play Now

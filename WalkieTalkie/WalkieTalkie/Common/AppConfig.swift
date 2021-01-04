@@ -33,6 +33,14 @@ struct Config {
         return "amongchat"
     }
     
+    /// system language
+    static var languageCode: String {
+        if let list = UserDefaults.standard.object(forKey: "AppleLanguages") as? [String] {
+            return list.first ?? ""
+        }
+        return ""
+    }
+    
 //
 //    static var supportUrl: String {
 //        return "\(Api.host_H5)/help"

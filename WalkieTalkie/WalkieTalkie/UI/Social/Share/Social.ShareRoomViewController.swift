@@ -17,7 +17,7 @@ extension Social {
     class ShareRoomViewController: WalkieTalkie.ViewController {
         
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .plain)
+            let tb = UITableView(frame: .zero, style: .grouped)
             tb.dataSource = self
             tb.delegate = self
             tb.register(cellWithClass: Social.FollowerCell.self)
@@ -142,6 +142,10 @@ extension Social.ShareRoomViewController: MFMessageComposeViewControllerDelegate
 // MARK: - UITableView
 extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDelegate {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userList.count
     }
@@ -161,14 +165,49 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 69
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let user = userList.safe(indexPath.row) {
             Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            let v = UIView()
+            let lable = UILabel()
+            v.addSubview(lable)
+            lable.snp.makeConstraints { (make) in
+                make.left.equalTo(20)
+                make.right.equalTo(-20)
+                make.bottom.equalTo(-16.5)
+            }
+            lable.textColor = .white
+            lable.font = R.font.nunitoExtraBold(size: 20)
+            lable.text = R.string.localizable.socialInvitePlayWith()
+            return v
+        } else {
+            return nil
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 59
+        }
+        return .leastNormalMagnitude
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

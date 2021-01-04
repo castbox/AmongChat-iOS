@@ -350,7 +350,7 @@ extension Social.ProfileViewController {
         }
     }
     
-    class TableCell: UITableViewCell {
+    class ProfileTableCell: TableViewCell {
         
         private lazy var iconIV: UIImageView = {
             let iv = UIImageView()
@@ -397,7 +397,6 @@ extension Social.ProfileViewController {
                 maker.left.equalTo(iconIV.snp.right).offset(13)
             }
         }
-        
     }
     
     class VerticalTitleButton: UIView {
