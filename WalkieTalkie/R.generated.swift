@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 145 images.
+  /// This `R.image` struct is generated, and contains static references to 146 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -172,6 +172,8 @@ struct R: Rswift.Validatable {
     static let ac_home_load_error = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_load_error")
     /// Image `ac_home_profile`.
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
+    /// Image `ac_home_room_join`.
+    static let ac_home_room_join = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_room_join")
     /// Image `ac_home_tab_shadow`.
     static let ac_home_tab_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_tab_shadow")
     /// Image `ac_home_topic_tab`.
@@ -500,6 +502,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_profile", bundle: ..., traitCollection: ...)`
     static func ac_home_profile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_profile, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_room_join", bundle: ..., traitCollection: ...)`
+    static func ac_home_room_join(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_room_join, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_tab_shadow", bundle: ..., traitCollection: ...)`

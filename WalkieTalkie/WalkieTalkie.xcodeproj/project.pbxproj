@@ -11,6 +11,7 @@
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
 		2B6B5F4A25A32E9F009D028D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5F4925A32E9F009D028D /* TableViewCell.swift */; };
+		2B6B5F5225A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5F5125A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift */; };
 		2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9566F9259ADD2E001C7B91 /* R.generated.swift */; };
 		2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */; };
 		2B956771259B5781001C7B91 /* NoDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B956770259B5781001C7B91 /* NoDataView.swift */; };
@@ -330,6 +331,7 @@
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B6B5F4925A32E9F009D028D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		2B6B5F5125A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.RoomJoinViewController.swift; sourceTree = "<group>"; };
 		2B9566F9259ADD2E001C7B91 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileViewcontrollerExtension.swift; sourceTree = "<group>"; };
 		2B956770259B5781001C7B91 /* NoDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoDataView.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				BDFCA4AC2594A9A1000ABB39 /* AmongChat.Home.MainTabController.swift */,
 				BDF3D8D6259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift */,
 				BDF3D8DA259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift */,
+				2B6B5F5125A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift */,
 				BD6C36F9256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift */,
 				BDFCA56E25959427000ABB39 /* AmongChat.Home.RelationsViewController.swift */,
 				BDE20C66258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift */,
@@ -1776,6 +1779,7 @@
 				FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */,
 				BD91A39D258C981F008931AD /* AmongChat.Home.TopicViewModel.swift in Sources */,
 				FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */,
+				2B6B5F5225A33FC0009D028D /* AmongChat.Home.RoomJoinViewController.swift in Sources */,
 				2B956771259B5781001C7B91 /* NoDataView.swift in Sources */,
 				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
