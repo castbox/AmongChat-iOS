@@ -1165,7 +1165,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 23 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1191,10 +1191,6 @@ struct R: Rswift.Validatable {
     static let amongSheetIconItemCell = _R.nib._AmongSheetIconItemCell()
     /// Nib `AmongSheetUserCell`.
     static let amongSheetUserCell = _R.nib._AmongSheetUserCell()
-    /// Nib `ChannelUserCell`.
-    static let channelUserCell = _R.nib._ChannelUserCell()
-    /// Nib `ChannelUserListController`.
-    static let channelUserListController = _R.nib._ChannelUserListController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `GuideFirstView`.
@@ -1288,18 +1284,6 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetUserCell) instead")
     static func amongSheetUserCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongSheetUserCell)
-    }
-    
-    /// `UINib(name: "ChannelUserCell", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.channelUserCell) instead")
-    static func channelUserCell(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.channelUserCell)
-    }
-    
-    /// `UINib(name: "ChannelUserListController", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.channelUserListController) instead")
-    static func channelUserListController(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.channelUserListController)
     }
     
     /// `UINib(name: "EndUserLicenseController", in: bundle)`
@@ -1416,14 +1400,6 @@ struct R: Rswift.Validatable {
       return R.nib.amongSheetUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
     }
     
-    static func channelUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
-      return R.nib.channelUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ChannelUserCell
-    }
-    
-    static func channelUserListController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.channelUserListController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1471,14 +1447,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
     /// Reuse identifier `AmongSheetUserCell`.
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
-    /// Reuse identifier `ChannelUserCell`.
-    static let channelUserCell: Rswift.ReuseIdentifier<ChannelUserCell> = Rswift.ReuseIdentifier(identifier: "ChannelUserCell")
     
     fileprivate init() {}
   }
@@ -3998,8 +3972,6 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
-      try _ChannelUserCell.validate()
-      try _ChannelUserListController.validate()
       try _GuideFirstView.validate()
       try _GuideFourthView.validate()
       try _GuideFourthView_b.validate()
@@ -4166,45 +4138,6 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _ChannelUserCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
-      typealias ReusableType = ChannelUserCell
-      
-      let bundle = R.hostingBundle
-      let identifier = "ChannelUserCell"
-      let name = "ChannelUserCell"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ChannelUserCell? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ChannelUserCell
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "btn_more_action", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_more_action' is used in nib 'ChannelUserCell', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_user_list_mic", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_user_list_mic' is used in nib 'ChannelUserCell', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _ChannelUserListController: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "ChannelUserListController"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "backNor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'backNor' is used in nib 'ChannelUserListController', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "btn_more_action", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'btn_more_action' is used in nib 'ChannelUserListController', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
       }
       
       fileprivate init() {}
