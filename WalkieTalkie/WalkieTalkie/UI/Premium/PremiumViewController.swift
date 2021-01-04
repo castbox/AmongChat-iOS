@@ -352,7 +352,7 @@ extension PremiumViewController {
         
         let mutableNormalString = NSMutableAttributedString()
         if Constants.abGroup == .b {
-            if FireStore.shared.isInReviewSubject.value {
+            if Settings.shared.isInReview.value {
                 var title: String {
                     guard let price = productMaps[IAP.productYear]?.skProduct.localizedPrice else {
                         return "$29.99 / year"
@@ -365,7 +365,7 @@ extension PremiumViewController {
             }
             
             if let product = productMaps[IAP.productYear]?.skProduct {
-                if FireStore.shared.isInReviewSubject.value {
+                if Settings.shared.isInReview.value {
                     iapTipsLabel.font = .systemFont(ofSize: 10)
                     iapTipsLabel.text =
                     """
@@ -379,7 +379,7 @@ extension PremiumViewController {
                 }
             }
         } else {
-            if FireStore.shared.isInReviewSubject.value {
+            if Settings.shared.isInReview.value {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.guideSubscribeTitle(), attributes: tryAttr))
             } else {
                 mutableNormalString.append(NSAttributedString(string: R.string.localizable.premiumTryTitle(), attributes: tryAttr))

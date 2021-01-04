@@ -21,8 +21,6 @@ extension AmongChat.Room {
     
     class IMViewModel {
         
-        private typealias MessageViewModel = AmongChat.Room.MessageViewModel
-        
         private let channelId: String
         private let imManager: IMManager
         private let messageRelay = BehaviorRelay<ChatRoomMessage?>(value: nil)
@@ -58,23 +56,6 @@ extension AmongChat.Room {
 }
 
 extension AmongChat.Room.IMViewModel {
-        
-//    private func appendNewMessage(_ message: ChatRoomMessage) {
-//
-////        let userViewModel: ChannelUserViewModel
-////
-////        if let user = ChannelUserListViewModel.shared.channelUserViewModelList.first(where: { "\($0.channelUser.uid)" == user.userId }) {
-////            userViewModel = user
-////        } else {
-////            userViewModel = ChannelUserViewModel(with: ChannelUser.randomUser(uid: UInt(user.userId) ?? 0), firestoreUser: nil)
-////        }
-////
-////        let messageVM = MessageViewModel(user: userViewModel, text: message.text)
-//
-//        var messages = messageRelay.value
-//        messages.append(message)
-//        messageRelay.accept(messages)
-//    }
     
     private func bindEvents() {
         
@@ -153,15 +134,6 @@ extension AmongChat.Room.IMViewModel {
         
     }
         
-}
-
-extension AmongChat.Room {
-    
-    struct MessageViewModel {
-        let user: ChannelUserViewModel
-        let text: String
-    }
-    
 }
 
 struct ChatRoom {

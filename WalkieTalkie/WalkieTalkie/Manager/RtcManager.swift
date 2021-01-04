@@ -251,7 +251,6 @@ class RtcManager: NSObject {
         setClientRole(.audience)
         self.role = nil
         self.channelId = nil
-        updateFirestoreChannelStatus(with: "")
     }
     
     func logFilePath() -> String {
@@ -390,16 +389,3 @@ extension RtcManager: AgoraRtcEngineDelegate {
         
     }
 }
-
-extension RtcManager {
-    
-    func updateFirestoreChannelStatus(with channel: String) {
-        guard let uid = Settings.shared.loginResult.value?.uid else {
-            return
-        }
-        let status = FireStore.Entity.User.Status(currentChannel: channel, online: true)
-//        FireStore.shared.updateStatus(status, of: uid)
-    }
-}
-
-

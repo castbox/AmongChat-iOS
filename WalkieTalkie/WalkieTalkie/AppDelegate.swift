@@ -60,9 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = AdsManager.shared
         _ = Reachability.shared
         _ = Automator.shared
-        _ = FireStore.shared
         FireRemote.shared.refresh()
-//        _ = Social.Module.shared
         
         _ = AdjustAnalytics.sharedInstance
         
@@ -77,11 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                PushMgr.shared.reScheduleNotification()
 //            }
         }
-        _ = FireStore.shared.isInReviewSubject
-//            .filter { !$0 }
-            .subscribe(onNext: { _ in
-                IAP.prefetchProducts()
-            })
+        IAP.prefetchProducts()
         // 路由模块待优化
         _ = Routes.shared
         _ = Routes.Handler.shared
@@ -161,9 +155,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
         // your other code here....
-        _ = FireStore.shared.appConfigObservable
+        _ = FireRemote.shared.remoteValue()
             .subscribe(onNext: { (cfg) in
-                guard cfg.forceUpgrade else {
+                guard cfg.value.forceUpgrade else {
                     return
                 }
                 UIApplication.topViewController()?.showAmongAlert(title: nil, message: R.string.localizable.forceUpgradeTip(), confirmTitle: R.string.localizable.alertOk(), confirmAction: {

@@ -27,10 +27,7 @@ def firebase_pods
 
     # Firebase Remote Configure
     pod 'Firebase/RemoteConfig'
-
-    # Firestore
-    pod 'Firebase/Firestore'
-
+    
 #    # Firebase auth
     pod 'Firebase/Auth'
 

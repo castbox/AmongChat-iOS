@@ -16,6 +16,13 @@ extension Social {
     
     class ShareRoomViewController: WalkieTalkie.ViewController {
         
+        /// room share
+        private static var roomShareFriends = [Entity.UserProfile]()
+        /// clear temp data
+        class func clear() {
+            Self.roomShareFriends = []
+        }
+        
         private lazy var tableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
@@ -58,7 +65,7 @@ extension Social {
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            Social.Module.shared.roomShareFriends = userList
+            Self.roomShareFriends = userList
         }
         
         private func setupLayout() {
@@ -97,7 +104,7 @@ extension Social {
 }
 private extension Social.ShareRoomViewController {
     func loadData() {
-        let users = Social.Module.shared.roomShareFriends
+        let users = Self.roomShareFriends
         if users.isEmpty {
             let removeBlock = view.raft.show(.loading)
             Request.inviteFriends(skipMs: 0)
@@ -105,7 +112,7 @@ private extension Social.ShareRoomViewController {
                     removeBlock()
                     guard let data = data else { return }
                     self?.userList = data.list ?? []
-                    Social.Module.shared.roomShareFriends = self?.userList ?? []
+                    Self.roomShareFriends = self?.userList ?? []
                 }, onError: { (error) in
                     removeBlock()
                     cdPrint("inviteFriends error: \(error.localizedDescription)")
