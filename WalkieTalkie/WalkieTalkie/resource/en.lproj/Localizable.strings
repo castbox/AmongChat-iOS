@@ -20,7 +20,7 @@
 
 "settings.title" = "Settings";
 
-"settings.restore.title" = "Restore Purchase";
+"settings.restore.title" = "Restore";
 "settings.restore.success.title" = "You’re all set";
 "settings.restore.success.body" = "your purchase was successful";
 "settings.restore.fail.title" = "Purchase not found";
@@ -29,59 +29,14 @@
 "no.ad.alert" = "No ad available, please try again later. ";
 "toast.confirm" = "OK";
 "toast.cancel" = "Cancel";
-"private.error.code" = "Passcode does not exist";
 "network.not.reachable" = "Unreachable networking!";
-"input.passcode.placeholder" = "PASSCODE";
-"input.passcode.global.placeholder" = "CHANNEL NAME";
-"channel.not.exist" = "Channel does not exist";
-"channel.checking" = "Checking";
-"add.channel.secret.title" = "SECRET";
-"add.channel.global.title" = "GLOBAL";
-"add.channel.global.tips.title" = "Create Global Channel";
-"add.channel.global.tips.des" = "Create a channel visible to everyone and chat with them";
-"join.channel.secret.tips.title" = "Join Friend’s Channel";
-"add.channel.secret.tips.des" = "Join secret channel to chat with your friends";
-"add.channel.secret.create.tips.des" = "Create secret channel to chat with your friends";
-"add.channel.secret.empty.joined" = "You don't have any secret channel yet, create or join one";
-"add.channel.secret.error.passcode" = "Your passcode has no corresponding secret channel, create or join one ";
-"add.channel.secret.invalid" = "Your secret channel is invalid, create or join one 👇👇👇";
 
 "premium.try.title" = "Try it FREE";
 "premium.try.title.des" = "3 days free trial, then %@ / Year";
 
-"enter.secret.channel.alert.title" = "Enter the Secret Channel?";
-"enter.secret.channel.alert.desc" = "This passcode can enter a secret channel, enter now?";
-"channel.user.max" = "MAX";
-"channel.user.max.state" = "ERROR MAX USERS";
-
 "guide.subscribe.title" = "Subscribe";
 "guide.continue" = "Continue";
 "copied" = "Copied";
-"toast.single.secret.channal" = "You only have one secret channel";
-
-"share.tiktok.public.title" = "Join in %@ talk to me & have fun !!!";
-"share.tiktok.private.title" = "Join in my SERET CHANNEL %@ talk to me !!!";
-"share.tiktok.content.dowload" = "Download “Among Chat talk to friends” First";
-"end.user.license.title" = "End user License Agreement";
-
-//"end.user.license.content" = """
-//READ CAREFULLY - BY DOWNLOADING OR USING THE WALKIE TALKIE: TALK TO FRIENDS (“WALKIE TALKIE”) APPLICATION, YOU ARE AGREEING TO THE TERMS OF THIS END USER LICENSE AGREEMENT. IF YOU DO NOT AGREE TO THE TERMS OF THIS LICENSE, DO NOT CLICK THE “I KNOW” BUTTON OR DOWNLOAD, INSTALL OR USE THE APPLICATION.
-//BY CLICKING THE “I KNOW” BUTTON OR DOWNLOADING, INSTALLING OR USING THE APPLICATION, YOU AFFIRM THAT YOU ARE EITHER OVER THE AGE OF MAJORITY IN YOUR JURISDICTION OF RESIDENCE, OR ARE AN EMANCIPATED MINOR, OR POSSESS LEGAL PARENTAL OR GUARDIAN CONSENT, AND THAT YOU ARE FULLY ABLE AND COMPETENT TO ENTER INTO THE TERMS, CONDITIONS, OBLIGATIONS, AFFIRMATIONS, REPRESENTATIONS AND WARRANTIES SET FORTH IN THIS LICENSE AND IN THE RELATED AGREEMENTS, AND TO ABIDE BY AND COMPLY WITH THIS LICENSE AND THE RELATED AGREEMENTS.
-//As used herein, “APPLICATION” includes, without limitation, any services specific to the APPLICATION or APPLICATION, APPLICATION code, scripts, interfaces, graphics, displays, text, images, artwork, music or video clips, documentation and other components or content and any updates, modifications or enhancements to these items accompanying the APPLICATION or this License. These terms are an agreement between you and Guru Rain Holding Limited and its affiliates (individually and collectively, “Guru Rain Holding Limited”, “Walkie Talkie: Talk to Friends”). “You” and “Your” (upper or lower case) in this License refer to you, an individual, accept this License.
-//1. GRANT OF LICENSE. Subject to the terms of this Agreement, Walkie Talkie: Talk to Friends (\"\"Licensor\"\") hereby grants you a limited, non-transferable, royalty-free, nonexclusive license to use Walkie Talkie: Talk to Friends APPLICATION (\"\"APPLICATION\"\") that you are about to activate only in accordance with any documentation that accompanies it and the Walkie Talkie: Talk to Friends terms of use as defined at https://walkietalkie.live/term.html. The APPLICATION is licensed not sold. By clicking the “I Know” button or downloading or using the APPLICATION, you are entering into and agreeing to be bound by the terms of this License, the Walkie Talkie: Talk to Friends Acceptable Terms of Use, and the Walkie Talkie: Talk to Friends Privacy Policy, each as amended from time to time, which policies are incorporated herein by reference. The Walkie Talkie: Talk to Friends Privacy Policy will only apply to information that is provided to or accessed by Walkie Talkie: Talk to Friends. If at any time after reviewing the APPLICATION you wish to terminate this License, you must un-install and remove the APPLICATION from your Device, and delete any copy in your possession. If Walkie Talkie: Talk to Friends makes any updates or upgrades to the APPLICATION available to you, such updates or upgrades shall be subject to the terms and conditions of this License unless the APPLICATION is expressly provided to you under other, or additional terms and conditions, in which case, those other, or additional terms and conditions (which may include the payment of additional fees), shall apply.
-//2. OBJECTIONABLE CONTENT POLICY. Walkie Talkie: Talk to Friends maintains a zero tolerance policy regarding objectionable content. Objectionable content may not be uploaded or displayed to the extent such content includes, is in conjunction with, or alongside any, Objectionable Content. Objectionable Content includes, but is not limited to: (i) sexually explicit materials; (ii) obscene, defamatory, libelous, slanderous, violent and/or unlawful content or profanity; (iii) content that infringes upon the rights of any third party, including copyright, trademark, privacy, publicity or other personal or proprietary right, or that is deceptive or fraudulent; (iv) content that promotes the use or sale of illegal or regulated substances, tobacco products, ammunition and/or firearms; and (v) gambling, including without limitation, any online casino, sports books, bingo or poker. Any user can flag content they deem objectionable for review. Content will be moderated by Walkie Talkie: Talk to Friends to ensure the timely removal of any and all objectionable content. User accounts which have been confirmed responsible for posting objectionable content will be restricted from access to the Walkie Talkie: Talk to Friends app.
-//3. RESTRICTIONS. Except as expressly and unambiguously permitted by this Agreement, you shall not, nor permit anyone else to, directly or indirectly: (i) copy, modify, or distribute the APPLICATION; (ii) reverse engineer, disassemble, decompile or otherwise attempt to discover the source code or structure, sequence and organization of the APPLICATION (except to the limited extent the foregoing restrictions are prohibited by applicable local law); or, (iii) use the APPLICATION for performing comparisons or other \"\"benchmarking\"\" activities, either alone or in connection with any APPLICATION (and you will not publish any such performance information or comparisons). You shall maintain and not remove or obscure any proprietary notices on the APPLICATION. As between the parties, title, ownership rights, and intellectual property rights in and to the APPLICATION, and any copies, portions or derivatives thereof, shall remain in Licensor and its suppliers or licensors. You understand that Licensor may modify or discontinue offering the APPLICATION at any time. This Agreement does not give you any rights not expressly granted herein.
-//4. ENHANCEMENTS. This Agreement does not entitle you to any upgrades, patches, feature additions, or fixes for the APPLICATION (collectively, \"\"Enhancements\"\"), and any such Enhancements provided are at Walkie Talkie: Talk to Friends’s discretion. Any such Enhancements for the APPLICATION that may be made available by Licensor shall become part of the APPLICATION and subject to this Agreement.
-//5. WARRANTY DISCLAIMER. LICENSOR PROVIDES THE APPLICATION ON AN \"\"AS IS\"\" AND “AS AVAILABLE” BASIS, AND THAT YOUR USE OF OR RELIANCE UPON THE APPLICATION AND ANY THIRD PARTY CONTENT AND SERVICES ACCESSED THEREBY IS AT YOUR SOLE RISK AND DISCRETION. THIS APPLICATION IS PROVIDED WITHOUT WARRANTY OR CONDITIONS OF ANY KIND, AND LICENSOR AND ITS COLLABORATORS, AND SUPPLIERS HEREBY DISCLAIM ALL EXPRESS OR IMPLIED WARRANTIES AND CONDITIONS, WHETHER ORAL, EXPRESS, OR IMPLIED, INCLUDING WITHOUT LIMITATION WARRANTIES AND CONDITIONS OF MERCHANTABILITY, SATISFACTORY QUALITY, FITNESS FOR A PARTICULAR PURPOSE, PERFORMANCE, ACCURACY, RELIABILITY, AND NON-INFRINGEMENT, WHETHER SUCH WARRANTIES OR CONDITIONS MAY BE IMPLIED BY STATUTE, CUSTOM, COURSE OF DEALING BETWEEN THE PARTIES, TRADE USAGE OR COMMON LAW. FURTHERMORE, WALKIE TALKIE: TALK TO FRIENDS AND ITS COLLABORATORS, SUPPLIERS AND LICENSORS MAKE NO WARRANTY THAT (I) THE APPLICATION OR THIRD PARTY CONTENT AND SERVICES WILL MEET YOUR REQUIREMENTS; (II) THE APPLICATION OR THIRD PARTY CONTENT AND SERVICES WILL BE UNINTERRUPTED, ACCURATE, RELIABLE, TIMELY, SECURE, FREE FROM VIRUSES OR OTHER HARMFUL COMPONENTS OR ERROR-FREE; (III) THE QUALITY OF ANY PRODUCTS, SERVICES, INFORMATION OR OTHER MATERIAL ACCESSED OR OBTAINED BY YOU THROUGH THE APPLICATION WILL BE AS REPRESENTED OR MEET YOUR EXPECTATIONS; OR (IV) ANY ERRORS IN THE APPLICATION OR THIRD PARTY CONTENT AND SERVICES WILL BE CORRECTED. WALKIE TALKIE: TALK TO FRIENDS DOES NOT WARRANT THAT THE APPLICATION WILL BE COMPATIBLE OR INTEROPERABLE WITH YOUR DEVICE OR ANY OTHER PIECE OF HARDWARE, APPLICATION, EQUIPMENT OR DEVICE INSTALLED ON OR USED IN CONNECTION WITH YOUR DEVICE. FURTHERMORE, YOU ACKNOWLEDGE THAT COMPATIBILITY AND INTEROPERABILITY PROBLEMS CAN CAUSE THE PERFORMANCE OF YOUR DEVICE TO DIMINISH OR FAIL COMPLETELY, AND MAY RESULT IN PERMANENT DAMAGE TO YOUR DEVICE, LOSS OF THE DATA LOCATED ON YOUR DEVICE, AND CORRUPTION OF THE APPLICATION AND FILES LOCATED ON YOUR DEVICE. YOU ACKNOWLEDGE AND AGREE THAT WALKIE TALKIE: TALK TO FRIENDS AND ITS COLLABORATORS, SUPPLIERS AND LICENSORS, AND THEIR OFFICERS, DIRECTORS, EMPLOYEES AND AGENTS, SHALL HAVE NO LIABILITY TO YOU FOR ANY LOSSES SUFFERED, RESULTING FROM OR ARISING IN CONNECTION WITH COMPATIBILITY OR INTEROPERABILITY PROBLEMS. SHOULD THE APPLICATION PROVE DEFECTIVE, YOU ASSUME THE ENTIRE BURDEN OF ALL NECESSARY EXPENSES, SERVICING, REPAIR, OR CORRECTION. THESE OBLIGATIONS SURVIVE TERMINATION OF THIS LICENSE. THIS DISCLAIMER OF WARRANTY CONSTITUTES AN ESSENTIAL PART OF THIS AGREEMENT. SOME STATES OR JURISDICTIONS DO NOT ALLOW LIMITATIONS ON HOW LONG AN IMPLIED WARRANTY LASTS SO THE FOREGOING LIMITATIONS MAY NOT APPLY TO YOU.
-//6. LIMITATION OF LIABILITY. LICENSOR DOES NOT EXCLUDE OR LIMIT ITS LIABILITY (I) IN NEGLIGENCE FOR DEATH OR PERSONAL INJURY, OR (II) FOR FRAUD, OR (III) OTHERWISE TO THE EXTENT THAT ANY EXCLUSION OR LIMITATION OF ITS LIABILITY IS VOID, PROHIBITED OR UNENFORCEABLE BY LAW. EXCEPT FOR THE FOREGOING, UNDER NO CIRCUMSTANCES AND UNDER NO LEGAL THEORY, INCLUDING, WITHOUT LIMITATION, TORT, CONTRACT, STRICT LIABILITY, OR OTHERWISE, SHALL LICENSOR OR ITS LICENSORS, SUPPLIERS OR RESELLERS BE LIABLE TO YOU OR ANY OTHER PERSON FOR ANY (I) INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY CHARACTER INCLUDING, WITHOUT LIMITATION, DAMAGES FOR LOST PROFITS, LOSS OF GOODWILL, WORK STOPPAGE, ACCURACY OF RESULTS OR COMPUTER FAILURE OR MALFUNCTION OR FOR ANY OTHER LOSSES THAT COULD NOT HAVE BEEN REASONABLY FORESEEN, OR (II) AMOUNTS IN THE AGGREGATE IN EXCESS OF THE FEES PAID BY YOU IN CONNECTION WITH THE APPLICATION. SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO THE ABOVE LIMITATION AND EXCLUSION MAY NOT APPLY TO YOU.
-//7. EXPORT CONTROLS. You shall comply with all export laws and restrictions and regulations of the Department of Commerce, the United States Department of Treasury Office of Foreign Assets Control (\"\"OFAC\"\"), or other United States or foreign agency or authority, and you shall not export, or allow the export or re-export of the APPLICATION in violation of any such restrictions, laws or regulations. By activating or using the APPLICATION, you agree to the foregoing and represents and warrant that you are not located in, under the control of, or a national or resident of any restricted country.
-//8. SEVERABILITY. If any provision of this License is held to be invalid or unenforceable with respect to a party, the remainder of this License, or the application of such provision to persons other than those to whom it is held invalid or unenforceable shall not be affected and each remaining provision of this License shall be valid and enforceable to the fullest extent permitted by law.
-//9. WAIVER. Except as provided herein, the failure to exercise a right or require performance of an obligation under this License shall not affect a party’s ability to exercise such right or require such performance at any time thereafter nor shall the waiver of a breach constitute waiver of any subsequent breach.
-//10. INDEMNIFICATION. You agree to indemnify, defend and hold harmless Walkie Talkie: Talk to Friends from and against any claim, proceeding, loss, damage, fine, penalty, interest and expense (including, without limitation, fees for attorneys and other professional advisors) arising out of or in connection with the following: (i) your access to or use of the APPLICATION or Third Party Content and Services; (ii) your breach of this License; (iii) Your violation of law; (iv) your negligence or willful misconduct; or (v) your violation of the rights of a third party. You will promptly notify Walkie Talkie: Talk to Friends in writing of any third-party claim arising out of or in connection with your access to or use of the APPLICATION. These obligations survive termination of this License
-//11. MODIFICATION OR AMENDMENT. Walkie Talkie: Talk to Friends may modify or amend the terms of this License at any time, with or without notice to you, by posting a copy of the modified or amended License available through the APPLICATION. You will be deemed to have agreed to any such modification or amendment by your decision to continue using the APPLICATION following the date in which the modified or amended License is made available through the APPLICATION.
-//12. ENTIRE AGREEMENT. This License, including the documents incorporated herein by reference, constitute the entire agreement with respect to the use of the APPLICATION licensed hereunder and supersedes all prior or contemporaneous understandings regarding such subject matter.
-//13. MISCELLANEOUS. This Agreement is specific to you and you shall not assign or transfer the Agreement or the APPLICATION to any third party under any circumstances. Licensor may assign this Agreement in whole or in part. This Agreement shall be governed by and construed under laws, without regard to the conflict of laws provisions thereof and without application of the United Nations Convention on Contracts for the International Sale of Goods. If you are located outside of the United States, then, without limiting either party’s right to seek injunctive or other equitable relief in court, either party may elect (by written notice given prior to filing a complaint or, in the case of the defendant, prior to answering a complaint) to resolve a dispute by binding arbitration in the English language in your country of residence under the International Arbitration Rules of the International Centre for Dispute Resolution; the decision of the arbitrator will be enforceable in any court. The original of this Agreement has been written in English, and that version will apply if there is any dispute.
-//""";
 
 "i.know" = "I Know";
 "report.title" = "Report";
@@ -91,18 +46,10 @@
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
 "report.success" = "You have successfully reported \nthis person";
-//Thanks for reporting. It would be processed within 24 hours.
 
 
 "alert.block" = "Block";
 "alert.unblock" = "Unblock";
-"user.list.more.sheet" = "You can block or report the abusive users here.";
-"user.list.title" = "Users Talked in the Channel";
-"report.user.id" = "User ID";
-
-"profile.initial.user.name.title" = "USERNAME";
-"profile.initial.tip" = "Can this be your image and name in Among Chat?";
-"profile.initial.confirm.btn" = "Yes, is me!";
 
 //Profile
 "profile.profile" = "Profile";
@@ -135,10 +82,7 @@
 "error.no.teammates" = "Oops, no teammates yet!";
 "error.no.followers" = "Oops, no followers yet!";
 "error.no.blocker" = "You haven't blocked others yet.";
-
-
 "content.contain.sensitive.words" = "Content contains sensitive words, please modify";
-
 //month
 "month.jan" = "Jan";
 "month.feb" = "Feb";
@@ -157,17 +101,12 @@
 "profile.edit.save.btn" = "Save";
 "profile.edit.username" = "Username";
 "profile.edit.birthday" = "Birthday";
-"profiel.edit.birthday.cant.tip" = "Birthday can be edited only one time in seven days.";
-"social.follower.follow.action" = "Follow Back";
 "social.blocked.user.title" = "Block list";
 "social.relation.friend" = "Friends";
 "social.join.action" = "Join";
 "social.unfollow" = "Unfollow";
 "social.join.action.sent" = "Sent";
-"social.status.offline" = "Offline";
 "social.status.online" = "Online";
-"social.status.in.someroom" = "In %1$@";
-"social.following.maximium.tip" = "Your followings has reached maximum of %1$@";
 "social.sms" = "SMS";
 "social.copy.link" = "Copy link";
 "social.invite.friends" = "Invite friends";
@@ -184,54 +123,11 @@
 "social.follow.failed" = "Failed to follow this person, \nplease try again.";
 
 
-
-"channel.user.list.speaking.title" = "SPEAKING";
-"channel.user.list.listen.title" = "LISTEN";
-"channel.user.list.followed.title" = "Followed user";
-"channel.user.list.social.title" = "Social";
 "channel.user.list.follow" = "Follow";
 "channel.user.list.mute" = "Mute";
 "channel.user.list.unmute" = "Unmute";
-"channel.user.list.speak.empty.text" = "Nobody speaks yet";
-"channel.user.list.listen.empty.text" = "Nobody listens yet";
-"channel.user.list.mute.action" = "Mute Now";
-"channel.user.list.mute.action.title" = "Someone Noisy?";
-"channel.user.list.mute.action.msg" = "Don't want to hear someone's voice? You can mute him, then you won't hear his voice in any channel";
-"channel.user.list.block.action.title" = "Block Username?";
-"channel.user.list.block.action.msg" = "They won’t be able to add you friend or invite you in channel. We won’t let them know you blocked them";
-"channel.user.list.pro.badge" = "PRO";
-
-"channel.join.request.modal.title" = "Your friend wants to join you";
-"channel.join.request.modal.msg" = "Your friend wants to join your secret channel and chat with you and your friends, would you like";
-"channel.join.request.refuse" = "Refuse";
-"channel.join.request.accept" = "Accept";
-"channel.join.request.refused.msg" = "%1$@ refuses your request";
-"channel.join.request.enter.room.msg" = "%1$@ enters channel";
-"channel.invite.sent.tip" = "Invitation has been sent";
-"channel.join.request.sent.tip" = "Request has been sent";
-
-"channel.speaking.limit.modal.title" = "Break the mic max limit";
-"channel.speaking.limit.modal.msg" = "To be a VIP member to talk with more users simultaneously";
-"channel.speaking.limit.modal.upgrade" = "Upgrade to PRO";
-
-"amomg.chat.home.hash.tags.title" = "Let's match & chat";
-"among.chat.home.hash.tags.more" = "All Channels";
-"among.chat.home.tag.among.a" = "FindCrewmates";
-"among.chat.home.tag.among.b" = "AmongUs";
-"among.chat.home.tag.group" = "GroupChat";
-"among.chat.home.tag.create.private" = "CreatePrivateChannel";
-"among.chat.home.tag.join.private" = "JoinPrivateChannel";
 "among.chat.leave.room.tip.title" = "Are you sure to exit the channel?";
-"among.chat.channel.start.game.tip1" = "It's time to start the game! Let's pick a lucky guy to open a channel in Among Us.";
-"among.chat.room.start.game.tip2" = "What about you, %1$@";
-"among.chat.room.tip.timeout" = "Timeout";
-"among.chat.room.tip.failed" = "Failed";
 "among.chat.room.message.placeholder" = "Say something...";
-"among.chat.all.rooms.more" = "More channels coming soon!";
-"among.chat.all.rooms.vote.game" = "Vote which games we should support next!";
-"premium.subscription.terms" = "Subscription Terms:";
-"premium.subscription.detail.free" = "After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
-"premium.subscription.detail.normal" = "%@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
 "premium.lifetime" = "lifetime";
 "premium.subscription.detail.lifetime" = "Pay once, No Subscription";
 "force.upgrade.tip" = "Please update to the newest version of the app to continue playing.";
@@ -286,3 +182,24 @@
 "among.chat.ignore" = "ignore";
 "among.chat.channel.invitation.msg" = "is inviting you to their %1$@ channel";
 "among.chat.home.firends.private.channel.tip" = "This channel is private";
+
+"guide.fourth.title" = "Enjoy these awesome things!\n✔️ Secret channels\n✔️ Unlimited talking rights";
+
+"rate.us" = "Rate us";
+"share.app" = "Share App";
+"push.setting" = "Push Setting";
+"log.out" = "Log out";
+"settings" = "Settings";
+"room.leave" = "Leave";
+"room.setup.in.game.code.title" = "Set up in-game code here";
+"room.setup.in.game.code.subtitle" = "Only this channel host can set the code";
+"room.setup.amongus.title" = "click to copy the code";
+"room.setup.amongus.subtitle" = "Only this channel host can set the code";
+"room.setup.host.notes" = "Host's Notes";
+"room.setup.host.notes.subtitle" = "host could setup notes so everyone could see it when they join the channel";
+
+"room.amongchat.input.code.plceholder" = "ENTER YOUR PRIVATE CODE";
+"room.roblox.input.code.plceholder" = "ROBLOX USERNAME";
+"amongus.server.north.america" = "North America";
+"amongus.server.north.asia" = "Asia";
+"amongus.server.north.europe" = "Europe";

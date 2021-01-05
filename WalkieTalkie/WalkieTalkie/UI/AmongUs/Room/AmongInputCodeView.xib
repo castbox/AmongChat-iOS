@@ -40,6 +40,9 @@
                             <state key="normal" title="Done">
                                 <color key="titleColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="profile.done"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="pog-sT-KbS"/>
                             </connections>
@@ -53,6 +56,9 @@
                             <state key="normal" title="Cancel">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="toast.cancel"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="Kdl-Ib-e2a"/>
                             </connections>
@@ -74,6 +80,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="20"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="amongus.server.north.america"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="6YT-Jr-vMi"/>
@@ -93,6 +100,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="20"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="amongus.server.north.asia"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="pWM-6V-EUo"/>
@@ -112,6 +120,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="20"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="amongus.server.north.europe"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="serviceLocationAction:" destination="-1" eventType="touchUpInside" id="qjd-k2-6oc"/>
@@ -138,6 +147,7 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="paddingRight">
                                     <real key="value" value="20"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="placeholderXibLocKey" value="room.amongchat.input.code.plceholder"/>
                             </userDefinedRuntimeAttributes>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="VOf-oh-YCz"/>

@@ -41,6 +41,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="12"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.public"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="publicButtonAction:" destination="-1" eventType="touchUpInside" id="dAn-TU-yS0"/>
@@ -55,6 +56,9 @@
                     <state key="normal" title="Report" image="ac_icon_room_report">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.title"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="reportButtonAction:" destination="-1" eventType="touchUpInside" id="x63-Ut-ubL"/>
                     </connections>
@@ -68,6 +72,9 @@
                     <state key="normal" title="Leave" image="ac_icon_leave">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.leave"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="NWD-QO-Psh"/>
                     </connections>
@@ -82,6 +89,9 @@
                     <state key="normal" title="Kick" image="ac_icon_kick_user">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="among.chat.room.kick"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="kickOffButtonAction:" destination="-1" eventType="touchUpInside" id="avl-G3-4v0"/>
                     </connections>

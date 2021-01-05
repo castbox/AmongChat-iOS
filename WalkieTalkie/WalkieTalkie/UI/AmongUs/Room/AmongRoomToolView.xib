@@ -38,6 +38,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="12"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.tag.open.game"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="openGameAction:" destination="-1" eventType="touchUpInside" id="SAe-94-eiv"/>
@@ -58,6 +59,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="12"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="among.chat.room.set.reblox.name"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="setupNickNameAction:" destination="-1" eventType="touchUpInside" id="xiR-SR-h4F"/>

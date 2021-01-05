@@ -67,6 +67,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="21"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="among.chat.room.tip.mic.on"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="changeMicStateAction:" destination="-1" eventType="touchUpInside" id="VKb-0v-5mr"/>
@@ -80,6 +81,9 @@
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
                             <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                             <state key="normal" title="Cancel"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="toast.cancel"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="cancelKickAction:" destination="-1" eventType="touchUpInside" id="Dpm-Ki-Exp"/>
                             </connections>

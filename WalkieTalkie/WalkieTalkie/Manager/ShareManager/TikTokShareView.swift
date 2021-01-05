@@ -67,13 +67,14 @@ extension TikTokShareView.Content {
 //    "share.tiktok.private.title" = "Join in my SERET CHANNEL %@ talk to me !!!";
 //    "share.tiktok.content.dowload" = "Download “walkie talkie talk to friends” First";
     func contentTitle(_ channelName: String) -> String {
-        switch self {
-        case .public_1:
-            return R.string.localizable.shareTiktokPublicTitle(channelName)
-        case .private_1:
-            return R.string.localizable.shareTiktokPrivateTitle(channelName)
-        case .public_2, .private_2:
-            return R.string.localizable.shareTiktokContentDowload()
-        }
+//        switch self {
+//        case .public_1:
+//            return R.string.localizable.shareTiktokPublicTitle(channelName)
+//        case .private_1:
+//            return R.string.localizable.shareTiktokPrivateTitle(channelName)
+//        case .public_2, .private_2:
+//            return R.string.localizable.shareTiktokContentDowload()
+//        }
+        return ""
     }
 }
