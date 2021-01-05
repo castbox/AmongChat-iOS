@@ -17,10 +17,10 @@ extension Social {
     class ShareRoomViewController: WalkieTalkie.ViewController {
         
         /// room share
-        private static var roomShareFriends = [Entity.UserProfile]()
+        private static var roomShareItems: [Item] = []
         /// clear temp data
         class func clear() {
-            Self.roomShareFriends = []
+            Self.roomShareItems = []
         }
         
         private lazy var tableView: UITableView = {
@@ -35,7 +35,7 @@ extension Social {
         
         private lazy var headerView = ShareHeaderView()
         
-        private var userList: [Entity.UserProfile] = [] {
+        private var items: [Item] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -65,7 +65,7 @@ extension Social {
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            Self.roomShareFriends = userList
+            Self.roomShareItems = items
         }
         
         private func setupLayout() {
@@ -89,7 +89,7 @@ extension Social {
                 make.height.equalTo(4)
             }
             
-            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 195)
+            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 146)
             tableView.tableHeaderView = headerView
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
@@ -104,21 +104,44 @@ extension Social {
 }
 private extension Social.ShareRoomViewController {
     func loadData() {
-        let users = Self.roomShareFriends
+        let users = Self.roomShareItems
         if users.isEmpty {
             let removeBlock = view.raft.show(.loading)
             Request.inviteFriends(skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let data = data else { return }
-                    self?.userList = data.list ?? []
-                    Self.roomShareFriends = self?.userList ?? []
+                    self?.append(data.list, group: .friends)
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("inviteFriends error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+            
+            Request.onlineStrangers()
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let data = data else { return }
+                    self?.append(data.list, group: .stranger)
                 }, onError: { (error) in
                     removeBlock()
                     cdPrint("inviteFriends error: \(error.localizedDescription)")
                 }).disposed(by: bag)
         } else {
-            userList = users
+            items = users
+        }
+    }
+    
+    func append(_ list: [Entity.UserProfile]?, group: Item.Group) {
+        guard let list = list else {
+            return
+        }
+        var items = self.items.filter { $0.group != group }
+        items.append(Item(userLsit: list, group: group))
+        self.items = items.sorted { (old, previous) -> Bool in
+            old.group.rawValue < previous.group.rawValue
+        }
+        if self.items.count == 2 {
+            Self.roomShareItems = self.items
         }
     }
     
@@ -150,21 +173,23 @@ extension Social.ShareRoomViewController: MFMessageComposeViewControllerDelegate
 extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userList.count
+        return items.safe(section)?.userLsit.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
-        if let user = userList.safe(indexPath.row) {
+        if let user = items.safe(indexPath.section)?.userLsit.safe(indexPath.row) {
             cell.setCellDataForShare(with: user, roomId: roomId)
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
-                self.userList[indexPath.row].invited = follow
+//                user.invited = follow
+                self.items[indexPath.section].userLsit[indexPath.row].invited = follow
+//                self.userList[indexPath.row].invited = follow
                 Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), "invite")
             }
         }
@@ -176,7 +201,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let user = userList.safe(indexPath.row) {
+        if let user = items.safe(indexPath.section)?.userLsit.safe(indexPath.row) {
             Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
             self.navigationController?.pushViewController(vc)
@@ -184,36 +209,33 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+        guard let item = items.safe(section), !item.userLsit.isEmpty else {
+            return nil
+        }
+        let v = UIView()
+        let lable = UILabel()
+        v.addSubview(lable)
+        lable.snp.makeConstraints { (make) in
+            make.left.equalTo(20)
+            make.right.equalTo(-20)
+            make.bottom.equalTo(-2.5)
+        }
+        lable.textColor = .white
+        lable.font = R.font.nunitoExtraBold(size: 20)
+        lable.text = item.group.title
+        return v
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+        return 29.5
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 0 {
-            let v = UIView()
-            let lable = UILabel()
-            v.addSubview(lable)
-            lable.snp.makeConstraints { (make) in
-                make.left.equalTo(20)
-                make.right.equalTo(-20)
-                make.bottom.equalTo(-16.5)
-            }
-            lable.textColor = .white
-            lable.font = R.font.nunitoExtraBold(size: 20)
-            lable.text = R.string.localizable.socialInvitePlayWith()
-            return v
-        } else {
-            return nil
-        }
+        return nil
+
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 59
-        }
         return .leastNormalMagnitude
     }
     
@@ -244,18 +266,18 @@ extension Social.ShareRoomViewController {
             return btn
         }()
         
-        private lazy var inviteLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
-            lb.text = R.string.localizable.socialInviteFriends()
-            lb.textColor = .white
-            return lb
-        }()
+//        private lazy var inviteLabel: WalkieLabel = {
+//            let lb = WalkieLabel()
+//            lb.font = R.font.nunitoExtraBold(size: 20)
+//            lb.text = R.string.localizable.socialInviteFriends()
+//            lb.textColor = .white
+//            return lb
+//        }()
         
         override init(frame: CGRect) {
             super.init(frame: frame)
             
-            addSubviews(views: smsBtn, copyLinkBtn, inviteLabel)
+            addSubviews(views: smsBtn, copyLinkBtn)
             
             smsBtn.snp.makeConstraints { (make) in
                 make.left.equalTo(20)
@@ -271,10 +293,10 @@ extension Social.ShareRoomViewController {
                 make.height.equalTo(68)
             }
             
-            inviteLabel.snp.makeConstraints { (make) in
-                make.left.equalTo(20)
-                make.top.equalTo(smsBtn.snp.bottom).offset(40)
-            }
+//            inviteLabel.snp.makeConstraints { (make) in
+//                make.left.equalTo(20)
+//                make.top.equalTo(smsBtn.snp.bottom).offset(40)
+//            }
             
             smsBtn.rx.tap
                 .observeOn(MainScheduler.instance)
@@ -354,5 +376,30 @@ extension Social.ShareRoomViewController: Modalable {
     
     func canAutoDismiss() -> Bool {
         return true
+    }
+}
+
+extension Social.ShareRoomViewController {
+    struct Item {
+        enum Group: Int {
+            case friends
+            case stranger
+        }
+        
+        var userLsit: [Entity.UserProfile]
+        let group: Group
+        
+    }
+    
+}
+
+extension Social.ShareRoomViewController.Item.Group {
+    var title: String {
+        switch self {
+        case .friends:
+            return R.string.localizable.socialInviteFriends()
+        case .stranger:
+            return R.string.localizable.socialInvitePlayWith()
+        }
     }
 }

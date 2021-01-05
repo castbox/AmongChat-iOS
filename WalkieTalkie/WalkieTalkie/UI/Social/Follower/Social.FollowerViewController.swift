@@ -332,7 +332,7 @@ extension Social {
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(20)
-                maker.top.equalToSuperview()
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(40)
             }
             

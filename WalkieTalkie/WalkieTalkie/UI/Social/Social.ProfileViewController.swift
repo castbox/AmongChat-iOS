@@ -37,7 +37,7 @@ extension Social {
             func text() -> String {
                 switch self {
                 case .inviteFriends:
-                    return R.string.localizable.profileInviteFriends()
+                    return R.string.localizable.socialInviteFriends()
                 case .settings:
                     return R.string.localizable.profileSettings()
                 case .community:
