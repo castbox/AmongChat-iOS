@@ -11,6 +11,7 @@ import StoreKit
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import SCSDKLoginKit
 
 class SettingViewController: ViewController {
     
@@ -88,6 +89,10 @@ class SettingContainerTableController: UITableViewController {
             .subscribe(onNext: { (data) in
                 Logger.Action.log(.login_success)
                 Settings.shared.clearAll()
+                //clear
+                if SCSDKLoginClient.isUserLoggedIn {
+                    SCSDKLoginClient.clearToken()
+                }
                 (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
             }).disposed(by: bag)
     }

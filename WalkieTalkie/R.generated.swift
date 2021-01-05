@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 146 images.
+  /// This `R.image` struct is generated, and contains static references to 148 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -206,10 +206,14 @@ struct R: Rswift.Validatable {
     static let ac_login_apple = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_apple")
     /// Image `ac_login_bg`.
     static let ac_login_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_bg")
+    /// Image `ac_login_facebook`.
+    static let ac_login_facebook = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_facebook")
     /// Image `ac_login_google`.
     static let ac_login_google = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_google")
     /// Image `ac_login_logo`.
     static let ac_login_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_logo")
+    /// Image `ac_login_snapchat`.
+    static let ac_login_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_snapchat")
     /// Image `ac_medal_bronze`.
     static let ac_medal_bronze = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_medal_bronze")
     /// Image `ac_medal_silver`.
@@ -589,6 +593,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_login_bg, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_login_facebook", bundle: ..., traitCollection: ...)`
+    static func ac_login_facebook(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_facebook, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_login_google", bundle: ..., traitCollection: ...)`
     static func ac_login_google(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_google, compatibleWith: traitCollection)
@@ -597,6 +606,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_logo", bundle: ..., traitCollection: ...)`
     static func ac_login_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_logo, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_snapchat", bundle: ..., traitCollection: ...)`
+    static func ac_login_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_snapchat, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_medal_bronze", bundle: ..., traitCollection: ...)`
@@ -1493,7 +1507,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 224 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 226 localization keys.
     struct localizable {
       /// en translation: %1$@ enters channel
       /// 
@@ -2151,10 +2165,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLoginSignInWithApple = Rswift.StringResource(key: "among.chat.login.sign.in.with.apple", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sign in with Facebook
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInWithFacebook = Rswift.StringResource(key: "among.chat.login.sign.in.with.facebook", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sign in with Google
       /// 
       /// Locales: en
       static let amongChatLoginSignInWithGoogle = Rswift.StringResource(key: "among.chat.login.sign.in.with.google", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Sign in with Snapchat
+      /// 
+      /// Locales: en
+      static let amongChatLoginSignInWithSnapchat = Rswift.StringResource(key: "among.chat.login.sign.in.with.snapchat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Skip
       /// 
       /// Locales: en
@@ -3540,11 +3562,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.login.sign.in.with.apple", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Sign in with Facebook
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInWithFacebook(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.with.facebook", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sign in with Google
       /// 
       /// Locales: en
       static func amongChatLoginSignInWithGoogle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.sign.in.with.google", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sign in with Snapchat
+      /// 
+      /// Locales: en
+      static func amongChatLoginSignInWithSnapchat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.sign.in.with.snapchat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Skip

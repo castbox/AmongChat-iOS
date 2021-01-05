@@ -24,9 +24,13 @@ import FirebaseDynamicLinks
 import Bolts
 import Kingfisher
 import GoogleSignIn
+import SCSDKLoginKit
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    
 
     lazy var window: UIWindow? = {
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -91,7 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // end
         TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         return true
     }
     
@@ -102,13 +109,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         cdPrint("open url: \(url)")
-        if url.scheme == Config.scheme  {
+        if SCSDKLoginClient.application(app, open: url, options: options) {
+            return true
+        } else if url.scheme == Config.scheme  {
             guard let parsedURL = BFURL(url: url) else { return false }
             return Routes.handle(parsedURL.targetURL)
         }
         else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
         } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
+            return true
+        } else if ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) {
             return true
         }
         return FireLink.handle(dynamicLink: url) { [weak self] url in

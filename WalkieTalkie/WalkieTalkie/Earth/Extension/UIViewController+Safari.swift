@@ -25,6 +25,9 @@ extension UIViewController {
             urlComponent!.scheme = "http"
             variableUrl = urlComponent!.url!
         }
+        guard url.scheme?.lowercased().contains("http") == true else {
+            return
+        }
         let safari: SFSafariViewController
         if #available(iOS 11.0, *) {
             let configuration = SFSafariViewController.Configuration()

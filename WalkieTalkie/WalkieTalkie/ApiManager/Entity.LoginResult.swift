@@ -13,6 +13,8 @@ extension Entity {
     public enum LoginProvider: String {
         case google
         case apple
+        case snapchat
+        case facebook
     }
 }
 
