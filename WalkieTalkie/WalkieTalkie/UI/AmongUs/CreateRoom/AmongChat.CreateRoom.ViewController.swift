@@ -132,6 +132,10 @@ extension AmongChat.CreateRoom {
             return sw
         }()
         
+        override var contentScrollView: UIScrollView? {
+            topicTable
+        }
+        
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
         private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
                 
@@ -157,7 +161,7 @@ extension AmongChat.CreateRoom.ViewController {
     
     @objc
     private func onBackBtn() {
-        dismiss(animated: true)
+        navigationController?.popViewController()
     }
         
     @objc
@@ -168,7 +172,7 @@ extension AmongChat.CreateRoom.ViewController {
             HapticFeedback.Impact.error()
             return
         }
-        
+        Logger.Action.log(.create_topic_create, categoryValue: name, privateStateSwitch.roomPublicType.rawValue)
         createRoom(with: name)
     }
 }
@@ -235,6 +239,13 @@ extension AmongChat.CreateRoom.ViewController {
                 
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.create_topic_imp, category: nil)
+            })
+            .disposed(by: bag)
     }
     
     private func createRoom(with name: String) {
@@ -257,7 +268,7 @@ extension AmongChat.CreateRoom.ViewController {
         } else {
             roomProto.topicId = AmongChat.Topic.chilling.rawValue
         }
-        
+                
         switch roomProto.topicType {
         case .chilling:
             roomProto.note = name
@@ -273,19 +284,16 @@ extension AmongChat.CreateRoom.ViewController {
             })
             .subscribe(onSuccess: { [weak self] (room) in
                 // TODO: - 创建房间成功
-                guard let `self` = self,
-                      let presentingVC = self.presentingViewController else {
+                guard let `self` = self else {
                     return
                 }
                 guard let room = room else {
                     self.view.raft.autoShow(.text("failed to create room"))
                     return
                 }
-                
                 self.view.endEditing(true)
-                self.dismiss(animated: true) {
-                    AmongChat.Room.ViewController.join(room: room, from: presentingVC)
-                }
+                
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: .creatingSource)
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
@@ -297,6 +305,11 @@ extension AmongChat.CreateRoom.ViewController: UITextFieldDelegate {
     
     private var maxInputLength: Int {
         return 140
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        Logger.Action.log(.create_topic_edit, category: nil)
+        return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -340,8 +353,9 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
         guard let topic = topicDataSource.safe(indexPath.row) else {
             return
         }
-        
-        createRoom(with: topic.topic.rawValue)
+        Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
+        enterRoom(topicId: topic.topic.rawValue, logSource: .creatingMatchSource)
+//        createRoom(with: topic.topic.rawValue)
     }
 
 }

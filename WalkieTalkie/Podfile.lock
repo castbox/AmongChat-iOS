@@ -216,7 +216,7 @@ PODS:
     - Adjust/Core (= 4.21.0)
   - Adjust/Core (4.21.0)
   - AgoraAudio_iOS (3.1.0)
-  - AgoraRtm_iOS (1.4.1)
+  - AgoraRtm_iOS (1.4.2)
   - Alamofire (5.2.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
@@ -224,6 +224,12 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - BetterSegmentedControl (1.3.0)
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -236,6 +242,16 @@ PODS:
     - SwiftyBeaver (~> 1.9.0)
   - DeviceKit (4.2.1)
   - DoraemonKit/Core (3.0.2)
+  - FBSDKCoreKit (8.2.0):
+    - FBSDKCoreKit/Basics (= 8.2.0)
+    - FBSDKCoreKit/Core (= 8.2.0)
+  - FBSDKCoreKit/Basics (8.2.0)
+  - FBSDKCoreKit/Core (8.2.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (8.2.0):
+    - FBSDKLoginKit/Login (= 8.2.0)
+  - FBSDKLoginKit/Login (8.2.0):
+    - FBSDKCoreKit (~> 8.2.0)
   - Firebase/Analytics (6.25.0):
     - Firebase/Core
   - Firebase/Auth (6.25.0):
@@ -436,6 +452,16 @@ PODS:
   - leveldb-library (1.22)
   - loady (1.0.5)
   - MBProgressHUD (1.0.0)
+  - MJRefresh (3.5.0)
+  - mopub-ios-sdk/Core (5.15.0)
+  - MoPub-UnityAds-Adapters (3.4.8.1):
+    - MoPub-UnityAds-Adapters/MoPub (= 3.4.8.1)
+    - MoPub-UnityAds-Adapters/Network (= 3.4.8.1)
+  - MoPub-UnityAds-Adapters/MoPub (3.4.8.1):
+    - mopub-ios-sdk/Core (~> 5.13)
+  - MoPub-UnityAds-Adapters/Network (3.4.8.1):
+    - mopub-ios-sdk/Core (~> 5.13)
+    - UnityAds (= 3.4.8)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -478,6 +504,14 @@ PODS:
   - SnapSDK/SCSDKLoginKit (1.4.4)
   - SnapSDK/SCSDKStoryKit (1.4.4)
   - SSZipArchive (2.1.5)
+  - SVGAPlayer (2.5.6):
+    - SVGAPlayer/Core (= 2.5.6)
+    - SVGAPlayer/ProtoFiles (= 2.5.6)
+  - SVGAPlayer/Core (2.5.6):
+    - SSZipArchive (>= 1.8.1)
+    - SVGAPlayer/ProtoFiles
+  - SVGAPlayer/ProtoFiles (2.5.6):
+    - Protobuf (~> 3.4)
   - SwifterSwift (5.2.0):
     - SwifterSwift/AppKit (= 5.2.0)
     - SwifterSwift/CoreAnimation (= 5.2.0)
@@ -512,17 +546,20 @@ PODS:
   - TikTokOpenSDK (3.0.2):
     - BytedanceOpenPlatformSDK (= 3.0.1)
   - UIColor_Hex_Swift (4.2.0)
+  - UnityAds (3.4.8)
   - WSFlexibleTouch (0.1.1)
   - YYText (1.0.7)
 
 DEPENDENCIES:
   - Adjust (= 4.21.0)
   - AgoraAudio_iOS (= 3.1.0)
-  - AgoraRtm_iOS
+  - AgoraRtm_iOS (= 1.4.2)
   - BetterSegmentedControl
+  - Bolts (from `https://github.com/roremeol/Bolts-ObjC.git`, branch `master`)
   - CastboxDebuger (~> 1.3.2)
   - DeviceKit (~> 4.0)
   - DoraemonKit/Core (~> 3.0.2)
+  - FBSDKLoginKit
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
@@ -541,6 +578,9 @@ DEPENDENCIES:
   - Kingfisher
   - loady
   - MBProgressHUD (~> 1.0.0)
+  - MJRefresh (~> 3.5.0)
+  - mopub-ios-sdk/Core
+  - MoPub-UnityAds-Adapters (= 3.4.8.1)
   - Moya/RxSwift
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
@@ -550,6 +590,7 @@ DEPENDENCIES:
   - SDCAlertView
   - SnapKit (~> 4.2.0)
   - SnapSDK
+  - SVGAPlayer
   - SwifterSwift
   - SwiftHash
   - SwiftLint (= 0.31.0)
@@ -576,6 +617,8 @@ SPEC REPOS:
     - BytedanceOpenPlatformSDK
     - DeviceKit
     - DoraemonKit
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -612,6 +655,9 @@ SPEC REPOS:
     - leveldb-library
     - loady
     - MBProgressHUD
+    - MJRefresh
+    - mopub-ios-sdk
+    - MoPub-UnityAds-Adapters
     - Moya
     - nanopb
     - Path.swift
@@ -630,6 +676,7 @@ SPEC REPOS:
     - SnapKit
     - SnapSDK
     - SSZipArchive
+    - SVGAPlayer
     - SwifterSwift
     - SwiftHash
     - SwiftLint
@@ -639,22 +686,36 @@ SPEC REPOS:
     - SwiftyUserDefaults
     - TikTokOpenSDK
     - UIColor_Hex_Swift
+    - UnityAds
     - WSFlexibleTouch
     - YYText
+
+EXTERNAL SOURCES:
+  Bolts:
+    :branch: master
+    :git: https://github.com/roremeol/Bolts-ObjC.git
+
+CHECKOUT OPTIONS:
+  Bolts:
+    :commit: 3122920f097d94e3d65bda41f32970f00a6795f4
+    :git: https://github.com/roremeol/Bolts-ObjC.git
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
   AgoraAudio_iOS: 3b14259bacfddcc9dd392ff65d4d474b2c17e89f
-  AgoraRtm_iOS: 3a5b675487b39e51f416e8c8a040f97f0aaad2c1
+  AgoraRtm_iOS: 5fb55028ec41659a8d88bebecc5c95a742102d4f
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
+  Bolts: 6ca038afe82c84106a3aa0c570a58d03e0f7e7f8
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   BytedanceOpenPlatformSDK: 48b6b7603f81daf50dd90cb337cd690bf3c51371
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
+  FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
+  FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
   Firebase: 5719b4f965f76643241a1bb8244483ff6117db39
   FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
   FirebaseAnalytics: 93565f3f0f0f50a5d8770850bfe6a82eaba5db27
@@ -691,6 +752,9 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
+  mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
+  MoPub-UnityAds-Adapters: 267a3e5f23252c01895fc220b958639e1c1343e2
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
@@ -709,6 +773,7 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
+  SVGAPlayer: f3b3792ae66f7cb3f944ae373a40864db9a04331
   SwifterSwift: 334181863c416882d97b7a60c05054d9e4d799e2
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
@@ -718,9 +783,10 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   TikTokOpenSDK: f81840227b18ba43c294b2839e5cfe46610647bf
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
+  UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e01d5d2ab5ddf01e87ea6de6a579022b71dee5a6
+PODFILE CHECKSUM: 76940796582b075ab67e7f5ee2d72b05daf1dab8
 
 COCOAPODS: 1.10.0

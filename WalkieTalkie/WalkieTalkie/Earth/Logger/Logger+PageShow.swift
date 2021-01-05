@@ -14,10 +14,10 @@ extension Logger {
         
         enum EventName: String {
             case screen
-            case secret_channel_create_pop_imp
-            case secret_channel_share_pop_imp
-            case secret_channel_create_pop_close
-            case secret_channel_share_pop_close
+//            case secret_channel_create_pop_imp
+//            case secret_channel_share_pop_imp
+//            case secret_channel_create_pop_close
+//            case secret_channel_share_pop_closeo
             case tutorial_imp_1
             case tutorial_imp_2
             case tutorial_imp_3
@@ -26,10 +26,10 @@ extension Logger {
         enum Category: String {
             case screen
             case screen_life
-            case normal //正常半页/
-            case empty //列表为空、点击按钮/
-            case wrong_passcode //：输入passcode错误/
-            case invaild //房间失效"
+//            case normal //正常半页/
+//            case empty //列表为空、点击按钮/
+//            case wrong_passcode //：输入passcode错误/
+//            case invaild //房间失效"
         }
         
         static func log(_ eventName: EventName, _ category: Category? = nil, _ itemName: String? = nil, _ value: Int64? = nil, content: String? = nil) {
@@ -48,8 +48,18 @@ extension Logger {
             case recommend
         }
         
+        enum Event: String {
+            case receive = "push_receive"
+            case open = "push_open"
+            case impression = "push_imp"
+        }
+        
         static func log(_ category: Category? = nil, _ itemName: String? = nil, _ value: Int64? = nil, content: String? = nil) {
             GuruAnalytics.log(event: "push_receive", category: category?.rawValue, name: itemName, value: value, content: content)
+        }
+        
+        static func log(event: Event, source: String? = nil) {
+            GuruAnalytics.log(event: event.rawValue, category: source, name: nil, value: nil, content: nil)
         }
     }
 }

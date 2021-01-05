@@ -40,9 +40,19 @@
 				<string>com.googleusercontent.apps.476395756522-7emgmljelqou676e9rggb5n7cjf7br6o</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb235472688143702</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>235472688143702</string>
+	<key>FacebookDisplayName</key>
+	<string>AmongChat</string>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-2436733915645843~5026524148</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -52,6 +62,21 @@
 		<string>snssdk1180</string>
 		<string>snssdk1233</string>
 		<string>whatsapp</string>
+		<string>fbapi</string>
+		<string>fbapi20130214</string>
+		<string>fbapi20130410</string>
+		<string>fbapi20130702</string>
+		<string>fbapi20131010</string>
+		<string>fbapi20131219</string>
+		<string>fbapi20140410</string>
+		<string>fbapi20140116</string>
+		<string>fbapi20150313</string>
+		<string>fbapi20150629</string>
+		<string>fbapi20160328</string>
+		<string>fbauth</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -71,7 +96,14 @@
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>SCSDKClientId</key>
-	<string>944a91d7-5a1f-4812-9821-7e823d680baf</string>
+	<string>fe9236ab-e095-4e6c-a211-35c1c64465df</string>
+	<key>SCSDKRedirectUrl</key>
+	<string>amongchat://snaplogin</string>
+	<key>SCSDKScopes</key>
+	<array>
+		<string>https://auth.snapchat.com/oauth2/api/user.display_name</string>
+		<string>https://auth.snapchat.com/oauth2/api/user.external_id</string>
+	</array>
 	<key>TikTokAppID</key>
 	<string>1669310519218182</string>
 	<key>UIAppFonts</key>
@@ -110,5 +142,7 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>gad_preferred_webview</key>
+	<string>wkwebview</string>
 </dict>
 </plist>

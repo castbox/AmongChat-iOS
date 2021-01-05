@@ -22,11 +22,13 @@ extension APIService {
 
 extension APIService.WalkieTalkie: TargetType {
     var baseURL: URL {
-        #if DEBUG
-        let url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
-        #else
-        let url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
-        #endif
+        let url: String
+        switch Config.environment {
+        case .debug:
+            url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
+        case .release:
+            url = "https://us-central1-walkietalkie-a6b37.cloudfunctions.net"
+        }
         return URL(string: url)!
     }
     

@@ -44,8 +44,13 @@ extension AmongChat.Room {
         
         init(with channelId: String) {
             self.channelId = channelId
-            self.imManager = AmongChat.Room.IMManager(with: channelId)
+            self.imManager = AmongChat.Room.IMManager.shared
+            imManager.joinChannel(channelId)
             bindEvents()
+        }
+        
+        deinit {
+            imManager.leaveChannel(channelId)
         }
                 
     }
@@ -73,7 +78,7 @@ extension AmongChat.Room.IMViewModel {
     
     private func bindEvents() {
         
-        imManager.newMessageObservable
+        imManager.newChannelMessageObservable
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { (message, member) -> ChatRoomMessage? in
                 cdPrint("member: \(member.channelId) \(member.userId) \ntext: \(message.text)")
@@ -128,7 +133,7 @@ extension AmongChat.Room.IMViewModel {
         guard let string = message.asString else {
             return
         }
-        imManager.send(message: string)
+        imManager.sendChannelMessage(string)
             .catchErrorJustReturn(false)
             .filter { _ -> Bool in
                 return message.msgType == .text
@@ -169,6 +174,7 @@ protocol ChatRoomMessageable {
 
 protocol MessageListable {
     var attrString: NSAttributedString { get }
+    var rawContent: String? { get }
 }
 
 typealias ChatRoomMessage = ChatRoomMessageable & Codable
@@ -271,6 +277,10 @@ extension ChatRoom.MessageType {
 }
 
 extension ChatRoom.SystemMessage: MessageListable {
+    var rawContent: String? {
+        content
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail
@@ -289,6 +299,10 @@ extension ChatRoom.SystemMessage: MessageListable {
 }
 
 extension ChatRoom.TextMessage: MessageListable {
+    var rawContent: String? {
+        content
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail
@@ -316,6 +330,10 @@ extension ChatRoom.TextMessage: MessageListable {
 }
 
 extension ChatRoom.JoinRoomMessage: MessageListable {
+    var rawContent: String? {
+        nil
+    }
+    
     var attrString: NSAttributedString {
         let pargraph = NSMutableParagraphStyle()
         pargraph.lineBreakMode = .byTruncatingTail

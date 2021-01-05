@@ -26,23 +26,23 @@ extension AmongChat {
         case normal
         case host
     }
-    
-//    enum AmongServiceLocation: Int {
-//        case northAmerica = 0
-//        case asia = 1
-//        case europe = 2
-//    }
 }
 
-//extension AmongChat.AmongServiceLocation {
-//    var text: String {
-//        switch self {
-//        case .northAmerica:
-//            return "North America"
-//        case .asia:
-//            return "Asia"
-//        case .europe:
-//            return "Europe"
-//        }
-//    }
-//}
+extension AmongChat.Topic {
+    var roomEmojis: [URL] {
+        guard let setting = Settings.shared.globalSetting.value else {
+            return []
+        }
+        return setting.roomEmoji.first(where: { $0.topicType == self })
+            .map { $0.emojiList } ?? []
+    }
+    
+    var roomBgUrl: URL? {
+        guard let setting = Settings.shared.globalSetting.value else {
+            return nil
+        }
+        return setting.roomBg.first(where: { $0.topicType == self })
+            .map { $0.bgUrl }
+
+    }
+}

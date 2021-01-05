@@ -261,13 +261,13 @@ Recurring bilking.Cancel any times. Terms &amp; Policy</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ETM-JP-LCT">
-                                    <rect key="frame" x="71.5" y="193" width="160" height="26"/>
+                                    <rect key="frame" x="69.5" y="193" width="164" height="26"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="5Ke-xy-HeR"/>
                                     </constraints>
                                     <state key="normal">
                                         <attributedString key="attributedTitle">
-                                            <fragment content="Privacy Policy &amp; Terms of Sevice">
+                                            <fragment content="Privacy Policy &amp; Terms of Service">
                                                 <attributes>
                                                     <color key="NSColor" red="0.54509803921568623" green="0.3411764705882353" blue="0.16470588235294117" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="11" name="Helvetica"/>

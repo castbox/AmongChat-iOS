@@ -18,20 +18,20 @@ class PrivateShareController: ViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Logger.PageShow.log(.secret_channel_share_pop_imp)
+//        Logger.PageShow.log(.secret_channel_share_pop_imp)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Logger.PageShow.log(.secret_channel_share_pop_close)
+//        Logger.PageShow.log(.secret_channel_share_pop_close)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let shareString = Self.shareTitle(for: channelName) {
-            shareString.copyToPasteboard()
-            container.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
-        }
+//        if let shareString = Self.shareTitle(for: channelName) {
+//            shareString.copyToPasteboard()
+//            container.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+//        }
         
     }
     
@@ -40,7 +40,7 @@ class PrivateShareController: ViewController {
 
         // Do any additional setup after loading the view.
         bottomEdgeConstraint.constant = Frame.Height.safeAeraBottomHeight
-        passcodeLabel.text = channelName?.publicName
+//        passcodeLabel.text = channelName?.publicName
     }
     
     @IBAction func copyButtonAction(_ sender: Any) {
@@ -54,9 +54,9 @@ class PrivateShareController: ViewController {
     }
     
     @IBAction func shareButtonAction(_ sender: Any) {
-        shareChannel(name: channelName) { [weak self] in
-            self?.hideModal()
-        }
+//        shareChannel(name: channelName) { [weak self] in
+//            self?.hideModal()
+//        }
         Logger.Action.log(.secret_channel_share_pop_confirm)
     }
 }

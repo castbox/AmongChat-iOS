@@ -156,9 +156,7 @@ extension Social.UserList {
             if let cell = cell as? SocialUserListView,
                 let user = userList.safe(indexPath.row) {
                 cell.configView(with: user)
-                
             }
-            
             return cell
         }
         

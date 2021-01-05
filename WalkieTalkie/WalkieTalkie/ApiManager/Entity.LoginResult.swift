@@ -13,6 +13,8 @@ extension Entity {
     public enum LoginProvider: String {
         case google
         case apple
+        case snapchat
+        case facebook
     }
 }
 
@@ -104,6 +106,9 @@ extension Entity {
         var uid: Int
         var birthday: String?
         var nickname: String?
+        var isFollowed: Bool?
+        var opTime: Double?
+        var invited: Bool?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -116,6 +121,9 @@ extension Entity {
             case uid
             case birthday
             case nickname
+            case isFollowed = "is_followed"
+            case opTime = "op_time"
+            case invited = "invited"
         }
     }
     
@@ -161,7 +169,7 @@ extension Entity {
     
     struct DefaultAvatars: Codable {
         
-        var avatarList: [String]
+        var avatarList: [DefaultAvatar]
         
         private enum CodingKeys: String, CodingKey {
             case avatarList = "avatar_list"
@@ -170,10 +178,97 @@ extension Entity {
     
 }
 
+extension Entity {
+    
+    struct DefaultAvatar: Codable {
+        var avatarId: String
+        var url: String
+        var lock: Bool
+        var unlockType: String
+        var selected: Bool
+        private enum CodingKeys: String, CodingKey {
+            case avatarId = "avatar_id"
+            case url
+            case lock
+            case unlockType = "type"
+            case selected
+        }
+    }
+    
+}
+
 extension Entity.DefaultAvatars {
     
-    var randomAvatar: String? {
+    var randomAvatar: Entity.DefaultAvatar? {
         return avatarList.randomItem()
     }
     
+}
+
+extension Entity {
+    
+    struct PlayingUser: Codable {
+        var user: UserProfile
+        
+        struct Room: Codable {
+            var roomId: String
+            var state: RoomPublicType
+            var topicId: String
+            var playerCount: Int
+            var topicName: String
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                
+                self.roomId = try container.decodeString(.roomId)
+                let stateStr = (try? container.decodeString(.state)) ?? ""
+                self.state = RoomPublicType(rawValue: stateStr) ?? .private
+                self.topicId = try container.decodeString(.topicId)
+                self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
+                self.topicName = try container.decodeString(.topicName)
+            }
+            
+            #if DEBUG
+            
+            init() {
+                roomId = "asdfasf"
+                state = .public
+                topicId = "amongus"
+                playerCount = 0
+                topicName = "Among Us"
+            }
+            
+            static func defaultRoom() -> Room {
+                
+                var room = Room()
+                
+                return room
+            }
+            #endif
+        }
+        
+        var room: Room?
+        
+    }
+}
+
+extension Entity {
+    struct FriendUpdatingInfo: Codable {
+        typealias Room = PlayingUser.Room
+        var user: UserProfile
+        var room: Room?
+        var isOnline: Bool?
+        var messageType: String
+        
+        private enum CodingKeys: String, CodingKey {
+            case user
+            case room
+            case messageType = "message_type"
+        }
+        
+        func asPlayingUser() -> PlayingUser {
+            return PlayingUser(user: user, room: room)
+        }
+        
+    }
 }

@@ -32,16 +32,16 @@ class Automator {
         FireMessaging.shared.anpsMessageWillShowValue()
             .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { (message) in
-                guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-                    return
-                }
-                
-                roomVc.onPushReceived()
+//                guard let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
+//                    return
+//                }
+//
+//                roomVc.onPushReceived()
             })
             .disposed(by: bag)
         
         //只有登录才上报
-        Observable.combineLatest(Settings.shared.loginResult.replay(), FireMessaging.shared.fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+        Observable.combineLatest(Settings.shared.loginResult.replay(), FireMessaging.shared.fcmTokenValue()) //, Settings.shared.isOpenSubscribeHotTopic.replay()
             .filter { $0.0 != nil }
             .map { $0.1 }
             .do(onNext: { (message) in
@@ -52,19 +52,11 @@ class Automator {
                 guard let token = message.fcmToken else {
                     return .just(false)
                 }
-                var params = Constants.deviceInfo()
-                params["deviceToken"] = token
-                return Request.devices(params: params)
+                return Request.devices(fcmToken: token)
             }
             .subscribe(onNext: { result in
                 cdPrint("[Automator]  Sync token result: \(result)")
             })
             .disposed(by: bag)
-        
-        // 获取系统头像
-        let _ = Request.defaultAvatars()
-            .subscribe(onSuccess: { (_) in
-                
-            })
     }
 }

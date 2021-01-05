@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SwiftyUserDefaults
 
 extension Social {
     
@@ -46,20 +47,48 @@ extension Social {
                 }
             }
         }
-        
+        var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_profile_close(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    self.navigationController?.popViewController()
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var moreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.moreAction()
+                }).disposed(by: bag)
             return btn
         }()
         
         private lazy var headerView: ProfileView = {
-            let v = ProfileView()
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 298)
-            v.editBtnHandler = { [weak self] in
-                let vc = Social.EditProfileViewController()
-                self?.navigationController?.pushViewController(vc)
+            let v = ProfileView(with: isSelfProfile)
+            let vH: CGFloat = isSelfProfile ? 276:414
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
+            v.headerHandle = { [weak self] type in
+                guard let `self` = self else { return }
+                switch type {
+                case .avater:
+                    let vc = Social.SelectAvatarViewController()
+                    self.navigationController?.pushViewController(vc)
+                case .edit:
+                    let vc = Social.EditProfileViewController()
+                    self.navigationController?.pushViewController(vc)
+                case .follow:
+                    self.followAction()
+                case .follower:
+                    self.followerAction()
+                case .following:
+                    self.followingAction()
+                }
             }
             return v
         }()
@@ -77,80 +106,283 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = {
-            return [
-                .inviteFriends,
-                .settings,
-                .community,
-                .blockUser,
-            ]
-        }()
-        // MARK: - life
+        private lazy var options: [Option] = [.inviteFriends, .blockUser, .community, .settings, ]
+        
+        private var relationData: Entity.RelationData?
+        
+        override var screenName: Logger.Screen.Node.Start {
+            if isSelfProfile {
+                return .profile
+            }
+            return .profile_other
+        }
+        
+        private var uid = 0
+        private var isSelfProfile = true
+        private var blocked = false
+        var roomUser: Entity.RoomUser!
+        private var userProfile: Entity.UserProfile?
+        
+        init(with uid: Int) {
+            super.init(nibName: nil, bundle: nil)
+            self.uid = uid
+            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
+            self.isSelfProfile = uid == selfUid
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            //            //AD
-            //            rx.viewDidAppear
-            //                .take(1)
-            //                .subscribe(onNext: { [weak self] (_) in
-            //                    guard let `self` = self else { return }
-            //                    Ad.InterstitialManager.shared.showAdIfReady(from: self)
-            //                })
-            //                .disposed(by: bag)
+            rx.viewDidAppear
+                .take(1)
+                .subscribe(onNext: { [weak self](_) in
+                    guard let `self` = self else { return }
+                    if self.isSelfProfile {
+                        Logger.Action.log(.profile_imp, category: nil)
+                    } else {
+                        Logger.Action.log(.profile_other_imp, category: nil, "\(self.uid)")
+                    }
+                })
+                .disposed(by: bag)
+        }
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            fetchRealation()
         }
     }
 }
+
 private extension Social.ProfileViewController {
     func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
-        view.backgroundColor = UIColor(hex6: 0x121212, alpha: 1.0)
+        view.backgroundColor = UIColor.theme(.backgroundBlack)
         
         view.addSubviews(views: table, backBtn)
         table.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
-            maker.top.equalTo(16 + Frame.Height.safeAeraTopHeight)
-            maker.width.height.equalTo(25)
+            maker.left.equalToSuperview().offset(12.5)
+            maker.top.equalTo(8.5 + Frame.Height.safeAeraTopHeight)
+            maker.width.height.equalTo(40)//25
         }
-        
+        if !isSelfProfile {
+            options.removeAll()
+            view.addSubview(moreBtn)
+            moreBtn.snp.makeConstraints { (make) in
+                make.right.equalTo(-15)
+                make.centerY.equalTo(backBtn.snp.centerY)
+                make.width.height.equalTo(40)//24
+            }
+        }
         table.tableHeaderView = headerView
-        
         table.reloadData()
     }
     
+    func loadData() {
+        Request.profilePage(uid: uid)
+            .map({$0?.profile})
+            .subscribe(onSuccess: { [weak self](data) in
+                guard let data = data, let `self` = self else { return }
+                self.userProfile = data
+                self.headerView.configProfile(data)
+            }, onError: {(error) in
+                cdPrint("profilePage error : \(error.localizedDescription)")
+            }).disposed(by: bag)
+    }
+    
     func setupData() {
-        
-        Settings.shared.amongChatUserProfile.replay()
-            .subscribe(onNext: { [weak self] (profile) in
-                guard let profile = profile else { return }
-                self?.headerView.configProfile(profile)
-            })
-            .disposed(by: bag)
-        
-        if Settings.shared.amongChatUserProfile.value == nil {
-            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-            Request.profile()
-                .do(onDispose: {
-                    hudRemoval()
+        if roomUser != nil {
+            self.headerView.setProfileData(self.roomUser)
+        }
+        loadData()
+        if isSelfProfile {
+            Settings.shared.amongChatUserProfile.replay()
+                .subscribe(onNext: { [weak self] (profile) in
+                    guard let profile = profile else { return }
+                    self?.headerView.configProfile(profile)
                 })
-                .subscribe(onSuccess: { (profile) in
-                    guard let p = profile else {
-                        return
+                .disposed(by: bag)
+            
+            if Settings.shared.amongChatUserProfile.value == nil {
+                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+                Request.profile()
+                    .do(onDispose: {
+                        hudRemoval()
+                    })
+                    .subscribe(onSuccess: { (profile) in
+                        guard let p = profile else {
+                            return
+                        }
+                        Settings.shared.amongChatUserProfile.value = p
+                    })
+                    .disposed(by: bag)
+            }
+            
+            Settings.shared.amongChatAvatarListShown.replay()
+                .subscribe(onNext: { [weak self] (ts) in
+                    if let _ = ts {
+                        self?.headerView.changeIcon.redDotOff()
+                    } else {
+                        self?.headerView.changeIcon.redDotOn()
                     }
-                    Settings.shared.amongChatUserProfile.value = p
-                }, onError: { (error) in
                 })
                 .disposed(by: bag)
         }
     }
     
-    @objc
-    func onBackBtn() {
-        navigationController?.popViewController()
+    func fetchRealation() {
+        Request.relationData(uid: uid)
+            .subscribe(onSuccess: { [weak self](data) in
+                guard let `self` = self, let data = data else { return }
+                self.relationData = data
+                self.blocked = data.isBlocked ?? false
+                self.headerView.setViewData(data, isSelf: self.isSelfProfile)
+            }, onError: { (error) in
+                cdPrint("relationData error :\(error.localizedDescription)")
+            }).disposed(by: bag)
+    }
+    
+    func followAction() {
+        let removeBlock = view.raft.show(.loading)
+        let isFollowed = relationData?.isFollowed ?? false
+        if isFollowed {
+                
+            Logger.Action.log(.profile_other_clk, category: .unfollow, "\(uid)")
+            Request.unFollow(uid: uid, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    guard let `self` = self else { return }
+                    removeBlock()
+                    if success {
+                        self.fetchRealation()
+                        self.relationData?.isFollowed = false
+                        self.headerView.setFollowButton(false)
+                        self.followedHandle?(false)
+                    }
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("unfollow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
+        } else {
+            Logger.Action.log(.profile_other_clk, category: .follow, "\(uid)")
+            Request.follow(uid: uid, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    guard let `self` = self else { return }
+                    removeBlock()
+                    if success {
+                        self.fetchRealation()
+                        self.relationData?.isFollowed = true
+                        self.headerView.setFollowButton(true)
+                        self.followedHandle?(true)
+                    }
+                }, onError: { (error) in
+                    removeBlock()
+                    cdPrint("follow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+    }
+    
+    func followerAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .followers, "\(uid)")
+        }
+        headerView.redCountLabel.isHidden = true
+        let vc = Social.FollowerViewController(with: uid, isFollowing: false)
+        navigationController?.pushViewController(vc)
+    }
+    
+    func followingAction() {
+        if !isSelfProfile {
+            Logger.Action.log(.profile_other_clk, category: .following, "\(uid)")
+        }
+        let vc = Social.FollowerViewController(with: uid, isFollowing: true)
+        navigationController?.pushViewController(vc)
+    }
+    
+    func moreAction() {
+        var type:[AmongSheetController.ItemType]!
+        if blocked {
+            type = [.unblock, .report, .cancel]
+        } else {
+            type = [.block, .report, .cancel]
+        }
+        AmongSheetController.show(items: type, in: self, uiType: .profile) { [weak self](type) in
+            switch type {
+            case.report:
+                self?.showReportSheet()
+            case .block, .unblock:
+                self?.showBlockAlter()
+            default:
+                break
+            }
+        }
+    }
+    
+    func showBlockAlter() {
+        var message = R.string.localizable.profileBlockMessage()
+        var confirmString = R.string.localizable.alertBlock()
+        if blocked {
+            message = R.string.localizable.profileUnblockMessage()
+            confirmString = R.string.localizable.alertUnblock()
+        }
+        showAmongAlert(title: message, message: nil,
+                       cancelTitle: R.string.localizable.toastCancel(),
+                       confirmTitle: confirmString) { [weak self] in
+            self?.blockUser()
+        }
+    }
+    
+    func blockUser() {
+        let removeBlock = view.raft.show(.loading)
+        if blocked {
+            Request.unFollow(uid: uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.handleBlockResult(isBlocked: false)
+                    }
+                    removeBlock()
+                }, onError: { (error) in
+                    removeBlock()
+                    
+                }).disposed(by: bag)
+        } else {
+            Request.follow(uid: uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.handleBlockResult(isBlocked: true)
+                    }
+                    removeBlock()
+                }, onError: { (error) in
+                    removeBlock()
+                }).disposed(by: bag)
+        }
+    }
+    
+    func handleBlockResult(isBlocked: Bool) {
+        var blockedUsers = Defaults[\.blockedUsersV2Key]
+        if isBlocked {
+            blocked = true
+            if !blockedUsers.contains(where: { $0.uid == uid}) {
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "", nickname: userProfile?.nickname ?? "")
+                blockedUsers.append(newUser)
+                Defaults[\.blockedUsersV2Key] = blockedUsers
+            }
+            view.raft.autoShow(.text(R.string.localizable.profileBlockUserSuccess()))
+        } else {
+            blocked = false
+            blockedUsers.removeElement(ifExists: { $0.uid == uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+            view.raft.autoShow(.text(R.string.localizable.profileUnblockUserSuccess()))
+        }
+        
     }
 }
 // MARK: - UITableView
@@ -175,12 +407,12 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         if let op = options.safe(indexPath.row) {
             switch op {
             case .inviteFriends:
+                Logger.Action.log(.profile_invite_friend_clk, category: nil)
                 let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
                 let removeBlock = { [weak self] in
                     self?.view.isUserInteractionEnabled = true
                     removeHUDBlock()
                 }
-                
                 self.view.isUserInteractionEnabled = false
                 ShareManager.default.showActivity(viewController: self) { () in
                     removeBlock()
@@ -195,278 +427,6 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             case .community:
                 self.open(urlSting: Config.PolicyType.url(.guideline))
             }
-        }
-    }
-}
-
-// MARK: - Widgets
-extension Social.ProfileViewController {
-    
-    private class ProfileView: UIView {
-        
-        var editBtnHandler: (() -> Void)? = nil
-        var followingBtnHandler: (() -> Void)? = nil
-        var followerBtnHandler: (() -> Void)? = nil
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            lb.text = R.string.localizable.profileProfile()
-            return lb
-        }()
-        
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 45
-            iv.layer.masksToBounds = true
-            return iv
-        }()
-        
-        private lazy var nameLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            return lb
-        }()
-        
-        private lazy var followingBtn: VerticalTitleButton = {
-            let v = VerticalTitleButton()
-            v.setSubtitle(R.string.localizable.profileFollowing())
-            let tapGR = UITapGestureRecognizer()
-            tapGR.addTarget(self, action: #selector(onFollowingBtn))
-            v.isUserInteractionEnabled = true
-            v.addGestureRecognizer(tapGR)
-            return v
-        }()
-        
-        private lazy var followerBtn: VerticalTitleButton = {
-            let v = VerticalTitleButton()
-            v.setSubtitle(R.string.localizable.profileFollower())
-            let tapGR = UITapGestureRecognizer()
-            tapGR.addTarget(self, action: #selector(onFollowerBtn))
-            v.isUserInteractionEnabled = true
-            v.addGestureRecognizer(tapGR)
-            return v
-        }()
-        
-        private lazy var editBtn: UIButton = {
-            let btn = WalkieButton(type: .custom)
-            btn.backgroundColor = .white
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 12)
-            btn.addTarget(self, action: #selector(onEditBtn), for: .primaryActionTriggered)
-            btn.layer.cornerRadius = 14
-            btn.contentHorizontalAlignment = .left
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12)
-            btn.setTitleColor(.black, for: .normal)
-            btn.setImage(R.image.ac_profile_edit(), for: .normal)
-            btn.setTitle(R.string.localizable.profileEdit(), for: .normal)
-            return btn
-        }()
-        
-        init() {
-            super.init(frame: .zero)
-            setupLayout()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func configProfile(_ profile: Entity.UserProfile) {
-            
-            if let b = profile.birthday, !b.isEmpty {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMdd"
-                
-                if let startDate = dateFormatter.date(from: b)  {
-                    
-                    let endDate = Date()
-                    
-                    let calendar = Calendar.current
-                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                    
-                    if let age = calcAge.year?.string, !age.isEmpty {
-                        nameLabel.text = "\(profile.name ?? ""), \(age)"
-                    } else {
-                        nameLabel.text = profile.name
-                    }
-                } else {
-                    nameLabel.text = profile.name
-                }
-            } else {
-                nameLabel.text = profile.name
-            }
-            
-            nameLabel.appendKern()
-            
-            avatarIV.setAvatarImage(with: profile.pictureUrl)
-            
-            editBtn.isHidden = false
-        }
-        
-        func configFollowerCount(_ followerCount: Int) {
-            followerBtn.setTitle("\(followerCount)")
-        }
-        
-        func configFollowingCount(_ followingCount: Int) {
-            followingBtn.setTitle("\(followingCount)")
-        }
-        
-        private func setupLayout() {
-            
-            addSubviews(views: titleLabel, avatarIV, nameLabel, editBtn)
-            
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(12 + Frame.Height.safeAeraTopHeight)
-                maker.centerX.equalToSuperview()
-            }
-            
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(titleLabel.snp.bottom).offset(28)
-                maker.centerX.equalToSuperview()
-                maker.height.width.equalTo(90)
-            }
-            
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.centerX.equalToSuperview()
-                maker.left.greaterThanOrEqualToSuperview().offset(25)
-            }
-            
-            editBtn.snp.makeConstraints { (maker) in
-                maker.top.equalTo(nameLabel.snp.bottom).offset(12)
-                maker.height.equalTo(28)
-                maker.width.greaterThanOrEqualTo(74)
-                maker.centerX.equalToSuperview()
-            }
-            editBtn.isHidden = true
-        }
-        
-        @objc
-        private func onEditBtn() {
-            editBtnHandler?()
-        }
-        
-        @objc
-        private func onFollowingBtn() {
-            followingBtnHandler?()
-        }
-        
-        @objc
-        private func onFollowerBtn() {
-            followerBtnHandler?()
-        }
-    }
-}
-
-extension Social.ProfileViewController {
-    
-    private class TableCell: UITableViewCell {
-        
-        private lazy var iconIV: UIImageView = {
-            let iv = UIImageView()
-            return iv
-        }()
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
-            lb.textColor = .white
-            return lb
-        }()
-        
-        private lazy var backView = UIView()
-        
-        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier)
-            setupLayout()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func configCell(with option: Option) {
-            iconIV.image = option.image()
-            titleLabel.text = option.text()
-            titleLabel.appendKern()
-        }
-        
-        private func setupLayout() {
-            self.backgroundColor = UIColor.theme(.backgroundBlack)
-            selectionStyle = .none
-            contentView.addSubviews(views: backView)
-            
-            backView.snp.makeConstraints { (maker) in
-                maker.left.equalTo(20)
-                maker.right.equalTo(-20)
-                maker.top.equalToSuperview()
-                maker.height.equalTo(76)
-                maker.bottom.equalTo(-12)
-            }
-            
-            backView.addSubviews(views: iconIV, titleLabel)
-            
-            iconIV.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(30)
-                maker.left.centerY.equalToSuperview()
-            }
-            
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.left.equalTo(iconIV.snp.right).offset(12)
-            }
-        }
-        
-    }
-    private class VerticalTitleButton: UIView {
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.textAlignment = .center
-            lb.font = R.font.nunitoSemiBold(size: 14)
-            lb.textColor = .black
-            return lb
-        }()
-        
-        private lazy var subtitleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.textAlignment = .center
-            lb.font = R.font.nunitoSemiBold(size: 12)
-            lb.textColor = UIColor(hex6: 0x000000, alpha: 0.5)
-            return lb
-        }()
-        
-        init() {
-            super.init(frame: .zero)
-            addSubviews(views: titleLabel, subtitleLabel)
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.left.top.right.equalToSuperview()
-                maker.height.equalTo(19)
-            }
-            subtitleLabel.snp.makeConstraints { (maker) in
-                maker.left.right.bottom.equalToSuperview()
-                maker.height.equalTo(16)
-                maker.top.equalTo(titleLabel.snp.bottom)
-            }
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func setTitle(_ title: String) {
-            titleLabel.text = title
-            titleLabel.appendKern()
-        }
-        
-        func setSubtitle(_ subtitle: String) {
-            subtitleLabel.text = subtitle
-            subtitleLabel.appendKern()
         }
     }
 }

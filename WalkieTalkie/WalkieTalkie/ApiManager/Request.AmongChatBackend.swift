@@ -18,27 +18,44 @@ extension Request {
     ])
 }
 
-extension Request {
-    struct MsgError: Error, Codable {
-        static let `default` = MsgError(code: 202, msg: "Please try again.")
-        
-        let code: Int
-        let msg: String?
-        
-        static func from(dic: [String: Any]) -> MsgError {
-            var item: MsgError?
-            decoderCatcher {
-                item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
-            }
-            return item ?? .default
+struct MsgError: Error, Codable {
+    //通用错误码
+    enum CodeType: Int {
+        case notRoomHost = 3000 //'Only the room host can operate'
+        case roomSeatsFull = 3001 //'The room is full'
+        case roomUserKick = 3002 //'You are kicked off, can not enter this room'
+        case roomNotFound = 202 //'can not find this room'
+    }
+    
+    static let `default` = MsgError(code: 202, msg: "Please try again.")
+    
+    let code: Int
+    let msg: String?
+    
+    //
+    var codeType: CodeType? {
+        return CodeType(rawValue: code)
+    }
+    
+    static func from(dic: [String: Any]) -> MsgError {
+        var item: MsgError?
+        decoderCatcher {
+            item = try JSONDecoder().decodeAnyData(MsgError.self, from: dic)
         }
+        return item ?? .default
     }
 }
-extension Request.MsgError: LocalizedError {
+
+extension Request {
+}
+
+extension MsgError: LocalizedError {
     var errorDescription: String? {
         return msg
     }
 }
+
+private let limit: Int = 20
 
 extension Request {
     
@@ -67,16 +84,34 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    @available(*, deprecated, message: "use the one parameter type is Entity.ProfileProto instead")
     static func updateProfile(_ profileData: [String : Any]) -> Single<Entity.UserProfile?> {
         let params = ["profile_data" : profileData]
         return amongchatProvider.rx.request(.updateProfile(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
-            .observeOn(MainScheduler.asyncInstance)
             .do { _ in
                 Settings.shared.updateProfile()
             }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func updateProfile(_ profile: Entity.ProfileProto) -> Single<Entity.UserProfile?> {
+        
+        guard let profileData = profile.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
+        let params = ["profile_data" : profileData]
+        return amongchatProvider.rx.request(.updateProfile(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.UserProfile.self)
+            .do { _ in
+                Settings.shared.updateProfile()
+            }
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func summary(country: String? = nil, language: String? = nil) -> Single<Entity.Summary?> {
@@ -97,11 +132,12 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterRoom(roomId: String? = nil, topicId: String?) -> Single<Entity.Room?> {
+    static func enterRoom(roomId: String? = nil, topicId: String?, source: String? = nil) -> Single<Entity.Room?> {
         
         var paras = [String : Any]()
         if let rid = roomId { paras["room_id"] = rid }
         paras["topic_id"] = topicId
+        if let s = source { paras["source"] = s }
         
         return amongchatProvider.rx.request(.enteryRoom(paras))
             .mapJSON()
@@ -110,7 +146,7 @@ extension Request {
                     throw MsgError.default
                 }
                 if let data = json["data"] as? [String: AnyObject],
-                      let roomData = data["room"] as? [String : AnyObject] {
+                   let roomData = data["room"] as? [String : AnyObject] {
                     return roomData
                 } else {
                     throw MsgError.from(dic: json)
@@ -152,6 +188,7 @@ extension Request {
                       let processed = jsonDict["processed"] as? Bool else { return false }
                 return processed
             }
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func updateRoom(nickName: String, with roomId: String) -> Single<Bool> {
@@ -159,11 +196,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
-            .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func requestRoomInfo(with roomId: String) -> Single<Entity.Room?> {
-        return amongchatProvider.rx.request(.roomInfo(["room_id": roomId]))
+    static func roomInfo(with roomId: String) -> Single<Entity.Room?> {
+        return amongchatProvider.rx.request(.roomInfo(["room_id": roomId, "exclude_fields": "bgUrl"]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in
@@ -173,12 +209,14 @@ extension Request {
                 return roomData
             }
             .mapTo(Entity.Room.self)
+            .observeOn(MainScheduler.asyncInstance)
     }
-    static func requestLeave(with roomId: String) -> Single<Bool> {
+    static func leave(with roomId: String) -> Single<Bool> {
         return amongchatProvider.rx.request(.leaveRoom(["room_id": roomId]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func logout() -> Single<[String: AnyObject]> {
@@ -186,15 +224,40 @@ extension Request {
             .mapJSON().mapToDataJson()
     }
     
-    static func defaultAvatars() -> Single<Entity.DefaultAvatars?> {
-        return amongchatProvider.rx.request(.defaultAvatars)
+    static func defaultAvatars(withLocked: Int? = nil) -> Single<Entity.DefaultAvatars?> {
+        
+        var params = [String : Any]()
+        
+        if let l = withLocked {
+            params["with_locked"] = l
+        }
+        
+        return amongchatProvider.rx.request(.defaultAvatars(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.DefaultAvatars.self)
-            .do(onSuccess: { (defaultAvatars) in
-                guard let d = defaultAvatars else { return }
-                Settings.shared.amongChatDefaultAvatars.value = d
-            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func unlockAvatar(_ avatar: Entity.DefaultAvatar) -> Single<Bool> {
+        
+        var params = [String : Any]()
+        
+        params["avatar_id"] = avatar.avatarId
+        
+        return amongchatProvider.rx.request(.unlockAvatar(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let process = json["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+        
     }
     
     static func requestFirebaseToken(_ uid: Int) -> Single<String> {
@@ -204,10 +267,151 @@ extension Request {
             .mapToDataKeyJsonValue()
             .map { values -> String in
                 guard let token = values["firebase_custom_token"] as? String else {
-                    throw Request.MsgError.default
+                    throw MsgError.default
                 }
                 return token
             }
         
     }
+    
+    static func devices(fcmToken: String) -> Single<Bool>{
+        return amongchatProvider.rx.request(.updateDevice(["token": fcmToken, "push_type": "fcm"]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+    }
+    
+    static func seneitiveWords() -> Single<[String]> {
+        return amongchatProvider.rx.request(.sensitiveWords)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { values -> [String] in
+                guard let token = values["datas"] as? [String] else {
+                    throw MsgError.default
+                }
+                return token
+            }
+    }
+    
+    static func kick(_ users: [Int], roomId: String) -> Single<Bool> {
+        let params: [String: Any] = [
+            "room_id": roomId, "uids": users.map { $0.string }.joined(separator: ",")
+        ]
+        return Request.amongchatProvider.rx.request(.kickUsers(params))
+            .mapJSON()
+            .map { $0 != nil }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func profilePage(uid: Int) -> Single<Entity.ProfilePage?> {
+        let paras = ["uid": uid]
+        return amongchatProvider.rx.request(.profilePage(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ProfilePage.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    /// type: follow / block
+    static func follow(uid: Int, type: String) -> Single<Bool> {
+        let paras = ["target_uid": uid, "relation_type": type] as [String : Any]
+        return amongchatProvider.rx.request(.follow(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    /// type: follow / block
+    static func unFollow(uid: Int, type: String) -> Single<Bool> {
+        let paras = ["target_uid": uid, "relation_type": type] as [String : Any]
+        return amongchatProvider.rx.request(.unFollow(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func relationData(uid: Int) -> Single<Entity.RelationData?> {
+        let paras = ["target_uid": uid]
+        return amongchatProvider.rx.request(.relationData(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RelationData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func blockList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        
+        let paras = ["relation_type": "block", "uid": uid,
+                     "limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.blockList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func followingList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        
+        let paras = ["relation_type": "follow", "uid": uid,
+                     "limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.followingList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func followerList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["uid": uid, "limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.followerList(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func endUsers(roomId: String) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId]
+        return amongchatProvider.rx.request(.exitRoomRecommend(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func inviteFriends(skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.inviteFriends(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func inviteUser(roomId: String, uid: Int) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId, "uid": uid] as [String : Any]
+        return amongchatProvider.rx.request(.inviteUser(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+        
+    static func friendsPlayingList() -> Single<[Entity.PlayingUser]> {
+        return amongchatProvider.rx.request(.playingList)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
+    
+    static func suggestionUserList() -> Single<[Entity.PlayingUser]> {
+        return amongchatProvider.rx.request(.recommendedUsers)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToListJson()
+            .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
+
 }

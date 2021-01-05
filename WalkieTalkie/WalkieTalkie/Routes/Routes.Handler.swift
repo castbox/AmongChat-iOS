@@ -28,24 +28,26 @@ extension Routes {
             weak var welf = self
             //
             Routes.shared.uriValue()
-                .flatMap { item -> Observable<URIRepresentable> in
-                    return Observable.just(item)
-                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
-                }
+                .observeOn(MainScheduler.asyncInstance)
+//                .flatMap { item -> Observable<URIRepresentable> in
+//                    return Observable.just(item)
+//                        .delay(.fromSeconds(0.5), scheduler: MainScheduler.asyncInstance)
+//                }
                 .subscribe(onNext: { (uri) in
                     guard let `self` = welf else { return }
                     switch uri {
                     case let home as URI.Homepage:
                         self.handleHomepage(home.channelName)
-                    case let room as URI.Room:
-                        self.handleRoom(room.roomId)
                     case let channel as URI.Channel:
-                        self.handleRoom(channel.channelId)
+                        self.handleRoom(channel)
                     case _ as URI.Followers:
                         self.handleFollowers()
                     case let undefined as URI.Undefined:
                         self.handleUndefined(undefined.url)
-                        
+                    case _ as URI.CreateRoom:
+                        self.handleCreateRoom()
+                    case let profile as URI.Profile:
+                        self.handleProfile(uid: profile.uid)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -54,40 +56,47 @@ extension Routes {
         }
         
         func handleHomepage(_ channelName: String?) {
-            guard let name = channelName,
-                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
-                return
-            }
-            UIApplication.navigationController?.popToRootViewController(animated: true)
-            roomVc.joinRoom(name)
-            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
-        }
-        
-//        func handleChannel(_ channel: URI.Channel) {
-//            UIApplication.navigationController?.popToRootViewController(animated: true)
-//
-//            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-//                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+//            guard let name = channelName,
+//                let roomVc = UIApplication.navigationController?.viewControllers.first as? RoomViewController else {
 //                return
 //            }
-//
-//            let name = channel.roomId
-//            roomVc.enterRoom(roomId: name, topicId: nil)
-////            roomVc.joinRoom(with: name)
-//            Logger.Channel.log(.deeplink, name, value: 0)
-//        }
-        
-        func handleRoom(_ roomId: String) {
             UIApplication.navigationController?.popToRootViewController(animated: true)
+//            roomVc.joinRoom(name)
+//            Logger.Channel.log(.deeplink, name, value: name.channelType.rawValue)
+        }
+    
+        
+        func handleRoom(_ channel: URI.Channel) {
+                        
+            //如果当前有在直播间内，退出后再加入
+            if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ViewController }) as? AmongChat.Room.ViewController {
+                roomViewController.requestLeaveRoom()
+                //pop to room
+                UIApplication.navigationController?.popToRootViewController(animated: false)
+            }
             
-            guard let roomVc = UIApplication.navigationController?.viewControllers.first as? AmongChat.Home.ViewController,
-                  UIApplication.topViewController() is AmongChat.Home.ViewController else {
+            guard let roomVc = UIApplication.navigationController?.topViewController as? ViewController else {
                 return
             }
             
-            roomVc.enterRoom(roomId: roomId, topicId: nil)
-//            roomVc.joinRoom(with: name)
-            Logger.Channel.log(.deeplink, roomId, value: 0)
+            var apiSource: ViewController.EnterRoomApiSource? = nil
+            if let source = channel.sourceType {
+                apiSource = ViewController.EnterRoomApiSource(key: source)
+            }
+            
+            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: .urlSource, apiSource: apiSource)
+            Logger.Channel.log(.deeplink, channel.channelId, value: 0)
+        }
+        
+        func handleCreateRoom() {
+            let vc = AmongChat.CreateRoom.ViewController()
+            UIApplication.navigationController?.pushViewController(vc)
+        }
+        
+        func handleProfile(uid: Int? = nil) {
+            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+            let vc = Social.ProfileViewController(with: uid ?? selfUid)
+            UIApplication.navigationController?.pushViewController(vc)
         }
         
         func handleFollowers() {
@@ -106,7 +115,7 @@ extension Routes {
             if !FireLink.handle(dynamicLink: url, completion: { (url) in
                 Routes.handle(url)
             }) {
-                guard !url.absoluteString.contains("cuddlelive.com/share-app") else { return }
+                guard !url.absoluteString.contains("among.chat") else { return }
                 cdPrint("open url on webpage: \(url.absoluteString)")
                 showWebViewController(urlString: url.absoluteString)
             }

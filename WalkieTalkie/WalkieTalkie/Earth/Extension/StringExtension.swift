@@ -299,6 +299,14 @@ extension String {
     func mySubString(from index: Int) -> String {
         return String(self[self.index(self.startIndex, offsetBy: index)...])
     }
+    /// add char at index
+    mutating func addString(_ string: String, at index: Int) {
+        guard count > index else {
+            return
+        }
+        let ind = self.index(self.startIndex, offsetBy: index)
+        insert(contentsOf: string, at: ind)
+    }
 }
 
 extension String {

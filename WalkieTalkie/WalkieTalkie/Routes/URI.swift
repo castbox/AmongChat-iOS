@@ -72,38 +72,53 @@ extension URI {
         }
     }
     
-    struct Channel: URIRepresentable {
+    struct Profile: URIRepresentable {
         
         static func patterns() -> [String] {
             return [
-                "/channel/:channel_id",
-                "/channel"
+                "/profile/:uid",
+                "/profile"
             ]
         }
         
-        let channelId: String
+        let uid: Int?
         
-        init?(_ paras: [String : Any]) {
-            guard let channelId = paras["channel_id"] as? String else { return nil }
-            self.channelId = channelId
+        init?(_ paras: [String: Any]) {
+            self.uid = paras["uid"] as? Int
         }
         
     }
     
-    struct Room: URIRepresentable {
+    struct CreateRoom: URIRepresentable {
         
         static func patterns() -> [String] {
             return [
-                "/room/:room_id",
-                "/room"
+                "/createRoom"
             ]
         }
         
-        let roomId: String
+        init?(_ paras: [String: Any]) {
+        }
+    }
+    
+    struct Channel: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/room/:channel_id",
+                "/room",
+                "/channel/:channel_id",
+                "/channel",
+            ]
+        }
+        
+        let channelId: String
+        let sourceType: String?
         
         init?(_ paras: [String : Any]) {
-            guard let channelName = paras["room_id"] as? String else { return nil }
-            self.roomId = channelName
+            guard let channelId = paras["channel_id"] as? String else { return nil }
+            self.channelId = channelId
+            sourceType = paras["push_source_type"] as? String
         }
         
     }

@@ -49,8 +49,15 @@ struct Constants {
         return currentVersion
     }()
     
+    static var preferredLocale: Locale = {
+        guard let preferredIdentifier = Locale.preferredLanguages.first else {
+            return Locale.current
+        }
+        return Locale(identifier: preferredIdentifier)
+    }()
+    
     static let countryCode: String = {
-        return Locale.current.regionCode ?? ""
+        return preferredLocale.regionCode ?? ""
     }()
     
     static let timeZone: String = {
@@ -58,11 +65,11 @@ struct Constants {
     }()
     
     static let languageCode: String = {
-        return Locale.current.languageCode ?? ""
+        return preferredLocale.languageCode ?? ""
     }()
     
     static let localeCode: String = {
-        return Locale.current.identifier
+        return preferredLocale.identifier
     }()
     
     static let idfa: String = {
@@ -92,15 +99,15 @@ struct Constants {
             "countryCode" : countryCode,
             "lang" : languageCode,
             "locale" : localeCode,
-            "timezone" : timeZone,
+            "timeZone" : timeZone,
             "appVersion" : appVersion,
             "deviceId" : deviceID,
             "deviceType" : modelName,
             "pushType" : "FCM",
             "IDFA_ios" : idfa,
             "localTime" : localTime,
-            "appIdentifier" : Bundle.main.bundleIdentifier ?? "",
-            "pushNotificationEnable": Settings.shared.isOpenSubscribeHotTopic.value
+            "appIdentifier" : Config.appBundleIdentifier,
+//            "pushNotificationEnable": Settings.shared.isOpenSubscribeHotTopic.value
         ]
     }
 

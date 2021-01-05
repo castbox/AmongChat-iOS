@@ -12,7 +12,10 @@ import RxCocoa
 import SCSDKCreativeKit
 import SwifterSwift
 
-class ViewController: UIViewController, ScreenLifeLogable {
+class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
+    
+    var isRequestingRoom: Bool = false
+    
     var isNavigationBarHiddenWhenAppear = false {
         didSet {
             if isNavigationBarHiddenWhenAppear {
@@ -60,6 +63,10 @@ class ViewController: UIViewController, ScreenLifeLogable {
     
     var screenName: Logger.Screen.Node.Start {
         return .ios_ignore
+    }
+    
+    var contentScrollView: UIScrollView? {
+        nil
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -180,7 +187,29 @@ class ViewController: UIViewController, ScreenLifeLogable {
     func addCustomBackButton() {
         let barButtonItem = UIBarButtonItem(customView: customBackButton)
         self.navigationItem.leftBarButtonItem = barButtonItem
-    }    
+    }
+    
+    func addErrorView(_ retryAction: (() -> Void)? = nil) {
+        let v = AmongChat.Home.LoadErrorView()
+        self.view.addSubview(v)
+        v.snp.makeConstraints { (maker) in
+            maker.top.equalTo(Frame.Height.navigation)
+            maker.left.right.bottom.equalToSuperview()
+        }
+        v.showUp { [weak v] in
+            v?.removeFromSuperview()
+            retryAction?()
+        }
+    }
+    
+    func addNoDataView(_ message: String) {
+        let v = NoDataView(with: message)
+        view.addSubview(v)
+        v.snp.makeConstraints { (maker) in
+            maker.top.equalTo(Frame.Height.navigation)
+            maker.left.right.bottom.equalToSuperview()
+        }
+    }
 }
 
 extension ViewController {
@@ -208,103 +237,114 @@ extension ViewController {
         loggerScreenDuration()
     }
     
-    static func shareUrl(for channelName: String?) -> String {
-        guard let channelName = channelName,
-            let publicName = channelName.publicName else {
-            return "https://walkietalkie.live/"
-        }
-        if channelName.isPrivate {
-            return "https://walkietalkie.live/?passcode=\(publicName)"
-        }
-        return "https://walkietalkie.live/?channel=\(publicName)"
-    }
+//    static func shareUrl(for channelName: String?) -> String {
+//        guard let channelName = channelName,
+//            let publicName = channelName.publicName else {
+//            return "https://walkietalkie.live/"
+//        }
+//        if channelName.isPrivate {
+//            return "https://walkietalkie.live/?passcode=\(publicName)"
+//        }
+//        return "https://walkietalkie.live/?channel=\(publicName)"
+//    }
     
-    static func shareTitle(for channelName: String?) -> String? {
-        guard let channelName = channelName,
-            let publicName = channelName.publicName else {
-                return nil
-        }
-        let deepLink = shareUrl(for: channelName)
-        var prefixString: String {
-            if channelName.isPrivate {
-                return "Hurry ！use passcode: \(publicName) to join our secret channel."
-            }
-            return "Hey, your friends are waiting for you, join us now"
-        }
-        
-        let shareString =
-        """
-        \(prefixString)
-        \(deepLink)
-        
-        iOS: https://apps.apple.com/app/id1505959099
-        Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
-        Over and out.
-        #WalkieTalkieTalktoFriends
-        """
-        return shareString
-    }
+//    static func shareTitle(for channelName: String?) -> String? {
+//        guard let channelName = channelName,
+//            let publicName = channelName.publicName else {
+//                return nil
+//        }
+//        let deepLink = shareUrl(for: channelName)
+//        var prefixString: String {
+//            if channelName.isPrivate {
+//                return "Hurry ！use passcode: \(publicName) to join our secret channel."
+//            }
+//            return "Hey, your friends are waiting for you, join us now"
+//        }
+//
+//        let shareString =
+//        """
+//        \(prefixString)
+//        \(deepLink)
+//
+//        iOS: https://apps.apple.com/app/id1505959099
+//        Android: https://play.google.com/store/apps/details?id=walkie.talkie.talk
+//        Over and out.
+//        #WalkieTalkieTalktoFriends
+//        """
+//        return shareString
+//    }
     
-    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
-        guard let textToShare = Self.shareTitle(for: name) else {
-            successHandler?()
-            return
-        }
-//        let imageToShare = R.image.share_logo()!
-        let shareView = SnapChatCreativeShareView(with: name)
-        view.addSubview(shareView)
-        guard let imageToShare = shareView.screenshot else {
-            successHandler?()
-            return
-        }
-        shareView.removeFromSuperview()
-        
-        let urlToShare = Self.shareUrl(for: name)
-        let items = [textToShare, imageToShare] as [Any]
-        let snapChat = ActivityViewCustomActivity(title: "Snapchat", image: R.image.logo_snapchat()) { [weak self] in
-            guard let `self` = self else { return }
-//            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
-            
-            /* Sticker to be used in the Snap */
-//            let stickerImage = imageToShare!/* Prepare a sticker image */
-            let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
-            sticker.width = shareView.width
-            sticker.height = shareView.height
-            /* Alternatively, use a URL instead */
-            // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
+//    func shareChannel(name: String?, successHandler: (() -> Void)? = nil) {
+//        guard let textToShare = Self.shareTitle(for: name) else {
+//            successHandler?()
+//            return
+//        }
+////        let imageToShare = R.image.share_logo()!
+//        let shareView = SnapChatCreativeShareView(with: name)
+//        view.addSubview(shareView)
+//        guard let imageToShare = shareView.screenshot else {
+//            successHandler?()
+//            return
+//        }
+//        shareView.removeFromSuperview()
+//        
+//        let urlToShare = Self.shareUrl(for: name)
+//        let items = [textToShare, imageToShare] as [Any]
+//        let snapChat = ActivityViewCustomActivity(title: "Snapchat", image: R.image.logo_snapchat()) { [weak self] in
+//            guard let `self` = self else { return }
+////            let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
+//            
+//            /* Sticker to be used in the Snap */
+////            let stickerImage = imageToShare!/* Prepare a sticker image */
+//            let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
+//            sticker.width = shareView.width
+//            sticker.height = shareView.height
+//            /* Alternatively, use a URL instead */
+//            // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
+//
+//            /* Modeling a Snap using SCSDKPhotoSnapContent */
+//            let snapContent = SCSDKNoSnapContent()
+//            snapContent.sticker = sticker /* Optional */
+////            snapContent.caption = textToShare /* Optional */
+//            snapContent.attachmentUrl = urlToShare /* Optional */
+//            
+//            // Send it over to Snapchat
+//            
+//            // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
+//            //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
+//            //       Either synchronize the method call yourself or disable user interaction until the share is over.
+//            let removeHandler = self.view.raft.show(.loading)
+////            self.view.isUserInteractionEnabled = false
+//            self.snapAPI.startSending(snapContent) { (error: Error?) in
+//                removeHandler()
+////                self?.view.isUserInteractionEnabled = true
+////                self?.isSharing = false
+//                print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
+//            }
+//        }
+//        
+//        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [snapChat])
+//        activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
+//        activityVC.completionWithItemsHandler = { activity, success, items, error in
+//            if success {
+//                successHandler?()
+//            }
+//        }
+//        present(activityVC, animated: true, completion: { () -> Void in
+//            
+//        })
+//
+//    }
+}
 
-            /* Modeling a Snap using SCSDKPhotoSnapContent */
-            let snapContent = SCSDKNoSnapContent()
-            snapContent.sticker = sticker /* Optional */
-//            snapContent.caption = textToShare /* Optional */
-            snapContent.attachmentUrl = urlToShare /* Optional */
-            
-            // Send it over to Snapchat
-            
-            // NOTE: startSending() makes use of the global UIPasteboard. Calling the method without synchronization
-            //       might cause the UIPasteboard data to be overwritten, while the pasteboard is being read from Snapchat.
-            //       Either synchronize the method call yourself or disable user interaction until the share is over.
-            let removeHandler = self.view.raft.show(.loading)
-//            self.view.isUserInteractionEnabled = false
-            self.snapAPI.startSending(snapContent) { (error: Error?) in
-                removeHandler()
-//                self?.view.isUserInteractionEnabled = true
-//                self?.isSharing = false
-                print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
-            }
-        }
+extension ViewController {
+    func showReportSheet() {
         
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [snapChat])
-        activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
-        activityVC.completionWithItemsHandler = { activity, success, items, error in
-            if success {
-                successHandler?()
-            }
+        let vc = Social.ReportViewController()
+        vc.showModal(in: self)
+        vc.selectedReason = {[weak self] (reason) in
+            self?.view.raft.autoShow(.text(R.string.localizable.reportSuccess()))
         }
-        present(activityVC, animated: true, completion: { () -> Void in
-            
-        })
-
     }
 }
 

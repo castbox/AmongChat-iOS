@@ -79,21 +79,24 @@ class SoundAnimationView: UIView {
     }
     
     func startLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            self.isHidden = false
-            self.displayLink.isPaused = false
-            self.countDown = 2
-            self.timer?.start()
+        //        DispatchQueue.main.async { [weak self] in
+        //            guard let `self` = self else { return }
+        if !isHidden && !self.displayLink.isPaused {
+            countDown = 2
+            return
         }
+        fadeIn(duration: 0.2)
+//        self.isHidden = false
+        self.displayLink.isPaused = false
+        self.countDown = 2
+        self.timer?.start()
+        //        }
     }
     
     @objc func stopLoading() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            self.isHidden = true
-            self.displayLink.isPaused = true
-        }
+        fadeOut(duration: 0.2)
+        self.alpha = 0
+        self.displayLink.isPaused = true
     }
     
     @objc func soundAnimation() {

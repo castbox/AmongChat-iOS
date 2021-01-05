@@ -85,13 +85,15 @@ target 'WalkieTalkie' do
     # RTC (Agora.io)
 #    pod 'AgoraRtcEngine_iOS'
     pod 'AgoraAudio_iOS', '3.1.0'
-    pod 'AgoraRtm_iOS'
+    pod 'AgoraRtm_iOS', '1.4.2'
 
     pod 'JLRoutes'
     
     pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
     #https://github.com/realm/SwiftLint
     pod 'SwiftLint', '0.31.0',        :configurations => ["Debug"]
+    pod 'Bolts',  :git => 'https://github.com/roremeol/Bolts-ObjC.git', :branch => 'master'
+
     
     #https://github.com/SwifterSwift/SwifterSwift
     # SwifterSwift is a collection of over 500 native Swift extensions, with handy methods, syntactic sugar,
@@ -102,12 +104,12 @@ target 'WalkieTalkie' do
     #- Integrate UIKit extensions only:
 #    pod 'SwifterSwift'
     
-#    pod 'mopub-ios-sdk/Core'
+    pod 'mopub-ios-sdk/Core'
 #    pod 'MoPub-AdMob-Adapters'
-#    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
+    pod 'MoPub-UnityAds-Adapters', '3.4.8.1'
     #objc
     pod 'MBProgressHUD', '~> 1.0.0'
-    `
+    
     pod 'CastboxDebuger', '~> 1.3.2'
     
     # pod for iap
@@ -119,6 +121,7 @@ target 'WalkieTalkie' do
     pod 'JXCategoryView'
     pod 'JXPagingView/Paging', '2.0.3'
     pod 'JXSegmentedView'
+    pod 'MJRefresh', '~> 3.5.0'
     
     pod 'SnapSDK'
     
@@ -148,7 +151,10 @@ target 'WalkieTalkie' do
     
     #https://github.com/sberrevoets/SDCAlertView
     pod 'SDCAlertView'
-
+    pod 'SVGAPlayer'
+    
+    #https://developers.facebook.com/docs/facebook-login/ios?sdk=cocoapods
+    pod 'FBSDKLoginKit'
 end
 
 #target 'WalkieTalkieWidgetExtension' do

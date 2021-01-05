@@ -29,9 +29,9 @@ extension Theme {
 
 // 所以主题颜色的枚举
 extension Theme {
-    static let mainBgColor = UIColor(hex6: 0x161616)
+    static let mainBgColor = UIColor(hex6: 0x121212)
     
-    static let mainTintColor = UIColor(hex6: 0xF55B23)
+    static let mainTintColor = UIColor(hex6: 0xFFF000)
     
     static let mainPanelColor = UIColor(hex6: 0x28282A)
     

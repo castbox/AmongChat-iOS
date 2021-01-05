@@ -107,18 +107,28 @@ extension Social {
             }
 
             birthdayPicker.selectBirthday("2005/01/01")
+            
+            Logger.Action.log(.login_birthday_imp)
         }
         
         @objc
         private func onSkipBtn() {
+            Logger.Action.log(.login_birthday_skip)
             onCompletion?("")
         }
         
         @objc
         private func onConfirmBtn() {
+            Logger.Action.log(.login_birthday_done)
+            
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
-            let birthdayStr = df.string(from: birthdayPicker.date)
+            let birthdayStr: String
+            if let date = birthdayPicker.date {
+                birthdayStr = df.string(from: date)
+            } else {
+                birthdayStr = "20050101"
+            }
             
             let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
             
@@ -130,6 +140,7 @@ extension Social {
                     })
                     .subscribe(onSuccess: { [weak self] (profile) in
                         defer {
+                            Logger.Action.log(.login_birthday_success, category: nil, birthdayStr)
                             self?.onCompletion?(birthdayStr)
                         }
                         guard let p = profile else { return }
@@ -140,32 +151,4 @@ extension Social {
             }
         }
     }
-}
-
-extension Social.BirthdaySetViewController: Modalable {
-    
-    func style() -> Modal.Style {
-        return .customHeight
-    }
-    
-    func height() -> CGFloat {
-        return Frame.Screen.height
-    }
-    
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
-    }
-    
-    func cornerRadius() -> CGFloat {
-        return 0
-    }
-    
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
-    }
-    
 }

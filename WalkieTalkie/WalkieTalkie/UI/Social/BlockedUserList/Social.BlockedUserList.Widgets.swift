@@ -62,7 +62,6 @@ extension Social.BlockedUserList.Widgets {
         
         private func setupLayout() {
             selectionStyle = .none
-            
             backgroundColor = .clear
             
             contentView.addSubviews(views: avatarIV, usernameLabel, unlockBtn)
@@ -94,7 +93,7 @@ extension Social.BlockedUserList.Widgets {
                 }).disposed(by: bag)
         }
         
-        func configView(with model: Entity.RoomUser) {
+        func configView(with model: Entity.UserProfile) {
             usernameLabel.text = model.name
             usernameLabel.appendKern()
             avatarIV.setAvatarImage(with: model.pictureUrl)

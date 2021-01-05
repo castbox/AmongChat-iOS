@@ -119,7 +119,7 @@ extension Social.BlockedUserList {
             // unblock_clk log
             GuruAnalytics.log(event: "unblock_clk", category: "user_list", name: nil, value: nil, content: nil)
             //
-            ChannelUserListViewModel.shared.unblockedUser(viewModel)
+//            ChannelUserListViewModel.shared.unblockedUser(viewModel)
             unblockedCallback?()
         }
         

@@ -69,7 +69,8 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
-                self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+                Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
+                self.containingController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
             }
         }
         
@@ -80,7 +81,8 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
             } else {
-                self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+                Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
+                self.containingController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
             }
             
         }
@@ -92,8 +94,9 @@ extension AmongChatRoomConfigView {
             if self.room.roomUserList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
+                Logger.Action.log(.room_amongus_code_copy)
                 self.room.amongUsCode?.copyToPasteboard()
-                self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+                self.containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
             }
 
         }

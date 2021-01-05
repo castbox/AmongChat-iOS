@@ -90,7 +90,9 @@
 "report.incorrect.sexual" = "Sexual content";
 "report.incorrect.harassment" = "Harassment or repulsive language";
 "report.incorrect.unreasonable" = "Unreasonable demands";
-"report.success" = "Thanks for reporting. It would be processed within 24 hours.";
+"report.success" = "You have successfully reported \nthis person";
+//Thanks for reporting. It would be processed within 24 hours.
+
 
 "alert.block" = "Block";
 "alert.unblock" = "Unblock";
@@ -108,12 +110,14 @@
 "profile.bag.nickname" = "NICKNAME";
 "profile.edit" = "Edit";
 "profile.following" = "Following";
-"profile.follower" = "Follower";
+"profile.follower" = "Followers";
+"profile.follow" = "Follow";
+"profile.little.follower" = "followers";
+"profile.little.following" = "following";
 "profile.invite.friends" = "Invite friends";
 "profile.block.user" = "Block list";
 "profile.settings" = "Settings";
 "profile.community" = "Community guidelines";
-//"profile.big.birthday" = "Birthday";
 "profile.birthday" = "Birthday";
 "profile.birthday.subtitle" = "Find friends of the same age";
 "profile.done" = "Done";
@@ -121,11 +125,21 @@
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "Unlock PRO";
 "profile.Unblock" = "Unblock";
+"profile.block.message" = "Are you sure to block \nthis person";
+"profile.unblock.message" = "Are you sure to \nunblock this person";
+"profile.block.user.success" = "You have successfully \nblocked this person";
+"profile.unblock.user.success" = "This person has been \nunblocked";
+
+// error message
+"error.no.following" = "You haven't followed others yet.";
+"error.no.teammates" = "Oops, no teammates yet!";
+"error.no.followers" = "Oops, no followers yet!";
+"error.no.blocker" = "You haven't blocked others yet.";
 
 
+"content.contain.sensitive.words" = "Content contains sensitive words, please modify";
 
 //month
-
 "month.jan" = "Jan";
 "month.feb" = "Feb";
 "month.mar" = "Mar";
@@ -154,6 +168,21 @@
 "social.status.online" = "Online";
 "social.status.in.someroom" = "In %1$@";
 "social.following.maximium.tip" = "Your followings has reached maximum of %1$@";
+"social.sms" = "SMS";
+"social.copy.link" = "Copy link";
+"social.invite.friends" = "Invite friends";
+"social.invite" = "Invtie";
+"social.invited" = "sent";
+"social.exit.channel" = "Exit channel";
+"social.follow.teammates" = "Follow your teammates to play together \nnext time";
+"social.share.url" = "Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@";
+"social.followed.sucess" = "You have successfully followed \nthis person";
+"social.block.failed" = "Failed to block this person, \nplease try again.";
+"social.unblock.failed" = "Failed to unblock this person, \nplease try again.";
+"social.report.failed" = "Failed to report this person, \nplease try again.";
+"social.follow.failed" = "Failed to follow this person, \nplease try again.";
+
+
 
 "channel.user.list.speaking.title" = "SPEAKING";
 "channel.user.list.listen.title" = "LISTEN";
@@ -223,8 +252,11 @@
 "among.chat.privacy.label" = "By continuing, you agree to our %1$@ and %2$@";
 "among.chat.login.sign.in.with.google" = "Sign in with Google";
 "among.chat.login.sign.in.with.apple" = "Sign in with Apple";
+"among.chat.login.sign.in.with.snapchat" = "Sign in with Snapchat";
+"among.chat.login.sign.in.with.facebook" = "Sign in with Facebook";
+"among.chat.login.sign.in.cancelled" = "Login Cancelled";
 "among.chat.create.room.input.placeholder" = "ENTER YOUR TOPIC";
-"among.chat.create.room.confirm.btn" = "Create %1$@ channel";
+"among.chat.create.room.confirm.btn" = "Create a %1$@ channel";
 "among.chat.create.room.private" = "Private";
 "among.chat.create.room.title" = "Create a Channel";
 "among.chat.create.room.topic.title" = "Hot topics";
@@ -241,3 +273,15 @@
 "among.chat.home.load.error.msg" = "Please check your connection and try again";
 "among.chat.try.again" = "Try again";
 "among.chat.welcome.message" = "Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.";
+
+"among.chat.home.enter.room.failed" = "Failed to enter channel";
+"among.chat.reward.video.load.failed" = "Failed to load video";
+"among.chat.unlock.avatar.failed" = "Failed to unlock avatar";
+"among.chat.update.profile.failed" = "Failed to update profile";
+"among.chat.home.friends.online.title" = "Your online friends";
+"among.chat.home.friends.suggestion.title" = "People you may like to play with";
+"among.chat.home.friends.share.title" = "Invite your friends to play together";
+"among.chat.home.friends.in.channel" = "in %1$@ channel";
+"among.chat.ignore" = "ignore";
+"among.chat.channel.invitation.msg" = "is inviting you to their %1$@ channel";
+"among.chat.home.firends.private.channel.tip" = "This channel is private";

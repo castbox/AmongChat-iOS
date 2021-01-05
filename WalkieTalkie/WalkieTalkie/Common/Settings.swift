@@ -215,11 +215,12 @@ class Settings {
     
     var userInAGroup: Bool {
         get {
-            #if DEBUG
-            return true
-            #endif
-            if let c = userId.unicodeScalars.last {
-                return c.value % 2 == 0
+            if Config.environment == .debug {
+                return true
+            } else {
+                if let c = userId.unicodeScalars.last {
+                    return c.value % 2 == 0
+                }
             }
             return true
         }
@@ -261,27 +262,7 @@ class Settings {
             })
             .asPublishProperty()
     }()
-    
-    let amongChatDefaultAvatars: PublishProperty<Entity.DefaultAvatars?> = {
         
-        typealias DefaultAvatars = Entity.DefaultAvatars
-        let defaultAvatars: DefaultAvatars?
-        
-        if let dict = Defaults[\.amongChatDefaultAvatarsKey],
-           let d = try? JSONDecoder().decodeAnyData(DefaultAvatars.self, from: dict) {
-            defaultAvatars = d
-        } else {
-            defaultAvatars = nil
-        }
-        
-        return DynamicProperty.stored(defaultAvatars)
-            .didSet({ (event) in
-                guard let dict = event.new?.dictionary else { return }
-                Defaults[\.amongChatDefaultAvatarsKey] = dict
-            })
-            .asPublishProperty()
-    }()
-    
     // 首页Summary缓存临时方案
     let amongChatHomeSummary: PublishProperty<Entity.Summary?> = {
         
@@ -304,6 +285,45 @@ class Settings {
     }()
     //end
     
+    let amongChatAvatarListShown: PublishProperty<Double?> = {
+        var value = Defaults[\.amongChatAvatarListShownTsKey]
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                Defaults[\.amongChatAvatarListShownTsKey] = event.new
+            })
+            .asPublishProperty()
+    }()
+    
+    let globalSetting: PublishProperty<Entity.GlobalSetting?> = {
+        
+        let settings: Entity.GlobalSetting?
+        
+        if let dict = Defaults[\.amongChatGlobalSettingKey],
+           let s = try? JSONDecoder().decodeAnyData(Entity.GlobalSetting.self, from: dict) {
+            settings = s
+        } else {
+            settings = nil
+        }
+        
+        return DynamicProperty.stored(settings)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.amongChatGlobalSettingKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    
+    
+    func startObserver() {
+        loginResult.replay()
+            .subscribe(onNext: { [weak self] result in
+                guard let result = result, result.uid > 0 else {
+                    return
+                }
+                self?.fetchGlobalConfig()
+            })
+    }
+    
     func updateProfile() {
         _ = Request.profile()
             .subscribe(onSuccess: { (profile) in
@@ -321,10 +341,29 @@ class Settings {
     }
 }
 
-extension DefaultsKeys {
-    var mode: DefaultsKey<Mode> { /// app 主题 {
-        .init("mode", defaultValue: .public)
+
+extension Settings {
+    static var loginUserId: Int? {
+        return shared.loginResult.value?.uid
     }
+    
+    func fetchGlobalConfig() {
+        _ = Request.amongchatProvider.rx.request(.globalSetting)
+            .retry(2)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.GlobalSetting.self)
+            .subscribe(onSuccess: { [unowned self] value in
+                self.globalSetting.value = value
+            })
+    }
+}
+
+
+extension DefaultsKeys {
+//    var mode: DefaultsKey<Mode> { /// app 主题 {
+//        .init("mode", defaultValue: .public)
+//    }
     
     var channelName: DefaultsKey<String> {
         .init("channelName", defaultValue: "WELCOME")
@@ -334,13 +373,13 @@ extension DefaultsKeys {
         .init("first.install", defaultValue: true)
     }
     
-    var channel: DefaultsKey<Room> {
-        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
-    }
+//    var channel: DefaultsKey<Room> {
+//        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
+//    }
     
-    var secretChannels: DefaultsKey<[Room]> {
-        .init("secret.channels.joined", defaultValue: [])
-    }
+//    var secretChannels: DefaultsKey<[Room]> {
+//        .init("secret.channels.joined", defaultValue: [])
+//    }
     
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
@@ -414,9 +453,9 @@ extension DefaultsKeys {
         .init("walkie.talkie.first.show.secret", defaultValue: true)
     }
     
-    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
-        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
-    }
+//    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
+//        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
+//    }
     
     var emojiMaps: DefaultsKey<[String: Any]> {
         .init("emoji.maps", defaultValue: [:])
@@ -432,6 +471,10 @@ extension DefaultsKeys {
     
     var blockedUsersV2Key: DefaultsKey<[Entity.RoomUser]> {
         .init("blocked.users.v2", defaultValue: [])
+    }
+    
+    var followersCount: DefaultsKey<Int> {
+        .init("followers.count", defaultValue: 0)
     }
     
     var profileInitialShownTsKey: DefaultsKey<Double?> {
@@ -452,42 +495,48 @@ extension DefaultsKeys {
     
     /// 最近一次启动广告展示时间
     var appOpenAdShowTime: DefaultsKey<Double> { .init("app.open.ad.latest.impression.timestamp", defaultValue: 0) }
-    
-    var amongChatDefaultAvatarsKey: DefaultsKey<[String : Any]?> {
-        .init("among.chat.default.avatars", defaultValue: nil)
-    }
-    
+        
     // 首页Summary缓存临时方案
     var amongChatHomeSummaryKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.home.summary", defaultValue: nil)
     }
-    //end
-}
-
-extension DefaultsAdapter {
-    func channel(for mode: Mode) -> Room {
-        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+    
+    var sensitiveWords: DefaultsKey<[String]?> {
+        .init("setting.sensitive.words")
     }
     
-    func set(channel: Room?, mode: Mode) {
-        //保护存储错误
-        if mode == .public,
-           channel?.name.isPrivate ?? false {
-            return
-        }
-        if mode == .private,
-           !(channel?.name.isPrivate ?? true) {
-            return
-        }
-        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+    var isReleaseMode: DefaultsKey<Bool> {
+        .init("settings.isReleaseMode", defaultValue: true)
+    }
+    
+    //end
+    
+    var amongChatAvatarListShownTsKey: DefaultsKey<Double?> {
+        .init("among.chat.avatar.list.shown.timestamp", defaultValue: nil)
+    }
+    
+    var amongChatGlobalSettingKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.global.setting", defaultValue: [:])
     }
 }
+
+//extension DefaultsAdapter {
+//    func channel(for mode: Mode) -> Room {
+//        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
+//    }
+//    
+//    func set(channel: Room?, mode: Mode) {
+//        //保护存储错误
+//        if mode == .public,
+//           channel?.name.isPrivate ?? false {
+//            return
+//        }
+//        if mode == .private,
+//           !(channel?.name.isPrivate ?? true) {
+//            return
+//        }
+//        Defaults[key: DefaultsKeys.channel(for: mode)] = channel
+//    }
+//}
 
 extension CLLocation: DefaultsSerializable {}
-
-
-extension Settings {
-    static var loginUserId: Int? {
-        return shared.loginResult.value?.uid
-    }
-}

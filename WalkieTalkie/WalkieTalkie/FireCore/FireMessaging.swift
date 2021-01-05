@@ -41,27 +41,27 @@
                 }
             })
         
-        _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
-            .filter { $0.0.fcmToken != nil }
-            .map { $0.1 }
-            .debug()
-            .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { value in
-                oldHotTopic.forEach { topic in
-                    Messaging.messaging().unsubscribe(fromTopic: topic)
-                }
-                defaultHotTopic.forEach { topic in
-                    if value {
-                        Messaging.messaging().subscribe(toTopic: topic) { error in
-                            cdPrint("[Messaging.messaging()] subscribe result: \(error.debugDescription)")
-                        }
-                    } else {
-                        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
-                            cdPrint("[Messaging.messaging()] unsubscribe result: \(error.debugDescription)")
-                        }
-                    }
-                }
-            })
+//        _ = Observable.combineLatest(fcmTokenValue(), Settings.shared.isOpenSubscribeHotTopic.replay())
+//            .filter { $0.0.fcmToken != nil }
+//            .map { $0.1 }
+//            .debug()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { value in
+//                oldHotTopic.forEach { topic in
+//                    Messaging.messaging().unsubscribe(fromTopic: topic)
+//                }
+//                defaultHotTopic.forEach { topic in
+//                    if value {
+//                        Messaging.messaging().subscribe(toTopic: topic) { error in
+//                            cdPrint("[Messaging.messaging()] subscribe result: \(error.debugDescription)")
+//                        }
+//                    } else {
+//                        Messaging.messaging().unsubscribe(fromTopic: topic) { error in
+//                            cdPrint("[Messaging.messaging()] unsubscribe result: \(error.debugDescription)")
+//                        }
+//                    }
+//                }
+//            })
         
     }
     
@@ -116,6 +116,28 @@
         }
     }
     
+//    private func scheduleNotifications()
+//    {
+//        for notification in notifications
+//        {
+//            let content      = UNMutableNotificationContent()
+//            content.title    = notification.title
+//            content.sound    = .default
+//
+//            let trigger = UNCalendarNotificationTrigger(dateMatching: notification.datetime, repeats: false)
+//
+//            let request = UNNotificationRequest(identifier: notification.id, content: content, trigger: trigger)
+//
+//            UNUserNotificationCenter.current().add(request) { error in
+//
+//                guard error == nil else { return }
+//
+//                print("Notification scheduled! --- ID = \(notification.id)")
+//            }
+//        }
+//    }
+
+    
     func openAppSettingUrlIfNeed() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             mainQueueDispatchAsync {
@@ -135,7 +157,7 @@
         // 打开推送 埋点
         let uriList = msg.uri.split(separator: "/")
         if let type = uriList.safe(0), let id = uriList.safe(1) {
-            //            Analytics.log(event: "push_open", category: String(type), name: String(id), value: nil)
+//            Analytics.log(event: "push_open", category: String(type), name: String(id), value: nil)
 //            Logger.PageShow.logger("push_open", String(type), String(id), nil)
 //            if type == "live"{
 //                Logger.PageShow.logger("lv_rm_imp", "lv_notifi", String(id), nil)
@@ -144,6 +166,7 @@
         anpsMessageSubject.onNext(msg)
         let _ = Request.pushEvent(.DeviceOpen, notiUserInfo: userInfo)
             .subscribe()
+        addPushLogger(.open, msg: msg)
     }
  }
  
@@ -182,6 +205,7 @@
         }
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: userInfo)
             .subscribe()
+        addPushLogger(.receive, msg: APNSMessage(userInfo))
         completionHandler(.noData)
     }
     
@@ -201,14 +225,20 @@
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let nilableMessage = APNSMessage(notification.request.content.userInfo)
-        addPushReceiveLogger(msg: nilableMessage)
+        addPushLogger(.receive, msg: nilableMessage)
         guard let msg = nilableMessage else {
             return
         }
         anpsMessageWillShowSubject.onNext(msg)
         
         let _ = Request.pushEvent(.DeviceReceive, notiUserInfo: notification.request.content.userInfo).subscribe(onSuccess: { (_) in })
-        completionHandler([.alert, .badge, .sound])
+        
+        if nilableMessage?.pushSourceType == "invite_join_room" {
+            completionHandler([])
+        } else {
+            addPushLogger(.impression, msg: nilableMessage)
+            completionHandler([.alert, .badge, .sound])
+        }
     }
     
     @available(iOS 10.0, *)
@@ -218,12 +248,13 @@
         completionHandler()
     }
     
-    func addPushReceiveLogger(msg: APNSMessage?) {
-        var category: Logger.Push.Category {
-            msg?.uri != nil ? .hot : .recommend
-        }
-        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
-        Logger.Push.log(category, home?.channelName)
+    func addPushLogger(_ event: Logger.Push.Event, msg: APNSMessage?) {
+//        var category: Logger.Push.Category {
+//            msg?.uri != nil ? .hot : .recommend
+//        }
+//        let home = URI.Homepage(msg?.uri.url?.queryParameters ?? [:])
+//        Logger.Push.log(category, home?.channelName)
+        Logger.Push.log(event: event, source: msg?.pushSourceType)
     }
  }
  
@@ -249,6 +280,12 @@
             guard let uri = userInfo["uri"] as? String else { return nil }
             self.userInfo = userInfo
             self.uri = uri
+        }
+        
+        var pushSourceType: String {
+            let queries: [String : Any] = uri.url?.queryParameters ?? [:]
+            let sourceType = queries["push_source_type"] as? String ?? ""
+            return sourceType
         }
     }
  }

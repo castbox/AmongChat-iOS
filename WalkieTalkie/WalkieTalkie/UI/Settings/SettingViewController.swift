@@ -10,6 +10,8 @@ import UIKit
 import StoreKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
+import SCSDKLoginKit
 
 class SettingViewController: ViewController {
     
@@ -42,6 +44,9 @@ class SettingViewController: ViewController {
     
     @IBAction func updateEnvironment(_ sender: Any) {
         cdPrint("among chat")
+        let isReleaseMode = Defaults[\.isReleaseMode]
+        Defaults[\.isReleaseMode] = !isReleaseMode
+        exit(0)
     }
     
     private func showSystemNavigationBar() {
@@ -74,6 +79,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
+        Logger.Action.log(.logout_clk)
         let removeBlock = view.raft.show(.loading)
         Request.logout().asObservable()
             .observeOn(MainScheduler.instance)
@@ -81,7 +87,12 @@ class SettingContainerTableController: UITableViewController {
                 removeBlock()
             })
             .subscribe(onNext: { (data) in
+                Logger.Action.log(.login_success)
                 Settings.shared.clearAll()
+                //clear
+                if SCSDKLoginClient.isUserLoggedIn {
+                    SCSDKLoginClient.clearToken()
+                }
                 (UIApplication.shared.delegate as! AppDelegate).setupInitialView()
             }).disposed(by: bag)
     }
@@ -111,6 +122,7 @@ class SettingContainerTableController: UITableViewController {
     }
     
     private func shareApp() {
+        Logger.Action.log(.settings_share_app_clk, category: nil)
         let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
         let removeBlock = { [weak self] in
             self?.view.isUserInteractionEnabled = true

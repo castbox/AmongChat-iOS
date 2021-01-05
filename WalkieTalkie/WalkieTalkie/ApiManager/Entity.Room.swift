@@ -39,7 +39,7 @@ extension Entity {
         var state: RoomPublicType
         var topicId: String
         let topicName: String
-        var bgUrl: String?
+//        var bgUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,
@@ -99,6 +99,17 @@ extension Entity {
         var isMutedByLoginUser: Bool
         let nickname: String?
         
+        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, nickname: String? = "" ) {
+            self.uid = uid
+            self.name = name
+            self.pictureUrl = pic
+            self.seatNo = seatNo
+            self.status = Status(rawValue: "blocked") ?? .blocked
+            self.isMuted = isMuted ?? false
+            self.isMutedByLoginUser = isMutedByLoginUser ?? false
+            self.nickname = nickname ?? ""
+        }
+        
         private enum CodingKeys: String, CodingKey {
             case uid
             case name
@@ -112,7 +123,7 @@ extension Entity {
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
-            var statusValue = try container.decodeStringIfPresent(.status)
+            let statusValue = try container.decodeStringIfPresent(.status)
             self.status = Status(rawValue: statusValue ?? Status.connected.rawValue) ?? .connected
             self.uid = try container.decodeInt(.uid)
             self.name = try container.decodeString(.name)
@@ -123,6 +134,8 @@ extension Entity {
             self.isMutedByLoginUser = try container.decodeBoolIfPresent(.isMutedByLoginUser) ?? false
             self.nickname = try container.decodeStringIfPresent(.nickname)
         }
+        
+        
     }
 }
 

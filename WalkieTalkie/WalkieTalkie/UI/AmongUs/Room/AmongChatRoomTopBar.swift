@@ -90,7 +90,8 @@ class AmongChatRoomTopBar: XibLoadableView {
         if room?.roomUserList.first?.uid == Settings.loginUserId {
             changePublicStateHandler?()
         } else {
-            self.viewContainingController()?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
+            Logger.Action.log(.room_change_state_clk, categoryValue: room?.topicId)
+            self.containingController?.view.raft.autoShow(.text(R.string.localizable.amongChatRoomUserChangeNotesTitle()), userInteractionEnabled: false)
         }
     }
 

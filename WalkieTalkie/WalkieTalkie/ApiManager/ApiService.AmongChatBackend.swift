@@ -29,17 +29,35 @@ extension APIService {
         case roomNickName([String: Any])
         case profile
         case updateProfile([String : Any])
-        case defaultAvatars
+        case defaultAvatars([String : Any])
         case firebaseToken([String: Any])
+        case unlockAvatar([String : Any])
+        case sensitiveWords
+        case updateDevice([String: Any])
+        case globalSetting
+        case follow([String: Any])
+        case unFollow([String: Any])
+        case relationData([String: Any])
+        case blockList([String: Any])
+        case followingList([String: Any])
+        case followerList([String: Any])
+        case profilePage([String: Any])
+        case playingList
+        case recommendedUsers
+        case exitRoomRecommend([String: Any])
+        case inviteFriends([String: Any])
+        case inviteUser([String: Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
-//        #if DEBUG
-//        let url = "https://dev.api.among.chat"
-//        #else
-        let url = "https://api.among.chat"
-//        #endif
+        let url: String
+        switch Config.environment {
+        case .debug:
+            url = "https://dev.api.among.chat"
+        case .release:
+            url = "https://api.among.chat"
+        }
         return URL(string: url)!
     }
     
@@ -81,6 +99,38 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/default/avatars"
         case .firebaseToken:
             return "/auth/firebase/token"
+        case .unlockAvatar:
+            return "/account/unlock/avatar"
+        case .updateDevice:
+            return "/account/device"
+        case .sensitiveWords:
+            return "/live/keyword/blacklist"
+        case .globalSetting:
+            return "/api/v1/setting"
+        case .follow:
+            return "/social/relation"
+        case .unFollow:
+            return "/social/relation"
+        case .relationData:
+            return "/social/relation/data"
+        case .blockList:
+            return "/social/relation"
+        case .followingList:
+            return "/social/relation"
+        case .followerList:
+            return "/social/relation/followers"
+        case .profilePage:
+            return "/account/profile/page"
+        case .playingList:
+            return "/api/v1/friends/play/list"
+        case .recommendedUsers:
+            return "/api/v1/recommend/user/list"
+        case .exitRoomRecommend:
+            return "/api/v1/end/user/list"
+        case .inviteFriends:
+            return "/social/relation/friends"
+        case .inviteUser:
+            return "/api/v1/rooms/invite"
         }
     }
     
@@ -93,6 +143,9 @@ extension APIService.AmongChatBackend: TargetType {
              .kickUsers,
              .updateProfile,
              .roomNickName,
+             .unlockAvatar,
+             .updateDevice,
+             .inviteUser,
              .logout:
             return .post
             
@@ -105,8 +158,23 @@ extension APIService.AmongChatBackend: TargetType {
              .leaveRoom,
              .defaultAvatars,
              .roomInfo,
-            .firebaseToken:
+             .sensitiveWords,
+             .globalSetting,
+             .firebaseToken,
+             .relationData,
+             .blockList,
+             .followingList,
+             .followerList,
+             .profilePage,
+             .recommendedUsers,
+             .playingList,
+             .inviteFriends,
+             .exitRoomRecommend:
             return .get
+        case .follow:
+            return .put
+        case .unFollow:
+            return .delete
         }
     }
     
@@ -120,14 +188,17 @@ extension APIService.AmongChatBackend: TargetType {
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .profile,
-             .defaultAvatars,
-             .logout:
-
+             .logout,
+             .sensitiveWords,
+             .playingList,
+             .recommendedUsers,
+             .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
-             .updateRoomInfo(let params):
+             .updateRoomInfo(let params),
+             .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
         case .login(let params),
@@ -140,7 +211,19 @@ extension APIService.AmongChatBackend: TargetType {
              .leaveRoom(let params),
              .kickUsers(let params),
              .roomNickName(let params),
-             .firebaseToken(let params):
+             .defaultAvatars(let params),
+             .unlockAvatar(let params),
+             .relationData(let params),
+             .profilePage(let params),
+             .firebaseToken(let params),
+             .blockList(let params),
+             .followingList(let params),
+             .followerList(let params),
+             .follow(let params),
+             .exitRoomRecommend(let params),
+             .inviteFriends(let params),
+             .inviteUser(let params),
+             .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }
@@ -162,5 +245,4 @@ extension APIService.AmongChatBackend: CachePolicyGettableType {
     var cachePolicy: URLRequest.CachePolicy? {
         return nil
     }
-    
 }

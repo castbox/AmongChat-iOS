@@ -19,11 +19,13 @@ extension APIService {
 }
 extension APIService.CastboxBackend: TargetType {
     var baseURL: URL {
-//        #if DEBUG
-//        let url = "https://dev.saas.castbox.fm"
-//        #else
-        let url = "https://saas.castbox.fm"
-//        #endif
+        let url: String
+        switch Config.environment {
+        case .debug:
+            url = "https://dev.saas.castbox.fm"
+        case .release:
+            url = "https://saas.castbox.fm"
+        }
         return URL(string: url)!
     }
     

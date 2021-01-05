@@ -27,29 +27,29 @@ extension FireStore {
             case gSpeakerLimit = "g_speaker_limit"
         }
         
-        func isReachMaxUser(_ room: Room) -> (Bool, Int) {
-            if room.isPrivate {
-                return (room.user_count >= sUserLimit, sUserLimit)
-            } else {
-                return (room.user_count >= gUserLimit, gUserLimit)
-            }
-        }
-        
-        func isReachMaxSpeaker(_ room: Room) -> Bool {
-            if room.isPrivate {
-                return room.user_count < sUserLimit
-            } else {
-                return room.user_count < gUserLimit
-            }
-        }
-        
-        func maximumSpeakers(_ room: Room) -> Int {
-            if room.isPrivate {
-                return sSpeakerLimit
-            } else {
-                return gSpeakerLimit
-            }
-        }
+//        func isReachMaxUser(_ room: Room) -> (Bool, Int) {
+//            if room.isPrivate {
+//                return (room.user_count >= sUserLimit, sUserLimit)
+//            } else {
+//                return (room.user_count >= gUserLimit, gUserLimit)
+//            }
+//        }
+//        
+//        func isReachMaxSpeaker(_ room: Room) -> Bool {
+//            if room.isPrivate {
+//                return room.user_count < sUserLimit
+//            } else {
+//                return room.user_count < gUserLimit
+//            }
+//        }
+//        
+//        func maximumSpeakers(_ room: Room) -> Int {
+//            if room.isPrivate {
+//                return sSpeakerLimit
+//            } else {
+//                return gSpeakerLimit
+//            }
+//        }
     }
     
     struct AppConfig: Codable {

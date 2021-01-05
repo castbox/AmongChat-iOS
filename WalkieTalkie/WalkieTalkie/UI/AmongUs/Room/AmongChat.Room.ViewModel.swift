@@ -34,6 +34,14 @@ extension AmongChat.Room {
     
     class ViewModel {
         
+        enum BlockType {
+            case block
+            case unblock
+        }
+        enum LoadDataStatus {
+            case begin
+            case end
+        }
         static var shared: ViewModel?
         
         var messages: [ChatRoomMessage] = []
@@ -45,7 +53,9 @@ extension AmongChat.Room {
         private var messageListReloadTrigger = PublishSubject<()>()
         var endRoomHandler: ((_ action: EndRoomAction) -> Void)?
         var messageEventHandler: () -> Void = { }
-        
+        var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
+        var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
+
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
         
@@ -68,7 +78,6 @@ extension AmongChat.Room {
         private var cachedFUsers = [UInt : FireStore.Entity.User]()
         private var unfoundUserIds = Set<UInt>()
         
-        private let dataSource = BehaviorRelay<[ChannelUser]>(value: [])
         
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
@@ -79,7 +88,6 @@ extension AmongChat.Room {
         //登录用户主动 muted
         private(set) var mutedUser = Set<UInt>() {
             didSet {
-//                update(dataSource.value)
                 update(room)
             }
         }
@@ -87,14 +95,18 @@ extension AmongChat.Room {
         private(set) var otherMutedUser = Set<UInt>() {
             didSet {
                 update(room)
-//                                update(dataSource.value)
             }
         }
         
         private var room: Entity.Room {
             roomReplay.value
         }
-        
+        private var enteredTimestamp: TimeInterval!
+        var showRecommendUser: Bool {
+            let gap = Date().timeIntervalSince1970 - enteredTimestamp
+            cdPrint("now time stamp gap : \(gap.int)")
+            return (gap.int / 60) > 6
+        }
         
         let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
         var isMuteMic: Bool {
@@ -131,11 +143,15 @@ extension AmongChat.Room {
         }
         
         init(room: Entity.Room) {
-            //            self.room = room
+            if room.loginUserIsAdmin {
+                Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+            }
+            
             roomReplay = BehaviorRelay(value: room)
             imViewModel = IMViewModel(with: room.roomId)
             
             imViewModel.messagesObservable
+                .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (msg) in
                     //处理消息
                     //                    self?.messageListDataSource = msgs
@@ -156,14 +172,17 @@ extension AmongChat.Room {
             
             setObservableSubject()
             addSystemMessage()
+            enteredTimestamp = Date().timeIntervalSince1970
         }
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
             self.mManager.joinChannel(channelId: self.room.roomId) { error in
-                HapticFeedback.Impact.success()
-                UIApplication.shared.isIdleTimerDisabled = true
-                completionBlock?(error)
+                mainQueueDispatchAsync {
+                    HapticFeedback.Impact.success()
+                    UIApplication.shared.isIdleTimerDisabled = true
+                    completionBlock?(error)
+                }
             }
             return true
         }
@@ -172,7 +191,7 @@ extension AmongChat.Room {
             mManager.leaveChannel()
             ViewModel.shared = nil
             UIApplication.shared.isIdleTimerDisabled = false
-            return Request.requestLeave(with: room.roomId)
+            return Request.leave(with: room.roomId)
 
 //            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
 //                .asObservable()
@@ -195,7 +214,6 @@ extension AmongChat.Room {
         
         func startUpdateBaseInfo() {
             Observable<Int>.interval(.seconds(180), scheduler: SerialDispatchQueueScheduler(qos: .default))
-                .startWith(0)
                 .subscribe(onNext: { [weak self] _ in
                     self?.requestRoomInfo()
                 })
@@ -207,22 +225,16 @@ extension AmongChat.Room {
             
             messageEventEmitter.asObserver()
                 .observeOn(SerialDispatchQueueScheduler(qos: .default))
-                //                .map { message -> ChatRoomMessage in
-                //                    //transfer
-                //                    let content = message.content
-                //                    if let text = content as? TextContent {
-                //                        //过滤
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
-                //                        text.content = result
-                //                        return LVEntity.Message(content: text, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else if let whisper = content as? WhisperContent {
-                //                        let (_, result) = SensitiveWordChecker.default.filter(text: whisper.whisper_msg)
-                //                        whisper.whisper_msg = result
-                //                        return LVEntity.Message(content: whisper, sendTime: message.sendTime, receivedTime: message.receivedTime)
-                //                    } else {
-                //                        return message
-                //                    }
-                //                }
+                .map { message -> ChatRoomMessage in
+                    //transfer
+                    if let text = message as? ChatRoom.TextMessage {
+                        //过滤
+                        let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
+                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType)
+                    } else {
+                        return message
+                    }
+                }
                 .observeOn(MainScheduler.asyncInstance)
                 .do(onNext: { [weak self] message in
                     self?.messages.append(message)
@@ -272,15 +284,10 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-//            roomReplay.accept(room)
             update(room)
-            //update
-            updateRoomInfo(room)
         }
         
         func update(nickName: String) {
-//            var room = self.room
-//            updateRoomInfo(room)
             Request.updateRoom(nickName: nickName, with: room.roomId)
                 .subscribe { _ in
                     //refresh nick name
@@ -306,8 +313,7 @@ extension AmongChat.Room {
         
         //MARK: -- Request
         func requestRoomInfo() {
-            Request.requestRoomInfo(with: room.roomId)
-                .catchErrorJustReturn(self.room)
+            Request.roomInfo(with: room.roomId)
                 .asObservable()
                 .filterNilAndEmpty()
                 .subscribe(onNext: { [weak self] room in
@@ -332,16 +338,7 @@ extension AmongChat.Room {
         }
         
         func requestKick(_ users: [Int]) -> Single<Bool> {
-            let params: [String: Any] = [
-                "room_id": room.roomId, "uids": users.map { $0.string }.joined(separator: ",")
-            ]
-            return Request.amongchatProvider.rx.request(.kickUsers(params))
-                .mapJSON()
-                .map { $0 != nil }
-//                .catchErrorJustReturn(self.room)
-//                .asObservable()
-//                .bind(to: roomReplay)
-//                .disposed(by: bag)
+            return Request.kick(users, roomId: room.roomId)
         }
         
 //        func update(_ userList: [Entity.RoomUser]) {
@@ -367,47 +364,98 @@ extension AmongChat.Room {
 //            dataSource.accept(users)
 //        }
         
-        func updateVolumeIndication(userId: UInt, volume: UInt) {
-            //            cdPrint("userid: \(userId) volume: \(volume)")
-            let users = dataSource.value.map { item -> ChannelUser in
-                guard item.status != .blocked,
-                      item.status != .muted,
-                      item.status != .droped,
-                      item.uid.int!.uInt == userId,
-                      volume > 0 else {
-                    return item
-                }
-                var user = item
-                user.status = .talking
-                cdPrint("user: \(user)")
-                return user
-            }
-            dataSource.accept(users)
+//        func updateVolumeIndication(userId: UInt, volume: UInt) {
+//            //            cdPrint("userid: \(userId) volume: \(volume)")
+//            let users = dataSource.value.map { item -> ChannelUser in
+//                guard item.status != .blocked,
+//                      item.status != .muted,
+//                      item.status != .droped,
+//                      item.uid.int!.uInt == userId,
+//                      volume > 0 else {
+//                    return item
+//                }
+//                var user = item
+//                user.status = .talking
+//                cdPrint("user: \(user)")
+//                return user
+//            }
+//            dataSource.accept(users)
+//        }
+        
+        func followUser(_ user: Entity.RoomUser) {
+            followUserSuccess?(.begin, false)
+            Request.follow(uid: user.uid, type: "follow")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.followUserSuccess?(.end, true)
+                    } else {
+                        self?.followUserSuccess?(.end, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.followUserSuccess?(.end, false)
+                    cdPrint("room follow error:\(error.localizedDescription)")
+                }).disposed(by: bag)
         }
         
         func blockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.append(user)
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
-        }
-        
-        func unblockedUser(_ user: Entity.RoomUser) {
-            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
-            Defaults[\.blockedUsersV2Key] = blockedUsers
-            if !mutedUser.contains(user.uid.uInt) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                requestBlock(user: user)
             }
         }
         
+        func unblockedUser(_ user: Entity.RoomUser) {
+            if mutedUser.contains(user.uid.uInt) || mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                requestUnblock(user: user)
+            }
+        }
+        private func requestBlock(user: Entity.RoomUser) {
+            blockUserResult?(.begin, .block, false)
+            Request.follow(uid: user.uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.blockUserResult?(.end, .block, true)
+                        self?.blockedUsers.append(user)
+                        Defaults[\.blockedUsersV2Key] = self?.blockedUsers ?? []
+                    } else {
+                        self?.blockUserResult?(.end,.block, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.blockUserResult?(.end, .block, false)
+                    cdPrint("room block error :\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
+        private func requestUnblock(user: Entity.RoomUser) {
+            blockUserResult?(.begin, .unblock, false)
+            Request.unFollow(uid: user.uid, type: "block")
+                .subscribe(onSuccess: { [weak self](success) in
+                    if success {
+                        self?.blockUserResult?(.end, .unblock, true)
+                        self?.removeBlocked(user)
+                    } else {
+                        self?.blockUserResult?(.end, .unblock, false)
+                    }
+                }, onError: { [weak self](error) in
+                    self?.blockUserResult?(.end, .unblock, false)
+                    cdPrint("room Unblock error :\(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
+        func removeBlocked(_ user: Entity.RoomUser) {
+            blockedUsers.removeElement(ifExists: { $0.uid == user.uid })
+            Defaults[\.blockedUsersV2Key] = blockedUsers
+        }
+        
         func muteUser(_ user: Entity.RoomUser) {
-            mutedUser.insert(user.uid.uInt)
-            mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0)
+            if mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 0) {
+                mutedUser.insert(user.uid.uInt)
+            }
         }
         
         func unmuteUser(_ user: Entity.RoomUser) {
-            mutedUser.remove(user.uid.uInt)
-            if !blockedUsers.contains(where: { $0.uid == user.uid }) {
-                mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100)
+            if !blockedUsers.contains(where: { $0.uid == user.uid }),
+               mManager.adjustUserPlaybackSignalVolume(user.uid, volume: 100) {
+                mutedUser.remove(user.uid.uInt)
             }
         }
         
@@ -441,6 +489,13 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.ViewModel {
     func update(_ room: Entity.Room) {
+        
+        //when first to admin logger
+        if room.loginUserIsAdmin,
+           self.room.loginUserIsAdmin != room.loginUserIsAdmin {
+            Logger.Action.log(.admin_imp, categoryValue: room.topicId)
+        }
+        
         var newRoom = room
         let userList = newRoom.roomUserList
         let blockedUsers = self.blockedUsers
@@ -559,7 +614,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else {
             otherMutedUser.remove(userId)
         }
-        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
+//        cdPrint("-onUserStatusChanged uid: \(userId) muted: \(muted) otherMutedUser: \(otherMutedUser)")
 
         //check block
         if let user = blockedUsers.first(where: { $0.uid == userId.int }) {
@@ -569,6 +624,7 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         }
         
         if !imViewModel.imIsReady {
+            Logger.Action.log(.rtc_call_roominfo)
             requestRoomInfo()
         }
     }
@@ -578,12 +634,13 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+//        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = room.roomUserList.first(where: { $0.uid.uInt == userId }) {
             self.soundAnimationIndex.accept(user.seatNo - 1)
         }
     }
     
-    func onChannelUserChanged(users: [ChannelUser]) {
-//        ChannelUserListViewModel.shared.update(users)
-    }
+//    func onChannelUserChanged(users: [ChannelUser]) {
+////        ChannelUserListViewModel.shared.update(users)
+//    }
 }

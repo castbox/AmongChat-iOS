@@ -30,16 +30,14 @@ extension Social {
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
             iv.addGestureRecognizer(tapGR)
-            #if DEBUG
-            iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
-            #endif
+            if Config.environment == .debug {
+                iv.backgroundColor = UIColor(hex6: 0x0EC099, alpha: 1.0)
+            }
             return iv
         }()
         
         private lazy var randomIconIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 12
-            iv.layer.masksToBounds = true
             iv.image = R.image.profile_avatar_random_btn()
             return iv
         }()
@@ -59,6 +57,10 @@ extension Social {
         private lazy var userInputView = AmongInputNickNameView()
         
         private var profile: Entity.UserProfile!
+        
+        override var screenName: Logger.Screen.Node.Start {
+            return .profile_edit
+        }
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -93,7 +95,7 @@ private extension Social.EditProfileViewController {
         
         randomIconIV.snp.makeConstraints { (maker) in
             maker.right.bottom.equalTo(avatarIV)
-            maker.width.height.equalTo(24)
+            maker.width.height.equalTo(28)
         }
         
         userButton.snp.makeConstraints { (maker) in
@@ -136,11 +138,13 @@ private extension Social.EditProfileViewController {
         
         userButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_nikename_clk, category: nil)
                 _ = self?.userInputView.becomeFirstResponder()
             }).disposed(by: bag)
         
         birthdayButton.rx.tap
             .subscribe(onNext: { [weak self]() in
+                Logger.Action.log(.profile_birthday_clk, category: nil)
                 self?.selectBirthday()
             }).disposed(by: bag)
         
@@ -160,10 +164,20 @@ private extension Social.EditProfileViewController {
                     self.view.layoutIfNeeded()
                 }
             }).disposed(by: bag)
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.randomIconIV.redDotOff()
+                } else {
+                    self?.randomIconIV.redDotOn(rightOffset: 5, topOffset: 5)
+                }
+            })
+            .disposed(by: bag)
+
     }
     
     func selectBirthday() {
-        //let vc = Social.BirthdaySetViewController()
         let vc = Social.BirthdaySelectViewController()
         vc.onCompletion = { [weak self] (birthdayStr) in
             guard let `self` = self else {
@@ -177,18 +191,15 @@ private extension Social.EditProfileViewController {
         if let b = profile.birthday, !b.isEmpty {
             vc.selectToBirthday(fixBirthdayString(b))
         } else {
-            vc.selectToBirthday("")
+            vc.selectToBirthday("2005/01/01")
         }
         view.endEditing(true)
     }
     
     func fixBirthdayString(_ text: String) -> String {
         var b = text
-        let index = b.index(b.startIndex, offsetBy: 4)
-        b.insert("/", at: index)
-        
-        let index1 = b.index(b.startIndex, offsetBy: 7)
-        b.insert("/", at: index1)
+        b.addString("/", at: 4)
+        b.addString("/", at: 7)
         return b
     }
     
@@ -210,13 +221,9 @@ private extension Social.EditProfileViewController {
     }
     
     @objc
-    func onAvatarTapped() {
-        guard let avatar = Settings.shared.amongChatDefaultAvatars.value?.randomAvatar else {
-            return
-        }
-        
-        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar)
-        updateProfileIfNeeded(profileProto)
+    func onAvatarTapped() {        
+        let vc = Social.SelectAvatarViewController()
+        navigationController?.pushViewController(vc)
     }
     
     func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
@@ -232,6 +239,9 @@ private extension Social.EditProfileViewController {
                         return
                     }
                     Settings.shared.amongChatUserProfile.value = p
+                    if let birthdayStr = profileProto.birthday {
+                        Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
+                    }
                 }, onError: { (error) in
                 })
                 .disposed(by: bag)
@@ -257,6 +267,7 @@ private extension Social {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
             lb.textAlignment = .right
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -277,6 +288,7 @@ private extension Social {
             }
             
             userNameLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(userNameTitle.snp.right).offset(20)
                 make.right.equalTo(-20)
                 make.centerY.equalTo(icon.snp.centerY)
             }
@@ -355,7 +367,12 @@ private extension Social {
         private func onConfirmBtn() {
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
-            let birthdayStr = df.string(from: birthdayPicker.date)
+            let birthdayStr: String
+            if let date = birthdayPicker.date {
+                birthdayStr = df.string(from: date)
+            } else {
+                birthdayStr = "20050101"
+            }
             dismissModal(animated: true) { [weak self] in
                 self?.onCompletion?(birthdayStr)
             }
