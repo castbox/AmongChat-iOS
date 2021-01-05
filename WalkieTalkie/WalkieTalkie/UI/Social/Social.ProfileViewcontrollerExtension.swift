@@ -111,6 +111,9 @@ extension Social.ProfileViewController {
             lb.textAlignment = .center
             return lb
         }()
+        
+        private var tikTokView = SocialTiktokItemView()
+        
         private var isSelf = true
         private var uid = ""
         
@@ -211,7 +214,7 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            addSubviews(views: titleLabel, avatarIV,changeIcon, nameLabel, editBtn, followingBtn, followerBtn, followButton, redCountLabel)
+            addSubviews(views: titleLabel, avatarIV,changeIcon, nameLabel, editBtn, followingBtn, followerBtn, followButton, redCountLabel, tikTokView)
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(12 + Frame.Height.safeAeraTopHeight)
@@ -220,6 +223,7 @@ extension Social.ProfileViewController {
             if isSelf {
                 setLayoutForSelf()
             } else {
+                tikTokView.isHidden = !isSelf
                 setLayoutForOther()
             }
             
@@ -285,6 +289,12 @@ extension Social.ProfileViewController {
                 make.centerY.equalTo(followerBtn.titleLabel.snp.centerY)
                 make.height.equalTo(16)
                 make.width.greaterThanOrEqualTo(30)
+            }
+            
+            tikTokView.snp.makeConstraints { maker in
+                maker.left.right.equalToSuperview()
+                maker.bottom.equalTo(-12)
+                maker.height.equalTo(80)
             }
         }
         
@@ -386,7 +396,7 @@ extension Social.ProfileViewController {
             contentView.addSubviews(views: iconIV, titleLabel)
             
             iconIV.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview()
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(30)
                 maker.left.equalTo(20)
                 maker.bottom.equalToSuperview().offset(40).priorityLow()

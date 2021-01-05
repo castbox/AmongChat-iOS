@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 147 images.
+  /// This `R.image` struct is generated, and contains static references to 148 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -246,6 +246,8 @@ struct R: Rswift.Validatable {
     static let ac_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_diamonds")
     /// Image `ac_share_app`.
     static let ac_share_app = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_app")
+    /// Image `ac_social_tiktok`.
+    static let ac_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_social_tiktok")
     /// Image `ac_topic_hot`.
     static let ac_topic_hot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_topic_hot")
     /// Image `ac_trophy`.
@@ -689,6 +691,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_share_app", bundle: ..., traitCollection: ...)`
     static func ac_share_app(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_share_app, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_social_tiktok", bundle: ..., traitCollection: ...)`
+    static func ac_social_tiktok(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_social_tiktok, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_topic_hot", bundle: ..., traitCollection: ...)`
@@ -1179,7 +1186,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 26 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1229,6 +1236,8 @@ struct R: Rswift.Validatable {
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
+    /// Nib `SocialTiktokItemView`.
+    static let socialTiktokItemView = _R.nib._SocialTiktokItemView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
     
@@ -1376,6 +1385,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
     }
     
+    /// `UINib(name: "SocialTiktokItemView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.socialTiktokItemView) instead")
+    static func socialTiktokItemView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.socialTiktokItemView)
+    }
+    
     /// `UINib(name: "TikTokShareView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
     static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
@@ -1476,6 +1491,10 @@ struct R: Rswift.Validatable {
     
     static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func socialTiktokItemView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.socialTiktokItemView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func tikTokShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -4044,6 +4063,7 @@ struct _R: Rswift.Validatable {
       try _PremiumContainer.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
+      try _SocialTiktokItemView.validate()
       try _TikTokShareView.validate()
     }
     
@@ -4413,6 +4433,24 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SocialTiktokItemView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "SocialTiktokItemView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_social_tiktok", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_social_tiktok' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

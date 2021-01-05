@@ -71,7 +71,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 276:414
+            let vH: CGFloat = isSelfProfile ? 368:414
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -101,7 +101,7 @@ extension Social {
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
-            tb.rowHeight = 75
+            tb.rowHeight = 73
             tb.neverAdjustContentInset()
             return tb
         }()
