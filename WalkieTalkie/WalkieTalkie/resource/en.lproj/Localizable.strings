@@ -8,11 +8,6 @@
 
 "premium.free.trial" = "TRY IT FREE";
 "premium.free.3d.trial" = "3D Free Trials";
-"premium.skip.trial" = "SKIP TRIAL";
-"premium.priv.categories" = "Unlock all categories";
-"premium.priv.themes" = "Unlock all themes";
-"premium.priv.ads" = "Remove ads";
-"premium.priv.automatically" = "Change theme automatically";
 
 "premium.subscription.terms" = "Subscription Terms:";
 "premium.subscription.detail.free" = "After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.";
@@ -26,10 +21,8 @@
 "settings.restore.fail.title" = "Purchase not found";
 "settings.restore.fail.body" = "No purchases were found on your account";
 "alert.ok" = "Ok";
-"no.ad.alert" = "No ad available, please try again later. ";
 "toast.confirm" = "OK";
 "toast.cancel" = "Cancel";
-"network.not.reachable" = "Unreachable networking!";
 
 "premium.try.title" = "Try it FREE";
 "premium.try.title.des" = "3 days free trial, then %@ / Year";
@@ -38,7 +31,6 @@
 "guide.continue" = "Continue";
 "copied" = "Copied";
 
-"i.know" = "I Know";
 "report.title" = "Report";
 "report.room.id" = "Channel ID";
 "report.incorrect.information" = "Incorrect information";
@@ -55,7 +47,6 @@
 "profile.profile" = "Profile";
 "profile.nickname" = "Nickname";
 "profile.bag.nickname" = "NICKNAME";
-"profile.edit" = "Edit";
 "profile.following" = "Following";
 "profile.follower" = "Followers";
 "profile.follow" = "Follow";
@@ -99,13 +90,8 @@
 
 // Edit Profile
 "profile.edit.save.btn" = "Save";
-"profile.edit.username" = "Username";
-"profile.edit.birthday" = "Birthday";
 "social.blocked.user.title" = "Block list";
-"social.relation.friend" = "Friends";
 "social.join.action" = "Join";
-"social.unfollow" = "Unfollow";
-"social.join.action.sent" = "Sent";
 "social.status.online" = "Online";
 "social.sms" = "SMS";
 "social.copy.link" = "Copy link";
@@ -119,7 +105,6 @@
 "social.followed.sucess" = "You have successfully followed \nthis person";
 "social.block.failed" = "Failed to block this person, \nplease try again.";
 "social.unblock.failed" = "Failed to unblock this person, \nplease try again.";
-"social.report.failed" = "Failed to report this person, \nplease try again.";
 "social.follow.failed" = "Failed to follow this person, \nplease try again.";
 
 
@@ -135,12 +120,8 @@
 //new
 "room.public" = "Public";
 "room.private" = "Private";
-"among.chat.room.tip.mic.off" = "MIC OFF";
 "among.chat.room.tip.mic.on" = "MIC ON";
 "room.tag.open.game" = "Open Game";
-"room.tag.chilling" = "Just Chatting";
-"room.roblox.default.notes" = "add the host in roblox to join their game! tap to copy";
-"room.chilling.default.notes" = "wait till you have enough crewmates. then open a channel in game and find each other thru private code";
 "room.hosts.notes" = "Host's notes:";
 "room.user.list.muted" = "Muted";
 
@@ -189,7 +170,6 @@
 "share.app" = "Share App";
 "push.setting" = "Push Setting";
 "log.out" = "Log out";
-"settings" = "Settings";
 "room.leave" = "Leave";
 "room.setup.in.game.code.title" = "Set up in-game code here";
 "room.setup.in.game.code.subtitle" = "Only this channel host can set the code";
