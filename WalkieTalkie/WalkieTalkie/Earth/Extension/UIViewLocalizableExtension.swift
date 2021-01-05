@@ -45,14 +45,14 @@ extension UITextField: XIBLocalizable {
     @IBInspectable var xibLocKey: String? {
         get { return nil }
         set(key) {
-            text = xibLocKey?.localized
+            text = key?.localized
         }
    }
     
     @IBInspectable var placeholderXibLocKey: String? {
         get { return nil }
         set(key) {
-            placeholder = placeholderXibLocKey?.localized
+            placeholder = key?.localized
         }
    }
 }
