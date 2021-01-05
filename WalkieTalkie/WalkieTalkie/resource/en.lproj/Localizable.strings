@@ -203,3 +203,5 @@
 "amongus.server.north.america" = "North America";
 "amongus.server.north.asia" = "Asia";
 "amongus.server.north.europe" = "Europe";
+
+"among.chat.unknown.error" = "Unknown Error";

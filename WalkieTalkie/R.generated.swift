@@ -1507,7 +1507,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 173 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 174 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -2089,6 +2089,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialUnfollow = Rswift.StringResource(key: "social.unfollow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Unknown Error
+      /// 
+      /// Locales: en
+      static let amongChatUnknownError = Rswift.StringResource(key: "among.chat.unknown.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock PRO
       /// 
       /// Locales: en
@@ -3215,6 +3219,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialUnfollow(_: Void = ()) -> String {
         return NSLocalizedString("social.unfollow", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unknown Error
+      /// 
+      /// Locales: en
+      static func amongChatUnknownError(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.unknown.error", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock PRO
