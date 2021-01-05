@@ -1,0 +1,11 @@
+/* 
+  Infoplist.strings
+  WalkieTalkie
+
+  Created by mayue_work on 2021/1/5.
+  Copyright © 2021 Guru Rain. All rights reserved.
+*/
+
+NSMicrophoneUsageDescription = "Enable microphone to talk to others in channels";
+NSPhotoLibraryUsageDescription = "Please allow Among Chat to use your photo library";
+NSSpeechRecognitionUsageDescription = "Please allow Among Chat to use your speech recognition";

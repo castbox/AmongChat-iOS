@@ -83,72 +83,11 @@ extension AmongChat.Login {
         private func signin(via provider: Entity.LoginProvider, from vc: UIViewController) -> Single<ThirdPartySignInResult> {
             switch provider {
             case .google:
-                
-                return Observable.create { [weak self] (subscriber) -> Disposable in
-                    
-                    guard let `self` = self else {
-                        subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
-                        return Disposables.create()
-                    }
-                    
-                    self.googleAgent.signIn(from: vc) { (error, user) in
-                        
-                        guard let token = user?.authentication.idToken else {
-                            var newError: Error? {
-                                guard let nsError = error as? NSError, nsError.code == GIDSignInErrorCode.canceled.rawValue else {
-                                    return error
-                                }
-                                return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
-                            }
-                            subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
-                            return
-                        }
-                        
-                        subscriber.onNext(ThirdPartySignInResult(token:token, secret: nil))
-                        subscriber.onCompleted()
-                    }
-                    
-                    return Disposables.create()
-                }
-                .asSingle()
-            
+                return googleAgent.signIn(from: vc).map { ThirdPartySignInResult(token: $0, secret: nil) }
                 
             case .apple:
                 if #available(iOS 13.0, *) {
-                    return Observable.create { [weak self] (subscriber) -> Disposable in
-                        
-                        guard let `self` = self else {
-                            subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
-                            return Disposables.create()
-                        }
-                        
-                        self.appleProxy.signIn(completion: { (authCode, error) in
-                            
-                            guard let code = authCode else {
-                                var newError: Error? {
-                                    if #available(iOS 13.0, *) {
-                                        guard let wrappedError = error,
-                                            (wrappedError as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
-                                            return error
-                                        }
-                                        return NSError(domain: "chat.among.knife.user", code: cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
-                                    } else {
-                                        // Fallback on earlier versions
-                                        return error
-                                    }
-                                }
-                                subscriber.onError(newError ?? NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
-                                return
-                            }
-                            
-                            subscriber.onNext(ThirdPartySignInResult(token: code, secret: nil))
-                            subscriber.onCompleted()
-                        })
-                        
-                        return Disposables.create()
-                    }
-                    .asSingle()
-                    
+                    return appleProxy.signIn().map { ThirdPartySignInResult(token: $0, secret: nil) }
                 } else {
                     return Observable.create { (subscriber) -> Disposable in
                         subscriber.onError(NSError(domain: NSStringFromClass(Self.self), code: 0, userInfo: nil))
@@ -242,10 +181,9 @@ extension AmongChat.Login {
     @available(iOS 13.0, *)
     class AppleSigninProxy: NSObject {
         
-        private var signInHandler: ((_ authCode: String?, _ error: Error?) -> Void)?
+        private var signInResultSubject: PublishSubject<String>!
         
-        func signIn(completion: @escaping (_ authCode: String?, _ error: Error?) -> Void) {
-            signInHandler = completion
+        func signIn() -> Single<String> {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
             let request = appleIDProvider.createRequest()
             request.requestedScopes = [.fullName, .email]
@@ -254,6 +192,8 @@ extension AmongChat.Login {
             authController.delegate = self
             authController.presentationContextProvider = self
             authController.performRequests()
+            signInResultSubject = PublishSubject<String>()
+            return signInResultSubject.take(1).asSingle()
         }
         
     }
@@ -265,19 +205,23 @@ extension AmongChat.Login.AppleSigninProxy: ASAuthorizationControllerDelegate {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
             let codeData = appleIDCredential.authorizationCode,
             let code = String(data: codeData, encoding: .utf8) else {
-            signInHandler?(nil, NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
-            signInHandler = nil
+            signInResultSubject.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
             return
         }
         
-        signInHandler?(code, nil)
-        signInHandler = nil
-
+        signInResultSubject.onNext(code)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        signInHandler?(nil, error)
-        signInHandler = nil
+        
+        var newError: Error {
+            guard (error as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
+                return error
+            }
+            return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+        }
+        
+        signInResultSubject.onError(newError)
     }
 }
 
@@ -291,23 +235,22 @@ extension AmongChat.Login.AppleSigninProxy: ASAuthorizationControllerPresentatio
 extension AmongChat.Login {
     
     class GoogleAgent: NSObject  {
-        
-        private var completion: ((_ error: Error?, _ user: GIDGoogleUser?)->())?
+                
+        private var signInResultSubject: PublishSubject<String>!
         
         override init() {
             super.init()
             GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
             GIDSignIn.sharedInstance().delegate = self
         }
-        
-        func signIn(from vc: UIViewController, _ completion: @escaping (_ error: Error?, _ user: GIDGoogleUser?)->()) {
-            
+                
+        func signIn(from vc: UIViewController) -> Single<String> {
             GIDSignIn.sharedInstance().presentingViewController = vc
-            self.completion = completion
             GIDSignIn.sharedInstance().signOut()
             GIDSignIn.sharedInstance().signIn()
+            signInResultSubject = PublishSubject<String>()
+            return signInResultSubject.take(1).asSingle()
         }
-
         
         func signOut() {
             GIDSignIn.sharedInstance().signOut()
@@ -322,9 +265,30 @@ extension AmongChat.Login {
 
 extension AmongChat.Login.GoogleAgent: GIDSignInDelegate {
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        self.completion?(error, user)
-        self.completion = nil
-
+        
+        guard let user = user,
+            let token = user.authentication.idToken else {
+            
+            var newError: Error {
+                
+                guard let err = error else {
+                    return NSError(domain: NSStringFromClass(Self.self), code: -1000, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatUnknownError()])
+                }
+                
+                guard (err as NSError).code == GIDSignInErrorCode.canceled.rawValue else {
+                    return err
+                }
+                
+                return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+            }
+            
+            signInResultSubject.onError(newError)
+            
+            return
+        }
+        
+        signInResultSubject.onNext(token)
+        
     }
     
     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
