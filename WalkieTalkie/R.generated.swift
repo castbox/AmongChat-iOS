@@ -1505,8 +1505,35 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
+    /// This `R.string.infoplist` struct is generated, and contains static references to 3 localization keys.
+    struct infoplist {
+      /// Value: Enable microphone to talk to others in channels
+      static let nsMicrophoneUsageDescription = Rswift.StringResource(key: "NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Please allow Among Chat to use your photo library
+      static let nsPhotoLibraryUsageDescription = Rswift.StringResource(key: "NSPhotoLibraryUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: [], comment: nil)
+      /// Value: Please allow Among Chat to use your speech recognition
+      static let nsSpeechRecognitionUsageDescription = Rswift.StringResource(key: "NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: [], comment: nil)
+      
+      /// Value: Enable microphone to talk to others in channels
+      static func nsMicrophoneUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// Value: Please allow Among Chat to use your photo library
+      static func nsPhotoLibraryUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSPhotoLibraryUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// Value: Please allow Among Chat to use your speech recognition
+      static func nsSpeechRecognitionUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      fileprivate init() {}
+    }
+    
     /// This `R.string.localizable` struct is generated, and contains static references to 154 localization keys.
     struct localizable {
       /// en translation: %1$@ online

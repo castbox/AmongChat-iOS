@@ -22,6 +22,7 @@
 		2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BAB4F862596031600A1C8DC /* Entity.Profile.swift */; };
 		2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BBBFD2C259CAA1100A3AB2C /* Social.ReportViewController.swift */; };
 		BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */; };
+		BD5B034E25A46F27006D883D /* Infoplist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BD5B034D25A46F27006D883D /* Infoplist.strings */; };
 		BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */; };
 		BD67FF0E2571276400144477 /* AmongChat.Room.UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */; };
 		BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */; };
@@ -324,6 +325,7 @@
 		71A6690FF0550B1005BB7022 /* Pods-WalkieTalkie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.release.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.release.xcconfig"; sourceTree = "<group>"; };
 		9E854ECD4DE35AE9FE7830E2 /* Pods_WalkieTalkie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WalkieTalkie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.Widgets.AvatarView.swift; sourceTree = "<group>"; };
+		BD5B034D25A46F27006D883D /* Infoplist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Infoplist.strings; sourceTree = "<group>"; };
 		BD6739BC2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationViewModels.swift"; sourceTree = "<group>"; };
 		BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.UserCell.swift; sourceTree = "<group>"; };
 		BD680D742554F8210062CEC7 /* Ad.AppOpenAdManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.AppOpenAdManager.swift; sourceTree = "<group>"; };
@@ -875,6 +877,7 @@
 				2BAC1458258E5D690064F55D /* R.generated.swift */,
 				FE126D20243461EA00BEDD60 /* Assets.xcassets */,
 				FE126D25243461EA00BEDD60 /* Info.plist */,
+				BD5B034D25A46F27006D883D /* Infoplist.strings */,
 				FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */,
 			);
 			path = WalkieTalkie;
@@ -1346,6 +1349,7 @@
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
+				BD5B034E25A46F27006D883D /* Infoplist.strings in Resources */,
 				FE746BE324629B0500CAC554 /* GuideFirstView.xib in Resources */,
 				FE87C2D4259C2EC200799883 /* SnapChatCreativeShareView.xib in Resources */,
 				FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */,
