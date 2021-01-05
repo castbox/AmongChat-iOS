@@ -20,8 +20,14 @@ extension AmongChat.Home.MainTabController {
         
         private let invitationSubject = PublishSubject<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)>()
         
+        private let invitationRecommendSubject = PublishSubject<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)>()
+        
         var invitationObservable: Observable<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)> {
             return invitationSubject.asObservable()
+        }
+
+        var invitationRecommendObservable: Observable<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)> {
+            return invitationRecommendSubject.asObservable()
         }
         
         init() {
@@ -43,19 +49,22 @@ extension AmongChat.Home.MainTabController {
         }
         
         private let roomInvitationMessageType = "AC:PEER:Invite"
-        
+        private let roomInvitationRecommendMessageType = "AC:PEER:Invite_recommend"
+
         private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
             
             guard message.type == .text,
                   let json = message.text.jsonObject(),
                   let invitationMsg = JSONDecoder().mapTo(Entity.FriendUpdatingInfo.self, from: json),
-                  invitationMsg.messageType == roomInvitationMessageType,
                   let room = invitationMsg.room else {
                 return
             }
-            
-            invitationSubject.onNext((invitationMsg.user, room))
-            
+
+            if invitationMsg.messageType == roomInvitationMessageType {
+                invitationSubject.onNext((invitationMsg.user, room))
+            } else if invitationMsg.messageType == roomInvitationRecommendMessageType {
+                invitationRecommendSubject.onNext((invitationMsg.user, room))
+            }
         }
     }
     

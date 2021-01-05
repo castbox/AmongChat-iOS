@@ -31,7 +31,7 @@ extension AmongChat.Home {
 extension AmongChat.Home.MainTabController {
     
     private func setupLayout() {
-                
+        
         if #available(iOS 13.0, *) {
             let appearance = tabBar.standardAppearance
             appearance.shadowImage = R.image.ac_home_tab_shadow()
@@ -87,6 +87,40 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.dismiss(animated: false)
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
+                
+            })
+            .disposed(by: bag)
+        
+        imViewModel.invitationRecommendObservable
+            .subscribe(onNext: { user, room in
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                    return
+                }
+                
+                if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
+                    
+                    
+                    let invitationModal: AmongChat.Home.RoomJoinViewController
+                    
+                    if let currentModal = topVC as? AmongChat.Home.RoomJoinViewController {
+                        invitationModal = currentModal
+                    } else {
+                        invitationModal = AmongChat.Home.RoomJoinViewController()
+                        invitationModal.modalPresentationStyle = .overCurrentContext
+                        topVC.present(invitationModal, animated: false)
+                    }
+                    
+                    invitationModal.updateContent(user: user, room: room)
+                    invitationModal.bindEvent(join: {
+                        invitationModal.dismiss(animated: false) {
+                            guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                                return
+                            }
+                            topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                        }
+                        //                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
+                    })
+                }
                 
             })
             .disposed(by: bag)
