@@ -1763,6 +1763,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Invite
+      /// 
+      /// Locales: en
+      static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Invite friends
       /// 
       /// Locales: en
@@ -1775,10 +1779,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatHomeFriendsShareTitle = Rswift.StringResource(key: "among.chat.home.friends.share.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Invtie
-      /// 
-      /// Locales: en
-      static let socialInvite = Rswift.StringResource(key: "social.invite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Jan
       /// 
       /// Locales: en
@@ -2557,6 +2557,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Invite
+      /// 
+      /// Locales: en
+      static func socialInvite(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Invite friends
       /// 
       /// Locales: en
@@ -2576,13 +2583,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatHomeFriendsShareTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.friends.share.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Invtie
-      /// 
-      /// Locales: en
-      static func socialInvite(_: Void = ()) -> String {
-        return NSLocalizedString("social.invite", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Jan
