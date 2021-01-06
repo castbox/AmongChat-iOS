@@ -13,8 +13,15 @@ class PolicyLabel: YYLabel {
     
     typealias LabelInteration = (_ targetPath: String) -> Void
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let plainString: String
+    private let privacy: String
+    private let terms: String
+    
+    init(with plainString: String, privacy: String, terms: String) {
+        self.privacy = privacy
+        self.terms = terms
+        self.plainString = plainString
+        super.init(frame: .zero)
         setup()
     }
     
@@ -29,9 +36,7 @@ class PolicyLabel: YYLabel {
         textAlignment = .center
         preferredMaxLayoutWidth = 300
         lineBreakMode = .byWordWrapping
-        let terms = R.string.localizable.amongChatTermsService()
-        let privacy = R.string.localizable.amongChatPrivacyPolicy()
-        let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+        let text = plainString
         let privacyRange = (text as NSString).range(of: privacy)
         let termsRange = (text as NSString).range(of: terms)
         

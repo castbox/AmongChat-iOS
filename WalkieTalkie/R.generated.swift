@@ -1541,7 +1541,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 155 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 157 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1927,6 +1927,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Privacy
+      /// 
+      /// Locales: en
+      static let amongChatSettingPrivacy = Rswift.StringResource(key: "among.chat.setting.privacy", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Privacy Policy
       /// 
       /// Locales: en
@@ -2043,6 +2047,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Terms
+      /// 
+      /// Locales: en
+      static let amongChatSettingTerms = Rswift.StringResource(key: "among.chat.setting.terms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en
@@ -2836,6 +2844,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("force.upgrade.tip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Privacy
+      /// 
+      /// Locales: en
+      static func amongChatSettingPrivacy(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.setting.privacy", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Privacy Policy
       /// 
       /// Locales: en
@@ -3037,6 +3052,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Terms
+      /// 
+      /// Locales: en
+      static func amongChatSettingTerms(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.setting.terms", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms of Service
@@ -3692,38 +3714,20 @@ struct _R: Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "Main"
       let premiumViewController = StoryboardViewControllerResource<PremiumViewController>(identifier: "PremiumViewController")
-      let pushSettingController = StoryboardViewControllerResource<PushSettingController>(identifier: "PushSettingController")
-      let settingViewController = StoryboardViewControllerResource<SettingViewController>(identifier: "SettingViewController")
       
       func premiumViewController(_: Void = ()) -> PremiumViewController? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: premiumViewController)
       }
       
-      func pushSettingController(_: Void = ()) -> PushSettingController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: pushSettingController)
-      }
-      
-      func settingViewController(_: Void = ()) -> SettingViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: settingViewController)
-      }
-      
       static func validate() throws {
-        if UIKit.UIImage(named: "ac_home_banner", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_home_banner' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_rate_us", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_rate_us' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_setting_diamonds", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_setting_diamonds' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_share_app", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_app' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in storyboard 'Main', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_push", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_push' is used in storyboard 'Main', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
           if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'Main', but couldn't be loaded.") }
         }
         if _R.storyboard.main().premiumViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'premiumViewController' could not be loaded from storyboard 'Main' as 'PremiumViewController'.") }
-        if _R.storyboard.main().pushSettingController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'pushSettingController' could not be loaded from storyboard 'Main' as 'PushSettingController'.") }
-        if _R.storyboard.main().settingViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'settingViewController' could not be loaded from storyboard 'Main' as 'SettingViewController'.") }
       }
       
       fileprivate init() {}

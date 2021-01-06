@@ -422,8 +422,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 let vc = Social.BlockedUserList.ViewController()
                 navigationController?.pushViewController(vc)
             case .settings:
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
+                let vc = SettingViewController()
                 navigationController?.pushViewController(vc)
             case .community:
                 self.open(urlSting: Config.PolicyType.url(.guideline))

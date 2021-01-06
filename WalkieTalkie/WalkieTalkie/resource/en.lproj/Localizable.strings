@@ -186,3 +186,5 @@
 "amongus.server.north.europe" = "Europe";
 
 "among.chat.unknown.error" = "Unknown Error";
+"among.chat.setting.terms" = "Terms";
+"among.chat.setting.privacy" = "Privacy";
