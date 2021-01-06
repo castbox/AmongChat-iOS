@@ -339,6 +339,17 @@ extension Settings {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.GlobalSetting.self)
+            .do(onSuccess: { [unowned self] (value) in
+                guard let newValue = value,
+                      !newValue.avatarVersion.isEmpty,
+                      newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? "" else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.amongChatAvatarListShown.value = nil
+                }
+            })
             .subscribe(onSuccess: { [unowned self] value in
                 self.globalSetting.value = value
             })
