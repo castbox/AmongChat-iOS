@@ -386,15 +386,15 @@ extension Social.ProfileViewController {
             contentView.addSubviews(views: iconIV, titleLabel)
             
             iconIV.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview()
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(20)
-                maker.bottom.equalToSuperview().offset(40).priorityLow()
+                maker.left.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(iconIV.snp.centerY)
-                maker.left.equalTo(iconIV.snp.right).offset(13)
+                maker.centerY.equalTo(iconIV)
+                maker.left.equalTo(iconIV.snp.right).offset(16)
+                maker.right.lessThanOrEqualToSuperview().offset(-20)
             }
         }
     }
