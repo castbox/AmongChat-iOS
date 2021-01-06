@@ -397,8 +397,8 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func inviteUser(roomId: String, uid: Int) -> Single<Entity.FollowData?> {
-        let paras = ["room_id": roomId, "uid": uid] as [String : Any]
+    static func inviteUser(roomId: String, uid: Int, isStranger: Bool) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId, "uid": uid, "is_stranger": isStranger.int] as [String : Any]
         return amongchatProvider.rx.request(.inviteUser(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()

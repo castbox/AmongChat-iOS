@@ -308,6 +308,7 @@ extension Social {
         private var userInfo: Entity.UserProfile!
         private var roomId = ""
         private var isInvite = false
+        private var isStranger = false
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -356,7 +357,7 @@ extension Social {
                     guard let `self` = self else { return }
                     if self.isInvite {
                         if self.userInfo != nil {
-                            self.inviteUserAction(self.userInfo)
+                            self.inviteUserAction(self.userInfo, isStranger: self.isStranger)
                         }
                     } else {
                         self.followUser()
@@ -365,7 +366,7 @@ extension Social {
         }
         
         func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
-            
+            self.isStranger = false
             self.userInfo = model
             if isSelf {
                 if isFollowing {
@@ -397,10 +398,11 @@ extension Social {
             }
         }
         
-        func setCellDataForShare(with model: Entity.UserProfile, roomId: String) {
+        func setCellDataForShare(with model: Entity.UserProfile, roomId: String, isStranger: Bool) {
             
             self.userInfo = model
             self.roomId = roomId
+            self.isStranger = isStranger
             
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
@@ -475,11 +477,11 @@ extension Social {
             }
         }
         
-        private func inviteUserAction(_ user: Entity.UserProfile) {
+        private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
             let invited = userInfo.invited ?? false
             if !invited {
                 let removeBlock = self.superview?.raft.show(.loading)
-                Request.inviteUser(roomId: roomId, uid: user.uid)
+                Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock?()
                         self?.updateInviteData?(true)

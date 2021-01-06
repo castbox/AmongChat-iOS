@@ -183,8 +183,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
-        if let user = items.safe(indexPath.section)?.userLsit.safe(indexPath.row) {
-            cell.setCellDataForShare(with: user, roomId: roomId)
+        if let item = items.safe(indexPath.section), let user = item.userLsit.safe(indexPath.row) {
+            cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger)
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
 //                user.invited = follow
