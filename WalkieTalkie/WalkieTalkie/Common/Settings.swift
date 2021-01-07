@@ -118,6 +118,26 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let preferredChatLanguage: PublishProperty<Entity.GlobalSetting.KeyValue?> = {
+
+        typealias Language = Entity.GlobalSetting.KeyValue
+        let value: Language?
+        
+        if let json = Defaults[\.preferredChatLanguageKey],
+           let result = try? JSONDecoder().decodeAnyData(Language.self, from: json) {
+            value = result
+        } else {
+            value = nil
+        }
+        
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                guard let newDict = event.new?.dictionary else { return }
+                Defaults[\.preferredChatLanguageKey] = newDict
+            })
+            .asPublishProperty()
+    }()
+    
     var appInstallDate: Date {
         get {
             if let dt = Defaults[\.appInstallDateKey] {
@@ -498,6 +518,10 @@ extension DefaultsKeys {
     
     var amongChatGlobalSettingKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.global.setting", defaultValue: [:])
+    }
+    
+    var preferredChatLanguageKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.preferred.chat.language", defaultValue: nil)
     }
 }
 

@@ -42,6 +42,9 @@
 		BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD91A398258C9153008931AD /* AmongChat.Home.TopicCell.swift */; };
 		BD91A39D258C981F008931AD /* AmongChat.Home.TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD91A39C258C981F008931AD /* AmongChat.Home.TopicViewModel.swift */; };
 		BD95F2DC2591C73B003BE2FE /* Social.SelectAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */; };
+		BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */ = {isa = PBXBuildFile; fileRef = BD9F26C425A5EEBD00FA3616 /* SupportedLanguages.json */; };
+		BD9F26CB25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9F26CA25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift */; };
+		BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9F26D025A6EBCC00FA3616 /* ChatLanguageHelper.swift */; };
 		BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDA05E9D250B22D50087933F /* Social.BlockedUserList.Widgets.swift */; };
 		BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */; };
 		BDB8F58724F7D925000027F8 /* Social.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDB8F58624F7D925000027F8 /* Social.swift */; };
@@ -347,6 +350,9 @@
 		BD91A398258C9153008931AD /* AmongChat.Home.TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.TopicCell.swift; sourceTree = "<group>"; };
 		BD91A39C258C981F008931AD /* AmongChat.Home.TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.TopicViewModel.swift; sourceTree = "<group>"; };
 		BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.SelectAvatarViewController.swift; sourceTree = "<group>"; };
+		BD9F26C425A5EEBD00FA3616 /* SupportedLanguages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SupportedLanguages.json; sourceTree = "<group>"; };
+		BD9F26CA25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.ChatLanguageViewController.swift; sourceTree = "<group>"; };
+		BD9F26D025A6EBCC00FA3616 /* ChatLanguageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLanguageHelper.swift; sourceTree = "<group>"; };
 		BDA05E9D250B22D50087933F /* Social.BlockedUserList.Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BlockedUserList.Widgets.swift; sourceTree = "<group>"; };
 		BDB21A51250A20DA000ADC20 /* Nunito-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-BoldItalic.ttf"; sourceTree = "<group>"; };
 		BDB8F58624F7D925000027F8 /* Social.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.swift; sourceTree = "<group>"; };
@@ -1188,6 +1194,7 @@
 				BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */,
 				FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */,
 				FECA43B62459A8A60075D139 /* cbegin.mp3 */,
+				BD9F26C425A5EEBD00FA3616 /* SupportedLanguages.json */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -1221,6 +1228,8 @@
 				FE8089CD2449EE65006A1644 /* SettingViewController.swift */,
 				FECA43B1245987CA0075D139 /* PushSettingController.swift */,
 				FE97371424AB3D050015ECE6 /* DebugViewController.swift */,
+				BD9F26CA25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift */,
+				BD9F26D025A6EBCC00FA3616 /* ChatLanguageHelper.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1347,6 +1356,7 @@
 				FE746BD324629A9800CAC554 /* BlackOpsOne-Regular.ttf in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
+				BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */,
 				FECFC50024666FD400B10EEE /* GuideThirdView.xib in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE746BDF24629B0500CAC554 /* GuideFourthView.xib in Resources */,
@@ -1650,6 +1660,7 @@
 				FE7720BF258E1521006A2F1B /* UIAlertControllerExtension.swift in Sources */,
 				FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */,
 				FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */,
+				BD9F26CB25A6B46800FA3616 /* AmongChat.ChatLanguageViewController.swift in Sources */,
 				FE684882244BD80700F87AF9 /* PremiumFreqControl.swift in Sources */,
 				BD6C36ED256E525000D1E708 /* AmongChat.swift in Sources */,
 				FE126D42243481BD00BEDD60 /* SeatManager.swift in Sources */,
@@ -1657,6 +1668,7 @@
 				FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */,
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				FE746BE224629B0500CAC554 /* GuideFourthView.swift in Sources */,
+				BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
 				BD6C36FA256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift in Sources */,
 				BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */,

@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 7 files.
+  /// This `R.file` struct is generated, and contains static references to 8 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -25,6 +25,8 @@ struct R: Rswift.Validatable {
     static let defaultRemoteConfigPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "DefaultRemoteConfig", pathExtension: "plist")
     /// Resource file `GoogleService-Info.plist`.
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
+    /// Resource file `SupportedLanguages.json`.
+    static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
     /// Resource file `call.m4a`.
     static let callM4a = Rswift.FileResource(bundle: R.hostingBundle, name: "call", pathExtension: "m4a")
     /// Resource file `cbegin.mp3`.
@@ -49,6 +51,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "GoogleService-Info", withExtension: "plist")`
     static func googleServiceInfoPlist(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.googleServiceInfoPlist
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "SupportedLanguages", withExtension: "json")`
+    static func supportedLanguagesJson(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.supportedLanguagesJson
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -144,7 +152,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 149 images.
+  /// This `R.image` struct is generated, and contains static references to 150 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -242,6 +250,8 @@ struct R: Rswift.Validatable {
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
+    /// Image `ac_setting_check`.
+    static let ac_setting_check = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_check")
     /// Image `ac_setting_diamonds`.
     static let ac_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_diamonds")
     /// Image `ac_setting_region`.
@@ -683,6 +693,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
     static func ac_room_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_share, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_setting_check", bundle: ..., traitCollection: ...)`
+    static func ac_setting_check(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_setting_check, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_setting_diamonds", bundle: ..., traitCollection: ...)`

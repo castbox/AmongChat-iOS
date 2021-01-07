@@ -72,7 +72,7 @@ extension Entity {
             }
         }
         
-        struct ChangeTip: Codable {
+        struct KeyValue: Codable {
             let key: String
             let value: String
             
@@ -85,25 +85,28 @@ extension Entity {
         
         let roomBg: [RoomBg]
         let roomEmoji: [RoomEmoji]
-        let changeTip: [ChangeTip]
+        let changeTip: [KeyValue]
+        let chatLanguage: [KeyValue]
         
         private enum CodingKeys: String, CodingKey {
             case roomBg = "room_bg"
             case roomEmoji = "room_emoji"
             case changeTip = "change_tip"
+            case chatLanguage = "chat_language"
         }
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             roomBg = try container.decode([RoomBg].self, forKey: .roomBg)
             roomEmoji = try container.decode([RoomEmoji].self, forKey: .roomEmoji)
-            changeTip = (try? container.decode([ChangeTip].self, forKey: .changeTip)) ?? []
+            changeTip = (try? container.decode([KeyValue].self, forKey: .changeTip)) ?? []
+            chatLanguage = (try? container.decode([KeyValue].self, forKey: .chatLanguage)) ?? []
         }
     }
     
 }
 
-extension Entity.GlobalSetting.ChangeTip {
+extension Entity.GlobalSetting.KeyValue {
     
     enum KeyType: String {
         case avatar
@@ -117,7 +120,7 @@ extension Entity.GlobalSetting {
         return changeTipValue(.avatar)
     }
     
-    func changeTipValue(_ key: ChangeTip.KeyType) -> String {
+    func changeTipValue(_ key: KeyValue.KeyType) -> String {
         guard let tip = changeTip.first(where: { $0.key == key.rawValue }) else {
             return ""
         }

@@ -15,6 +15,8 @@ import SCSDKLoginKit
 
 class SettingViewController: ViewController {
     
+    private typealias Language = Entity.GlobalSetting.KeyValue
+    
     private lazy var versionLabel: UILabel = {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 12)
@@ -92,6 +94,7 @@ class SettingViewController: ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupEvent()
     }
 }
 
@@ -174,11 +177,13 @@ extension SettingViewController {
     
     func setupEvent() {
         
-        Settings.shared.isProValue.replay().skip(1)
+        Observable.combineLatest(Settings.shared.isProValue.replay(),
+                                 Settings.shared.preferredChatLanguage.replay(),
+                                 ChatLanguageHelper.supportedLanguages)
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (_) in
+            .subscribe(onNext: { [weak self] _, _, lans in
                 guard let `self` = self else { return }
-                self.settingOptions = self.generateDataSource()
+                self.settingOptions = self.generateDataSource(languages: lans)
             })
             .disposed(by: bag)
     }
@@ -230,15 +235,33 @@ extension SettingViewController {
         }
     }
     
-    private func generateDataSource() -> [Option] {
+    private func generateDataSource(languages: [Language] = []) -> [Option] {
         var options: [Option] = [
-            .region,
-            .rateUs,
-            .shareApp,
+            Option(type: .rateUs, selectionHandler: { [weak self] in
+                self?.rateApp()
+            }),
+            Option(type: .shareApp, selectionHandler: { [weak self] in
+                self?.shareApp()
+            }),
         ]
         
         if Settings.shared.isInReview.value || Settings.shared.isProValue.value {
-            options.append(.premium)
+            options.append(
+                Option(type: .premium, selectionHandler: { [weak self] in
+                    self?.upgradePro()
+                })
+            )
+        }
+        
+        if languages.count > 0 {
+            
+            let currentLan = ChatLanguageHelper.currentLanguage(from: languages)
+            
+            let regionOption = Option(type: .region, rightText: currentLan.value, selectionHandler: { [weak self] in
+                let vc = AmongChat.ChatLanguageViewController(with: languages)
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
+            options.insert(regionOption, at: 0)
         }
         
         return options
@@ -266,28 +289,29 @@ extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 1 {
-            rateApp()
-        } else if indexPath.row == 2 {
-            shareApp()
-        }
-        else if indexPath.row == 3 {
-            upgradePro()
-        }
+        guard let option = settingOptions.safe(indexPath.row) else { return }
+        option.selectionHandler()
     }
     
 }
 
 extension SettingViewController {
     
-    enum Option {
-        case region
-        case rateUs
-        case shareApp
-        case premium
+    struct Option {
+        
+        enum OptionType {
+            case region
+            case rateUs
+            case shareApp
+            case premium
+        }
+        
+        let type: OptionType
+        var rightText: String? = nil
+        let selectionHandler: (() -> Void)
                 
         var leftText: String {
-            switch self {
+            switch type {
             case .region:
                 return R.string.localizable.settingChatLanguage()
             case .rateUs:
@@ -304,7 +328,7 @@ extension SettingViewController {
         }
         
         var leftIcon: UIImage? {
-            switch self {
+            switch type {
             case .region:
                 return R.image.ac_setting_region()
             case .rateUs:
@@ -317,7 +341,7 @@ extension SettingViewController {
         }
         
         var rightIcon: UIImage? {
-            switch self {
+            switch type {
             case .premium:
                 if Settings.shared.isProValue.value {
                     return nil
@@ -326,15 +350,6 @@ extension SettingViewController {
                 }
             default:
                 return R.image.ac_right_arrow()
-            }
-        }
-        
-        var rightText: String? {
-            switch self {
-            case .region:
-                return ""
-            default:
-                return nil
             }
         }
         
