@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 8 files.
+  /// This `R.file` struct is generated, and contains static references to 5 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -27,14 +27,8 @@ struct R: Rswift.Validatable {
     static let googleServiceInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "GoogleService-Info", pathExtension: "plist")
     /// Resource file `SupportedLanguages.json`.
     static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
-    /// Resource file `call.m4a`.
-    static let callM4a = Rswift.FileResource(bundle: R.hostingBundle, name: "call", pathExtension: "m4a")
-    /// Resource file `cbegin.mp3`.
-    static let cbeginMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "cbegin", pathExtension: "mp3")
     /// Resource file `emojis.json`.
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
-    /// Resource file `end.mp3`.
-    static let endMp3 = Rswift.FileResource(bundle: R.hostingBundle, name: "end", pathExtension: "mp3")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -60,37 +54,17 @@ struct R: Rswift.Validatable {
       return fileResource.bundle.url(forResource: fileResource)
     }
     
-    /// `bundle.url(forResource: "call", withExtension: "m4a")`
-    static func callM4a(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.callM4a
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "cbegin", withExtension: "mp3")`
-    static func cbeginMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.cbeginMp3
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
     /// `bundle.url(forResource: "emojis", withExtension: "json")`
     static func emojisJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.emojisJson
       return fileResource.bundle.url(forResource: fileResource)
     }
     
-    /// `bundle.url(forResource: "end", withExtension: "mp3")`
-    static func endMp3(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.endMp3
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 7 fonts.
+  /// This `R.font` struct is generated, and contains static references to 6 fonts.
   struct font: Rswift.Validatable {
-    /// Font `BlackOpsOne-Regular`.
-    static let blackOpsOneRegular = Rswift.FontResource(fontName: "BlackOpsOne-Regular")
     /// Font `Nunito-Black`.
     static let nunitoBlack = Rswift.FontResource(fontName: "Nunito-Black")
     /// Font `Nunito-BoldItalic`.
@@ -103,11 +77,6 @@ struct R: Rswift.Validatable {
     static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
     static let nunitoSemiBold = Rswift.FontResource(fontName: "Nunito-SemiBold")
-    
-    /// `UIFont(name: "BlackOpsOne-Regular", size: ...)`
-    static func blackOpsOneRegular(size: CGFloat) -> UIKit.UIFont? {
-      return UIKit.UIFont(resource: blackOpsOneRegular, size: size)
-    }
     
     /// `UIFont(name: "Nunito-Black", size: ...)`
     static func nunitoBlack(size: CGFloat) -> UIKit.UIFont? {
@@ -140,7 +109,6 @@ struct R: Rswift.Validatable {
     }
     
     static func validate() throws {
-      if R.font.blackOpsOneRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'BlackOpsOne-Regular' could not be loaded, is 'BlackOpsOne-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-BoldItalic' could not be loaded, is 'Nunito-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }

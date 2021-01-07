@@ -186,7 +186,7 @@ extension AmongChat.Login.ViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .google)
+                    Logger.Action.log(.login_success, category: .snapchat)
                 }
             }, onError: { [weak self] (error) in
                 self?.loginHandler(nil, error)
@@ -206,7 +206,7 @@ extension AmongChat.Login.ViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .google)
+                    Logger.Action.log(.login_success, category: .facebook)
                 }
             }, onError: { [weak self] (error) in
                 self?.loginHandler(nil, error)
