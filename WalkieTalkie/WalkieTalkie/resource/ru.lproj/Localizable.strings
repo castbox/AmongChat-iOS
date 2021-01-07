@@ -1,0 +1,187 @@
+/*
+  Localizable.strings
+  WalkieTalkie
+
+  Created by 袁仕崇 on 2020/4/20.
+  Copyright © 2020 Guru Rain. All rights reserved.
+*/
+
+"premium.free.trial" = "ПОПРОБУЙТЕ БЕСПЛАТНО";
+"premium.free.3d.trial" = "3-дневная бесплатная пробная версия";
+
+"premium.subscription.terms" = "Условия подписки:";
+"premium.subscription.detail.free" = "После бесплатной пробной версии %@ подписка становится %@, она автоматически продлевается, если не отключена в настройках учета по крайней мере за 24 часа до окончания текущего периода. Оплата взимается с вашей учетной записи iTunes, отмените в любой момент.";
+"premium.subscription.detail.normal" = "%@ подписка равна %@, она автоматически продлевается, если она не отключена в настройках учета по крайней мере за 24 часа до окончания текущего периода. Оплата взимается с вашей учетной записи iTunes, отмените в любой момент.";
+
+"settings.title" = "Настройки";
+
+"settings.restore.title" = "Восстановить";
+"settings.restore.success.title" = "Все готово";
+"settings.restore.success.body" = "ваша покупка была успешной";
+"settings.restore.fail.title" = "Покупка не найдена";
+"settings.restore.fail.body" = "В вашем аккаунте не было покупок";
+"alert.ok" = "Хорошо";
+"toast.confirm" = "Хорошо";
+"toast.cancel" = "Отменить";
+
+"premium.try.title" = "Попробуйте бесплатно";
+"premium.try.title.des" = "3 дня бесплатно, затем %@ / год";
+
+"guide.subscribe.title" = "Подписывайся";
+"guide.continue" = "Продолжить";
+"copied" = "Скопировано";
+
+"report.title" = "Отчет";
+"report.room.id" = "ID канала";
+"report.incorrect.information" = "Неверная информация";
+"report.incorrect.sexual" = "Сексуальный контент";
+"report.incorrect.harassment" = "Оскорбления или отталкивающие выражения";
+"report.incorrect.unreasonable" = "Необоснованные требования";
+"report.success" = "Вы успешно заявили об \nэтом человеке";
+
+
+"alert.block" = "Блокировать";
+"alert.unblock" = "Разблокировать";
+
+//Profile
+"profile.profile" = "Профиль";
+"profile.nickname" = "Прозвище";
+"profile.bag.nickname" = "Прозвище";
+"profile.following" = "Следующий";
+"profile.follower" = "Подписчики";
+"profile.follow" = "Следить";
+"profile.little.follower" = "подписчики";
+"profile.little.following" = "следующий";
+"profile.invite.friends" = "Пригласить друзей";
+"profile.block.user" = "Черный список";
+"profile.settings" = "Настройки";
+"profile.community" = "Правила сообщества";
+"profile.birthday" = "День рождения";
+"profile.birthday.subtitle" = "Найдите друзей своего возраста";
+"profile.done" = "Готово";
+"profile.birthday.skip" = "Пропускать";
+"profile.pro" = "PRO";
+"profile.unlock.pro" = "Разблокировать PRO";
+"profile.Unblock" = "Разблокировать";
+"profile.block.message" = "Вы уверены, что заблокируете \nэтого человека?";
+"profile.unblock.message" = "Вы уверены, \nчто разблокируете этого человека?";
+"profile.block.user.success" = "Вы успешно \nзаблокировали этого человека";
+"profile.unblock.user.success" = "Этот человек был \nразблокирован";
+
+// error message
+"error.no.following" = "Вы еще не подписались на других.";
+"error.no.teammates" = "Ой, товарищей по команде пока нет!";
+"error.no.followers" = "Упс, пока нет подписчиков!";
+"error.no.blocker" = "Вы еще не заблокировали других.";
+"content.contain.sensitive.words" = "Контент содержит конфиденциальные слова, пожалуйста, измените";
+//month
+"month.jan" = "Янв";
+"month.feb" = "Фев";
+"month.mar" = "Мар";
+"month.apr" = "Апр";
+"month.may" = "Mай";
+"month.jun" = "Июн";
+"month.jul" = "Июл";
+"month.aug" = "Авг";
+"month.sep" = "Сен";
+"month.oct" = "Октябрь";
+"month.nov" = "Ноя";
+"month.dec" = "Декабрь";
+
+// Edit Profile
+"profile.edit.save.btn" = "Сохранить";
+"social.blocked.user.title" = "Черный список";
+"social.join.action" = "Присоединиться";
+"social.status.online" = "В сети";
+"social.sms" = "SMS";
+"social.copy.link" = "Копировать ссылку";
+"social.invite.friends" = "Пригласить друзей";
+"social.invite" = "пригласить";
+"social.invited" = "послал";
+"social.invite.play.with" = "Люди, с которыми вы можете поиграть";
+"social.exit.channel" = "Выход из канала";
+"social.follow.teammates" = "Следуйте за своими товарищами по команде, \nчтобы в следующий раз сыграть вместе";
+"social.share.url" = "Привет, я нахожусь в комнате AmongUs в AmongChat! Нам нужно еще 9 человек !!! Нажмите на ссылку, чтобы присоединиться: %@";
+"social.followed.sucess" = "Вы успешно подписались на \nэтого человека";
+"social.block.failed" = "Не удалось заблокировать этого человека, \nпопробуйте еще раз.";
+"social.unblock.failed" = "Не удалось разблокировать этого человека, \nпопробуйте еще раз.";
+"social.follow.failed" = "Не удалось подписаться на этого человека, \nпопробуйте еще раз.";
+
+
+"channel.user.list.follow" = "Cледить";
+"channel.user.list.mute" = "Отключить звук";
+"channel.user.list.unmute" = "Включить звук";
+"among.chat.leave.room.tip.title" = "Вы уверены, что выходите из канала?";
+"among.chat.room.message.placeholder" = "Скажите что-то...";
+"premium.lifetime" = "продолжительность жизни";
+"premium.subscription.detail.lifetime" = "Платите один раз, без подписки";
+"force.upgrade.tip" = "Пожалуйста, обновите приложение до последней версии, чтобы продолжить игру.";
+
+//new
+"room.public" = "Общественные";
+"room.private" = "Частный";
+"among.chat.room.tip.mic.on" = "Микрофон включен";
+"room.tag.open.game" = "Открытая игра";
+"room.hosts.notes" = "Примечания хозяина:";
+"room.user.list.muted" = "Без звука";
+
+"among.chat.privacy.policy" = "Политика конфиденциальности";
+"among.chat.terms.service" = "Условия обслуживания";
+"among.chat.privacy.label" = "Продолжая, вы соглашаетесь с нашими %1$@ и %2$@";
+"among.chat.login.sign.in.with.google" = "Войти через Google";
+"among.chat.login.sign.in.with.apple" = "Войти через Apple";
+"among.chat.login.sign.in.with.snapchat" = "Войти через Snapchat";
+"among.chat.login.sign.in.with.facebook" = "Войти через Facebook";
+"among.chat.login.sign.in.cancelled" = "Вход отменен";
+"among.chat.create.room.input.placeholder" = "ВОЙТИ В ТЕМУ";
+"among.chat.create.room.confirm.btn" = "Создайте %1$@ канал";
+"among.chat.create.room.private" = "Частный";
+"among.chat.create.room.title" = "Создать канал";
+"among.chat.create.room.topic.title" = "Горячие темы";
+"among.chat.home.team.up" = "Играть сейчас";
+"among.chat.home.nowplaying" = "%1$@ онлайн";
+"among.chat.room.kick.selected" = "Удар выбран (%@)";
+"among.chat.room.just.chat.title" = "Хост мог настроить заметку, чтобы все могли видеть ее, когда присоединяются";
+"among.chat.room.kickout" = "Вас удалили с этого канала";
+"among.chat.room.reblox.title" = "Добавьте хоста в Roblox, чтобы присоединиться к их игре! Нажмите, чтобы скопировать";
+"among.chat.room.set.reblox.name" = "Установить имя пользователя Roblox";
+"among.chat.room.kick" = "Удар";
+"among.chat.room.user.change.notes.title" = "Только владелец канала может изменить это";
+"among.chat.home.load.error.title" = "Ой, нет Интернета!";
+"among.chat.home.load.error.msg" = "Пожалуйста, проверьте ваше соединение и попробуйте еще раз";
+"among.chat.try.again" = "Попробуйте снова";
+"among.chat.welcome.message" = "Добро пожаловать на %@ канал. Любая порнография или непристойное содержание строго запрещено. Каналы контролируются 24/7, и пользователи, обнаружившие такой контент, могут быть забанены.";
+
+"among.chat.home.enter.room.failed" = "Не удалось войти в канал";
+"among.chat.reward.video.load.failed" = "Не удалось загрузить видео";
+"among.chat.unlock.avatar.failed" = "Не удалось разблокировать аватар";
+"among.chat.update.profile.failed" = "Не удалось обновить профиль";
+"among.chat.home.friends.online.title" = "Ваши друзья в сети";
+"among.chat.home.friends.suggestion.title" = "Люди, с которыми вы можете поиграть";
+"among.chat.home.friends.share.title" = "Пригласите друзей поиграть вместе";
+"among.chat.home.friends.in.channel" = "в %1$@ канале";
+"among.chat.ignore" = "игнорировать";
+"among.chat.channel.invitation.msg" = "приглашает вас на свой %1$@ канал";
+"among.chat.home.firends.private.channel.tip" = "Этот канал частный";
+
+"guide.fourth.title" = "Наслаждайтесь этими потрясающими вещами! \n✔️ Секретные каналы \n✔️ Неограниченные права на разговор";
+
+"rate.us" = "Оцените нас";
+"share.app" = "Поделиться приложением";
+"push.setting" = "Нажмите Настройка";
+"log.out" = "Выйти";
+"room.leave" = "Покинуть";
+"room.setup.in.game.code.title" = "Настройте внутриигровой код здесь";
+"room.setup.in.game.code.subtitle" = "Только этот хост канала может установить код";
+"room.setup.amongus.title" = "нажмите, чтобы скопировать код";
+"room.setup.amongus.subtitle" = "Только этот хост канала может установить код";
+"room.setup.host.notes" = "Заметки хозяина";
+"room.setup.host.notes.subtitle" = "ведущий может настроить заметки, чтобы все могли видеть их, когда присоединяются к каналу";
+
+"room.amongchat.input.code.plceholder" = "ВВЕДИТЕ ЛИЧНЫЙ КОД";
+"room.roblox.input.code.plceholder" = "ROBLOX ИМЯ ПОЛЬЗОВАТЕЛЯ";
+"amongus.server.north.america" = "Северная Америка";
+"amongus.server.north.asia" = "Азия";
+"amongus.server.north.europe" = "Европа";
+
+"among.chat.unknown.error" = "Неизвестная ошибка";

@@ -58,6 +58,7 @@ class SettingViewController: ViewController {
         
     private lazy var settingsTable: UITableView = {
         let tb = UITableView(frame: .zero, style: .plain)
+        tb.showsVerticalScrollIndicator = false
         tb.register(SettingCell.self, forCellReuseIdentifier: NSStringFromClass(SettingCell.self))
         tb.backgroundColor = UIColor.theme(.backgroundBlack)
         tb.dataSource = self
@@ -218,6 +219,7 @@ extension SettingViewController {
     }
     
     private func rateApp() {//rate us
+        view.raft.autoShow(.loading)
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
         } else {

@@ -1,0 +1,187 @@
+/*
+  Localizable.strings
+  WalkieTalkie
+
+  Created by 袁仕崇 on 2020/4/20.
+  Copyright © 2020 Guru Rain. All rights reserved.
+*/
+
+"premium.free.trial" = "자유롭게 시도하세요";
+"premium.free.3d.trial" = "3D 무료 평가판";
+
+"premium.subscription.terms" = "구독 조건 :";
+"premium.subscription.detail.free" = "무료 평가판 후 %@ 구독은 %@이며 현재 기간이 종료되기 최소 24 시간 전에 회계 설정에서 해제하지 않으면 자동으로 갱신됩니다. 결제는 iTunes 계정으로 청구되며 언제든지 취소 할 수 있습니다.";
+"premium.subscription.detail.normal" = "%@ 구독은 %@이며 현재 기간이 종료되기 최소 24 시간 전에 회계 설정에서 해제하지 않으면 자동으로 갱신됩니다. 결제는 iTunes 계정으로 청구되며 언제든지 취소 할 수 있습니다.";
+
+"settings.title" = "설정";
+
+"settings.restore.title" = "복원";
+"settings.restore.success.title" = "설정이 완료되었습니다.";
+"settings.restore.success.body" = "성공적으로 구매하셨습니다";
+"settings.restore.fail.title" = "구매를 찾을 수 없습니다";
+"settings.restore.fail.body" = "귀하의 계정에 구매 내역이 없습니다.";
+"alert.ok" = "확인";
+"toast.confirm" = "확인";
+"toast.cancel" = "취소";
+
+"premium.try.title" = "자유롭게 시도하세요";
+"premium.try.title.des" = "3 일 무료 평가판 이후 %@ / 년";
+
+"guide.subscribe.title" = "구독";
+"guide.continue" = "계속하다";
+"copied" = "복사 됨";
+
+"report.title" = "보고서";
+"report.room.id" = "채널 ID";
+"report.incorrect.information" = "잘못된 정보";
+"report.incorrect.sexual" = "성적인 콘텐츠";
+"report.incorrect.harassment" = "괴롭힘 또는 혐오스러운 언어";
+"report.incorrect.unreasonable" = "불합리한 요구";
+"report.success" = "성공적으로 신고했습니다 \n이 사람을";
+
+
+"alert.block" = "블록";
+"alert.unblock" = "차단 해제";
+
+//Profile
+"profile.profile" = "프로필";
+"profile.nickname" = "별명";
+"profile.bag.nickname" = "별명";
+"profile.following" = "수행원";
+"profile.follower" = "추종자";
+"profile.follow" = "따르다";
+"profile.little.follower" = "추종자";
+"profile.little.following" = "수행원";
+"profile.invite.friends" = "친구를 초대";
+"profile.block.user" = "차단 목록";
+"profile.settings" = "설정";
+"profile.community" = "커뮤니티 지침";
+"profile.birthday" = "생신";
+"profile.birthday.subtitle" = "같은 나이의 친구 찾기";
+"profile.done" = "끝난";
+"profile.birthday.skip" = "건너 뛰기";
+"profile.pro" = "PRO";
+"profile.unlock.pro" = "PRO 잠금 해제";
+"profile.Unblock" = "차단 해제";
+"profile.block.message" = "이 사람을 차단 \n하시겠습니까?";
+"profile.unblock.message" = "이 사람을 차단 해제 \n하시겠습니까?";
+"profile.block.user.success" = "이 사람을 성공적으로 \n차단했습니다.";
+"profile.unblock.user.success" = "이 사람은 차단 \n해제되었습니다.";
+
+// error message
+"error.no.following" = "아직 다른 사람을 팔로우하지 않았습니다.";
+"error.no.teammates" = "죄송합니다. 아직 팀원이 없습니다!";
+"error.no.followers" = "아직 팔로워가 없습니다!";
+"error.no.blocker" = "아직 다른 사람을 차단하지 않았습니다.";
+"content.contain.sensitive.words" = "콘텐츠에 민감한 단어가 포함되어 있습니다. 수정하세요.";
+//month
+"month.jan" = "1 월";
+"month.feb" = "2 월";
+"month.mar" = "망치다";
+"month.apr" = "4 월";
+"month.may" = "할 수있다";
+"month.jun" = "6 월";
+"month.jul" = "7 월";
+"month.aug" = "8 월";
+"month.sep" = "9 월";
+"month.oct" = "10 월";
+"month.nov" = "11 월";
+"month.dec" = "12 월";
+
+// Edit Profile
+"profile.edit.save.btn" = "저장";
+"social.blocked.user.title" = "차단 목록";
+"social.join.action" = "어울리다";
+"social.status.online" = "온라인";
+"social.sms" = "SMS";
+"social.copy.link" = "링크 복사";
+"social.invite.friends" = "친구를 초대";
+"social.invite" = "초대";
+"social.invited" = "보낸";
+"social.invite.play.with" = "함께 플레이하고 싶은 사람";
+"social.exit.channel" = "채널 종료";
+"social.follow.teammates" = "다음에 함께 플레이하려면 팀원을 \n따르십시오";
+"social.share.url" = "안녕하세요, 저는 BetweenChat의 WithinUs 방에 있습니다! 9 명이 더 필요 해요 !!! 가입하려면 링크를 탭하세요 : %@";
+"social.followed.sucess" = "이 사람을 성공적으로 \n팔로우했습니다.";
+"social.block.failed" = "이 사용자를 차단하지 못했습니다. \n다시 시도하십시오.";
+"social.unblock.failed" = "이 사용자를 차단 해제하지 못했습니다. \n다시 시도해주세요.";
+"social.follow.failed" = "이 사람을 팔로우하지 못했습니다. \n다시 시도해주세요.";
+
+
+"channel.user.list.follow" = "따르다";
+"channel.user.list.mute" = "음소거";
+"channel.user.list.unmute" = "음소거 해제";
+"among.chat.leave.room.tip.title" = "채널을 종료 하시겠습니까?";
+"among.chat.room.message.placeholder" = "말해봐...";
+"premium.lifetime" = "일생";
+"premium.subscription.detail.lifetime" = "한 번 지불, 구독 없음";
+"force.upgrade.tip" = "계속 플레이하려면 최신 버전의 앱으로 업데이트하세요.";
+
+//new
+"room.public" = "공공의";
+"room.private" = "은밀한";
+"among.chat.room.tip.mic.on" = "마이크 켜기";
+"room.tag.open.game" = "오픈 게임";
+"room.hosts.notes" = "호스트 메모:";
+"room.user.list.muted" = "음소거";
+
+"among.chat.privacy.policy" = "개인 정보 정책";
+"among.chat.terms.service" = "서비스 약관";
+"among.chat.privacy.label" = "계속하면 %1$@ 및 %2$@에 동의하는 것입니다.";
+"among.chat.login.sign.in.with.google" = "Google로 로그인";
+"among.chat.login.sign.in.with.apple" = "Apple로 로그인";
+"among.chat.login.sign.in.with.snapchat" = "Snapchat으로 로그인";
+"among.chat.login.sign.in.with.facebook" = "Facebook으로 로그인";
+"among.chat.login.sign.in.cancelled" = "로그인 취소";
+"among.chat.create.room.input.placeholder" = "주제 입력";
+"among.chat.create.room.confirm.btn" = "%1$@ 채널 만들기";
+"among.chat.create.room.private" = "은밀한";
+"among.chat.create.room.title" = "채널 생성";
+"among.chat.create.room.topic.title" = "핫 토픽";
+"among.chat.home.team.up" = "지금 플레이";
+"among.chat.home.nowplaying" = "%1$@ 온라인";
+"among.chat.room.kick.selected" = "선택 킥 (%@)";
+"among.chat.room.just.chat.title" = "호스트는 모든 사람이 참여할 때 볼 수 있도록 메모를 설정할 수 있습니다.";
+"among.chat.room.kickout" = "이 채널에서 삭제되었습니다.";
+"among.chat.room.reblox.title" = "Roblox에서 호스트를 추가하여 게임에 참여하세요! 복사하려면 클릭";
+"among.chat.room.set.reblox.name" = "Roblox 사용자 이름 설정";
+"among.chat.room.kick" = "발 차기";
+"among.chat.room.user.change.notes.title" = "채널 소유자 만 변경할 수 있습니다.";
+"among.chat.home.load.error.title" = "죄송합니다. 인터넷이 없습니다!";
+"among.chat.home.load.error.msg" = "연결을 확인하고 다시 시도하십시오.";
+"among.chat.try.again" = "다시 시도하십시오";
+"among.chat.welcome.message" = "%@ 채널에 오신 것을 환영합니다. 포르노 또는 기타 부적절한 콘텐츠는 엄격히 금지됩니다. 채널은 24/7 모니터링되며 이러한 콘텐츠가있는 사용자는 차단 될 수 있습니다.";
+
+"among.chat.home.enter.room.failed" = "채널에 들어 가지 못했습니다.";
+"among.chat.reward.video.load.failed" = "비디오를로드하지 못했습니다.";
+"among.chat.unlock.avatar.failed" = "아바타를 잠금 해제하지 못했습니다.";
+"among.chat.update.profile.failed" = "프로필을 업데이트하지 못했습니다.";
+"among.chat.home.friends.online.title" = "온라인 친구";
+"among.chat.home.friends.suggestion.title" = "함께 플레이하고 싶은 사람";
+"among.chat.home.friends.share.title" = "친구를 초대하여 함께 플레이하세요";
+"among.chat.home.friends.in.channel" = "%1$@ 채널";
+"among.chat.ignore" = "무시하다";
+"among.chat.channel.invitation.msg" = "%1$@ 채널에 당신을 초대합니다";
+"among.chat.home.firends.private.channel.tip" = "이 채널은 비공개입니다";
+
+"guide.fourth.title" = "이 멋진 것들을 즐기십시오! \n✔️ 비밀 채널 \n✔️ 무제한 대화 권한";
+
+"rate.us" = "평가";
+"share.app" = "앱 공유";
+"push.setting" = "푸시 설정";
+"log.out" = "로그 아웃";
+"room.leave" = "떠나다";
+"room.setup.in.game.code.title" = "여기에서 게임 내 코드 설정";
+"room.setup.in.game.code.subtitle" = "이 채널 호스트 만 코드를 설정할 수 있습니다.";
+"room.setup.amongus.title" = "코드를 복사하려면 클릭하세요";
+"room.setup.amongus.subtitle" = "이 채널 호스트 만 코드를 설정할 수 있습니다.";
+"room.setup.host.notes" = "호스트 메모";
+"room.setup.host.notes.subtitle" = "호스트는 모든 사람이 채널에 참여할 때 볼 수 있도록 메모를 설정할 수 있습니다.";
+
+"room.amongchat.input.code.plceholder" = "개인 코드 입력";
+"room.roblox.input.code.plceholder" = "ROBLOX 사용자 이름";
+"amongus.server.north.america" = "북아메리카";
+"amongus.server.north.asia" = "아시아";
+"amongus.server.north.europe" = "유럽";
+
+"among.chat.unknown.error" = "알수없는 오류";

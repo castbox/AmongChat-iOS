@@ -31,6 +31,7 @@ extension AmongChat {
         
         private lazy var languagesTable: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
+            tb.showsVerticalScrollIndicator = false
             tb.register(LanguageCell.self, forCellReuseIdentifier: NSStringFromClass(LanguageCell.self))
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
             tb.dataSource = self
