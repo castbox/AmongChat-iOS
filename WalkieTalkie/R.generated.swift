@@ -1632,8 +1632,8 @@ struct R: Rswift.Validatable {
       static let reportRoomId = Rswift.StringResource(key: "report.room.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Channel closed due to inactivity
       /// 
-      /// Locales: en
-      static let amongChatRoomKickoutSystem = Rswift.StringResource(key: "among.chat.room.kickout.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomKickoutSystem = Rswift.StringResource(key: "among.chat.room.kickout.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en
@@ -1708,8 +1708,8 @@ struct R: Rswift.Validatable {
       static let socialExitChannel = Rswift.StringResource(key: "social.exit.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: FORTNITE USERNAME
       /// 
-      /// Locales: en
-      static let roomFortniteInputCodePlceholder = Rswift.StringResource(key: "room.fortnite.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomFortniteInputCodePlceholder = Rswift.StringResource(key: "room.fortnite.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Failed to block this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1768,8 +1768,8 @@ struct R: Rswift.Validatable {
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Fortnite DISPLAY NAME
       /// 
-      /// Locales: en
-      static let roomFreefireInputCodePlceholder = Rswift.StringResource(key: "room.freefire.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomFreefireInputCodePlceholder = Rswift.StringResource(key: "room.freefire.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1852,8 +1852,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomTipMicOn = Rswift.StringResource(key: "among.chat.room.tip.mic.on", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: MINECRAFT GAMERTAG
       /// 
-      /// Locales: en
-      static let roomMinecraftInputCodePlceholder = Rswift.StringResource(key: "room.minecraft.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomMinecraftInputCodePlceholder = Rswift.StringResource(key: "room.minecraft.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Make your #amongchat video on TikTok
       /// 
       /// Locales: en
@@ -1968,8 +1968,8 @@ struct R: Rswift.Validatable {
       static let forceUpgradeTip = Rswift.StringResource(key: "force.upgrade.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Privacy
       /// 
-      /// Locales: en
-      static let amongChatSettingPrivacy = Rswift.StringResource(key: "among.chat.setting.privacy", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatSettingPrivacy = Rswift.StringResource(key: "among.chat.setting.privacy", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Privacy Policy
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2044,12 +2044,12 @@ struct R: Rswift.Validatable {
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Setup Fortnite Display Name
       /// 
-      /// Locales: en
-      static let amongChatRoomSetFortniteName = Rswift.StringResource(key: "among.chat.room.set.fortnite.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetFortniteName = Rswift.StringResource(key: "among.chat.room.set.fortnite.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Setup Free Fire Nickname
       /// 
-      /// Locales: en
-      static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Setup Minecraft Gamertag
       /// 
       /// Locales: en
@@ -2100,8 +2100,8 @@ struct R: Rswift.Validatable {
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Terms
       /// 
-      /// Locales: en
-      static let amongChatSettingTerms = Rswift.StringResource(key: "among.chat.setting.terms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatSettingTerms = Rswift.StringResource(key: "among.chat.setting.terms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Terms of Service
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2365,7 +2365,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Channel closed due to inactivity
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomKickoutSystem(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.kickout.system", bundle: R.hostingBundle, comment: "")
       }
@@ -2498,7 +2498,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: FORTNITE USERNAME
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomFortniteInputCodePlceholder(_: Void = ()) -> String {
         return NSLocalizedString("room.fortnite.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
@@ -2603,7 +2603,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Fortnite DISPLAY NAME
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomFreefireInputCodePlceholder(_: Void = ()) -> String {
         return NSLocalizedString("room.freefire.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
@@ -2750,7 +2750,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: MINECRAFT GAMERTAG
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomMinecraftInputCodePlceholder(_: Void = ()) -> String {
         return NSLocalizedString("room.minecraft.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
@@ -2953,7 +2953,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Privacy
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatSettingPrivacy(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.setting.privacy", bundle: R.hostingBundle, comment: "")
       }
@@ -3086,14 +3086,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Setup Fortnite Display Name
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomSetFortniteName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.set.fortnite.name", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Setup Free Fire Nickname
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomSetFreefireName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.set.freefire.name", bundle: R.hostingBundle, comment: "")
       }
@@ -3184,7 +3184,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Terms
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatSettingTerms(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.setting.terms", bundle: R.hostingBundle, comment: "")
       }

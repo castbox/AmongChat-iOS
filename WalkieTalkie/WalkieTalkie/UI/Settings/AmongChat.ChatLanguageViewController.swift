@@ -133,9 +133,10 @@ extension AmongChat {
                     removal()
                 })
                 .subscribe(onSuccess: { (profile) in
-                    guard let _ = profile else {
+                    guard let p = profile else {
                         return
                     }
+                    Settings.shared.amongChatUserProfile.value = p
                     ChatLanguageHelper.updateCurrentLanguage(lan.language)
                 }, onError: { [weak self] (error) in
                     self?.view.raft.autoShow(.text(error.localizedDescription))
