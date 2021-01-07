@@ -87,12 +87,14 @@ extension Entity {
         let roomEmoji: [RoomEmoji]
         let changeTip: [KeyValue]
         let chatLanguage: [KeyValue]
+        let iosCheckVersion: String
         
         private enum CodingKeys: String, CodingKey {
             case roomBg = "room_bg"
             case roomEmoji = "room_emoji"
             case changeTip = "change_tip"
             case chatLanguage = "chat_language"
+            case iosCheckVersion = "ios_check_version"
         }
         
         init(from decoder: Decoder) throws {
@@ -101,6 +103,7 @@ extension Entity {
             roomEmoji = try container.decode([RoomEmoji].self, forKey: .roomEmoji)
             changeTip = (try? container.decode([KeyValue].self, forKey: .changeTip)) ?? []
             chatLanguage = (try? container.decode([KeyValue].self, forKey: .chatLanguage)) ?? []
+            iosCheckVersion = (try? container.decode(String.self, forKey: .iosCheckVersion)) ?? ""
         }
     }
     
