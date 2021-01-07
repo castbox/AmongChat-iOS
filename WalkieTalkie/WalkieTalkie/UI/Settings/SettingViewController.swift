@@ -266,12 +266,12 @@ extension SettingViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.row == 0 {
+        if indexPath.row == 1 {
             rateApp()
-        } else if indexPath.row == 1 {
+        } else if indexPath.row == 2 {
             shareApp()
         }
-        else if indexPath.row == 2 {
+        else if indexPath.row == 3 {
             upgradePro()
         }
     }
