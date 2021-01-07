@@ -293,7 +293,7 @@ extension AmongChat.CreateRoom.ViewController {
                 }
                 self.view.endEditing(true)
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, logSource: .creatingSource)
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text("failed to create room"))
@@ -354,7 +354,7 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
             return
         }
         Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
-        enterRoom(topicId: topic.topic.rawValue, logSource: .creatingMatchSource)
+        enterRoom(topicId: topic.topic.rawValue, logSource: ParentPageSource(.create_match))
 //        createRoom(with: topic.topic.rawValue)
     }
 

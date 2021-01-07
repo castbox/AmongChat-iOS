@@ -45,6 +45,7 @@ extension AmongChat.Room {
         static var shared: ViewModel?
         
         var messages: [ChatRoomMessage] = []
+        let source: ParentPageSource?
         let roomReplay: BehaviorRelay<Entity.Room>
         //麦位声音动画
         let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
@@ -55,9 +56,12 @@ extension AmongChat.Room {
         var messageEventHandler: () -> Void = { }
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
+        var shareEventHandler: () -> Void = { }
+
 
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
+        private var haveAutoSendShareEvent = false
                 
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
@@ -108,10 +112,10 @@ extension AmongChat.Room {
             get { isMuteMicObservable.value }
         }
         
-        static func make(_ room: Entity.Room) -> ViewModel {
+        static func make(_ room: Entity.Room, _ source: ParentPageSource?) -> ViewModel {
             guard let shared = self.shared,
                   shared.room.roomId == room.roomId else {
-                let manager = ViewModel(room: room)
+                let manager = ViewModel(room: room, source: source)
                 //退出之前房间
                 //                self.shared?.quitRoom()
                 //设置新房间
@@ -128,11 +132,11 @@ extension AmongChat.Room {
             debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
         }
         
-        init(room: Entity.Room) {
+        init(room: Entity.Room, source: ParentPageSource?) {
             if room.loginUserIsAdmin {
                 Logger.Action.log(.admin_imp, categoryValue: room.topicId)
             }
-            
+            self.source = source
             roomReplay = BehaviorRelay(value: room)
             imViewModel = IMViewModel(with: room.roomId)
             
@@ -159,6 +163,7 @@ extension AmongChat.Room {
             setObservableSubject()
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
+            startShowShareTimerIfNeed()
         }
         
         @discardableResult
@@ -178,24 +183,6 @@ extension AmongChat.Room {
             ViewModel.shared = nil
             UIApplication.shared.isIdleTimerDisabled = false
             return Request.leave(with: room.roomId)
-
-//            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
-//                .asObservable()
-//                .flatMap { [weak self] _  -> Observable<()> in
-//                    guard let `self` = self else { return .empty() }
-//                    return Observable<()>.create { [weak self] observer -> Disposable in
-//                        self?.mManager.leaveChannel { (name) in
-//                            UIApplication.shared.isIdleTimerDisabled = false
-//                            ChannelUserListViewModel.shared.leavChannel(name)
-//                            ViewModel.shared = nil
-//                            observer.onNext(())
-//                            observer.onCompleted()
-//                        }
-//                        return Disposables.create {
-//
-//                        }
-//                    }
-//                }
         }
         
         func startUpdateBaseInfo() {
@@ -455,7 +442,20 @@ extension AmongChat.Room {
     
 }
 
-extension AmongChat.Room.ViewModel {
+private extension AmongChat.Room.ViewModel {
+    func startShowShareTimerIfNeed(_ duration: Int = 3) {
+        guard !haveAutoSendShareEvent, source?.page == ParentPageSource.Page.create || source?.page == ParentPageSource.Page.create_match   else {
+            return
+        }
+        self.haveAutoSendShareEvent = true
+        Observable.just(())
+            .delay(.seconds(duration), scheduler: MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                self?.shareEventHandler()
+            }
+            .disposed(by: bag)
+    }
+    
     func update(_ room: Entity.Room) {
         
         //when first to admin logger
@@ -488,6 +488,9 @@ extension AmongChat.Room.ViewModel {
             return newUser
         }
         roomReplay.accept(newRoom)
+        if userList.count == 1 {
+            startShowShareTimerIfNeed(5)
+        }
     }
     
     func onReceiveChatRoom(crMessage: ChatRoomMessage) {

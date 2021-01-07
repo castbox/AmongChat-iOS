@@ -185,14 +185,14 @@ extension AmongChat.Room {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: EnterRoomLogSource = .matchSource, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource.key)
+                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
                 //show loading
-                let viewModel = ViewModel.make(room)
+                let viewModel = ViewModel.make(room, logSource)
                 completionHandler?(nil)
                 self.show(from: controller, with: viewModel)
             }
@@ -708,6 +708,10 @@ extension AmongChat.Room.ViewController {
                 }
                 self.view.raft.autoShow(.text(message))
             }
+        }
+        
+        viewModel.shareEventHandler = { [weak self] in
+            self?.onShareBtn()
         }
         
         configView.updateEditTypeHandler = { [weak self] editType in

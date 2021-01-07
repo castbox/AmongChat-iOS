@@ -191,6 +191,7 @@ PODS:
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
   - loady (1.0.5)
+  - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.5.0)
   - mopub-ios-sdk/Core (5.15.0)
@@ -212,6 +213,9 @@ PODS:
     - nanopb/encode (= 1.30905.0)
   - nanopb/decode (1.30905.0)
   - nanopb/encode (1.30905.0)
+  - NotificationBannerSwift (3.0.6):
+    - MarqueeLabel (~> 4.0.5)
+    - SnapKit (~> 5.0.1)
   - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
@@ -231,7 +235,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SDCAlertView (11.1.2)
-  - SnapKit (4.2.0)
+  - SnapKit (5.0.1)
   - SnapSDK (1.4.4):
     - SnapSDK/SCSDKBitmojiKit (= 1.4.4)
     - SnapSDK/SCSDKCreativeKit (= 1.4.4)
@@ -321,13 +325,14 @@ DEPENDENCIES:
   - mopub-ios-sdk/Core
   - MoPub-UnityAds-Adapters (= 3.4.8.1)
   - Moya/RxSwift
+  - NotificationBannerSwift (~> 3.0.0)
   - Path.swift (~> 1.0.0)
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
   - SDCAlertView
-  - SnapKit (~> 4.2.0)
+  - SnapKit (~> 5.0.0)
   - SnapSDK
   - SVGAPlayer
   - SwifterSwift
@@ -387,12 +392,14 @@ SPEC REPOS:
     - JXSegmentedView
     - Kingfisher
     - loady
+    - MarqueeLabel
     - MBProgressHUD
     - MJRefresh
     - mopub-ios-sdk
     - MoPub-UnityAds-Adapters
     - Moya
     - nanopb
+    - NotificationBannerSwift
     - Path.swift
     - PINCache
     - PINOperation
@@ -478,12 +485,14 @@ SPEC CHECKSUMS:
   JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
+  MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   mopub-ios-sdk: a21098174b9420a291aca9fcdae832d0f2e2a368
   MoPub-UnityAds-Adapters: 267a3e5f23252c01895fc220b958639e1c1343e2
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
+  NotificationBannerSwift: 7021be2338f8f29cf424b0aca43da462bf9e2a1a
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
@@ -497,7 +506,7 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SDCAlertView: 26b5dabdd3c2e6f16c88bad231c84447fa42b0dc
-  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
   SVGAPlayer: f3b3792ae66f7cb3f944ae373a40864db9a04331
@@ -514,6 +523,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 7afbb7a9bc72af7104de9dfe323f5c743bb43389
+PODFILE CHECKSUM: 7c886800492a0983675bd1cc920f6aabab56bfd8
 
 COCOAPODS: 1.10.0

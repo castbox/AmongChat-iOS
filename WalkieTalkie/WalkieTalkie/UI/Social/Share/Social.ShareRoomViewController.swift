@@ -13,6 +13,7 @@ import MessageUI
 import SwiftyUserDefaults
 
 extension Social {
+
     
     class ShareRoomViewController: WalkieTalkie.ViewController {
         
@@ -65,7 +66,7 @@ extension Social {
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            Self.roomShareItems = items
+//            Self.roomShareItems = items
         }
         
         private func setupLayout() {
@@ -141,7 +142,7 @@ private extension Social.ShareRoomViewController {
             old.group.rawValue < previous.group.rawValue
         }
         if self.items.count == 2 {
-            Self.roomShareItems = self.items
+//            Self.roomShareItems = self.items
         }
     }
     
@@ -240,7 +241,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < -15 && !hiddened {
+        if scrollView.contentOffset.y < -75 && !hiddened {
             self.hideModal()
             hiddened = true
         }

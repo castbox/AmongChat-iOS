@@ -8,6 +8,9 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import RxGesture
+import NotificationBannerSwift
 
 extension AmongChat.Home {
     
@@ -16,6 +19,8 @@ extension AmongChat.Home {
         private let imViewModel = IMViewModel()
         private let bag = DisposeBag()
         
+        private weak var notificationBanner: FloatingNotificationBanner?
+        private weak var notificationBannerDimmerView: UIView?
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
@@ -29,6 +34,54 @@ extension AmongChat.Home {
 }
 
 extension AmongChat.Home.MainTabController {
+    
+    func onReceive(strangerInvigation user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+            return
+        }
+        
+        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
+            
+            let view = AmongChat.Home.StrangeInvitationView()
+            view.updateContent(user: user, room: room)
+            let dimmerView = UIView(frame: Frame.Screen.bounds)
+            dimmerView.isUserInteractionEnabled = true
+            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
+            notificationBannerDimmerView = dimmerView
+            self.view.addSubview(dimmerView)
+            let tapObservable = dimmerView.rx.tapGesture()
+                .when(.recognized)
+                .asObservable()
+                .map { _ in return () }
+            
+            let swipeObservable = dimmerView.rx.swipeGesture([.down, .left, .left, .right])
+                .when(.recognized)
+                .asObservable()
+                .map { _ in return () }
+            Observable.merge([tapObservable, swipeObservable])
+                .subscribe { [weak self, weak dimmerView] _ in
+                    dimmerView?.removeFromSuperview()
+                    self?.notificationBanner?.dismiss()
+                }
+                .disposed(by: bag)
+
+            let banner = FloatingNotificationBanner(customView: view)
+            banner.duration = 10
+            banner.delegate = self
+            banner.dismissOnTap = true
+            banner.onTap = { [weak self] in
+//                self?.notificationBanner?.dismiss()
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                    return
+                }
+                topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+            }
+            banner.transparency = 1
+            banner.show(on: self, edgeInsets: UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
+            self.notificationBanner = banner
+        }
+
+    }
     
     private func setupLayout() {
         
@@ -92,36 +145,8 @@ extension AmongChat.Home.MainTabController {
             .disposed(by: bag)
         
         imViewModel.invitationRecommendObservable
-            .subscribe(onNext: { user, room in
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-                    return
-                }
-                
-                if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
-                    
-                    
-                    let invitationModal: AmongChat.Home.RoomJoinViewController
-                    
-                    if let currentModal = topVC as? AmongChat.Home.RoomJoinViewController {
-                        invitationModal = currentModal
-                    } else {
-                        invitationModal = AmongChat.Home.RoomJoinViewController()
-                        invitationModal.modalPresentationStyle = .overCurrentContext
-                        topVC.present(invitationModal, animated: false)
-                    }
-                    
-                    invitationModal.updateContent(user: user, room: room)
-                    invitationModal.bindEvent(join: {
-                        invitationModal.dismiss(animated: false) {
-                            guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-                                return
-                            }
-                            topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
-                        }
-                        //                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
-                    })
-                }
-                
+            .subscribe(onNext: { [weak self] user, room in
+                self?.onReceive(strangerInvigation: user, room: room)
             })
             .disposed(by: bag)
     }
@@ -167,6 +192,25 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
+    }
+    
+}
+
+extension AmongChat.Home.MainTabController: NotificationBannerDelegate {
+    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
+        
+    }
+    
+    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
+        
+    }
+    
+    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
+        notificationBannerDimmerView?.removeFromSuperview()
+    }
+    
+    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
+        
     }
     
 }

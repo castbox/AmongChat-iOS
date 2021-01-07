@@ -49,7 +49,7 @@ extension AmongChat.Home.MainTabController {
         }
         
         private let roomInvitationMessageType = "AC:PEER:Invite"
-        private let roomInvitationRecommendMessageType = "AC:PEER:Invite_recommend"
+        private let roomInvitationInviteStranger = "AC:PEER:InviteStranger"
 
         private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
             
@@ -62,7 +62,7 @@ extension AmongChat.Home.MainTabController {
 
             if invitationMsg.messageType == roomInvitationMessageType {
                 invitationSubject.onNext((invitationMsg.user, room))
-            } else if invitationMsg.messageType == roomInvitationRecommendMessageType {
+            } else if invitationMsg.messageType == roomInvitationInviteStranger {
                 invitationRecommendSubject.onNext((invitationMsg.user, room))
             }
         }
