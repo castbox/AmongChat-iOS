@@ -1,0 +1,26 @@
+[
+  {
+    "key": "en",
+    "value": "English"
+  },
+  {
+    "key": "es",
+    "value": "Español"
+  },
+  {
+    "key": "pt",
+    "value": "Português"
+  },
+  {
+    "key": "fr",
+    "value": "Français"
+  },
+  {
+    "key": "de",
+    "value": "Deutsch"
+  },
+  {
+    "key": "ru",
+    "value": "Pусский"
+  }
+]

@@ -532,6 +532,7 @@ extension AmongChat.Room.ViewController {
 //            .disposed(by: bag)
         RxKeyboard.instance.isHidden
             .asObservable()
+            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] isHidden in
                 self?.isKeyboardVisible = !isHidden
                 if isHidden {

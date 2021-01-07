@@ -111,6 +111,7 @@ extension Entity {
         var isFollowed: Bool?
         var opTime: Double?
         var invited: Bool?
+        var chatLanguage: String?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -128,6 +129,7 @@ extension Entity {
             case nameRoblox = "name_roblox"
             case nameFortnite = "name_fortnite"
             case nameFreefire = "name_freefire"
+            case chatLanguage = "language_u"
         }
     }
     
@@ -157,13 +159,15 @@ extension Entity {
 extension Entity {
     
     struct ProfileProto: Codable {
-        var birthday: String?
-        var name: String?
-        var pictureUrl: String?
+        var birthday: String? = nil
+        var name: String? = nil
+        var pictureUrl: String? = nil
+        var chatLanguage: String? = nil
         private enum CodingKeys: String, CodingKey {
             case birthday
             case name
             case pictureUrl = "picture_url"
+            case chatLanguage = "language_u"
         }
     }
     
