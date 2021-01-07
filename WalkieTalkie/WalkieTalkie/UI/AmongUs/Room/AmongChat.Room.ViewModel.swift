@@ -28,7 +28,7 @@ extension AmongChat.Room {
         case forbidden //被封
         //listener
         case enterClosedRoom
-        case kickout //被踢出
+        case kickout(ChatRoom.KickOutMessage.Role) //被踢出
         case beBlocked
     }
     
@@ -266,11 +266,11 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-            update(room)
+            updateRoomInfo(room)
         }
         
         func update(nickName: String) {
-            Request.updateRoom(nickName: nickName, with: room.roomId)
+            Request.updateRoom(topic: room.topicType, nickName: nickName, with: room.roomId)
                 .subscribe { _ in
                     //refresh nick name
                     Settings.shared.updateProfile()
@@ -497,6 +497,7 @@ private extension AmongChat.Room.ViewModel {
         let blockedUsers = self.blockedUsers
         newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
             var newUser = user
+            newUser.topic = room.topicType
             if blockedUsers.contains(where: { $0.uid == user.uid }) {
                 newUser.status = .blocked
                 newUser.isMuted = true
@@ -541,7 +542,7 @@ private extension AmongChat.Room.ViewModel {
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
                   message.user.uid == Settings.loginUserId {
             //自己
-            endRoomHandler?(.kickout)
+            endRoomHandler?(.kickout(message.opRole))
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
             otherMutedUser.remove(message.user.uid.uInt)
         }

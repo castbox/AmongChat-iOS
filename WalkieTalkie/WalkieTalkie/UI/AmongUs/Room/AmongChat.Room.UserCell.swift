@@ -292,7 +292,7 @@ extension AmongChat.Room.UserCell {
             nameLabel.text = user.name
         }
         gameNameButton.setTitle(user.nickname, for: .normal)
-        gameNameButton.isHidden = !(topic == .roblox && user.nickname.isValid)
+        gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
         if isKickSelected {
             mutedLabel.isHidden = true
             disableMicView.isHidden = true

@@ -47,7 +47,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bI6-Ps-Zb4">
                     <rect key="frame" x="240" y="0.0" width="154" height="24"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="154" id="9pQ-Jt-cBB"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="9pQ-Jt-cBB"/>
                         <constraint firstAttribute="height" constant="24" id="hZu-XW-Lwd"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>

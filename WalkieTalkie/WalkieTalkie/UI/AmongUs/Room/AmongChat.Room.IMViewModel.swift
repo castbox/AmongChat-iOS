@@ -207,18 +207,25 @@ extension ChatRoom {
     }
     
     struct KickOutMessage: ChatRoomMessage {
+        enum Role: String, Codable {
+            case host
+            case system //系统踢人
+        }
+        
         let roomId: String
         //被踢
         let user: Entity.RoomUser
         //操作者
         let opUser: Entity.RoomUser
         let msgType: MessageType
+        let opRole: Role
         
         private enum CodingKeys: String, CodingKey {
             case roomId = "room_id"
             case user
             case opUser = "op_user"
             case msgType = "message_type"
+            case opRole = "op_role"
         }
     }
     
@@ -329,5 +336,16 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
         mutableNormalString.append(NSAttributedString(string: " joined", attributes: contentAttr))
         return mutableNormalString
+    }
+}
+
+extension ChatRoom.KickOutMessage.Role {
+    var alertTitle: String {
+        switch self {
+        case .host:
+            return R.string.localizable.amongChatRoomKickout()
+        case .system:
+            return R.string.localizable.amongChatRoomKickoutSystem()
+        }
     }
 }

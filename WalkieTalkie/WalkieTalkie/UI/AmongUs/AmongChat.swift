@@ -18,6 +18,8 @@ extension AmongChat {
     enum Topic: String, Codable, CaseIterable {
         case amongus
         case roblox
+        case fortnite
+        case freefire
         case chilling = "justchatting"
     }
     
@@ -44,5 +46,14 @@ extension AmongChat.Topic {
         return setting.roomBg.first(where: { $0.topicType == self })
             .map { $0.bgUrl }
 
+    }
+    
+    var enableNickName: Bool {
+        switch self {
+        case .roblox, .freefire, .fortnite:
+            return true
+        default:
+            return false
+        }
     }
 }

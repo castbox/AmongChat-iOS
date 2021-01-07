@@ -137,7 +137,10 @@ extension AmongChat.CreateRoom {
         }
         
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
-        private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
+        private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases
+            .map { TopicViewModel(with: $0) }
+            .filter { !$0.name.isEmpty }
+        
                 
         // MARK: -
                 

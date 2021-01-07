@@ -1553,7 +1553,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 156 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 162 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1631,6 +1631,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportRoomId = Rswift.StringResource(key: "report.room.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Channel closed due to inactivity
+      /// 
+      /// Locales: en
+      static let amongChatRoomKickoutSystem = Rswift.StringResource(key: "among.chat.room.kickout.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en
@@ -1691,6 +1695,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialExitChannel = Rswift.StringResource(key: "social.exit.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: FORTNITE USERNAME
+      /// 
+      /// Locales: en
+      static let roomFortniteInputCodePlceholder = Rswift.StringResource(key: "room.fortnite.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: FREEFIRE USERNAME
+      /// 
+      /// Locales: en
+      static let roomFreefireInputCodePlceholder = Rswift.StringResource(key: "room.freefire.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Failed to block this person,  please try again.
       /// 
       /// Locales: en
@@ -1747,6 +1759,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: GAMERTAG / SERVER ADDRESS
+      /// 
+      /// Locales: en
+      static let roomMinecraftInputCodePlceholder = Rswift.StringResource(key: "room.minecraft.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en
@@ -2011,6 +2027,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Setup Fortnite Username
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetFortniteName = Rswift.StringResource(key: "among.chat.room.set.fortnite.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Setup Freefire Username
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Setup Roblox Username
       /// 
       /// Locales: en
@@ -2313,6 +2337,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.room.id", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Channel closed due to inactivity
+      /// 
+      /// Locales: en
+      static func amongChatRoomKickoutSystem(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.kickout.system", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Chat Language
       /// 
       /// Locales: en
@@ -2418,6 +2449,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.exit.channel", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: FORTNITE USERNAME
+      /// 
+      /// Locales: en
+      static func roomFortniteInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.fortnite.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: FREEFIRE USERNAME
+      /// 
+      /// Locales: en
+      static func roomFreefireInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.freefire.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to block this person,  please try again.
       /// 
       /// Locales: en
@@ -2514,6 +2559,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: GAMERTAG / SERVER ADDRESS
+      /// 
+      /// Locales: en
+      static func roomMinecraftInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.minecraft.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Harassment or repulsive language
@@ -2976,6 +3028,20 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func settingsTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Setup Fortnite Username
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetFortniteName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.fortnite.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Setup Freefire Username
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetFreefireName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.freefire.name", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Setup Roblox Username

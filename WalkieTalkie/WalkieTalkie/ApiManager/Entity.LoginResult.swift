@@ -105,7 +105,9 @@ extension Entity {
         var pictureUrlRaw: String?
         var uid: Int
         var birthday: String?
-        var nickname: String?
+        var nameRoblox: String?
+        var nameFortnite: String?
+        var nameFreefire: String?
         var isFollowed: Bool?
         var opTime: Double?
         var invited: Bool?
@@ -120,10 +122,12 @@ extension Entity {
             case pictureUrlRaw = "picture_url_raw"
             case uid
             case birthday
-            case nickname
             case isFollowed = "is_followed"
             case opTime = "op_time"
             case invited = "invited"
+            case nameRoblox = "name_roblox"
+            case nameFortnite = "name_fortnite"
+            case nameFreefire = "name_freefire"
         }
     }
     

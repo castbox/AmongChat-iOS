@@ -97,9 +97,27 @@ extension Entity {
         var status: Status
         var isMuted: Bool
         var isMutedByLoginUser: Bool
-        let nickname: String?
+        var nameRoblox: String?
+        var nameFortnite: String?
+        var nameFreefire: String?
+        var nameMinecraft: String?
         
-        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, nickname: String? = "" ) {
+        var topic: AmongChat.Topic?
+        var nickname: String? {
+            switch topic {
+            case .fortnite:
+                return nameFortnite
+            case .freefire:
+                return nameFreefire
+            case .roblox:
+                return nameRoblox
+            default:
+                return nil
+            }
+        }
+        
+        
+        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pic
@@ -107,7 +125,6 @@ extension Entity {
             self.status = Status(rawValue: "blocked") ?? .blocked
             self.isMuted = isMuted ?? false
             self.isMutedByLoginUser = isMutedByLoginUser ?? false
-            self.nickname = nickname ?? ""
         }
         
         private enum CodingKeys: String, CodingKey {
@@ -117,8 +134,11 @@ extension Entity {
             case seatNo
             case status
             case isMuted = "is_muted"
-            case nickname
             case isMutedByLoginUser
+            case nameRoblox = "name_roblox"
+            case nameFortnite = "name_fortnite"
+            case nameFreefire = "name_freefire"
+            case nameMinecraft = "name_minecraft"
         }
         
         init(from decoder: Decoder) throws {
@@ -132,7 +152,10 @@ extension Entity {
 //            self.status = try container.decodeString(.status)
             self.isMuted = try container.decodeBoolIfPresent(.isMuted) ?? false
             self.isMutedByLoginUser = try container.decodeBoolIfPresent(.isMutedByLoginUser) ?? false
-            self.nickname = try container.decodeStringIfPresent(.nickname)
+            self.nameRoblox = try container.decodeStringIfPresent(.nameRoblox)
+            self.nameFortnite = try container.decodeStringIfPresent(.nameFortnite)
+            self.nameFreefire = try container.decodeStringIfPresent(.nameFreefire)
+            self.nameMinecraft = try container.decodeStringIfPresent(.nameMinecraft)
         }
         
         

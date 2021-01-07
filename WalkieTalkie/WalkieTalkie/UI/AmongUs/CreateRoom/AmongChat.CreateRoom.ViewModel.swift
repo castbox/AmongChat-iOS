@@ -37,6 +37,8 @@ extension AmongChat.CreateRoom {
                 return "# Roblox"
             case .chilling:
                 return "# Just Chatting"
+            default:
+                return ""
             }
         }
         
@@ -48,6 +50,8 @@ extension AmongChat.CreateRoom {
                 return R.image.ac_medal_silver()
             case .chilling:
                 return R.image.ac_medal_bronze()
+            default:
+                return nil
             }
         }
     }

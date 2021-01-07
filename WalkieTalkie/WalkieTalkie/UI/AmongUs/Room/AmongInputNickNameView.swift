@@ -16,12 +16,27 @@ class AmongInputNickNameView: XibLoadableView {
     @IBOutlet weak var inputContainerView: UIView!
     
     var inputResultHandler: ((String) -> Void)?
-    
     var usedInRoom = true
     
-    override func becomeFirstResponder() -> Bool {
+    func becomeFirstResponder(with room: Entity.Room? = nil) -> Bool {
+
         if usedInRoom {
-            textField.text = Settings.shared.amongChatUserProfile.value?.nickname
+            switch room?.topicType {
+            case .roblox:
+                textField.placeholder = R.string.localizable.roomRobloxInputCodePlceholder()
+                textField.text = Settings.shared.amongChatUserProfile.value?.nameRoblox
+            case .fortnite:
+                textField.placeholder = R.string.localizable.roomFortniteInputCodePlceholder()
+                textField.text = Settings.shared.amongChatUserProfile.value?.nameFortnite
+            case .freefire:
+                textField.placeholder = R.string.localizable.roomFreefireInputCodePlceholder()
+                textField.text = Settings.shared.amongChatUserProfile.value?.nameFreefire
+//            case .freefire:
+//                textField.placeholder = R.string.localizable.roomFreefireInputCodePlceholder()
+//                textField.text = Settings.shared.amongChatUserProfile.value?.nameFreefire
+            default:
+                ()
+            }
         } else {
             textField.placeholder = R.string.localizable.profileBagNickname()
             textField.text =  Settings.shared.amongChatUserProfile.value?.name

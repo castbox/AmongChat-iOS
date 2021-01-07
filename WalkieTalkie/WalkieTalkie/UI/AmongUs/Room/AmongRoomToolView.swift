@@ -19,6 +19,7 @@ class AmongRoomToolView: XibLoadableView {
     
     var openGameHandler: CallBack?
     var setNickNameHandler: CallBack?
+    var room: Entity.Room?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +32,7 @@ class AmongRoomToolView: XibLoadableView {
     }
     
     func set(_ room: Entity.Room) {
+        self.room = room
         switch room.topicType {
         case .amongus, .roblox:
             openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
@@ -38,17 +40,37 @@ class AmongRoomToolView: XibLoadableView {
             openGameButton.setTitle(room.topicName, for: .normal)
         }
         openGameButton.isUserInteractionEnabled = room.topicType != .chilling
-        nickNameButton.isHidden = room.topicType != .roblox
+        //, .freefire, .
+        nickNameButton.isHidden = !room.topicType.enableNickName
+        updateTitleForNickNameButton()
+    }
+    
+    func updateTitleForNickNameButton() {
+        switch room?.topicType {
+        case .roblox:
+            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetRebloxName(), for: .normal)
+        case .fortnite:
+            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFortniteName(), for: .normal)
+        case .freefire:
+            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFreefireName(), for: .normal)
+        default:
+            ()
+        }
     }
     
     private func bindSubviewEvent() {
         Settings.shared.amongChatUserProfile.replay()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] profile in
-                if let nickName = profile?.nickname {
-                    self?.nickNameButton.setTitle(nickName, for: .normal)
-                } else {
-                    self?.nickNameButton.setTitle(R.string.localizable.amongChatRoomSetRebloxName(), for: .normal)
+                switch self?.room?.topicType {
+                case .roblox:
+                    self?.nickNameButton.setTitle(profile?.nameRoblox ?? R.string.localizable.amongChatRoomSetRebloxName(), for: .normal)
+                case .fortnite:
+                    self?.nickNameButton.setTitle(profile?.nameFortnite ?? R.string.localizable.amongChatRoomSetFortniteName(), for: .normal)
+                case .freefire:
+                    self?.nickNameButton.setTitle(profile?.nameFreefire ?? R.string.localizable.amongChatRoomSetFreefireName(), for: .normal)
+                default:
+                    ()
                 }
             })
             .disposed(by: bag)
