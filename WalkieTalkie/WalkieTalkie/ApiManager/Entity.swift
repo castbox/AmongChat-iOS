@@ -71,16 +71,57 @@ extension Entity {
                 return AmongChat.Topic(rawValue: topicId) ?? .chilling
             }
         }
-
+        
+        struct ChangeTip: Codable {
+            let key: String
+            let value: String
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                key = (try? container.decodeString(.key)) ?? ""
+                value = (try? container.decodeString(.value)) ?? ""
+            }
+        }
+        
         let roomBg: [RoomBg]
         let roomEmoji: [RoomEmoji]
+        let changeTip: [ChangeTip]
         
         private enum CodingKeys: String, CodingKey {
             case roomBg = "room_bg"
             case roomEmoji = "room_emoji"
+            case changeTip = "change_tip"
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            roomBg = try container.decode([RoomBg].self, forKey: .roomBg)
+            roomEmoji = try container.decode([RoomEmoji].self, forKey: .roomEmoji)
+            changeTip = (try? container.decode([ChangeTip].self, forKey: .changeTip)) ?? []
         }
     }
     
 }
 
+extension Entity.GlobalSetting.ChangeTip {
+    
+    enum KeyType: String {
+        case avatar
+    }
+    
+}
 
+extension Entity.GlobalSetting {
+    
+    var avatarVersion: String {
+        return changeTipValue(.avatar)
+    }
+    
+    func changeTipValue(_ key: ChangeTip.KeyType) -> String {
+        guard let tip = changeTip.first(where: { $0.key == key.rawValue }) else {
+            return ""
+        }
+        
+        return tip.value
+    }
+}

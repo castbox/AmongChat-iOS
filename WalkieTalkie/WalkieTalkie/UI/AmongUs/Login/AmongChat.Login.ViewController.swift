@@ -92,7 +92,11 @@ extension AmongChat.Login {
         }()
         
         private lazy var policyLabel: PolicyLabel = {
-            let lb = PolicyLabel()
+            let terms = R.string.localizable.amongChatTermsService()
+            let privacy = R.string.localizable.amongChatPrivacyPolicy()
+            let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+
+            let lb = PolicyLabel(with: text, privacy: privacy, terms: terms)
             lb.onInteration = { [weak self] targetPath in
                 self?.open(urlSting: targetPath)
             }

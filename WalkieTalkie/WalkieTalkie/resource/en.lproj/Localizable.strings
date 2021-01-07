@@ -95,7 +95,7 @@
 "social.sms" = "SMS";
 "social.copy.link" = "Copy link";
 "social.invite.friends" = "Invite friends";
-"social.invite" = "Invtie";
+"social.invite" = "Invite";
 "social.invited" = "sent";
 "social.invite.play.with" = "People you may like to play with";
 "social.exit.channel" = "Exit channel";
@@ -165,6 +165,7 @@
 
 "guide.fourth.title" = "Enjoy these awesome things!\n✔️ Secret channels\n✔️ Unlimited talking rights";
 
+"setting.chat.language" = "Chat Language";
 "rate.us" = "Rate us";
 "share.app" = "Share App";
 "push.setting" = "Push Setting";
@@ -184,3 +185,5 @@
 "amongus.server.north.europe" = "Europe";
 
 "among.chat.unknown.error" = "Unknown Error";
+"among.chat.setting.terms" = "Terms";
+"among.chat.setting.privacy" = "Privacy";
