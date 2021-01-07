@@ -108,6 +108,7 @@ extension Entity {
         var nameRoblox: String?
         var nameFortnite: String?
         var nameFreefire: String?
+        var nameMineCraft: String?
         var isFollowed: Bool?
         var opTime: Double?
         var invited: Bool?
@@ -129,6 +130,7 @@ extension Entity {
             case nameRoblox = "name_roblox"
             case nameFortnite = "name_fortnite"
             case nameFreefire = "name_freefire"
+            case nameMineCraft = "name_minecraft"
             case chatLanguage = "language_u"
         }
     }

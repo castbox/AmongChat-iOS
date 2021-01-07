@@ -46,7 +46,7 @@ extension AmongChatRoomConfigView {
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
 //            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
-        case .roblox, .freefire, .fortnite:
+        case .roblox, .freefire, .fortnite, .minecraft:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true

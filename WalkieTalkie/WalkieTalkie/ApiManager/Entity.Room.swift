@@ -111,6 +111,8 @@ extension Entity {
                 return nameFreefire
             case .roblox:
                 return nameRoblox
+            case .minecraft:
+                return nameMinecraft
             default:
                 return nil
             }

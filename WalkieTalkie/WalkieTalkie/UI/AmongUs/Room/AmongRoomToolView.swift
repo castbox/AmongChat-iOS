@@ -34,7 +34,7 @@ class AmongRoomToolView: XibLoadableView {
     func set(_ room: Entity.Room) {
         self.room = room
         switch room.topicType {
-        case .amongus, .roblox:
+        case .amongus, .roblox, .minecraft, .freefire:
             openGameButton.setTitle(R.string.localizable.roomTagOpenGame(), for: .normal)
         default:
             openGameButton.setTitle(room.topicName, for: .normal)
@@ -53,6 +53,8 @@ class AmongRoomToolView: XibLoadableView {
             nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFortniteName(), for: .normal)
         case .freefire:
             nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFreefireName(), for: .normal)
+        case .minecraft:
+            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetMinecraftName(), for: .normal)
         default:
             ()
         }
@@ -69,6 +71,8 @@ class AmongRoomToolView: XibLoadableView {
                     self?.nickNameButton.setTitle(profile?.nameFortnite ?? R.string.localizable.amongChatRoomSetFortniteName(), for: .normal)
                 case .freefire:
                     self?.nickNameButton.setTitle(profile?.nameFreefire ?? R.string.localizable.amongChatRoomSetFreefireName(), for: .normal)
+                case .minecraft:
+                    self?.nickNameButton.setTitle(profile?.nameMineCraft ?? R.string.localizable.amongChatRoomSetMinecraftName(), for: .normal)
                 default:
                     ()
                 }

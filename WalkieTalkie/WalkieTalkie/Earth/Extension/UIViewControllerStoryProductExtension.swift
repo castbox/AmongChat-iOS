@@ -11,7 +11,7 @@ import StoreKit
 
 extension UIViewController {
     
-    func showStoreProduct(with appId: Int) {
+    func showStoreProduct(with appId: Double) {
         let storeViewController = SKStoreProductViewController()
         storeViewController.delegate = self
         let parameters = [SKStoreProductParameterITunesItemIdentifier :

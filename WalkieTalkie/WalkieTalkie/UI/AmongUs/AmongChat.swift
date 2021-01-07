@@ -20,6 +20,7 @@ extension AmongChat {
         case roblox
         case fortnite
         case freefire
+        case minecraft
         case chilling = "justchatting"
     }
     
@@ -50,10 +51,24 @@ extension AmongChat.Topic {
     
     var enableNickName: Bool {
         switch self {
-        case .roblox, .freefire, .fortnite:
+        case .roblox, .freefire, .fortnite, .minecraft:
             return true
         default:
             return false
+        }
+    }
+    var productId: Double {
+        switch self {
+        case .amongus:
+        return 1351168404
+        case .roblox:
+            return 431946152
+        case .freefire:
+            return 1300146617
+        case .minecraft:
+            return 479516143
+        default:
+            return 0
         }
     }
 }

@@ -18,10 +18,20 @@ class JustChillingInfoView: XibLoadableView {
             guard let room = room else {
                 return
             }
-            if room.topicType == .roblox {
+            switch room.topicType {
+            case .roblox:
                 notesDetailButton.isHidden = true
                 notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
-            } else {
+            case .minecraft:
+                notesDetailButton.isHidden = true
+                notesTitleButton.setTitle(R.string.localizable.amongChatRoomMinecraftTitle(), for: .normal)
+            case .freefire:
+                notesDetailButton.isHidden = true
+                notesTitleButton.setTitle(R.string.localizable.amongChatRoomFreefireTitle(), for: .normal)
+            case .fortnite:
+                notesDetailButton.isHidden = true
+                notesTitleButton.setTitle(R.string.localizable.amongChatRoomFortniteTitle(), for: .normal)
+            default:
                 notesDetailButton.isHidden = false
                 guard let string = room.note, !string.isEmpty else {
                     notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
@@ -29,7 +39,6 @@ class JustChillingInfoView: XibLoadableView {
                 }
                 notesDetailButton.setTitle(string, for: .normal)
             }
-            
         }
     }
     

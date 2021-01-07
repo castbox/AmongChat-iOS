@@ -798,17 +798,10 @@ extension AmongChat.Room.ViewController {
         }
         
         toolView.openGameHandler = { [weak self] in
-            guard let `self` = self else {
+            guard let `self` = self, self.room.topicType.productId > 0 else {
                 return
             }
-            switch self.room.topicType {
-            case .amongus:
-                self.showStoreProduct(with: 1351168404)
-            case .roblox:
-                self.showStoreProduct(with: 431946152)
-            default:
-                ()
-            }
+            self.showStoreProduct(with: self.room.topicType.productId)
             Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
         }
         
