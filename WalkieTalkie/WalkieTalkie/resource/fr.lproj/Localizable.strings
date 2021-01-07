@@ -185,3 +185,11 @@
 "amongus.server.north.europe" = "L'Europe";
 
 "among.chat.unknown.error" = "Erreur inconnue";
+"among.chat.setting.terms" = "Terms";
+"among.chat.setting.privacy" = "Privacy";
+"among.chat.room.kickout.system" = "Channel closed due to inactivity";
+"among.chat.room.set.freefire.name" = "Set up Free Fire Nickname";
+"among.chat.room.set.fortnite.name" = "Set up Fortnite Display Name";
+"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
+"room.fortnite.input.code.plceholder" = "FORTNITE DISPLAY NAME";
+"room.minecraft.input.code.plceholder" = "GAMERTAG / SERVER ADDRESS";
