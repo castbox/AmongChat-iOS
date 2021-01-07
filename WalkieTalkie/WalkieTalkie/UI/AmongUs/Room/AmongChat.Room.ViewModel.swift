@@ -32,7 +32,13 @@ extension AmongChat.Room {
         case beBlocked
     }
     
+    
     class ViewModel {
+        
+        enum ShareEvent {
+            case createdRoom //创建时弹出
+            case singlePerson // 单人时弹出
+        }
         
         enum BlockType {
             case block
@@ -61,7 +67,10 @@ extension AmongChat.Room {
 
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
-        private var haveAutoSendShareEvent = false
+        private var willShowShareEvent: ShareEvent?
+        private var didShowShareEvents: [ShareEvent] = []
+        //创建房间后，人数由>1人到1人时弹
+        private var canShowSinglePersonShareEvent = false
                 
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
@@ -437,23 +446,42 @@ extension AmongChat.Room {
                 .subscribe(onSuccess: { (_) in
                 })
         }
-                
+         
+        func didShowShareView() {
+            guard let event = willShowShareEvent else {
+                return
+            }
+            didShowShareEvents.append(event)
+        }
     }
     
 }
 
 private extension AmongChat.Room.ViewModel {
-    func startShowShareTimerIfNeed(_ duration: Int = 3) {
-        guard !haveAutoSendShareEvent, source?.page == ParentPageSource.Page.create || source?.page == ParentPageSource.Page.create_match   else {
+    func startShowShareTimerIfNeed() {
+        guard source?.isFromCreatePage == true else {
             return
         }
-        self.haveAutoSendShareEvent = true
+        delayToShowShareView(event: .createdRoom)
+    }
+    
+    func delayToShowShareView(event: ShareEvent, delay duration: Int = 3) -> Bool {
+        guard !didShowShareEvents.contains(event), willShowShareEvent == nil else {
+            return false
+        }
+        willShowShareEvent = event
         Observable.just(())
             .delay(.seconds(duration), scheduler: MainScheduler.asyncInstance)
             .subscribe { [weak self] _ in
-                self?.shareEventHandler()
+                guard let `self` = self else { return }
+                self.willShowShareEvent = nil
+                if !self.didShowShareEvents.contains(event) {
+                    self.didShowShareEvents.append(event)
+                    self.shareEventHandler()
+                }
             }
             .disposed(by: bag)
+        return true
     }
     
     func update(_ room: Entity.Room) {
@@ -488,8 +516,15 @@ private extension AmongChat.Room.ViewModel {
             return newUser
         }
         roomReplay.accept(newRoom)
-        if userList.count == 1 {
-            startShowShareTimerIfNeed(5)
+        
+        //人数为1时的分享控制
+        if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,
+           delayToShowShareView(event: .singlePerson, delay: 5) {
+            canShowSinglePersonShareEvent = false
+        }
+//
+        if !didShowShareEvents.contains(.singlePerson), userList.count > 1 {
+            canShowSinglePersonShareEvent = true
         }
     }
     

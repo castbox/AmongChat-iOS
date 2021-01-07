@@ -33,6 +33,10 @@ struct ParentPageSource {
         return Page(rawValue: key) ?? .none
     }
     
+    var isFromCreatePage: Bool {
+        page == ParentPageSource.Page.create || page == ParentPageSource.Page.create_match
+    }
+    
     init(key: String) {
         self.key = key
     }

@@ -13,15 +13,86 @@ import MessageUI
 import SwiftyUserDefaults
 
 extension Social {
-
     
-    class ShareRoomViewController: WalkieTalkie.ViewController {
+    class ShareRoomViewModel {
+        public var dataSourceReplay = BehaviorRelay<[Item]>(value: [])
+        
+        private var items: [Item] = [] {
+            didSet {
+                dataSourceReplay.accept(items)
+            }
+        }
+        
+        private var frientds: [Entity.UserProfile] = []
         
         /// room share
-        private static var roomShareItems: [Item] = []
+        static var roomShareItems: [Item] = []
+        private let bag = DisposeBag()
+        
+        
+        func loadData() {
+            let users = Self.roomShareItems
+            if users.isEmpty {
+                requestFriends()
+            } else {
+                items = users
+            }
+        }
+        
+        func requestFriends(skipMs: Double = 0) {
+            Request.inviteFriends(skipMs: skipMs)
+                .subscribe(onSuccess: { [weak self](data) in
+                    guard let `self` = self, let data = data else {
+                        return
+                    }
+                    self.frientds.append(contentsOf: data.list ?? [])
+                    guard data.more == true, let lastOpTime = data.list?.last?.opTime else {
+                        self.append(self.frientds, group: .friends)
+                        self.requestStranger()
+                        return
+                    }
+                    self.requestFriends(skipMs: lastOpTime)
+                }, onError: { (error) in
+                    self.requestStranger()
+                    cdPrint("inviteFriends error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
+        func requestStranger() {
+            Request.onlineStrangers()
+                .subscribe(onSuccess: { [weak self](data) in
+                    guard let data = data else { return }
+                    self?.append(data.list, group: .stranger)
+                }, onError: { (error) in
+                    cdPrint("inviteFriends error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+        }
+        
+        func append(_ list: [Entity.UserProfile]?, group: Item.Group) {
+            guard let list = list else {
+                return
+            }
+            var items = self.items.filter { $0.group != group }
+            items.append(Item(userLsit: list, group: group))
+            self.items = items.sorted { (old, previous) -> Bool in
+                old.group.rawValue < previous.group.rawValue
+            }
+            if self.items.count == 2 {
+                Self.roomShareItems = self.items
+            }
+        }
+        
         /// clear temp data
         class func clear() {
             Self.roomShareItems = []
+        }
+    }
+    
+    class ShareRoomViewController: WalkieTalkie.ViewController {
+        
+        /// clear temp data
+        class func clear() {
+            ShareRoomViewModel.clear()
         }
         
         private lazy var tableView: UITableView = {
@@ -35,8 +106,9 @@ extension Social {
         }()
         
         private lazy var headerView = ShareHeaderView()
+        private lazy var viewModel = ShareRoomViewModel()
         
-        private var items: [Item] = [] {
+        private var items: [ShareRoomViewModel.Item] = [] {
             didSet {
                 tableView.reloadData()
             }
@@ -66,7 +138,7 @@ extension Social {
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-//            Self.roomShareItems = items
+            ShareRoomViewModel.roomShareItems = items
         }
         
         private func setupLayout() {
@@ -104,46 +176,22 @@ extension Social {
     }
 }
 private extension Social.ShareRoomViewController {
-    func loadData() {
-        let users = Self.roomShareItems
-        if users.isEmpty {
-            let removeBlock = view.raft.show(.loading)
-            Request.inviteFriends(skipMs: 0)
-                .subscribe(onSuccess: { [weak self](data) in
-                    removeBlock()
-                    guard let data = data else { return }
-                    self?.append(data.list, group: .friends)
-                }, onError: { (error) in
-                    removeBlock()
-                    cdPrint("inviteFriends error: \(error.localizedDescription)")
-                }).disposed(by: bag)
-            
-            Request.onlineStrangers()
-                .subscribe(onSuccess: { [weak self](data) in
-                    removeBlock()
-                    guard let data = data else { return }
-                    self?.append(data.list, group: .stranger)
-                }, onError: { (error) in
-                    removeBlock()
-                    cdPrint("inviteFriends error: \(error.localizedDescription)")
-                }).disposed(by: bag)
-        } else {
-            items = users
-        }
-    }
     
-    func append(_ list: [Entity.UserProfile]?, group: Item.Group) {
-        guard let list = list else {
-            return
-        }
-        var items = self.items.filter { $0.group != group }
-        items.append(Item(userLsit: list, group: group))
-        self.items = items.sorted { (old, previous) -> Bool in
-            old.group.rawValue < previous.group.rawValue
-        }
-        if self.items.count == 2 {
-//            Self.roomShareItems = self.items
-        }
+    func loadData() {
+        let removeBlock = view.raft.show(.loading)
+        viewModel.dataSourceReplay
+            .skip(1)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self](data) in
+                removeBlock()
+                self?.items = data
+            }, onError: { (error) in
+                removeBlock()
+                cdPrint("inviteFriends error: \(error.localizedDescription)")
+            })
+            .disposed(by: bag)
+        
+        viewModel.loadData()
     }
     
     func smsAction() {
@@ -188,9 +236,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger)
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
-//                user.invited = follow
+                //                user.invited = follow
                 self.items[indexPath.section].userLsit[indexPath.row].invited = follow
-//                self.userList[indexPath.row].invited = follow
+                //                self.userList[indexPath.row].invited = follow
                 Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), "invite")
             }
         }
@@ -233,7 +281,6 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
-
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -267,13 +314,13 @@ extension Social.ShareRoomViewController {
             return btn
         }()
         
-//        private lazy var inviteLabel: WalkieLabel = {
-//            let lb = WalkieLabel()
-//            lb.font = R.font.nunitoExtraBold(size: 20)
-//            lb.text = R.string.localizable.socialInviteFriends()
-//            lb.textColor = .white
-//            return lb
-//        }()
+        //        private lazy var inviteLabel: WalkieLabel = {
+        //            let lb = WalkieLabel()
+        //            lb.font = R.font.nunitoExtraBold(size: 20)
+        //            lb.text = R.string.localizable.socialInviteFriends()
+        //            lb.textColor = .white
+        //            return lb
+        //        }()
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -294,10 +341,10 @@ extension Social.ShareRoomViewController {
                 make.height.equalTo(68)
             }
             
-//            inviteLabel.snp.makeConstraints { (make) in
-//                make.left.equalTo(20)
-//                make.top.equalTo(smsBtn.snp.bottom).offset(40)
-//            }
+            //            inviteLabel.snp.makeConstraints { (make) in
+            //                make.left.equalTo(20)
+            //                make.top.equalTo(smsBtn.snp.bottom).offset(40)
+            //            }
             
             smsBtn.rx.tap
                 .observeOn(MainScheduler.instance)
@@ -380,7 +427,7 @@ extension Social.ShareRoomViewController: Modalable {
     }
 }
 
-extension Social.ShareRoomViewController {
+extension Social.ShareRoomViewModel {
     struct Item {
         enum Group: Int {
             case friends
@@ -394,7 +441,7 @@ extension Social.ShareRoomViewController {
     
 }
 
-extension Social.ShareRoomViewController.Item.Group {
+extension Social.ShareRoomViewModel.Item.Group {
     var title: String {
         switch self {
         case .friends:

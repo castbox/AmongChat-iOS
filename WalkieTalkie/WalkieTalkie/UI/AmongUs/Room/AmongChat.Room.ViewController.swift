@@ -48,6 +48,7 @@ extension AmongChat.Room {
         private var nickNameInputView: AmongInputNickNameView!
         private var bottomBar: AmongRoomBottomBar!
         private var toolView: AmongRoomToolView!
+        private weak var socialShareViewController: Social.ShareRoomViewController?
         
         private var style = Style.normal {
             didSet {
@@ -250,21 +251,15 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onShareBtn() {
-//        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-//        let removeBlock = { [weak self] in
-//            self?.view.isUserInteractionEnabled = true
-//            removeHUDBlock()
-//        }
-//
-//        self.view.isUserInteractionEnabled = false
+        guard socialShareViewController == nil else {
+            return
+        }
         let link = "https://among.chat/room/\(room.roomId)"
-
-//        ShareManager.default.showActivity(name: nil, dynamicLink: link, type: .more, viewController: self) { () in
-////            removeBlock()
-//        }
-        
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
+
+        viewModel.didShowShareView()
+        socialShareViewController = vc
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
