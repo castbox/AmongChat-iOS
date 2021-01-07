@@ -151,6 +151,8 @@ extension Logger {
             case login_birthday_success
             case logout_clk
             case logout_success
+            
+            case profile_tiktok_amongchat_tag_clk
         }
         
         enum Category: String {
