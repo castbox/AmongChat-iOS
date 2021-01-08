@@ -361,7 +361,7 @@ extension SettingViewController {
 
 extension SettingViewController {
     
-    class SettingCell: UITableViewCell {
+    class SettingCell: TableViewCell {
         
         private lazy var leftIcon: UIImageView = {
             let iv = UIImageView()

@@ -115,9 +115,6 @@ target 'WalkieTalkie' do
     pod 'SwiftHash'
     pod 'loady'
     
-    pod 'JXCategoryView'
-    pod 'JXPagingView/Paging', '2.0.3'
-    pod 'JXSegmentedView'
     pod 'MJRefresh', '~> 3.5.0'
     
     pod 'SnapSDK'
