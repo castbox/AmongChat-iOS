@@ -147,7 +147,7 @@ private extension Social.EditProfileViewController {
         userButton.rx.tap
             .subscribe(onNext: { [weak self]() in
                 Logger.Action.log(.profile_nikename_clk, category: nil)
-                _ = self?.userInputView.becomeFirstResponder()
+                _ = self?.userInputView.becomeFirstResponder(with: nil)
             }).disposed(by: bag)
         
         birthdayButton.rx.tap
