@@ -1718,6 +1718,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomFortniteInputCodePlceholder = Rswift.StringResource(key: "room.fortnite.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: FREE FIRE NICKNAME
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomFreefireInputCodePlceholder = Rswift.StringResource(key: "room.freefire.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Failed to block this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1774,10 +1778,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Fortnite DISPLAY NAME
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let roomFreefireInputCodePlceholder = Rswift.StringResource(key: "room.freefire.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2525,6 +2525,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.fortnite.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: FREE FIRE NICKNAME
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func roomFreefireInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.freefire.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Failed to block this person,  please try again.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2621,13 +2628,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Fortnite DISPLAY NAME
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func roomFreefireInputCodePlceholder(_: Void = ()) -> String {
-        return NSLocalizedString("room.freefire.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Harassment or repulsive language

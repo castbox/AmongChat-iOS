@@ -59,6 +59,15 @@ extension Social {
             return btn
         }()
         
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 24)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            lb.text = R.string.localizable.profileProfile()
+            return lb
+        }()
+        
         private lazy var moreBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
@@ -71,7 +80,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 345:414
+            let vH: CGFloat = isSelfProfile ? 288:329
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -164,14 +173,30 @@ private extension Social.ProfileViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        view.addSubviews(views: table, backBtn)
+        let navLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(navLayoutGuide)
+        navLayoutGuide.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(49)
+        }
+        
+        view.addSubviews(views: table, backBtn, titleLabel)
+        
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalTo(navLayoutGuide)
+        }
+
         table.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         backBtn.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(12.5)
-            maker.top.equalTo(8.5 + Frame.Height.safeAeraTopHeight)
+            maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(40)//25
         }
         if !isSelfProfile {
