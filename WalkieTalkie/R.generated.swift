@@ -1636,12 +1636,12 @@ struct R: Rswift.Validatable {
       static let amongChatRoomKickoutSystem = Rswift.StringResource(key: "among.chat.room.kickout.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Channel is PRIVATE now. The invited players can join!
       /// 
-      /// Locales: en
-      static let chatroomMessageSystemChangeToPrivate = Rswift.StringResource(key: "chatroom.message.system.change.to.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let chatroomMessageSystemChangeToPrivate = Rswift.StringResource(key: "chatroom.message.system.change.to.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Channel is PUBLIC now. Everyone can join!
       /// 
-      /// Locales: en
-      static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en
@@ -2038,6 +2038,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthSep = Rswift.StringResource(key: "month.sep", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set Fortnite Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetFortniteName = Rswift.StringResource(key: "among.chat.room.set.fortnite.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set Free Fire Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set Minecraft Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetMinecraftName = Rswift.StringResource(key: "among.chat.room.set.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set Roblox Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetRebloxName = Rswift.StringResource(key: "among.chat.room.set.reblox.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set up in-game code here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2050,22 +2066,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingsTitle = Rswift.StringResource(key: "settings.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Setup Fortnite Display Name
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let amongChatRoomSetFortniteName = Rswift.StringResource(key: "among.chat.room.set.fortnite.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Setup Free Fire Nickname
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Setup Minecraft Gamertag
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let amongChatRoomSetMinecraftName = Rswift.StringResource(key: "among.chat.room.set.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Setup Roblox Username
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let amongChatRoomSetRebloxName = Rswift.StringResource(key: "among.chat.room.set.reblox.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sexual content
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2380,14 +2380,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Channel is PRIVATE now. The invited players can join!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func chatroomMessageSystemChangeToPrivate(_: Void = ()) -> String {
         return NSLocalizedString("chatroom.message.system.change.to.private", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Channel is PUBLIC now. Everyone can join!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func chatroomMessageSystemChangeToPublic(_: Void = ()) -> String {
         return NSLocalizedString("chatroom.message.system.change.to.public", bundle: R.hostingBundle, comment: "")
       }
@@ -3085,6 +3085,34 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.sep", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Set Fortnite Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatRoomSetFortniteName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.fortnite.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set Free Fire Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatRoomSetFreefireName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.freefire.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set Minecraft Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatRoomSetMinecraftName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.minecraft.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set Roblox Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatRoomSetRebloxName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.reblox.name", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Set up in-game code here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3104,34 +3132,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func settingsTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Setup Fortnite Display Name
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func amongChatRoomSetFortniteName(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.set.fortnite.name", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Setup Free Fire Nickname
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func amongChatRoomSetFreefireName(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.set.freefire.name", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Setup Minecraft Gamertag
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func amongChatRoomSetMinecraftName(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.set.minecraft.name", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Setup Roblox Username
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func amongChatRoomSetRebloxName(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.room.set.reblox.name", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sexual content

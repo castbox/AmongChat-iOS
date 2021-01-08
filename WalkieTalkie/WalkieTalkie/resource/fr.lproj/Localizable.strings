@@ -188,9 +188,9 @@
 "among.chat.setting.terms" = "Terms";
 "among.chat.setting.privacy" = "Privacy";
 "among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Setup Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Setup Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Setup Minecraft Gamertag";
+"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
+"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
+"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
 "room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
 "room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
 "room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
@@ -198,3 +198,5 @@
 "among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
 "among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
+"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
+"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";

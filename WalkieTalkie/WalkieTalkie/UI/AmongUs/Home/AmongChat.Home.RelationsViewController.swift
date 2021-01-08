@@ -124,7 +124,7 @@ extension AmongChat.Home.RelationsViewController {
         
         friendsCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(16.5)
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
     }

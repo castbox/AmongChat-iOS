@@ -143,7 +143,7 @@
 "among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
 "among.chat.room.kickout" = "You’ve been removed from this channel";
 "among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
-"among.chat.room.set.reblox.name" = "Setup Roblox Username";
+"among.chat.room.set.reblox.name" = "Set Roblox Username";
 "among.chat.room.kick" = "Kick";
 "among.chat.room.user.change.notes.title" = "Only the channel owner can change this";
 "among.chat.home.load.error.title" = "Oops, no Internet!";
@@ -188,9 +188,9 @@
 "among.chat.setting.terms" = "Terms";
 "among.chat.setting.privacy" = "Privacy";
 "among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Setup Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Setup Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Setup Minecraft Gamertag";
+"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
+"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
+"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
 "room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
 "room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
 "room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
@@ -200,4 +200,3 @@
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-
