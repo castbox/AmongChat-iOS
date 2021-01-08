@@ -278,6 +278,7 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         

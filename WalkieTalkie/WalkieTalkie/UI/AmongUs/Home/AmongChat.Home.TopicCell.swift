@@ -34,6 +34,7 @@ extension AmongChat.Home {
         private lazy var teamUpBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.adjustsFontSizeToFitWidth = true
             btn.setTitleColor(UIColor.black, for: .normal)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.setTitle(R.string.localizable.amongChatHomeTeamUp(), for: .normal)
@@ -115,6 +116,7 @@ extension AmongChat.Home {
             
             teamUpBtn.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalToSuperview().inset(12)
+                maker.left.greaterThanOrEqualTo(nameLabel.snp.left)
                 maker.height.equalTo(36)
             }
             
