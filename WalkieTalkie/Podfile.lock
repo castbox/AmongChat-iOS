@@ -184,9 +184,6 @@ PODS:
     - GTMSessionFetcher/Core (= 1.4.0)
   - IQKeyboardManagerSwift (6.2.1)
   - JLRoutes (2.1)
-  - JXCategoryView (1.5.5)
-  - JXPagingView/Paging (2.0.3)
-  - JXSegmentedView (1.0.6)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
@@ -315,9 +312,6 @@ DEPENDENCIES:
   - GoogleSignIn
   - IQKeyboardManagerSwift (~> 6.2.0)
   - JLRoutes
-  - JXCategoryView
-  - JXPagingView/Paging (= 2.0.3)
-  - JXSegmentedView
   - Kingfisher
   - loady
   - MBProgressHUD (~> 1.0.0)
@@ -387,9 +381,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - IQKeyboardManagerSwift
     - JLRoutes
-    - JXCategoryView
-    - JXPagingView
-    - JXSegmentedView
     - Kingfisher
     - loady
     - MarqueeLabel
@@ -480,9 +471,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
-  JXCategoryView: 0293fcb356f10a5c2e679dac0a1a5f1899ee0c87
-  JXPagingView: 16f18d80bd79e0aab2e77fd8855211359e2506a4
-  JXSegmentedView: ceb6fb3a12716408bcd5c4210b93d947d079de25
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
@@ -523,6 +511,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 7c886800492a0983675bd1cc920f6aabab56bfd8
+PODFILE CHECKSUM: a585245992e4af848f4e2c0143950b15654cf2a0
 
 COCOAPODS: 1.10.0
