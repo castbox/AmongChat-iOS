@@ -1648,16 +1648,16 @@ struct R: Rswift.Validatable {
       static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to copy others' Fortnite display names to play together
       /// 
-      /// Locales: en
-      static let amongChatRoomFortniteTitle = Rswift.StringResource(key: "among.chat.room.fortnite.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomFortniteTitle = Rswift.StringResource(key: "among.chat.room.fortnite.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to copy others' Free Fire nicknames to play together
       /// 
-      /// Locales: en
-      static let amongChatRoomFreefireTitle = Rswift.StringResource(key: "among.chat.room.freefire.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomFreefireTitle = Rswift.StringResource(key: "among.chat.room.freefire.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to copy others' Minecraft gamertags to play together
       /// 
-      /// Locales: en
-      static let amongChatRoomMinecraftTitle = Rswift.StringResource(key: "among.chat.room.minecraft.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomMinecraftTitle = Rswift.StringResource(key: "among.chat.room.minecraft.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1864,8 +1864,8 @@ struct R: Rswift.Validatable {
       static let roomMinecraftInputCodePlceholder = Rswift.StringResource(key: "room.minecraft.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Make your #amongchat video on TikTok
       /// 
-      /// Locales: en
-      static let profileShareTiktokTitle = Rswift.StringResource(key: "profile.share.tiktok.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let profileShareTiktokTitle = Rswift.StringResource(key: "profile.share.tiktok.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Mar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2060,8 +2060,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Setup Minecraft Gamertag
       /// 
-      /// Locales: en
-      static let amongChatRoomSetMinecraftName = Rswift.StringResource(key: "among.chat.room.set.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomSetMinecraftName = Rswift.StringResource(key: "among.chat.room.set.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Setup Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2401,21 +2401,21 @@ struct R: Rswift.Validatable {
       
       /// en translation: Click to copy others' Fortnite display names to play together
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomFortniteTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.fortnite.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to copy others' Free Fire nicknames to play together
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomFreefireTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.freefire.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to copy others' Minecraft gamertags to play together
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomMinecraftTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.minecraft.title", bundle: R.hostingBundle, comment: "")
       }
@@ -2779,7 +2779,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Make your #amongchat video on TikTok
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileShareTiktokTitle(_: Void = ()) -> String {
         return NSLocalizedString("profile.share.tiktok.title", bundle: R.hostingBundle, comment: "")
       }
@@ -3122,7 +3122,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Setup Minecraft Gamertag
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomSetMinecraftName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.set.minecraft.name", bundle: R.hostingBundle, comment: "")
       }
