@@ -1548,7 +1548,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 168 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 170 localization keys.
     struct localizable {
       /// ar translation: ادعو أصدقاء
       /// 
@@ -1634,6 +1634,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKickoutSystem = Rswift.StringResource(key: "among.chat.room.kickout.system", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Channel is PRIVATE now. The invited players can join!
+      /// 
+      /// Locales: en
+      static let chatroomMessageSystemChangeToPrivate = Rswift.StringResource(key: "chatroom.message.system.change.to.private", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Channel is PUBLIC now. Everyone can join!
+      /// 
+      /// Locales: en
+      static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Chat Language
       /// 
       /// Locales: en
@@ -2368,6 +2376,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomKickoutSystem(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.kickout.system", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Channel is PRIVATE now. The invited players can join!
+      /// 
+      /// Locales: en
+      static func chatroomMessageSystemChangeToPrivate(_: Void = ()) -> String {
+        return NSLocalizedString("chatroom.message.system.change.to.private", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Channel is PUBLIC now. Everyone can join!
+      /// 
+      /// Locales: en
+      static func chatroomMessageSystemChangeToPublic(_: Void = ()) -> String {
+        return NSLocalizedString("chatroom.message.system.change.to.public", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Chat Language
