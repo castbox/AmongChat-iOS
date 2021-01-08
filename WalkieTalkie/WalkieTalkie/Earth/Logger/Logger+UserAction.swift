@@ -127,6 +127,12 @@ extension Logger {
             case invite_dialog_imp
             case invite_dialog_clk
             case invite_dialog_auto_dimiss
+            case invite_top_dialog_imp
+            case invite_top_dialog_clk
+            case invite_top_dialog_auto_dismiss
+            case settings_chat_language_imp
+            case settings_chat_language_clk
+            
             case home_tab
             case home_friends_profile_clk
             case home_friends_following_join

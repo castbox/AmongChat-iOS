@@ -50,6 +50,10 @@ extension AmongChat {
             }
         }
         
+        override var screenName: Logger.Screen.Node.Start {
+            .chat_language
+        }
+        
         private let languages: [Entity.GlobalSetting.KeyValue]
         
         init(with languages: [Entity.GlobalSetting.KeyValue]) {
@@ -65,6 +69,7 @@ extension AmongChat {
             super.viewDidLoad()
             setupLayout()
             setupEvent()
+            Logger.Action.log(.settings_chat_language_imp)
         }
         // MARK: - UI action
         
@@ -177,6 +182,8 @@ extension AmongChat.ChatLanguageViewController: UITableViewDelegate {
             return
         }
         updateChatLanguage(lan)
+        Logger.Action.log(.settings_chat_language_clk, lan.languageKey)
+
     }
 }
 

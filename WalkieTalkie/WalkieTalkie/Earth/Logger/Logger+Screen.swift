@@ -32,6 +32,7 @@ extension Logger {
                 case following
                 case followers
                 case exit_channel
+                case chat_language
             }
             
             case start(Start)

@@ -239,7 +239,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
                 //                user.invited = follow
                 self.items[indexPath.section].userLsit[indexPath.row].invited = follow
                 //                self.userList[indexPath.row].invited = follow
-                Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), "invite")
+                Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), item.group == .friends ? "invite" : "invite_stranger")
             }
         }
         return cell
