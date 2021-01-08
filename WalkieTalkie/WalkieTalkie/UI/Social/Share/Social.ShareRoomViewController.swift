@@ -208,7 +208,7 @@ private extension Social.ShareRoomViewController {
     
     func copyLink() {
         Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "copy")
-        linkUrl.copyToPasteboard()
+        linkUrl.copyToPasteboardWithHaptic()
         view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
 }

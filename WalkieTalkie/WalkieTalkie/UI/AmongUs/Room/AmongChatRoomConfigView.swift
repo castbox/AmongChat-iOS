@@ -95,7 +95,7 @@ extension AmongChatRoomConfigView {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
                 Logger.Action.log(.room_amongus_code_copy)
-                self.room.amongUsCode?.copyToPasteboard()
+                self.room.amongUsCode?.copyToPasteboardWithHaptic()
                 self.containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
             }
 
