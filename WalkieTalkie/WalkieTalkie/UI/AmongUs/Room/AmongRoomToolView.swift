@@ -20,10 +20,10 @@ class AmongRoomToolView: XibLoadableView {
     var openGameHandler: CallBack?
     var setNickNameHandler: CallBack?
     var room: Entity.Room?
+    var profileObserverDispose: Disposable?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        bindSubviewEvent()
         configureSubview()
     }
     
@@ -42,25 +42,12 @@ class AmongRoomToolView: XibLoadableView {
         openGameButton.isUserInteractionEnabled = room.topicType != .chilling
         //, .freefire, .
         nickNameButton.isHidden = !room.topicType.enableNickName
-        updateTitleForNickNameButton()
+        observerProfile()
     }
     
-    func updateTitleForNickNameButton() {
-        switch room?.topicType {
-        case .roblox:
-            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetRebloxName(), for: .normal)
-        case .fortnite:
-            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFortniteName(), for: .normal)
-        case .freefire:
-            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetFreefireName(), for: .normal)
-        case .minecraft:
-            nickNameButton.setTitle(R.string.localizable.amongChatRoomSetMinecraftName(), for: .normal)
-        default:
-            ()
-        }
-    }
-    
-    private func bindSubviewEvent() {
+    private func observerProfile() {
+        profileObserverDispose?.dispose()
+        profileObserverDispose =
         Settings.shared.amongChatUserProfile.replay()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] profile in
@@ -77,7 +64,7 @@ class AmongRoomToolView: XibLoadableView {
                     ()
                 }
             })
-            .disposed(by: bag)
+        profileObserverDispose?.disposed(by: bag)
 
     }
     
