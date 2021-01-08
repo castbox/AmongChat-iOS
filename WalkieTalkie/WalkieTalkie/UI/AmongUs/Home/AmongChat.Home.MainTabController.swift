@@ -39,9 +39,8 @@ extension AmongChat.Home.MainTabController {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
             return
         }
-        
         if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
-            
+            Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             let view = AmongChat.Home.StrangeInvitationView()
             view.updateContent(user: user, room: room)
             let dimmerView = UIView(frame: Frame.Screen.bounds)
@@ -67,15 +66,28 @@ extension AmongChat.Home.MainTabController {
 
             let banner = FloatingNotificationBanner(customView: view)
             banner.duration = 10
-            banner.delegate = self
             banner.dismissOnTap = true
-            banner.onTap = { [weak self] in
-//                self?.notificationBanner?.dismiss()
+            banner.onTap = { [weak banner] in
+                banner?.isDismissedByTapEvent = true
+                Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
                     return
                 }
                 topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
             }
+            banner.rx.notificationBannerWillDisappear
+                .subscribe(onCompleted: { [weak self] in
+                    self?.notificationBannerDimmerView?.removeFromSuperview()
+                })
+                .disposed(by: bag)
+            banner.rx.notificationBannerDidDisappear
+                .subscribe(onCompleted: { [weak banner] in
+                    if banner?.isDismissedByTapEvent != true {
+                        Logger.Action.log(.invite_top_dialog_auto_dismiss, categoryValue: room.topicId)
+                    }
+                })
+                .disposed(by: bag)
+
             banner.transparency = 1
             banner.show(on: self, edgeInsets: UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
             self.notificationBanner = banner
@@ -192,25 +204,6 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
-    }
-    
-}
-
-extension AmongChat.Home.MainTabController: NotificationBannerDelegate {
-    func notificationBannerWillAppear(_ banner: BaseNotificationBanner) {
-        
-    }
-    
-    func notificationBannerDidAppear(_ banner: BaseNotificationBanner) {
-        
-    }
-    
-    func notificationBannerWillDisappear(_ banner: BaseNotificationBanner) {
-        notificationBannerDimmerView?.removeFromSuperview()
-    }
-    
-    func notificationBannerDidDisappear(_ banner: BaseNotificationBanner) {
-        
     }
     
 }
