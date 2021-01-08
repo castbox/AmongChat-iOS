@@ -52,7 +52,6 @@
 "profile.follow" = "Следить";
 "profile.little.follower" = "подписчики";
 "profile.little.following" = "следующий";
-"profile.invite.friends" = "Пригласить друзей";
 "profile.block.user" = "Черный список";
 "profile.settings" = "Настройки";
 "profile.community" = "Правила сообщества";
@@ -96,7 +95,7 @@
 "social.sms" = "SMS";
 "social.copy.link" = "Копировать ссылку";
 "social.invite.friends" = "Пригласить друзей";
-"social.invite" = "пригласить";
+"social.invite" = "Пригласить";
 "social.invited" = "послал";
 "social.invite.play.with" = "Люди, с которыми вы можете поиграть";
 "social.exit.channel" = "Выход из канала";
@@ -118,12 +117,12 @@
 "force.upgrade.tip" = "Пожалуйста, обновите приложение до последней версии, чтобы продолжить игру.";
 
 //new
-"room.public" = "публика";
+"room.public" = "Публичный";
 "room.private" = "Частный";
-"among.chat.room.tip.mic.on" = "микрофон на";
+"among.chat.room.tip.mic.on" = "МИКРОФОН ВКЛ";
 "room.tag.open.game" = "Открытая игра";
 "room.hosts.notes" = "Примечания хозяина:";
-"room.user.list.muted" = "Без звука";
+"room.user.list.muted" = "БЕЗ ЗВУКА";
 
 "among.chat.privacy.policy" = "Политика конфиденциальности";
 "among.chat.terms.service" = "Условия обслуживания";
@@ -166,6 +165,7 @@
 
 "guide.fourth.title" = "Наслаждайтесь этими потрясающими вещами! \n✔️ Секретные каналы \n✔️ Неограниченные права на разговор";
 
+"setting.chat.language" = "Язык чата";
 "rate.us" = "Оцените нас";
 "share.app" = "Поделиться приложением";
 "push.setting" = "Нажмите Настройка";
@@ -186,19 +186,19 @@
 "share.app" = "Ребята, нам нужно больше людей в AmongChat! Это супер весело и подойдет вам с единомышленниками. Нажмите на ссылку, чтобы скачать сейчас: https://amongchat.page.link/app";
 
 "among.chat.unknown.error" = "Неизвестная ошибка";
-"among.chat.setting.terms" = "Terms";
-"among.chat.setting.privacy" = "Privacy";
-"among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
-"room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
-"room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
-"among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
-"among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
-"among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
-"profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
-"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
-"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-"chatroom.message.user.joined" = "joined";
+"among.chat.setting.terms" = "Условия";
+"among.chat.setting.privacy" = "Конфиденциальность";
+"among.chat.room.kickout.system" = "Канал закрыт из-за бездействия";
+"among.chat.room.set.freefire.name" = "Установить никнейм Free Fire";
+"among.chat.room.set.fortnite.name" = "Установить отображаемое имя Fortnite";
+"among.chat.room.set.minecraft.name" = "Установить Тег игрока Minecraft ";
+"room.freefire.input.code.plceholder" = "FREE FIRE НИКHEЙM";
+"room.fortnite.input.code.plceholder" = "FORTNITE ИМЯ ПОЛЬЗОВАТЕЛЯ";
+"room.minecraft.input.code.plceholder" = "MINECRAFT TEГ ИГPOKA";
+"among.chat.room.fortnite.title" = "Нажмите, чтобы скопировать отображаемые имена Fortnite других игроков, чтобы играть вместе";
+"among.chat.room.minecraft.title" = "Нажмите, чтобы скопировать теги игроков Minecraft, чтобы играть вместе";
+"among.chat.room.freefire.title" = "Нажмите, чтобы скопировать чужие никнеймы Free Fire и играть вместе";
+"profile.share.tiktok.title" = "Сделайте свое видео #amongchat в TikTok";
+"chatroom.message.system.change.to.public" = "Канал теперь ПУБЛИЧНЫЙ. Присоединиться может каждый!";
+"chatroom.message.system.change.to.private" = "Канал теперь ЧАСТНЫЙ. Приглашенные игроки могут присоединиться!";
+"chatroom.message.user.joined" = "присоединился";

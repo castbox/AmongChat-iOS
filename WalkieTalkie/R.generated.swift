@@ -1548,12 +1548,8 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 171 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 170 localization keys.
     struct localizable {
-      /// ar translation: ادعو أصدقاء
-      /// 
-      /// Locales: ar, de, es, fr, it, ko, pt-BR, ru
-      static let profileInviteFriends = Rswift.StringResource(key: "profile.invite.friends", tableName: "Localizable", bundle: R.hostingBundle, locales: ["ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: %1$@ online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1644,8 +1640,8 @@ struct R: Rswift.Validatable {
       static let chatroomMessageSystemChangeToPublic = Rswift.StringResource(key: "chatroom.message.system.change.to.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Chat Language
       /// 
-      /// Locales: en
-      static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Click to copy others' Fortnite display names to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2235,13 +2231,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingsRestoreSuccessBody = Rswift.StringResource(key: "settings.restore.success.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       
-      /// ar translation: ادعو أصدقاء
-      /// 
-      /// Locales: ar, de, es, fr, it, ko, pt-BR, ru
-      static func profileInviteFriends(_: Void = ()) -> String {
-        return NSLocalizedString("profile.invite.friends", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: %1$@ online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2398,7 +2387,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Chat Language
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func settingChatLanguage(_: Void = ()) -> String {
         return NSLocalizedString("setting.chat.language", bundle: R.hostingBundle, comment: "")
       }

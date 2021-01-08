@@ -52,7 +52,6 @@
 "profile.follow" = "Folgen";
 "profile.little.follower" = "Anhänger";
 "profile.little.following" = "folgen";
-"profile.invite.friends" = "Freunde einladen";
 "profile.block.user" = "Blockliste";
 "profile.settings" = "Einstellungen";
 "profile.community" = "Community-Richtlinien";
@@ -144,7 +143,7 @@
 "among.chat.room.just.chat.title" = "Der Host kann eine Notiz einrichten, damit jeder sie sehen kann, wenn er beitritt";
 "among.chat.room.kickout" = "Du wurdest aus diesem Kanal entfernt";
 "among.chat.room.reblox.title" = "Füge den Host in Roblox hinzu, um an ihrem Spiel teilzunehmen! Klicken Sie zum Kopieren";
-"among.chat.room.set.reblox.name" = "Richten Sie den Roblox-Benutzernamen ein";
+"among.chat.room.set.reblox.name" = "Stellen Sie den Roblox-Benutzernamen ein";
 "among.chat.room.kick" = "Trete";
 "among.chat.room.user.change.notes.title" = "Dies kann nur der Kanalbesitzer ändern";
 "among.chat.home.load.error.title" = "Ups, kein Internet!";
@@ -166,6 +165,7 @@
 
 "guide.fourth.title" = "Genieße diese großartigen Dinge! \n✔️ Geheime Kanäle \n✔️ Unbegrenzte Gesprächsrechte";
 
+"setting.chat.language" = "Chat-Sprache";
 "rate.us" = "Bewerten Sie uns";
 "share.app" = "App teilen";
 "push.setting" = "Push-Einstellung";
@@ -186,20 +186,19 @@
 
 "among.chat.unknown.error" = "Unbekannter Fehler";
 "share.app" = "Leute, wir brauchen mehr Leute auf AmongChat! Es macht super Spaß und passt zu gleichgesinnten Spielern. Tippen Sie auf den Link, um ihn jetzt herunterzuladen: https://amongchat.page.link/app";
-
-"among.chat.setting.terms" = "Terms";
-"among.chat.setting.privacy" = "Privacy";
-"among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
-"room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
-"room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
-"among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
-"among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
-"among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
-"profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
-"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
-"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-"chatroom.message.user.joined" = "joined";
+"among.chat.setting.terms" = "Bedingungen";
+"among.chat.setting.privacy" = "Privatsphäre";
+"among.chat.room.kickout.system" = "Kanal wegen Inaktivität geschlossen";
+"among.chat.room.set.freefire.name" = "Setze Free Fire Spitzname";
+"among.chat.room.set.fortnite.name" = "Stellen Sie den Fortnite-Anzeigenamen ein";
+"among.chat.room.set.minecraft.name" = "Setze Minecraft Spielername";
+"room.freefire.input.code.plceholder" = "KOSTENLOSER FREE FIRE SPITZNAME";
+"room.fortnite.input.code.plceholder" = "FORTNITE BENUTZERNAME";
+"room.minecraft.input.code.plceholder" = "MINECRAFT SPIELERNAME";
+"among.chat.room.fortnite.title" = "Klicken Sie hier, um die Fortnite-Anzeigenamen anderer zu kopieren und zusammen zu spielen";
+"among.chat.room.minecraft.title" = "Klicken Sie hier, um die Minecraft-Spielernamen anderer zu kopieren und gemeinsam zu spielen";
+"among.chat.room.freefire.title" = "Klicken Sie hier, um die Free Fire-Spitznamen anderer zu kopieren und zusammen zu spielen";
+"profile.share.tiktok.title" = "Machen Sie Ihr #amongchat-Video auf TikTok";
+"chatroom.message.system.change.to.public" = "Kanal ist jetzt ÖFFENTLICH. Jeder kann mitmachen!";
+"chatroom.message.system.change.to.private" = "Kanal ist jetzt privat. Die eingeladenen Spieler können mitmachen!";
+"chatroom.message.user.joined" = "beigetreten";

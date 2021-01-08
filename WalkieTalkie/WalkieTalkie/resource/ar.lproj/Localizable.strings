@@ -52,7 +52,6 @@
 "profile.follow" = "إتبع";
 "profile.little.follower" = "متابعون";
 "profile.little.following" = "التالية";
-"profile.invite.friends" = "ادعو أصدقاء";
 "profile.block.user" = "قائمة الحظر";
 "profile.settings" = "إعدادات";
 "profile.community" = "إرشادات المجتمع";
@@ -120,10 +119,10 @@
 //new
 "room.public" = "عامة";
 "room.private" = "نشر";
-"among.chat.room.tip.mic.on" = "تشغيل الميكروفون";
+"among.chat.room.tip.mic.on" = "ميكروفون مفتوح";
 "room.tag.open.game" = "افتح اللعبة";
 "room.hosts.notes" = "ملاحظات المضيف:";
-"room.user.list.muted" = "صامت";
+"room.user.list.muted" = "مكتوم";
 
 "among.chat.privacy.policy" = "سياسة الخصوصية";
 "among.chat.terms.service" = "شروط الخدمة";
@@ -144,7 +143,7 @@
 "among.chat.room.just.chat.title" = "يمكن للمضيف إعداد ملاحظة حتى يتمكن الجميع من رؤيتها عند الانضمام";
 "among.chat.room.kickout" = "لقد تمت إزالتك من هذه القناة";
 "among.chat.room.reblox.title" = "أضف المضيف في لعبة Roblox للانضمام إلى لعبته! انقر للنسخ";
-"among.chat.room.set.reblox.name" = "قم بإعداد اسم مستخدم Roblox";
+"among.chat.room.set.reblox.name" = "قم بتعيين اسم مستخدم Roblox";
 "among.chat.room.kick" = "ركلة";
 "among.chat.room.user.change.notes.title" = "يمكن لمالك القناة فقط تغيير هذا";
 "among.chat.home.load.error.title" = "عفوًا ، لا يوجد إنترنت!";
@@ -166,6 +165,7 @@
 
 "guide.fourth.title" = "استمتع بهذه الأشياء الرائعة! \n✔️ قنوات سرية \n✔️ حقوق تحدث غير محدودة";
 
+"setting.chat.language" = "لغة الدردشة";
 "rate.us" = "قيمنا";
 "share.app" = "شارك التطبيق";
 "push.setting" = "إعداد الدفع";
@@ -186,20 +186,19 @@
 
 "among.chat.unknown.error" = "خطأ غير معروف";
 "share.app" = "AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/app";
-
-"among.chat.setting.terms" = "Terms";
-"among.chat.setting.privacy" = "Privacy";
-"among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
-"room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
-"room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
-"among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
-"among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
-"among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
-"profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
-"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
-"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-"chatroom.message.user.joined" = "joined";
+"among.chat.setting.terms" = "شروط";
+"among.chat.setting.privacy" = "خصوصية";
+"among.chat.room.kickout.system" = "القناة مغلقة بسبب عدم النشاط";
+"among.chat.room.set.freefire.name" = "تعيين لقب Free Fire";
+"among.chat.room.set.fortnite.name" = "قم بتعيين اسم عرض Fortnite";
+"among.chat.room.set.minecraft.name" = "قم بتعيين علامة اللاعب Minecraft";
+"room.freefire.input.code.plceholder" = " FREE FIRE كنية ";
+"room.fortnite.input.code.plceholder" = "FORTNITE اسم المستخدم ";
+"room.minecraft.input.code.plceholder" = "MINECRAFT علامة اللاعب";
+"among.chat.room.fortnite.title" = "انقر لنسخ أسماء عرض Fortnite للآخرين للعب معًا";
+"among.chat.room.minecraft.title" = "انقر لنسخ علامات ألعاب Minecraft الخاصة بالآخرين للعب معًا";
+"among.chat.room.freefire.title" = "انقر لنسخ ألقاب Free Fire الخاصة بالآخرين للعب معًا";
+"profile.share.tiktok.title" = "اصنع فيديو #amongchat الخاص بك على TikTok";
+"chatroom.message.system.change.to.public" = "القناة عامة الآن. يمكن للجميع الانضمام!";
+"chatroom.message.system.change.to.private" = "القناة خاصة الآن. يمكن للاعبين المدعوين الانضمام!";
+"chatroom.message.user.joined" = "انضم";

@@ -9,7 +9,7 @@
 "premium.free.trial" = "자유롭게 시도하세요";
 "premium.free.3d.trial" = "3D 무료 평가판";
 
-"premium.subscription.terms" = "구독 조건 :";
+"premium.subscription.terms" = "구독 약관:";
 "premium.subscription.detail.free" = "무료 평가판 후 %@ 구독은 %@이며 현재 기간이 종료되기 최소 24 시간 전에 회계 설정에서 해제하지 않으면 자동으로 갱신됩니다. 결제는 iTunes 계정으로 청구되며 언제든지 취소 할 수 있습니다.";
 "premium.subscription.detail.normal" = "%@ 구독은 %@이며 현재 기간이 종료되기 최소 24 시간 전에 회계 설정에서 해제하지 않으면 자동으로 갱신됩니다. 결제는 iTunes 계정으로 청구되며 언제든지 취소 할 수 있습니다.";
 
@@ -52,7 +52,6 @@
 "profile.follow" = "따르다";
 "profile.little.follower" = "추종자";
 "profile.little.following" = "수행원";
-"profile.invite.friends" = "친구를 초대";
 "profile.block.user" = "차단 목록";
 "profile.settings" = "설정";
 "profile.community" = "커뮤니티 지침";
@@ -166,6 +165,7 @@
 
 "guide.fourth.title" = "이 멋진 것들을 즐기십시오! \n✔️ 비밀 채널 \n✔️ 무제한 대화 권한";
 
+"setting.chat.language" = "채팅 언어";
 "rate.us" = "평가";
 "share.app" = "앱 공유";
 "push.setting" = "푸시 설정";
@@ -185,20 +185,19 @@
 "amongus.server.north.europe" = "유럽";
 "among.chat.unknown.error" = "알수없는 오류";
 "share.app" = "여러분들 AmongChat에 더 많은 사람들이 필요합니다! 그것은 매우 재미 있고 같은 생각을 가진 게이머와 당신을 일치시킵니다. 지금 다운로드하려면 링크를 탭하세요: https://amongchat.page.link/app";
-
-"among.chat.setting.terms" = "Terms";
-"among.chat.setting.privacy" = "Privacy";
-"among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
-"room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
-"room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
-"among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
-"among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
-"among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
-"profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
-"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
-"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-"chatroom.message.user.joined" = "joined";
+"among.chat.setting.terms" = "약관";
+"among.chat.setting.privacy" = "은둔";
+"among.chat.room.kickout.system" = "비활성으로 인해 채널이 닫혔습니다";
+"among.chat.room.set.freefire.name" = "Free Fire 닉네임 설정";
+"among.chat.room.set.fortnite.name" = "Fortnite 표시 이름 설정";
+"among.chat.room.set.minecraft.name" = "Minecraft 게이머 태그 설정";
+"room.freefire.input.code.plceholder" = "FREE FIRE 별명";
+"room.fortnite.input.code.plceholder" = "FORTNITE 사용자 이름";
+"room.minecraft.input.code.plceholder" = "MINECRAFT 게이머 태그";
+"among.chat.room.fortnite.title" = "함께 플레이하려면 다른 사람의 Fortnite 표시 이름을 복사하려면 클릭하십시오.";
+"among.chat.room.minecraft.title" = "함께 플레이하려면 다른 사람의 Minecraft 게이머 태그를 복사하려면 클릭하세요.";
+"among.chat.room.freefire.title" = "함께 플레이하려면 다른 사람의 Free Fire 닉네임을 복사하려면 클릭하십시오.";
+"profile.share.tiktok.title" = "TikTok에서 #amongchat 동영상 만들기";
+"chatroom.message.system.change.to.public" = "채널은 이제 PUBLIC입니다. 누구나 가입 할 수 있습니다!";
+"chatroom.message.system.change.to.private" = "현재 채널은 비공개입니다. 초대받은 플레이어가 참가할 수 있습니다!";
+"chatroom.message.user.joined" = "가입";

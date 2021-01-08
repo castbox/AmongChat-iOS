@@ -9,7 +9,7 @@
 "premium.free.trial" = "PRUÉBALO GRATIS";
 "premium.free.3d.trial" = "Pruebas gratuitas 3D";
 
-"premium.subscription.terms" = "Condiciones de suscripción:";
+"premium.subscription.terms" = "Términos de suscripción:";
 "premium.subscription.detail.free" = "Después de la prueba gratuita, la suscripción %@ es %@, se renueva automáticamente a menos que se desactive en la configuración de contabilidad al menos 24 horas antes de que finalice el período actual. El pago se carga a su cuenta de iTunes, cancele en cualquier momento.";
 "premium.subscription.detail.normal" = "La suscripción %@ es %@, se renueva automáticamente a menos que se desactive en la Configuración de contabilidad al menos 24 horas antes de que finalice el período actual. El pago se carga a su cuenta de iTunes, cancele en cualquier momento.";
 
@@ -52,7 +52,6 @@
 "profile.follow" = "Seguir";
 "profile.little.follower" = "seguidores";
 "profile.little.following" = "siguiendo";
-"profile.invite.friends" = "Invitar a amigos";
 "profile.block.user" = "Lista de bloqueos";
 "profile.settings" = "Configuraciones";
 "profile.community" = "Principios de la Comunidad";
@@ -144,7 +143,7 @@
 "among.chat.room.just.chat.title" = "El anfitrión puede configurar una nota para que todos puedan verla cuando se unan";
 "among.chat.room.kickout" = "Te quitaron de este canal";
 "among.chat.room.reblox.title" = "¡Agrega el anfitrión en Roblox para unirse a su juego! Haga clic para copiar";
-"among.chat.room.set.reblox.name" = "Configurar el nombre de usuario de Roblox";
+"among.chat.room.set.reblox.name" = "Establecer nombre de usuario de Roblox";
 "among.chat.room.kick" = "Patada";
 "among.chat.room.user.change.notes.title" = "Solo el propietario del canal puede cambiar esto";
 "among.chat.home.load.error.title" = "¡Vaya, no hay Internet!";
@@ -166,6 +165,7 @@
 
 "guide.fourth.title" = "¡Disfruta de estas cosas increíbles! \n✔️ Canales secretos \n✔️ Derechos de conversación ilimitados";
 
+"setting.chat.language" = "Idioma del chat";
 "rate.us" = "Nos califica";
 "share.app" = "Compartir Aplicación";
 "push.setting" = "Ajuste de empuje";
@@ -186,19 +186,19 @@
 "share.app" = "¡Chicos, necesitamos más gente en AmongChat! Es súper divertido y te empareja con jugadores de ideas afines. Toque el enlace para descargar ahora: https://amongchat.page.link/app";
 
 "among.chat.unknown.error" = "Error desconocido";
-"among.chat.setting.terms" = "Terms";
-"among.chat.setting.privacy" = "Privacy";
-"among.chat.room.kickout.system" = "Channel closed due to inactivity";
-"among.chat.room.set.freefire.name" = "Set Free Fire Nickname";
-"among.chat.room.set.fortnite.name" = "Set Fortnite Display Name";
-"among.chat.room.set.minecraft.name" = "Set Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
-"room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
-"room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
-"among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
-"among.chat.room.minecraft.title" = "Click to copy others' Minecraft gamertags to play together";
-"among.chat.room.freefire.title" = "Click to copy others' Free Fire nicknames to play together";
-"profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
-"chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
-"chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
-"chatroom.message.user.joined" = "joined";
+"among.chat.setting.terms" = "Términos";
+"among.chat.setting.privacy" = "Intimidad";
+"among.chat.room.kickout.system" = "Canal cerrado por inactividad";
+"among.chat.room.set.freefire.name" = "Establecer apodo de Free Fire";
+"among.chat.room.set.fortnite.name" = "Establecer el nombre de visualización de Fortnite";
+"among.chat.room.set.minecraft.name" = "Establecer Etiqueta de Jugador de Minecraft";
+"room.freefire.input.code.plceholder" = "APODO DE FREE FIRE";
+"room.fortnite.input.code.plceholder" = "NOMBRE DE USUARIO DE FORTNITE";
+"room.minecraft.input.code.plceholder" = "ETIQUETA DE JUGADOR DE MINECRAFT ";
+"among.chat.room.fortnite.title" = "Haga clic para copiar los nombres de visualización de Fortnite de otros para jugar juntos";
+"among.chat.room.minecraft.title" = "Haga clic para copiar los etiquetas de jugador de Minecraft de otros para jugar juntos";
+"among.chat.room.freefire.title" = "Haz clic para copiar los apodos de Free Fire de otros para jugar juntos";
+"profile.share.tiktok.title" = "Haz tu video #amongchat en TikTok";
+"chatroom.message.system.change.to.public" = "El canal es PÚBLICO ahora. ¡Todos pueden unirse!";
+"chatroom.message.system.change.to.private" = "El canal es PRIVADO ahora. ¡Los jugadores invitados pueden unirse!";
+"chatroom.message.user.joined" = "unido";
