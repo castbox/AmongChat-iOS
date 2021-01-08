@@ -31,7 +31,7 @@ class TableViewCell: UITableViewCell {
         if state {
             backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.04)
         } else {
-            backgroundColor = UIColor.theme(.backgroundBlack)
+            backgroundColor = .clear
         }
     }
 

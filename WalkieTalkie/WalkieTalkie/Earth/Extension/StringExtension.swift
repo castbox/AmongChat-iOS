@@ -341,3 +341,12 @@ extension String {
         return jsonData
     }
 }
+
+extension String {
+    
+    func copyToPasteboardWithHaptic() {
+        copyToPasteboard()
+        HapticFeedback.Impact.success()
+    }
+
+}

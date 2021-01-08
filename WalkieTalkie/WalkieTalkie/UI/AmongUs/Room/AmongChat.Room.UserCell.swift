@@ -202,7 +202,7 @@ extension AmongChat.Room {
         
         @objc
         func gameNameButtonAction() {
-            user?.nickname?.copyToPasteboard()
+            user?.nickname?.copyToPasteboardWithHaptic()
             containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         

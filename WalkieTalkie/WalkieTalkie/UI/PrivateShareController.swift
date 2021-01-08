@@ -44,7 +44,7 @@ class PrivateShareController: ViewController {
     }
     
     @IBAction func copyButtonAction(_ sender: Any) {
-        passcodeLabel.text?.copyToPasteboard()
+        passcodeLabel.text?.copyToPasteboardWithHaptic()
         container.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
     }
     

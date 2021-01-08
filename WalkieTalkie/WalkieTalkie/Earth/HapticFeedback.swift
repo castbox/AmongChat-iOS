@@ -29,16 +29,19 @@ class HapticFeedback {
         
         public static func success() {
             let generator = UINotificationFeedbackGenerator()
+            generator.prepare()
             generator.notificationOccurred(.success)
         }
         
         public static func error() {
             let generator = UINotificationFeedbackGenerator()
+            generator.prepare()
             generator.notificationOccurred(.error)
         }
         
         public static func warning() {
             let generator = UINotificationFeedbackGenerator()
+            generator.prepare()
             generator.notificationOccurred(.warning)
         }
         
