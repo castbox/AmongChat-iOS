@@ -10,7 +10,7 @@ import UIKit
 
 extension AmongChat.CreateRoom {
     
-    class TopicCell: UITableViewCell {
+    class TopicCell: TableViewCell {
         
         private lazy var icon: UIImageView = {
             let i = UIImageView()

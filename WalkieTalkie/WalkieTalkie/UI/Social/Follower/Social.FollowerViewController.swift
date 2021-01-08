@@ -220,6 +220,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let user = userList.safe(indexPath.row) {
             addLogForProfile(with: user.uid)
             let vc = Social.ProfileViewController(with: user.uid)
@@ -271,7 +272,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
 
 extension Social {
     
-    class FollowerCell: UITableViewCell {
+    class FollowerCell: TableViewCell {
         
         var updateFollowData: ((Bool) -> Void)?
         var updateInviteData: ((Bool) -> Void)?

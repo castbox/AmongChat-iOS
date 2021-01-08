@@ -29,7 +29,7 @@ class TableViewCell: UITableViewCell {
     
     func changeSelectionColorForSelectedOrHiglightedState(_ state: Bool) {
         if state {
-            backgroundColor = UIColor(hex6: 0x898989, alpha: 0.4)
+            backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.04)
         } else {
             backgroundColor = UIColor.theme(.backgroundBlack)
         }

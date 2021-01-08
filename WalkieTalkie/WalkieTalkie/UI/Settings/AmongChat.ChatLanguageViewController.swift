@@ -200,7 +200,7 @@ extension AmongChat.ChatLanguageViewController {
 
 extension AmongChat.ChatLanguageViewController {
     
-    class LanguageCell: UITableViewCell {
+    class LanguageCell: TableViewCell {
                 
         private lazy var leftLabel: UILabel = {
             let lb = UILabel()

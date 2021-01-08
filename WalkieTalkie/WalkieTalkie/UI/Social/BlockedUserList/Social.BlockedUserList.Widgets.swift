@@ -15,7 +15,7 @@ extension Social.BlockedUserList {
 
 extension Social.BlockedUserList.Widgets {
     
-    class BlockedUserCell: UITableViewCell {
+    class BlockedUserCell: TableViewCell {
         
         var unlockHandle: (() -> Void)?
         
