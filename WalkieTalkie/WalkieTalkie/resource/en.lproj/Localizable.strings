@@ -200,3 +200,7 @@
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
+
+"share.app" = "Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat";
+
+"chatroom.message.user.joined" = "joined";

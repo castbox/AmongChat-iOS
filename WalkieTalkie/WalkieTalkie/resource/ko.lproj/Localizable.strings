@@ -183,8 +183,9 @@
 "amongus.server.north.america" = "북아메리카";
 "amongus.server.north.asia" = "아시아";
 "amongus.server.north.europe" = "유럽";
-
 "among.chat.unknown.error" = "알수없는 오류";
+"share.app" = "여러분들 AmongChat에 더 많은 사람들이 필요합니다! 그것은 매우 재미 있고 같은 생각을 가진 게이머와 당신을 일치시킵니다. 지금 다운로드하려면 링크를 탭하세요: https://amongchat.page.link/app";
+
 "among.chat.setting.terms" = "Terms";
 "among.chat.setting.privacy" = "Privacy";
 "among.chat.room.kickout.system" = "Channel closed due to inactivity";
@@ -200,3 +201,4 @@
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
+"chatroom.message.user.joined" = "joined";

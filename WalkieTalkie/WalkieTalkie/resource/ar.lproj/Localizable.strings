@@ -185,6 +185,8 @@
 "amongus.server.north.europe" = "أوروبا";
 
 "among.chat.unknown.error" = "خطأ غير معروف";
+"share.app" = "AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/app";
+
 "among.chat.setting.terms" = "Terms";
 "among.chat.setting.privacy" = "Privacy";
 "among.chat.room.kickout.system" = "Channel closed due to inactivity";
@@ -200,3 +202,4 @@
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
+"chatroom.message.user.joined" = "joined";

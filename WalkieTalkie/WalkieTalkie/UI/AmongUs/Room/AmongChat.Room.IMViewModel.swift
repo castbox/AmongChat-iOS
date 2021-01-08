@@ -346,7 +346,7 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         
         let mutableNormalString = NSMutableAttributedString()
         mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
-        mutableNormalString.append(NSAttributedString(string: " joined", attributes: contentAttr))
+        mutableNormalString.append(NSAttributedString(string: " \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
     }
 }

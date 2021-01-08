@@ -1548,7 +1548,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 170 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 171 localization keys.
     struct localizable {
       /// ar translation: ادعو أصدقاء
       /// 
@@ -1778,6 +1778,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let shareApp = Rswift.StringResource(key: "share.app", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2070,10 +2074,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Share App
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let shareApp = Rswift.StringResource(key: "share.app", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sign in with Apple
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2218,6 +2218,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatChannelInvitationMsg = Rswift.StringResource(key: "among.chat.channel.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let chatroomMessageUserJoined = Rswift.StringResource(key: "chatroom.message.user.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: lifetime
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2628,6 +2632,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func shareApp(_: Void = ()) -> String {
+        return NSLocalizedString("share.app", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Harassment or repulsive language
@@ -3141,13 +3152,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Share App
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func shareApp(_: Void = ()) -> String {
-        return NSLocalizedString("share.app", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Sign in with Apple
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3398,6 +3402,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatChannelInvitationMsg(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.channel.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func chatroomMessageUserJoined(_: Void = ()) -> String {
+        return NSLocalizedString("chatroom.message.user.joined", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: lifetime

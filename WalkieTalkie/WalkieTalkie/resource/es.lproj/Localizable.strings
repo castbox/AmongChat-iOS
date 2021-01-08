@@ -183,6 +183,7 @@
 "amongus.server.north.america" = "Norteamérica";
 "amongus.server.north.asia" = "Asia";
 "amongus.server.north.europe" = "Europa";
+"share.app" = "¡Chicos, necesitamos más gente en AmongChat! Es súper divertido y te empareja con jugadores de ideas afines. Toque el enlace para descargar ahora: https://amongchat.page.link/app";
 
 "among.chat.unknown.error" = "Error desconocido";
 "among.chat.setting.terms" = "Terms";
@@ -200,3 +201,4 @@
 "profile.share.tiktok.title" = "Make your #amongchat video on TikTok";
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
+"chatroom.message.user.joined" = "joined";

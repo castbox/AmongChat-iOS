@@ -225,7 +225,7 @@ class ShareManager: NSObject {
     }
     
     func showActivity(viewController: UIViewController, successHandler: (() -> Void)? = nil) {
-        let items = ["Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/app"] as [Any]
+        let items = [R.string.localizable.shareApp()] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
