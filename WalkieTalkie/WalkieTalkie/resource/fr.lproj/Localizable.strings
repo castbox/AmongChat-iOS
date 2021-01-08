@@ -191,7 +191,7 @@
 "among.chat.room.set.freefire.name" = "Setup Free Fire Nickname";
 "among.chat.room.set.fortnite.name" = "Setup Fortnite Display Name";
 "among.chat.room.set.minecraft.name" = "Setup Minecraft Gamertag";
-"room.freefire.input.code.plceholder" = "Fortnite DISPLAY NAME";
+"room.freefire.input.code.plceholder" = "FREE FIRE NICKNAME";
 "room.fortnite.input.code.plceholder" = "FORTNITE USERNAME";
 "room.minecraft.input.code.plceholder" = "MINECRAFT GAMERTAG";
 "among.chat.room.fortnite.title" = "Click to copy others' Fortnite display names to play together";
