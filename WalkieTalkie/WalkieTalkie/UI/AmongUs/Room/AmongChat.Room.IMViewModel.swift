@@ -231,14 +231,26 @@ extension ChatRoom {
     
     //red color
     struct SystemMessage: ChatRoomMessage {
+        
+        enum ContentType: String, Codable {
+            case `public`
+            case `private`
+        }
+        
         let content: String
         let textColor: String?
+        let contentType: ContentType?
         let msgType: MessageType
+        
+        var text: String {
+            contentType?.text ?? content
+        }
         
         private enum CodingKeys: String, CodingKey {
             case content
             case msgType = "message_type"
             case textColor = "text_color"
+            case contentType = "content_type"
         }
     }
 }
@@ -257,7 +269,7 @@ extension ChatRoom.MessageType {
 
 extension ChatRoom.SystemMessage: MessageListable {
     var rawContent: String? {
-        content
+        text
     }
     
     var attrString: NSAttributedString {
@@ -272,7 +284,7 @@ extension ChatRoom.SystemMessage: MessageListable {
         ]
         
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "\(content)", attributes: nameAttr))
+        mutableNormalString.append(NSAttributedString(string: "\(rawContent ?? "")", attributes: nameAttr))
         return mutableNormalString
     }
 }
@@ -348,4 +360,16 @@ extension ChatRoom.KickOutMessage.Role {
             return R.string.localizable.amongChatRoomKickoutSystem()
         }
     }
+}
+
+extension ChatRoom.SystemMessage.ContentType {
+    var text: String {
+        switch self {
+        case .private:
+            return R.string.localizable.chatroomMessageSystemChangeToPrivate()
+        case .public:
+            return R.string.localizable.chatroomMessageSystemChangeToPublic()
+        }
+    }
+    
 }

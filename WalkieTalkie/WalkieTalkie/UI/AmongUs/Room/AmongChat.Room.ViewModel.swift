@@ -237,7 +237,7 @@ extension AmongChat.Room {
         }
         
         func addSystemMessage() {
-            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", msgType: .system)
+            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", contentType: nil, msgType: .system)
             addUIMessage(message: system)
         }
         
