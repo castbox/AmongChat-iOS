@@ -250,6 +250,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let user = items.safe(indexPath.section)?.userLsit.safe(indexPath.row) {
             Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "profile")
             let vc = Social.ProfileViewController(with: user.uid)
