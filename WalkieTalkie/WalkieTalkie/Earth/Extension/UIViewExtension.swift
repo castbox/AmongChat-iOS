@@ -139,6 +139,9 @@ extension UIView {
         
 //        let iv = UIImageView(image: i)
 //        iv.contentMode = .scaleAspectFill
+        guard redDotIV == nil else {
+            return
+        }
         let iv = UIImageView()
         iv.backgroundColor = "FA4E4E".color()
         iv.cornerRadius = 6
