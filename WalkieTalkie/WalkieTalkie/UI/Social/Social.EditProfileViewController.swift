@@ -24,7 +24,7 @@ extension Social {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 45
+            iv.layer.cornerRadius = 50
             iv.layer.masksToBounds = true
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
@@ -81,15 +81,23 @@ private extension Social.EditProfileViewController {
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         view.addSubviews(views: backBtn, avatarIV, randomIconIV, userButton, birthdayButton)
         
+        let navLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(navLayoutGuide)
+        navLayoutGuide.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(49)
+        }
+        
         backBtn.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
-            maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
+            maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(24)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
-            maker.top.equalTo(backBtn.snp.bottom).offset(32.5)
-            maker.width.height.equalTo(90)
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(40)
+            maker.width.height.equalTo(100)
             maker.centerX.equalToSuperview()
         }
         
@@ -99,15 +107,15 @@ private extension Social.EditProfileViewController {
         }
         
         userButton.snp.makeConstraints { (maker) in
-            maker.top.equalTo(avatarIV.snp.bottom).offset(36)
+            maker.top.equalTo(avatarIV.snp.bottom).offset(44)
             maker.left.right.equalToSuperview()
-            maker.height.equalTo(77)
+            maker.height.equalTo(73)
         }
         
         birthdayButton.snp.makeConstraints { (maker) in
             maker.top.equalTo(userButton.snp.bottom)
             maker.left.right.equalToSuperview()
-            maker.height.equalTo(77)
+            maker.height.equalTo(73)
         }
         
         view.addSubview(userInputView)
@@ -278,7 +286,7 @@ private extension Social {
             
             icon.snp.makeConstraints { (make) in
                 make.left.equalTo(20)
-                make.top.equalTo(43)
+                make.centerY.equalToSuperview()
                 make.width.height.equalTo(30)
             }
             

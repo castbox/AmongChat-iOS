@@ -24,7 +24,7 @@ extension Social {
         
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
-            iv.layer.cornerRadius = 45
+            iv.layer.cornerRadius = 50
             iv.layer.masksToBounds = true
             return iv
         }()
@@ -99,18 +99,26 @@ extension Social.SelectAvatarViewController {
     // MARK: - convinient
     private func setupLayout() {
         
+        let navLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(navLayoutGuide)
+        navLayoutGuide.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(49)
+        }
+        
         view.addSubviews(views: backBtn, avatarIV, nameLabel, avatarCollectionView)
         
         backBtn.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(20)
-            maker.top.equalToSuperview().offset(16 + Frame.Height.safeAeraTopHeight)
+            maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(24)
         }
         
         avatarIV.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.width.height.equalTo(90)
-            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(69)
+            maker.width.height.equalTo(100)
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(40)
         }
         
         nameLabel.snp.makeConstraints { (maker) in
