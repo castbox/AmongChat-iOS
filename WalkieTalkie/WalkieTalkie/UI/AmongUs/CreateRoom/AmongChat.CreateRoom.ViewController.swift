@@ -291,7 +291,7 @@ extension AmongChat.CreateRoom.ViewController {
                     return
                 }
                 guard let room = room else {
-                    self.view.raft.autoShow(.text("failed to create room"))
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
                 self.view.endEditing(true)
@@ -299,7 +299,7 @@ extension AmongChat.CreateRoom.ViewController {
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text("failed to create room"))
+                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
             })
     }
 }

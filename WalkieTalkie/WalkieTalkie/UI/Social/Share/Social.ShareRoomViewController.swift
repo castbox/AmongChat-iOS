@@ -300,7 +300,6 @@ extension Social.ShareRoomViewController {
     private class ShareHeaderView: UIView {
         
         let bag = DisposeBag()
-        
         var smsHandle:(()-> Void)?
         var copyLinkHandle:(()-> Void)?
         
@@ -324,23 +323,34 @@ extension Social.ShareRoomViewController {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-            
-            addSubviews(views: smsBtn, copyLinkBtn)
-            
-            smsBtn.snp.makeConstraints { (make) in
-                make.left.equalTo(20)
-                make.top.equalTo(40)
-                make.width.equalTo(40)
-                make.height.equalTo(68)
+                        
+            if MFMessageComposeViewController.canSendText() {
+                addSubviews(views: smsBtn, copyLinkBtn)
+
+                smsBtn.snp.makeConstraints { (make) in
+                    make.left.equalTo(20)
+                    make.top.equalTo(40)
+                    make.width.equalTo(40)
+                    make.height.equalTo(68)
+                }
+                
+                copyLinkBtn.snp.makeConstraints { (make) in
+                    make.left.equalTo(smsBtn.snp.right).offset(40)
+                    make.top.equalTo(40)
+                    make.width.equalTo(70)
+                    make.height.equalTo(68)
+                }
+            } else {
+                addSubviews(views: copyLinkBtn)
+
+                copyLinkBtn.snp.makeConstraints { (make) in
+                    make.left.equalTo(20)
+                    make.top.equalTo(40)
+                    make.width.equalTo(40)
+                    make.height.equalTo(68)
+                }
+
             }
-            
-            copyLinkBtn.snp.makeConstraints { (make) in
-                make.left.equalTo(smsBtn.snp.right).offset(40)
-                make.top.equalTo(40)
-                make.width.equalTo(70)
-                make.height.equalTo(68)
-            }
-            
             //            inviteLabel.snp.makeConstraints { (make) in
             //                make.left.equalTo(20)
             //                make.top.equalTo(smsBtn.snp.bottom).offset(40)
