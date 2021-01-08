@@ -13,6 +13,17 @@ import RxSwift
 
 extension AmongChat.Login {
     
+    class LoginButton: UIButton {
+        override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
+            return contentRect
+        }
+        
+        override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
+            let rect = super.imageRect(forContentRect: contentRect)
+            return CGRect(x: 20, y: 12.5, width: rect.width, height: rect.height)
+        }
+    }
+    
     class ViewController: WalkieTalkie.ViewController {
         
         private lazy var logoIV: UIImageView = {
@@ -26,62 +37,66 @@ extension AmongChat.Login {
             return iv
         }()
         
-        private lazy var snapchatButton: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var snapchatButton: LoginButton = {
+            let btn = LoginButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
             btn.setTitle(R.string.localizable.amongChatLoginSignInWithSnapchat(), for: .normal)
             btn.addTarget(self, action: #selector(onSnapchatButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
             btn.setImage(R.image.ac_login_snapchat(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#FFFC00".color()
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
+//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
-        private lazy var facebookButton: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var facebookButton: LoginButton = {
+            let btn = LoginButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
             btn.setTitle(R.string.localizable.amongChatLoginSignInWithFacebook(), for: .normal)
             btn.addTarget(self, action: #selector(onFacebookButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.white, for: .normal)
             btn.setImage(R.image.ac_login_facebook(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#1877F2".color()
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
+//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
-        private lazy var googleButton: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var googleButton: LoginButton = {
+            let btn = LoginButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
             btn.setTitle(R.string.localizable.amongChatLoginSignInWithGoogle(), for: .normal)
             btn.addTarget(self, action: #selector(onGoogleButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
             btn.setImage(R.image.ac_login_google(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = .white
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
+//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
         @available(iOS 13.0, *)
-        private lazy var appleButton: UIButton = {
-            let btn = UIButton(type: .custom)
+        private lazy var appleButton: LoginButton = {
+            let btn = LoginButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
             btn.setTitle(R.string.localizable.amongChatLoginSignInWithApple(), for: .normal)
             btn.addTarget(self, action: #selector(onAppleButtonTouched), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
             btn.setImage(R.image.ac_login_apple(), for: .normal)
             btn.layer.cornerRadius = 24
@@ -261,7 +276,8 @@ extension AmongChat.Login.ViewController {
         googleButton.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
             maker.bottom.equalTo(policyLabel.snp.top).offset(-20)
-            maker.width.equalTo(295)
+//            maker.width.equalTo(295)
+            maker.left.equalTo(30)
             maker.height.equalTo(48)
         }
         
@@ -269,15 +285,17 @@ extension AmongChat.Login.ViewController {
             view.addSubview(appleButton)
             appleButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
+                maker.left.equalTo(30)
                 maker.bottom.equalTo(googleButton.snp.top).offset(-20)
-                maker.width.equalTo(295)
+//                maker.width.equalTo(295)
                 maker.height.equalTo(48)
             }
             
             facebookButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.bottom.equalTo(appleButton.snp.top).offset(-20)
-                maker.width.equalTo(295)
+//                maker.width.equalTo(295)
+                maker.left.equalTo(30)
                 maker.height.equalTo(48)
             }
             
@@ -285,14 +303,15 @@ extension AmongChat.Login.ViewController {
 //                maker.centerX.equalToSuperview()
 //                maker.bottom.equalTo(facebookButton.snp.top).offset(-20)
 //                maker.width.equalTo(295)
+//            maker.left.equalTo(30)
 //                maker.height.equalTo(48)
 //            }
         } else {
             facebookButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.bottom.equalTo(googleButton.snp.top).offset(-20)
-                maker.width.equalTo(295)
                 maker.height.equalTo(48)
+                maker.left.equalTo(30)
             }
             
 //            snapchatButton.snp.makeConstraints { (maker) in

@@ -208,20 +208,19 @@ extension AmongChat.Login.AppleSigninProxy: ASAuthorizationControllerDelegate {
             signInResultSubject.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
             return
         }
-        
         signInResultSubject.onNext(code)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         
-        var newError: Error {
-            guard (error as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
-                return error
-            }
-            return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
-        }
+//        var newError: Error {
+//            guard (error as NSError).code == ASAuthorizationError.Code.canceled.rawValue else {
+//                return error
+//            }
+//            return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
+//        }
         
-        signInResultSubject.onError(newError)
+        signInResultSubject.onError(NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
     }
 }
 
