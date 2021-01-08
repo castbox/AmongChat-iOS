@@ -118,9 +118,9 @@
 "force.upgrade.tip" = "Пожалуйста, обновите приложение до последней версии, чтобы продолжить игру.";
 
 //new
-"room.public" = "Общественные";
+"room.public" = "публика";
 "room.private" = "Частный";
-"among.chat.room.tip.mic.on" = "Микрофон включен";
+"among.chat.room.tip.mic.on" = "микрофон на";
 "room.tag.open.game" = "Открытая игра";
 "room.hosts.notes" = "Примечания хозяина:";
 "room.user.list.muted" = "Без звука";

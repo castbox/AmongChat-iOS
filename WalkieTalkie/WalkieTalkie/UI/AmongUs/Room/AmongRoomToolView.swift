@@ -69,6 +69,7 @@ class AmongRoomToolView: XibLoadableView {
     }
     
     private func configureSubview() {
+        nickNameButton.titleLabel?.adjustsFontSizeToFitWidth = true
         openGameButton.setBackgroundImage("592DFF".color().image, for: .normal)
         nickNameButton.setBackgroundImage(UIColor.white.image, for: .normal)
     }

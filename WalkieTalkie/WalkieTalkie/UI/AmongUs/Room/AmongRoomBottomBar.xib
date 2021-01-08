@@ -34,7 +34,7 @@
                         <constraint firstAttribute="width" constant="42" id="2zR-Nq-o4c"/>
                         <constraint firstAttribute="height" constant="42" id="HCQ-C4-4HV"/>
                     </constraints>
-                    <state key="normal" title="Button" image="ac_icon_send_message"/>
+                    <state key="normal" image="ac_icon_send_message"/>
                     <connections>
                         <action selector="sendMessageButtonAction:" destination="-1" eventType="touchUpInside" id="F6A-KL-lPF"/>
                     </connections>
@@ -47,7 +47,7 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="y6g-e9-jiN"/>
                         <constraint firstAttribute="width" constant="42" id="zzd-no-ItU"/>
                     </constraints>
-                    <state key="normal" title="Button" image="ac_icon_share"/>
+                    <state key="normal" image="ac_icon_share"/>
                     <connections>
                         <action selector="shareButtonAction:" destination="-1" eventType="touchUpInside" id="ZiS-DM-0aQ"/>
                     </connections>

@@ -16,7 +16,11 @@
         </array>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongRoomInfoSetupView" customModule="WalkieTalkie" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongRoomInfoSetupView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="setupButton" destination="mQf-46-A6c" id="wwe-VK-avM"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
