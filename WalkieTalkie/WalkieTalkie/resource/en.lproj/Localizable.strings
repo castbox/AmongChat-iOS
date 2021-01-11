@@ -1,4 +1,4 @@
-/* 
+/*
   Localizable.strings
   WalkieTalkie
 
@@ -182,7 +182,8 @@
 "amongus.server.north.america" = "North America";
 "amongus.server.north.asia" = "Asia";
 "amongus.server.north.europe" = "Europe";
-"share.app" = "Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat";
+"share.app" = "Share App";
+"share.app.content" = "Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat";
 
 "among.chat.unknown.error" = "Unknown Error";
 "among.chat.setting.terms" = "Terms";

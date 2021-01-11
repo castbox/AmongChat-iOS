@@ -1380,7 +1380,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 170 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 171 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1609,7 +1609,7 @@ struct R: Rswift.Validatable {
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let shareApp = Rswift.StringResource(key: "share.app", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      static let shareAppContent = Rswift.StringResource(key: "share.app.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Harassment or repulsive language
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1902,6 +1902,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectSexual = Rswift.StringResource(key: "report.incorrect.sexual", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Share App
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let shareApp = Rswift.StringResource(key: "share.app", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sign in with Apple
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2458,8 +2462,8 @@ struct R: Rswift.Validatable {
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func shareApp(_: Void = ()) -> String {
-        return NSLocalizedString("share.app", bundle: R.hostingBundle, comment: "")
+      static func shareAppContent(_: Void = ()) -> String {
+        return NSLocalizedString("share.app.content", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Harassment or repulsive language
@@ -2971,6 +2975,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportIncorrectSexual(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.sexual", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Share App
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func shareApp(_: Void = ()) -> String {
+        return NSLocalizedString("share.app", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sign in with Apple
