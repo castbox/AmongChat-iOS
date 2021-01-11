@@ -183,9 +183,10 @@
 "amongus.server.north.america" = "أمريكا الشمالية";
 "amongus.server.north.asia" = "آسيا";
 "amongus.server.north.europe" = "أوروبا";
+"share.app" = "شارك التطبيق";
+"share.app.content" = "AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/app";
 
 "among.chat.unknown.error" = "خطأ غير معروف";
-"share.app" = "AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/app";
 "among.chat.setting.terms" = "شروط";
 "among.chat.setting.privacy" = "خصوصية";
 "among.chat.room.kickout.system" = "القناة مغلقة بسبب عدم النشاط";

@@ -274,7 +274,6 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         lable.font = R.font.nunitoExtraBold(size: 20)
         lable.adjustsFontSizeToFitWidth = true
         lable.text = item.group.title
-        lable.adjustsFontSizeToFitWidth = true
         return v
     }
     
