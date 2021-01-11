@@ -184,6 +184,7 @@
 "amongus.server.north.asia" = "Азия";
 "amongus.server.north.europe" = "Европа";
 "share.app" = "Поделиться приложением";
+"share.app.content" = "Ребята, нам нужно больше людей в AmongChat! Это супер весело и подойдет вам с единомышленниками. Нажмите на ссылку, чтобы скачать сейчас: https://amongchat.page.link/app";
 
 "among.chat.unknown.error" = "Неизвестная ошибка";
 "among.chat.setting.terms" = "Условия";

@@ -225,7 +225,7 @@ class ShareManager: NSObject {
     }
     
     func showActivity(viewController: UIViewController, successHandler: (() -> Void)? = nil) {
-        let items = [R.string.localizable.shareApp()] as [Any]
+        let items = [R.string.localizable.shareAppContent()] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
