@@ -21,7 +21,7 @@ struct Config {
     enum PolicyType: String {
         case terms = "https://among.chat/term.html"
         case policy = "https://among.chat/policy.html"
-        case appShare = "https://amongchat.page.link/app"
+        case appShare = "https://amongchat.page.link/chat"
         case guideline = "https://among.chat/guideline.html"
         
         static func url(_ type: Self) -> String {
