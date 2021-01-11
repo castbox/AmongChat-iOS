@@ -96,7 +96,7 @@ extension Social {
             view.addLayoutGuide(navLayoutGuide)
             navLayoutGuide.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.height.equalTo(48)
+                maker.height.equalTo(49)
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
@@ -113,7 +113,7 @@ extension Social {
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
+                maker.top.equalTo(navLayoutGuide.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             
