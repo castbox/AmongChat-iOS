@@ -303,6 +303,7 @@ extension Social {
             btn.layer.borderWidth = 2
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.backgroundColor = UIColor.theme(.backgroundBlack)
+            btn.titleLabel?.lineBreakMode = .byTruncatingMiddle
             return btn
         }()
         
