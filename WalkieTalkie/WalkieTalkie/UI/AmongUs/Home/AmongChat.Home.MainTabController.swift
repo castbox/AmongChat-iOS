@@ -8,6 +8,9 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
+import RxGesture
+import NotificationBannerSwift
 
 extension AmongChat.Home {
     
@@ -16,6 +19,8 @@ extension AmongChat.Home {
         private let imViewModel = IMViewModel()
         private let bag = DisposeBag()
         
+        private weak var notificationBanner: FloatingNotificationBanner?
+        private weak var notificationBannerDimmerView: UIView?
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
@@ -30,8 +35,68 @@ extension AmongChat.Home {
 
 extension AmongChat.Home.MainTabController {
     
+    func onReceive(strangerInvigation user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+            return
+        }
+        if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
+            Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
+            let view = AmongChat.Home.StrangeInvitationView()
+            view.updateContent(user: user, room: room)
+            let dimmerView = UIView(frame: Frame.Screen.bounds)
+            dimmerView.isUserInteractionEnabled = true
+            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
+            notificationBannerDimmerView = dimmerView
+            self.view.addSubview(dimmerView)
+            let tapObservable = dimmerView.rx.tapGesture()
+                .when(.recognized)
+                .asObservable()
+                .map { _ in return () }
+            
+            let swipeObservable = dimmerView.rx.swipeGesture([.down, .left, .left, .right])
+                .when(.recognized)
+                .asObservable()
+                .map { _ in return () }
+            Observable.merge([tapObservable, swipeObservable])
+                .subscribe { [weak self, weak dimmerView] _ in
+                    dimmerView?.removeFromSuperview()
+                    self?.notificationBanner?.dismiss()
+                }
+                .disposed(by: bag)
+
+            let banner = FloatingNotificationBanner(customView: view)
+            banner.duration = 10
+            banner.dismissOnTap = true
+            banner.onTap = { [weak banner] in
+                banner?.isDismissedByTapEvent = true
+                Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                    return
+                }
+                topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+            }
+            banner.rx.notificationBannerWillDisappear
+                .subscribe(onCompleted: { [weak self] in
+                    self?.notificationBannerDimmerView?.removeFromSuperview()
+                })
+                .disposed(by: bag)
+            banner.rx.notificationBannerDidDisappear
+                .subscribe(onCompleted: { [weak banner] in
+                    if banner?.isDismissedByTapEvent != true {
+                        Logger.Action.log(.invite_top_dialog_auto_dismiss, categoryValue: room.topicId)
+                    }
+                })
+                .disposed(by: bag)
+
+            banner.transparency = 1
+            banner.show(on: self, edgeInsets: UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
+            self.notificationBanner = banner
+        }
+
+    }
+    
     private func setupLayout() {
-                
+        
         if #available(iOS 13.0, *) {
             let appearance = tabBar.standardAppearance
             appearance.shadowImage = R.image.ac_home_tab_shadow()
@@ -88,6 +153,12 @@ extension AmongChat.Home.MainTabController {
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
                 
+            })
+            .disposed(by: bag)
+        
+        imViewModel.invitationRecommendObservable
+            .subscribe(onNext: { [weak self] user, room in
+                self?.onReceive(strangerInvigation: user, room: room)
             })
             .disposed(by: bag)
     }

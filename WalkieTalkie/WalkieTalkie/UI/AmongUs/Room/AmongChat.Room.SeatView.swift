@@ -80,6 +80,10 @@ extension AmongChat.Room {
         override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
             return true
         }
+        
+        override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+            return true
+        }
     }
 }
 

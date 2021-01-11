@@ -12,7 +12,7 @@ def core_pods
 end
 
 def ui_pods
-    pod 'SnapKit', '~> 4.2.0'
+    pod 'SnapKit', '~> 5.0.0'
     pod 'RxCocoa'
     pod 'RxGesture', '3.0.2'
     pod 'UIColor_Hex_Swift', '~> 4.2.0'
@@ -27,10 +27,7 @@ def firebase_pods
 
     # Firebase Remote Configure
     pod 'Firebase/RemoteConfig'
-
-    # Firestore
-    pod 'Firebase/Firestore'
-
+    
 #    # Firebase auth
     pod 'Firebase/Auth'
 
@@ -118,9 +115,6 @@ target 'WalkieTalkie' do
     pod 'SwiftHash'
     pod 'loady'
     
-    pod 'JXCategoryView'
-    pod 'JXPagingView/Paging', '2.0.3'
-    pod 'JXSegmentedView'
     pod 'MJRefresh', '~> 3.5.0'
     
     pod 'SnapSDK'
@@ -155,6 +149,8 @@ target 'WalkieTalkie' do
     
     #https://developers.facebook.com/docs/facebook-login/ios?sdk=cocoapods
     pod 'FBSDKLoginKit'
+    
+    pod 'NotificationBannerSwift', '~> 3.0.0'
 end
 
 #target 'WalkieTalkieWidgetExtension' do

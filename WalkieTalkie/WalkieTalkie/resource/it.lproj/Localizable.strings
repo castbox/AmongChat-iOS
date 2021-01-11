@@ -1,0 +1,204 @@
+/*
+  Localizable.strings
+  WalkieTalkie
+
+  Created by 袁仕崇 on 2020/4/20.
+  Copyright © 2020 Guru Rain. All rights reserved.
+*/
+
+"premium.free.trial" = "PROVALO GRATIS";
+"premium.free.3d.trial" = "3 giorni di prova gratuita";
+
+"premium.subscription.terms" = "Termini di abbonamento:";
+"premium.subscription.detail.free" = "Dopo la prova gratuita, %@ abbonamento è %@, si rinnova automaticamente a meno che non venga disattivato in Impostazioni contabilità almeno 24 ore prima della fine del periodo corrente. Il pagamento viene addebitato sul tuo account iTunes, annulla in qualsiasi momento.";
+"premium.subscription.detail.normal" = "L&#39;abbonamento %@ è %@, si rinnova automaticamente a meno che non venga disattivato in Impostazioni contabilità almeno 24 ore prima della fine del periodo corrente. Il pagamento viene addebitato sul tuo account iTunes, annulla in qualsiasi momento.";
+
+"settings.title" = "Impostazioni";
+
+"settings.restore.title" = "Ristabilire";
+"settings.restore.success.title" = "È tutto pronto";
+"settings.restore.success.body" = "il tuo acquisto è andato a buon fine";
+"settings.restore.fail.title" = "Acquisto non trovato";
+"settings.restore.fail.body" = "Nessun acquisto trovato nel tuo account";
+"alert.ok" = "OK";
+"toast.confirm" = "OK";
+"toast.cancel" = "Annulla";
+
+"premium.try.title" = "Provalo GRATIS";
+"premium.try.title.des" = "3 giorni di prova gratuita, poi %@ / anno";
+
+"guide.subscribe.title" = "Sottoscrivi";
+"guide.continue" = "Continua";
+"copied" = "Copiato";
+
+"report.title" = "rapporto";
+"report.room.id" = "Canale ID";
+"report.incorrect.information" = "Informazioni errate";
+"report.incorrect.sexual" = "Contenuto sessuale";
+"report.incorrect.harassment" = "Molestie o linguaggio ripugnante";
+"report.incorrect.unreasonable" = "Richieste irragionevoli";
+"report.success" = "Hai segnalato con successo \nquesta persona";
+
+
+"alert.block" = "Bloccare";
+"alert.unblock" = "Sbloccare";
+
+//Profile
+"profile.profile" = "Profilo";
+"profile.nickname" = "Soprannome";
+"profile.bag.nickname" = "NICKNAME";
+"profile.following" = "A seguire";
+"profile.follower" = "Seguaci";
+"profile.follow" = "Seguire";
+"profile.little.follower" = "seguaci";
+"profile.little.following" = "a seguire";
+"profile.block.user" = "Lista di Bloccati";
+"profile.settings" = "Impostazioni";
+"profile.community" = "Linee guida della comunità";
+"profile.birthday" = "Compleanno";
+"profile.birthday.subtitle" = "Trova amici della stessa età";
+"profile.done" = "Fatto";
+"profile.birthday.skip" = "Salta";
+"profile.pro" = "PRO";
+"profile.unlock.pro" = "Sblocca PRO";
+"profile.Unblock" = "Sbloccare";
+"profile.block.message" = "Sei sicuro di bloccare \nquesta persona";
+"profile.unblock.message" = "Sei sicuro di sbloccare \nquesta persona";
+"profile.block.user.success" = "Hai bloccato con successo \nquesta persona";
+"profile.unblock.user.success" = "Questa persona è stata \nsbloccata";
+
+// error message
+"error.no.following" = "Non hai ancora seguito gli altri.";
+"error.no.teammates" = "Oops, nessun compagno di squadra ancora!";
+"error.no.followers" = "Oops, nessun follower ancora!";
+"error.no.blocker" = "Non hai ancora bloccato altri.";
+"content.contain.sensitive.words" = "Il contenuto contiene parole sensibili, si prega di modificare";
+//month
+"month.jan" = "Jan";
+"month.feb" = "Feb";
+"month.mar" = "Mar";
+"month.apr" = "Apr";
+"month.may" = "Maggio";
+"month.jun" = "Jun";
+"month.jul" = "Lug";
+"month.aug" = "Ago";
+"month.sep" = "Sep";
+"month.oct" = "Ott";
+"month.nov" = "Nov";
+"month.dec" = "Dic";
+
+// Edit Profile
+"profile.edit.save.btn" = "Salva";
+"social.blocked.user.title" = "Lista di Bloccati";
+"social.join.action" = "Aderire";
+"social.status.online" = "in linea";
+"social.sms" = "sms";
+"social.copy.link" = "Copia link";
+"social.invite.friends" = "Invita gli amici";
+"social.invite" = "Invitare";
+"social.invited" = "inviato";
+"social.invite.play.with" = "Persone con cui ti piacerebbe giocare";
+"social.exit.channel" = "Esci dal canale";
+"social.follow.teammates" = "Segui i tuoi compagni di squadra per giocare insieme \nla prossima volta";
+"social.share.url" = "Ehi, sono nella stanza AmongUs in AmongChat! Abbiamo bisogno di altre 9 persone!!! Tocca il link per partecipare: %@";
+"social.followed.sucess" = "Hai seguito con successo \nquesta persona";
+"social.block.failed" = "Impossibile bloccare questa persona, \nriprova.";
+"social.unblock.failed" = "Impossibile sbloccare questa persona, \nriprova.";
+"social.follow.failed" = "Impossibile seguire questa persona, \nriprova.";
+
+
+"channel.user.list.follow" = "Seguire";
+"channel.user.list.mute" = "Muto";
+"channel.user.list.unmute" = "Riattiva";
+"among.chat.leave.room.tip.title" = "Sei sicuro di uscire dal canale?";
+"among.chat.room.message.placeholder" = "Di 'qualcosa...";
+"premium.lifetime" = "tutta la vita";
+"premium.subscription.detail.lifetime" = "Paga una volta, nessun abbonamento";
+"force.upgrade.tip" = "Aggiorna alla versione più recente dell'app per continuare a giocare.";
+
+//new
+"room.public" = "Pubblico";
+"room.private" = "Privato";
+"among.chat.room.tip.mic.on" = "MIC ON";
+"room.tag.open.game" = "Apri gioco";
+"room.hosts.notes" = "Note dell'ospite:";
+"room.user.list.muted" = "Muto";
+
+"among.chat.privacy.policy" = "Politica sulla riservatezza";
+"among.chat.terms.service" = "Termini di servizio";
+"among.chat.privacy.label" = "Continuando, accetti i nostri %1$@ e %2$@";
+"among.chat.login.sign.in.with.google" = "Accedi con Google";
+"among.chat.login.sign.in.with.apple" = "Accedi con Apple";
+"among.chat.login.sign.in.with.snapchat" = "Accedi con Snapchat";
+"among.chat.login.sign.in.with.facebook" = "Accedi con Facebook";
+"among.chat.login.sign.in.cancelled" = "Accesso annullato";
+"among.chat.create.room.input.placeholder" = "INSERISCI IL TUO ARGOMENTO";
+"among.chat.create.room.confirm.btn" = "Crea un canale %1$@";
+"among.chat.create.room.private" = "Privato";
+"among.chat.create.room.title" = "Crea un canale";
+"among.chat.create.room.topic.title" = "Argomenti più seguiti";
+"among.chat.home.team.up" = "Riproduci ora";
+"among.chat.home.nowplaying" = "%1$@ online";
+"among.chat.room.kick.selected" = "Calcio selezionato (%@)";
+"among.chat.room.just.chat.title" = "L'host potrebbe impostare una nota in modo che tutti possano vederla quando si uniscono";
+"among.chat.room.kickout" = "Sei stato rimosso da questo canale";
+"among.chat.room.reblox.title" = "Aggiungi l'host in Roblox per unirti al loro gioco! Fare clic per copiare";
+"among.chat.room.set.reblox.name" = "Imposta il nome utente Roblox";
+"among.chat.room.kick" = "Calcio";
+"among.chat.room.user.change.notes.title" = "Solo il proprietario del canale può modificare questa impostazione";
+"among.chat.home.load.error.title" = "Ops, niente Internet!";
+"among.chat.home.load.error.msg" = "Verifica la connessione e riprova";
+"among.chat.try.again" = "Riprova";
+"among.chat.welcome.message" = "Benvenuto nel canale %@. Qualsiasi materiale pornografico o altro contenuto inappropriato è severamente vietato. I canali sono monitorati 24 ore su 24, 7 giorni su 7 e gli utenti trovati con tali contenuti potrebbero essere banditi.";
+
+"among.chat.home.enter.room.failed" = "Impossibile entrare nel canale";
+"among.chat.reward.video.load.failed" = "Impossibile caricare il video";
+"among.chat.unlock.avatar.failed" = "Impossibile sbloccare l'avatar";
+"among.chat.update.profile.failed" = "Impossibile aggiornare il profilo";
+"among.chat.home.friends.online.title" = "I tuoi amici online";
+"among.chat.home.friends.suggestion.title" = "Persone con cui ti piacerebbe giocare";
+"among.chat.home.friends.share.title" = "Invita i tuoi amici a giocare insieme";
+"among.chat.home.friends.in.channel" = "nel canale %1$@";
+"among.chat.ignore" = "ignorare";
+"among.chat.channel.invitation.msg" = "ti sta invitando al suo canale %1$@";
+"among.chat.home.firends.private.channel.tip" = "Questo canale è privato";
+
+"guide.fourth.title" = "Goditi queste cose fantastiche! \n✔️ Canali segreti \n✔️ Diritti di conversazione illimitati";
+
+"setting.chat.language" = "Lingua chat";
+"rate.us" = "Valutaci";
+"share.app" = "Condividi app";
+"push.setting" = "Impostazioni push";
+"log.out" = "Disconnettersi";
+"room.leave" = "Partire";
+"room.setup.in.game.code.title" = "Imposta qui il codice di gioco";
+"room.setup.in.game.code.subtitle" = "Solo questo host di canale può impostare il codice";
+"room.setup.amongus.title" = "fare clic per copiare il codice";
+"room.setup.amongus.subtitle" = "Solo questo host di canale può impostare il codice";
+"room.setup.host.notes" = "Note dell'ospite";
+"room.setup.host.notes.subtitle" = "l'host potrebbe impostare le note in modo che tutti possano vederlo quando si uniscono al canale";
+
+"room.amongchat.input.code.plceholder" = "INSERISCI IL TUO CODICE PRIVATO";
+"room.roblox.input.code.plceholder" = "NOME UTENTE ROBLOX";
+"amongus.server.north.america" = "Nord America";
+"amongus.server.north.asia" = "Asia";
+"amongus.server.north.europe" = "Europa";
+"share.app" = "Ragazzi, abbiamo bisogno di più persone su AmongChat! È super divertente e ti mette in contatto con giocatori che la pensano allo stesso modo. Tocca il link per scaricare ora: https://amongchat.page.link/app";
+
+"among.chat.unknown.error" = "Errore sconosciuto";
+"among.chat.setting.terms" = "Termini";
+"among.chat.setting.privacy" = "Privacy";
+"among.chat.room.kickout.system" = "Canale chiuso per inattività";
+"among.chat.room.set.freefire.name" = "Imposta il soprannome di Free Fire";
+"among.chat.room.set.fortnite.name" = "Imposta il nome visualizzato di Fortnite";
+"among.chat.room.set.minecraft.name" = "Imposta il tag giocatore di Minecraft";
+"room.freefire.input.code.plceholder" = "SOPRANNOME DI FREE FIRE ";
+"room.fortnite.input.code.plceholder" = "NOME UTENTE FORTNITE";
+"room.minecraft.input.code.plceholder" = "TAG GIOCATORE DI MINECRAFT";
+"among.chat.room.fortnite.title" = "Fai clic per copiare i nomi visualizzati di Fortnite degli altri per giocare insieme";
+"among.chat.room.minecraft.title" = "Fai clic per copiare i tag giocatore di Minecraft di altri per giocare insieme";
+"among.chat.room.freefire.title" = "Fai clic per copiare i soprannomi di Free Fire degli altri per giocare insieme";
+"profile.share.tiktok.title" = "Realizza il tuo video #amongchat su TikTok";
+"chatroom.message.system.change.to.public" = "Il canale è PUBBLICO ora. Tutti possono partecipare!";
+"chatroom.message.system.change.to.private" = "Il canale è PRIVATO ora. I giocatori invitati possono unirsi!";
+"chatroom.message.user.joined" = "Iscritto";

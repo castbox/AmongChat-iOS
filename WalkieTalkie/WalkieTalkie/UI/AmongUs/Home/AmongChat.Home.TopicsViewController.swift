@@ -9,6 +9,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import NotificationBannerSwift
 
 extension AmongChat.Home {
     
@@ -251,14 +252,14 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-            enterRoom(topicId: topic.topic.topicId)
+            enterRoom(topicId: topic.topic.topicId, logSource: .matchSource)
         }
     }
     
 }
 
 extension UIViewController {
-    func showKickedAlert() {
-        showAmongAlert(title: R.string.localizable.amongChatRoomKickout(), message: nil, cancelTitle: nil, confirmTitle: R.string.localizable.alertOk())
+    func showKickedAlert(with role: ChatRoom.KickOutMessage.Role) {
+        showAmongAlert(title: role.alertTitle, message: nil, cancelTitle: nil, confirmTitle: R.string.localizable.alertOk())
     }
 }

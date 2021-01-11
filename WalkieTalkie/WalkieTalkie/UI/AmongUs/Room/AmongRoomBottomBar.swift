@@ -63,6 +63,24 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bindSubviewEvent()
+        configureSubview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindSubviewEvent() {
+        
+    }
+    
+    private func configureSubview() {
+        micButton.titleLabel?.adjustsFontSizeToFitWidth = true
+    }
+    
     @IBAction func cancelKickAction(_ sender: Any) {
         cancelKickHandler?()
     }

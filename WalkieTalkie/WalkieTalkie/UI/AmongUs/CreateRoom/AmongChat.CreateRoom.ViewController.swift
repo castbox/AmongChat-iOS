@@ -137,7 +137,10 @@ extension AmongChat.CreateRoom {
         }
         
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
-        private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases.map { TopicViewModel(with: $0) }
+        private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases
+            .map { TopicViewModel(with: $0) }
+            .filter { !$0.name.isEmpty }
+        
                 
         // MARK: -
                 
@@ -235,7 +238,7 @@ extension AmongChat.CreateRoom.ViewController {
         privateStateSwitch.rx.isOn
             .subscribe(onNext: { [weak self] (_) in
                 
-                self?.confirmButton.setTitle(R.string.localizable.amongChatCreateRoomConfirmBtn(self?.privateStateSwitch.roomPublicType.rawValue ?? ""), for: .normal)
+                self?.confirmButton.setTitle(R.string.localizable.amongChatCreateRoomConfirmBtn(self?.privateStateSwitch.roomPublicType.string ?? ""), for: .normal)
                 
             })
             .disposed(by: bag)
@@ -288,15 +291,15 @@ extension AmongChat.CreateRoom.ViewController {
                     return
                 }
                 guard let room = room else {
-                    self.view.raft.autoShow(.text("failed to create room"))
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
                 self.view.endEditing(true)
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, logSource: .creatingSource)
+                AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text("failed to create room"))
+                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
             })
     }
 }
@@ -354,7 +357,7 @@ extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableVie
             return
         }
         Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
-        enterRoom(topicId: topic.topic.rawValue, logSource: .creatingMatchSource)
+        enterRoom(topicId: topic.topic.rawValue, logSource: ParentPageSource(.create_match))
 //        createRoom(with: topic.topic.rawValue)
     }
 
@@ -369,3 +372,16 @@ fileprivate extension UISwitch {
     }
     
 }
+
+fileprivate extension Entity.RoomPublicType {
+    var string: String {
+        switch self {
+        case .private:
+            return R.string.localizable.roomPrivate().lowercased()
+        case .public:
+            return R.string.localizable.roomPublic().lowercased()
+        }
+    }
+}
+
+

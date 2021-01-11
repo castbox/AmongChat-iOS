@@ -166,6 +166,7 @@ extension Social.BlockedUserList.ViewController: UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let user = userList.safe(indexPath.row) {
             let vc = Social.ProfileViewController(with: user.uid)
             navigationController?.pushViewController(vc)

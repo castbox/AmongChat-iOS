@@ -28,6 +28,7 @@ extension AmongChat.Room {
         private let newChannelMessageSubject = PublishSubject<(AgoraRtmMessage, AgoraRtmMember)>()
         private let newPeerMessageSubject = PublishSubject<(AgoraRtmMessage, String)>()
         
+        private var loginDisposable: Disposable?
         private let bag = DisposeBag()
         
         var newChannelMessageObservable: Observable<(AgoraRtmMessage, AgoraRtmMember)> {
@@ -68,7 +69,8 @@ extension AmongChat.Room {
         }
         
         private func loginSDK() {
-            onlineRelay
+            loginDisposable?.dispose()
+            loginDisposable = onlineRelay
                 .do(onNext: { [weak self] (status) in
                     
                     guard status == .online else {
@@ -97,7 +99,7 @@ extension AmongChat.Room {
                 }, onError: { error in
                     cdPrint("error: \(error)")
                 })
-                .disposed(by: bag)
+            loginDisposable?.disposed(by: bag)
         }
         
         private func logoutSDK() {
@@ -105,10 +107,11 @@ extension AmongChat.Room {
                 return
             }
             
-            rtmKit?.logout(completion: { (code) in
+            rtmKit?.logout(completion: { [weak self] (code) in
                 guard code == .ok else {
                     return
                 }
+                self?.onlineRelay.accept(.offline)
             })
             
         }

@@ -66,7 +66,7 @@ extension ConnectState {
         case .talking:
             return "talking..."
         case .maxUser:
-            return R.string.localizable.channelUserMaxState()
+            return "Max"
         case .timeout:
             return "Timeout"
         }

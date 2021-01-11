@@ -28,11 +28,17 @@ extension AmongChat.Room {
         case forbidden //被封
         //listener
         case enterClosedRoom
-        case kickout //被踢出
+        case kickout(ChatRoom.KickOutMessage.Role) //被踢出
         case beBlocked
     }
     
+    
     class ViewModel {
+        
+        enum ShareEvent {
+            case createdRoom //创建时弹出
+            case singlePerson // 单人时弹出
+        }
         
         enum BlockType {
             case block
@@ -45,6 +51,7 @@ extension AmongChat.Room {
         static var shared: ViewModel?
         
         var messages: [ChatRoomMessage] = []
+        let source: ParentPageSource?
         let roomReplay: BehaviorRelay<Entity.Room>
         //麦位声音动画
         let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
@@ -55,29 +62,21 @@ extension AmongChat.Room {
         var messageEventHandler: () -> Void = { }
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
+        var shareEventHandler: () -> Void = { }
+
 
         private let imViewModel: IMViewModel
         private let bag = DisposeBag()
-        
-        private var dataSourceReplay = BehaviorRelay<[ChannelUserViewModel]>(value: [])
-        
+        private var willShowShareEvent: ShareEvent?
+        private var didShowShareEvents: [ShareEvent] = []
+        //创建房间后，人数由>1人到1人时弹
+        private var canShowSinglePersonShareEvent = false
+                
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
             manager.delegate = self
             return manager
         }()
-        
-        var userObservable: Observable<[ChannelUserViewModel]> {
-            return dataSourceReplay.asObservable()
-        }
-        
-        var channelUserViewModelList: [ChannelUserViewModel] {
-            return dataSourceReplay.value
-        }
-        
-        private var cachedFUsers = [UInt : FireStore.Entity.User]()
-        private var unfoundUserIds = Set<UInt>()
-        
         
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
@@ -122,10 +121,10 @@ extension AmongChat.Room {
             get { isMuteMicObservable.value }
         }
         
-        static func make(_ room: Entity.Room) -> ViewModel {
+        static func make(_ room: Entity.Room, _ source: ParentPageSource?) -> ViewModel {
             guard let shared = self.shared,
                   shared.room.roomId == room.roomId else {
-                let manager = ViewModel(room: room)
+                let manager = ViewModel(room: room, source: source)
                 //退出之前房间
                 //                self.shared?.quitRoom()
                 //设置新房间
@@ -142,11 +141,11 @@ extension AmongChat.Room {
             debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
         }
         
-        init(room: Entity.Room) {
+        init(room: Entity.Room, source: ParentPageSource?) {
             if room.loginUserIsAdmin {
                 Logger.Action.log(.admin_imp, categoryValue: room.topicId)
             }
-            
+            self.source = source
             roomReplay = BehaviorRelay(value: room)
             imViewModel = IMViewModel(with: room.roomId)
             
@@ -173,6 +172,7 @@ extension AmongChat.Room {
             setObservableSubject()
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
+            startShowShareTimerIfNeed()
         }
         
         @discardableResult
@@ -192,24 +192,6 @@ extension AmongChat.Room {
             ViewModel.shared = nil
             UIApplication.shared.isIdleTimerDisabled = false
             return Request.leave(with: room.roomId)
-
-//            return Request.amongchatProvider.rx.request(.leaveRoom(["room_id": room.roomId]))
-//                .asObservable()
-//                .flatMap { [weak self] _  -> Observable<()> in
-//                    guard let `self` = self else { return .empty() }
-//                    return Observable<()>.create { [weak self] observer -> Disposable in
-//                        self?.mManager.leaveChannel { (name) in
-//                            UIApplication.shared.isIdleTimerDisabled = false
-//                            ChannelUserListViewModel.shared.leavChannel(name)
-//                            ViewModel.shared = nil
-//                            observer.onNext(())
-//                            observer.onCompleted()
-//                        }
-//                        return Disposables.create {
-//
-//                        }
-//                    }
-//                }
         }
         
         func startUpdateBaseInfo() {
@@ -255,7 +237,7 @@ extension AmongChat.Room {
         }
         
         func addSystemMessage() {
-            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", msgType: .system)
+            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", contentType: nil, msgType: .system)
             addUIMessage(message: system)
         }
         
@@ -284,11 +266,11 @@ extension AmongChat.Room {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-            update(room)
+            updateRoomInfo(room)
         }
         
         func update(nickName: String) {
-            Request.updateRoom(nickName: nickName, with: room.roomId)
+            Request.updateRoom(topic: room.topicType, nickName: nickName, with: room.roomId)
                 .subscribe { _ in
                     //refresh nick name
                     Settings.shared.updateProfile()
@@ -458,36 +440,50 @@ extension AmongChat.Room {
                 mutedUser.remove(user.uid.uInt)
             }
         }
-        
-        func followUser(_ user: FireStore.Entity.User) {
-            Social.Module.shared.follow(user.uid)
-        }
-        
-        func unfollowUser(_ user: FireStore.Entity.User) {
-//            guard let selfUid = Settings.shared.loginResult.value?.uid else { return }
-            //        FireStore.shared.removeFollowing(user.uid, from: selfUid)
-        }
-        
+                        
         func didJoinedChannel(_ channel: String) {
             let _ = Request.reportEnterRoom(channel)
                 .subscribe(onSuccess: { (_) in
                 })
         }
-        
-        //        func leavChannel(_ channel: String) {
-        //            let _ = Request.reportLeaveRoom(channel)
-        //                .subscribe()
-        //            cachedFUsers.removeAll()
-        //            unfoundUserIds.removeAll()
-        //            dataSource.accept([])
-        //            ViewModel.shared = nil
-        //        }
-        
+         
+        func didShowShareView() {
+            guard let event = willShowShareEvent else {
+                return
+            }
+            didShowShareEvents.append(event)
+        }
     }
     
 }
 
-extension AmongChat.Room.ViewModel {
+private extension AmongChat.Room.ViewModel {
+    func startShowShareTimerIfNeed() {
+        guard source?.isFromCreatePage == true else {
+            return
+        }
+        delayToShowShareView(event: .createdRoom)
+    }
+    
+    func delayToShowShareView(event: ShareEvent, delay duration: Int = 3) -> Bool {
+        guard !didShowShareEvents.contains(event), willShowShareEvent == nil else {
+            return false
+        }
+        willShowShareEvent = event
+        Observable.just(())
+            .delay(.seconds(duration), scheduler: MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                guard let `self` = self else { return }
+                self.willShowShareEvent = nil
+                if !self.didShowShareEvents.contains(event) {
+                    self.didShowShareEvents.append(event)
+                    self.shareEventHandler()
+                }
+            }
+            .disposed(by: bag)
+        return true
+    }
+    
     func update(_ room: Entity.Room) {
         
         //when first to admin logger
@@ -501,6 +497,7 @@ extension AmongChat.Room.ViewModel {
         let blockedUsers = self.blockedUsers
         newRoom.roomUserList = userList.map { user -> Entity.RoomUser in
             var newUser = user
+            newUser.topic = room.topicType
             if blockedUsers.contains(where: { $0.uid == user.uid }) {
                 newUser.status = .blocked
                 newUser.isMuted = true
@@ -520,6 +517,16 @@ extension AmongChat.Room.ViewModel {
             return newUser
         }
         roomReplay.accept(newRoom)
+        
+        //人数为1时的分享控制
+        if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,
+           delayToShowShareView(event: .singlePerson, delay: 5) {
+            canShowSinglePersonShareEvent = false
+        }
+//
+        if !didShowShareEvents.contains(.singlePerson), userList.count > 1 {
+            canShowSinglePersonShareEvent = true
+        }
     }
     
     func onReceiveChatRoom(crMessage: ChatRoomMessage) {
@@ -535,7 +542,7 @@ extension AmongChat.Room.ViewModel {
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
                   message.user.uid == Settings.loginUserId {
             //自己
-            endRoomHandler?(.kickout)
+            endRoomHandler?(.kickout(message.opRole))
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
             otherMutedUser.remove(message.user.uid.uInt)
         }

@@ -79,12 +79,12 @@ extension Routes {
                 return
             }
             
-            var apiSource: ViewController.EnterRoomApiSource? = nil
+            var apiSource: ParentApiSource? = nil
             if let source = channel.sourceType {
-                apiSource = ViewController.EnterRoomApiSource(key: source)
+                apiSource = ParentApiSource(key: source)
             }
             
-            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: .urlSource, apiSource: apiSource)
+            roomVc.enterRoom(roomId: channel.channelId, topicId: nil, logSource: ParentPageSource(.link), apiSource: apiSource)
             Logger.Channel.log(.deeplink, channel.channelId, value: 0)
         }
         
@@ -100,9 +100,6 @@ extension Routes {
         }
         
         func handleFollowers() {
-            guard let nav = UIApplication.navigationController else { return }
-            let vc = Social.RelationsViewController(.followerTab)
-            nav.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {

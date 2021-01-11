@@ -1,0 +1,11 @@
+/*
+  Infoplist.strings
+  WalkieTalkie
+
+  Created by mayue_work on 2021/1/5.
+  Copyright © 2021 Guru Rain. All rights reserved.
+*/
+
+NSMicrophoneUsageDescription = "Habilite o microfone para falar com outras pessoas nos canais";
+NSPhotoLibraryUsageDescription = "Permita que o AmongChat use sua biblioteca de fotos";
+NSSpeechRecognitionUsageDescription = "Permita que o AmongChat use o seu reconhecimento de voz";

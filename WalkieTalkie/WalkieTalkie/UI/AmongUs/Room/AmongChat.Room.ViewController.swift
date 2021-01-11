@@ -48,6 +48,9 @@ extension AmongChat.Room {
         private var nickNameInputView: AmongInputNickNameView!
         private var bottomBar: AmongRoomBottomBar!
         private var toolView: AmongRoomToolView!
+        private weak var socialShareViewController: Social.ShareRoomViewController?
+        private var isKeyboardVisible = false
+        private var keyboardHiddenBlock: CallBack?
         
         private var style = Style.normal {
             didSet {
@@ -71,7 +74,7 @@ extension AmongChat.Room {
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 case .nickName:
                     self.view.bringSubviewToFront(nickNameInputView)
-                    nickNameInputView.becomeFirstResponder()
+                    nickNameInputView.becomeFirstResponder(with: room)
                     Logger.Action.log(.room_edit_nickname, categoryValue: room.topicId)
                 case .chillingSetup:
                     self.view.bringSubviewToFront(inputNotesView)
@@ -185,14 +188,14 @@ extension AmongChat.Room {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: EnterRoomLogSource = .matchSource, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource.key)
+                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
                 //show loading
-                let viewModel = ViewModel.make(room)
+                let viewModel = ViewModel.make(room, logSource)
                 completionHandler?(nil)
                 self.show(from: controller, with: viewModel)
             }
@@ -250,33 +253,33 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onShareBtn() {
-//        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-//        let removeBlock = { [weak self] in
-//            self?.view.isUserInteractionEnabled = true
-//            removeHUDBlock()
-//        }
-//
-//        self.view.isUserInteractionEnabled = false
+        guard !isKeyboardVisible else {
+            keyboardHiddenBlock = { [weak self] in
+                self?.onShareBtn()
+            }
+            return
+        }
+        guard socialShareViewController == nil else {
+            return
+        }
         let link = "https://among.chat/room/\(room.roomId)"
-
-//        ShareManager.default.showActivity(name: nil, dynamicLink: link, type: .more, viewController: self) { () in
-////            removeBlock()
-//        }
-        
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
+
+        viewModel.didShowShareView()
+        socialShareViewController = vc
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
         Logger.Action.log(.room_leave_clk)
         
-        self.viewModel.requestLeaveChannel()
+        viewModel.requestLeaveChannel()
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
             } onError: { error in
                 cdPrint("requestLeaveRoom error: \(error)")
             }
-        self.showRecommendUser()
+        showRecommendUser(completionHandler)
         
 //        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
 //        let removeBlock = { [weak self] in
@@ -300,17 +303,20 @@ extension AmongChat.Room.ViewController {
     }
     
     
-    private func showRecommendUser(completionHandler: CallBack? = nil) {
+    private func showRecommendUser(_ completionHandler: CallBack? = nil) {
         if viewModel.showRecommendUser {
-            
             let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId, topicId: viewModel.roomReplay.value.topicId)
-            navigationController?.pushViewController(vc)
+            navigationController?.pushViewController(vc, completion: { [weak self] in
+                completionHandler?()
+                guard let `self` = self else { return }
+                self.navigationController?.viewControllers.removeAll(self)
+            })
         } else {
             dismissViewController(completionHandler: {
                 completionHandler?()
             })
         }
-        Social.Module.shared.clear()
+        Social.ShareRoomViewController.clear()
     }
     
     
@@ -524,6 +530,17 @@ extension AmongChat.Room.ViewController {
 //                self.adView?.isHidden = isPro
 //            })
 //            .disposed(by: bag)
+        RxKeyboard.instance.isHidden
+            .asObservable()
+            .delay(.fromSeconds(0.2), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] isHidden in
+                self?.isKeyboardVisible = !isHidden
+                if isHidden {
+                    self?.keyboardHiddenBlock?()
+                    self?.keyboardHiddenBlock = nil
+                }
+            })
+            .disposed(by: bag)
         
         RxKeyboard.instance.visibleHeight
             .drive(onNext: { [weak self] keyboardVisibleHeight in
@@ -551,15 +568,6 @@ extension AmongChat.Room.ViewController {
                 }
             })
             .disposed(by: bag)
-
-//        imViewModel.imReadySignal
-//            .filter({ $0 })
-//            .take(1)
-//            .subscribe(onNext: { [weak self] (_) in
-//                self?.messageView.isHidden = false
-////                self?.messageBtn.isHidden = false
-//            })
-//            .disposed(by: bag)
         
         viewModel.roomReplay
             .observeOn(MainScheduler.asyncInstance)
@@ -569,7 +577,6 @@ extension AmongChat.Room.ViewController {
                 self?.configView.room = room
                 self?.toolView.set(room)
                 self?.seatView.room = room
-                    
                 //update list and other
 //                self?.userCollectionView.reloadData()
             })
@@ -614,11 +621,14 @@ extension AmongChat.Room.ViewController {
         
         viewModel.endRoomHandler = { [weak self] action in
             guard let `self` = self else { return }
-            if action == .kickout {
+            switch action {
+            case .kickout(let role):
                 self.requestLeaveRoom {
-                    let vc = UIApplication.navigationController?.viewControllers.first
-                    vc?.showKickedAlert()
+                    let vc = UIApplication.navigationController?.viewControllers.last
+                    vc?.showKickedAlert(with: role)
                 }
+            default:
+                ()
             }
 //            guard action != .normalClose else {
 //                self.closeRoom()
@@ -710,6 +720,10 @@ extension AmongChat.Room.ViewController {
             }
         }
         
+        viewModel.shareEventHandler = { [weak self] in
+            self?.onShareBtn()
+        }
+        
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
         }
@@ -784,17 +798,10 @@ extension AmongChat.Room.ViewController {
         }
         
         toolView.openGameHandler = { [weak self] in
-            guard let `self` = self else {
+            guard let `self` = self, self.room.topicType.productId > 0 else {
                 return
             }
-            switch self.room.topicType {
-            case .amongus:
-                self.showStoreProduct(with: 1351168404)
-            case .roblox:
-                self.showStoreProduct(with: 431946152)
-            case .chilling:
-                ()
-            }
+            self.showStoreProduct(with: self.room.topicType.productId)
             Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
         }
         
@@ -948,7 +955,7 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
         tableView.deselectRow(at: indexPath, animated: false)
         
         if let message = viewModel.messages.safe(indexPath.row) as? MessageListable {
-            message.rawContent?.copyToPasteboard()
+            message.rawContent?.copyToPasteboardWithHaptic()
             view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         

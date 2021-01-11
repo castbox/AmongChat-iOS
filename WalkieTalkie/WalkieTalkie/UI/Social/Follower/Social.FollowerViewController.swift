@@ -220,6 +220,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if let user = userList.safe(indexPath.row) {
             addLogForProfile(with: user.uid)
             let vc = Social.ProfileViewController(with: user.uid)
@@ -271,7 +272,7 @@ extension Social.FollowerViewController: UITableViewDataSource, UITableViewDeleg
 
 extension Social {
     
-    class FollowerCell: UITableViewCell {
+    class FollowerCell: TableViewCell {
         
         var updateFollowData: ((Bool) -> Void)?
         var updateInviteData: ((Bool) -> Void)?
@@ -302,12 +303,15 @@ extension Social {
             btn.layer.borderWidth = 2
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.backgroundColor = UIColor.theme(.backgroundBlack)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.titleLabel?.adjustsFontSizeToFitWidth = true
             return btn
         }()
         
         private var userInfo: Entity.UserProfile!
         private var roomId = ""
         private var isInvite = false
+        private var isStranger = false
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -332,19 +336,18 @@ extension Social {
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.left.equalToSuperview().offset(20)
-                maker.top.equalToSuperview()
+                maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(40)
             }
             
             usernameLabel.snp.makeConstraints { (maker) in
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
-                maker.right.equalTo(-115)
                 maker.height.equalTo(30)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
             followBtn.snp.makeConstraints { (maker) in
-                maker.width.equalTo(90)
+                maker.left.greaterThanOrEqualTo(usernameLabel.snp.right).offset(20)
                 maker.height.equalTo(32)
                 maker.right.equalTo(-20)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
@@ -356,7 +359,7 @@ extension Social {
                     guard let `self` = self else { return }
                     if self.isInvite {
                         if self.userInfo != nil {
-                            self.inviteUserAction(self.userInfo)
+                            self.inviteUserAction(self.userInfo, isStranger: self.isStranger)
                         }
                     } else {
                         self.followUser()
@@ -365,7 +368,7 @@ extension Social {
         }
         
         func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
-            
+            self.isStranger = false
             self.userInfo = model
             if isSelf {
                 if isFollowing {
@@ -397,10 +400,11 @@ extension Social {
             }
         }
         
-        func setCellDataForShare(with model: Entity.UserProfile, roomId: String) {
+        func setCellDataForShare(with model: Entity.UserProfile, roomId: String, isStranger: Bool) {
             
             self.userInfo = model
             self.roomId = roomId
+            self.isStranger = isStranger
             
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
@@ -417,9 +421,6 @@ extension Social {
             followBtn.setTitleColor(.black, for: .normal)
             followBtn.setTitle(R.string.localizable.socialInvite(), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0xFFF000)
-            followBtn.snp.updateConstraints { (maker) in
-                maker.width.equalTo(78)
-            }
         }
         
         private func grayFollowStyle() {
@@ -475,11 +476,11 @@ extension Social {
             }
         }
         
-        private func inviteUserAction(_ user: Entity.UserProfile) {
+        private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
             let invited = userInfo.invited ?? false
             if !invited {
                 let removeBlock = self.superview?.raft.show(.loading)
-                Request.inviteUser(roomId: roomId, uid: user.uid)
+                Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock?()
                         self?.updateInviteData?(true)

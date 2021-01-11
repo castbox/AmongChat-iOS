@@ -191,8 +191,9 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func updateRoom(nickName: String, with roomId: String) -> Single<Bool> {
-        return amongchatProvider.rx.request(.roomNickName(["nickname": nickName, "room_id": roomId]))
+    static func updateRoom(topic: AmongChat.Topic, nickName: String, with roomId: String) -> Single<Bool> {
+        
+        return amongchatProvider.rx.request(.roomNickName(["name_\(topic.rawValue)": nickName, "room_id": roomId]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
@@ -389,8 +390,16 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func inviteUser(roomId: String, uid: Int) -> Single<Entity.FollowData?> {
-        let paras = ["room_id": roomId, "uid": uid] as [String : Any]
+    static func onlineStrangers() -> Single<Entity.FollowData?> {
+        return amongchatProvider.rx.request(.onlineStrangers)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func inviteUser(roomId: String, uid: Int, isStranger: Bool) -> Single<Entity.FollowData?> {
+        let paras = ["room_id": roomId, "uid": uid, "is_stranger": isStranger.int] as [String : Any]
         return amongchatProvider.rx.request(.inviteUser(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()

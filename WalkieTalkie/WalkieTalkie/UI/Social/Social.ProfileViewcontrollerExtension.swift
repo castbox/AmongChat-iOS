@@ -26,16 +26,7 @@ extension Social.ProfileViewController {
         let bag = DisposeBag()
         
         var headerHandle:((HeaderProfileAction) -> Void)?
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            lb.text = R.string.localizable.profileProfile()
-            return lb
-        }()
-        
+                
         private lazy var avatarIV: UIImageView = {
             let iv = UIImageView()
             iv.layer.cornerRadius = 50
@@ -214,12 +205,8 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            addSubviews(views: titleLabel, avatarIV,changeIcon, nameLabel, editBtn, followingBtn, followerBtn, followButton, redCountLabel, tikTokView)
+            addSubviews(views: avatarIV, changeIcon, nameLabel, editBtn, followingBtn, followerBtn, followButton, redCountLabel, tikTokView)
             
-            titleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(12 + Frame.Height.safeAeraTopHeight)
-                maker.centerX.equalToSuperview()
-            }
             if isSelf {
                 setLayoutForSelf()
             } else {
@@ -250,7 +237,7 @@ extension Social.ProfileViewController {
         private func setLayoutForSelf() {
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(titleLabel.snp.bottom).offset(48)
+                maker.top.equalTo(40)
                 maker.left.equalTo(20)
                 maker.height.width.equalTo(100)
             }
@@ -293,7 +280,7 @@ extension Social.ProfileViewController {
             
             tikTokView.snp.makeConstraints { maker in
                 maker.left.right.equalToSuperview()
-                maker.bottom.equalTo(-12)
+                maker.top.equalTo(avatarIV.snp.bottom).offset(56)
                 maker.height.equalTo(80)
             }
         }
@@ -301,7 +288,7 @@ extension Social.ProfileViewController {
         private func setLayoutForOther() {
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(titleLabel.snp.bottom).offset(48)
+                maker.top.equalTo(40)
                 maker.centerX.equalToSuperview()
                 maker.height.width.equalTo(100)
             }
@@ -360,7 +347,7 @@ extension Social.ProfileViewController {
         }
     }
     
-    class TableCell: UITableViewCell {
+    class ProfileTableCell: TableViewCell {
         
         private lazy var iconIV: UIImageView = {
             let iv = UIImageView()
@@ -398,16 +385,15 @@ extension Social.ProfileViewController {
             iconIV.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(20)
-                maker.bottom.equalToSuperview().offset(40).priorityLow()
+                maker.left.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(iconIV.snp.centerY)
-                maker.left.equalTo(iconIV.snp.right).offset(13)
+                maker.centerY.equalTo(iconIV)
+                maker.left.equalTo(iconIV.snp.right).offset(16)
+                maker.right.lessThanOrEqualToSuperview().offset(-20)
             }
         }
-        
     }
     
     class VerticalTitleButton: UIView {

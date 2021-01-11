@@ -113,6 +113,31 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let isInReview: PublishProperty<Bool> = {
+        return DynamicProperty.stored(false)
+            .asPublishProperty()
+    }()
+    
+    let preferredChatLanguage: PublishProperty<Entity.GlobalSetting.KeyValue?> = {
+
+        typealias Language = Entity.GlobalSetting.KeyValue
+        let value: Language?
+        
+        if let json = Defaults[\.preferredChatLanguageKey],
+           let result = try? JSONDecoder().decodeAnyData(Language.self, from: json) {
+            value = result
+        } else {
+            value = nil
+        }
+        
+        return DynamicProperty.stored(value)
+            .didSet({ event in
+                guard let newDict = event.new?.dictionary else { return }
+                Defaults[\.preferredChatLanguageKey] = newDict
+            })
+            .asPublishProperty()
+    }()
+    
     var appInstallDate: Date {
         get {
             if let dt = Defaults[\.appInstallDateKey] {
@@ -226,25 +251,6 @@ class Settings {
         }
     }
     
-    let firestoreUserProfile: PublishProperty<FireStore.Entity.User.Profile?> = {
-        typealias Profile = FireStore.Entity.User.Profile
-        let profile: Profile?
-        
-        if let dict = Defaults[\.firestoreUserProfileKey] {
-            profile = Profile(with: dict)
-        } else {
-            profile = nil
-        }
-        
-        return DynamicProperty.stored(profile)
-            .didSet({ (event) in
-                var dict = event.new?.toDictionary()
-                dict?.removeValue(forKey: Profile.Keys.updatedAt)
-                Defaults[\.firestoreUserProfileKey] = dict
-            })
-            .asPublishProperty()
-    }()
-    
     let amongChatUserProfile: PublishProperty<Entity.UserProfile?> = {
         typealias Profile = Entity.UserProfile
         let profile: Profile?
@@ -353,6 +359,17 @@ extension Settings {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.GlobalSetting.self)
+            .do(onSuccess: { [unowned self] (value) in
+                guard let newValue = value,
+                      !newValue.avatarVersion.isEmpty,
+                      newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? "" else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.amongChatAvatarListShown.value = nil
+                }
+            })
             .subscribe(onSuccess: { [unowned self] value in
                 self.globalSetting.value = value
             })
@@ -372,14 +389,6 @@ extension DefaultsKeys {
     var firstInstall: DefaultsKey<Bool> {
         .init("first.install", defaultValue: true)
     }
-    
-//    var channel: DefaultsKey<Room> {
-//        .init("channel", defaultValue: Room(name: "WELCOME", user_count: 0))
-//    }
-    
-//    var secretChannels: DefaultsKey<[Room]> {
-//        .init("secret.channels.joined", defaultValue: [])
-//    }
     
     var isProKey: DefaultsKey<Bool> {
         .init("is.pro.key", defaultValue: false)
@@ -453,10 +462,6 @@ extension DefaultsKeys {
         .init("walkie.talkie.first.show.secret", defaultValue: true)
     }
     
-//    static func channel(for mode: Mode) -> DefaultsKey<Room?> {
-//        .init("channel_with_mode_\(mode.rawValue)", defaultValue: nil)
-//    }
-    
     var emojiMaps: DefaultsKey<[String: Any]> {
         .init("emoji.maps", defaultValue: [:])
     }
@@ -479,10 +484,6 @@ extension DefaultsKeys {
     
     var profileInitialShownTsKey: DefaultsKey<Double?> {
         .init("profile.initial.shown.timestamp", defaultValue: nil)
-    }
-    
-    var firestoreUserProfileKey: DefaultsKey<[String : Any]?> {
-        .init("social.user.profile", defaultValue: nil)
     }
     
     var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
@@ -517,6 +518,10 @@ extension DefaultsKeys {
     
     var amongChatGlobalSettingKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.global.setting", defaultValue: [:])
+    }
+    
+    var preferredChatLanguageKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.preferred.chat.language", defaultValue: nil)
     }
 }
 

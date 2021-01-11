@@ -13,27 +13,87 @@ protocol JoinRoomable {
     var isRequestingRoom: Bool { get set }
 }
 
-extension WalkieTalkie.ViewController {
-    struct EnterRoomLogSource {
-        let key: String
+struct ParentPageSource {
+    let key: String
+
+    static let matchSource = ParentPageSource(key: "match")
+    
+    enum Page: String {
+        case none
+        case match
+        case friends
+        case link
+        case create
+        case create_match ////hottopic
         
-        static let matchSource = EnterRoomLogSource(key: "match")
-        static let friendsSource = EnterRoomLogSource(key: "friends")
-        static let urlSource = EnterRoomLogSource(key: "link")
-        static let creatingSource = EnterRoomLogSource(key: "create")
-        //hottopic
-        static let creatingMatchSource = EnterRoomLogSource(key: "create_match")
+        case join_friend_room
     }
     
-    struct EnterRoomApiSource {
-        let key: String
-        
-        static let joinFriendSource = EnterRoomApiSource(key: "join_friend_room")
+    var page: Page {
+        return Page(rawValue: key) ?? .none
     }
+    
+    var isFromCreatePage: Bool {
+        page == ParentPageSource.Page.create || page == ParentPageSource.Page.create_match
+    }
+    
+    init(key: String) {
+        self.key = key
+    }
+    
+    init(_ page: Page) {
+        self.key = page.rawValue
+    }
+    
+}
+
+struct ParentApiSource {
+    let key: String
+
+//    static let matchSource = ParentPageSource(key: "match")
+    
+    enum Page: String {
+        case none
+        case join_friend_room
+    }
+    
+    var page: Page {
+        return Page(rawValue: key) ?? .none
+    }
+    
+    init(key: String) {
+        self.key = key
+    }
+    
+    init(_ page: Page) {
+        self.key = page.rawValue
+    }
+    
+}
+
+extension WalkieTalkie.ViewController {
+//    struct EnterRoomLogSource {
+//
+//
+//        let key: String
+//
+//        static let matchSource = EnterRoomLogSource(key: "match")
+//        static let friendsSource = EnterRoomLogSource(key: "friends")
+//        static let urlSource = EnterRoomLogSource(key: "link")
+//        static let creatingSource = EnterRoomLogSource(key: "create")
+//        static let creatingMatchSource = EnterRoomLogSource(key: "create_match")
+//        //hottopic
+//    }
+    
+//    struct EnterRoomApiSource {
+//        let key: String
+//
+//        static let joinFriendSource = EnterRoomApiSource(key: "join_friend_room")
+//    }
 }
 
 extension JoinRoomable where Self: ViewController {
-    func enterRoom(roomId: String? = nil, topicId: String?, logSource: EnterRoomLogSource = .matchSource, apiSource: EnterRoomApiSource? = nil) {
+    func enterRoom(roomId: String? = nil, topicId: String?, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         
         var topic = topicId

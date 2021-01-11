@@ -10,18 +10,29 @@ import UIKit
 
 class AmongRoomInfoSetupView: XibLoadableView {
 
+    @IBOutlet weak var setupButton: UIButton!
     var setupHandler: (() -> Void)?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bindSubviewEvent()
+        configureSubview()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func bindSubviewEvent() {
+        
+    }
+    
+    private func configureSubview() {
+        setupButton.titleLabel?.numberOfLines = 0
+    }
     
     @IBAction func setupButtonAction(_ sender: UIButton) {
         setupHandler?()
     }
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

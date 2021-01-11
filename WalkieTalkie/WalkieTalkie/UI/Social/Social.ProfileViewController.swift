@@ -37,7 +37,7 @@ extension Social {
             func text() -> String {
                 switch self {
                 case .inviteFriends:
-                    return R.string.localizable.profileInviteFriends()
+                    return R.string.localizable.socialInviteFriends()
                 case .settings:
                     return R.string.localizable.profileSettings()
                 case .community:
@@ -59,6 +59,15 @@ extension Social {
             return btn
         }()
         
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 24)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            lb.text = R.string.localizable.profileProfile()
+            return lb
+        }()
+        
         private lazy var moreBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
@@ -71,7 +80,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 368:414
+            let vH: CGFloat = isSelfProfile ? 288:329
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -95,13 +104,13 @@ extension Social {
         
         private lazy var table: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
-            tb.register(TableCell.self, forCellReuseIdentifier: NSStringFromClass(TableCell.self))
             tb.dataSource = self
             tb.delegate = self
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
             tb.rowHeight = 73
+            tb.register(cellWithClass: ProfileTableCell.self)
             tb.neverAdjustContentInset()
             return tb
         }()
@@ -139,8 +148,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            rx.viewDidAppear
-                .take(1)
+            rx.viewDidAppear.take(1)
                 .subscribe(onNext: { [weak self](_) in
                     guard let `self` = self else { return }
                     if self.isSelfProfile {
@@ -151,6 +159,7 @@ extension Social {
                 })
                 .disposed(by: bag)
         }
+        
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             fetchRealation()
@@ -164,14 +173,30 @@ private extension Social.ProfileViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        view.addSubviews(views: table, backBtn)
+        let navLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(navLayoutGuide)
+        navLayoutGuide.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(49)
+        }
+        
+        view.addSubviews(views: table, backBtn, titleLabel)
+        
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.centerY.equalTo(navLayoutGuide)
+        }
+
         table.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         backBtn.snp.makeConstraints { (maker) in
             maker.left.equalToSuperview().offset(12.5)
-            maker.top.equalTo(8.5 + Frame.Height.safeAeraTopHeight)
+            maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(40)//25
         }
         if !isSelfProfile {
@@ -371,7 +396,7 @@ private extension Social.ProfileViewController {
         if isBlocked {
             blocked = true
             if !blockedUsers.contains(where: { $0.uid == uid}) {
-                let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "", nickname: userProfile?.nickname ?? "")
+                let newUser = Entity.RoomUser(uid: uid, name: userProfile?.name ?? "", pic: userProfile?.pictureUrl ?? "")
                 blockedUsers.append(newUser)
                 Defaults[\.blockedUsersV2Key] = blockedUsers
             }
@@ -393,11 +418,12 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TableCell.self), for: indexPath)
-        cell.backgroundColor = .clear
-        if let tableCell = cell as? TableCell,
-           let op = options.safe(indexPath.row) {
-            tableCell.configCell(with: op)
+        
+        let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
+
+        if let op = options.safe(indexPath.row) {
+            
+            cell.configCell(with: op)
         }
         return cell
     }
@@ -421,8 +447,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 let vc = Social.BlockedUserList.ViewController()
                 navigationController?.pushViewController(vc)
             case .settings:
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "SettingViewController")
+                let vc = SettingViewController()
                 navigationController?.pushViewController(vc)
             case .community:
                 self.open(urlSting: Config.PolicyType.url(.guideline))
