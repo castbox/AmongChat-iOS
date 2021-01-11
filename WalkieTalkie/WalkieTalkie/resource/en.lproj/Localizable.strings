@@ -142,7 +142,6 @@
 "among.chat.room.kick.selected" = "Kick Selected (%@)";
 "among.chat.room.just.chat.title" = "Host could set up note so everyone could see it when they join";
 "among.chat.room.kickout" = "You’ve been removed from this channel";
-"among.chat.room.reblox.title" = "Add the host in Roblox to join their game! Click to copy";
 "among.chat.room.set.reblox.name" = "Set Roblox Username";
 "among.chat.room.kick" = "Kick";
 "among.chat.room.user.change.notes.title" = "Only the channel owner can change this";
@@ -202,3 +201,4 @@
 "chatroom.message.system.change.to.public" = "Channel is PUBLIC now. Everyone can join!";
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
 "chatroom.message.user.joined" = "joined";
+"among.chat.room.reblox.title" = "Click to copy others' Roblox usernames to play together";
