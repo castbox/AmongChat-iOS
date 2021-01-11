@@ -303,8 +303,6 @@ extension Social {
             btn.layer.borderWidth = 2
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.backgroundColor = UIColor.theme(.backgroundBlack)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-            btn.titleLabel?.adjustsFontSizeToFitWidth = true
             return btn
         }()
         
@@ -342,12 +340,13 @@ extension Social {
             
             usernameLabel.snp.makeConstraints { (maker) in
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
+                maker.right.equalTo(-115)
                 maker.height.equalTo(30)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
             followBtn.snp.makeConstraints { (maker) in
-                maker.left.greaterThanOrEqualTo(usernameLabel.snp.right).offset(20)
+                maker.width.equalTo(90)
                 maker.height.equalTo(32)
                 maker.right.equalTo(-20)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
@@ -421,6 +420,9 @@ extension Social {
             followBtn.setTitleColor(.black, for: .normal)
             followBtn.setTitle(R.string.localizable.socialInvite(), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0xFFF000)
+            followBtn.snp.updateConstraints { (maker) in
+                maker.width.equalTo(78)
+            }
         }
         
         private func grayFollowStyle() {
