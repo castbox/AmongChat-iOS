@@ -10,6 +10,8 @@ import UIKit
 import RxCocoa
 import RxSwift
 import SwiftyUserDefaults
+import HWPanModal
+import PullToDismiss
 
 extension Social {
     
@@ -54,7 +56,11 @@ extension Social {
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    self.navigationController?.popViewController()
+                    if self.navigationController is PannableNavigationController, self.navigationController?.viewControllers.count == 1 {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController()
+                    }
                 }).disposed(by: bag)
             return btn
         }()
@@ -131,9 +137,11 @@ extension Social {
         private var blocked = false
         var roomUser: Entity.RoomUser!
         private var userProfile: Entity.UserProfile?
-        
+        private var pullToDismiss: PullToDismiss?
+
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
+            self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             cdPrint(" uid is \(uid)  self uid is \(selfUid)")
@@ -158,6 +166,8 @@ extension Social {
                     }
                 })
                 .disposed(by: bag)
+            pullToDismiss = PullToDismiss(scrollView: table)
+            pullToDismiss?.delegate = self
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -167,20 +177,58 @@ extension Social {
     }
 }
 
+extension Social.ProfileViewController {
+    override func panScrollable() -> UIScrollView? {
+//        if self.navigationController is PannableNavigationController {
+            return table
+//        }
+//        return nil
+    }
+    
+//    override func topOffset() -> CGFloat {
+//        return 0
+//    }
+//    
+//    override func transitionDuration() -> TimeInterval {
+//        return 0.25
+//    }
+//        
+//    override func shouldRoundTopCorners() -> Bool {
+//        return false
+//    }
+//    
+//    override func showDragIndicator() -> Bool {
+//        return false
+//    }
+//    
+//    override func allowScreenEdgeInteractive() -> Bool {
+//        return true
+//    }
+    
+}
+
 private extension Social.ProfileViewController {
     func setupLayout() {
-        isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
+//        let navLayoutGuide = UILayoutGuide()
+//        view.addLayoutGuide(navLayoutGuide)
+//        navLayoutGuide.snp.makeConstraints { (maker) in
+//            maker.left.right.equalToSuperview()
+//            maker.top.equalTo(topLayoutGuide.snp.bottom)
+//            maker.height.equalTo(49)
+//        }
+        let navLayoutGuide = UIView()
+        navLayoutGuide.backgroundColor = .clear
+//        view.addLayoutGuide(navLayoutGuide)
+        view.addSubview(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
             maker.height.equalTo(49)
         }
-        
+//
         view.addSubviews(views: table, backBtn, titleLabel)
         
         titleLabel.snp.makeConstraints { (maker) in

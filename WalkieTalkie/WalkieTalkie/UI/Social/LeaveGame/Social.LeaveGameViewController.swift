@@ -209,7 +209,7 @@ extension Social.LeaveGameViewController: Modalable {
         return .overCurrentContext
     }
     
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 0
     }
     

@@ -12,13 +12,13 @@ protocol Modalable {
     func style() -> Modal.Style
     func height() -> CGFloat
     func modalPresentationStyle() -> UIModalPresentationStyle
-    func cornerRadius() -> CGFloat
+    func containerCornerRadius() -> CGFloat
     func coverAlpha() -> CGFloat
     func canAutoDismiss() -> Bool
 }
 
 extension Modalable {
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 15
     }
     func coverAlpha() -> CGFloat {

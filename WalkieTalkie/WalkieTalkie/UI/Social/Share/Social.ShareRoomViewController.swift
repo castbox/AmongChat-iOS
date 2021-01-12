@@ -426,7 +426,7 @@ extension Social.ShareRoomViewController: Modalable {
         return .overCurrentContext
     }
     
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 20
     }
     

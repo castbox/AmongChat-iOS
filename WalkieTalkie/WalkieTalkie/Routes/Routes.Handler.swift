@@ -103,7 +103,14 @@ extension Routes {
         func handleProfile(uid: Int? = nil) {
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             let vc = Social.ProfileViewController(with: uid ?? selfUid)
-            UIApplication.navigationController?.pushViewController(vc)
+            if uid == nil || uid == selfUid {
+                let navigationVc = PannableNavigationController(rootViewController: vc)
+                navigationVc.modalPresentationStyle = .overCurrentContext
+                UIApplication.tabBarController?.present(navigationVc, animated: true, completion: nil)
+            } else {
+                UIApplication.navigationController?.pushViewController(vc)
+
+            }
         }
         
         func handleFollowers() {

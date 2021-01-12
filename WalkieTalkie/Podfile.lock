@@ -182,6 +182,7 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
+  - HWPanModal (0.8.0)
   - IQKeyboardManagerSwift (6.2.1)
   - JLRoutes (2.1)
   - Kingfisher (5.15.8):
@@ -218,6 +219,7 @@ PODS:
   - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
+  - PullToDismiss (2.2)
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
@@ -310,6 +312,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/RemoteConfig
   - GoogleSignIn
+  - HWPanModal
   - IQKeyboardManagerSwift (~> 6.2.0)
   - JLRoutes
   - Kingfisher
@@ -321,6 +324,7 @@ DEPENDENCIES:
   - Moya/RxSwift
   - NotificationBannerSwift (~> 3.0.0)
   - Path.swift (~> 1.0.0)
+  - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
   - RxCocoa
@@ -379,6 +383,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - HWPanModal
     - IQKeyboardManagerSwift
     - JLRoutes
     - Kingfisher
@@ -396,6 +401,7 @@ SPEC REPOS:
     - PINOperation
     - PromisesObjC
     - Protobuf
+    - PullToDismiss
     - R.swift
     - R.swift.Library
     - Reveal-SDK
@@ -469,6 +475,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  HWPanModal: d3c902548346b19f6bb0e667567a06f8b82049a9
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
@@ -486,6 +493,7 @@ SPEC CHECKSUMS:
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  PullToDismiss: 033572b7152fbf68db0407db882d546312813837
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
@@ -511,6 +519,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 47257d4ff5ba27e35cabf64fa93085019463f9d6
+PODFILE CHECKSUM: 1ff5989d582fbacc6965a7dd09d817df888374dd
 
 COCOAPODS: 1.10.0

@@ -161,7 +161,7 @@ extension Social.ReportViewController: Modalable {
         return .overCurrentContext
     }
     
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 20
     }
     

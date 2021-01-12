@@ -75,9 +75,9 @@ extension Modal {
             var height: CGFloat = 0
             if let vc = toController, let modal = vc.modal() {
                 // 添加圆角
-                if modal.cornerRadius() != 0 {
+                if modal.containerCornerRadius() != 0 {
 //                    addCorner(to: toView)
-                    toView.addCorner(with: modal.cornerRadius())
+                    toView.addCorner(with: modal.containerCornerRadius())
                 }
                 // 设置高度
                 height = modal.height()

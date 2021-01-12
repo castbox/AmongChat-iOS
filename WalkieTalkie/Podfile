@@ -147,6 +147,8 @@ target 'WalkieTalkie' do
     pod 'FBSDKLoginKit'
     
     pod 'NotificationBannerSwift', '~> 3.0.0'
+    pod 'PullToDismiss', '~> 2.2'
+    pod 'HWPanModal'
 end
 
 post_install do |installer|

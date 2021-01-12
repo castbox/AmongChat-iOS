@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 126 images.
+  /// This `R.image` struct is generated, and contains static references to 127 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -372,6 +372,8 @@ struct R: Rswift.Validatable {
     static let profile_invite_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_invite_friends")
     /// Image `profile_settings`.
     static let profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_settings")
+    /// Image `spark`.
+    static let spark = Rswift.ImageResource(bundle: R.hostingBundle, name: "spark")
     /// Image `star_bg`.
     static let star_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "star_bg")
     
@@ -1000,6 +1002,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.profile_settings, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "spark", bundle: ..., traitCollection: ...)`
+    static func spark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.spark, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "star_bg", bundle: ..., traitCollection: ...)`
     static func star_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.star_bg, compatibleWith: traitCollection)
@@ -1008,7 +1015,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 24 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1050,6 +1057,8 @@ struct R: Rswift.Validatable {
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
     /// Nib `PremiumContainer`.
     static let premiumContainer = _R.nib._PremiumContainer()
+    /// Nib `SearchNavigationBar`.
+    static let searchNavigationBar = _R.nib._SearchNavigationBar()
     /// Nib `ShareContainerView`.
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
@@ -1179,6 +1188,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.premiumContainer)
     }
     
+    /// `UINib(name: "SearchNavigationBar", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.searchNavigationBar) instead")
+    static func searchNavigationBar(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.searchNavigationBar)
+    }
+    
     /// `UINib(name: "ShareContainerView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.shareContainerView) instead")
     static func shareContainerView(_: Void = ()) -> UIKit.UINib {
@@ -1281,6 +1296,10 @@ struct R: Rswift.Validatable {
     
     static func premiumContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.premiumContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func searchNavigationBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.searchNavigationBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -3601,6 +3620,17 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, *) {
           if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'PremiumContainer', but couldn't be loaded.") }
         }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SearchNavigationBar: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "SearchNavigationBar"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}
