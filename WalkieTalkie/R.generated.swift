@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 150 images.
+  /// This `R.image` struct is generated, and contains static references to 126 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -336,22 +336,6 @@ struct R: Rswift.Validatable {
     static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
-    /// Image `icon_screen_bg_g_d_pdf`.
-    static let icon_screen_bg_g_d_pdf = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_d_pdf")
-    /// Image `icon_screen_bg_g_shadow_round`.
-    static let icon_screen_bg_g_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow_round")
-    /// Image `icon_screen_bg_g_shadow`.
-    static let icon_screen_bg_g_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g_shadow")
-    /// Image `icon_screen_bg_g`.
-    static let icon_screen_bg_g = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_g")
-    /// Image `icon_screen_bg_o_d`.
-    static let icon_screen_bg_o_d = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_d")
-    /// Image `icon_screen_bg_o_shadow_round`.
-    static let icon_screen_bg_o_shadow_round = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow_round")
-    /// Image `icon_screen_bg_o_shadow`.
-    static let icon_screen_bg_o_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o_shadow")
-    /// Image `icon_screen_bg_o`.
-    static let icon_screen_bg_o = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_screen_bg_o")
     /// Image `icon_setting_diamonds`.
     static let icon_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds")
     /// Image `icon_setting_star`.
@@ -380,10 +364,6 @@ struct R: Rswift.Validatable {
     static let launch_name = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_name")
     /// Image `logo_snapchat`.
     static let logo_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "logo_snapchat")
-    /// Image `private_share_bg_2`.
-    static let private_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg_2")
-    /// Image `private_share_bg`.
-    static let private_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "private_share_bg")
     /// Image `profile_avatar_random_btn`.
     static let profile_avatar_random_btn = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_avatar_random_btn")
     /// Image `profile_block_users`.
@@ -392,36 +372,8 @@ struct R: Rswift.Validatable {
     static let profile_invite_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_invite_friends")
     /// Image `profile_settings`.
     static let profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_settings")
-    /// Image `public_share_bg_2`.
-    static let public_share_bg_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "public_share_bg_2")
-    /// Image `public_share_bg`.
-    static let public_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "public_share_bg")
-    /// Image `share_logo`.
-    static let share_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "share_logo")
-    /// Image `snapchat_share_bg`.
-    static let snapchat_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "snapchat_share_bg")
-    /// Image `space_ship_bg`.
-    static let space_ship_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "space_ship_bg")
-    /// Image `speak_button_dis`.
-    static let speak_button_dis = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_dis")
-    /// Image `speak_button_nor`.
-    static let speak_button_nor = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_nor")
-    /// Image `speak_button_pre`.
-    static let speak_button_pre = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_button_pre")
-    /// Image `speak_list_add`.
-    static let speak_list_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_add")
-    /// Image `speak_list_mic`.
-    static let speak_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_mic")
-    /// Image `speak_list_user`.
-    static let speak_list_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "speak_list_user")
     /// Image `star_bg`.
     static let star_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "star_bg")
-    /// Image `user_list_friend_dark`.
-    static let user_list_friend_dark = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_dark")
-    /// Image `user_list_friend_light`.
-    static let user_list_friend_light = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_friend_light")
-    /// Image `user_list_invite`.
-    static let user_list_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "user_list_invite")
     
     /// `UIImage(named: "ac_among_no_data", bundle: ..., traitCollection: ...)`
     static func ac_among_no_data(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
@@ -958,46 +910,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_room_lock, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_screen_bg_g", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_g(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_g, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_g_d_pdf", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_g_d_pdf(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_d_pdf, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_g_shadow", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_g_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_g_shadow_round", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_g_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_g_shadow_round, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_o", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_o(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_o, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_o_d", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_o_d(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_d, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_o_shadow", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_o_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_screen_bg_o_shadow_round", bundle: ..., traitCollection: ...)`
-    static func icon_screen_bg_o_shadow_round(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_screen_bg_o_shadow_round, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "icon_setting", bundle: ..., traitCollection: ...)`
     static func icon_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_setting, compatibleWith: traitCollection)
@@ -1068,16 +980,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.logo_snapchat, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "private_share_bg", bundle: ..., traitCollection: ...)`
-    static func private_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.private_share_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "private_share_bg_2", bundle: ..., traitCollection: ...)`
-    static func private_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.private_share_bg_2, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "profile_avatar_random_btn", bundle: ..., traitCollection: ...)`
     static func profile_avatar_random_btn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.profile_avatar_random_btn, compatibleWith: traitCollection)
@@ -1098,79 +1000,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.profile_settings, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "public_share_bg", bundle: ..., traitCollection: ...)`
-    static func public_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.public_share_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "public_share_bg_2", bundle: ..., traitCollection: ...)`
-    static func public_share_bg_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.public_share_bg_2, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "share_logo", bundle: ..., traitCollection: ...)`
-    static func share_logo(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.share_logo, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "snapchat_share_bg", bundle: ..., traitCollection: ...)`
-    static func snapchat_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.snapchat_share_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "space_ship_bg", bundle: ..., traitCollection: ...)`
-    static func space_ship_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.space_ship_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_button_dis", bundle: ..., traitCollection: ...)`
-    static func speak_button_dis(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_button_dis, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_button_nor", bundle: ..., traitCollection: ...)`
-    static func speak_button_nor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_button_nor, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_button_pre", bundle: ..., traitCollection: ...)`
-    static func speak_button_pre(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_button_pre, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_list_add", bundle: ..., traitCollection: ...)`
-    static func speak_list_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_list_add, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_list_mic", bundle: ..., traitCollection: ...)`
-    static func speak_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_list_mic, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "speak_list_user", bundle: ..., traitCollection: ...)`
-    static func speak_list_user(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.speak_list_user, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "star_bg", bundle: ..., traitCollection: ...)`
     static func star_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.star_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "user_list_friend_dark", bundle: ..., traitCollection: ...)`
-    static func user_list_friend_dark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.user_list_friend_dark, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "user_list_friend_light", bundle: ..., traitCollection: ...)`
-    static func user_list_friend_light(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.user_list_friend_light, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "user_list_invite", bundle: ..., traitCollection: ...)`
-    static func user_list_invite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.user_list_invite, compatibleWith: traitCollection)
     }
     
     fileprivate init() {}

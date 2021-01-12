@@ -52,16 +52,17 @@ extension TikTokShareView.Content {
     }
         
     var backgroundImage: UIImage? {
-        switch self {
-        case .public_1:
-            return R.image.public_share_bg_2()
-        case .public_2:
-            return R.image.public_share_bg()
-        case .private_1:
-            return R.image.private_share_bg_2()
-        case .private_2:
-            return R.image.private_share_bg()
-        }
+        return nil
+//        switch self {
+//        case .public_1:
+//            return R.image.public_share_bg_2()
+//        case .public_2:
+//            return R.image.public_share_bg()
+//        case .private_1:
+//            return R.image.private_share_bg_2()
+//        case .private_2:
+//            return R.image.private_share_bg()
+//        }
     }
 //    "share.tiktok.public.title" = "Join in %@ talk to me & have fun !!!";
 //    "share.tiktok.private.title" = "Join in my SERET CHANNEL %@ talk to me !!!";
