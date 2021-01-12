@@ -135,6 +135,17 @@ extension URI {
         }
     }
     
+    struct Search: URIRepresentable {
+        static func patterns() -> [String] {
+            return [
+                "/search"
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

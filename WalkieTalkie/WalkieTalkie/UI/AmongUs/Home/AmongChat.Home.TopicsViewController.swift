@@ -87,7 +87,8 @@ extension AmongChat.Home {
         
         @objc
         private func onCreateRoomBtn() {
-            Routes.handle("/createRoom")
+            Routes.handle("/search")
+            //Search
         }
         
     }

@@ -46,6 +46,8 @@ extension Routes {
                         self.handleUndefined(undefined.url)
                     case _ as URI.CreateRoom:
                         self.handleCreateRoom()
+                    case _ as URI.Search:
+                        self.handleSearch()
                     case let profile as URI.Profile:
                         self.handleProfile(uid: profile.uid)
                     default:
@@ -90,6 +92,11 @@ extension Routes {
         
         func handleCreateRoom() {
             let vc = AmongChat.CreateRoom.ViewController()
+            UIApplication.navigationController?.pushViewController(vc)
+        }
+        
+        func handleSearch() {
+            let vc = Search.ViewController()
             UIApplication.navigationController?.pushViewController(vc)
         }
         
