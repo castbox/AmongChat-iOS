@@ -242,9 +242,9 @@ extension SettingViewController {
             Option(type: .rateUs, selectionHandler: { [weak self] in
                 self?.rateApp()
             }),
-            Option(type: .shareApp, selectionHandler: { [weak self] in
-                self?.shareApp()
-            }),
+//            Option(type: .shareApp, selectionHandler: { [weak self] in
+//                self?.shareApp()
+//            }),
         ]
         
         if Settings.shared.isInReview.value || Settings.shared.isProValue.value {

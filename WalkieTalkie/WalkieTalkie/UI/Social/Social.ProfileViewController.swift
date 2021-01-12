@@ -16,15 +16,15 @@ extension Social {
     class ProfileViewController: ViewController {
         
         enum Option {
-            case inviteFriends
+//            case inviteFriends
             case settings
             case community
             case blockUser
             
             func image() -> UIImage? {
                 switch self {
-                case .inviteFriends:
-                    return R.image.profile_invite_friends()
+//                case .inviteFriends:
+//                    return R.image.profile_invite_friends()
                 case .settings:
                     return R.image.profile_settings()
                 case .community:
@@ -36,8 +36,8 @@ extension Social {
             
             func text() -> String {
                 switch self {
-                case .inviteFriends:
-                    return R.string.localizable.socialInviteFriends()
+//                case .inviteFriends:
+//                    return R.string.localizable.socialInviteFriends()
                 case .settings:
                     return R.string.localizable.profileSettings()
                 case .community:
@@ -115,7 +115,7 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = [.inviteFriends, .blockUser, .community, .settings, ]
+        private lazy var options: [Option] = [.blockUser, .community, .settings, ]
         
         private var relationData: Entity.RelationData?
         
@@ -432,17 +432,17 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         tableView.deselectRow(at: indexPath, animated: true)
         if let op = options.safe(indexPath.row) {
             switch op {
-            case .inviteFriends:
-                Logger.Action.log(.profile_invite_friend_clk, category: nil)
-                let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-                let removeBlock = { [weak self] in
-                    self?.view.isUserInteractionEnabled = true
-                    removeHUDBlock()
-                }
-                self.view.isUserInteractionEnabled = false
-                ShareManager.default.showActivity(viewController: self) { () in
-                    removeBlock()
-                }
+//            case .inviteFriends:
+//                Logger.Action.log(.profile_invite_friend_clk, category: nil)
+//                let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+//                let removeBlock = { [weak self] in
+//                    self?.view.isUserInteractionEnabled = true
+//                    removeHUDBlock()
+//                }
+//                self.view.isUserInteractionEnabled = false
+//                ShareManager.default.showActivity(viewController: self) { () in
+//                    removeBlock()
+//                }
             case .blockUser:
                 let vc = Social.BlockedUserList.ViewController()
                 navigationController?.pushViewController(vc)

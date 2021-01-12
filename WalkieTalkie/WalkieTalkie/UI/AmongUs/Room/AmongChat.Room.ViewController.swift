@@ -90,7 +90,7 @@ extension AmongChat.Room {
 
         private lazy var bgView: UIView = {
             let v = UIView()
-            let ship = UIImageView(image: R.image.space_ship_bg())
+            let ship = UIImageView()
             ship.contentMode = .scaleAspectFill
             ship.setImage(with: room.topicType.roomBgUrl)
 //            let star = UIImageView(image: R.image.star_bg())

@@ -183,7 +183,8 @@
 "amongus.server.north.america" = "Nord America";
 "amongus.server.north.asia" = "Asia";
 "amongus.server.north.europe" = "Europa";
-"share.app" = "Ragazzi, abbiamo bisogno di più persone su AmongChat! È super divertente e ti mette in contatto con giocatori che la pensano allo stesso modo. Tocca il link per scaricare ora: https://amongchat.page.link/app";
+"share.app" = "Condividi app";
+"share.app.content" = "Ragazzi, abbiamo bisogno di più persone su AmongChat! È super divertente e ti mette in contatto con giocatori che la pensano allo stesso modo. Tocca il link per scaricare ora: https://amongchat.page.link/chat";
 
 "among.chat.unknown.error" = "Errore sconosciuto";
 "among.chat.setting.terms" = "Termini";
