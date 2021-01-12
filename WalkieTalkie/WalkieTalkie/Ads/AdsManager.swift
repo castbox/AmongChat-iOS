@@ -85,12 +85,14 @@ class AdsManager: NSObject {
         #if DEBUG
         config.loggingLevel = .debug
         #endif
-        MoPub.sharedInstance().initializeSdk(with: config) { [weak self] in
-            //send notification
-            self?.mopubInitializeSuccessSubject.accept(true)
-            //req
-            self?.requestRewardVideoIfNeed()
-//            Ad.InterstitialManager.shared.loadAd()
+        MoPub.sharedInstance().initializeSdk(with: config) {
+            DispatchQueue.main.async { [weak self] in
+                //send notification
+                self?.mopubInitializeSuccessSubject.accept(true)
+                //req
+                self?.requestRewardVideoIfNeed()
+//                Ad.InterstitialManager.shared.loadAd()
+            }
         }
         
         MPRewardedVideo.setDelegate(self, forAdUnitId: rewardedVideoId)
