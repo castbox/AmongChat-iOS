@@ -13,13 +13,7 @@ import NotificationBannerSwift
 
 extension AmongChat.Home {
     
-    class TopicsViewController: WalkieTalkie.ViewController {
-        
-        // MARK: - members
-        
-        private typealias TopicCell = AmongChat.Home.TopicCell
-        private typealias TopicViewModel = AmongChat.Home.TopicViewModel
-        
+    class NavigationBar: UIView {
         private lazy var profileBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_home_profile(), for: .normal)
@@ -39,6 +33,73 @@ extension AmongChat.Home {
             return btn
         }()
         
+        private let bag = DisposeBag()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            bindSubviewEvent()
+            configureSubview()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func bindSubviewEvent() {
+            Settings.shared.amongChatAvatarListShown.replay()
+                .subscribe(onNext: { [weak self] (ts) in
+                    if let _ = ts {
+                        self?.profileBtn.redDotOff()
+                    } else {
+                        self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
+                    }
+                })
+                .disposed(by: bag)
+        }
+        
+        private func configureSubview() {
+            addSubviews(views: profileBtn, bannerIV, createRoomBtn)
+            
+            profileBtn.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(42)
+                maker.left.equalToSuperview().inset(20)
+                maker.bottom.equalTo(-10.5)
+            }
+            
+            createRoomBtn.snp.makeConstraints { (maker) in
+                maker.right.equalToSuperview().inset(20)
+                maker.width.height.equalTo(42)
+                maker.centerY.equalTo(profileBtn)
+            }
+            
+            bannerIV.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(profileBtn)
+                maker.centerX.equalToSuperview()
+            }
+            
+
+        }
+        
+        @objc
+        private func onProfileBtn() {
+            Routes.handle("/profile")
+        }
+        
+        @objc
+        private func onCreateRoomBtn() {
+            Routes.handle("/createRoom")
+        }
+        
+    }
+    
+    class TopicsViewController: WalkieTalkie.ViewController {
+        
+        // MARK: - members
+        
+        private typealias TopicCell = AmongChat.Home.TopicCell
+        private typealias TopicViewModel = AmongChat.Home.TopicViewModel
+        private lazy var navigationView = NavigationBar()
+            
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -47,8 +108,8 @@ extension AmongChat.Home {
             let cellWidth = UIScreen.main.bounds.width - hInset * 2
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
-            layout.minimumLineSpacing = 20
-            layout.sectionInset = UIEdgeInsets(top: 35, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
+            layout.minimumLineSpacing = 27
+            layout.sectionInset = UIEdgeInsets(top: 27, left: hInset, bottom: Frame.Height.safeAeraBottomHeight, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.register(TopicCell.self, forCellWithReuseIdentifier: NSStringFromClass(TopicCell.self))
             v.showsVerticalScrollIndicator = false
@@ -99,16 +160,6 @@ extension AmongChat.Home.TopicsViewController {
 
     //MARK: - UI Action
     
-    @objc
-    private func onProfileBtn() {
-        Routes.handle("/profile")
-    }
-    
-    @objc
-    private func onCreateRoomBtn() {
-        Routes.handle("/createRoom")
-    }
-    
 }
 
 extension AmongChat.Home.TopicsViewController {
@@ -116,36 +167,16 @@ extension AmongChat.Home.TopicsViewController {
     // MARK: -
     
     private func setupLayout() {
+                
+        view.addSubviews(views: navigationView, topicCollectionView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.height.equalTo(60)
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
-        }
-        
-        view.addSubviews(views: profileBtn, bannerIV, createRoomBtn, topicCollectionView)
-        
-        profileBtn.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(42)
-            maker.left.equalToSuperview().inset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        createRoomBtn.snp.makeConstraints { (maker) in
-            maker.right.equalToSuperview().inset(20)
-            maker.width.height.equalTo(42)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        bannerIV.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
+        navigationView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalToSuperview()
+            maker.height.equalTo(62 + Frame.Height.safeAeraTopHeight)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navigationView.snp.bottom)
             maker.left.right.equalToSuperview()
             maker.bottom.equalToSuperview()
         }
@@ -172,17 +203,7 @@ extension AmongChat.Home.TopicsViewController {
                 self?.fetchSummaryData()
             })
             .disposed(by: bag)
-        
-        Settings.shared.amongChatAvatarListShown.replay()
-            .subscribe(onNext: { [weak self] (ts) in
-                if let _ = ts {
-                    self?.profileBtn.redDotOff()
-                } else {
-                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
-                }
-            })
-            .disposed(by: bag)
-        
+                
         rx.viewWillAppear
             .subscribe(onNext: { [weak self] (_) in
                 self?.topicCollectionView.setContentOffset(.zero, animated: false)

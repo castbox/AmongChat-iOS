@@ -18,25 +18,8 @@ extension AmongChat.Home {
         private typealias ShareFooter = AmongChat.Home.FriendShareFooter
         private typealias EmptyView = AmongChat.Home.EmptyReusableView
         
-        private lazy var profileBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_profile(), for: .normal)
-            btn.addTarget(self, action: #selector(onProfileBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
-        private lazy var bannerIV: UIImageView = {
-            let i = UIImageView(image: R.image.ac_home_banner())
-            return i
-        }()
-        
-        private lazy var createRoomBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_create(), for: .normal)
-            btn.addTarget(self, action: #selector(onCreateRoomBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
+        private lazy var navigationView = NavigationBar()
+            
         private lazy var friendsCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -94,37 +77,24 @@ extension AmongChat.Home {
 extension AmongChat.Home.RelationsViewController {
     
     private func setupLayout() {
+
+        view.addSubviews(views: navigationView, friendsCollectionView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.height.equalTo(60)
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
-        }
-        
-        view.addSubviews(views: profileBtn, bannerIV, createRoomBtn, friendsCollectionView)
-        
-        profileBtn.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(42)
-            maker.left.equalToSuperview().inset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        createRoomBtn.snp.makeConstraints { (maker) in
-            maker.right.equalToSuperview().inset(20)
-            maker.width.height.equalTo(42)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        bannerIV.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
+        navigationView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalToSuperview()
+            maker.height.equalTo(62 + Frame.Height.safeAeraTopHeight)
         }
         
         friendsCollectionView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(navigationView.snp.bottom)
+            maker.left.right.equalToSuperview()
+            maker.bottom.equalToSuperview()
+        }
+        
+                
+        friendsCollectionView.snp.makeConstraints { (maker) in
             maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navigationView.snp.bottom)
         }
         
     }
@@ -148,16 +118,6 @@ extension AmongChat.Home.RelationsViewController {
         rx.viewWillAppear
             .subscribe(onNext: { [weak self] (_) in
                 self?.friendsCollectionView.setContentOffset(.zero, animated: false)
-            })
-            .disposed(by: bag)
-        
-        Settings.shared.amongChatAvatarListShown.replay()
-            .subscribe(onNext: { [weak self] (ts) in
-                if let _ = ts {
-                    self?.profileBtn.redDotOff()
-                } else {
-                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
-                }
             })
             .disposed(by: bag)
         
@@ -203,15 +163,6 @@ extension AmongChat.Home.RelationsViewController {
 
     //MARK: - UI Action
     
-    @objc
-    private func onProfileBtn() {
-        Routes.handle("/profile")
-    }
-    
-    @objc
-    private func onCreateRoomBtn() {
-        Routes.handle("/createRoom")
-    }
 
 }
 
