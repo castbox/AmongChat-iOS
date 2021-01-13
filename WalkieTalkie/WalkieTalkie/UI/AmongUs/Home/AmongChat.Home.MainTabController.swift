@@ -29,8 +29,11 @@ extension AmongChat.Home {
             setupEvent()
         }
         
+        func dismissNotificationBanner() {
+            notificationBanner?.dismiss()
+        }
+        
     }
-    
 }
 
 extension AmongChat.Home.MainTabController {
@@ -43,26 +46,26 @@ extension AmongChat.Home.MainTabController {
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             let view = AmongChat.Home.StrangeInvitationView()
             view.updateContent(user: user, room: room)
-            let dimmerView = UIView(frame: Frame.Screen.bounds)
-            dimmerView.isUserInteractionEnabled = true
-            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
-            notificationBannerDimmerView = dimmerView
-            self.view.addSubview(dimmerView)
-            let tapObservable = dimmerView.rx.tapGesture()
-                .when(.recognized)
-                .asObservable()
-                .map { _ in return () }
+//            let dimmerView = UIView(frame: Frame.Screen.bounds)
+//            dimmerView.isUserInteractionEnabled = true
+//            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
+//            notificationBannerDimmerView = dimmerView
+//            self.view.addSubview(dimmerView)
+//            let tapObservable = dimmerView.rx.tapGesture()
+//                .when(.recognized)
+//                .asObservable()
+//                .map { _ in return () }
             
-            let swipeObservable = dimmerView.rx.swipeGesture([.down, .left, .left, .right])
-                .when(.recognized)
-                .asObservable()
-                .map { _ in return () }
-            Observable.merge([tapObservable, swipeObservable])
-                .subscribe { [weak self, weak dimmerView] _ in
-                    dimmerView?.removeFromSuperview()
-                    self?.notificationBanner?.dismiss()
-                }
-                .disposed(by: bag)
+//            let swipeObservable = dimmerView.rx.swipeGesture([.down, .left, .left, .right])
+//                .when(.recognized)
+//                .asObservable()
+//                .map { _ in return () }
+//            Observable.merge([tapObservable, swipeObservable])
+//                .subscribe { [weak self, weak dimmerView] _ in
+//                    dimmerView?.removeFromSuperview()
+//                    self?.notificationBanner?.dismiss()
+//                }
+//                .disposed(by: bag)
 
             let banner = FloatingNotificationBanner(customView: view)
             banner.duration = 10

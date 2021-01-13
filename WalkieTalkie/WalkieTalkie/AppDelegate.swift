@@ -39,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return window
     }()
     
-    var tabBarController: UITabBarController? {
-        window?.rootViewController as? UITabBarController
+    var tabBarController: AmongChat.Home.MainTabController? {
+        window?.rootViewController as? AmongChat.Home.MainTabController
     }
     
     var navigationController: NavigationViewController? {
@@ -286,7 +286,7 @@ extension UIApplication {
         appDelegate?.navigationController
     }
     
-    static var tabBarController: UITabBarController? {
+    static var tabBarController: AmongChat.Home.MainTabController? {
         appDelegate?.tabBarController
     }
     
