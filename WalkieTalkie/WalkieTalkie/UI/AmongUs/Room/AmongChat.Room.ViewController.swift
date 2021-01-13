@@ -729,7 +729,8 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.leaveHandler = { [weak self] in
-            self?.onCloseBtn()
+            self?.requestLeaveRoom()
+//            self?.onCloseBtn()
         }
         
         topBar.kickOffHandler = { [weak self] in
