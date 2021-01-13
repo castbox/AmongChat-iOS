@@ -102,7 +102,7 @@ extension Social.SelectAvatarViewController {
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(49)
         }
@@ -110,7 +110,7 @@ extension Social.SelectAvatarViewController {
         view.addSubviews(views: backBtn, avatarIV, nameLabel, avatarCollectionView)
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
+            maker.leading.equalToSuperview().offset(20)
             maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(24)
         }
@@ -123,12 +123,12 @@ extension Social.SelectAvatarViewController {
         
         nameLabel.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.left.greaterThanOrEqualToSuperview().offset(20)
+            maker.leading.greaterThanOrEqualToSuperview().offset(20)
             maker.top.equalTo(avatarIV.snp.bottom).offset(8)
         }
         
         avatarCollectionView.snp.makeConstraints { (maker) in
-            maker.left.right.bottom.equalToSuperview()
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(nameLabel.snp.bottom).offset(30)
         }
     }
@@ -434,23 +434,24 @@ extension Social.SelectAvatarViewController {
         private func setupLayout() {
             contentView.backgroundColor = UIColor(hex6: 0x222222)
             contentView.layer.cornerRadius = 12
+            contentView.clipsToBounds = true
             
             contentView.addSubviews(views: avatarIV, selectedIcon, adBadge)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview().inset(34)
+                maker.leading.trailing.equalToSuperview().inset(34)
                 maker.width.equalTo(avatarIV.snp.height).multipliedBy(1)
                 maker.centerY.equalToSuperview()
             }
             
             selectedIcon.snp.makeConstraints { (maker) in
-                maker.top.left.equalToSuperview()
+                maker.top.leading.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
             
             adBadge.snp.makeConstraints { (maker) in
-                maker.top.left.equalToSuperview()
+                maker.top.leading.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
