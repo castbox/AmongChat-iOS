@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2604716225ADA878007D88AE /* Bungee-Regular.ttf */; };
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
@@ -304,6 +305,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2604716225ADA878007D88AE /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		26125FEA251C73B900CD1A98 /* WalkieTalkieWidget.UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.UI.swift; sourceTree = "<group>"; };
 		26125FEF251C746200CD1A98 /* WalkieTalkieWidget.DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.DataLoader.swift; sourceTree = "<group>"; };
 		2612604D251C77A800CD1A98 /* WalkieTalkieWidget.Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.Network.swift; sourceTree = "<group>"; };
@@ -1213,6 +1215,7 @@
 				FE746BC424629A9700CAC554 /* Nunito-SemiBold.ttf */,
 				BDB8F58C24F8B5D6000027F8 /* Nunito-Regular.ttf */,
 				FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */,
+				2604716225ADA878007D88AE /* Bungee-Regular.ttf */,
 				BD9F26C425A5EEBD00FA3616 /* SupportedLanguages.json */,
 			);
 			path = resource;
@@ -1409,7 +1412,7 @@
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
-				FE3AEE6525AED1B700E91D01 /* Bungee-Regular.ttf in Resources */,
+				2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 				FE746BDE24629B0500CAC554 /* Guide.storyboard in Resources */,
 			);
