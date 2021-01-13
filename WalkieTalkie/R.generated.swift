@@ -63,8 +63,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.font` struct is generated, and contains static references to 6 fonts.
+  /// This `R.font` struct is generated, and contains static references to 7 fonts.
   struct font: Rswift.Validatable {
+    /// Font `Bungee-Regular`.
+    static let bungeeRegular = Rswift.FontResource(fontName: "Bungee-Regular")
     /// Font `Nunito-Black`.
     static let nunitoBlack = Rswift.FontResource(fontName: "Nunito-Black")
     /// Font `Nunito-BoldItalic`.
@@ -77,6 +79,11 @@ struct R: Rswift.Validatable {
     static let nunitoRegular = Rswift.FontResource(fontName: "Nunito-Regular")
     /// Font `Nunito-SemiBold`.
     static let nunitoSemiBold = Rswift.FontResource(fontName: "Nunito-SemiBold")
+    
+    /// `UIFont(name: "Bungee-Regular", size: ...)`
+    static func bungeeRegular(size: CGFloat) -> UIKit.UIFont? {
+      return UIKit.UIFont(resource: bungeeRegular, size: size)
+    }
     
     /// `UIFont(name: "Nunito-Black", size: ...)`
     static func nunitoBlack(size: CGFloat) -> UIKit.UIFont? {
@@ -109,6 +116,7 @@ struct R: Rswift.Validatable {
     }
     
     static func validate() throws {
+      if R.font.bungeeRegular(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Bungee-Regular' could not be loaded, is 'Bungee-Regular.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBlack(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Black' could not be loaded, is 'Nunito-Black.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBold(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-Bold' could not be loaded, is 'Nunito-Bold.ttf' added to the UIAppFonts array in this targets Info.plist?") }
       if R.font.nunitoBoldItalic(size: 42) == nil { throw Rswift.ValidationError(description:"[R.swift] Font 'Nunito-BoldItalic' could not be loaded, is 'Nunito-BoldItalic.ttf' added to the UIAppFonts array in this targets Info.plist?") }
