@@ -46,8 +46,9 @@ extension AmongChat.Home {
         
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
+            lb.font = R.font.bungeeRegular(size: 20)
             lb.textColor = .white
+            lb.numberOfLines = 0
             return lb
         }()
         

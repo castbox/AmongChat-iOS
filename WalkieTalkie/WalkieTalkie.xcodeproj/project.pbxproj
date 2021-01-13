@@ -107,6 +107,7 @@
 		FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F3244DCC0200763747 /* Routes.swift */; };
 		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
 		FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE392C672466C5AA00A2CCF3 /* KernUI.swift */; };
+		FE3AEE6525AED1B700E91D01 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */; };
 		FE3BC99124BC31030078A667 /* GuideFourthView_b.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE3BC99024BC31030078A667 /* GuideFourthView_b.xib */; };
 		FE3BC99324BC31BB0078A667 /* GuideFourthView_b.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3BC99224BC31BB0078A667 /* GuideFourthView_b.swift */; };
 		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
@@ -432,6 +433,7 @@
 		FE2AF9F3244DCC0200763747 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		FE2AF9FA244DDDC700763747 /* URLUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUnit.swift; sourceTree = "<group>"; };
 		FE392C672466C5AA00A2CCF3 /* KernUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernUI.swift; sourceTree = "<group>"; };
+		FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		FE3BC99024BC31030078A667 /* GuideFourthView_b.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GuideFourthView_b.xib; sourceTree = "<group>"; };
 		FE3BC99224BC31BB0078A667 /* GuideFourthView_b.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideFourthView_b.swift; sourceTree = "<group>"; };
 		FE401E30244D875A0081F793 /* WalkieTalkie.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkie.entitlements; sourceTree = "<group>"; };
@@ -1192,6 +1194,7 @@
 		FECA43B52459A8A40075D139 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
 				FE746BC524629A9700CAC554 /* en.lproj */,
@@ -1397,6 +1400,7 @@
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
+				FE3AEE6525AED1B700E91D01 /* Bungee-Regular.ttf in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 				FE746BDE24629B0500CAC554 /* Guide.storyboard in Resources */,
 			);
