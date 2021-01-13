@@ -203,3 +203,5 @@
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
 "chatroom.message.user.joined" = "joined";
 "among.chat.room.reblox.title" = "Click to copy others' Roblox usernames to play together";
+
+"search.placeholder" = "Nickname&ID";

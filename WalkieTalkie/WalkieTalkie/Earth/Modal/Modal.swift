@@ -124,8 +124,8 @@ extension Modalable where Self: UIViewController {
         self.willMove(toParent: container)
         container.addChild(self)
         container.view.addSubview(view)
-        if cornerRadius() > 0 {
-            view.addCorner(with: cornerRadius())
+        if containerCornerRadius() > 0 {
+            view.addCorner(with: containerCornerRadius())
         }
         
         let coverAlpha = self.coverAlpha()

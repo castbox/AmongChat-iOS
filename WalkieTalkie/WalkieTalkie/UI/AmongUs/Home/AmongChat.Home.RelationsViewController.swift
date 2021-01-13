@@ -82,7 +82,7 @@ extension AmongChat.Home.RelationsViewController {
         
         navigationView.snp.makeConstraints { (maker) in
             maker.top.left.right.equalToSuperview()
-            maker.height.equalTo(62 + Frame.Height.safeAeraTopHeight)
+            maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
         }
         
         friendsCollectionView.snp.makeConstraints { (maker) in

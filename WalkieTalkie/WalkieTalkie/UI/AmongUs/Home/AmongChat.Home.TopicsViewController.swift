@@ -13,86 +13,6 @@ import NotificationBannerSwift
 
 extension AmongChat.Home {
     
-    class NavigationBar: UIView {
-        private lazy var profileBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_profile(), for: .normal)
-            btn.addTarget(self, action: #selector(onProfileBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
-        private lazy var bannerIV: UIImageView = {
-            let i = UIImageView(image: R.image.ac_home_banner())
-            return i
-        }()
-        
-        private lazy var createRoomBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_create(), for: .normal)
-            btn.addTarget(self, action: #selector(onCreateRoomBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
-        private let bag = DisposeBag()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            bindSubviewEvent()
-            configureSubview()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        private func bindSubviewEvent() {
-            Settings.shared.amongChatAvatarListShown.replay()
-                .subscribe(onNext: { [weak self] (ts) in
-                    if let _ = ts {
-                        self?.profileBtn.redDotOff()
-                    } else {
-                        self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
-                    }
-                })
-                .disposed(by: bag)
-        }
-        
-        private func configureSubview() {
-            addSubviews(views: profileBtn, bannerIV, createRoomBtn)
-            
-            profileBtn.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(42)
-                maker.left.equalToSuperview().inset(20)
-                maker.bottom.equalTo(-10.5)
-            }
-            
-            createRoomBtn.snp.makeConstraints { (maker) in
-                maker.right.equalToSuperview().inset(20)
-                maker.width.height.equalTo(42)
-                maker.centerY.equalTo(profileBtn)
-            }
-            
-            bannerIV.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(profileBtn)
-                maker.centerX.equalToSuperview()
-            }
-            
-
-        }
-        
-        @objc
-        private func onProfileBtn() {
-            Routes.handle("/profile")
-        }
-        
-        @objc
-        private func onCreateRoomBtn() {
-            Routes.handle("/search")
-            //Search
-        }
-        
-    }
-    
     class TopicsViewController: WalkieTalkie.ViewController {
         
         // MARK: - members
@@ -173,7 +93,7 @@ extension AmongChat.Home.TopicsViewController {
         
         navigationView.snp.makeConstraints { (maker) in
             maker.top.left.right.equalToSuperview()
-            maker.height.equalTo(62 + Frame.Height.safeAeraTopHeight)
+            maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
         }
         
         topicCollectionView.snp.makeConstraints { (maker) in

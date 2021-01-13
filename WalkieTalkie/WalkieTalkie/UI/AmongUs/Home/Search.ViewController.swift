@@ -16,32 +16,67 @@ import Adjust
 
 struct Search {}
 
+
 extension Search {
+    class TextField: UITextField, UITextFieldDelegate {
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            bindSubviewEvent()
+            configureSubview()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func bindSubviewEvent() {
+            backgroundColor = "#FFFFFF".color().alpha(0.1)
+            cornerRadius = 18
+            clipsToBounds = true
+            leftView = UIImageView(image: R.image.ac_image_search())
+            leftViewMode = .always
+            attributedPlaceholder = NSAttributedString(string: R.string.localizable.searchPlaceholder(), attributes: [
+                NSAttributedString.Key.foregroundColor : UIColor("#646464"),
+                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 20)
+             ])
+        }
+        
+        private func configureSubview() {
+            
+        }
+        
+        override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
+            return CGRect(x: 12, y: 6, width: 24, height: 24)
+        }
+        
+        override func textRect(forBounds bounds: CGRect) -> CGRect {
+            return CGRect(x: 49.5, y: 0, width: bounds.width - 49.5 - 10, height: bounds.height)
+        }
+        
+        override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
+            return CGRect(x: 49.5, y: 0, width: bounds.width - 49.5 - 10, height: bounds.height)
+        }
+    }
     
     class ViewController: WalkieTalkie.ViewController {
         
-        lazy var searchBar: UISearchBar = {
-            let searchBar = UISearchBar(frame: CGRect(x: -10, y: 0, width: UIScreen.main.bounds.width - 85, height: 36))
-            searchBar.delegate = self
-//            searchBar.placeholder = R.string.localizable.searchPlaceholder()
-            searchBar.returnKeyType = .search
-            
-            let defaultTextAttribs: [NSAttributedString.Key: Any] = [
-                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14.0),
-                NSAttributedString.Key.foregroundColor: UIColor.black
-            ]
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = defaultTextAttribs
-            UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = UIColor.theme(.main)
-            
-            if #available(iOS 11.0, *) {
-                let textField = searchBar.subviews.first?.subviews.last
-                textField?.backgroundColor = UIColor.theme(.backgroundGray)
-                textField?.layer.cornerRadius = 36 / 2.0
-                textField?.clipsToBounds = true
-            }
-            return searchBar
+        private lazy var searchTextfield: TextField = {
+            let textfield = TextField()
+            textfield.delegate = self
+            return textfield
         }()
                 
+        private lazy var cancelBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setTitle(R.string.localizable.toastCancel(), for: .normal)
+            btn.setTitleColor(.white, for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.addTarget(self, action: #selector(onCancelBtn), for: .primaryActionTriggered)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            return btn
+        }()
+        
         private lazy var tableView: UITableView = {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
@@ -74,17 +109,22 @@ extension Search {
             super.viewDidLoad()
             setupLayout()
             loadData()
+            searchTextfield.becomeFirstResponder()
         }
         
         override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-            searchBar.resignFirstResponder()
+            searchTextfield.resignFirstResponder()
             view.endEditing(true)
         }
         
         // MARK: - action
         @objc func searchEntrance() {
             self.navigationController?.popViewController(animated: true)
+        }
+        
+        @objc func onCancelBtn() {
+            navigationController?.popViewController()
         }
         
         func search(key: String?) {
@@ -95,109 +135,62 @@ extension Search {
 //            setupRx()
 //            viewModel.fetchUserSearch(searchKey: key)
         }
-        
-        func setupNavi() {
-            var barItem: UIBarButtonItem?
-            if #available(iOS 11.0, *) {
-                let searchBarBgView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 105, height: 36))
-                searchBarBgView.addSubview(self.searchBar)
-                barItem = UIBarButtonItem(customView: searchBarBgView)
-            } else {
-                barItem = UIBarButtonItem(customView: self.searchBar)
-            }
-            self.navigationItem.leftBarButtonItems = [barItem] as? [UIBarButtonItem]
-            
-            let cancelButtton: UIButton = UIButton(type: .custom)
-            cancelButtton.frame = CGRect(x: 10, y: 0, width: 60, height: 20)
-            cancelButtton.setTitleColor(.black, for: .normal)
-            cancelButtton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-            cancelButtton.setTitle(R.string.localizable.toastCancel(), for: .normal)
-            cancelButtton.addTarget(self, action: #selector(searchEntrance), for: .touchUpInside)
-            cancelButtton.sizeToFit()
-            let cancelBtnItem = UIBarButtonItem(customView: cancelButtton)
-            self.navigationItem.rightBarButtonItem = cancelBtnItem
-            
-            // search first response
-            searchBar.becomeFirstResponder()
-        }
 
         private func setupLayout() {
-//            isNavigationBarHiddenWhenAppear = true
             view.backgroundColor = UIColor.theme(.backgroundBlack)
-            setupNavi()
             
-//            view.addSubviews(views: backBtn, titleLabel)
-//
-//            let navLayoutGuide = UILayoutGuide()
-//            view.addLayoutGuide(navLayoutGuide)
-//            navLayoutGuide.snp.makeConstraints { (maker) in
-//                maker.left.right.equalToSuperview()
-//                maker.height.equalTo(49)
-//                maker.top.equalTo(topLayoutGuide.snp.bottom)
-//            }
-//
-//            backBtn.snp.makeConstraints { (maker) in
-//                maker.centerY.equalTo(navLayoutGuide)
-//                maker.left.equalToSuperview().offset(20)
-//                maker.width.height.equalTo(25)
-//            }
-//
-//            titleLabel.snp.makeConstraints { (maker) in
-//                maker.center.equalTo(navLayoutGuide)
-//            }
+            let navigationBar = UIView()
+            navigationBar.backgroundColor = "#121212".color()
             
-            view.addSubview(tableView)
+            view.addSubviews(views: tableView, navigationBar)
+            
+            navigationBar.addSubviews(views: searchTextfield, cancelBtn)
+            
+            navigationBar.snp.makeConstraints { (maker) in
+                maker.top.left.right.equalToSuperview()
+                maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
+            }
+            
+            searchTextfield.snp.makeConstraints { maker in
+                maker.leading.equalTo(20)
+                maker.height.equalTo(36)
+                maker.bottom.equalTo(-6.5)
+                maker.trailing.equalTo(cancelBtn.snp.leading)
+            }
+            cancelBtn.snp.makeConstraints { maker in
+                maker.trailing.equalTo(-10)
+                maker.centerY.equalTo(searchTextfield)
+            }
+            
             tableView.snp.makeConstraints { (maker) in
-                maker.left.right.top.equalToSuperview()
-//                maker.top.equalTo(navLayoutGuide.snp.bottom)
+                maker.left.right.equalToSuperview()
+                maker.top.equalTo(navigationBar.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
             
-            tableView.pullToRefresh { [weak self] in
-                self?.loadData()
-            }
             tableView.pullToLoadMore { [weak self] in
                 self?.loadMore()
             }
         }
         
         private func loadData() {
-//            let removeBlock = view.raft.show(.loading)
-//            if isFollowing {
-//                Request.followingList(uid: uid, skipMs: 0)
-//                    .subscribe(onSuccess: { [weak self](data) in
-//                        removeBlock()
-//                        guard let `self` = self, let data = data else { return }
-//                        self.userList = data.list ?? []
-//                        if self.userList.isEmpty {
-//                            self.addNoDataView(R.string.localizable.errorNoFollowing())
-//                        }
-//                        self.tableView.endLoadMore(data.more ?? false)
-//                    }, onError: { [weak self](error) in
-//                        removeBlock()
-//                        self?.addErrorView({ [weak self] in
-//                            self?.loadData()
-//                        })
-//                        cdPrint("followingList error: \(error.localizedDescription)")
-//                    }).disposed(by: bag)
-//            } else {
-//                Request.followerList(uid: uid, skipMs: 0)
-//                    .subscribe(onSuccess: { [weak self](data) in
-//                        removeBlock()
-//                        guard let `self` = self, let data = data else { return }
-//                        self.userList = data.list ?? []
-//                        if self.userList.isEmpty {
-//                            self.addNoDataView(R.string.localizable.errorNoFollowers())
-//                        }
-//                        self.tableView.endLoadMore(data.more ?? false)
-//                    }, onError: { [weak self](error) in
-//                        removeBlock()
-//                        self?.addErrorView({ [weak self] in
-//                            self?.loadData()
-//                        })
-//                        cdPrint("followerList error: \(error.localizedDescription)")
-//                    }).disposed(by: bag)
-//            }
+            let removeBlock = view.raft.show(.loading)
+            Request.followingList(uid: Settings.shared.loginResult.value?.uid ?? 0, skipMs: 0)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let `self` = self, let data = data else { return }
+                    self.userList = data.list ?? []
+                    if self.userList.isEmpty {
+                        self.addNoDataView(R.string.localizable.errorNoFollowing())
+                    }
+                    self.tableView.endLoadMore(data.more ?? false)
+                }, onError: { [weak self](error) in
+                    removeBlock()
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
+                    cdPrint("followingList error: \(error.localizedDescription)")
+                }).disposed(by: bag)
         }
         
         private func loadMore() {
@@ -231,12 +224,44 @@ extension Search {
     }
 }
 
-extension Search.ViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //        Analytics.log(event: "search", category: nil, name: searchBar.text, value: nil)
-        Logger.PageShow.logger("search", "", searchBar.text ?? "", 0)
-        searchBar.resignFirstResponder()
-        search(key: searchBar.text)
+extension Search.ViewController: UITextFieldDelegate {
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+//        inputContainerView.isHidden = true
+//        isHidden = true
+//        fadeOut(duration: 0.25, completion: nil)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        inputContainerView.isHidden = false
+//        isHidden = false
+//        alpha = 1
+//        fadeIn(duration: 0.25, completion: nil)
+    }
+        
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        guard let textFieldText = textField.text,
+//              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+//            return false
+//        }
+//        let substringToReplace = textFieldText[rangeOfTextToReplace]
+//        let count = textFieldText.count - substringToReplace.count + string.count
+//        return count <= 10
+//    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        guard let text = textField.text,
+              text.count > 0 else {
+            return true
+        }
+        Logger.PageShow.logger("search", "", text ?? "", 0)
+        search(key: text)
+        return true
     }
 }
 
