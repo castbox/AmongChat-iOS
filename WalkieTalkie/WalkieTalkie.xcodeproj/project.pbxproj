@@ -109,7 +109,6 @@
 		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
 		FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE392C672466C5AA00A2CCF3 /* KernUI.swift */; };
 		FE3AEE6125AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3AEE6025AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift */; };
-		FE3AEE6525AED1B700E91D01 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */; };
 		FE3BC99124BC31030078A667 /* GuideFourthView_b.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE3BC99024BC31030078A667 /* GuideFourthView_b.xib */; };
 		FE3BC99324BC31BB0078A667 /* GuideFourthView_b.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3BC99224BC31BB0078A667 /* GuideFourthView_b.swift */; };
 		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
@@ -306,16 +305,9 @@
 
 /* Begin PBXFileReference section */
 		2604716225ADA878007D88AE /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
-		26125FEA251C73B900CD1A98 /* WalkieTalkieWidget.UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.UI.swift; sourceTree = "<group>"; };
-		26125FEF251C746200CD1A98 /* WalkieTalkieWidget.DataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.DataLoader.swift; sourceTree = "<group>"; };
-		2612604D251C77A800CD1A98 /* WalkieTalkieWidget.Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.Network.swift; sourceTree = "<group>"; };
 		26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		2694565D2519DFE3003AA34A /* WalkieTalkieWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieWidget.swift; sourceTree = "<group>"; };
-		2694565F2519DFE6003AA34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		269456612519DFE6003AA34A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WalkieTalkieWidgetExtension.entitlements; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B6B5F4925A32E9F009D028D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -640,20 +632,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		2694565C2519DFE3003AA34A /* WalkieTalkieWidget */ = {
-			isa = PBXGroup;
-			children = (
-				2694566C2519E74D003AA34A /* WalkieTalkieWidgetExtension.entitlements */,
-				26125FEF251C746200CD1A98 /* WalkieTalkieWidget.DataLoader.swift */,
-				2694565D2519DFE3003AA34A /* WalkieTalkieWidget.swift */,
-				26125FEA251C73B900CD1A98 /* WalkieTalkieWidget.UI.swift */,
-				2612604D251C77A800CD1A98 /* WalkieTalkieWidget.Network.swift */,
-				2694565F2519DFE6003AA34A /* Assets.xcassets */,
-				269456612519DFE6003AA34A /* Info.plist */,
-			);
-			path = WalkieTalkieWidget;
-			sourceTree = "<group>";
-		};
 		2BA2DB492594AB510050BF8E /* Follower */ = {
 			isa = PBXGroup;
 			children = (
@@ -871,7 +849,6 @@
 			children = (
 				FE126D16243461E800BEDD60 /* WalkieTalkie */,
 				FE126D2D243461EB00BEDD60 /* WalkieTalkieTests */,
-				2694565C2519DFE3003AA34A /* WalkieTalkieWidget */,
 				FE126D15243461E800BEDD60 /* Products */,
 				21322B40449618314E604481 /* Pods */,
 				ED5947D0B791715A1554FB38 /* Frameworks */,
