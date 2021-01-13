@@ -1409,7 +1409,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 172 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 181 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1475,6 +1475,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatPrivacyLabel = Rswift.StringResource(key: "among.chat.privacy.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: COD USERNAME/UID
+      /// 
+      /// Locales: en
+      static let roomCallOfDutyInputCodePlceholder = Rswift.StringResource(key: "room.call.of.duty.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Cancel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1499,6 +1503,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to copy others' COD Username/UID to play together
+      /// 
+      /// Locales: en
+      static let amongChatRoomCallOfDutyTitle = Rswift.StringResource(key: "among.chat.room.call.of.duty.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to copy others' Fortnite display names to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1507,10 +1515,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomFreefireTitle = Rswift.StringResource(key: "among.chat.room.freefire.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to copy others' MLBB Name/ID to play together
+      /// 
+      /// Locales: en
+      static let amongChatRoomMobileLegendsTitle = Rswift.StringResource(key: "among.chat.room.mobile.legends.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to copy others' Minecraft gamertags to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomMinecraftTitle = Rswift.StringResource(key: "among.chat.room.minecraft.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to copy others' PUBG Player Name/ID to play together
+      /// 
+      /// Locales: en
+      static let amongChatRoomPubgMobileTitle = Rswift.StringResource(key: "among.chat.room.pubg.mobile.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Click to copy others' Roblox usernames to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1723,6 +1739,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomMinecraftInputCodePlceholder = Rswift.StringResource(key: "room.minecraft.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: MLBB NAME/ID
+      /// 
+      /// Locales: en
+      static let roomMobileLegendsInputCodePlceholder = Rswift.StringResource(key: "room.mobile.legends.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Make your #amongchat video on TikTok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1815,6 +1835,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profilePro = Rswift.StringResource(key: "profile.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: PUBG PLAYER NAME/ID
+      /// 
+      /// Locales: en
+      static let roomPubgMobileInputCodePlceholder = Rswift.StringResource(key: "room.pubg.mobile.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Pay once, No Subscription
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1903,6 +1927,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthSep = Rswift.StringResource(key: "month.sep", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set COD Username/UID
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetCallOfDutyName = Rswift.StringResource(key: "among.chat.room.set.call.of.duty.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Set Fortnite Display Name
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1911,10 +1939,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomSetFreefireName = Rswift.StringResource(key: "among.chat.room.set.freefire.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set MLBB Name/ID
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetMobileLegendsName = Rswift.StringResource(key: "among.chat.room.set.mobile.legends.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Set Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomSetMinecraftName = Rswift.StringResource(key: "among.chat.room.set.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set PUBG Player Name/ID
+      /// 
+      /// Locales: en
+      static let amongChatRoomSetPubgMobileName = Rswift.StringResource(key: "among.chat.room.set.pubg.mobile.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Set Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2212,6 +2248,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.privacy.label", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: COD USERNAME/UID
+      /// 
+      /// Locales: en
+      static func roomCallOfDutyInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.call.of.duty.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Cancel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2254,6 +2297,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("setting.chat.language", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Click to copy others' COD Username/UID to play together
+      /// 
+      /// Locales: en
+      static func amongChatRoomCallOfDutyTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.call.of.duty.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Click to copy others' Fortnite display names to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2268,11 +2318,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.freefire.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Click to copy others' MLBB Name/ID to play together
+      /// 
+      /// Locales: en
+      static func amongChatRoomMobileLegendsTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.mobile.legends.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Click to copy others' Minecraft gamertags to play together
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomMinecraftTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.minecraft.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to copy others' PUBG Player Name/ID to play together
+      /// 
+      /// Locales: en
+      static func amongChatRoomPubgMobileTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.pubg.mobile.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Click to copy others' Roblox usernames to play together
@@ -2646,6 +2710,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.minecraft.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: MLBB NAME/ID
+      /// 
+      /// Locales: en
+      static func roomMobileLegendsInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.mobile.legends.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Make your #amongchat video on TikTok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2807,6 +2878,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.pro", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: PUBG PLAYER NAME/ID
+      /// 
+      /// Locales: en
+      static func roomPubgMobileInputCodePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("room.pubg.mobile.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Pay once, No Subscription
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2961,6 +3039,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.sep", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Set COD Username/UID
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetCallOfDutyName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.call.of.duty.name", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Set Fortnite Display Name
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2975,11 +3060,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.set.freefire.name", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Set MLBB Name/ID
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetMobileLegendsName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.mobile.legends.name", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Set Minecraft Gamertag
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomSetMinecraftName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.set.minecraft.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set PUBG Player Name/ID
+      /// 
+      /// Locales: en
+      static func amongChatRoomSetPubgMobileName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.room.set.pubg.mobile.name", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Set Roblox Username

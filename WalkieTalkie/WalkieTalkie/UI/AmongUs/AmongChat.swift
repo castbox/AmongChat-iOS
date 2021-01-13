@@ -22,6 +22,9 @@ extension AmongChat {
         case freefire
         case minecraft
         case chilling = "justchatting"
+        case callofduty
+        case pubgmobile
+        case mobilelegends
     }
     
     //用户身份
@@ -51,10 +54,10 @@ extension AmongChat.Topic {
     
     var enableNickName: Bool {
         switch self {
-        case .roblox, .freefire, .fortnite, .minecraft:
-            return true
-        default:
+        case .amongus, .chilling:
             return false
+        default:
+            return true
         }
     }
     var productId: Double {
@@ -67,8 +70,35 @@ extension AmongChat.Topic {
             return 1300146617
         case .minecraft:
             return 479516143
+        case .pubgmobile:
+            return 1330123889
+        case .callofduty:
+            return 1287282214
+        case .mobilelegends:
+            return 1160056295
         default:
             return 0
+        }
+    }
+    
+    var notes: String? {
+        switch self {
+        case .roblox:
+            return R.string.localizable.amongChatRoomRebloxTitle()
+        case .minecraft:
+            return R.string.localizable.amongChatRoomMinecraftTitle()
+        case .freefire:
+            return R.string.localizable.amongChatRoomFreefireTitle()
+        case .fortnite:
+            return R.string.localizable.amongChatRoomFortniteTitle()
+        case .callofduty:
+            return R.string.localizable.amongChatRoomCallOfDutyTitle()
+        case .mobilelegends:
+            return R.string.localizable.amongChatRoomMobileLegendsTitle()
+        case .pubgmobile:
+            return R.string.localizable.amongChatRoomPubgMobileTitle()
+        default:
+            return nil
         }
     }
 }

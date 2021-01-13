@@ -46,13 +46,13 @@ extension AmongChatRoomConfigView {
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
 //            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
-        case .roblox, .freefire, .fortnite, .minecraft:
+//            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
+        case .chilling:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
             justChillingInfoView.room = room
-//            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
-        case .chilling:
+        default:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
