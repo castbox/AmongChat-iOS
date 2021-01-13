@@ -104,7 +104,7 @@ extension Routes {
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             let vc = Social.ProfileViewController(with: uid ?? selfUid)
             if uid == nil || uid == selfUid {
-                let navigationVc = PannableNavigationController(rootViewController: vc)
+                let navigationVc = NavigationViewController(rootViewController: vc)
                 navigationVc.modalPresentationStyle = .overCurrentContext
                 UIApplication.tabBarController?.present(navigationVc, animated: true, completion: nil)
             } else {

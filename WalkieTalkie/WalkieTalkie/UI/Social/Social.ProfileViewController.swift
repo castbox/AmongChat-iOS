@@ -10,7 +10,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 import SwiftyUserDefaults
-import HWPanModal
 import PullToDismiss
 
 extension Social {
@@ -56,7 +55,7 @@ extension Social {
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    if self.navigationController is PannableNavigationController, self.navigationController?.viewControllers.count == 1 {
+                    if self.navigationController?.viewControllers.count == 1 {
                         self.dismiss(animated: true, completion: nil)
                     } else {
                         self.navigationController?.popViewController()
@@ -175,36 +174,6 @@ extension Social {
             fetchRealation()
         }
     }
-}
-
-extension Social.ProfileViewController {
-    override func panScrollable() -> UIScrollView? {
-//        if self.navigationController is PannableNavigationController {
-            return table
-//        }
-//        return nil
-    }
-    
-//    override func topOffset() -> CGFloat {
-//        return 0
-//    }
-//    
-//    override func transitionDuration() -> TimeInterval {
-//        return 0.25
-//    }
-//        
-//    override func shouldRoundTopCorners() -> Bool {
-//        return false
-//    }
-//    
-//    override func showDragIndicator() -> Bool {
-//        return false
-//    }
-//    
-//    override func allowScreenEdgeInteractive() -> Bool {
-//        return true
-//    }
-    
 }
 
 private extension Social.ProfileViewController {

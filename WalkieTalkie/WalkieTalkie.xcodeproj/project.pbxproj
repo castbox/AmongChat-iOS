@@ -197,7 +197,6 @@
 		FE80A58825AD9F5B009914A7 /* SearchNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80A58725AD9F5B009914A7 /* SearchNavigationBar.swift */; };
 		FE80A58C25AD9F62009914A7 /* SearchNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE80A58B25AD9F62009914A7 /* SearchNavigationBar.xib */; };
 		FE80A59325ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80A59225ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift */; };
-		FE80AC4425ADC337009914A7 /* PannableNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80AC4325ADC337009914A7 /* PannableNavigationViewController.swift */; };
 		FE860D3C2446D13D00087B73 /* UIView.Raft.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D3B2446D13D00087B73 /* UIView.Raft.swift */; };
 		FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D3E2446D1D700087B73 /* Theme.Palette.swift */; };
 		FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D3F2446D1D700087B73 /* UIView+Theme.swift */; };
@@ -528,7 +527,6 @@
 		FE80A58725AD9F5B009914A7 /* SearchNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNavigationBar.swift; sourceTree = "<group>"; };
 		FE80A58B25AD9F62009914A7 /* SearchNavigationBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchNavigationBar.xib; sourceTree = "<group>"; };
 		FE80A59225ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.StarsOverlay.swift; sourceTree = "<group>"; };
-		FE80AC4325ADC337009914A7 /* PannableNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PannableNavigationViewController.swift; sourceTree = "<group>"; };
 		FE860D3B2446D13D00087B73 /* UIView.Raft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.Raft.swift; sourceTree = "<group>"; };
 		FE860D3E2446D1D700087B73 /* Theme.Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.Palette.swift; sourceTree = "<group>"; };
 		FE860D3F2446D1D700087B73 /* UIView+Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Theme.swift"; sourceTree = "<group>"; };
@@ -1141,7 +1139,6 @@
 				FEAD54D22449B69F006454F6 /* ViewController.swift */,
 				FEAD54D32449B69F006454F6 /* GestureBackable.swift */,
 				FEAD54D42449B69F006454F6 /* NavigationViewController.swift */,
-				FE80AC4325ADC337009914A7 /* PannableNavigationViewController.swift */,
 			);
 			path = ParentViewController;
 			sourceTree = "<group>";
@@ -1534,7 +1531,6 @@
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				FEE0E7B225A4670500DC67B8 /* SocialTiktokItemView.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
-				FE80AC4425ADC337009914A7 /* PannableNavigationViewController.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
