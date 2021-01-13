@@ -51,7 +51,7 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_profile_close(), for: .normal)
+            btn.setImage(R.image.ac_profile_close_down(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
@@ -85,7 +85,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 288:329
+            let vH: CGFloat = isSelfProfile ? 357.5:378
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -180,14 +180,7 @@ private extension Social.ProfileViewController {
     func setupLayout() {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
-        
-//        let navLayoutGuide = UILayoutGuide()
-//        view.addLayoutGuide(navLayoutGuide)
-//        navLayoutGuide.snp.makeConstraints { (maker) in
-//            maker.left.right.equalToSuperview()
-//            maker.top.equalTo(topLayoutGuide.snp.bottom)
-//            maker.height.equalTo(49)
-//        }
+
         let navLayoutGuide = UIView()
         navLayoutGuide.backgroundColor = .clear
 //        view.addLayoutGuide(navLayoutGuide)

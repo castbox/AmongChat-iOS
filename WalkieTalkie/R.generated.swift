@@ -120,7 +120,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 128 images.
+  /// This `R.image` struct is generated, and contains static references to 129 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -200,6 +200,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
+    /// Image `ac_profile_close_down`.
+    static let ac_profile_close_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_down")
     /// Image `ac_profile_close`.
     static let ac_profile_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close")
     /// Image `ac_profile_communtiy`.
@@ -577,6 +579,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_close", bundle: ..., traitCollection: ...)`
     static func ac_profile_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_close_down", bundle: ..., traitCollection: ...)`
+    static func ac_profile_close_down(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_close_down, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_communtiy", bundle: ..., traitCollection: ...)`
@@ -1628,7 +1635,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -2491,7 +2498,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialShareUrl(_ value1: String) -> String {
