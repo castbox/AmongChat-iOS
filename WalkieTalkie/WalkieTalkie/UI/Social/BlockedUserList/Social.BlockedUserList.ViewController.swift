@@ -72,14 +72,14 @@ extension Social.BlockedUserList {
             let navLayoutGuide = UILayoutGuide()
             view.addLayoutGuide(navLayoutGuide)
             navLayoutGuide.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
+                maker.leading.trailing.equalToSuperview()
                 maker.height.equalTo(48)
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalTo(navLayoutGuide)
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.width.height.equalTo(25)
             }
             
