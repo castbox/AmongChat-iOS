@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import NotificationBannerSwift
+import SwiftyUserDefaults
 
 extension AmongChat.Home {
     
@@ -44,10 +45,14 @@ extension AmongChat.Home {
         
         private var hudRemoval: (() -> Void)? = nil
         
-        private lazy var topicsDataSource: [TopicViewModel] = {
-            return Settings.shared.amongChatHomeSummary.value?.topicList.map({ TopicViewModel(with: $0) }) ?? []
-        }()
-        {
+        private var enterTopicHistory: [String] {
+            get { Defaults[\.amongChatEnterRoomTopicHistory] }
+            set { Defaults[\.amongChatEnterRoomTopicHistory] = newValue }
+        }
+        
+        private lazy var previousEnterHistory = Defaults[\.amongChatEnterRoomTopicHistory]
+        
+        private lazy var topicsDataSource: [TopicViewModel] = [] {
             didSet {
                 topicCollectionView.reloadData()
             }
@@ -78,12 +83,27 @@ extension AmongChat.Home {
 }
 
 extension AmongChat.Home.TopicsViewController {
-
-    //MARK: - UI Action
     
-}
-
-extension AmongChat.Home.TopicsViewController {
+    private func updateTopics(_ dataSource: [TopicViewModel]) {
+        var topicList = dataSource
+        var sortedList = previousEnterHistory.map { topicId -> TopicViewModel? in
+            let item = topicList.first(where: { $0.topic.topicId == topicId })
+            topicList.removeFirst(where: { $0.topic.topicId == topicId })
+            return item
+        }
+        .compactMap { $0 }
+        sortedList.append(contentsOf: topicList)
+        topicsDataSource = sortedList
+    }
+    
+    private func onTap(_ topic: TopicViewModel) {
+        //record
+        var array = enterTopicHistory
+        let topicId = topic.topic.topicId
+        array.removeAll(topicId)
+        array.insert(topicId, at: 0)
+        enterTopicHistory = array
+    }
     
     // MARK: -
     
@@ -105,6 +125,8 @@ extension AmongChat.Home.TopicsViewController {
     }
     
     private func setupEvent() {
+        //cache
+        updateTopics(Settings.shared.amongChatHomeSummary.value?.topicList.map({ TopicViewModel(with: $0) }) ?? [])
         
         Observable.combineLatest(
             Observable<Bool>.merge(
@@ -148,9 +170,8 @@ extension AmongChat.Home.TopicsViewController {
                     return
                 }
                 
-                self?.topicsDataSource = s.topicList.map({ TopicViewModel(with: $0) })
+                self?.updateTopics(s.topicList.map({ TopicViewModel(with: $0) }))
                 
-                cdPrint("")
             }, onError: { [weak self] (error) in
                 guard self?.topicsDataSource.count == 0 else {
                     return
@@ -195,6 +216,7 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
             enterRoom(topicId: topic.topic.topicId, logSource: .matchSource)
+            onTap(topic)
         }
     }
     

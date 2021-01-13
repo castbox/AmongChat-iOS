@@ -523,6 +523,10 @@ extension DefaultsKeys {
     var preferredChatLanguageKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.preferred.chat.language", defaultValue: nil)
     }
+    
+    var amongChatEnterRoomTopicHistory: DefaultsKey<[String]> {
+        .init("among.chat.enter.room.topic.history", defaultValue: [])
+    }
 }
 
 //extension DefaultsAdapter {
