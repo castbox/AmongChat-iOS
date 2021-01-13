@@ -30,12 +30,18 @@ extension Search {
             fatalError("init(coder:) has not been implemented")
         }
         
+        override var intrinsicContentSize: CGSize {
+            return bounds.size
+        }
+        
         private func bindSubviewEvent() {
             backgroundColor = "#FFFFFF".color().alpha(0.1)
             cornerRadius = 18
             clipsToBounds = true
             leftView = UIImageView(image: R.image.ac_image_search())
             leftViewMode = .always
+            font = R.font.nunitoExtraBold(size: 20)
+            textColor = .white
             attributedPlaceholder = NSAttributedString(string: R.string.localizable.searchPlaceholder(), attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor("#646464"),
                 NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 20)
@@ -50,12 +56,16 @@ extension Search {
             return CGRect(x: 12, y: 6, width: 24, height: 24)
         }
         
+        override func editingRect(forBounds bounds: CGRect) -> CGRect {
+            return CGRect(x: 44, y: 0, width: bounds.width - 44 - 10, height: bounds.height)
+        }
+        
         override func textRect(forBounds bounds: CGRect) -> CGRect {
-            return CGRect(x: 49.5, y: 0, width: bounds.width - 49.5 - 10, height: bounds.height)
+            return editingRect(forBounds: bounds)
         }
         
         override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-            return CGRect(x: 49.5, y: 0, width: bounds.width - 49.5 - 10, height: bounds.height)
+            return editingRect(forBounds: bounds)
         }
     }
     
@@ -74,6 +84,7 @@ extension Search {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.addTarget(self, action: #selector(onCancelBtn), for: .primaryActionTriggered)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            btn.setContentCompressionResistancePriority(.required, for: .horizontal)
             return btn
         }()
         
@@ -81,7 +92,7 @@ extension Search {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(cellWithClass: Social.FollowerCell.self)
+            tb.register(cellWithClass: Search.UserCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -274,7 +285,7 @@ extension Search.ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
+        let cell = tableView.dequeueReusableCell(withClass: Search.UserCell.self)
         if let user = userList.safe(indexPath.row) {
             cell.configView(with: user, isFollowing: false, isSelf: false)
             cell.updateFollowData = { [weak self] (follow) in
@@ -339,4 +350,222 @@ extension Search.ViewController: UITableViewDataSource, UITableViewDelegate {
 //            }
 //        }
 //    }
+}
+
+extension Search {
+    
+    class UserCell: TableViewCell {
+        
+        var updateFollowData: ((Bool) -> Void)?
+        var updateInviteData: ((Bool) -> Void)?
+        
+        let bag = DisposeBag()
+        
+        private lazy var avatarIV: UIImageView = {
+            let iv = UIImageView()
+            iv.layer.cornerRadius = 20
+            iv.layer.masksToBounds = true
+            return iv
+        }()
+        
+        private lazy var usernameLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.textColor = .white
+            return lb
+        }()
+        
+        private lazy var uidLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 14)
+            lb.textColor = "#898989".color()
+            return lb
+        }()
+        
+        private lazy var followBtn: UIButton = {
+            let btn = UIButton()
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.layer.borderWidth = 2
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.backgroundColor = UIColor.theme(.backgroundBlack)
+            btn.titleLabel?.lineBreakMode = .byTruncatingMiddle
+            return btn
+        }()
+        
+        private var userInfo: Entity.UserProfile!
+        private var roomId = ""
+        private var isInvite = false
+        private var isStranger = false
+        
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func prepareForReuse() {
+            super.prepareForReuse()
+            
+        }
+        
+        private func setupLayout() {
+            selectionStyle = .none
+            
+            backgroundColor = .clear
+            
+            contentView.addSubviews(views: avatarIV, usernameLabel, uidLabel, followBtn)
+            
+            avatarIV.snp.makeConstraints { (maker) in
+                maker.left.equalToSuperview().offset(20)
+                maker.centerY.equalToSuperview()
+                maker.width.height.equalTo(40)
+            }
+            
+            usernameLabel.snp.makeConstraints { (maker) in
+                maker.left.equalTo(avatarIV.snp.right).offset(12)
+                maker.right.equalTo(-115)
+                maker.top.equalTo(avatarIV)
+//                maker.height.equalTo(30)
+//                maker.centerY.equalTo(avatarIV.snp.centerY)
+            }
+            
+            uidLabel.snp.makeConstraints { (maker) in
+                maker.left.equalTo(avatarIV.snp.right).offset(12)
+                maker.right.equalTo(-115)
+//                maker.height.equalTo(30)
+                maker.top.equalTo(usernameLabel.snp.bottom)
+//                maker.centerY.equalTo(avatarIV.snp.centerY)
+                maker.bottom.equalTo(avatarIV)
+            }
+            
+            followBtn.snp.makeConstraints { (maker) in
+                maker.width.equalTo(90)
+                maker.height.equalTo(32)
+                maker.right.equalTo(-20)
+                maker.centerY.equalTo(avatarIV.snp.centerY)
+            }
+            
+            followBtn.rx.tap
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    if self.isInvite {
+                        if self.userInfo != nil {
+                            self.inviteUserAction(self.userInfo, isStranger: self.isStranger)
+                        }
+                    } else {
+                        self.followUser()
+                    }
+                }).disposed(by: bag)
+        }
+        
+        func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
+            self.isStranger = false
+            self.userInfo = model
+            if isSelf {
+                if isFollowing {
+                    followBtn.isHidden = true
+                } else {
+                    followBtn.isHidden = false
+                }
+            } else {
+                followBtn.isHidden = false
+                if !isFollowing {
+                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+                    if selfUid == model.uid {
+                        followBtn.isHidden = true
+                    }
+                }
+            }
+            
+            avatarIV.setAvatarImage(with: model.pictureUrl)
+            usernameLabel.text = model.name
+            uidLabel.text = "ID: \(model.uid)"
+            let isfollow = model.isFollowed ?? false
+            setFollow(isfollow)
+        }
+        
+        func setFollow(_ isFolllow: Bool) {
+            if isFolllow {
+                grayFollowStyle()
+            } else {
+                yellowFollowStyle()
+            }
+        }
+        
+        private func grayFollowStyle() {
+            followBtn.setTitle(R.string.localizable.profileFollowing(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+            followBtn.isEnabled = false
+        }
+        
+        private func yellowFollowStyle() {
+            followBtn.setTitle(R.string.localizable.profileFollow(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            followBtn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            followBtn.isEnabled = true
+        }
+        
+        private func grayInviteStyle() {
+            followBtn.setTitle(R.string.localizable.socialInvited(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.backgroundColor = UIColor(hex6: 0x222222)
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+        }
+        
+        private func followUser() {
+            let isFollowed = userInfo?.isFollowed ?? false
+            if isFollowed {
+//                Request.unFollow(uid: userInfo?.uid ?? 0, type: "follow")
+//                    .subscribe(onSuccess: { [weak self](success) in
+//                        guard let `self` = self else { return }
+//                        removeBlock?()
+//                        if success {
+//                            self.setFollow(false)
+//                            self.updateFollowData?(false)
+//                        }
+//                    }, onError: { (error) in
+//                        removeBlock?()
+//                        cdPrint("unfollow error:\(error.localizedDescription)")
+//                    }).disposed(by: bag)
+            } else {
+                let removeBlock = self.superview?.raft.show(.loading)
+                Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
+                    .subscribe(onSuccess: { [weak self](success) in
+                        guard let `self` = self else { return }
+                        removeBlock?()
+                        if success {
+                            self.setFollow(true)
+                            self.updateFollowData?(true)
+                        }
+                    }, onError: { (error) in
+                        removeBlock?()
+                        cdPrint("follow error:\(error.localizedDescription)")
+                    }).disposed(by: bag)
+            }
+        }
+        
+        private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
+            let invited = userInfo.invited ?? false
+            if !invited {
+                let removeBlock = self.superview?.raft.show(.loading)
+                Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
+                    .subscribe(onSuccess: { [weak self](data) in
+                        removeBlock?()
+                        self?.updateInviteData?(true)
+                    }, onError: { (error) in
+                        removeBlock?()
+                        cdPrint("invite user error:\(error.localizedDescription)")
+                    }).disposed(by: bag)
+            }
+        }
+    }
 }

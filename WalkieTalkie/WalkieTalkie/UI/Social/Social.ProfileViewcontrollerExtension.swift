@@ -164,7 +164,7 @@ extension Social.ProfileViewController {
                 nameLabel.text = profile.name
             }
             currentName = nameLabel.text ?? ""
-            uidLabel.text = "ID \(profile.uid)"
+            uidLabel.text = "ID: \(profile.uid)"
             avatarIV.setAvatarImage(with: profile.pictureUrl)
             if isSelf {
                 editBtn.isHidden = false
@@ -174,7 +174,7 @@ extension Social.ProfileViewController {
         func setProfileData(_ model: Entity.RoomUser) {
             uid = model.uid.string
             nameLabel.text = model.name
-            uidLabel.text = "ID \(model.uid)"
+            uidLabel.text = "ID: \(model.uid)"
             avatarIV.setAvatarImage(with: model.pictureUrl)
         }
         
