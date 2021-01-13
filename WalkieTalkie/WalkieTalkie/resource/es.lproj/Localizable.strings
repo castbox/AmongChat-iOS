@@ -203,3 +203,25 @@
 "chatroom.message.system.change.to.public" = "El canal es PÚBLICO ahora. ¡Todos pueden unirse!";
 "chatroom.message.system.change.to.private" = "El canal es PRIVADO ahora. ¡Los jugadores invitados pueden unirse!";
 "chatroom.message.user.joined" = "unido";
+
+// 1.10
+"search.placeholder" = "Nickname&ID";
+"social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
+"among.chat.room.mobile.legends.title" = "Click to copy others' MLBB Name/ID to play together";
+"among.chat.room.set.mobile.legends.name" = "Set MLBB Name/ID";
+"room.mobile.legends.input.code.plceholder" = "MLBB NAME/ID";
+
+"among.chat.room.pubg.mobile.title" = "Click to copy others' PUBG Player Name/ID to play together";
+"among.chat.room.set.pubg.mobile.name" = "Set PUBG Player Name/ID";
+"room.pubg.mobile.input.code.plceholder" = "PUBG PLAYER NAME/ID";
+
+"among.chat.room.call.of.duty.title" = "Click to copy others' COD Username/UID to play together";
+"among.chat.room.set.call.of.duty.name" = "Set COD Username/UID";
+"room.call.of.duty.input.code.plceholder" = "COD USERNAME/UID";
+
+"among.chat.create.room.card.tip.title" = "Remaining channel card:";
+"among.chat.create.room.card.tip.content" = "Use the channel card to create a room, invite friends to open it together, each time you create a room, you can get 1 free channel card every day, and it will expire the next day.";
+"among.chat.create.room.card.consume.content" = "Creating a room will consume 1 channel card. Do you want to continue creating?";
+"among.chat.create.room.card.insufficient.title" = "Insufficient channel card";
+"among.chat.create.room.card.claim" = "Claim";
+"among.chat.create.room.create" = "Create";
