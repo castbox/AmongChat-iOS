@@ -445,13 +445,13 @@ extension Social.SelectAvatarViewController {
             }
             
             selectedIcon.snp.makeConstraints { (maker) in
-                maker.top.leading.equalToSuperview()
+                maker.top.right.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
             
             adBadge.snp.makeConstraints { (maker) in
-                maker.top.leading.equalToSuperview()
+                maker.top.right.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
