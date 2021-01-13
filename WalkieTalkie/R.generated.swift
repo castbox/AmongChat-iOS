@@ -1622,7 +1622,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -2481,7 +2481,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@
+      /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialShareUrl(_ value1: String) -> String {
