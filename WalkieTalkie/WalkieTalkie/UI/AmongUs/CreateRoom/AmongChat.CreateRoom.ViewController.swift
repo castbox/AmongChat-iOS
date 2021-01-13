@@ -326,7 +326,6 @@ extension AmongChat.CreateRoom.ViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        onConfirmBtn()
         return true
     }
     
