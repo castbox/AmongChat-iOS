@@ -423,4 +423,17 @@ extension Request {
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
 
+    static func topics() -> Single<Entity.Summary?> {
+        
+        return amongchatProvider.rx.request(.topics)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Summary.self)
+            .do(onSuccess: { (summary) in
+                guard let s = summary else { return }
+                Settings.shared.supportedTopics.value = s
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }

@@ -319,6 +319,43 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let supportedTopics: PublishProperty<Entity.Summary?> = {
+        typealias Summary = Entity.Summary
+        let summary: Summary?
+        
+        if let dict = Defaults[\.supportedTopicsKey],
+           let s = try? JSONDecoder().decodeAnyData(Summary.self, from: dict) {
+            summary = s
+        } else {
+            summary = nil
+        }
+        
+        return DynamicProperty.stored(summary)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.supportedTopicsKey] = dict
+            })
+            .asPublishProperty()
+    }()
+    
+    let lastCreatedTopic: PublishProperty<Entity.SummaryTopic?> = {
+        typealias Topic = Entity.SummaryTopic
+        let topic: Topic?
+        
+        if let dict = Defaults[\.lastCreatedTopicKey],
+           let s = try? JSONDecoder().decodeAnyData(Topic.self, from: dict) {
+            topic = s
+        } else {
+            topic = nil
+        }
+        
+        return DynamicProperty.stored(topic)
+            .didSet({ (event) in
+                guard let dict = event.new?.dictionary else { return }
+                Defaults[\.lastCreatedTopicKey] = dict
+            })
+            .asPublishProperty()
+    }()
     
     func startObserver() {
         loginResult.replay()
@@ -526,6 +563,14 @@ extension DefaultsKeys {
     
     var amongChatEnterRoomTopicHistory: DefaultsKey<[String]> {
         .init("among.chat.enter.room.topic.history", defaultValue: [])
+    }
+        
+    var supportedTopicsKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.supported.topics", defaultValue: nil)
+    }
+    
+    var lastCreatedTopicKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.last.create.topic", defaultValue: nil)
     }
 }
 
