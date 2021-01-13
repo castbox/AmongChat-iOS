@@ -100,7 +100,7 @@
 "social.invite.play.with" = "People you may like to play with";
 "social.exit.channel" = "Exit channel";
 "social.follow.teammates" = "Follow your teammates to play together \nnext time";
-"social.share.url" = "Hey I'm in the AmongUs room in AmongChat! We need 9 more people!!! Tap the link to join: %@";
+"social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
 "social.followed.sucess" = "You have successfully followed \nthis person";
 "social.block.failed" = "Failed to block this person, \nplease try again.";
 "social.unblock.failed" = "Failed to unblock this person, \nplease try again.";
