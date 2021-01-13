@@ -60,7 +60,7 @@ extension AmongChat.Home {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.centerY.equalToSuperview()
-                maker.left.equalToSuperview()
+                maker.leading.equalToSuperview()
             }
             
             let textLayout = UILayoutGuide()
@@ -68,17 +68,17 @@ extension AmongChat.Home {
                         
             textLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.left.equalTo(avatarIV.snp.right).offset(12)
-                maker.right.equalToSuperview()
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
+                maker.trailing.equalToSuperview()
             }
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.left.top.right.equalTo(textLayout)
+                maker.leading.top.trailing.equalTo(textLayout)
             }
             
             statusLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom)
-                maker.left.right.bottom.equalTo(textLayout)
+                maker.leading.trailing.bottom.equalTo(textLayout)
             }
             
         }
@@ -145,14 +145,14 @@ extension AmongChat.Home {
             contentView.addLayoutGuide(buttonLayout)
             buttonLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
             }
             
             userView.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
+                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
             }
             
             joinBtn.snp.makeConstraints { (maker) in
@@ -160,7 +160,7 @@ extension AmongChat.Home {
             }
             
             lockedIcon.snp.makeConstraints { (maker) in
-                maker.right.centerY.equalTo(buttonLayout)
+                maker.trailing.centerY.equalTo(buttonLayout)
             }
             
         }
@@ -242,14 +242,14 @@ extension AmongChat.Home {
             contentView.addLayoutGuide(buttonLayout)
             buttonLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
             }
             
             userView.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
+                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
             }
             
             followBtn.snp.makeConstraints { (maker) in
@@ -295,7 +295,7 @@ extension AmongChat.Home {
             addSubviews(views: titleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
-                maker.left.right.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(20)
             }
         }
         
@@ -335,20 +335,20 @@ extension AmongChat.Home {
             addSubviews(views: icon, titleLabel)
             icon.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview().offset(14.5)
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.width.height.equalTo(40)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.left.equalTo(icon.snp.right).offset(12)
+                maker.leading.equalTo(icon.snp.trailing).offset(12)
                 maker.centerY.equalTo(icon)
-                maker.right.equalToSuperview().offset(-20)
+                maker.trailing.equalToSuperview().offset(-20)
             }
             
             isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer()
             addGestureRecognizer(tap)
-            tap.rx.event.bind(onNext: { [weak self] (_) in
+            let _ = tap.rx.event.bind(onNext: { [weak self] (_) in
                 self?.onSelect?()
             })
         }
