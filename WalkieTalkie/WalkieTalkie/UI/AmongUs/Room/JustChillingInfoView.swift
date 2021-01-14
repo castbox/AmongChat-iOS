@@ -49,6 +49,8 @@ class JustChillingInfoView: XibLoadableView {
         notesTitleButton.setTitle(R.string.localizable.roomHostsNotes(), for: .normal)
         notesTitleButton.titleLabel?.numberOfLines = 0
         notesDetailButton.titleLabel?.numberOfLines = 3
+        notesTitleButton.titleLabel?.textAlignment = .left
+        notesDetailButton.titleLabel?.textAlignment = .left
     }
     
     private func configureSubview() {
