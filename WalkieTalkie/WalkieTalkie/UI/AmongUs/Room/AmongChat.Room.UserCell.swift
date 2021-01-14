@@ -239,7 +239,6 @@ extension AmongChat.Room {
             
             disableMicView.snp.makeConstraints { (maker) in
                 maker.right.bottom.equalTo(avatarIV)
-                //                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
             }
             
             mutedLabel.snp.makeConstraints { (maker) in
@@ -277,7 +276,12 @@ extension AmongChat.Room.UserCell {
         } else {
             indexLabel.text = index.string
         }
-        
+        if Settings.loginUserId == user?.uid {
+            indexLabel.textColor = "#FFF000".color()
+        } else {
+            indexLabel.textColor = .white
+        }        
+        nameLabel.textColor = indexLabel.textColor
         guard let user = user else {
             clearStyle()
             return

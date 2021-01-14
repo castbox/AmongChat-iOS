@@ -463,7 +463,8 @@ extension Social {
 //                        cdPrint("unfollow error:\(error.localizedDescription)")
 //                    }).disposed(by: bag)
             } else {
-                let removeBlock = self.superview?.raft.show(.loading)
+                let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
+                let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
                 Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
                     .subscribe(onSuccess: { [weak self](success) in
                         guard let `self` = self else { return }
@@ -482,7 +483,8 @@ extension Social {
         private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
             let invited = userInfo.invited ?? false
             if !invited {
-                let removeBlock = self.superview?.raft.show(.loading)
+                let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
+                let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
                 Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock?()

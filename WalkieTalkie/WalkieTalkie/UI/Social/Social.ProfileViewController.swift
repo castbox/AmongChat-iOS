@@ -51,7 +51,7 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            btn.setImage(isSelfProfile ? R.image.ac_profile_close_down(): R.image.ac_profile_close(), for: .normal)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
@@ -165,8 +165,6 @@ extension Social {
                     }
                 })
                 .disposed(by: bag)
-            pullToDismiss = PullToDismiss(scrollView: table)
-            pullToDismiss?.delegate = self
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -235,6 +233,11 @@ private extension Social.ProfileViewController {
     }
     
     func setupData() {
+        if isSelfProfile {
+            pullToDismiss = PullToDismiss(scrollView: table)
+            pullToDismiss?.delegate = self
+        }
+        
         if roomUser != nil {
             self.headerView.setProfileData(self.roomUser)
         }

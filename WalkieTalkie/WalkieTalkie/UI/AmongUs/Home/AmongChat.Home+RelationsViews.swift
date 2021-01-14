@@ -317,7 +317,21 @@ extension AmongChat.Home {
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = UIColor(hex6: 0x898989)
             lb.text = R.string.localizable.amongChatHomeFriendsShareTitle()
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
+        }()
+        
+        private lazy var rightIcon: UIImageView = {
+            let i = UIImageView(image: R.image.ac_right_arrow())
+            return i
+        }()
+        
+        private lazy var contentView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x222222)
+            v.layer.cornerRadius = 12
+            return v
         }()
         
         var onSelect: (() -> Void)? = nil
@@ -330,19 +344,33 @@ extension AmongChat.Home {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
-            addSubviews(views: icon, titleLabel)
+            contentView.addSubviews(views: icon, titleLabel, rightIcon)
+            addSubviews(views: contentView)
             icon.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview().offset(14.5)
-                maker.leading.equalToSuperview().offset(20)
-                maker.width.height.equalTo(40)
+                maker.centerY.equalToSuperview()
+                maker.leading.equalToSuperview().offset(16)
+                maker.width.height.equalTo(36)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(icon.snp.trailing).offset(12)
-                maker.centerY.equalTo(icon)
-                maker.trailing.equalToSuperview().offset(-20)
+                maker.top.greaterThanOrEqualToSuperview().inset(0)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalTo(rightIcon.snp.leading).offset(-16)
+            }
+            
+            rightIcon.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(16)
+            }
+            
+            contentView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalToSuperview().offset(7)
+                maker.height.equalTo(68)
             }
             
             isUserInteractionEnabled = true

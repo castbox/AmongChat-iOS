@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import SwiftyUserDefaults
 
 extension Request {
     static let amongchatProvider = MoyaProvider<APIService.AmongChatBackend>(plugins: [
@@ -421,6 +422,25 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToListJson()
             .mapJsonListToModelList(Entity.PlayingUser.self)
+    }
+    
+    static func requestRtmToken() -> Single<Entity.RTMToken?> {
+        //read from cache
+        if let token = Settings.shared.cachedRtmToken {
+            return Observable.just(Optional(token))
+                .asSingle()
+        }
+        return Request.amongchatProvider.rx.request(.rtmToken([:]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RTMToken.self)
+            .retry(2)
+            .do { token in
+                guard let token = token else {
+                    return
+                }
+                Settings.shared.cachedRtmToken = token
+            }
     }
 
     static func topics() -> Single<Entity.Summary?> {

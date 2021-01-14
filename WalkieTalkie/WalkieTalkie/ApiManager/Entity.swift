@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyUserDefaults
 
 struct Entity {
     
@@ -32,7 +33,7 @@ extension Entity {
         }
     }
     
-    struct RTMToken: Codable {
+    struct RTMToken: Codable, DefaultsSerializable {
         let rcToken: String
         private enum CodingKeys: String, CodingKey {
             case rcToken = "rc_token"

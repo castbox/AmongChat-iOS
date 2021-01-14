@@ -357,6 +357,11 @@ class Settings {
             .asPublishProperty()
     }()
     
+    var cachedRtmToken: Entity.RTMToken? {
+        get { Defaults[\.amongChatRtmToken] }
+        set { Defaults[\.amongChatRtmToken] = newValue}
+    }
+    
     func startObserver() {
         loginResult.replay()
             .subscribe(onNext: { [weak self] result in
@@ -572,6 +577,11 @@ extension DefaultsKeys {
     var lastCreatedTopicKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.last.create.topic", defaultValue: nil)
     }
+    
+    var amongChatRtmToken: DefaultsKey<Entity.RTMToken?> {
+        .init("among.chat.rtm.token", defaultValue: nil)
+    }
+    
 }
 
 //extension DefaultsAdapter {
