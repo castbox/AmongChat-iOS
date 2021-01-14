@@ -226,3 +226,6 @@
 "among.chat.create.room.card.insufficient.content" = "Watch a short video to get one.";
 "among.chat.create.room.card.claim" = "Claim";
 "among.chat.create.room.create" = "Create";
+"microphone.not.allow.title" = "“AmongChat” would like to Access the Microphone";
+"microphone.not.allow.subtitle" = "To join the channel, please switch on microphone permission.";
+"microphone.not.allow.setting" = "Go Settings";

@@ -93,7 +93,12 @@ extension AmongChat.Room {
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-
+//        private lazy var topSeats: UIStackView = {
+//            let stackView = UIStackView()
+//            stackView.axis = .horizontal
+//            stackView
+//            return stackView
+//        }()
         fileprivate lazy var collectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
@@ -154,7 +159,11 @@ extension AmongChat.Room {
         }
         
         private func bindSubviewEvent() {
-            
+            NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.collectionView.reloadData()
+                })
+                .disposed(by: bag)
         }
         
         private func configureSubview() {
