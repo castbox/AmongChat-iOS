@@ -19,6 +19,7 @@ struct Search {}
 
 extension Search {
     class TextField: UITextField, UITextFieldDelegate {
+        var rightIndicatorView: UIActivityIndicatorView!
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -40,6 +41,12 @@ extension Search {
             clipsToBounds = true
             leftView = UIImageView(image: R.image.ac_image_search())
             leftViewMode = .always
+            
+            rightIndicatorView = UIActivityIndicatorView(style: .white)
+            rightIndicatorView.hidesWhenStopped = true
+            rightView = rightIndicatorView
+            rightViewMode = .always
+            
             font = R.font.nunitoExtraBold(size: 20)
             textColor = .white
             attributedPlaceholder = NSAttributedString(string: R.string.localizable.searchPlaceholder(), attributes: [
@@ -56,8 +63,12 @@ extension Search {
             return CGRect(x: 12, y: 6, width: 24, height: 24)
         }
         
+        override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+            return CGRect(x: bounds.width - 12 - 24, y: 6, width: 24, height: 24)
+        }
+        
         override func editingRect(forBounds bounds: CGRect) -> CGRect {
-            return CGRect(x: 44, y: 0, width: bounds.width - 44 - 10, height: bounds.height)
+            return CGRect(x: 44, y: 0, width: bounds.width - 44 * 2, height: bounds.height)
         }
         
         override func textRect(forBounds bounds: CGRect) -> CGRect {
@@ -66,6 +77,51 @@ extension Search {
         
         override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
             return editingRect(forBounds: bounds)
+        }
+    }
+    
+    class ViewModel {
+        private let bag = DisposeBag()
+
+        var userInfoList = BehaviorRelay<[Entity.UserProfile]>(value: [])
+        var isLoadingReplay = BehaviorRelay<Bool>(value: false)
+        var keywords: String = ""
+        var hasMore = false
+
+        func fetchUserSearch(_ keywords: String) {
+            self.keywords = keywords
+            isLoadingReplay.accept(true)
+            Request.search(keywords, skip: 0)
+                .catchErrorJustReturn(nil)
+                .asObservable()
+                .flatMap { [weak self] data -> Observable<[Entity.UserProfile]> in
+                    let userList = data?.list ?? []
+                    self?.hasMore = userList.count >= 20
+                    self?.isLoadingReplay.accept(false)
+                    return Observable.just(userList)
+                }
+                .bind(to: userInfoList)
+                .disposed(by: bag)
+
+        }
+
+        func fetchUserSearchMore() {
+            guard !userInfoList.value.isEmpty else {
+                return
+            }
+            isLoadingReplay.accept(true)
+            Request.search(keywords, skip: userInfoList.value.count)
+                .asObservable()
+                .flatMap { [weak self] data -> Observable<[Entity.UserProfile]> in
+                    guard let `self` = self else { return .empty() }
+                    let userList = data?.list ?? []
+                    self.hasMore = userList.count >= 20
+                    self.isLoadingReplay.accept(false)
+                    let total = self.userInfoList.value + userList
+                    return Observable.just(total)
+                }
+                .bind(to: userInfoList)
+                .disposed(by: bag)
         }
     }
     
@@ -98,28 +154,22 @@ extension Search {
             return tb
         }()
         
+        private lazy var viewModel = ViewModel()
+        
         private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
             }
         }
-//        private var uid = 0
-//        private var isFollowing = true
-//        private var isSelf = false
         
         override var screenName: Logger.Screen.Node.Start {
             return .search
         }
         
-        
-//        required init?(coder aDecoder: NSCoder) {
-//            fatalError("init(coder:) has not been implemented")
-//        }
-        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            loadData()
+            bindSubviewEvent()
             searchTextfield.becomeFirstResponder()
         }
         
@@ -143,8 +193,7 @@ extension Search {
                 return
             }
 //            tableView.ly_hideEmpty()
-//            setupRx()
-//            viewModel.fetchUserSearch(searchKey: key)
+            viewModel.fetchUserSearch(key)
         }
 
         private func setupLayout() {
@@ -180,57 +229,35 @@ extension Search {
             }
             
             tableView.pullToLoadMore { [weak self] in
-                self?.loadMore()
+                self?.viewModel.fetchUserSearchMore()
             }
         }
         
-        private func loadData() {
-            let removeBlock = view.raft.show(.loading)
-            Request.followingList(uid: Settings.shared.loginResult.value?.uid ?? 0, skipMs: 0)
-                .subscribe(onSuccess: { [weak self](data) in
-                    removeBlock()
-                    guard let `self` = self, let data = data else { return }
-                    self.userList = data.list ?? []
-                    if self.userList.isEmpty {
-                        self.addNoDataView(R.string.localizable.errorNoFollowing())
+        private func bindSubviewEvent() {
+            viewModel.userInfoList
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self](data) in
+                    guard let `self` = self else { return }
+                    self.userList = data
+//                    if self.userList.isEmpty {
+//                        self.addNoDataView(R.string.localizable.errorNoFollowing())
+//                    }
+                    self.tableView.endLoadMore(self.viewModel.hasMore)
+                })
+                .disposed(by: bag)
+            
+            viewModel.isLoadingReplay
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] isLoading in
+                    if isLoading {
+                        self?.searchTextfield.rightIndicatorView.startAnimating()
+                    } else {
+                        self?.searchTextfield.rightIndicatorView.stopAnimating()
                     }
-                    self.tableView.endLoadMore(data.more ?? false)
-                }, onError: { [weak self](error) in
-                    removeBlock()
-                    self?.addErrorView({ [weak self] in
-                        self?.loadData()
-                    })
-                    cdPrint("followingList error: \(error.localizedDescription)")
-                }).disposed(by: bag)
-        }
-        
-        private func loadMore() {
-//            let skipMS = userList.last?.opTime ?? 0
-//            if isFollowing {
-//                Request.followingList(uid: uid, skipMs: skipMS)
-//                    .subscribe(onSuccess: { [weak self](data) in
-//                        guard let data = data else { return }
-//                        let list =  data.list ?? []
-//                        var origenList = self?.userList
-//                        list.forEach({ origenList?.append($0)})
-//                        self?.userList = origenList ?? []
-//                        self?.tableView.endLoadMore(data.more ?? false)
-//                    }, onError: { (error) in
-//                        cdPrint("followingList error: \(error.localizedDescription)")
-//                    }).disposed(by: bag)
-//            } else {
-//                Request.followerList(uid: uid, skipMs: skipMS)
-//                    .subscribe(onSuccess: { [weak self](data) in
-//                        guard let data = data else { return }
-//                        let list =  data.list ?? []
-//                        var origenList = self?.userList
-//                        list.forEach({ origenList?.append($0)})
-//                        self?.userList = origenList ?? []
-//                        self?.tableView.endLoadMore(data.more ?? false)
-//                    }, onError: { (error) in
-//                        cdPrint("followerList error: \(error.localizedDescription)")
-//                    }).disposed(by: bag)
-//            }
+                })
+                .disposed(by: bag)
+
+
         }
     }
 }
@@ -319,37 +346,6 @@ extension Search.ViewController: UITableViewDataSource, UITableViewDelegate {
             self.navigationController?.pushViewController(vc)
         }
     }
-    
-//    private func addLogForFollow(with uid: Int) {
-//        if isSelf {
-//            if isFollowing {
-//                Logger.Action.log(.profile_following_clk, category: .follow, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_followers_clk, category: .follow, "\(uid)")
-//            }
-//        } else {
-//            if isFollowing {
-//                Logger.Action.log(.profile_other_followers_clk, category: .follow, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_other_following_clk, category: .follow, "\(uid)")
-//            }
-//        }
-//    }
-//    private func addLogForProfile(with uid: Int) {
-//        if isSelf {
-//            if isFollowing {
-//                Logger.Action.log(.profile_following_clk, category: .profile, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_followers_clk, category: .profile, "\(uid)")
-//            }
-//        } else {
-//            if isFollowing {
-//                Logger.Action.log(.profile_other_following_clk, category: .profile, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_other_followers_clk, category: .profile, "\(uid)")
-//            }
-//        }
-//    }
 }
 
 extension Search {

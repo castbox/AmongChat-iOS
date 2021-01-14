@@ -424,7 +424,7 @@ extension Request {
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
     
-    static func requestRtmToken() -> Single<Entity.RTMToken?> {
+    static func rtmToken() -> Single<Entity.RTMToken?> {
         //read from cache
         if let token = Settings.shared.cachedRtmToken {
             return Observable.just(Optional(token))
@@ -441,6 +441,20 @@ extension Request {
                 }
                 Settings.shared.cachedRtmToken = token
             }
+    }
+    
+    static func search(_ keyword: String, skip: Int) -> Single<Entity.SearchData?> {
+        let params: [String: Any] = [
+            "keyword": keyword,
+            "skip": skip,
+            "limit": 20
+        ]
+        return Request.amongchatProvider.rx.request(.userSearch(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.SearchData.self)
+            .retry(2)
+            .observeOn(MainScheduler.asyncInstance)
     }
 
 }
