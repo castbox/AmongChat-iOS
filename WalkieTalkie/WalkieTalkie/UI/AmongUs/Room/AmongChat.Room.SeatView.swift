@@ -113,6 +113,9 @@ extension AmongChat.Room {
         
         private var dataSource: [Int: Entity.RoomUser] = [:] {
             didSet {
+                guard UIApplication.appDelegate?.isApplicationActiveReplay.value == true else {
+                    return
+                }
                 collectionView.reloadData()
             }
         }
@@ -281,7 +284,9 @@ extension AmongChat.Room.SeatView: UICollectionViewDelegate {
 extension Reactive where Base: AmongChat.Room.SeatView {
     var soundAnimation: Binder<Int?> {
         return Binder(base) { view, index in
-            guard let index = index, let cell = view.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AmongChat.Room.UserCell else { return }
+            guard let index = index,
+                  let cell = view.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AmongChat.Room.UserCell,
+                  UIApplication.appDelegate?.isApplicationActiveReplay.value == true else { return }
 //            guard let index = index, let cell = view.cacheCell[index] else { return }
             cell.startSoundAnimation()
         }

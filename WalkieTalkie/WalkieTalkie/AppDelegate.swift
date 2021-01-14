@@ -29,8 +29,6 @@ import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    
 
     lazy var window: UIWindow? = {
         let window = UIWindow(frame: UIScreen.main.bounds)
@@ -50,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return window?.rootViewController as? NavigationViewController
         }
     }
+    
+    var isApplicationActiveReplay = BehaviorRelay(value: true)
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -159,13 +159,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        isApplicationActiveReplay.accept(false)
+    }
+    
     func applicationWillTerminate(_ application: UIApplication) {
         RtcManager.shared.leaveChannel()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Track Installs, updates & sessions(app opens) (You must include this API to enable tracking)
-        // your other code here....
+        isApplicationActiveReplay.accept(true)
         _ = FireRemote.shared.remoteValue()
             .subscribe(onNext: { (cfg) in
                 guard cfg.value.forceUpgrade else {
