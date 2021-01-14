@@ -205,7 +205,7 @@
 "chatroom.message.user.joined" = "unido";
 
 // 1.10
-"search.placeholder" = "Nickname&ID";
+"search.placeholder" = "Nickname or ID";
 "social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
 "among.chat.room.mobile.legends.title" = "Click to copy others' MLBB Name/ID to play together";
 "among.chat.room.set.mobile.legends.name" = "Set MLBB Name/ID";
@@ -219,9 +219,10 @@
 "among.chat.room.set.call.of.duty.name" = "Set COD Username/UID";
 "room.call.of.duty.input.code.plceholder" = "COD USERNAME/UID";
 
-"among.chat.create.room.card.tip.title" = "Remaining channel card:";
-"among.chat.create.room.card.tip.content" = "Use the channel card to create a room, invite friends to open it together, each time you create a room, you can get 1 free channel card every day, and it will expire the next day.";
-"among.chat.create.room.card.consume.content" = "Creating a room will consume 1 channel card. Do you want to continue creating?";
-"among.chat.create.room.card.insufficient.title" = "Insufficient channel card";
+"among.chat.create.room.card.tip.title" = "Remaining SPACE cards:";
+"among.chat.create.room.card.tip.content" = "Use a SPACE card to create a channel. One free card per day, free cards do not stack.";
+"among.chat.create.room.card.consume.content" = "Use a SPACE card?";
+"among.chat.create.room.card.insufficient.title" = "Insufficient SPACE cards";
+"among.chat.create.room.card.insufficient.content" = "Watch a short video to get one.";
 "among.chat.create.room.card.claim" = "Claim";
 "among.chat.create.room.create" = "Create";

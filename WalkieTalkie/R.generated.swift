@@ -1395,7 +1395,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 187 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 188 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1553,10 +1553,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Creating a room will consume 1 channel card. Do you want to continue creating?
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let amongChatCreateRoomCardConsumeContent = Rswift.StringResource(key: "among.chat.create.room.card.consume.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1681,7 +1677,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectInformation = Rswift.StringResource(key: "report.incorrect.information", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Insufficient channel card
+      /// en translation: Insufficient SPACE cards
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardInsufficientTitle = Rswift.StringResource(key: "among.chat.create.room.card.insufficient.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -1773,7 +1769,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileNickname = Rswift.StringResource(key: "profile.nickname", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Nickname&ID
+      /// en translation: Nickname or ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let searchPlaceholder = Rswift.StringResource(key: "search.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -1905,7 +1901,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let rateUs = Rswift.StringResource(key: "rate.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Remaining channel card:
+      /// en translation: Remaining SPACE cards:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardTipTitle = Rswift.StringResource(key: "among.chat.create.room.card.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -2061,10 +2057,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Use the channel card to create a room, invite friends to open it together, each time you create a room, you can get 1 free channel card every day, and it will expire the next day.
+      /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardTipContent = Rswift.StringResource(key: "among.chat.create.room.card.tip.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Use a SPACE card?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCreateRoomCardConsumeContent = Rswift.StringResource(key: "among.chat.create.room.card.consume.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Watch a short video to get one.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCreateRoomCardInsufficientContent = Rswift.StringResource(key: "among.chat.create.room.card.insufficient.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2419,13 +2423,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Creating a room will consume 1 channel card. Do you want to continue creating?
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func amongChatCreateRoomCardConsumeContent(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.create.room.card.consume.content", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2643,7 +2640,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.information", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Insufficient channel card
+      /// en translation: Insufficient SPACE cards
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardInsufficientTitle(_: Void = ()) -> String {
@@ -2804,7 +2801,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.nickname", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Nickname&ID
+      /// en translation: Nickname or ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func searchPlaceholder(_: Void = ()) -> String {
@@ -3035,7 +3032,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("rate.us", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Remaining channel card:
+      /// en translation: Remaining SPACE cards:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardTipTitle(_: Void = ()) -> String {
@@ -3308,11 +3305,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Use the channel card to create a room, invite friends to open it together, each time you create a room, you can get 1 free channel card every day, and it will expire the next day.
+      /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardTipContent(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.tip.content", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Use a SPACE card?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCreateRoomCardConsumeContent(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.card.consume.content", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Watch a short video to get one.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCreateRoomCardInsufficientContent(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.card.insufficient.content", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Welcome to %@ channel. Any pornography or other inappropriate content is strictly prohibited. Channels are monitored 24/7 and users found with such content may be banned.
