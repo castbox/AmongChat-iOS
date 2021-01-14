@@ -13,51 +13,51 @@
 "premium.subscription.detail.free" = "بعد الإصدار التجريبي المجاني ، يكون اشتراك %@ هو %@ ، ويتم تجديده تلقائيًا ما لم يتم إيقاف تشغيله في إعدادات المحاسبة قبل 24 ساعة على الأقل من انتهاء الفترة الحالية. يتم تحميل الدفع على حساب iTunes الخاص بك ، وقم بالإلغاء في أي وقت.";
 "premium.subscription.detail.normal" = "اشتراك %@ هو %@ ، يتم تجديده تلقائيًا ما لم يتم إيقاف تشغيله في إعدادات المحاسبة قبل 24 ساعة على الأقل من انتهاء الفترة الحالية. يتم تحميل الدفع على حساب iTunes الخاص بك ، وقم بالإلغاء في أي وقت.";
 
-"settings.title" = "إعدادات";
+"settings.title" = "الاعدادات";
 
 "settings.restore.title" = "استعادة";
 "settings.restore.success.title" = "أنت جاهز تمامًا";
 "settings.restore.success.body" = "تم الشراء بنجاح";
 "settings.restore.fail.title" = "الشراء غير موجود";
 "settings.restore.fail.body" = "لم يتم العثور على مشتريات في حسابك";
-"alert.ok" = "حسنا";
-"toast.confirm" = "حسنا";
+"alert.ok" = "موافق";
+"toast.confirm" = "موافق";
 "toast.cancel" = "إلغاء";
 
 "premium.try.title" = "جربها مجانا";
 "premium.try.title.des" = "3 أيام نسخة تجريبية مجانية ، ثم %@ / السنة";
 
 "guide.subscribe.title" = "الإشتراك";
-"guide.continue" = "استمر";
+"guide.continue" = "متابعة";
 "copied" = "نسخ";
 
-"report.title" = "نقل";
+"report.title" = "إبلاغ عن";
 "report.room.id" = "معرف القناة";
-"report.incorrect.information" = "معلومات غير صحيحة";
+"report.incorrect.information" = "المعلومات غير صحيحة";
 "report.incorrect.sexual" = "المحتوى الجنسي";
 "report.incorrect.harassment" = "التحرش أو لغة بغيضة";
 "report.incorrect.unreasonable" = "متطلبات غير منطقية";
 "report.success" = "لقد أبلغت عن هذا \nالشخص بنجاح";
 
 
-"alert.block" = "منع";
+"alert.block" = "الحظر";
 "alert.unblock" = "رفع الحظر";
 
 //Profile
 "profile.profile" = "الملف الشخصي";
 "profile.nickname" = "كنية";
 "profile.bag.nickname" = "كنية";
-"profile.following" = "التالية";
+"profile.following" = "متابَعون";
 "profile.follower" = "متابعون";
-"profile.follow" = "إتبع";
+"profile.follow" = "إتباع";
 "profile.little.follower" = "متابعون";
-"profile.little.following" = "التالية";
+"profile.little.following" = "متابَعون";
 "profile.block.user" = "قائمة الحظر";
-"profile.settings" = "إعدادات";
+"profile.settings" = "الاعدادات";
 "profile.community" = "إرشادات المجتمع";
 "profile.birthday" = "عيد الميلاد";
 "profile.birthday.subtitle" = "ابحث عن أصدقاء من نفس العمر";
-"profile.done" = "منجز";
+"profile.done" = "تم";
 "profile.birthday.skip" = "تخطى";
 "profile.pro" = "PRO";
 "profile.unlock.pro" = "افتح PRO";
@@ -100,7 +100,6 @@
 "social.invite.play.with" = "الأشخاص الذين قد ترغب في اللعب معهم";
 "social.exit.channel" = "قناة الخروج";
 "social.follow.teammates" = "تابع زملائك في الفريق للعب معًا في \nالمرة القادمة";
-"social.share.url" = "مرحبًا ، أنا في غرفة بين يو في بين شات! نحتاج 9 أشخاص آخرين!!! اضغط على الرابط للانضمام: %@";
 "social.followed.sucess" = "لقد تابعت هذا \nالشخص بنجاح";
 "social.block.failed" = "فشل حظر هذا الشخص ، \nيرجى المحاولة مرة أخرى.";
 "social.unblock.failed" = "فشل إلغاء حظر هذا الشخص ، \nيرجى المحاولة مرة أخرى.";
@@ -117,11 +116,11 @@
 "force.upgrade.tip" = "يرجى التحديث إلى أحدث إصدار من التطبيق لمتابعة اللعب.";
 
 //new
-"room.public" = "عامة";
+"room.public" = "عام";
 "room.private" = "نشر";
 "among.chat.room.tip.mic.on" = "ميكروفون مفتوح";
-"room.tag.open.game" = "افتح اللعبة";
-"room.hosts.notes" = "ملاحظات المضيف:";
+"room.tag.open.game" = "لعبة مفتوحة ";
+"room.hosts.notes" = "رسالة المضيف:";
 "room.user.list.muted" = "مكتوم";
 
 "among.chat.privacy.policy" = "سياسة الخصوصية";
@@ -142,7 +141,6 @@
 "among.chat.room.kick.selected" = "الركلة المحددة (%@)";
 "among.chat.room.just.chat.title" = "يمكن للمضيف إعداد ملاحظة حتى يتمكن الجميع من رؤيتها عند الانضمام";
 "among.chat.room.kickout" = "لقد تمت إزالتك من هذه القناة";
-"among.chat.room.reblox.title" = "أضف المضيف في لعبة Roblox للانضمام إلى لعبته! انقر للنسخ";
 "among.chat.room.set.reblox.name" = "قم بتعيين اسم مستخدم Roblox";
 "among.chat.room.kick" = "ركلة";
 "among.chat.room.user.change.notes.title" = "يمكن لمالك القناة فقط تغيير هذا";
@@ -175,7 +173,7 @@
 "room.setup.in.game.code.subtitle" = "يمكن لمضيف القناة هذا فقط تعيين الرمز";
 "room.setup.amongus.title" = "انقر لنسخ الرمز";
 "room.setup.amongus.subtitle" = "يمكن لمضيف القناة هذا فقط تعيين الرمز";
-"room.setup.host.notes" = "ملاحظات المضيف";
+"room.setup.host.notes" = "رسالة المضيف";
 "room.setup.host.notes.subtitle" = "يمكن للمضيف إعداد الملاحظات حتى يتمكن الجميع من رؤيتها عند انضمامهم إلى القناة";
 
 "room.amongchat.input.code.plceholder" = "أدخل رمز الخصوصية الخاص بك";
@@ -184,7 +182,7 @@
 "amongus.server.north.asia" = "آسيا";
 "amongus.server.north.europe" = "أوروبا";
 "share.app" = "شارك التطبيق";
-"share.app.content" = "AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/chat";
+"share.app.content" = "يا رفاق ، نحتاج إلى المزيد من الأشخاص على AmongChat! إنه ممتع للغاية ويطابقك مع لاعبين مثل التفكير. اضغط على الرابط للتنزيل الآن: https://amongchat.page.link/chat";
 
 "among.chat.unknown.error" = "خطأ غير معروف";
 "among.chat.setting.terms" = "شروط";
@@ -203,29 +201,30 @@
 "chatroom.message.system.change.to.public" = "القناة عامة الآن. يمكن للجميع الانضمام!";
 "chatroom.message.system.change.to.private" = "القناة خاصة الآن. يمكن للاعبين المدعوين الانضمام!";
 "chatroom.message.user.joined" = "انضم";
+"among.chat.room.reblox.title" = "انقر لنسخ أسماء مستخدمي Roblox للآخرين للعب معًا";
 
 // 1.10
-"search.placeholder" = "Nickname or ID";
-"social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
-"among.chat.room.mobile.legends.title" = "Click to copy others' MLBB Name/ID to play together";
-"among.chat.room.set.mobile.legends.name" = "Set MLBB Name/ID";
-"room.mobile.legends.input.code.plceholder" = "MLBB NAME/ID";
+"search.placeholder" = "كنية أو ID";
+"social.share.url" = "مرحبًا ، نحتاج إلى شخص آخر للانضمام لبدء لعبتنا. تعال وانضم إلينا هنا: %@";
+"among.chat.room.mobile.legends.title" = "انقر لنسخ اسم/ID MLBB الخاص بالآخرين للعب معًا";
+"among.chat.room.set.mobile.legends.name" = "قم بتعيين اسم/ID MLBB";
+"room.mobile.legends.input.code.plceholder" = "اسم/ID MLBB";
 
-"among.chat.room.pubg.mobile.title" = "Click to copy others' PUBG Player Name/ID to play together";
-"among.chat.room.set.pubg.mobile.name" = "Set PUBG Player Name/ID";
-"room.pubg.mobile.input.code.plceholder" = "PUBG PLAYER NAME/ID";
+"among.chat.room.pubg.mobile.title" = "انقر لنسخ اسم/ID لاعب PUBG الخاص بالآخرين للعب معًا";
+"among.chat.room.set.pubg.mobile.name" = "قم بتعيين اسم/ID لاعب PUBG ";
+"room.pubg.mobile.input.code.plceholder" = "اسم/ID لاعب PUBG";
 
-"among.chat.room.call.of.duty.title" = "Click to copy others' COD Username/UID to play together";
-"among.chat.room.set.call.of.duty.name" = "Set COD Username/UID";
-"room.call.of.duty.input.code.plceholder" = "COD USERNAME/UID";
+"among.chat.room.call.of.duty.title" = "انقر لنسخ اسم مستخدم COD الخاص بالآخرين/UID للعب معًا";
+"among.chat.room.set.call.of.duty.name" = "تعيين اسم مستخدم UID/COD";
+"room.call.of.duty.input.code.plceholder" = "اسم مستخدم UID/COD";
 
-"among.chat.create.room.card.tip.title" = "Remaining SPACE cards:";
-"among.chat.create.room.card.tip.content" = "Use a SPACE card to create a channel. One free card per day, free cards do not stack.";
-"among.chat.create.room.card.consume.content" = "Use a SPACE card?";
-"among.chat.create.room.card.insufficient.title" = "Insufficient SPACE cards";
-"among.chat.create.room.card.insufficient.content" = "Watch a short video to get one.";
-"among.chat.create.room.card.claim" = "Claim";
-"among.chat.create.room.create" = "Create";
-"microphone.not.allow.title" = "“AmongChat” would like to Access the Microphone";
-"microphone.not.allow.subtitle" = "To join the channel, please switch on microphone permission.";
-"microphone.not.allow.setting" = "Go Settings";
+"among.chat.create.room.card.tip.title" = "بطاقات SPACE المتبقية:";
+"among.chat.create.room.card.tip.content" = "استخدم بطاقة SPACE لإنشاء قناة. بطاقة مجانية واحدة في اليوم ، لا تتكدس البطاقات المجانية.";
+"among.chat.create.room.card.consume.content" = "استخدم SPACE بطاقة؟";
+"among.chat.create.room.card.insufficient.title" = "بطاقات SPACE غير كافية";
+"among.chat.create.room.card.insufficient.content" = "شاهد فيديو قصير لتحصل على واحد";
+"among.chat.create.room.card.claim" = "يطالب";
+"among.chat.create.room.create" = "خلق";
+"microphone.not.allow.title" = "ترغب “AmongChat” في الوصول إلى الميكروفون";
+"microphone.not.allow.subtitle" = "للانضمام إلى القناة ، يرجى تشغيل إذن الميكروفون.";
+"microphone.not.allow.setting" = "اذهب الإعدادات";
