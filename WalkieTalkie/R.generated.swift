@@ -1409,7 +1409,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 181 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 184 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1651,6 +1651,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Go Settings
+      /// 
+      /// Locales: en
+      static let microphoneNotAllowSetting = Rswift.StringResource(key: "microphone.not.allow.setting", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2023,6 +2027,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileUnblockUserSuccess = Rswift.StringResource(key: "profile.unblock.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: To join the channel, please switch on microphone permission.
+      /// 
+      /// Locales: en
+      static let microphoneNotAllowSubtitle = Rswift.StringResource(key: "microphone.not.allow.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2135,6 +2143,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingsRestoreSuccessBody = Rswift.StringResource(key: "settings.restore.success.body", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: “AmongChat” would like to Access the Microphone
+      /// 
+      /// Locales: en
+      static let microphoneNotAllowTitle = Rswift.StringResource(key: "microphone.not.allow.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: %1$@ online
       /// 
@@ -2554,6 +2566,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Go Settings
+      /// 
+      /// Locales: en
+      static func microphoneNotAllowSetting(_: Void = ()) -> String {
+        return NSLocalizedString("microphone.not.allow.setting", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
@@ -3207,6 +3226,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.unblock.user.success", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: To join the channel, please switch on microphone permission.
+      /// 
+      /// Locales: en
+      static func microphoneNotAllowSubtitle(_: Void = ()) -> String {
+        return NSLocalizedString("microphone.not.allow.subtitle", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3401,6 +3427,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func settingsRestoreSuccessBody(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.success.body", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: “AmongChat” would like to Access the Microphone
+      /// 
+      /// Locales: en
+      static func microphoneNotAllowTitle(_: Void = ()) -> String {
+        return NSLocalizedString("microphone.not.allow.title", bundle: R.hostingBundle, comment: "")
       }
       
       fileprivate init() {}

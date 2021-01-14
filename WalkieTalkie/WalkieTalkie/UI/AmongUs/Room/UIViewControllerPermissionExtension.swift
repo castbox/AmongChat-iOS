@@ -13,13 +13,11 @@ import SDCAlertView
 extension UIViewController {
     /// 获取麦克风权限
     func checkMicroPermission(completion: @escaping ()->()) {
-        weak var welf = self
         AVAudioSession.sharedInstance().requestRecordPermission { [weak self] isOpen in
             DispatchQueue.main.async {
-                
                 guard let `self` = self else { return }
                 if !isOpen {
-                    self.showAmongAlert(title: NSLocalizedString("“AmongChat” would like to Access the Microphone", comment: ""), message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: NSLocalizedString("Go Settings", comment: "")) {
+                    self.showAmongAlert(title: R.string.localizable.microphoneNotAllowTitle(), message: R.string.localizable.microphoneNotAllowSubtitle(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.microphoneNotAllowSetting()) {
                         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.openURL(url)
                         }
