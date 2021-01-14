@@ -105,7 +105,7 @@ extension URI {
         
         static func patterns() -> [String] {
             return [
-                "/room/:channel_id",
+                "/room/:room_id",
                 "/room",
                 "/channel/:channel_id",
                 "/channel",
@@ -116,7 +116,14 @@ extension URI {
         let sourceType: String?
         
         init?(_ paras: [String : Any]) {
-            guard let channelId = paras["channel_id"] as? String else { return nil }
+            var roomId: String?
+            if let channelId = paras["room_id"] as? String {
+                roomId = channelId
+            }
+            if roomId == nil, let channelId = paras["channel_id"] as? String {
+                roomId = channelId
+            }
+            guard let channelId = roomId else { return nil }
             self.channelId = channelId
             sourceType = paras["push_source_type"] as? String
         }
