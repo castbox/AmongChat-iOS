@@ -25,40 +25,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQ1-yU-WC6">
-                    <rect key="frame" x="0.0" y="725" width="414" height="137"/>
+                    <rect key="frame" x="0.0" y="774" width="414" height="88"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-Aa-jd8">
-                            <rect key="frame" x="323" y="68" width="51" height="40"/>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
-                            <state key="normal" title="Done">
-                                <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="profile.done"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="Grx-ll-eqA"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mFI-bm-zBR">
-                            <rect key="frame" x="40" y="68" width="64" height="40"/>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
-                            <state key="normal" title="Cancel">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="toast.cancel"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="cancelButtonAction:" destination="-1" eventType="touchUpInside" id="BPe-2J-0mP"/>
-                            </connections>
-                        </button>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="ROBLOX USERNAME" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="g0S-qs-9HB" customClass="PaddingTextField" customModule="WalkieTalkie" customModuleProvider="target">
-                            <rect key="frame" x="40" y="0.0" width="334" height="48"/>
+                            <rect key="frame" x="12" y="20" width="307" height="48"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="jPq-gV-saB"/>
-                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="295" id="vPP-7A-gdi"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                             <textInputTraits key="textInputTraits" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -78,17 +51,36 @@
                                 <outlet property="delegate" destination="-1" id="K46-Y1-dda"/>
                             </connections>
                         </textField>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfB-Aa-jd8">
+                            <rect key="frame" x="327" y="20" width="75" height="48"/>
+                            <color key="backgroundColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="48" id="Ntt-MC-8Rx"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                            <inset key="contentEdgeInsets" minX="12" minY="0.0" maxX="12" maxY="0.0"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="profile.done"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="24"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="doneButtonAction:" destination="-1" eventType="touchUpInside" id="Grx-ll-eqA"/>
+                            </connections>
+                        </button>
                     </subviews>
+                    <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="g0S-qs-9HB" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" priority="750" constant="40" id="4Uu-TR-U4e"/>
-                        <constraint firstItem="g0S-qs-9HB" firstAttribute="top" secondItem="MQ1-yU-WC6" secondAttribute="top" id="AZG-ew-xOB"/>
-                        <constraint firstAttribute="trailing" secondItem="g0S-qs-9HB" secondAttribute="trailing" priority="750" constant="40" id="GV4-gZ-IN7"/>
-                        <constraint firstAttribute="bottom" secondItem="mFI-bm-zBR" secondAttribute="bottom" constant="29" id="H7h-SA-M3I"/>
-                        <constraint firstItem="BfB-Aa-jd8" firstAttribute="top" secondItem="g0S-qs-9HB" secondAttribute="bottom" constant="20" id="KnE-Hk-NEk"/>
-                        <constraint firstItem="g0S-qs-9HB" firstAttribute="centerX" secondItem="MQ1-yU-WC6" secondAttribute="centerX" id="WyH-Oq-BLx"/>
-                        <constraint firstItem="mFI-bm-zBR" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="40" id="cxd-tE-Dnl"/>
-                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="40" id="xgk-14-spq"/>
-                        <constraint firstItem="BfB-Aa-jd8" firstAttribute="centerY" secondItem="mFI-bm-zBR" secondAttribute="centerY" id="zDr-mT-FkV"/>
+                        <constraint firstItem="g0S-qs-9HB" firstAttribute="top" secondItem="MQ1-yU-WC6" secondAttribute="top" constant="20" id="6fC-Ho-i8f"/>
+                        <constraint firstItem="BfB-Aa-jd8" firstAttribute="leading" secondItem="g0S-qs-9HB" secondAttribute="trailing" constant="8" id="iUc-32-tPa"/>
+                        <constraint firstItem="g0S-qs-9HB" firstAttribute="leading" secondItem="MQ1-yU-WC6" secondAttribute="leading" constant="12" id="l6O-Ob-sTn"/>
+                        <constraint firstItem="BfB-Aa-jd8" firstAttribute="centerY" secondItem="g0S-qs-9HB" secondAttribute="centerY" id="llB-LU-GyF"/>
+                        <constraint firstAttribute="bottom" secondItem="g0S-qs-9HB" secondAttribute="bottom" constant="20" id="uDS-Rz-Xjv"/>
+                        <constraint firstAttribute="trailing" secondItem="BfB-Aa-jd8" secondAttribute="trailing" constant="12" id="xL4-VV-TTz"/>
                     </constraints>
                 </view>
             </subviews>
