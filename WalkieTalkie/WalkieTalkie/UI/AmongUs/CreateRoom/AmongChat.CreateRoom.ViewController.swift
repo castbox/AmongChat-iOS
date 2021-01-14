@@ -514,7 +514,7 @@ extension AmongChat.CreateRoom.ViewController {
             claimBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, self] (_) in
                     alertVC?.dismiss()
-                    
+                    self.showAd()
                 }).disposed(by: bag)
             
             cancelBtn.rx.controlEvent(.primaryActionTriggered)
@@ -557,6 +557,22 @@ extension AmongChat.CreateRoom.ViewController {
         
         decorateAlert(alertVC)
         alertVC.present()
+    }
+    
+    private func showAd() {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .channelCard)
+            .take(1)
+            .asSingle()
+            .subscribe(onSuccess: { (_) in
+                hudRemoval()
+            }, onError: { [weak self] (error) in
+                hudRemoval()
+                self?.view.raft.autoShow(.text(error.localizedDescription))
+            })
+            .disposed(by: bag)
     }
 }
 
