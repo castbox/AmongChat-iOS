@@ -133,7 +133,7 @@ extension AmongChat.CreateRoom {
         }
         
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
-        private lazy var topicDataSource: [TopicViewModel] = (Settings.shared.supportedTopics.value?.topicList ?? [Entity.SummaryTopic]())
+        private lazy var topicDataSource: [TopicViewModel] = [Entity.SummaryTopic]()
             .map { TopicViewModel(with: $0) } {
             didSet {
                 topicCollectionView.reloadData()
@@ -310,9 +310,25 @@ extension AmongChat.CreateRoom.ViewController {
             })
             .disposed(by: bag)
         
-        Settings.shared.lastCreatedTopic.replay().filterNil()
+        Observable.combineLatest(Settings.shared.lastCreatedTopic.replay().take(1),
+                                 Settings.shared.supportedTopics.replay())
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (topic) in
+            .subscribe(onNext: { [weak self] topic, summary in
+                
+                guard let `self` = self,
+                      var supportedTopics = summary?.topicList,
+                      supportedTopics.count > 0 else {
+                    return
+                }
+                
+                if let topic = topic,
+                   let lastTopic = supportedTopics.removeFirst(where: { $0.topicId == topic.topicId }) {
+                    supportedTopics.insert(lastTopic, at: 0)
+                }
+                
+                self.topicDataSource = supportedTopics.map({ TopicViewModel(with: $0) })
+                
+                self.topicCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
                 
             })
             .disposed(by: bag)
@@ -372,7 +388,7 @@ extension AmongChat.CreateRoom.ViewController {
     
     private func fetchData() {
         
-        let hudRemoval: (() -> Void)? = topicDataSource.count > 0 ? nil : view.raft.show(.loading, userInteractionEnabled: false)
+        let hudRemoval: (() -> Void)? = Settings.shared.supportedTopics.value?.topicList.count ?? 0 > 0 ? nil : view.raft.show(.loading, userInteractionEnabled: false)
         Request.topics()
             .do(onDispose: {
                 hudRemoval?()
@@ -382,8 +398,7 @@ extension AmongChat.CreateRoom.ViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                self?.topicDataSource = summary.topicList.map({ TopicViewModel(with: $0) })
-                
+                Settings.shared.supportedTopics.value = summary
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
             })
