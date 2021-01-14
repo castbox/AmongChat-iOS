@@ -46,6 +46,13 @@ extension AmongChat.Home.MainTabController {
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             let view = AmongChat.Home.StrangeInvitationView()
             view.updateContent(user: user, room: room)
+            view.bindEvent { [weak self] in
+                self?.enter(room: room)
+                self?.dismissNotificationBanner()
+            } ignore: { [weak self] in
+                self?.dismissNotificationBanner()
+            }
+
 //            let dimmerView = UIView(frame: Frame.Screen.bounds)
 //            dimmerView.isUserInteractionEnabled = true
 //            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
@@ -70,13 +77,10 @@ extension AmongChat.Home.MainTabController {
             let banner = FloatingNotificationBanner(customView: view)
             banner.duration = 10
             banner.dismissOnTap = true
+            banner.bannerHeight = 119
             banner.onTap = { [weak banner] in
                 banner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-                    return
-                }
-                topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
             }
             banner.rx.notificationBannerWillDisappear
                 .subscribe(onCompleted: { [weak self] in
@@ -92,10 +96,18 @@ extension AmongChat.Home.MainTabController {
                 .disposed(by: bag)
 
             banner.transparency = 1
-            banner.show(on: self, edgeInsets: UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
-            self.notificationBanner = banner
+            banner.show(on: self, edgeInsets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
+            notificationBanner = banner
         }
-
+        
+    }
+    
+    
+    func enter(room: Entity.FriendUpdatingInfo.Room) {
+        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+            return
+        }
+        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
     }
     
     private func setupLayout() {
@@ -126,36 +138,37 @@ extension AmongChat.Home.MainTabController {
     private func setupEvent() {
         imViewModel.invitationObservable
             .subscribe(onNext: { user, room in
-                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
-                      !(topVC is AmongChat.Room.ViewController),
-                      !topVC.isRequestingRoom else {
-                    return
-                }
-                
-                let invitationModal: AmongChat.Home.RoomInvitationModal
-                
-                if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
-                    invitationModal = currentModal
-                } else {
-                    invitationModal = AmongChat.Home.RoomInvitationModal()
-                    invitationModal.modalPresentationStyle = .overCurrentContext
-                    topVC.present(invitationModal, animated: false)
-                }
-                
-                invitationModal.updateContent(user: user, room: room)
-                invitationModal.bindEvent(join: {
-                    invitationModal.dismiss(animated: false) {
-                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-                            return
-                        }
-                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
-                    }
-                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
-                }, ignore: {
-                    invitationModal.dismiss(animated: false)
-                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
-                })
-                
+//                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
+//                      !(topVC is AmongChat.Room.ViewController),
+//                      !topVC.isRequestingRoom else {
+//                    return
+//                }
+//
+//                let invitationModal: AmongChat.Home.RoomInvitationModal
+//
+//                if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
+//                    invitationModal = currentModal
+//                } else {
+//                    invitationModal = AmongChat.Home.RoomInvitationModal()
+//                    invitationModal.modalPresentationStyle = .overCurrentContext
+//                    topVC.present(invitationModal, animated: false)
+//                }
+//
+//                invitationModal.updateContent(user: user, room: room)
+//                invitationModal.bindEvent(join: {
+//                    invitationModal.dismiss(animated: false) {
+//                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+//                            return
+//                        }
+//                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+//                    }
+//                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
+//                }, ignore: {
+//                    invitationModal.dismiss(animated: false)
+//                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
+//                })
+                self.onReceive(strangerInvigation: user, room: room)
+
             })
             .disposed(by: bag)
         
