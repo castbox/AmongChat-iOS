@@ -83,7 +83,7 @@ extension AmongChat.Room {
                 .take(1)
                 .flatMap({ (_) -> Single<Entity.RTMToken?> in
                     cdPrint("requet loginSDK-token")
-                    return Request.requestRtmToken()
+                    return Request.rtmToken()
                 })
                 .subscribe(onNext: { [weak self] token in
                     guard let `self` = self, let token = token, let uid = Settings.loginUserId?.string else { return }
