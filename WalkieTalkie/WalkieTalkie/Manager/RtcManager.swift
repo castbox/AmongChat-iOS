@@ -214,12 +214,6 @@ class RtcManager: NSObject {
     func muteLocalAudioStream(_ muted: Bool) {
         mRtcEngine.muteLocalAudioStream(muted)
         delegate?.onUserMuteAudio(uid: mUserId, muted: muted)
-        //set role
-        if muted {
-            setClientRole(.audience)
-        } else {
-            setClientRole(.broadcaster)
-        }
     }
 
     func startAudioMixing(_ filePath: String?) {
