@@ -128,7 +128,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 127 images.
+  /// This `R.image` struct is generated, and contains static references to 128 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -224,6 +224,8 @@ struct R: Rswift.Validatable {
     static let ac_red_dot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_red_dot")
     /// Image `ac_right_arrow`.
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
+    /// Image `ac_room_card2`.
+    static let ac_room_card2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_card2")
     /// Image `ac_room_card`.
     static let ac_room_card = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_card")
     /// Image `ac_room_copylink`.
@@ -623,6 +625,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_card", bundle: ..., traitCollection: ...)`
     static func ac_room_card(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_card, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_room_card2", bundle: ..., traitCollection: ...)`
+    static func ac_room_card2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_card2, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_room_copylink", bundle: ..., traitCollection: ...)`

@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SDCAlertView
 
 extension AmongChat.CreateRoom {
     
@@ -169,6 +170,51 @@ extension AmongChat.CreateRoom.ViewController {
     @objc
     private func onConfirmBtn() {
 //        Logger.Action.log(.create_topic_create, categoryValue: name, privateStateSwitch.roomPublicType.rawValue)
+        
+        let alert = amongChatAlert(title: nil,
+                                   cancelTitle: R.string.localizable.toastCancel(),
+                                   confirmTitle: R.string.localizable.amongChatCreateRoomCreate()) { [weak self] in
+            self?.showAdAlert()
+        }
+        
+        let content: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            
+            let tipLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 16)
+                lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatCreateRoomCardConsumeContent()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            let cardIcon = UIImageView(image: R.image.ac_room_card2())
+            
+            v.addSubviews(views: tipLb, cardIcon)
+            
+            cardIcon.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(20)
+            }
+            
+            tipLb.snp.makeConstraints { (maker) in
+                maker.top.equalTo(cardIcon.snp.bottom).offset(12)
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.bottom.equalToSuperview().inset(24)
+            }
+            
+            return v
+        }()
+        
+        alert.contentView.addSubview(content)
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        decorateAlert(alert)
+        alert.present()
     }
     
     @objc
@@ -213,7 +259,7 @@ extension AmongChat.CreateRoom.ViewController {
             
             tipLb.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview().offset(31)
-                maker.leading.trailing.equalToSuperview().inset(42)
+                maker.leading.trailing.equalToSuperview().inset(20)
             }
             
             let cardLayout = UILayoutGuide()
@@ -246,8 +292,7 @@ extension AmongChat.CreateRoom.ViewController {
         content.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
-        alert.visualStyle.width = Frame.Screen.width - 28 * 2
-        alert.visualStyle.verticalElementSpacing = 0
+        decorateAlert(alert)
         alert.present()
     }
 }
@@ -403,6 +448,115 @@ extension AmongChat.CreateRoom.ViewController {
                 self?.view.raft.autoShow(.text(error.localizedDescription))
             })
             .disposed(by: bag)
+    }
+    
+    private func decorateAlert(_ alert: AlertController) {
+        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        alert.visualStyle.verticalElementSpacing = 0
+        alert.visualStyle.contentPadding = UIEdgeInsets(top: 33.5, left: 0, bottom: 0, right: 0)
+        alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
+    }
+    
+    private func showAdAlert() {
+        
+        let alertVC = AlertController(title: nil, message: nil, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        let content: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            
+            let tipLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 20)
+                lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatCreateRoomCardInsufficientTitle()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            let msgLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 14)
+                lb.textColor = UIColor(hex6: 0xABABAB)
+                lb.text = R.string.localizable.amongChatCreateRoomCardInsufficientContent()
+                lb.textAlignment = .center
+                lb.numberOfLines = 0
+                return lb
+            }()
+            
+            let claimBtn: UIButton = {
+                let btn = UIButton(type: .custom)
+                btn.layer.cornerRadius = 24
+                btn.backgroundColor = UIColor(hexString: "#FFF000")
+                btn.setTitle(R.string.localizable.amongChatCreateRoomCardClaim(), for: .normal)
+                btn.setTitleColor(.black, for: .normal)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                btn.setImage(R.image.ac_channel_card_ad(), for: .normal)
+                btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+                btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                return btn
+            }()
+            
+            let cancelBtn: UIButton = {
+                let btn = UIButton(type: .custom)
+                btn.backgroundColor = .clear
+                btn.setTitle(R.string.localizable.toastCancel(), for: .normal)
+                btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                return btn
+            }()
+            
+            claimBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak alertVC, self] (_) in
+                    alertVC?.dismiss()
+                    
+                }).disposed(by: bag)
+            
+            cancelBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak alertVC] (_) in
+                    alertVC?.dismiss()
+                })
+                .disposed(by: bag)
+            
+            v.addSubviews(views: tipLb, msgLb, claimBtn, cancelBtn)
+            
+            tipLb.snp.makeConstraints { (maker) in
+                maker.top.equalTo(20)
+                maker.leading.trailing.equalToSuperview().inset(20)
+            }
+            
+            msgLb.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(tipLb.snp.bottom).offset(12)
+            }
+            
+            claimBtn.snp.makeConstraints { (maker) in
+                maker.height.equalTo(48)
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(msgLb.snp.bottom).offset(24)
+            }
+            
+            cancelBtn.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(claimBtn.snp.bottom).offset(12)
+                maker.bottom.equalToSuperview().inset(16)
+            }
+            
+            return v
+        }()
+
+        alertVC.contentView.addSubview(content)
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        decorateAlert(alertVC)
+        alertVC.present()
     }
 }
 
