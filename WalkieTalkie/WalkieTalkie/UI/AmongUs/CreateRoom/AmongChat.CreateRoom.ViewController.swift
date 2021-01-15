@@ -121,6 +121,8 @@ extension AmongChat.CreateRoom {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.addTarget(self, action: #selector(onCardBtn), for: .primaryActionTriggered)
             btn.setImage(R.image.ac_room_card(), for: .normal)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
             return btn
         }()
         
@@ -271,7 +273,7 @@ extension AmongChat.CreateRoom.ViewController {
             
             let cardCountLb: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoBold(size: 20)
+                lb.font = R.font.nunitoExtraBold(size: 20)
                 lb.textColor = UIColor.white
                 lb.text = "x\(cardDataRelay.value?.freeRoomCards ?? 0)"
                 return lb
