@@ -22,7 +22,7 @@ extension Search {
         var rightIndicatorView: UIActivityIndicatorView!
         private let fontSize: CGFloat
         
-        init(fontSize: CGFloat = 20) {
+        init(fontSize: CGFloat = 18) {
             self.fontSize = fontSize
             super.init(frame: .zero)
             bindSubviewEvent()

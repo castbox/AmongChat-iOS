@@ -304,7 +304,6 @@ extension Social.ProfileViewController {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
-                maker.bottom.equalTo(uidLabel.snp.top)
             }
 
             uidLabel.snp.makeConstraints { (maker) in

@@ -278,6 +278,9 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard let item = items.safe(section), !item.userLsit.isEmpty else {
+            return 0
+        }
         return 59
     }
     
