@@ -127,7 +127,7 @@ extension AmongChat.CreateRoom {
         }()
         
         private lazy var bottomrBarShadowIV: UIImageView = {
-            let i = UIImageView(image: R.image.ac_home_tab_shadow())
+            let i = UIImageView(image: R.image.ac_create_room_bar_top_shadow())
             return i
         }()
         
