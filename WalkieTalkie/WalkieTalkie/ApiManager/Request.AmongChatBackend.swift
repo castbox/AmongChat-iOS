@@ -457,4 +457,13 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
 
+    static func topics() -> Single<Entity.Summary?> {
+        
+        return amongchatProvider.rx.request(.topics)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Summary.self)
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }
