@@ -165,12 +165,16 @@ extension Request {
         
         return amongchatProvider.rx.request(.createRoom(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in
-                guard let roomData = item["room"] as? [String : AnyObject] else {
-                    return [:]
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
                 }
-                return roomData
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["room"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
             }
             .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
@@ -465,5 +469,13 @@ extension Request {
             .mapTo(Entity.Summary.self)
             .observeOn(MainScheduler.asyncInstance)
         
+    }
+    
+    static func accountMetaData() -> Single<Entity.AccountMetaData?> {
+        return amongchatProvider.rx.request(.topics)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.AccountMetaData.self)
+            .observeOn(MainScheduler.asyncInstance)
     }
 }

@@ -151,6 +151,8 @@ extension AmongChat.CreateRoom {
             return topic
         }
         
+        private var cardDataRelay = BehaviorRelay<Entity.AccountMetaData?>(value: nil)
+        
         // MARK: -
                 
         override func viewDidLoad() {
@@ -185,6 +187,12 @@ extension AmongChat.CreateRoom.ViewController {
             return
         }
         
+        guard let card = cardDataRelay.value,
+              card.freeRoomCards > 0 else {
+            showAdAlert(topic: topic)
+            return
+        }
+        
         Logger.Action.log(.create_topic_create, categoryValue: topic.topic.topicId, privateStateSwitch.roomPublicType.rawValue)
         
         let alert = amongChatAlert(title: nil,
@@ -194,7 +202,7 @@ extension AmongChat.CreateRoom.ViewController {
                                     Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "cancel")
                                    }) { [weak self] in
             Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "create")
-            self?.showAdAlert(topic: topic)
+            self?.createRoom(with: topic, freeCard: true)
         }
         
         let content: UIView = {
@@ -265,6 +273,7 @@ extension AmongChat.CreateRoom.ViewController {
                 let lb = UILabel()
                 lb.font = R.font.nunitoBold(size: 20)
                 lb.textColor = UIColor.white
+                lb.text = "x\(cardDataRelay.value?.freeRoomCards ?? 0)"
                 return lb
             }()
             
@@ -400,12 +409,18 @@ extension AmongChat.CreateRoom.ViewController {
                 self.topicCollectionView.contentOffset = .zero
             })
             .disposed(by: bag)
+        
+        cardDataRelay.subscribe(onNext: { [weak self] (data) in
+            self?.cardButton.setTitle("x\(data?.freeRoomCards ?? 0)", for: .normal)
+        })
+        .disposed(by: bag)
     }
     
-    private func createRoom(with topic: TopicViewModel) {
-                        
+    private func createRoom(with topic: TopicViewModel, freeCard: Bool) {
+        
         var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
+        roomProto.entry = freeCard ? nil : Entity.RoomProto.watchAdEntry
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         let _ = Request.createRoom(roomProto)
@@ -424,7 +439,14 @@ extension AmongChat.CreateRoom.ViewController {
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                
+                guard (error as NSError).code != 3004 else {
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                    return
+                }
+                
+                self?.showAdAlert(topic: topic)
+                
             })
     }
     
@@ -443,6 +465,13 @@ extension AmongChat.CreateRoom.ViewController {
                 Settings.shared.supportedTopics.value = summary
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
+            })
+            .disposed(by: bag)
+        
+        Request.accountMetaData()
+            .subscribe(onSuccess: { [weak self] (data) in
+                guard let data = data else { return }
+                self?.cardDataRelay.accept(data)
             })
             .disposed(by: bag)
     }
@@ -568,12 +597,12 @@ extension AmongChat.CreateRoom.ViewController {
             .subscribe(onSuccess: { (_) in
                 hudRemoval()
                 Logger.Action.log(.space_card_ads_claim_success)
-                self.createRoom(with: topic)
+                self.createRoom(with: topic, freeCard: false)
             }, onError: { [weak self] (error) in
                 hudRemoval()
                 self?.view.raft.autoShow(.text(error.localizedDescription))
                 Logger.Action.log(.space_card_ads_claim_failed)
-                self?.createRoom(with: topic)
+                self?.createRoom(with: topic, freeCard: false)
             })
             .disposed(by: bag)
     }

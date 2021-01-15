@@ -44,9 +44,13 @@ extension Entity {
 
 extension Entity {
     struct RoomProto: Encodable {
+        
+        static let watchAdEntry = "watch_ad"
+        
         var note: String
         var state: RoomPublicType
         var topicId: String
+        var entry: String?
         
         init() {
             note = ""
@@ -286,5 +290,15 @@ extension Entity {
             return PlayingUser(user: user, room: room)
         }
         
+    }
+}
+
+extension Entity {
+    
+    struct AccountMetaData: Codable {
+        var freeRoomCards: Int
+        private enum CodingKeys: String, CodingKey {
+            case freeRoomCards = "free_room_cards"
+        }
     }
 }

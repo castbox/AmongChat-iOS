@@ -50,6 +50,7 @@ extension APIService {
         case onlineStrangers
         case userSearch([String: Any])
         case topics
+        case accountMetaData
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -140,6 +141,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/live/user/search"
         case .topics:
             return "/api/v1/topics"
+        case .accountMetaData:
+            return "/account/meta_data"
         }
     }
     
@@ -181,6 +184,7 @@ extension APIService.AmongChatBackend: TargetType {
              .exitRoomRecommend,
              .onlineStrangers,
              .topics,
+             .accountMetaData,
              .userSearch:
             return .get
         case .follow:
@@ -206,6 +210,7 @@ extension APIService.AmongChatBackend: TargetType {
              .recommendedUsers,
              .onlineStrangers,
              .topics,
+             .accountMetaData,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
