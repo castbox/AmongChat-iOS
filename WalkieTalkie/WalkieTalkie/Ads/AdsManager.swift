@@ -413,7 +413,7 @@ class AdsManager: NSObject {
                 return isReady
             }
             .take(1)
-//            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
+            .timeout(.seconds(30), scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
                 self.hasRetryForAdLoadFailed = false
