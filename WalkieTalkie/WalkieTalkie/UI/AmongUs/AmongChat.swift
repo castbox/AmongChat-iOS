@@ -22,9 +22,9 @@ extension AmongChat {
         case freefire
         case minecraft
         case chilling = "justchatting"
-        case callofduty
-        case pubgmobile
-        case mobilelegends
+        case callofduty = "callofduty_1"
+        case pubgmobile = "pubgmobile_1"
+        case mobilelegends = "mobilelegends_1"
     }
     
     //用户身份
