@@ -64,7 +64,7 @@ extension AmongChat.Home.MainTabController {
 
             let banner = FloatingNotificationBanner(customView: view)
             banner.autoDismiss = false
-            banner.bannerHeight = 112
+            banner.bannerHeight = 112 + (Frame.Height.isXStyle ? 20 : 0)
             banner.onTap = { [weak banner] in
                 banner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
