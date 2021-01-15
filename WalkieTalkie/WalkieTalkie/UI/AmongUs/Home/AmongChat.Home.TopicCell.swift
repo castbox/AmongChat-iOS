@@ -87,6 +87,7 @@ extension AmongChat.Home {
         
         override func layoutSubviews() {
             super.layoutSubviews()
+            teamUpBtn.layoutIfNeeded()
             teamUpBtn.layer.cornerRadius = teamUpBtn.bounds.height / 2
         }
         
@@ -141,6 +142,7 @@ extension AmongChat.Home {
                     maker.leading.equalTo(coverIV.snp.trailing)
                     maker.trailing.equalToSuperview()
                     maker.centerY.equalTo(textSpaceLayout)
+                    maker.top.greaterThanOrEqualTo(textSpaceLayout)
                 }
                 
                 nameLabel.snp.remakeConstraints { (maker) in
