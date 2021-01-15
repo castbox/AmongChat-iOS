@@ -98,8 +98,9 @@ class RtcManager: NSObject {
         unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
         self.channelId = channelId
+        cdPrint("join \(channelId) \(userId)")
         let result = mRtcEngine.joinChannel(byToken: token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
-            cdPrint("rtc join success \(channel) \(uid)")
+            cdPrint("join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
