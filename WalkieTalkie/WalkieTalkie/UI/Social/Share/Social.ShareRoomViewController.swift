@@ -162,7 +162,7 @@ extension Social {
                 make.height.equalTo(4)
             }
             
-            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 146)
+            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 114)
             tableView.tableHeaderView = headerView
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
@@ -266,9 +266,8 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         let lable = UILabel()
         v.addSubview(lable)
         lable.snp.makeConstraints { (make) in
-            make.left.equalTo(20)
-            make.right.equalTo(-20)
-            make.bottom.equalTo(-2.5)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(30)
         }
         lable.textColor = .white
         lable.font = R.font.nunitoExtraBold(size: 20)
@@ -278,7 +277,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 29.5
+        return 59
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
