@@ -377,12 +377,12 @@ class AdsManager: NSObject {
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
-        switch adPostion {
-        case .unlockAvatar:
+//        switch adPostion {
+//        case .unlockAvatar:
             return "a545cd81a6814a4bb06a6e6055ed5e58"
-        case .channelCard:
-            return "bacb18c823584a5cbcd04f6768e7bf9b"
-        }
+//        case .channelCard:
+//            return "bacb18c823584a5cbcd04f6768e7bf9b"
+//        }
     }
     
     func earnARewardOfVideo(fromVC: UIViewController, adPosition: RewardedVideoPosition) -> Observable<Void> {
