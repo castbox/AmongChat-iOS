@@ -425,9 +425,20 @@ extension AmongChat.CreateRoom.ViewController {
         roomProto.entry = freeCard ? nil : Entity.RoomProto.watchAdEntry
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let loadingCompletion = { [weak self] in
+            hudRemoval()
+            self?.bottomBar.isUserInteractionEnabled = true
+            self?.topicCollectionView.isUserInteractionEnabled = true
+        }
+        
+        bottomBar.isUserInteractionEnabled = false
+        topicCollectionView.isUserInteractionEnabled = false
+
+        
         let _ = Request.createRoom(roomProto)
             .do(onDispose: {
-                hudRemoval()
+                loadingCompletion()
             })
             .subscribe(onSuccess: { [weak self] (room) in
                 guard let `self` = self else {
@@ -593,15 +604,23 @@ extension AmongChat.CreateRoom.ViewController {
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
+        let loadingCompletion = { [weak self] in
+            hudRemoval()
+            self?.bottomBar.isUserInteractionEnabled = true
+            self?.topicCollectionView.isUserInteractionEnabled = true
+        }
+        
+        bottomBar.isUserInteractionEnabled = false
+        topicCollectionView.isUserInteractionEnabled = false
         AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .channelCard)
             .take(1)
             .asSingle()
             .subscribe(onSuccess: { (_) in
-                hudRemoval()
+                loadingCompletion()
                 Logger.Action.log(.space_card_ads_claim_success)
                 self.createRoom(with: topic, freeCard: false)
             }, onError: { [weak self] (error) in
-                hudRemoval()
+                loadingCompletion()
                 self?.view.raft.autoShow(.text(error.localizedDescription))
                 Logger.Action.log(.space_card_ads_claim_failed)
                 self?.createRoom(with: topic, freeCard: false)
