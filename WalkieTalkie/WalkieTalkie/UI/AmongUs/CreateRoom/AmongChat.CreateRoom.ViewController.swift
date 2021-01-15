@@ -194,7 +194,7 @@ extension AmongChat.CreateRoom.ViewController {
                                     Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "cancel")
                                    }) { [weak self] in
             Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "create")
-            self?.showAdAlert()
+            self?.showAdAlert(topic: topic)
         }
         
         let content: UIView = {
@@ -454,7 +454,7 @@ extension AmongChat.CreateRoom.ViewController {
         alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
     }
     
-    private func showAdAlert() {
+    private func showAdAlert(topic: TopicViewModel) {
         
         let alertVC = AlertController(title: nil, message: nil, preferredStyle: .alert)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
@@ -511,7 +511,7 @@ extension AmongChat.CreateRoom.ViewController {
             claimBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, self] (_) in
                     alertVC?.dismiss()
-                    self.showAd()
+                    self.showAd(topic: topic)
                     Logger.Action.log(.space_card_ads_claim_clk)
                 }).disposed(by: bag)
             
@@ -558,7 +558,7 @@ extension AmongChat.CreateRoom.ViewController {
         Logger.Action.log(.space_card_ads_dialog_imp)
     }
     
-    private func showAd() {
+    private func showAd(topic: TopicViewModel) {
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
@@ -568,10 +568,12 @@ extension AmongChat.CreateRoom.ViewController {
             .subscribe(onSuccess: { (_) in
                 hudRemoval()
                 Logger.Action.log(.space_card_ads_claim_success)
+                self.createRoom(with: topic)
             }, onError: { [weak self] (error) in
                 hudRemoval()
                 self?.view.raft.autoShow(.text(error.localizedDescription))
                 Logger.Action.log(.space_card_ads_claim_failed)
+                self?.createRoom(with: topic)
             })
             .disposed(by: bag)
     }
