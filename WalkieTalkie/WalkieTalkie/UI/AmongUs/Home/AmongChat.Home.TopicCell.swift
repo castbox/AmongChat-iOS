@@ -126,6 +126,35 @@ extension AmongChat.Home {
             
             if UIScreen.main.bounds.width < 375 {
                 
+                let textSpaceLayout = UILayoutGuide()
+                contentView.addLayoutGuide(textSpaceLayout)
+                textSpaceLayout.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(coverIV.snp.trailing)
+                    maker.trailing.equalToSuperview()
+                    maker.top.equalTo(bgIV)
+                    maker.bottom.equalTo(teamUpBtn.snp.top)
+                }
+                
+                let textLayout = UILayoutGuide()
+                contentView.addLayoutGuide(textLayout)
+                textLayout.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(coverIV.snp.trailing)
+                    maker.trailing.equalToSuperview()
+                    maker.centerY.equalTo(textSpaceLayout)
+                }
+                
+                nameLabel.snp.remakeConstraints { (maker) in
+                    maker.leading.equalTo(coverIV.snp.trailing).offset(12)
+                    maker.trailing.equalToSuperview().inset(12)
+                    maker.top.equalTo(textLayout)
+                }
+                
+                nowPlayingLabel.snp.remakeConstraints { (maker) in
+                    maker.leading.trailing.equalTo(nameLabel)
+                    maker.top.equalTo(nameLabel.snp.bottom).offset(1)
+                    maker.bottom.equalTo(textLayout)
+                }
+                
                 nameLabel.font = R.font.bungeeRegular(size: 16)
                 nowPlayingLabel.font = R.font.nunitoSemiBold(size: 12)
                 teamUpBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
