@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SnapKit
 
 extension AmongChat.Home {
     
@@ -299,8 +300,9 @@ extension AmongChat.Home {
             }
         }
         
-        func configTitle(_ title: String) {
+        func configTitle(_ title: String, constraints: (_ make: ConstraintMaker) -> Void) {
             titleLabel.text = title
+            titleLabel.snp.remakeConstraints(constraints)
         }
     }
     
@@ -379,6 +381,10 @@ extension AmongChat.Home {
             let _ = tap.rx.event.bind(onNext: { [weak self] (_) in
                 self?.onSelect?()
             })
+        }
+        
+        func configContent(constraints: (_ make: ConstraintMaker) -> Void) {
+            contentView.snp.remakeConstraints(constraints)
         }
     }
     

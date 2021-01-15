@@ -87,14 +87,8 @@ extension AmongChat.Home.RelationsViewController {
         
         friendsCollectionView.snp.makeConstraints { (maker) in
             maker.top.equalTo(navigationView.snp.bottom)
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.bottom.equalToSuperview()
-        }
-        
-                
-        friendsCollectionView.snp.makeConstraints { (maker) in
-            maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(navigationView.snp.bottom)
         }
         
     }
@@ -233,9 +227,15 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
             
             if indexPath.section == 0 {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle())
+                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.top.equalToSuperview().offset(24)
+                }
             } else {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle())
+                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.top.bottom.equalToSuperview()
+                }
             }
             
             header.isHidden = (dataSource.safe(indexPath.section)?.count ?? 0) == 0
@@ -250,6 +250,21 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                     self?.shareApp()
                     Logger.Action.log(.home_friends_invite_clk)
                 }
+                
+                if dataSource.safe(indexPath.section)?.count ?? 0 > 0 {
+                    shareFooter.configContent { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.equalToSuperview().offset(7)
+                        maker.height.equalTo(68)
+                    }
+                } else {
+                    shareFooter.configContent { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.equalToSuperview().offset(24)
+                        maker.height.equalTo(68)
+                    }
+                }
+                
                 reusableView = shareFooter
             } else {
                 reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
@@ -270,15 +285,23 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if dataSource.safe(section)?.count ?? 0 > 0 {
-            return CGSize(width: Frame.Screen.width, height: 31)
-        } else {
-            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+            if section == 0 {
+                return CGSize(width: Frame.Screen.width, height: 53)
+            } else if section == 1 {
+                return CGSize(width: Frame.Screen.width, height: 47)
+            }
         }
+        return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize(width: Frame.Screen.width, height: 113)
+            if dataSource.safe(section)?.count ?? 0 > 0 {
+                return CGSize(width: Frame.Screen.width, height: 121)
+            } else {
+                return CGSize(width: Frame.Screen.width, height: 138)
+            }
+            
         } else {
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }
