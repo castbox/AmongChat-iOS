@@ -315,7 +315,7 @@ extension AmongChat.Home {
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
-            lb.textColor = UIColor(hex6: 0x898989)
+            lb.textColor = UIColor(hex6: 0xFFFFFF)
             lb.text = R.string.localizable.amongChatHomeFriendsShareTitle()
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
