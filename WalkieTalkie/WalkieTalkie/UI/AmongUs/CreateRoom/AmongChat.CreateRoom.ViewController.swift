@@ -127,7 +127,7 @@ extension AmongChat.CreateRoom {
         }()
         
         private lazy var bottomrBarShadowIV: UIImageView = {
-            let i = UIImageView(image: R.image.ac_home_tab_shadow())
+            let i = UIImageView(image: R.image.ac_create_room_bar_top_shadow())
             return i
         }()
         
@@ -439,7 +439,7 @@ extension AmongChat.CreateRoom.ViewController {
                 }
                 
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
-                
+                Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
                 
                 guard (error as NSError).code != 3004 else {

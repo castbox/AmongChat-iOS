@@ -21,10 +21,9 @@ extension AmongChat.CreateRoom {
         private lazy var gradientMusk: CAGradientLayer = {
             let l = CAGradientLayer()
             l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 0.16).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
-            l.startPoint = CGPoint(x: 0.5, y: 0.54)
-            l.endPoint = CGPoint(x: 1.22, y: 1.22)
+            l.startPoint = CGPoint(x: 0.5, y: 0.5)
+            l.endPoint = CGPoint(x: 0.5, y: 1.22)
             l.locations = [0, 0.2, 1]
-            l.cornerRadius = 12
             return l
         }()
         
