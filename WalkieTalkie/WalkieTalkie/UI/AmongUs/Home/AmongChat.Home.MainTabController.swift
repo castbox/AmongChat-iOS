@@ -47,9 +47,14 @@ extension AmongChat.Home.MainTabController {
             let view = AmongChat.Home.StrangeInvitationView()
             view.updateContent(user: user, room: room)
             view.bindEvent { [weak self] in
+                self?.notificationBanner?.isDismissedByTapEvent = true
+                Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
                 self?.enter(room: room)
                 self?.dismissNotificationBanner()
             } ignore: { [weak self] in
+                self?.notificationBanner?.isDismissedByTapEvent = true
+                Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "ignore")
+
                 self?.dismissNotificationBanner()
             }
 

@@ -97,6 +97,7 @@ extension AmongChat.Home {
 extension AmongChat.Home.NavigationBar: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         Routes.handle("/search")
+        Logger.Action.log(.home_search_clk)
         return false
     }
 }

@@ -36,7 +36,7 @@ extension Search {
         }
         
         private func bindSubviewEvent() {
-            backgroundColor = "#FFFFFF".color().alpha(0.1)
+            backgroundColor = "#222222".color()
             cornerRadius = 18
             clipsToBounds = true
             leftView = UIImageView(image: R.image.ac_image_search())
@@ -265,32 +265,7 @@ extension Search {
 }
 
 extension Search.ViewController: UITextFieldDelegate {
-    
-    // MARK: - UITextFieldDelegate
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = true
-//        isHidden = true
-//        fadeOut(duration: 0.25, completion: nil)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = false
-//        isHidden = false
-//        alpha = 1
-//        fadeIn(duration: 0.25, completion: nil)
-    }
         
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        guard let textFieldText = textField.text,
-//              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-//            return false
-//        }
-//        let substringToReplace = textFieldText[rangeOfTextToReplace]
-//        let count = textFieldText.count - substringToReplace.count + string.count
-//        return count <= 10
-//    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         textField.resignFirstResponder()
@@ -299,7 +274,7 @@ extension Search.ViewController: UITextFieldDelegate {
               text.count > 0 else {
             return true
         }
-        Logger.PageShow.logger("search", "", text ?? "", 0)
+        Logger.Action.log(.search_done)
         search(key: text)
         return true
     }
@@ -333,7 +308,7 @@ extension Search.ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let user = userList.safe(indexPath.row) {
-//            addLogForProfile(with: user.uid)
+            Logger.Action.log(.search_result_clk, category: .profile, user.uid.string)
             let vc = Social.ProfileViewController(with: user.uid)
             vc.followedHandle = { [weak self](followed) in
                 guard let `self` = self else { return }
@@ -430,16 +405,12 @@ extension Search {
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
                 maker.right.equalTo(-115)
                 maker.top.equalTo(avatarIV)
-//                maker.height.equalTo(30)
-//                maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
             uidLabel.snp.makeConstraints { (maker) in
                 maker.left.equalTo(avatarIV.snp.right).offset(12)
                 maker.right.equalTo(-115)
-//                maker.height.equalTo(30)
                 maker.top.equalTo(usernameLabel.snp.bottom)
-//                maker.centerY.equalTo(avatarIV.snp.centerY)
                 maker.bottom.equalTo(avatarIV)
             }
             
@@ -454,13 +425,7 @@ extension Search {
                 .observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    if self.isInvite {
-                        if self.userInfo != nil {
-                            self.inviteUserAction(self.userInfo, isStranger: self.isStranger)
-                        }
-                    } else {
-                        self.followUser()
-                    }
+                    self.followUser()
                 }).disposed(by: bag)
         }
         
@@ -535,6 +500,7 @@ extension Search {
 //                        cdPrint("unfollow error:\(error.localizedDescription)")
 //                    }).disposed(by: bag)
             } else {
+                Logger.Action.log(.search_result_clk, category: .follow, userInfo.uid.string)
                 let removeBlock = self.superview?.raft.show(.loading)
                 Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
                     .subscribe(onSuccess: { [weak self](success) in
@@ -547,21 +513,6 @@ extension Search {
                     }, onError: { (error) in
                         removeBlock?()
                         cdPrint("follow error:\(error.localizedDescription)")
-                    }).disposed(by: bag)
-            }
-        }
-        
-        private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
-            let invited = userInfo.invited ?? false
-            if !invited {
-                let removeBlock = self.superview?.raft.show(.loading)
-                Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
-                    .subscribe(onSuccess: { [weak self](data) in
-                        removeBlock?()
-                        self?.updateInviteData?(true)
-                    }, onError: { (error) in
-                        removeBlock?()
-                        cdPrint("invite user error:\(error.localizedDescription)")
                     }).disposed(by: bag)
             }
         }
