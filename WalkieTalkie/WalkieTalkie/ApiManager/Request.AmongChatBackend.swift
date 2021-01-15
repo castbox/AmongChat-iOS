@@ -472,7 +472,7 @@ extension Request {
     }
     
     static func accountMetaData() -> Single<Entity.AccountMetaData?> {
-        return amongchatProvider.rx.request(.topics)
+        return amongchatProvider.rx.request(.accountMetaData)
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.AccountMetaData.self)
