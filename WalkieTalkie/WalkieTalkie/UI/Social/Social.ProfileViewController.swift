@@ -51,7 +51,11 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(isSelfProfile ? R.image.ac_profile_close_down(): R.image.ac_profile_close(), for: .normal)
+            if isSelfProfile, navigationController?.viewControllers.count == 1 {
+                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            } else {
+                btn.setImage(R.image.ac_profile_close(), for: .normal)
+            }
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
@@ -233,7 +237,7 @@ private extension Social.ProfileViewController {
     }
     
     func setupData() {
-        if isSelfProfile {
+        if isSelfProfile, navigationController?.viewControllers.count == 1 {
             pullToDismiss = PullToDismiss(scrollView: table)
             pullToDismiss?.delegate = self
         }

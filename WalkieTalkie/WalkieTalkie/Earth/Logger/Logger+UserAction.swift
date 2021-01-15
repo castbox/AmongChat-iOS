@@ -138,6 +138,9 @@ extension Logger {
             case home_friends_following_join
             case home_friends_invite_clk
             case home_friends_suggestion_following_clk
+            case home_search_clk
+            case search_done
+            case search_result_clk
             
             //for admin
             case admin_imp
