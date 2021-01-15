@@ -100,7 +100,6 @@
 "social.invite.play.with" = "Personas con las que te puede gustar jugar";
 "social.exit.channel" = "Canal de salida";
 "social.follow.teammates" = "Sigue a tus compañeros de equipo para jugar juntos \nla próxima vez";
-"social.share.url" = "¡Hola, estoy en la sala AmongUs en AmongChat! Necesitamos 9 personas más!!! Toque el enlace para unirse: %@";
 "social.followed.sucess" = "Has seguido con éxito \na esta persona";
 "social.block.failed" = "No se pudo bloquear a esta persona, \nvuelve a intentarlo.";
 "social.unblock.failed" = "No se pudo desbloquear a esta persona, \nvuelve a intentarlo.";
@@ -142,7 +141,6 @@
 "among.chat.room.kick.selected" = "Patada seleccionada (%@)";
 "among.chat.room.just.chat.title" = "El anfitrión puede configurar una nota para que todos puedan verla cuando se unan";
 "among.chat.room.kickout" = "Te quitaron de este canal";
-"among.chat.room.reblox.title" = "¡Agrega el anfitrión en Roblox para unirse a su juego! Haga clic para copiar";
 "among.chat.room.set.reblox.name" = "Establecer nombre de usuario de Roblox";
 "among.chat.room.kick" = "Patada";
 "among.chat.room.user.change.notes.title" = "Solo el propietario del canal puede cambiar esto";
@@ -203,3 +201,30 @@
 "chatroom.message.system.change.to.public" = "El canal es PÚBLICO ahora. ¡Todos pueden unirse!";
 "chatroom.message.system.change.to.private" = "El canal es PRIVADO ahora. ¡Los jugadores invitados pueden unirse!";
 "chatroom.message.user.joined" = "unido";
+"among.chat.room.reblox.title" = "Haga clic para copiar los nombres de usuario de Roblox de otros para jugar juntos";
+
+// 1.10
+"search.placeholder" = "Apodo o ID";
+"social.share.url" = "Oye, necesitamos que una persona más se una para comenzar nuestro juego. Ven y únete a nosotros aquí: %@";
+"among.chat.room.mobile.legends.title" = "Haga clic para copiar el nombre/ID de MLBB de otros para jugar juntos";
+"among.chat.room.set.mobile.legends.name" = "Establecer nombre/ID de MLBB";
+"room.mobile.legends.input.code.plceholder" = "NOMBRE/ID DE MLBB";
+
+"among.chat.room.pubg.mobile.title" = "Haga clic para copiar el nombre/ID del jugador PUBG de otros para jugar juntos";
+"among.chat.room.set.pubg.mobile.name" = "Establecer el nombre/ID del jugador PUBG";
+"room.pubg.mobile.input.code.plceholder" = "NOMBRE/ID DEL JUGADOR DE PUBG";
+
+"among.chat.room.call.of.duty.title" = "Haga clic para copiar el nombre de usuario/UID de COD de otros para jugar juntos";
+"among.chat.room.set.call.of.duty.name" = "Establecer COD nombre de usuario/UID ";
+"room.call.of.duty.input.code.plceholder" = "COD NOMBRE DE USUARIO/UID";
+
+"among.chat.create.room.card.tip.title" = "Tarjetas SPACE restantes:";
+"among.chat.create.room.card.tip.content" = "Usa una tarjeta SPACE para crear un canal. Una tarjeta gratis por día, las tarjetas gratis no se acumulan.";
+"among.chat.create.room.card.consume.content" = "¿Utiliza una tarjeta SPACE?";
+"among.chat.create.room.card.insufficient.title" = "Tarjetas SPACE insuficientes";
+"among.chat.create.room.card.insufficient.content" = "Mire un video corto para obtener uno.";
+"among.chat.create.room.card.claim" = "Reclamación";
+"among.chat.create.room.create" = "Crear";
+"microphone.not.allow.title" = "\"AmongChat\" desea acceder al micrófono";
+"microphone.not.allow.subtitle" = "Para unirse al canal, active el permiso del micrófono.";
+"microphone.not.allow.setting" = "Ir a Configuración";

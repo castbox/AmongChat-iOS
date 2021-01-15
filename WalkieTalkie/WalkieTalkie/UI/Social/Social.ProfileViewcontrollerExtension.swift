@@ -349,8 +349,7 @@ extension Social.ProfileViewController {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.left.equalTo(20)
-                maker.right.equalTo(-20)
+                maker.leading.trailing.equalToSuperview().inset(20)
             }
             
             nameLabel.textAlignment = .center
@@ -381,8 +380,7 @@ extension Social.ProfileViewController {
             
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(40)
-                maker.left.equalTo(40)
-                maker.right.equalTo(-40)
+                maker.leading.trailing.equalToSuperview().inset(40)
                 maker.height.equalTo(48)
             }
             followButton.rx.tap
@@ -452,13 +450,13 @@ extension Social.ProfileViewController {
             iconIV.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(30)
-                maker.left.equalTo(24)
+                maker.leading.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalTo(iconIV)
-                maker.left.equalTo(iconIV.snp.right).offset(16)
-                maker.right.lessThanOrEqualToSuperview().offset(-20)
+                maker.leading.equalTo(iconIV.snp.trailing).offset(16)
+                maker.trailing.lessThanOrEqualToSuperview().offset(-20)
             }
         }
     }
@@ -484,12 +482,12 @@ extension Social.ProfileViewController {
             super.init(frame: .zero)
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
-                maker.top.centerX.equalToSuperview()
+                maker.top.leading.trailing.equalToSuperview()
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(titleLabel.snp.bottom)
-                maker.left.right.equalToSuperview()
+                maker.leading.trailing.bottom.equalToSuperview()
                 maker.height.equalTo(18)
             }
         }

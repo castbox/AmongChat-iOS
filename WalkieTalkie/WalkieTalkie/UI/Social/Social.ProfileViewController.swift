@@ -188,7 +188,7 @@ private extension Social.ProfileViewController {
 //        view.addLayoutGuide(navLayoutGuide)
         view.addSubview(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(Frame.Height.safeAeraTopHeight)
             maker.height.equalTo(49)
         }
@@ -207,7 +207,7 @@ private extension Social.ProfileViewController {
         }
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(12.5)
+            maker.leading.equalToSuperview().offset(12.5)
             maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(40)//25
         }

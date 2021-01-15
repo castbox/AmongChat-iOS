@@ -29,7 +29,11 @@ extension UIViewController {
         }
     }
     
-    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmAction: (() -> Void)? = nil) {
+    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
+        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, cancelAction: cancelAction, confirmAction: confirmAction).present()
+    }
+    
+    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
         let titleAttr: NSAttributedString?
         if let title = title {
             let attribates: [NSAttributedString.Key: Any] = [
@@ -83,12 +87,14 @@ extension UIViewController {
         //        alertVC.contentView.backgroundColor = "222222".color()
         
         if let cancelAttr = cancelAttr {
-            alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
+            alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal, handler: { _ in
+                cancelAction?()
+            }))
         }
         
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { _ in
             confirmAction?()
         })
-        alertVC.present()
+        return alertVC
     }
 }

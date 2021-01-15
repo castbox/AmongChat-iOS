@@ -203,8 +203,8 @@
 "chatroom.message.user.joined" = "joined";
 "among.chat.room.reblox.title" = "Click to copy others' Roblox usernames to play together";
 
-//
-"search.placeholder" = "Nickname&ID";
+// 1.10
+"search.placeholder" = "Nickname or ID";
 "social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
 "among.chat.room.mobile.legends.title" = "Click to copy others' MLBB Name/ID to play together";
 "among.chat.room.set.mobile.legends.name" = "Set MLBB Name/ID";
@@ -217,6 +217,14 @@
 "among.chat.room.call.of.duty.title" = "Click to copy others' COD Username/UID to play together";
 "among.chat.room.set.call.of.duty.name" = "Set COD Username/UID";
 "room.call.of.duty.input.code.plceholder" = "COD USERNAME/UID";
+
+"among.chat.create.room.card.tip.title" = "Remaining SPACE cards:";
+"among.chat.create.room.card.tip.content" = "Use a SPACE card to create a channel. One free card per day, free cards do not stack.";
+"among.chat.create.room.card.consume.content" = "Use a SPACE card?";
+"among.chat.create.room.card.insufficient.title" = "Insufficient SPACE cards";
+"among.chat.create.room.card.insufficient.content" = "Watch a short video to get one.";
+"among.chat.create.room.card.claim" = "Claim";
+"among.chat.create.room.create" = "Create";
 "microphone.not.allow.title" = "“AmongChat” would like to Access the Microphone";
 "microphone.not.allow.subtitle" = "To join the channel, please switch on microphone permission.";
 "microphone.not.allow.setting" = "Go Settings";

@@ -41,6 +41,7 @@ extension AmongChat.Home {
             btn.layer.masksToBounds = true
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             btn.isUserInteractionEnabled = false
+            btn.titleLabel?.adjustsFontSizeToFitWidth = true
             return btn
         }()
         
@@ -48,7 +49,8 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.bungeeRegular(size: 20)
             lb.textColor = .white
-            lb.numberOfLines = 0
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -56,6 +58,7 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.nunitoSemiBold(size: 16)
             lb.textColor = .white
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
                 
@@ -99,35 +102,36 @@ extension AmongChat.Home {
             
             coverIV.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview()
-                maker.left.equalToSuperview().inset(16)
+                maker.leading.equalToSuperview().inset(16)
                 maker.bottom.equalToSuperview().inset(20)
                 maker.width.equalTo(coverIV.snp.height).multipliedBy(1)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.left.equalTo(coverIV.snp.right).offset(12)
-                maker.right.equalToSuperview().inset(12)
-                maker.top.equalTo(bgIV.snp.top).offset(8)
+                maker.leading.equalTo(coverIV.snp.trailing).offset(12)
+                maker.trailing.equalToSuperview().inset(12)
+                maker.top.equalTo(bgIV.snp.top).offset(14)
             }
             
             nowPlayingLabel.snp.makeConstraints { (maker) in
-                maker.left.right.equalTo(nameLabel)
+                maker.leading.trailing.equalTo(nameLabel)
                 maker.top.equalTo(nameLabel.snp.bottom).offset(1)
             }
             
             teamUpBtn.snp.makeConstraints { (maker) in
-                maker.right.bottom.equalToSuperview().inset(12)
-                maker.left.greaterThanOrEqualTo(nameLabel.snp.left)
+                maker.trailing.bottom.equalToSuperview().inset(12)
+                maker.leading.greaterThanOrEqualTo(nameLabel.snp.leading)
                 maker.height.equalTo(36)
             }
             
             if UIScreen.main.bounds.width < 375 {
                 
-                nameLabel.font = R.font.nunitoExtraBold(size: 16)
+                nameLabel.font = R.font.bungeeRegular(size: 16)
                 nowPlayingLabel.font = R.font.nunitoSemiBold(size: 12)
                 teamUpBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
                 teamUpBtn.snp.remakeConstraints { (maker) in
-                    maker.right.bottom.equalToSuperview().inset(12)
+                    maker.trailing.bottom.equalToSuperview().inset(12)
+                    maker.leading.greaterThanOrEqualTo(nameLabel.snp.leading)
                     maker.height.equalTo(30)
                 }
             }
