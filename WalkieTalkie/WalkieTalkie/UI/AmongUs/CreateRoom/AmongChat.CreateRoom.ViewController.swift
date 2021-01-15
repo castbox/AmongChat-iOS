@@ -141,6 +141,16 @@ extension AmongChat.CreateRoom {
             }
         }
         
+        private var selectedTopic: TopicViewModel? {
+            
+            guard let selectedIdx = topicCollectionView.indexPathsForSelectedItems?.first?.item,
+                  let topic = topicDataSource.safe(selectedIdx) else {
+                return nil
+            }
+            
+            return topic
+        }
+        
         // MARK: -
                 
         override func viewDidLoad() {
@@ -169,11 +179,21 @@ extension AmongChat.CreateRoom.ViewController {
         
     @objc
     private func onConfirmBtn() {
-//        Logger.Action.log(.create_topic_create, categoryValue: name, privateStateSwitch.roomPublicType.rawValue)
+        
+        guard let topic = selectedTopic else {
+            HapticFeedback.Impact.error()
+            return
+        }
+        
+        Logger.Action.log(.create_topic_create, categoryValue: topic.topic.topicId, privateStateSwitch.roomPublicType.rawValue)
         
         let alert = amongChatAlert(title: nil,
                                    cancelTitle: R.string.localizable.toastCancel(),
-                                   confirmTitle: R.string.localizable.amongChatCreateRoomCreate()) { [weak self] in
+                                   confirmTitle: R.string.localizable.amongChatCreateRoomCreate(),
+                                   cancelAction: {
+                                    Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "cancel")
+                                   }) { [weak self] in
+            Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "create")
             self?.showAdAlert()
         }
         
@@ -215,10 +235,13 @@ extension AmongChat.CreateRoom.ViewController {
         }
         decorateAlert(alert)
         alert.present()
+        Logger.Action.log(.space_card_use_dialog_imp)
     }
     
     @objc
     private func onCardBtn() {
+        
+        Logger.Action.log(.space_card_tip_clk)
         
         let alert = amongChatAlert(title: nil, confirmTitle: R.string.localizable.toastConfirm())
         
@@ -379,34 +402,10 @@ extension AmongChat.CreateRoom.ViewController {
             .disposed(by: bag)
     }
     
-    private func createRoom(with name: String) {
-        
-        view.endEditing(true)
-        
-        typealias Topic = AmongChat.Topic
-                
-        var roomProto = Entity.RoomProto()
+    private func createRoom(with topic: TopicViewModel) {
+                        
+        var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
-        
-        let alphabetCode = { (originString: String) -> String in
-            let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").inverted
-            let filteredString = originString.components(separatedBy: set).joined(separator: "")
-            return filteredString
-        }
-        
-        if let topic = Topic(rawValue: alphabetCode(name).lowercased()) {
-            roomProto.topicId = topic.rawValue
-        } else {
-            roomProto.topicId = AmongChat.Topic.chilling.rawValue
-        }
-                
-        switch roomProto.topicType {
-        case .chilling:
-            roomProto.note = name
-            
-        default:
-            ()
-        }
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         let _ = Request.createRoom(roomProto)
@@ -414,7 +413,6 @@ extension AmongChat.CreateRoom.ViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (room) in
-                // TODO: - 创建房间成功
                 guard let `self` = self else {
                     return
                 }
@@ -422,7 +420,6 @@ extension AmongChat.CreateRoom.ViewController {
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                self.view.endEditing(true)
                 
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 
@@ -515,6 +512,7 @@ extension AmongChat.CreateRoom.ViewController {
                 .subscribe(onNext: { [weak alertVC, self] (_) in
                     alertVC?.dismiss()
                     self.showAd()
+                    Logger.Action.log(.space_card_ads_claim_clk)
                 }).disposed(by: bag)
             
             cancelBtn.rx.controlEvent(.primaryActionTriggered)
@@ -557,6 +555,7 @@ extension AmongChat.CreateRoom.ViewController {
         
         decorateAlert(alertVC)
         alertVC.present()
+        Logger.Action.log(.space_card_ads_dialog_imp)
     }
     
     private func showAd() {
@@ -568,9 +567,11 @@ extension AmongChat.CreateRoom.ViewController {
             .asSingle()
             .subscribe(onSuccess: { (_) in
                 hudRemoval()
+                Logger.Action.log(.space_card_ads_claim_success)
             }, onError: { [weak self] (error) in
                 hudRemoval()
                 self?.view.raft.autoShow(.text(error.localizedDescription))
+                Logger.Action.log(.space_card_ads_claim_failed)
             })
             .disposed(by: bag)
     }

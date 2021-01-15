@@ -105,7 +105,13 @@ extension Logger {
             case create_topic_imp
             case create_topic_edit
             case create_topic_create
-            case create_topic_hot_clk
+            case space_card_tip_clk
+            case space_card_use_dialog_imp
+            case space_card_use_dialog_clk
+            case space_card_ads_dialog_imp
+            case space_card_ads_claim_clk
+            case space_card_ads_claim_success
+            case space_card_ads_claim_failed
             case room_share_clk
             case room_open_game
             case room_send_message_clk
