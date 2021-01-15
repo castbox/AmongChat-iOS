@@ -43,7 +43,11 @@ extension AmongChat.Home.MainTabController {
             return
         }
         if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
+            //dismiss previous
+            dismissNotificationBanner()
+
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
+            
             let view = AmongChat.Home.StrangeInvitationView()
             view.updateContent(user: user, room: room)
             view.bindEvent { [weak self] in
@@ -58,31 +62,9 @@ extension AmongChat.Home.MainTabController {
                 self?.dismissNotificationBanner()
             }
 
-//            let dimmerView = UIView(frame: Frame.Screen.bounds)
-//            dimmerView.isUserInteractionEnabled = true
-//            dimmerView.backgroundColor = UIColor.black.alpha(0.02)
-//            notificationBannerDimmerView = dimmerView
-//            self.view.addSubview(dimmerView)
-//            let tapObservable = dimmerView.rx.tapGesture()
-//                .when(.recognized)
-//                .asObservable()
-//                .map { _ in return () }
-            
-//            let swipeObservable = dimmerView.rx.swipeGesture([.down, .left, .left, .right])
-//                .when(.recognized)
-//                .asObservable()
-//                .map { _ in return () }
-//            Observable.merge([tapObservable, swipeObservable])
-//                .subscribe { [weak self, weak dimmerView] _ in
-//                    dimmerView?.removeFromSuperview()
-//                    self?.notificationBanner?.dismiss()
-//                }
-//                .disposed(by: bag)
-
             let banner = FloatingNotificationBanner(customView: view)
-            banner.duration = 10
-            banner.dismissOnTap = true
-            banner.bannerHeight = 119
+            banner.autoDismiss = false
+            banner.bannerHeight = 112
             banner.onTap = { [weak banner] in
                 banner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
@@ -99,9 +81,14 @@ extension AmongChat.Home.MainTabController {
                     }
                 })
                 .disposed(by: bag)
-
-            banner.transparency = 1
-            banner.show(on: self, edgeInsets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20), shadowBlurRadius: 12)
+            var topSpace: CGFloat {
+                if #available(iOS 13.0, *) {
+                    return Frame.Height.isXStyle ? 8 : 0
+                } else {
+                    return 8 + (Frame.Height.isXStyle ? 0 : 12)
+                }
+            }
+            banner.show(on: self, edgeInsets: UIEdgeInsets(top: topSpace, left: 20, bottom: 8, right: 20), cornerRadius: 12)
             notificationBanner = banner
         }
         
@@ -143,36 +130,36 @@ extension AmongChat.Home.MainTabController {
     private func setupEvent() {
         imViewModel.invitationObservable
             .subscribe(onNext: { user, room in
-//                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
-//                      !(topVC is AmongChat.Room.ViewController),
-//                      !topVC.isRequestingRoom else {
-//                    return
-//                }
-//
-//                let invitationModal: AmongChat.Home.RoomInvitationModal
-//
-//                if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
-//                    invitationModal = currentModal
-//                } else {
-//                    invitationModal = AmongChat.Home.RoomInvitationModal()
-//                    invitationModal.modalPresentationStyle = .overCurrentContext
-//                    topVC.present(invitationModal, animated: false)
-//                }
-//
-//                invitationModal.updateContent(user: user, room: room)
-//                invitationModal.bindEvent(join: {
-//                    invitationModal.dismiss(animated: false) {
-//                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-//                            return
-//                        }
-//                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
-//                    }
-//                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
-//                }, ignore: {
-//                    invitationModal.dismiss(animated: false)
-//                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
-//                })
-                self.onReceive(strangerInvigation: user, room: room)
+                guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
+                      !(topVC is AmongChat.Room.ViewController),
+                      !topVC.isRequestingRoom else {
+                    return
+                }
+
+                let invitationModal: AmongChat.Home.RoomInvitationModal
+
+                if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
+                    invitationModal = currentModal
+                } else {
+                    invitationModal = AmongChat.Home.RoomInvitationModal()
+                    invitationModal.modalPresentationStyle = .overCurrentContext
+                    topVC.present(invitationModal, animated: false)
+                }
+
+                invitationModal.updateContent(user: user, room: room)
+                invitationModal.bindEvent(join: {
+                    invitationModal.dismiss(animated: false) {
+                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
+                            return
+                        }
+                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                    }
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
+                }, ignore: {
+                    invitationModal.dismiss(animated: false)
+                    Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
+                })
+//                self.onReceive(strangerInvigation: user, room: room)
 
             })
             .disposed(by: bag)
