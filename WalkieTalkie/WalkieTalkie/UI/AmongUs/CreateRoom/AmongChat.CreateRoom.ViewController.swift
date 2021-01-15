@@ -397,7 +397,7 @@ extension AmongChat.CreateRoom.ViewController {
                 self.topicDataSource = supportedTopics.map({ TopicViewModel(with: $0) })
                 
                 self.topicCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
-                
+                self.topicCollectionView.contentOffset = .zero
             })
             .disposed(by: bag)
     }

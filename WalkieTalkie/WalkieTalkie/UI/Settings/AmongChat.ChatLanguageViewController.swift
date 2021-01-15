@@ -137,12 +137,13 @@ extension AmongChat {
                 .do(onDispose: {
                     removal()
                 })
-                .subscribe(onSuccess: { (profile) in
+                .subscribe(onSuccess: { [weak self] (profile) in
                     guard let p = profile else {
                         return
                     }
                     Settings.shared.amongChatUserProfile.value = p
                     ChatLanguageHelper.updateCurrentLanguage(lan.language)
+                    self?.navigationController?.popViewController()
                 }, onError: { [weak self] (error) in
                     self?.view.raft.autoShow(.text(error.localizedDescription))
                 })
