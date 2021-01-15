@@ -11,7 +11,7 @@ import UIKit
 class NoDataView: UIView {
     
     lazy var icon: UIImageView = {
-        let i = UIImageView(image: R.image.ac_among_no_data())
+        let i = UIImageView()
         i.contentMode = .scaleAspectFit
         return i
     }()
@@ -25,9 +25,9 @@ class NoDataView: UIView {
         return lb
     }()
     
-    init(with message: String) {
+    init(with message: String, image: UIImage? = nil) {
         super.init(frame: CGRect.zero)
-        
+        icon.image = image ?? R.image.ac_among_no_data()
         addSubviews(views: icon, messageLabel)
         
         icon.snp.makeConstraints { (maker) in

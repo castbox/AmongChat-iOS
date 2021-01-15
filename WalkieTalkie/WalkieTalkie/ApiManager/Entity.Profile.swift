@@ -50,7 +50,7 @@ extension Entity {
         var list: [UserProfile]?
         var more: Bool?
         private enum CodingKeys: String, CodingKey {
-            case list = "user_list"
+            case list
             case more
         }
     }

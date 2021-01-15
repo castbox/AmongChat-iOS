@@ -20,6 +20,7 @@ struct Search {}
 extension Search {
     class TextField: UITextField, UITextFieldDelegate {
         var rightIndicatorView: UIActivityIndicatorView!
+        var fontSize: CGFloat = 20
         
         override init(frame: CGRect) {
             super.init(frame: frame)
@@ -48,12 +49,13 @@ extension Search {
             rightViewMode = .always
             
             keyboardAppearance = .dark
-            font = R.font.nunitoExtraBold(size: 20)
+            font = R.font.nunitoExtraBold(size: fontSize)
             
             textColor = .white
+            //let font size
             attributedPlaceholder = NSAttributedString(string: R.string.localizable.searchPlaceholder(), attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor("#646464"),
-                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 20)
+                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: fontSize)
              ])
         }
         
@@ -85,7 +87,7 @@ extension Search {
     class ViewModel {
         private let bag = DisposeBag()
 
-        var userInfoList = BehaviorRelay<[Entity.UserProfile]>(value: [])
+        var userInfoList = BehaviorRelay<[Entity.UserProfile]?>(value: nil)
         var isLoadingReplay = BehaviorRelay<Bool>(value: false)
         var keywords: String = ""
         var hasMore = false
@@ -108,18 +110,18 @@ extension Search {
         }
 
         func fetchUserSearchMore() {
-            guard !userInfoList.value.isEmpty else {
+            guard let list = userInfoList.value else {
                 return
             }
             isLoadingReplay.accept(true)
-            Request.search(keywords, skip: userInfoList.value.count)
+            Request.search(keywords, skip: list.count)
                 .asObservable()
                 .flatMap { [weak self] data -> Observable<[Entity.UserProfile]> in
                     guard let `self` = self else { return .empty() }
                     let userList = data?.list ?? []
                     self.hasMore = userList.count >= 20
                     self.isLoadingReplay.accept(false)
-                    let total = self.userInfoList.value + userList
+                    let total = list + userList
                     return Observable.just(total)
                 }
                 .bind(to: userInfoList)
@@ -237,13 +239,17 @@ extension Search {
         
         private func bindSubviewEvent() {
             viewModel.userInfoList
+                .filterNil()
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self](data) in
                     guard let `self` = self else { return }
                     self.userList = data
-//                    if self.userList.isEmpty {
-//                        self.addNoDataView(R.string.localizable.errorNoFollowing())
-//                    }
+                    if self.userList.isEmpty {
+                        self.addNoDataView(R.string.localizable.errorNoSearch(), image: R.image.ac_among_no_search_result())
+                    } else {
+                        //remove
+                        self.removeNoDataView()
+                    }
                     self.tableView.endLoadMore(self.viewModel.hasMore)
                 })
                 .disposed(by: bag)

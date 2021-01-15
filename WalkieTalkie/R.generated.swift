@@ -128,10 +128,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 128 images.
+  /// This `R.image` struct is generated, and contains static references to 129 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
+    /// Image `ac_among_no_search_result`.
+    static let ac_among_no_search_result = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_search_result")
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
     /// Image `ac_avatar_ad`.
@@ -390,6 +392,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_among_no_data", bundle: ..., traitCollection: ...)`
     static func ac_among_no_data(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_among_no_data, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_among_no_search_result", bundle: ..., traitCollection: ...)`
+    static func ac_among_no_search_result(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_among_no_search_result, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_animation_background", bundle: ..., traitCollection: ...)`
@@ -1402,7 +1409,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 191 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 192 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1832,6 +1839,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no matching results!
+      /// 
+      /// Locales: en
+      static let errorNoSearch = Rswift.StringResource(key: "error.no.search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no teammates yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2916,6 +2927,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowers(_: Void = ()) -> String {
         return NSLocalizedString("error.no.followers", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no matching results!
+      /// 
+      /// Locales: en
+      static func errorNoSearch(_: Void = ()) -> String {
+        return NSLocalizedString("error.no.search", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, no teammates yet!
