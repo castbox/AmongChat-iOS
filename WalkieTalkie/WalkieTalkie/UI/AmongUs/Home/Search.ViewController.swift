@@ -20,10 +20,11 @@ struct Search {}
 extension Search {
     class TextField: UITextField, UITextFieldDelegate {
         var rightIndicatorView: UIActivityIndicatorView!
-        var fontSize: CGFloat = 20
+        private let fontSize: CGFloat
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
+        init(fontSize: CGFloat = 20) {
+            self.fontSize = fontSize
+            super.init(frame: .zero)
             bindSubviewEvent()
             configureSubview()
         }
@@ -273,11 +274,11 @@ extension Search {
 extension Search.ViewController: UITextFieldDelegate {
         
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         textField.resignFirstResponder()
-        
-        guard let text = textField.text,
+
+        guard let text = textField.text?.trimmed,
               text.count > 0 else {
+            textField.text = nil
             return true
         }
         Logger.Action.log(.search_done)

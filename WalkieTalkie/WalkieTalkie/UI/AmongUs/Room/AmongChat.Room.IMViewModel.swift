@@ -278,7 +278,7 @@ extension ChatRoom.SystemMessage: MessageListable {
         pargraph.lineHeightMultiple = 0
         
         let nameAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: textColor?.color() ?? (contentType == .public ? "8160FF" : "FB5858").color(),
+            .foregroundColor: textColor?.color() ?? (contentType == .public ? "8160FF" : "E64BA8").color(),
             .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
             .paragraphStyle: pargraph
         ]

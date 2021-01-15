@@ -28,10 +28,9 @@ extension AmongChat.Home {
         }()
         
         private lazy var searchTextfield: Search.TextField = {
-            let textfield = Search.TextField()
+            let textfield = Search.TextField(fontSize: Frame.Height.deviceDiagonalIsMinThan5_5 ? (Frame.Height.deviceDiagonalIsMinThan4_7 ? 16 : 18) : 20)
             textfield.delegate = self
             textfield.textAlignment = .center
-            textfield.fontSize = Frame.Height.deviceDiagonalIsMinThan5_5 ? (Frame.Height.deviceDiagonalIsMinThan4_7 ? 16 : 18) : 20
             textfield.setContentHuggingPriority(.required, for: .horizontal)
             return textfield
         }()
