@@ -47,7 +47,9 @@ extension Search {
             rightView = rightIndicatorView
             rightViewMode = .always
             
+            keyboardAppearance = .dark
             font = R.font.nunitoExtraBold(size: 20)
+            
             textColor = .white
             attributedPlaceholder = NSAttributedString(string: R.string.localizable.searchPlaceholder(), attributes: [
                 NSAttributedString.Key.foregroundColor : UIColor("#646464"),
