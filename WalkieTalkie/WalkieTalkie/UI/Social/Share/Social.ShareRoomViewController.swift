@@ -178,7 +178,8 @@ extension Social {
 private extension Social.ShareRoomViewController {
     
     func loadData() {
-        let removeBlock = view.raft.show(.loading)
+        let offset = (Frame.Screen.height - view.height) / 2
+        let removeBlock = view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
         viewModel.dataSourceReplay
             .skip(1)
             .observeOn(MainScheduler.asyncInstance)
