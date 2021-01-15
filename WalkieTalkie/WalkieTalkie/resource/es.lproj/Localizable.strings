@@ -228,3 +228,4 @@
 "microphone.not.allow.title" = "\"AmongChat\" desea acceder al micrófono";
 "microphone.not.allow.subtitle" = "Para unirse al canal, active el permiso del micrófono.";
 "microphone.not.allow.setting" = "Ir a Configuración";
+"error.no.search" = "¡Vaya, no hay resultados coincidentes!";

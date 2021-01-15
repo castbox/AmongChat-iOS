@@ -228,3 +228,4 @@
 "microphone.not.allow.title" = "«AmongChat» хочет получить доступ к микрофону";
 "microphone.not.allow.subtitle" = "Чтобы присоединиться к каналу, включите разрешение микрофона.";
 "microphone.not.allow.setting" = "Перейти в настройки";
+"error.no.search" = "Ой, подходящих результатов нет!";

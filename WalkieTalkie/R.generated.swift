@@ -1841,8 +1841,8 @@ struct R: Rswift.Validatable {
       static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, no matching results!
       /// 
-      /// Locales: en
-      static let errorNoSearch = Rswift.StringResource(key: "error.no.search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let errorNoSearch = Rswift.StringResource(key: "error.no.search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, no teammates yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2931,7 +2931,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Oops, no matching results!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoSearch(_: Void = ()) -> String {
         return NSLocalizedString("error.no.search", bundle: R.hostingBundle, comment: "")
       }

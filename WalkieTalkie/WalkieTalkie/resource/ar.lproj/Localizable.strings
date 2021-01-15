@@ -228,3 +228,4 @@
 "microphone.not.allow.title" = "ترغب “AmongChat” في الوصول إلى الميكروفون";
 "microphone.not.allow.subtitle" = "للانضمام إلى القناة ، يرجى تشغيل إذن الميكروفون.";
 "microphone.not.allow.setting" = "اذهب الإعدادات";
+"error.no.search" = "عفوًا ، لا توجد نتائج مطابقة!";

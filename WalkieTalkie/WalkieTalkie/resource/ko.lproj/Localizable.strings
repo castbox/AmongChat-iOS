@@ -228,3 +228,4 @@
 "microphone.not.allow.title" = "\"AmongChat\"이 마이크에 액세스하려고합니다.";
 "microphone.not.allow.subtitle" = "채널에 참여하려면 마이크 권한을 켜십시오.";
 "microphone.not.allow.setting" = "이동 설정";
+"error.no.search" = "죄송합니다. 일치하는 결과가 없습니다.";
