@@ -57,6 +57,8 @@ class AdsManager: NSObject {
         return BehaviorRelay(value: map)
     }()
     
+    var rewardedVideoAdDidAppear = PublishSubject<Void>()
+    
     var rewardedVideoAdDidDisappear = PublishSubject<Void>()
     
     var rewardVideoShouldReward = PublishSubject<Bool>()
@@ -84,7 +86,7 @@ class AdsManager: NSObject {
     
     
     private func setupMopub() {
-        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+        let config = MPMoPubConfiguration(adUnitIdForAppInitialization: rewardedVideoId)
         #if DEBUG
         config.loggingLevel = .debug
         #endif
@@ -93,15 +95,15 @@ class AdsManager: NSObject {
                 //send notification
                 self?.mopubInitializeSuccessSubject.accept(true)
                 //req
+                self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
 //                Ad.InterstitialManager.shared.loadAd()
-                RewardedVideoPosition.allCases.forEach {
-                    MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: $0))
-                    self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: $0))
-                }
             }
         }
         
-        
+        MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+//        RewardedVideoPosition.allCases.forEach {
+//            MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: $0))
+//        }
     }
     
     private func setupAdmob() {
@@ -145,16 +147,16 @@ class AdsManager: NSObject {
 //            }).disposed(by: bag)
 //    }
     
-    func hasAdAvailableRewardsVideo(adUnitId: String) -> Bool {
-         return MPRewardedVideo.hasAdAvailable(forAdUnitID: adUnitId)
+    var hasAdAvailableRewardsVideo: Bool {
+         return MPRewardedVideo.hasAdAvailable(forAdUnitID: rewardedVideoId)
     }
     
-    func aviliableRewardVideo(adunitId: String) -> MPRewardedVideoReward? {
-        cdPrint("aviliableRewardVideo: \(MPRewardedVideo.availableRewards(forAdUnitID: adunitId))")
-        guard hasAdAvailableRewardsVideo(adUnitId: adunitId) else {
+    var aviliableRewardVideo: MPRewardedVideoReward? {
+        cdPrint("aviliableRewardVideo: \(MPRewardedVideo.availableRewards(forAdUnitID: rewardedVideoId))")
+        guard hasAdAvailableRewardsVideo else {
             return nil
         }
-        return MPRewardedVideo.selectedReward(forAdUnitID: adunitId)
+        return MPRewardedVideo.selectedReward(forAdUnitID: rewardedVideoId)
     }
     
     
@@ -337,25 +339,25 @@ class AdsManager: NSObject {
 //        #endif
 //    }
 //
-//    var rewardedVideoId: String {
-////        if Config.environment == .debug {
-////            return "8f000bd5e00246de9c789eed39ff6096"
-////        } else {
-//            return "a545cd81a6814a4bb06a6e6055ed5e58"
-////        }
-////           #if DEBUG
-////           /// aws ad id
-////           //        return "2fc098daa08643f8a632323364d8c478"
-////           /// debug ad id
-////           //        return "2aae44d2ab91424d9850870af33e5af7"
-////           /// online ad id
-////           //        return "156615c0b77140bfa9465efe32a6b39b"
-////           /// adview with only appmonet
-////           return "a545cd81a6814a4bb06a6e6055ed5e58"
-////           #else
-////           return "a545cd81a6814a4bb06a6e6055ed5e58"
-////           #endif
-//       }
+    var rewardedVideoId: String {
+//        if Config.environment == .debug {
+//            return "8f000bd5e00246de9c789eed39ff6096"
+//        } else {
+            return "a545cd81a6814a4bb06a6e6055ed5e58"
+//        }
+//           #if DEBUG
+//           /// aws ad id
+//           //        return "2fc098daa08643f8a632323364d8c478"
+//           /// debug ad id
+//           //        return "2aae44d2ab91424d9850870af33e5af7"
+//           /// online ad id
+//           //        return "156615c0b77140bfa9465efe32a6b39b"
+//           /// adview with only appmonet
+//           return "a545cd81a6814a4bb06a6e6055ed5e58"
+//           #else
+//           return "a545cd81a6814a4bb06a6e6055ed5e58"
+//           #endif
+       }
     
 //    func shouldShowInterstitial() -> Bool {
 //        guard Settings.shared.isProValue.value == false else { return false }
@@ -377,12 +379,12 @@ class AdsManager: NSObject {
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
-        switch adPostion {
-        case .unlockAvatar:
+//        switch adPostion {
+//        case .unlockAvatar:
             return "a545cd81a6814a4bb06a6e6055ed5e58"
-        case .channelCard:
-            return "bacb18c823584a5cbcd04f6768e7bf9b"
-        }
+//        case .channelCard:
+//            return "bacb18c823584a5cbcd04f6768e7bf9b"
+//        }
     }
     
     func earnARewardOfVideo(fromVC: UIViewController, adPosition: RewardedVideoPosition) -> Observable<Void> {
@@ -399,7 +401,7 @@ class AdsManager: NSObject {
                 
                 let isReady = map[adUnitId] ?? false
                 
-                if isReady, self.aviliableRewardVideo(adunitId: adUnitId) == nil {
+                if isReady, AdsManager.shared.aviliableRewardVideo == nil {
                     //如果 Load 成功，但拿不到 reward video， 则重新请求
                     if !self.hasRetryForAdLoadFailed {
                         self.hasRetryForAdLoadFailed = true
@@ -413,17 +415,24 @@ class AdsManager: NSObject {
                 return isReady
             }
             .take(1)
-            .timeout(.seconds(30), scheduler: MainScheduler.asyncInstance)
+            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
                 self.hasRetryForAdLoadFailed = false
-                guard let reward = self.aviliableRewardVideo(adunitId: adUnitId) else {
+                guard let reward = self.aviliableRewardVideo else {
                     return Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                 }
                 
-                MPRewardedVideo.presentAd(forAdUnitID: adUnitId, from: fromVC, with: reward)
+                MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: fromVC, with: reward)
                 
-                return self.rewardVideoShouldReward.asObservable()
+                return self.rewardedVideoAdDidAppear
+                    .timeout(.seconds(5), scheduler: MainScheduler.asyncInstance)
+                    .flatMap { [weak self] _ -> Observable<Bool> in
+                        guard let `self` = self else {
+                            return .just(false)
+                        }
+                        return self.rewardVideoShouldReward.asObservable()
+                    }
                     .flatMap { shouldReward -> Observable<Void> in
                         guard shouldReward else {
                             return Observable.error(MsgError(code: 500, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
@@ -500,7 +509,10 @@ extension AdsManager: MPRewardedVideoDelegate {
         map[adUnitID] = false
         isRewardVideoReadyRelay.accept(map)
         cdPrint("rewardedVideoAdDidExpire")
-        requestRewardVideoIfNeed(adUnitId: adUnitID)
+//        requestRewardVideoIfNeed()
+        mainQueueDispatchAsync(after: 0.1) {
+            self.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+        }
     }
     
     func rewardedVideoAdWillAppear(forAdUnitID adUnitID: String!) {
@@ -512,6 +524,7 @@ extension AdsManager: MPRewardedVideoDelegate {
         var map = isRewardVideoReadyRelay.value
         map[adUnitID] = false
         isRewardVideoReadyRelay.accept(map)
+        rewardedVideoAdDidAppear.onNext(())
         cdPrint("rewardedVideoAdDidAppear")
     }
     
@@ -521,7 +534,7 @@ extension AdsManager: MPRewardedVideoDelegate {
         rewardedVideoAdDidDisappear.onNext(())
         Logger.Ads.logEvent(.rads_close)
         mainQueueDispatchAsync(after: 0.1) {
-            self.requestRewardVideoIfNeed(adUnitId: adUnitID)
+            self.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
         }
     }
 
@@ -557,3 +570,4 @@ extension AdsManager: MPRewardedVideoDelegate {
     }
     
 }
+

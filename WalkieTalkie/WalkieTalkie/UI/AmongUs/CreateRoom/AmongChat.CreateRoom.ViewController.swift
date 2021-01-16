@@ -615,6 +615,7 @@ extension AmongChat.CreateRoom.ViewController {
         AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .channelCard)
             .take(1)
             .asSingle()
+//            .timeout(.seconds(180), scheduler: MainScheduler.asyncInstance)
             .subscribe(onSuccess: { (_) in
                 loadingCompletion()
                 Logger.Action.log(.space_card_ads_claim_success)
