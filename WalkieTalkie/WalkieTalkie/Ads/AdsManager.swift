@@ -426,6 +426,7 @@ class AdsManager: NSObject {
                 MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: fromVC, with: reward)
                 
                 return self.rewardedVideoAdDidAppear
+                    .take(1)
                     .timeout(.seconds(5), scheduler: MainScheduler.asyncInstance)
                     .flatMap { [weak self] _ -> Observable<Bool> in
                         guard let `self` = self else {
