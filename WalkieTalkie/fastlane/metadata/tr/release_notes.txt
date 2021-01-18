@@ -1,4 +1,6 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Artık kanallarda Roblox kullanıcı adınızı, Fortnite görünen adınızı veya Free Fire takma adınızı ayarlayabilirsiniz.
-Daha iyi eşleşmesi için uygulama Ayarlarında farklı sohbet dilleri de seçebilirsiniz.
+1. Bu güncellemede sizin için daha fazla oyun kanalı - Mobile Legends, PUBG MOBILE ve Call of Duty. Oyuncu arkadaşlarınla ​​oynamaya gel!
+2. Uygulama içi takma adlarını/ID arayarak diğer arkadaşları bulabilirsiniz.
+3. Profil sayfası, sadece aşağı kaydırılarak kolayca kapatılabilir.
+4. Diğer hata düzeltmeleri ve UI optimizasyonu.
 Arkadaşlarınızla bulun ve Sesli Sohbet yapın, keyfini çıkarın!

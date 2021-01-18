@@ -1,4 +1,6 @@
 Welcome to AmongChat voice chat app!
-Now you can set your Roblox username, Fortnite display name, or Free Fire nickname in the channels.
-You can also choose different chat languages in the app Settings, to match better.
+1. More game channels for you in this update - Mobile Legends, PUBG MOBILE, and Call of Duty. Come on to play with your gamer friends!
+2. You can find other friends by searching for their in-app nicknames/IDs.
+3. The profile page could be closed easily just by swiping down.
+4. Other bug fixes and UI optimization.
 Find and Voice Chat with your friends, enjoy!

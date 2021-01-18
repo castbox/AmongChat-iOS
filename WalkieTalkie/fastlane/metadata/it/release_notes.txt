@@ -1,4 +1,6 @@
 Benvenuto nell'app di chat vocale AmongChat!
-Ora puoi impostare il tuo nome utente Roblox, il nome visualizzato Fortnite o il soprannome Free Fire nei canali.
-Puoi anche scegliere diverse lingue di chat nelle Impostazioni dell'app, per abbinarle meglio.
+1. Più canali di gioco per te in questo aggiornamento: Mobile Legends, PUBG MOBILE e Call of Duty. Vieni a giocare con i tuoi amici giocatori!
+2. Puoi trovare altri amici cercando i loro nickname/ID in-app.
+3. La pagina del profilo può essere chiusa facilmente semplicemente scorrendo verso il basso.
+4. Altre correzioni di bug e ottimizzazione dell'interfaccia utente.
 Trova e chatta con i tuoi amici, divertiti!
