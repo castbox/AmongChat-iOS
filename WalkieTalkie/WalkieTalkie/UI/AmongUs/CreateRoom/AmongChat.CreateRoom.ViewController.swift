@@ -453,11 +453,11 @@ extension AmongChat.CreateRoom.ViewController {
                 Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
                 
-                guard (error as NSError).code != 3004 else {
+                guard let msgError = error as? MsgError,
+                      msgError.code == 3004 else {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                
                 self?.showAdAlert(topic: topic)
                 
             })
