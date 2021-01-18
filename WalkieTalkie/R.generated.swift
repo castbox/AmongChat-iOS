@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 5 files.
+  /// This `R.file` struct is generated, and contains static references to 6 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -29,6 +29,8 @@ struct R: Rswift.Validatable {
     static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
     /// Resource file `emojis.json`.
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
+    /// Resource file `login_bg.svga`.
+    static let login_bgSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "login_bg", pathExtension: "svga")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -57,6 +59,12 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "emojis", withExtension: "json")`
     static func emojisJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.emojisJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "login_bg", withExtension: "svga")`
+    static func login_bgSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.login_bgSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     

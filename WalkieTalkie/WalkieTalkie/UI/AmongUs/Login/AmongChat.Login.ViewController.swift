@@ -10,6 +10,7 @@ import UIKit
 import AuthenticationServices
 import RxCocoa
 import RxSwift
+import SVGAPlayer
 
 extension AmongChat.Login {
     
@@ -30,12 +31,22 @@ extension AmongChat.Login {
             let iv = UIImageView(image: R.image.ac_login_logo())
             return iv
         }()
-        private lazy var bg = StarsOverlay()
+//        private lazy var bg = StarsOverlay()
 //        private lazy var bg: UIImageView = {
 //            let iv = UIImageView(image: R.image.ac_login_bg())
 //            iv.contentMode = .scaleAspectFill
 //            return iv
 //        }()
+        
+        lazy var bg: SVGAPlayer = {
+            let player = SVGAPlayer(frame: .zero)
+            player.clearsAfterStop = false
+//            player.delegate = self
+            player.loops = 1
+            player.contentMode = .scaleAspectFill
+            player.isUserInteractionEnabled = false
+            return player
+        }()
         
         private lazy var snapchatButton: LoginButton = {
             let btn = LoginButton(type: .custom)
@@ -156,6 +167,7 @@ extension AmongChat.Login {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            playBackgroundSvga()
             Logger.Action.log(.login_imp)
         }
         
@@ -254,6 +266,15 @@ extension AmongChat.Login.ViewController {
 extension AmongChat.Login.ViewController {
     
     // MARK: - convinience
+    func playBackgroundSvga() {
+        let parser = SVGAGlobalParser.defaut
+        parser.parse(withNamed: "login_bg", in: nil) { [weak self] (item) in
+            self?.bg.videoItem = item
+            self?.bg.startAnimation()
+         } failureBlock: { error in
+            debugPrint("error: \(error.localizedDescription ?? "")")
+         }
+    }
     
     private func setupLayout() {
         
