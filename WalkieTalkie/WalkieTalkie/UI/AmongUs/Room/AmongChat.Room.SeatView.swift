@@ -72,7 +72,7 @@ extension AmongChat.Room {
             let col: CGFloat = CGFloat(indexPath.item / 5)
             let x = sectionInset.left + row * (itemSize.width + minimumInteritemSpacing)
             let y = sectionInset.top + col * itemSize.height
-            cdPrint("x: \(x) \ny: \(y)")
+//            cdPrint("x: \(x) \ny: \(y)")
             attribute.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
             return attribute
         }
