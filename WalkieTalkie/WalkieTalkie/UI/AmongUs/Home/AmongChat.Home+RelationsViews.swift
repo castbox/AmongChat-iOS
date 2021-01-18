@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SnapKit
 
 extension AmongChat.Home {
     
@@ -60,7 +61,7 @@ extension AmongChat.Home {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.width.height.equalTo(40)
                 maker.centerY.equalToSuperview()
-                maker.left.equalToSuperview()
+                maker.leading.equalToSuperview()
             }
             
             let textLayout = UILayoutGuide()
@@ -68,17 +69,17 @@ extension AmongChat.Home {
                         
             textLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.left.equalTo(avatarIV.snp.right).offset(12)
-                maker.right.equalToSuperview()
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
+                maker.trailing.equalToSuperview()
             }
             
             nameLabel.snp.makeConstraints { (maker) in
-                maker.left.top.right.equalTo(textLayout)
+                maker.leading.top.trailing.equalTo(textLayout)
             }
             
             statusLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(nameLabel.snp.bottom)
-                maker.left.right.bottom.equalTo(textLayout)
+                maker.leading.trailing.bottom.equalTo(textLayout)
             }
             
         }
@@ -145,14 +146,14 @@ extension AmongChat.Home {
             contentView.addLayoutGuide(buttonLayout)
             buttonLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
             }
             
             userView.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
+                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
             }
             
             joinBtn.snp.makeConstraints { (maker) in
@@ -160,7 +161,7 @@ extension AmongChat.Home {
             }
             
             lockedIcon.snp.makeConstraints { (maker) in
-                maker.right.centerY.equalTo(buttonLayout)
+                maker.trailing.centerY.equalTo(buttonLayout)
             }
             
         }
@@ -242,14 +243,14 @@ extension AmongChat.Home {
             contentView.addLayoutGuide(buttonLayout)
             buttonLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
             }
             
             userView.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.right.lessThanOrEqualTo(buttonLayout.snp.left).offset(-20)
+                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
             }
             
             followBtn.snp.makeConstraints { (maker) in
@@ -295,12 +296,13 @@ extension AmongChat.Home {
             addSubviews(views: titleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
-                maker.left.right.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(20)
             }
         }
         
-        func configTitle(_ title: String) {
+        func configTitle(_ title: String, constraints: (_ make: ConstraintMaker) -> Void) {
             titleLabel.text = title
+            titleLabel.snp.remakeConstraints(constraints)
         }
     }
     
@@ -315,9 +317,23 @@ extension AmongChat.Home {
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
-            lb.textColor = UIColor(hex6: 0x898989)
+            lb.textColor = UIColor(hex6: 0xFFFFFF)
             lb.text = R.string.localizable.amongChatHomeFriendsShareTitle()
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
+        }()
+        
+        private lazy var rightIcon: UIImageView = {
+            let i = UIImageView(image: R.image.ac_right_arrow())
+            return i
+        }()
+        
+        private lazy var contentView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0x222222)
+            v.layer.cornerRadius = 12
+            return v
         }()
         
         var onSelect: (() -> Void)? = nil
@@ -330,27 +346,45 @@ extension AmongChat.Home {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
-            addSubviews(views: icon, titleLabel)
+            contentView.addSubviews(views: icon, titleLabel, rightIcon)
+            addSubviews(views: contentView)
             icon.snp.makeConstraints { (maker) in
-                maker.top.equalToSuperview().offset(14.5)
-                maker.left.equalToSuperview().offset(20)
-                maker.width.height.equalTo(40)
+                maker.centerY.equalToSuperview()
+                maker.leading.equalToSuperview().offset(16)
+                maker.width.height.equalTo(36)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.left.equalTo(icon.snp.right).offset(12)
-                maker.centerY.equalTo(icon)
-                maker.right.equalToSuperview().offset(-20)
+                maker.leading.equalTo(icon.snp.trailing).offset(12)
+                maker.top.greaterThanOrEqualToSuperview().inset(0)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalTo(rightIcon.snp.leading).offset(-16)
+            }
+            
+            rightIcon.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(16)
+            }
+            
+            contentView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalToSuperview().offset(7)
+                maker.height.equalTo(68)
             }
             
             isUserInteractionEnabled = true
             let tap = UITapGestureRecognizer()
             addGestureRecognizer(tap)
-            tap.rx.event.bind(onNext: { [weak self] (_) in
+            let _ = tap.rx.event.bind(onNext: { [weak self] (_) in
                 self?.onSelect?()
             })
+        }
+        
+        func configContent(constraints: (_ make: ConstraintMaker) -> Void) {
+            contentView.snp.remakeConstraints(constraints)
         }
     }
     

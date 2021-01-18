@@ -12,7 +12,11 @@ import Kingfisher
 
 extension AmongChat.Home {
     
-    class TopicViewModel {
+    class TopicViewModel: Equatable {
+        static func == (lhs: AmongChat.Home.TopicViewModel, rhs: AmongChat.Home.TopicViewModel) -> Bool {
+            lhs.topic.topicId == rhs.topic.topicId
+        }
+        
                 
         let topic: Entity.SummaryTopic
         

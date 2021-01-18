@@ -12,13 +12,13 @@ protocol Modalable {
     func style() -> Modal.Style
     func height() -> CGFloat
     func modalPresentationStyle() -> UIModalPresentationStyle
-    func cornerRadius() -> CGFloat
+    func containerCornerRadius() -> CGFloat
     func coverAlpha() -> CGFloat
     func canAutoDismiss() -> Bool
 }
 
 extension Modalable {
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 15
     }
     func coverAlpha() -> CGFloat {
@@ -124,8 +124,8 @@ extension Modalable where Self: UIViewController {
         self.willMove(toParent: container)
         container.addChild(self)
         container.view.addSubview(view)
-        if cornerRadius() > 0 {
-            view.addCorner(with: cornerRadius())
+        if containerCornerRadius() > 0 {
+            view.addCorner(with: containerCornerRadius())
         }
         
         let coverAlpha = self.coverAlpha()

@@ -18,25 +18,8 @@ extension AmongChat.Home {
         private typealias ShareFooter = AmongChat.Home.FriendShareFooter
         private typealias EmptyView = AmongChat.Home.EmptyReusableView
         
-        private lazy var profileBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_profile(), for: .normal)
-            btn.addTarget(self, action: #selector(onProfileBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
-        private lazy var bannerIV: UIImageView = {
-            let i = UIImageView(image: R.image.ac_home_banner())
-            return i
-        }()
-        
-        private lazy var createRoomBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_home_create(), for: .normal)
-            btn.addTarget(self, action: #selector(onCreateRoomBtn), for: .primaryActionTriggered)
-            return btn
-        }()
-        
+        private lazy var navigationView = NavigationBar()
+            
         private lazy var friendsCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -94,37 +77,18 @@ extension AmongChat.Home {
 extension AmongChat.Home.RelationsViewController {
     
     private func setupLayout() {
+
+        view.addSubviews(views: navigationView, friendsCollectionView)
         
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.height.equalTo(60)
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
-        }
-        
-        view.addSubviews(views: profileBtn, bannerIV, createRoomBtn, friendsCollectionView)
-        
-        profileBtn.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(42)
-            maker.left.equalToSuperview().inset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        createRoomBtn.snp.makeConstraints { (maker) in
-            maker.right.equalToSuperview().inset(20)
-            maker.width.height.equalTo(42)
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-        
-        bannerIV.snp.makeConstraints { (maker) in
-            maker.center.equalTo(navLayoutGuide)
+        navigationView.snp.makeConstraints { (maker) in
+            maker.top.left.right.equalToSuperview()
+            maker.height.equalTo(49 + Frame.Height.safeAeraTopHeight)
         }
         
         friendsCollectionView.snp.makeConstraints { (maker) in
-            maker.left.right.bottom.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.top.equalTo(navigationView.snp.bottom)
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview()
         }
         
     }
@@ -145,21 +109,11 @@ extension AmongChat.Home.RelationsViewController {
             })
             .disposed(by: bag)
 
-        rx.viewWillAppear
-            .subscribe(onNext: { [weak self] (_) in
-                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
-            })
-            .disposed(by: bag)
-        
-        Settings.shared.amongChatAvatarListShown.replay()
-            .subscribe(onNext: { [weak self] (ts) in
-                if let _ = ts {
-                    self?.profileBtn.redDotOff()
-                } else {
-                    self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
-                }
-            })
-            .disposed(by: bag)
+//        rx.viewWillAppear
+//            .subscribe(onNext: { [weak self] (_) in
+//                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
+//            })
+//            .disposed(by: bag)
         
     }
     
@@ -203,15 +157,6 @@ extension AmongChat.Home.RelationsViewController {
 
     //MARK: - UI Action
     
-    @objc
-    private func onProfileBtn() {
-        Routes.handle("/profile")
-    }
-    
-    @objc
-    private func onCreateRoomBtn() {
-        Routes.handle("/createRoom")
-    }
 
 }
 
@@ -282,9 +227,15 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
             
             if indexPath.section == 0 {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle())
+                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.top.equalToSuperview().offset(24)
+                }
             } else {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle())
+                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.top.bottom.equalToSuperview()
+                }
             }
             
             header.isHidden = (dataSource.safe(indexPath.section)?.count ?? 0) == 0
@@ -299,6 +250,21 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                     self?.shareApp()
                     Logger.Action.log(.home_friends_invite_clk)
                 }
+                
+                if dataSource.safe(indexPath.section)?.count ?? 0 > 0 {
+                    shareFooter.configContent { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.equalToSuperview().offset(7)
+                        maker.height.equalTo(68)
+                    }
+                } else {
+                    shareFooter.configContent { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.equalToSuperview().offset(24)
+                        maker.height.equalTo(68)
+                    }
+                }
+                
                 reusableView = shareFooter
             } else {
                 reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
@@ -319,15 +285,23 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if dataSource.safe(section)?.count ?? 0 > 0 {
-            return CGSize(width: Frame.Screen.width, height: 31)
-        } else {
-            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+            if section == 0 {
+                return CGSize(width: Frame.Screen.width, height: 53)
+            } else if section == 1 {
+                return CGSize(width: Frame.Screen.width, height: 47)
+            }
         }
+        return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
-            return CGSize(width: Frame.Screen.width, height: 113)
+            if dataSource.safe(section)?.count ?? 0 > 0 {
+                return CGSize(width: Frame.Screen.width, height: 121)
+            } else {
+                return CGSize(width: Frame.Screen.width, height: 138)
+            }
+            
         } else {
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }

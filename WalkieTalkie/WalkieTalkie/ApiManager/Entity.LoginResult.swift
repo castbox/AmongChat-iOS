@@ -44,9 +44,13 @@ extension Entity {
 
 extension Entity {
     struct RoomProto: Encodable {
+        
+        static let watchAdEntry = "watch_ad"
+        
         var note: String
         var state: RoomPublicType
         var topicId: String
+        var entry: String?
         
         init() {
             note = ""
@@ -109,6 +113,9 @@ extension Entity {
         var nameFortnite: String?
         var nameFreefire: String?
         var nameMineCraft: String?
+        var nameCallofduty: String?
+        var namePubgmobile: String?
+        var nameMobilelegends: String?
         var isFollowed: Bool?
         var opTime: Double?
         var invited: Bool?
@@ -131,6 +138,9 @@ extension Entity {
             case nameFortnite = "name_fortnite"
             case nameFreefire = "name_freefire"
             case nameMineCraft = "name_minecraft"
+            case nameCallofduty = "name_callofduty"
+            case namePubgmobile = "name_pubgmobile"
+            case nameMobilelegends = "name_mobilelegends"
             case chatLanguage = "language_u"
         }
     }
@@ -280,5 +290,15 @@ extension Entity {
             return PlayingUser(user: user, room: room)
         }
         
+    }
+}
+
+extension Entity {
+    
+    struct AccountMetaData: Codable {
+        var freeRoomCards: Int
+        private enum CodingKeys: String, CodingKey {
+            case freeRoomCards = "free_room_cards"
+        }
     }
 }

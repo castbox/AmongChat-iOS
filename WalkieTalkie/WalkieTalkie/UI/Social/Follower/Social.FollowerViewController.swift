@@ -95,14 +95,14 @@ extension Social {
             let navLayoutGuide = UILayoutGuide()
             view.addLayoutGuide(navLayoutGuide)
             navLayoutGuide.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
+                maker.leading.trailing.equalToSuperview()
                 maker.height.equalTo(49)
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
             backBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalTo(navLayoutGuide)
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.width.height.equalTo(25)
             }
             
@@ -112,7 +112,7 @@ extension Social {
             
             view.addSubview(tableView)
             tableView.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
+                maker.leading.trailing.equalToSuperview()
                 maker.top.equalTo(navLayoutGuide.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
@@ -334,14 +334,14 @@ extension Social {
             contentView.addSubviews(views: avatarIV, usernameLabel, followBtn)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(20)
+                maker.leading.equalToSuperview().offset(20)
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(40)
             }
             
             usernameLabel.snp.makeConstraints { (maker) in
-                maker.left.equalTo(avatarIV.snp.right).offset(12)
-                maker.right.equalTo(-115)
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
+                maker.trailing.equalTo(-115)
                 maker.height.equalTo(30)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
             }
@@ -349,7 +349,7 @@ extension Social {
             followBtn.snp.makeConstraints { (maker) in
                 maker.width.equalTo(90)
                 maker.height.equalTo(32)
-                maker.right.equalTo(-20)
+                maker.trailing.equalTo(-20)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             
@@ -463,7 +463,8 @@ extension Social {
 //                        cdPrint("unfollow error:\(error.localizedDescription)")
 //                    }).disposed(by: bag)
             } else {
-                let removeBlock = self.superview?.raft.show(.loading)
+                let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
+                let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
                 Request.follow(uid: userInfo?.uid ?? 0, type: "follow")
                     .subscribe(onSuccess: { [weak self](success) in
                         guard let `self` = self else { return }
@@ -482,7 +483,8 @@ extension Social {
         private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
             let invited = userInfo.invited ?? false
             if !invited {
-                let removeBlock = self.superview?.raft.show(.loading)
+                let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
+                let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
                 Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock?()

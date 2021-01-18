@@ -169,6 +169,7 @@ extension AmongChat.Room {
             leftMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
             let rightMargin = UIView()
             rightMargin.frame = CGRect(x: 0, y: 0, width: 17.5, height: 0)
+            f.keyboardAppearance = .dark
             f.leftView = leftMargin
             f.rightView = rightMargin
             f.leftViewMode = .always
@@ -729,7 +730,8 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.leaveHandler = { [weak self] in
-            self?.onCloseBtn()
+            self?.requestLeaveRoom()
+//            self?.onCloseBtn()
         }
         
         topBar.kickOffHandler = { [weak self] in

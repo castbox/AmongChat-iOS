@@ -19,25 +19,16 @@ class JustChillingInfoView: XibLoadableView {
                 return
             }
             switch room.topicType {
-            case .roblox:
-                notesDetailButton.isHidden = true
-                notesTitleButton.setTitle(R.string.localizable.amongChatRoomRebloxTitle(), for: .normal)
-            case .minecraft:
-                notesDetailButton.isHidden = true
-                notesTitleButton.setTitle(R.string.localizable.amongChatRoomMinecraftTitle(), for: .normal)
-            case .freefire:
-                notesDetailButton.isHidden = true
-                notesTitleButton.setTitle(R.string.localizable.amongChatRoomFreefireTitle(), for: .normal)
-            case .fortnite:
-                notesDetailButton.isHidden = true
-                notesTitleButton.setTitle(R.string.localizable.amongChatRoomFortniteTitle(), for: .normal)
-            default:
+            case .amongus, .chilling:
                 notesDetailButton.isHidden = false
                 guard let string = room.note, !string.isEmpty else {
                     notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
                     return
                 }
                 notesDetailButton.setTitle(string, for: .normal)
+            default:
+                notesDetailButton.isHidden = true
+                notesTitleButton.setTitle(room.topicType.notes, for: .normal)
             }
         }
     }

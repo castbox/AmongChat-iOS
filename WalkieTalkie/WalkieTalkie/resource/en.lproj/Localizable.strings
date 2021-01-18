@@ -100,7 +100,6 @@
 "social.invite.play.with" = "People you may like to play with";
 "social.exit.channel" = "Exit channel";
 "social.follow.teammates" = "Follow your teammates to play together \nnext time";
-"social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
 "social.followed.sucess" = "You have successfully followed \nthis person";
 "social.block.failed" = "Failed to block this person, \nplease try again.";
 "social.unblock.failed" = "Failed to unblock this person, \nplease try again.";
@@ -203,3 +202,30 @@
 "chatroom.message.system.change.to.private" = "Channel is PRIVATE now. The invited players can join!";
 "chatroom.message.user.joined" = "joined";
 "among.chat.room.reblox.title" = "Click to copy others' Roblox usernames to play together";
+
+// 1.10
+"search.placeholder" = "Nickname or ID";
+"social.share.url" = "Hey, we need one more person to join to start our game. Come join us here: %@";
+"among.chat.room.mobile.legends.title" = "Click to copy others' MLBB Name/ID to play together";
+"among.chat.room.set.mobile.legends.name" = "Set MLBB Name/ID";
+"room.mobile.legends.input.code.plceholder" = "MLBB NAME/ID";
+
+"among.chat.room.pubg.mobile.title" = "Click to copy others' PUBG Player Name/ID to play together";
+"among.chat.room.set.pubg.mobile.name" = "Set PUBG Player Name/ID";
+"room.pubg.mobile.input.code.plceholder" = "PUBG PLAYER NAME/ID";
+
+"among.chat.room.call.of.duty.title" = "Click to copy others' COD Username/UID to play together";
+"among.chat.room.set.call.of.duty.name" = "Set COD Username/UID";
+"room.call.of.duty.input.code.plceholder" = "COD USERNAME/UID";
+
+"among.chat.create.room.card.tip.title" = "Remaining SPACE cards:";
+"among.chat.create.room.card.tip.content" = "Use a SPACE card to create a channel. One free card per day, free cards do not stack.";
+"among.chat.create.room.card.consume.content" = "Use a SPACE card?";
+"among.chat.create.room.card.insufficient.title" = "Insufficient SPACE cards";
+"among.chat.create.room.card.insufficient.content" = "Watch a short video to get one.";
+"among.chat.create.room.card.claim" = "Claim";
+"among.chat.create.room.create" = "Create";
+"microphone.not.allow.title" = "“AmongChat” would like to Access the Microphone";
+"microphone.not.allow.subtitle" = "To join the channel, please switch on microphone permission.";
+"microphone.not.allow.setting" = "Go Settings";
+"error.no.search" = "Oops, no matching results!";

@@ -48,6 +48,9 @@ extension APIService {
         case inviteFriends([String: Any])
         case inviteUser([String: Any])
         case onlineStrangers
+        case userSearch([String: Any])
+        case topics
+        case accountMetaData
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -134,6 +137,12 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/invite"
         case .onlineStrangers:
             return "/api/v1/online/stranger/list"
+        case .userSearch:
+            return "/live/user/search"
+        case .topics:
+            return "/api/v1/topics"
+        case .accountMetaData:
+            return "/account/meta_data"
         }
     }
     
@@ -173,7 +182,10 @@ extension APIService.AmongChatBackend: TargetType {
              .playingList,
              .inviteFriends,
              .exitRoomRecommend,
-             .onlineStrangers:
+             .onlineStrangers,
+             .topics,
+             .accountMetaData,
+             .userSearch:
             return .get
         case .follow:
             return .put
@@ -197,6 +209,8 @@ extension APIService.AmongChatBackend: TargetType {
              .playingList,
              .recommendedUsers,
              .onlineStrangers,
+             .topics,
+             .accountMetaData,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
@@ -228,6 +242,7 @@ extension APIService.AmongChatBackend: TargetType {
              .exitRoomRecommend(let params),
              .inviteFriends(let params),
              .inviteUser(let params),
+             .userSearch(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

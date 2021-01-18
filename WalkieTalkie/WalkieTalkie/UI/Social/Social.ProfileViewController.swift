@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import SwiftyUserDefaults
+import PullToDismiss
 
 extension Social {
     
@@ -50,11 +51,19 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_profile_close(), for: .normal)
+            if isSelfProfile, navigationController?.viewControllers.count == 1 {
+                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            } else {
+                btn.setImage(R.image.ac_profile_close(), for: .normal)
+            }
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
                     guard let `self` = self else { return }
-                    self.navigationController?.popViewController()
+                    if self.navigationController?.viewControllers.count == 1 {
+                        self.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.navigationController?.popViewController()
+                    }
                 }).disposed(by: bag)
             return btn
         }()
@@ -80,7 +89,7 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 288:329
+            let vH: CGFloat = isSelfProfile ? 357.5:378
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -131,9 +140,11 @@ extension Social {
         private var blocked = false
         var roomUser: Entity.RoomUser!
         private var userProfile: Entity.UserProfile?
-        
+        private var pullToDismiss: PullToDismiss?
+
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
+            self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             cdPrint(" uid is \(uid)  self uid is \(selfUid)")
@@ -169,18 +180,19 @@ extension Social {
 
 private extension Social.ProfileViewController {
     func setupLayout() {
-        isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
-        
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
+
+        let navLayoutGuide = UIView()
+        navLayoutGuide.backgroundColor = .clear
+//        view.addLayoutGuide(navLayoutGuide)
+        view.addSubview(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
             maker.height.equalTo(49)
         }
-        
+//
         view.addSubviews(views: table, backBtn, titleLabel)
         
         titleLabel.snp.makeConstraints { (maker) in
@@ -195,7 +207,7 @@ private extension Social.ProfileViewController {
         }
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(12.5)
+            maker.leading.equalToSuperview().offset(12.5)
             maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(40)//25
         }
@@ -225,6 +237,11 @@ private extension Social.ProfileViewController {
     }
     
     func setupData() {
+        if isSelfProfile, navigationController?.viewControllers.count == 1 {
+            pullToDismiss = PullToDismiss(scrollView: table)
+            pullToDismiss?.delegate = self
+        }
+        
         if roomUser != nil {
             self.headerView.setProfileData(self.roomUser)
         }

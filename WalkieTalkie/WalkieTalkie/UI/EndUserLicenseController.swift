@@ -50,7 +50,7 @@ extension EndUserLicenseController: Modalable {
         return .overCurrentContext
     }
     
-    func cornerRadius() -> CGFloat {
+    func containerCornerRadius() -> CGFloat {
         return 15
     }
     

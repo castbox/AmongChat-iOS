@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SDCAlertView
 
 extension AmongChat.CreateRoom {
     
@@ -29,79 +32,30 @@ extension AmongChat.CreateRoom {
             return btn
         }()
         
-        private lazy var codeFieldContainer: UIView = {
-            let v = UIView()
-            v.addSubview(codeField)
-            
-            codeField.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview().inset(24)
-                maker.top.bottom.equalToSuperview()
-            }
-            v.backgroundColor = .white
-            v.layer.cornerRadius = 24
+        private lazy var topicCollectionView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            let hInset: CGFloat = 20
+            let vInset: CGFloat = 24
+            let hwRatio: CGFloat = 128.0 / 128.0
+            let interSpace: CGFloat = 20
+            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace ) / 2
+            let cellHeight = cellWidth * hwRatio
+            layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+            layout.minimumLineSpacing = 20
+            layout.minimumInteritemSpacing = interSpace
+            layout.sectionInset = UIEdgeInsets(top: vInset, left: hInset, bottom: vInset, right: hInset)
+            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(TopicCell.self, forCellWithReuseIdentifier: NSStringFromClass(TopicCell.self))
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
+            v.dataSource = self
+            v.delegate = self
+            v.backgroundColor = .clear
+            v.alwaysBounceVertical = true
             return v
         }()
-        
-        private lazy var codeField: UITextField = {
-            let f = UITextField()
-            f.borderStyle = .none
-            f.delegate = self
-            f.clearButtonMode = .whileEditing
-            let pStyle = NSMutableParagraphStyle()
-            pStyle.alignment = .center
-            
-            let attP = NSAttributedString(string: R.string.localizable.amongChatCreateRoomInputPlaceholder(),
-                                          attributes: [
-                                            NSAttributedString.Key.font : R.font.nunitoExtraBold(size: 16) ?? UIFont.boldSystemFont(ofSize: 16),
-                                            NSAttributedString.Key.foregroundColor : UIColor(hex6: 0xD8D8D8),
-                                            NSAttributedString.Key.paragraphStyle : pStyle
-                                          ])
-            f.attributedPlaceholder = attP
-            f.font = R.font.nunitoExtraBold(size: 16)
-            f.textAlignment = .center
-            f.backgroundColor = .clear
-            return f
-        }()
-        
-        private lazy var topicTable: UITableView = {
-            let tb = UITableView(frame: .zero, style: .plain)
-            tb.register(TopicCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCell.self))
-            tb.backgroundColor = .clear
-            tb.separatorStyle = .none
-            tb.rowHeight = 60
-            tb.dataSource = self
-            tb.delegate = self
-            topicHeaderView.bounds = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 57))
-            tb.tableHeaderView = topicHeaderView
-            tb.keyboardDismissMode = .onDrag
-            return tb
-        }()
-        
-        private lazy var topicHeaderView: UIView = {
-            let v = UIView()
-            let icon = UIImageView(image: R.image.ac_topic_hot())
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
-            lb.textColor = UIColor.white
-            lb.text = R.string.localizable.amongChatCreateRoomTopicTitle()
-            
-            v.addSubviews(views: icon, lb)
-            
-            icon.snp.makeConstraints { (maker) in
-                maker.left.equalToSuperview().offset(40)
-                maker.width.height.equalTo(20)
-                maker.top.equalToSuperview()
-            }
-            
-            lb.snp.makeConstraints { (maker) in
-                maker.left.equalTo(icon.snp.right).offset(8)
-                maker.top.equalToSuperview()
-                maker.right.equalToSuperview().inset(40)
-            }
-            
-            return v
-        }()
-        
+
         private lazy var confirmButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 24
@@ -132,22 +86,82 @@ extension AmongChat.CreateRoom {
             return sw
         }()
         
+        private lazy var bottomBar: UIView = {
+            let v = UIView()
+            v.backgroundColor = Theme.mainBgColor
+            v.addSubviews(views: privateStateLabel, privateStateSwitch, cardButton, confirmButton)
+            
+            privateStateLabel.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(20)
+                maker.top.equalToSuperview().offset(12.5)
+            }
+            
+            privateStateSwitch.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(privateStateLabel.snp.trailing).offset(12)
+                maker.centerY.equalTo(privateStateLabel)
+            }
+            
+            cardButton.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().offset(-20)
+                maker.centerY.equalTo(privateStateLabel)
+            }
+            
+            confirmButton.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.height.equalTo(48)
+                maker.top.equalTo(62)
+            }
+            
+            return v
+        }()
+        
+        private lazy var cardButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setTitleColor(.white, for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.addTarget(self, action: #selector(onCardBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_room_card(), for: .normal)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+            return btn
+        }()
+        
+        private lazy var bottomrBarShadowIV: UIImageView = {
+            let i = UIImageView(image: R.image.ac_create_room_bar_top_shadow())
+            return i
+        }()
+        
         override var contentScrollView: UIScrollView? {
-            topicTable
+            topicCollectionView
         }
         
         typealias TopicViewModel = AmongChat.CreateRoom.TopicViewModel
-        private lazy var topicDataSource: [TopicViewModel] = AmongChat.Topic.allCases
-            .map { TopicViewModel(with: $0) }
-            .filter { !$0.name.isEmpty }
+        private lazy var topicDataSource: [TopicViewModel] = [Entity.SummaryTopic]()
+            .map { TopicViewModel(with: $0) } {
+            didSet {
+                topicCollectionView.reloadData()
+            }
+        }
         
-                
+        private var selectedTopic: TopicViewModel? {
+            
+            guard let selectedIdx = topicCollectionView.indexPathsForSelectedItems?.first?.item,
+                  let topic = topicDataSource.safe(selectedIdx) else {
+                return nil
+            }
+            
+            return topic
+        }
+        
+        private var cardDataRelay = BehaviorRelay<Entity.AccountMetaData?>(value: nil)
+        
         // MARK: -
                 
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
             setupEvents()
+            fetchData()
         }
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -169,14 +183,151 @@ extension AmongChat.CreateRoom.ViewController {
         
     @objc
     private func onConfirmBtn() {
-        guard let name = codeField.text?.trim(),
-              !name.isEmpty else {
-            codeFieldContainer.shake()
+        
+        guard let topic = selectedTopic else {
             HapticFeedback.Impact.error()
             return
         }
-        Logger.Action.log(.create_topic_create, categoryValue: name, privateStateSwitch.roomPublicType.rawValue)
-        createRoom(with: name)
+        
+        guard let card = cardDataRelay.value,
+              card.freeRoomCards > 0 else {
+            showAdAlert(topic: topic)
+            return
+        }
+        
+        Logger.Action.log(.create_topic_create, categoryValue: topic.topic.topicId, privateStateSwitch.roomPublicType.rawValue)
+        
+        let alert = amongChatAlert(title: nil,
+                                   cancelTitle: R.string.localizable.toastCancel(),
+                                   confirmTitle: R.string.localizable.amongChatCreateRoomCreate(),
+                                   cancelAction: {
+                                    Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "cancel")
+                                   }) { [weak self] in
+            Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "create")
+            self?.createRoom(with: topic, freeCard: true)
+        }
+        
+        let content: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            
+            let tipLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 16)
+                lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatCreateRoomCardConsumeContent()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            let cardIcon = UIImageView(image: R.image.ac_room_card2())
+            
+            v.addSubviews(views: tipLb, cardIcon)
+            
+            cardIcon.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(20)
+            }
+            
+            tipLb.snp.makeConstraints { (maker) in
+                maker.top.equalTo(cardIcon.snp.bottom).offset(12)
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.bottom.equalToSuperview().inset(24)
+            }
+            
+            return v
+        }()
+        
+        alert.contentView.addSubview(content)
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        decorateAlert(alert)
+        alert.present()
+        Logger.Action.log(.space_card_use_dialog_imp)
+    }
+    
+    @objc
+    private func onCardBtn() {
+        
+        Logger.Action.log(.space_card_tip_clk)
+        
+        let alert = amongChatAlert(title: nil, confirmTitle: R.string.localizable.toastConfirm())
+        
+        let content: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            
+            let tipLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 20)
+                lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatCreateRoomCardTipTitle()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            let cardIcon = UIImageView(image: R.image.ac_room_card())
+            
+            let cardCountLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 20)
+                lb.textColor = UIColor.white
+                lb.text = "x\(cardDataRelay.value?.freeRoomCards ?? 0)"
+                return lb
+            }()
+            
+            let msgLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 14)
+                lb.textColor = UIColor(hex6: 0xABABAB)
+                lb.text = R.string.localizable.amongChatCreateRoomCardTipContent()
+                lb.textAlignment = .center
+                lb.numberOfLines = 0
+                return lb
+            }()
+            
+            v.addSubviews(views: tipLb, cardIcon, cardCountLb, msgLb)
+            
+            tipLb.snp.makeConstraints { (maker) in
+                maker.top.equalToSuperview().offset(31)
+                maker.leading.trailing.equalToSuperview().inset(20)
+            }
+            
+            let cardLayout = UILayoutGuide()
+            v.addLayoutGuide(cardLayout)
+            
+            cardLayout.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(tipLb.snp.bottom).offset(8)
+            }
+            
+            cardIcon.snp.makeConstraints { (maker) in
+                maker.top.leading.bottom.equalTo(cardLayout)
+            }
+            
+            cardCountLb.snp.makeConstraints { (maker) in
+                maker.centerY.trailing.equalTo(cardLayout)
+                maker.leading.equalTo(cardIcon.snp.trailing).offset(11)
+            }
+            
+            msgLb.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(cardLayout.snp.bottom).offset(12)
+                maker.bottom.equalToSuperview().inset(24)
+            }
+            
+            return v
+        }()
+        
+        alert.contentView.addSubview(content)
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        decorateAlert(alert)
+        alert.present()
     }
 }
 
@@ -184,53 +335,41 @@ extension AmongChat.CreateRoom.ViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, titleLabel, codeFieldContainer, topicTable, privateStateLabel, privateStateSwitch, confirmButton)
+        view.addSubviews(views: backBtn, titleLabel, topicCollectionView, bottomBar, bottomrBarShadowIV)
         
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(60)
+            maker.height.equalTo(49)
         }
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
+            maker.leading.equalToSuperview().offset(20)
             maker.centerY.equalTo(navLayoutGuide)
         }
         
         titleLabel.snp.makeConstraints { (maker) in
             maker.center.equalTo(navLayoutGuide)
         }
-                
-        codeFieldContainer.snp.makeConstraints { (maker) in
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(20)
-            maker.left.right.equalToSuperview().inset(40)
-            maker.height.equalTo(48)
+        
+        topicCollectionView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.bottom.equalTo(bottomBar.snp.top)
         }
         
-        topicTable.snp.makeConstraints { (maker) in
-            maker.top.equalTo(codeFieldContainer.snp.bottom).offset(40)
+        bottomBar.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
-            maker.bottom.equalTo(privateStateSwitch.snp.top).offset(-40)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.height.equalTo(143)
         }
         
-        privateStateSwitch.snp.makeConstraints { (maker) in
-            maker.right.equalToSuperview().inset(40)
-            maker.bottom.equalTo(confirmButton.snp.top).offset(-20)
+        bottomrBarShadowIV.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomBar.snp.top)
         }
-        
-        privateStateLabel.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().inset(40)
-            maker.centerY.equalTo(privateStateSwitch)
-        }
-        
-        confirmButton.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview().inset(40)
-            maker.height.equalTo(48)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-45)
-        }
-        
     }
     
     private func setupEvents() {
@@ -249,44 +388,59 @@ extension AmongChat.CreateRoom.ViewController {
                 Logger.Action.log(.create_topic_imp, category: nil)
             })
             .disposed(by: bag)
+        
+        Observable.combineLatest(Settings.shared.lastCreatedTopic.replay().take(1),
+                                 Settings.shared.supportedTopics.replay())
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] topic, summary in
+                
+                guard let `self` = self,
+                      var supportedTopics = summary?.topicList,
+                      supportedTopics.count > 0 else {
+                    return
+                }
+                
+                if let topic = topic,
+                   let lastTopic = supportedTopics.removeFirst(where: { $0.topicId == topic.topicId }) {
+                    supportedTopics.insert(lastTopic, at: 0)
+                }
+                
+                self.topicDataSource = supportedTopics.map({ TopicViewModel(with: $0) })
+                
+                self.topicCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .top)
+                self.topicCollectionView.contentOffset = .zero
+            })
+            .disposed(by: bag)
+        
+        cardDataRelay.subscribe(onNext: { [weak self] (data) in
+            self?.cardButton.setTitle("x\(data?.freeRoomCards ?? 0)", for: .normal)
+        })
+        .disposed(by: bag)
     }
     
-    private func createRoom(with name: String) {
+    private func createRoom(with topic: TopicViewModel, freeCard: Bool) {
         
-        view.endEditing(true)
-        
-        typealias Topic = AmongChat.Topic
-                
-        var roomProto = Entity.RoomProto()
+        var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
-        
-        let alphabetCode = { (originString: String) -> String in
-            let set = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").inverted
-            let filteredString = originString.components(separatedBy: set).joined(separator: "")
-            return filteredString
-        }
-        
-        if let topic = Topic(rawValue: alphabetCode(name).lowercased()) {
-            roomProto.topicId = topic.rawValue
-        } else {
-            roomProto.topicId = AmongChat.Topic.chilling.rawValue
-        }
-                
-        switch roomProto.topicType {
-        case .chilling:
-            roomProto.note = name
-            
-        default:
-            ()
-        }
+        roomProto.entry = freeCard ? nil : Entity.RoomProto.watchAdEntry
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let loadingCompletion = { [weak self] in
+            hudRemoval()
+            self?.bottomBar.isUserInteractionEnabled = true
+            self?.topicCollectionView.isUserInteractionEnabled = true
+        }
+        
+        bottomBar.isUserInteractionEnabled = false
+        topicCollectionView.isUserInteractionEnabled = false
+
+        
         let _ = Request.createRoom(roomProto)
             .do(onDispose: {
-                hudRemoval()
+                loadingCompletion()
             })
             .subscribe(onSuccess: { [weak self] (room) in
-                // TODO: - 创建房间成功
                 guard let `self` = self else {
                     return
                 }
@@ -294,73 +448,211 @@ extension AmongChat.CreateRoom.ViewController {
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                self.view.endEditing(true)
                 
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
-                
+                Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                
+                guard (error as NSError).code != 3004 else {
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                    return
+                }
+                
+                self?.showAdAlert(topic: topic)
+                
             })
     }
-}
-
-extension AmongChat.CreateRoom.ViewController: UITextFieldDelegate {
     
-    private var maxInputLength: Int {
-        return 140
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        Logger.Action.log(.create_topic_edit, category: nil)
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    private func fetchData() {
         
-        let currentCharacterCount = textField.text?.count ?? 0
-        if range.length + range.location > currentCharacterCount {
-            return false
+        let hudRemoval: (() -> Void)? = Settings.shared.supportedTopics.value?.topicList.count ?? 0 > 0 ? nil : view.raft.show(.loading, userInteractionEnabled: false)
+        Request.topics()
+            .do(onDispose: {
+                hudRemoval?()
+            })
+            .subscribe(onSuccess: { [weak self] (s) in
+                guard let summary = s else {
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                    return
+                }
+                Settings.shared.supportedTopics.value = summary
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.localizedDescription))
+            })
+            .disposed(by: bag)
+        
+        Request.accountMetaData()
+            .subscribe(onSuccess: { [weak self] (data) in
+                guard let data = data else { return }
+                self?.cardDataRelay.accept(data)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func decorateAlert(_ alert: AlertController) {
+        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        alert.visualStyle.verticalElementSpacing = 0
+        alert.visualStyle.contentPadding = UIEdgeInsets(top: 33.5, left: 0, bottom: 0, right: 0)
+        alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
+    }
+    
+    private func showAdAlert(topic: TopicViewModel) {
+        
+        let alertVC = AlertController(title: nil, message: nil, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        let content: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            
+            let tipLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 20)
+                lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatCreateRoomCardInsufficientTitle()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            let msgLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 14)
+                lb.textColor = UIColor(hex6: 0xABABAB)
+                lb.text = R.string.localizable.amongChatCreateRoomCardInsufficientContent()
+                lb.textAlignment = .center
+                lb.numberOfLines = 0
+                return lb
+            }()
+            
+            let claimBtn: UIButton = {
+                let btn = UIButton(type: .custom)
+                btn.layer.cornerRadius = 24
+                btn.backgroundColor = UIColor(hexString: "#FFF000")
+                btn.setTitle(R.string.localizable.amongChatCreateRoomCardClaim(), for: .normal)
+                btn.setTitleColor(.black, for: .normal)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                btn.setImage(R.image.ac_channel_card_ad(), for: .normal)
+                btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+                btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                return btn
+            }()
+            
+            let cancelBtn: UIButton = {
+                let btn = UIButton(type: .custom)
+                btn.backgroundColor = .clear
+                btn.setTitle(R.string.localizable.toastCancel(), for: .normal)
+                btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                return btn
+            }()
+            
+            claimBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak alertVC, self] (_) in
+                    alertVC?.dismiss()
+                    self.showAd(topic: topic)
+                    Logger.Action.log(.space_card_ads_claim_clk)
+                }).disposed(by: bag)
+            
+            cancelBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak alertVC] (_) in
+                    alertVC?.dismiss()
+                })
+                .disposed(by: bag)
+            
+            v.addSubviews(views: tipLb, msgLb, claimBtn, cancelBtn)
+            
+            tipLb.snp.makeConstraints { (maker) in
+                maker.top.equalTo(20)
+                maker.leading.trailing.equalToSuperview().inset(20)
+            }
+            
+            msgLb.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(tipLb.snp.bottom).offset(12)
+            }
+            
+            claimBtn.snp.makeConstraints { (maker) in
+                maker.height.equalTo(48)
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(msgLb.snp.bottom).offset(24)
+            }
+            
+            cancelBtn.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(claimBtn.snp.bottom).offset(12)
+                maker.bottom.equalToSuperview().inset(16)
+            }
+            
+            return v
+        }()
+
+        alertVC.contentView.addSubview(content)
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
         }
-        let newLength = currentCharacterCount + string.count - range.length
-        return (newLength <= maxInputLength) || newLength < currentCharacterCount
+        
+        decorateAlert(alertVC)
+        alertVC.present()
+        Logger.Action.log(.space_card_ads_dialog_imp)
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+    private func showAd(topic: TopicViewModel) {
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let loadingCompletion = { [weak self] in
+            hudRemoval()
+            self?.bottomBar.isUserInteractionEnabled = true
+            self?.topicCollectionView.isUserInteractionEnabled = true
+        }
+        
+        bottomBar.isUserInteractionEnabled = false
+        topicCollectionView.isUserInteractionEnabled = false
+        AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .channelCard)
+            .take(1)
+            .asSingle()
+//            .timeout(.seconds(180), scheduler: MainScheduler.asyncInstance)
+            .subscribe(onSuccess: { (_) in
+                loadingCompletion()
+                Logger.Action.log(.space_card_ads_claim_success)
+                self.createRoom(with: topic, freeCard: false)
+            }, onError: { [weak self] (error) in
+                loadingCompletion()
+                self?.view.raft.autoShow(.text(error.localizedDescription))
+                Logger.Action.log(.space_card_ads_claim_failed)
+                self?.createRoom(with: topic, freeCard: false)
+            })
+            .disposed(by: bag)
     }
-    
 }
 
-extension AmongChat.CreateRoom.ViewController: UITableViewDataSource, UITableViewDelegate {
+extension AmongChat.CreateRoom.ViewController: UICollectionViewDataSource {
 
-    // MARK: - UITableViewDataSource
+    // MARK: - UICollectionView
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return topicDataSource.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TopicCell.self), for: indexPath)
-        if let topicCell = cell as? TopicCell,
-              let topic = topicDataSource.safe(indexPath.row) {
-            topicCell.bindViewModel(topic)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(TopicCell.self), for: indexPath) as! TopicCell
+        if let topic = topicDataSource.safe(indexPath.item) {
+            cell.bindViewModel(topic)
         }
         return cell
     }
+    
+}
 
-    // MARK: - UITableViewDelegate
+extension AmongChat.CreateRoom.ViewController: UICollectionViewDelegate {
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
-        guard let topic = topicDataSource.safe(indexPath.row) else {
-            return
-        }
-        Logger.Action.log(.create_topic_hot_clk, categoryValue: topic.topic.rawValue, privateStateSwitch.roomPublicType.rawValue)
-        enterRoom(topicId: topic.topic.rawValue, logSource: ParentPageSource(.create_match))
-//        createRoom(with: topic.topic.rawValue)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
-
+    
 }
 
 fileprivate extension UISwitch {

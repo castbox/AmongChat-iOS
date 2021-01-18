@@ -202,13 +202,20 @@ class ViewController: UIViewController, ScreenLifeLogable, JoinRoomable {
         }
     }
     
-    func addNoDataView(_ message: String) {
-        let v = NoDataView(with: message)
+    func addNoDataView(_ message: String, image: UIImage? = nil) {
+        removeNoDataView()
+        let v = NoDataView(with: message, image: image)
         view.addSubview(v)
         v.snp.makeConstraints { (maker) in
             maker.top.equalTo(Frame.Height.navigation)
             maker.left.right.bottom.equalToSuperview()
         }
+    }
+    
+    func removeNoDataView() {
+        view.subviews
+            .first { $0 is NoDataView }?
+            .removeFromSuperview()
     }
 }
 

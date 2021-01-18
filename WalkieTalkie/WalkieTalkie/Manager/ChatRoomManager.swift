@@ -136,8 +136,6 @@ class ChatRoomManager: SeatManager {
                 guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
                 self.updateRole(true)
                 self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
-                    //set to audiance
-//                    self?.updateRole(false)
                     self?.channelName = channelId
                     completionHandler?(nil)
                 }
@@ -145,26 +143,6 @@ class ChatRoomManager: SeatManager {
                 completionHandler?(error)
                 cdPrint("error: \(error)")
             }
-//        mRtmManager.login(Constants.sUserId, { [weak self] (code) in
-//            guard let `self` = self else {
-//                return
-//            }
-//            if code == .ok || code == .alreadyLogin {
-//                let member = Member(userId: String(Constants.sUserId))
-//                if let json = member.toJsonString() {
-//                    self.mRtmManager.setLocalUserAttributes(AttributeKey.KEY_USER_INFO, json)
-//                }
-//                self.updateRole(true)
-//                self.mRtcManager.joinChannel(channelId, Constants.sUserId) { [weak self] in
-//                    //set to audiance
-////                    self?.updateRole(false)
-//                    self?.channelName = channelId
-//                    completionHandler?()
-//                }
-//            } else if code == .timeout {
-//                self.delegate?.onJoinChannelTimeout(channelId: channelId)
-//            }
-//        })
     }
     
     func updateRole(_ isPublisher: Bool) {

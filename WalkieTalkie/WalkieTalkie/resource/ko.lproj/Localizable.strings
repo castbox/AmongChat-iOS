@@ -100,7 +100,6 @@
 "social.invite.play.with" = "함께 플레이하고 싶은 사람";
 "social.exit.channel" = "채널 종료";
 "social.follow.teammates" = "다음에 함께 플레이하려면 팀원을 \n따르십시오";
-"social.share.url" = "안녕하세요, 저는 BetweenChat의 WithinUs 방에 있습니다! 9 명이 더 필요 해요 !!! 가입하려면 링크를 탭하세요 : %@";
 "social.followed.sucess" = "이 사람을 성공적으로 \n팔로우했습니다.";
 "social.block.failed" = "이 사용자를 차단하지 못했습니다. \n다시 시도하십시오.";
 "social.unblock.failed" = "이 사용자를 차단 해제하지 못했습니다. \n다시 시도해주세요.";
@@ -142,7 +141,6 @@
 "among.chat.room.kick.selected" = "선택 킥 (%@)";
 "among.chat.room.just.chat.title" = "호스트는 모든 사람이 참여할 때 볼 수 있도록 메모를 설정할 수 있습니다.";
 "among.chat.room.kickout" = "이 채널에서 삭제되었습니다.";
-"among.chat.room.reblox.title" = "Roblox에서 호스트를 추가하여 게임에 참여하세요! 복사하려면 클릭";
 "among.chat.room.set.reblox.name" = "Roblox 사용자 이름 설정";
 "among.chat.room.kick" = "발 차기";
 "among.chat.room.user.change.notes.title" = "채널 소유자 만 변경할 수 있습니다.";
@@ -203,3 +201,31 @@
 "chatroom.message.system.change.to.public" = "채널은 이제 PUBLIC입니다. 누구나 가입 할 수 있습니다!";
 "chatroom.message.system.change.to.private" = "현재 채널은 비공개입니다. 초대받은 플레이어가 참가할 수 있습니다!";
 "chatroom.message.user.joined" = "가입";
+"among.chat.room.reblox.title" = "함께 플레이하려면 다른 사람의 Roblox 사용자 이름을 복사하려면 클릭하세요.";
+
+// 1.10
+"search.placeholder" = "별명 또는 ID";
+"social.share.url" = "게임을 시작하려면 한 명 더 참여해야합니다. 여기로 오세요 : %@";
+"among.chat.room.mobile.legends.title" = "다른 사람의 MLBB 이름/ID를 복사하려면 클릭하여 함께 플레이하세요.";
+"among.chat.room.set.mobile.legends.name" = "MLBB 이름/ID 설정";
+"room.mobile.legends.input.code.plceholder" = "MLBB 이름/ID";
+
+"among.chat.room.pubg.mobile.title" = "다른 사람의 PUBG 플레이어 이름/ID를 복사하려면 클릭하여 함께 플레이하세요.";
+"among.chat.room.set.pubg.mobile.name" = "PUBG 플레이어 이름/ID 설정";
+"room.pubg.mobile.input.code.plceholder" = "PUBG 플레이어 이름/ID";
+
+"among.chat.room.call.of.duty.title" = "함께 플레이하려면 다른 사람의 COD 사용자 이름/UID를 복사하려면 클릭하십시오.";
+"among.chat.room.set.call.of.duty.name" = "COD 사용자 이름/UID 설정";
+"room.call.of.duty.input.code.plceholder" = "COD 사용자 이름/UID";
+
+"among.chat.create.room.card.tip.title" = "남은 SPACE 카드:";
+"among.chat.create.room.card.tip.content" = "SPACE 카드를 사용하여 채널을 만듭니다. 하루에 한 장의 무료 카드, 무료 카드는 쌓이지 않습니다.";
+"among.chat.create.room.card.consume.content" = "SPACE 카드를 사용 하시겠습니까?";
+"among.chat.create.room.card.insufficient.title" = "부족한 SPACE 카드";
+"among.chat.create.room.card.insufficient.content" = "하나를 얻으려면 짧은 비디오를보십시오.";
+"among.chat.create.room.card.claim" = "청구";
+"among.chat.create.room.create" = "창조하다";
+"microphone.not.allow.title" = "\"AmongChat\"이 마이크에 액세스하려고합니다.";
+"microphone.not.allow.subtitle" = "채널에 참여하려면 마이크 권한을 켜십시오.";
+"microphone.not.allow.setting" = "이동 설정";
+"error.no.search" = "죄송합니다. 일치하는 결과가 없습니다.";

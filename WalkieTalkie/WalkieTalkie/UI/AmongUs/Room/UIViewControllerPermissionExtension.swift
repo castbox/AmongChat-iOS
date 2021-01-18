@@ -13,13 +13,11 @@ import SDCAlertView
 extension UIViewController {
     /// 获取麦克风权限
     func checkMicroPermission(completion: @escaping ()->()) {
-        weak var welf = self
         AVAudioSession.sharedInstance().requestRecordPermission { [weak self] isOpen in
             DispatchQueue.main.async {
-                
                 guard let `self` = self else { return }
                 if !isOpen {
-                    self.showAmongAlert(title: NSLocalizedString("“AmongChat” would like to Access the Microphone", comment: ""), message: NSLocalizedString("To join the channel, please switch on microphone permission.", comment: ""), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: NSLocalizedString("Go Settings", comment: "")) {
+                    self.showAmongAlert(title: R.string.localizable.microphoneNotAllowTitle(), message: R.string.localizable.microphoneNotAllowSubtitle(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.microphoneNotAllowSetting()) {
                         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.openURL(url)
                         }
@@ -31,7 +29,11 @@ extension UIViewController {
         }
     }
     
-    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, confirmAction: (() -> Void)? = nil) {
+    func showAmongAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) {
+        amongChatAlert(title: title, message: message, cancelTitle: cancelTitle, confirmTitle: confirmTitle, cancelAction: cancelAction, confirmAction: confirmAction).present()
+    }
+    
+    func amongChatAlert(title: String?, message: String? = nil, cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
         let titleAttr: NSAttributedString?
         if let title = title {
             let attribates: [NSAttributedString.Key: Any] = [
@@ -85,12 +87,14 @@ extension UIViewController {
         //        alertVC.contentView.backgroundColor = "222222".color()
         
         if let cancelAttr = cancelAttr {
-            alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
+            alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal, handler: { _ in
+                cancelAction?()
+            }))
         }
         
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { _ in
             confirmAction?()
         })
-        alertVC.present()
+        return alertVC
     }
 }

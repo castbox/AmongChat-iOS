@@ -45,4 +45,13 @@ extension Entity {
             case more
         }
     }
+    
+    struct SearchData: Codable {
+        var list: [UserProfile]?
+        var more: Bool?
+        private enum CodingKeys: String, CodingKey {
+            case list
+            case more
+        }
+    }
 }

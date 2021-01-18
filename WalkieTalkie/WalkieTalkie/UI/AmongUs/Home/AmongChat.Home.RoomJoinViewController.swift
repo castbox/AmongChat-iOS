@@ -33,14 +33,26 @@ extension AmongChat.Home {
             return lb
         }()
         
+        private lazy var ignoreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.setTitle(R.string.localizable.amongChatIgnore().uppercased(), for: .normal)
+            btn.layer.masksToBounds = true
+            btn.layer.borderWidth = 2
+            btn.layer.cornerRadius = 18
+            return btn
+        }()
+        
         private lazy var joinBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor.black, for: .normal)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.setTitle(R.string.localizable.socialJoinAction().uppercased(), for: .normal)
             btn.layer.masksToBounds = true
-            btn.layer.cornerRadius = 16
+            btn.layer.cornerRadius = 18
             btn.setContentHuggingPriority(.required, for: .horizontal)
             btn.setContentCompressionResistancePriority(.required, for: .horizontal)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
@@ -55,14 +67,15 @@ extension AmongChat.Home {
             return v
         }()
         
-        private var joinBtnDisposable: Disposable? = nil
+        private let bag = DisposeBag()
         
         private var room: Entity.FriendUpdatingInfo.Room? = nil
-        
+        private var joinHandler: CallBack?
+        private var ignoreHandler: CallBack?
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-            isUserInteractionEnabled = false
+            isUserInteractionEnabled = true
             bindSubviewEvent()
             configureSubview()
         }
@@ -72,15 +85,15 @@ extension AmongChat.Home {
         }
         
         override var intrinsicContentSize: CGSize {
-            CGSize(width: Frame.Screen.width, height: 80)
-        }
-        
-        private func bindSubviewEvent() {
-            setupEvent()
+            CGSize(width: Frame.Screen.width, height: 112)
         }
         
         private func configureSubview() {
             setupLayout()
+        }
+        
+        private func bindSubviewEvent() {
+            setupEvent()
         }
         
         private func setupLayout() {
@@ -92,34 +105,52 @@ extension AmongChat.Home {
 //                maker.top.equalTo(Frame.Height.safeAeraTopHeight)
 //                maker.left.right.equalToSuperview().inset(20)
                 maker.top.left.right.equalToSuperview()
-                maker.height.equalTo(90)
+                maker.height.equalTo(112)
             }
             
-            container.addSubviews(views: avatarIV, msgLabel,joinBtn)
+            container.addSubviews(views: avatarIV, msgLabel, ignoreBtn, joinBtn)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.left.equalTo(16)
+                maker.top.leading.equalTo(12)
                 maker.width.height.equalTo(40)
             }
             
             msgLabel.snp.makeConstraints { (maker) in
-                maker.top.greaterThanOrEqualTo(16)
-                maker.bottom.lessThanOrEqualTo(-16)
-                maker.centerY.equalToSuperview()
-                maker.left.equalTo(avatarIV.snp.right).offset(8)
-                maker.right.equalTo(joinBtn.snp.left).offset(-8)
+//                maker.top.greaterThanOrEqualTo(16)
+                maker.top.bottom.equalTo(avatarIV)
+//                maker.bottom.lessThanOrEqualTo(-16)
+//                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(8)
+                maker.trailing.equalTo(-12)
+            }
+            
+            ignoreBtn.snp.makeConstraints { (maker) in
+                maker.bottom.equalTo(-12)
+                maker.leading.equalTo(avatarIV)
+                maker.width.equalTo(joinBtn)
+                maker.trailing.equalTo(joinBtn.snp.leading).offset(-20)
+                maker.height.equalTo(36)
             }
             
             joinBtn.snp.makeConstraints { (maker) in
-                maker.right.equalTo(-16)
-                maker.centerY.equalToSuperview()
-                maker.height.equalTo(32)
+                maker.trailing.equalTo(-12)
+                maker.bottom.equalTo(ignoreBtn)
+                maker.height.equalTo(36)
             }
         }
         
         private func setupEvent() {
+            joinBtn.rx.controlEvent(.touchUpInside)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.joinHandler?()
+                })
+                .disposed(by: bag)
             
+            ignoreBtn.rx.controlEvent(.touchUpInside)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.ignoreHandler?()
+                })
+                .disposed(by: bag)
 //            let tap = UITapGestureRecognizer()
 //            addGestureRecognizer(tap)
 //            tap.rx.event.subscribe(onNext: { [weak self] (_) in
@@ -144,12 +175,9 @@ extension AmongChat.Home {
             //            Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)
         }
         
-        func bindEvent(join: @escaping () -> Void) {
-            joinBtnDisposable?.dispose()
-            joinBtnDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
-                .subscribe(onNext: { (_) in
-                    join()
-                })
+        func bindEvent(join: CallBack?, ignore: CallBack?) {
+            joinHandler = join
+            ignoreHandler = ignore
         }
     }
     

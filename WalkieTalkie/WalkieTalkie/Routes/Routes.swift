@@ -28,7 +28,8 @@ final class Routes {
             URI.Followers.self,
             URI.Channel.self,
             URI.CreateRoom.self,
-            URI.Profile.self
+            URI.Profile.self,
+            URI.Search.self,
             ]
         
         types.forEach { (type) in

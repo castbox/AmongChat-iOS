@@ -1,7 +1,9 @@
 source 'git@github.com:CocoaPods/Specs.git'
 source 'git@github.com:castbox/GuruSpecs.git'
-install!'cocoapods',:deterministic_uuids=>false
-
+install! 'cocoapods',
+:deterministic_uuids => false,
+:generate_multiple_pod_projects => true,
+:disable_input_output_paths => true
 platform :ios, '10.0'
 use_frameworks!
 use_modular_headers!
@@ -28,7 +30,7 @@ def firebase_pods
     # Firebase Remote Configure
     pod 'Firebase/RemoteConfig'
     
-#    # Firebase auth
+    # Firebase auth
     pod 'Firebase/Auth'
 
     # log
@@ -42,6 +44,8 @@ def firebase_pods
     pod 'Firebase/InAppMessagingDisplay'
     
     pod 'Firebase/DynamicLinks'
+    
+    pod 'Firebase/Crashlytics'
 end
 
 # specify the version numbers in case of Podfile.lock missing
@@ -55,11 +59,6 @@ target 'WalkieTalkie' do
 
 #    pod 'Moya'
     pod 'Moya/RxSwift'
-
-#    pod 'Firebase/Crashlytics'
-#    pod 'Fabric', '~> 1.10.2'
-#    pod 'Crashlytics', '~> 3.14.0'
-    pod 'Firebase/Crashlytics'
 
     firebase_pods
 
@@ -97,9 +96,6 @@ target 'WalkieTalkie' do
     # and performance improvements for wide range of primitive data types, UIKit and Cocoa classes –over 500 in 1– for iOS, macOS, tvOS, watchOS and Linux.
     #- Integrate SwiftStdlib extensions only:
     pod 'SwifterSwift'
-    
-    #- Integrate UIKit extensions only:
-#    pod 'SwifterSwift'
     
     pod 'mopub-ios-sdk/Core'
 #    pod 'MoPub-AdMob-Adapters'
@@ -151,13 +147,9 @@ target 'WalkieTalkie' do
     pod 'FBSDKLoginKit'
     
     pod 'NotificationBannerSwift', '~> 3.0.0'
+    pod 'PullToDismiss', '~> 2.2'
+#    pod 'HWPanModal'
 end
-
-#target 'WalkieTalkieWidgetExtension' do
-#  pod 'SwiftyUserDefaults'
-#  pod 'Moya/RxSwift'
-#  pod 'ObjectMapper'
-#end
 
 post_install do |installer|
     installer.pods_project.targets.each do |target|
@@ -177,12 +169,4 @@ post_install do |installer|
         end
     end
     
-#     installer.pods_project.targets.each do |target|
-#       target.build_configurations.each do |config|
-# #        config.build_settings['ENABLE_BITCODE'] = 'NO'
-#          config.build_settings['ENABLE_BITCODE'] = 'NO'
-#       end
-#     end
 end
-
-install! 'cocoapods', :disable_input_output_paths => true

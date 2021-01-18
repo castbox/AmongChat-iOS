@@ -95,6 +95,8 @@ extension WalkieTalkie.ViewController {
 extension JoinRoomable where Self: ViewController {
     func enterRoom(roomId: String? = nil, topicId: String?, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
         Logger.Action.log(.enter_home_topic, categoryValue: topicId)
+        //
+        UIApplication.tabBarController?.dismissNotificationBanner()
         
         var topic = topicId
         if roomId == nil {

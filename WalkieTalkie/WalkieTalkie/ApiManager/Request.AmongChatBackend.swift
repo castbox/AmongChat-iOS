@@ -9,6 +9,7 @@
 import Foundation
 import Moya
 import RxSwift
+import SwiftyUserDefaults
 
 extension Request {
     static let amongchatProvider = MoyaProvider<APIService.AmongChatBackend>(plugins: [
@@ -164,12 +165,16 @@ extension Request {
         
         return amongchatProvider.rx.request(.createRoom(params))
             .mapJSON()
-            .mapToDataKeyJsonValue()
             .map { item -> [String : AnyObject] in
-                guard let roomData = item["room"] as? [String : AnyObject] else {
-                    return [:]
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
                 }
-                return roomData
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["room"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
             }
             .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
@@ -422,5 +427,55 @@ extension Request {
             .mapToListJson()
             .mapJsonListToModelList(Entity.PlayingUser.self)
     }
+    
+    static func rtmToken() -> Single<Entity.RTMToken?> {
+        //read from cache
+        if let token = Settings.shared.cachedRtmToken {
+            return Observable.just(Optional(token))
+                .asSingle()
+        }
+        return Request.amongchatProvider.rx.request(.rtmToken([:]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RTMToken.self)
+            .retry(2)
+            .do { token in
+                guard let token = token else {
+                    return
+                }
+                Settings.shared.cachedRtmToken = token
+            }
+    }
+    
+    static func search(_ keyword: String, skip: Int) -> Single<Entity.SearchData?> {
+        let params: [String: Any] = [
+            "keyword": keyword,
+            "skip": skip,
+            "limit": 20
+        ]
+        return Request.amongchatProvider.rx.request(.userSearch(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.SearchData.self)
+            .retry(2)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 
+    static func topics() -> Single<Entity.Summary?> {
+        
+        return amongchatProvider.rx.request(.topics)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Summary.self)
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func accountMetaData() -> Single<Entity.AccountMetaData?> {
+        return amongchatProvider.rx.request(.accountMetaData)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.AccountMetaData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }
