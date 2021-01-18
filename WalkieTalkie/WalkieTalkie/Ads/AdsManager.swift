@@ -95,15 +95,18 @@ class AdsManager: NSObject {
                 //send notification
                 self?.mopubInitializeSuccessSubject.accept(true)
                 //req
+                RewardedVideoPosition.allCases.forEach {
+                    self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: $0))
+                }
                 self?.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
 //                Ad.InterstitialManager.shared.loadAd()
             }
         }
         
-        MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
-//        RewardedVideoPosition.allCases.forEach {
-//            MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: $0))
-//        }
+//        MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+        RewardedVideoPosition.allCases.forEach {
+            MPRewardedVideo.setDelegate(self, forAdUnitId: Self.rewardedVideoAdUnitId(of: $0))
+        }
     }
     
     private func setupAdmob() {
@@ -264,7 +267,7 @@ class AdsManager: NSObject {
 //            !Settings.shared.isProValue.value else {
 //            return
 //        }
-        cdPrint("requestRewardVideo hasLoaded: \(isRewardVideoReadyRelay.value)")
+        cdPrint("requestRewardVideo hasLoaded: \(isRewardVideoReadyRelay.value[adUnitId])")
 //        guard aviliableRewardVideo == nil else {
 //            return
 //        }
@@ -379,12 +382,12 @@ class AdsManager: NSObject {
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
-//        switch adPostion {
-//        case .unlockAvatar:
+        switch adPostion {
+        case .unlockAvatar:
             return "a545cd81a6814a4bb06a6e6055ed5e58"
-//        case .channelCard:
-//            return "bacb18c823584a5cbcd04f6768e7bf9b"
-//        }
+        case .channelCard:
+            return "bacb18c823584a5cbcd04f6768e7bf9b"
+        }
     }
     
     func earnARewardOfVideo(fromVC: UIViewController, adPosition: RewardedVideoPosition) -> Observable<Void> {
