@@ -1,4 +1,6 @@
 Bienvenue sur l'application de chat vocal AmongChat!
-Vous pouvez maintenant définir votre nom d'utilisateur Roblox, votre nom d'affichage Fortnite ou votre surnom Free Fire dans les canaux.
-Vous pouvez également choisir différentes langues de chat dans les paramètres de l'application, pour mieux correspondre.
+1. Plus de canaux de jeu pour vous dans cette mise à jour - Mobile Legends, PUBG MOBILE et Call of Duty. Venez jouer avec vos amis!
+2. Vous pouvez trouver d'autres amis en recherchant leurs surnoms/IDs intégrés à l'application.
+3. La page de profil pourrait être fermée facilement en faisant glisser vers le bas.
+4. Autres corrections de bogues et optimisation de l'interface utilisateur.
 Trouvez et discutez avec vos amis, profitez-en!
