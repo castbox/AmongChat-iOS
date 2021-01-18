@@ -60,8 +60,6 @@ extension Social {
             return v
         }()
         
-        var hasRetryForAdLoadFailed = false
-        
         private lazy var avatarDataSource: [AvatarViewModel] = {
             return []
         }()
@@ -102,7 +100,7 @@ extension Social.SelectAvatarViewController {
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(49)
         }
@@ -110,7 +108,7 @@ extension Social.SelectAvatarViewController {
         view.addSubviews(views: backBtn, avatarIV, nameLabel, avatarCollectionView)
         
         backBtn.snp.makeConstraints { (maker) in
-            maker.left.equalToSuperview().offset(20)
+            maker.leading.equalToSuperview().offset(20)
             maker.centerY.equalTo(navLayoutGuide)
             maker.width.height.equalTo(24)
         }
@@ -123,12 +121,12 @@ extension Social.SelectAvatarViewController {
         
         nameLabel.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.left.greaterThanOrEqualToSuperview().offset(20)
+            maker.leading.greaterThanOrEqualToSuperview().offset(20)
             maker.top.equalTo(avatarIV.snp.bottom).offset(8)
         }
         
         avatarCollectionView.snp.makeConstraints { (maker) in
-            maker.left.right.bottom.equalToSuperview()
+            maker.leading.trailing.bottom.equalToSuperview()
             maker.top.equalTo(nameLabel.snp.bottom).offset(30)
         }
     }
@@ -205,65 +203,13 @@ extension Social.SelectAvatarViewController {
         avatarIV.setAvatarImage(with: profile.pictureUrl)
     }
     
-    @available(*, deprecated)
-    private func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {
-        if let dict = profileProto.dictionary {
-            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-            Request.updateProfile(dict)
-                .do(onDispose: {
-                    hudRemoval()
-                })
-                .subscribe(onSuccess: { (profile) in
-                    
-                    guard let p = profile else {
-                        return
-                    }
-                    Settings.shared.amongChatUserProfile.value = p
-                }, onError: { (error) in
-                })
-                .disposed(by: bag)
-        }
-    }
-    
     private func useAvatar(_ avatar: AvatarViewModel) -> Single<Entity.UserProfile?> {
         let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatar.avatarUrl)
         return Request.updateProfile(profileProto)
     }
 
     private func unlockAvatar(for avatar: AvatarViewModel, _ indexPath: IndexPath) -> Observable<Void> {
-        return AdsManager.shared.isRewardVideoReadyRelay
-            .filter { [weak self] isReady -> Bool in
-                guard let `self` = self else { return false }
-                if isReady, AdsManager.shared.aviliableRewardVideo == nil {
-                    //如果 Load 成功，但拿不到 reward video， 则重新请求
-                    if !self.hasRetryForAdLoadFailed {
-                        self.hasRetryForAdLoadFailed = true
-                        AdsManager.shared.isRewardVideoReadyRelay.accept(false)
-                        AdsManager.shared.requestRewardVideoIfNeed()
-                    }
-                    return false
-                }
-                return isReady
-            }
-            .take(1)
-            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
-            .flatMap { [weak self] _ -> Observable<Void> in
-                guard let `self` = self else { return  .empty() }
-                self.hasRetryForAdLoadFailed = false
-                guard let reward = AdsManager.shared.aviliableRewardVideo else {
-                    return Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
-                }
-                
-                MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: self, with: reward)
-                
-                return AdsManager.shared.rewardVideoShouldReward.asObservable()
-                    .flatMap { shouldReward -> Observable<Void> in
-                        guard shouldReward else {
-                            return Observable.error(MsgError(code: 500, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
-                        }
-                        return AdsManager.shared.rewardedVideoAdDidDisappear.asObservable()
-                    }
-            }
+        return AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .unlockAvatar)
             .flatMap({ _ -> Single<Void> in
                 #if DEBUG
                 return Single.just(())
@@ -353,7 +299,6 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
             if avatar.locked {
                 Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
                 
-                hasRetryForAdLoadFailed = false
                 rewardVideoDispose?.dispose()
                 
                 rewardVideoDispose =
@@ -434,23 +379,24 @@ extension Social.SelectAvatarViewController {
         private func setupLayout() {
             contentView.backgroundColor = UIColor(hex6: 0x222222)
             contentView.layer.cornerRadius = 12
+            contentView.clipsToBounds = true
             
             contentView.addSubviews(views: avatarIV, selectedIcon, adBadge)
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview().inset(34)
+                maker.leading.trailing.equalToSuperview().inset(34)
                 maker.width.equalTo(avatarIV.snp.height).multipliedBy(1)
                 maker.centerY.equalToSuperview()
             }
             
             selectedIcon.snp.makeConstraints { (maker) in
-                maker.top.left.equalToSuperview()
+                maker.top.right.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
             
             adBadge.snp.makeConstraints { (maker) in
-                maker.top.left.equalToSuperview()
+                maker.top.right.equalToSuperview()
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }

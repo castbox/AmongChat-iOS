@@ -101,8 +101,11 @@ extension Entity {
         var nameFortnite: String?
         var nameFreefire: String?
         var nameMinecraft: String?
-        
+        var nameCallofduty: String?
+        var namePubgmobile: String?
+        var nameMobilelegends: String?
         var topic: AmongChat.Topic?
+        
         var nickname: String? {
             switch topic {
             case .fortnite:
@@ -113,6 +116,12 @@ extension Entity {
                 return nameRoblox
             case .minecraft:
                 return nameMinecraft
+            case .callofduty:
+                return nameCallofduty
+            case .pubgmobile:
+                return namePubgmobile
+            case .mobilelegends:
+                return nameMobilelegends
             default:
                 return nil
             }
@@ -141,6 +150,9 @@ extension Entity {
             case nameFortnite = "name_fortnite"
             case nameFreefire = "name_freefire"
             case nameMinecraft = "name_minecraft"
+            case nameCallofduty = "name_callofduty"
+            case namePubgmobile = "name_pubgmobile"
+            case nameMobilelegends = "name_mobilelegends"
         }
         
         init(from decoder: Decoder) throws {
@@ -158,9 +170,10 @@ extension Entity {
             self.nameFortnite = try container.decodeStringIfPresent(.nameFortnite)
             self.nameFreefire = try container.decodeStringIfPresent(.nameFreefire)
             self.nameMinecraft = try container.decodeStringIfPresent(.nameMinecraft)
+            self.nameCallofduty = try container.decodeStringIfPresent(.nameCallofduty)
+            self.namePubgmobile = try container.decodeStringIfPresent(.namePubgmobile)
+            self.nameMobilelegends = try container.decodeStringIfPresent(.nameMobilelegends)
         }
-        
-        
     }
 }
 

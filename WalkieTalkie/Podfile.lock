@@ -218,6 +218,7 @@ PODS:
   - PINOperation (1.1.2)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
+  - PullToDismiss (2.2)
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
@@ -321,6 +322,7 @@ DEPENDENCIES:
   - Moya/RxSwift
   - NotificationBannerSwift (~> 3.0.0)
   - Path.swift (~> 1.0.0)
+  - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - Reveal-SDK (= 4)
   - RxCocoa
@@ -396,6 +398,7 @@ SPEC REPOS:
     - PINOperation
     - PromisesObjC
     - Protobuf
+    - PullToDismiss
     - R.swift
     - R.swift.Library
     - Reveal-SDK
@@ -486,6 +489,7 @@ SPEC CHECKSUMS:
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  PullToDismiss: 033572b7152fbf68db0407db882d546312813837
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
@@ -511,6 +515,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a67dda018bc188d5faec09937aa9b92bf4713aa0
+PODFILE CHECKSUM: d5dc2e2627fa08fbb0e11728f8145c0f2f3978d8
 
 COCOAPODS: 1.10.0

@@ -14,47 +14,27 @@ extension AmongChat.CreateRoom {
     
     class TopicViewModel {
         
-        let topic: AmongChat.Topic
+        let topic: Entity.SummaryTopic
         
-        init(with topic: AmongChat.Topic) {
+        init(with topic: Entity.SummaryTopic) {
             self.topic = topic
         }
         
         lazy var roomProto: Entity.RoomProto = {
             var proto = Entity.RoomProto()
             proto.note = ""
-            proto.topicId = topic.rawValue
+            proto.topicId = topic.topicId
             proto.state = .public
             return proto
         }()
         
-        var name: String {
-            
-            switch topic {
-            case .amongus:
-                return "# Among Us"
-            case .roblox:
-                return "# Roblox"
-            case .chilling:
-                return "# Just Chatting"
-            default:
-                return ""
-            }
+        var name: String? {
+            return topic.topicName
         }
         
-        var icon: UIImage? {
-            switch topic {
-            case .amongus:
-                return R.image.ac_trophy()
-            case .roblox:
-                return R.image.ac_medal_silver()
-            case .chilling:
-                return R.image.ac_medal_bronze()
-            default:
-                return nil
-            }
+        var coverUrl: String? {
+            return topic.coverUrl
         }
     }
     
 }
-

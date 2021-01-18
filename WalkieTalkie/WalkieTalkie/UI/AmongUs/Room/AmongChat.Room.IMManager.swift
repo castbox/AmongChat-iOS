@@ -30,6 +30,8 @@ extension AmongChat.Room {
         
         private var loginDisposable: Disposable?
         private let bag = DisposeBag()
+        //max login retry twice
+        private var retryCount = 2
         
         var newChannelMessageObservable: Observable<(AgoraRtmMessage, AgoraRtmMember)> {
             return newChannelMessageSubject.asObservable()
@@ -57,7 +59,7 @@ extension AmongChat.Room {
         private func bindEvents() {
             Settings.shared.loginResult.replay()
                 .subscribe(onNext: { [weak self] (result) in
-                    
+                    self?.retryCount = 2
                     if let _ = result {
                         self?.loginSDK()
                     } else {
@@ -72,29 +74,34 @@ extension AmongChat.Room {
             loginDisposable?.dispose()
             loginDisposable = onlineRelay
                 .do(onNext: { [weak self] (status) in
-                    
                     guard status == .online else {
                         return
                     }
-                    
                     self?.logoutSDK()
                 })
                 .filter { $0 == .offline }
                 .take(1)
                 .flatMap({ (_) -> Single<Entity.RTMToken?> in
                     cdPrint("requet loginSDK-token")
-                    return Request.amongchatProvider.rx.request(.rtmToken([:]))
-                        .mapJSON()
-                        .mapToDataKeyJsonValue()
-                        .mapTo(Entity.RTMToken.self)
-                        .retry(2)
+                    return Request.rtmToken()
                 })
                 .subscribe(onNext: { [weak self] token in
                     guard let `self` = self, let token = token, let uid = Settings.loginUserId?.string else { return }
                     cdPrint("requet loginSDK")
-                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { (code) in
+                    self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
+                        guard let `self` = self else { return }
                         cdPrint("requet loginSDK code: \(code.rawValue)")
-                        self.onlineRelay.accept(code == .ok ? .online : .offline)
+                        if code == .ok {
+                            self.onlineRelay.accept(.online)
+                        } else {
+                            self.onlineRelay.accept(.offline)
+                            if self.retryCount > 0 {
+                                //clear token
+                                Settings.shared.cachedRtmToken = nil
+                                self.retryCount -= 1
+                                self.loginSDK()
+                            }
+                        }
                     })
                 }, onError: { error in
                     cdPrint("error: \(error)")

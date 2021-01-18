@@ -181,7 +181,7 @@ extension AmongChat.Login {
     @available(iOS 13.0, *)
     class AppleSigninProxy: NSObject {
         
-        private var signInResultSubject: PublishSubject<String>!
+        private var signInResultSubject: PublishSubject<String>? = nil
         
         func signIn() -> Single<String> {
             let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -193,7 +193,7 @@ extension AmongChat.Login {
             authController.presentationContextProvider = self
             authController.performRequests()
             signInResultSubject = PublishSubject<String>()
-            return signInResultSubject.take(1).asSingle()
+            return signInResultSubject!.take(1).asSingle()
         }
         
     }
@@ -205,10 +205,10 @@ extension AmongChat.Login.AppleSigninProxy: ASAuthorizationControllerDelegate {
         guard let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
             let codeData = appleIDCredential.authorizationCode,
             let code = String(data: codeData, encoding: .utf8) else {
-            signInResultSubject.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
+            signInResultSubject?.onError(NSError(domain: NSStringFromClass(Self.self), code: 1000, userInfo: nil))
             return
         }
-        signInResultSubject.onNext(code)
+        signInResultSubject?.onNext(code)
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
@@ -220,7 +220,7 @@ extension AmongChat.Login.AppleSigninProxy: ASAuthorizationControllerDelegate {
 //            return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
 //        }
         
-        signInResultSubject.onError(NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
+        signInResultSubject?.onError(NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()]))
     }
 }
 
@@ -235,7 +235,7 @@ extension AmongChat.Login {
     
     class GoogleAgent: NSObject  {
                 
-        private var signInResultSubject: PublishSubject<String>!
+        private var signInResultSubject: PublishSubject<String>? = nil
         
         override init() {
             super.init()
@@ -248,7 +248,7 @@ extension AmongChat.Login {
             GIDSignIn.sharedInstance().signOut()
             GIDSignIn.sharedInstance().signIn()
             signInResultSubject = PublishSubject<String>()
-            return signInResultSubject.take(1).asSingle()
+            return signInResultSubject!.take(1).asSingle()
         }
         
         func signOut() {
@@ -281,12 +281,12 @@ extension AmongChat.Login.GoogleAgent: GIDSignInDelegate {
                 return NSError(domain: "chat.among.knife.user", code: AmongChat.Login.cancelErrorCode, userInfo: [NSLocalizedDescriptionKey: R.string.localizable.amongChatLoginSignInCancelled()])
             }
             
-            signInResultSubject.onError(newError)
+            signInResultSubject?.onError(newError)
             
             return
         }
         
-        signInResultSubject.onNext(token)
+        signInResultSubject?.onNext(token)
         
     }
     

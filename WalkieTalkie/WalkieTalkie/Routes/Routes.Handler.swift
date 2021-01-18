@@ -46,6 +46,8 @@ extension Routes {
                         self.handleUndefined(undefined.url)
                     case _ as URI.CreateRoom:
                         self.handleCreateRoom()
+                    case _ as URI.Search:
+                        self.handleSearch()
                     case let profile as URI.Profile:
                         self.handleProfile(uid: profile.uid)
                     default:
@@ -93,10 +95,22 @@ extension Routes {
             UIApplication.navigationController?.pushViewController(vc)
         }
         
+        func handleSearch() {
+            let vc = Search.ViewController()
+            UIApplication.navigationController?.pushViewController(vc)
+        }
+        
         func handleProfile(uid: Int? = nil) {
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             let vc = Social.ProfileViewController(with: uid ?? selfUid)
-            UIApplication.navigationController?.pushViewController(vc)
+            if uid == nil || uid == selfUid {
+                let navigationVc = NavigationViewController(rootViewController: vc)
+                navigationVc.modalPresentationStyle = .overCurrentContext
+                UIApplication.tabBarController?.present(navigationVc, animated: true, completion: nil)
+            } else {
+                UIApplication.navigationController?.pushViewController(vc)
+
+            }
         }
         
         func handleFollowers() {

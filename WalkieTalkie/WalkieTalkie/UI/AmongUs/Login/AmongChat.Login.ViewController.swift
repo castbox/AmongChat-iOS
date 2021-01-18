@@ -30,12 +30,12 @@ extension AmongChat.Login {
             let iv = UIImageView(image: R.image.ac_login_logo())
             return iv
         }()
-        
-        private lazy var bg: UIImageView = {
-            let iv = UIImageView(image: R.image.ac_login_bg())
-            iv.contentMode = .scaleAspectFill
-            return iv
-        }()
+        private lazy var bg = StarsOverlay()
+//        private lazy var bg: UIImageView = {
+//            let iv = UIImageView(image: R.image.ac_login_bg())
+//            iv.contentMode = .scaleAspectFill
+//            return iv
+//        }()
         
         private lazy var snapchatButton: LoginButton = {
             let btn = LoginButton(type: .custom)

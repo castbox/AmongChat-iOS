@@ -100,7 +100,6 @@
 "social.invite.play.with" = "Les personnes avec lesquelles vous aimeriez jouer";
 "social.exit.channel" = "Quitter le canal";
 "social.follow.teammates" = "Suivez vos coéquipiers pour jouer ensemble \nla prochaine fois";
-"social.share.url" = "Hé, je suis dans la salle AmongUs dans AmongChat! Nous avons besoin de 9 personnes supplémentaires !!! Appuyez sur le lien pour rejoindre: %@";
 "social.followed.sucess" = "Vous avez suivi avec succès \ncette personne";
 "social.block.failed" = "Échec du blocage de cette personne, \nveuillez réessayer.";
 "social.unblock.failed" = "Échec du déblocage de cette personne, \nveuillez réessayer.";
@@ -142,7 +141,6 @@
 "among.chat.room.kick.selected" = "Coup sélectionné (%@)";
 "among.chat.room.just.chat.title" = "L'hôte peut configurer la note pour que tout le monde puisse la voir lors de sa inscription";
 "among.chat.room.kickout" = "Vous avez été supprimé de cette chaîne";
-"among.chat.room.reblox.title" = "Ajoutez l'hôte dans Roblox pour rejoindre leur partie! Cliquez pour copier";
 "among.chat.room.set.reblox.name" = "Définir le nom d'utilisateur Roblox";
 "among.chat.room.kick" = "Donner un coup";
 "among.chat.room.user.change.notes.title" = "Seul le propriétaire de la chaîne peut changer cela";
@@ -184,7 +182,7 @@
 "amongus.server.north.asia" = "Asie";
 "amongus.server.north.europe" = "L'Europe";
 "share.app" = "Partager l'application";
-"share.app.content" = "Les gars, nous avons besoin de plus de personnes sur AmongChat! C\'est super amusant et vous correspond avec des joueurs partageant les mêmes idées. Appuyez sur le lien pour télécharger maintenant: https://amongchat.page.link/chat";
+"share.app.content" = "Les gars, nous avons besoin de plus de personnes sur AmongChat! C'est super amusant et vous correspond avec des joueurs partageant les mêmes idées. Appuyez sur le lien pour télécharger maintenant: https://amongchat.page.link/chat";
 
 "among.chat.unknown.error" = "Erreur inconnue";
 "among.chat.setting.terms" = "Termes";
@@ -203,3 +201,31 @@
 "chatroom.message.system.change.to.public" = "La chaîne est maintenant PUBLIQUE. Tout le monde peut adhérer!";
 "chatroom.message.system.change.to.private" = "La chaîne est maintenant PRIVÉE. Les joueurs invités peuvent rejoindre!";
 "chatroom.message.user.joined" = "rejoint";
+"among.chat.room.reblox.title" = "Cliquez pour copier les noms d'utilisateur Roblox des autres pour jouer ensemble";
+
+// 1.10
+"search.placeholder" = "Pseudo ou ID";
+"social.share.url" = "Hé, il nous faut une autre personne pour commencer notre partie. Rejoignez-nous ici: %@";
+"among.chat.room.mobile.legends.title" = "Cliquez pour copier le nom MLBB/l'ID des autres pour jouer ensemble";
+"among.chat.room.set.mobile.legends.name" = "Définir le nom MLBB/l'ID ";
+"room.mobile.legends.input.code.plceholder" = "MLBB NOM/ID ";
+
+"among.chat.room.pubg.mobile.title" = "Cliquez pour copier le nom/l'ID du joueur PUBG des autres pour jouer ensemble";
+"among.chat.room.set.pubg.mobile.name" = "Définir le nom/l'ID du lecteur PUBG";
+"room.pubg.mobile.input.code.plceholder" = "NOM/ID DU JOUEUR PUBG";
+
+"among.chat.room.call.of.duty.title" = "Cliquez pour copier le nom COD d'utilisateur/UID des autres pour jouer ensemble";
+"among.chat.room.set.call.of.duty.name" = "Définir le nom COD d'utilisateur/UID";
+"room.call.of.duty.input.code.plceholder" = "NOM COD D'UTILISATEUR/UID";
+
+"among.chat.create.room.card.tip.title" = "Cartes SPACE restantes:";
+"among.chat.create.room.card.tip.content" = "Utilisez une carte SPACE pour créer une chaîne. Une carte gratuite par jour, les cartes gratuites ne s'empilent pas.";
+"among.chat.create.room.card.consume.content" = "Utilisez une carte SPACE?";
+"among.chat.create.room.card.insufficient.title" = "Cartes SPACE insuffisantes";
+"among.chat.create.room.card.insufficient.content" = "Regardez une courte vidéo pour en obtenir une.";
+"among.chat.create.room.card.claim" = "Prétendre";
+"among.chat.create.room.create" = "Créer";
+"microphone.not.allow.title" = "«AmongChat» souhaite accéder au microphone";
+"microphone.not.allow.subtitle" = "Pour rejoindre la chaîne, veuillez activer l'autorisation du microphone.";
+"microphone.not.allow.setting" = "Aller Paramètres";
+"error.no.search" = "Oups, aucun résultat!";
