@@ -422,7 +422,7 @@ extension AmongChat.CreateRoom.ViewController {
         
         var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
-        roomProto.entry = freeCard ? nil : Entity.RoomProto.watchAdEntry
+        roomProto.entry = freeCard ? Entity.RoomProto.cardEntry : Entity.RoomProto.watchAdEntry
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
