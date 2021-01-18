@@ -150,16 +150,16 @@ class AdsManager: NSObject {
 //            }).disposed(by: bag)
 //    }
     
-    var hasAdAvailableRewardsVideo: Bool {
-         return MPRewardedVideo.hasAdAvailable(forAdUnitID: rewardedVideoId)
+    func hasAdAvailableRewardsVideo(with adUnitID: String) -> Bool {
+         return MPRewardedVideo.hasAdAvailable(forAdUnitID: adUnitID)
     }
     
-    var aviliableRewardVideo: MPRewardedVideoReward? {
-        cdPrint("aviliableRewardVideo: \(MPRewardedVideo.availableRewards(forAdUnitID: rewardedVideoId))")
-        guard hasAdAvailableRewardsVideo else {
+    func aviliableRewardVideo(with adUnitID: String) -> MPRewardedVideoReward? {
+        cdPrint("aviliableRewardVideo adUnitID: \(adUnitID) : \(MPRewardedVideo.availableRewards(forAdUnitID: adUnitID))")
+        guard hasAdAvailableRewardsVideo(with: adUnitID) else {
             return nil
         }
-        return MPRewardedVideo.selectedReward(forAdUnitID: rewardedVideoId)
+        return MPRewardedVideo.selectedReward(forAdUnitID: adUnitID)
     }
     
     
@@ -267,7 +267,7 @@ class AdsManager: NSObject {
 //            !Settings.shared.isProValue.value else {
 //            return
 //        }
-        cdPrint("requestRewardVideo hasLoaded: \(isRewardVideoReadyRelay.value[adUnitId])")
+        cdPrint("requestRewardVideo adUnitId: \(adUnitId) hasLoaded: \(isRewardVideoReadyRelay.value[adUnitId])")
 //        guard aviliableRewardVideo == nil else {
 //            return
 //        }
@@ -275,7 +275,7 @@ class AdsManager: NSObject {
             !ready else {
             return
         }
-        cdPrint("requestRewardVideo")
+        cdPrint("requestRewardVideo adUnitId: \(adUnitId)")
         Logger.Ads.logEvent(.rads_load)
         
         MPRewardedVideo.loadAd(withAdUnitID: adUnitId, withMediationSettings: nil)
@@ -377,8 +377,8 @@ class AdsManager: NSObject {
     private var hasRetryForAdLoadFailed = false
     
     enum RewardedVideoPosition: CaseIterable {
-        case unlockAvatar
         case channelCard
+        case unlockAvatar
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
@@ -404,7 +404,7 @@ class AdsManager: NSObject {
                 
                 let isReady = map[adUnitId] ?? false
                 
-                if isReady, AdsManager.shared.aviliableRewardVideo == nil {
+                if isReady, AdsManager.shared.aviliableRewardVideo(with: adUnitId) == nil {
                     //如果 Load 成功，但拿不到 reward video， 则重新请求
                     if !self.hasRetryForAdLoadFailed {
                         self.hasRetryForAdLoadFailed = true
@@ -422,11 +422,11 @@ class AdsManager: NSObject {
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
                 self.hasRetryForAdLoadFailed = false
-                guard let reward = self.aviliableRewardVideo else {
+                guard let reward = self.aviliableRewardVideo(with: adUnitId) else {
                     return Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed()))
                 }
                 
-                MPRewardedVideo.presentAd(forAdUnitID: AdsManager.shared.rewardedVideoId, from: fromVC, with: reward)
+                MPRewardedVideo.presentAd(forAdUnitID: adUnitId, from: fromVC, with: reward)
                 
                 return self.rewardedVideoAdDidAppear
                     .take(1)
@@ -505,22 +505,22 @@ extension AdsManager: MPRewardedVideoDelegate {
         map[adUnitID] = true
         isRewardVideoReadyRelay.accept(map)
         Logger.Ads.logEvent(.rads_loaded)
-        cdPrint("rewardedVideoAdDidLoad")
+        cdPrint("rewardedVideoAdDidLoad adUnitID: \(String(describing: adUnitID))")
     }
     
     func rewardedVideoAdDidExpire(forAdUnitID adUnitID: String!) {
         var map = isRewardVideoReadyRelay.value
         map[adUnitID] = false
         isRewardVideoReadyRelay.accept(map)
-        cdPrint("rewardedVideoAdDidExpire")
+        cdPrint("rewardedVideoAdDidExpire adUnitID: \(String(describing: adUnitID))")
 //        requestRewardVideoIfNeed()
         mainQueueDispatchAsync(after: 0.1) {
-            self.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+            self.requestRewardVideoIfNeed(adUnitId: adUnitID)
         }
     }
     
     func rewardedVideoAdWillAppear(forAdUnitID adUnitID: String!) {
-        cdPrint("rewardedVideoAdWillAppear")
+        cdPrint("rewardedVideoAdWillAppear adUnitID: \(String(describing: adUnitID))")
         Logger.Ads.logEvent(.rads_imp)
     }
 
@@ -529,16 +529,16 @@ extension AdsManager: MPRewardedVideoDelegate {
         map[adUnitID] = false
         isRewardVideoReadyRelay.accept(map)
         rewardedVideoAdDidAppear.onNext(())
-        cdPrint("rewardedVideoAdDidAppear")
+        cdPrint("rewardedVideoAdDidAppear adUnitID: \(String(describing: adUnitID))")
     }
     
     func rewardedVideoAdDidDisappear(forAdUnitID adUnitID: String!) {
-        cdPrint("rewardedVideoAdDidDisappear")
+        cdPrint("rewardedVideoAdDidDisappear adUnitID: \(String(describing: adUnitID))")
         //request new one
         rewardedVideoAdDidDisappear.onNext(())
         Logger.Ads.logEvent(.rads_close)
         mainQueueDispatchAsync(after: 0.1) {
-            self.requestRewardVideoIfNeed(adUnitId: Self.rewardedVideoAdUnitId(of: .unlockAvatar))
+            self.requestRewardVideoIfNeed(adUnitId: adUnitID)
         }
     }
 
@@ -546,7 +546,7 @@ extension AdsManager: MPRewardedVideoDelegate {
         var map = isRewardVideoReadyRelay.value
         map[adUnitID] = false
         isRewardVideoReadyRelay.accept(map)
-        cdPrint("rewardedVideoAdDidFailToLoad: \(String(describing: error))")
+        cdPrint("rewardedVideoAdDidFailToLoad: \(String(describing: error))  adUnitID: \(String(describing: adUnitID))")
         Logger.Ads.logEvent(.rads_failed)
         //did error
         mainQueueDispatchAsync(after: 15) { [weak self] in
@@ -557,16 +557,16 @@ extension AdsManager: MPRewardedVideoDelegate {
     func rewardedVideoAdShouldReward(forAdUnitID adUnitID: String!, reward: MPRewardedVideoReward!) {
         //should reward
         rewardVideoShouldReward.onNext(true)
-        cdPrint("rewardedVideoAdShouldReward")
+        cdPrint("rewardedVideoAdShouldReward adUnitID: \(String(describing: adUnitID))")
     }
     
     func rewardedVideoAdDidReceiveTapEvent(forAdUnitID adUnitID: String!) {
-        cdPrint("rewardedVideoAdDidReceiveTapEvent")
+        cdPrint("rewardedVideoAdDidReceiveTapEvent adUnitID: \(String(describing: adUnitID))")
         Logger.Ads.logEvent(.rads_clk)
     }
     
     func rewardedVideoAdDidFailToPlay(forAdUnitID adUnitID: String!, error: Error!) {
-        cdPrint("rewardedVideoAdDidFailToPlay: \(String(describing: error))")
+        cdPrint("rewardedVideoAdDidFailToPlay: \(String(describing: error)) adUnitID: \(String(describing: adUnitID))")
         rewardVideoShouldReward.onNext(false)
         mainQueueDispatchAsync(after: 15) { [weak self] in
             self?.requestRewardVideoIfNeed(adUnitId: adUnitID)
