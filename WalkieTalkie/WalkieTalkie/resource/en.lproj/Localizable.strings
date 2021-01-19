@@ -230,6 +230,7 @@
 "microphone.not.allow.setting" = "Go Settings";
 "error.no.search" = "Oops, no matching results!";
 
-//20201119 new
+//1.11
+"among.chat.set.birth.day.title" = "How old are you?";
 "login" = "Log in";
 "change.old.title" = "%@ old";

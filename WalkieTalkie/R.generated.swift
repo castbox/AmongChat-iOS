@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 130 images.
+  /// This `R.image` struct is generated, and contains static references to 131 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -244,6 +244,8 @@ struct R: Rswift.Validatable {
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
+    /// Image `ac_set_birthday_birthday`.
+    static let ac_set_birthday_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_set_birthday_birthday")
     /// Image `ac_setting_check`.
     static let ac_setting_check = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_check")
     /// Image `ac_setting_diamonds`.
@@ -662,6 +664,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_room_share", bundle: ..., traitCollection: ...)`
     static func ac_room_share(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_room_share, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_set_birthday_birthday", bundle: ..., traitCollection: ...)`
+    static func ac_set_birthday_birthday(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_set_birthday_birthday, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_setting_check", bundle: ..., traitCollection: ...)`
@@ -1424,7 +1431,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 194 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 195 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1710,6 +1717,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTopicTitle = Rswift.StringResource(key: "among.chat.create.room.topic.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: How old are you?
+      /// 
+      /// Locales: en
+      static let amongChatSetBirthDayTitle = Rswift.StringResource(key: "among.chat.set.birth.day.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Incorrect information
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2698,6 +2709,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomTopicTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.topic.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: How old are you?
+      /// 
+      /// Locales: en
+      static func amongChatSetBirthDayTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.set.birth.day.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Incorrect information
