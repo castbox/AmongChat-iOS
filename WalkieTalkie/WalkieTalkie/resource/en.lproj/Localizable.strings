@@ -229,3 +229,4 @@
 "microphone.not.allow.subtitle" = "To join the channel, please switch on microphone permission.";
 "microphone.not.allow.setting" = "Go Settings";
 "error.no.search" = "Oops, no matching results!";
+"login" = "Log in";

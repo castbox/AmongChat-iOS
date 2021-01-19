@@ -13,6 +13,35 @@ import RxSwift
 import SVGAPlayer
 
 extension AmongChat.Login {
+    static var isLogedin: Bool {
+        guard let value = Settings.shared.loginResult.value else {
+            return false
+        }
+        return !value.isAnonymousUser
+    }
+    
+    static func canDoLoginEvent(autoShowLoginView: Bool = true) -> Bool {
+        guard isLogedin else {
+            if autoShowLoginView {
+                doLogedInEvent()
+            }
+            return false
+        }
+        return true
+    }
+    
+    static func doLogedInEvent(_ event: (() -> Void)? = nil) {
+        // 自己关注自己 无反应
+        guard !isLogedin,
+              let viewController = UIApplication.shared.keyWindow?.topViewController() else {
+            event?()
+            return
+        }
+        AmongChat.Login.ViewController.present(for: viewController, onFinishHandler: event)
+    }
+}
+
+extension AmongChat.Login {
     
     class LoginButton: UIButton {
         override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
@@ -162,6 +191,20 @@ extension AmongChat.Login {
         
         var loginFinishedSignal: Observable<Void> {
             return loginFinishedSubject.asObservable()
+        }
+        
+        static func present(for viewController: UIViewController, onFinishHandler: (() -> Void)?) {
+            let loginVc = AmongChat.Login.ViewController()
+            let navController = NavigationViewController(rootViewController: loginVc)
+            viewController.present(navController, animated: true)
+            let _ = loginVc.loginFinishedSignal
+                .take(1)
+                .subscribe(onNext: { [weak loginVc] in
+                    loginVc?.dismiss(animated: true, completion: {
+                        onFinishHandler?()
+                    })
+                })
+                .disposed(by: loginVc.bag)
         }
         
         override func viewDidLoad() {

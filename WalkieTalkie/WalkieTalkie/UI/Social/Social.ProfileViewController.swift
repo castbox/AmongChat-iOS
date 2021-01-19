@@ -89,7 +89,12 @@ extension Social {
         
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile)
-            let vH: CGFloat = isSelfProfile ? 357.5:378
+            var vH: CGFloat {
+                guard isSelfProfile else {
+                    return 378
+                }
+                return 357.5 + (AmongChat.Login.isLogedin ? 0 : 68)
+            }
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }

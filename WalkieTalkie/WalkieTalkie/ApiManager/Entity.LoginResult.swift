@@ -21,10 +21,21 @@ extension Entity {
 extension Entity {
     
     struct LoginResult: Codable {
+        enum Provider: String, Codable {
+            case facebook
+            case google
+            case twitter
+            case line
+            case email
+            case apple
+            case snapchat
+            case phone
+            case device
+        }
         
         var uid: Int
         var access_token: String
-        var provider: String
+        var provider: Provider
 
         var source: String?
         
@@ -39,6 +50,10 @@ extension Entity {
         var new_guide: Bool?
         
         var create_time : Int64?
+        
+        var isAnonymousUser: Bool {
+            return provider == .device
+        }
     }
 }
 
