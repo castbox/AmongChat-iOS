@@ -252,7 +252,7 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD68DD258BA42900977579 /* EncodableExtension.swift */; };
-		FEB6E6CD25B593A4002C6946 /* login_bg.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEB6E6CC25B593A4002C6946 /* login_bg.svga */; };
+		FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEB6E6D225B5A9E3002C6946 /* login_bg.svga */; };
 		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
 		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
 		FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */; };
@@ -577,7 +577,7 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD68DD258BA42900977579 /* EncodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
-		FEB6E6CC25B593A4002C6946 /* login_bg.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_bg.svga; sourceTree = "<group>"; };
+		FEB6E6D225B5A9E3002C6946 /* login_bg.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_bg.svga; sourceTree = "<group>"; };
 		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.CastboxBackend.swift; sourceTree = "<group>"; };
@@ -1184,7 +1184,7 @@
 		FECA43B52459A8A40075D139 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				FEB6E6CC25B593A4002C6946 /* login_bg.svga */,
+				FEB6E6D225B5A9E3002C6946 /* login_bg.svga */,
 				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
@@ -1361,7 +1361,6 @@
 				FE79F38E258CDFA500E9BC6C /* AmongSheetUserCell.xib in Resources */,
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
 				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
-				FEB6E6CD25B593A4002C6946 /* login_bg.svga in Resources */,
 				FE6306A5245004CC00CEA651 /* PremiumContainer.xib in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
@@ -1390,6 +1389,7 @@
 				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
+				FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
@@ -1941,7 +1941,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.0;
+				MARKETING_VERSION = 1.10.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
@@ -1969,7 +1969,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.10.0;
+				MARKETING_VERSION = 1.10.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
