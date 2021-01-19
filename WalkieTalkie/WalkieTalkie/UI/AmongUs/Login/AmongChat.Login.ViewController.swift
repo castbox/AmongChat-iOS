@@ -89,8 +89,6 @@ extension AmongChat.Login {
             btn.setImage(R.image.ac_login_snapchat(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#FFFC00".color()
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
@@ -106,8 +104,6 @@ extension AmongChat.Login {
             btn.setImage(R.image.ac_login_facebook(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#1877F2".color()
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
@@ -123,8 +119,6 @@ extension AmongChat.Login {
             btn.setImage(R.image.ac_login_google(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = .white
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
@@ -141,8 +135,6 @@ extension AmongChat.Login {
             btn.setImage(R.image.ac_login_apple(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = .white
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
             return btn
         }()
         
