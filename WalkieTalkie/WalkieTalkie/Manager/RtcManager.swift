@@ -86,8 +86,9 @@ class RtcManager: NSObject {
     func initialize() {
         mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
         mRtcEngine.setLogFile(logFilePath())
-        mRtcEngine.setChannelProfile(.liveBroadcasting)
+        mRtcEngine.setChannelProfile(.communication)
         mRtcEngine.setAudioProfile(.musicStandard, scenario: .gameStreaming)
+        mRtcEngine.setDefaultAudioRouteToSpeakerphone(true)
         mRtcEngine.enableAudioVolumeIndication(500, smooth: 3, report_vad: false)
         //先开始测试
 //        isLastmileProbeTesting = true
