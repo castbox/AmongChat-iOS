@@ -231,6 +231,10 @@
 "error.no.search" = "Oops, no matching results!";
 
 //1.11
+"among.chat.login.mobile.title" = "What’s your phone number?";
+"among.chat.login.sms.tip" = "We'll send you an SMS verification code.";
+"among.chat.login.next" = "Next";
+"among.chat.common.error" = "Something went wrong, please try again.";
 "among.chat.set.birth.day.title" = "How old are you?";
 "login" = "Log in";
 "change.old.title" = "%@ old";

@@ -478,4 +478,45 @@ extension Request {
             .mapTo(Entity.AccountMetaData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse?> {
+        let params = [
+            "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
+            "zone_code" : telRegion,
+            "phone" : phoneNumber,
+        ]
+        
+        return amongchatProvider.rx.request(.requestSmsCode(params))
+            .mapJSON()
+            .map { item -> [String: AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                
+                return json
+            }
+            .mapTo(Entity.SmsCodeResponse.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func verifySmsCode(code: String, telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse?> {
+        
+        let params = [
+            "auth_code" : code,
+            "zone_code" : telRegion,
+            "phone" : phoneNumber,
+        ]
+        
+        return amongchatProvider.rx.request(.verifySmsCode(params))
+            .mapJSON()
+            .map { item -> [String: AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                
+                return json
+            }
+            .mapTo(Entity.SmsCodeResponse.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }
