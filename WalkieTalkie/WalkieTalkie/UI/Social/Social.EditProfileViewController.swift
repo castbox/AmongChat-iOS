@@ -322,6 +322,13 @@ private extension Social {
     }
     
     class BirthdaySelectViewController: ViewController {
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 32)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            return lb
+        }()
         
         private lazy var birthdayPicker: Social.DatePickerView = {
             let p = Social.DatePickerView(frame: CGRect(x: 0, y: 58, width: Frame.Screen.width, height: 260))
@@ -344,10 +351,17 @@ private extension Social {
         
         var onCompletion: ((String) -> Void)? = nil
         
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            //update
+            updateAgeTitle()
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
+            
             view.backgroundColor = UIColor(hex6: 0x222222)
-            view.addSubviews(views: birthdayPicker, confirmBtn)
+            view.addSubviews(views: titleLabel, birthdayPicker, confirmBtn)
             
             confirmBtn.snp.makeConstraints { (maker) in
                 maker.right.equalToSuperview().inset(20)
@@ -356,10 +370,19 @@ private extension Social {
                 maker.height.equalTo(32)
             }
             
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.top.equalTo(confirmBtn.snp.bottom).offset(12)
+                maker.centerX.equalToSuperview()
+            }
+            
             birthdayPicker.snp.makeConstraints { (maker) in
                 maker.left.right.equalToSuperview()
-                maker.top.equalTo(confirmBtn.snp.bottom).offset(16)
+                maker.top.equalTo(titleLabel.snp.bottom).offset(28)
                 maker.height.equalTo(260)
+            }
+            
+            birthdayPicker.onDateUpdateHandler = { [weak self] in
+                self?.updateAgeTitle()
             }
         }
         
@@ -386,6 +409,14 @@ private extension Social {
             }
         }
         
+        func updateAgeTitle() {
+            let now = Date()
+            let birthday = birthdayPicker.date ?? Date()
+            let calendar = Calendar(identifier: .gregorian)
+            let ageComponents = calendar.dateComponents([.year], from: birthday, to: now)
+            let age = ageComponents.year!
+            titleLabel.text = R.string.localizable.changeOldTitle(age.string)
+        }
     }
 }
 
@@ -396,7 +427,7 @@ extension Social.BirthdaySelectViewController: Modalable {
     }
     
     func height() -> CGFloat {
-        return 320 + Frame.Height.safeAeraBottomHeight
+        return 370 + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {
