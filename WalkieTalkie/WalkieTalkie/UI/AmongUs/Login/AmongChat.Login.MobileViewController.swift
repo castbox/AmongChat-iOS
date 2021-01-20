@@ -336,6 +336,9 @@ extension AmongChat.Login.MobileViewController {
     
     private func showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel) {
         let vc = AmongChat.Login.SmsCodeViewController(with: dataModel)
+        vc.loginHandler = { [weak self] (result, error) in
+            self?.loginHandler?(result, error)
+        }
         navigationController?.pushViewController(vc)
     }
 }

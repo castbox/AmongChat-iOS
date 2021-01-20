@@ -119,6 +119,8 @@ extension AmongChat.Login {
             }
         }
         
+        var loginHandler: ((Entity.LoginResult?, Error?) -> Void)? = nil
+        
         init(with data: DataModel) {
             dataModel = data
             super.init(nibName: nil, bundle: nil)
@@ -306,10 +308,13 @@ extension AmongChat.Login.SmsCodeViewController {
                     return
                 }
                 
+                self?.loginHandler?(result, nil)
+                
             }, onError: { [weak self] (error) in
                 completion()
                 self?.codeInputField.becomeFirstResponder()
                 self?.wrongCode()
+                self?.loginHandler?(nil, error)
             })
             .disposed(by: bag)
     }

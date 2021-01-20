@@ -244,3 +244,6 @@
 "among.chat.login.code.not.recieve" = "Didn't receive the code? %1$@";
 "among.chat.login.code.resend" = "Resend";
 "among.chat.login.code.wrong" = "😲 Oops! Wrong code";
+"among.chat.login.start" = "Start";
+"among.chat.login.have.account" = "Already have an account?";
+"among.chat.login.sign.in" = "Sign in";
