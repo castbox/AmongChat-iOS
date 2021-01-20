@@ -96,13 +96,24 @@ extension AmongChat.Login {
         
         private lazy var wrongCodeView: UIView = {
             let v = UIView()
-            v.backgroundColor = UIColor(hex6: 0xFB5858)
+            let bg = UIImageView(image: R.image.ac_login_wrong_code_bubble())
+            let emoji = UIImageView(image: R.image.ac_login_wrong_emoji())
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = .white
-            v.addSubview(l)
+            v.addSubviews(views: bg, emoji, l)
+            bg.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
+            emoji.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(12)
+                maker.centerY.equalTo(l)
+            }
+            
             l.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(12)
+                maker.leading.equalTo(emoji.snp.trailing).offset(4)
+                maker.trailing.equalToSuperview().inset(12)
                 maker.top.equalTo(13)
             }
             l.text = R.string.localizable.amongChatLoginCodeWrong()

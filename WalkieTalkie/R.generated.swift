@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 133 images.
+  /// This `R.image` struct is generated, and contains static references to 135 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -224,6 +224,10 @@ struct R: Rswift.Validatable {
     static let ac_login_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_snapchat")
     /// Image `ac_login_start`.
     static let ac_login_start = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_start")
+    /// Image `ac_login_wrong_code_bubble`.
+    static let ac_login_wrong_code_bubble = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_code_bubble")
+    /// Image `ac_login_wrong_emoji`.
+    static let ac_login_wrong_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_emoji")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_birthday`.
@@ -606,6 +610,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_start", bundle: ..., traitCollection: ...)`
     static func ac_login_start(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_start, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_wrong_code_bubble", bundle: ..., traitCollection: ...)`
+    static func ac_login_wrong_code_bubble(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_wrong_code_bubble, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_wrong_emoji", bundle: ..., traitCollection: ...)`
+    static func ac_login_wrong_emoji(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_wrong_emoji, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
@@ -1907,6 +1921,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomSetupInGameCodeSubtitle = Rswift.StringResource(key: "room.setup.in.game.code.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops! Wrong code
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeWrong = Rswift.StringResource(key: "among.chat.login.code.wrong", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no Internet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2287,10 +2305,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowTitle = Rswift.StringResource(key: "microphone.not.allow.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: 😲 Oops! Wrong code
-      /// 
-      /// Locales: en
-      static let amongChatLoginCodeWrong = Rswift.StringResource(key: "among.chat.login.code.wrong", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: %1$@ online
       /// 
@@ -3083,6 +3097,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.setup.in.game.code.subtitle", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops! Wrong code
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeWrong(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.code.wrong", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, no Internet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3746,13 +3767,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func microphoneNotAllowTitle(_: Void = ()) -> String {
         return NSLocalizedString("microphone.not.allow.title", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: 😲 Oops! Wrong code
-      /// 
-      /// Locales: en
-      static func amongChatLoginCodeWrong(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.login.code.wrong", bundle: R.hostingBundle, comment: "")
       }
       
       fileprivate init() {}
