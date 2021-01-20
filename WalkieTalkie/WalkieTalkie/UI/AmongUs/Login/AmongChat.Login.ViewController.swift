@@ -44,17 +44,6 @@ extension AmongChat.Login {
 
 extension AmongChat.Login {
     
-    class LoginButton: UIButton {
-        override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-            return contentRect
-        }
-        
-        override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-            let rect = super.imageRect(forContentRect: contentRect)
-            return CGRect(x: 20, y: 12.5, width: rect.width, height: rect.height)
-        }
-    }
-    
     class ViewController: WalkieTalkie.ViewController {
         
         private lazy var logoIV: UIImageView = {
@@ -130,7 +119,7 @@ extension AmongChat.Login {
         
         private lazy var loginManager = Manager()
         
-        private lazy var loginHandler = { [weak self] (result: Entity.LoginResult?, error: Error?) in                        
+        private lazy var loginHandler = { [weak self] (result: Entity.LoginResult?, error: Error?) in
             if let error = error {
                 if let nsError = error as? NSError,
                    nsError.code == AmongChat.Login.cancelErrorCode {

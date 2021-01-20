@@ -30,7 +30,7 @@ extension AmongChat.Login {
         private lazy var mobileTitle: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 28)
+            lb.font = R.font.nunitoExtraBold(size: 28.scalValue)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
@@ -148,7 +148,77 @@ extension AmongChat.Login {
             btn.isEnabled = false
             return btn
         }()
-                
+        
+        private lazy var moreLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.textColor = UIColor(hex6: 0x898989)
+            lb.text = R.string.localizable.amongChatLoginMore()
+            return lb
+        }()
+        
+        private lazy var leftSeperator: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor.white.alpha(0.12)
+            return v
+        }()
+        
+        private lazy var rightSeperator: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor.white.alpha(0.12)
+            return v
+        }()
+        
+        private lazy var facebookButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.addTarget(self, action: #selector(onFacebookButton), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_login_facebook(), for: .normal)
+            btn.layer.cornerRadius = 20
+            btn.backgroundColor = "#1877F2".color()
+            return btn
+        }()
+        
+        private lazy var googleButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.addTarget(self, action: #selector(onGoogleButton), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_login_google(), for: .normal)
+            btn.layer.cornerRadius = 20
+            btn.backgroundColor = .white
+            return btn
+        }()
+        
+        @available(iOS 13.0, *)
+        private lazy var appleButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.addTarget(self, action: #selector(onAppleButtonTouched), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_login_apple(), for: .normal)
+            btn.layer.cornerRadius = 20
+            btn.backgroundColor = .white
+            return btn
+        }()
+        
+        private lazy var policyLabel: PolicyLabel = {
+            let terms = R.string.localizable.amongChatTermsService()
+            let privacy = R.string.localizable.amongChatPrivacyPolicy()
+            let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+
+            let lb = PolicyLabel(with: text, privacy: privacy, terms: terms)
+            lb.onInteration = { [weak self] targetPath in
+                self?.open(urlSting: targetPath)
+            }
+            return lb
+        }()
+
+        private lazy var loginManager = Manager()
+        
+        var loginHandler: ((Entity.LoginResult?, Error?) -> Void)? = nil
+        
         private typealias Region = Entity.Region
         
         private var currentRegion: Region? = nil {
@@ -169,6 +239,11 @@ extension AmongChat.Login {
             setupLayout()
             setupData()
             setupEvent()
+        }
+        
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            
         }
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -227,13 +302,111 @@ extension AmongChat.Login.MobileViewController {
             .disposed(by: bag)
     }
     
+    @available(iOS 13.0, *)
+    @objc
+    private func onAppleButtonTouched() {
+        Logger.Action.log(.login_clk, category: .apple_id)
+
+        let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginApple(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: {
+                loadingRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler?(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .apple_id)
+                }
+            }) { [weak self] (error) in
+                self?.loginHandler?(nil, error)
+            }
+            .disposed(by: bag)
+    }
+    
+    @objc
+    private func onSnapchatButton() {
+        Logger.Action.log(.login_clk, category: .snapchat)
+        let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginSnapchat(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: {
+                loadingRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler?(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .snapchat)
+                }
+            }, onError: { [weak self] (error) in
+                self?.loginHandler?(nil, error)
+            })
+            .disposed(by: bag)
+    }
+    
+    @objc
+    private func onFacebookButton() {
+        Logger.Action.log(.login_clk, category: .facebook)
+        let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginFacebook(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: {
+                loadingRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler?(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .facebook)
+                }
+            }, onError: { [weak self] (error) in
+                self?.loginHandler?(nil, error)
+            })
+            .disposed(by: bag)
+    }
+    
+    @objc
+    private func onGoogleButton() {
+        Logger.Action.log(.login_clk, category: .google)
+        let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.loginGoogle(from: navigationController ?? self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: {
+                loadingRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (result) in
+                self?.loginHandler?(result, nil)
+                if result != nil {
+                    Logger.Action.log(.login_success, category: .google)
+                }
+            }, onError: { [weak self] (error) in
+                self?.loginHandler?(nil, error)
+            })
+            .disposed(by: bag)
+    }
+
 }
 
 extension AmongChat.Login.MobileViewController {
     
     private func setupLayout() {
         
-        view.addSubviews(views: backBtn, mobileIcon, mobileTitle, mobileInputContainer, smsTip, nextBtn)
+        var thirdPartyBtns = [facebookButton, googleButton]
+        
+        if #available(iOS 13.0, *) {
+            thirdPartyBtns.insert(appleButton, at: 1)
+        }
+        
+        let btnStack = UIStackView(arrangedSubviews: thirdPartyBtns,
+                                   axis: .horizontal,
+                                   spacing: 40,
+                                   distribution: .equalSpacing)
+        
+        view.addSubviews(views: backBtn, mobileIcon, mobileTitle, mobileInputContainer, smsTip, nextBtn,
+                         moreLabel, leftSeperator, rightSeperator, btnStack, policyLabel)
+        
+        btnStack.arrangedSubviews.forEach { $0.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(40)
+        }}
         
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
@@ -251,7 +424,7 @@ extension AmongChat.Login.MobileViewController {
         
         mobileIcon.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
         }
         
         mobileTitle.snp.makeConstraints { (maker) in
@@ -276,6 +449,34 @@ extension AmongChat.Login.MobileViewController {
             maker.top.equalTo(smsTip.snp.bottom).offset(Frame.Scale.height(60))
         }
         
+        policyLabel.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
+            maker.bottom.equalTo(bottomLayoutGuide.snp.bottom).offset(-Frame.Scale.height(30))
+        }
+        
+        btnStack.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalTo(policyLabel.snp.top).offset(-Frame.Scale.height(56))
+        }
+        
+        moreLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalTo(btnStack.snp.top).offset(-12.scalValue)
+        }
+        
+        leftSeperator.snp.makeConstraints { (maker) in
+            maker.height.equalTo(1)
+            maker.centerY.equalTo(moreLabel)
+            maker.leading.equalToSuperview().inset(30)
+            maker.trailing.equalTo(moreLabel.snp.leading).offset(-12)
+        }
+        
+        rightSeperator.snp.makeConstraints { (maker) in
+            maker.height.equalTo(1)
+            maker.centerY.equalTo(moreLabel)
+            maker.trailing.equalToSuperview().inset(30)
+            maker.leading.equalTo(moreLabel.snp.trailing).offset(12)
+        }
     }
     
     private func setupData() {

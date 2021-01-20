@@ -1453,7 +1453,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 208 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 209 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1839,6 +1839,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthMay = Rswift.StringResource(key: "month.may", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: More options
+      /// 
+      /// Locales: en
+      static let amongChatLoginMore = Rswift.StringResource(key: "among.chat.login.more", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Mute
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2958,6 +2962,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func monthMay(_: Void = ()) -> String {
         return NSLocalizedString("month.may", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: More options
+      /// 
+      /// Locales: en
+      static func amongChatLoginMore(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.more", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Mute
