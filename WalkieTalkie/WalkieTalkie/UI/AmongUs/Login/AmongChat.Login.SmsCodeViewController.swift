@@ -413,7 +413,8 @@ extension AmongChat.Login.SmsCodeViewController {
             
             cursor.snp.makeConstraints { (maker) in
                 maker.width.equalTo(2)
-                maker.top.bottom.equalToSuperview().inset(16)
+                maker.height.equalTo(20)
+                maker.centerY.equalToSuperview()
                 maker.centerX.equalToSuperview()
             }
             
