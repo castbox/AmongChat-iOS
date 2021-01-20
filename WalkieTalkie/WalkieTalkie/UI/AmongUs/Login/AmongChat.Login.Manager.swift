@@ -80,6 +80,10 @@ extension AmongChat.Login {
                 }
         }
         
+        func loginMobile(token: String) -> Single<Entity.LoginResult?> {
+            return login(via: .phone, token: token, secret: nil)
+        }
+        
         private func signin(via provider: Entity.LoginProvider, from vc: UIViewController) -> Single<ThirdPartySignInResult> {
             switch provider {
             case .google:
@@ -161,7 +165,7 @@ extension AmongChat.Login {
             }
         }
                 
-        private func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil) -> Single<Entity.LoginResult?> {
+        private func login(via provider: Entity.LoginResult.Provider, token: String? = nil, secret: String? = nil) -> Single<Entity.LoginResult?> {
             return Request.login(via: provider, token: token, secret: secret)
         }
         

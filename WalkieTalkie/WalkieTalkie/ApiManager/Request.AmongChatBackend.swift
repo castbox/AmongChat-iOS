@@ -60,7 +60,7 @@ private let limit: Int = 20
 
 extension Request {
     
-    static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
+    static func login(via provider: Entity.LoginResult.Provider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
         
         var paras = [String : Any]()
         paras["provider"] = provider.rawValue
@@ -75,6 +75,12 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.LoginResult.self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (result) in
+                guard let result = result else { return }
+                Settings.shared.loginResult.value = result
+                Settings.shared.updateProfile()
+            })
     }
     
     static func profile() -> Single<Entity.UserProfile?> {

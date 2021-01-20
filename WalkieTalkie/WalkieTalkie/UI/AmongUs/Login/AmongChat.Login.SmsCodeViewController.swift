@@ -291,10 +291,17 @@ extension AmongChat.Login.SmsCodeViewController {
         view.isUserInteractionEnabled = false
         view.endEditing(true)
         Request.verifySmsCode(code: digits.joined(), telRegion: dataModel.telRegion, phoneNumber: dataModel.phone)
-            .subscribe(onSuccess: { [weak self] (response) in
+            .flatMap({ (response) -> Single<Entity.LoginResult?> in
+                guard let token = response?.data?.token else {
+                    return Single.just(nil)
+                }
+                
+                return AmongChat.Login.Manager().loginMobile(token: token)
+            })
+            .subscribe(onSuccess: { [weak self] (loginResult) in
                 completion()
                 
-                guard let token = response?.data?.token else {
+                guard let result = loginResult else {
                     self?.wrongCode()
                     return
                 }
