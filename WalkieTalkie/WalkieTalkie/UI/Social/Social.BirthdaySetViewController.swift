@@ -152,7 +152,8 @@ extension Social {
         
         @objc
         func onBackBtn() {
-            navigationController?.popViewController()
+            Logger.Action.log(.login_birthday_skip)
+            onCompletion?("")
         }
         
         @objc
