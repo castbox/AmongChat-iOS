@@ -150,6 +150,7 @@ target 'WalkieTalkie' do
     pod 'PullToDismiss', '~> 2.2'
     pod 'SwiftyContacts'
 #    pod 'HWPanModal'
+    #https://github.com/mac-gallagher/Shuffle
 end
 
 post_install do |installer|

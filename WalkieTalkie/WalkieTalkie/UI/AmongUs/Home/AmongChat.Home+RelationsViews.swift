@@ -98,6 +98,15 @@ extension AmongChat.Home {
             })
         }
         
+        func bind(viewModel: Entity.ContactFriend, onAvatarTap: @escaping () -> Void) {
+            
+            avatarIV.image = R.image.ac_profile_avatar()
+            
+            nameLabel.text = viewModel.name
+            
+            statusLabel.text = R.string.localizable.socialContactFirendsCount(viewModel.count.string)
+        }
+        
     }
     
     class FriendCell: UICollectionViewCell {

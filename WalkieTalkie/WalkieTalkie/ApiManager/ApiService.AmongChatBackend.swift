@@ -49,6 +49,8 @@ extension APIService {
         case inviteUser([String: Any])
         case onlineStrangers
         case userSearch([String: Any])
+        case contactUpload([String: Any])
+        case contactList
         case topics
         case accountMetaData
     }
@@ -139,6 +141,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/online/stranger/list"
         case .userSearch:
             return "/live/user/search"
+        case .contactUpload:
+            return "/api/v1/contact/upload"
+        case .contactList:
+            return "/api/v1/contact/invite/list"
         case .topics:
             return "/api/v1/topics"
         case .accountMetaData:
@@ -158,6 +164,7 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockAvatar,
              .updateDevice,
              .inviteUser,
+             .contactUpload,
              .logout:
             return .post
             
@@ -185,6 +192,7 @@ extension APIService.AmongChatBackend: TargetType {
              .onlineStrangers,
              .topics,
              .accountMetaData,
+             .contactList,
              .userSearch:
             return .get
         case .follow:
@@ -211,12 +219,14 @@ extension APIService.AmongChatBackend: TargetType {
              .onlineStrangers,
              .topics,
              .accountMetaData,
+             .contactList,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
+             .contactUpload(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             

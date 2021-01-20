@@ -18,14 +18,18 @@ extension UIViewController {
                 guard let `self` = self else { return }
                 if !isOpen {
                     self.showAmongAlert(title: R.string.localizable.microphoneNotAllowTitle(), message: R.string.localizable.microphoneNotAllowSubtitle(), cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.microphoneNotAllowSetting()) {
-                        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
-                            UIApplication.shared.openURL(url)
-                        }
+                        Self.openAppSystemSetting()
                     }
                 } else {
                     completion()
                 }
             }
+        }
+    }
+    
+    static func openAppSystemSetting() {
+        if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.openURL(url)
         }
     }
     

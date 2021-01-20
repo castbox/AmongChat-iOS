@@ -233,3 +233,10 @@
 //20201119 new
 "login" = "Log in";
 "change.old.title" = "%@ old";
+"social.share.link" = "Share link";
+"social.invite.contact" = "Contact";
+"social.invite.contact.mobile" = "Find your mobile friends";
+"big.enable" = "Enable";
+"social.contact.denied.title" = "Please go to your phone Settings to enable the permission";
+"social.add.new" = "Add New Friends";
+"social.contact.firends.count" = "%@ friends on AmongChat";

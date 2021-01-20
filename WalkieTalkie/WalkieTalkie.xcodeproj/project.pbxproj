@@ -74,6 +74,7 @@
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
 		FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */; };
+		FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */; };
 		FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D17243461E800BEDD60 /* AppDelegate.swift */; };
 		FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D1D243461E800BEDD60 /* Main.storyboard */; };
 		FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE126D20243461EA00BEDD60 /* Assets.xcassets */; };
@@ -394,6 +395,7 @@
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewController.swift; sourceTree = "<group>"; };
+		FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewModel.swift; sourceTree = "<group>"; };
 		FE126D14243461E800BEDD60 /* AmongChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmongChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D17243461E800BEDD60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE126D1E243461E800BEDD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 			children = (
 				2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */,
 				FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */,
+				FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -1623,6 +1626,7 @@
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
+				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,
 				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,

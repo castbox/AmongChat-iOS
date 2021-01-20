@@ -478,4 +478,21 @@ extension Request {
             .mapTo(Entity.AccountMetaData.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func upload(contacts: [Entity.ContactFriend]) -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactUpload(["contacts": contacts.map { $0.dictionary! }]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func contactList() -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactList)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+
+    }
 }

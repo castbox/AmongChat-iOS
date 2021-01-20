@@ -582,6 +582,10 @@ extension DefaultsKeys {
         .init("among.chat.rtm.token", defaultValue: nil)
     }
     
+//    var isUpdate: DefaultsKey<Entity.RTMToken?> {
+//        .init("among.chat.rtm.token", defaultValue: nil)
+//    }
+    
 }
 
 //extension DefaultsAdapter {

@@ -139,16 +139,8 @@ extension AmongChat.Home.RelationsViewController {
     }
     
     private func shareApp() {
-        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-        let removeBlock = { [weak self] in
-            self?.view.isUserInteractionEnabled = true
-            removeHUDBlock()
-        }
-        
-        self.view.isUserInteractionEnabled = false
-        ShareManager.default.showActivity(viewController: self) { () in
-            removeBlock()
-        }
+        let inviteView = Social.InviteFirendsViewController()
+        inviteView.showModal(in: self.tabBarController!)
     }
 
 }

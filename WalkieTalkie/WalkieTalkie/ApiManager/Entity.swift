@@ -132,3 +132,21 @@ extension Entity.GlobalSetting {
         return tip.value
     }
 }
+
+
+extension Entity {
+    struct ListData<T: Codable>: Codable {
+        var list: [T]?
+        var more: Bool?
+        private enum CodingKeys: String, CodingKey {
+            case list
+            case more
+        }
+    }
+    
+    struct ContactFriend: Codable {
+        let phone: String
+        let name: String
+        let count: Int
+    }
+}
