@@ -217,9 +217,9 @@ extension AmongChat.Login.MobileViewController {
         
         view.isUserInteractionEnabled = false
         Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone)
-            .subscribe(onSuccess: { (response) in
+            .subscribe(onSuccess: { [weak self] (response) in
                 completion()
-                
+                self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response?.data?.expire ?? 60))
             }, onError: { [weak self] (_) in
                 completion()
                 self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
@@ -324,6 +324,8 @@ extension AmongChat.Login.MobileViewController {
     private func showRegionPicker() {
         guard regions.count > 0 else { return }
         
+        view.endEditing(true)
+        
         let modal = AmongChat.Login.RegionModal(dataSource: regions,
                                                 initialRegion: currentRegion ?? Region.default)
         modal.selectRegion = { [weak self] (region) in
@@ -331,7 +333,11 @@ extension AmongChat.Login.MobileViewController {
         }
         modal.showModal(in: self)
     }
-        
+    
+    private func showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel) {
+        let vc = AmongChat.Login.SmsCodeViewController(with: dataModel)
+        navigationController?.pushViewController(vc)
+    }
 }
 
 extension AmongChat.Login.MobileViewController: UITextFieldDelegate {

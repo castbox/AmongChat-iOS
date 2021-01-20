@@ -296,7 +296,7 @@ extension AmongChat.Login.SmsCodeViewController {
                     return Single.just(nil)
                 }
                 
-                return AmongChat.Login.Manager().loginMobile(token: token)
+                return AmongChat.Login.Manager().login(via: .phone, token: token)
             })
             .subscribe(onSuccess: { [weak self] (loginResult) in
                 completion()
