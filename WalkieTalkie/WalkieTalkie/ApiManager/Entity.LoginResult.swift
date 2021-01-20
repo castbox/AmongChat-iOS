@@ -61,6 +61,7 @@ extension Entity {
     struct RoomProto: Encodable {
         
         static let watchAdEntry = "watch_ad"
+        static let cardEntry = "free_card"
         
         var note: String
         var state: RoomPublicType

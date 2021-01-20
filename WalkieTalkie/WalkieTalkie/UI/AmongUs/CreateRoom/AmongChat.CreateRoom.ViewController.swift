@@ -422,7 +422,7 @@ extension AmongChat.CreateRoom.ViewController {
         
         var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
-        roomProto.entry = freeCard ? nil : Entity.RoomProto.watchAdEntry
+        roomProto.entry = freeCard ? Entity.RoomProto.cardEntry : Entity.RoomProto.watchAdEntry
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
@@ -453,11 +453,11 @@ extension AmongChat.CreateRoom.ViewController {
                 Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
                 
-                guard (error as NSError).code != 3004 else {
+                guard let msgError = error as? MsgError,
+                      msgError.code == 3004 else {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                
                 self?.showAdAlert(topic: topic)
                 
             })
@@ -616,7 +616,6 @@ extension AmongChat.CreateRoom.ViewController {
         AdsManager.shared.earnARewardOfVideo(fromVC: self, adPosition: .channelCard)
             .take(1)
             .asSingle()
-//            .timeout(.seconds(180), scheduler: MainScheduler.asyncInstance)
             .subscribe(onSuccess: { (_) in
                 loadingCompletion()
                 Logger.Action.log(.space_card_ads_claim_success)
