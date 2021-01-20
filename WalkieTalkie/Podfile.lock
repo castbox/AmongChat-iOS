@@ -282,6 +282,7 @@ PODS:
   - SwiftHash (2.0.2)
   - SwiftLint (0.31.0)
   - SwiftyBeaver (1.9.1)
+  - SwiftyContacts (3.0.16)
   - SwiftyJSON (5.0.0)
   - SwiftyStoreKit (0.15.0)
   - SwiftyUserDefaults (5.0.0)
@@ -334,6 +335,7 @@ DEPENDENCIES:
   - SwifterSwift
   - SwiftHash
   - SwiftLint (= 0.31.0)
+  - SwiftyContacts
   - SwiftyJSON
   - SwiftyStoreKit
   - SwiftyUserDefaults (~> 5.0.0)
@@ -415,6 +417,7 @@ SPEC REPOS:
     - SwiftHash
     - SwiftLint
     - SwiftyBeaver
+    - SwiftyContacts
     - SwiftyJSON
     - SwiftyStoreKit
     - SwiftyUserDefaults
@@ -506,6 +509,7 @@ SPEC CHECKSUMS:
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
   SwiftLint: 7a0227733d786395817373b2d0ca799fd0093ff3
   SwiftyBeaver: a1f5691458561414bcfab51874b2b7445451602b
+  SwiftyContacts: c02b7908cfd18505c004a43162fd7b63218d2ba0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   SwiftyStoreKit: 033d06b6f87955405d3f844a18a7687c2438592a
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
@@ -515,6 +519,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: d5dc2e2627fa08fbb0e11728f8145c0f2f3978d8
+PODFILE CHECKSUM: 6b7c34b681c8c933ca1dbe01a84afbddb3ea0432
 
 COCOAPODS: 1.10.0
