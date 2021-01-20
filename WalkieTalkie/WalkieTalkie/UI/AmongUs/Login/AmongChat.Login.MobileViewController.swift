@@ -435,7 +435,7 @@ extension AmongChat.Login.MobileViewController {
         mobileInputContainer.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(30)
             maker.height.equalTo(48)
-            maker.top.equalTo(mobileTitle.snp.bottom).offset(Frame.Scale.height(72))
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(Frame.Scale.height(221))
         }
         
         smsTip.snp.makeConstraints { (maker) in
@@ -451,12 +451,12 @@ extension AmongChat.Login.MobileViewController {
         
         policyLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
-            maker.bottom.equalTo(bottomLayoutGuide.snp.bottom).offset(-Frame.Scale.height(30))
+            maker.bottom.equalTo(bottomLayoutGuide.snp.bottom).offset(-Frame.Scale.height(12))
         }
         
         btnStack.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(policyLabel.snp.top).offset(-Frame.Scale.height(56))
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-Frame.Scale.height(95))
         }
         
         moreLabel.snp.makeConstraints { (maker) in
