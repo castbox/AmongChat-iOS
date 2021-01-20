@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 131 images.
+  /// This `R.image` struct is generated, and contains static references to 132 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -218,6 +218,8 @@ struct R: Rswift.Validatable {
     static let ac_login_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_logo")
     /// Image `ac_login_mobile`.
     static let ac_login_mobile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_mobile")
+    /// Image `ac_login_sms`.
+    static let ac_login_sms = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_sms")
     /// Image `ac_login_snapchat`.
     static let ac_login_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_snapchat")
     /// Image `ac_profile_avatar`.
@@ -587,6 +589,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_mobile", bundle: ..., traitCollection: ...)`
     static func ac_login_mobile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_mobile, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_sms", bundle: ..., traitCollection: ...)`
+    static func ac_login_sms(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_sms, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_login_snapchat", bundle: ..., traitCollection: ...)`
@@ -1439,7 +1446,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 199 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 205 localization keys.
     struct localizable {
       /// en translation: %1$@ online
       /// 
@@ -1605,6 +1612,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthDec = Rswift.StringResource(key: "month.dec", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Didn't receive the code? %1$@
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeNotRecieve = Rswift.StringResource(key: "among.chat.login.code.not.recieve", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Done
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1621,6 +1632,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let guideFourthTitle = Rswift.StringResource(key: "guide.fourth.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Enter your code
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeInputTitle = Rswift.StringResource(key: "among.chat.login.code.input.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Europe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1977,6 +1992,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Resend
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeResend = Rswift.StringResource(key: "among.chat.login.code.resend", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Restore
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2097,6 +2116,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileUnblockUserSuccess = Rswift.StringResource(key: "profile.unblock.user.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Time remaining %1$@
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeInputTiming = Rswift.StringResource(key: "among.chat.login.code.input.timing", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: To join the channel, please switch on microphone permission.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2145,6 +2168,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardInsufficientContent = Rswift.StringResource(key: "among.chat.create.room.card.insufficient.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: We sent a code to %1$@ %2$@
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeInputTip = Rswift.StringResource(key: "among.chat.login.code.input.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: We'll send you an SMS verification code.
       /// 
       /// Locales: en
@@ -2237,6 +2264,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowTitle = Rswift.StringResource(key: "microphone.not.allow.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: 😲 Oops! Wrong code
+      /// 
+      /// Locales: en
+      static let amongChatLoginCodeWrong = Rswift.StringResource(key: "among.chat.login.code.wrong", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: %1$@ online
       /// 
@@ -2525,6 +2556,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.dec", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Didn't receive the code? %1$@
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeNotRecieve(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.login.code.not.recieve", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: Done
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2551,6 +2589,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func guideFourthTitle(_: Void = ()) -> String {
         return NSLocalizedString("guide.fourth.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Enter your code
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeInputTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.code.input.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Europe
@@ -3176,6 +3221,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Resend
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeResend(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.code.resend", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Restore
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3386,6 +3438,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.unblock.user.success", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Time remaining %1$@
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeInputTiming(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.login.code.input.timing", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: To join the channel, please switch on microphone permission.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3468,6 +3527,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardInsufficientContent(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.insufficient.content", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: We sent a code to %1$@ %2$@
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeInputTip(_ value1: String, _ value2: String) -> String {
+        return String(format: NSLocalizedString("among.chat.login.code.input.tip", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
       /// en translation: We'll send you an SMS verification code.
@@ -3629,6 +3695,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func microphoneNotAllowTitle(_: Void = ()) -> String {
         return NSLocalizedString("microphone.not.allow.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: 😲 Oops! Wrong code
+      /// 
+      /// Locales: en
+      static func amongChatLoginCodeWrong(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.code.wrong", bundle: R.hostingBundle, comment: "")
       }
       
       fileprivate init() {}
