@@ -44,8 +44,30 @@ extension AmongChat.Login {
             v.layer.cornerRadius = 24
             let seperator = UIView()
             seperator.backgroundColor = UIColor(hex6: 0xD8D8D8)
-
-            v.addSubviews(views: flagLabel, regionLabel, seperator, mobileInputField)
+            
+            let tapView: UIView = {
+                let v = UIView()
+                v.backgroundColor = .clear
+                v.isUserInteractionEnabled = true
+                return v
+            }()
+            
+            let regionLabelTap = UITapGestureRecognizer()
+            
+            regionLabelTap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.showRegionPicker()
+                })
+                .disposed(by: bag)
+            
+            tapView.addGestureRecognizer(regionLabelTap)
+            
+            v.addSubviews(views: tapView, flagLabel, regionLabel, seperator, mobileInputField)
+            
+            tapView.snp.makeConstraints { (maker) in
+                maker.leading.top.bottom.equalToSuperview()
+                maker.trailing.equalTo(seperator.snp.leading)
+            }
             
             flagLabel.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().inset(16)
@@ -79,7 +101,6 @@ extension AmongChat.Login {
             let lb = UILabel()
             lb.font = UIFont.systemFont(ofSize: 20)
             lb.textColor = .black
-            lb.isUserInteractionEnabled = true
             return lb
         }()
         
@@ -88,7 +109,6 @@ extension AmongChat.Login {
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .black
             lb.adjustsFontSizeToFitWidth = true
-            lb.isUserInteractionEnabled = true
             return lb
         }()
         
@@ -284,23 +304,6 @@ extension AmongChat.Login.MobileViewController {
     
     private func setupEvent() {
         
-        let regionLabelTap = UITapGestureRecognizer()
-        regionLabel.addGestureRecognizer(regionLabelTap)
-        regionLabelTap.rx.event
-            .subscribe(onNext: { [weak self] (_) in
-                
-                guard let `self` = self,
-                      self.regions.count > 0 else { return }
-                
-                let modal = AmongChat.Login.RegionModal(dataSource: self.regions,
-                                                        initialRegion: self.currentRegion ?? Region.default)
-                modal.selectRegion = { (region) in
-                    self.currentRegion = region
-                }
-                modal.showModal(in: self)
-            })
-            .disposed(by: bag)
-        
         mobileInputField.rx.text
             .subscribe(onNext: { [weak self] (str) in
                 
@@ -316,6 +319,17 @@ extension AmongChat.Login.MobileViewController {
             })
             .disposed(by: bag)
         
+    }
+    
+    private func showRegionPicker() {
+        guard regions.count > 0 else { return }
+        
+        let modal = AmongChat.Login.RegionModal(dataSource: regions,
+                                                initialRegion: currentRegion ?? Region.default)
+        modal.selectRegion = { [weak self] (region) in
+            self?.currentRegion = region
+        }
+        modal.showModal(in: self)
     }
         
 }
