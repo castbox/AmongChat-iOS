@@ -219,10 +219,10 @@ extension SettingViewController {
     }
     
     private func rateApp() {//rate us
-        view.raft.autoShow(.loading)
-        if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
-        } else {
+//        view.raft.autoShow(.loading)
+//        if #available(iOS 10.3, *) {
+//            SKStoreReviewController.requestReview()
+//        } else {
             let appID = Constants.appId
             //            let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
             let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
@@ -234,7 +234,7 @@ extension SettingViewController {
             } else {
                 UIApplication.shared.openURL(url) // openURL(_:) is deprecated from iOS 10.
             }
-        }
+//        }
     }
     
     private func generateDataSource(languages: [Language] = []) -> [Option] {
