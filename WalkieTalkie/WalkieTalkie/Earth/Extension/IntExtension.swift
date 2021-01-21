@@ -157,3 +157,14 @@ extension Float {
         return String(format: "%.2f", d)
     }
 }
+
+extension Int {
+    
+    var secondsAsHHMMSS: String {
+       let seconds: Int = self % 60
+       let minutes: Int = (self / 60) % 60
+       let hours: Int = self / 3600
+       return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+}

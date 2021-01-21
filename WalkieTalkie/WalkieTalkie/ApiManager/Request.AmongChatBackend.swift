@@ -60,7 +60,7 @@ private let limit: Int = 20
 
 extension Request {
     
-    static func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
+    static func login(via provider: Entity.LoginResult.Provider, token: String? = nil, secret: String? = nil, transferFrom uid: String? = nil, clientType: String = "ios") -> Single<Entity.LoginResult?> {
         
         var paras = [String : Any]()
         paras["provider"] = provider.rawValue
@@ -75,6 +75,12 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.LoginResult.self)
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { (result) in
+                guard let result = result else { return }
+                Settings.shared.loginResult.value = result
+                Settings.shared.updateProfile()
+            })
     }
     
     static func profile() -> Single<Entity.UserProfile?> {
@@ -476,6 +482,64 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.AccountMetaData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
+        let params = [
+            "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
+            "zone_code" : telRegion,
+            "phone" : phoneNumber,
+        ]
+        
+        return amongchatProvider.rx.request(.requestSmsCode(params))
+            .mapJSON()
+            .map { item -> [String: AnyObject] in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code != 10001 else {
+                    throw MsgError.from(dic: json)
+                }
+                
+                return json
+            }
+            .mapTo(Entity.SmsCodeResponse.self)
+            .map({
+                guard let response = $0 else {
+                    throw MsgError.default
+                }
+                return response
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func verifySmsCode(code: String, telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
+        
+        let params = [
+            "auth_code" : code,
+            "zone_code" : telRegion,
+            "phone" : phoneNumber,
+        ]
+        
+        return amongchatProvider.rx.request(.verifySmsCode(params))
+            .mapJSON()
+            .map { item -> [String: AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                
+                return json
+            }
+            .mapTo(Entity.SmsCodeResponse.self)
+            .map({
+                guard let response = $0 else {
+                    throw MsgError.default
+                }
+                return response
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
 }

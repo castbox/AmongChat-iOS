@@ -210,8 +210,11 @@ extension SettingViewController {
         }
         premiun.style = .likeGuide
         premiun.source = .setting
-        premiun.dismissHandler = {
-            premiun.dismiss(animated: true, completion: nil)
+        premiun.dismissHandler = { (purchased) in
+            premiun.dismiss(animated: true) {
+                guard purchased else { return }
+                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+            }
         }
         premiun.modalPresentationStyle = .fullScreen
         present(premiun, animated: true, completion: nil)

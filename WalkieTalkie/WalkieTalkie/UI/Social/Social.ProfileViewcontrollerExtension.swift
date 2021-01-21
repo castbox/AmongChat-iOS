@@ -252,7 +252,7 @@ extension Social.ProfileViewController {
         private func bindSubviewEvent() {
             loginButton.rx.controlEvent(.primaryActionTriggered)
                 .subscribe { _ in
-                    _ = AmongChat.Login.canDoLoginEvent()
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
                 }
                 .disposed(by: bag)
         }

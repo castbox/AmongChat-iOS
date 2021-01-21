@@ -230,6 +230,26 @@
 "microphone.not.allow.setting" = "Go Settings";
 "error.no.search" = "Oops, no matching results!";
 
-//20201119 new
+//1.11
+"among.chat.login.mobile.title" = "What’s your phone number?";
+"among.chat.login.sms.tip" = "We'll send you an SMS verification code.";
+"among.chat.login.next" = "Next";
+"among.chat.common.error" = "Something went wrong, please try again.";
+"among.chat.set.birth.day.title" = "How old are you?";
 "login" = "Log in";
 "change.old.title" = "%@ old";
+"among.chat.login.code.input.title" = "Enter your code";
+"among.chat.login.code.input.tip" = "We sent a code to %1$@ %2$@";
+"among.chat.login.code.input.timing" = "Time remaining %1$@";
+"among.chat.login.code.not.recieve" = "Didn't receive the code? %1$@";
+"among.chat.login.code.resend" = "Resend";
+"among.chat.login.code.wrong" = "Oops! Wrong code";
+"among.chat.login.start" = "Start";
+"among.chat.login.have.account" = "Already have an account?";
+"among.chat.login.sign.in" = "Sign in";
+"among.chat.login.more" = "More options";
+"among.chat.login.auth.tip" = "Please sign in/sign up first to %1$@";
+"among.chat.login.auth.source.channel" = "create a channel";
+"among.chat.login.auth.source.profile" = "edit your profile";
+"among.chat.login.auth.source.pro" = "save your data";
+"among.chat.login.congrat" = " Congratulations!";
