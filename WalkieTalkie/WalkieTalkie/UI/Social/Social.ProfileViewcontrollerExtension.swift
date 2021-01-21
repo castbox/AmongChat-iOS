@@ -320,7 +320,7 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(20)
                 maker.centerY.equalTo(avatarIV)
-                maker.right.equalTo(-65)
+                maker.trailing.equalTo(-65)
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
