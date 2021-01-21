@@ -50,7 +50,7 @@ class PremiumViewController: ViewController {
     var source: Logger.IAP.ActionSource?
     var premiumContainer: PremiumContainerable!
     var style: ContainerStyle = .default
-    var dismissHandler: (() -> Void)?
+    var dismissHandler: ((_ purchased: Bool) -> Void)?
     var didSelectProducts: (String) -> Void = { _ in }
     
     private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
@@ -118,9 +118,9 @@ class PremiumViewController: ViewController {
         buy(identifier: IAP.productYear)
     }
     
-    @objc private func dismissSelf() {
+    private func dismissSelf(purchased: Bool = false) {
         if let handler = dismissHandler {
-            handler()
+            handler(purchased)
         } else {
             dismiss(animated: true, completion: nil)
         }
@@ -254,7 +254,7 @@ extension PremiumViewController {
                     }
                     DispatchQueue.main.async { [weak self] in
                         removeBlock()
-                        self?.dismissSelf()
+                        self?.dismissSelf(purchased: true)
                     }
                 case .failed:
                     self?.isPuchasingState.onNext(false)
