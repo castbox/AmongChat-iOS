@@ -15,7 +15,7 @@ extension AmongChat.Login {
         
         private lazy var regionPicker: UIPickerView = {
             let p = UIPickerView(frame: CGRect(x: 40, y: 305, width: Frame.Screen.width - 70, height: 290))
-            p.backgroundColor = UIColor(hex6: 0x121212)
+            p.backgroundColor = .clear
             p.dataSource = self
             p.delegate = self
             return p
@@ -51,7 +51,7 @@ extension AmongChat.Login {
 extension AmongChat.Login.RegionModal {
     
     private func setupLayout() {
-        
+        view.backgroundColor = UIColor(hex6: 0x222222)
         let layoutGuide = UILayoutGuide()
         view.addLayoutGuide(layoutGuide)
         layoutGuide.snp.makeConstraints { (maker) in
@@ -65,6 +65,7 @@ extension AmongChat.Login.RegionModal {
         regionPicker.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(30)
             maker.centerY.equalTo(layoutGuide)
+            maker.height.equalTo(viewHeight - Frame.Height.safeAeraTopHeight - Frame.Height.safeAeraBottomHeight)
         }
         
         if let idx = dataSource.firstIndex(where: { $0.regionCode == initialRegion.regionCode }) {
