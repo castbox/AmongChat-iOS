@@ -288,6 +288,22 @@ private extension Social.ProfileViewController {
                     }
                 })
                 .disposed(by: bag)
+            
+            Settings.shared.loginResult.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (result) in
+                    guard let `self` = self,
+                          let _ = result else {
+                        return
+                    }
+                    var vH: CGFloat {
+                        return 357.5 + (AmongChat.Login.isLogedin ? 0 : 68)
+                    }
+                    self.table.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
+                    self.table.reloadData()
+                })
+                .disposed(by: bag)
+
         }
     }
     
