@@ -53,6 +53,7 @@ extension AmongChat.Login {
     static func present(style: LoginStyle, for viewController: UIViewController, onFinishHandler: (() -> Void)?) {
         let loginVc = AmongChat.Login.MobileViewController(style: style)
         let navController = NavigationViewController(rootViewController: loginVc)
+        navController.modalPresentationStyle = .fullScreen
         viewController.present(navController, animated: true)
         loginVc.loginHandler = { [weak loginVc] (result, error) in
             
