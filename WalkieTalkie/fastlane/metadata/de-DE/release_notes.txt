@@ -1,6 +1,4 @@
 Willkommen in der Voice-Chat-App AmongChat!
-1. Weitere Spielkanäle für Sie in diesem Update - Mobile Legends, PUBG MOBILE und Call of Duty. Komm und spiel mit deinen Spielerfreunden!
-2. Sie können andere Freunde finden, indem Sie nach ihren In-App-Spitznamen/IDs suchen.
-3. Die Profilseite kann einfach durch Wischen nach unten geschlossen werden.
-4. Andere Fehlerbehebungen und UI-Optimierung.
+Jetzt können Sie Ihren Roblox-Benutzernamen, Fortnite-Anzeigenamen oder Free Fire-Spitznamen in den Kanälen festlegen.
+Sie können auch verschiedene Chat-Sprachen in den App-Einstellungen auswählen, um eine bessere Übereinstimmung zu erzielen.
 Finde und spreche mit deinen Freunden, viel Spaß!

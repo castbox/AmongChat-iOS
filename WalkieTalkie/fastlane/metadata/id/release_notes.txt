@@ -1,6 +1,4 @@
 Selamat datang di aplikasi obrolan suara AmongChat!
-1. Lebih banyak saluran game untuk Anda dalam pembaruan ini - Mobile Legends, PUBG MOBILE, dan Call of Duty. Ayo bermain dengan teman-teman gamer Anda!
-2. Anda dapat menemukan teman lain dengan mencari nama panggilan/ID dalam aplikasi mereka.
-3. Halaman profil dapat ditutup dengan mudah hanya dengan menggeser ke bawah.
-4. Perbaikan bug dan pengoptimalan UI lainnya.
+Sekarang Anda dapat mengatur nama pengguna Roblox, nama tampilan Fortnite, atau nama panggilan Free Fire di saluran.
+Anda juga dapat memilih bahasa obrolan yang berbeda di Pengaturan aplikasi, agar lebih cocok.
 Temukan dan Obrolan Suara dengan teman-teman Anda, nikmatilah!
