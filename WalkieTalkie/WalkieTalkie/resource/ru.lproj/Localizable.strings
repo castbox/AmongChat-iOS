@@ -229,3 +229,28 @@
 "microphone.not.allow.subtitle" = "Чтобы присоединиться к каналу, включите разрешение микрофона.";
 "microphone.not.allow.setting" = "Перейти в настройки";
 "error.no.search" = "Ой, подходящих результатов нет!";
+
+//1.11
+"among.chat.login.mobile.title" = "Ваш номер телефона?";
+"among.chat.login.sms.tip" = "Мы отправим вам проверочный код по SMS.";
+"among.chat.login.next" = "следующий";
+"among.chat.common.error" = "Что-то пошло не так. Пожалуйста, попытайтесь еще раз.";
+"among.chat.set.birth.day.title" = "Сколько тебе лет?";
+"change.old.title" = "%@ лет";
+"among.chat.login.code.input.title" = "Введите ваш код";
+"among.chat.login.code.input.tip" = "Мы отправили код на номер %1$@ %2$@";
+"among.chat.login.code.input.timing" = "Оставшееся время %1$@";
+"among.chat.login.code.not.recieve" = "Не получили код? %1$@";
+"among.chat.login.code.resend" = "Отправить";
+"among.chat.login.code.wrong" = "Ой! Неверный код";
+"among.chat.login.start" = "Начало";
+"among.chat.login.have.account" = "Уже есть аккаунт?";
+"among.chat.login.sign.in" = "войти в систему";
+"among.chat.login.more" = "Больше вариантов";
+"among.chat.login.auth.tip" = "Пожалуйста, войдите/зарегистрируйтесь сначала на %1$@";
+"among.chat.login.auth.source.channel" = "создать канал";
+"among.chat.login.auth.source.profile" = "pедактировать профиль";
+"among.chat.login.auth.source.pro" = "сохраните ваши данные";
+"among.chat.login.congrat" = "Поздравляю!";
+"among.chat.profile.sign.in" = "Войти/Зарегистрироваться";
+"among.chat.profile.overrite" = "У вас уже есть учетная запись, связанная с этим методом. Чтобы продолжить, ваши текущие данные будут перезаписаны и потеряны.";

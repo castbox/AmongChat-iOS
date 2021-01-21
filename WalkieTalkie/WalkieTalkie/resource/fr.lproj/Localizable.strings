@@ -229,3 +229,28 @@
 "microphone.not.allow.subtitle" = "Pour rejoindre la chaîne, veuillez activer l'autorisation du microphone.";
 "microphone.not.allow.setting" = "Aller Paramètres";
 "error.no.search" = "Oups, aucun résultat!";
+
+//1.11
+"among.chat.login.mobile.title" = "Quel est ton numéro de téléphone?";
+"among.chat.login.sms.tip" = "Nous vous enverrons un code de vérification par SMS.";
+"among.chat.login.next" = "Prochain";
+"among.chat.common.error" = "Une erreur s'est produite. Veuillez réessayer.";
+"among.chat.set.birth.day.title" = "Quel âge avez-vous?";
+"change.old.title" = "%@ ans";
+"among.chat.login.code.input.title" = "Entrez votre code";
+"among.chat.login.code.input.tip" = "Nous avons envoyé un code à %1$@ %2$@";
+"among.chat.login.code.input.timing" = "Temps restant %1$@";
+"among.chat.login.code.not.recieve" = "Vous n'avez pas reçu le code? %1$@";
+"among.chat.login.code.resend" = "Renvoyer";
+"among.chat.login.code.wrong" = "Oops! Mauvais code";
+"among.chat.login.start" = "Début";
+"among.chat.login.have.account" = "Vous avez déjà un compte?";
+"among.chat.login.sign.in" = "Se connecter";
+"among.chat.login.more" = "Plus d’options";
+"among.chat.login.auth.tip" = "Veuillez vous connecter/vous inscrire d'abord pour %1$@";
+"among.chat.login.auth.source.channel" = "créer une chaîne";
+"among.chat.login.auth.source.profile" = "modifier votre profil";
+"among.chat.login.auth.source.pro" = "enregistrez vos données";
+"among.chat.login.congrat" = "Toutes nos félicitations!";
+"among.chat.profile.sign.in" = "Vous connecter/vous inscrire";
+"among.chat.profile.overrite" = "Vous avez déjà un compte lié à cette méthode. Pour continuer, vos données actuelles seraient écrasées et perdues.";
