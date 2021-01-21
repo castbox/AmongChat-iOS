@@ -171,8 +171,10 @@ extension AmongChat.Home {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl))
             //            nameLabel.text =
-            msgLabel.text = "@\(user.name ?? "") " + R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
-            //            Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)
+            let msgAttr = NSMutableAttributedString(string: "@")
+            msgAttr.append(user.nameWithVerified(fontSize: 14))
+            msgAttr.yy_appendString(" " + R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased()))
+            msgLabel.attributedText = msgAttr
         }
         
         func bindEvent(join: CallBack?, ignore: CallBack?) {

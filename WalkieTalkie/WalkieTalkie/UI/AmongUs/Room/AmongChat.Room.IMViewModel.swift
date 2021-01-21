@@ -312,9 +312,18 @@ extension ChatRoom.TextMessage: MessageListable {
             .paragraphStyle: pargraph
 //            .kern: 0.5
         ]
-        
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
+        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if user.isVerified == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_verified_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableNormalString.yy_appendString(" ")
+            mutableNormalString.append(imageString)
+        }
         mutableNormalString.append(NSAttributedString(string: " \(content)", attributes: contentAttr))
         return mutableNormalString
     }
@@ -345,7 +354,18 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         ]
         
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name)", attributes: nameAttr))
+        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        //
+        if user.isVerified == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_verified_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableNormalString.yy_appendString(" ")
+            mutableNormalString.append(imageString)
+        }
         mutableNormalString.append(NSAttributedString(string: " \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
     }

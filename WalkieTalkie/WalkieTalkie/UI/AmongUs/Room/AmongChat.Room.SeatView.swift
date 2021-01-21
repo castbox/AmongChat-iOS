@@ -93,12 +93,7 @@ extension AmongChat.Room {
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-//        private lazy var topSeats: UIStackView = {
-//            let stackView = UIStackView()
-//            stackView.axis = .horizontal
-//            stackView
-//            return stackView
-//        }()
+
         fileprivate lazy var collectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
@@ -180,19 +175,26 @@ extension AmongChat.Room {
         }
         
         func fetchRealation(with user: Entity.RoomUser) {
-            Request.relationData(uid: user.uid).retry(2)
-                .subscribe(onSuccess: { [weak self](data) in
+            guard user.uid != Settings.loginUserId else {
+                return
+            }
+            let removeBlock = parentViewController?.view.raft.show(.loading)
+            Request.relationData(uid: user.uid).asObservable()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] relation in
+                    removeBlock?()
                     guard let `self` = self,
-                          let data = data else { return }
+                          let data = relation else { return }
                     self.showAvatarSheet(with: user, relation: data)
-                }, onError: { (error) in
+                }, onError: { error in
+                    removeBlock?()
                     cdPrint("relationData error :\(error.localizedDescription)")
-                }).disposed(by: bag)
+                })
+                .disposed(by: bag)
         }
         
         func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
-            guard user.uid != Settings.loginUserId,
-                  let viewController = containingController else {
+            guard let viewController = containingController else {
                 return
             }
             Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)

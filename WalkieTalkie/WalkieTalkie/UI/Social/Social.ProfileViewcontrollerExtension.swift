@@ -164,29 +164,7 @@ extension Social.ProfileViewController {
         
         func configProfile(_ profile: Entity.UserProfile) {
             uid = profile.uid.string
-            if let b = profile.birthday, !b.isEmpty {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMdd"
-                
-                if let startDate = dateFormatter.date(from: b)  {
-                    
-                    let endDate = Date()
-                    
-                    let calendar = Calendar.current
-                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                    
-                    if let age = calcAge.year?.string, !age.isEmpty {
-                        nameLabel.text = "\(profile.name ?? ""), \(age)"
-                    } else {
-                        nameLabel.text = profile.name
-                    }
-                } else {
-                    nameLabel.text = profile.name
-                }
-            } else {
-                nameLabel.text = profile.name
-            }
+            nameLabel.attributedText = profile.nameWithVerified(fontSize: 26, withAge: true)
             currentName = nameLabel.text ?? ""
             uidLabel.text = "ID: \(profile.uid)"
             avatarIV.setAvatarImage(with: profile.pictureUrl)

@@ -136,7 +136,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 132 images.
+  /// This `R.image` struct is generated, and contains static references to 135 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -384,6 +384,12 @@ struct R: Rswift.Validatable {
     static let icon_user_list_mic_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic_block")
     /// Image `icon_user_list_mic`.
     static let icon_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic")
+    /// Image `icon_verified_13`.
+    static let icon_verified_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_13")
+    /// Image `icon_verified_24`.
+    static let icon_verified_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_24")
+    /// Image `icon_verified`.
+    static let icon_verified = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified")
     /// Image `launch_logo`.
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
@@ -1016,6 +1022,21 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_user_list_mic_block", bundle: ..., traitCollection: ...)`
     static func icon_user_list_mic_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_user_list_mic_block, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_verified", bundle: ..., traitCollection: ...)`
+    static func icon_verified(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_verified, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_verified_13", bundle: ..., traitCollection: ...)`
+    static func icon_verified_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_verified_13, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_verified_24", bundle: ..., traitCollection: ...)`
+    static func icon_verified_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_verified_24, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "launch_logo", bundle: ..., traitCollection: ...)`

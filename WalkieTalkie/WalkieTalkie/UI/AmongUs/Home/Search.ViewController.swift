@@ -456,7 +456,7 @@ extension Search {
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.text = model.name
+            usernameLabel.attributedText = model.nameWithVerified()
             uidLabel.text = "ID: \(model.uid)"
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)

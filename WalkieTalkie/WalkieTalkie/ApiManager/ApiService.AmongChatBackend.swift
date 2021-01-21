@@ -27,7 +27,7 @@ extension APIService {
         case kickUsers([String : Any])
         case summary([String : Any])
         case roomNickName([String: Any])
-        case profile
+        case profile([String : Any])
         case updateProfile([String : Any])
         case defaultAvatars([String : Any])
         case firebaseToken([String: Any])
@@ -94,7 +94,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .kickUsers:
             return "/api/v1/rooms/kick"
         case .profile:
-            return"/account/profile"
+            return "/account/profile"
         case .updateProfile:
             return "/account/profile"
         case .roomNickName:
@@ -211,8 +211,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
-        case .profile,
-             .logout,
+        case .logout,
              .sensitiveWords,
              .playingList,
              .recommendedUsers,
@@ -243,6 +242,7 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultAvatars(let params),
              .unlockAvatar(let params),
              .relationData(let params),
+             .profile(let params),
              .profilePage(let params),
              .firebaseToken(let params),
              .blockList(let params),

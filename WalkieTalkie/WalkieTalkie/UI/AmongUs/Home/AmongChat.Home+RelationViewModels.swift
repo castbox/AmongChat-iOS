@@ -128,8 +128,8 @@ extension AmongChat.Home {
             return playingModel.user.uid
         }
         
-        var userName: String? {
-            return playingModel.user.name
+        var userName: NSAttributedString? {
+            return playingModel.user.nameWithVerified()
         }
         
         var userAvatarUrl: String? {

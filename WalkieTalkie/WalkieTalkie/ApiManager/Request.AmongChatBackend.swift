@@ -77,8 +77,9 @@ extension Request {
             .mapTo(Entity.LoginResult.self)
     }
     
-    static func profile() -> Single<Entity.UserProfile?> {
-        return amongchatProvider.rx.request(.profile)
+    static func profile(_ uid: Int? = nil) -> Single<Entity.UserProfile?> {
+        let paras = ["uid": uid ?? Settings.loginUserId ?? 0]
+        return amongchatProvider.rx.request(.profile(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)

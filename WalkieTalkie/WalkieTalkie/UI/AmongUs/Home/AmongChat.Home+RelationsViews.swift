@@ -88,7 +88,7 @@ extension AmongChat.Home {
             
             avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl), placeholder: R.image.ac_profile_avatar())
             
-            nameLabel.text = viewModel.userName
+            nameLabel.attributedText = viewModel.userName
             
             statusLabel.text = viewModel.playingStatus
             
@@ -125,6 +125,7 @@ extension AmongChat.Home {
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.setContentHuggingPriority(.required, for: .horizontal)
             return btn
         }()
         
@@ -162,7 +163,7 @@ extension AmongChat.Home {
             userView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
+                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
             }
             
             joinBtn.snp.makeConstraints { (maker) in
@@ -230,6 +231,7 @@ extension AmongChat.Home {
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.layer.borderWidth = 2.5
+            btn.setContentHuggingPriority(.required, for: .horizontal)
             return btn
         }()
         private var followDisposable: Disposable? = nil
@@ -259,7 +261,7 @@ extension AmongChat.Home {
             userView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
+                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
             }
             
             followBtn.snp.makeConstraints { (maker) in
