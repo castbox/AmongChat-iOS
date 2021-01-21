@@ -237,7 +237,7 @@
 "among.chat.common.error" = "Something went wrong, please try again.";
 "among.chat.set.birth.day.title" = "How old are you?";
 "login" = "Log in";
-"change.old.title" = "%@ old";
+"change.old.title" = "%@ years old";
 "among.chat.login.code.input.title" = "Enter your code";
 "among.chat.login.code.input.tip" = "We sent a code to %1$@ %2$@";
 "among.chat.login.code.input.timing" = "Time remaining %1$@";

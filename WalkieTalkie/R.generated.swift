@@ -1491,14 +1491,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: %@ old
-      /// 
-      /// Locales: en
-      static let changeOldTitle = Rswift.StringResource(key: "change.old.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionDetailNormal = Rswift.StringResource(key: "premium.subscription.detail.normal", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %@ years old
+      /// 
+      /// Locales: en
+      static let changeOldTitle = Rswift.StringResource(key: "change.old.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: 3 days free trial, then %@ / Year
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2354,18 +2354,18 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.home.nowplaying", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
-      /// en translation: %@ old
-      /// 
-      /// Locales: en
-      static func changeOldTitle(_ value1: String) -> String {
-        return String(format: NSLocalizedString("change.old.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
-      }
-      
       /// en translation: %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumSubscriptionDetailNormal(_ value1: String, _ value2: String) -> String {
         return String(format: NSLocalizedString("premium.subscription.detail.normal", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
+      }
+      
+      /// en translation: %@ years old
+      /// 
+      /// Locales: en
+      static func changeOldTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("change.old.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: 3 days free trial, then %@ / Year
