@@ -236,7 +236,6 @@
 "among.chat.login.next" = "Next";
 "among.chat.common.error" = "Something went wrong, please try again.";
 "among.chat.set.birth.day.title" = "How old are you?";
-"login" = "Log in";
 "change.old.title" = "%@ years old";
 "among.chat.login.code.input.title" = "Enter your code";
 "among.chat.login.code.input.tip" = "We sent a code to %1$@ %2$@";
@@ -253,3 +252,5 @@
 "among.chat.login.auth.source.profile" = "edit your profile";
 "among.chat.login.auth.source.pro" = "save your data";
 "among.chat.login.congrat" = " Congratulations!";
+"among.chat.profile.sign.in" = "Sign in/Sign up";
+"among.chat.profile.overrite" = "You already have an account linked to this method. To continue, your current data would be overwritten and lost.";

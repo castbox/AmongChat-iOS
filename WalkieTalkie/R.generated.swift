@@ -1481,7 +1481,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 214 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 215 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1835,10 +1835,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomLeave = Rswift.StringResource(key: "room.leave", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Log in
-      /// 
-      /// Locales: en
-      static let login = Rswift.StringResource(key: "login", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Log out
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2139,6 +2135,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginSignInWithSnapchat = Rswift.StringResource(key: "among.chat.login.sign.in.with.snapchat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sign in/Sign up
+      /// 
+      /// Locales: en
+      static let amongChatProfileSignIn = Rswift.StringResource(key: "among.chat.profile.sign.in", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Skip
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2247,6 +2247,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatLoginMobileTitle = Rswift.StringResource(key: "among.chat.login.mobile.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You already have an account linked to this method. To continue, your current data would be overwritten and lost.
+      /// 
+      /// Locales: en
+      static let amongChatProfileOverrite = Rswift.StringResource(key: "among.chat.profile.overrite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2956,13 +2960,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.leave", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Log in
-      /// 
-      /// Locales: en
-      static func login(_: Void = ()) -> String {
-        return NSLocalizedString("login", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Log out
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3488,6 +3485,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.login.sign.in.with.snapchat", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Sign in/Sign up
+      /// 
+      /// Locales: en
+      static func amongChatProfileSignIn(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.sign.in", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Skip
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3675,6 +3679,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatLoginMobileTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.mobile.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You already have an account linked to this method. To continue, your current data would be overwritten and lost.
+      /// 
+      /// Locales: en
+      static func amongChatProfileOverrite(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.overrite", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have successfully  blocked this person
