@@ -287,7 +287,7 @@ extension AmongChat.Login.SmsCodeViewController {
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
                 self?.codeInputField.clearText()
-                self?.startCountingDown(countDown: response?.data?.expire ?? 60)
+                self?.startCountingDown(countDown: response.data?.expire ?? 60)
             }, onError: { [weak self] (_) in
                 completion()
                 self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
@@ -305,7 +305,7 @@ extension AmongChat.Login.SmsCodeViewController {
         view.endEditing(true)
         Request.verifySmsCode(code: digits.joined(), telRegion: dataModel.telRegion, phoneNumber: dataModel.phone)
             .flatMap({ (response) -> Single<Entity.LoginResult?> in
-                guard let token = response?.data?.token else {
+                guard let token = response.data?.token else {
                     return Single.just(nil)
                 }
                 

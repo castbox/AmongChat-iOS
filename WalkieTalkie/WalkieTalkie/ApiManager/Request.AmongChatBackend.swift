@@ -485,7 +485,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse?> {
+    static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
         let params = [
             "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
             "zone_code" : telRegion,
@@ -502,10 +502,16 @@ extension Request {
                 return json
             }
             .mapTo(Entity.SmsCodeResponse.self)
+            .map({
+                guard let response = $0 else {
+                    throw MsgError.default
+                }
+                return response
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func verifySmsCode(code: String, telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse?> {
+    static func verifySmsCode(code: String, telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
         
         let params = [
             "auth_code" : code,
@@ -523,6 +529,12 @@ extension Request {
                 return json
             }
             .mapTo(Entity.SmsCodeResponse.self)
+            .map({
+                guard let response = $0 else {
+                    throw MsgError.default
+                }
+                return response
+            })
             .observeOn(MainScheduler.asyncInstance)
     }
 }

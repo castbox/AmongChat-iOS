@@ -294,7 +294,7 @@ extension AmongChat.Login.MobileViewController {
         Request.requestSmsCode(telRegion: region.telCode, phoneNumber: phone)
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
-                self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response?.data?.expire ?? 60))
+                self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))
             }, onError: { [weak self] (_) in
                 completion()
                 self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
