@@ -495,8 +495,13 @@ extension Request {
         return amongchatProvider.rx.request(.requestSmsCode(params))
             .mapJSON()
             .map { item -> [String: AnyObject] in
-                guard let json = item as? [String: AnyObject] else {
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
                     throw MsgError.default
+                }
+                
+                guard code != 10001 else {
+                    throw MsgError.from(dic: json)
                 }
                 
                 return json

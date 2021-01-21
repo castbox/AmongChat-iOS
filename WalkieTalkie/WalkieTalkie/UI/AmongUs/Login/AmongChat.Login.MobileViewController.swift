@@ -364,9 +364,15 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
                 self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))
-            }, onError: { [weak self] (_) in
+            }, onError: { [weak self] (error) in
                 completion()
-                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                
+                guard let error = (error as? MsgError) else {
+                    self?.showAmongAlert(title: R.string.localizable.amongChatCommonError())
+                    return
+                }
+
+                self?.view.raft.autoShow(.text(error.msg ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
     }
