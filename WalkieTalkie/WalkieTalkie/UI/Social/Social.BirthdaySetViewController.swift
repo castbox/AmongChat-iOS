@@ -60,6 +60,18 @@ extension Social {
             return btn
         }()
         
+        private lazy var policyLabel: PolicyLabel = {
+            let terms = R.string.localizable.amongChatTermsService()
+            let privacy = R.string.localizable.amongChatPrivacyPolicy()
+            let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+
+            let lb = PolicyLabel(with: text, privacy: privacy, terms: terms)
+            lb.onInteration = { [weak self] targetPath in
+                self?.open(urlSting: targetPath)
+            }
+            return lb
+        }()
+        
         private lazy var dataSource: [Date] = {
             var years = (12...100).compactMap {
                 currentCalendar.date(byAdding: .year, value: -$0, to: todayNow)
@@ -77,7 +89,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            view.addSubviews(views: birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn)
+            view.addSubviews(views: birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn, policyLabel)
             
             let navLayoutGuide = UILayoutGuide()
             view.addLayoutGuide(navLayoutGuide)
@@ -113,6 +125,11 @@ extension Social {
                 maker.right.equalTo(-40)
                 maker.height.equalTo(50)
                 maker.bottom.equalTo(-58 - Frame.Height.safeAeraBottomHeight)
+            }
+            
+            policyLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
+                maker.bottom.equalTo(bottomLayoutGuide.snp.bottom).offset(-Frame.Scale.height(12))
             }
             
             rx.viewDidAppear.take(1)
