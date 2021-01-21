@@ -272,7 +272,7 @@ extension Social.ProfileViewController {
             
             lineView.snp.makeConstraints { maker in
                 maker.center.equalToSuperview()
-                maker.width.equalTo(0.5)
+                maker.width.equalTo(2)
                 maker.height.equalTo(28)
             }
             
