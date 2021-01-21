@@ -12,13 +12,6 @@ extension Social {
     
     class BirthdaySetViewController: ViewController {
         
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.ac_back(), for: .normal)
-            return btn
-        }()
-        
         private lazy var birthdayIcon: UIImageView = {
             let i = UIImageView(image: R.image.ac_set_birthday_birthday())
             return i
@@ -26,8 +19,8 @@ extension Social {
         
         private lazy var mainTitle: UILabel = {
             let label = UILabel()
-            label.textColor = UIColor(hex6: 0xFFF000)
-            label.font = R.font.nunitoExtraBold(size: 48)
+            label.textColor = UIColor(hex6: 0xFFFFFF)
+            label.font = R.font.nunitoExtraBold(size: 28)
             label.text = R.string.localizable.amongChatSetBirthDayTitle()
             label.textAlignment = .center
             label.adjustsFontSizeToFitWidth = true
@@ -36,7 +29,7 @@ extension Social {
         
         private lazy var subTitle: UILabel = {
             let label = UILabel()
-            label.textColor = .white
+            label.textColor = UIColor(hex6: 0x898989)
             label.font = R.font.nunitoExtraBold(size: 16)
             label.text = R.string.localizable.profileBirthdaySubtitle()
             label.textAlignment = .center
@@ -84,7 +77,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            view.addSubviews(views: backBtn, birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn)
+            view.addSubviews(views: birthdayIcon, mainTitle, subTitle, birthdayPicker, confirmBtn)
             
             let navLayoutGuide = UILayoutGuide()
             view.addLayoutGuide(navLayoutGuide)
@@ -93,13 +86,7 @@ extension Social {
                 maker.top.equalTo(topLayoutGuide.snp.bottom)
                 maker.height.equalTo(49)
             }
-            
-            backBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().offset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(24)
-            }
-            
+                        
             birthdayIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
@@ -114,14 +101,11 @@ extension Social {
                 maker.top.equalTo(mainTitle.snp.bottom).offset(7)
                 maker.leading.trailing.equalToSuperview().inset(40)
             }
-            var gap = 50
-            if Frame.Height.deviceDiagonalIsMinThan5_5 {
-                gap = 40
-            }
+
             birthdayPicker.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
-                maker.height.equalTo(290)
-                maker.top.equalTo(subTitle.snp.bottom).offset(gap)
+                maker.height.equalTo(215.scalHValue)
+                maker.top.equalTo(subTitle.snp.bottom).offset(64.scalHValue)
             }
             
             confirmBtn.snp.makeConstraints { (maker) in
@@ -148,12 +132,6 @@ extension Social {
                 }
             })
             .disposed(by: bag)
-        }
-        
-        @objc
-        func onBackBtn() {
-            Logger.Action.log(.login_birthday_skip)
-            onCompletion?("")
         }
         
         @objc
@@ -210,9 +188,46 @@ extension Social.BirthdaySetViewController: UIPickerViewDelegate {
         
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
-        guard let date = dataSource.safe(row),
-              date != todayNow else {
+        guard let date = dataSource.safe(row) else {
             return UIView()
+        }
+        
+        guard date != todayNow  else {
+            let view: UIView = {
+                let v = UIView()
+                
+                let dash = { () -> UIView in
+                    let v = UIView()
+                    v.backgroundColor = .white
+                    v.layer.cornerRadius = 2
+                    return v
+                }
+                
+                let dash1 = dash()
+                let dash2 = dash()
+                v.addSubviews(views: dash1, dash2)
+                let layoutGuide = UILayoutGuide()
+                v.addLayoutGuide(layoutGuide)
+                layoutGuide.snp.makeConstraints { (maker) in
+                    maker.center.equalToSuperview()
+                }
+                
+                dash1.snp.makeConstraints { (maker) in
+                    maker.leading.top.bottom.equalTo(layoutGuide)
+                    maker.width.equalTo(20)
+                    maker.height.equalTo(4)
+                }
+                
+                dash2.snp.makeConstraints { (maker) in
+                    maker.trailing.top.bottom.equalTo(layoutGuide)
+                    maker.width.equalTo(20)
+                    maker.height.equalTo(4)
+                    maker.leading.equalTo(dash1.snp.trailing).offset(4)
+                }
+                
+                return v
+            }()
+            return view
         }
         
         let label: UILabel
