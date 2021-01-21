@@ -80,30 +80,6 @@ class SettingViewController: ViewController {
         return v
     }()
     
-    private lazy var loginButton: UIButton = {
-        let btn = UIButton(type: .custom)
-        btn.layer.cornerRadius = 25
-        btn.layer.masksToBounds = true
-        btn.backgroundColor = UIColor(hex6: 0xFFF000)
-        btn.addTarget(self, action: #selector(onLoginBtn), for: .primaryActionTriggered)
-        btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-        return btn
-    }()
-    
-    private lazy var loginFooter: UIView = {
-        let v = UIView()
-        v.addSubview(loginButton)
-        loginButton.snp.makeConstraints { (make) in
-            make.left.equalTo(40)
-            make.right.equalTo(-40)
-            make.height.equalTo(50)
-            make.top.equalToSuperview().offset(28)
-        }
-        return v
-    }()
-    
     private lazy var settingOptions: [Option] = generateDataSource() {
         didSet {
             settingsTable.reloadData()
@@ -152,11 +128,6 @@ extension SettingViewController {
         exit(0)
     }
     
-    @objc
-    private func onLoginBtn() {
-        AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
-    }
-
 }
 
 extension SettingViewController {
@@ -223,14 +194,13 @@ extension SettingViewController {
                     return
                 }
                 
-                let footer: UIView
+                let footer: UIView?
                 
                 if AmongChat.Login.isLogedin {
                     self.logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
                     footer = self.logoutFooter
                 } else {
-                    self.loginFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
-                    footer = self.loginFooter
+                    footer = nil
                 }
                 self.settingsTable.tableFooterView = footer
                 self.settingsTable.reloadData()
