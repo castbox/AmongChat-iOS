@@ -87,7 +87,7 @@ extension AmongChat.Login {
             player.clearsAfterStop = false
 //            player.delegate = self
             player.loops = 1
-            player.contentMode = .scaleAspectFill
+            player.contentMode = .bottom
             player.isUserInteractionEnabled = false
             return player
         }()
