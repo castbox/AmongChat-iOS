@@ -83,6 +83,7 @@ extension AmongChat.Login {
             } else {
                 // Fallback on earlier versions
             }
+            f.keyboardAppearance = .dark
             return f
         }()
         

@@ -83,7 +83,7 @@ extension AmongChat.Login {
         private lazy var mobileTitle: UILabel = {
             let lb = UILabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 28.scalValue)
+            lb.font = R.font.nunitoExtraBold(size: 28.scalHValue)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
@@ -174,6 +174,7 @@ extension AmongChat.Login {
             f.delegate = self
             f.font = R.font.nunitoExtraBold(size: 20)
             f.adjustsFontSizeToFitWidth = true
+            f.keyboardAppearance = .dark
             return f
         }()
         
@@ -497,7 +498,7 @@ extension AmongChat.Login.MobileViewController {
             }
             mobileIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
             }
             
             mobileTitle.snp.makeConstraints { (maker) in
@@ -514,7 +515,7 @@ extension AmongChat.Login.MobileViewController {
             }
             mobileIcon.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
             }
             
             mobileTitle.snp.makeConstraints { (maker) in
@@ -589,12 +590,12 @@ extension AmongChat.Login.MobileViewController {
         
         btnStack.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-Frame.Scale.height(95))
+            maker.bottom.equalTo(policyLabel.snp.top).offset(-Frame.Scale.height(20))
         }
         
         moreLabel.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(btnStack.snp.top).offset(-12.scalValue)
+            maker.bottom.equalTo(btnStack.snp.top).offset(-12.scalHValue)
         }
         
         leftSeperator.snp.makeConstraints { (maker) in
