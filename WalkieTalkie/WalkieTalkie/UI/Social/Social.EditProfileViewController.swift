@@ -324,9 +324,10 @@ private extension Social {
     class BirthdaySelectViewController: ViewController {
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 32)
+            lb.font = R.font.nunitoExtraBold(size: 27)
             lb.textColor = .white
             lb.textAlignment = .center
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -337,7 +338,7 @@ private extension Social {
         }()
         
         private lazy var confirmBtn: UIButton = {
-            let btn = WalkieButton(type: .custom)
+            let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.addTarget(self, action: #selector(onConfirmBtn), for: .primaryActionTriggered)
             btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
@@ -345,7 +346,7 @@ private extension Social {
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
-            btn.appendKern()
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return btn
         }()
         
@@ -364,21 +365,21 @@ private extension Social {
             view.addSubviews(views: titleLabel, birthdayPicker, confirmBtn)
             
             confirmBtn.snp.makeConstraints { (maker) in
-                maker.right.equalToSuperview().inset(20)
+                maker.trailing.equalToSuperview().inset(20)
                 maker.top.equalToSuperview().offset(20)
-                maker.width.equalTo(77)
                 maker.height.equalTo(32)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(confirmBtn.snp.bottom).offset(12)
+                maker.top.equalTo(confirmBtn.snp.bottom).offset(19.5)
                 maker.centerX.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview().inset(20)
             }
             
             birthdayPicker.snp.makeConstraints { (maker) in
-                maker.left.right.equalToSuperview()
-                maker.top.equalTo(titleLabel.snp.bottom).offset(28)
-                maker.height.equalTo(260)
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(titleLabel.snp.bottom).offset(27.5)
+                maker.height.equalTo(235)
             }
             
             birthdayPicker.onDateUpdateHandler = { [weak self] in
