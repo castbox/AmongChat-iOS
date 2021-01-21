@@ -686,6 +686,7 @@ extension AmongChat.Login.MobileViewController {
         
         let modal = AmongChat.Login.RegionModal(dataSource: regions,
                                                 initialRegion: currentRegion ?? Region.default)
+        modal.viewHeight = view.height - nextBtn.origin.y + Frame.Height.safeAeraBottomHeight
         modal.selectRegion = { [weak self] (region) in
             self?.currentRegion = region
         }

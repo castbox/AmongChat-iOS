@@ -25,9 +25,7 @@ extension AmongChat.Login {
         private let dataSource: [Region]
         private let initialRegion: Entity.Region
         
-        private var viewHeight: CGFloat {
-            return 291 + Frame.Height.safeAeraBottomHeight
-        }
+        var viewHeight: CGFloat = 291 + Frame.Height.safeAeraBottomHeight
         
         var selectRegion: ((Entity.Region) -> Void)? = nil
         
