@@ -103,6 +103,11 @@ extension Social {
                     let vc = Social.SelectAvatarViewController()
                     self.navigationController?.pushViewController(vc)
                 case .edit:
+                    
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceProfile())) else {
+                        return
+                    }
+                    
                     let vc = Social.EditProfileViewController()
                     self.navigationController?.pushViewController(vc)
                 case .follow:

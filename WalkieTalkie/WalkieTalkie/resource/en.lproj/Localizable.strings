@@ -248,3 +248,8 @@
 "among.chat.login.have.account" = "Already have an account?";
 "among.chat.login.sign.in" = "Sign in";
 "among.chat.login.more" = "More options";
+"among.chat.login.auth.tip" = "Please sign in/sign up first to %1$@";
+"among.chat.login.auth.source.channel" = "create a channel";
+"among.chat.login.auth.source.profile" = "edit your profile";
+"among.chat.login.auth.source.pro" = "save your data";
+"among.chat.login.congrat" = " Congratulations!";

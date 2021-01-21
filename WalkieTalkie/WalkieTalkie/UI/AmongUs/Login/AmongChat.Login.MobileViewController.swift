@@ -17,9 +17,62 @@ extension AmongChat.Login {
         
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
-            btn.setImage(R.image.ac_back(), for: .normal)
+            switch style {
+            case .tutorial:
+                btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
+                btn.setImage(R.image.ac_back(), for: .normal)
+            case .inAppLogin:
+                btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
+                btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
+                btn.tintColor = .white
+            case .authNeeded:
+                fallthrough
+            case .unlockPro:
+                btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
+                btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
+                btn.tintColor = .black
+            }
             return btn
+        }()
+        
+        private lazy var topBg: UIImageView = {
+            let i = UIImageView(image: R.image.ac_login_top_bg())
+            i.contentMode = .scaleAspectFill
+            return i
+        }()
+        
+        private lazy var topTipLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoExtraBold(size: 22)
+            l.textColor = .black
+            l.textAlignment = .center
+            l.adjustsFontSizeToFitWidth = true
+            
+            switch style {
+            case .tutorial:
+                ()
+            case .inAppLogin:
+                ()
+            case .authNeeded(let source):
+                l.text = R.string.localizable.amongChatLoginAuthTip(source)
+                l.numberOfLines = 2
+
+            case .unlockPro:
+                let attTxt = NSMutableAttributedString()
+                let attachment = NSTextAttachment()
+                let image = R.image.ac_login_fireworks()
+                let h1Font = R.font.nunitoExtraBold(size: 24) ?? UIFont.systemFont(ofSize: 24, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
+                let h2Font = R.font.nunitoExtraBold(size: 20) ?? UIFont.systemFont(ofSize: 20, weight: .init(rawValue: UIFont.Weight.bold.rawValue))
+                attachment.image = image
+                attachment.bounds = CGRect(origin: CGPoint(x: 0, y: (h1Font.capHeight - (image?.size.height ?? 0)).rounded() / 2), size: image?.size ?? .zero)
+                attTxt.append(NSAttributedString(attachment: attachment))
+                attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginCongrat() + "\n", attributes: [NSAttributedString.Key.font : h1Font]))
+                attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourcePro()), attributes: [NSAttributedString.Key.font : h2Font]))
+                l.attributedText = attTxt
+                l.numberOfLines = 3
+            }
+            
+            return l
         }()
         
         private lazy var mobileIcon: UIImageView = {
@@ -234,6 +287,17 @@ extension AmongChat.Login {
         
         private var regions: [Region] = []
         
+        private let style: LoginStyle
+        
+        init(style: LoginStyle) {
+            self.style = style
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -270,6 +334,11 @@ extension AmongChat.Login.MobileViewController {
     @objc
     func onBackBtn() {
         navigationController?.popViewController()
+    }
+    
+    @objc
+    private func onCLoseBtn() {
+        dismiss(animated: true)
     }
     
     @objc
@@ -401,12 +470,8 @@ extension AmongChat.Login.MobileViewController {
                                    spacing: 40,
                                    distribution: .equalSpacing)
         
-        view.addSubviews(views: backBtn, mobileIcon, mobileTitle, mobileInputContainer, smsTip, nextBtn,
+        view.addSubviews(views: backBtn, mobileTitle, mobileInputContainer, smsTip, nextBtn,
                          moreLabel, leftSeperator, rightSeperator, btnStack, policyLabel)
-        
-        btnStack.arrangedSubviews.forEach { $0.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(40)
-        }}
         
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
@@ -415,22 +480,84 @@ extension AmongChat.Login.MobileViewController {
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(49)
         }
-        
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(20)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(24)
+                
+        switch style {
+        case .tutorial:
+            view.addSubviews(views: mobileIcon)
+            backBtn.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            mobileIcon.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
+            }
+            
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
+            }
+            
+        case .inAppLogin:
+            view.addSubviews(views: mobileIcon)
+            backBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            mobileIcon.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
+            }
+            
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
+            }
+            
+        case .authNeeded:
+            view.addSubviews(views: topTipLabel)
+            backBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            
+            topTipLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(8)
+            }
+            
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
+            }
+            
+        case .unlockPro:
+            view.addSubviews(views: topTipLabel)
+            backBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            
+            topTipLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(navLayoutGuide.snp.bottom)
+            }
+            
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
+            }
         }
         
-        mobileIcon.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalValue)
-        }
+        setupTopBgLayout()
         
-        mobileTitle.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview().inset(30)
-            maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
-        }
+        btnStack.arrangedSubviews.forEach { $0.snp.makeConstraints { (maker) in
+            maker.width.height.equalTo(40)
+        }}
         
         mobileInputContainer.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(30)
@@ -477,6 +604,29 @@ extension AmongChat.Login.MobileViewController {
             maker.trailing.equalToSuperview().inset(30)
             maker.leading.equalTo(moreLabel.snp.trailing).offset(12)
         }
+    }
+    
+    private func setupTopBgLayout() {
+        
+        switch style {
+        case .authNeeded:
+            fallthrough
+        case .unlockPro:
+            view.insertSubview(topBg, belowSubview: backBtn)
+            if Frame.Screen.height < 812 {
+                topBg.snp.makeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.bottom.greaterThanOrEqualTo(mobileTitle.snp.top)
+                }
+            } else {
+                topBg.snp.makeConstraints { (maker) in
+                    maker.top.leading.trailing.equalToSuperview()
+                }
+            }
+        default:
+            ()
+        }
+        
     }
     
     private func setupData() {
