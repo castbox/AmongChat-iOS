@@ -65,8 +65,6 @@ class SettingViewController: ViewController {
         tb.delegate = self
         tb.separatorStyle = .none
         tb.rowHeight = 73
-        logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
-        tb.tableFooterView = logoutFooter
         return tb
     }()
     
@@ -74,6 +72,30 @@ class SettingViewController: ViewController {
         let v = UIView()
         v.addSubview(logoutBtn)
         logoutBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(40)
+            make.right.equalTo(-40)
+            make.height.equalTo(50)
+            make.top.equalToSuperview().offset(28)
+        }
+        return v
+    }()
+    
+    private lazy var loginButton: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.layer.cornerRadius = 25
+        btn.layer.masksToBounds = true
+        btn.backgroundColor = UIColor(hex6: 0xFFF000)
+        btn.addTarget(self, action: #selector(onLoginBtn), for: .primaryActionTriggered)
+        btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+        return btn
+    }()
+    
+    private lazy var loginFooter: UIView = {
+        let v = UIView()
+        v.addSubview(loginButton)
+        loginButton.snp.makeConstraints { (make) in
             make.left.equalTo(40)
             make.right.equalTo(-40)
             make.height.equalTo(50)
@@ -128,6 +150,11 @@ extension SettingViewController {
         let isReleaseMode = Defaults[\.isReleaseMode]
         Defaults[\.isReleaseMode] = !isReleaseMode
         exit(0)
+    }
+    
+    @objc
+    private func onLoginBtn() {
+        AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
     }
 
 }
@@ -187,6 +214,29 @@ extension SettingViewController {
                 self.settingOptions = self.generateDataSource(languages: lans)
             })
             .disposed(by: bag)
+        
+        Settings.shared.loginResult.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (result) in
+                guard let `self` = self,
+                      let _ = result else {
+                    return
+                }
+                
+                let footer: UIView
+                
+                if AmongChat.Login.isLogedin {
+                    self.logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
+                    footer = self.logoutFooter
+                } else {
+                    self.loginFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
+                    footer = self.loginFooter
+                }
+                self.settingsTable.tableFooterView = footer
+                self.settingsTable.reloadData()
+            })
+            .disposed(by: bag)
+
     }
         
     private func shareApp() {
