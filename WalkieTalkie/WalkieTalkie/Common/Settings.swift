@@ -392,6 +392,18 @@ class Settings {
         loginResult.value = nil
         amongChatUserProfile.value = nil
     }
+    
+    func willOverriteAnonymousUser(with newLoginResult: Entity.LoginResult) -> Bool {
+        
+        if let current = loginResult.value,
+           current.isAnonymousUser,
+           current.uid != newLoginResult.uid {
+            return true
+        } else {
+            return false
+        }
+        
+    }
 }
 
 
