@@ -25,9 +25,7 @@ extension AmongChat.Login {
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .white
-            case .authNeeded:
-                fallthrough
-            case .unlockPro:
+            case .authNeeded, .unlockPro:
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .black
@@ -618,9 +616,7 @@ extension AmongChat.Login.MobileViewController {
     private func setupTopBgLayout() {
         
         switch style {
-        case .authNeeded:
-            fallthrough
-        case .unlockPro:
+        case .authNeeded, .unlockPro:
             view.insertSubview(topBg, belowSubview: backBtn)
             if Frame.Screen.height < 812 {
                 topBg.snp.makeConstraints { (maker) in
