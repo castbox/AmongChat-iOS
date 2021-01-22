@@ -15,7 +15,7 @@ import YYText
 
 extension AmongChat.Login {
     
-    enum LoginStyle {
+    enum LoginStyle: Equatable {
         case tutorial
         case inAppLogin
         case authNeeded(source: String)

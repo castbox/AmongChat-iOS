@@ -15,6 +15,17 @@ extension AmongChat.Login {
     
     class MobileViewController: WalkieTalkie.ViewController {
         
+        private lazy var navLayoutGuide: UILayoutGuide = {
+            let l = UILayoutGuide()
+            view.addLayoutGuide(l)
+            l.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(topLayoutGuide.snp.bottom)
+                maker.height.equalTo(49)
+            }
+            return l
+        }()
+        
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             switch style {
@@ -35,7 +46,6 @@ extension AmongChat.Login {
         
         private lazy var topBg: UIImageView = {
             let i = UIImageView(image: R.image.ac_login_top_bg())
-            i.contentMode = .scaleAspectFill
             return i
         }()
         
@@ -492,88 +502,9 @@ extension AmongChat.Login.MobileViewController {
         
         view.addSubviews(views: backBtn, mobileTitle, mobileInputContainer, smsTip, nextBtn,
                          moreLabel, leftSeperator, rightSeperator, btnStack, policyLabel)
-        
-        let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
-            maker.height.equalTo(49)
-        }
-                
-        switch style {
-        case .tutorial:
-            view.addSubviews(views: mobileIcon)
-            backBtn.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(24)
-            }
-            mobileIcon.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
-            }
-            
-            mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
-            }
-            
-        case .inAppLogin:
-            view.addSubviews(views: mobileIcon)
-            backBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(24)
-            }
-            mobileIcon.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
-            }
-            
-            mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
-            }
-            
-        case .authNeeded:
-            view.addSubviews(views: topTipLabel)
-            backBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(24)
-            }
-            
-            topTipLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(8)
-            }
-            
-            mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
-            }
-            
-        case .unlockPro:
-            view.addSubviews(views: topTipLabel)
-            backBtn.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.width.height.equalTo(24)
-            }
-            
-            topTipLabel.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom)
-            }
-            
-            mobileTitle.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(30)
-                maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
-            }
-        }
-        
-        setupTopBgLayout()
+        setupBackBtnLayout()
+        setupTopTipLayout()
+        setupTitleLayout()
         
         btnStack.arrangedSubviews.forEach { $0.snp.makeConstraints { (maker) in
             maker.width.height.equalTo(40)
@@ -626,11 +557,12 @@ extension AmongChat.Login.MobileViewController {
         }
     }
     
-    private func setupTopBgLayout() {
+    private func setupTopTipLayout() {
         
         switch style {
         case .authNeeded, .unlockPro:
             view.insertSubview(topBg, belowSubview: backBtn)
+            view.addSubviews(views: topTipLabel)
             
             let spaceLayoutGuide = UILayoutGuide()
             view.addLayoutGuide(spaceLayoutGuide)
@@ -640,14 +572,77 @@ extension AmongChat.Login.MobileViewController {
                 maker.bottom.equalTo(mobileTitle.snp.top)
             }
             
+            topTipLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(style == . unlockPro ? 0 : 8)
+            }
+            
             topBg.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(spaceLayoutGuide.snp.centerY)
             }
+            
+            rx.viewDidLayoutSubviews
+                .subscribe(onNext: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    
+                    if let imageH = self.topBg.image?.size.height,
+                       imageH >= self.topBg.height {
+                        self.topBg.contentMode = .bottom
+                    } else {
+                        self.topBg.contentMode = .scaleAspectFill
+                    }
+                    
+                })
+                .disposed(by: bag)
+
         default:
             ()
         }
         
+    }
+    
+    private func setupBackBtnLayout() {
+        
+        switch style {
+        case .tutorial:
+            backBtn.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            
+        case .inAppLogin, .authNeeded, .unlockPro:
+            backBtn.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().inset(20)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(24)
+            }
+            
+        }
+        
+    }
+    
+    private func setupTitleLayout() {
+        switch style {
+        case .tutorial, .inAppLogin:
+            view.addSubviews(views: mobileIcon)
+            mobileIcon.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24.scalHValue)
+            }
+            
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
+            }
+            
+        case .authNeeded, .unlockPro:
+            mobileTitle.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(30)
+                maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)
+            }
+        }
     }
     
     private func setupData() {
