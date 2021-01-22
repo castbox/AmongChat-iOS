@@ -300,6 +300,10 @@ extension AmongChat.Login {
         
         private let style: LoginStyle
         
+        private var loggerSource: String? {
+            return Logger.Action.loginSource(from: style)
+        }
+        
         override var preferredStatusBarStyle: UIStatusBarStyle {
             switch style {
             case .authNeeded, .unlockPro:
@@ -388,7 +392,9 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (response) in
                 completion()
                 self?.showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel(telRegion: region.telCode, phone: phone, secondsRemain: response.data?.expire ?? 60))
+                Logger.Action.log(.signin_phone_next_result, category: nil, self?.loggerSource, 0)
             }, onError: { [weak self] (error) in
+                Logger.Action.log(.signin_phone_next_result_fail, category: nil, "\(region)\(phone)" + "error: \(error.msgOfError ?? "")")
                 completion()
                 
                 guard let error = (error as? MsgError) else {
@@ -399,12 +405,13 @@ extension AmongChat.Login.MobileViewController {
                 self?.view.raft.autoShow(.text(error.msg ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
+        Logger.Action.log(.signin_clk, category: .phone, loggerSource)
     }
     
     @available(iOS 13.0, *)
     @objc
     private func onAppleButtonTouched() {
-        Logger.Action.log(.login_clk, category: .apple_id)
+        Logger.Action.log(.signin_clk, category: .apple_id, loggerSource)
 
         let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginApple(from: navigationController ?? self)
@@ -415,17 +422,20 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler?(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .apple_id)
+                    Logger.Action.log(.signin_result, category: .apple_id, self?.loggerSource, 0)
+                } else {
+                    Logger.Action.log(.signin_result, category: .apple_id, self?.loggerSource, 1)
                 }
             }) { [weak self] (error) in
                 self?.loginHandler?(nil, error)
+                Logger.Action.log(.signin_result_fail, category: .apple_id, error.msgOfError)
             }
             .disposed(by: bag)
     }
     
     @objc
     private func onSnapchatButton() {
-        Logger.Action.log(.login_clk, category: .snapchat)
+        Logger.Action.log(.signin_clk, category: .snapchat, loggerSource)
         let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginSnapchat(from: navigationController ?? self)
             .observeOn(MainScheduler.asyncInstance)
@@ -435,17 +445,20 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler?(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .snapchat)
+                    Logger.Action.log(.signin_result, category: .snapchat, self?.loggerSource, 0)
+                } else {
+                    Logger.Action.log(.signin_result, category: .snapchat, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
                 self?.loginHandler?(nil, error)
+                Logger.Action.log(.signin_result_fail, category: .snapchat, error.msgOfError)
             })
             .disposed(by: bag)
     }
     
     @objc
     private func onFacebookButton() {
-        Logger.Action.log(.login_clk, category: .facebook)
+        Logger.Action.log(.signin_clk, category: .facebook, loggerSource)
         let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginFacebook(from: navigationController ?? self)
             .observeOn(MainScheduler.asyncInstance)
@@ -455,17 +468,20 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler?(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .facebook)
+                    Logger.Action.log(.signin_result, category: .facebook, self?.loggerSource, 0)
+                } else {
+                    Logger.Action.log(.signin_result, category: .facebook, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
                 self?.loginHandler?(nil, error)
+                Logger.Action.log(.signin_result_fail, category: .facebook, error.msgOfError)
             })
             .disposed(by: bag)
     }
     
     @objc
     private func onGoogleButton() {
-        Logger.Action.log(.login_clk, category: .google)
+        Logger.Action.log(.signin_clk, category: .google, loggerSource)
         let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.loginGoogle(from: navigationController ?? self)
             .observeOn(MainScheduler.asyncInstance)
@@ -475,10 +491,13 @@ extension AmongChat.Login.MobileViewController {
             .subscribe(onSuccess: { [weak self] (result) in
                 self?.loginHandler?(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .google)
+                    Logger.Action.log(.signin_result, category: .google, self?.loggerSource, 0)
+                } else {
+                    Logger.Action.log(.signin_result, category: .google, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
                 self?.loginHandler?(nil, error)
+                Logger.Action.log(.signin_result_fail, category: .google, error.msgOfError)
             })
             .disposed(by: bag)
     }
@@ -710,6 +729,13 @@ extension AmongChat.Login.MobileViewController {
                 }
             }).disposed(by: bag)
         
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                Logger.Action.log(.signin_imp, categoryValue: nil, self?.loggerSource)
+            })
+            .disposed(by: bag)
+        
     }
     
     private func showRegionPicker() {
@@ -728,6 +754,7 @@ extension AmongChat.Login.MobileViewController {
     
     private func showVerifyCodeView(dataModel: AmongChat.Login.SmsCodeViewController.DataModel) {
         let vc = AmongChat.Login.SmsCodeViewController(with: dataModel)
+        vc.loggerSource = loggerSource
         vc.loginHandler = { [weak self] (result, error) in
             self?.loginHandler?(result, error)
         }

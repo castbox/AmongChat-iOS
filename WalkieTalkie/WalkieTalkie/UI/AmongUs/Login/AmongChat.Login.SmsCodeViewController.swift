@@ -132,6 +132,7 @@ extension AmongChat.Login {
         }
         
         var loginHandler: ((Entity.LoginResult?, Error?) -> Void)? = nil
+        var loggerSource: String? = nil
         
         init(with data: DataModel) {
             dataModel = data
@@ -230,6 +231,14 @@ extension AmongChat.Login.SmsCodeViewController {
                 }
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                Logger.Action.log(.signin_phone_verify_imp, category: nil, self?.loggerSource)
+            })
+            .disposed(by: bag)
+
     }
     
     private func startCountingDown(countDown: Int) {
@@ -272,6 +281,7 @@ extension AmongChat.Login.SmsCodeViewController {
         timingTip.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
             if NSIntersectionRange(range, resendRange).length > 0 {
                 self?.requestSmsCode()
+                Logger.Action.log(.signin_phone_verify_resend, category: nil, self?.loggerSource)
             }
         }
     }
@@ -316,17 +326,20 @@ extension AmongChat.Login.SmsCodeViewController {
                 completion()
                 
                 guard let result = loginResult else {
+                    Logger.Action.log(.signin_result, category: .phone, self?.loggerSource, 1)
                     self?.wrongCode()
                     return
                 }
                 
                 self?.loginHandler?(result, nil)
+                Logger.Action.log(.signin_result, category: .phone, self?.loggerSource, 0)
                 
             }, onError: { [weak self] (error) in
                 completion()
                 self?.codeInputField.becomeFirstResponder()
                 self?.wrongCode()
                 self?.loginHandler?(nil, error)
+                Logger.Action.log(.signin_result_fail, category: .phone, error.msgOfError)
             })
             .disposed(by: bag)
     }

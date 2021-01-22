@@ -85,6 +85,7 @@ extension Social {
         private let currentCalendar = Calendar.current
         
         var onCompletion: ((String) -> Void)? = nil
+        var loggerSource: String? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -133,8 +134,8 @@ extension Social {
             }
             
             rx.viewDidAppear.take(1)
-                .subscribe(onNext: { (_) in
-                    Logger.Action.log(.login_birthday_imp)
+                .subscribe(onNext: { [weak self] (_) in
+                    Logger.Action.log(.age_imp, category: nil, self?.loggerSource)
                 })
                 .disposed(by: bag)
             
@@ -153,7 +154,7 @@ extension Social {
         
         @objc
         private func onConfirmBtn() {
-            Logger.Action.log(.login_birthday_done)
+            Logger.Action.log(.age_done)
             
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
@@ -173,13 +174,14 @@ extension Social {
                 })
                 .subscribe(onSuccess: { [weak self] (profile) in
                     defer {
-                        Logger.Action.log(.login_birthday_success, category: nil, birthdayStr)
+                        Logger.Action.log(.age_done_result, category: nil, self?.loggerSource, (profile != nil ? 0 : 1))
                         self?.onCompletion?(birthdayStr)
                     }
                     guard let p = profile else { return }
                     Settings.shared.amongChatUserProfile.value = p
                 }, onError: { [weak self] (error) in
                     self?.view.raft.autoShow(.text("\(error.localizedDescription)"))
+                    Logger.Action.log(.age_done_result_fail, category: nil, error.msgOfError)
                 })
         }
     }

@@ -47,6 +47,16 @@ struct MsgError: Error, Codable {
     }
 }
 
+extension Error {
+    var msgOfError: String? {
+        if let msgErr = self as? MsgError {
+            return msgErr.msg
+        } else {
+            return (self as NSError).localizedDescription
+        }
+    }
+}
+
 extension Request {
 }
 

@@ -189,17 +189,20 @@ extension AmongChat.Login.ViewController {
     
     @objc
     private func onStartBtn() {
+        Logger.Action.log(.login_clk, categoryValue: "start")
         let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         loginManager.login(via: .device)
             .do(onDispose: {
                 loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
+                Logger.Action.log(.start_result, categoryValue: nil, nil, (result != nil ? 0 : 1))
                 self?.loginHandler(result, nil)
                 if result != nil {
                     
                 }
             }, onError: { [weak self] (error) in
+                Logger.Action.log(.start_result_fail, categoryValue: nil, error.msgOfError)
                 self?.loginHandler(nil, error)
             })
             .disposed(by: bag)
@@ -246,6 +249,7 @@ extension AmongChat.Login.ViewController {
     }
     
     private func signInMore() {
+        Logger.Action.log(.login_clk, categoryValue: "signin")
         let vc = AmongChat.Login.MobileViewController(style: .tutorial)
         vc.loginHandler = { [weak self] (result, error) in
             self?.loginHandler(result, error)
@@ -263,6 +267,7 @@ extension AmongChat.Login.ViewController {
         
         if newUser {
             let birthdayVC = Social.BirthdaySetViewController()
+            birthdayVC.loggerSource = Logger.Action.loginSource(from: .tutorial)
             birthdayVC.modalPresentationStyle = .fullScreen
             birthdayVC.onCompletion = { [weak self] _ in
                 self?.loginFinishedSubject.onNext(())

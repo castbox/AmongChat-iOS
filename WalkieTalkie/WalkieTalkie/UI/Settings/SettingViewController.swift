@@ -110,7 +110,6 @@ extension SettingViewController {
                 removeBlock()
             })
             .subscribe(onNext: { (data) in
-                Logger.Action.log(.login_success)
                 Settings.shared.clearAll()
                 //clear
                 if SCSDKLoginClient.isUserLoggedIn {
