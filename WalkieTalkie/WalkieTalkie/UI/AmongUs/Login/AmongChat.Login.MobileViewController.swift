@@ -631,15 +631,18 @@ extension AmongChat.Login.MobileViewController {
         switch style {
         case .authNeeded, .unlockPro:
             view.insertSubview(topBg, belowSubview: backBtn)
-            if Frame.Screen.height < 812 {
-                topBg.snp.makeConstraints { (maker) in
-                    maker.centerX.equalToSuperview()
-                    maker.bottom.greaterThanOrEqualTo(mobileTitle.snp.top)
-                }
-            } else {
-                topBg.snp.makeConstraints { (maker) in
-                    maker.top.leading.trailing.equalToSuperview()
-                }
+            
+            let spaceLayoutGuide = UILayoutGuide()
+            view.addLayoutGuide(spaceLayoutGuide)
+            spaceLayoutGuide.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(topTipLabel.snp.bottom)
+                maker.bottom.equalTo(mobileTitle.snp.top)
+            }
+            
+            topBg.snp.makeConstraints { (maker) in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.bottom.equalTo(spaceLayoutGuide.snp.centerY)
             }
         default:
             ()
