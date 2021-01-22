@@ -162,7 +162,6 @@ extension AmongChat.Login {
             }
             Logger.Action.log(.login_result, category: .success)
             Settings.shared.loginResult.value = result
-            Settings.shared.updateProfile()
             
             self?.finish()
         }

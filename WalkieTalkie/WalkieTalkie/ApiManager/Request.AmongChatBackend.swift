@@ -79,7 +79,6 @@ extension Request {
             .do(onSuccess: { (result) in
                 guard let result = result else { return }
                 Settings.shared.loginResult.value = result
-                Settings.shared.updateProfile()
             })
     }
     
