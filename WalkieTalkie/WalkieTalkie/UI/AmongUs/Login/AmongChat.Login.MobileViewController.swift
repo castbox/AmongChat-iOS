@@ -290,6 +290,19 @@ extension AmongChat.Login {
         
         private let style: LoginStyle
         
+        override var preferredStatusBarStyle: UIStatusBarStyle {
+            switch style {
+            case .authNeeded, .unlockPro:
+                if #available(iOS 13.0, *) {
+                    return .darkContent
+                } else {
+                    return .default
+                }
+            default:
+                return .lightContent
+            }
+        }
+        
         init(style: LoginStyle) {
             self.style = style
             super.init(nibName: nil, bundle: nil)
