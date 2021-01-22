@@ -129,7 +129,7 @@ extension Social {
             
             policyLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(Frame.Scale.width(30))
-                maker.bottom.equalTo(bottomLayoutGuide.snp.bottom).offset(-Frame.Scale.height(12))
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-Frame.Scale.height(12))
             }
             
             rx.viewDidAppear.take(1)
