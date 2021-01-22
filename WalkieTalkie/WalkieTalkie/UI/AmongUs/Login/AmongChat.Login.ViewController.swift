@@ -57,25 +57,12 @@ extension AmongChat.Login {
         viewController.present(navController, animated: true)
         loginVc.loginHandler = { [weak loginVc] (result, error) in
             
-            guard let result = result else {
+            guard let _ = result else {
                 return
             }
             
             loginVc?.dismiss(animated: true, completion: {
-                
-                guard Settings.shared.willOverriteAnonymousUser(with: result) else {
-                    onFinishHandler?()
-                    return
-                }
-                                    
-                viewController.showAmongAlert(title: nil,
-                                              message: R.string.localizable.amongChatProfileOverrite(),
-                                              cancelTitle: R.string.localizable.toastCancel(),
-                                              confirmTitle: R.string.localizable.guideContinue(),
-                                              confirmAction: {
-                                                Settings.shared.loginResult.value = result
-                                                onFinishHandler?()
-                                              })
+                onFinishHandler?()
             })
         }
     }

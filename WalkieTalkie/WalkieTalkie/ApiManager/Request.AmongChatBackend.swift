@@ -78,11 +78,6 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
             .do(onSuccess: { (result) in
                 guard let result = result else { return }
-                
-                guard false == Settings.shared.willOverriteAnonymousUser(with: result) else {
-                    return
-                }
-                
                 Settings.shared.loginResult.value = result
             })
     }
