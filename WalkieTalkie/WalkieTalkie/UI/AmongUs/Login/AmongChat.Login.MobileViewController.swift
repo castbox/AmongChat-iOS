@@ -686,6 +686,28 @@ extension AmongChat.Login.MobileViewController {
             })
             .disposed(by: bag)
         
+        RxKeyboard.instance.frame
+            .drive(onNext: { [weak self](frame) in
+                guard let `self` = self else { return }
+                
+                let overlapped = self.nextBtn.bottom - frame.origin.y
+                
+                if overlapped > 0 {
+                    self.nextBtn.snp.updateConstraints { (maker) in
+                        maker.top.equalTo(self.smsTip.snp.bottom).offset(0)
+                    }
+
+                } else {
+                    self.nextBtn.snp.updateConstraints { (maker) in
+                        maker.top.equalTo(self.smsTip.snp.bottom).offset(Frame.Scale.height(60))
+                    }
+                }
+                
+                UIView.animate(withDuration: 0) {
+                    self.view.layoutIfNeeded()
+                }
+            }).disposed(by: bag)
+        
     }
     
     private func showRegionPicker() {
