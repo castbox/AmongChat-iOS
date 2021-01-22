@@ -574,13 +574,15 @@ extension AmongChat.Login.MobileViewController {
             
             topTipLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(style == . unlockPro ? 0 : 8)
+                maker.top.equalTo(navLayoutGuide.snp.bottom).offset(style == . unlockPro ? 0 : (Frame.Screen.height < 812 ? 0 : 8))
             }
             
             topBg.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(spaceLayoutGuide.snp.centerY)
             }
+            
+            topTipLabel.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .vertical)
             
             rx.viewDidLayoutSubviews
                 .subscribe(onNext: { [weak self] (_) in
