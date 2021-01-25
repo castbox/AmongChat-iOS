@@ -77,10 +77,11 @@ Dependencies/
 # For more information about the recommended setup visit:
 # https://docs.fastlane.tools/best-practices/source-control/#source-control
 
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+WalkieTalkie/fastlane/test_output
+WalkieTalkie/fastlane/screenshots
+WalkieTalkie/fastlane/Preview.html
+WalkieTalkie/fastlane/report.xml
+WalkieTalkie/fastlane/README.md
 
 # Code Injection
 #
@@ -88,6 +89,4 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-WalkieTalkie/fastlane/screenshots
-Deliverfile
-WalkieTalkie/fastlane/Preview.html
+

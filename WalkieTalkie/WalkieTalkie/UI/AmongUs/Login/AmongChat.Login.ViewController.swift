@@ -10,19 +10,65 @@ import UIKit
 import AuthenticationServices
 import RxCocoa
 import RxSwift
+import SVGAPlayer
+import YYText
 
 extension AmongChat.Login {
     
-    class LoginButton: UIButton {
-        override func titleRect(forContentRect contentRect: CGRect) -> CGRect {
-            return contentRect
+    enum LoginStyle: Equatable {
+        case tutorial
+        case inAppLogin
+        case authNeeded(source: String)
+        case unlockPro
+    }
+    
+    static var isLogedin: Bool {
+        guard let value = Settings.shared.loginResult.value else {
+            return false
         }
-        
-        override func imageRect(forContentRect contentRect: CGRect) -> CGRect {
-            let rect = super.imageRect(forContentRect: contentRect)
-            return CGRect(x: 20, y: 12.5, width: rect.width, height: rect.height)
+        return !value.isAnonymousUser
+    }
+    
+    @discardableResult
+    static func canDoLoginEvent(style: LoginStyle, autoShowLoginView: Bool = true) -> Bool {
+        guard isLogedin else {
+            if autoShowLoginView {
+                doLogedInEvent(style: style)
+            }
+            return false
+        }
+        return true
+    }
+    
+    static func doLogedInEvent(style: LoginStyle, event: (() -> Void)? = nil) {
+        // 自己关注自己 无反应
+        guard !isLogedin,
+              let viewController = UIApplication.shared.keyWindow?.topViewController() else {
+            event?()
+            return
+        }
+        AmongChat.Login.present(style: style, for: viewController, onFinishHandler: event)
+    }
+    
+    static func present(style: LoginStyle, for viewController: UIViewController, onFinishHandler: (() -> Void)?) {
+        let loginVc = AmongChat.Login.MobileViewController(style: style)
+        let navController = NavigationViewController(rootViewController: loginVc)
+        navController.modalPresentationStyle = .fullScreen
+        viewController.present(navController, animated: true)
+        loginVc.loginHandler = { [weak loginVc] (result, error) in
+            
+            guard let _ = result else {
+                return
+            }
+            
+            loginVc?.dismiss(animated: true, completion: {
+                onFinishHandler?()
+            })
         }
     }
+}
+
+extension AmongChat.Login {
     
     class ViewController: WalkieTalkie.ViewController {
         
@@ -30,102 +76,76 @@ extension AmongChat.Login {
             let iv = UIImageView(image: R.image.ac_login_logo())
             return iv
         }()
-        private lazy var bg = StarsOverlay()
+//        private lazy var bg = StarsOverlay()
 //        private lazy var bg: UIImageView = {
 //            let iv = UIImageView(image: R.image.ac_login_bg())
 //            iv.contentMode = .scaleAspectFill
 //            return iv
 //        }()
         
-        private lazy var snapchatButton: LoginButton = {
-            let btn = LoginButton(type: .custom)
+        lazy var bg: SVGAPlayer = {
+            let player = SVGAPlayer(frame: .zero)
+            player.clearsAfterStop = false
+//            player.delegate = self
+            player.loops = 1
+            player.contentMode = .bottom
+            player.isUserInteractionEnabled = false
+            return player
+        }()
+        
+        private lazy var startBtn: UIButton = {
+            let btn = UIButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatLoginSignInWithSnapchat(), for: .normal)
-            btn.addTarget(self, action: #selector(onSnapchatButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.setTitle(R.string.localizable.amongChatLoginStart(), for: .normal)
+            btn.addTarget(self, action: #selector(onStartBtn), for: .primaryActionTriggered)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
-            btn.setImage(R.image.ac_login_snapchat(), for: .normal)
+            btn.setImage(R.image.ac_login_start(), for: .normal)
             btn.layer.cornerRadius = 24
             btn.backgroundColor = "#FFFC00".color()
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -1, bottom: 0, right: 1)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 1, bottom: 0, right: -1)
             return btn
         }()
         
-        private lazy var facebookButton: LoginButton = {
-            let btn = LoginButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatLoginSignInWithFacebook(), for: .normal)
-            btn.addTarget(self, action: #selector(onFacebookButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.white, for: .normal)
-            btn.setImage(R.image.ac_login_facebook(), for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = "#1877F2".color()
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
-            return btn
-        }()
-        
-        private lazy var googleButton: LoginButton = {
-            let btn = LoginButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatLoginSignInWithGoogle(), for: .normal)
-            btn.addTarget(self, action: #selector(onGoogleButton), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.black, for: .normal)
-            btn.setImage(R.image.ac_login_google(), for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = .white
-//            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-//            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
-            return btn
-        }()
-        
-        @available(iOS 13.0, *)
-        private lazy var appleButton: LoginButton = {
-            let btn = LoginButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatLoginSignInWithApple(), for: .normal)
-            btn.addTarget(self, action: #selector(onAppleButtonTouched), for: .primaryActionTriggered)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.black, for: .normal)
-            btn.setImage(R.image.ac_login_apple(), for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = .white
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -6, bottom: 0, right: 6)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 6, bottom: 0, right: -6)
-            return btn
-        }()
-        
-        private lazy var policyLabel: PolicyLabel = {
-            let terms = R.string.localizable.amongChatTermsService()
-            let privacy = R.string.localizable.amongChatPrivacyPolicy()
-            let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
-
-            let lb = PolicyLabel(with: text, privacy: privacy, terms: terms)
-            lb.onInteration = { [weak self] targetPath in
-                self?.open(urlSting: targetPath)
+        private lazy var signInLabel: YYLabel = {
+            let l = YYLabel()
+            
+            let signin = R.string.localizable.amongChatLoginSignIn()
+            let text = "\(R.string.localizable.amongChatLoginHaveAccount()) \(signin)"
+            let signInRange = (text as NSString).range(of: signin)
+            
+            let attTxt = NSMutableAttributedString(string: text)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            
+            let font: UIFont = R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: UIFont.Weight(rawValue: UIFont.Weight.bold.rawValue))
+            
+            attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(hex6: 0x898989),
+                                  NSAttributedString.Key.font : font,
+                                  NSAttributedString.Key.paragraphStyle : paragraphStyle],
+                                 range: NSRange(location: 0, length: text.count)
+            )
+            
+            attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(hex6: 0xFFF000)],
+                                 range: signInRange
+            )
+                    
+            l.attributedText = attTxt
+            
+            l.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
+                if NSIntersectionRange(range, signInRange).length > 0 {
+                    self?.signInMore()
+                }
             }
-            return lb
+            return l
         }()
         
         private lazy var loginManager = Manager()
         
-        private var loadingRemoval: (() -> Void)?
-        
         private lazy var loginHandler = { [weak self] (result: Entity.LoginResult?, error: Error?) in
-            
-            self?.loadingRemoval?()
-                        
             if let error = error {
                 if let nsError = error as? NSError,
                    nsError.code == AmongChat.Login.cancelErrorCode {
@@ -142,7 +162,6 @@ extension AmongChat.Login {
             }
             Logger.Action.log(.login_result, category: .success)
             Settings.shared.loginResult.value = result
-            Settings.shared.updateProfile()
             
             self?.finish()
         }
@@ -156,6 +175,7 @@ extension AmongChat.Login {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            playBackgroundSvga()
             Logger.Action.log(.login_imp)
         }
         
@@ -167,83 +187,22 @@ extension AmongChat.Login.ViewController {
     
     // MARK: - UI Action
     
-    @available(iOS 13.0, *)
     @objc
-    private func onAppleButtonTouched() {
-        Logger.Action.log(.login_clk, category: .apple_id)
-
-        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        loginManager.loginApple(from: navigationController ?? self)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onDispose: { [weak self] in
-                self?.loadingRemoval?()
+    private func onStartBtn() {
+        Logger.Action.log(.login_clk, categoryValue: "start")
+        let loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        loginManager.login(via: .device)
+            .do(onDispose: {
+                loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
+                Logger.Action.log(.start_result, categoryValue: nil, nil, (result != nil ? 0 : 1))
                 self?.loginHandler(result, nil)
                 if result != nil {
-                    Logger.Action.log(.login_success, category: .apple_id)
-                }
-            }) { [weak self] (error) in
-                self?.loginHandler(nil, error)
-            }
-            .disposed(by: bag)
-    }
-    
-    @objc
-    private func onSnapchatButton() {
-        Logger.Action.log(.login_clk, category: .snapchat)
-        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        loginManager.loginSnapchat(from: navigationController ?? self)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onDispose: { [weak self] in
-                self?.loadingRemoval?()
-            })
-            .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler(result, nil)
-                if result != nil {
-                    Logger.Action.log(.login_success, category: .snapchat)
+                    
                 }
             }, onError: { [weak self] (error) in
-                self?.loginHandler(nil, error)
-            })
-            .disposed(by: bag)
-    }
-    
-    @objc
-    private func onFacebookButton() {
-        Logger.Action.log(.login_clk, category: .facebook)
-        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        loginManager.loginFacebook(from: navigationController ?? self)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onDispose: { [weak self] in
-                self?.loadingRemoval?()
-            })
-            .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler(result, nil)
-                if result != nil {
-                    Logger.Action.log(.login_success, category: .facebook)
-                }
-            }, onError: { [weak self] (error) in
-                self?.loginHandler(nil, error)
-            })
-            .disposed(by: bag)
-    }
-    
-    @objc
-    private func onGoogleButton() {
-        Logger.Action.log(.login_clk, category: .google)
-        loadingRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-        loginManager.loginGoogle(from: navigationController ?? self)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onDispose: { [weak self] in
-                self?.loadingRemoval?()
-            })
-            .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler(result, nil)
-                if result != nil {
-                    Logger.Action.log(.login_success, category: .google)
-                }
-            }, onError: { [weak self] (error) in
+                Logger.Action.log(.start_result_fail, categoryValue: nil, error.msgOfError)
                 self?.loginHandler(nil, error)
             })
             .disposed(by: bag)
@@ -254,10 +213,19 @@ extension AmongChat.Login.ViewController {
 extension AmongChat.Login.ViewController {
     
     // MARK: - convinience
+    func playBackgroundSvga() {
+        let parser = SVGAGlobalParser.defaut
+        parser.parse(withNamed: "login_bg", in: nil) { [weak self] (item) in
+            self?.bg.videoItem = item
+            self?.bg.startAnimation()
+         } failureBlock: { error in
+            debugPrint("error: \(error.localizedDescription ?? "")")
+         }
+    }
     
     private func setupLayout() {
         
-        view.addSubviews(views: bg, logoIV, policyLabel, googleButton, facebookButton/*, snapchatButton*/)
+        view.addSubviews(views: bg, logoIV, startBtn, signInLabel)
         
         bg.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -268,72 +236,38 @@ extension AmongChat.Login.ViewController {
             maker.top.equalTo(topLayoutGuide.snp.bottom).offset(100)
         }
         
-        policyLabel.snp.makeConstraints { (maker) in
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-40)
-            maker.left.right.equalTo(googleButton)
-        }
-        
-        googleButton.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(policyLabel.snp.top).offset(-20)
-//            maker.width.equalTo(295)
-            maker.left.equalTo(30)
+        startBtn.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview().inset(30)
             maker.height.equalTo(48)
+            maker.bottom.equalTo(signInLabel.snp.top).offset(-24)
         }
         
-        if #available(iOS 13.0, *) {
-            view.addSubview(appleButton)
-            appleButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.left.equalTo(30)
-                maker.bottom.equalTo(googleButton.snp.top).offset(-20)
-//                maker.width.equalTo(295)
-                maker.height.equalTo(48)
-            }
-            
-            facebookButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(appleButton.snp.top).offset(-20)
-//                maker.width.equalTo(295)
-                maker.left.equalTo(30)
-                maker.height.equalTo(48)
-            }
-            
-//            snapchatButton.snp.makeConstraints { (maker) in
-//                maker.centerX.equalToSuperview()
-//                maker.bottom.equalTo(facebookButton.snp.top).offset(-20)
-//                maker.width.equalTo(295)
-//            maker.left.equalTo(30)
-//                maker.height.equalTo(48)
-//            }
-        } else {
-            facebookButton.snp.makeConstraints { (maker) in
-                maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(googleButton.snp.top).offset(-20)
-                maker.height.equalTo(48)
-                maker.left.equalTo(30)
-            }
-            
-//            snapchatButton.snp.makeConstraints { (maker) in
-//                maker.centerX.equalToSuperview()
-//                maker.bottom.equalTo(facebookButton.snp.top).offset(-20)
-//                maker.width.equalTo(295)
-//                maker.height.equalTo(48)
-//            }
+        signInLabel.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview().inset(30)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-140)
         }
-        
+    }
+    
+    private func signInMore() {
+        Logger.Action.log(.login_clk, categoryValue: "signin")
+        let vc = AmongChat.Login.MobileViewController(style: .tutorial)
+        vc.loginHandler = { [weak self] (result, error) in
+            self?.loginHandler(result, error)
+        }
+        navigationController?.pushViewController(vc)
     }
     
     private func finish() {
         
-//        #if DEBUG
-//        let newUser = true
-//        #else
+        #if DEBUG
+        let newUser = true
+        #else
         let newUser = Settings.shared.loginResult.value?.is_new_user ?? false
-//        #endif
+        #endif
         
         if newUser {
             let birthdayVC = Social.BirthdaySetViewController()
+            birthdayVC.loggerSource = Logger.Action.loginSource(from: .tutorial)
             birthdayVC.modalPresentationStyle = .fullScreen
             birthdayVC.onCompletion = { [weak self] _ in
                 self?.loginFinishedSubject.onNext(())

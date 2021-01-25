@@ -229,3 +229,28 @@
 "microphone.not.allow.subtitle" = "채널에 참여하려면 마이크 권한을 켜십시오.";
 "microphone.not.allow.setting" = "이동 설정";
 "error.no.search" = "죄송합니다. 일치하는 결과가 없습니다.";
+
+//1.11
+"among.chat.login.mobile.title" = "당신의 전화 번호는 무엇입니까?";
+"among.chat.login.sms.tip" = "SMS 인증 코드를 보내드립니다.";
+"among.chat.login.next" = "다음";
+"among.chat.common.error" = "문제가 발생했습니다. 다시 시도하십시오.";
+"among.chat.set.birth.day.title" = "당신은 몇 살입니까?";
+"change.old.title" = "%@ 살이에요";
+"among.chat.login.code.input.title" = "코드 입력";
+"among.chat.login.code.input.tip" = "%1$@ %2$@로 코드를 보냈습니다.";
+"among.chat.login.code.input.timing" = "남은 시간 %1$@";
+"among.chat.login.code.not.recieve" = "코드를받지 못하셨습니까? %1$@";
+"among.chat.login.code.resend" = "재전송";
+"among.chat.login.code.wrong" = "죄송합니다! 잘못된 코드";
+"among.chat.login.start" = "스타트";
+"among.chat.login.have.account" = "이미 계정이 있습니까?";
+"among.chat.login.sign.in" = "로그인";
+"among.chat.login.more" = "더 많은 옵션";
+"among.chat.login.auth.tip" = "먼저 %1$@에 로그인/가입하십시오.";
+"among.chat.login.auth.source.channel" = "채널 만들기";
+"among.chat.login.auth.source.profile" = "프로필 수정";
+"among.chat.login.auth.source.pro" = "데이터 저장";
+"among.chat.login.congrat" = "축하합니다!";
+"among.chat.profile.sign.in" = "로그인/가입";
+"among.chat.profile.overrite" = "이 방법에 연결된 계정이 이미 있습니다. 계속하려면 현재 데이터를 덮어 쓰고 손실됩니다.";

@@ -43,6 +43,8 @@ extension Social {
             return "\(year)/\(month)/\(day)"
         }
         
+        var onDateUpdateHandler: CallBack?
+        
         private var yearFont = R.font.nunitoExtraBold(size: 20)
         private let bigRowCount = 1000
         private let componentsCount = 3
@@ -260,6 +262,7 @@ extension Social.DatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
                 selectRow(daySelectedRow - gap, inComponent: DatePickerComponent.day.rawValue, animated: true)
             }
         }
+        onDateUpdateHandler?()
     }
     
     private func titleForRow(_ row : Int, component : Int) -> String {

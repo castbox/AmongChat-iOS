@@ -1,0 +1,1142 @@
+[
+  {
+    "region_code": "AF",
+    "region": "Afghanistan",
+    "tel_code": "+93"
+  },
+  {
+    "region_code": "AM",
+    "region": "Armenia",
+    "tel_code": "+374"
+  },
+  {
+    "region_code": "AZ",
+    "region": "Azerbaijan",
+    "tel_code": "+994"
+  },
+  {
+    "region_code": "BH",
+    "region": "Bahrain",
+    "tel_code": "+973"
+  },
+  {
+    "region_code": "BD",
+    "region": "Bangladesh",
+    "tel_code": "+880"
+  },
+  {
+    "region_code": "BT",
+    "region": "Bhutan",
+    "tel_code": "+975"
+  },
+  {
+    "region_code": "BN",
+    "region": "Brunei",
+    "tel_code": "+673"
+  },
+  {
+    "region_code": "KH",
+    "region": "Cambodia",
+    "tel_code": "+855"
+  },
+  {
+    "region_code": "CN",
+    "region": "China",
+    "tel_code": "+86"
+  },
+  {
+    "region_code": "TP",
+    "region": "East Timor",
+    "tel_code": "+670"
+  },
+  {
+    "region_code": "GE",
+    "region": "Georgia",
+    "tel_code": "+995"
+  },
+  {
+    "region_code": "HK",
+    "region": "Hong Kong",
+    "tel_code": "+852"
+  },
+  {
+    "region_code": "IN",
+    "region": "India",
+    "tel_code": "+91"
+  },
+  {
+    "region_code": "ID",
+    "region": "Indonesia",
+    "tel_code": "+62"
+  },
+  {
+    "region_code": "IR",
+    "region": "Iran",
+    "tel_code": "+98"
+  },
+  {
+    "region_code": "IQ",
+    "region": "Iraq",
+    "tel_code": "+964"
+  },
+  {
+    "region_code": "IL",
+    "region": "Israel",
+    "tel_code": "+972"
+  },
+  {
+    "region_code": "JP",
+    "region": "Japan",
+    "tel_code": "+81"
+  },
+  {
+    "region_code": "JO",
+    "region": "Jordan",
+    "tel_code": "+962"
+  },
+  {
+    "region_code": "KP",
+    "region": "Korea Dem People's Rep",
+    "tel_code": "+850"
+  },
+  {
+    "region_code": "KR",
+    "region": "Korea Republic of",
+    "tel_code": "+82"
+  },
+  {
+    "region_code": "KW",
+    "region": "Kuwait",
+    "tel_code": "+965"
+  },
+  {
+    "region_code": "KG",
+    "region": "Kyrgyzstan",
+    "tel_code": "+996"
+  },
+  {
+    "region_code": "LA",
+    "region": "Laos PDR",
+    "tel_code": "+856"
+  },
+  {
+    "region_code": "LB",
+    "region": "Lebanon",
+    "tel_code": "+961"
+  },
+  {
+    "region_code": "MO",
+    "region": "Macau",
+    "tel_code": "+853"
+  },
+  {
+    "region_code": "MY",
+    "region": "Malaysia",
+    "tel_code": "+60"
+  },
+  {
+    "region_code": "MV",
+    "region": "Maldives",
+    "tel_code": "+960"
+  },
+  {
+    "region_code": "MN",
+    "region": "Mongolia",
+    "tel_code": "+976"
+  },
+  {
+    "region_code": "MM",
+    "region": "Myanmar",
+    "tel_code": "+95"
+  },
+  {
+    "region_code": "NP",
+    "region": "Nepal",
+    "tel_code": "+977"
+  },
+  {
+    "region_code": "OM",
+    "region": "Oman",
+    "tel_code": "+968"
+  },
+  {
+    "region_code": "PK",
+    "region": "Pakistan",
+    "tel_code": "+92"
+  },
+  {
+    "region_code": "PS",
+    "region": "Palestinian Territory",
+    "tel_code": "+970"
+  },
+  {
+    "region_code": "PH",
+    "region": "Philippines",
+    "tel_code": "+63"
+  },
+  {
+    "region_code": "QA",
+    "region": "Qatar",
+    "tel_code": "+974"
+  },
+  {
+    "region_code": "KZ",
+    "region": "Kazakhstan",
+    "tel_code": "+7"
+  },
+  {
+    "region_code": "SA",
+    "region": "Saudi Arabia",
+    "tel_code": "+966"
+  },
+  {
+    "region_code": "SG",
+    "region": "Singapore",
+    "tel_code": "+65"
+  },
+  {
+    "region_code": "LK",
+    "region": "Sri Lanka",
+    "tel_code": "+94"
+  },
+  {
+    "region_code": "SY",
+    "region": "Syria",
+    "tel_code": "+963"
+  },
+  {
+    "region_code": "TW",
+    "region": "Taiwan",
+    "tel_code": "+886"
+  },
+  {
+    "region_code": "TJ",
+    "region": "Tajikistan",
+    "tel_code": "+992"
+  },
+  {
+    "region_code": "TH",
+    "region": "Thailand",
+    "tel_code": "+66"
+  },
+  {
+    "region_code": "TR",
+    "region": "Turkey",
+    "tel_code": "+90"
+  },
+  {
+    "region_code": "TM",
+    "region": "Turkmenistan",
+    "tel_code": "+993"
+  },
+  {
+    "region_code": "AE",
+    "region": "United Arab Emirates",
+    "tel_code": "+971"
+  },
+  {
+    "region_code": "UZ",
+    "region": "Uzbekistan",
+    "tel_code": "+998"
+  },
+  {
+    "region_code": "VN",
+    "region": "Vietnam",
+    "tel_code": "+84"
+  },
+  {
+    "region_code": "YE",
+    "region": "Yemen",
+    "tel_code": "+967"
+  },
+  {
+    "region_code": "AL",
+    "region": "Albania",
+    "tel_code": "+355"
+  },
+  {
+    "region_code": "AD",
+    "region": "Andorra",
+    "tel_code": "+376"
+  },
+  {
+    "region_code": "AT",
+    "region": "Austria",
+    "tel_code": "+43"
+  },
+  {
+    "region_code": "BY",
+    "region": "Belarus",
+    "tel_code": "+375"
+  },
+  {
+    "region_code": "BE",
+    "region": "Belgium",
+    "tel_code": "+32"
+  },
+  {
+    "region_code": "BA",
+    "region": "Bosnia and Herzegovina",
+    "tel_code": "+387"
+  },
+  {
+    "region_code": "BG",
+    "region": "Bulgaria",
+    "tel_code": "+359"
+  },
+  {
+    "region_code": "HR",
+    "region": "Croatia",
+    "tel_code": "+385"
+  },
+  {
+    "region_code": "CY",
+    "region": "Cyprus",
+    "tel_code": "+357"
+  },
+  {
+    "region_code": "CZ",
+    "region": "Czech Republic",
+    "tel_code": "+420"
+  },
+  {
+    "region_code": "DK",
+    "region": "Denmark",
+    "tel_code": "+45"
+  },
+  {
+    "region_code": "EE",
+    "region": "Estonia",
+    "tel_code": "+372"
+  },
+  {
+    "region_code": "FO",
+    "region": "Faroe Islands",
+    "tel_code": "+298"
+  },
+  {
+    "region_code": "AX",
+    "region": "Finland",
+    "tel_code": "+358"
+  },
+  {
+    "region_code": "FR",
+    "region": "France",
+    "tel_code": "+33"
+  },
+  {
+    "region_code": "DE",
+    "region": "Germany",
+    "tel_code": "+49"
+  },
+  {
+    "region_code": "GI",
+    "region": "Gibraltar",
+    "tel_code": "+350"
+  },
+  {
+    "region_code": "GR",
+    "region": "Greece",
+    "tel_code": "+30"
+  },
+  {
+    "region_code": "HU",
+    "region": "Hungary",
+    "tel_code": "+36"
+  },
+  {
+    "region_code": "IS",
+    "region": "Iceland",
+    "tel_code": "+354"
+  },
+  {
+    "region_code": "IE",
+    "region": "Ireland",
+    "tel_code": "+353"
+  },
+  {
+    "region_code": "IT",
+    "region": "Italy",
+    "tel_code": "+39"
+  },
+  {
+    "region_code": "LV",
+    "region": "Latvia",
+    "tel_code": "+371"
+  },
+  {
+    "region_code": "LI",
+    "region": "Liechtenstein",
+    "tel_code": "+423"
+  },
+  {
+    "region_code": "LT",
+    "region": "Lithuania",
+    "tel_code": "+370"
+  },
+  {
+    "region_code": "LU",
+    "region": "Luxembourg",
+    "tel_code": "+352"
+  },
+  {
+    "region_code": "MK",
+    "region": "Macedonia",
+    "tel_code": "+389"
+  },
+  {
+    "region_code": "MT",
+    "region": "Malta",
+    "tel_code": "+356"
+  },
+  {
+    "region_code": "MD",
+    "region": "Moldova",
+    "tel_code": "+373"
+  },
+  {
+    "region_code": "MC",
+    "region": "Monaco",
+    "tel_code": "+377"
+  },
+  {
+    "region_code": "ME",
+    "region": "Montenegro",
+    "tel_code": "+382"
+  },
+  {
+    "region_code": "NL",
+    "region": "Netherlands",
+    "tel_code": "+31"
+  },
+  {
+    "region_code": "NO",
+    "region": "Norway",
+    "tel_code": "+47"
+  },
+  {
+    "region_code": "PL",
+    "region": "Poland",
+    "tel_code": "+48"
+  },
+  {
+    "region_code": "PT",
+    "region": "Portugal",
+    "tel_code": "+351"
+  },
+  {
+    "region_code": "RO",
+    "region": "Romania",
+    "tel_code": "+40"
+  },
+  {
+    "region_code": "SM",
+    "region": "San Marino",
+    "tel_code": "+378"
+  },
+  {
+    "region_code": "RS",
+    "region": "Serbia",
+    "tel_code": "+381"
+  },
+  {
+    "region_code": "SK",
+    "region": "Slovakia",
+    "tel_code": "+421"
+  },
+  {
+    "region_code": "SI",
+    "region": "Slovenia",
+    "tel_code": "+386"
+  },
+  {
+    "region_code": "ES",
+    "region": "Spain",
+    "tel_code": "+34"
+  },
+  {
+    "region_code": "SE",
+    "region": "Sweden",
+    "tel_code": "+46"
+  },
+  {
+    "region_code": "CH",
+    "region": "Switzerland",
+    "tel_code": "+41"
+  },
+  {
+    "region_code": "UA",
+    "region": "Ukraine",
+    "tel_code": "+380"
+  },
+  {
+    "region_code": "GB",
+    "region": "United Kingdom",
+    "tel_code": "+44"
+  },
+  {
+    "region_code": "VA",
+    "region": "Vatican City",
+    "tel_code": "+379"
+  },
+  {
+    "region_code": "DZ",
+    "region": "Algeria",
+    "tel_code": "+213"
+  },
+  {
+    "region_code": "AO",
+    "region": "Angola",
+    "tel_code": "+244"
+  },
+  {
+    "region_code": "BJ",
+    "region": "Benin",
+    "tel_code": "+229"
+  },
+  {
+    "region_code": "BW",
+    "region": "Botswana",
+    "tel_code": "+267"
+  },
+  {
+    "region_code": "BF",
+    "region": "Burkina Faso",
+    "tel_code": "+226"
+  },
+  {
+    "region_code": "BI",
+    "region": "Burundi",
+    "tel_code": "+257"
+  },
+  {
+    "region_code": "CM",
+    "region": "Cameroon",
+    "tel_code": "+237"
+  },
+  {
+    "region_code": "IC",
+    "region": "Canary Islands",
+    "tel_code": "+3491"
+  },
+  {
+    "region_code": "CV",
+    "region": "Cape Verde",
+    "tel_code": "+238"
+  },
+  {
+    "region_code": "CF",
+    "region": "Central Africa",
+    "tel_code": "+236"
+  },
+  {
+    "region_code": "TD",
+    "region": "Chad",
+    "tel_code": "+235"
+  },
+  {
+    "region_code": "KM",
+    "region": "Comoros",
+    "tel_code": "+269"
+  },
+  {
+    "region_code": "CG",
+    "region": "Congo",
+    "tel_code": "+242"
+  },
+  {
+    "region_code": "CD",
+    "region": "Congo, Dem Rep",
+    "tel_code": "+243"
+  },
+  {
+    "region_code": "DJ",
+    "region": "Djibouti",
+    "tel_code": "+253"
+  },
+  {
+    "region_code": "EG",
+    "region": "Egypt",
+    "tel_code": "+20"
+  },
+  {
+    "region_code": "GQ",
+    "region": "Equatorial Guinea",
+    "tel_code": "+240"
+  },
+  {
+    "region_code": "ER",
+    "region": "Eritrea",
+    "tel_code": "+291"
+  },
+  {
+    "region_code": "ET",
+    "region": "Ethiopia",
+    "tel_code": "+251"
+  },
+  {
+    "region_code": "GA",
+    "region": "Gabon",
+    "tel_code": "+241"
+  },
+  {
+    "region_code": "GM",
+    "region": "Gambia",
+    "tel_code": "+220"
+  },
+  {
+    "region_code": "GH",
+    "region": "Ghana",
+    "tel_code": "+233"
+  },
+  {
+    "region_code": "GN",
+    "region": "Guinea",
+    "tel_code": "+224"
+  },
+  {
+    "region_code": "GW",
+    "region": "Guinea-Bissau",
+    "tel_code": "+245"
+  },
+  {
+    "region_code": "CI",
+    "region": "Ivory Coast",
+    "tel_code": "+225"
+  },
+  {
+    "region_code": "KE",
+    "region": "Kenya",
+    "tel_code": "+254"
+  },
+  {
+    "region_code": "LS",
+    "region": "Lesotho",
+    "tel_code": "+266"
+  },
+  {
+    "region_code": "LR",
+    "region": "Liberia",
+    "tel_code": "+231"
+  },
+  {
+    "region_code": "LY",
+    "region": "Libya",
+    "tel_code": "+218"
+  },
+  {
+    "region_code": "MG",
+    "region": "Madagascar",
+    "tel_code": "+261"
+  },
+  {
+    "region_code": "MW",
+    "region": "Malawi",
+    "tel_code": "+265"
+  },
+  {
+    "region_code": "ML",
+    "region": "Mali",
+    "tel_code": "+223"
+  },
+  {
+    "region_code": "MR",
+    "region": "Mauritania",
+    "tel_code": "+222"
+  },
+  {
+    "region_code": "MU",
+    "region": "Mauritius",
+    "tel_code": "+230"
+  },
+  {
+    "region_code": "MA",
+    "region": "Morocco",
+    "tel_code": "+212"
+  },
+  {
+    "region_code": "MZ",
+    "region": "Mozambique",
+    "tel_code": "+258"
+  },
+  {
+    "region_code": "NA",
+    "region": "Namibia",
+    "tel_code": "+264"
+  },
+  {
+    "region_code": "NE",
+    "region": "Niger",
+    "tel_code": "+227"
+  },
+  {
+    "region_code": "NG",
+    "region": "Nigeria",
+    "tel_code": "+234"
+  },
+  {
+    "region_code": "RW",
+    "region": "Rwanda",
+    "tel_code": "+250"
+  },
+  {
+    "region_code": "ST",
+    "region": "Sao Tome and Principe",
+    "tel_code": "+239"
+  },
+  {
+    "region_code": "SN",
+    "region": "Senegal",
+    "tel_code": "+221"
+  },
+  {
+    "region_code": "SC",
+    "region": "Seychelles",
+    "tel_code": "+248"
+  },
+  {
+    "region_code": "SL",
+    "region": "Sierra Leone",
+    "tel_code": "+232"
+  },
+  {
+    "region_code": "SO",
+    "region": "Somalia",
+    "tel_code": "+252"
+  },
+  {
+    "region_code": "ZA",
+    "region": "South Africa",
+    "tel_code": "+27"
+  },
+  {
+    "region_code": "SS",
+    "region": "South Sudan",
+    "tel_code": "+211"
+  },
+  {
+    "region_code": "ES",
+    "region": "Spain",
+    "tel_code": "+34"
+  },
+  {
+    "region_code": "SD",
+    "region": "Sudan",
+    "tel_code": "+249"
+  },
+  {
+    "region_code": "SZ",
+    "region": "Swaziland",
+    "tel_code": "+268"
+  },
+  {
+    "region_code": "TZ",
+    "region": "Tanzania",
+    "tel_code": "+255"
+  },
+  {
+    "region_code": "TG",
+    "region": "Togo",
+    "tel_code": "+228"
+  },
+  {
+    "region_code": "TN",
+    "region": "Tunisia",
+    "tel_code": "+216"
+  },
+  {
+    "region_code": "UG",
+    "region": "Uganda",
+    "tel_code": "+256"
+  },
+  {
+    "region_code": "ZM",
+    "region": "Zambia",
+    "tel_code": "+260"
+  },
+  {
+    "region_code": "ZW",
+    "region": "Zimbabwe",
+    "tel_code": "+263"
+  },
+  {
+    "region_code": "AU",
+    "region": "Australia",
+    "tel_code": "+61"
+  },
+  {
+    "region_code": "CK",
+    "region": "Cook Islands",
+    "tel_code": "+682"
+  },
+  {
+    "region_code": "FJ",
+    "region": "Fiji",
+    "tel_code": "+679"
+  },
+  {
+    "region_code": "PF",
+    "region": "French Polynesia",
+    "tel_code": "+689"
+  },
+  {
+    "region_code": "GU",
+    "region": "Guam",
+    "tel_code": "+1671"
+  },
+  {
+    "region_code": "KI",
+    "region": "Kiribati",
+    "tel_code": "+686"
+  },
+  {
+    "region_code": "MH",
+    "region": "Marshall Islands",
+    "tel_code": "+692"
+  },
+  {
+    "region_code": "FM",
+    "region": "Micronesia",
+    "tel_code": "+691"
+  },
+  {
+    "region_code": "NC",
+    "region": "New Caledonia",
+    "tel_code": "+687"
+  },
+  {
+    "region_code": "NZ",
+    "region": "New Zealand",
+    "tel_code": "+64"
+  },
+  {
+    "region_code": "NU",
+    "region": "Niue",
+    "tel_code": "+683"
+  },
+  {
+    "region_code": "NF",
+    "region": "Norfolk Island",
+    "tel_code": "+672"
+  },
+  {
+    "region_code": "MP",
+    "region": "Northern Mariana Islands",
+    "tel_code": "+1670"
+  },
+  {
+    "region_code": "PW",
+    "region": "Palau",
+    "tel_code": "+680"
+  },
+  {
+    "region_code": "PG",
+    "region": "Papua New Guinea",
+    "tel_code": "+675"
+  },
+  {
+    "region_code": "WS",
+    "region": "Samoa",
+    "tel_code": "+685"
+  },
+  {
+    "region_code": "SB",
+    "region": "Solomon Islands",
+    "tel_code": "+677"
+  },
+  {
+    "region_code": "TO",
+    "region": "Tonga",
+    "tel_code": "+676"
+  },
+  {
+    "region_code": "TV",
+    "region": "Tuvalu",
+    "tel_code": "+688"
+  },
+  {
+    "region_code": "VU",
+    "region": "Vanuatu",
+    "tel_code": "+678"
+  },
+  {
+    "region_code": "AS",
+    "region": "American Samoa",
+    "tel_code": "+1684"
+  },
+  {
+    "region_code": "AI",
+    "region": "Anguilla",
+    "tel_code": "+1264"
+  },
+  {
+    "region_code": "AG",
+    "region": "Antigua and Barbuda",
+    "tel_code": "+1268"
+  },
+  {
+    "region_code": "AW",
+    "region": "Aruba",
+    "tel_code": "+297"
+  },
+  {
+    "region_code": "AC",
+    "region": "Ascension",
+    "tel_code": "+247"
+  },
+  {
+    "region_code": "BS",
+    "region": "Bahamas",
+    "tel_code": "+1242"
+  },
+  {
+    "region_code": "BB",
+    "region": "Barbados",
+    "tel_code": "+1246"
+  },
+  {
+    "region_code": "BZ",
+    "region": "Belize",
+    "tel_code": "+501"
+  },
+  {
+    "region_code": "BM",
+    "region": "Bermuda",
+    "tel_code": "+1441"
+  },
+  {
+    "region_code": "CA",
+    "region": "Canada",
+    "tel_code": "+1"
+  },
+  {
+    "region_code": "KY",
+    "region": "Cayman Islands",
+    "tel_code": "+1345"
+  },
+  {
+    "region_code": "CR",
+    "region": "Costa Rica",
+    "tel_code": "+506"
+  },
+  {
+    "region_code": "CU",
+    "region": "Cuba",
+    "tel_code": "+53"
+  },
+  {
+    "region_code": "DM",
+    "region": "Dominica",
+    "tel_code": "+1767"
+  },
+  {
+    "region_code": "DO",
+    "region": "Dominican Republic",
+    "tel_code": "+1809201"
+  },
+  {
+    "region_code": "DO",
+    "region": "Dominican Republic",
+    "tel_code": "+1809"
+  },
+  {
+    "region_code": "DO",
+    "region": "Dominican Republic",
+    "tel_code": "+1849"
+  },
+  {
+    "region_code": "DO",
+    "region": "Dominican Republic",
+    "tel_code": "+1829"
+  },
+  {
+    "region_code": "SV",
+    "region": "El Salvador",
+    "tel_code": "+503"
+  },
+  {
+    "region_code": "GL",
+    "region": "Greenland",
+    "tel_code": "+299"
+  },
+  {
+    "region_code": "GD",
+    "region": "Grenada",
+    "tel_code": "+1473"
+  },
+  {
+    "region_code": "GP",
+    "region": "Guadeloupe",
+    "tel_code": "+590"
+  },
+  {
+    "region_code": "GU",
+    "region": "Guam",
+    "tel_code": "+1671"
+  },
+  {
+    "region_code": "GT",
+    "region": "Guatemala",
+    "tel_code": "+502"
+  },
+  {
+    "region_code": "HT",
+    "region": "Haiti",
+    "tel_code": "+509"
+  },
+  {
+    "region_code": "HN",
+    "region": "Honduras",
+    "tel_code": "+504"
+  },
+  {
+    "region_code": "JM",
+    "region": "Jamaica",
+    "tel_code": "+1876"
+  },
+  {
+    "region_code": "MQ",
+    "region": "Martinique",
+    "tel_code": "+596"
+  },
+  {
+    "region_code": "MX",
+    "region": "Mexico",
+    "tel_code": "+52"
+  },
+  {
+    "region_code": "MS",
+    "region": "Montserrat",
+    "tel_code": "+1664"
+  },
+  {
+    "region_code": "NI",
+    "region": "Nicaragua",
+    "tel_code": "+505"
+  },
+  {
+    "region_code": "PA",
+    "region": "Panama",
+    "tel_code": "+507"
+  },
+  {
+    "region_code": "PR",
+    "region": "Puerto Rico",
+    "tel_code": "+1787"
+  },
+  {
+    "region_code": "KN",
+    "region": "St Kitts and Nevis",
+    "tel_code": "+1869"
+  },
+  {
+    "region_code": "LC",
+    "region": "St Lucia",
+    "tel_code": "+1758"
+  },
+  {
+    "region_code": "PM",
+    "region": "St Pierre and Miquelon",
+    "tel_code": "+508"
+  },
+  {
+    "region_code": "VC",
+    "region": "St Vincent Grenadines",
+    "tel_code": "+1784"
+  },
+  {
+    "region_code": "TT",
+    "region": "Trinidad and Tobago",
+    "tel_code": "+1868"
+  },
+  {
+    "region_code": "TC",
+    "region": "Turks and Caicos Islands",
+    "tel_code": "+1649"
+  },
+  {
+    "region_code": "US",
+    "region": "United States",
+    "tel_code": "+1"
+  },
+  {
+    "region_code": "VG",
+    "region": "Virgin Islands, British",
+    "tel_code": "+1284"
+  },
+  {
+    "region_code": "VI",
+    "region": "Virgin Islands, U.S.",
+    "tel_code": "+1340"
+  },
+  {
+    "region_code": "AR",
+    "region": "Argentina",
+    "tel_code": "+54"
+  },
+  {
+    "region_code": "BO",
+    "region": "Bolivia",
+    "tel_code": "+591"
+  },
+  {
+    "region_code": "BR",
+    "region": "Brazil",
+    "tel_code": "+55"
+  },
+  {
+    "region_code": "CL",
+    "region": "Chile",
+    "tel_code": "+56"
+  },
+  {
+    "region_code": "CO",
+    "region": "Colombia",
+    "tel_code": "+57"
+  },
+  {
+    "region_code": "EC",
+    "region": "Ecuador",
+    "tel_code": "+593"
+  },
+  {
+    "region_code": "FK",
+    "region": "Falkland Islands",
+    "tel_code": "+500"
+  },
+  {
+    "region_code": "GF",
+    "region": "French Guiana",
+    "tel_code": "+594"
+  },
+  {
+    "region_code": "GY",
+    "region": "Guyana",
+    "tel_code": "+592"
+  },
+  {
+    "region_code": "PY",
+    "region": "Paraguay",
+    "tel_code": "+595"
+  },
+  {
+    "region_code": "PE",
+    "region": "Peru",
+    "tel_code": "+51"
+  },
+  {
+    "region_code": "SR",
+    "region": "Suriname",
+    "tel_code": "+597"
+  },
+  {
+    "region_code": "UY",
+    "region": "Uruguay",
+    "tel_code": "+598"
+  },
+  {
+    "region_code": "VE",
+    "region": "Venezuela",
+    "tel_code": "+58"
+  }
+]

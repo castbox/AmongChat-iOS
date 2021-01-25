@@ -123,15 +123,39 @@ extension Social.ProfileViewController {
             return lb
         }()
         
+        private lazy var loginButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.textAlignment = .center
+            btn.setTitleColor(.black, for: .normal)
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#FFF000".color()
+            return btn
+        }()
+        
         private var tikTokView = SocialTiktokItemView()
         
         private var isSelf = true
         private var uid = ""
+        private var changedName = false
+        private var currentName = ""
+        private func addUidForName() {
+            if changedName {
+                nameLabel.text = currentName
+            } else {
+                nameLabel.text = "\(currentName) - \(uid)"
+            }
+            changedName = !changedName
+        }
         
         init(with isSelf: Bool) {
             super.init(frame: .zero)
             self.isSelf = isSelf
             setupLayout()
+            bindSubviewEvent()
         }
         
         required init?(coder: NSCoder) {
@@ -225,6 +249,14 @@ extension Social.ProfileViewController {
             followButton.setTitleColor(.black, for: .normal)
         }
         
+        private func bindSubviewEvent() {
+            loginButton.rx.controlEvent(.primaryActionTriggered)
+                .subscribe { _ in
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
+                }
+                .disposed(by: bag)
+        }
+        
         private func setupLayout() {
             
             addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel, tikTokView)
@@ -240,7 +272,7 @@ extension Social.ProfileViewController {
             
             lineView.snp.makeConstraints { maker in
                 maker.center.equalToSuperview()
-                maker.width.equalTo(0.5)
+                maker.width.equalTo(2)
                 maker.height.equalTo(28)
             }
             
@@ -269,17 +301,7 @@ extension Social.ProfileViewController {
                     self?.addUidForName()
                 }).disposed(by: bag)
         }
-        private var changedName = false
-        private var currentName = ""
-        private func addUidForName() {
-            if changedName {
-                nameLabel.text = currentName
-            } else {
-                nameLabel.text = "\(currentName) - \(uid)"
-            }
-            changedName = !changedName
-        }
-        
+
         private func setLayoutForSelf() {
             
             avatarIV.snp.makeConstraints { (maker) in
@@ -298,7 +320,7 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(20)
                 maker.centerY.equalTo(avatarIV)
-                maker.right.equalTo(-65)
+                maker.trailing.equalTo(-65)
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
@@ -331,11 +353,38 @@ extension Social.ProfileViewController {
                 make.width.greaterThanOrEqualTo(30)
             }
             
-            tikTokView.snp.makeConstraints { maker in
-                maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(relationContainer.snp.bottom).offset(56)
-                maker.height.equalTo(80)
-            }
+            Settings.shared.loginResult.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (result) in
+                    guard let `self` = self,
+                          let _ = result else {
+                        return
+                    }
+                    
+                    if !AmongChat.Login.isLogedin {
+                        self.addSubview(self.loginButton)
+                        self.loginButton.snp.remakeConstraints { maker in
+                            maker.leading.equalTo(20)
+                            maker.trailing.equalTo(-20)
+                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(20)
+                            maker.height.equalTo(48)
+                        }
+                        self.tikTokView.snp.remakeConstraints { maker in
+                            maker.leading.trailing.equalToSuperview()
+                            maker.top.equalTo(self.loginButton.snp.bottom).offset(56)
+                            maker.height.equalTo(80)
+                        }
+                    } else {
+                        self.loginButton.removeFromSuperview()
+                        self.tikTokView.snp.remakeConstraints { maker in
+                            maker.leading.trailing.equalToSuperview()
+                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(56)
+                            maker.height.equalTo(80)
+                        }
+                    }
+                                        
+                })
+                .disposed(by: bag)
         }
         
         private func setLayoutForOther() {

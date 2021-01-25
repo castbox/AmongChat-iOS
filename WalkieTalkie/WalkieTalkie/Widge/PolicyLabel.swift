@@ -46,7 +46,7 @@ class PolicyLabel: YYLabel {
         
         let font: UIFont = R.font.nunitoExtraBold(size: 10) ?? UIFont.systemFont(ofSize: 10, weight: UIFont.Weight(rawValue: UIFont.Weight.bold.rawValue))
         
-        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor.white,
+        attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(hex6: 0x898989),
                               NSAttributedString.Key.font : font,
                               NSAttributedString.Key.paragraphStyle : paragraphStyle],
                              range: NSRange(location: 0, length: text.count)

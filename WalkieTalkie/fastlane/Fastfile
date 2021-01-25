@@ -19,12 +19,24 @@ platform :ios do
   desc "Build Ad-Hoc ipa for pgyer"
   lane :adhoc do
   	gym(scheme: "WalkieTalkie", export_method: "ad-hoc", output_directory: "./build", export_xcargs: "-allowProvisioningUpdates")
-	pgyer(api_key: "20a3d1106b802abbd84ec687eedf17eb", 
-            user_key: "3fcd8479c8a50cbaf39119d88d887912", 
-           # update_description: get_update_description(), 
-           # password: "123456", 
+	pgyer(api_key: "20a3d1106b802abbd84ec687eedf17eb",
+            user_key: "3fcd8479c8a50cbaf39119d88d887912",
+           # update_description: get_update_description(),
+           # password: "123456",
            # install_type: "2"
         )
     # add actions here: https://docs.fastlane.tools/actions
   end
+
+  lane :metadata do
+    deliver(
+      use_live_version: true,
+      skip_screenshots: true,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      skip_binary_upload: true,
+      skip_app_version_update: true,
+    )
+  end
+
 end

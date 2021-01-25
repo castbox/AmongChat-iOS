@@ -158,14 +158,28 @@ extension Logger {
             
             case login_imp
             case login_clk
-            case login_success
             case login_result
-            case login_birthday_imp
-            case login_birthday_skip
-            case login_birthday_done
-            case login_birthday_success
             case logout_clk
             case logout_success
+            case start_result
+            case start_result_fail
+            
+            case signin_imp
+            case signin_clk
+            
+            case signin_phone_next_result
+            case signin_phone_next_result_fail
+            
+            case signin_phone_verify_imp
+            case signin_phone_verify_resend
+            
+            case signin_result
+            case signin_result_fail
+            
+            case age_imp
+            case age_done
+            case age_done_result
+            case age_done_result_fail
             
             case profile_tiktok_amongchat_tag_clk
         }
@@ -201,6 +215,7 @@ extension Logger {
             case followers
             case unfollow
             
+            case phone
             case google
             case apple_id
             case snapchat
@@ -241,4 +256,28 @@ extension Logger {
             GuruAnalytics.log(event: eventName.rawValue, category: category, name: itemName, value: nil, content: nil)
         }
     }
+}
+
+extension Logger.Action {
+    
+    static func loginSource(from style: AmongChat.Login.LoginStyle) -> String? {
+        switch style {
+        case .tutorial:
+            return "login"
+        case .inAppLogin:
+            return "profile"
+        case .authNeeded(let source):
+            if source == R.string.localizable.amongChatLoginAuthSourceProfile() {
+                return "profile_edit"
+            } else if source == R.string.localizable.amongChatLoginAuthSourceChannel() {
+                return "create_channel"
+            } else {
+                return nil
+            }
+            
+        case .unlockPro:
+            return nil
+        }
+    }
+    
 }

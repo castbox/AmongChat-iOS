@@ -21,10 +21,21 @@ extension Entity {
 extension Entity {
     
     struct LoginResult: Codable {
+        enum Provider: String, Codable {
+            case facebook
+            case google
+            case twitter
+            case line
+            case email
+            case apple
+            case snapchat
+            case phone
+            case device
+        }
         
         var uid: Int
         var access_token: String
-        var provider: String
+        var provider: Provider
 
         var source: String?
         
@@ -39,6 +50,10 @@ extension Entity {
         var new_guide: Bool?
         
         var create_time : Int64?
+        
+        var isAnonymousUser: Bool {
+            return provider == .device
+        }
     }
 }
 
@@ -301,5 +316,34 @@ extension Entity {
         private enum CodingKeys: String, CodingKey {
             case freeRoomCards = "free_room_cards"
         }
+    }
+}
+
+extension Entity {
+    struct Region: Codable {
+        var regionCode: String
+        var region: String
+        var telCode: String
+        private enum CodingKeys: String, CodingKey {
+            case regionCode = "region_code"
+            case region
+            case telCode = "tel_code"
+        }
+        
+        static var `default`: Region {
+            return Region(regionCode: "US", region: "United States", telCode: "+1")
+        }
+        
+    }
+}
+
+extension Entity {
+    struct SmsCodeResponse: Codable {
+        var code: Int
+        struct Data: Codable {
+            var expire: Int?
+            var token: String?
+        }
+        var data: Data?
     }
 }
