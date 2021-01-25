@@ -46,6 +46,7 @@ extension AmongChat.Login {
         
         private lazy var topBg: UIImageView = {
             let i = UIImageView(image: R.image.ac_login_top_bg())
+            i.contentMode = .scaleAspectFill
             return i
         }()
         
@@ -597,25 +598,13 @@ extension AmongChat.Login.MobileViewController {
             }
             
             topBg.snp.makeConstraints { (maker) in
-                maker.top.leading.trailing.equalToSuperview()
+                maker.top.lessThanOrEqualToSuperview().offset(0)
+                maker.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(spaceLayoutGuide.snp.centerY)
             }
             
             topTipLabel.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .vertical)
             
-            rx.viewDidLayoutSubviews
-                .subscribe(onNext: { [weak self] (_) in
-                    guard let `self` = self else { return }
-                    
-                    if let imageH = self.topBg.image?.size.height,
-                       imageH >= self.topBg.height {
-                        self.topBg.contentMode = .bottom
-                    } else {
-                        self.topBg.contentMode = .scaleAspectFill
-                    }
-                    
-                })
-                .disposed(by: bag)
 
         default:
             ()
