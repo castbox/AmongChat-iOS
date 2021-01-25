@@ -44,6 +44,11 @@ class Settings {
             .didSet({ event in
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
                 SharedDefaults[\.loginResultTokenKey] = event.new?.access_token
+                
+                if let _ = event.new {
+                    shared.updateProfile()
+                }
+                
             })
             .asPublishProperty()
     }()

@@ -318,3 +318,32 @@ extension Entity {
         }
     }
 }
+
+extension Entity {
+    struct Region: Codable {
+        var regionCode: String
+        var region: String
+        var telCode: String
+        private enum CodingKeys: String, CodingKey {
+            case regionCode = "region_code"
+            case region
+            case telCode = "tel_code"
+        }
+        
+        static var `default`: Region {
+            return Region(regionCode: "US", region: "United States", telCode: "+1")
+        }
+        
+    }
+}
+
+extension Entity {
+    struct SmsCodeResponse: Codable {
+        var code: Int
+        struct Data: Codable {
+            var expire: Int?
+            var token: String?
+        }
+        var data: Data?
+    }
+}

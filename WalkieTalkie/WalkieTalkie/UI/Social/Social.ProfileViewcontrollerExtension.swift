@@ -127,7 +127,7 @@ extension Social.ProfileViewController {
             let btn = UIButton(type: .custom)
             btn.adjustsImageWhenHighlighted = false
             btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.login(), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
@@ -252,7 +252,7 @@ extension Social.ProfileViewController {
         private func bindSubviewEvent() {
             loginButton.rx.controlEvent(.primaryActionTriggered)
                 .subscribe { _ in
-                    _ = AmongChat.Login.canDoLoginEvent()
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
                 }
                 .disposed(by: bag)
         }
@@ -272,7 +272,7 @@ extension Social.ProfileViewController {
             
             lineView.snp.makeConstraints { maker in
                 maker.center.equalToSuperview()
-                maker.width.equalTo(0.5)
+                maker.width.equalTo(2)
                 maker.height.equalTo(28)
             }
             
@@ -320,7 +320,7 @@ extension Social.ProfileViewController {
             infoContainer.snp.makeConstraints { maker in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(20)
                 maker.centerY.equalTo(avatarIV)
-                maker.right.equalTo(-65)
+                maker.trailing.equalTo(-65)
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
@@ -353,27 +353,38 @@ extension Social.ProfileViewController {
                 make.width.greaterThanOrEqualTo(30)
             }
             
-            if !AmongChat.Login.isLogedin {
-                addSubview(loginButton)
-                loginButton.snp.makeConstraints { maker in
-                    maker.leading.equalTo(20)
-                    maker.trailing.equalTo(-20)
-                    maker.top.equalTo(relationContainer.snp.bottom).offset(20)
-                    maker.height.equalTo(48)
-                }
-                tikTokView.snp.makeConstraints { maker in
-                    maker.leading.trailing.equalToSuperview()
-                    maker.top.equalTo(loginButton.snp.bottom).offset(56)
-                    maker.height.equalTo(80)
-                }
-            } else {
-                tikTokView.snp.makeConstraints { maker in
-                    maker.leading.trailing.equalToSuperview()
-                    maker.top.equalTo(relationContainer.snp.bottom).offset(56)
-                    maker.height.equalTo(80)
-                }
-            }
-            
+            Settings.shared.loginResult.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (result) in
+                    guard let `self` = self,
+                          let _ = result else {
+                        return
+                    }
+                    
+                    if !AmongChat.Login.isLogedin {
+                        self.addSubview(self.loginButton)
+                        self.loginButton.snp.remakeConstraints { maker in
+                            maker.leading.equalTo(20)
+                            maker.trailing.equalTo(-20)
+                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(20)
+                            maker.height.equalTo(48)
+                        }
+                        self.tikTokView.snp.remakeConstraints { maker in
+                            maker.leading.trailing.equalToSuperview()
+                            maker.top.equalTo(self.loginButton.snp.bottom).offset(56)
+                            maker.height.equalTo(80)
+                        }
+                    } else {
+                        self.loginButton.removeFromSuperview()
+                        self.tikTokView.snp.remakeConstraints { maker in
+                            maker.leading.trailing.equalToSuperview()
+                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(56)
+                            maker.height.equalTo(80)
+                        }
+                    }
+                                        
+                })
+                .disposed(by: bag)
         }
         
         private func setLayoutForOther() {

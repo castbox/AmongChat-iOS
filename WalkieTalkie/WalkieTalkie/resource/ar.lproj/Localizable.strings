@@ -229,3 +229,28 @@
 "microphone.not.allow.subtitle" = "للانضمام إلى القناة ، يرجى تشغيل إذن الميكروفون.";
 "microphone.not.allow.setting" = "اذهب الإعدادات";
 "error.no.search" = "عفوًا ، لا توجد نتائج مطابقة!";
+
+//1.11
+"among.chat.login.mobile.title" = "ما هو رقم هاتفك؟";
+"among.chat.login.sms.tip" = "سنرسل لك رمز التحقق عبر الرسائل القصيرة.";
+"among.chat.login.next" = "التالى";
+"among.chat.common.error" = "حدث خطأ ما. أعد المحاولة من فضلك.";
+"among.chat.set.birth.day.title" = "كم عمرك؟";
+"change.old.title" = "%@ سنة";
+"among.chat.login.code.input.title" = "ادخل رمزك";
+"among.chat.login.code.input.tip" = "أرسلنا رمزًا إلى %1$@ %2$@";
+"among.chat.login.code.input.timing" = "الوقت المتبقي %1$@";
+"among.chat.login.code.not.recieve" = "لم يصلك الرمز؟ %1$@";
+"among.chat.login.code.resend" = "إعادة إرسال";
+"among.chat.login.code.wrong" = "وجه الفتاة! رمز خاطئ";
+"among.chat.login.start" = "بداية";
+"among.chat.login.have.account" = "هل لديك حساب؟";
+"among.chat.login.sign.in" = "تسجيل الدخول";
+"among.chat.login.more" = "المزيد من الخيارات";
+"among.chat.login.auth.tip" = "يرجى تسجيل الدخول/التسجيل أولاً على %1$@";
+"among.chat.login.auth.source.channel" = "إنشاء قناة";
+"among.chat.login.auth.source.profile" = "عدل ملفك الشخصي";
+"among.chat.login.auth.source.pro" = "احفظ بياناتك";
+"among.chat.login.congrat" = "تهانينا!";
+"among.chat.profile.sign.in" = "تسجيل الدخول/التسجيل";
+"among.chat.profile.overrite" = "لديك بالفعل حساب مرتبط بهذه الطريقة. للمتابعة ، سيتم الكتابة فوق بياناتك الحالية وفقدانها.";

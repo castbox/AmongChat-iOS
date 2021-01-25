@@ -160,8 +160,8 @@ extension AmongChat.Login {
                 }.asSingle()
             }
         }
-                
-        private func login(via provider: Entity.LoginProvider, token: String? = nil, secret: String? = nil) -> Single<Entity.LoginResult?> {
+        
+        func login(via provider: Entity.LoginResult.Provider, token: String? = nil, secret: String? = nil) -> Single<Entity.LoginResult?> {
             return Request.login(via: provider, token: token, secret: secret)
         }
         

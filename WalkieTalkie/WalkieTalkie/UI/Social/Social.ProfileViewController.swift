@@ -103,6 +103,11 @@ extension Social {
                     let vc = Social.SelectAvatarViewController()
                     self.navigationController?.pushViewController(vc)
                 case .edit:
+                    
+                    guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceProfile())) else {
+                        return
+                    }
+                    
                     let vc = Social.EditProfileViewController()
                     self.navigationController?.pushViewController(vc)
                 case .follow:
@@ -259,21 +264,6 @@ private extension Social.ProfileViewController {
                 })
                 .disposed(by: bag)
             
-            if Settings.shared.amongChatUserProfile.value == nil {
-                let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-                Request.profile()
-                    .do(onDispose: {
-                        hudRemoval()
-                    })
-                    .subscribe(onSuccess: { (profile) in
-                        guard let p = profile else {
-                            return
-                        }
-                        Settings.shared.amongChatUserProfile.value = p
-                    })
-                    .disposed(by: bag)
-            }
-            
             Settings.shared.amongChatAvatarListShown.replay()
                 .subscribe(onNext: { [weak self] (ts) in
                     if let _ = ts {
@@ -283,6 +273,33 @@ private extension Social.ProfileViewController {
                     }
                 })
                 .disposed(by: bag)
+            
+            Settings.shared.loginResult.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (result) in
+                    guard let `self` = self,
+                          let result = result else {
+                        return
+                    }
+                    var vH: CGFloat {
+                        return 357.5 + (AmongChat.Login.isLogedin ? 0 : 68)
+                    }
+                    self.table.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
+                    self.table.reloadData()
+                    
+                    let _ = Request.profile()
+                        .subscribe(onSuccess: { (profile) in
+                            guard let p = profile else {
+                                return
+                            }
+                            Settings.shared.amongChatUserProfile.value = p
+                        })
+                    
+                    self.uid = result.uid
+
+                })
+                .disposed(by: bag)
+
         }
     }
     
