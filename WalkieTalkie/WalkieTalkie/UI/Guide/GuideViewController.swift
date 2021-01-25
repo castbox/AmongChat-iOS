@@ -299,7 +299,7 @@ extension GuideViewController {
         
         fourthPage.style = .guide
         fourthPage.source = .first_open
-        fourthPage.dismissHandler = { [weak self] in
+        fourthPage.dismissHandler = { [weak self] (_) in
             //            self?.dismiss(animated: true, completion: nil)
             self?.dismissHandler?()
         }

@@ -193,7 +193,7 @@ extension AmongChat.Home {
         
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
             self.room = room
-            avatarIV.setImage(with: URL(string: user.pictureUrl))
+            avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             nameLabel.attributedText = user.nameWithVerified(fontSize: 20)
             msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             startCountDown()

@@ -1,6 +1,4 @@
 Bem-vindo ao aplicativo de bate-papo por voz AmongChat!
-1. Mais canais de jogos para você nesta atualização - Mobile Legends, PUBG MOBILE e Call of Duty. Venha jogar com seus amigos jogadores!
-2. Você pode encontrar outros amigos procurando por seus apelidos/IDs no aplicativo.
-3. A página de perfil pode ser fechada facilmente apenas deslizando para baixo.
-4. Outras correções de bugs e otimização da UI.
+Agora você pode definir seu nome de usuário Roblox, nome de exibição Fortnite ou apelido Free Fire nos canais.
+Você também pode escolher diferentes idiomas de bate-papo nas configurações do aplicativo, para combinar melhor.
 Encontre e converse por voz com seus amigos, divirta-se!

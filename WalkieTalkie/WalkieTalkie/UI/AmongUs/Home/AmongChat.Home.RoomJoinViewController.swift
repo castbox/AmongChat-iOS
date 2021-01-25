@@ -169,7 +169,7 @@ extension AmongChat.Home {
         
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
             self.room = room
-            avatarIV.setImage(with: URL(string: user.pictureUrl))
+            avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             //            nameLabel.text =
             let msgAttr = NSMutableAttributedString(string: "@")
             msgAttr.append(user.nameWithVerified(fontSize: 14))

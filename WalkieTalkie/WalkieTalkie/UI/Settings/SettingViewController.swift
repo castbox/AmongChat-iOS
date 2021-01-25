@@ -65,8 +65,6 @@ class SettingViewController: ViewController {
         tb.delegate = self
         tb.separatorStyle = .none
         tb.rowHeight = 73
-        logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
-        tb.tableFooterView = logoutFooter
         return tb
     }()
     
@@ -112,7 +110,6 @@ extension SettingViewController {
                 removeBlock()
             })
             .subscribe(onNext: { (data) in
-                Logger.Action.log(.login_success)
                 Settings.shared.clearAll()
                 //clear
                 if SCSDKLoginClient.isUserLoggedIn {
@@ -129,7 +126,7 @@ extension SettingViewController {
         Defaults[\.isReleaseMode] = !isReleaseMode
         exit(0)
     }
-
+    
 }
 
 extension SettingViewController {
@@ -187,6 +184,28 @@ extension SettingViewController {
                 self.settingOptions = self.generateDataSource(languages: lans)
             })
             .disposed(by: bag)
+        
+        Settings.shared.loginResult.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (result) in
+                guard let `self` = self,
+                      let _ = result else {
+                    return
+                }
+                
+                let footer: UIView?
+                
+                if AmongChat.Login.isLogedin {
+                    self.logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
+                    footer = self.logoutFooter
+                } else {
+                    footer = nil
+                }
+                self.settingsTable.tableFooterView = footer
+                self.settingsTable.reloadData()
+            })
+            .disposed(by: bag)
+
     }
         
     private func shareApp() {
@@ -210,8 +229,11 @@ extension SettingViewController {
         }
         premiun.style = .likeGuide
         premiun.source = .setting
-        premiun.dismissHandler = {
-            premiun.dismiss(animated: true, completion: nil)
+        premiun.dismissHandler = { (purchased) in
+            premiun.dismiss(animated: true) {
+                guard purchased else { return }
+                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+            }
         }
         premiun.modalPresentationStyle = .fullScreen
         present(premiun, animated: true, completion: nil)

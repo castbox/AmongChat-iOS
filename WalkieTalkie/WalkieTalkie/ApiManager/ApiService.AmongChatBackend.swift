@@ -53,6 +53,8 @@ extension APIService {
         case contactList
         case topics
         case accountMetaData
+        case requestSmsCode([String : Any])
+        case verifySmsCode([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -149,6 +151,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/topics"
         case .accountMetaData:
             return "/account/meta_data"
+        case .requestSmsCode:
+            return "/auth/phone/send_code"
+        case .verifySmsCode:
+            return "/auth/phone/verify"
         }
     }
     
@@ -193,6 +199,8 @@ extension APIService.AmongChatBackend: TargetType {
              .topics,
              .accountMetaData,
              .contactList,
+             .requestSmsCode,
+             .verifySmsCode,
              .userSearch:
             return .get
         case .follow:
@@ -253,6 +261,8 @@ extension APIService.AmongChatBackend: TargetType {
              .inviteFriends(let params),
              .inviteUser(let params),
              .userSearch(let params),
+             .requestSmsCode(let params),
+             .verifySmsCode(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

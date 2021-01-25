@@ -32,6 +32,7 @@ platform :ios do
     deliver(
       use_live_version: true,
       skip_screenshots: true,
+      run_precheck_before_submit: false,
       precheck_include_in_app_purchases: false,
       skip_binary_upload: true,
       skip_app_version_update: true,
