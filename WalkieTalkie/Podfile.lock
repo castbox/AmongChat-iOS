@@ -188,6 +188,8 @@ PODS:
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
+  - Koloda (5.0.1):
+    - pop (~> 1.0)
   - loady (1.0.5)
   - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
@@ -217,6 +219,7 @@ PODS:
   - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
+  - pop (1.0.12)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
   - PullToDismiss (2.2)
@@ -317,6 +320,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (~> 6.2.0)
   - JLRoutes
   - Kingfisher
+  - Koloda
   - loady
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
@@ -389,6 +393,7 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - JLRoutes
     - Kingfisher
+    - Koloda
     - loady
     - MarqueeLabel
     - MBProgressHUD
@@ -401,6 +406,7 @@ SPEC REPOS:
     - Path.swift
     - PINCache
     - PINOperation
+    - pop
     - PromisesObjC
     - Protobuf
     - PullToDismiss
@@ -482,6 +488,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
+  Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -494,6 +501,7 @@ SPEC CHECKSUMS:
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   PullToDismiss: 033572b7152fbf68db0407db882d546312813837
@@ -523,6 +531,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: a09bbff20cce1c1d37fee5b1e3e37090b186f4a7
+PODFILE CHECKSUM: 4e5fb03fd31cbd8f9d84722c9cc2142379f503ed
 
 COCOAPODS: 1.10.0

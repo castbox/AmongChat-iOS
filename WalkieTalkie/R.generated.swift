@@ -1534,7 +1534,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 223 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 224 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1796,14 +1796,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthFeb = Rswift.StringResource(key: "month.feb", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Find friends in your contacts
+      /// 
+      /// Locales: en
+      static let socialInviteContactMobile = Rswift.StringResource(key: "social.invite.contact.mobile", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Find friends of the same age
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBirthdaySubtitle = Rswift.StringResource(key: "profile.birthday.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Find your mobile friends
-      /// 
-      /// Locales: en
-      static let socialInviteContactMobile = Rswift.StringResource(key: "social.invite.contact.mobile", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Follow
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1824,6 +1824,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Go
+      /// 
+      /// Locales: en
+      static let bigGo = Rswift.StringResource(key: "big.go", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Go Settings
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2064,7 +2068,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeLoadErrorMsg = Rswift.StringResource(key: "among.chat.home.load.error.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Please go to your phone Settings to enable the permission
+      /// en translation: Please go to your phone Settings to enable the permission 
       /// 
       /// Locales: en
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2884,18 +2888,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.feb", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Find friends in your contacts
+      /// 
+      /// Locales: en
+      static func socialInviteContactMobile(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite.contact.mobile", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Find friends of the same age
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileBirthdaySubtitle(_: Void = ()) -> String {
         return NSLocalizedString("profile.birthday.subtitle", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Find your mobile friends
-      /// 
-      /// Locales: en
-      static func socialInviteContactMobile(_: Void = ()) -> String {
-        return NSLocalizedString("social.invite.contact.mobile", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Follow
@@ -2931,6 +2935,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Go
+      /// 
+      /// Locales: en
+      static func bigGo(_: Void = ()) -> String {
+        return NSLocalizedString("big.go", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Go Settings
@@ -3353,7 +3364,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.load.error.msg", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Please go to your phone Settings to enable the permission
+      /// en translation: Please go to your phone Settings to enable the permission 
       /// 
       /// Locales: en
       static func socialContactDeniedTitle(_: Void = ()) -> String {

@@ -41,6 +41,7 @@ extension Verifiedable {
 
 extension Entity {
     struct UserProfile: Codable {
+        var uid: Int
         var googleAuthData: ThirdPartyAuthData?
         var appleAuthData: ThirdPartyAuthData?
         var pictureUrl: String?
@@ -48,7 +49,6 @@ extension Entity {
         var email: String?
         var newGuide: Bool?
         var pictureUrlRaw: String?
-        var uid: Int
         var birthday: String?
         var nameRoblox: String?
         var nameFortnite: String?

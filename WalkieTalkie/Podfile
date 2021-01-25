@@ -151,6 +151,8 @@ target 'WalkieTalkie' do
     pod 'SwiftyContacts'
     pod 'HWPanModal'
     #https://github.com/mac-gallagher/Shuffle
+#    pod 'Shuffle-iOS'
+    pod "Koloda"
 end
 
 post_install do |installer|

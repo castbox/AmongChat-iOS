@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import SnapKit
+import Koloda
 
 extension AmongChat.Home {
     
@@ -283,6 +284,174 @@ extension AmongChat.Home {
 
         
     }
+    
+    class SuggestedContactView: UIView {
+        private lazy var userView: UserView = {
+            let v = UserView()
+            return v
+        }()
+        
+        private lazy var skipButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.setTitle(R.string.localizable.profileBirthdaySkip(), for: .normal)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.layer.borderWidth = 2.5
+            btn.setContentHuggingPriority(.required, for: .horizontal)
+            return btn
+        }()
+        
+        private lazy var inviteButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
+            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.setTitle(R.string.localizable.socialInvite(), for: .normal)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.layer.masksToBounds = true
+            btn.layer.cornerRadius = 16
+            btn.layer.borderWidth = 2.5
+            btn.setContentHuggingPriority(.required, for: .horizontal)
+            return btn
+        }()
+        
+        private var followDisposable: Disposable? = nil
+        let contact : Entity.ContactFriend?
+        init(contact : Entity.ContactFriend?) {
+            self.contact = contact
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            backgroundColor = "#222222".color()
+            
+            addSubviews(views: userView, skipButton, inviteButton)
+            
+            let buttonLayout = UILayoutGuide()
+            addLayoutGuide(buttonLayout)
+            buttonLayout.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(20)
+                maker.height.equalTo(32)
+            }
+            
+            userView.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().offset(20)
+                maker.top.bottom.equalToSuperview()
+                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
+            }
+            
+            skipButton.snp.makeConstraints { (maker) in
+                maker.leading.top.bottom.equalToSuperview()
+                maker.width.equalTo(inviteButton)
+            }
+            
+            inviteButton.snp.makeConstraints { (maker) in
+                maker.trailing.top.bottom.equalToSuperview()
+            }
+
+        }
+        
+        func bind(viewModel: PlayingViewModel,
+                  onFollow: @escaping () -> Void,
+                  onAvatarTap: @escaping () -> Void) {
+            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
+//            followDisposable?.dispose()
+//            followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
+//                .subscribe(onNext: { (_) in
+//                    onFollow()
+//                })
+        }
+    }
+    
+    class SuggestedContactCell: UICollectionViewCell, KolodaViewDelegate, KolodaViewDataSource {
+        
+        private let cardStack = KolodaView()
+        var dataSource: [ContactViewModel] = [] {
+            didSet {
+                cardStack.reloadData()
+            }
+        }
+        
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            cardStack.delegate = self
+            cardStack.dataSource = self
+            
+            contentView.backgroundColor = .clear
+            
+            contentView.addSubviews(views: cardStack)
+            cardStack.appearanceAnimationDuration = 0
+            cardStack.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                //                maker.leading.equalToSuperview().offset(20)
+                //                maker.top.bottom.equalToSuperview()
+                //                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
+            }
+            
+        }
+        
+        func bind(dataSource: [ContactViewModel],
+                  onFollow: @escaping () -> Void,
+                  onAvatarTap: @escaping () -> Void) {
+            self.dataSource = dataSource
+            //            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
+            //            followDisposable?.dispose()
+            //            followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
+            //                .subscribe(onNext: { (_) in
+            //                    onFollow()
+            //                })
+        }
+        
+        func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+            return dataSource.count
+        }
+        
+        func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
+            return .default
+        }
+        
+        func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+            let view = SuggestedContactView(contact: dataSource.safe(index)?.contact)
+            return view
+        }
+        
+//        func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
+//            return Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)?[0] as? OverlayView
+//        }
+        
+        func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+//            let position = kolodaView.currentCardIndex
+//            for i in 1...4 {
+//              dataSource.append(UIImage(named: "Card_like_\(i)")!)
+//            }
+//            kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+        }
+        
+        func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
+//            UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
+        }
+    }
+    
     
     class FriendSectionHeader: UICollectionReusableView {
         

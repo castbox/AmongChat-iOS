@@ -13,14 +13,16 @@ extension AmongChat.Home {
     class RelationsViewController: WalkieTalkie.ViewController {
         
         private typealias FriendCell = AmongChat.Home.FriendCell
+        private typealias SuggestContactCell = AmongChat.Home.SuggestedContactCell
         private typealias SuggestionCell = AmongChat.Home.SuggestionCell
         private typealias SectionHeader = AmongChat.Home.FriendSectionHeader
         private typealias ShareFooter = AmongChat.Home.FriendShareFooter
         private typealias EmptyView = AmongChat.Home.EmptyReusableView
-        
+        private typealias ContactViewModel = AmongChat.Home.ContactViewModel
         private lazy var navigationView = NavigationBar()
             
         private lazy var friendsCollectionView: UICollectionView = {
+            
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
             let hInset: CGFloat = 0
@@ -35,6 +37,7 @@ extension AmongChat.Home {
             v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
             v.register(ShareFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self))
             v.register(EmptyView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self))
+            v.register(SuggestedContactCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestedContactCell.self))
             v.showsVerticalScrollIndicator = false
             v.showsHorizontalScrollIndicator = false
             v.dataSource = self
@@ -58,7 +61,7 @@ extension AmongChat.Home {
         
         private let viewModel = RelationViewModel()
         
-        private var dataSource = [[PlayingViewModel]]() {
+        private var dataSource = [RelationViewModel.Item]() {
             didSet {
                 friendsCollectionView.reloadData()
             }
@@ -140,7 +143,8 @@ extension AmongChat.Home.RelationsViewController {
     
     private func shareApp() {
         let inviteView = Social.InviteFirendsViewController()
-        inviteView.showModal(in: self.tabBarController!)
+        presentPanModal(inviteView)
+//        inviteView.showModal(in: self.tabBarController!)
     }
 
 }
@@ -161,16 +165,22 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.safe(section)?.count ?? 0
+        let item = dataSource.safe(section)
+        if item?.group == .suggestContacts {
+            return item?.userLsit.isEmpty == false ? 1 : 0
+        }
+        return item?.userLsit.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        switch indexPath.section {
-        case 0:
+        guard let item = dataSource.safe(indexPath.section) else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
+        }
+        switch item.group {
+        case .playing:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
             if let cell = cell as? FriendCell,
-               let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
+               let playing = dataSource.safe(indexPath.section)?.userLsit.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
                     
                     guard let roomState = playing.roomState,
@@ -188,11 +198,23 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 })
             }
             return cell
-
-        case 1:
+        case .suggestContacts:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestContactCell.self), for: indexPath)
+            if let cell = cell as? SuggestContactCell {
+                cell.bind(dataSource: item.userLsit as! [ContactViewModel], onFollow: { [weak self] in
+//                    self?.followUser(user: playing)
+                    Logger.Action.log(.home_friends_suggestion_following_clk)
+                }, onAvatarTap: { [weak self] in
+//                    let vc = Social.ProfileViewController(with: playing.uid)
+//                    self?.navigationController?.pushViewController(vc)
+//                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "suggestion")
+                })
+            }
+            return cell
+        case .suggestStrangers:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
-               let playing = dataSource.safe(indexPath.section)?.safe(indexPath.item) {
+               let playing = item.userLsit.safe(indexPath.item) {
                 cell.bind(viewModel: playing, onFollow: { [weak self] in
                     self?.followUser(user: playing)
                     Logger.Action.log(.home_friends_suggestion_following_clk)
@@ -217,20 +239,27 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
-            
-            if indexPath.section == 0 {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(20)
-                    maker.top.equalToSuperview().offset(24)
-                }
-            } else {
-                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(20)
-                    maker.top.bottom.equalToSuperview()
+            if let item = dataSource.safe(indexPath.section){
+                switch item.group {
+                case .playing:
+                    header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.equalToSuperview().offset(24)
+                    }
+                case .suggestContacts:
+                    header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.bottom.equalToSuperview()
+                    }
+                case .suggestStrangers:
+                    header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.top.bottom.equalToSuperview()
+                    }
                 }
             }
             
-            header.isHidden = (dataSource.safe(indexPath.section)?.count ?? 0) == 0
+            header.isHidden = (dataSource.safe(indexPath.section)?.userLsit.count ?? 0) == 0
             
             reusableView = header
             
@@ -243,7 +272,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                     Logger.Action.log(.home_friends_invite_clk)
                 }
                 
-                if dataSource.safe(indexPath.section)?.count ?? 0 > 0 {
+                if dataSource.safe(indexPath.section)?.userLsit.count ?? 0 > 0 {
                     shareFooter.configContent { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
                         maker.top.equalToSuperview().offset(7)
@@ -275,8 +304,16 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 
 extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLayout {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if dataSource.safe(indexPath.section)?.group == .suggestContacts {
+            return CGSize(width: Frame.Screen.width, height: 90)
+        }
+        return CGSize(width: Frame.Screen.width, height: 69)
+
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if dataSource.safe(section)?.count ?? 0 > 0 {
+        if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
             if section == 0 {
                 return CGSize(width: Frame.Screen.width, height: 53)
             } else if section == 1 {
@@ -288,7 +325,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
-            if dataSource.safe(section)?.count ?? 0 > 0 {
+            if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
                 return CGSize(width: Frame.Screen.width, height: 121)
             } else {
                 return CGSize(width: Frame.Screen.width, height: 138)

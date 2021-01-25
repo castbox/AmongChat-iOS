@@ -129,6 +129,7 @@ extension AmongChat.Home.MainTabController {
     
     private func setupEvent() {
         imViewModel.invitationObservable
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { user, room in
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
                       !(topVC is AmongChat.Room.ViewController),
@@ -165,6 +166,7 @@ extension AmongChat.Home.MainTabController {
             .disposed(by: bag)
         
         imViewModel.invitationRecommendObservable
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] user, room in
                 self?.onReceive(strangerInvigation: user, room: room)
             })
@@ -212,6 +214,7 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
+        HapticFeedback.Impact.light()
     }
     
 }

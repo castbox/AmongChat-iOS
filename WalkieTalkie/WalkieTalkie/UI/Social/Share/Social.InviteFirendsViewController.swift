@@ -12,12 +12,13 @@ import RxCocoa
 import MessageUI
 import SwiftyUserDefaults
 import SwiftyContacts
+import HWPanModal
 
 extension Social {
     class InviteFirendsViewController: WalkieTalkie.ViewController {
         
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .grouped)
+            let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
             tb.register(cellWithClass: Social.ContactCell.self)
@@ -286,12 +287,6 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
         return .leastNormalMagnitude
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < -75 && !hiddened {
-            self.hideModal()
-            hiddened = true
-        }
-    }
 }
 
 extension Social.InviteFirendsViewController {
@@ -449,33 +444,6 @@ extension Social.InviteFirendsViewController {
     
 }
 
-extension Social.InviteFirendsViewController: Modalable {
-    
-    func style() -> Modal.Style {
-        return .customHeight
-    }
-    
-    func height() -> CGFloat {
-        return 500
-    }
-    
-    func modalPresentationStyle() -> UIModalPresentationStyle {
-        return .overCurrentContext
-    }
-    
-    func containerCornerRadius() -> CGFloat {
-        return 20
-    }
-    
-    func coverAlpha() -> CGFloat {
-        return 0.5
-    }
-    
-    func canAutoDismiss() -> Bool {
-        return true
-    }
-}
-
 extension Social {
     class ContactCell: UITableViewCell {
         
@@ -568,6 +536,7 @@ extension Social {
             let lb = WalkieLabel()
             lb.text = R.string.localizable.socialInviteContactMobile()
             lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.numberOfLines = 0
             lb.textColor = .white
             return lb
         }()
@@ -649,11 +618,61 @@ extension Social {
         
         private func setUIForShare() {
             followBtn.setTitleColor(.black, for: .normal)
-            followBtn.setTitle(R.string.localizable.bigEnable(), for: .normal)
-            followBtn.backgroundColor = UIColor(hex6: 0xFFF000)
+            followBtn.setTitle(R.string.localizable.bigGo(), for: .normal)
             followBtn.snp.updateConstraints { (maker) in
                 maker.width.equalTo(78)
             }
         }
     }
+}
+
+//extension Social.InviteFirendsViewController: Modalable {
+//
+//    func style() -> Modal.Style {
+//        return .customHeight
+//    }
+//
+//    func height() -> CGFloat {
+//        return 500
+//    }
+//
+//    func modalPresentationStyle() -> UIModalPresentationStyle {
+//        return .overCurrentContext
+//    }
+//
+//    func containerCornerRadius() -> CGFloat {
+//        return 20
+//    }
+//
+//    func coverAlpha() -> CGFloat {
+//        return 0.5
+//    }
+//
+//    func canAutoDismiss() -> Bool {
+//        return true
+//    }
+//}
+
+extension Social.InviteFirendsViewController {
+    
+    override func longFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .max, height: 0)
+    }
+    
+    override func shortFormHeight() -> PanModalHeight {
+        return PanModalHeight(type: .content, height: 500)
+    }
+    
+    override func panScrollable() -> UIScrollView? {
+        return tableView
+    }
+    
+    override func cornerRadius() -> CGFloat {
+        return 20
+    }
+    
+    override func showDragIndicator() -> Bool {
+        return false
+    }
+    
 }
