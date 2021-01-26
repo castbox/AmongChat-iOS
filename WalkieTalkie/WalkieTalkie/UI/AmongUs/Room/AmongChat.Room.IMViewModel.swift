@@ -178,10 +178,12 @@ extension ChatRoom {
     struct RoomInfoMessage: ChatRoomMessage {
         let room: Entity.Room
         let msgType: MessageType
+        let ms: TimeInterval//: 1611648904017
         
         private enum CodingKeys: String, CodingKey {
             case room
             case msgType = "message_type"
+            case ms
         }
     }
 

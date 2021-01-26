@@ -71,6 +71,8 @@ extension AmongChat.Room {
         private var didShowShareEvents: [ShareEvent] = []
         //创建房间后，人数由>1人到1人时弹
         private var canShowSinglePersonShareEvent = false
+        //更新房间消息的时间
+        private var lastestUpdateRoomMs: TimeInterval = 0
                 
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
@@ -538,7 +540,10 @@ private extension AmongChat.Room.ViewModel {
         } else if let message = crMessage as? ChatRoom.SystemMessage {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
-            update(message.room)
+            if message.ms > lastestUpdateRoomMs {
+                lastestUpdateRoomMs = message.ms
+                update(message.room)
+            }
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
                   message.user.uid == Settings.loginUserId {
             //自己
@@ -630,10 +635,27 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
             mManager.adjustUserPlaybackSignalVolume(userId.int, volume: 0)
         }
         
-        if !imViewModel.imIsReady {
+        //delay to request
+        if !imViewModel.imIsReady || !userList.contains(where: { $0.uid.uInt == userId }) {
+            //delay 1 second to check if have current user
             Logger.Action.log(.rtc_call_roominfo)
-            requestRoomInfo()
+            delayToUpdateUserList(for: userId)
         }
+    }
+    
+    func delayToUpdateUserList(for userId: UInt) {
+        //
+        Observable.just(())
+            .delay(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                guard let `self` = self,
+                      !self.room.roomUserList.contains(where: { $0.uid.uInt == userId }) else {
+                    return
+                }
+                Logger.Action.log(.rtc_call_roominfo)
+                self.requestRoomInfo()
+            }
+            .disposed(by: bag)
     }
     
     func onAudioMixingStateChanged(isPlaying: Bool) {
