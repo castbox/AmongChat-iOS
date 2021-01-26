@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 138 images.
+  /// This `R.image` struct is generated, and contains static references to 133 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -346,20 +346,6 @@ struct R: Rswift.Validatable {
     static let icon_close_gray = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close_gray")
     /// Image `icon_close`.
     static let icon_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_close")
-    /// Image `icon_emoji_hh`.
-    static let icon_emoji_hh = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_emoji_hh")
-    /// Image `icon_emoji_kiss`.
-    static let icon_emoji_kiss = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_emoji_kiss")
-    /// Image `icon_guide_1`.
-    static let icon_guide_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_1")
-    /// Image `icon_guide_2`.
-    static let icon_guide_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_2")
-    /// Image `icon_guide_3`.
-    static let icon_guide_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_3")
-    /// Image `icon_guide_4_b`.
-    static let icon_guide_4_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4_b")
-    /// Image `icon_guide_4`.
-    static let icon_guide_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_guide_4")
     /// Image `icon_mic_disable`.
     static let icon_mic_disable = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic_disable")
     /// Image `icon_mic`.
@@ -400,6 +386,10 @@ struct R: Rswift.Validatable {
     static let icon_share_ticktock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_ticktock")
     /// Image `icon_share_whatsapp`.
     static let icon_share_whatsapp = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_whatsapp")
+    /// Image `icon_social_find_contaccts`.
+    static let icon_social_find_contaccts = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_find_contaccts")
+    /// Image `icon_social_share_link`.
+    static let icon_social_share_link = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_share_link")
     /// Image `icon_user_list_mic_block`.
     static let icon_user_list_mic_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic_block")
     /// Image `icon_user_list_mic`.
@@ -923,41 +913,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_close_gray, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_emoji_hh", bundle: ..., traitCollection: ...)`
-    static func icon_emoji_hh(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_emoji_hh, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_emoji_kiss", bundle: ..., traitCollection: ...)`
-    static func icon_emoji_kiss(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_emoji_kiss, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_guide_1", bundle: ..., traitCollection: ...)`
-    static func icon_guide_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_guide_1, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_guide_2", bundle: ..., traitCollection: ...)`
-    static func icon_guide_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_guide_2, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_guide_3", bundle: ..., traitCollection: ...)`
-    static func icon_guide_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_guide_3, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_guide_4", bundle: ..., traitCollection: ...)`
-    static func icon_guide_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_guide_4, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_guide_4_b", bundle: ..., traitCollection: ...)`
-    static func icon_guide_4_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_guide_4_b, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "icon_mic", bundle: ..., traitCollection: ...)`
     static func icon_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_mic, compatibleWith: traitCollection)
@@ -1058,6 +1013,16 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_share_whatsapp, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_social_find_contaccts", bundle: ..., traitCollection: ...)`
+    static func icon_social_find_contaccts(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_social_find_contaccts, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_social_share_link", bundle: ..., traitCollection: ...)`
+    static func icon_social_share_link(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_social_share_link, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_user_list_mic", bundle: ..., traitCollection: ...)`
     static func icon_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_user_list_mic, compatibleWith: traitCollection)
@@ -1116,7 +1081,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 24 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 18 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1144,20 +1109,8 @@ struct R: Rswift.Validatable {
     static let amongSheetUserCell = _R.nib._AmongSheetUserCell()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
-    /// Nib `GuideFirstView`.
-    static let guideFirstView = _R.nib._GuideFirstView()
-    /// Nib `GuideFourthView_b`.
-    static let guideFourthView_b = _R.nib._GuideFourthView_b()
-    /// Nib `GuideFourthView`.
-    static let guideFourthView = _R.nib._GuideFourthView()
-    /// Nib `GuideSecondView`.
-    static let guideSecondView = _R.nib._GuideSecondView()
-    /// Nib `GuideThirdView`.
-    static let guideThirdView = _R.nib._GuideThirdView()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
-    /// Nib `PremiumContainer`.
-    static let premiumContainer = _R.nib._PremiumContainer()
     /// Nib `ShareContainerView`.
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
@@ -1245,46 +1198,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
-    /// `UINib(name: "GuideFirstView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFirstView) instead")
-    static func guideFirstView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.guideFirstView)
-    }
-    
-    /// `UINib(name: "GuideFourthView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView) instead")
-    static func guideFourthView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.guideFourthView)
-    }
-    
-    /// `UINib(name: "GuideFourthView_b", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideFourthView_b) instead")
-    static func guideFourthView_b(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.guideFourthView_b)
-    }
-    
-    /// `UINib(name: "GuideSecondView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideSecondView) instead")
-    static func guideSecondView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.guideSecondView)
-    }
-    
-    /// `UINib(name: "GuideThirdView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.guideThirdView) instead")
-    static func guideThirdView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.guideThirdView)
-    }
-    
     /// `UINib(name: "JustChillingInfoView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingInfoView) instead")
     static func justChillingInfoView(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
-    }
-    
-    /// `UINib(name: "PremiumContainer", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.premiumContainer) instead")
-    static func premiumContainer(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.premiumContainer)
     }
     
     /// `UINib(name: "ShareContainerView", in: bundle)`
@@ -1363,32 +1280,8 @@ struct R: Rswift.Validatable {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func guideFirstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.guideFirstView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func guideFourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.guideFourthView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func guideFourthView_b(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.guideFourthView_b.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func guideSecondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.guideSecondView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func guideThirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.guideThirdView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func premiumContainer(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.premiumContainer.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1420,19 +1313,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
   struct storyboard {
-    /// Storyboard `Guide`.
-    static let guide = _R.storyboard.guide()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
-    
-    /// `UIStoryboard(name: "Guide", bundle: ...)`
-    static func guide(_: Void = ()) -> UIKit.UIStoryboard {
-      return UIKit.UIStoryboard(resource: R.storyboard.guide)
-    }
     
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
     static func launchScreen(_: Void = ()) -> UIKit.UIStoryboard {
@@ -3886,12 +3772,6 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
-      try _GuideFirstView.validate()
-      try _GuideFourthView.validate()
-      try _GuideFourthView_b.validate()
-      try _GuideSecondView.validate()
-      try _GuideThirdView.validate()
-      try _PremiumContainer.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _SocialTiktokItemView.validate()
@@ -4069,130 +3949,12 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _GuideFirstView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "GuideFirstView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_guide_1", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_1' is used in nib 'GuideFirstView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideFirstView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _GuideFourthView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "GuideFourthView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_close_gray", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close_gray' is used in nib 'GuideFourthView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_emoji_hh", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_emoji_hh' is used in nib 'GuideFourthView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_emoji_kiss", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_emoji_kiss' is used in nib 'GuideFourthView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_guide_4", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4' is used in nib 'GuideFourthView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'GuideFourthView', but couldn't be loaded.") }
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _GuideFourthView_b: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "GuideFourthView_b"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_guide_4_b", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_4_b' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideFourthView_b', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _GuideSecondView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "GuideSecondView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_guide_2", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_2' is used in nib 'GuideSecondView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _GuideThirdView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "GuideThirdView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_guide_3", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_guide_3' is used in nib 'GuideThirdView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "star_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'star_bg' is used in nib 'GuideThirdView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
     struct _JustChillingInfoView: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "JustChillingInfoView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _PremiumContainer: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "PremiumContainer"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "icon_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_close' is used in nib 'PremiumContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro' is used in nib 'PremiumContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro_persons", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_persons' is used in nib 'PremiumContainer', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "icon_pro_select", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'icon_pro_select' is used in nib 'PremiumContainer', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-          if UIKit.UIColor(named: "textColor", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Color named 'textColor' is used in storyboard 'PremiumContainer', but couldn't be loaded.") }
-        }
       }
       
       fileprivate init() {}
@@ -4272,27 +4034,8 @@ struct _R: Rswift.Validatable {
   
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
-      try guide.validate()
       try launchScreen.validate()
       try main.validate()
-    }
-    
-    struct guide: Rswift.StoryboardResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let guideViewController = StoryboardViewControllerResource<GuideViewController>(identifier: "GuideViewController")
-      let name = "Guide"
-      
-      func guideViewController(_: Void = ()) -> GuideViewController? {
-        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: guideViewController)
-      }
-      
-      static func validate() throws {
-        if #available(iOS 11.0, *) {
-        }
-        if _R.storyboard.guide().guideViewController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'guideViewController' could not be loaded from storyboard 'Guide' as 'GuideViewController'.") }
-      }
-      
-      fileprivate init() {}
     }
     
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

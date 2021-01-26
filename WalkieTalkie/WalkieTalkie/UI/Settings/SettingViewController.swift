@@ -223,20 +223,17 @@ extension SettingViewController {
     }
     
     private func upgradePro() {
-        guard !Settings.shared.isProValue.value,
-              let premiun = R.storyboard.main.premiumViewController() else {
+        guard !Settings.shared.isProValue.value else {
             return
         }
-        premiun.style = .likeGuide
-        premiun.source = .setting
-        premiun.dismissHandler = { (purchased) in
-            premiun.dismiss(animated: true) {
-                guard purchased else { return }
-                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-            }
+        
+        let premiumVC = PremiumViewController()
+        premiumVC.dismissHandler = { (purchased) in
+            guard purchased else { return }
+            AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
         }
-        premiun.modalPresentationStyle = .fullScreen
-        present(premiun, animated: true, completion: nil)
+        premiumVC.modalPresentationStyle = .fullScreen
+        present(premiumVC, animated: true, completion: nil)
         Logger.UserAction.log(.update_pro, "settings")
     }
     
