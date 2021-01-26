@@ -109,14 +109,19 @@ extension Social {
             guard let list = list else {
                 return
             }
-            var items = self.items.filter { $0.group != group }
+            var items = self.items.filter { item -> Bool in
+                if group == .contacts {
+                    return item.group != .find || item.group != group
+                }
+                return item.group != group
+            }
             items.append(Item(userLsit: list, group: group))
             self.items = items.sorted { (old, previous) -> Bool in
                 old.group.rawValue < previous.group.rawValue
             }
-            if self.items.count == 2 {
-//                Self.roomShareItems = self.items
-            }
+//            if self.items.count == 2 {
+////                Self.roomShareItems = self.items
+//            }
         }
         
         /// clear temp data

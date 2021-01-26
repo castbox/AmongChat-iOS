@@ -294,14 +294,12 @@ extension AmongChat.Home {
         private lazy var skipButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
-            btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
-            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
             btn.setTitle(R.string.localizable.profileBirthdaySkip(), for: .normal)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             btn.layer.masksToBounds = true
-            btn.layer.cornerRadius = 16
-            btn.layer.borderWidth = 2.5
+            //            btn.layer.cornerRadius = 16
+            //            btn.layer.borderWidth = 2.5
             btn.setContentHuggingPriority(.required, for: .horizontal)
             return btn
         }()
@@ -310,33 +308,71 @@ extension AmongChat.Home {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
-            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+            //            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
+            //            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.setTitle(R.string.localizable.socialInvite(), for: .normal)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-            btn.layer.masksToBounds = true
-            btn.layer.cornerRadius = 16
-            btn.layer.borderWidth = 2.5
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            //            btn.layer.masksToBounds = true
+            //            btn.layer.cornerRadius = 16
+            //            btn.layer.borderWidth = 2.5
             btn.setContentHuggingPriority(.required, for: .horizontal)
             return btn
         }()
         
+        private lazy var lineView: UIView = {
+            let view = UIView()
+            view.backgroundColor = UIColor.white.alpha(0.12)
+            return view
+        }()
+        
         private var followDisposable: Disposable? = nil
+        
         let contact : Entity.ContactFriend?
+        let bag = DisposeBag()
+        
+        private var onSkipHandler: CallBack?
+        private var onInviteHandler: CallBack?
+        
         init(contact : Entity.ContactFriend?) {
             self.contact = contact
             super.init(frame: .zero)
             setupLayout()
+           bindSubviewEvent()
+
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
+        func bindSubviewEvent() {
+            
+            skipButton.rx.controlEvent(.touchUpInside)
+                .subscribe { [weak self] _ in
+                    self?.onSkipHandler?()
+                }
+                .disposed(by: bag)
+            
+            inviteButton.rx.controlEvent(.touchUpInside)
+                .subscribe { [weak self] _ in
+                    self?.onInviteHandler?()
+                }
+                .disposed(by: bag)
+            
+            guard let contact = contact else {
+                return
+            }
+            userView.bind(viewModel: contact) {
+                
+            }
+        }
+        
         private func setupLayout() {
             backgroundColor = "#222222".color()
+            cornerRadius = 12
+            clipsToBounds = true
             
-            addSubviews(views: userView, skipButton, inviteButton)
+            addSubviews(views: userView, skipButton, lineView, inviteButton)
             
             let buttonLayout = UILayoutGuide()
             addLayoutGuide(buttonLayout)
@@ -353,31 +389,38 @@ extension AmongChat.Home {
             }
             
             skipButton.snp.makeConstraints { (maker) in
-                maker.leading.top.bottom.equalToSuperview()
-                maker.width.equalTo(inviteButton)
+                maker.top.bottom.equalToSuperview()
+                maker.trailing.equalTo(inviteButton.snp.leading)
+                maker.leading.equalTo(buttonLayout)
+//                maker.width.equalTo(inviteButton)
+            }
+            
+            lineView.snp.makeConstraints { maker in
+                maker.centerY.equalTo(buttonLayout)
+                maker.leading.equalTo(skipButton.snp.trailing)
+                maker.height.equalTo(28)
+                maker.width.equalTo(0.5)
             }
             
             inviteButton.snp.makeConstraints { (maker) in
                 maker.trailing.top.bottom.equalToSuperview()
             }
-
+            
         }
         
-        func bind(viewModel: PlayingViewModel,
-                  onFollow: @escaping () -> Void,
-                  onAvatarTap: @escaping () -> Void) {
-            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
-//            followDisposable?.dispose()
-//            followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
-//                .subscribe(onNext: { (_) in
-//                    onFollow()
-//                })
+        func bind(onSkip: @escaping () -> Void,
+                  onInvite: @escaping () -> Void) {
+            self.onSkipHandler = onSkip
+            self.onInviteHandler = onInvite
         }
     }
     
     class SuggestedContactCell: UICollectionViewCell, KolodaViewDelegate, KolodaViewDataSource {
         
         private let cardStack = KolodaView()
+        private var onSkipHandler: ((Entity.ContactFriend) -> Void)?
+        private var onInviteHandler: ((Entity.ContactFriend) -> Void)?
+        private var onRunOutOfCardsHandler: CallBack?
         var dataSource: [ContactViewModel] = [] {
             didSet {
                 cardStack.reloadData()
@@ -402,24 +445,18 @@ extension AmongChat.Home {
             contentView.addSubviews(views: cardStack)
             cardStack.appearanceAnimationDuration = 0
             cardStack.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-                //                maker.leading.equalToSuperview().offset(20)
-                //                maker.top.bottom.equalToSuperview()
-                //                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
+                maker.edges.equalTo(UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20))
             }
-            
         }
         
         func bind(dataSource: [ContactViewModel],
-                  onFollow: @escaping () -> Void,
-                  onAvatarTap: @escaping () -> Void) {
+                  onSkip: @escaping (Entity.ContactFriend) -> Void,
+                 onInvite: @escaping (Entity.ContactFriend) -> Void,
+                 onRunOutOfCards: @escaping CallBack) {
             self.dataSource = dataSource
-            //            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
-            //            followDisposable?.dispose()
-            //            followDisposable = followBtn.rx.controlEvent(.primaryActionTriggered)
-            //                .subscribe(onNext: { (_) in
-            //                    onFollow()
-            //                })
+            onSkipHandler = onSkip
+            onInviteHandler = onInvite
+            onRunOutOfCardsHandler = onRunOutOfCards
         }
         
         func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
@@ -431,7 +468,18 @@ extension AmongChat.Home {
         }
         
         func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-            let view = SuggestedContactView(contact: dataSource.safe(index)?.contact)
+            guard let contact = dataSource.safe(index)?.contact else {
+                return UIView()
+            }
+            let view = SuggestedContactView(contact: contact)
+            view.bind { [weak self] in
+                koloda.swipe(.left)
+                self?.onSkipHandler?(contact)
+            } onInvite: { [weak self] in
+                koloda.swipe(.right)
+                self?.onInviteHandler?(contact)
+            }
+
             return view
         }
         
@@ -440,11 +488,17 @@ extension AmongChat.Home {
 //        }
         
         func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+//            self.dataSource = dataSource
 //            let position = kolodaView.currentCardIndex
 //            for i in 1...4 {
 //              dataSource.append(UIImage(named: "Card_like_\(i)")!)
 //            }
 //            kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+            onRunOutOfCardsHandler?()
+        }
+        
+        func koloda(_ koloda: KolodaView, shouldDragCardAt index: Int) -> Bool {
+            return false
         }
         
         func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
@@ -463,9 +517,35 @@ extension AmongChat.Home {
             return lb
         }()
         
+        private lazy var seeAllButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            btn.setTitle(R.string.localizable.socialSeeAll(), for: .normal)
+            btn.isHidden = true
+//            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+//            btn.layer.masksToBounds = true
+            //            btn.layer.cornerRadius = 16
+            //            btn.layer.borderWidth = 2.5
+            btn.setContentHuggingPriority(.required, for: .horizontal)
+            return btn
+        }()
+        let bag = DisposeBag()
+        
+        var seeAllHandler: CallBack?
+        var hideSeeAllButton: Bool {
+            set { seeAllButton.isHidden = newValue }
+            get { seeAllButton.isHidden }
+        }
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
+            seeAllButton.rx.controlEvent(.touchUpInside)
+                .subscribe { [weak self] in
+                    self?.seeAllHandler?()
+                }
+                .disposed(by: bag)
         }
         
         required init?(coder: NSCoder) {
@@ -473,10 +553,15 @@ extension AmongChat.Home {
         }
                 
         private func setupLayout() {
-            addSubviews(views: titleLabel)
+            addSubviews(views: titleLabel, seeAllButton)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
                 maker.leading.trailing.equalToSuperview().inset(20)
+            }
+            
+            seeAllButton.snp.makeConstraints { maker in
+                maker.trailing.equalTo(-20)
+                maker.centerY.equalTo(titleLabel)
             }
         }
         

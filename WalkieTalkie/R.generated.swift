@@ -1534,7 +1534,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 224 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 226 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2148,6 +2148,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: See all
+      /// 
+      /// Locales: en
+      static let socialSeeAll = Rswift.StringResource(key: "social.see.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2248,6 +2252,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionTerms = Rswift.StringResource(key: "premium.subscription.terms", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Suggested contacts
+      /// 
+      /// Locales: en
+      static let socialSuggestedContacts = Rswift.StringResource(key: "social.suggested.contacts", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: TRY IT FREE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3504,6 +3512,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.message.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: See all
+      /// 
+      /// Locales: en
+      static func socialSeeAll(_: Void = ()) -> String {
+        return NSLocalizedString("social.see.all", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3677,6 +3692,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumSubscriptionTerms(_: Void = ()) -> String {
         return NSLocalizedString("premium.subscription.terms", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Suggested contacts
+      /// 
+      /// Locales: en
+      static func socialSuggestedContacts(_: Void = ()) -> String {
+        return NSLocalizedString("social.suggested.contacts", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: TRY IT FREE

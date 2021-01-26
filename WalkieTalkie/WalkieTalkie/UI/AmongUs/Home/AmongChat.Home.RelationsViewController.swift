@@ -59,6 +59,8 @@ extension AmongChat.Home {
             friendsCollectionView
         }
         
+        private var suggestContactCell: SuggestContactCell?
+        
         private let viewModel = RelationViewModel()
         
         private var dataSource = [RelationViewModel.Item]() {
@@ -199,18 +201,25 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             }
             return cell
         case .suggestContacts:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestContactCell.self), for: indexPath)
-            if let cell = cell as? SuggestContactCell {
-                cell.bind(dataSource: item.userLsit as! [ContactViewModel], onFollow: { [weak self] in
-//                    self?.followUser(user: playing)
-                    Logger.Action.log(.home_friends_suggestion_following_clk)
-                }, onAvatarTap: { [weak self] in
-//                    let vc = Social.ProfileViewController(with: playing.uid)
-//                    self?.navigationController?.pushViewController(vc)
-//                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "suggestion")
-                })
+            if suggestContactCell == nil {
+                suggestContactCell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestContactCell.self), for: indexPath) as? SuggestContactCell
             }
-            return cell
+            if let cell = suggestContactCell {
+                cell.bind(dataSource: item.userLsit as! [ContactViewModel]) { [weak self] contact in
+                    self?.viewModel.setReadTags(contact)
+                    //                    self?.followUser(user: playing)
+//                    Logger.Action.log(.home_friends_suggestion_following_clk)
+                } onInvite: { [weak self] contact in
+                    self?.viewModel.setReadTags(contact)
+                    //invite
+                    //                    let vc = Social.ProfileViewController(with: playing.uid)
+                    //                    self?.navigationController?.pushViewController(vc)
+                    //                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "suggestion")
+                } onRunOutOfCards: { [weak self] in
+                    self?.viewModel.resetSuggestedContacts()
+                }
+            }
+            return suggestContactCell!
         case .suggestStrangers:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(SuggestionCell.self), for: indexPath)
             if let cell = cell as? SuggestionCell,
@@ -239,7 +248,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         case UICollectionView.elementKindSectionHeader:
             
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
+            header.seeAllHandler = { [weak self] in
+                
+            }
             if let item = dataSource.safe(indexPath.section){
+                header.hideSeeAllButton = item.group != .suggestContacts
                 switch item.group {
                 case .playing:
                     header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
@@ -247,7 +260,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         maker.top.equalToSuperview().offset(24)
                     }
                 case .suggestContacts:
-                    header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                    header.configTitle(R.string.localizable.socialSuggestedContacts()) { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
                         maker.top.bottom.equalToSuperview()
                     }
@@ -306,7 +319,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if dataSource.safe(indexPath.section)?.group == .suggestContacts {
-            return CGSize(width: Frame.Screen.width, height: 90)
+            return CGSize(width: Frame.Screen.width, height: 104)
         }
         return CGSize(width: Frame.Screen.width, height: 69)
 

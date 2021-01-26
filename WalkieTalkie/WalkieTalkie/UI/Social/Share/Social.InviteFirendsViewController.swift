@@ -223,8 +223,9 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
         if let item = items.safe(indexPath.section) {
             if item.group == .find {
                 let cell = tableView.dequeueReusableCell(withClass: Social.EnableContactsCell.self)
-                cell.enableHandler = {
-                    Self.openAppSystemSetting()
+                cell.enableHandler = { [weak self] in
+//                    Self.openAppSystemSetting()
+                    self?.updateEventForContactAuthorizationStatus()
                 }
                 return cell
             } else if let user = item.userLsit.safe(indexPath.row) {

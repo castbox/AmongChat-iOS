@@ -391,6 +391,7 @@ class Settings {
     func clearAll() {
         loginResult.value = nil
         amongChatUserProfile.value = nil
+        Defaults[\.amongChatReleationSuggestedContacts] = []
     }
 }
 
@@ -585,6 +586,10 @@ extension DefaultsKeys {
     
     var amongChatRtmToken: DefaultsKey<Entity.RTMToken?> {
         .init("among.chat.rtm.token", defaultValue: nil)
+    }
+    
+    var amongChatReleationSuggestedContacts: DefaultsKey<[String]> {
+        .init("among.chat.relation.suggested.contacts", defaultValue: [])
     }
     
 //    var isUpdate: DefaultsKey<Entity.RTMToken?> {
