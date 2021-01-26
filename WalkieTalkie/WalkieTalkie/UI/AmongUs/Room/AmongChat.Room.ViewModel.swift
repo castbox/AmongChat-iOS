@@ -553,9 +553,33 @@ private extension AmongChat.Room.ViewModel {
         }
     }
     
+    func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
+        let userList = room.roomUserList
+        if isOnline, (!imViewModel.imIsReady || !userList.contains(where: { $0.uid.uInt == uid })) {
+            return true
+        }
+        if !isOnline, userList.contains(where: { $0.uid.uInt == uid }) {
+            return true
+        }
+        return false
+    }
+    
+    func delayToUpdateUserList(for userId: UInt, isOnline: Bool) {
+        Observable.just(())
+            .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                guard let `self` = self, self.shouldRefreshRoom(uid: userId, isOnline: isOnline) else {
+                    return
+                }
+                Logger.Action.log(.rtc_call_roominfo)
+                self.requestRoomInfo()
+            }
+            .disposed(by: bag)
+    }
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    
     // MARK: - ChatRoomDelegate
     
     func onJoinChannelFailed(channelId: String?) {
@@ -634,28 +658,17 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else if mutedUser.contains(userId) {
             mManager.adjustUserPlaybackSignalVolume(userId.int, volume: 0)
         }
-        
-        //delay to request
-        if !imViewModel.imIsReady || !userList.contains(where: { $0.uid.uInt == userId }) {
-            //delay 1 second to check if have current user
-            Logger.Action.log(.rtc_call_roominfo)
-            delayToUpdateUserList(for: userId)
-        }
     }
     
-    func delayToUpdateUserList(for userId: UInt) {
-        //
-        Observable.just(())
-            .delay(.seconds(1), scheduler: MainScheduler.asyncInstance)
-            .subscribe { [weak self] _ in
-                guard let `self` = self,
-                      !self.room.roomUserList.contains(where: { $0.uid.uInt == userId }) else {
-                    return
-                }
-                Logger.Action.log(.rtc_call_roominfo)
-                self.requestRoomInfo()
-            }
-            .disposed(by: bag)
+    func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
+        let userList = room.roomUserList
+        //delay to request
+        guard shouldRefreshRoom(uid: uid, isOnline: isOnline) else {
+            return
+        }
+        //delay 1 second to check if have current user
+        Logger.Action.log(.rtc_call_roominfo)
+        delayToUpdateUserList(for: uid, isOnline: isOnline)
     }
     
     func onAudioMixingStateChanged(isPlaying: Bool) {
