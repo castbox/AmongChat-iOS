@@ -144,7 +144,7 @@ extension Entity {
         }
     }
     
-    struct ContactFriend: Codable {
+    struct ContactFriend: Codable, Equatable {
         let phone: String
         let name: String
         let count: Int

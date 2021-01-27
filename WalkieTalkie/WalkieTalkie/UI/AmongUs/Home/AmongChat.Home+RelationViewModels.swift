@@ -184,13 +184,12 @@ extension AmongChat.Home {
             //clear
             readedSuggestContacts = []
             refreshSuggestContactsList()
-//            suggestContactRawRelay.accept(suggestContactRawRelay.value)
-//            suggestContactViewModelsRelay.accept(testArray)
         }
         
     }
     
-    class ContactViewModel: PlayingViewModel {
+    class ContactViewModel: PlayingViewModel, Equatable {
+        
         let contact: Entity.ContactFriend
         
         init(with contact: Entity.ContactFriend) {
@@ -201,6 +200,10 @@ extension AmongChat.Home {
                 user = try JSONDecoder().decodeAnyData(Entity.UserProfile.self, from: ["uid": 0])
             }
             super.init(with: Entity.PlayingUser(user: user!, room: nil))
+        }
+        
+        static func == (lhs: AmongChat.Home.ContactViewModel, rhs: AmongChat.Home.ContactViewModel) -> Bool {
+            return lhs.contact == rhs.contact
         }
     }
     

@@ -16,7 +16,7 @@ extension Social {
     class InviteFirendsViewModel {
         public var dataSourceReplay = BehaviorRelay<[Item]>(value: [])
         
-        private var items: [Item] = [] {
+        fileprivate var items: [Item] = [] {
             didSet {
                 dataSourceReplay.accept(items)
             }
@@ -127,6 +127,20 @@ extension Social {
         /// clear temp data
         class func clear() {
             Self.roomShareItems = []
+        }
+    }
+    
+    class ContactsViewModel: InviteFirendsViewModel {
+        func search(name key: String?) {
+            guard let key = key, !key.isEmpty, let item = items.first else {
+                dataSourceReplay.accept(items)
+                return
+            }
+            let result = item.userLsit.filter {
+                $0.name.lowercased().contains(key.lowercased()) || $0.phone.lowercased().contains(key.lowercased())
+            }
+            let filterItem = Item(userLsit: result, group: item.group)
+            dataSourceReplay.accept([filterItem])
         }
     }
 }

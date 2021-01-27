@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import SDCAlertView
+import MessageUI
 
 extension UIViewController {
     /// 获取麦克风权限
@@ -30,6 +31,18 @@ extension UIViewController {
     static func openAppSystemSetting() {
         if let url = URL(string: UIApplication.openSettingsURLString), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.openURL(url)
+        }
+    }
+    
+    func sendSMS(to number: String? = nil, body: String) {
+        if MFMessageComposeViewController.canSendText() {
+            let vc = MFMessageComposeViewController()
+            vc.recipients = [number ?? ""]
+            vc.body = body
+            vc.messageComposeDelegate = self
+            present(vc, animated: true, completion: nil)
+        } else {
+            view.raft.autoShow(.text(R.string.localizable.deviceNotSupportSendMessage()))
         }
     }
     
@@ -100,5 +113,11 @@ extension UIViewController {
             confirmAction?()
         })
         return alertVC
+    }
+}
+
+extension UIViewController: MFMessageComposeViewControllerDelegate {
+    public func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -211,9 +211,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 //                    Logger.Action.log(.home_friends_suggestion_following_clk)
                 } onInvite: { [weak self] contact in
                     self?.viewModel.setReadTags(contact)
-                    //invite
-                    //                    let vc = Social.ProfileViewController(with: playing.uid)
-                    //                    self?.navigationController?.pushViewController(vc)
+                    self?.sendSMS(to: contact.phone, body: R.string.localizable.shareAppContent())
                     //                    Logger.Action.log(.home_friends_profile_clk, categoryValue: "suggestion")
                 } onRunOutOfCards: { [weak self] in
                     self?.viewModel.resetSuggestedContacts()
@@ -249,7 +247,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self), for: indexPath) as! SectionHeader
             header.seeAllHandler = { [weak self] in
-                
+                let controller = Social.ContactListViewController()
+                self?.navigationController?.pushViewController(controller)
             }
             if let item = dataSource.safe(indexPath.section){
                 header.hideSeeAllButton = item.group != .suggestContacts

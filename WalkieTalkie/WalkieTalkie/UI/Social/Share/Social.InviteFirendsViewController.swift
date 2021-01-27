@@ -84,7 +84,7 @@ extension Social {
             tableView.tableHeaderView = headerView
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
-                self.smsAction()
+                self.sendSMS(body: self.linkUrl)
             }
             headerView.copyLinkHandle = { [weak self] in
                 guard let `self` = self else { return }
@@ -162,19 +162,6 @@ private extension Social.InviteFirendsViewController {
         }
     }
     
-    func smsAction(_ number: String? = nil) {
-//        Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "sms")
-        if MFMessageComposeViewController.canSendText() {
-            let vc = MFMessageComposeViewController()
-            vc.recipients = [number ?? ""]
-            vc.body = linkUrl
-            vc.messageComposeDelegate = self
-            self.present(vc, animated: true, completion: nil)
-        } else {
-            view.raft.autoShow(.text("Sorry, your device do not \nsupport message"))
-        }
-    }
-    
     func copyLink() {
 //        Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "copy")
         linkUrl.copyToPasteboardWithHaptic()
@@ -195,11 +182,6 @@ private extension Social.InviteFirendsViewController {
     }
 }
 
-extension Social.InviteFirendsViewController: MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        dismiss(animated: true, completion: nil)
-    }
-}
 // MARK: - UITableView
 extension Social.InviteFirendsViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -229,8 +211,9 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
                 }
                 return cell
             } else if let user = item.userLsit.safe(indexPath.row) {
-                cell.bind(viewModel: user) {
-                    self.smsAction(user.phone)
+                cell.bind(viewModel: user) { [weak self] in
+                    guard let `self` = self else { return }
+                    self.sendSMS(to: user.phone, body: self.linkUrl)
                 }
             }
         }

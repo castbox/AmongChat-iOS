@@ -421,10 +421,19 @@ extension AmongChat.Home {
         private var onSkipHandler: ((Entity.ContactFriend) -> Void)?
         private var onInviteHandler: ((Entity.ContactFriend) -> Void)?
         private var onRunOutOfCardsHandler: CallBack?
-        var dataSource: [ContactViewModel] = [] {
-            didSet {
+        var _dataSource: [ContactViewModel] = []
+        var dataSource: [ContactViewModel] {
+            set {
+                guard _dataSource != newValue else {
+                    return
+                }
+                _dataSource = newValue
+                if cardStack.isRunOutOfCards {
+                    cardStack.resetCurrentCardIndex()
+                }
                 cardStack.reloadData()
             }
+            get { _dataSource }
         }
         
         override init(frame: CGRect) {
@@ -542,9 +551,9 @@ extension AmongChat.Home {
             super.init(frame: .zero)
             setupLayout()
             seeAllButton.rx.controlEvent(.touchUpInside)
-                .subscribe { [weak self] in
+                .subscribe(onNext: { [weak self] _ in
                     self?.seeAllHandler?()
-                }
+                })
                 .disposed(by: bag)
         }
         

@@ -1534,7 +1534,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 226 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 229 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1688,6 +1688,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let socialInviteContact = Rswift.StringResource(key: "social.invite.contact", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Contacts
+      /// 
+      /// Locales: en
+      static let contactSearchTitle = Rswift.StringResource(key: "contact.search.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Content contains sensitive words, please modify
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2148,6 +2152,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Search by name
+      /// 
+      /// Locales: en
+      static let contactSearchInputPlaceholder = Rswift.StringResource(key: "contact.search.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: See all
       /// 
       /// Locales: en
@@ -2240,6 +2248,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, your device do not support send message
+      /// 
+      /// Locales: en
+      static let deviceNotSupportSendMessage = Rswift.StringResource(key: "device.not.support.send.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Start
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2705,6 +2717,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func socialInviteContact(_: Void = ()) -> String {
         return NSLocalizedString("social.invite.contact", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Contacts
+      /// 
+      /// Locales: en
+      static func contactSearchTitle(_: Void = ()) -> String {
+        return NSLocalizedString("contact.search.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Content contains sensitive words, please modify
@@ -3512,6 +3531,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.message.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Search by name
+      /// 
+      /// Locales: en
+      static func contactSearchInputPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("contact.search.input.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: See all
       /// 
       /// Locales: en
@@ -3671,6 +3697,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCommonError(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sorry, your device do not support send message
+      /// 
+      /// Locales: en
+      static func deviceNotSupportSendMessage(_: Void = ()) -> String {
+        return NSLocalizedString("device.not.support.send.message", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Start
