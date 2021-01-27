@@ -71,6 +71,8 @@ extension AmongChat.Room {
         private var didShowShareEvents: [ShareEvent] = []
         //创建房间后，人数由>1人到1人时弹
         private var canShowSinglePersonShareEvent = false
+        //更新房间消息的时间
+        private var lastestUpdateRoomMs: TimeInterval = 0
                 
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
@@ -538,7 +540,10 @@ private extension AmongChat.Room.ViewModel {
         } else if let message = crMessage as? ChatRoom.SystemMessage {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
-            update(message.room)
+            if message.ms > lastestUpdateRoomMs {
+                lastestUpdateRoomMs = message.ms
+                update(message.room)
+            }
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
                   message.user.uid == Settings.loginUserId {
             //自己
@@ -548,9 +553,33 @@ private extension AmongChat.Room.ViewModel {
         }
     }
     
+    func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
+        let userList = room.roomUserList
+        if isOnline, (!imViewModel.imIsReady || !userList.contains(where: { $0.uid.uInt == uid })) {
+            return true
+        }
+        if !isOnline, userList.contains(where: { $0.uid.uInt == uid }) {
+            return true
+        }
+        return false
+    }
+    
+    func delayToUpdateUserList(for userId: UInt, isOnline: Bool) {
+        Observable.just(())
+            .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
+            .subscribe { [weak self] _ in
+                guard let `self` = self, self.shouldRefreshRoom(uid: userId, isOnline: isOnline) else {
+                    return
+                }
+                Logger.Action.log(.rtc_call_roominfo)
+                self.requestRoomInfo()
+            }
+            .disposed(by: bag)
+    }
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    
     // MARK: - ChatRoomDelegate
     
     func onJoinChannelFailed(channelId: String?) {
@@ -629,11 +658,17 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         } else if mutedUser.contains(userId) {
             mManager.adjustUserPlaybackSignalVolume(userId.int, volume: 0)
         }
-        
-        if !imViewModel.imIsReady {
-            Logger.Action.log(.rtc_call_roominfo)
-            requestRoomInfo()
+    }
+    
+    func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
+        let userList = room.roomUserList
+        //delay to request
+        guard shouldRefreshRoom(uid: uid, isOnline: isOnline) else {
+            return
         }
+        //delay 1 second to check if have current user
+        Logger.Action.log(.rtc_call_roominfo)
+        delayToUpdateUserList(for: uid, isOnline: isOnline)
     }
     
     func onAudioMixingStateChanged(isPlaying: Bool) {
