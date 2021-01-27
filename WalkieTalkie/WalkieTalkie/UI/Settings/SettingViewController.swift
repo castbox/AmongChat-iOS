@@ -256,23 +256,37 @@ extension SettingViewController {
         }
     }
     
+    private func restorePurchases() {
+        let removeBlock = view.raft.show(.loading)
+        let completion = { [weak self] in
+            self?.settingsTable.isUserInteractionEnabled = true
+            removeBlock()
+        }
+        settingsTable.isUserInteractionEnabled = false
+        IAP.restorePurchased { _ in
+            completion()
+        }
+    }
+    
     private func generateDataSource(languages: [Language] = []) -> [Option] {
         var options: [Option] = [
+            Option(type: .blockList, selectionHandler: { [weak self] in
+                let vc = Social.BlockedUserList.ViewController()
+                self?.navigationController?.pushViewController(vc)
+            }),
+            Option(type: .community, selectionHandler: { [weak self] in
+                self?.open(urlSting: Config.PolicyType.url(.guideline))
+            }),
             Option(type: .rateUs, selectionHandler: { [weak self] in
                 self?.rateApp()
             }),
-//            Option(type: .shareApp, selectionHandler: { [weak self] in
-//                self?.shareApp()
-//            }),
+            Option(type: .shareApp, selectionHandler: { [weak self] in
+                self?.shareApp()
+            }),
+            Option(type: .restorePurchase, selectionHandler: { [weak self] in
+                self?.restorePurchases()
+            }),
         ]
-        
-        if Settings.shared.isInReview.value || Settings.shared.isProValue.value {
-            options.append(
-                Option(type: .premium, selectionHandler: { [weak self] in
-                    self?.upgradePro()
-                })
-            )
-        }
         
         if languages.count > 0 {
             
@@ -324,7 +338,9 @@ extension SettingViewController {
             case region
             case rateUs
             case shareApp
-            case premium
+            case community
+            case blockList
+            case restorePurchase
         }
         
         let type: OptionType
@@ -339,12 +355,12 @@ extension SettingViewController {
                 return R.string.localizable.rateUs()
             case .shareApp:
                 return R.string.localizable.shareApp()
-            case .premium:
-                if Settings.shared.isProValue.value {
-                    return R.string.localizable.profilePro()// "PRO"
-                } else {
-                    return R.string.localizable.profileUnlockPro()// "Unlock PRO"
-                }
+            case .community:
+                return R.string.localizable.profileCommunity()
+            case .blockList:
+                return R.string.localizable.profileBlockUser()
+            case .restorePurchase:
+                return R.string.localizable.premiumRestorePurchases()
             }
         }
         
@@ -356,19 +372,17 @@ extension SettingViewController {
                 return R.image.ac_rate_us()
             case .shareApp:
                 return R.image.ac_share_app()
-            case .premium:
-                return R.image.ac_setting_diamonds()
+            case .community:
+                return R.image.ac_profile_communtiy()
+            case .blockList:
+                return R.image.ac_profile_block()
+            case .restorePurchase:
+                return R.image.ac_restore_purchases()
             }
         }
         
         var rightIcon: UIImage? {
             switch type {
-            case .premium:
-                if Settings.shared.isProValue.value {
-                    return nil
-                } else {
-                    return R.image.ac_right_arrow()
-                }
             default:
                 return R.image.ac_right_arrow()
             }

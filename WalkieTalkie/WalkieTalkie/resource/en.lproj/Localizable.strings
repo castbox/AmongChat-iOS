@@ -270,3 +270,4 @@
 "premium.period.free.trial" = "%1$@ Free Trial";
 "permium.yearly.product.price" = "Then %1$@"; //e.g. "Then $9.99/year"
 "premium.not.activated" = "Not activated yet";
+"premium.restore.purchases" = "Restore Purchases";

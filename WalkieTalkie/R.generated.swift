@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 143 images.
+  /// This `R.image` struct is generated, and contains static references to 144 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -270,12 +270,16 @@ struct R: Rswift.Validatable {
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
+    /// Image `ac_profile_settings`.
+    static let ac_profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_settings")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
     static let ac_rate_us = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_rate_us")
     /// Image `ac_red_dot`.
     static let ac_red_dot = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_red_dot")
+    /// Image `ac_restore_purchases`.
+    static let ac_restore_purchases = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_restore_purchases")
     /// Image `ac_right_arrow`.
     static let ac_right_arrow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_right_arrow")
     /// Image `ac_room_card2`.
@@ -426,8 +430,6 @@ struct R: Rswift.Validatable {
     static let profile_block_users = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_block_users")
     /// Image `profile_invite_friends`.
     static let profile_invite_friends = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_invite_friends")
-    /// Image `profile_settings`.
-    static let profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "profile_settings")
     /// Image `spark`.
     static let spark = Rswift.ImageResource(bundle: R.hostingBundle, name: "spark")
     /// Image `star_bg`.
@@ -743,6 +745,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_settings", bundle: ..., traitCollection: ...)`
+    static func ac_profile_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_settings, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
     static func ac_profile_username(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_username, compatibleWith: traitCollection)
@@ -756,6 +763,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_red_dot", bundle: ..., traitCollection: ...)`
     static func ac_red_dot(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_red_dot, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_restore_purchases", bundle: ..., traitCollection: ...)`
+    static func ac_restore_purchases(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_restore_purchases, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_right_arrow", bundle: ..., traitCollection: ...)`
@@ -1133,11 +1145,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.profile_invite_friends, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "profile_settings", bundle: ..., traitCollection: ...)`
-    static func profile_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.profile_settings, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "spark", bundle: ..., traitCollection: ...)`
     static func spark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.spark, compatibleWith: traitCollection)
@@ -1444,7 +1451,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 229 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 230 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2046,6 +2053,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingsRestoreTitle = Rswift.StringResource(key: "settings.restore.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Restore Purchases
+      /// 
+      /// Locales: en
+      static let premiumRestorePurchases = Rswift.StringResource(key: "premium.restore.purchases", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: SMS
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3411,6 +3422,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func settingsRestoreTitle(_: Void = ()) -> String {
         return NSLocalizedString("settings.restore.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Restore Purchases
+      /// 
+      /// Locales: en
+      static func premiumRestorePurchases(_: Void = ()) -> String {
+        return NSLocalizedString("premium.restore.purchases", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: SMS
