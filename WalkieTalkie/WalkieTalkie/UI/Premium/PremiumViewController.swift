@@ -14,16 +14,224 @@ import SnapKit
 
 class PremiumViewController: ViewController {
     
-    private lazy var iapTipsLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let lb = UILabel()
-        lb.textColor = .white
-        lb.numberOfLines = 0
-        lb.textAlignment = .center
-        lb.font = .systemFont(ofSize: 12)
-        lb.isHidden = true
+        lb.font = R.font.nunitoExtraBold(size: 24)
+        lb.textColor = UIColor.white
+        lb.text = R.string.localizable.profileUnlockPro()
         return lb
     }()
-    private var productMaps: [String: IAP.Product] = [:]
+    
+    private lazy var backBtn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.setImage(R.image.ac_back(), for: .normal)
+        btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
+        return btn
+    }()
+    
+    private lazy var layoutScrollView: UIScrollView = {
+        let v = UIScrollView()
+        v.showsVerticalScrollIndicator = false
+        v.showsHorizontalScrollIndicator = false
+        v.bounces = true
+        return v
+    }()
+    
+    private lazy var topBg: UIImageView = {
+        let i = UIImageView(image: R.image.ac_premium_bg())
+        return i
+    }()
+    
+    private lazy var avatarIV: AvatarImageView = {
+        let i = AvatarImageView()
+        return i
+    }()
+    
+    private lazy var nameLabel: UILabel = {
+        let l = UILabel()
+        l.font = R.font.nunitoExtraBold(size: 20)
+        l.textColor = .white
+        l.textAlignment = .center
+        l.lineBreakMode = .byTruncatingMiddle
+        return l
+    }()
+    
+    private lazy var badgeIcon: UIImageView = {
+        let i = UIImageView()
+        return i
+    }()
+    
+    private lazy var statusLabel: UILabel = {
+        let l = UILabel()
+        l.font = R.font.nunitoBold(size: 12)
+        l.textColor = UIColor(hex6: 0x898989)
+        l.textAlignment = .center
+        l.adjustsFontSizeToFitWidth = true
+        l.text = R.string.localizable.premiumNotActivated()
+        return l
+    }()
+    
+    private lazy var yearlyProductView: ProductView = {
+        let v = ProductView(with: .yearlyProduct)
+        v.isSelected = true
+        let gr = UITapGestureRecognizer(target: self, action: #selector(onProductViewTapped(_:)))
+        v.addGestureRecognizer(gr)
+        return v
+    }()
+    
+    private lazy var weeklyProductView: ProductView = {
+        let v = ProductView(with: .default)
+        v.isSelected = false
+        let gr = UITapGestureRecognizer(target: self, action: #selector(onProductViewTapped(_:)))
+        v.addGestureRecognizer(gr)
+        return v
+    }()
+
+    private lazy var monthlyProductView: ProductView = {
+        let v = ProductView(with: .default)
+        v.isSelected = false
+        let gr = UITapGestureRecognizer(target: self, action: #selector(onProductViewTapped(_:)))
+        v.addGestureRecognizer(gr)
+        return v
+    }()
+    
+    private lazy var productsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [weeklyProductView, yearlyProductView, monthlyProductView])
+        
+        weeklyProductView.snp.makeConstraints { (maker) in
+            maker.width.equalTo(90.scalValue)
+            maker.height.equalTo(weeklyProductView.snp.width).multipliedBy(124.0 / 90.0)
+        }
+        
+        yearlyProductView.snp.makeConstraints { (maker) in
+            maker.width.equalTo(131.scalValue)
+            maker.height.equalTo(yearlyProductView.snp.width).multipliedBy(175.0 / 131.0)
+        }
+        
+        monthlyProductView.snp.makeConstraints { (maker) in
+            maker.width.equalTo(90.scalValue)
+            maker.height.equalTo(monthlyProductView.snp.width).multipliedBy(124.0 / 90.0)
+        }
+        
+        stack.axis = .horizontal
+        stack.distribution = .equalSpacing
+        stack.alignment = .center
+        stack.spacing = 12
+        return stack
+    }()
+    
+    private lazy var continueBtn: UIButton = {
+        let btn = UIButton(type: .custom)
+        btn.layer.cornerRadius = 24
+        btn.backgroundColor = UIColor(hexString: "#FFF000")
+        btn.setTitle(R.string.localizable.guideContinue(), for: .normal)
+        btn.setTitleColor(.black, for: .normal)
+        btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+        btn.addTarget(self, action: #selector(onContinueBtn), for: .primaryActionTriggered)
+        return btn
+    }()
+    
+    private lazy var policyLabel: PolicyLabel = {
+        let terms = R.string.localizable.amongChatTermsService()
+        let privacy = R.string.localizable.amongChatPrivacyPolicy()
+        let text = R.string.localizable.amongChatPrivacyLabel(terms, privacy)
+
+        let lb = PolicyLabel(with: text, privacy: privacy, terms: terms)
+        lb.onInteration = { [weak self] targetPath in
+            self?.open(urlSting: targetPath)
+        }
+        lb.textColor = UIColor(hex6: 0x898989)
+        return lb
+    }()
+    
+    private lazy var privilegesTitle: UILabel = {
+        let l = UILabel()
+        l.font = R.font.nunitoBlack(size: 20)
+        l.textColor = .white
+        l.textAlignment = .center
+        l.adjustsFontSizeToFitWidth = true
+        l.text = R.string.localizable.amongChatProPrivilegesTitle()
+        return l
+    }()
+    
+    private lazy var privLeftLine: UIImageView = {
+        let i = UIImageView(image: R.image.ac_privileges_left_line())
+        return i
+    }()
+    
+    private lazy var privRightLine: UIImageView = {
+        let i = UIImageView(image: R.image.ac_privileges_right_line())
+        return i
+    }()
+    
+    private lazy var privilegeStack: UIStackView = {
+        let privilegeViewModels = [
+            (
+                R.image.ac_pro_privilege_no_ad(),
+                R.string.localizable.amongChatProPrivilegeNoAd(),
+                R.string.localizable.amongChatProPrivilegeNoAdSub()
+            ),
+            (
+                R.image.ac_pro_privilege_unlimited_cards(),
+                R.string.localizable.amongChatProPrivilegeUnlimitedCards(),
+                R.string.localizable.amongChatProPrivilegeUnlimitedCardsSub()
+            ),
+            (
+                R.image.ac_pro_privilege_badge(),
+                R.string.localizable.amongChatProPrivilegeBadge(),
+                R.string.localizable.amongChatProPrivilegeBadgeSub()
+            ),
+            (
+                R.image.ac_pro_privilege_match(),
+                R.string.localizable.amongChatProPrivilegeMatch(),
+                R.string.localizable.amongChatProPrivilegeMatchSub()
+            ),
+            (
+                R.image.ac_pro_privilege_special_avatars(),
+                R.string.localizable.amongChatProPrivilegeAvatars(),
+                R.string.localizable.amongChatProPrivilegeAvatarsSub()
+            )
+        ]
+        
+        let privilegeViews: [PrivilegeView] = privilegeViewModels.map {
+            let view = PrivilegeView()
+            view.iconIV.image = $0.0
+            view.titleLabel.text = $0.1
+            view.subtitleLabel.text = $0.2
+            return view
+        }
+        let stack = UIStackView(arrangedSubviews: privilegeViews)
+        stack.axis = .vertical
+        stack.distribution = .equalSpacing
+        stack.spacing = 24
+        return stack
+    }()
+    
+    private var weekProduct: IAP.ProductInfo? = nil {
+        didSet {
+            guard let p = weekProduct else { return }
+            weeklyProductView.titleLabel.text = p.priceInfo.adj_renewalPeriod.firstCharacterUpperCase()
+            weeklyProductView.subtitleLabel.text = p.priceInfo.price
+        }
+    }
+    
+    private var monthProduct: IAP.ProductInfo? = nil {
+        didSet {
+            guard let p = monthProduct else { return }
+            monthlyProductView.titleLabel.text = p.priceInfo.adj_renewalPeriod.firstCharacterUpperCase()
+            monthlyProductView.subtitleLabel.text = p.priceInfo.price
+        }
+    }
+    
+    private var yearProduct: IAP.ProductInfo? = nil {
+        didSet {
+            guard let p = yearProduct else { return }
+            yearlyProductView.titleLabel.text = R.string.localizable.premiumPeriodFreeTrial(p.priceInfo.freePeriod)
+            yearlyProductView.subtitleLabel.text = R.string.localizable.permiumYearlyProductPrice("\(p.priceInfo.price) / \(p.priceInfo.renewalPeriod)")
+        }
+    }
+    
+    private lazy var selectedProduct: String = IAP.productYear
     
     var source: Logger.IAP.ActionSource?
     var dismissHandler: ((_ purchased: Bool) -> Void)?
@@ -69,19 +277,63 @@ class PremiumViewController: ViewController {
 
 extension PremiumViewController {
     
+    @objc
+    private func onContinueBtn() {
+        buy(identifier: selectedProduct)
+    }
+    
+    @objc
+    private func onBackBtn() {
+        dismissSelf()
+    }
+    
+    @objc
+    private func onProductViewTapped(_ sender: UITapGestureRecognizer) {
+        
+        guard let view = sender.view as? ProductView else {
+            return
+        }
+        
+        productsStack.arrangedSubviews.forEach {
+            guard let v = $0 as? ProductView else { return}
+            v.isSelected = false
+        }
+        
+        view.isSelected = true
+        
+        switch view {
+        case yearlyProductView:
+            selectedProduct = IAP.productYear
+        case monthlyProductView:
+            selectedProduct = IAP.productMonth
+        case weeklyProductView:
+            selectedProduct = IAP.productWeek
+        default:
+            ()
+        }
+        
+    }
+}
+
+extension PremiumViewController {
+    
     private func setupProduct() {
-        IAP.productsValue
+        IAP.productInfoMap
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] (map) in
             guard let `self` = self else { return }
-            self.productMaps = map
+            
+            self.weekProduct = map[IAP.productWeek]
+            self.yearProduct = map[IAP.productYear]
+            self.monthProduct = map[IAP.productMonth]
+            
             })
             .disposed(by: bag)
     }
     
     //for
     
-    func buy(identifier: String) {
+    private func buy(identifier: String) {
                 
         if let s = self.source {
             Logger.IAP.logPurchase(productId: identifier, source: s)
@@ -136,10 +388,302 @@ extension PremiumViewController {
         }
     }
     
-    func bindSubviewEvent() {
+    private func bindSubviewEvent() {
         
+        Settings.shared.amongChatUserProfile.replay()
+            .filterNil()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (p) in
+                self?.avatarIV.updateAvatar(with: p)
+                self?.nameLabel.text = p.name
+                
+            })
+            .disposed(by: bag)
     }
     
-    func configureSubview() {
+    private func configureSubview() {
+        
+        view.addSubviews(views:topBg, backBtn, titleLabel, layoutScrollView)
+        
+        let navLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(navLayoutGuide)
+        navLayoutGuide.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.height.equalTo(49)
+        }
+        
+        backBtn.snp.makeConstraints { (maker) in
+            maker.leading.equalToSuperview().offset(20)
+            maker.centerY.equalTo(navLayoutGuide)
+        }
+        
+        titleLabel.snp.makeConstraints { (maker) in
+            maker.center.equalTo(navLayoutGuide)
+        }
+        
+        topBg.snp.makeConstraints { (maker) in
+            maker.top.leading.trailing.equalToSuperview()
+        }
+        
+        layoutScrollView.snp.makeConstraints { (maker) in
+            maker.leading.bottom.trailing.equalToSuperview()
+            maker.top.equalTo(navLayoutGuide.snp.bottom)
+        }
+        
+        layoutScrollView.addSubviews(views: avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
+                                     continueBtn, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
+        
+        avatarIV.snp.makeConstraints { (maker) in
+            maker.top.equalToSuperview().inset(24)
+            maker.width.height.equalTo(60)
+            maker.centerX.equalToSuperview()
+        }
+        
+        let nameLayoutGuide = UILayoutGuide()
+        layoutScrollView.addLayoutGuide(nameLayoutGuide)
+        nameLayoutGuide.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+        }
+        
+        nameLabel.snp.makeConstraints { (maker) in
+            maker.leading.top.bottom.equalTo(nameLayoutGuide)
+            maker.top.equalTo(avatarIV.snp.bottom).offset(4.5)
+        }
+        
+        badgeIcon.snp.makeConstraints { (maker) in
+            maker.trailing.centerY.equalTo(nameLayoutGuide)
+            maker.leading.equalTo(nameLabel.snp.trailing).offset(4)
+        }
+        
+        statusLabel.snp.makeConstraints { (maker) in
+            maker.top.equalTo(nameLabel.snp.bottom).offset(1)
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+        }
+        
+        productsStack.snp.makeConstraints { (maker) in
+            maker.top.equalTo(statusLabel.snp.bottom).offset(40)
+            maker.centerX.equalToSuperview()
+        }
+        
+        continueBtn.snp.makeConstraints { (maker) in
+            maker.leading.equalToSuperview().inset(20)
+            maker.top.equalTo(productsStack.snp.bottom).offset(20)
+            maker.height.equalTo(48)
+            maker.centerX.equalToSuperview()
+        }
+        
+        policyLabel.snp.makeConstraints { (maker) in
+            maker.leading.equalToSuperview().inset(20)
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(continueBtn.snp.bottom).offset(12)
+        }
+        
+        privilegesTitle.snp.makeConstraints { (maker) in
+            maker.top.equalTo(policyLabel.snp.bottom).offset(56)
+            maker.centerX.equalToSuperview()
+        }
+        
+        privLeftLine.snp.makeConstraints { (maker) in
+            maker.leading.greaterThanOrEqualToSuperview().offset(20)
+            maker.centerY.equalTo(privilegesTitle)
+            maker.trailing.equalTo(privilegesTitle.snp.leading).offset(-8)
+        }
+        
+        privRightLine.snp.makeConstraints { (maker) in
+            maker.trailing.greaterThanOrEqualToSuperview().inset(20)
+            maker.centerY.equalTo(privilegesTitle)
+            maker.leading.equalTo(privilegesTitle.snp.trailing).offset(8)
+        }
+        
+        privilegeStack.snp.makeConstraints { (maker) in
+            maker.leading.equalToSuperview().inset(20)
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(privilegesTitle.snp.bottom).offset(20)
+            maker.bottom.equalToSuperview().offset(-28)
+        }
+        
+    }
+}
+
+extension PremiumViewController {
+    
+    class PrivilegeView: UIView {
+        
+        let iconIV: UIImageView = {
+            let i = UIImageView()
+            return i
+        }()
+        
+        let titleLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoExtraBold(size: 16)
+            l.textColor = .white
+            l.adjustsFontSizeToFitWidth = true
+            return l
+        }()
+        
+        let subtitleLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoBold(size: 12)
+            l.textColor = UIColor(hex6: 0x898989)
+            l.adjustsFontSizeToFitWidth = true
+            return l
+        }()
+        
+        init() {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            addSubviews(views: iconIV, titleLabel, subtitleLabel)
+            
+            iconIV.snp.makeConstraints { (maker) in
+                maker.leading.centerY.equalToSuperview()
+                maker.width.height.equalTo(40)
+                maker.top.bottom.equalToSuperview().inset(4.5)
+            }
+            
+            let textLayoutGuide = UILayoutGuide()
+            addLayoutGuide(textLayoutGuide)
+            textLayoutGuide.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(iconIV.snp.trailing).offset(8)
+                maker.trailing.centerY.equalToSuperview()
+                maker.top.lessThanOrEqualToSuperview()
+            }
+            
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.leading.top.trailing.equalTo(textLayoutGuide)
+            }
+            
+            subtitleLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.bottom.equalTo(textLayoutGuide)
+                maker.top.equalTo(titleLabel.snp.bottom)
+            }
+        }
+    }
+    
+}
+
+extension PremiumViewController {
+    
+    class ProductView: UIView {
+        
+        enum Style {
+            case yearlyProduct
+            case `default`
+        }
+        
+        var isSelected: Bool = false {
+            didSet {
+                if isSelected {
+                    layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+                } else {
+                    layer.borderColor = UIColor(hex6: 0x474747).cgColor
+                }
+            }
+        }
+        
+        let titleLabel: UILabel = {
+            let l = UILabel()
+            l.textAlignment = .center
+            return l
+        }()
+        
+        let subtitleLabel: UILabel = {
+            let l = UILabel()
+            l.textAlignment = .center
+            return l
+        }()
+        
+        private let style: Style
+
+        init(with style: Style) {
+            self.style = style
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            updateLayout()
+        }
+        
+        private func setupLayout() {
+            layer.cornerRadius = 12
+            layer.borderWidth = 3
+            
+            addSubviews(views: titleLabel, subtitleLabel)
+            
+        }
+        
+        private func updateLayout() {
+            switch style {
+            case .yearlyProduct:
+                
+                titleLabel.snp.remakeConstraints { (maker) in
+                    maker.top.equalToSuperview().inset(bounds.height * 36.0 / 175.0)
+                    maker.leading.trailing.equalToSuperview().inset(bounds.width * 12.0 / 131.0)
+                }
+                
+                titleLabel.font = R.font.nunitoExtraBold(size: 22)
+                titleLabel.textColor = .white
+                titleLabel.adjustsFontSizeToFitWidth = true
+                titleLabel.lineBreakMode = .byWordWrapping
+                titleLabel.numberOfLines = 2
+                
+                subtitleLabel.snp.remakeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(bounds.width * 12.0 / 131.0)
+                    maker.bottom.equalToSuperview().inset(bounds.height * 20.0 / 175.0)
+                }
+                
+                subtitleLabel.font = R.font.nunitoBold(size: 12)
+                subtitleLabel.textColor = UIColor(hex6: 0x898989)
+                subtitleLabel.adjustsFontSizeToFitWidth = true
+                subtitleLabel.numberOfLines = 1
+                
+            case .default:
+                
+                let layoutGuide = UILayoutGuide()
+                addLayoutGuide(layoutGuide)
+                layoutGuide.snp.makeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(bounds.width * 7.0 / 90.0)
+                    maker.centerY.equalToSuperview()
+                }
+                
+                titleLabel.snp.remakeConstraints { (maker) in
+                    maker.leading.top.trailing.equalTo(layoutGuide)
+                }
+                
+                titleLabel.font = R.font.nunitoExtraBold(size: 14)
+                titleLabel.textColor = .white
+                titleLabel.adjustsFontSizeToFitWidth = true
+                titleLabel.numberOfLines = 1
+                
+                subtitleLabel.snp.remakeConstraints { (maker) in
+                    maker.leading.bottom.trailing.equalTo(layoutGuide)
+                    maker.top.equalTo(titleLabel.snp.bottom).offset(3)
+                }
+                
+                subtitleLabel.font = R.font.nunitoExtraBold(size: 22)
+                subtitleLabel.textColor = .white
+                subtitleLabel.adjustsFontSizeToFitWidth = true
+                subtitleLabel.numberOfLines = 1
+            }
+            
+        }
+        
+        
     }
 }

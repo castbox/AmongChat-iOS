@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2604716225ADA878007D88AE /* Bungee-Regular.ttf */; };
+		26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26057F8825C1712900718D3E /* AvatarImageView.swift */; };
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
@@ -298,6 +299,7 @@
 
 /* Begin PBXFileReference section */
 		2604716225ADA878007D88AE /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
+		26057F8825C1712900718D3E /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 				FE392C672466C5AA00A2CCF3 /* KernUI.swift */,
 				2B956770259B5781001C7B91 /* NoDataView.swift */,
 				2B6B5F4925A32E9F009D028D /* TableViewCell.swift */,
+				26057F8825C1712900718D3E /* AvatarImageView.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -1661,6 +1664,7 @@
 				FE7CE9E32589E5450067952C /* AmongRoomBottomBar.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE7218752456DA36005274CA /* Extension.swift in Sources */,
+				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
