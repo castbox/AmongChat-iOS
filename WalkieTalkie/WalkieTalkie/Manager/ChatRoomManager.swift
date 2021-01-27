@@ -22,6 +22,8 @@ protocol ChatRoomDelegate: class {
     func onMemberListUpdated(userId: String?)
 
     func onUserStatusChanged(userId: UInt, muted: Bool)
+    
+    func onUserOnlineStateChanged(uid: UInt, isOnline: Bool)
 
     func onAudioMixingStateChanged(isPlaying: Bool)
 
@@ -277,12 +279,13 @@ extension ChatRoomManager: RtcDelegate {
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
         if isOnline {
             mChannelData.addOrUpdateUserStatus(uid, false)
-            delegate?.onUserStatusChanged(userId: uid, muted: false)
+//            delegate?.onUserStatusChanged(userId: uid, muted: false)
         } else {
             mChannelData.removeUserStatus(uid)
 
-            delegate?.onUserStatusChanged(userId: uid, muted: true)
+//            delegate?.onUserStatusChanged(userId: uid, muted: true)
         }
+        delegate?.onUserOnlineStateChanged(uid: uid, isOnline: isOnline)
     }
 
     func onUserMuteAudio(uid: UInt, muted: Bool) {
