@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 142 images.
+  /// This `R.image` struct is generated, and contains static references to 143 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -252,6 +252,8 @@ struct R: Rswift.Validatable {
     static let ac_pro_privilege_unlimited_cards = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_unlimited_cards")
     /// Image `ac_pro_unbuy_badge`.
     static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
+    /// Image `ac_pro_unlocked_badge`.
+    static let ac_pro_unlocked_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unlocked_badge")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_birthday`.
@@ -694,6 +696,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_unbuy_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_unbuy_badge, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_unlocked_badge", bundle: ..., traitCollection: ...)`
+    static func ac_pro_unlocked_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_unlocked_badge, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`

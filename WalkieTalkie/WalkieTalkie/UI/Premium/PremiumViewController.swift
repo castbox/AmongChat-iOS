@@ -267,11 +267,8 @@ class PremiumViewController: ViewController {
     }
     
     private func dismissSelf(purchased: Bool = false) {
-        if let handler = dismissHandler {
-            handler(purchased)
-        } else {
-            dismiss(animated: true, completion: nil)
-        }
+        dismissHandler?(purchased)
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -399,6 +396,22 @@ extension PremiumViewController {
                 
             })
             .disposed(by: bag)
+        
+        Settings.shared.isProValue.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (isPro) in
+                self?.badgeIcon.image = isPro ? R.image.ac_pro_unlocked_badge() : R.image.ac_pro_unbuy_badge()
+                
+                guard isPro else { return }
+                
+                self?.statusLabel.removeFromSuperview()
+                self?.productsStack.removeFromSuperview()
+                self?.continueBtn.removeFromSuperview()
+                self?.policyLabel.removeFromSuperview()
+                
+            })
+            .disposed(by: bag)
+
     }
     
     private func configureSubview() {
@@ -457,8 +470,16 @@ extension PremiumViewController {
             maker.leading.equalTo(nameLabel.snp.trailing).offset(4)
         }
         
+        let removableContentlayoutGuide = UILayoutGuide()
+        
+        layoutScrollView.addLayoutGuide(removableContentlayoutGuide)
+        removableContentlayoutGuide.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(nameLabel.snp.bottom)
+        }
+        
         statusLabel.snp.makeConstraints { (maker) in
-            maker.top.equalTo(nameLabel.snp.bottom).offset(1)
+            maker.top.equalTo(removableContentlayoutGuide).offset(1)
             maker.centerX.equalToSuperview()
             maker.leading.greaterThanOrEqualToSuperview().offset(20)
         }
@@ -479,10 +500,11 @@ extension PremiumViewController {
             maker.leading.equalToSuperview().inset(20)
             maker.centerX.equalToSuperview()
             maker.top.equalTo(continueBtn.snp.bottom).offset(12)
+            maker.bottom.equalTo(removableContentlayoutGuide)
         }
         
         privilegesTitle.snp.makeConstraints { (maker) in
-            maker.top.equalTo(policyLabel.snp.bottom).offset(56)
+            maker.top.equalTo(removableContentlayoutGuide.snp.bottom).offset(56)
             maker.centerX.equalToSuperview()
         }
         
