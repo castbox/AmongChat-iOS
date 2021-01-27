@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 133 images.
+  /// This `R.image` struct is generated, and contains static references to 142 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -234,6 +234,24 @@ struct R: Rswift.Validatable {
     static let ac_login_wrong_code_bubble = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_code_bubble")
     /// Image `ac_login_wrong_emoji`.
     static let ac_login_wrong_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_wrong_emoji")
+    /// Image `ac_premium_bg`.
+    static let ac_premium_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_premium_bg")
+    /// Image `ac_privileges_left_line`.
+    static let ac_privileges_left_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_left_line")
+    /// Image `ac_privileges_right_line`.
+    static let ac_privileges_right_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_right_line")
+    /// Image `ac_pro_privilege_badge`.
+    static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
+    /// Image `ac_pro_privilege_match`.
+    static let ac_pro_privilege_match = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_match")
+    /// Image `ac_pro_privilege_no_ad`.
+    static let ac_pro_privilege_no_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_no_ad")
+    /// Image `ac_pro_privilege_special_avatars`.
+    static let ac_pro_privilege_special_avatars = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_special_avatars")
+    /// Image `ac_pro_privilege_unlimited_cards`.
+    static let ac_pro_privilege_unlimited_cards = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_unlimited_cards")
+    /// Image `ac_pro_unbuy_badge`.
+    static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_birthday`.
@@ -631,6 +649,51 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_wrong_emoji", bundle: ..., traitCollection: ...)`
     static func ac_login_wrong_emoji(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_wrong_emoji, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_premium_bg", bundle: ..., traitCollection: ...)`
+    static func ac_premium_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_premium_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_privileges_left_line", bundle: ..., traitCollection: ...)`
+    static func ac_privileges_left_line(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_privileges_left_line, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_privileges_right_line", bundle: ..., traitCollection: ...)`
+    static func ac_privileges_right_line(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_privileges_right_line, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_badge, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_match", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_match(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_match, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_no_ad", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_no_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_no_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_special_avatars", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_special_avatars(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_special_avatars, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_unlimited_cards", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_unlimited_cards(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_unlimited_cards, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
+    static func ac_pro_unbuy_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_unbuy_badge, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
@@ -1374,12 +1437,16 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 215 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 229 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCongrat = Rswift.StringResource(key: "among.chat.login.congrat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %1$@ Free Trial
+      /// 
+      /// Locales: en
+      static let premiumPeriodFreeTrial = Rswift.StringResource(key: "premium.period.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %1$@ online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1564,6 +1631,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Enjoy the ad-free version
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeNoAdSub = Rswift.StringResource(key: "among.chat.pro.privilege.no.ad.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Enjoy these awesome things! ✔️ Secret channels ✔️ Unlimited talking rights
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1576,6 +1647,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongusServerNorthEurope = Rswift.StringResource(key: "amongus.server.north.europe", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Exclusive PRO badge
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeBadge = Rswift.StringResource(key: "among.chat.pro.privilege.badge", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Exit channel
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1620,6 +1695,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthFeb = Rswift.StringResource(key: "month.feb", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Feel free to create channels
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeUnlimitedCardsSub = Rswift.StringResource(key: "among.chat.pro.privilege.unlimited.cards.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Find friends of the same age
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1788,6 +1867,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let searchPlaceholder = Rswift.StringResource(key: "search.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: No ads
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeNoAd = Rswift.StringResource(key: "among.chat.pro.privilege.no.ad", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: No purchases were found on your account
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1796,6 +1879,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongusServerNorthAmerica = Rswift.StringResource(key: "amongus.server.north.america", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Not activated yet
+      /// 
+      /// Locales: en
+      static let premiumNotActivated = Rswift.StringResource(key: "premium.not.activated", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Nov
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1856,6 +1943,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profilePro = Rswift.StringResource(key: "profile.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: PRO privileges
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegesTitle = Rswift.StringResource(key: "among.chat.pro.privileges.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: PUBG PLAYER NAME/ID
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1920,6 +2011,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let pushSetting = Rswift.StringResource(key: "push.setting", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Quicker to find friends & team up
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeMatchSub = Rswift.StringResource(key: "among.chat.pro.privilege.match.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ROBLOX USERNAME
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2040,6 +2135,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Special avatars
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeAvatars = Rswift.StringResource(key: "among.chat.pro.privilege.avatars", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Stand out among friends
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeBadgeSub = Rswift.StringResource(key: "among.chat.pro.privilege.badge.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Start
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2064,6 +2167,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatTermsService = Rswift.StringResource(key: "among.chat.terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Then %1$@
+      /// 
+      /// Locales: en
+      static let permiumYearlyProductPrice = Rswift.StringResource(key: "permium.yearly.product.price", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This channel is private
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2080,6 +2187,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowSubtitle = Rswift.StringResource(key: "microphone.not.allow.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Top priority to match
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeMatch = Rswift.StringResource(key: "among.chat.pro.privilege.match", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Try again
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2100,6 +2211,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatUnknownError = Rswift.StringResource(key: "among.chat.unknown.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Unlimited SPACE cards
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeUnlimitedCards = Rswift.StringResource(key: "among.chat.pro.privilege.unlimited.cards", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlock PRO
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2144,6 +2259,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileOverrite = Rswift.StringResource(key: "among.chat.profile.overrite", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You are the coolest player
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeAvatarsSub = Rswift.StringResource(key: "among.chat.pro.privilege.avatars.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2242,6 +2361,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginCongrat(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.congrat", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: %1$@ Free Trial
+      /// 
+      /// Locales: en
+      static func premiumPeriodFreeTrial(_ value1: String) -> String {
+        return String(format: NSLocalizedString("premium.period.free.trial", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %1$@ online
@@ -2566,6 +2692,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Enjoy the ad-free version
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeNoAdSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.no.ad.sub", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Enjoy these awesome things! ✔️ Secret channels ✔️ Unlimited talking rights
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2585,6 +2718,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongusServerNorthEurope(_: Void = ()) -> String {
         return NSLocalizedString("amongus.server.north.europe", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Exclusive PRO badge
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeBadge(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.badge", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Exit channel
@@ -2662,6 +2802,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func monthFeb(_: Void = ()) -> String {
         return NSLocalizedString("month.feb", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Feel free to create channels
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeUnlimitedCardsSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.unlimited.cards.sub", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Find friends of the same age
@@ -2958,6 +3105,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("search.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: No ads
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeNoAd(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.no.ad", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: No purchases were found on your account
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2970,6 +3124,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongusServerNorthAmerica(_: Void = ()) -> String {
         return NSLocalizedString("amongus.server.north.america", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Not activated yet
+      /// 
+      /// Locales: en
+      static func premiumNotActivated(_: Void = ()) -> String {
+        return NSLocalizedString("premium.not.activated", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Nov
@@ -3075,6 +3236,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePro(_: Void = ()) -> String {
         return NSLocalizedString("profile.pro", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: PRO privileges
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegesTitle(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privileges.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PUBG PLAYER NAME/ID
@@ -3187,6 +3355,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func pushSetting(_: Void = ()) -> String {
         return NSLocalizedString("push.setting", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Quicker to find friends & team up
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeMatchSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.match.sub", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: ROBLOX USERNAME
@@ -3399,6 +3574,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Special avatars
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeAvatars(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.avatars", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Stand out among friends
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeBadgeSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.badge.sub", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Start
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3441,6 +3630,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.terms.service", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Then %1$@
+      /// 
+      /// Locales: en
+      static func permiumYearlyProductPrice(_ value1: String) -> String {
+        return String(format: NSLocalizedString("permium.yearly.product.price", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: This channel is private
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3467,6 +3663,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func microphoneNotAllowSubtitle(_: Void = ()) -> String {
         return NSLocalizedString("microphone.not.allow.subtitle", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Top priority to match
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeMatch(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.match", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Try again
@@ -3502,6 +3705,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatUnknownError(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.unknown.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Unlimited SPACE cards
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeUnlimitedCards(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.unlimited.cards", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Unlock PRO
@@ -3579,6 +3789,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileOverrite(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.overrite", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You are the coolest player
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeAvatarsSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.avatars.sub", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have successfully  blocked this person
