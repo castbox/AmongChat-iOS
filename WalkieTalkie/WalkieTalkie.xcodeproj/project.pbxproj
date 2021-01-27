@@ -250,6 +250,8 @@
 		FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */; };
 		FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */; };
 		FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */; };
+		FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */; };
+		FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
@@ -583,6 +585,8 @@
 		FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongRoomToolView.xib; sourceTree = "<group>"; };
 		FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNickNameView.swift; sourceTree = "<group>"; };
 		FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNickNameView.xib; sourceTree = "<group>"; };
+		FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarGuideViewController.swift; sourceTree = "<group>"; };
+		FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarGuideViewController.xib; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -715,6 +719,8 @@
 				FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */,
 				FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */,
 				FE80A58325AD96BB009914A7 /* Search.ViewController.swift */,
+				FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */,
+				FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1413,6 +1419,7 @@
 				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
+				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
 				FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
@@ -1648,6 +1655,7 @@
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
+				FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */,
 				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,

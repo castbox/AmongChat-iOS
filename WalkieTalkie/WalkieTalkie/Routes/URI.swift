@@ -153,6 +153,17 @@ extension URI {
         }
     }
     
+    struct Avatars: URIRepresentable {
+        static func patterns() -> [String] {
+            return [
+                "/avatars"
+            ]
+        }
+        
+        init?(_ paras: [String : Any]) {
+        }
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

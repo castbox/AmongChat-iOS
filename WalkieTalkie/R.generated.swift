@@ -1151,7 +1151,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 24 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 25 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1177,6 +1177,8 @@ struct R: Rswift.Validatable {
     static let amongSheetIconItemCell = _R.nib._AmongSheetIconItemCell()
     /// Nib `AmongSheetUserCell`.
     static let amongSheetUserCell = _R.nib._AmongSheetUserCell()
+    /// Nib `AvatarGuideViewController`.
+    static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `GuideFirstView`.
@@ -1272,6 +1274,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetUserCell) instead")
     static func amongSheetUserCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongSheetUserCell)
+    }
+    
+    /// `UINib(name: "AvatarGuideViewController", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.avatarGuideViewController) instead")
+    static func avatarGuideViewController(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.avatarGuideViewController)
     }
     
     /// `UINib(name: "EndUserLicenseController", in: bundle)`
@@ -1392,6 +1400,10 @@ struct R: Rswift.Validatable {
     
     static func amongSheetUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
       return R.nib.amongSheetUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
+    }
+    
+    static func avatarGuideViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.avatarGuideViewController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1534,7 +1546,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 229 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 231 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1968,6 +1980,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBagNickname = Rswift.StringResource(key: "profile.bag.nickname", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: New Avatars
+      /// 
+      /// Locales: en
+      static let newAvatarsGuideTitle = Rswift.StringResource(key: "new.avatars.guide.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2336,6 +2352,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardConsumeContent = Rswift.StringResource(key: "among.chat.create.room.card.consume.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
+      /// 
+      /// Locales: en
+      static let newAvatarsGuideSubtitle = Rswift.StringResource(key: "new.avatars.guide.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Watch a short video to get one.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3209,6 +3229,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.bag.nickname", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: New Avatars
+      /// 
+      /// Locales: en
+      static func newAvatarsGuideTitle(_: Void = ()) -> String {
+        return NSLocalizedString("new.avatars.guide.title", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Next
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3853,6 +3880,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.card.consume.content", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
+      /// 
+      /// Locales: en
+      static func newAvatarsGuideSubtitle(_: Void = ()) -> String {
+        return NSLocalizedString("new.avatars.guide.subtitle", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Watch a short video to get one.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4086,6 +4120,7 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
+      try _AvatarGuideViewController.validate()
       try _GuideFirstView.validate()
       try _GuideFourthView.validate()
       try _GuideFourthView_b.validate()
@@ -4253,6 +4288,23 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AvatarGuideViewController: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AvatarGuideViewController"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_profile_close", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_close' is used in nib 'AvatarGuideViewController', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}
