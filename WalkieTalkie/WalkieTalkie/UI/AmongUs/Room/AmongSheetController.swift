@@ -81,7 +81,7 @@ extension AmongSheetController: UITableViewDataSource, UITableViewDelegate {
         if item == .userInfo {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AmongSheetUserCell", for: indexPath) as! AmongSheetUserCell
             cell.userIconView.setAvatarImage(with: user?.pictureUrl)
-            cell.nameLabel.text = user?.name
+            cell.nameLabel.attributedText = user?.nameWithVerified()
             return cell
         } else {
             let iconCell = tableView.dequeueReusableCell(withIdentifier: "AmongSheetIconItemCell", for: indexPath) as! AmongSheetIconItemCell

@@ -79,6 +79,7 @@
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
 		FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */; };
+		FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */; };
 		FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D17243461E800BEDD60 /* AppDelegate.swift */; };
 		FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D1D243461E800BEDD60 /* Main.storyboard */; };
 		FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE126D20243461EA00BEDD60 /* Assets.xcassets */; };
@@ -249,6 +250,8 @@
 		FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */; };
 		FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */; };
 		FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */; };
+		FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */; };
+		FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
@@ -259,6 +262,7 @@
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD68DD258BA42900977579 /* EncodableExtension.swift */; };
 		FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */ = {isa = PBXBuildFile; fileRef = FEB6E6D225B5A9E3002C6946 /* login_bg.svga */; };
+		FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */; };
 		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
 		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
 		FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */; };
@@ -404,6 +408,7 @@
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewController.swift; sourceTree = "<group>"; };
+		FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.InviteFirendsViewModel.swift; sourceTree = "<group>"; };
 		FE126D14243461E800BEDD60 /* AmongChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmongChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D17243461E800BEDD60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE126D1E243461E800BEDD60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -580,6 +585,8 @@
 		FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongRoomToolView.xib; sourceTree = "<group>"; };
 		FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNickNameView.swift; sourceTree = "<group>"; };
 		FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNickNameView.xib; sourceTree = "<group>"; };
+		FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarGuideViewController.swift; sourceTree = "<group>"; };
+		FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarGuideViewController.xib; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -590,6 +597,7 @@
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD68DD258BA42900977579 /* EncodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
 		FEB6E6D225B5A9E3002C6946 /* login_bg.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = login_bg.svga; sourceTree = "<group>"; };
+		FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ContactListViewController.swift; sourceTree = "<group>"; };
 		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.CastboxBackend.swift; sourceTree = "<group>"; };
@@ -667,6 +675,7 @@
 			children = (
 				2BAB4F822595E25600A1C8DC /* Social.ShareRoomViewController.swift */,
 				FE125F5E25B7D92800609D81 /* Social.InviteFirendsViewController.swift */,
+				FE125F6225B841F900609D81 /* Social.InviteFirendsViewModel.swift */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -710,6 +719,8 @@
 				FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */,
 				FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */,
 				FE80A58325AD96BB009914A7 /* Search.ViewController.swift */,
+				FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */,
+				FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -786,6 +797,7 @@
 				2B956765259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift */,
 				BD95F2DB2591C73B003BE2FE /* Social.SelectAvatarViewController.swift */,
 				2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */,
+				FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */,
 				BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */,
 				FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */,
 				FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */,
@@ -1407,6 +1419,7 @@
 				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
+				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
 				FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
@@ -1642,6 +1655,8 @@
 				FE4FDAD32435B98D00CD5E97 /* Frame.swift in Sources */,
 				FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */,
 				FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */,
+				FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */,
+				FE125F6325B841F900609D81 /* Social.InviteFirendsViewModel.swift in Sources */,
 				FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */,
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,
 				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,
@@ -1715,6 +1730,7 @@
 				FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */,
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
+				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,

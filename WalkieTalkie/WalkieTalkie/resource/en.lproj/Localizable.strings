@@ -254,3 +254,24 @@
 "among.chat.login.congrat" = " Congratulations!";
 "among.chat.profile.sign.in" = "Sign in/Sign up";
 "among.chat.profile.overrite" = "You already have an account linked to this method. To continue, your current data would be overwritten and lost.";
+
+
+
+//20201119 new
+"login" = "Log in";
+"change.old.title" = "%@ old";
+"social.share.link" = "Share link";
+"social.invite.contact" = "Contact";
+"social.invite.contact.mobile" = "Find friends in your contacts";
+"big.enable" = "Enable";
+"big.go" = "Go";
+"social.contact.denied.title" = "Please go to your phone Settings to enable the permission ";
+"social.add.new" = "Add New Friends";
+"social.contact.firends.count" = "%@ friends on AmongChat";
+"social.suggested.contacts" = "Suggested contacts";
+"social.see.all" = "See all";
+"contact.search.input.placeholder" = "Search by name";
+"contact.search.title" = "Contacts";
+"device.not.support.send.message" = "Sorry, your device do not support send message";
+"new.avatars.guide.title" = "New Avatars";
+"new.avatars.guide.subtitle" = "Wanna be more attractive and make more friends? Cool avatars are ready for you!";

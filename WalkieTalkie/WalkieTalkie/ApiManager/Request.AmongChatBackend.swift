@@ -92,8 +92,9 @@ extension Request {
             })
     }
     
-    static func profile() -> Single<Entity.UserProfile?> {
-        return amongchatProvider.rx.request(.profile)
+    static func profile(_ uid: Int? = nil) -> Single<Entity.UserProfile?> {
+        let paras = ["uid": uid ?? Settings.loginUserId ?? 0]
+        return amongchatProvider.rx.request(.profile(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
@@ -494,6 +495,22 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func upload(contacts: [Entity.ContactFriend]) -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactUpload(["contacts": contacts.map { $0.dictionary! }]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func contactList() -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactList)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
     static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
         let params = [
             "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",

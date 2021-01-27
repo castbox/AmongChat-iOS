@@ -367,6 +367,16 @@ class Settings {
         set { Defaults[\.amongChatRtmToken] = newValue}
     }
     
+    var canShowAvatarGuide: Bool {
+        let privious = Defaults[\.avatarGuideUpdateTime]
+        let current = Date().string(withFormat: "yyyy-MM-dd")
+        guard privious != current  else {
+            return false
+        }
+        Defaults[\.avatarGuideUpdateTime] = current
+        return true
+    }
+    
     func startObserver() {
         loginResult.replay()
             .subscribe(onNext: { [weak self] result in
@@ -391,6 +401,7 @@ class Settings {
     func clearAll() {
         loginResult.value = nil
         amongChatUserProfile.value = nil
+        Defaults[\.amongChatReleationSuggestedContacts] = []
     }
 }
 
@@ -585,6 +596,14 @@ extension DefaultsKeys {
     
     var amongChatRtmToken: DefaultsKey<Entity.RTMToken?> {
         .init("among.chat.rtm.token", defaultValue: nil)
+    }
+    
+    var amongChatReleationSuggestedContacts: DefaultsKey<[String]> {
+        .init("among.chat.relation.suggested.contacts", defaultValue: [])
+    }
+    
+    var avatarGuideUpdateTime: DefaultsKey<String> {
+        .init("among.chat.avatar.guide.update.time", defaultValue: "")
     }
     
 }

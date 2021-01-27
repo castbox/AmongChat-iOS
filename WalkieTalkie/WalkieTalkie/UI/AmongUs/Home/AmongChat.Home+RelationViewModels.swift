@@ -10,10 +10,22 @@ import Foundation
 import RxSwift
 import RxRelay
 import AgoraRtmKit
+import SwiftyUserDefaults
 
 extension AmongChat.Home {
     
     class RelationViewModel {
+        struct Item {
+            enum Group: Int {
+                case playing
+                case suggestContacts
+                case suggestStrangers
+            }
+            
+            var userLsit: [PlayingViewModel]
+            let group: Group
+            
+        }
         
         private typealias IMManager = AmongChat.Room.IMManager
         
@@ -21,14 +33,34 @@ extension AmongChat.Home {
         
         private let playingsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
         
-        private let suggestionsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
+        private let suggestStrangerRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
+        
+        private let suggestContactRawRelay = BehaviorRelay<[Entity.ContactFriend]>(value: [])
+        
+        private let suggestContactViewModelsRelay = BehaviorRelay<[ContactViewModel]>(value: [])
         
         private let imManager = IMManager.shared
+        
+        lazy var readedSuggestContacts: [String] = {
+             return Defaults[\.amongChatReleationSuggestedContacts]
+        }() {
+            didSet {
+                Defaults[\.amongChatReleationSuggestedContacts] = readedSuggestContacts
+            }
+        }
                 
-        var dataSource: Observable<[[PlayingViewModel]]> {
-            return Observable.combineLatest(playingsRelay, suggestionsRelay)
-                .map { playings, suggestions in
-                    [playings, suggestions]
+        var dataSource: Observable<[Item]> {
+            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay)
+                .map { playings, contacts, strangers in
+                    var array: [Item] = [Item(userLsit: playings, group: .playing)]
+                    if !contacts.isEmpty {
+                        array.append(Item(userLsit: contacts, group: .suggestContacts))
+                    }
+                    if !playings.isEmpty {
+                        array.append(Item(userLsit: strangers, group: .suggestStrangers))
+                    }
+                    array.sort { $0.group.rawValue < $1.group.rawValue }
+                    return array
                 }
                 .observeOn(MainScheduler.asyncInstance)
         }
@@ -39,6 +71,25 @@ extension AmongChat.Home {
                     self?.handleIMMessage(message: message, sender: sender)
                 })
                 .disposed(by: bag)
+            
+            suggestContactRawRelay
+                .map { [weak self] items -> [ContactViewModel] in
+                    guard let `self` = self else { return [] }
+                    return items.filter { item -> Bool in
+                        !self.readedSuggestContacts.contains(item.phone)
+                    }
+                    .map { ContactViewModel(with: $0) }
+                }
+                .bind(to: suggestContactViewModelsRelay)
+                .disposed(by: bag)
+            
+            //remove
+//            suggestContactViewModelsRelay.accept(testArray)
+            let testArray = [
+                Entity.ContactFriend(phone: "1", name: "Wilson", count: 10),
+                Entity.ContactFriend(phone: "2", name: "WilsonYuan", count: 2),
+                Entity.ContactFriend(phone: "3", name: "XiaoMing", count: 112)
+            ]
         }
         
         private let systemAgoraUid = Int(99999)
@@ -76,6 +127,7 @@ extension AmongChat.Home {
         func refreshData() {
             refreshOnlineFriends()
             refreshSuggestionUsers()
+            refreshSuggestContactsList()
         }
                 
         private func refreshOnlineFriends() {
@@ -91,16 +143,25 @@ extension AmongChat.Home {
         private func refreshSuggestionUsers() {
             Request.suggestionUserList()
                 .subscribe(onSuccess: { [weak self] (playingList) in
-                    self?.suggestionsRelay.accept(playingList.map({
+                    self?.suggestStrangerRelay.accept(playingList.map({
                         PlayingViewModel(with: $0)
                     }))
                 })
                 .disposed(by: bag)
         }
         
+        private func refreshSuggestContactsList() {
+            Request.contactList()
+                .asObservable()
+                .compactMap { $0?.list }
+                .catchErrorJustReturn([])
+                .bind(to: suggestContactRawRelay)
+                .disposed(by: bag)
+        }
+        
         func updateSuggestionUser(user: PlayingViewModel) {
             
-            var suggestionUsers = suggestionsRelay.value
+            var suggestionUsers = suggestStrangerRelay.value
             suggestionUsers.removeAll { $0.uid == user.uid }
             
             if suggestionUsers.count == 0 {
@@ -110,10 +171,40 @@ extension AmongChat.Home {
             var onlineFriends = playingsRelay.value
             onlineFriends.append(user)
             
-            suggestionsRelay.accept(suggestionUsers)
+            suggestStrangerRelay.accept(suggestionUsers)
             playingsRelay.accept(onlineFriends)
         }
         
+        func setReadTags(_ contact: Entity.ContactFriend) {
+            //save phone
+            readedSuggestContacts.append(contact.phone)
+        }
+        
+        func resetSuggestedContacts() {
+            //clear
+            readedSuggestContacts = []
+            refreshSuggestContactsList()
+        }
+        
+    }
+    
+    class ContactViewModel: PlayingViewModel, Equatable {
+        
+        let contact: Entity.ContactFriend
+        
+        init(with contact: Entity.ContactFriend) {
+            self.contact = contact
+            //
+            var user: Entity.UserProfile?
+            decoderCatcher {
+                user = try JSONDecoder().decodeAnyData(Entity.UserProfile.self, from: ["uid": 0])
+            }
+            super.init(with: Entity.PlayingUser(user: user!, room: nil))
+        }
+        
+        static func == (lhs: AmongChat.Home.ContactViewModel, rhs: AmongChat.Home.ContactViewModel) -> Bool {
+            return lhs.contact == rhs.contact
+        }
     }
     
     class PlayingViewModel {
@@ -128,8 +219,8 @@ extension AmongChat.Home {
             return playingModel.user.uid
         }
         
-        var userName: String? {
-            return playingModel.user.name
+        var userName: NSAttributedString? {
+            return playingModel.user.nameWithVerified()
         }
         
         var userAvatarUrl: String? {

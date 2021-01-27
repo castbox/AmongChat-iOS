@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import RxGesture
 import NotificationBannerSwift
+import SwiftyUserDefaults
 
 extension AmongChat.Home {
     
@@ -18,6 +19,8 @@ extension AmongChat.Home {
         
         private let imViewModel = IMViewModel()
         private let bag = DisposeBag()
+        
+        var canShowAvatarGuide = true
         
         private weak var notificationBanner: FloatingNotificationBanner?
         private weak var notificationBannerDimmerView: UIView?
@@ -37,6 +40,22 @@ extension AmongChat.Home {
 }
 
 extension AmongChat.Home.MainTabController {
+    
+    func showAvatarGuideViewController(with setting: Entity.GlobalSetting) {
+        guard canShowAvatarGuide,
+              let vc =
+                UIApplication.navigationController?.viewControllers.first,
+              vc.isVisible,
+              (vc is AmongChat.Home.TopicsViewController || vc is AmongChat.Home.RelationsViewController),
+              Settings.shared.canShowAvatarGuide else {
+            return
+        }
+        let avatarVc = AvatarGuideViewController()
+        avatarVc.showModal(in: self)
+        avatarVc.goHandler = {
+            Routes.handle("/avatars")
+        }
+    }
     
     func onReceive(strangerInvigation user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
@@ -129,6 +148,7 @@ extension AmongChat.Home.MainTabController {
     
     private func setupEvent() {
         imViewModel.invitationObservable
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { user, room in
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
                       !(topVC is AmongChat.Room.ViewController),
@@ -165,8 +185,17 @@ extension AmongChat.Home.MainTabController {
             .disposed(by: bag)
         
         imViewModel.invitationRecommendObservable
+            .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] user, room in
                 self?.onReceive(strangerInvigation: user, room: room)
+            })
+            .disposed(by: bag)
+        
+        Settings.shared.globalSetting.replay()
+            .filterNilAndEmpty()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] setting in
+                self?.showAvatarGuideViewController(with: setting)
             })
             .disposed(by: bag)
     }
@@ -212,6 +241,7 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
         } else if let _ = nav.viewControllers.first as? AmongChat.Home.RelationsViewController {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
+        HapticFeedback.Impact.light()
     }
     
 }

@@ -140,7 +140,7 @@ extension AmongChat.Home {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.left.greaterThanOrEqualToSuperview().inset(20)
+                maker.left.equalTo(20)
                 maker.centerX.equalToSuperview()
             }
             
@@ -194,7 +194,7 @@ extension AmongChat.Home {
         func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
-            nameLabel.text = user.name
+            nameLabel.attributedText = user.nameWithVerified(fontSize: 20)
             msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             startCountDown()
             Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)

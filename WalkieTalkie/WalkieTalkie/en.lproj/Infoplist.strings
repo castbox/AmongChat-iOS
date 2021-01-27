@@ -9,3 +9,4 @@
 NSMicrophoneUsageDescription = "Enable microphone to talk to others in channels";
 NSPhotoLibraryUsageDescription = "Please allow Among Chat to use your photo library";
 NSSpeechRecognitionUsageDescription = "Please allow Among Chat to use your speech recognition";
+NSContactsUsageDescription = "AmongChat uses your contacts to help you find friends and play together.";
