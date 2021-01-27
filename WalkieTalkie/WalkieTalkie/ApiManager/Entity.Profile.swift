@@ -10,21 +10,20 @@ import UIKit
 
 protocol Verifiedable {
     var name: String? { get set }
-    var isVerified: Bool? {  get set }
+    var isVerified: Bool? { get set }
+    var isVip: Bool? { get set }
 }
 
-extension Verifiedable {
-    func nameWithVerified(fontSize: CGFloat = 16) -> NSAttributedString {
-        let nameString = name ?? ""
-        guard isVerified == true else {
-            return NSAttributedString(string: nameString)
-        }
+func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
+    let nameString = name ?? ""
+    var fullString = NSMutableAttributedString(string: nameString)
+    if isVerified == true {
         let font = R.font.nunitoExtraBold(size: fontSize)!
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_verified_13()!
             } else if fontSize > 24  {
-                return R.image.icon_verified_24()!
+                return R.image.icon_verified_20()!
             }
             return R.image.icon_verified()!
         }
@@ -33,9 +32,74 @@ extension Verifiedable {
         imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
-        let fullString = NSMutableAttributedString(string: nameString + " ")
+        fullString = NSMutableAttributedString(string: nameString + " ")
         fullString.append(imageString)
-        return fullString
+
+    }
+    if isVip == true {
+        let font = R.font.nunitoExtraBold(size: fontSize)!
+        var image: UIImage {
+            if fontSize == 12 {
+                return R.image.icon_vip_13()!
+            } else if fontSize > 24  {
+                return R.image.icon_vip_20()!
+            }
+            return R.image.icon_vip()!
+        }
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = image
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+
+        let imageString = NSAttributedString(attachment: imageAttachment)
+        fullString = NSMutableAttributedString(string: nameString + " ")
+        fullString.append(imageString)
+    }
+    return fullString
+}
+
+extension Verifiedable {
+    
+    func nameWithVerified(fontSize: CGFloat = 16) -> NSAttributedString {
+        let nameString = name ?? ""
+//        var fullString = NSMutableAttributedString(string: nameString)
+//        if isVerified == true {
+//            let font = R.font.nunitoExtraBold(size: fontSize)!
+//            var image: UIImage {
+//                if fontSize == 12 {
+//                    return R.image.icon_verified_13()!
+//                } else if fontSize > 24  {
+//                    return R.image.icon_verified_20()!
+//                }
+//                return R.image.icon_verified()!
+//            }
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            fullString = NSMutableAttributedString(string: nameString + " ")
+//            fullString.append(imageString)
+//
+//        }
+//        if isVip == true {
+//            let font = R.font.nunitoExtraBold(size: fontSize)!
+//            var image: UIImage {
+//                if fontSize == 12 {
+//                    return R.image.icon_vip_13()!
+//                } else if fontSize > 24  {
+//                    return R.image.icon_vip_20()!
+//                }
+//                return R.image.icon_vip()!
+//            }
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            fullString = NSMutableAttributedString(string: nameString + " ")
+//            fullString.append(imageString)
+//        }
+        return attribuated(with: nameString, isVerified: isVerified, isVip: isVip, fontSize: fontSize)
     }
 }
 
@@ -62,6 +126,7 @@ extension Entity {
         var invited: Bool?
         var chatLanguage: String?
         var isVerified: Bool?
+        var isVip: Bool?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -85,6 +150,7 @@ extension Entity {
             case nameMobilelegends = "name_mobilelegends"
             case chatLanguage = "language_u"
             case isVerified = "is_verified"
+            case isVip = "is_vip"
         }
     }
     
@@ -156,18 +222,44 @@ extension Entity.UserProfile {
     
     func nameWithVerified(fontSize: CGFloat = 16, withAge: Bool = false) -> NSAttributedString {
         let nameString = withAge ? nameWithAge : (name ?? "")
-        guard isVerified == true else {
-            return NSAttributedString(string: nameString)
-        }
-        let font = R.font.nunitoExtraBold(size: fontSize)!
-        let image = fontSize >= 20 ? R.image.icon_verified_24()! : R.image.icon_verified()!
-        let imageAttachment = NSTextAttachment()
-        imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
-
-        let imageString = NSAttributedString(attachment: imageAttachment)
-        let fullString = NSMutableAttributedString(string: nameString + " ")
-        fullString.append(imageString)
-        return fullString
+//        var fullString = NSMutableAttributedString(string: nameString)
+//        if isVerified == true {
+//            let font = R.font.nunitoExtraBold(size: fontSize)!
+//            var image: UIImage {
+//                if fontSize == 12 {
+//                    return R.image.icon_verified_13()!
+//                } else if fontSize > 24  {
+//                    return R.image.icon_verified_20()!
+//                }
+//                return R.image.icon_verified()!
+//            }
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            fullString = NSMutableAttributedString(string: nameString + " ")
+//            fullString.append(imageString)
+//
+//        }
+//        if isVip == true {
+//            let font = R.font.nunitoExtraBold(size: fontSize)!
+//            var image: UIImage {
+//                if fontSize == 12 {
+//                    return R.image.icon_vip_13()!
+//                } else if fontSize > 24  {
+//                    return R.image.icon_vip_20()!
+//                }
+//                return R.image.icon_vip()!
+//            }
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            fullString = NSMutableAttributedString(string: nameString + " ")
+//            fullString.append(imageString)
+//        }
+        return attribuated(with: nameString, isVerified: isVerified, isVip: isVip, fontSize: fontSize)
     }
 }

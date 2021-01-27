@@ -368,6 +368,9 @@ class Settings {
     }
     
     var canShowAvatarGuide: Bool {
+        guard amongChatAvatarListShown.value == nil else {
+            return false
+        }
         let privious = Defaults[\.avatarGuideUpdateTime]
         let current = Date().string(withFormat: "yyyy-MM-dd")
         guard privious != current  else {

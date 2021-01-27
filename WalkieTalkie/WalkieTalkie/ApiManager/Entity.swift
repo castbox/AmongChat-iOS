@@ -77,10 +77,14 @@ extension Entity {
             let key: String
             let value: String
             
+            //for avatar guide
+            let list: [String]
+            
             init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 key = (try? container.decodeString(.key)) ?? ""
                 value = (try? container.decodeString(.value)) ?? ""
+                list = (try? container.decodeIfPresent([String].self, forKey: .list)) ?? []
             }
         }
         
@@ -124,11 +128,18 @@ extension Entity.GlobalSetting {
         return changeTipValue(.avatar)
     }
     
+    func changeTip(_ key: KeyValue.KeyType) -> KeyValue? {
+        guard let tip = changeTip.first(where: { $0.key == key.rawValue }) else {
+            return nil
+        }
+        return tip
+    }
+    
     func changeTipValue(_ key: KeyValue.KeyType) -> String {
         guard let tip = changeTip.first(where: { $0.key == key.rawValue }) else {
             return ""
         }
-        
+
         return tip.value
     }
 }

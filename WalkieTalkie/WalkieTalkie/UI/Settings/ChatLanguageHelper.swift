@@ -68,5 +68,6 @@ fileprivate extension Entity.GlobalSetting.KeyValue {
     init(key: String, value: String) {
         self.key = key
         self.value = value
+        self.list = []
     }
 }

@@ -106,6 +106,7 @@ extension Entity {
         var nameMobilelegends: String?
         var topic: AmongChat.Topic?
         var isVerified: Bool?
+        var isVip: Bool?
         
         var nickname: String? {
             switch topic {
@@ -156,6 +157,7 @@ extension Entity {
             case namePubgmobile = "name_pubgmobile"
             case nameMobilelegends = "name_mobilelegends"
             case isVerified = "is_verified"
+            case isVip = "is_vip"
         }
         
         init(from decoder: Decoder) throws {
@@ -177,6 +179,7 @@ extension Entity {
             self.namePubgmobile = try container.decodeStringIfPresent(.namePubgmobile)
             self.nameMobilelegends = try container.decodeStringIfPresent(.nameMobilelegends)
             self.isVerified = try container.decodeBoolIfPresent(.isVerified) ?? false
+            self.isVip = try container.decodeBoolIfPresent(.isVip) ?? false
         }
     }
 }

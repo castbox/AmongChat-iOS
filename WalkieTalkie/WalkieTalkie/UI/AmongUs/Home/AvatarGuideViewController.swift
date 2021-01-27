@@ -15,7 +15,17 @@ class AvatarGuideViewController: ViewController {
     @IBOutlet private weak var rightImageView: UIImageView!
     @IBOutlet private weak var goButton: UIButton!
     
+    private let avatarList: [String]
     var goHandler: CallBack?
+    
+    init(_ avatarList: [String]) {
+        self.avatarList = avatarList
+        super.init(nibName: "AvatarGuideViewController", bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +33,14 @@ class AvatarGuideViewController: ViewController {
         view.backgroundColor = .clear
         // Do any additional setup after loading the view.
         
-        //
         goButton.setTitle(R.string.localizable.bigGo().uppercased(), for: .normal)
-        //
-        leftImageView.setImage(with: "https://s3.among.chat/static/avatar/LA0031.png")
-        rightImageView.setImage(with: "https://s3.among.chat/static/avatar/LA0031.png")
+    
+        leftImageView.setImage(with: avatarList.safe(0), placeholder: R.image.ac_profile_avatar())
+        rightImageView.setImage(with: avatarList.safe(1), placeholder: R.image.ac_profile_avatar())
+    
+        if avatarList.count == 1 {
+            stackView.removeArrangedSubview(rightImageView)
+        }
     }
 
     @IBAction func closeButtonAction(_ sender: Any) {

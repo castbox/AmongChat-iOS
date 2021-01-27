@@ -252,6 +252,7 @@
 		FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */; };
 		FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */; };
 		FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */; };
+		FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93D25C166E6007485A8 /* UserTagView.swift */; };
 		FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */; };
 		FEA79E63249B52EF0067C1C1 /* ShareManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA79E62249B52EF0067C1C1 /* ShareManager.swift */; };
 		FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54D22449B69F006454F6 /* ViewController.swift */; };
@@ -587,6 +588,7 @@
 		FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNickNameView.xib; sourceTree = "<group>"; };
 		FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarGuideViewController.swift; sourceTree = "<group>"; };
 		FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarGuideViewController.xib; sourceTree = "<group>"; };
+		FEA2E93D25C166E6007485A8 /* UserTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
 		FEA2F987249C8AF200CB1315 /* DefaultRemoteConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DefaultRemoteConfig.plist; sourceTree = "<group>"; };
 		FEA79E62249B52EF0067C1C1 /* ShareManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareManager.swift; sourceTree = "<group>"; };
 		FEAD54D22449B69F006454F6 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 				FE392C672466C5AA00A2CCF3 /* KernUI.swift */,
 				2B956770259B5781001C7B91 /* NoDataView.swift */,
 				2B6B5F4925A32E9F009D028D /* TableViewCell.swift */,
+				FEA2E93D25C166E6007485A8 /* UserTagView.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -1628,6 +1631,7 @@
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */,
+				FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */,
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
 				FE87C2CC259C2C4400799883 /* ChannelUser.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,

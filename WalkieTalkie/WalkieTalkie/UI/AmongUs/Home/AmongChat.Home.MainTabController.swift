@@ -42,7 +42,7 @@ extension AmongChat.Home {
 extension AmongChat.Home.MainTabController {
     
     func showAvatarGuideViewController(with setting: Entity.GlobalSetting) {
-        guard canShowAvatarGuide,
+        guard let avatarList = setting.changeTip(.avatar)?.list, canShowAvatarGuide,
               let vc =
                 UIApplication.navigationController?.viewControllers.first,
               vc.isVisible,
@@ -50,7 +50,7 @@ extension AmongChat.Home.MainTabController {
               Settings.shared.canShowAvatarGuide else {
             return
         }
-        let avatarVc = AvatarGuideViewController()
+        let avatarVc = AvatarGuideViewController(avatarList)
         avatarVc.showModal(in: self)
         avatarVc.goHandler = {
             Routes.handle("/avatars")
