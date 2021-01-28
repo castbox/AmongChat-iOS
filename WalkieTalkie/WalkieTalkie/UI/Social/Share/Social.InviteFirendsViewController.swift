@@ -534,7 +534,6 @@ extension Social {
             btn.layer.cornerRadius = 16
             btn.layer.borderWidth = 2
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            btn.backgroundColor = UIColor.theme(.backgroundBlack)
             btn.titleLabel?.lineBreakMode = .byTruncatingMiddle
             return btn
         }()
@@ -640,21 +639,25 @@ extension Social {
 extension Social.InviteFirendsViewController {
     
     override func longFormHeight() -> PanModalHeight {
-        return PanModalHeight(type: .max, height: 0)
+        return PanModalHeight(type: .topInset, height: 0)
     }
-    
+
     override func shortFormHeight() -> PanModalHeight {
-        return PanModalHeight(type: .content, height: 500)
+        return PanModalHeight(type: .content, height: Frame.Scale.height(500))
     }
-    
+
     override func panScrollable() -> UIScrollView? {
         return tableView
+    }
+
+    override func allowsExtendedPanScrolling() -> Bool {
+        return true
     }
     
     override func cornerRadius() -> CGFloat {
         return 20
     }
-    
+
     override func showDragIndicator() -> Bool {
         return false
     }
