@@ -7,7 +7,6 @@
 //
 
 import RxSwift
-import SwiftyStoreKit
 
 extension IAP {
     static let productsValue = ReplaySubject<[String: IAP.Product]>.create(bufferSize: 1)

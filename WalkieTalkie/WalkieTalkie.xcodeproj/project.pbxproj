@@ -123,7 +123,6 @@
 		FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */; };
 		FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */; };
 		FE401E3E244D9C450081F793 /* IAP.Restore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E37244D9C450081F793 /* IAP.Restore.swift */; };
-		FE401E3F244D9C450081F793 /* IAP.Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E38244D9C450081F793 /* IAP.Receipt.swift */; };
 		FE401E46244DA3B60081F793 /* UIWindow+Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */; };
 		FE401E48244DAD680081F793 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E47244DAD680081F793 /* Scheduler.swift */; };
 		FE49CE9F24361A1F00C36EC6 /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */; };
@@ -446,7 +445,6 @@
 		FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.ProductFetcher.swift; sourceTree = "<group>"; };
 		FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.ProductDealer.swift; sourceTree = "<group>"; };
 		FE401E37244D9C450081F793 /* IAP.Restore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Restore.swift; sourceTree = "<group>"; };
-		FE401E38244D9C450081F793 /* IAP.Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAP.Receipt.swift; sourceTree = "<group>"; };
 		FE401E45244DA3B60081F793 /* UIWindow+Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Controller.swift"; sourceTree = "<group>"; };
 		FE401E47244DAD680081F793 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		FE49CE9E24361A1F00C36EC6 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
@@ -968,7 +966,6 @@
 				FE401E35244D9C450081F793 /* IAP.ProductFetcher.swift */,
 				FE401E36244D9C450081F793 /* IAP.ProductDealer.swift */,
 				FE401E37244D9C450081F793 /* IAP.Restore.swift */,
-				FE401E38244D9C450081F793 /* IAP.Receipt.swift */,
 			);
 			path = IAP;
 			sourceTree = "<group>";
@@ -1616,7 +1613,6 @@
 				FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */,
 				FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */,
 				26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */,
-				FE401E3F244D9C450081F793 /* IAP.Receipt.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */,
 				FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */,

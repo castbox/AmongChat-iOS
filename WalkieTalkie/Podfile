@@ -105,8 +105,6 @@ target 'WalkieTalkie' do
     
     pod 'CastboxDebuger', '~> 1.3.2'
     
-    # pod for iap
-    pod 'SwiftyStoreKit'
     pod 'SwiftyJSON'
     pod 'SwiftHash'
     pod 'loady'
