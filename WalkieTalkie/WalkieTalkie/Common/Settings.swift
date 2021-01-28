@@ -368,7 +368,7 @@ class Settings {
     }
     
     var canShowAvatarGuide: Bool {
-        guard amongChatAvatarListShown.value == nil else {
+        guard amongChatAvatarListShown.value == nil, globalSetting.value?.changeTip(.avatar)?.list.isEmpty == false else {
             return false
         }
         let privious = Defaults[\.avatarGuideUpdateTime]

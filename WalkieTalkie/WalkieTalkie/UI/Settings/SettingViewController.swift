@@ -121,7 +121,10 @@ extension SettingViewController {
 
     @objc
     private func updateEnvironment(_ sender: Any) {
-        cdPrint("among chat")
+        //debug
+        Settings.shared.amongChatAvatarListShown.value = nil
+        Defaults[\.avatarGuideUpdateTime] = ""
+        
         let isReleaseMode = Defaults[\.isReleaseMode]
         Defaults[\.isReleaseMode] = !isReleaseMode
         exit(0)
