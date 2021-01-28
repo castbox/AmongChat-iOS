@@ -18,7 +18,6 @@ class PremiumViewController: ViewController {
         let lb = UILabel()
         lb.font = R.font.nunitoExtraBold(size: 24)
         lb.textColor = UIColor.white
-        lb.text = R.string.localizable.profileUnlockPro()
         return lb
     }()
     
@@ -393,7 +392,7 @@ extension PremiumViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (isPro) in
                 self?.badgeIcon.image = isPro ? R.image.ac_pro_unlocked_badge() : R.image.ac_pro_unbuy_badge()
-                
+                self?.titleLabel.text = isPro ? R.string.localizable.amongChatProfileProCenter() : R.string.localizable.profileUnlockPro()
                 guard isPro else { return }
                 
                 self?.statusLabel.removeFromSuperview()
