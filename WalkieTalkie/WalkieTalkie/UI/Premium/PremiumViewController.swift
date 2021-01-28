@@ -344,7 +344,14 @@ extension PremiumViewController {
                 cdPrint("ProductDealer state: \(state.rawValue)")
                 switch state {
                 case .purchased, .restored:
-                    Settings.shared.isProValue.value = true
+                    
+                    let _ = Request.uploadReceipt()
+                        .subscribe(onSuccess: { () in
+                            
+                        }, onError: { (error) in
+                            
+                        })
+
                     Defaults[\.purchasedItemsKey] = identifier
                     self?.isPuchasingState.onNext(false)
                     if let s = self?.source {

@@ -64,5 +64,16 @@ class Automator {
                 Settings.shared.isInReview.value = (cfg.value.auditVersion == Config.appVersion)
             })
             .disposed(by: bag)
+        
+        Settings.shared.loginResult.replay()
+            .filterNil()
+            .flatMap({ (_) -> Single<Void> in
+                Request.uploadReceipt()
+            })
+            .subscribe(onNext: { (_) in
+                Settings.shared.updateProfile()
+            })
+            .disposed(by: bag)
+
     }
 }

@@ -270,6 +270,7 @@ class Settings {
         return DynamicProperty.stored(profile)
             .didSet({ (event) in
                 Defaults[\.amongChatUserProfileKey] = event.new?.dictionary
+                shared.isProValue.value = event.new?.isVip ?? false
             })
             .asPublishProperty()
     }()

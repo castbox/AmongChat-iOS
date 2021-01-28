@@ -252,8 +252,11 @@ extension SettingViewController {
             removeBlock()
         }
         settingsTable.isUserInteractionEnabled = false
-        IAP.restorePurchased { _ in
+        
+        IAP.Restore.restorePurchase { [weak self] (hasRestorable) in
             completion()
+            guard hasRestorable else { return }
+            self?.view.raft.autoShow(.text(R.string.localizable.premiumRestoreSucceeded()))
         }
     }
     

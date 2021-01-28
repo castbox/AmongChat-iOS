@@ -71,14 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Settings.shared.startObserver()
         setupInitialView()
         
-        DispatchQueue.global(qos: .background).async {
-            IAP.verifyLocalReceipts()
-//            IAP.prefetchProducts()
-            
-//            if Defaults[\.pushEnabledKey] {
-//                PushMgr.shared.reScheduleNotification()
-//            }
-        }
         IAP.prefetchProducts()
         // 路由模块待优化
         _ = Routes.shared
