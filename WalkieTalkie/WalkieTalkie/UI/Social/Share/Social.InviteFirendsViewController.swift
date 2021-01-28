@@ -99,8 +99,7 @@ extension Social {
             }
             headerView.shareLinkHandle = { [weak self] in
                 guard let `self` = self else { return }
-//                self.shareApp()
-                self.updateEventForContactAuthorizationStatus()
+                self.shareApp()
             }
         }
     }
