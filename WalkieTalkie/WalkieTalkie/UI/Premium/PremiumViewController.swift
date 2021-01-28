@@ -97,22 +97,6 @@ class PremiumViewController: ViewController {
     
     private lazy var productsStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [weeklyProductView, yearlyProductView, monthlyProductView])
-        
-        weeklyProductView.snp.makeConstraints { (maker) in
-            maker.width.equalTo(90.scalValue)
-            maker.height.equalTo(weeklyProductView.snp.width).multipliedBy(124.0 / 90.0)
-        }
-        
-        yearlyProductView.snp.makeConstraints { (maker) in
-            maker.width.equalTo(131.scalValue)
-            maker.height.equalTo(yearlyProductView.snp.width).multipliedBy(175.0 / 131.0)
-        }
-        
-        monthlyProductView.snp.makeConstraints { (maker) in
-            maker.width.equalTo(90.scalValue)
-            maker.height.equalTo(monthlyProductView.snp.width).multipliedBy(124.0 / 90.0)
-        }
-        
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
         stack.alignment = .center
@@ -309,6 +293,7 @@ extension PremiumViewController {
             ()
         }
         
+        updateProductViewsLayout()
     }
 }
 
@@ -527,7 +512,25 @@ extension PremiumViewController {
             maker.bottom.equalToSuperview().offset(-28)
         }
         
+        updateProductViewsLayout()
     }
+    
+    private func updateProductViewsLayout() {
+        
+        let size: ((Bool) -> CGSize) = { isSelected in
+            return isSelected ? CGSize(width: 131.scalValue, height: 131.scalValue * 175.0 / 131.0) :
+                CGSize(width: 90.scalValue, height: 90.scalValue * 124.0 / 90.0)
+        }
+        
+        productsStack.arrangedSubviews.forEach {
+            guard let v = $0 as? ProductView else { return}
+            v.snp.remakeConstraints { (maker) in
+                maker.size.equalTo(size(v.isSelected))
+            }
+        }
+        
+    }
+    
 }
 
 extension PremiumViewController {
@@ -659,7 +662,7 @@ extension PremiumViewController {
                     maker.leading.trailing.equalToSuperview().inset(bounds.width * 12.0 / 131.0)
                 }
                 
-                titleLabel.font = R.font.nunitoExtraBold(size: 22)
+                titleLabel.font = R.font.nunitoExtraBold(size: isSelected ? 22 : 15)
                 titleLabel.textColor = .white
                 titleLabel.adjustsFontSizeToFitWidth = true
                 titleLabel.lineBreakMode = .byWordWrapping
@@ -670,7 +673,7 @@ extension PremiumViewController {
                     maker.bottom.equalToSuperview().inset(bounds.height * 20.0 / 175.0)
                 }
                 
-                subtitleLabel.font = R.font.nunitoBold(size: 12)
+                subtitleLabel.font = R.font.nunitoBold(size: isSelected ? 12 : 8)
                 subtitleLabel.textColor = UIColor(hex6: 0x898989)
                 subtitleLabel.adjustsFontSizeToFitWidth = true
                 subtitleLabel.numberOfLines = 1
@@ -688,7 +691,7 @@ extension PremiumViewController {
                     maker.leading.top.trailing.equalTo(layoutGuide)
                 }
                 
-                titleLabel.font = R.font.nunitoExtraBold(size: 14)
+                titleLabel.font = R.font.nunitoExtraBold(size: isSelected ? 16 : 14)
                 titleLabel.textColor = .white
                 titleLabel.adjustsFontSizeToFitWidth = true
                 titleLabel.numberOfLines = 1
@@ -698,7 +701,7 @@ extension PremiumViewController {
                     maker.top.equalTo(titleLabel.snp.bottom).offset(3)
                 }
                 
-                subtitleLabel.font = R.font.nunitoExtraBold(size: 22)
+                subtitleLabel.font = R.font.nunitoExtraBold(size: isSelected ? 26 : 22)
                 subtitleLabel.textColor = .white
                 subtitleLabel.adjustsFontSizeToFitWidth = true
                 subtitleLabel.numberOfLines = 1
