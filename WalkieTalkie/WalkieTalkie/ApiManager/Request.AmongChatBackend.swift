@@ -551,4 +551,32 @@ extension Request {
             })
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func uploadReceipt() -> Single<Void> {
+        
+        guard let url = Bundle.main.appStoreReceiptURL, let data = NSData(contentsOf: url) else {
+            let error = NSError(domain: "among.chat.iap", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot find receipt"])
+            return Single.error(error)
+        }
+        
+        let receipt = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        
+        let params = [
+            "bundle_id" : Config.appBundleIdentifier,
+            "receipt" : receipt
+        ]
+        
+        return amongchatProvider.rx.request(.receipt(params))
+            .mapJSON()
+            .map { item in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0 else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+    }
 }

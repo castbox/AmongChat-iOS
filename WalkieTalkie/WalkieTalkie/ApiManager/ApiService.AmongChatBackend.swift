@@ -53,6 +53,7 @@ extension APIService {
         case accountMetaData
         case requestSmsCode([String : Any])
         case verifySmsCode([String : Any])
+        case receipt([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -149,6 +150,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/auth/phone/send_code"
         case .verifySmsCode:
             return "/auth/phone/verify"
+        case .receipt:
+            return "/purchase/ios/receipt"
         }
     }
     
@@ -164,6 +167,7 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockAvatar,
              .updateDevice,
              .inviteUser,
+             .receipt,
              .logout:
             return .post
             
@@ -225,6 +229,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
+             .receipt(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
