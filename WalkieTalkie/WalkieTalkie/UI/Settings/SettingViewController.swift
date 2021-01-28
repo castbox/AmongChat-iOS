@@ -222,21 +222,6 @@ extension SettingViewController {
         }
     }
     
-    private func upgradePro() {
-        guard !Settings.shared.isProValue.value else {
-            return
-        }
-        
-        let premiumVC = PremiumViewController()
-        premiumVC.dismissHandler = { (purchased) in
-            guard purchased else { return }
-            AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-        }
-        premiumVC.modalPresentationStyle = .fullScreen
-        present(premiumVC, animated: true, completion: nil)
-        Logger.UserAction.log(.update_pro, "settings")
-    }
-    
     private func rateApp() {//rate us
         view.raft.autoShow(.loading)
         if #available(iOS 10.3, *) {

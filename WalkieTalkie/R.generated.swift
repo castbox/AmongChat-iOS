@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 144 images.
+  /// This `R.image` struct is generated, and contains static references to 145 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -270,6 +270,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
+    /// Image `ac_profile_pro`.
+    static let ac_profile_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro")
     /// Image `ac_profile_settings`.
     static let ac_profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_settings")
     /// Image `ac_profile_username`.
@@ -743,6 +745,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
     static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_pro", bundle: ..., traitCollection: ...)`
+    static func ac_profile_pro(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_pro, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_settings", bundle: ..., traitCollection: ...)`
@@ -1451,7 +1458,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 230 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 231 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1957,6 +1964,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profilePro = Rswift.StringResource(key: "profile.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: PRO Center
+      /// 
+      /// Locales: en
+      static let amongChatProfileProCenter = Rswift.StringResource(key: "among.chat.profile.pro.center", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: PRO privileges
       /// 
       /// Locales: en
@@ -3254,6 +3265,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profilePro(_: Void = ()) -> String {
         return NSLocalizedString("profile.pro", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: PRO Center
+      /// 
+      /// Locales: en
+      static func amongChatProfileProCenter(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.pro.center", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PRO privileges

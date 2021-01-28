@@ -123,21 +123,6 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var loginButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.black, for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = "#FFF000".color()
-            return btn
-        }()
-        
-        private var tikTokView = SocialTiktokItemView()
-        
         private var isSelf = true
         private var uid = ""
         private var changedName = false
@@ -250,16 +235,11 @@ extension Social.ProfileViewController {
         }
         
         private func bindSubviewEvent() {
-            loginButton.rx.controlEvent(.primaryActionTriggered)
-                .subscribe { _ in
-                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
-                }
-                .disposed(by: bag)
         }
         
         private func setupLayout() {
             
-            addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel, tikTokView)
+            addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
             
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -288,7 +268,6 @@ extension Social.ProfileViewController {
                 setLayoutForSelf()
             } else {
                 addSubviews(views: nameLabel, uidLabel)
-                tikTokView.isHidden = !isSelf
                 setLayoutForOther()
             }
             
@@ -352,39 +331,6 @@ extension Social.ProfileViewController {
                 make.height.equalTo(16)
                 make.width.greaterThanOrEqualTo(30)
             }
-            
-            Settings.shared.loginResult.replay()
-                .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] (result) in
-                    guard let `self` = self,
-                          let _ = result else {
-                        return
-                    }
-                    
-                    if !AmongChat.Login.isLogedin {
-                        self.addSubview(self.loginButton)
-                        self.loginButton.snp.remakeConstraints { maker in
-                            maker.leading.equalTo(20)
-                            maker.trailing.equalTo(-20)
-                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(20)
-                            maker.height.equalTo(48)
-                        }
-                        self.tikTokView.snp.remakeConstraints { maker in
-                            maker.leading.trailing.equalToSuperview()
-                            maker.top.equalTo(self.loginButton.snp.bottom).offset(56)
-                            maker.height.equalTo(80)
-                        }
-                    } else {
-                        self.loginButton.removeFromSuperview()
-                        self.tikTokView.snp.remakeConstraints { maker in
-                            maker.leading.trailing.equalToSuperview()
-                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(56)
-                            maker.height.equalTo(80)
-                        }
-                    }
-                                        
-                })
-                .disposed(by: bag)
         }
         
         private func setLayoutForOther() {
@@ -462,15 +408,22 @@ extension Social.ProfileViewController {
     
     class ProfileTableCell: TableViewCell {
         
-        private lazy var iconIV: UIImageView = {
+        private lazy var leftIconIV: UIImageView = {
             let iv = UIImageView()
             return iv
         }()
         
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
+        private lazy var rightIconIV: UIImageView = {
+            let i = UIImageView(image: R.image.ac_right_arrow())
+            return i
+        }()
+        
+        private lazy var titleLabel: UILabel = {
+            let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
             lb.textColor = .white
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -484,28 +437,41 @@ extension Social.ProfileViewController {
         }
         
         func configCell(with option: Option) {
-            iconIV.image = option.image()
+            leftIconIV.image = option.image()
             titleLabel.text = option.text()
-            titleLabel.appendKern()
         }
         
         private func setupLayout() {
             self.backgroundColor = UIColor.theme(.backgroundBlack)
             selectionStyle = .none
             
-            contentView.addSubviews(views: iconIV, titleLabel)
+            contentView.addSubviews(views: leftIconIV, titleLabel, rightIconIV)
             
-            iconIV.snp.makeConstraints { (maker) in
+            leftIconIV.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.width.height.equalTo(30)
+                maker.width.height.equalTo(40)
                 maker.leading.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(iconIV)
-                maker.leading.equalTo(iconIV.snp.trailing).offset(16)
-                maker.trailing.lessThanOrEqualToSuperview().offset(-20)
+                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(leftIconIV.snp.trailing).offset(16)
+                maker.trailing.lessThanOrEqualTo(rightIconIV.snp.leading).offset(-8)
             }
+            
+            rightIconIV.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(16)
+            }
+            
+            contentView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.bottom.equalToSuperview().inset(12)
+            }
+            
+            contentView.layer.cornerRadius = 12
+            contentView.backgroundColor = UIColor(hex6: 0x222222)
         }
     }
     
