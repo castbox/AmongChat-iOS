@@ -1458,7 +1458,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 231 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 233 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2240,6 +2240,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatUnknownError = Rswift.StringResource(key: "among.chat.unknown.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Unlimited
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomCardUnlimited = Rswift.StringResource(key: "among.chat.create.room.card.unlimited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Unlimited SPACE cards
       /// 
       /// Locales: en
@@ -2292,6 +2296,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatProPrivilegeAvatarsSub = Rswift.StringResource(key: "among.chat.pro.privilege.avatars.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You can get unlimited cards by unlocking PRO.
+      /// 
+      /// Locales: en
+      static let amongChatCreateRoomCardUnlockPro = Rswift.StringResource(key: "among.chat.create.room.card.unlock.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3750,6 +3758,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.unknown.error", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Unlimited
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomCardUnlimited(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.card.unlimited", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Unlimited SPACE cards
       /// 
       /// Locales: en
@@ -3839,6 +3854,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatProPrivilegeAvatarsSub(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.pro.privilege.avatars.sub", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You can get unlimited cards by unlocking PRO.
+      /// 
+      /// Locales: en
+      static func amongChatCreateRoomCardUnlockPro(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.room.card.unlock.pro", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have successfully  blocked this person
