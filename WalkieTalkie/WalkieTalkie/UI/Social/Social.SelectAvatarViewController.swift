@@ -223,6 +223,24 @@ extension Social.SelectAvatarViewController {
         avatarCollectionView.reloadData()
         
     }
+    
+    private func upgradePro() {
+        guard !Settings.shared.isProValue.value,
+              let premiun = R.storyboard.main.premiumViewController() else {
+            return
+        }
+        premiun.style = .likeGuide
+        premiun.source = .setting
+        premiun.dismissHandler = { (purchased) in
+            premiun.dismiss(animated: true) {
+                guard purchased else { return }
+                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+            }
+        }
+        premiun.modalPresentationStyle = .fullScreen
+        present(premiun, animated: true, completion: nil)
+        Logger.UserAction.log(.update_pro, "settings")
+    }
 }
 
 extension Social.SelectAvatarViewController: UICollectionViewDataSource {
@@ -251,6 +269,15 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
         if let avatar = avatarDataSource.safe(indexPath.item) {
             guard avatar.selected == false else {
                 return
+            }
+            
+            //select pro item
+            if avatar.locked,
+               !Settings.shared.isProValue.value,
+               avatar.avatar.unlockType == .premium {
+                //go to premium page
+                Logger.Action.log(.profile_avatar_get, category: .premium, "\(avatar.avatarId)")
+                return upgradePro()
             }
             
             let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -388,6 +415,14 @@ extension Social.SelectAvatarViewController {
             adBadge.isHidden = !avatar.locked
             
             selectedIcon.image = avatar.selected ? R.image.ac_avatar_selected() : R.image.ac_avatar_unselected()
+            switch avatar.avatar.unlockType {
+            case .rewarded:
+                adBadge.image = R.image.ac_avatar_ad()
+            case .premium:
+                adBadge.image = R.image.ac_avatar_pro()
+            default:
+                ()
+            }
         }
     }
     

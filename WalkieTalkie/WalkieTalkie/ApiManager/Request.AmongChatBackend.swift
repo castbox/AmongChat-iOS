@@ -253,6 +253,8 @@ extension Request {
         if let l = withLocked {
             params["with_locked"] = l
         }
+        //default add pro
+        params["with_pro"] = 1
         
         return amongchatProvider.rx.request(.defaultAvatars(params))
             .mapJSON()

@@ -373,7 +373,7 @@ class Settings {
         }
         let privious = Defaults[\.avatarGuideUpdateTime]
         let current = Date().string(withFormat: "yyyy-MM-dd")
-        guard privious != current  else {
+        guard privious != current else {
             return false
         }
         Defaults[\.avatarGuideUpdateTime] = current

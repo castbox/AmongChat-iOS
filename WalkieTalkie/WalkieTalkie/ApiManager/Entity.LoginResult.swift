@@ -172,10 +172,15 @@ extension Entity {
 extension Entity {
     
     struct DefaultAvatar: Codable {
+        
+        enum UnlockType: String, Codable {
+            case free, rewarded, premium
+        }
+        
         var avatarId: String
         var url: String
         var lock: Bool
-        var unlockType: String
+        var unlockType: UnlockType?
         var selected: Bool
         private enum CodingKeys: String, CodingKey {
             case avatarId = "avatar_id"
