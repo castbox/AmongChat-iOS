@@ -14,7 +14,7 @@ extension IAP {
     
     typealias RestoreCompleteType = (_ hasValidProduct: Bool)->Void
     
-    private static let sharedSecret: String = "0b75276c57474ccd967e8c1d4ba45b23"
+    private static let sharedSecret: String = "14a242ec09174084a3d8097d7649565e"
     
     static func updatePurchased(forceRefresh: Bool = false, completion: RestoreCompleteType? = nil) {
         SwiftyStoreKit.fetchReceipt(forceRefresh: forceRefresh) { (result) in
