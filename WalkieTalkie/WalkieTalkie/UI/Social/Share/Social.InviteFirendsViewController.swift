@@ -33,6 +33,13 @@ extension Social {
         
         private var items: [InviteFirendsViewModel.Item] = [] {
             didSet {
+                if items.count == 1,
+                   items.first?.group == .contacts,
+                   items.first?.userLsit.isEmpty == true {
+                    addNoDataView(R.string.localizable.contactsEmpty())
+                } else {
+                    removeNoDataView()
+                }
                 tableView.reloadData()
             }
         }
@@ -238,6 +245,7 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
             return nil
         }
         let v = UIView()
+        v.backgroundColor = UIColor(hex6: 0x222222)
         let lable = UILabel()
         v.addSubview(lable)
         lable.snp.makeConstraints { (make) in
@@ -252,15 +260,19 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard let item = items.safe(section) else {
+        guard let item = items.safe(section), item.group == .contacts else {
             return 0
         }
-        if item.group == .find {
-            return 0
-        } else if item.userLsit.isEmpty {
-            return 53
-        }
-        return 0
+        return 53
+//        guard let item = items.safe(section) else {
+//            return 0
+//        }
+//        if item.group == .find {
+//            return 0
+//        } else if item.userLsit.isEmpty {
+//            return 53
+//        }
+//        return 0
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -429,7 +441,7 @@ extension Social.InviteFirendsViewController {
 }
 
 extension Social {
-    class ContactCell: UITableViewCell {
+    class ContactCell: TableViewCell {
         
         private lazy var userView: AmongChat.Home.UserView = {
             let v = AmongChat.Home.UserView()
@@ -462,10 +474,9 @@ extension Social {
         }
         
         private func setupLayout() {
-            backgroundColor = .clear
-            
-            contentView.backgroundColor = .clear
-            
+            backgroundColor = "#222222".color()
+            selectionStyle = .none
+
             contentView.addSubviews(views: userView, joinBtn)
                         
             let buttonLayout = UILayoutGuide()
@@ -556,8 +567,7 @@ extension Social {
         
         private func setupLayout() {
             selectionStyle = .none
-            
-            backgroundColor = .clear
+            backgroundColor = "#222222".color()
             
             contentView.addSubviews(views: avatarIV, usernameLabel, followBtn)
             

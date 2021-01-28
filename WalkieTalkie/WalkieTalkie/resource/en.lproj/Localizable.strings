@@ -261,7 +261,7 @@
 "login" = "Log in";
 "change.old.title" = "%@ old";
 "social.share.link" = "Share link";
-"social.invite.contact" = "Contact";
+"social.invite.contact" = "Contacts";
 "social.invite.contact.mobile" = "Find friends in your contacts";
 "big.enable" = "Enable";
 "big.go" = "Go";
@@ -275,3 +275,5 @@
 "device.not.support.send.message" = "Sorry, your device do not support send message";
 "new.avatars.guide.title" = "New Avatars";
 "new.avatars.guide.subtitle" = "Wanna be more attractive and make more friends? Cool avatars are ready for you!";
+"contacts.matching.results.empty" = "Oops, no matching results!";
+"contacts.empty" = "Oops, no contacts!";

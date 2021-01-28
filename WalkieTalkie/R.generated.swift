@@ -1574,7 +1574,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 231 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 233 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1724,14 +1724,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Contact
-      /// 
-      /// Locales: en
-      static let socialInviteContact = Rswift.StringResource(key: "social.invite.contact", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en
       static let contactSearchTitle = Rswift.StringResource(key: "contact.search.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Contacts
+      /// 
+      /// Locales: en
+      static let socialInviteContact = Rswift.StringResource(key: "social.invite.contact", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Content contains sensitive words, please modify
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2072,10 +2072,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeLoadErrorTitle = Rswift.StringResource(key: "among.chat.home.load.error.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no contacts!
+      /// 
+      /// Locales: en
+      static let contactsEmpty = Rswift.StringResource(key: "contacts.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no followers yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no matching results!
+      /// 
+      /// Locales: en
+      static let contactsMatchingResultsEmpty = Rswift.StringResource(key: "contacts.matching.results.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no matching results!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2760,18 +2768,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Contact
-      /// 
-      /// Locales: en
-      static func socialInviteContact(_: Void = ()) -> String {
-        return NSLocalizedString("social.invite.contact", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Contacts
       /// 
       /// Locales: en
       static func contactSearchTitle(_: Void = ()) -> String {
         return NSLocalizedString("contact.search.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Contacts
+      /// 
+      /// Locales: en
+      static func socialInviteContact(_: Void = ()) -> String {
+        return NSLocalizedString("social.invite.contact", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Content contains sensitive words, please modify
@@ -3369,11 +3377,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.home.load.error.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no contacts!
+      /// 
+      /// Locales: en
+      static func contactsEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("contacts.empty", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, no followers yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowers(_: Void = ()) -> String {
         return NSLocalizedString("error.no.followers", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no matching results!
+      /// 
+      /// Locales: en
+      static func contactsMatchingResultsEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("contacts.matching.results.empty", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, no matching results!

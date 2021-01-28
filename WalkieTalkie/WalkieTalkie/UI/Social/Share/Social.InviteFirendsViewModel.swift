@@ -65,7 +65,7 @@ extension Social {
                         .asObservable()
                 }
                 .subscribe(onNext: { [weak self] item in
-                    self?.append(item, group: .contacts)
+                    self?.append(item?.list, group: .contacts)
                 })
                 .disposed(by: bag)
         }
@@ -119,7 +119,13 @@ extension Social {
     }
     
     class ContactsViewModel: InviteFirendsViewModel {
+        private var searchKey: String?
+        var isSearching: Bool {
+            searchKey.isValid
+        }
+        
         func search(name key: String?) {
+            searchKey = key
             guard let key = key, !key.isEmpty, let item = items.first else {
                 dataSourceReplay.accept(items)
                 return

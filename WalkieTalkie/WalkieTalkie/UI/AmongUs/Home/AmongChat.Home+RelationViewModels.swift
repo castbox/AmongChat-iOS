@@ -56,7 +56,7 @@ extension AmongChat.Home {
                     if !contacts.isEmpty {
                         array.append(Item(userLsit: contacts, group: .suggestContacts))
                     }
-                    if !playings.isEmpty {
+                    if !strangers.isEmpty {
                         array.append(Item(userLsit: strangers, group: .suggestStrangers))
                     }
                     array.sort { $0.group.rawValue < $1.group.rawValue }

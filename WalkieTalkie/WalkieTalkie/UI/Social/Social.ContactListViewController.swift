@@ -48,6 +48,15 @@ extension Social {
         
         private var items: [InviteFirendsViewModel.Item] = [] {
             didSet {
+                if items.first?.userLsit.isEmpty == true {
+                    if viewModel.isSearching {
+                        addNoDataView(R.string.localizable.contactsMatchingResultsEmpty())
+                    } else {
+                        addNoDataView(R.string.localizable.contactsEmpty())
+                    }
+                } else {
+                    removeNoDataView()
+                }
                 tableView.reloadData()
             }
         }

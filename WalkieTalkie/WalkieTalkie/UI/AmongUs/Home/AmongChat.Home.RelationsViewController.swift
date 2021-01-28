@@ -256,17 +256,19 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 case .playing:
                     header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
-                        maker.top.equalToSuperview().offset(24)
+                        maker.bottom.equalToSuperview().offset(2)
                     }
                 case .suggestContacts:
                     header.configTitle(R.string.localizable.socialSuggestedContacts()) { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
-                        maker.top.bottom.equalToSuperview()
+//                        maker.top.bottom.equalToSuperview()
+                        maker.bottom.equalToSuperview().offset(2)
                     }
                 case .suggestStrangers:
                     header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
-                        maker.top.bottom.equalToSuperview()
+//                        maker.top.bottom.equalToSuperview()
+                        maker.bottom.equalToSuperview().offset(2)
                     }
                 }
             }
@@ -287,7 +289,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 if dataSource.safe(indexPath.section)?.userLsit.count ?? 0 > 0 {
                     shareFooter.configContent { (maker) in
                         maker.leading.trailing.equalToSuperview().inset(20)
-                        maker.top.equalToSuperview().offset(7)
+                        maker.top.equalToSuperview().offset(6)
                         maker.height.equalTo(68)
                     }
                 } else {
@@ -325,11 +327,12 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
-            if section == 0 {
+        if let item = dataSource.safe(section),
+           item.userLsit.count > 0 {
+            if item.group == .playing {
                 return CGSize(width: Frame.Screen.width, height: 53)
-            } else if section == 1 {
-                return CGSize(width: Frame.Screen.width, height: 47)
+            } else {
+                return CGSize(width: Frame.Screen.width, height: 103)
             }
         }
         return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
@@ -338,11 +341,12 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         if section == 0 {
             if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
-                return CGSize(width: Frame.Screen.width, height: 121)
+                return CGSize(width: Frame.Screen.width, height: 74)
             } else {
-                return CGSize(width: Frame.Screen.width, height: 138)
+//                return CGSize(width: Frame.Screen.width, height: 138)
+                return CGSize(width: Frame.Screen.width, height: 94)
             }
-            
+            return CGSize(width: Frame.Screen.width, height: 74)
         } else {
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }
