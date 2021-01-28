@@ -224,22 +224,99 @@ extension Social.SelectAvatarViewController {
         
     }
     
-    private func upgradePro() {
+    private func upgradePro(with indexPath: IndexPath) {
         guard !Settings.shared.isProValue.value,
               let premiun = R.storyboard.main.premiumViewController() else {
             return
         }
         premiun.style = .likeGuide
         premiun.source = .setting
-        premiun.dismissHandler = { (purchased) in
-            premiun.dismiss(animated: true) {
-                guard purchased else { return }
-                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+        premiun.dismissHandler = { [weak self] (purchased) in
+            guard let `self` = self else { return }
+            premiun.dismiss(animated: true) { [weak self] in
+                guard purchased, AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro())) else {
+                    return
+                }
+                self?.onSelectItem(indexPath)
             }
         }
         premiun.modalPresentationStyle = .fullScreen
         present(premiun, animated: true, completion: nil)
         Logger.UserAction.log(.update_pro, "settings")
+    }
+    
+    private func onSelectItem(_ indexPath: IndexPath) {
+        guard let avatar = avatarDataSource.safe(indexPath.item) else {
+            return
+        }
+        guard avatar.selected == false else {
+            return
+        }
+        
+        //select pro item
+        if avatar.locked,
+           !Settings.shared.isProValue.value,
+           avatar.avatar.unlockType == .premium {
+            //go to premium page
+            Logger.Action.log(.profile_avatar_get, category: .premium, "\(avatar.avatarId)")
+            return upgradePro(with: indexPath)
+        }
+        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        avatarCollectionView.isUserInteractionEnabled = false
+        
+        let completion = { [weak self] in
+            hudRemoval()
+            self?.avatarCollectionView.isUserInteractionEnabled = true
+        }
+        
+        let updateProfile = useAvatar(avatar)
+            .flatMap({ (p) -> Single<Entity.UserProfile> in
+                guard let profile = p else {
+                    return Single.error(MsgError(code: 400, msg: R.string.localizable.amongChatUpdateProfileFailed()))
+                }
+                return Single.just(profile)
+            })
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onSuccess: { [weak self] (_) in
+                self?.updateAvatarSelected(of: indexPath.item)
+            })
+        
+        if avatar.locked {
+            Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
+            
+            rewardVideoDispose?.dispose()
+            
+            rewardVideoDispose =
+                unlockAvatar(for: avatar, indexPath)
+                .flatMap { (_) -> Single<Entity.UserProfile> in
+                    return updateProfile
+                }
+                .take(1)
+                .asSingle()
+                .subscribe(onSuccess: { _ in
+                    completion()
+                }, onError: { [weak self] (error) in
+                    completion()
+                    if let _ = error as? RxError {
+                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()), backColor: UIColor(hex6: 0x2E2E2E))
+                    } else {
+                        self?.view.raft.autoShow(.text(error.localizedDescription), backColor: UIColor(hex6: 0x2E2E2E))
+                    }
+                })
+            rewardVideoDispose?.disposed(by: bag)
+            
+        } else {
+            Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatarId)")
+            updateProfile.subscribe(onSuccess: { (p) in
+                completion()
+            }, onError: {[weak self] (error) in
+                completion()
+                self?.view.raft.autoShow(.text(error.localizedDescription))
+            })
+            .disposed(by: bag)
+        }
     }
 }
 
@@ -266,76 +343,7 @@ extension Social.SelectAvatarViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let avatar = avatarDataSource.safe(indexPath.item) {
-            guard avatar.selected == false else {
-                return
-            }
-            
-            //select pro item
-            if avatar.locked,
-               !Settings.shared.isProValue.value,
-               avatar.avatar.unlockType == .premium {
-                //go to premium page
-                Logger.Action.log(.profile_avatar_get, category: .premium, "\(avatar.avatarId)")
-                return upgradePro()
-            }
-            
-            let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
-            
-            avatarCollectionView.isUserInteractionEnabled = false
-            
-            let completion = { [weak self] in
-                hudRemoval()
-                self?.avatarCollectionView.isUserInteractionEnabled = true
-            }
-            
-            let updateProfile = useAvatar(avatar)
-                .flatMap({ (p) -> Single<Entity.UserProfile> in
-                    guard let profile = p else {
-                        return Single.error(MsgError(code: 400, msg: R.string.localizable.amongChatUpdateProfileFailed()))
-                    }
-                    return Single.just(profile)
-                })
-                .observeOn(MainScheduler.asyncInstance)
-                .do(onSuccess: { [weak self] (_) in
-                    self?.updateAvatarSelected(of: indexPath.item)
-                })
-            
-            if avatar.locked {
-                Logger.Action.log(.profile_avatar_get, category: .rewarded, "\(avatar.avatarId)")
-                
-                rewardVideoDispose?.dispose()
-                
-                rewardVideoDispose =
-                    unlockAvatar(for: avatar, indexPath)
-                    .flatMap { (_) -> Single<Entity.UserProfile> in
-                        return updateProfile
-                    }
-                    .take(1)
-                    .asSingle()
-                    .subscribe(onSuccess: { _ in
-                        completion()
-                    }, onError: { [weak self] (error) in
-                        completion()
-                        if let _ = error as? RxError {
-                            self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()), backColor: UIColor(hex6: 0x2E2E2E))
-                        } else {
-                            self?.view.raft.autoShow(.text(error.localizedDescription), backColor: UIColor(hex6: 0x2E2E2E))
-                        }
-                    })
-                rewardVideoDispose?.disposed(by: bag)
-                
-            } else {
-                Logger.Action.log(.profile_avatar_clk, category: .free, "\(avatar.avatarId)")
-                updateProfile.subscribe(onSuccess: { (p) in
-                    completion()
-                }, onError: {[weak self] (error) in
-                    completion()
-                    self?.view.raft.autoShow(.text(error.localizedDescription))
-                })
-                .disposed(by: bag)
-            }
-        }
+        onSelectItem(indexPath)
     }
     
 }
@@ -420,6 +428,7 @@ extension Social.SelectAvatarViewController {
                 adBadge.image = R.image.ac_avatar_ad()
             case .premium:
                 adBadge.image = R.image.ac_avatar_pro()
+                adBadge.isHidden = false
             default:
                 ()
             }
