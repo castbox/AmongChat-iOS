@@ -68,15 +68,34 @@ class SettingViewController: ViewController {
         return tb
     }()
     
-    private lazy var logoutFooter: UIView = {
+    private let minimumFooterHeight: CGFloat = 240
+    
+    private lazy var tableFooter: UIView = {
         let v = UIView()
-        v.addSubview(logoutBtn)
+        v.addSubviews(views: logoutBtn, logoIV, versionLabel, policyLabel)
+        
         logoutBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(40)
-            make.right.equalTo(-40)
+            make.leading.trailing.equalToSuperview().inset(40)
             make.height.equalTo(50)
             make.top.equalToSuperview().offset(28)
         }
+        
+        logoIV.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalToSuperview().offset(-90)
+        }
+        
+        versionLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(logoIV.snp.bottom).offset(8)
+        }
+        
+        policyLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(versionLabel.snp.bottom).offset(8)
+        }
+        v.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: minimumFooterHeight))
         return v
     }()
     
@@ -94,6 +113,11 @@ class SettingViewController: ViewController {
         super.viewDidLoad()
         setupLayout()
         setupEvent()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTableFooterHeight()
     }
 }
 
@@ -147,7 +171,7 @@ extension SettingViewController {
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
         
-        view.addSubviews(views: settingsTable, logoIV, versionLabel, policyLabel)
+        view.addSubviews(views: settingsTable)
         
         settingsTable.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
@@ -155,22 +179,8 @@ extension SettingViewController {
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
-        logoIV.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-90)
-        }
-        
-        versionLabel.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.top.equalTo(logoIV.snp.bottom).offset(8)
-        }
-        
-        policyLabel.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.left.greaterThanOrEqualToSuperview().offset(40)
-            maker.top.equalTo(versionLabel.snp.bottom).offset(8)
-        }
-        
+        settingsTable.tableFooterView = tableFooter
+        settingsTable.reloadData()
     }
     
     func setupEvent() {
@@ -192,17 +202,7 @@ extension SettingViewController {
                       let _ = result else {
                     return
                 }
-                
-                let footer: UIView?
-                
-                if AmongChat.Login.isLogedin {
-                    self.logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
-                    footer = self.logoutFooter
-                } else {
-                    footer = nil
-                }
-                self.settingsTable.tableFooterView = footer
-                self.settingsTable.reloadData()
+                self.logoutBtn.isHidden = !AmongChat.Login.isLogedin
             })
             .disposed(by: bag)
 
@@ -285,6 +285,16 @@ extension SettingViewController {
         }
         
         return options
+    }
+    
+    private func updateTableFooterHeight() {
+        let extraHeight = settingsTable.bounds.height - settingsTable.contentSize.height
+        guard extraHeight > minimumFooterHeight,
+              let frame = settingsTable.tableFooterView?.frame else {
+            return
+        }
+        settingsTable.tableFooterView?.frame = CGRect(origin: frame.origin, size: CGSize(width: frame.width, height: extraHeight))
+        settingsTable.reloadData()
     }
 }
 
