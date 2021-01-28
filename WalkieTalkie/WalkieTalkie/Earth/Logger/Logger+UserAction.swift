@@ -208,6 +208,7 @@ extension Logger {
             
             //头像
             case rewarded
+            case premium
             case free
             case profile
             case follow

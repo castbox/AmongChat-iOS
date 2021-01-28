@@ -50,6 +50,8 @@ extension Routes {
                         self.handleSearch()
                     case let profile as URI.Profile:
                         self.handleProfile(uid: profile.uid)
+                    case _ as URI.Avatars:
+                        self.handleAvatars()
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -80,6 +82,8 @@ extension Routes {
             guard let roomVc = UIApplication.navigationController?.topViewController as? ViewController else {
                 return
             }
+            //set to false
+            UIApplication.tabBarController?.canShowAvatarGuide = false
             
             var apiSource: ParentApiSource? = nil
             if let source = channel.sourceType {
@@ -111,6 +115,11 @@ extension Routes {
                 UIApplication.navigationController?.pushViewController(vc)
 
             }
+        }
+        
+        func handleAvatars() {
+            let vc = Social.SelectAvatarViewController()
+            UIApplication.navigationController?.pushViewController(vc)
         }
         
         func handleFollowers() {

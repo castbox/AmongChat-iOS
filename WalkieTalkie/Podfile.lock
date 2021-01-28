@@ -182,11 +182,14 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
+  - HWPanModal (0.8.0)
   - IQKeyboardManagerSwift (6.2.1)
   - JLRoutes (2.1)
   - Kingfisher (5.15.8):
     - Kingfisher/Core (= 5.15.8)
   - Kingfisher/Core (5.15.8)
+  - Koloda (5.0.1):
+    - pop (~> 1.0)
   - loady (1.0.5)
   - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
@@ -216,6 +219,7 @@ PODS:
   - Path.swift (1.0.1)
   - PINCache (2.3)
   - PINOperation (1.1.2)
+  - pop (1.0.12)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
   - PullToDismiss (2.2)
@@ -312,9 +316,11 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/RemoteConfig
   - GoogleSignIn
+  - HWPanModal
   - IQKeyboardManagerSwift (~> 6.2.0)
   - JLRoutes
   - Kingfisher
+  - Koloda
   - loady
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
@@ -383,9 +389,11 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - HWPanModal
     - IQKeyboardManagerSwift
     - JLRoutes
     - Kingfisher
+    - Koloda
     - loady
     - MarqueeLabel
     - MBProgressHUD
@@ -398,6 +406,7 @@ SPEC REPOS:
     - Path.swift
     - PINCache
     - PINOperation
+    - pop
     - PromisesObjC
     - Protobuf
     - PullToDismiss
@@ -475,9 +484,11 @@ SPEC CHECKSUMS:
   GoogleUtilities: 39530bc0ad980530298e9c4af8549e991fd033b1
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  HWPanModal: d3c902548346b19f6bb0e667567a06f8b82049a9
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
+  Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -490,6 +501,7 @@ SPEC CHECKSUMS:
   Path.swift: 14eb9ac8a78a8135f440d9c5548ddae4f96def68
   PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
   PINOperation: 24b774353ca248fcf87d67b2d61eef42087c125a
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
   PullToDismiss: 033572b7152fbf68db0407db882d546312813837
@@ -519,6 +531,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: 6b7c34b681c8c933ca1dbe01a84afbddb3ea0432
+PODFILE CHECKSUM: 4e5fb03fd31cbd8f9d84722c9cc2142379f503ed
 
 COCOAPODS: 1.10.0

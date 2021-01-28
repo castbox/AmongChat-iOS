@@ -100,6 +100,7 @@ extension AmongChat.Room {
             lb.font = R.font.nunitoExtraBold(size: 12)
             lb.textColor = .white
             lb.textAlignment = .center
+            lb.lineBreakMode = .byTruncatingMiddle
             return lb
         }()
         
@@ -293,7 +294,7 @@ extension AmongChat.Room.UserCell {
             avatarIV.imageView?.contentMode = .scaleAspectFill
             avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
             avatarIV.layer.borderWidth = 0.5
-            nameLabel.text = user.name
+            nameLabel.attributedText = user.nameWithVerified(fontSize: 12)
         }
         gameNameButton.setTitle(user.nickname, for: .normal)
         gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)

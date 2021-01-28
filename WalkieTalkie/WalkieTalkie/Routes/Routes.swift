@@ -30,6 +30,7 @@ final class Routes {
             URI.CreateRoom.self,
             URI.Profile.self,
             URI.Search.self,
+            URI.Avatars.self,
             ]
         
         types.forEach { (type) in
