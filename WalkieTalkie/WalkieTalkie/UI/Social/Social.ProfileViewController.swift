@@ -36,7 +36,7 @@ extension Social {
                 case .pro:
                     return Settings.shared.isProValue.value ?
                         R.string.localizable.amongChatProfileProCenter() :
-                        R.string.localizable.profilePro()
+                        R.string.localizable.profileUnlockPro()
                 }
             }
         }
