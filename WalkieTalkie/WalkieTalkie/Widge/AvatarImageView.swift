@@ -13,6 +13,7 @@ class AvatarImageView: UIImageView {
     init() {
         super.init(frame: .zero)
         image = R.image.ac_profile_avatar()
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {
