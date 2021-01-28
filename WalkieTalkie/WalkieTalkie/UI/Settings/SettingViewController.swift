@@ -123,6 +123,7 @@ extension SettingViewController {
     private func updateEnvironment(_ sender: Any) {
         //debug
         Settings.shared.amongChatAvatarListShown.value = nil
+        Settings.shared.globalSetting.value = nil
         Defaults[\.avatarGuideUpdateTime] = ""
         
         let isReleaseMode = Defaults[\.isReleaseMode]

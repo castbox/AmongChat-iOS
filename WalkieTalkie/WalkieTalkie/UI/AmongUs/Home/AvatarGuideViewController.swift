@@ -40,6 +40,7 @@ class AvatarGuideViewController: ViewController {
     
         if avatarList.count == 1 {
             stackView.removeArrangedSubview(rightImageView)
+            rightImageView.removeFromSuperview()
         }
     }
 
