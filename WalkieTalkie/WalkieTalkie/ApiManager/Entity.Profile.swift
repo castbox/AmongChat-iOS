@@ -19,17 +19,19 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
     var fullString = NSMutableAttributedString(string: nameString)
     if isVerified == true {
         let font = R.font.nunitoExtraBold(size: fontSize)!
+        var extraTopPadding: CGFloat = 0
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_verified_13()!
             } else if fontSize > 24  {
+                extraTopPadding = -2
                 return R.image.icon_verified_20()!
             }
             return R.image.icon_verified()!
         }
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
         fullString = NSMutableAttributedString(string: nameString + " ")
@@ -38,10 +40,12 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
     }
     if isVip == true {
         let font = R.font.nunitoExtraBold(size: fontSize)!
+        var extraTopPadding: CGFloat = 0
         var image: UIImage {
             if fontSize == 12 {
                 return R.image.icon_vip_13()!
             } else if fontSize > 24  {
+                extraTopPadding = -2
                 return R.image.icon_vip_20()!
             }
             return R.image.icon_vip()!
