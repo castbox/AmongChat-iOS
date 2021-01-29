@@ -254,3 +254,44 @@
 "among.chat.login.congrat" = "Parabéns!";
 "among.chat.profile.sign.in" = "Entrar/inscrever-se";
 "among.chat.profile.overrite" = "Você já tem uma conta vinculada a este método. Para continuar, seus dados atuais seriam substituídos e perdidos.";
+
+//1.12
+"among.chat.pro.privilege.no.ad" = "Sem anúncios";
+"among.chat.pro.privilege.no.ad.sub" = "Aproveite a versão sem anúncios";
+"among.chat.pro.privilege.unlimited.cards" = "Cartões SPACE ilimitados";
+"among.chat.pro.privilege.unlimited.cards.sub" = "Sinta-se à vontade para criar canais";
+"among.chat.pro.privilege.badge" = "Emblema PRO exclusivo";
+"among.chat.pro.privilege.badge.sub" = "Destaque-se entre os amigos";
+"among.chat.pro.privilege.match" = "Prioridade máxima para combinar";
+"among.chat.pro.privilege.match.sub" = "Mais rápido para encontrar amigos e formar uma equipe";
+"among.chat.pro.privilege.avatars" = "Avatares especiais";
+"among.chat.pro.privilege.avatars.sub" = "Você é o jogador mais legal";
+"among.chat.pro.privileges.title" = "Privilégios PRO";
+"premium.period.free.trial" = "%1$@ Teste Grátis";
+"permium.yearly.product.price" = "Então %1$@"; //e.g. "Then $9.99/year"
+"premium.not.activated" = "Ainda não ativado";
+"premium.restore.purchases" = "Restaurar compras";
+"among.chat.profile.pro.center" = "PRO Center";
+"among.chat.create.room.card.unlimited" = "Ilimitado";
+"among.chat.create.room.card.unlock.pro" = "Você pode obter cartões ilimitados ao desbloquear PRO.";
+"login" = "Conecte-se";
+"social.share.link" = "Compartilhar link";
+"social.invite.contact" = "Contatos";
+"social.invite.contact.mobile" = "Encontre amigos em seus contatos";
+"big.enable" = "Habilitar";
+"big.go" = "Ir";
+"social.contact.denied.title" = "Vá para as configurações do seu telefone para habilitar a permissão";
+"social.add.new" = "Adicionar novos amigos";
+"social.contact.firends.count" = "%@ amigos no AmongChat";
+"social.suggested.contacts" = "Contatos sugeridos";
+"social.see.all" = "Ver tudo";
+"contact.search.input.placeholder" = "Procura por nome";
+"contact.search.title" = "Contatos";
+"device.not.support.send.message" = "Desculpe, seu dispositivo não suporta este recurso.";
+"new.avatars.guide.title" = "Novos Avatares";
+"new.avatars.guide.subtitle" = "Quer ser mais atraente e fazer mais amigos? Avatares legais estão prontos para você!";
+"contacts.matching.results.empty" = "Ops, nenhum resultado correspondente!";
+"contacts.empty" = "Ops, sem contatos!";
+"premium.restore.succeeded" = "Restauração bem sucedida";
+
+"social.one.contact.firend" = "%@ amigo no AmongChat";

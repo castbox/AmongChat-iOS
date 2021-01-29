@@ -254,3 +254,44 @@
 "among.chat.login.congrat" = "تهانينا!";
 "among.chat.profile.sign.in" = "تسجيل الدخول/التسجيل";
 "among.chat.profile.overrite" = "لديك بالفعل حساب مرتبط بهذه الطريقة. للمتابعة ، سيتم الكتابة فوق بياناتك الحالية وفقدانها.";
+
+//1.12
+"among.chat.pro.privilege.no.ad" = "لا اعلانات";
+"among.chat.pro.privilege.no.ad.sub" = "استمتع بالنسخة الخالية من الإعلانات";
+"among.chat.pro.privilege.unlimited.cards" = "بطاقات SPACE غير محدودة";
+"among.chat.pro.privilege.unlimited.cards.sub" = "لا تتردد في إنشاء قنوات";
+"among.chat.pro.privilege.badge" = "شارة PRO حصرية";
+"among.chat.pro.privilege.badge.sub" = "تميز بين الأصدقاء";
+"among.chat.pro.privilege.match" = "أولوية قصوى للمباراة";
+"among.chat.pro.privilege.match.sub" = "أسرع للعثور على الأصدقاء والعمل كفريق";
+"among.chat.pro.privilege.avatars" = "الصور الرمزية الخاصة";
+"among.chat.pro.privilege.avatars.sub" = "أنت أروع لاعب";
+"among.chat.pro.privileges.title" = "امتيازات PRO";
+"premium.period.free.trial" = "%1$@ نسخة تجريبية مجانية";
+"permium.yearly.product.price" = "ثم %1$@"; //e.g. "Then $9.99/year"
+"premium.not.activated" = "لم يتم تفعيله بعد";
+"premium.restore.purchases" = "استعادة المشتريات";
+"among.chat.profile.pro.center" = "مركز PRO";
+"among.chat.create.room.card.unlimited" = "غير محدود";
+"among.chat.create.room.card.unlock.pro" = "يمكنك الحصول على بطاقات غير محدودة عن طريق فتح PRO.";
+"login" = "تسجيل الدخول";
+"social.share.link" = "رابط المشاركة";
+"social.invite.contact" = "جهات الاتصال";
+"social.invite.contact.mobile" = "ابحث عن أصدقاء في جهات الاتصال الخاصة بك";
+"big.enable" = "ممكن";
+"big.go" = "اذهب";
+"social.contact.denied.title" = "يرجى الانتقال إلى إعدادات هاتفك لتمكين الإذن";
+"social.add.new" = "أضف أصدقاء جدد";
+"social.contact.firends.count" = "%@ الأصدقاء على AmongChat";
+"social.suggested.contacts" = "اقترح جهات الاتصال";
+"social.see.all" = "اظهار الكل";
+"contact.search.input.placeholder" = "البحث عن طريق الإسم";
+"contact.search.title" = "جهات الاتصال";
+"device.not.support.send.message" = "عذرا ، جهازك لا يدعم هذه الميزة.";
+"new.avatars.guide.title" = "الصور الرمزية الجديدة";
+"new.avatars.guide.subtitle" = "هل تريد أن تكون أكثر جاذبية وتكوين صداقات أكثر؟ الصور الرمزية الرائعة جاهزة لك!";
+"contacts.matching.results.empty" = "عفوًا ، لا توجد نتائج مطابقة!";
+"contacts.empty" = "عفوًا ، لا توجد جهات اتصال!";
+"premium.restore.succeeded" = "نجحت الاستعادة";
+
+"social.one.contact.firend" = "%@ صديق على AmongChat";

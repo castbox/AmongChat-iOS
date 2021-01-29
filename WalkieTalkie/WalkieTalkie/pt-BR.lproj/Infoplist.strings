@@ -9,3 +9,4 @@
 NSMicrophoneUsageDescription = "Habilite o microfone para falar com outras pessoas nos canais";
 NSPhotoLibraryUsageDescription = "Permita que o AmongChat use sua biblioteca de fotos";
 NSSpeechRecognitionUsageDescription = "Permita que o AmongChat use o seu reconhecimento de voz";
+NSContactsUsageDescription = "AmongChat usa seus contatos para ajudá-lo a encontrar amigos e jogar juntos.";
