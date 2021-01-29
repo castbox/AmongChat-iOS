@@ -374,7 +374,8 @@ extension AmongChat.Home {
         private func setupLayout() {
             backgroundColor = "#222222".color()
             cornerRadius = 12
-            clipsToBounds = true
+            clipsToBounds = false
+            addShadow(ofColor: UIColor.black.alpha(0.4))
             
             addSubviews(views: userView, skipButton, lineView, inviteButton)
             
@@ -407,7 +408,8 @@ extension AmongChat.Home {
             }
             
             inviteButton.snp.makeConstraints { (maker) in
-                maker.trailing.top.bottom.equalToSuperview()
+                maker.top.bottom.equalToSuperview()
+                maker.trailing.equalTo(-16)
             }
             
         }
@@ -450,6 +452,7 @@ extension AmongChat.Home {
         }
         
         private func setupLayout() {
+            cardStack.backgroundCardsTopMargin = 6
             cardStack.delegate = self
             cardStack.dataSource = self
             
