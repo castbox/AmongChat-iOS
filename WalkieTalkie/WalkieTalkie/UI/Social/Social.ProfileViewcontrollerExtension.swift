@@ -224,9 +224,10 @@ extension Social.ProfileViewController {
             }
             
             lineView.snp.makeConstraints { maker in
-                maker.center.equalToSuperview()
+                maker.top.equalToSuperview().offset(9)
                 maker.width.equalTo(2)
-                maker.height.equalTo(28)
+                maker.height.equalTo(24)
+                maker.centerX.equalToSuperview()
             }
             
             followerBtn.snp.makeConstraints { (maker) in
@@ -291,8 +292,7 @@ extension Social.ProfileViewController {
             
             relationContainer.snp.makeConstraints { maker in
                 maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(avatarIV.snp.bottom).offset(20)
-                maker.height.equalTo(50)
+                maker.top.equalTo(avatarIV.snp.bottom).offset(33)
             }
             
             redCountLabel.snp.makeConstraints { (make) in
@@ -377,7 +377,7 @@ extension Social.ProfileViewController {
         
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
@@ -454,12 +454,13 @@ extension Social.ProfileViewController {
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(30)
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(titleLabel.snp.bottom)
+                maker.top.equalTo(titleLabel.snp.bottom).inset(4)
                 maker.leading.trailing.bottom.equalToSuperview()
-                maker.height.equalTo(18)
+                maker.height.equalTo(19)
             }
         }
         
