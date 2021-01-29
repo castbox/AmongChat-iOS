@@ -294,3 +294,5 @@
 "contacts.matching.results.empty" = "Oops, no matching results!";
 "contacts.empty" = "Oops, no contacts!";
 "premium.restore.succeeded" = "Restore succeeded";
+
+"social.one.contact.firend" = "%@ friend on AmongChat";

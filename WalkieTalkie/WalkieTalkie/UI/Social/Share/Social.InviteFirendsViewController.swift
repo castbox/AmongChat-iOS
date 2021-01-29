@@ -18,7 +18,7 @@ extension Social {
     class InviteFirendsViewController: WalkieTalkie.ViewController {
         
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .plain)
+            let tb = UITableView(frame: .zero, style: .grouped)
             tb.dataSource = self
             tb.delegate = self
             tb.register(cellWithClass: Social.ContactCell.self)
@@ -69,10 +69,16 @@ extension Social {
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
-            view.addSubview(tableView)
+            view.addSubviews(views: tableView, headerView)
             tableView.snp.makeConstraints { (maker) in
-                maker.top.left.right.equalToSuperview()
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(headerView.snp.bottom)
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            }
+            
+            headerView.snp.makeConstraints { maker in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(159)
             }
             
             let line = UIView()
@@ -87,8 +93,9 @@ extension Social {
                 make.height.equalTo(4)
             }
             
-            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 159)
-            tableView.tableHeaderView = headerView
+            
+//            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 159)
+//            tableView = headerView
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.sendSMS(body: self.linkUrl)
@@ -375,7 +382,7 @@ extension Social.InviteFirendsViewController {
             
             lineView.snp.makeConstraints { maker in
                 maker.left.right.bottom.equalToSuperview()
-                maker.height.equalTo(0.5)
+                maker.height.equalTo(1)
             }
             
             smsBtn.rx.tap
@@ -538,7 +545,7 @@ extension Social {
         private lazy var followBtn: UIButton = {
             let btn = UIButton()
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
-            btn.setTitle(R.string.localizable.bigEnable(), for: .normal)
+            btn.setTitle(R.string.localizable.bigGo(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
@@ -578,8 +585,7 @@ extension Social {
             
             usernameLabel.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
-                maker.trailing.equalTo(-115)
-                maker.height.equalTo(30)
+                maker.trailing.equalTo(followBtn.snp.leading).offset(-12)
                 maker.centerY.equalTo(avatarIV.snp.centerY)
             }
             

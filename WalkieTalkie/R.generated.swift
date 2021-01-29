@@ -1530,7 +1530,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 252 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 253 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1544,6 +1544,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %@ friend on AmongChat
+      /// 
+      /// Locales: en
+      static let socialOneContactFirend = Rswift.StringResource(key: "social.one.contact.firend", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: %@ friends on AmongChat
       /// 
       /// Locales: en
@@ -2560,6 +2564,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeNowplaying(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.home.nowplaying", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %@ friend on AmongChat
+      /// 
+      /// Locales: en
+      static func socialOneContactFirend(_ value1: String) -> String {
+        return String(format: NSLocalizedString("social.one.contact.firend", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %@ friends on AmongChat

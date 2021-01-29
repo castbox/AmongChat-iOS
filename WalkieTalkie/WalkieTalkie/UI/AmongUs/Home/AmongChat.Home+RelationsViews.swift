@@ -67,7 +67,7 @@ extension AmongChat.Home {
             
             let textLayout = UILayoutGuide()
             addLayoutGuide(textLayout)
-                        
+            
             textLayout.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
@@ -104,8 +104,12 @@ extension AmongChat.Home {
             avatarIV.image = R.image.ac_profile_avatar()
             
             nameLabel.text = viewModel.name
-            
-            statusLabel.text = R.string.localizable.socialContactFirendsCount(viewModel.count.string)
+            if viewModel.count == 1 {
+                statusLabel.text = R.string.localizable.socialOneContactFirend(viewModel.count.string)
+            } else {
+                
+                statusLabel.text = R.string.localizable.socialContactFirendsCount(viewModel.count.string)
+            }
         }
         
     }
@@ -116,7 +120,7 @@ extension AmongChat.Home {
             let v = UserView()
             return v
         }()
-                
+        
         private lazy var joinBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
@@ -152,7 +156,7 @@ extension AmongChat.Home {
             contentView.backgroundColor = .clear
             
             contentView.addSubviews(views: userView, joinBtn, lockedIcon)
-                        
+            
             let buttonLayout = UILayoutGuide()
             contentView.addLayoutGuide(buttonLayout)
             buttonLayout.snp.makeConstraints { (maker) in
@@ -268,7 +272,7 @@ extension AmongChat.Home {
             followBtn.snp.makeConstraints { (maker) in
                 maker.edges.equalTo(buttonLayout)
             }
-
+            
         }
         
         func bind(viewModel: PlayingViewModel,
@@ -281,7 +285,7 @@ extension AmongChat.Home {
                     onFollow()
                 })
         }
-
+        
         
     }
     
@@ -293,7 +297,7 @@ extension AmongChat.Home {
         
         private lazy var skipButton: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
             btn.setTitle(R.string.localizable.profileBirthdaySkip(), for: .normal)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -306,7 +310,7 @@ extension AmongChat.Home {
         
         private lazy var inviteButton: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
             //            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
             //            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
@@ -337,8 +341,8 @@ extension AmongChat.Home {
             self.contact = contact
             super.init(frame: .zero)
             setupLayout()
-           bindSubviewEvent()
-
+            bindSubviewEvent()
+            
         }
         
         required init?(coder: NSCoder) {
@@ -392,7 +396,7 @@ extension AmongChat.Home {
                 maker.top.bottom.equalToSuperview()
                 maker.trailing.equalTo(inviteButton.snp.leading)
                 maker.leading.equalTo(buttonLayout)
-//                maker.width.equalTo(inviteButton)
+                //                maker.width.equalTo(inviteButton)
             }
             
             lineView.snp.makeConstraints { maker in
@@ -460,8 +464,8 @@ extension AmongChat.Home {
         
         func bind(dataSource: [ContactViewModel],
                   onSkip: @escaping (Entity.ContactFriend) -> Void,
-                 onInvite: @escaping (Entity.ContactFriend) -> Void,
-                 onRunOutOfCards: @escaping CallBack) {
+                  onInvite: @escaping (Entity.ContactFriend) -> Void,
+                  onRunOutOfCards: @escaping CallBack) {
             self.dataSource = dataSource
             onSkipHandler = onSkip
             onInviteHandler = onInvite
@@ -488,21 +492,21 @@ extension AmongChat.Home {
                 koloda.swipe(.right)
                 self?.onInviteHandler?(contact)
             }
-
+            
             return view
         }
         
-//        func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
-//            return Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)?[0] as? OverlayView
-//        }
+        //        func koloda(_ koloda: KolodaView, viewForCardOverlayAt index: Int) -> OverlayView? {
+        //            return Bundle.main.loadNibNamed("OverlayView", owner: self, options: nil)?[0] as? OverlayView
+        //        }
         
         func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-//            self.dataSource = dataSource
-//            let position = kolodaView.currentCardIndex
-//            for i in 1...4 {
-//              dataSource.append(UIImage(named: "Card_like_\(i)")!)
-//            }
-//            kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
+            //            self.dataSource = dataSource
+            //            let position = kolodaView.currentCardIndex
+            //            for i in 1...4 {
+            //              dataSource.append(UIImage(named: "Card_like_\(i)")!)
+            //            }
+            //            kolodaView.insertCardAtIndexRange(position..<position + 4, animated: true)
             onRunOutOfCardsHandler?()
         }
         
@@ -511,7 +515,7 @@ extension AmongChat.Home {
         }
         
         func koloda(_ koloda: KolodaView, didSelectCardAt index: Int) {
-//            UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
+            //            UIApplication.shared.openURL(URL(string: "https://yalantis.com/")!)
         }
     }
     
@@ -532,8 +536,8 @@ extension AmongChat.Home {
             btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             btn.setTitle(R.string.localizable.socialSeeAll(), for: .normal)
             btn.isHidden = true
-//            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-//            btn.layer.masksToBounds = true
+            //            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            //            btn.layer.masksToBounds = true
             //            btn.layer.cornerRadius = 16
             //            btn.layer.borderWidth = 2.5
             btn.setContentHuggingPriority(.required, for: .horizontal)
@@ -560,7 +564,7 @@ extension AmongChat.Home {
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
-                
+        
         private func setupLayout() {
             addSubviews(views: titleLabel, seeAllButton)
             titleLabel.snp.makeConstraints { (maker) in

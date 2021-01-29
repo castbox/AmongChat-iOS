@@ -339,7 +339,7 @@ extension ChatRoom.TextMessage: MessageListable {
             mutableNormalString.append(imageString)
         }
         
-        mutableNormalString.append(NSAttributedString(string: " \(content)", attributes: contentAttr))
+        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
         return mutableNormalString
     }
 }

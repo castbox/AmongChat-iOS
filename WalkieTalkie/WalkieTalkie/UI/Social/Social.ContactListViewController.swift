@@ -107,15 +107,18 @@ extension Social {
                 maker.center.equalTo(navLayoutGuide)
             }
             
-            view.addSubview(tableView)
+            view.addSubviews(views: tableView, headerView)
             tableView.snp.makeConstraints { (maker) in
-                maker.top.equalTo(navLayoutGuide.snp.bottom)
+                maker.top.equalTo(headerView.snp.bottom)
                 maker.left.right.equalToSuperview()
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
+            headerView.snp.makeConstraints { maker in
+                maker.top.equalTo(navLayoutGuide.snp.bottom)
+                maker.leading.trailing.equalToSuperview()
+                maker.height.equalTo(86)
+            }
             
-            headerView.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 86)
-            tableView.tableHeaderView = headerView
             headerView.inputResultHandler = { [weak self] key in
                 guard let `self` = self else { return }
                 self.viewModel.search(name: key)
@@ -243,7 +246,7 @@ extension Social.ContactListViewController {
             f.leftViewMode = .always
 //            f.rightViewMode = .always
             f.returnKeyType = .search
-            f.attributedPlaceholder = NSAttributedString(string: R.string.localizable.amongChatRoomMessagePlaceholder(),
+            f.attributedPlaceholder = NSAttributedString(string: R.string.localizable.contactSearchInputPlaceholder(),
                                                          attributes: [
                                                             NSAttributedString.Key.foregroundColor : UIColor("#646464")
                                                          ])
@@ -253,6 +256,19 @@ extension Social.ContactListViewController {
             f.cornerRadius = 18
             f.clipsToBounds = true
             return f
+        }()
+        
+        private lazy var cancelEditBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.resignFirstResponder()
+                }).disposed(by: bag)
+            btn.setTitle(R.string.localizable.toastCancel(), for: .normal)
+            btn.setTitleColor(.white, for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+//            btn.isHidden = true
+            return btn
         }()
         
         private let bag = DisposeBag()
@@ -279,12 +295,17 @@ extension Social.ContactListViewController {
         
         private func configureSubview() {
     //        locationService = .northAmercia
-            addSubview(textField)
+            addSubviews(views: textField, cancelEditBtn)
             textField.snp.makeConstraints { maker in
                 maker.leading.equalTo(20)
                 maker.top.equalTo(24)
                 maker.trailing.equalTo(-20)
                 maker.height.equalTo(36)
+            }
+            
+            cancelEditBtn.snp.makeConstraints { maker in
+                maker.leading.equalTo(snp.trailing)
+                maker.centerY.equalToSuperview()
             }
         }
         
@@ -293,6 +314,7 @@ extension Social.ContactListViewController {
         }
         
         override func resignFirstResponder() -> Bool {
+            textField.clear()
             return textField.resignFirstResponder()
         }
     }
@@ -304,16 +326,38 @@ extension Social.ContactListViewController.SearchHeaderView: UITextFieldDelegate
     // MARK: - UITextFieldDelegate
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = true
-//        isHidden = true
-//        fadeOut(duration: 0.25, completion: nil)
+        textField.snp.remakeConstraints { maker in
+            maker.leading.equalTo(20)
+            maker.top.equalTo(24)
+            maker.trailing.equalTo(-20)
+            maker.height.equalTo(36)
+        }
+        cancelEditBtn.snp.remakeConstraints { maker in
+            maker.leading.equalTo(snp.trailing)
+            maker.centerY.equalToSuperview()
+        }
+        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.fast.rawValue, dampingRatio: 1, animations: { [weak self] in
+            self?.layoutIfNeeded()
+        })
+        transitionAnimator.startAnimation()
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-//        inputContainerView.isHidden = false
-//        isHidden = false
-//        alpha = 1
-//        fadeIn(duration: 0.25, completion: nil)
+        textField.snp.remakeConstraints { maker in
+            maker.leading.equalTo(20)
+            maker.top.equalTo(24)
+            maker.trailing.equalTo(cancelEditBtn.snp.leading).offset(-20)
+            maker.height.equalTo(36)
+        }
+        cancelEditBtn.snp.remakeConstraints { maker in
+            maker.trailing.equalTo(-20)
+            maker.centerY.equalToSuperview()
+        }
+        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.fast.rawValue, dampingRatio: 1, animations: { [weak self] in
+            self?.layoutIfNeeded()
+        })
+        transitionAnimator.startAnimation()
+
     }
         
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
