@@ -702,7 +702,8 @@ extension PremiumViewController {
             case .yearlyProduct:
                 
                 titleLabel.snp.remakeConstraints { (maker) in
-                    maker.top.equalToSuperview().inset(bounds.height * 36.0 / 175.0)
+                    maker.top.equalToSuperview()
+                    maker.bottom.equalTo(subtitleLabel.snp.top)
                     maker.leading.trailing.equalToSuperview().inset(bounds.width * 12.0 / 131.0)
                 }
                 
