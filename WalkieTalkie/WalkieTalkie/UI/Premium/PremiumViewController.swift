@@ -237,7 +237,7 @@ class PremiumViewController: ViewController {
     var dismissHandler: ((_ purchased: Bool) -> Void)?
     var didSelectProducts: (String) -> Void = { _ in }
     
-    private let isPuchasingState = BehaviorSubject<Bool>.init(value: false)
+    private let isPuchasingState = BehaviorRelay<Bool>(value: false)
     
     override var screenName: Logger.Screen.Node.Start {
         return .premium
@@ -277,6 +277,9 @@ extension PremiumViewController {
     
     @objc
     private func onContinueBtn() {
+        guard isPuchasingState.value == false else {
+            return
+        }
         buy(identifier: selectedProduct)
     }
     
@@ -339,17 +342,15 @@ extension PremiumViewController {
             Logger.IAP.logPurchase(productId: identifier, source: s)
         }
         
-        view.isUserInteractionEnabled = false
-        let removeHUDBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
-        let removeBlock = { [weak self] in
-            self?.view.isUserInteractionEnabled = true
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = {
             removeHUDBlock()
         }
         
-        isPuchasingState.onNext(true)
+        isPuchasingState.accept(true)
         IAP.ProductFetcher.fetchProducts(of: [identifier]) { [weak self] (error, productMap) in
             guard let product = productMap[identifier] else {
-                self?.isPuchasingState.onNext(false)
+                self?.isPuchasingState.accept(false)
                 DispatchQueue.main.async {
                     removeBlock()
                 }
@@ -371,7 +372,7 @@ extension PremiumViewController {
                         })
 
                     Defaults[\.purchasedItemsKey] = identifier
-                    self?.isPuchasingState.onNext(false)
+                    self?.isPuchasingState.accept(false)
                     if let s = self?.source {
                         Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
                     }
@@ -380,7 +381,7 @@ extension PremiumViewController {
                         self?.dismissSelf(purchased: true)
                     }
                 case .failed:
-                    self?.isPuchasingState.onNext(false)
+                    self?.isPuchasingState.accept(false)
                     NSLog("Purchase failed")
                     DispatchQueue.main.async {
                         removeBlock()
