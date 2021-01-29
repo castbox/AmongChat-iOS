@@ -2300,7 +2300,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Sorry, your device do not support send message
+      /// en translation: Sorry, your device does not support this feature.
       /// 
       /// Locales: en
       static let deviceNotSupportSendMessage = Rswift.StringResource(key: "device.not.support.send.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -3885,7 +3885,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Sorry, your device do not support send message
+      /// en translation: Sorry, your device does not support this feature.
       /// 
       /// Locales: en
       static func deviceNotSupportSendMessage(_: Void = ()) -> String {
