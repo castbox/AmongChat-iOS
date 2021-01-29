@@ -597,5 +597,9 @@ extension Request {
                     throw MsgError.from(dic: json)
                 }
             }
+            .do(onSuccess: { () in
+                Settings.shared.updateProfile()
+            })
+
     }
 }

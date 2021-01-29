@@ -71,7 +71,6 @@ class Automator {
                 Request.uploadReceipt()
             })
             .subscribe(onNext: { (_) in
-                Settings.shared.updateProfile()
             })
             .disposed(by: bag)
 
