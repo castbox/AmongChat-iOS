@@ -427,7 +427,7 @@ extension Social.SelectAvatarViewController {
                 adBadge.image = R.image.ac_avatar_ad()
             case .premium:
                 adBadge.image = R.image.ac_avatar_pro()
-                adBadge.isHidden = false
+                adBadge.isHidden = avatar.selected
             default:
                 ()
             }
