@@ -161,7 +161,7 @@ extension Social {
             v.addSubview(loginButton)
             loginButton.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(20)
-                maker.centerY.equalToSuperview()
+                maker.top.equalToSuperview().offset(12)
                 maker.height.equalTo(48)
             }
             return v
@@ -536,7 +536,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if !AmongChat.Login.isLogedin && isSelfProfile{
-            return 72
+            return 104
         } else {
             return .leastNormalMagnitude
         }
