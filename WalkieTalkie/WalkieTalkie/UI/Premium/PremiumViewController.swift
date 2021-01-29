@@ -538,6 +538,7 @@ extension PremiumViewController {
             maker.trailing.greaterThanOrEqualToSuperview().inset(20)
             maker.centerY.equalTo(privilegesTitle)
             maker.leading.equalTo(privilegesTitle.snp.trailing).offset(8)
+            maker.width.equalTo(privLeftLine)
         }
         
         privilegeStack.snp.makeConstraints { (maker) in
