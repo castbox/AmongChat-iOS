@@ -38,6 +38,7 @@ class PremiumViewController: ViewController {
     
     private lazy var topBg: UIImageView = {
         let i = UIImageView(image: R.image.ac_premium_bg())
+        i.contentMode = .scaleAspectFill
         return i
     }()
     
@@ -424,13 +425,31 @@ extension PremiumViewController {
     
     private func configureSubview() {
         
-        view.addSubviews(views:topBg, backBtn, titleLabel, layoutScrollView)
+        view.addSubviews(views:topBg, layoutScrollView)
+        
+        topBg.snp.makeConstraints { (maker) in
+            maker.top.leading.trailing.equalToSuperview()
+        }
+        
+        layoutScrollView.snp.makeConstraints { (maker) in
+            maker.leading.bottom.trailing.equalToSuperview()
+            maker.top.equalTo(topLayoutGuide.snp.bottom)
+        }
+        
+        let scrollContentView = UIView()
+        layoutScrollView.addSubview(scrollContentView)
+        scrollContentView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+            maker.width.equalTo(view)
+        }
+        
+        scrollContentView.addSubviews(views: backBtn, titleLabel,  avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
+                                      continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
         
         let navLayoutGuide = UILayoutGuide()
-        view.addLayoutGuide(navLayoutGuide)
+        scrollContentView.addLayoutGuide(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(topLayoutGuide.snp.bottom)
+            maker.top.leading.trailing.equalToSuperview()
             maker.height.equalTo(49)
         }
         
@@ -443,27 +462,8 @@ extension PremiumViewController {
             maker.center.equalTo(navLayoutGuide)
         }
         
-        topBg.snp.makeConstraints { (maker) in
-            maker.top.leading.trailing.equalToSuperview()
-        }
-        
-        layoutScrollView.snp.makeConstraints { (maker) in
-            maker.leading.bottom.trailing.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
-        }
-        
-        let scrollContentView = UIView()
-        layoutScrollView.addSubview(scrollContentView)
-        scrollContentView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-            maker.width.equalTo(view)
-        }
-        
-        scrollContentView.addSubviews(views: avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
-                                      continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
-        
         avatarIV.snp.makeConstraints { (maker) in
-            maker.top.equalToSuperview().inset(24)
+            maker.top.equalTo(navLayoutGuide.snp.bottom).offset(24)
             maker.width.height.equalTo(60)
             maker.centerX.equalToSuperview()
         }
