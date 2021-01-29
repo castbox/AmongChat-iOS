@@ -542,19 +542,19 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if AmongChat.Login.isLogedin {
-            return .leastNormalMagnitude
-        } else {
+        if !AmongChat.Login.isLogedin && isSelfProfile{
             return 72
+        } else {
+            return .leastNormalMagnitude
         }
         
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if AmongChat.Login.isLogedin {
-            return nil
-        } else {
+        if !AmongChat.Login.isLogedin && isSelfProfile {
             return loginHeader
+        } else {
+            return nil
         }
     }
 }
