@@ -308,7 +308,7 @@ private extension Social.ProfileViewController {
                     if let _ = ts {
                         self?.headerView.changeIcon.redDotOff()
                     } else {
-                        self?.headerView.changeIcon.redDotOn()
+                        self?.headerView.changeIcon.redDotOn(width: 8)
                     }
                 })
                 .disposed(by: bag)
