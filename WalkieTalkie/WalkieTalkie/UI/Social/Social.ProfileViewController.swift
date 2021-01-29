@@ -491,15 +491,8 @@ private extension Social.ProfileViewController {
         
     }
     
-    private func upgradePro() {
-        
-        let premiumVC = PremiumViewController()
-        premiumVC.dismissHandler = { (purchased) in
-            guard purchased else { return }
-            AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-        }
-        premiumVC.modalPresentationStyle = .fullScreen
-        present(premiumVC, animated: true, completion: nil)
+    private func upgradePro() {        
+        presentPremiumView()
         Logger.UserAction.log(.update_pro, "settings")
     }
 
@@ -542,19 +535,19 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if AmongChat.Login.isLogedin {
-            return .leastNormalMagnitude
-        } else {
+        if !AmongChat.Login.isLogedin && isSelfProfile{
             return 72
+        } else {
+            return .leastNormalMagnitude
         }
         
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if AmongChat.Login.isLogedin {
-            return nil
-        } else {
+        if !AmongChat.Login.isLogedin && isSelfProfile {
             return loginHeader
+        } else {
+            return nil
         }
     }
 }
