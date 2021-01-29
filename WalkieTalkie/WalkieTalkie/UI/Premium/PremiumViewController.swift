@@ -267,8 +267,9 @@ class PremiumViewController: ViewController {
     }
     
     private func dismissSelf(purchased: Bool = false) {
-        dismissHandler?(purchased)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) {
+            self.dismissHandler?(purchased)
+        }
     }
 }
 
@@ -757,5 +758,20 @@ extension PremiumViewController {
         }
         
         
+    }
+}
+
+extension WalkieTalkie.ViewController {
+    
+    func presentPremiumView(afterDismiss: ((_ purchased: Bool) -> Void)? = nil) {
+        let premiumVC = PremiumViewController()
+        premiumVC.dismissHandler = { (purchased) in
+            if purchased {
+                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
+            }
+            afterDismiss?(purchased)
+        }
+        premiumVC.modalPresentationStyle = .fullScreen
+        present(premiumVC, animated: true, completion: nil)
     }
 }

@@ -604,14 +604,7 @@ extension AmongChat.CreateRoom.ViewController {
             proBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, weak self] (_) in
                     alertVC?.dismiss(animated: true, completion: {
-                        let premiumVC = PremiumViewController()
-                        premiumVC.dismissHandler = { (purchased) in
-                            guard purchased else { return }
-                            AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-                        }
-                        premiumVC.modalPresentationStyle = .fullScreen
-                        self?.present(premiumVC, animated: true, completion: nil)
-
+                        self?.presentPremiumView()
                     })
                 }).disposed(by: bag)
             

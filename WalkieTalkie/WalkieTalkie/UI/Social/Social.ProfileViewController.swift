@@ -491,15 +491,8 @@ private extension Social.ProfileViewController {
         
     }
     
-    private func upgradePro() {
-        
-        let premiumVC = PremiumViewController()
-        premiumVC.dismissHandler = { (purchased) in
-            guard purchased else { return }
-            AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-        }
-        premiumVC.modalPresentationStyle = .fullScreen
-        present(premiumVC, animated: true, completion: nil)
+    private func upgradePro() {        
+        presentPremiumView()
         Logger.UserAction.log(.update_pro, "settings")
     }
 
