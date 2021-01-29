@@ -377,7 +377,7 @@ extension Social.ProfileViewController {
         
         private lazy var titleLabel: UILabel = {
             let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
             lb.numberOfLines = 2
             lb.adjustsFontSizeToFitWidth = true
