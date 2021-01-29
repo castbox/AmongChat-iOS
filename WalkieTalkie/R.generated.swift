@@ -1480,7 +1480,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.infoplist` struct is generated, and contains static references to 4 localization keys.
+    /// This `R.string.infoplist` struct is generated, and contains static references to 5 localization keys.
     struct infoplist {
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1498,6 +1498,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsSpeechRecognitionUsageDescription = Rswift.StringResource(key: "NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: This identifier will be used to deliver personalized ads to you.
+      /// 
+      /// Locales: en
+      static let nsUserTrackingUsageDescription = Rswift.StringResource(key: "NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1525,6 +1529,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsSpeechRecognitionUsageDescription(_: Void = ()) -> String {
         return NSLocalizedString("NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: This identifier will be used to deliver personalized ads to you.
+      /// 
+      /// Locales: en
+      static func nsUserTrackingUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
       fileprivate init() {}
