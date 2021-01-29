@@ -27,10 +27,8 @@ extension Social.ProfileViewController {
         
         var headerHandle:((HeaderProfileAction) -> Void)?
                 
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 50
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
@@ -45,7 +43,7 @@ extension Social.ProfileViewController {
                 
         private lazy var nameLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 26)
+            lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
             lb.lineBreakMode = .byTruncatingMiddle
             return lb
@@ -223,9 +221,6 @@ extension Social.ProfileViewController {
                 maker.leading.top.bottom.equalToSuperview()
                 maker.trailing.equalTo(followerBtn.snp.leading)
                 maker.width.equalTo(followerBtn)
-//                maker.top.equalTo(nameLabel.snp.bottom).offset(12)
-//                maker.left.equalTo(avatarIV.snp.right).offset(20)
-//                maker.height.equalTo(43)
             }
             
             lineView.snp.makeConstraints { maker in
@@ -236,10 +231,6 @@ extension Social.ProfileViewController {
             
             followerBtn.snp.makeConstraints { (maker) in
                 maker.trailing.top.bottom.equalToSuperview()
-
-//                maker.top.equalTo(followingBtn.snp.top)
-//                maker.left.equalTo(followingBtn.snp.right).offset(40)
-//                maker.height.equalTo(43)
             }
 
             if isSelf {
@@ -264,20 +255,21 @@ extension Social.ProfileViewController {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalTo(40)
                 maker.leading.equalTo(20)
-                maker.height.width.equalTo(100)
+                maker.height.width.equalTo(80)
             }
             
             changeIcon.snp.makeConstraints { (maker) in
                 maker.bottom.equalTo(avatarIV)
                 maker.trailing.equalTo(avatarIV).offset(1)
+                maker.width.height.equalTo(24)
             }
             
             let infoContainer = UIView()
             addSubview(infoContainer)
             infoContainer.snp.makeConstraints { maker in
-                maker.leading.equalTo(avatarIV.snp.trailing).offset(20)
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(16)
                 maker.centerY.equalTo(avatarIV)
-                maker.trailing.equalTo(-65)
+                maker.trailing.equalTo(-56)
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
@@ -293,7 +285,7 @@ extension Social.ProfileViewController {
             editBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalTo(-20)
                 maker.centerY.equalTo(nameLabel.snp.centerY)
-                maker.height.width.equalTo(28)
+                maker.height.width.equalTo(24)
             }
             editBtn.isHidden = true
             
@@ -316,7 +308,7 @@ extension Social.ProfileViewController {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalTo(40)
                 maker.centerX.equalToSuperview()
-                maker.height.width.equalTo(100)
+                maker.height.width.equalTo(80)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -336,19 +328,6 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(uidLabel.snp.bottom).offset(20)
                 maker.height.equalTo(50)
             }
-            
-
-//            followingBtn.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(nameLabel.snp.bottom).offset(8)
-//                maker.centerX.equalToSuperview().offset(-80)
-//                maker.height.equalTo(43)
-//            }
-//
-//            followerBtn.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(followingBtn.snp.top)
-//                maker.centerX.equalToSuperview().offset(80)
-//                maker.height.equalTo(43)
-//            }
             
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(40)
@@ -457,7 +436,7 @@ extension Social.ProfileViewController {
          lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 26)
+            lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
             return lb
         }()
