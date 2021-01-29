@@ -114,6 +114,16 @@ class PremiumViewController: ViewController {
         return btn
     }()
     
+    private lazy var termsLabel: UILabel = {
+        let lb = UILabel()
+        lb.numberOfLines = 0
+        lb.lineBreakMode = .byWordWrapping
+        lb.font = R.font.nunitoBold(size: 10)
+        lb.textAlignment = .left
+        lb.textColor = UIColor(hex6: 0x606060)
+        return lb
+    }()
+    
     private lazy var policyLabel: PolicyLabel = {
         let terms = R.string.localizable.amongChatTermsService()
         let privacy = R.string.localizable.amongChatPrivacyPolicy()
@@ -123,7 +133,9 @@ class PremiumViewController: ViewController {
         lb.onInteration = { [weak self] targetPath in
             self?.open(urlSting: targetPath)
         }
-        lb.textColor = UIColor(hex6: 0x898989)
+        lb.textColor = UIColor(hex6: 0x606060)
+        lb.textAlignment = .left
+        lb.font = R.font.nunitoBold(size: 10)
         return lb
     }()
     
@@ -214,8 +226,12 @@ class PremiumViewController: ViewController {
         }
     }
     
-    private lazy var selectedProduct: String = IAP.productYear
-    
+    private lazy var selectedProduct: String = IAP.productYear {
+        didSet {
+            updateTermsLabel(for: selectedProduct)
+        }
+    }
+    private var productsMap = [String: IAP.ProductInfo]()
     var source: Logger.IAP.ActionSource?
     var dismissHandler: ((_ purchased: Bool) -> Void)?
     var didSelectProducts: (String) -> Void = { _ in }
@@ -307,7 +323,8 @@ extension PremiumViewController {
             self.weekProduct = map[IAP.productWeek]
             self.yearProduct = map[IAP.productYear]
             self.monthProduct = map[IAP.productMonth]
-            
+            self.productsMap = map
+            self.selectedProduct = IAP.productYear
             })
             .disposed(by: bag)
     }
@@ -435,8 +452,15 @@ extension PremiumViewController {
             maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
-        layoutScrollView.addSubviews(views: avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
-                                     continueBtn, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
+        let scrollContentView = UIView()
+        layoutScrollView.addSubview(scrollContentView)
+        scrollContentView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+            maker.width.equalTo(view)
+        }
+        
+        scrollContentView.addSubviews(views: avatarIV, nameLabel, badgeIcon, statusLabel, productsStack,
+                                      continueBtn, termsLabel, policyLabel, privilegesTitle, privLeftLine, privRightLine, privilegeStack)
         
         avatarIV.snp.makeConstraints { (maker) in
             maker.top.equalToSuperview().inset(24)
@@ -445,7 +469,7 @@ extension PremiumViewController {
         }
         
         let nameLayoutGuide = UILayoutGuide()
-        layoutScrollView.addLayoutGuide(nameLayoutGuide)
+        scrollContentView.addLayoutGuide(nameLayoutGuide)
         nameLayoutGuide.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
             maker.leading.greaterThanOrEqualToSuperview().offset(20)
@@ -463,7 +487,7 @@ extension PremiumViewController {
         
         let removableContentlayoutGuide = UILayoutGuide()
         
-        layoutScrollView.addLayoutGuide(removableContentlayoutGuide)
+        scrollContentView.addLayoutGuide(removableContentlayoutGuide)
         removableContentlayoutGuide.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(nameLabel.snp.bottom)
@@ -487,10 +511,15 @@ extension PremiumViewController {
             maker.centerX.equalToSuperview()
         }
         
+        termsLabel.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview().inset(20)
+            maker.top.equalTo(continueBtn.snp.bottom).offset(12)
+        }
+        
         policyLabel.snp.makeConstraints { (maker) in
             maker.leading.equalToSuperview().inset(20)
             maker.centerX.equalToSuperview()
-            maker.top.equalTo(continueBtn.snp.bottom).offset(12)
+            maker.top.equalTo(termsLabel.snp.bottom)
             maker.bottom.equalTo(removableContentlayoutGuide)
         }
         
@@ -537,6 +566,15 @@ extension PremiumViewController {
         
     }
     
+    private func updateTermsLabel(for productId: String) {
+        guard let product = productsMap[productId] else { return }
+        if productId == IAP.productYear {
+            termsLabel.text = R.string.localizable.premiumSubscriptionTerms() + " " + R.string.localizable.premiumSubscriptionDetailFree(product.product.skProduct.localizedTitle, product.priceInfo.price)
+        } else {
+            termsLabel.text = R.string.localizable.premiumSubscriptionTerms() + " " + R.string.localizable.premiumSubscriptionDetailNormal(product.product.skProduct.localizedTitle, product.priceInfo.price)
+        }
+    }
+
 }
 
 extension PremiumViewController {
