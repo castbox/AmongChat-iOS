@@ -625,16 +625,17 @@ extension PremiumViewController {
             textLayoutGuide.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(iconIV.snp.trailing).offset(8)
                 maker.trailing.centerY.equalToSuperview()
-                maker.top.lessThanOrEqualToSuperview()
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalTo(textLayoutGuide)
+                maker.height.equalTo(22)
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.bottom.equalTo(textLayoutGuide)
                 maker.top.equalTo(titleLabel.snp.bottom)
+                maker.height.equalTo(16)
             }
         }
     }
