@@ -176,7 +176,7 @@ private extension Social.EditProfileViewController {
                 if let _ = ts {
                     self?.randomIconIV.redDotOff()
                 } else {
-                    self?.randomIconIV.redDotOn(rightOffset: 5, topOffset: 5)
+                    self?.randomIconIV.redDotOn(width: 8)
                 }
             })
             .disposed(by: bag)

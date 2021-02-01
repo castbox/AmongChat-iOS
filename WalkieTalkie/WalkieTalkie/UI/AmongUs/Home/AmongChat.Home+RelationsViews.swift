@@ -42,6 +42,7 @@ extension AmongChat.Home {
             let lb = UILabel()
             lb.font = R.font.nunitoBold(size: 14)
             lb.textColor = UIColor(hex6: 0x898989)
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -300,7 +301,7 @@ extension AmongChat.Home {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
             btn.setTitle(R.string.localizable.profileBirthdaySkip(), for: .normal)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 12)
             btn.layer.masksToBounds = true
             //            btn.layer.cornerRadius = 16
             //            btn.layer.borderWidth = 2.5
@@ -315,7 +316,7 @@ extension AmongChat.Home {
             //            btn.setTitleColor(UIColor(hex6: 0x898989), for: .disabled)
             //            btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
             btn.setTitle(R.string.localizable.socialInvite(), for: .normal)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 10)
             //            btn.layer.masksToBounds = true
             //            btn.layer.cornerRadius = 16
             //            btn.layer.borderWidth = 2.5
@@ -375,7 +376,7 @@ extension AmongChat.Home {
             backgroundColor = "#222222".color()
             cornerRadius = 12
             clipsToBounds = false
-            addShadow(ofColor: UIColor.black.alpha(0.4))
+            addShadow(ofColor: UIColor.black.alpha(0.6))
             
             addSubviews(views: userView, skipButton, lineView, inviteButton)
             
@@ -390,7 +391,7 @@ extension AmongChat.Home {
             userView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
+                maker.trailing.equalTo(buttonLayout.snp.leading)
             }
             
             skipButton.snp.makeConstraints { (maker) in
@@ -409,7 +410,7 @@ extension AmongChat.Home {
             
             inviteButton.snp.makeConstraints { (maker) in
                 maker.top.bottom.equalToSuperview()
-                maker.trailing.equalTo(-16)
+                maker.trailing.equalTo(-6)
             }
             
         }
@@ -455,6 +456,7 @@ extension AmongChat.Home {
             cardStack.backgroundCardsTopMargin = 6
             cardStack.delegate = self
             cardStack.dataSource = self
+            cardStack.alphaValueSemiTransparent = 1
             
             contentView.backgroundColor = .clear
             

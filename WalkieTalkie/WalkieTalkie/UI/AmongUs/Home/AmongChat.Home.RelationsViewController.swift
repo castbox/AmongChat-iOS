@@ -330,9 +330,9 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
         if let item = dataSource.safe(section),
            item.userLsit.count > 0 {
             if item.group == .playing {
-                return CGSize(width: Frame.Screen.width, height: 53)
+                return CGSize(width: Frame.Screen.width, height: 53.5)
             } else {
-                return CGSize(width: Frame.Screen.width, height: 103)
+                return CGSize(width: Frame.Screen.width, height: 85.5)
             }
         }
         return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)

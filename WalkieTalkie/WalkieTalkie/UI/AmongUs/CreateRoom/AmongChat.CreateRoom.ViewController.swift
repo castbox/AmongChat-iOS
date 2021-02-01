@@ -447,7 +447,9 @@ extension AmongChat.CreateRoom.ViewController {
     }
     
     private func createRoom(with topic: TopicViewModel, freeCard: Bool? = nil) {
-        
+        //dismiss
+        UIApplication.tabBarController?.dismissNotificationBanner()
+
         var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
         if let freeCard = freeCard {
@@ -464,7 +466,6 @@ extension AmongChat.CreateRoom.ViewController {
         
         bottomBar.isUserInteractionEnabled = false
         topicCollectionView.isUserInteractionEnabled = false
-
         
         let _ = Request.createRoom(roomProto)
             .do(onDispose: {
