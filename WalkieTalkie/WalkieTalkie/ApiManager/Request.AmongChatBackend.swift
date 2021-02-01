@@ -196,19 +196,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
+    static func updateRoomInfo(room: Entity.Room?) -> Single<Entity.Room?> {
         guard var params = room?.dictionary else {
-            return Observable<Bool>.empty().asSingle()
+            return Observable<Entity.Room?>.empty().asSingle()
         }
-        //
         params.removeValue(forKey: "roomUserList")
         return amongchatProvider.rx.request(.updateRoomInfo(params))
             .mapJSON()
-            .map { (jsonAny) -> Bool in
-                guard let jsonDict = jsonAny as? [String : Any],
-                      let processed = jsonDict["processed"] as? Bool else { return false }
-                return processed
+            .mapToDataKeyJsonValue()
+            .map { (jsonAny) -> [String: AnyObject] in
+                guard let processed = jsonAny["processed"] as? Bool,
+                      processed,
+                      let room = jsonAny["room"] as? [String: AnyObject] else {
+                    return [:]
+                }
+                return room
             }
+            .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
