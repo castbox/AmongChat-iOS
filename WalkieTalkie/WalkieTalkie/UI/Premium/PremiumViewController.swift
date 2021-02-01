@@ -419,7 +419,7 @@ extension PremiumViewController {
                 self?.productsStack.removeFromSuperview()
                 self?.continueBtn.removeFromSuperview()
                 self?.policyLabel.removeFromSuperview()
-                
+                self?.termsLabel.removeFromSuperview()
             })
             .disposed(by: bag)
 
