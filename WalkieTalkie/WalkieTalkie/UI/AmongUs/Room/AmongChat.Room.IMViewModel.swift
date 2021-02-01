@@ -338,8 +338,11 @@ extension ChatRoom.TextMessage: MessageListable {
             }
             mutableNormalString.append(imageString)
         }
+        if user.isVerified == true || user.isVip == true {
+            mutableNormalString.yy_appendString(" ")
+        }
         
-        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
+        mutableNormalString.append(NSAttributedString(string: " \(content)", attributes: contentAttr))
         return mutableNormalString
     }
 }
@@ -380,6 +383,7 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
             let imageString = NSAttributedString(attachment: imageAttachment)
             mutableNormalString.yy_appendString(" ")
             mutableNormalString.append(imageString)
+            mutableNormalString.yy_appendString(" ")
         }
         mutableNormalString.append(NSAttributedString(string: " \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
