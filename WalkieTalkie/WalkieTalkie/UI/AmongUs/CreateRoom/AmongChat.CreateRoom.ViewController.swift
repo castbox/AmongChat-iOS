@@ -190,7 +190,7 @@ extension AmongChat.CreateRoom.ViewController {
         }
         
         guard !Settings.shared.isProValue.value else {
-            createRoom(with: topic)
+            createRoom(with: topic, freeCard: true)
             return
         }
         
