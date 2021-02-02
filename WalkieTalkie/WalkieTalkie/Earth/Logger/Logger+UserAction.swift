@@ -183,6 +183,17 @@ extension Logger {
             case age_done_result_fail
             
             case profile_tiktok_amongchat_tag_clk
+            
+            //
+            case contact_imp
+            case contact_clk
+            case contact_permission_enable
+            case suggested_contact_imp
+            case suggested_contact_clk
+            case suggested_contact_page_imp
+            case suggested_contact_page_clk
+            case new_avatar_dialog_imp
+            case new_avatar_dialog_clk
         }
         
         enum Category: String {
@@ -224,6 +235,15 @@ extension Logger {
             case facebook
             case success
             case fail
+            
+            case search
+            case invite
+            case all
+            case skip
+            case sms
+            case copy
+            case share
+            case go
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {

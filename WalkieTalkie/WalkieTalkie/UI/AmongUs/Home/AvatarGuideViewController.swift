@@ -42,6 +42,7 @@ class AvatarGuideViewController: ViewController {
             stackView.removeArrangedSubview(rightImageView)
             rightImageView.removeFromSuperview()
         }
+        Logger.Action.log(.new_avatar_dialog_imp)
     }
 
     @IBAction func closeButtonAction(_ sender: Any) {
@@ -49,6 +50,7 @@ class AvatarGuideViewController: ViewController {
     }
     
     @IBAction func goButtonAction(_ sender: Any) {
+        Logger.Action.log(.new_avatar_dialog_clk, category: .go)
         dismissModal(animated: true) { [weak self] in
             self?.goHandler?()
         }

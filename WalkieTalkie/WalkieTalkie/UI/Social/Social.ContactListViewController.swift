@@ -76,6 +76,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             loadData()
+            Logger.Action.log(.suggested_contact_page_imp)
         }
         
         override func viewWillDisappear(_ animated: Bool) {
@@ -121,6 +122,7 @@ extension Social {
             
             headerView.inputResultHandler = { [weak self] key in
                 guard let `self` = self else { return }
+                Logger.Action.log(.suggested_contact_page_clk, category: .search)
                 self.viewModel.search(name: key)
 //                self.shareApp()
 //                self.updateEventForContactAuthorizationStatus()
@@ -191,6 +193,7 @@ extension Social.ContactListViewController: UITableViewDataSource, UITableViewDe
         if let item = items.safe(indexPath.section), let user = item.userLsit.safe(indexPath.row) {
                 cell.bind(viewModel: user) { [weak self] in
                     guard let `self` = self else { return }
+                    Logger.Action.log(.suggested_contact_page_clk, category: .invite)
                     self.sendSMS(to: user.phone, body: self.linkUrl)
                 }
             }

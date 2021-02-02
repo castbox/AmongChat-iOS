@@ -59,6 +59,8 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             loadData()
+            Logger.Action.log(.contact_imp)
+
         }
         
         override func viewWillDisappear(_ animated: Bool) {
@@ -99,14 +101,17 @@ extension Social {
             headerView.smsHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.sendSMS(body: self.linkUrl)
+                Logger.Action.log(.contact_clk, category: .sms)
             }
             headerView.copyLinkHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.copyLink()
+                Logger.Action.log(.contact_clk, category: .copy)
             }
             headerView.shareLinkHandle = { [weak self] in
                 guard let `self` = self else { return }
                 self.shareApp()
+                Logger.Action.log(.contact_clk, category: .share)
             }
         }
     }
@@ -132,6 +137,7 @@ private extension Social.InviteFirendsViewController {
         SwiftyContacts.requestAccess { [weak self] result in
             if result {
                 self?.viewModel.updateContacts()
+                Logger.Action.log(.contact_permission_enable)
             }
             //
         }
@@ -219,7 +225,7 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
             if item.group == .find {
                 let cell = tableView.dequeueReusableCell(withClass: Social.EnableContactsCell.self)
                 cell.enableHandler = { [weak self] in
-//                    Self.openAppSystemSetting()
+                    Logger.Action.log(.contact_clk, category: .go)
                     self?.updateEventForContactAuthorizationStatus()
                 }
                 return cell
@@ -227,6 +233,7 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
                 cell.bind(viewModel: user) { [weak self] in
                     guard let `self` = self else { return }
                     self.sendSMS(to: user.phone, body: self.linkUrl)
+                    Logger.Action.log(.contact_clk, category: .invite)
                 }
             }
         }
