@@ -58,7 +58,7 @@ extension IAP {
             
             func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
                 if hasRestorablePurchases {
-                    let _ = Request.uploadReceipt()
+                    let _ = Request.uploadReceipt(restore: true)
                         .subscribe(onSuccess: {})
                 }
                 DispatchQueue.main.async {
