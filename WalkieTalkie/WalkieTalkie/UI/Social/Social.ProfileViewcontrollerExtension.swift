@@ -363,7 +363,7 @@ extension Social.ProfileViewController {
         }
     }
     
-    class ProfileTableCell: TableViewCell {
+    class ProfileTableCell: UITableViewCell {
         
         private lazy var leftIconIV: UIImageView = {
             let iv = UIImageView()
