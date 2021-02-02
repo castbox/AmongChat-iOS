@@ -272,6 +272,8 @@
 		FEE0E7B225A4670500DC67B8 /* SocialTiktokItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */; };
 		FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */; };
 		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
+		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
+		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
@@ -594,6 +596,8 @@
 		FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTiktokItemView.swift; sourceTree = "<group>"; };
 		FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTiktokItemView.xib; sourceTree = "<group>"; };
 		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
+		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
+		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceView.xib; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
@@ -704,39 +708,9 @@
 			children = (
 				BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */,
 				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */,
-				FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */,
 				FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */,
-				BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */,
-				BD8B4C0F257A533D00BE6520 /* AmongChat.Room.MessageCell.swift */,
-				BD8B4E56257E1E5000BE6520 /* AmongChat.Room.IMManager.swift */,
-				BD8B4E5E257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift */,
-				FE7CE9E22589E5450067952C /* AmongRoomBottomBar.swift */,
-				FE7CE9E62589E5550067952C /* AmongRoomBottomBar.xib */,
-				FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */,
-				FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */,
-				FE7CEB55258A029F0067952C /* AmongChatRoomConfigView.swift */,
-				FE7CEB54258A029F0067952C /* AmongChatRoomConfigView.xib */,
-				FE7CEB52258A029F0067952C /* AmongRoomInfoSetupView.swift */,
-				FE7CEB53258A029F0067952C /* AmongRoomInfoSetupView.xib */,
-				FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */,
-				FE7CE9D62589C1C60067952C /* AmongRoomInfoView.xib */,
-				FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */,
-				FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */,
-				FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */,
-				FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */,
-				FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */,
-				FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */,
-				FEFF9359258B33420011A274 /* AmongInputNotesView.swift */,
-				FEFF935D258B33480011A274 /* AmongInputNotesView.xib */,
-				FE9EF527258B23B5008C0BAD /* AmongRoomToolView.swift */,
-				FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */,
+				FEF170F725C9593E004C3FD3 /* Views */,
 				FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */,
-				FE79F385258CDE6B00E9BC6C /* AmongSheetController.swift */,
-				FE79F386258CDE6B00E9BC6C /* AmongSheetController.xib */,
-				FE79F38B258CDFA500E9BC6C /* AmongSheetUserCell.swift */,
-				FE79F38C258CDFA500E9BC6C /* AmongSheetUserCell.xib */,
-				FE79F391258CE06D00E9BC6C /* AmongSheetIconItemCell.swift */,
-				FE79F392258CE06D00E9BC6C /* AmongSheetIconItemCell.xib */,
 			);
 			path = Room;
 			sourceTree = "<group>";
@@ -1241,6 +1215,46 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
+		FEF170F725C9593E004C3FD3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE79F378258C76A800E9BC6C /* AmongChat.Room.SeatView.swift */,
+				BD67FF0D2571276400144477 /* AmongChat.Room.UserCell.swift */,
+				BD8B4C0F257A533D00BE6520 /* AmongChat.Room.MessageCell.swift */,
+				BD8B4E56257E1E5000BE6520 /* AmongChat.Room.IMManager.swift */,
+				BD8B4E5E257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift */,
+				FE7CE9E22589E5450067952C /* AmongRoomBottomBar.swift */,
+				FE7CE9E62589E5550067952C /* AmongRoomBottomBar.xib */,
+				FE7CE9CA2589BEBD0067952C /* AmongChatRoomTopBar.swift */,
+				FE7CE9CE2589BEC70067952C /* AmongChatRoomTopBar.xib */,
+				FE7CEB55258A029F0067952C /* AmongChatRoomConfigView.swift */,
+				FE7CEB54258A029F0067952C /* AmongChatRoomConfigView.xib */,
+				FE7CEB52258A029F0067952C /* AmongRoomInfoSetupView.swift */,
+				FE7CEB53258A029F0067952C /* AmongRoomInfoSetupView.xib */,
+				FE7CE9D22589C1BE0067952C /* AmongRoomInfoView.swift */,
+				FE7CE9D62589C1C60067952C /* AmongRoomInfoView.xib */,
+				FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */,
+				FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */,
+				FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */,
+				FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */,
+				FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */,
+				FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */,
+				FEFF9359258B33420011A274 /* AmongInputNotesView.swift */,
+				FEFF935D258B33480011A274 /* AmongInputNotesView.xib */,
+				FE9EF527258B23B5008C0BAD /* AmongRoomToolView.swift */,
+				FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */,
+				FE79F385258CDE6B00E9BC6C /* AmongSheetController.swift */,
+				FE79F386258CDE6B00E9BC6C /* AmongSheetController.xib */,
+				FE79F38B258CDFA500E9BC6C /* AmongSheetUserCell.swift */,
+				FE79F38C258CDFA500E9BC6C /* AmongSheetUserCell.xib */,
+				FE79F391258CE06D00E9BC6C /* AmongSheetIconItemCell.swift */,
+				FE79F392258CE06D00E9BC6C /* AmongSheetIconItemCell.xib */,
+				FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */,
+				FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1363,6 +1377,7 @@
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
+				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceView.xib in Resources */,
 				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
@@ -1562,6 +1577,7 @@
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
+				FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */,
 				FE79F393258CE06D00E9BC6C /* AmongSheetIconItemCell.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
