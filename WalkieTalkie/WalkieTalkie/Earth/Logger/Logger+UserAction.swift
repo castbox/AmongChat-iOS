@@ -112,6 +112,7 @@ extension Logger {
             case space_card_ads_claim_clk
             case space_card_ads_claim_success
             case space_card_ads_claim_failed
+            case space_card_pro_clk
             case room_share_clk
             case room_open_game
             case room_send_message_clk

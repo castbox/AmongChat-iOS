@@ -492,7 +492,7 @@ private extension Social.ProfileViewController {
     }
     
     private func upgradePro() {        
-        presentPremiumView()
+        presentPremiumView(source: .setting)
         Logger.UserAction.log(.update_pro, "settings")
     }
 

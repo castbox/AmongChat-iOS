@@ -605,8 +605,9 @@ extension AmongChat.CreateRoom.ViewController {
             proBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, weak self] (_) in
                     alertVC?.dismiss(animated: true, completion: {
-                        self?.presentPremiumView()
+                        self?.presentPremiumView(source: .room_create)
                     })
+                    Logger.Action.log(.space_card_pro_clk)
                 }).disposed(by: bag)
             
             claimBtn.rx.controlEvent(.primaryActionTriggered)

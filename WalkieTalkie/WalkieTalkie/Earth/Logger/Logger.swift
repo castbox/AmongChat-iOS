@@ -274,6 +274,7 @@ extension Logger {
             case mute
             case iap_tip
             case iap_home
+            case room_create
         }
         
         static func logImp(_ source: ActionSource) {

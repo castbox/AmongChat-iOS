@@ -764,8 +764,9 @@ extension PremiumViewController {
 
 extension WalkieTalkie.ViewController {
     
-    func presentPremiumView(afterDismiss: ((_ purchased: Bool) -> Void)? = nil) {
+    func presentPremiumView(source: Logger.IAP.ActionSource, afterDismiss: ((_ purchased: Bool) -> Void)? = nil) {
         let premiumVC = PremiumViewController()
+        premiumVC.source = source
         premiumVC.dismissHandler = { (purchased) in
             if purchased {
                 AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
