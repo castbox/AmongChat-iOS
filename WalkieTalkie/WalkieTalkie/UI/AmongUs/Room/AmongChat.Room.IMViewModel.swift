@@ -342,7 +342,7 @@ extension ChatRoom.TextMessage: MessageListable {
             mutableNormalString.yy_appendString(" ")
         }
         
-        mutableNormalString.append(NSAttributedString(string: " \(content)", attributes: contentAttr))
+        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
         return mutableNormalString
     }
 }
@@ -383,9 +383,8 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
             let imageString = NSAttributedString(attachment: imageAttachment)
             mutableNormalString.yy_appendString(" ")
             mutableNormalString.append(imageString)
-            mutableNormalString.yy_appendString(" ")
         }
-        mutableNormalString.append(NSAttributedString(string: " \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
+        mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
         return mutableNormalString
     }
 }
