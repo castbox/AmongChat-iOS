@@ -16,7 +16,7 @@ protocol Verifiedable {
 
 func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: CGFloat = 16) -> NSAttributedString {
     let nameString = name ?? ""
-    var fullString = NSMutableAttributedString(string: nameString)
+    let fullString = NSMutableAttributedString(string: nameString)
     if isVerified == true {
         let font = R.font.nunitoExtraBold(size: fontSize)!
         var extraTopPadding: CGFloat = 0
@@ -34,7 +34,7 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
-        fullString = NSMutableAttributedString(string: nameString + " ")
+        fullString.yy_appendString(" ")
         fullString.append(imageString)
 
     }
@@ -52,10 +52,10 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         }
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
-        fullString = NSMutableAttributedString(string: nameString + " ")
+        fullString.yy_appendString(" ")
         fullString.append(imageString)
     }
     return fullString
