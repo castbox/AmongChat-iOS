@@ -364,7 +364,7 @@ extension PremiumViewController {
                 switch state {
                 case .purchased, .restored:
                     
-                    let _ = Request.uploadReceipt()
+                    let _ = Request.uploadReceipt(restore: true)
                         .subscribe(onSuccess: { () in
                             
                         }, onError: { (error) in
