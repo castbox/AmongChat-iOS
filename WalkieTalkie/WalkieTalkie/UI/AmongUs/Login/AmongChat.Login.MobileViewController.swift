@@ -421,14 +421,14 @@ extension AmongChat.Login.MobileViewController {
                 loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler?(result, nil)
+                self?.onLoginResult(result, nil)
                 if result != nil {
                     Logger.Action.log(.signin_result, category: .apple_id, self?.loggerSource, 0)
                 } else {
                     Logger.Action.log(.signin_result, category: .apple_id, self?.loggerSource, 1)
                 }
             }) { [weak self] (error) in
-                self?.loginHandler?(nil, error)
+                self?.onLoginResult(nil, error)
                 Logger.Action.log(.signin_result_fail, category: .apple_id, error.msgOfError)
             }
             .disposed(by: bag)
@@ -444,14 +444,14 @@ extension AmongChat.Login.MobileViewController {
                 loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler?(result, nil)
+                self?.onLoginResult(result, nil)
                 if result != nil {
                     Logger.Action.log(.signin_result, category: .snapchat, self?.loggerSource, 0)
                 } else {
                     Logger.Action.log(.signin_result, category: .snapchat, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
-                self?.loginHandler?(nil, error)
+                self?.onLoginResult(nil, error)
                 Logger.Action.log(.signin_result_fail, category: .snapchat, error.msgOfError)
             })
             .disposed(by: bag)
@@ -467,14 +467,14 @@ extension AmongChat.Login.MobileViewController {
                 loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler?(result, nil)
+                self?.onLoginResult(result, nil)
                 if result != nil {
                     Logger.Action.log(.signin_result, category: .facebook, self?.loggerSource, 0)
                 } else {
                     Logger.Action.log(.signin_result, category: .facebook, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
-                self?.loginHandler?(nil, error)
+                self?.onLoginResult(nil, error)
                 Logger.Action.log(.signin_result_fail, category: .facebook, error.msgOfError)
             })
             .disposed(by: bag)
@@ -490,14 +490,14 @@ extension AmongChat.Login.MobileViewController {
                 loadingRemoval()
             })
             .subscribe(onSuccess: { [weak self] (result) in
-                self?.loginHandler?(result, nil)
+                self?.onLoginResult(result, nil)
                 if result != nil {
                     Logger.Action.log(.signin_result, category: .google, self?.loggerSource, 0)
                 } else {
                     Logger.Action.log(.signin_result, category: .google, self?.loggerSource, 1)
                 }
             }, onError: { [weak self] (error) in
-                self?.loginHandler?(nil, error)
+                self?.onLoginResult(nil, error)
                 Logger.Action.log(.signin_result_fail, category: .google, error.msgOfError)
             })
             .disposed(by: bag)
@@ -506,6 +506,20 @@ extension AmongChat.Login.MobileViewController {
 }
 
 extension AmongChat.Login.MobileViewController {
+    
+    private func onLoginResult(_ result: Entity.LoginResult?, _ error: Error?) {
+        if let error = error {
+            if let nsError = error as? NSError,
+               nsError.code == AmongChat.Login.cancelErrorCode {
+                Logger.Action.log(.login_result, category: .fail, "cancel")
+            } else {
+                Logger.Action.log(.login_result, category: .fail, error.localizedDescription)
+            }
+            view.raft.autoShow(.text(error.localizedDescription), userInteractionEnabled: false)
+            return
+        }
+        loginHandler?(result, error)
+    }
     
     private func setupLayout() {
         
