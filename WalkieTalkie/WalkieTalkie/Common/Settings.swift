@@ -45,7 +45,11 @@ class Settings {
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
                 SharedDefaults[\.loginResultTokenKey] = event.new?.access_token
                 
-                if let _ = event.new {
+                if let result = event.new {
+                    if result.is_new_user == true {
+                        //
+                        _ = shared.updateAvatarGuideUpdateTime() //当天不显示
+                    }
                     shared.updateProfile()
                 }
                 
@@ -379,6 +383,11 @@ class Settings {
         }
         Defaults[\.avatarGuideUpdateTime] = current
         return true
+    }
+    
+    private func updateAvatarGuideUpdateTime() {
+        let current = Date().string(withFormat: "yyyy-MM-dd")
+        Defaults[\.avatarGuideUpdateTime] = current
     }
     
     func startObserver() {
