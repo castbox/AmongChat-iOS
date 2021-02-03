@@ -323,6 +323,10 @@ extension PremiumViewController {
         IAP.productInfoMap
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] (map) in
+            guard map.count > 0 else {
+                IAP.prefetchProducts()
+                return
+            }
             guard let `self` = self else { return }
             
             self.weekProduct = map[IAP.productWeek]
@@ -337,6 +341,10 @@ extension PremiumViewController {
     //for
     
     private func buy(identifier: String) {
+        
+        guard let product = productsMap[identifier]?.product else {
+            return
+        }
                 
         if let s = self.source {
             Logger.IAP.logPurchase(productId: identifier, source: s)
@@ -348,52 +356,40 @@ extension PremiumViewController {
         }
         
         isPuchasingState.accept(true)
-        IAP.ProductFetcher.fetchProducts(of: [identifier]) { [weak self] (error, productMap) in
-            guard let product = productMap[identifier] else {
+        IAP.ProductDealer.pay(product, onState: { [weak self] (state, error) in
+            cdPrint("ProductDealer state: \(state.rawValue)")
+            switch state {
+            case .purchased, .restored:
+                
+                let _ = Request.uploadReceipt(restore: true)
+                    .subscribe(onSuccess: { () in
+                        
+                    }, onError: { (error) in
+                        
+                    })
+                
+                Defaults[\.purchasedItemsKey] = identifier
                 self?.isPuchasingState.accept(false)
+                if let s = self?.source {
+                    Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
+                }
+                DispatchQueue.main.async { [weak self] in
+                    removeBlock()
+                    self?.dismissSelf(purchased: true)
+                }
+            case .failed:
+                self?.isPuchasingState.accept(false)
+                cdPrint("Purchase failed")
                 DispatchQueue.main.async {
                     removeBlock()
                 }
                 if let s = self?.source {
-                    Logger.IAP.logPurchaseFailByIdentifier(identifier: identifier, source: s)
+                    Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: false)
                 }
-                return
+            default:
+                ()
             }
-            IAP.ProductDealer.pay(product, onState: { [weak self] (state, error) in
-                cdPrint("ProductDealer state: \(state.rawValue)")
-                switch state {
-                case .purchased, .restored:
-                    
-                    let _ = Request.uploadReceipt(restore: true)
-                        .subscribe(onSuccess: { () in
-                            
-                        }, onError: { (error) in
-                            
-                        })
-
-                    Defaults[\.purchasedItemsKey] = identifier
-                    self?.isPuchasingState.accept(false)
-                    if let s = self?.source {
-                        Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
-                    }
-                    DispatchQueue.main.async { [weak self] in
-                        removeBlock()
-                        self?.dismissSelf(purchased: true)
-                    }
-                case .failed:
-                    self?.isPuchasingState.accept(false)
-                    NSLog("Purchase failed")
-                    DispatchQueue.main.async {
-                        removeBlock()
-                    }
-                    if let s = self?.source {
-                        Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: false)
-                    }
-                default:
-                    break
-                }
-            })
-        }
+        })
     }
     
     private func bindSubviewEvent() {
