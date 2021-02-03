@@ -362,26 +362,34 @@ extension PremiumViewController {
             case .purchased, .restored:
                 
                 let _ = Request.uploadReceipt(restore: true)
-                    .subscribe(onSuccess: { () in
-                        
+                    .flatMap({ (_) -> Single<Bool> in
+                        return Settings.shared.isProValue.replay()
+                            .filter { $0 }
+                            .take(1)
+                            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
+                            .asSingle()
+                    })
+                    .observeOn(MainScheduler.asyncInstance)
+                    .do(onDispose: {
+                        removeBlock()
+                        self?.isPuchasingState.accept(false)
+                    })
+                    .subscribe(onSuccess: { (_) in
+                        self?.dismissSelf(purchased: true)
                     }, onError: { (error) in
-                        
+                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     })
                 
                 Defaults[\.purchasedItemsKey] = identifier
-                self?.isPuchasingState.accept(false)
                 if let s = self?.source {
                     Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: true)
-                }
-                DispatchQueue.main.async { [weak self] in
-                    removeBlock()
-                    self?.dismissSelf(purchased: true)
                 }
             case .failed:
                 self?.isPuchasingState.accept(false)
                 cdPrint("Purchase failed")
                 DispatchQueue.main.async {
                     removeBlock()
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                 }
                 if let s = self?.source {
                     Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: false)
