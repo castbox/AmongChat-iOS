@@ -63,6 +63,7 @@ extension AmongChat.Room {
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
         var shareEventHandler: () -> Void = { }
+        var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
 
 
         private let imViewModel: IMViewModel
@@ -536,6 +537,8 @@ private extension AmongChat.Room.ViewModel {
         if let message = crMessage as? ChatRoom.TextMessage {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.JoinRoomMessage {
+            //add to entrance queue
+            onUserJoinedHandler?(message)
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.SystemMessage {
             addUIMessage(message: message)

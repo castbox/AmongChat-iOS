@@ -255,6 +255,8 @@
 		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
 		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
 		FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */; };
+		FEC2A93725CA5117001B9556 /* AmongChat.Room.QueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC2A93625CA5117001B9556 /* AmongChat.Room.QueueManager.swift */; };
+		FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */; };
 		FEC7855A25A8577300E343F7 /* BaseNotificationBannerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */; };
 		FECA43AC24597B570075D139 /* Automator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43A924597B570075D139 /* Automator.swift */; };
 		FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AA24597B570075D139 /* Automator.Device.swift */; };
@@ -273,7 +275,7 @@
 		FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */; };
 		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
 		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
-		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */; };
+		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */; };
 		FEF3114E258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */; };
 		FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */; };
 		FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFF9359258B33420011A274 /* AmongInputNotesView.swift */; };
@@ -579,6 +581,8 @@
 		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		FEC17A4E24A9BB92003719BC /* APIService.CastboxBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.CastboxBackend.swift; sourceTree = "<group>"; };
+		FEC2A93625CA5117001B9556 /* AmongChat.Room.QueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.QueueManager.swift; sourceTree = "<group>"; };
+		FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringSizeExtension.swift; sourceTree = "<group>"; };
 		FEC7855925A8577300E343F7 /* BaseNotificationBannerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNotificationBannerExtension.swift; sourceTree = "<group>"; };
 		FECA43A924597B570075D139 /* Automator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.swift; sourceTree = "<group>"; };
 		FECA43AA24597B570075D139 /* Automator.Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Device.swift; sourceTree = "<group>"; };
@@ -597,7 +601,7 @@
 		FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTiktokItemView.xib; sourceTree = "<group>"; };
 		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
 		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
-		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceView.xib; sourceTree = "<group>"; };
+		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceContentView.xib; sourceTree = "<group>"; };
 		FEF3114D258B51470070DBE7 /* UIViewControllerStoryProductExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerStoryProductExtension.swift; sourceTree = "<group>"; };
 		FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.ViewModel.swift; sourceTree = "<group>"; };
 		FEFF9359258B33420011A274 /* AmongInputNotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNotesView.swift; sourceTree = "<group>"; };
@@ -709,6 +713,7 @@
 				BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */,
 				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */,
 				FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */,
+				FEC2A93625CA5117001B9556 /* AmongChat.Room.QueueManager.swift */,
 				FEF170F725C9593E004C3FD3 /* Views */,
 				FE79F370258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift */,
 			);
@@ -810,6 +815,7 @@
 				FE87C2C7259C2A8300799883 /* UIColorExtension.swift */,
 				FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */,
 				2696D42225B8082200C38C09 /* UITextFieldExtension.swift */,
+				FEC2A94825CAB637001B9556 /* StringSizeExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1250,7 +1256,7 @@
 				FE79F391258CE06D00E9BC6C /* AmongSheetIconItemCell.swift */,
 				FE79F392258CE06D00E9BC6C /* AmongSheetIconItemCell.xib */,
 				FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */,
-				FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceView.xib */,
+				FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1377,7 +1383,7 @@
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
-				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceView.xib in Resources */,
+				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
 				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
@@ -1530,6 +1536,7 @@
 				FEAD54D52449B6A0006454F6 /* ViewController.swift in Sources */,
 				BD95F2DC2591C73B003BE2FE /* Social.SelectAvatarViewController.swift in Sources */,
 				FE8DEA6B243DB09A0059C252 /* Json.swift in Sources */,
+				FEC2A93725CA5117001B9556 /* AmongChat.Room.QueueManager.swift in Sources */,
 				FE87C2D5259C2EC200799883 /* SnapChatCreativeShareView.swift in Sources */,
 				BD8B4C10257A533D00BE6520 /* AmongChat.Room.MessageCell.swift in Sources */,
 				FE860D5A2446D2A800087B73 /* PublishValue.swift in Sources */,
@@ -1725,6 +1732,7 @@
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
 				BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
+				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,

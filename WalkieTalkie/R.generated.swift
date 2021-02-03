@@ -1214,7 +1214,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 19 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1246,6 +1246,8 @@ struct R: Rswift.Validatable {
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `RoomTopEntranceContentView`.
+    static let roomTopEntranceContentView = _R.nib._RoomTopEntranceContentView()
     /// Nib `ShareContainerView`.
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
@@ -1345,6 +1347,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
     }
     
+    /// `UINib(name: "RoomTopEntranceContentView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.roomTopEntranceContentView) instead")
+    static func roomTopEntranceContentView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.roomTopEntranceContentView)
+    }
+    
     /// `UINib(name: "ShareContainerView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.shareContainerView) instead")
     static func shareContainerView(_: Void = ()) -> UIKit.UINib {
@@ -1427,6 +1435,10 @@ struct R: Rswift.Validatable {
     
     static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func roomTopEntranceContentView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.roomTopEntranceContentView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -4555,6 +4567,17 @@ struct _R: Rswift.Validatable {
     struct _JustChillingInfoView: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "JustChillingInfoView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _RoomTopEntranceContentView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "RoomTopEntranceContentView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView

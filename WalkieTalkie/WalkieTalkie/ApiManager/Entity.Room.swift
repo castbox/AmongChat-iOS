@@ -71,7 +71,7 @@ extension Entity {
         }
     }
     
-    struct RoomUser: Codable, DefaultsSerializable, Verifiedable {
+    struct RoomUser: Codable, Hashable, DefaultsSerializable, Verifiedable {
         enum Status: String, Codable, DefaultsSerializable {
             case connected
             case talking
