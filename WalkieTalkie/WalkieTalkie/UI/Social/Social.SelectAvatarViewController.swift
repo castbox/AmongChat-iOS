@@ -32,6 +32,7 @@ extension Social {
         private lazy var nameLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
+            lb.lineBreakMode = .byTruncatingMiddle
             lb.textColor = .white
             lb.textAlignment = .center
             return lb
