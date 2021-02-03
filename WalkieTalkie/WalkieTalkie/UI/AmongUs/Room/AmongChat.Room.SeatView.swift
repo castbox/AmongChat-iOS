@@ -25,14 +25,15 @@ extension AmongChat.Room {
         override func prepare() {
             super.prepare()
             
-            let cellWidth: CGFloat = 60
+            var cellWidth: CGFloat = 60
             var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
-            let itemSpacing: CGFloat
+            let itemSpacing: CGFloat = 0
             if hInset > 20 {
-                itemSpacing = (hInset - 20) * 2 / 4
+//                itemSpacing = (hInset - 20) * 2 / 4
+                cellWidth += (hInset - 20) * 2 / 4
                 hInset = 20
             } else {
-                itemSpacing = 0
+//                itemSpacing = 0
                 hInset = hInset.floor
             }
             itemSize = CGSize(width: cellWidth, height: 125.5)
