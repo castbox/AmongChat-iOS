@@ -91,12 +91,14 @@ class ChatRoomManager: SeatManager {
     
     private var mChannelData = ChannelData()
     private var scheduleDispose: Disposable?
+    private var heartBeatingRequestDispose: Disposable?
 
     private init() {
         _ = Settings.shared.loginResult.replay()
             .subscribe(onNext: { [weak self] result in
                 guard let result = result, result.uid > 0 else {
                     self?.scheduleDispose?.dispose()
+                    self?.heartBeatingRequestDispose?.dispose()
                     return
                 }
                 self?.startHeartBeating()
@@ -370,11 +372,15 @@ extension ChatRoomManager: RtcDelegate {
 
 extension ChatRoomManager {
     func startHeartBeating() {
+        scheduleDispose?.dispose()
+        scheduleDispose = nil
         scheduleDispose = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
             .startWith(0)
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self.requestHeartBeating()
+            }, onDisposed: {
+                cdPrint("heart beating onDisposed")
             })
     }
     
@@ -383,9 +389,15 @@ extension ChatRoomManager {
         if let channelId = mRtcManager.channelId {
             params["room_id"] = channelId
         }
-        _ = Request.amongchatProvider.rx.request(.heartBeating(params))
-            .debug()
+        cancelHeartBeatingRequest()
+        heartBeatingRequestDispose =
+            Request.amongchatProvider.rx.request(.heartBeating(params))
             .subscribe()
         
+    }
+    
+    func cancelHeartBeatingRequest() {
+        heartBeatingRequestDispose?.dispose()
+        heartBeatingRequestDispose = nil
     }
 }
