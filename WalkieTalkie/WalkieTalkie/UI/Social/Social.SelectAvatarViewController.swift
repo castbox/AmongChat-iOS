@@ -150,16 +150,23 @@ extension Social.SelectAvatarViewController {
             .disposed(by: bag)
         
         fetchDefaultAvatars()
+            .subscribe(onSuccess: { (_) in
+                
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
     }
     
-    private func fetchDefaultAvatars() {
+    @discardableResult
+    private func fetchDefaultAvatars() -> Single<Entity.DefaultAvatars?> {
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
         // 获取系统头像
-        Request.defaultAvatars(withLocked: 1)
+        return Request.defaultAvatars(withLocked: 1)
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onSuccess: { [weak self] (avatars) in
+            .do(onSuccess: { [weak self] (avatars) in
                 hudRemoval()
                 guard let avatarList = avatars?.avatarList else {
                     return
@@ -169,8 +176,6 @@ extension Social.SelectAvatarViewController {
             }, onError: { (error) in
                 hudRemoval()
             })
-            .disposed(by: bag)
-        
     }
     
     private func configProfile(_ profile: Entity.UserProfile) {
@@ -229,19 +234,29 @@ extension Social.SelectAvatarViewController {
         guard !Settings.shared.isProValue.value else {
             return
         }
-        let premiun = PremiumViewController()
-        premiun.source = .setting
-        premiun.dismissHandler = { [weak self] (purchased) in
-            guard let `self` = self else { return }
-            premiun.dismiss(animated: true) { [weak self] in
-                guard purchased, AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro())) else {
-                    return
-                }
-                self?.onSelectItem(indexPath)
+        presentPremiumView(source: .avatar) { [weak self] (purchased) in
+            
+            guard let `self` = self, purchased else { return }
+
+            let hudRemoval = self.view.raft.show(.loading, userInteractionEnabled: false)
+            let completion = {
+                hudRemoval()
+                self.avatarCollectionView.isUserInteractionEnabled = true
             }
+
+            let _ = Settings.shared.isProValue.replay()
+                .filter { $0 }
+                .take(1)
+                .flatMap({ (_) in
+                    self.fetchDefaultAvatars()
+                })
+                .do(onDispose: {
+                    completion()
+                })
+                .subscribe(onNext: { (_) in
+                    self.onSelectItem(indexPath)
+                })
         }
-        premiun.modalPresentationStyle = .fullScreen
-        present(premiun, animated: true, completion: nil)
         Logger.UserAction.log(.update_pro, "settings")
     }
     
