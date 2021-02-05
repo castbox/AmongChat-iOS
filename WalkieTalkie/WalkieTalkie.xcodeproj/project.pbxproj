@@ -238,6 +238,9 @@
 		FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */; };
 		FE9EF530258B2DB7008C0BAD /* AmongInputNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */; };
 		FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */; };
+		FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9F69DB25CD337000C0F118 /* AppTrackingGuideView.swift */; };
+		FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE9F69DF25CD338600C0F118 /* AppTrackingGuideView.xib */; };
+		FE9F69E425CD3E3200C0F118 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9F69E325CD3E3200C0F118 /* PermissionManager.swift */; };
 		FEA2E93325C139E4007485A8 /* AvatarGuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */; };
 		FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */; };
 		FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA2E93D25C166E6007485A8 /* UserTagView.swift */; };
@@ -560,6 +563,9 @@
 		FE9EF52B258B23BC008C0BAD /* AmongRoomToolView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongRoomToolView.xib; sourceTree = "<group>"; };
 		FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputNickNameView.swift; sourceTree = "<group>"; };
 		FE9EF533258B2DC1008C0BAD /* AmongInputNickNameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputNickNameView.xib; sourceTree = "<group>"; };
+		FE9F69DB25CD337000C0F118 /* AppTrackingGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTrackingGuideView.swift; sourceTree = "<group>"; };
+		FE9F69DF25CD338600C0F118 /* AppTrackingGuideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AppTrackingGuideView.xib; sourceTree = "<group>"; };
+		FE9F69E325CD3E3200C0F118 /* PermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		FEA2E93125C139E4007485A8 /* AvatarGuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarGuideViewController.swift; sourceTree = "<group>"; };
 		FEA2E93225C139E4007485A8 /* AvatarGuideViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AvatarGuideViewController.xib; sourceTree = "<group>"; };
 		FEA2E93D25C166E6007485A8 /* UserTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTagView.swift; sourceTree = "<group>"; };
@@ -748,6 +754,9 @@
 				BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */,
 				BD754CB2258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift */,
 				BD754CB8258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift */,
+				FE9F69E325CD3E3200C0F118 /* PermissionManager.swift */,
+				FE9F69DB25CD337000C0F118 /* AppTrackingGuideView.swift */,
+				FE9F69DF25CD338600C0F118 /* AppTrackingGuideView.xib */,
 			);
 			path = CreateRoom;
 			sourceTree = "<group>";
@@ -1358,6 +1367,7 @@
 				FEA2F988249C8AF200CB1315 /* DefaultRemoteConfig.plist in Resources */,
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
+				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
 				FE730E5124ADCC5A00680062 /* TikTokShareView.xib in Resources */,
 				FE7CE9E72589E5550067952C /* AmongRoomBottomBar.xib in Resources */,
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
@@ -1579,6 +1589,7 @@
 				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
+				FE9F69E425CD3E3200C0F118 /* PermissionManager.swift in Sources */,
 				FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */,
 				FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */,
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
@@ -1658,6 +1669,7 @@
 				BDC9D4AE258A2AB400412BDC /* AdjustAnalytics.swift in Sources */,
 				BD9F26D125A6EBCC00FA3616 /* ChatLanguageHelper.swift in Sources */,
 				FE860D4B2446D1D700087B73 /* UITableView+Theme.swift in Sources */,
+				FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */,
 				BD6C36FA256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift in Sources */,
 				BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */,
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,

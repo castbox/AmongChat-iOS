@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 152 images.
+  /// This `R.image` struct is generated, and contains static references to 153 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -152,6 +152,8 @@ struct R: Rswift.Validatable {
     static let ac_among_no_search_result = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_search_result")
     /// Image `ac_animation_background`.
     static let ac_animation_background = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_animation_background")
+    /// Image `ac_app_tracking_icon`.
+    static let ac_app_tracking_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_app_tracking_icon")
     /// Image `ac_avatar_ad`.
     static let ac_avatar_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_avatar_ad")
     /// Image `ac_avatar_pro`.
@@ -464,6 +466,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_animation_background", bundle: ..., traitCollection: ...)`
     static func ac_animation_background(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_animation_background, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_app_tracking_icon", bundle: ..., traitCollection: ...)`
+    static func ac_app_tracking_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_app_tracking_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_avatar_ad", bundle: ..., traitCollection: ...)`
@@ -1214,7 +1221,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 19 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1240,6 +1247,8 @@ struct R: Rswift.Validatable {
     static let amongSheetIconItemCell = _R.nib._AmongSheetIconItemCell()
     /// Nib `AmongSheetUserCell`.
     static let amongSheetUserCell = _R.nib._AmongSheetUserCell()
+    /// Nib `AppTrackingGuideView`.
+    static let appTrackingGuideView = _R.nib._AppTrackingGuideView()
     /// Nib `AvatarGuideViewController`.
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
@@ -1325,6 +1334,12 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongSheetUserCell) instead")
     static func amongSheetUserCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongSheetUserCell)
+    }
+    
+    /// `UINib(name: "AppTrackingGuideView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.appTrackingGuideView) instead")
+    static func appTrackingGuideView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.appTrackingGuideView)
     }
     
     /// `UINib(name: "AvatarGuideViewController", in: bundle)`
@@ -1415,6 +1430,10 @@ struct R: Rswift.Validatable {
     
     static func amongSheetUserCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
       return R.nib.amongSheetUserCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
+    }
+    
+    static func appTrackingGuideView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.appTrackingGuideView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func avatarGuideViewController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1541,7 +1560,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 253 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 258 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1587,6 +1606,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Allow Tracking
+      /// 
+      /// Locales: en
+      static let trackingGuideAllow = Rswift.StringResource(key: "tracking.guide.allow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Already have an account?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1631,6 +1654,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.
+      /// 
+      /// Locales: en
+      static let trackingGuideSubtitle = Rswift.StringResource(key: "tracking.guide.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: By continuing, you agree to our %1$@ and %2$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1939,6 +1966,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKickSelected = Rswift.StringResource(key: "among.chat.room.kick.selected", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Later
+      /// 
+      /// Locales: en
+      static let trackingGuideLater = Rswift.StringResource(key: "tracking.guide.later", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Leave
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2127,6 +2158,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeLoadErrorMsg = Rswift.StringResource(key: "among.chat.home.load.error.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please give us your consent on
+      /// 
+      /// Locales: en
+      static let trackingGuideTitle = Rswift.StringResource(key: "tracking.guide.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please go to your phone Settings to enable the permission 
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2547,6 +2582,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: the next screen
+      /// 
+      /// Locales: en
+      static let trackingGuideTitleSuffix = Rswift.StringResource(key: "tracking.guide.title.suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2633,6 +2672,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: Allow Tracking
+      /// 
+      /// Locales: en
+      static func trackingGuideAllow(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.allow", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Already have an account?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2708,6 +2754,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialBlockedUserTitle(_: Void = ()) -> String {
         return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.
+      /// 
+      /// Locales: en
+      static func trackingGuideSubtitle(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.subtitle", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: By continuing, you agree to our %1$@ and %2$@
@@ -3249,6 +3302,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.room.kick.selected", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: Later
+      /// 
+      /// Locales: en
+      static func trackingGuideLater(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.later", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Leave
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3576,6 +3636,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeLoadErrorMsg(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.load.error.msg", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please give us your consent on
+      /// 
+      /// Locales: en
+      static func trackingGuideTitle(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please go to your phone Settings to enable the permission 
@@ -4313,6 +4380,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: the next screen
+      /// 
+      /// Locales: en
+      static func trackingGuideTitleSuffix(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.title.suffix", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4357,6 +4431,7 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
+      try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
@@ -4519,6 +4594,23 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongSheetUserCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongSheetUserCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AppTrackingGuideView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AppTrackingGuideView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_app_tracking_icon", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_app_tracking_icon' is used in nib 'AppTrackingGuideView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

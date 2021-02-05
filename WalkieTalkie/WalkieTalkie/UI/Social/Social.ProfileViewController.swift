@@ -266,7 +266,8 @@ private extension Social.ProfileViewController {
             view.addSubview(settingsBtn)
             settingsBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalTo(navLayoutGuide)
-                maker.right.equalToSuperview().inset(20)
+                maker.right.equalToSuperview().inset(10)
+                maker.height.width.equalTo(44)
             }
         }
         table.tableHeaderView = headerView
