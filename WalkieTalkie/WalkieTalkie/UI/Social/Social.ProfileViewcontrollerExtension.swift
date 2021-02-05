@@ -84,9 +84,8 @@ extension Social.ProfileViewController {
             return v
         }()
         
-        private lazy var skinView: UIView = {
-            let v = UIView()
-            v.backgroundColor = "#7EA6F3".color()
+        private lazy var skinView: Social.ProfileLookViewController.ProfileLookView = {
+            let v = Social.ProfileLookViewController.ProfileLookView()
             return v
         }()
         
@@ -293,6 +292,14 @@ extension Social.ProfileViewController {
         }
         
         private func bindSubviewEvent() {
+            Settings.shared.amongChatUserProfile.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (p) in
+                    p?.decorations.forEach({ (deco) in
+                        self?.skinView.updateLook(deco)
+                    })
+                })
+                .disposed(by: bag)
         }
         
         private func setupLayout() {

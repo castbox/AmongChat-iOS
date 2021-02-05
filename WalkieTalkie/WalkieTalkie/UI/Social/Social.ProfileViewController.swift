@@ -74,7 +74,8 @@ extension Social {
                 case .more:
                     self.moreAction()
                 case .customize:
-                    ()
+                    let vc = Social.ProfileLookViewController()
+                    self.navigationController?.pushViewController(vc)
                 }
             }
             return v
