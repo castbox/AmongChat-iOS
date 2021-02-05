@@ -32,6 +32,7 @@ extension AmongChat.Room {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
+
             bindSubviewEvent()
             configureSubview()
         }
@@ -74,6 +75,7 @@ extension AmongChat.Room {
         }
         
         private func configureSubview() {
+            clipsToBounds = true
             contentView = RoomTopEntranceContentView()
             contentView.frame = CGRect(x: Frame.Screen.width, y: 0, width: Frame.Screen.width, height: 44)
             addSubview(contentView)

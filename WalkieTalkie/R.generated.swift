@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 152 images.
+  /// This `R.image` struct is generated, and contains static references to 153 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -262,6 +262,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
+    /// Image `ac_profile_close_circle`.
+    static let ac_profile_close_circle = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_circle")
     /// Image `ac_profile_close_down`.
     static let ac_profile_close_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_down")
     /// Image `ac_profile_close`.
@@ -274,8 +276,8 @@ struct R: Rswift.Validatable {
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
     /// Image `ac_profile_pro`.
     static let ac_profile_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro")
-    /// Image `ac_profile_settings`.
-    static let ac_profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_settings")
+    /// Image `ac_profile_setting`.
+    static let ac_profile_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_setting")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -746,6 +748,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_close_circle", bundle: ..., traitCollection: ...)`
+    static func ac_profile_close_circle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_close_circle, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_close_down", bundle: ..., traitCollection: ...)`
     static func ac_profile_close_down(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close_down, compatibleWith: traitCollection)
@@ -771,9 +778,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_pro, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_settings", bundle: ..., traitCollection: ...)`
-    static func ac_profile_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_settings, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_profile_setting", bundle: ..., traitCollection: ...)`
+    static func ac_profile_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_setting, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`

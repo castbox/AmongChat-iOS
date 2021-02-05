@@ -21,11 +21,73 @@ extension Social.ProfileViewController {
             case follower
             case avater
             case follow
+            case more
         }
         
         let bag = DisposeBag()
         
         var headerHandle:((HeaderProfileAction) -> Void)?
+        
+        private lazy var backBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            if isSelf, controller?.navigationController?.viewControllers.count == 1 {
+                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
+            } else {
+                btn.setImage(R.image.ac_profile_close_circle(), for: .normal)
+            }
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    if self.controller?.navigationController?.viewControllers.count == 1 {
+                        self.controller?.dismiss(animated: true, completion: nil)
+                    } else {
+                        self.controller?.navigationController?.popViewController()
+                    }
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var settingsBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_profile_setting(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    let vc = SettingViewController()
+                    self.controller?.navigationController?.pushViewController(vc)
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var titleLabel: WalkieLabel = {
+            let lb = WalkieLabel()
+            lb.font = R.font.nunitoExtraBold(size: 24)
+            lb.textColor = .white
+            lb.textAlignment = .center
+            lb.text = R.string.localizable.profileProfile()
+            return lb
+        }()
+        
+        private lazy var moreBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.headerHandle?(.more)
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var infoContainer: UIView = {
+            let v = UIView()
+            return v
+        }()
+        
+        private lazy var skinView: UIView = {
+            let v = UIView()
+            v.backgroundColor = "#7EA6F3".color()
+            return v
+        }()
                 
         private lazy var avatarIV: AvatarImageView = {
             let iv = AvatarImageView()
@@ -102,7 +164,7 @@ extension Social.ProfileViewController {
             let btn = UIButton()
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.layer.cornerRadius = 24
+            btn.layer.cornerRadius = 26.5
             btn.setTitleColor(.black, for: .normal)
             btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
             btn.isHidden = true
@@ -125,6 +187,20 @@ extension Social.ProfileViewController {
         private var uid = ""
         private var changedName = false
         private var currentName = ""
+        private weak var controller: ViewController?
+                
+        init(with isSelf: Bool, viewController: ViewController) {
+            super.init(frame: .zero)
+            self.isSelf = isSelf
+            self.controller = viewController
+            setupLayout()
+            bindSubviewEvent()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         private func addUidForName() {
             if changedName {
                 nameLabel.text = currentName
@@ -133,17 +209,7 @@ extension Social.ProfileViewController {
             }
             changedName = !changedName
         }
-        
-        init(with isSelf: Bool) {
-            super.init(frame: .zero)
-            self.isSelf = isSelf
-            setupLayout()
-            bindSubviewEvent()
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+
         
         func configProfile(_ profile: Entity.UserProfile) {
             uid = profile.uid.string
@@ -215,8 +281,44 @@ extension Social.ProfileViewController {
         
         private func setupLayout() {
             
-            addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
+            let navLayoutGuide = UIView()
+            navLayoutGuide.backgroundColor = .clear
+            addSubview(navLayoutGuide)
+            navLayoutGuide.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(Frame.Height.safeAeraTopHeight)
+                maker.height.equalTo(49)
+            }
+    //
+            addSubviews(views: infoContainer, skinView, backBtn, titleLabel)
+                        
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.centerY.equalTo(navLayoutGuide)
+            }
             
+            backBtn.snp.makeConstraints { (maker) in
+                maker.leading.equalToSuperview().offset(12.5)
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.width.height.equalTo(40)//25
+            }
+            if !isSelf {
+                addSubview(moreBtn)
+                moreBtn.snp.makeConstraints { (make) in
+                    make.right.equalTo(-15)
+                    make.centerY.equalTo(backBtn.snp.centerY)
+                    make.width.height.equalTo(40)//24
+                }
+            } else {
+                addSubview(settingsBtn)
+                settingsBtn.snp.makeConstraints { (maker) in
+                    maker.centerY.equalTo(navLayoutGuide)
+                    maker.right.equalToSuperview().inset(20)
+                }
+            }
+
+            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
+
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
                 maker.trailing.equalTo(followerBtn.snp.leading)
@@ -233,11 +335,21 @@ extension Social.ProfileViewController {
             followerBtn.snp.makeConstraints { (maker) in
                 maker.trailing.top.bottom.equalToSuperview()
             }
+            
+            skinView.snp.makeConstraints { maker in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(skinView.snp.width)
+            }
+            
+            infoContainer.snp.makeConstraints { maker in
+                maker.top.equalTo(skinView.snp.bottom)
+                maker.leading.trailing.bottom.equalToSuperview()
+            }
 
-            if isSelf {
-                setLayoutForSelf()
-            } else {
-                addSubviews(views: nameLabel, uidLabel)
+            setLayoutForSelf()
+            if !isSelf {
+//            } else {
+//                addSubviews(views: nameLabel, uidLabel)
                 setLayoutForOther()
             }
             
@@ -254,7 +366,7 @@ extension Social.ProfileViewController {
         private func setLayoutForSelf() {
             
             avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(40)
+                maker.top.equalTo(24)
                 maker.leading.equalTo(20)
                 maker.height.width.equalTo(80)
             }
@@ -305,34 +417,34 @@ extension Social.ProfileViewController {
         
         private func setLayoutForOther() {
             
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.top.equalTo(40)
-                maker.centerX.equalToSuperview()
-                maker.height.width.equalTo(80)
-            }
-            
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-                maker.leading.trailing.equalToSuperview().inset(20)
-            }
-            
-            nameLabel.textAlignment = .center
-            
-            uidLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(nameLabel.snp.bottom).offset(6)
-                maker.centerX.equalToSuperview()
-            }
-            
-            relationContainer.snp.makeConstraints { maker in
-                maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(uidLabel.snp.bottom).offset(20)
-                maker.height.equalTo(50)
-            }
+//            avatarIV.snp.makeConstraints { (maker) in
+//                maker.top.equalTo(24)
+//                maker.centerX.equalToSuperview()
+//                maker.height.width.equalTo(80)
+//            }
+//
+//            nameLabel.snp.makeConstraints { (maker) in
+//                maker.top.equalTo(avatarIV.snp.bottom).offset(8)
+//                maker.leading.trailing.equalToSuperview().inset(20)
+//            }
+//
+//            nameLabel.textAlignment = .center
+//
+//            uidLabel.snp.makeConstraints { (maker) in
+//                maker.top.equalTo(nameLabel.snp.bottom).offset(6)
+//                maker.centerX.equalToSuperview()
+//            }
+//
+//            relationContainer.snp.makeConstraints { maker in
+//                maker.leading.trailing.equalToSuperview()
+//                maker.top.equalTo(uidLabel.snp.bottom).offset(20)
+//                maker.height.equalTo(50)
+//            }
             
             followButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(followingBtn.snp.bottom).offset(40)
+                maker.top.equalTo(followingBtn.snp.bottom).offset(56)
                 maker.leading.trailing.equalToSuperview().inset(40)
-                maker.height.equalTo(48)
+                maker.height.equalTo(53)
             }
             followButton.rx.tap
                 .subscribe(onNext: { [weak self]() in
