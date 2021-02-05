@@ -109,7 +109,7 @@ private extension Social.ProfileLookViewController {
         
         segmentedButton.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(80)
+            maker.height.equalTo(80.scalHValue)
             maker.top.equalTo(profileLookView.snp.bottom)
         }
         
@@ -331,8 +331,7 @@ private extension Social.ProfileLookViewController {
     
     func buy(_ decoration: DecorationViewModel) -> Single<Bool> {
         
-        guard let productId = decoration.decoration.product?.products.safe(0)?.productId,
-              let product = IAP.consumableProducts[productId] else {
+        guard let product = decoration.iapProduct else {
             return Single.error(MsgError.default)
         }
         

@@ -37,6 +37,17 @@ extension Social.ProfileLookViewController {
             return decoration.lock
         }
         
+        var iapProduct: IAP.Product? {
+            
+            guard let product = decoration.product?.products.safe(0),
+                  let iapProduct = IAP.consumableProducts[product.productId] else {
+                return nil
+            }
+
+            return iapProduct
+            
+        }
+        
         var selected: Bool {
             
             set {

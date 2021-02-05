@@ -13,39 +13,39 @@ import RxCocoa
 
 extension IAP {
     
-    private(set) static var consumableProducts = [String : IAP.Product]()
+    private static let consumableProductsRelay = BehaviorRelay<[String : IAP.Product]>(value: [:])
+    
+    static var consumableProducts: [String : IAP.Product] {
+        return consumableProductsRelay.value
+    }
+    
+    static var consumableProductsObservable: Observable<[String : IAP.Product]> {
+        return consumableProductsRelay.asObservable()
+    }
     
     static let productPetPrefix: String = "wtas.i.iap.pet"
     
-    static func fetchConsumableProducts(_ ids: [String]) -> Single<[String : IAP.Product]> {
+    static func refreshConsumableProducts(_ ids: [String]) {
         
         let cachedIds = Set(consumableProducts.values.map({ $0.skProduct.productIdentifier }))
         
         if cachedIds.contains(ids) {
-            return Single.just(consumableProducts)
+            return
         }
         
         let productIds = Set(ids)
-        return Single.create { (subscriber) -> Disposable in
+        
+        IAP.ProductFetcher.fetchProducts(of: productIds) { (error, productMap) in
             
-            IAP.ProductFetcher.fetchProducts(of: productIds) { (error, productMap) in
-                
-                guard error == nil else {
-                    subscriber(.error(error!))
-                    return
-                }
-                
-                if productMap.count > 0 {
-                    
-                    consumableProducts.merge(productMap, uniquingKeysWith: { $1 })
-                    subscriber(.success(productMap))
-                } else {
-                    subscriber(.error(NSError(domain: "IAP.ConsumableProducts", code: 400, userInfo: nil)))
-                }
+            guard error == nil else {
+                return
             }
             
-            return Disposables.create()
+            if productMap.count > 0 {
+                var cachedMap = consumableProductsRelay.value
+                cachedMap.merge(productMap, uniquingKeysWith: { $1 })
+                consumableProductsRelay.accept(cachedMap)
+            }
         }
-        
     }
 }

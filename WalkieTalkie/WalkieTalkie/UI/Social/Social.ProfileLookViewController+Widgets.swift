@@ -179,6 +179,7 @@ extension Social.ProfileLookViewController {
             self.viewModel = viewModel
             super.init(frame: .zero)
             setupLayout()
+            setupEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -192,6 +193,21 @@ extension Social.ProfileLookViewController {
             }
         }
         
+        private func setupEvents() {
+            
+            if viewModel.decorationType == .pet {
+                IAP.consumableProductsObservable
+                    .observeOn(MainScheduler.asyncInstance)
+                    .subscribe(onNext: { [weak self] (productMap) in
+                        
+                        guard productMap.count > 0 else { return }
+                        
+                        self?.decorationCollectionView.reloadData()
+                        
+                    })
+                    .disposed(by: bag)
+            }
+        }
     }
     
 }
