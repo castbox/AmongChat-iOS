@@ -639,16 +639,33 @@ extension DefaultsKeys {
         .init("among.chat.avatar.guide.update.time", defaultValue: "")
     }
     
+    static func permissionRequestStatusKey(for request: PermissionManager.RequestType) -> DefaultsKey<Int> {
+        .init("permission.request.status.\(request.rawValue)", defaultValue: 0)
+    }
+
+    static func permissionRequestUpdateTime(for request: PermissionManager.RequestType) -> DefaultsKey<String?> {
+        .init("permission.requested.update.time.\(request.rawValue)", defaultValue: nil)
+    }
+    
+    //请求次数
+    static func permissionRequestTimes(for request: PermissionManager.RequestType) -> DefaultsKey<Int> {
+        .init("permission.requested.times.\(request.rawValue)", defaultValue: 0)
+    }
+    
     var defaultProfileDecorations: DefaultsKey<[[String : Any]]?> {
         .init("among.chat.default.profile.decoration.category.list", defaultValue: nil)
     }
 }
 
 //extension DefaultsAdapter {
-//    func channel(for mode: Mode) -> Room {
+////    permissionRequestStatusKey
+////    //上次时间
+////    permissionLaterKey
+//
+//    func permissionRequestStatusKey(for request: PermissionManager.RequestType) -> Room {
 //        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
 //    }
-//    
+//
 //    func set(channel: Room?, mode: Mode) {
 //        //保护存储错误
 //        if mode == .public,
@@ -664,3 +681,9 @@ extension DefaultsKeys {
 //}
 
 extension CLLocation: DefaultsSerializable {}
+
+extension Date {
+    static var currentDay: String {
+        return Date().string(withFormat: "yyyy-MM-dd")
+    }
+}

@@ -295,3 +295,8 @@
 "premium.restore.succeeded" = "Erfolgreich wiederherstellen";
 
 "social.one.contact.firend" = "%@ Freund auf AmongChat";
+"tracking.guide.title" = "Bitte geben Sie uns Ihre Zustimmung auf";
+"tracking.guide.title.suffix" = "dem nächste Bildschirm";
+"tracking.guide.subtitle" = "Indem wir das Tracking zulassen, können wir Anzeigen, die auf AmongChat für Sie geschaltet werden, besser anpassen.";
+"tracking.guide.allow" = "Tracking zulassen";
+"tracking.guide.later" = "Später";

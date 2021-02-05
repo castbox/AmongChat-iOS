@@ -327,6 +327,7 @@ extension Entity {
         var id: Int
         var url: String
         var listUrl: String?
+        var sayUrl: String?
         var lock: Bool
         var unlockType: Entity.DefaultAvatar.UnlockType?
         var iapKey: String?
@@ -338,6 +339,7 @@ extension Entity {
             case id
             case url
             case listUrl = "list_url"
+            case sayUrl = "say_url"
             case lock
             case unlockType = "type"
             case iapKey = "iap_key"
@@ -392,7 +394,9 @@ extension Entity.DecorationCategory {
 extension Entity.DecorationEntity {
     
     static func entityOf(id: Int) -> Entity.DecorationEntity? {
-        
+        guard id > 0 else {
+            return nil
+        }
         let decorations = Settings.shared.defaultProfileDecorationCategoryList.value.flatMap { $0.list }
         
         return decorations.first { $0.id == id }

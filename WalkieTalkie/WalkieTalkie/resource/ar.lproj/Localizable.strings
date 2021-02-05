@@ -295,3 +295,8 @@
 "premium.restore.succeeded" = "نجحت الاستعادة";
 
 "social.one.contact.firend" = "%@ صديق على AmongChat";
+"tracking.guide.title" = "من فضلك اعطنا موافقتك على";
+"tracking.guide.title.suffix" = "الشاشة التالية";
+"tracking.guide.subtitle" = "من خلال السماح بالتتبع ، سنكون قادرين على تخصيص الإعلانات بشكل أفضل لك في AmongChat.";
+"tracking.guide.allow" = "السماح بالتتبع";
+"tracking.guide.later" = "في وقت لاحق";

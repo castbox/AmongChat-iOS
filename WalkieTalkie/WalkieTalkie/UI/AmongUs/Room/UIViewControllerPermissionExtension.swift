@@ -31,26 +31,58 @@ extension UIViewController {
     
     //FOR APP TRACKING
     func requestAppTrackPermission(completion: CallBack?) {
-        if #available(iOS 14.0, *) {
-            cdPrint("attrackingAuthorization state: \(ATTrackingManager.trackingAuthorizationStatus.rawValue)")
-            switch ATTrackingManager.trackingAuthorizationStatus {
-            case .authorized:
-                completion?()
-            case .denied, .restricted:
-                completion?()
-            case .notDetermined:
-                ATTrackingManager.requestTrackingAuthorization { status in
-                    cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
-                    mainQueueDispatchAsync(after: 0.1) {
-                        completion?()
-                    }
-                }
-            @unknown default:
-                completion?()
-            }
-        } else {
+        guard let viewController = self as? ViewController else {
             completion?()
+            return
         }
+        PermissionManager.shared.request(permission: .appTracking, on: viewController, completion: completion)
+        
+//        if #available(iOS 14.0, *) {
+//            cdPrint("attrackingAuthorization state: \(ATTrackingManager.trackingAuthorizationStatus.rawValue)")
+//            switch ATTrackingManager.trackingAuthorizationStatus {
+//            case .authorized:
+//                completion?()
+//            case .denied, .restricted:
+//                completion?()
+//            case .notDetermined:
+//                showAppTrackPermissionPreRequestAlert(with: completion)
+//            @unknown default:
+//                completion?()
+//            }
+//        } else {
+//            completion?()
+//        }
+    }
+    
+    @available(iOS 14, *)
+    private func showAppTrackPermissionPreRequestAlert(with completionHandler: CallBack?) {
+        
+        Logger.Action.log(.space_card_tip_clk)
+        
+        let alert = amongChatAlert(title: nil, confirmTitle: R.string.localizable.toastConfirm())
+        let content = AppTrackingGuideView()
+        alert.contentView.addSubview(content)
+        content.allowTrackingHandler = { [weak self] in
+            ATTrackingManager.requestTrackingAuthorization { status in
+                cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
+                mainQueueDispatchAsync(after: 0.1) {
+                    completionHandler?()
+                }
+            }
+        }
+        content.laterHandler = { [weak self] in
+            completionHandler?()
+        }
+        content.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+//        decorateAlert(alert)
+        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        alert.visualStyle.verticalElementSpacing = 0
+        alert.visualStyle.contentPadding = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
+        alert.view.backgroundColor = UIColor.black.alpha(0.6)
+        alert.present()
     }
     
     static func openAppSystemSetting() {

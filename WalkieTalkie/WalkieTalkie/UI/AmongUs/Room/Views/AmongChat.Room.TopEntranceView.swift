@@ -113,8 +113,12 @@ class RoomTopEntranceContentView: XibLoadableView {
         //calculate size
         gradient.frame = CGRect(x: 20, y: 0, width: 70 + 74 + rect.width, height: 44)
         
-        //svga
-        playSvga(URL(string: "https://s3.among.chat/static/room/room-emoji-bluegreen.svga"))
+        //get svga
+        if let urlString = Entity.DecorationEntity.entityOf(id: user.decoPetId)?.url,
+           let url = URL(string: urlString) {
+            //svga
+            playSvga(url)
+        }
     }
     
     func playSvga(_ resource: URL?) {

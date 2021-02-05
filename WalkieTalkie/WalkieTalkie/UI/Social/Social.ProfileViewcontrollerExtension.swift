@@ -22,6 +22,7 @@ extension Social.ProfileViewController {
             case avater
             case follow
             case more
+            case customize
         }
         
         let bag = DisposeBag()
@@ -83,10 +84,24 @@ extension Social.ProfileViewController {
             return v
         }()
         
-        private lazy var skinView: UIView = {
-            let v = UIView()
-            v.backgroundColor = "#7EA6F3".color()
+        private lazy var skinView: Social.ProfileLookViewController.ProfileLookView = {
+            let v = Social.ProfileLookViewController.ProfileLookView()
             return v
+        }()
+        
+        private lazy var customizeBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+            btn.setTitle(R.string.localizable.profileLookCustomize(), for: .normal)
+            btn.setTitleColor(.black, for: .normal)
+            btn.setBackgroundImage("#FFF000".color().image, for: .normal)
+            btn.cornerRadius = 18
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    self?.headerHandle?(.customize)
+                }).disposed(by: bag)
+            return btn
         }()
                 
         private lazy var avatarIV: AvatarImageView = {
@@ -277,6 +292,14 @@ extension Social.ProfileViewController {
         }
         
         private func bindSubviewEvent() {
+            Settings.shared.amongChatUserProfile.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (p) in
+                    p?.decorations.forEach({ (deco) in
+                        self?.skinView.updateLook(deco)
+                    })
+                })
+                .disposed(by: bag)
         }
         
         private func setupLayout() {
@@ -291,6 +314,8 @@ extension Social.ProfileViewController {
             }
     //
             addSubviews(views: infoContainer, skinView, backBtn, titleLabel)
+            
+            skinView.addSubview(customizeBtn)
                         
             titleLabel.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
@@ -341,15 +366,20 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(skinView.snp.width)
             }
             
+            customizeBtn.snp.makeConstraints { maker in
+                maker.trailing.equalTo(-20)
+                maker.bottom.equalTo(-20)
+                maker.height.equalTo(36)
+            }
+            
             infoContainer.snp.makeConstraints { maker in
                 maker.top.equalTo(skinView.snp.bottom)
                 maker.leading.trailing.bottom.equalToSuperview()
             }
 
-            setLayoutForSelf()
+            setCommonLayout()
+            
             if !isSelf {
-//            } else {
-//                addSubviews(views: nameLabel, uidLabel)
                 setLayoutForOther()
             }
             
@@ -363,7 +393,7 @@ extension Social.ProfileViewController {
                 }).disposed(by: bag)
         }
 
-        private func setLayoutForSelf() {
+        private func setCommonLayout() {
             
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalTo(24)
@@ -417,30 +447,6 @@ extension Social.ProfileViewController {
         
         private func setLayoutForOther() {
             
-//            avatarIV.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(24)
-//                maker.centerX.equalToSuperview()
-//                maker.height.width.equalTo(80)
-//            }
-//
-//            nameLabel.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(avatarIV.snp.bottom).offset(8)
-//                maker.leading.trailing.equalToSuperview().inset(20)
-//            }
-//
-//            nameLabel.textAlignment = .center
-//
-//            uidLabel.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(nameLabel.snp.bottom).offset(6)
-//                maker.centerX.equalToSuperview()
-//            }
-//
-//            relationContainer.snp.makeConstraints { maker in
-//                maker.leading.trailing.equalToSuperview()
-//                maker.top.equalTo(uidLabel.snp.bottom).offset(20)
-//                maker.height.equalTo(50)
-//            }
-            
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(56)
                 maker.leading.trailing.equalToSuperview().inset(40)
@@ -453,6 +459,7 @@ extension Social.ProfileViewController {
             
             editBtn.isHidden = true
             changeIcon.isHidden = true
+            customizeBtn.isHidden = true
         }
         
         
