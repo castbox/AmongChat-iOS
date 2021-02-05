@@ -1519,8 +1519,8 @@ struct R: Rswift.Validatable {
       static let nsSpeechRecognitionUsageDescription = Rswift.StringResource(key: "NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: This identifier will be used to deliver personalized ads to you.
       /// 
-      /// Locales: en
-      static let nsUserTrackingUsageDescription = Rswift.StringResource(key: "NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let nsUserTrackingUsageDescription = Rswift.StringResource(key: "NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1552,7 +1552,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: This identifier will be used to deliver personalized ads to you.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsUserTrackingUsageDescription(_: Void = ()) -> String {
         return NSLocalizedString("NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
