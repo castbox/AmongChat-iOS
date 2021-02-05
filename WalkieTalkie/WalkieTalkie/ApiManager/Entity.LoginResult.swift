@@ -174,7 +174,7 @@ extension Entity {
     struct DefaultAvatar: Codable {
         
         enum UnlockType: String, Codable {
-            case free, rewarded, premium
+            case free, rewarded, premium, pay
         }
         
         var avatarId: String
@@ -306,4 +306,85 @@ extension Entity {
         }
         var data: Data?
     }
+}
+
+extension Entity {
+    struct DecorationCategory: Codable {
+        var name: String
+        var list: [DecorationEntity]
+        
+        private enum CodingKeys: String, CodingKey {
+            case name
+            case list
+        }
+    }
+}
+
+extension Entity {
+    
+    struct DecorationEntity : Codable {
+        
+        var id: Int
+        var url: String
+        var listUrl: String?
+        var lock: Bool
+        var unlockType: Entity.DefaultAvatar.UnlockType?
+        var iapKey: String?
+        var decoType: String
+        var product: DecorationProduct?
+        var selected: Bool
+                
+        private enum CodingKeys: String, CodingKey {
+            case id
+            case url
+            case listUrl = "list_url"
+            case lock
+            case unlockType = "type"
+            case iapKey = "iap_key"
+            case decoType = "deco_type"
+            case product
+            case selected
+        }
+        
+    }
+}
+
+extension Entity {
+    
+    struct DecorationProduct: Codable {
+        
+        var internalProductId: String
+        var products: [IAPProduct]
+        
+        struct IAPProduct: Codable {
+            
+            var productId: String
+            var deviceType: String
+            var price: Int
+            var name: String
+            
+            private enum CodingKeys: String, CodingKey {
+                case productId = "product_id"
+                case deviceType = "device_type"
+                case price
+                case name
+            }
+            
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case internalProductId = "internal_product_id"
+            case products
+        }
+        
+    }
+
+}
+
+extension Entity.DecorationCategory {
+    
+    enum DecorationType: String, Codable {
+        case skin = "color", bg, pet, hat
+    }
+    
 }

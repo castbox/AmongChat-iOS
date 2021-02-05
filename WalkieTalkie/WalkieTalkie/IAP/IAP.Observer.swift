@@ -32,7 +32,7 @@ extension IAP {
         func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
             guard let info = IAP.Product.parse(product) else { return false }
             switch info.content {
-            case .premium:
+            case .premium, .consumable:
                 /// not supported
                 ()
 //                let vc = PremiumController()
