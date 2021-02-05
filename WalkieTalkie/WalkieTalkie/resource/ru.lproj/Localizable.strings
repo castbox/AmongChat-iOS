@@ -295,3 +295,8 @@
 "premium.restore.succeeded" = "Восстановление выполнено";
 
 "social.one.contact.firend" = "%@ друг в AmongChat";
+"tracking.guide.title" = "Пожалуйста, дайте нам свое согласие на";
+"tracking.guide.title.suffix" = "следующий экран";
+"tracking.guide.subtitle" = "Разрешив отслеживание, мы сможем лучше адаптировать рекламу, показываемую вам в AmongChat.";
+"tracking.guide.allow" = "Разрешить отслеживание";
+"tracking.guide.later" = "Позже";
