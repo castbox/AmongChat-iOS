@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 153 images.
+  /// This `R.image` struct is generated, and contains static references to 157 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -272,6 +272,14 @@ struct R: Rswift.Validatable {
     static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
     /// Image `ac_profile_edit`.
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
+    /// Image `ac_profile_look_bg_defalut`.
+    static let ac_profile_look_bg_defalut = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_bg_defalut")
+    /// Image `ac_profile_look_pet_shadow`.
+    static let ac_profile_look_pet_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_pet_shadow")
+    /// Image `ac_profile_look_shadow`.
+    static let ac_profile_look_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_shadow")
+    /// Image `ac_profile_look_skin_default`.
+    static let ac_profile_look_skin_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_skin_default")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
     /// Image `ac_profile_pro`.
@@ -766,6 +774,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_edit", bundle: ..., traitCollection: ...)`
     static func ac_profile_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_bg_defalut", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_bg_defalut(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_bg_defalut, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_pet_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_pet_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_pet_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_skin_default", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_skin_default(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_skin_default, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`

@@ -388,3 +388,31 @@ extension Entity.DecorationCategory {
     }
     
 }
+
+extension Entity.DecorationEntity {
+    
+    static func entityOf(id: Int) -> Entity.DecorationEntity? {
+        
+        let decorations = Settings.shared.defaultProfileDecorationCategoryList.value.flatMap { $0.list }
+        
+        return decorations.first { $0.id == id }
+    }
+    
+}
+
+extension Entity.UserProfile {
+    
+    var decorations: [Social.ProfileLookViewController.DecorationViewModel] {
+        
+        return [decoBgId, decoSkinId, decoHatId, decoPetId]
+            .compactMap({
+                guard let id = $0,
+                      let entity = Entity.DecorationEntity.entityOf(id: id),
+                      let decoType = Entity.DecorationCategory.DecorationType.init(rawValue: entity.decoType) else { return nil }
+                let deco = Social.ProfileLookViewController.DecorationViewModel(dataModel: entity, decorationType: decoType)
+                deco.selected = true
+                return deco
+            })
+    }
+    
+}

@@ -35,7 +35,7 @@ extension IAP {
                     return
                 }
                 
-                if productMap.count == productIds.count {
+                if productMap.count > 0 {
                     
                     consumableProducts.merge(productMap, uniquingKeysWith: { $1 })
                     subscriber(.success(productMap))

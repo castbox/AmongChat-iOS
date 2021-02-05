@@ -614,6 +614,10 @@ extension Request {
             .mapJSON()
             .mapToDataKeyListValue()
             .mapTo([Entity.DecorationCategory].self)
+            .do(onSuccess: { (list) in
+                guard let list = list else { return }
+                Settings.shared.defaultProfileDecorationCategoryList.value = list
+            })
     }
     
     static func unlockProfileDecoration(_ decoration: Entity.DecorationEntity) -> Single<Bool> {

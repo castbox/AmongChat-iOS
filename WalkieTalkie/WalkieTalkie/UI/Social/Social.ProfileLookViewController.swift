@@ -60,6 +60,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             fetchData()
+            setupEvents()
         }
         
     }
@@ -120,9 +121,12 @@ private extension Social.ProfileLookViewController {
     }
     
     func fetchData() {
-        
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         Request.defaultProfileDecorations()
             .observeOn(MainScheduler.asyncInstance)
+            .do(onDispose: {
+                hudRemoval()
+            })
             .subscribe(onSuccess: { [weak self] (decorationDataList) in
                 
                 guard let `self` = self else { return }
@@ -136,6 +140,18 @@ private extension Social.ProfileLookViewController {
                 
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
+    }
+    
+    func setupEvents() {
+        
+        Settings.shared.amongChatUserProfile.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (p) in
+                p?.decorations.forEach({ (deco) in
+                    self?.profileLookView.updateLook(deco)
+                })
             })
             .disposed(by: bag)
     }
@@ -219,6 +235,7 @@ private extension Social.ProfileLookViewController {
             .observeOn(MainScheduler.asyncInstance)
             .do(onSuccess: { [weak self] (success) in
                 self?.profileLookView.updateLook(decoration)
+                Settings.shared.updateProfile()
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
             }, onDispose: {

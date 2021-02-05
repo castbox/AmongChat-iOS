@@ -16,12 +16,17 @@ extension Social.ProfileLookViewController {
     class ProfileLookView: UIView {
         
         private lazy var profileBgIV: UIImageView = {
-            let i = UIImageView()
+            let i = UIImageView(image: R.image.ac_profile_look_bg_defalut())
+            return i
+        }()
+        
+        private lazy var skinShadowIV: UIImageView = {
+            let i = UIImageView(image: R.image.ac_profile_look_shadow())
             return i
         }()
         
         private lazy var skinIV: UIImageView = {
-            let i = UIImageView()
+            let i = UIImageView(image: R.image.ac_profile_look_skin_default())
             return i
         }()
         
@@ -30,7 +35,12 @@ extension Social.ProfileLookViewController {
             return i
         }()
         
-        private lazy var petIV: SVGAPlayer = {
+        private lazy var petShadowIV: UIImageView = {
+            let i = UIImageView()
+            return i
+        }()
+        
+        private lazy var svgaView: SVGAPlayer = {
             let player = SVGAPlayer(frame: .zero)
             player.clearsAfterStop = true
             player.contentMode = .scaleAspectFill
@@ -48,24 +58,53 @@ extension Social.ProfileLookViewController {
         }
         
         private func setupLayout() {
-            addSubviews(views: profileBgIV, skinIV, hatIV, petIV)
+            addSubviews(views: profileBgIV, skinShadowIV, skinIV, hatIV, petShadowIV, svgaView)
             
             profileBgIV.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
             
+            skinShadowIV.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(skinIV)
+            }
+            
             skinIV.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+                maker.centerX.equalToSuperview()
+                maker.width.height.equalTo(210)
+                maker.centerY.equalToSuperview().multipliedBy(1.2)
             }
             
             hatIV.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+                maker.edges.equalTo(skinIV)
             }
             
-            petIV.snp.makeConstraints { (maker) in
-                maker.trailing.bottom.equalToSuperview()
+            petShadowIV.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(svgaView)
             }
             
+            svgaView.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(70)
+                maker.trailing.equalTo(skinIV.snp.trailing).offset(28)
+                maker.bottom.equalTo(skinIV.snp.bottom).offset(-17)
+            }
+            
+        }
+        
+        private func playSvga(_ resource: URL?) {
+            svgaView.stopAnimation()
+            guard let resource = resource else {
+                return
+            }
+            
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(with: resource,
+                         completionBlock: { [weak self] (item) in
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                         },
+                         failureBlock: { error in
+                            debugPrint("error: \(error?.localizedDescription ?? "")")
+                         })
         }
         
         func updateLook(_ decoration: DecorationViewModel) {
@@ -73,18 +112,20 @@ extension Social.ProfileLookViewController {
             switch decoration.decorationType {
             case .bg:
                 
-                profileBgIV.setImage(with: decoration.selected ? decoration.lookUrl : nil)
+                profileBgIV.setImage(with: decoration.selected ? decoration.lookUrl : nil, placeholder: R.image.ac_profile_look_bg_defalut())
                 
             case .skin:
                 
-                skinIV.setImage(with: decoration.selected ? decoration.lookUrl : nil)
+                skinIV.setImage(with: decoration.selected ? decoration.lookUrl : nil, placeholder: R.image.ac_profile_look_skin_default())
 
             case .hat:
                 
                 hatIV.setImage(with: decoration.selected ? decoration.lookUrl : nil)
 
             case .pet:
-                ()
+                
+                petShadowIV.isHidden = !decoration.selected
+                playSvga(decoration.selected ? decoration.lookUrl.url : nil)
             }
             
         }
