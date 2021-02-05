@@ -489,6 +489,10 @@ extension AmongChat.CreateRoom.ViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
+                if Settings.shared.isProValue.value {
+                    //vip 状态已失效
+                    Settings.shared.updateProfile()
+                }
                 self?.showAdAlert(topic: topic)
                 
             })
