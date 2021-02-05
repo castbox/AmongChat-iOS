@@ -24,36 +24,26 @@ extension AmongChat.Room {
         
         override func prepare() {
             super.prepare()
-            
-            var cellWidth: CGFloat = 60
-            var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
-            let itemSpacing: CGFloat = 0
-            if hInset > 20 {
-//                itemSpacing = (hInset - 20) * 2 / 4
-                cellWidth += (hInset - 20) * 2 / 4
-                hInset = 20
-            } else {
-//                itemSpacing = 0
-                hInset = hInset.floor
+            guard itemAttributesArray.isEmpty,
+                  let collectionView = collectionView else {
+                return
             }
+            let cellWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
+            let hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
             itemSize = CGSize(width: cellWidth, height: 125.5)
-            minimumInteritemSpacing = itemSpacing
+            minimumInteritemSpacing = 0
             minimumLineSpacing = 0
             sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-
-//            itemSize = CGSize(width: itemWidth, height: itemHeight)
-//            minimumLineSpacing = 4
-//            minimumInteritemSpacing = 0
             scrollDirection = .horizontal
             
             // 刷新清空
             itemAttributesArray.removeAll()
             
             
-//            let sectionCount = collectionView?.numberOfSections ?? 0
-//            for section in 0..<sectionCount {
-            let itemCount = collectionView?.numberOfItems(inSection: 0) ?? 0
-            for item in 0..<itemCount {
+            //            let sectionCount = collectionView?.numberOfSections ?? 0
+            //            for section in 0..<sectionCount {
+            let itemCount = collectionView.numberOfItems(inSection: 0)
+            for item in 0 ..< itemCount {
                 let indexPath = IndexPath(item: item, section: 0)
                 let attribute = layoutAttributesForItem(at: indexPath)
                 if let attr = attribute {
@@ -94,7 +84,7 @@ extension AmongChat.Room {
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-
+        
         fileprivate lazy var collectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
