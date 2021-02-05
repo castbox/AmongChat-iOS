@@ -300,3 +300,5 @@
 "tracking.guide.subtitle" = "By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.";
 "tracking.guide.allow" = "Allow Tracking";
 "tracking.guide.later" = "Later";
+
+"profile.look.customize" = "Customize";
