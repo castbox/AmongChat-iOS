@@ -607,4 +607,61 @@ extension Request {
             })
 
     }
+    
+    static func defaultProfileDecorations() -> Single<[Entity.DecorationCategory]?> {
+        
+        return amongchatProvider.rx.request(.defaultDecorations)
+            .mapJSON()
+            .mapToDataKeyListValue()
+            .mapTo([Entity.DecorationCategory].self)
+            .do(onSuccess: { (list) in
+                guard let list = list else { return }
+                Settings.shared.defaultProfileDecorationCategoryList.value = list
+            })
+    }
+    
+    static func unlockProfileDecoration(_ decoration: Entity.DecorationEntity) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "decoration_id" : decoration.id,
+            "decoration_type" : decoration.decoType,
+        ]
+        
+        return amongchatProvider.rx.request(.unlockDecoration(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let process = json["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+        
+    }
+    
+    static func updateProfileDecoration(decoration: Entity.DecorationEntity, selected: Bool) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "decoration_id" : decoration.id,
+            "decoration_type" : decoration.decoType,
+            "selected" : selected ? 1 : 0,
+        ]
+        
+        return amongchatProvider.rx.request(.updateDecoration(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let process = json["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+    }
+    
 }

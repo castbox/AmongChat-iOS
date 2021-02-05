@@ -73,6 +73,30 @@ class Automator {
             .subscribe(onNext: { (_) in
             })
             .disposed(by: bag)
+        
+        Settings.shared.loginResult.replay()
+            .filterNil()
+            .take(1)
+            .flatMap { (_) in
+                Request.defaultProfileDecorations()
+            }
+            .flatMap({ (decoCateList) -> Single<[String : IAP.Product]> in
+                
+                guard let iapProductIds = decoCateList?.compactMap({ $0.list.compactMap { (deco) in
+                    deco.product?.products.safe(0)?.productId }
+                })
+                .flatMap({ $0 }),
+                iapProductIds.count > 0 else {
+                    return Single.just([String : IAP.Product]())
+                }
+                
+                return IAP.fetchConsumableProducts(iapProductIds)
+                
+            })
+            .subscribe(onNext: { (_) in
+                
+            })
+            .disposed(by: bag)
 
     }
 }

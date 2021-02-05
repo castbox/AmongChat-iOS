@@ -70,6 +70,9 @@ extension IAP {
                     case .lifetime:
                         actionDesc = R.string.localizable.premiumLifetime()
                         termsDesc = R.string.localizable.premiumSubscriptionDetailLifetime()
+                    case .oneTime:
+                        actionDesc = ""
+                        termsDesc = ""
                     }
                     let info = ProductInfo(identifier: value.skProduct.productIdentifier, actionDesc: actionDesc, termsDesc: termsDesc, product: value)
                     newMap[key] = info
@@ -100,6 +103,9 @@ extension IAP.ProductInfo {
         case .lifetime:
             return PriceInfo(freePeriod: "", price: product.skProduct.localizedPrice,
                              renewalPeriod: R.string.localizable.premiumLifetime(), adj_renewalPeriod: R.string.localizable.premiumLifetime())
+            
+        case .oneTime:
+            return PriceInfo(freePeriod: "", price: product.skProduct.localizedPrice, renewalPeriod: "", adj_renewalPeriod: "")
         }
         
     }

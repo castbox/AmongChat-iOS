@@ -56,6 +56,9 @@ extension APIService {
         case requestSmsCode([String : Any])
         case verifySmsCode([String : Any])
         case receipt([String : Any])
+        case defaultDecorations
+        case unlockDecoration([String : Any])
+        case updateDecoration([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -158,6 +161,12 @@ extension APIService.AmongChatBackend: TargetType {
             return "/auth/phone/verify"
         case .receipt:
             return "/purchase/ios/receipt"
+        case .defaultDecorations:
+            return "/account/default/decoration"
+        case .unlockDecoration:
+            return "/account/unlock/decoration"
+        case .updateDecoration:
+            return "/account/decoration/upsert"
         }
     }
     
@@ -175,6 +184,8 @@ extension APIService.AmongChatBackend: TargetType {
              .inviteUser,
              .receipt,
              .contactUpload,
+             .unlockDecoration,
+             .updateDecoration,
              .logout:
             return .post
             
@@ -205,6 +216,7 @@ extension APIService.AmongChatBackend: TargetType {
              .contactList,
              .requestSmsCode,
              .verifySmsCode,
+             .defaultDecorations,
              .userSearch:
             return .get
         case .follow:
@@ -231,6 +243,7 @@ extension APIService.AmongChatBackend: TargetType {
              .topics,
              .accountMetaData,
              .contactList,
+             .defaultDecorations,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
@@ -268,6 +281,8 @@ extension APIService.AmongChatBackend: TargetType {
              .userSearch(let params),
              .requestSmsCode(let params),
              .verifySmsCode(let params),
+             .unlockDecoration(let params),
+             .updateDecoration(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }

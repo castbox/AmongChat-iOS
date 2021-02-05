@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 153 images.
+  /// This `R.image` struct is generated, and contains static references to 157 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -272,6 +272,14 @@ struct R: Rswift.Validatable {
     static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
     /// Image `ac_profile_edit`.
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
+    /// Image `ac_profile_look_bg_defalut`.
+    static let ac_profile_look_bg_defalut = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_bg_defalut")
+    /// Image `ac_profile_look_pet_shadow`.
+    static let ac_profile_look_pet_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_pet_shadow")
+    /// Image `ac_profile_look_shadow`.
+    static let ac_profile_look_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_shadow")
+    /// Image `ac_profile_look_skin_default`.
+    static let ac_profile_look_skin_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_skin_default")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
     /// Image `ac_profile_pro`.
@@ -766,6 +774,26 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_edit", bundle: ..., traitCollection: ...)`
     static func ac_profile_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_bg_defalut", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_bg_defalut(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_bg_defalut, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_pet_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_pet_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_pet_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_skin_default", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_skin_default(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_skin_default, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
@@ -1519,8 +1547,8 @@ struct R: Rswift.Validatable {
       static let nsSpeechRecognitionUsageDescription = Rswift.StringResource(key: "NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: This identifier will be used to deliver personalized ads to you.
       /// 
-      /// Locales: en
-      static let nsUserTrackingUsageDescription = Rswift.StringResource(key: "NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let nsUserTrackingUsageDescription = Rswift.StringResource(key: "NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1552,7 +1580,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: This identifier will be used to deliver personalized ads to you.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsUserTrackingUsageDescription(_: Void = ()) -> String {
         return NSLocalizedString("NSUserTrackingUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
@@ -1560,7 +1588,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 253 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 260 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1634,6 +1662,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthAug = Rswift.StringResource(key: "month.aug", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: BG
+      /// 
+      /// Locales: en
+      static let amongChatProfileBg = Rswift.StringResource(key: "among.chat.profile.bg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1754,6 +1786,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Customize
+      /// 
+      /// Locales: en
+      static let amongChatProfileCustomize = Rswift.StringResource(key: "among.chat.profile.customize", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1790,6 +1826,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCodeInputTitle = Rswift.StringResource(key: "among.chat.login.code.input.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Equip
+      /// 
+      /// Locales: en
+      static let amongChatProfileEquip = Rswift.StringResource(key: "among.chat.profile.equip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Europe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1890,6 +1930,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Hat
+      /// 
+      /// Locales: en
+      static let amongChatProfileHat = Rswift.StringResource(key: "among.chat.profile.Hat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2138,6 +2182,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvitePlayWith = Rswift.StringResource(key: "social.invite.play.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Pet
+      /// 
+      /// Locales: en
+      static let amongChatProfilePet = Rswift.StringResource(key: "among.chat.profile.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2206,6 +2254,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardTipTitle = Rswift.StringResource(key: "among.chat.create.room.card.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Remove
+      /// 
+      /// Locales: en
+      static let amongChatProfileRemove = Rswift.StringResource(key: "among.chat.profile.remove", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2326,6 +2378,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileSignIn = Rswift.StringResource(key: "among.chat.profile.sign.in", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Skin
+      /// 
+      /// Locales: en
+      static let amongChatProfileSkin = Rswift.StringResource(key: "among.chat.profile.skin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Skip
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2701,6 +2757,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.aug", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: BG
+      /// 
+      /// Locales: en
+      static func amongChatProfileBg(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.bg", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2911,6 +2974,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Customize
+      /// 
+      /// Locales: en
+      static func amongChatProfileCustomize(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.customize", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2972,6 +3042,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginCodeInputTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.code.input.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Equip
+      /// 
+      /// Locales: en
+      static func amongChatProfileEquip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.equip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Europe
@@ -3147,6 +3224,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportIncorrectHarassment(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Hat
+      /// 
+      /// Locales: en
+      static func amongChatProfileHat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.Hat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
@@ -3583,6 +3667,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.invite.play.with", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Pet
+      /// 
+      /// Locales: en
+      static func amongChatProfilePet(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.pet", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Play Now
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3700,6 +3791,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardTipTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.tip.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Remove
+      /// 
+      /// Locales: en
+      static func amongChatProfileRemove(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.remove", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Report
@@ -3910,6 +4008,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileSignIn(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.sign.in", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Skin
+      /// 
+      /// Locales: en
+      static func amongChatProfileSkin(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.skin", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Skip
