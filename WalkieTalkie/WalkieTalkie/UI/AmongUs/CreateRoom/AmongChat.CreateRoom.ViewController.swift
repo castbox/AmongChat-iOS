@@ -489,6 +489,10 @@ extension AmongChat.CreateRoom.ViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
+                if Settings.shared.isProValue.value {
+                    //vip 状态已失效
+                    Settings.shared.updateProfile()
+                }
                 self?.showAdAlert(topic: topic)
                 
             })
@@ -613,7 +617,9 @@ extension AmongChat.CreateRoom.ViewController {
             claimBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, weak self] (_) in
                     alertVC?.dismiss(animated: true, completion: {
-                        self?.showAd(topic: topic)
+                        self?.requestAppTrackPermission(completion: {
+                            self?.showAd(topic: topic)
+                        })
                     })
                     Logger.Action.log(.space_card_ads_claim_clk)
                 }).disposed(by: bag)
