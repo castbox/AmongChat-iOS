@@ -379,6 +379,7 @@ class AdsManager: NSObject {
     enum RewardedVideoPosition: CaseIterable {
         case channelCard
         case unlockAvatar
+        case profileLook
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
@@ -387,6 +388,8 @@ class AdsManager: NSObject {
             return "a545cd81a6814a4bb06a6e6055ed5e58"
         case .channelCard:
             return "bacb18c823584a5cbcd04f6768e7bf9b"
+        case .profileLook:
+            return "6fa3760c04274063b079f971622dff12"
         }
     }
     

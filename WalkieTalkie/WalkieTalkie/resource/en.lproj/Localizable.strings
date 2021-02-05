@@ -295,10 +295,19 @@
 "premium.restore.succeeded" = "Restore succeeded";
 
 "social.one.contact.firend" = "%@ friend on AmongChat";
+
 "tracking.guide.title" = "Please give us your consent on";
 "tracking.guide.title.suffix" = "the next screen";
 "tracking.guide.subtitle" = "By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.";
 "tracking.guide.allow" = "Allow Tracking";
 "tracking.guide.later" = "Later";
 
+//1.13
+"among.chat.profile.customize" = "Customize";
+"among.chat.profile.skin" = "Skin";
+"among.chat.profile.bg" = "BG";
+"among.chat.profile.Hat" = "Hat";
+"among.chat.profile.pet" = "Pet";
+"among.chat.profile.equip" = "Equip";
+"among.chat.profile.remove" = "Remove";
 "profile.look.customize" = "Customize";

@@ -367,6 +367,26 @@ class Settings {
             .asPublishProperty()
     }()
     
+    let defaultProfileDecorationCategoryList: PublishProperty<[Entity.DecorationCategory]> = {
+        
+        typealias DecorationCategory = Entity.DecorationCategory
+        let decos: [DecorationCategory]
+        
+        if let dict = Defaults[\.defaultProfileDecorations],
+           let s = try? JSONDecoder().decodeAnyData([DecorationCategory].self, from: dict) {
+            decos = s
+        } else {
+            decos = [DecorationCategory]()
+        }
+        
+        return DynamicProperty.stored(decos)
+            .didSet({ (event) in
+                let list = event.new.compactMap({ $0.dictionary })
+                Defaults[\.defaultProfileDecorations] = list
+            })
+            .asPublishProperty()
+    }()
+    
     var cachedRtmToken: Entity.RTMToken? {
         get { Defaults[\.amongChatRtmToken] }
         set { Defaults[\.amongChatRtmToken] = newValue}
@@ -630,6 +650,10 @@ extension DefaultsKeys {
     //请求次数
     static func permissionRequestTimes(for request: PermissionManager.RequestType) -> DefaultsKey<Int> {
         .init("permission.requested.times.\(request.rawValue)", defaultValue: 0)
+    }
+    
+    var defaultProfileDecorations: DefaultsKey<[[String : Any]]?> {
+        .init("among.chat.default.profile.decoration.category.list", defaultValue: nil)
     }
 }
 

@@ -276,6 +276,7 @@ extension Logger {
             case iap_home
             case room_create
             case avatar
+            case profile_look
         }
         
         static func logImp(_ source: ActionSource) {

@@ -92,6 +92,10 @@ extension Entity {
         var chatLanguage: String?
         var isVerified: Bool?
         var isVip: Bool?
+        var decoBgId: Int?
+        var decoSkinId: Int?
+        var decoHatId: Int?
+        var decoPetId: Int?
         
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
@@ -116,6 +120,10 @@ extension Entity {
             case chatLanguage = "language_u"
             case isVerified = "is_verified"
             case isVip = "is_vip"
+            case decoBgId = "deco_bg_id"
+            case decoSkinId = "deco_color_id"
+            case decoHatId = "deco_hat_id"
+            case decoPetId = "deco_pet_id"
         }
     }
     
