@@ -1541,7 +1541,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 253 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 258 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1587,6 +1587,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumSubscriptionDetailFree = Rswift.StringResource(key: "premium.subscription.detail.free", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Allow Tracking
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let trackingGuideAllow = Rswift.StringResource(key: "tracking.guide.allow", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Already have an account?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1631,6 +1635,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialBlockedUserTitle = Rswift.StringResource(key: "social.blocked.user.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let trackingGuideSubtitle = Rswift.StringResource(key: "tracking.guide.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: By continuing, you agree to our %1$@ and %2$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1939,6 +1947,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKickSelected = Rswift.StringResource(key: "among.chat.room.kick.selected", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Later
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let trackingGuideLater = Rswift.StringResource(key: "tracking.guide.later", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Leave
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2127,6 +2139,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeLoadErrorMsg = Rswift.StringResource(key: "among.chat.home.load.error.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please give us your consent on
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let trackingGuideTitle = Rswift.StringResource(key: "tracking.guide.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please go to your phone Settings to enable the permission 
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2547,6 +2563,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvited = Rswift.StringResource(key: "social.invited", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: the next screen
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let trackingGuideTitleSuffix = Rswift.StringResource(key: "tracking.guide.title.suffix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: your purchase was successful
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2633,6 +2653,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("premium.subscription.detail.free", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2)
       }
       
+      /// en translation: Allow Tracking
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func trackingGuideAllow(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.allow", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Already have an account?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2708,6 +2735,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialBlockedUserTitle(_: Void = ()) -> String {
         return NSLocalizedString("social.blocked.user.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: By allowing tracking, we'll be able to better tailor ads served to you on AmongChat.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func trackingGuideSubtitle(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.subtitle", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: By continuing, you agree to our %1$@ and %2$@
@@ -3249,6 +3283,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.room.kick.selected", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: Later
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func trackingGuideLater(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.later", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Leave
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3576,6 +3617,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeLoadErrorMsg(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.home.load.error.msg", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please give us your consent on
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func trackingGuideTitle(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please go to your phone Settings to enable the permission 
@@ -4311,6 +4359,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialInvited(_: Void = ()) -> String {
         return NSLocalizedString("social.invited", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: the next screen
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func trackingGuideTitleSuffix(_: Void = ()) -> String {
+        return NSLocalizedString("tracking.guide.title.suffix", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: your purchase was successful
