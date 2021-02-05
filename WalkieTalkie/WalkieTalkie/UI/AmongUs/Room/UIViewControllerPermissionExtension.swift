@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SDCAlertView
 import MessageUI
+import AppTrackingTransparency
 
 extension UIViewController {
     /// 获取麦克风权限
@@ -25,6 +26,30 @@ extension UIViewController {
                     completion()
                 }
             }
+        }
+    }
+    
+    //FOR APP TRACKING
+    func requestAppTrackPermission(completion: CallBack?) {
+        if #available(iOS 14.0, *) {
+            cdPrint("attrackingAuthorization state: \(ATTrackingManager.trackingAuthorizationStatus.rawValue)")
+            switch ATTrackingManager.trackingAuthorizationStatus {
+            case .authorized:
+                completion?()
+            case .denied, .restricted:
+                completion?()
+            case .notDetermined:
+                ATTrackingManager.requestTrackingAuthorization { status in
+                    cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
+                    mainQueueDispatchAsync(after: 0.1) {
+                        completion?()
+                    }
+                }
+            @unknown default:
+                completion?()
+            }
+        } else {
+            completion?()
         }
     }
     

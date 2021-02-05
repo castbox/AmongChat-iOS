@@ -617,7 +617,9 @@ extension AmongChat.CreateRoom.ViewController {
             claimBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, weak self] (_) in
                     alertVC?.dismiss(animated: true, completion: {
-                        self?.showAd(topic: topic)
+                        self?.requestAppTrackPermission(completion: {
+                            self?.showAd(topic: topic)
+                        })
                     })
                     Logger.Action.log(.space_card_ads_claim_clk)
                 }).disposed(by: bag)

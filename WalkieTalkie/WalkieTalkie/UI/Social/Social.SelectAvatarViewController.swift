@@ -260,21 +260,17 @@ extension Social.SelectAvatarViewController {
         Logger.UserAction.log(.update_pro, "settings")
     }
     
+    private func requestAppTrackingPermission(with indexPath: IndexPath) {
+        requestAppTrackPermission { [weak self] in
+            self?.onSelectItem(indexPath)
+        }
+    }
+    
+    
     private func onSelectItem(_ indexPath: IndexPath) {
-        guard let avatar = avatarDataSource.safe(indexPath.item) else {
+        guard let avatar = avatarDataSource.safe(indexPath.item),
+              avatar.selected == false else {
             return
-        }
-        guard avatar.selected == false else {
-            return
-        }
-        
-        //select pro item
-        if avatar.locked,
-           !Settings.shared.isProValue.value,
-           avatar.avatar.unlockType == .premium {
-            //go to premium page
-            Logger.Action.log(.profile_avatar_get, category: .premium, "\(avatar.avatarId)")
-            return upgradePro(with: indexPath)
         }
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -357,8 +353,24 @@ extension Social.SelectAvatarViewController: UICollectionViewDataSource {
 extension Social.SelectAvatarViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let avatar = avatarDataSource.safe(indexPath.item),
+              avatar.selected == false else {
+            return
+        }
         
-        onSelectItem(indexPath)
+        //select pro item
+        if avatar.locked,
+           !Settings.shared.isProValue.value {
+            if avatar.avatar.unlockType == .premium {
+                //go to premium page
+                Logger.Action.log(.profile_avatar_get, category: .premium, "\(avatar.avatarId)")
+                upgradePro(with: indexPath)
+            } else {
+               requestAppTrackingPermission(with: indexPath)
+            }
+        } else {
+            onSelectItem(indexPath)
+        }
     }
     
 }
