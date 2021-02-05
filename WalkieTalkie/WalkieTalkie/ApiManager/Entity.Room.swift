@@ -107,7 +107,7 @@ extension Entity {
         var topic: AmongChat.Topic?
         var isVerified: Bool?
         var isVip: Bool?
-        
+        var decoPetId: Int
         var nickname: String? {
             switch topic {
             case .fortnite:
@@ -130,7 +130,7 @@ extension Entity {
         }
         
         
-        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool = false) {
+        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool = false, decoPetId: Int = 0) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pic
@@ -139,6 +139,7 @@ extension Entity {
             self.isMuted = isMuted ?? false
             self.isMutedByLoginUser = isMutedByLoginUser ?? false
             self.isVerified = isVerified
+            self.decoPetId = decoPetId
         }
         
         private enum CodingKeys: String, CodingKey {
@@ -158,6 +159,7 @@ extension Entity {
             case nameMobilelegends = "name_mobilelegends"
             case isVerified = "is_verified"
             case isVip = "is_vip"
+            case decoPetId = "deco_pet_id"
         }
         
         init(from decoder: Decoder) throws {
@@ -180,6 +182,7 @@ extension Entity {
             self.nameMobilelegends = try container.decodeStringIfPresent(.nameMobilelegends)
             self.isVerified = try container.decodeBoolIfPresent(.isVerified) ?? false
             self.isVip = try container.decodeBoolIfPresent(.isVip) ?? false
+            self.decoPetId = try container.decodeIntIfPresent(.decoPetId) ?? 0
         }
     }
 }

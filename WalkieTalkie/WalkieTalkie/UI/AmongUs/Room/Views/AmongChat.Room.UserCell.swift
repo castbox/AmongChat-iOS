@@ -129,6 +129,7 @@ extension AmongChat.Room {
         var emojis: [URL] = []
         
         private var user: Entity.RoomUser?
+        private var svgaUrl: URL?
         private var isPlaySvgaEmoji: Bool = false
 
         var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
@@ -167,7 +168,11 @@ extension AmongChat.Room {
         
         func startSoundAnimation() {
             haloView.startLoading()
-            playSvga(emojis.randomItem())
+            if let url = svgaUrl {
+                playSvga(url)
+            } else {
+                playSvga(emojis.randomItem())
+            }
         }
         
         func stopSoundAnimation() {
@@ -288,6 +293,15 @@ extension AmongChat.Room.UserCell {
             clearStyle()
             return
         }
+        
+        if let urlString = Entity.DecorationEntity.entityOf(id: user.decoPetId)?.url,
+           let url = URL(string: urlString) {
+            //svga
+            svgaUrl = url
+        } else {
+            svgaUrl = nil
+        }
+        
         if user.status == .talking {
             startSoundAnimation()
         } 
@@ -316,6 +330,7 @@ extension AmongChat.Room.UserCell {
     
     func clearStyle() {
         user = nil
+        svgaUrl = nil
         stopSoundAnimation()
         avatarIV.kf.cancelImageDownloadTask()
         avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
