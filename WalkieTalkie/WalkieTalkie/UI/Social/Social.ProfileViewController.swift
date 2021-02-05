@@ -73,6 +73,8 @@ extension Social {
                     self.followingAction()
                 case .more:
                     self.moreAction()
+                case .customize:
+                    ()
                 }
             }
             return v
@@ -208,6 +210,7 @@ private extension Social.ProfileViewController {
         if isSelfProfile, navigationController?.viewControllers.count == 1 {
             pullToDismiss = PullToDismiss(scrollView: table)
             pullToDismiss?.delegate = self
+            pullToDismiss?.dismissableHeightPercentage = 0.4
         }
         
         if roomUser != nil {
