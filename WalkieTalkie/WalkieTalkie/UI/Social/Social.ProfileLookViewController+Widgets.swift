@@ -138,6 +138,138 @@ extension Social.ProfileLookViewController {
     
     class SegmentedButton: UIView {
         
+        private let bag = DisposeBag()
+        
+        private lazy var scrollView: UIScrollView = {
+            let s = UIScrollView()
+            s.showsVerticalScrollIndicator = false
+            s.showsHorizontalScrollIndicator = false
+            s.isPagingEnabled = true
+            return s
+        }()
+        
+        private lazy var indicatorContainer: UIView = {
+            let v = UIView()
+            return v
+        }()
+        
+        private lazy var selectedIndicator: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0xFFF000)
+            v.layer.cornerRadius = 2.5
+            v.clipsToBounds = true
+            return v
+        }()
+        
+        private var buttons = [UIButton]()
+        
+        private var selectedBtn: UIButton? = nil
+        
+        private let selectedIndexrRelay = BehaviorRelay<Int>(value: 0)
+        
+        var selectedIndexObservable: Observable<Int> {
+            return selectedIndexrRelay.asObservable().distinctUntilChanged()
+        }
+        
+        init() {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+                
+        private func setupLayout() {
+            indicatorContainer.addSubview(selectedIndicator)
+            
+            scrollView.addSubview(indicatorContainer)
+            
+            indicatorContainer.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.centerY.equalToSuperview().offset(21.5)
+            }
+            
+            addSubviews(views: scrollView)
+            scrollView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+                maker.height.equalToSuperview()
+            }
+        }
+        
+        func setTitles(titles: [String]) {
+            
+            buttons.forEach({ (btn) in
+                btn.removeFromSuperview()
+            })
+            
+            buttons = titles.enumerated().map { (idx, title) -> UIButton in
+                let btn = UIButton(type: .custom)
+                btn.setTitleColor(UIColor(hex6: 0x595959), for: .normal)
+                btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .selected)
+                btn.titleLabel?.font = R.font.nunitoBold(size: 20)
+                btn.setTitle(title, for: .normal)
+                btn.rx.controlEvent(.primaryActionTriggered)
+                    .subscribe(onNext: { [weak self] () in
+                        self?.updateSelectedIndex(idx)
+                    })
+                    .disposed(by: bag)
+                
+                return btn
+            }
+            
+            scrollView.addSubviews(buttons)
+            
+            for (idx, btn) in buttons.enumerated() {
+                
+                btn.snp.makeConstraints { (maker) in
+                    maker.centerY.equalToSuperview()
+                    if idx == 0 {
+                        maker.leading.equalToSuperview().inset(20)
+                    } else if idx == buttons.count - 1 {
+                        maker.trailing.greaterThanOrEqualToSuperview().inset(20)
+                    }
+                    
+                    if idx > 0,
+                       let pre = buttons.safe(idx - 1) {
+                        maker.leading.equalTo(pre.snp.trailing).offset(36)
+                    }
+                    
+                }
+                
+            }
+            
+            updateSelectedIndex(0)
+        }
+        
+        func updateSelectedIndex(_ index: Int) {
+            
+            guard let button = buttons.safe(index) else {
+                return
+            }
+            
+            guard selectedBtn != button else { return }
+                        
+            selectedIndicator.snp.remakeConstraints { (maker) in
+                maker.centerX.equalTo(button)
+                maker.width.equalTo(24)
+                maker.height.equalTo(5)
+                maker.top.bottom.equalTo(indicatorContainer)
+            }
+                        
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                button.isSelected = true
+                button.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                self?.selectedBtn?.isSelected = false
+                self?.selectedBtn?.transform = .identity
+                self?.selectedBtn = button
+
+                self?.indicatorContainer.layoutIfNeeded()
+            }
+            
+            selectedIndexrRelay.accept(index)
+        }
+        
     }
     
 }

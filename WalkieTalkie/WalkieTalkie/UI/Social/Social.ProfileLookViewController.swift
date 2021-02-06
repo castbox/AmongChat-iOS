@@ -37,6 +37,13 @@ extension Social {
         
         private lazy var segmentedButton: SegmentedButton = {
             let s = SegmentedButton()
+            s.selectedIndexObservable
+                .subscribe(onNext: { [weak self] (idx) in
+                    guard let `self` = self else { return }
+                    let offset = CGPoint(x: self.scrollView.bounds.width * CGFloat(idx), y: 0)
+                    self.scrollView.setContentOffset(offset, animated: true)
+                })
+                .disposed(by: bag)
             return s
         }()
         
@@ -45,14 +52,20 @@ extension Social {
             s.showsVerticalScrollIndicator = false
             s.showsHorizontalScrollIndicator = false
             s.isPagingEnabled = true
+            s.delegate = self
             return s
         }()
         
-        private var pageIndex: Int = 0
+        private var pageIndex: Int = 0 {
+            didSet {
+                segmentedButton.updateSelectedIndex(pageIndex)
+            }
+        }
         
         private var decoCategories = [DecorationCategoryViewModel]() {
             didSet {
                 setupDecoCategoryViewsLayout(decoCategoryViews: decoCategories.map(decoCategoryViewMapper(_:)))
+                setupSegmentedButton(for: decoCategories)
             }
         }
         
@@ -165,6 +178,10 @@ private extension Social.ProfileLookViewController {
         let v = DecorationCategoryView(viewModel: decoCategory)
         v.onSelectDecoration = onDecorationSelect(_:)
         return v
+    }
+    
+    func setupSegmentedButton(for decoCategories: [DecorationCategoryViewModel]) {
+        segmentedButton.setTitles(titles: decoCategories.map({ $0.name }))
     }
     
     func setupDecoCategoryViewsLayout(decoCategoryViews: [UIView]) {
@@ -364,6 +381,15 @@ private extension Social.ProfileLookViewController {
                 .flatMap { Single.just(true) }
         })
         
+    }
+    
+}
+
+extension Social.ProfileLookViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard scrollView == self.scrollView else { return }
+        pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
     }
     
 }
