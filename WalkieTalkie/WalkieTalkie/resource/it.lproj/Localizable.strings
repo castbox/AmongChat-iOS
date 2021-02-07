@@ -295,8 +295,18 @@
 "premium.restore.succeeded" = "Ripristino riuscito";
 
 "social.one.contact.firend" = "%@ amico su AmongChat";
+
 "tracking.guide.title" = "Vi preghiamo di darci il vostro consenso su";
 "tracking.guide.title.suffix" = "la schermata successiva";
 "tracking.guide.subtitle" = "Consentendo il monitoraggio, saremo in grado di personalizzare meglio gli annunci che ti vengono offerti su AmongChat.";
 "tracking.guide.allow" = "Consenti monitoraggio";
 "tracking.guide.later" = "Dopo";
+
+//1.13
+"among.chat.profile.customize" = "Personalizzare";
+"among.chat.profile.skin" = "Pelle";
+"among.chat.profile.bg" = "Sfondo";
+"among.chat.profile.Hat" = "Cappello";
+"among.chat.profile.pet" = "Animale domestico";
+"among.chat.profile.equip" = "Equipaggia";
+"among.chat.profile.remove" = "Rimuovere";
