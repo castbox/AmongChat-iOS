@@ -13,88 +13,31 @@ import SVGAPlayer
 import SwiftyUserDefaults
 
 extension AmongChat.Room {
-    
-    class SeatFlowLayout: UICollectionViewFlowLayout {
-//        var margin: CGFloat = 15
-//        var padding: CGFloat = 4
-//        let itemWidth: CGFloat = 60
-//        let itemHeight: CGFloat = 125.5
-//        var activityItemWidth: CGFloat = (Frame.Screen.width - 30 - 4) / 2
-        var itemAttributesArray = [UICollectionViewLayoutAttributes]()
-        
-        override func prepare() {
-            super.prepare()
-            guard itemAttributesArray.isEmpty,
-                  let collectionView = collectionView else {
-                return
-            }
-            let cellWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
-            let hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
-            itemSize = CGSize(width: cellWidth, height: 125.5)
-            minimumInteritemSpacing = 0
-            minimumLineSpacing = 0
-            sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-            scrollDirection = .horizontal
-            
-            // 刷新清空
-            itemAttributesArray.removeAll()
-            
-            
-            //            let sectionCount = collectionView?.numberOfSections ?? 0
-            //            for section in 0..<sectionCount {
-            let itemCount = collectionView.numberOfItems(inSection: 0)
-            for item in 0 ..< itemCount {
-                let indexPath = IndexPath(item: item, section: 0)
-                let attribute = layoutAttributesForItem(at: indexPath)
-                if let attr = attribute {
-                    itemAttributesArray.append(attr)
-                }
-            }
-        }
-
-        override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-            return itemAttributesArray
-        }
-        
-        override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-            let attribute = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-//            let page: CGFloat = CGFloat(indexPath.item / 8)
-            let row: CGFloat = CGFloat(indexPath.item % 5)
-            let col: CGFloat = CGFloat(indexPath.item / 5)
-            let x = sectionInset.left + row * (itemSize.width + minimumInteritemSpacing)
-            let y = sectionInset.top + col * itemSize.height
-//            cdPrint("x: \(x) \ny: \(y)")
-            attribute.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
-            return attribute
-        }
-        
-        override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
-            return true
-        }
-        
-        override var flipsHorizontallyInOppositeLayoutDirection: Bool {
-            return true
-        }
-    }
-}
-
-extension AmongChat.Room {
     class SeatView: UIView {
         
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
+        let itemWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
+        let itemHeight: CGFloat = 125.5
+        lazy var leftEdge: CGFloat = (UIScreen.main.bounds.width - itemWidth * 5) / 2
+
+        lazy var topStackView: UIStackView = {
+            let stack = UIStackView(arrangedSubviews: [])
+            stack.axis = .horizontal
+            stack.spacing = 0
+            stack.alignment = .fill
+            stack.distribution = .fillEqually
+            return stack
+        }()
         
-        fileprivate lazy var collectionView: UICollectionView = {
-            let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
-            v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
-            v.showsVerticalScrollIndicator = false
-            v.showsHorizontalScrollIndicator = false
-            v.isScrollEnabled = false
-            v.dataSource = self
-            v.delegate = self
-            v.backgroundColor = nil
-            return v
+        lazy var bottomStackView: UIStackView = {
+            let stack = UIStackView(arrangedSubviews: [])
+            stack.axis = .horizontal
+            stack.spacing = 0
+            stack.alignment = .fill
+            stack.distribution = .fillEqually
+            return stack
         }()
         
         private var dataSource: [Int: Entity.RoomUser] = [:] {
@@ -102,11 +45,11 @@ extension AmongChat.Room {
                 guard UIApplication.appDelegate?.isApplicationActiveReplay.value == true else {
                     return
                 }
-                collectionView.reloadData()
+                updateSeats()
             }
         }
         
-        private var viewCache: [Int: AmongChat.Room.UserCell] = [:]
+        fileprivate var viewCache: [Int: AmongChat.Room.UserCell] = [:]
         
         let viewModel: AmongChat.Room.ViewModel
                 
@@ -125,7 +68,7 @@ extension AmongChat.Room {
         private var selectedKickUser = Set<Int>() {
             didSet {
                 selectedKickUserHandler?(Array(selectedKickUser))
-                collectionView.reloadData()
+                updateSeats()
             }
         }
         
@@ -148,20 +91,24 @@ extension AmongChat.Room {
         }
         
         private func bindSubviewEvent() {
-            NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification)
-                .subscribe(onNext: { [weak self] (_) in
-                    self?.collectionView.reloadData()
-                })
-                .disposed(by: bag)
+
         }
         
         private func configureSubview() {
             backgroundColor = .clear
             
-            addSubview(collectionView)
+            addSubviews(views: topStackView, bottomStackView)
             
-            collectionView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
+            topStackView.snp.makeConstraints { (maker) in
+                maker.top.equalToSuperview()
+                maker.leading.trailing.equalToSuperview().inset(leftEdge)
+            }
+            
+            bottomStackView.snp.makeConstraints { (maker) in
+                maker.top.equalTo(topStackView.snp.bottom)
+                maker.bottom.equalToSuperview()
+                maker.leading.trailing.equalToSuperview().inset(leftEdge)
+                maker.height.equalTo(topStackView)
             }
         }
         
@@ -233,54 +180,45 @@ extension AmongChat.Room {
     }
 }
 
-extension AmongChat.Room.SeatView: UICollectionViewDataSource {
-    
-    // MARK: - UICollectionView
-        
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fixedListLength
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = viewCache[indexPath.item]
-        if cell == nil {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(AmongChat.Room.UserCell.self), for: indexPath) as? AmongChat.Room.UserCell
-            viewCache[indexPath.item] = cell
-            cell?.emojis = room.topicType.roomEmojis
-            cell?.clickAvatarHandler = { [weak self] user in
+extension AmongChat.Room.SeatView {
+    func updateSeats() {
+        for index in 0 ..< fixedListLength {
+            var nilableCell = viewCache[index]
+            if nilableCell == nil {
+                let cell = AmongChat.Room.UserCell(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
+                if index < 5 {
+                    topStackView.addArrangedSubview(cell)
+                } else {
+                    bottomStackView.addArrangedSubview(cell)
+                }
+                cell.emojis = room.topicType.roomEmojis
+                viewCache[index] = cell
+                nilableCell = cell
+            }
+            guard let cell = nilableCell else {
+                return
+            }
+            // callin状态
+            cell.clickAvatarHandler = { [weak self] user in
                 self?.select(user)
             }
-        }
-        if let cell = cell {
-            if style == .kick, let user = dataSource[indexPath.item] {
-                cell.isKickSelected = selectedKickUser.contains(user.uid)
+            if style == .kick, let item = dataSource[index] {
+                cell.isKickSelected = selectedKickUser.contains(item.uid)
             } else {
                 cell.isKickSelected = false
             }
-//            cell.avatarLongPressHandler = { [weak self] user in
-//            }
-            cell.bind(dataSource[indexPath.item], topic: room.topicType, index: indexPath.item + 1)
+            cell.bind(dataSource[index], topic: room.topicType, index: index + 1)
         }
-        return cell!
     }
-    
-}
-
-extension AmongChat.Room.SeatView: UICollectionViewDelegate {
-    
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//    }
-    
 }
 
 extension Reactive where Base: AmongChat.Room.SeatView {
     var soundAnimation: Binder<Int?> {
         return Binder(base) { view, index in
             guard let index = index,
-                  let cell = view.collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? AmongChat.Room.UserCell,
+                  let cell = view.viewCache[index],
                   UIApplication.appDelegate?.isApplicationActiveReplay.value == true else { return }
-//            guard let index = index, let cell = view.cacheCell[index] else { return }
+            
             cell.startSoundAnimation()
         }
     }
