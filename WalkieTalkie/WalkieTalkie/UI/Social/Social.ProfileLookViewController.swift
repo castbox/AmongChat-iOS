@@ -14,6 +14,10 @@ extension Social {
     
     class ProfileLookViewController: WalkieTalkie.ViewController {
         
+        override var screenName: Logger.Screen.Node.Start {
+            return .customize
+        }
+        
         private lazy var backBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.addTarget(self, action: #selector(onBackBtn), for: .primaryActionTriggered)
@@ -167,6 +171,14 @@ private extension Social.ProfileLookViewController {
                 })
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { () in
+                Logger.Action.log(.profile_customize_imp)
+            })
+            .disposed(by: bag)
+
     }
     
     func decoCategoryViewModelMapper(_ decoCategory: Entity.DecorationCategory) -> DecorationCategoryViewModel? {
@@ -215,6 +227,12 @@ private extension Social.ProfileLookViewController {
     
     func onDecorationSelect(_ decoration: DecorationViewModel) -> Single<Bool> {
         
+        Logger.Action.log(.profile_customize_clk, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
+        
+        if decoration.decorationType == .pet {
+            Logger.Action.log(.profile_customize_pet_get, decoration.decoration.id.string)
+        }
+        
         let signal: Single<Bool>
         
         if decoration.selected {
@@ -235,6 +253,11 @@ private extension Social.ProfileLookViewController {
                         }
                         
                         return self.unlockDecorationStep2(decoration)
+                    })
+                    .do(onSuccess: { (_) in
+                        if decoration.decorationType == .pet {
+                            Logger.Action.log(.profile_customize_pet_get_success, decoration.decoration.id.string)
+                        }
                     })
                 
             } else {
@@ -268,7 +291,11 @@ private extension Social.ProfileLookViewController {
     func unlockDecorationStep1(_ decoration: DecorationViewModel) -> Single<Bool> {
         switch decoration.decoration.unlockType {
         case .rewarded:
+            Logger.Action.log(.profile_customize_rewarded_get, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
             return watchRewardedVideo()
+                .do(onSuccess: { (_) in
+                    Logger.Action.log(.profile_customize_rewarded_get_success, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
+                })
             
         case .premium:
             return upgradePro()
@@ -306,6 +333,10 @@ private extension Social.ProfileLookViewController {
                 guard success else { return }
                 
                 decoration.selected = selected
+                if decoration.decorationType == .pet {
+                    let action: Logger.Action.EventName = selected ? .profile_customize_pet_equip : .profile_customize_pet_remove
+                    Logger.Action.log(action, decoration.decoration.id.string)
+                }
             })
     }
     

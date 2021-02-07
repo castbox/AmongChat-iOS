@@ -34,6 +34,7 @@ extension Logger {
                 case exit_channel
                 case chat_language
                 case search
+                case customize
             }
             
             case start(Start)
