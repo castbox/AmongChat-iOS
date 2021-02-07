@@ -1,4 +1,6 @@
 Willkommen in der Voice-Chat-App AmongChat!
-Jetzt können Sie Ihren Roblox-Benutzernamen, Fortnite-Anzeigenamen oder Free Fire-Spitznamen in den Kanälen festlegen.
-Sie können auch verschiedene Chat-Sprachen in den App-Einstellungen auswählen, um eine bessere Übereinstimmung zu erzielen.
-Finde und spreche mit deinen Freunden, viel Spaß!
+In diesem Update können Sie
+1. die Freunde in Ihren Kontakten einladen, um zusammen zu spielen;
+2. der Erste sein, der neue Avatare bekommt;
+3. die VIP-Funktionen wählen - exklusive Abzeichen und Avatare, keine Werbung, unbegrenzte Karten, schnelleres Matching usw.
+Finden und sprechen Sie mit Ihren Freunden, viel Spaß!
