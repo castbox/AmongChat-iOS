@@ -92,7 +92,7 @@ extension Social.ProfileViewController {
         private lazy var customizeBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-            btn.setTitle(R.string.localizable.profileLookCustomize(), for: .normal)
+            btn.setTitle(R.string.localizable.amongChatProfileCustomize(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.setBackgroundImage("#FFF000".color().image, for: .normal)
             btn.cornerRadius = 18
