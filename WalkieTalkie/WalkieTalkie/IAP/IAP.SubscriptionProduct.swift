@@ -7,23 +7,14 @@
 //
 
 import RxSwift
-import SwiftyStoreKit
 
 extension IAP {
     static let productsValue = ReplaySubject<[String: IAP.Product]>.create(bufferSize: 1)
     
-    static var productYear: String {
-//        return ["wt.i.sub.vip.p1y", //29.99
-//                "wt.i.sub.vip.p1y1", //19.99
-//            ][Settings.shared.userInAGroup.int]
-        return "wtas.i.sub.vip.p1y"
-    }
+    static let productYear: String = "wtas.i.sub.vip.p1y"
     static let productMonth: String = "wtas.i.sub.vip.p1m"
     static let productLifeTime: String = "wtas.i.iap.vip"
     static let productWeek: String = "wtas.i.sub.vip.p1w"
-    static var isWeekProductInReview: Bool {
-        return false
-    }
     
     static func prefetchProducts() {
         var productIds: Set<String> {

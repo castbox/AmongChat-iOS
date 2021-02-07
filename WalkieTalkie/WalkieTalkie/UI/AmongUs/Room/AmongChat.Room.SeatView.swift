@@ -24,35 +24,26 @@ extension AmongChat.Room {
         
         override func prepare() {
             super.prepare()
-            
-            let cellWidth: CGFloat = 60
-            var hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
-            let itemSpacing: CGFloat
-            if hInset > 20 {
-                itemSpacing = (hInset - 20) * 2 / 4
-                hInset = 20
-            } else {
-                itemSpacing = 0
-                hInset = hInset.floor
+            guard itemAttributesArray.isEmpty,
+                  let collectionView = collectionView else {
+                return
             }
+            let cellWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
+            let hInset: CGFloat = (UIScreen.main.bounds.width - cellWidth * 5) / 2
             itemSize = CGSize(width: cellWidth, height: 125.5)
-            minimumInteritemSpacing = itemSpacing
+            minimumInteritemSpacing = 0
             minimumLineSpacing = 0
             sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-
-//            itemSize = CGSize(width: itemWidth, height: itemHeight)
-//            minimumLineSpacing = 4
-//            minimumInteritemSpacing = 0
             scrollDirection = .horizontal
             
             // 刷新清空
             itemAttributesArray.removeAll()
             
             
-//            let sectionCount = collectionView?.numberOfSections ?? 0
-//            for section in 0..<sectionCount {
-            let itemCount = collectionView?.numberOfItems(inSection: 0) ?? 0
-            for item in 0..<itemCount {
+            //            let sectionCount = collectionView?.numberOfSections ?? 0
+            //            for section in 0..<sectionCount {
+            let itemCount = collectionView.numberOfItems(inSection: 0)
+            for item in 0 ..< itemCount {
                 let indexPath = IndexPath(item: item, section: 0)
                 let attribute = layoutAttributesForItem(at: indexPath)
                 if let attr = attribute {
@@ -93,12 +84,7 @@ extension AmongChat.Room {
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-//        private lazy var topSeats: UIStackView = {
-//            let stackView = UIStackView()
-//            stackView.axis = .horizontal
-//            stackView
-//            return stackView
-//        }()
+        
         fileprivate lazy var collectionView: UICollectionView = {
             let v = UICollectionView(frame: .zero, collectionViewLayout: SeatFlowLayout())
             v.register(UserCell.self, forCellWithReuseIdentifier: NSStringFromClass(UserCell.self))
@@ -180,19 +166,26 @@ extension AmongChat.Room {
         }
         
         func fetchRealation(with user: Entity.RoomUser) {
-            Request.relationData(uid: user.uid).retry(2)
-                .subscribe(onSuccess: { [weak self](data) in
+            guard user.uid != Settings.loginUserId else {
+                return
+            }
+            let removeBlock = parentViewController?.view.raft.show(.loading)
+            Request.relationData(uid: user.uid).asObservable()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] relation in
+                    removeBlock?()
                     guard let `self` = self,
-                          let data = data else { return }
+                          let data = relation else { return }
                     self.showAvatarSheet(with: user, relation: data)
-                }, onError: { (error) in
+                }, onError: { error in
+                    removeBlock?()
                     cdPrint("relationData error :\(error.localizedDescription)")
-                }).disposed(by: bag)
+                })
+                .disposed(by: bag)
         }
         
         func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
-            guard user.uid != Settings.loginUserId,
-                  let viewController = containingController else {
+            guard let viewController = containingController else {
                 return
             }
             Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)

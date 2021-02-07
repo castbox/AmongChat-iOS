@@ -22,10 +22,8 @@ extension Social {
             return btn
         }()
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 50
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
@@ -97,13 +95,13 @@ private extension Social.EditProfileViewController {
         
         avatarIV.snp.makeConstraints { (maker) in
             maker.top.equalTo(navLayoutGuide.snp.bottom).offset(40)
-            maker.width.height.equalTo(100)
+            maker.width.height.equalTo(80)
             maker.centerX.equalToSuperview()
         }
         
         randomIconIV.snp.makeConstraints { (maker) in
             maker.right.bottom.equalTo(avatarIV)
-            maker.width.height.equalTo(28)
+            maker.width.height.equalTo(24)
         }
         
         userButton.snp.makeConstraints { (maker) in
@@ -178,7 +176,7 @@ private extension Social.EditProfileViewController {
                 if let _ = ts {
                     self?.randomIconIV.redDotOff()
                 } else {
-                    self?.randomIconIV.redDotOn(rightOffset: 5, topOffset: 5)
+                    self?.randomIconIV.redDotOn(width: 8)
                 }
             })
             .disposed(by: bag)

@@ -27,7 +27,7 @@ extension APIService {
         case kickUsers([String : Any])
         case summary([String : Any])
         case roomNickName([String: Any])
-        case profile
+        case profile([String : Any])
         case updateProfile([String : Any])
         case defaultAvatars([String : Any])
         case firebaseToken([String: Any])
@@ -49,10 +49,13 @@ extension APIService {
         case inviteUser([String: Any])
         case onlineStrangers
         case userSearch([String: Any])
+        case contactUpload([String: Any])
+        case contactList
         case topics
         case accountMetaData
         case requestSmsCode([String : Any])
         case verifySmsCode([String : Any])
+        case receipt([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -94,7 +97,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .kickUsers:
             return "/api/v1/rooms/kick"
         case .profile:
-            return"/account/profile"
+            return "/account/profile"
         case .updateProfile:
             return "/account/profile"
         case .roomNickName:
@@ -141,6 +144,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/online/stranger/list"
         case .userSearch:
             return "/live/user/search"
+        case .contactUpload:
+            return "/api/v1/contact/upload"
+        case .contactList:
+            return "/api/v1/contact/invite/list"
         case .topics:
             return "/api/v1/topics"
         case .accountMetaData:
@@ -149,6 +156,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/auth/phone/send_code"
         case .verifySmsCode:
             return "/auth/phone/verify"
+        case .receipt:
+            return "/purchase/ios/receipt"
         }
     }
     
@@ -164,6 +173,8 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockAvatar,
              .updateDevice,
              .inviteUser,
+             .receipt,
+             .contactUpload,
              .logout:
             return .post
             
@@ -191,6 +202,7 @@ extension APIService.AmongChatBackend: TargetType {
              .onlineStrangers,
              .topics,
              .accountMetaData,
+             .contactList,
              .requestSmsCode,
              .verifySmsCode,
              .userSearch:
@@ -211,20 +223,22 @@ extension APIService.AmongChatBackend: TargetType {
         case .enteryRoom(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
-        case .profile,
-             .logout,
+        case .logout,
              .sensitiveWords,
              .playingList,
              .recommendedUsers,
              .onlineStrangers,
              .topics,
              .accountMetaData,
+             .contactList,
              .globalSetting:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
+             .receipt(let params),
+             .contactUpload(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
@@ -241,6 +255,7 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultAvatars(let params),
              .unlockAvatar(let params),
              .relationData(let params),
+             .profile(let params),
              .profilePage(let params),
              .firebaseToken(let params),
              .blockList(let params),

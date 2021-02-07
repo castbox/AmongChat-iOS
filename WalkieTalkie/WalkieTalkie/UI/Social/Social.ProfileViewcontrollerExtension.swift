@@ -27,10 +27,8 @@ extension Social.ProfileViewController {
         
         var headerHandle:((HeaderProfileAction) -> Void)?
                 
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
-            iv.layer.cornerRadius = 50
-            iv.layer.masksToBounds = true
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
             let tapGR = UITapGestureRecognizer()
             tapGR.addTarget(self, action: #selector(onAvatarTapped))
             iv.isUserInteractionEnabled = true
@@ -45,7 +43,7 @@ extension Social.ProfileViewController {
                 
         private lazy var nameLabel: WalkieLabel = {
             let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 26)
+            lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
             lb.lineBreakMode = .byTruncatingMiddle
             return lb
@@ -123,21 +121,6 @@ extension Social.ProfileViewController {
             return lb
         }()
         
-        private lazy var loginButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.black, for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = "#FFF000".color()
-            return btn
-        }()
-        
-        private var tikTokView = SocialTiktokItemView()
-        
         private var isSelf = true
         private var uid = ""
         private var changedName = false
@@ -164,29 +147,7 @@ extension Social.ProfileViewController {
         
         func configProfile(_ profile: Entity.UserProfile) {
             uid = profile.uid.string
-            if let b = profile.birthday, !b.isEmpty {
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyyMMdd"
-                
-                if let startDate = dateFormatter.date(from: b)  {
-                    
-                    let endDate = Date()
-                    
-                    let calendar = Calendar.current
-                    let calcAge = calendar.dateComponents([.year], from: startDate, to: endDate)
-                    
-                    if let age = calcAge.year?.string, !age.isEmpty {
-                        nameLabel.text = "\(profile.name ?? ""), \(age)"
-                    } else {
-                        nameLabel.text = profile.name
-                    }
-                } else {
-                    nameLabel.text = profile.name
-                }
-            } else {
-                nameLabel.text = profile.name
-            }
+            nameLabel.attributedText = profile.nameWithVerified(fontSize: 26, withAge: true)
             currentName = nameLabel.text ?? ""
             uidLabel.text = "ID: \(profile.uid)"
             avatarIV.setAvatarImage(with: profile.pictureUrl)
@@ -250,45 +211,33 @@ extension Social.ProfileViewController {
         }
         
         private func bindSubviewEvent() {
-            loginButton.rx.controlEvent(.primaryActionTriggered)
-                .subscribe { _ in
-                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
-                }
-                .disposed(by: bag)
         }
         
         private func setupLayout() {
             
-            addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel, tikTokView)
+            addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
             
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
                 maker.trailing.equalTo(followerBtn.snp.leading)
                 maker.width.equalTo(followerBtn)
-//                maker.top.equalTo(nameLabel.snp.bottom).offset(12)
-//                maker.left.equalTo(avatarIV.snp.right).offset(20)
-//                maker.height.equalTo(43)
             }
             
             lineView.snp.makeConstraints { maker in
-                maker.center.equalToSuperview()
+                maker.top.equalToSuperview().offset(9)
                 maker.width.equalTo(2)
-                maker.height.equalTo(28)
+                maker.height.equalTo(24)
+                maker.centerX.equalToSuperview()
             }
             
             followerBtn.snp.makeConstraints { (maker) in
                 maker.trailing.top.bottom.equalToSuperview()
-
-//                maker.top.equalTo(followingBtn.snp.top)
-//                maker.left.equalTo(followingBtn.snp.right).offset(40)
-//                maker.height.equalTo(43)
             }
 
             if isSelf {
                 setLayoutForSelf()
             } else {
                 addSubviews(views: nameLabel, uidLabel)
-                tikTokView.isHidden = !isSelf
                 setLayoutForOther()
             }
             
@@ -307,20 +256,21 @@ extension Social.ProfileViewController {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalTo(40)
                 maker.leading.equalTo(20)
-                maker.height.width.equalTo(100)
+                maker.height.width.equalTo(80)
             }
             
             changeIcon.snp.makeConstraints { (maker) in
                 maker.bottom.equalTo(avatarIV)
                 maker.trailing.equalTo(avatarIV).offset(1)
+                maker.width.height.equalTo(24)
             }
             
             let infoContainer = UIView()
             addSubview(infoContainer)
             infoContainer.snp.makeConstraints { maker in
-                maker.leading.equalTo(avatarIV.snp.trailing).offset(20)
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(16)
                 maker.centerY.equalTo(avatarIV)
-                maker.trailing.equalTo(-65)
+                maker.trailing.equalTo(-56)
             }
             infoContainer.addSubviews(views: nameLabel, uidLabel)
             
@@ -336,14 +286,13 @@ extension Social.ProfileViewController {
             editBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalTo(-20)
                 maker.centerY.equalTo(nameLabel.snp.centerY)
-                maker.height.width.equalTo(28)
+                maker.height.width.equalTo(24)
             }
             editBtn.isHidden = true
             
             relationContainer.snp.makeConstraints { maker in
                 maker.leading.trailing.equalToSuperview()
-                maker.top.equalTo(avatarIV.snp.bottom).offset(20)
-                maker.height.equalTo(50)
+                maker.top.equalTo(avatarIV.snp.bottom).offset(33)
             }
             
             redCountLabel.snp.makeConstraints { (make) in
@@ -352,39 +301,6 @@ extension Social.ProfileViewController {
                 make.height.equalTo(16)
                 make.width.greaterThanOrEqualTo(30)
             }
-            
-            Settings.shared.loginResult.replay()
-                .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] (result) in
-                    guard let `self` = self,
-                          let _ = result else {
-                        return
-                    }
-                    
-                    if !AmongChat.Login.isLogedin {
-                        self.addSubview(self.loginButton)
-                        self.loginButton.snp.remakeConstraints { maker in
-                            maker.leading.equalTo(20)
-                            maker.trailing.equalTo(-20)
-                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(20)
-                            maker.height.equalTo(48)
-                        }
-                        self.tikTokView.snp.remakeConstraints { maker in
-                            maker.leading.trailing.equalToSuperview()
-                            maker.top.equalTo(self.loginButton.snp.bottom).offset(56)
-                            maker.height.equalTo(80)
-                        }
-                    } else {
-                        self.loginButton.removeFromSuperview()
-                        self.tikTokView.snp.remakeConstraints { maker in
-                            maker.leading.trailing.equalToSuperview()
-                            maker.top.equalTo(self.relationContainer.snp.bottom).offset(56)
-                            maker.height.equalTo(80)
-                        }
-                    }
-                                        
-                })
-                .disposed(by: bag)
         }
         
         private func setLayoutForOther() {
@@ -392,7 +308,7 @@ extension Social.ProfileViewController {
             avatarIV.snp.makeConstraints { (maker) in
                 maker.top.equalTo(40)
                 maker.centerX.equalToSuperview()
-                maker.height.width.equalTo(100)
+                maker.height.width.equalTo(80)
             }
             
             nameLabel.snp.makeConstraints { (maker) in
@@ -412,19 +328,6 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(uidLabel.snp.bottom).offset(20)
                 maker.height.equalTo(50)
             }
-            
-
-//            followingBtn.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(nameLabel.snp.bottom).offset(8)
-//                maker.centerX.equalToSuperview().offset(-80)
-//                maker.height.equalTo(43)
-//            }
-//
-//            followerBtn.snp.makeConstraints { (maker) in
-//                maker.top.equalTo(followingBtn.snp.top)
-//                maker.centerX.equalToSuperview().offset(80)
-//                maker.height.equalTo(43)
-//            }
             
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(40)
@@ -460,17 +363,24 @@ extension Social.ProfileViewController {
         }
     }
     
-    class ProfileTableCell: TableViewCell {
+    class ProfileTableCell: UITableViewCell {
         
-        private lazy var iconIV: UIImageView = {
+        private lazy var leftIconIV: UIImageView = {
             let iv = UIImageView()
             return iv
         }()
         
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 20)
+        private lazy var rightIconIV: UIImageView = {
+            let i = UIImageView(image: R.image.ac_right_arrow())
+            return i
+        }()
+        
+        private lazy var titleLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 16)
             lb.textColor = .white
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -484,28 +394,41 @@ extension Social.ProfileViewController {
         }
         
         func configCell(with option: Option) {
-            iconIV.image = option.image()
+            leftIconIV.image = option.image()
             titleLabel.text = option.text()
-            titleLabel.appendKern()
         }
         
         private func setupLayout() {
             self.backgroundColor = UIColor.theme(.backgroundBlack)
             selectionStyle = .none
             
-            contentView.addSubviews(views: iconIV, titleLabel)
+            contentView.addSubviews(views: leftIconIV, titleLabel, rightIconIV)
             
-            iconIV.snp.makeConstraints { (maker) in
+            leftIconIV.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.width.height.equalTo(30)
+                maker.width.height.equalTo(40)
                 maker.leading.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(iconIV)
-                maker.leading.equalTo(iconIV.snp.trailing).offset(16)
-                maker.trailing.lessThanOrEqualToSuperview().offset(-20)
+                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(leftIconIV.snp.trailing).offset(16)
+                maker.trailing.lessThanOrEqualTo(rightIconIV.snp.leading).offset(-8)
             }
+            
+            rightIconIV.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(16)
+            }
+            
+            contentView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.bottom.equalToSuperview().inset(12)
+            }
+            
+            contentView.layer.cornerRadius = 12
+            contentView.backgroundColor = UIColor(hex6: 0x222222)
         }
     }
     
@@ -513,7 +436,7 @@ extension Social.ProfileViewController {
          lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
             lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 26)
+            lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
             return lb
         }()
@@ -531,12 +454,13 @@ extension Social.ProfileViewController {
             addSubviews(views: titleLabel, subtitleLabel)
             titleLabel.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(30)
             }
             
             subtitleLabel.snp.makeConstraints { (maker) in
-                maker.top.equalTo(titleLabel.snp.bottom)
+                maker.top.equalTo(titleLabel.snp.bottom).inset(4)
                 maker.leading.trailing.bottom.equalToSuperview()
-                maker.height.equalTo(18)
+                maker.height.equalTo(19)
             }
         }
         

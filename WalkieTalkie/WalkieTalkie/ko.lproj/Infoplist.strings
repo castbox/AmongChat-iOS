@@ -9,3 +9,5 @@
 NSMicrophoneUsageDescription = "채널에서 다른 사람과 대화 할 수 있도록 마이크 활성화";
 NSPhotoLibraryUsageDescription = "AmongChat에서 사진 라이브러리를 사용하도록 허용하세요.";
 NSSpeechRecognitionUsageDescription = "AmongChat에서 음성 인식을 사용하도록 허용하세요.";
+NSContactsUsageDescription = "AmongChat은 연락처를 사용하여 친구를 찾고 함께 플레이 할 수 있도록 도와줍니다.";
+NSUserTrackingUsageDescription = "이 식별자는 개인화된 광고를 발송하는 데 사용될 것입니다.";

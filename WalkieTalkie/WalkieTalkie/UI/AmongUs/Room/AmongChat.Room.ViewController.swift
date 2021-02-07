@@ -743,8 +743,12 @@ extension AmongChat.Room.ViewController {
             self?.showReportSheet()
         }
         topBar.changePublicStateHandler = { [weak self] in
-            self?.viewModel.changePublicType()
-            Logger.Action.log(.admin_change_state, categoryValue: self?.room.state.rawValue)
+            guard let `self` = self else { return }
+            self.topBar.isIndicatorAnimate = true
+            self.viewModel.changePublicType { [weak self] in
+                self?.topBar.isIndicatorAnimate = false
+            }
+            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
         }
         
         bottomBar.sendMessageHandler = { [weak self] in

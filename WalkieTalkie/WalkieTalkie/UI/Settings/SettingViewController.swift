@@ -68,15 +68,34 @@ class SettingViewController: ViewController {
         return tb
     }()
     
-    private lazy var logoutFooter: UIView = {
+    private let minimumFooterHeight: CGFloat = 240
+    
+    private lazy var tableFooter: UIView = {
         let v = UIView()
-        v.addSubview(logoutBtn)
+        v.addSubviews(views: logoutBtn, logoIV, versionLabel, policyLabel)
+        
         logoutBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(40)
-            make.right.equalTo(-40)
+            make.leading.trailing.equalToSuperview().inset(40)
             make.height.equalTo(50)
             make.top.equalToSuperview().offset(28)
         }
+        
+        logoIV.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalToSuperview().offset(-90)
+        }
+        
+        versionLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(logoIV.snp.bottom).offset(8)
+        }
+        
+        policyLabel.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(versionLabel.snp.bottom).offset(8)
+        }
+        v.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: minimumFooterHeight))
         return v
     }()
     
@@ -94,6 +113,11 @@ class SettingViewController: ViewController {
         super.viewDidLoad()
         setupLayout()
         setupEvent()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateTableFooterHeight()
     }
 }
 
@@ -121,7 +145,11 @@ extension SettingViewController {
 
     @objc
     private func updateEnvironment(_ sender: Any) {
-        cdPrint("among chat")
+        //debug
+        Settings.shared.amongChatAvatarListShown.value = nil
+        Settings.shared.globalSetting.value = nil
+        Defaults[\.avatarGuideUpdateTime] = ""
+        
         let isReleaseMode = Defaults[\.isReleaseMode]
         Defaults[\.isReleaseMode] = !isReleaseMode
         exit(0)
@@ -147,7 +175,7 @@ extension SettingViewController {
         self.title = R.string.localizable.settingsTitle()
         versionLabel.text = "version: \(Config.appVersionWithBuildVersion)"
         
-        view.addSubviews(views: settingsTable, logoIV, versionLabel, policyLabel)
+        view.addSubviews(views: settingsTable)
         
         settingsTable.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
@@ -155,22 +183,8 @@ extension SettingViewController {
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
-        logoIV.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-90)
-        }
-        
-        versionLabel.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.top.equalTo(logoIV.snp.bottom).offset(8)
-        }
-        
-        policyLabel.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.left.greaterThanOrEqualToSuperview().offset(40)
-            maker.top.equalTo(versionLabel.snp.bottom).offset(8)
-        }
-        
+        settingsTable.tableFooterView = tableFooter
+        settingsTable.reloadData()
     }
     
     func setupEvent() {
@@ -192,17 +206,7 @@ extension SettingViewController {
                       let _ = result else {
                     return
                 }
-                
-                let footer: UIView?
-                
-                if AmongChat.Login.isLogedin {
-                    self.logoutFooter.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 90))
-                    footer = self.logoutFooter
-                } else {
-                    footer = nil
-                }
-                self.settingsTable.tableFooterView = footer
-                self.settingsTable.reloadData()
+                self.logoutBtn.isHidden = !AmongChat.Login.isLogedin
             })
             .disposed(by: bag)
 
@@ -222,29 +226,11 @@ extension SettingViewController {
         }
     }
     
-    private func upgradePro() {
-        guard !Settings.shared.isProValue.value,
-              let premiun = R.storyboard.main.premiumViewController() else {
-            return
-        }
-        premiun.style = .likeGuide
-        premiun.source = .setting
-        premiun.dismissHandler = { (purchased) in
-            premiun.dismiss(animated: true) {
-                guard purchased else { return }
-                AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourcePro()))
-            }
-        }
-        premiun.modalPresentationStyle = .fullScreen
-        present(premiun, animated: true, completion: nil)
-        Logger.UserAction.log(.update_pro, "settings")
-    }
-    
     private func rateApp() {//rate us
-        view.raft.autoShow(.loading)
-        if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
-        } else {
+//        view.raft.autoShow(.loading)
+//        if #available(iOS 10.3, *) {
+//            SKStoreReviewController.requestReview()
+//        } else {
             let appID = Constants.appId
             //            let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
             let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
@@ -256,26 +242,43 @@ extension SettingViewController {
             } else {
                 UIApplication.shared.openURL(url) // openURL(_:) is deprecated from iOS 10.
             }
+//        }
+    }
+    
+    private func restorePurchases() {
+        let removeBlock = view.raft.show(.loading)
+        let completion = { [weak self] in
+            self?.settingsTable.isUserInteractionEnabled = true
+            removeBlock()
+        }
+        settingsTable.isUserInteractionEnabled = false
+        
+        IAP.Restore.restorePurchase { [weak self] (hasRestorable) in
+            completion()
+            guard hasRestorable else { return }
+            self?.view.raft.autoShow(.text(R.string.localizable.premiumRestoreSucceeded()))
         }
     }
     
     private func generateDataSource(languages: [Language] = []) -> [Option] {
         var options: [Option] = [
+            Option(type: .blockList, selectionHandler: { [weak self] in
+                let vc = Social.BlockedUserList.ViewController()
+                self?.navigationController?.pushViewController(vc)
+            }),
+            Option(type: .community, selectionHandler: { [weak self] in
+                self?.open(urlSting: Config.PolicyType.url(.guideline))
+            }),
             Option(type: .rateUs, selectionHandler: { [weak self] in
                 self?.rateApp()
             }),
-//            Option(type: .shareApp, selectionHandler: { [weak self] in
-//                self?.shareApp()
-//            }),
+            Option(type: .shareApp, selectionHandler: { [weak self] in
+                self?.shareApp()
+            }),
+            Option(type: .restorePurchase, selectionHandler: { [weak self] in
+                self?.restorePurchases()
+            }),
         ]
-        
-        if Settings.shared.isInReview.value || Settings.shared.isProValue.value {
-            options.append(
-                Option(type: .premium, selectionHandler: { [weak self] in
-                    self?.upgradePro()
-                })
-            )
-        }
         
         if languages.count > 0 {
             
@@ -289,6 +292,16 @@ extension SettingViewController {
         }
         
         return options
+    }
+    
+    private func updateTableFooterHeight() {
+        let extraHeight = settingsTable.bounds.height - settingsTable.contentSize.height
+        guard extraHeight > minimumFooterHeight,
+              let frame = settingsTable.tableFooterView?.frame else {
+            return
+        }
+        settingsTable.tableFooterView?.frame = CGRect(origin: frame.origin, size: CGSize(width: frame.width, height: extraHeight))
+        settingsTable.reloadData()
     }
 }
 
@@ -327,7 +340,9 @@ extension SettingViewController {
             case region
             case rateUs
             case shareApp
-            case premium
+            case community
+            case blockList
+            case restorePurchase
         }
         
         let type: OptionType
@@ -342,12 +357,12 @@ extension SettingViewController {
                 return R.string.localizable.rateUs()
             case .shareApp:
                 return R.string.localizable.shareApp()
-            case .premium:
-                if Settings.shared.isProValue.value {
-                    return R.string.localizable.profilePro()// "PRO"
-                } else {
-                    return R.string.localizable.profileUnlockPro()// "Unlock PRO"
-                }
+            case .community:
+                return R.string.localizable.profileCommunity()
+            case .blockList:
+                return R.string.localizable.profileBlockUser()
+            case .restorePurchase:
+                return R.string.localizable.premiumRestorePurchases()
             }
         }
         
@@ -359,19 +374,17 @@ extension SettingViewController {
                 return R.image.ac_rate_us()
             case .shareApp:
                 return R.image.ac_share_app()
-            case .premium:
-                return R.image.ac_setting_diamonds()
+            case .community:
+                return R.image.ac_profile_communtiy()
+            case .blockList:
+                return R.image.ac_profile_block()
+            case .restorePurchase:
+                return R.image.ac_restore_purchases()
             }
         }
         
         var rightIcon: UIImage? {
             switch type {
-            case .premium:
-                if Settings.shared.isProValue.value {
-                    return nil
-                } else {
-                    return R.image.ac_right_arrow()
-                }
             default:
                 return R.image.ac_right_arrow()
             }

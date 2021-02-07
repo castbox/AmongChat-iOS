@@ -197,14 +197,7 @@ private extension Social.ShareRoomViewController {
     
     func smsAction() {
         Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "sms")
-        if MFMessageComposeViewController.canSendText() {
-            let vc = MFMessageComposeViewController()
-            vc.body = linkUrl
-            vc.messageComposeDelegate = self
-            self.present(vc, animated: true, completion: nil)
-        } else {
-            view.raft.autoShow(.text("Sorry, your device do not \nsupport message"))
-        }
+        sendSMS(body: linkUrl)
     }
     
     func copyLink() {
@@ -214,11 +207,7 @@ private extension Social.ShareRoomViewController {
     }
 }
 
-extension Social.ShareRoomViewController: MFMessageComposeViewControllerDelegate {
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        dismiss(animated: true, completion: nil)
-    }
-}
+
 // MARK: - UITableView
 extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDelegate {
     

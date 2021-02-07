@@ -17,34 +17,26 @@ extension Social {
     class ProfileViewController: ViewController {
         
         enum Option {
-//            case inviteFriends
-            case settings
-            case community
-            case blockUser
+            case tiktok
+            case pro
             
             func image() -> UIImage? {
                 switch self {
-//                case .inviteFriends:
-//                    return R.image.profile_invite_friends()
-                case .settings:
-                    return R.image.profile_settings()
-                case .community:
-                    return R.image.ac_profile_communtiy()
-                case .blockUser:
-                    return R.image.ac_profile_block()
+                case .tiktok:
+                    return R.image.ac_social_tiktok()
+                case .pro:
+                    return R.image.ac_profile_pro()
                 }
             }
             
             func text() -> String {
                 switch self {
-//                case .inviteFriends:
-//                    return R.string.localizable.socialInviteFriends()
-                case .settings:
-                    return R.string.localizable.profileSettings()
-                case .community:
-                    return R.string.localizable.profileCommunity()
-                case .blockUser:
-                    return R.string.localizable.profileBlockUser()
+                case .tiktok:
+                    return R.string.localizable.profileShareTiktokTitle()
+                case .pro:
+                    return Settings.shared.isProValue.value ?
+                        R.string.localizable.amongChatProfileProCenter() :
+                        R.string.localizable.profileUnlockPro()
                 }
             }
         }
@@ -64,6 +56,18 @@ extension Social {
                     } else {
                         self.navigationController?.popViewController()
                     }
+                }).disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var settingsBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_profile_settings(), for: .normal)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    let vc = SettingViewController()
+                    self.navigationController?.pushViewController(vc)
                 }).disposed(by: bag)
             return btn
         }()
@@ -93,7 +97,7 @@ extension Social {
                 guard isSelfProfile else {
                     return 378
                 }
-                return 357.5 + (AmongChat.Login.isLogedin ? 0 : 68)
+                return 241
             }
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
             v.headerHandle = { [weak self] type in
@@ -128,13 +132,42 @@ extension Social {
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
-            tb.rowHeight = 73
+            tb.rowHeight = 92
             tb.register(cellWithClass: ProfileTableCell.self)
             tb.neverAdjustContentInset()
             return tb
         }()
         
-        private lazy var options: [Option] = [.blockUser, .community, .settings, ]
+        private lazy var loginButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.titleLabel?.textAlignment = .center
+            btn.setTitleColor(.black, for: .normal)
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#FFF000".color()
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe { _ in
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
+                }
+                .disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var loginHeader: UIView = {
+            let v = UIView()
+            v.addSubview(loginButton)
+            loginButton.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalToSuperview().offset(12)
+                maker.height.equalTo(48)
+            }
+            return v
+        }()
+        
+        private lazy var options: [Option] = [.pro, .tiktok]
         
         private var relationData: Entity.RelationData?
         
@@ -229,6 +262,13 @@ private extension Social.ProfileViewController {
                 make.centerY.equalTo(backBtn.snp.centerY)
                 make.width.height.equalTo(40)//24
             }
+        } else {
+            view.addSubview(settingsBtn)
+            settingsBtn.snp.makeConstraints { (maker) in
+                maker.centerY.equalTo(navLayoutGuide)
+                maker.right.equalToSuperview().inset(10)
+                maker.height.width.equalTo(44)
+            }
         }
         table.tableHeaderView = headerView
         table.reloadData()
@@ -269,7 +309,7 @@ private extension Social.ProfileViewController {
                     if let _ = ts {
                         self?.headerView.changeIcon.redDotOff()
                     } else {
-                        self?.headerView.changeIcon.redDotOn()
+                        self?.headerView.changeIcon.redDotOn(width: 8)
                     }
                 })
                 .disposed(by: bag)
@@ -281,10 +321,6 @@ private extension Social.ProfileViewController {
                           let result = result else {
                         return
                     }
-                    var vH: CGFloat {
-                        return 357.5 + (AmongChat.Login.isLogedin ? 0 : 68)
-                    }
-                    self.table.tableHeaderView?.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
                     self.table.reloadData()
                     
                     let _ = Request.profile()
@@ -297,6 +333,13 @@ private extension Social.ProfileViewController {
                     
                     self.uid = result.uid
 
+                })
+                .disposed(by: bag)
+            
+            Settings.shared.isProValue.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.table.reloadData()
                 })
                 .disposed(by: bag)
 
@@ -448,6 +491,12 @@ private extension Social.ProfileViewController {
         }
         
     }
+    
+    private func upgradePro() {        
+        presentPremiumView(source: .setting)
+        Logger.UserAction.log(.update_pro, "settings")
+    }
+
 }
 // MARK: - UITableView
 extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -471,26 +520,35 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         tableView.deselectRow(at: indexPath, animated: true)
         if let op = options.safe(indexPath.row) {
             switch op {
-//            case .inviteFriends:
-//                Logger.Action.log(.profile_invite_friend_clk, category: nil)
-//                let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
-//                let removeBlock = { [weak self] in
-//                    self?.view.isUserInteractionEnabled = true
-//                    removeHUDBlock()
-//                }
-//                self.view.isUserInteractionEnabled = false
-//                ShareManager.default.showActivity(viewController: self) { () in
-//                    removeBlock()
-//                }
-            case .blockUser:
-                let vc = Social.BlockedUserList.ViewController()
-                navigationController?.pushViewController(vc)
-            case .settings:
-                let vc = SettingViewController()
-                navigationController?.pushViewController(vc)
-            case .community:
-                self.open(urlSting: Config.PolicyType.url(.guideline))
+            case .pro:
+                upgradePro()
+            case .tiktok:
+                Logger.Action.log(.profile_tiktok_amongchat_tag_clk)
+                guard let url = URL(string: "https://www.tiktok.com/tag/amongchat") else {
+                    return
+                }
+                UIApplication.shared.open(url, options: [:]) { _ in
+                    
+                }
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if !AmongChat.Login.isLogedin && isSelfProfile{
+            return 104
+        } else {
+            return .leastNormalMagnitude
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if !AmongChat.Login.isLogedin && isSelfProfile {
+            return loginHeader
+        } else {
+            return nil
         }
     }
 }

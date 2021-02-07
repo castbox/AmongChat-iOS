@@ -154,7 +154,7 @@ extension Social {
         
         @objc
         private func onConfirmBtn() {
-            Logger.Action.log(.age_done)
+            Logger.Action.log(.age_done, loggerSource)
             
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"

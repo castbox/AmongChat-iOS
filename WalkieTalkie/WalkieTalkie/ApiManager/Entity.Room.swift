@@ -71,7 +71,7 @@ extension Entity {
         }
     }
     
-    struct RoomUser: Codable, DefaultsSerializable {
+    struct RoomUser: Codable, DefaultsSerializable, Verifiedable {
         enum Status: String, Codable, DefaultsSerializable {
             case connected
             case talking
@@ -91,7 +91,7 @@ extension Entity {
         }
         
         let uid: Int
-        let name: String
+        var name: String?
         let pictureUrl: String
         let seatNo: Int
         var status: Status
@@ -105,6 +105,8 @@ extension Entity {
         var namePubgmobile: String?
         var nameMobilelegends: String?
         var topic: AmongChat.Topic?
+        var isVerified: Bool?
+        var isVip: Bool?
         
         var nickname: String? {
             switch topic {
@@ -128,7 +130,7 @@ extension Entity {
         }
         
         
-        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false) {
+        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool = false) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pic
@@ -136,6 +138,7 @@ extension Entity {
             self.status = Status(rawValue: "blocked") ?? .blocked
             self.isMuted = isMuted ?? false
             self.isMutedByLoginUser = isMutedByLoginUser ?? false
+            self.isVerified = isVerified
         }
         
         private enum CodingKeys: String, CodingKey {
@@ -153,6 +156,8 @@ extension Entity {
             case nameCallofduty = "name_callofduty"
             case namePubgmobile = "name_pubgmobile"
             case nameMobilelegends = "name_mobilelegends"
+            case isVerified = "is_verified"
+            case isVip = "is_vip"
         }
         
         init(from decoder: Decoder) throws {
@@ -173,6 +178,8 @@ extension Entity {
             self.nameCallofduty = try container.decodeStringIfPresent(.nameCallofduty)
             self.namePubgmobile = try container.decodeStringIfPresent(.namePubgmobile)
             self.nameMobilelegends = try container.decodeStringIfPresent(.nameMobilelegends)
+            self.isVerified = try container.decodeBoolIfPresent(.isVerified) ?? false
+            self.isVip = try container.decodeBoolIfPresent(.isVip) ?? false
         }
     }
 }

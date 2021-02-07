@@ -264,11 +264,11 @@ extension AmongChat.Room {
             addUIMessage(message: textMessage)
         }
         
-        func changePublicType() {
+        func changePublicType(_ completionHandler: CallBack? = nil) {
             let publicType: Entity.RoomPublicType = room.state == .private ? .public : .private
             var room = self.room
             room.state = publicType
-            updateRoomInfo(room)
+            updateRoomInfo(room, completionHandler)
         }
         
         func update(nickName: String) {
@@ -306,16 +306,16 @@ extension AmongChat.Room {
                 .disposed(by: bag)
         }
         
-        func updateRoomInfo(_ room: Entity.Room) {
+        func updateRoomInfo(_ room: Entity.Room, _ completionHandler: CallBack? = nil) {
             //update
             Request.updateRoomInfo(room: room)
-                .filter { $0 }
-                .map { _ -> Entity.Room in
-                    return room
-                }
                 .catchErrorJustReturn(self.room)
                 .asObservable()
                 .subscribe(onNext: { [weak self] room in
+                    completionHandler?()
+                    guard let room = room else {
+                        return
+                    }
                     self?.update(room)
                 })
                 .disposed(by: bag)
@@ -661,7 +661,6 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     }
     
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
-        let userList = room.roomUserList
         //delay to request
         guard shouldRefreshRoom(uid: uid, isOnline: isOnline) else {
             return

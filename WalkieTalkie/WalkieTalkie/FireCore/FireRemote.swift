@@ -38,7 +38,9 @@ class FireRemote {
     }
     
     func refresh() {
+        cdPrint("[FireRemote] - fetchAndActivate")
         config.fetchAndActivate { [unowned self] (status, error) in
+            cdPrint("[FireRemote] - fetchAndActivate result: status: \(status.rawValue) error: \(error)")
             if status == .successFetchedFromRemote {
                 self.value = Value(config: self.config)
             }
@@ -86,6 +88,7 @@ extension FireRemote {
         let auditVersion: String
         
         init(config: RemoteConfig) {
+            cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
             premiumPromopt = PremiumPrompt(str)
             adsFreeMinutes = config["ads_free_minutes"].numberValue?.intValue ?? 5

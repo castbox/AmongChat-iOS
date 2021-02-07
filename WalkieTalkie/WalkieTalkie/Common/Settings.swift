@@ -45,7 +45,11 @@ class Settings {
                 Defaults[\.loginResultKey] = event.new?.dictionary ?? nil
                 SharedDefaults[\.loginResultTokenKey] = event.new?.access_token
                 
-                if let _ = event.new {
+                if let result = event.new {
+                    if result.is_new_user == true {
+                        //
+                        _ = shared.updateAvatarGuideUpdateTime() //当天不显示
+                    }
                     shared.updateProfile()
                 }
                 
@@ -270,6 +274,7 @@ class Settings {
         return DynamicProperty.stored(profile)
             .didSet({ (event) in
                 Defaults[\.amongChatUserProfileKey] = event.new?.dictionary
+                shared.isProValue.value = event.new?.isVip ?? false
             })
             .asPublishProperty()
     }()
@@ -367,12 +372,30 @@ class Settings {
         set { Defaults[\.amongChatRtmToken] = newValue}
     }
     
+    var canShowAvatarGuide: Bool {
+        guard amongChatAvatarListShown.value == nil, globalSetting.value?.changeTip(.avatar)?.list.isEmpty == false else {
+            return false
+        }
+        let privious = Defaults[\.avatarGuideUpdateTime]
+        let current = Date().string(withFormat: "yyyy-MM-dd")
+        guard privious != current else {
+            return false
+        }
+        Defaults[\.avatarGuideUpdateTime] = current
+        return true
+    }
+    
+    private func updateAvatarGuideUpdateTime() {
+        let current = Date().string(withFormat: "yyyy-MM-dd")
+        Defaults[\.avatarGuideUpdateTime] = current
+    }
+    
     func startObserver() {
         loginResult.replay()
             .subscribe(onNext: { [weak self] result in
-                guard let result = result, result.uid > 0 else {
-                    return
-                }
+//                guard let result = result, result.uid > 0 else {
+//                    return
+//                }
                 self?.fetchGlobalConfig()
             })
     }
@@ -391,6 +414,7 @@ class Settings {
     func clearAll() {
         loginResult.value = nil
         amongChatUserProfile.value = nil
+        Defaults[\.amongChatReleationSuggestedContacts] = []
     }
 }
 
@@ -407,15 +431,16 @@ extension Settings {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.GlobalSetting.self)
             .do(onSuccess: { [unowned self] (value) in
-                guard let newValue = value,
-                      !newValue.avatarVersion.isEmpty,
-                      newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? "" else {
+                guard let newValue = value else {
                     return
                 }
-                
-                DispatchQueue.main.async {
-                    self.amongChatAvatarListShown.value = nil
+                if !newValue.avatarVersion.isEmpty,
+                   newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? ""  {
+                    DispatchQueue.main.async {
+                        self.amongChatAvatarListShown.value = nil
+                    }
                 }
+                Settings.shared.isInReview.value = newValue.iosCheckVersion == Config.appVersion
             })
             .subscribe(onSuccess: { [unowned self] value in
                 self.globalSetting.value = value
@@ -587,13 +612,37 @@ extension DefaultsKeys {
         .init("among.chat.rtm.token", defaultValue: nil)
     }
     
+    var amongChatReleationSuggestedContacts: DefaultsKey<[String]> {
+        .init("among.chat.relation.suggested.contacts", defaultValue: [])
+    }
+    
+    var avatarGuideUpdateTime: DefaultsKey<String> {
+        .init("among.chat.avatar.guide.update.time", defaultValue: "")
+    }
+    
+    static func permissionRequestStatusKey(for request: PermissionManager.RequestType) -> DefaultsKey<Int> {
+        .init("permission.request.status.\(request.rawValue)", defaultValue: 0)
+    }
+
+    static func permissionRequestUpdateTime(for request: PermissionManager.RequestType) -> DefaultsKey<String?> {
+        .init("permission.requested.update.time.\(request.rawValue)", defaultValue: nil)
+    }
+    
+    //请求次数
+    static func permissionRequestTimes(for request: PermissionManager.RequestType) -> DefaultsKey<Int> {
+        .init("permission.requested.times.\(request.rawValue)", defaultValue: 0)
+    }
 }
 
 //extension DefaultsAdapter {
-//    func channel(for mode: Mode) -> Room {
+////    permissionRequestStatusKey
+////    //上次时间
+////    permissionLaterKey
+//
+//    func permissionRequestStatusKey(for request: PermissionManager.RequestType) -> Room {
 //        return Defaults[key: DefaultsKeys.channel(for: mode)] ?? Room.empty(for: mode)
 //    }
-//    
+//
 //    func set(channel: Room?, mode: Mode) {
 //        //保护存储错误
 //        if mode == .public,
@@ -609,3 +658,9 @@ extension DefaultsKeys {
 //}
 
 extension CLLocation: DefaultsSerializable {}
+
+extension Date {
+    static var currentDay: String {
+        return Date().string(withFormat: "yyyy-MM-dd")
+    }
+}

@@ -92,8 +92,9 @@ extension Request {
             })
     }
     
-    static func profile() -> Single<Entity.UserProfile?> {
-        return amongchatProvider.rx.request(.profile)
+    static func profile(_ uid: Int? = nil) -> Single<Entity.UserProfile?> {
+        let paras = ["uid": uid ?? Settings.loginUserId ?? 0]
+        return amongchatProvider.rx.request(.profile(paras))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapTo(Entity.UserProfile.self)
@@ -195,19 +196,23 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func updateRoomInfo(room: Entity.Room?) -> Single<Bool> {
+    static func updateRoomInfo(room: Entity.Room?) -> Single<Entity.Room?> {
         guard var params = room?.dictionary else {
-            return Observable<Bool>.empty().asSingle()
+            return Observable<Entity.Room?>.empty().asSingle()
         }
-        //
         params.removeValue(forKey: "roomUserList")
         return amongchatProvider.rx.request(.updateRoomInfo(params))
             .mapJSON()
-            .map { (jsonAny) -> Bool in
-                guard let jsonDict = jsonAny as? [String : Any],
-                      let processed = jsonDict["processed"] as? Bool else { return false }
-                return processed
+            .mapToDataKeyJsonValue()
+            .map { (jsonAny) -> [String: AnyObject] in
+                guard let processed = jsonAny["processed"] as? Bool,
+                      processed,
+                      let room = jsonAny["room"] as? [String: AnyObject] else {
+                    return [:]
+                }
+                return room
             }
+            .mapTo(Entity.Room.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -252,6 +257,8 @@ extension Request {
         if let l = withLocked {
             params["with_locked"] = l
         }
+        //default add pro
+        params["with_pro"] = 1
         
         return amongchatProvider.rx.request(.defaultAvatars(params))
             .mapJSON()
@@ -494,6 +501,22 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func upload(contacts: [Entity.ContactFriend]) -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactUpload(["contacts": contacts.map { $0.dictionary! }]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func contactList() -> Single<Entity.ListData<Entity.ContactFriend>?> {
+        return amongchatProvider.rx.request(.contactList)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.ListData<Entity.ContactFriend>.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
     static func requestSmsCode(telRegion: String, phoneNumber: String) -> Single<Entity.SmsCodeResponse> {
         let params = [
             "client_secret" : "585ea6cf-862b-4630-9029-5ccb27a018ca",
@@ -550,5 +573,38 @@ extension Request {
                 return response
             })
             .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func uploadReceipt(restore: Bool = false) -> Single<Void> {
+        
+        guard let url = Bundle.main.appStoreReceiptURL, let data = NSData(contentsOf: url) else {
+            let error = NSError(domain: "among.chat.iap", code: 1, userInfo: [NSLocalizedDescriptionKey: "Cannot find receipt"])
+            return Single.error(error)
+        }
+        
+        let receipt = data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        
+        let params: [String : Any] = [
+            "bundle_id" : Config.appBundleIdentifier,
+            "receipt" : receipt,
+            "restore" : restore,
+        ]
+        
+        return amongchatProvider.rx.request(.receipt(params))
+            .mapJSON()
+            .map { item in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0 else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .do(onSuccess: { () in
+                Settings.shared.updateProfile()
+            })
+
     }
 }

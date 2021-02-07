@@ -189,6 +189,11 @@ extension AmongChat.CreateRoom.ViewController {
             return
         }
         
+        guard !Settings.shared.isProValue.value else {
+            createRoom(with: topic, freeCard: true)
+            return
+        }
+        
         guard let card = cardDataRelay.value,
               card.freeRoomCards > 0 else {
             showAdAlert(topic: topic)
@@ -289,7 +294,17 @@ extension AmongChat.CreateRoom.ViewController {
                 return lb
             }()
             
-            v.addSubviews(views: tipLb, cardIcon, cardCountLb, msgLb)
+            let proLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 14)
+                lb.textColor = UIColor(hex6: 0xABABAB)
+                lb.text = R.string.localizable.amongChatCreateRoomCardUnlockPro()
+                lb.textAlignment = .center
+                lb.numberOfLines = 0
+                return lb
+            }()
+            
+            v.addSubviews(views: tipLb, cardIcon, cardCountLb, msgLb, proLb)
             
             tipLb.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview().offset(31)
@@ -316,7 +331,12 @@ extension AmongChat.CreateRoom.ViewController {
             msgLb.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(20)
                 maker.top.equalTo(cardLayout.snp.bottom).offset(12)
-                maker.bottom.equalToSuperview().inset(24)
+            }
+            
+            proLb.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(msgLb.snp.bottom).offset(8)
+                maker.bottom.equalToSuperview().inset(28)
             }
             
             return v
@@ -412,17 +432,29 @@ extension AmongChat.CreateRoom.ViewController {
             })
             .disposed(by: bag)
         
-        cardDataRelay.subscribe(onNext: { [weak self] (data) in
-            self?.cardButton.setTitle("x\(data?.freeRoomCards ?? 0)", for: .normal)
-        })
-        .disposed(by: bag)
+        Observable.combineLatest(cardDataRelay, Settings.shared.isProValue.replay())
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] data, isPro in
+                
+                guard !isPro else {
+                    self?.cardButton.setTitle(R.string.localizable.amongChatCreateRoomCardUnlimited(), for: .normal)
+                    return
+                }
+                
+                self?.cardButton.setTitle("x\(data?.freeRoomCards ?? 0)", for: .normal)
+            })
+            .disposed(by: bag)
     }
     
-    private func createRoom(with topic: TopicViewModel, freeCard: Bool) {
-        
+    private func createRoom(with topic: TopicViewModel, freeCard: Bool? = nil) {
+        //dismiss
+        UIApplication.tabBarController?.dismissNotificationBanner()
+
         var roomProto = topic.roomProto
         roomProto.state = privateStateSwitch.roomPublicType
-        roomProto.entry = freeCard ? Entity.RoomProto.cardEntry : Entity.RoomProto.watchAdEntry
+        if let freeCard = freeCard {
+            roomProto.entry = freeCard ? Entity.RoomProto.cardEntry : Entity.RoomProto.watchAdEntry
+        }
         
         let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         
@@ -434,7 +466,6 @@ extension AmongChat.CreateRoom.ViewController {
         
         bottomBar.isUserInteractionEnabled = false
         topicCollectionView.isUserInteractionEnabled = false
-
         
         let _ = Request.createRoom(roomProto)
             .do(onDispose: {
@@ -457,6 +488,10 @@ extension AmongChat.CreateRoom.ViewController {
                       msgError.code == 3004 else {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
+                }
+                if Settings.shared.isProValue.value {
+                    //vip 状态已失效
+                    Settings.shared.updateProfile()
                 }
                 self?.showAdAlert(topic: topic)
                 
@@ -494,6 +529,7 @@ extension AmongChat.CreateRoom.ViewController {
         alert.visualStyle.verticalElementSpacing = 0
         alert.visualStyle.contentPadding = UIEdgeInsets(top: 33.5, left: 0, bottom: 0, right: 0)
         alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
+        alert.view.backgroundColor = UIColor.black.alpha(0.6)
     }
     
     private func showAdAlert(topic: TopicViewModel) {
@@ -528,11 +564,31 @@ extension AmongChat.CreateRoom.ViewController {
                 return lb
             }()
             
+            let proLb: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 14)
+                lb.textColor = UIColor(hex6: 0xABABAB)
+                lb.text = R.string.localizable.amongChatCreateRoomCardUnlockPro()
+                lb.textAlignment = .center
+                lb.numberOfLines = 0
+                return lb
+            }()
+            
+            let proBtn: UIButton = {
+                let btn = UIButton(type: .custom)
+                btn.layer.cornerRadius = 24
+                btn.backgroundColor = UIColor(hexString: "#FFF000")
+                btn.setTitle(R.string.localizable.profileUnlockPro(), for: .normal)
+                btn.setTitleColor(.black, for: .normal)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                return btn
+            }()
+            
             let claimBtn: UIButton = {
                 let btn = UIButton(type: .custom)
                 btn.layer.cornerRadius = 24
                 btn.backgroundColor = UIColor(hexString: "#FFF000")
-                btn.setTitle(R.string.localizable.amongChatCreateRoomCardClaim(), for: .normal)
+                btn.setTitle(R.string.localizable.amongChatCreateRoomCardClaim() + " x1", for: .normal)
                 btn.setTitleColor(.black, for: .normal)
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 btn.setImage(R.image.ac_channel_card_ad(), for: .normal)
@@ -550,10 +606,20 @@ extension AmongChat.CreateRoom.ViewController {
                 return btn
             }()
             
+            proBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak alertVC, weak self] (_) in
+                    alertVC?.dismiss(animated: true, completion: {
+                        self?.presentPremiumView(source: .room_create)
+                    })
+                    Logger.Action.log(.space_card_pro_clk)
+                }).disposed(by: bag)
+            
             claimBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak alertVC, weak self] (_) in
                     alertVC?.dismiss(animated: true, completion: {
-                        self?.showAd(topic: topic)
+                        self?.requestAppTrackPermission(completion: {
+                            self?.showAd(topic: topic)
+                        })
                     })
                     Logger.Action.log(.space_card_ads_claim_clk)
                 }).disposed(by: bag)
@@ -564,7 +630,7 @@ extension AmongChat.CreateRoom.ViewController {
                 })
                 .disposed(by: bag)
             
-            v.addSubviews(views: tipLb, msgLb, claimBtn, cancelBtn)
+            v.addSubviews(views: tipLb, msgLb, proLb, proBtn, claimBtn, cancelBtn)
             
             tipLb.snp.makeConstraints { (maker) in
                 maker.top.equalTo(20)
@@ -576,10 +642,21 @@ extension AmongChat.CreateRoom.ViewController {
                 maker.top.equalTo(tipLb.snp.bottom).offset(12)
             }
             
+            proLb.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(msgLb.snp.bottom).offset(8)
+            }
+            
+            proBtn.snp.makeConstraints { (maker) in
+                maker.height.equalTo(48)
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.equalTo(proLb.snp.bottom).offset(28)
+            }
+            
             claimBtn.snp.makeConstraints { (maker) in
                 maker.height.equalTo(48)
                 maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.equalTo(msgLb.snp.bottom).offset(24)
+                maker.top.equalTo(proBtn.snp.bottom).offset(12)
             }
             
             cancelBtn.snp.makeConstraints { (maker) in

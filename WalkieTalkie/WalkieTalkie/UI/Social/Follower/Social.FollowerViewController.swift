@@ -387,7 +387,7 @@ extension Social {
             }
             
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.text = model.name
+            usernameLabel.attributedText = model.nameWithVerified()
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)
         }
@@ -408,7 +408,7 @@ extension Social {
             
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
-            usernameLabel.text = model.name
+            usernameLabel.attributedText = model.nameWithVerified()
             
             let invited = userInfo.invited ?? false
             if invited {

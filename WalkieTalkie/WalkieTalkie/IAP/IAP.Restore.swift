@@ -58,8 +58,8 @@ extension IAP {
             
             func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
                 if hasRestorablePurchases {
-                    /// set internal states
-//                    Knife.IAP.shared.uploadReceipt { _ in }
+                    let _ = Request.uploadReceipt(restore: true)
+                        .subscribe(onSuccess: {})
                 }
                 DispatchQueue.main.async {
                     self.callback(self.hasRestorablePurchases)

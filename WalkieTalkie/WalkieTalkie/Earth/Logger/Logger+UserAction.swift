@@ -112,6 +112,7 @@ extension Logger {
             case space_card_ads_claim_clk
             case space_card_ads_claim_success
             case space_card_ads_claim_failed
+            case space_card_pro_clk
             case room_share_clk
             case room_open_game
             case room_send_message_clk
@@ -182,6 +183,17 @@ extension Logger {
             case age_done_result_fail
             
             case profile_tiktok_amongchat_tag_clk
+            
+            //
+            case contact_imp
+            case contact_clk
+            case contact_permission_enable
+            case suggested_contact_imp
+            case suggested_contact_clk
+            case suggested_contact_page_imp
+            case suggested_contact_page_clk
+            case new_avatar_dialog_imp
+            case new_avatar_dialog_clk
         }
         
         enum Category: String {
@@ -208,6 +220,7 @@ extension Logger {
             
             //头像
             case rewarded
+            case premium
             case free
             case profile
             case follow
@@ -222,6 +235,15 @@ extension Logger {
             case facebook
             case success
             case fail
+            
+            case search
+            case invite
+            case all
+            case skip
+            case sms
+            case copy
+            case share
+            case go
         }
         
         static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
