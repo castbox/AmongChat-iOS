@@ -230,6 +230,10 @@ private extension Social.ProfileLookViewController {
                             return Single.error(MsgError.default)
                         }
                         
+                        guard decoration.decoration.unlockType != .pay else {
+                            return self.updateDecorationSelection(decoration, selected: true)
+                        }
+                        
                         return self.unlockDecorationStep2(decoration)
                     })
                 
