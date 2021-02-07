@@ -466,11 +466,8 @@ extension Social.ProfileLookViewController {
             switch decoration.decorationType {
             case .skin, .hat, .bg:
                 decorationIV.setImage(with: decoration.thumbUrl)
-                selectedIcon.isHidden = decoration.locked
-                adBadge.isHidden = !decoration.locked
                 
             case .pet:
-                selectedIcon.isHidden = decoration.locked
                 playSvga(decoration.thumbUrl?.url)
                 
                 if decoration.locked {
@@ -502,7 +499,9 @@ extension Social.ProfileLookViewController {
                 adBadge.image = nil
             }
             
+            selectedIcon.isHidden = decoration.locked
             selectedIcon.image = decoration.selected ? R.image.ac_avatar_selected() : R.image.ac_avatar_unselected()
+            adBadge.isHidden = !decoration.locked
             
         }
         
