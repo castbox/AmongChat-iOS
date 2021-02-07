@@ -59,11 +59,11 @@ class Automator {
             })
             .disposed(by: bag)
         
-        FireRemote.shared.remoteValue()
-            .subscribe(onNext: { (cfg) in
-                Settings.shared.isInReview.value = (cfg.value.auditVersion == Config.appVersion)
-            })
-            .disposed(by: bag)
+//        FireRemote.shared.remoteValue()
+//            .subscribe(onNext: { (cfg) in
+//                Settings.shared.isInReview.value = (cfg.value.auditVersion == Config.appVersion)
+//            })
+//            .disposed(by: bag)
         
         Settings.shared.loginResult.replay()
             .filterNil()
