@@ -413,9 +413,9 @@ class Settings {
     func startObserver() {
         loginResult.replay()
             .subscribe(onNext: { [weak self] result in
-                guard let result = result, result.uid > 0 else {
-                    return
-                }
+//                guard let result = result, result.uid > 0 else {
+//                    return
+//                }
                 self?.fetchGlobalConfig()
             })
     }
@@ -451,15 +451,16 @@ extension Settings {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.GlobalSetting.self)
             .do(onSuccess: { [unowned self] (value) in
-                guard let newValue = value,
-                      !newValue.avatarVersion.isEmpty,
-                      newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? "" else {
+                guard let newValue = value else {
                     return
                 }
-                
-                DispatchQueue.main.async {
-                    self.amongChatAvatarListShown.value = nil
+                if !newValue.avatarVersion.isEmpty,
+                   newValue.avatarVersion != self.globalSetting.value?.avatarVersion ?? ""  {
+                    DispatchQueue.main.async {
+                        self.amongChatAvatarListShown.value = nil
+                    }
                 }
+                Settings.shared.isInReview.value = newValue.iosCheckVersion == Config.appVersion
             })
             .subscribe(onSuccess: { [unowned self] value in
                 self.globalSetting.value = value

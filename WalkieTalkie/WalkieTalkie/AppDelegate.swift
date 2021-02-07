@@ -235,6 +235,7 @@ extension AppDelegate {
                 .subscribe(onNext: { [weak self] () in
                     self?.window?.replaceRootViewController(homeVc())
                     FireMessaging.shared.requestPermissionIfNotGranted()
+                    PermissionManager.shared.forceRequest(permission: .appTracking, completion: nil)
                 })
             
             rootVc = NavigationViewController(rootViewController: loginVc)

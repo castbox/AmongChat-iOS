@@ -27,6 +27,33 @@ class PermissionManager {
         //用户点击 later
         case later = 10
     }
+    
+    func forceRequest(permission: RequestType, completion: CallBack?) {
+        guard permission == .appTracking, Settings.shared.isInReview.value else {
+            return
+        }
+        if #available(iOS 14.0, *) {
+            cdPrint("attrackingAuthorization state: \(ATTrackingManager.trackingAuthorizationStatus.rawValue)")
+            switch ATTrackingManager.trackingAuthorizationStatus {
+            case .authorized:
+                completion?()
+            case .denied, .restricted:
+                completion?()
+            case .notDetermined:
+                ATTrackingManager.requestTrackingAuthorization { status in
+                    cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
+                    Defaults[key: DefaultsKeys.permissionRequestStatusKey(for: .appTracking)] = status.rawValue.int
+                    mainQueueDispatchAsync(after: 0.1) {
+                        completion?()
+                    }
+                }
+            @unknown default:
+                completion?()
+            }
+        } else {
+            completion?()
+        }
+    }
         
     //FOR APP TRACKING
     func request(permission: RequestType, on viewController: ViewController, completion: CallBack?) {
