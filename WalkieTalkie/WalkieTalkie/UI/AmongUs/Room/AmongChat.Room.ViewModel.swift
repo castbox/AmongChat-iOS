@@ -175,6 +175,7 @@ extension AmongChat.Room {
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
             startShowShareTimerIfNeed()
+            update(room)
         }
         
         @discardableResult
