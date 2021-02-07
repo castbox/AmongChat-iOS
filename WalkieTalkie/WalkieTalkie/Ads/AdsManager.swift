@@ -389,7 +389,7 @@ class AdsManager: NSObject {
         case .channelCard:
             return "bacb18c823584a5cbcd04f6768e7bf9b"
         case .profileLook:
-            return "6fa3760c04274063b079f971622dff12"
+            return "4d8dcec7fe8c486b9437b1f25362c8a6"
         }
     }
     
