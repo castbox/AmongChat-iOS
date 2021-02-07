@@ -194,6 +194,8 @@ extension Logger {
             case suggested_contact_page_clk
             case new_avatar_dialog_imp
             case new_avatar_dialog_clk
+            //
+            case enter_room_show_pet
         }
         
         enum Category: String {

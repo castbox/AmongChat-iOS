@@ -114,10 +114,11 @@ class RoomTopEntranceContentView: XibLoadableView {
         gradient.frame = CGRect(x: 20, y: 0, width: 70 + 74 + rect.width, height: 44)
         
         //get svga
-        if let urlString = Entity.DecorationEntity.entityOf(id: user.decoPetId)?.url,
-           let url = URL(string: urlString) {
+        if let item = Entity.DecorationEntity.entityOf(id: user.decoPetId),
+           let url = URL(string: item.url) {
             //svga
             playSvga(url)
+            Logger.Action.log(.enter_room_show_pet, item.id.string)
         }
     }
     
