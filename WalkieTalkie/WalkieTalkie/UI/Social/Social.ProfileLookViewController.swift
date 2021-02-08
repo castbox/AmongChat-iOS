@@ -227,7 +227,7 @@ private extension Social.ProfileLookViewController {
     
     func onDecorationSelect(_ decoration: DecorationViewModel) -> Single<Bool> {
         
-        Logger.Action.log(.profile_customize_clk, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
+        Logger.Action.log(.profile_customize_clk, categoryValue: decoration.decorationType.rawValue, decoration.decoration.id.string)
         
         if decoration.decorationType == .pet {
             Logger.Action.log(.profile_customize_pet_get, decoration.decoration.id.string)
@@ -291,10 +291,10 @@ private extension Social.ProfileLookViewController {
     func unlockDecorationStep1(_ decoration: DecorationViewModel) -> Single<Bool> {
         switch decoration.decoration.unlockType {
         case .rewarded:
-            Logger.Action.log(.profile_customize_rewarded_get, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
+            Logger.Action.log(.profile_customize_rewarded_get, categoryValue: decoration.decorationType.rawValue, decoration.decoration.id.string)
             return watchRewardedVideo()
                 .do(onSuccess: { (_) in
-                    Logger.Action.log(.profile_customize_rewarded_get_success, categoryValue: decoration.decorationType.name, decoration.decoration.id.string)
+                    Logger.Action.log(.profile_customize_rewarded_get_success, categoryValue: decoration.decorationType.rawValue, decoration.decoration.id.string)
                 })
             
         case .premium:

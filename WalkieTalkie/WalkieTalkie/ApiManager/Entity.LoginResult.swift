@@ -386,17 +386,7 @@ extension Entity {
 extension Entity.DecorationCategory {
     
     enum DecorationType: String, Codable {
-        case skin = "color", bg, pet, hat
-        
-        var name: String {
-            switch self {
-            case .skin:
-                return "skin"
-            default:
-                return rawValue
-            }
-        }
-        
+        case skin, bg, pet, hat        
     }
     
 }
