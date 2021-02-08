@@ -260,8 +260,10 @@ extension Social.ProfileLookViewController {
             UIView.animate(withDuration: 0.25) { [weak self] in
                 button.isSelected = true
                 button.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                button.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 self?.selectedBtn?.isSelected = false
                 self?.selectedBtn?.transform = .identity
+                self?.selectedBtn?.titleLabel?.font = R.font.nunitoBold(size: 20)
                 self?.selectedBtn = button
 
                 self?.indicatorContainer.layoutIfNeeded()
