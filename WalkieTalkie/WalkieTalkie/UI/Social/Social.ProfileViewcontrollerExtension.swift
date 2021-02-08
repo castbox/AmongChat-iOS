@@ -235,6 +235,9 @@ extension Social.ProfileViewController {
             if isSelf {
                 editBtn.isHidden = false
             }
+            profile.decorations.forEach({ (deco) in
+                skinView.updateLook(deco)
+            })
         }
         
         func setProfileData(_ model: Entity.RoomUser) {
@@ -292,14 +295,7 @@ extension Social.ProfileViewController {
         }
         
         private func bindSubviewEvent() {
-            Settings.shared.amongChatUserProfile.replay()
-                .observeOn(MainScheduler.asyncInstance)
-                .subscribe(onNext: { [weak self] (p) in
-                    p?.decorations.forEach({ (deco) in
-                        self?.skinView.updateLook(deco)
-                    })
-                })
-                .disposed(by: bag)
+            
         }
         
         private func setupLayout() {
@@ -312,7 +308,7 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(Frame.Height.safeAeraTopHeight)
                 maker.height.equalTo(49)
             }
-    //
+            
             addSubviews(views: infoContainer, skinView, backBtn, titleLabel)
             
             skinView.addSubview(customizeBtn)
@@ -449,7 +445,7 @@ extension Social.ProfileViewController {
             
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(56)
-                maker.leading.trailing.equalToSuperview().inset(40)
+                maker.leading.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(53)
             }
             followButton.rx.tap

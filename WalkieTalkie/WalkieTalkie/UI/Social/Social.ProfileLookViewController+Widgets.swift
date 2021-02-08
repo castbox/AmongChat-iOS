@@ -70,7 +70,7 @@ extension Social.ProfileLookViewController {
             
             skinIV.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.width.height.equalTo(210)
+                maker.width.height.equalTo(210.scalValue)
                 maker.centerY.equalToSuperview().multipliedBy(1.2)
             }
             
@@ -260,8 +260,10 @@ extension Social.ProfileLookViewController {
             UIView.animate(withDuration: 0.25) { [weak self] in
                 button.isSelected = true
                 button.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+                button.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 self?.selectedBtn?.isSelected = false
                 self?.selectedBtn?.transform = .identity
+                self?.selectedBtn?.titleLabel?.font = R.font.nunitoBold(size: 20)
                 self?.selectedBtn = button
 
                 self?.indicatorContainer.layoutIfNeeded()
@@ -450,13 +452,13 @@ extension Social.ProfileLookViewController {
             contentView.addSubviews(views: decorationIV, svgaView, selectedIcon, adBadge, statusLabel)
             
             selectedIcon.snp.makeConstraints { (maker) in
-                maker.top.right.equalToSuperview()
+                maker.top.right.equalToSuperview().inset(-0.5)
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
             
             adBadge.snp.makeConstraints { (maker) in
-                maker.top.right.equalToSuperview()
+                maker.top.right.equalToSuperview().inset(-0.5)
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
