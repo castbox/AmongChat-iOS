@@ -449,7 +449,7 @@ extension Social.ProfileViewController {
             
             followButton.snp.makeConstraints { (maker) in
                 maker.top.equalTo(followingBtn.snp.bottom).offset(56)
-                maker.leading.trailing.equalToSuperview().inset(40)
+                maker.leading.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(53)
             }
             followButton.rx.tap
