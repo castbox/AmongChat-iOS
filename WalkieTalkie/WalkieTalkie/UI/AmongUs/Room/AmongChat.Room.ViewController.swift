@@ -966,5 +966,13 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
         }
         
     }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
 }
+

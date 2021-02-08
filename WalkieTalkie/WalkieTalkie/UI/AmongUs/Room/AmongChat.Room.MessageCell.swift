@@ -143,7 +143,7 @@ extension AmongChat.Room {
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview().offset(4)
                 maker.left.equalTo(20)
-                maker.right.lessThanOrEqualTo(-20)
+                maker.right.equalTo(-20)
                 maker.bottom.equalToSuperview().offset(-4)
             }
 
