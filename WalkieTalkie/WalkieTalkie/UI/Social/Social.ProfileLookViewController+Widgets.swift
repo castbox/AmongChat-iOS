@@ -450,13 +450,13 @@ extension Social.ProfileLookViewController {
             contentView.addSubviews(views: decorationIV, svgaView, selectedIcon, adBadge, statusLabel)
             
             selectedIcon.snp.makeConstraints { (maker) in
-                maker.top.right.equalToSuperview()
+                maker.top.right.equalToSuperview().inset(-0.5)
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
             
             adBadge.snp.makeConstraints { (maker) in
-                maker.top.right.equalToSuperview()
+                maker.top.right.equalToSuperview().inset(-0.5)
                 maker.width.equalTo(44)
                 maker.height.equalTo(32)
             }
