@@ -70,7 +70,7 @@ extension Social.ProfileLookViewController {
             
             skinIV.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.width.height.equalTo(210)
+                maker.width.height.equalTo(210.scalValue)
                 maker.centerY.equalToSuperview().multipliedBy(1.2)
             }
             
