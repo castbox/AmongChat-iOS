@@ -43,14 +43,14 @@ extension AmongChat.Topic {
             .map { $0.emojiList } ?? []
     }
     
-    var roomBgUrl: URL? {
-        guard let setting = Settings.shared.globalSetting.value else {
-            return nil
-        }
-        return setting.roomBg.first(where: { $0.topicType == self })
-            .map { $0.bgUrl }
-
-    }
+//    var roomBgUrl: URL? {
+//        guard let setting = Settings.shared.globalSetting.value else {
+//            return nil
+//        }
+//        return setting.roomBg.first(where: { $0.topicType == self })
+//            .map { $0.bgUrl }
+//
+//    }
     
     var enableNickName: Bool {
         switch self {
