@@ -734,6 +734,8 @@ extension AmongChat.Room.ViewController {
         viewModel.onUserJoinedHandler = { [weak self] message in
             self?.topEntranceView.add(message.user)
         }
+        //
+        viewModel.addJoinMessage()
         
         viewModel.shareEventHandler = { [weak self] in
             self?.onShareBtn()

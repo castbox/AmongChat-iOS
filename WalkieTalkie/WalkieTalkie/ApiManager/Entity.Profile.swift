@@ -198,3 +198,9 @@ extension Entity.UserProfile {
         return attribuated(with: nameString, isVerified: isVerified, isVip: isVip, fontSize: fontSize)
     }
 }
+
+extension Entity.UserProfile {
+    func toRoomUser(with seatNo: Int) -> Entity.RoomUser {
+        return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId)
+    }
+}

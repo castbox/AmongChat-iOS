@@ -69,6 +69,15 @@ extension Entity {
             
             return topic
         }
+        
+        var loginUserSeatNo: Int {
+            for (index, user) in roomUserList.enumerated() {
+                if user.uid == Settings.loginUserId {
+                    return index
+                }
+            }
+            return 0
+        }
     }
     
     struct RoomUser: Codable, Hashable, DefaultsSerializable, Verifiedable {
@@ -92,7 +101,7 @@ extension Entity {
         
         let uid: Int
         var name: String?
-        let pictureUrl: String
+        let pictureUrl: String?
         let seatNo: Int
         var status: Status
         var isMuted: Bool
@@ -130,16 +139,16 @@ extension Entity {
         }
         
         
-        init(uid: Int, name: String, pic: String, seatNo: Int = 0, status: Int? = 0, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool = false, decoPetId: Int = 0) {
+        init(uid: Int, name: String?, pic: String?, seatNo: Int = 0, status: Status? = .connected, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool? = false, isVip: Bool? = false, decoPetId: Int? = 0) {
             self.uid = uid
             self.name = name
             self.pictureUrl = pic
             self.seatNo = seatNo
-            self.status = Status(rawValue: "blocked") ?? .blocked
+            self.status = status ?? .blocked
             self.isMuted = isMuted ?? false
             self.isMutedByLoginUser = isMutedByLoginUser ?? false
             self.isVerified = isVerified
-            self.decoPetId = decoPetId
+            self.decoPetId = decoPetId ?? 0
         }
         
         private enum CodingKeys: String, CodingKey {
