@@ -92,7 +92,7 @@ extension AmongChat.Room {
             let v = UIView()
             let ship = UIImageView()
             ship.contentMode = .scaleAspectFill
-            ship.setImage(with: room.topicType.roomBgUrl)
+            ship.setImage(with: viewModel.roomBgUrl())
 //            let star = UIImageView(image: R.image.star_bg())
             let mask = UIView()
             mask.backgroundColor = UIColor.black.alpha(0.5)
@@ -966,5 +966,13 @@ extension AmongChat.Room.ViewController: UITableViewDataSource, UITableViewDeleg
         }
         
     }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.001
+    }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.001
+    }
 }
+

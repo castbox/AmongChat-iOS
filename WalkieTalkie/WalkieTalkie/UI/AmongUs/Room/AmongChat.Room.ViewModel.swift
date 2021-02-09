@@ -175,6 +175,7 @@ extension AmongChat.Room {
             addSystemMessage()
             enteredTimestamp = Date().timeIntervalSince1970
             startShowShareTimerIfNeed()
+            update(room)
         }
         
         @discardableResult
@@ -454,6 +455,15 @@ extension AmongChat.Room {
                 return
             }
             didShowShareEvents.append(event)
+        }
+        
+        func roomBgUrl() -> URL? {
+            guard let setting = Settings.shared.globalSetting.value else {
+                return nil
+            }
+            let topicId = room.topicId
+            return setting.roomBg.first(where: { $0.topicId == topicId })
+                .map { $0.bgUrl }
         }
     }
     
