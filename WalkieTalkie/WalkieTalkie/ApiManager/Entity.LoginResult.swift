@@ -260,6 +260,7 @@ extension Entity {
             case user
             case room
             case messageType = "message_type"
+            case isOnline = "is_online"
         }
         
         func asPlayingUser() -> PlayingUser {
