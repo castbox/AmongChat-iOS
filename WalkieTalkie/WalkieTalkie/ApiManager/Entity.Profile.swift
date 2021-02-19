@@ -121,7 +121,7 @@ extension Entity {
             case isVerified = "is_verified"
             case isVip = "is_vip"
             case decoBgId = "deco_bg_id"
-            case decoSkinId = "deco_color_id"
+            case decoSkinId = "deco_skin_id"
             case decoHatId = "deco_hat_id"
             case decoPetId = "deco_pet_id"
         }

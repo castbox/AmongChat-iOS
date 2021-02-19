@@ -421,12 +421,15 @@ class Settings {
     }
     
     func updateProfile() {
-        _ = Request.profile()
+        guard let uid = Settings.loginUserId else {
+            return
+        }
+        _ = Request.profilePage(uid: uid)
             .subscribe(onSuccess: { (profile) in
                 guard let p = profile else {
                     return
                 }
-                Settings.shared.amongChatUserProfile.value = p
+                Settings.shared.amongChatUserProfile.value = p.profile
             }, onError: { (error) in
                 cdPrint("")
             })
