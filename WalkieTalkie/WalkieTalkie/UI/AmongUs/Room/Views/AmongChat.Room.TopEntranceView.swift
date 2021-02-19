@@ -156,8 +156,8 @@ class RoomTopEntranceContentView: XibLoadableView {
         
         gradient = CAGradientLayer()
         gradient.frame = bounds
-        gradient.colors = [#colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 0).cgColor]
-        gradient.locations = [0, 0.5, 1]
+        gradient.colors = [#colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 1).cgColor, #colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 0).cgColor, #colorLiteral(red: 0.3490196078, green: 0.1764705882, blue: 1, alpha: 0).cgColor]
+        gradient.locations = [0, 0.6, 0.9, 1]
         gradient.startPoint = CGPoint(x: 0, y: 0)
         gradient.endPoint = CGPoint(x: 1, y: 0)
         gradient?.cornerRadius = 22
