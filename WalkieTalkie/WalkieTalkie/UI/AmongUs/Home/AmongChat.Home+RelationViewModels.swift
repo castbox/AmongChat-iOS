@@ -188,7 +188,7 @@ extension AmongChat.Home {
             }
             
             var onlineFriends = playingsRelay.value
-            onlineFriends.append(user)
+            onlineFriends.insert(user, at: 0)
             
             suggestStrangerRelay.accept(suggestionUsers)
             playingsRelay.accept(onlineFriends)
