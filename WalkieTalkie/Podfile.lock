@@ -191,6 +191,7 @@ PODS:
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - loady (1.0.5)
+  - LookinServer (1.0.0)
   - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.5.0)
@@ -226,7 +227,6 @@ PODS:
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
-  - Reveal-SDK (4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -321,6 +321,7 @@ DEPENDENCIES:
   - Kingfisher
   - Koloda
   - loady
+  - LookinServer
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
   - mopub-ios-sdk/Core
@@ -330,7 +331,6 @@ DEPENDENCIES:
   - Path.swift (~> 1.0.0)
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
-  - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
   - SDCAlertView
@@ -393,6 +393,7 @@ SPEC REPOS:
     - Kingfisher
     - Koloda
     - loady
+    - LookinServer
     - MarqueeLabel
     - MBProgressHUD
     - MJRefresh
@@ -410,7 +411,6 @@ SPEC REPOS:
     - PullToDismiss
     - R.swift
     - R.swift.Library
-    - Reveal-SDK
     - RxCocoa
     - RxGesture
     - RxRelay
@@ -487,6 +487,7 @@ SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
+  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
@@ -504,7 +505,6 @@ SPEC CHECKSUMS:
   PullToDismiss: 033572b7152fbf68db0407db882d546312813837
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
-  Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
@@ -527,6 +527,6 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e680d729a8acb20fb3e0f828e86d5c31111f216a
+PODFILE CHECKSUM: 4ffff1a7c680ed6cefb695a135869bd973e4ee67
 
 COCOAPODS: 1.10.0
