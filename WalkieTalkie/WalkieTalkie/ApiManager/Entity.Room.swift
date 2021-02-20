@@ -148,6 +148,7 @@ extension Entity {
             self.isMuted = isMuted ?? false
             self.isMutedByLoginUser = isMutedByLoginUser ?? false
             self.isVerified = isVerified
+            self.isVip = isVip;
             self.decoPetId = decoPetId ?? 0
         }
         

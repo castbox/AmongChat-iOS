@@ -104,11 +104,11 @@ extension AmongChat.Home {
             
             //remove
 //            suggestContactViewModelsRelay.accept(testArray)
-            let testArray = [
-                Entity.ContactFriend(phone: "1", name: "Wilson", count: 10),
-                Entity.ContactFriend(phone: "2", name: "WilsonYuan", count: 2),
-                Entity.ContactFriend(phone: "3", name: "XiaoMing", count: 112)
-            ]
+//            let testArray = [
+//                Entity.ContactFriend(phone: "1", name: "Wilson", count: 10),
+//                Entity.ContactFriend(phone: "2", name: "WilsonYuan", count: 2),
+//                Entity.ContactFriend(phone: "3", name: "XiaoMing", count: 112)
+//            ]
         }
         
         private let systemAgoraUid = Int(99999)

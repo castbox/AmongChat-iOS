@@ -333,9 +333,7 @@ extension ChatRoom.TextMessage: MessageListable {
             imageAttachment.image = image
             imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
             let imageString = NSAttributedString(attachment: imageAttachment)
-            if user.isVerified == false {
-                mutableNormalString.yy_appendString(" ")
-            }
+            mutableNormalString.yy_appendString(" ")
             mutableNormalString.append(imageString)
         }
         
@@ -389,9 +387,9 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
             imageAttachment.image = image
             imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
             let imageString = NSAttributedString(attachment: imageAttachment)
-            if user.isVerified == false {
-                mutableNormalString.yy_appendString(" ")
-            }
+//            if user.isVerified == false {
+            mutableNormalString.yy_appendString(" ")
+//            }
             mutableNormalString.append(imageString)
         }
         mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
