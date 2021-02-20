@@ -123,9 +123,11 @@ extension JoinRoomable where Self: ViewController {
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
-                
+            
                 AmongChat.Room.ViewController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
+                    //dismiss
+                    UIApplication.tabBarController?.dismissNotificationBanner()
                 }
 
             }, onError: { [weak self] (error) in

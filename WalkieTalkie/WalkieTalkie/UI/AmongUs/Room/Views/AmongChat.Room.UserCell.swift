@@ -304,7 +304,9 @@ extension AmongChat.Room.UserCell {
         
         if user.status == .talking {
             startSoundAnimation()
-        } 
+        } else if user.status == .muted {
+            stopSoundAnimation()
+        }
         if self.user?.uid != user.uid {
             avatarIV.imageView?.contentMode = .scaleAspectFill
             avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())

@@ -199,8 +199,8 @@ extension AmongChat.Room {
                 Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
                 //show loading
                 let viewModel = ViewModel.make(room, logSource)
-                completionHandler?(nil)
                 self.show(from: controller, with: viewModel)
+                completionHandler?(nil)
             }
         }
         
