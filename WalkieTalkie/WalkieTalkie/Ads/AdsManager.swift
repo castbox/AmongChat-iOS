@@ -421,7 +421,9 @@ class AdsManager: NSObject {
                 return isReady
             }
             .take(1)
-            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
+            .timeout(.seconds(15),
+                     other: Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed())),
+                     scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
                 self.hasRetryForAdLoadFailed = false
@@ -433,7 +435,9 @@ class AdsManager: NSObject {
                 
                 return self.rewardedVideoAdDidAppear
                     .take(1)
-                    .timeout(.seconds(5), scheduler: MainScheduler.asyncInstance)
+                    .timeout(.seconds(5),
+                             other: Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed())),
+                             scheduler: MainScheduler.asyncInstance)
                     .flatMap { [weak self] _ -> Observable<Bool> in
                         guard let `self` = self else {
                             return .just(false)
