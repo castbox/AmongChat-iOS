@@ -473,7 +473,7 @@ extension Social.ProfileLookViewController {
                 playSvga(decoration.thumbUrl?.url)
                 
                 if decoration.locked {
-                    statusLabel.text = ""
+                    statusLabel.text = decoration.iapProduct?.skProduct.localizedPrice
                     statusLabel.textColor = .black
                     statusLabel.backgroundColor = UIColor(hex6: 0xFFF000)
                 } else {

@@ -122,7 +122,8 @@ extension Social.ProfileViewController {
             let lb = WalkieLabel()
             lb.font = R.font.nunitoExtraBold(size: 22)
             lb.textColor = .white
-            lb.lineBreakMode = .byTruncatingMiddle
+            lb.numberOfLines = 2
+            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         

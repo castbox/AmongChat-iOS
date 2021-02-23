@@ -242,14 +242,11 @@ private extension Social.ProfileLookViewController {
             if decoration.locked {
                 
                 signal = unlockDecorationStep1(decoration)
-                    .flatMap({ [weak self] (_) -> Single<Bool> in
+                    .flatMap({ [weak self] (success) -> Single<Bool> in
                         
-                        guard let `self` = self else {
+                        guard let `self` = self,
+                              success else {
                             return Single.error(MsgError.default)
-                        }
-                        
-                        guard decoration.decoration.unlockType != .pay else {
-                            return self.updateDecorationSelection(decoration, selected: true)
                         }
                         
                         return self.unlockDecorationStep2(decoration)
@@ -309,12 +306,24 @@ private extension Social.ProfileLookViewController {
     }
     
     func unlockDecorationStep2(_ decoration: DecorationViewModel) -> Single<Bool> {
-        return Request.unlockProfileDecoration(decoration.decoration)
-            .observeOn(MainScheduler.asyncInstance)
-            .do(onSuccess: { (success) in
-                guard success else { return }
-                decoration.unlock()
-            })
+        
+        let unlockSignal: Single<Bool>
+        
+        if decoration.decoration.unlockType == .pay {
+            unlockSignal = Single.just(true)
+                .do(onSuccess: { (_) in
+                    decoration.unlock()
+                })
+        } else {
+            unlockSignal = Request.unlockProfileDecoration(decoration.decoration)
+                .observeOn(MainScheduler.asyncInstance)
+                .do(onSuccess: { (success) in
+                    guard success else { return }
+                    decoration.unlock()
+                })
+        }
+        
+        return unlockSignal
             .flatMap { [weak self] (success) in
                 
                 guard let `self` = self,
