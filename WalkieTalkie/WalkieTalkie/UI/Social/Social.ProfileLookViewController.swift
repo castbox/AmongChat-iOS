@@ -278,7 +278,7 @@ private extension Social.ProfileLookViewController {
                 self?.profileLookView.updateLook(decoration)
                 Settings.shared.updateProfile()
             }, onError: { [weak self] (error) in
-                self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                self?.view.raft.autoShow(.text( error.msgOfError ?? R.string.localizable.amongChatUnknownError() ))
             }, onDispose: {
                 completion()
             })
