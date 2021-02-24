@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 159 images.
+  /// This `R.image` struct is generated, and contains static references to 160 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -254,6 +254,8 @@ struct R: Rswift.Validatable {
     static let ac_pro_privilege_special_avatars = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_special_avatars")
     /// Image `ac_pro_privilege_unlimited_cards`.
     static let ac_pro_privilege_unlimited_cards = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_unlimited_cards")
+    /// Image `ac_pro_privilege_upload_avatar`.
+    static let ac_pro_privilege_upload_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_upload_avatar")
     /// Image `ac_pro_unbuy_badge`.
     static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
     /// Image `ac_pro_unlocked_badge`.
@@ -733,6 +735,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_pro_privilege_unlimited_cards", bundle: ..., traitCollection: ...)`
     static func ac_pro_privilege_unlimited_cards(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_unlimited_cards, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_upload_avatar", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_upload_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_upload_avatar, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
@@ -1602,7 +1609,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 265 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 270 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2328,6 +2335,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialSeeAll = Rswift.StringResource(key: "social.see.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Select an image
+      /// 
+      /// Locales: en
+      static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2452,6 +2463,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Take a photo
+      /// 
+      /// Locales: en
+      static let amongChatCustomAvatarTakePhoto = Rswift.StringResource(key: "among.chat.custom.avatar.take.photo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Terms
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2524,6 +2539,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Upload your own avatar
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeCustomAvatars = Rswift.StringResource(key: "among.chat.pro.privilege.custom.avatars", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2532,6 +2551,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardConsumeContent = Rswift.StringResource(key: "among.chat.create.room.card.consume.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Use an avatar
+      /// 
+      /// Locales: en
+      static let amongChatCustomAvatarUseDefault = Rswift.StringResource(key: "among.chat.custom.avatar.use.default", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2588,6 +2611,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Your avatar can be different
+      /// 
+      /// Locales: en
+      static let amongChatProPrivilegeCustomAvatarsSub = Rswift.StringResource(key: "among.chat.pro.privilege.custom.avatars.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Your online friends
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3932,6 +3959,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.see.all", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Select an image
+      /// 
+      /// Locales: en
+      static func amongChatCustomAvatarSelectImage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4149,6 +4183,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Take a photo
+      /// 
+      /// Locales: en
+      static func amongChatCustomAvatarTakePhoto(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.take.photo", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Terms
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4275,6 +4316,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Upload your own avatar
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeCustomAvatars(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.custom.avatars", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4287,6 +4335,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardConsumeContent(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.consume.content", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Use an avatar
+      /// 
+      /// Locales: en
+      static func amongChatCustomAvatarUseDefault(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.use.default", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
@@ -4385,6 +4440,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowing(_: Void = ()) -> String {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your avatar can be different
+      /// 
+      /// Locales: en
+      static func amongChatProPrivilegeCustomAvatarsSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.custom.avatars.sub", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your online friends
