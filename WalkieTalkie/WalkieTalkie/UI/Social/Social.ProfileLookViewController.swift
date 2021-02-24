@@ -309,12 +309,13 @@ private extension Social.ProfileLookViewController {
         
         let unlockSignal: Single<Bool>
         
-        if decoration.decoration.unlockType == .pay {
+        switch decoration.decoration.unlockType {
+        case .pay, .premium:
             unlockSignal = Single.just(true)
                 .do(onSuccess: { (_) in
                     decoration.unlock()
                 })
-        } else {
+        default:
             unlockSignal = Request.unlockProfileDecoration(decoration.decoration)
                 .observeOn(MainScheduler.asyncInstance)
                 .do(onSuccess: { (success) in
