@@ -18,7 +18,7 @@ extension IAP {
         
         init?(_ skProduct: SKProduct) {
             guard let info = IAP.Product.parse(skProduct) else {
-                assert(false, "not support this kind of product")
+//                assert(false, "not support this kind of product")
                 return nil
             }
             self.skProduct = skProduct

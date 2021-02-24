@@ -113,26 +113,26 @@ class ShareContainerView: XibLoadableView {
 //    }
     
     func updateSource() {
-        ShareManager.ShareType.allCases
-            .filter { $0.isAppInstalled }
-            .forEach { type in
-                switch type {
-                case .message:
-                    source.append(Item(icon: R.image.icon_share_message(), type: .message))
-                case .whatsapp:
-                    source.append(Item(icon: R.image.icon_share_whatsapp(), type: .whatsapp))
-                case .snapchat:
-//                    let isInreview = FireStore.shared.appConfigSubject.value?.isSnapchatInreview ?? false
-//                    if !isInreview {
-                        source.append(Item(icon: R.image.icon_share_snapchat(), type: .snapchat))
-//                    }
-                case .ticktock:
-                    ()
-//                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))
-                case .more:
-                    source.append(Item(icon: R.image.icon_share_more(), type: .more))
-                }
-        }
+//        ShareManager.ShareType.allCases
+//            .filter { $0.isAppInstalled }
+//            .forEach { type in
+//                switch type {
+//                case .message:
+//                    source.append(Item(icon: R.image.icon_share_message(), type: .message))
+//                case .whatsapp:
+//                    source.append(Item(icon: R.image.icon_share_whatsapp(), type: .whatsapp))
+//                case .snapchat:
+////                    let isInreview = FireStore.shared.appConfigSubject.value?.isSnapchatInreview ?? false
+////                    if !isInreview {
+//                        source.append(Item(icon: R.image.icon_share_snapchat(), type: .snapchat))
+////                    }
+//                case .ticktock:
+//                    ()
+////                    source.append(Item(icon: R.image.icon_share_ticktock(), type: .ticktock))
+//                case .more:
+//                    source.append(Item(icon: R.image.icon_share_more(), type: .more))
+//                }
+//        }
     }
 }
 

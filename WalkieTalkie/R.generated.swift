@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 159 images.
+  /// This `R.image` struct is generated, and contains static references to 132 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -306,6 +306,8 @@ struct R: Rswift.Validatable {
     static let ac_room_card = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_card")
     /// Image `ac_room_copylink`.
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
+    /// Image `ac_room_share_sn`.
+    static let ac_room_share_sn = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share_sn")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_set_birthday_birthday`.
@@ -318,6 +320,10 @@ struct R: Rswift.Validatable {
     static let ac_setting_region = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_region")
     /// Image `ac_share_app`.
     static let ac_share_app = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_app")
+    /// Image `ac_share_snapchat_bg`.
+    static let ac_share_snapchat_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_bg")
+    /// Image `ac_share_snapchat_url_bg`.
+    static let ac_share_snapchat_url_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_url_bg")
     /// Image `ac_social_tiktok`.
     static let ac_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_social_tiktok")
     /// Image `backNor`.
@@ -350,36 +356,6 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
-    /// Image `channel_user_list_block`.
-    static let channel_user_list_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_block")
-    /// Image `channel_user_list_ear`.
-    static let channel_user_list_ear = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_ear")
-    /// Image `channel_user_list_followed`.
-    static let channel_user_list_followed = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_followed")
-    /// Image `channel_user_list_mic`.
-    static let channel_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mic")
-    /// Image `channel_user_list_mute`.
-    static let channel_user_list_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mute")
-    /// Image `channel_user_list_social`.
-    static let channel_user_list_social = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_social")
-    /// Image `default_avatar_0`.
-    static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
-    /// Image `default_avatar_1`.
-    static let default_avatar_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_1")
-    /// Image `default_avatar_2`.
-    static let default_avatar_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_2")
-    /// Image `default_avatar_3`.
-    static let default_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_3")
-    /// Image `default_avatar_4`.
-    static let default_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_4")
-    /// Image `default_avatar_5`.
-    static let default_avatar_5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_5")
-    /// Image `home_btn_bg_b`.
-    static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
-    /// Image `home_btn_bg`.
-    static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
-    /// Image `home_connect_btn_bg_b`.
-    static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconReport`.
@@ -394,40 +370,10 @@ struct R: Rswift.Validatable {
     static let icon_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic")
     /// Image `icon_pri_ad`.
     static let icon_pri_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_ad")
-    /// Image `icon_pri_join`.
-    static let icon_pri_join = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_join")
-    /// Image `icon_pro_persons`.
-    static let icon_pro_persons = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_persons")
-    /// Image `icon_pro_select_y`.
-    static let icon_pro_select_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select_y")
-    /// Image `icon_pro_select`.
-    static let icon_pro_select = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select")
-    /// Image `icon_pro_y`.
-    static let icon_pro_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_y")
-    /// Image `icon_pro`.
-    static let icon_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro")
-    /// Image `icon_push`.
-    static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
-    /// Image `icon_setting_diamonds`.
-    static let icon_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds")
-    /// Image `icon_setting_star`.
-    static let icon_setting_star = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_star")
     /// Image `icon_setting`.
     static let icon_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting")
-    /// Image `icon_share_bg`.
-    static let icon_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_bg")
-    /// Image `icon_share_message`.
-    static let icon_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_message")
-    /// Image `icon_share_more`.
-    static let icon_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_more")
-    /// Image `icon_share_snapchat`.
-    static let icon_share_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_snapchat")
-    /// Image `icon_share_ticktock`.
-    static let icon_share_ticktock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_ticktock")
-    /// Image `icon_share_whatsapp`.
-    static let icon_share_whatsapp = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_whatsapp")
     /// Image `icon_social_find_contaccts`.
     static let icon_social_find_contaccts = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_find_contaccts")
     /// Image `icon_social_share_link`.
@@ -870,6 +816,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_room_share, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_room_share_sn", bundle: ..., traitCollection: ...)`
+    static func ac_room_share_sn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_share_sn, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_set_birthday_birthday", bundle: ..., traitCollection: ...)`
     static func ac_set_birthday_birthday(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_set_birthday_birthday, compatibleWith: traitCollection)
@@ -893,6 +844,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_share_app", bundle: ..., traitCollection: ...)`
     static func ac_share_app(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_share_app, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_share_snapchat_bg", bundle: ..., traitCollection: ...)`
+    static func ac_share_snapchat_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_share_snapchat_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_share_snapchat_url_bg", bundle: ..., traitCollection: ...)`
+    static func ac_share_snapchat_url_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_share_snapchat_url_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_social_tiktok", bundle: ..., traitCollection: ...)`
@@ -975,81 +936,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "channel_user_list_block", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_block, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_ear", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_ear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_ear, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_followed", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_followed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_followed, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_mic", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_mic, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_mute", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_mute, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_social", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_social(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_social, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
-    static func default_avatar_0(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_0, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_1", bundle: ..., traitCollection: ...)`
-    static func default_avatar_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_1, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_2", bundle: ..., traitCollection: ...)`
-    static func default_avatar_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_2, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_3", bundle: ..., traitCollection: ...)`
-    static func default_avatar_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_3, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_4", bundle: ..., traitCollection: ...)`
-    static func default_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_4, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_5", bundle: ..., traitCollection: ...)`
-    static func default_avatar_5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_5, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_btn_bg", bundle: ..., traitCollection: ...)`
-    static func home_btn_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_btn_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_btn_bg_b", bundle: ..., traitCollection: ...)`
-    static func home_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_btn_bg_b, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_connect_btn_bg_b", bundle: ..., traitCollection: ...)`
-    static func home_connect_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "home_name_edit", bundle: ..., traitCollection: ...)`
     static func home_name_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
@@ -1085,41 +971,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_pri_ad, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pri_join", bundle: ..., traitCollection: ...)`
-    static func icon_pri_join(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pri_join, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_pro", bundle: ..., traitCollection: ...)`
-    static func icon_pro(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_pro_persons", bundle: ..., traitCollection: ...)`
-    static func icon_pro_persons(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_persons, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_pro_select", bundle: ..., traitCollection: ...)`
-    static func icon_pro_select(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_select, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_pro_select_y", bundle: ..., traitCollection: ...)`
-    static func icon_pro_select_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_select_y, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_pro_y", bundle: ..., traitCollection: ...)`
-    static func icon_pro_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_y, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_push", bundle: ..., traitCollection: ...)`
-    static func icon_push(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_push, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "icon_room_lock", bundle: ..., traitCollection: ...)`
     static func icon_room_lock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_room_lock, compatibleWith: traitCollection)
@@ -1128,46 +979,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_setting", bundle: ..., traitCollection: ...)`
     static func icon_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_setting, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_setting_diamonds", bundle: ..., traitCollection: ...)`
-    static func icon_setting_diamonds(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_setting_diamonds, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_setting_star", bundle: ..., traitCollection: ...)`
-    static func icon_setting_star(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_setting_star, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_bg", bundle: ..., traitCollection: ...)`
-    static func icon_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_message", bundle: ..., traitCollection: ...)`
-    static func icon_share_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_message, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_more", bundle: ..., traitCollection: ...)`
-    static func icon_share_more(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_more, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_snapchat", bundle: ..., traitCollection: ...)`
-    static func icon_share_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_snapchat, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_ticktock", bundle: ..., traitCollection: ...)`
-    static func icon_share_ticktock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_ticktock, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_whatsapp", bundle: ..., traitCollection: ...)`
-    static func icon_share_whatsapp(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_whatsapp, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_social_find_contaccts", bundle: ..., traitCollection: ...)`
@@ -1263,7 +1074,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 21 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1303,6 +1114,8 @@ struct R: Rswift.Validatable {
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
+    /// Nib `SnapChatSharePhotoView`.
+    static let snapChatSharePhotoView = _R.nib._SnapChatSharePhotoView()
     /// Nib `SocialTiktokItemView`.
     static let socialTiktokItemView = _R.nib._SocialTiktokItemView()
     /// Nib `TikTokShareView`.
@@ -1422,6 +1235,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
     }
     
+    /// `UINib(name: "SnapChatSharePhotoView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.snapChatSharePhotoView) instead")
+    static func snapChatSharePhotoView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.snapChatSharePhotoView)
+    }
+    
     /// `UINib(name: "SocialTiktokItemView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.socialTiktokItemView) instead")
     static func socialTiktokItemView(_: Void = ()) -> UIKit.UINib {
@@ -1508,6 +1327,10 @@ struct R: Rswift.Validatable {
     
     static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func snapChatSharePhotoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.snapChatSharePhotoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func socialTiktokItemView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -4566,6 +4389,7 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
+      try _SnapChatSharePhotoView.validate()
       try _SocialTiktokItemView.validate()
       try _TikTokShareView.validate()
     }
@@ -4824,6 +4648,25 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _SnapChatSharePhotoView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "SnapChatSharePhotoView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_profile_avatar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_avatar' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_share_snapchat_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_share_snapchat_url_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_url_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
