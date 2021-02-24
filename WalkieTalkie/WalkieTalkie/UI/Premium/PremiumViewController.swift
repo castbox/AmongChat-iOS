@@ -186,6 +186,11 @@ class PremiumViewController: ViewController {
                 R.image.ac_pro_privilege_special_avatars(),
                 R.string.localizable.amongChatProPrivilegeAvatars(),
                 R.string.localizable.amongChatProPrivilegeAvatarsSub()
+            ),
+            (
+                R.image.ac_pro_privilege_upload_avatar(),
+                R.string.localizable.amongChatProPrivilegeCustomAvatars(),
+                R.string.localizable.amongChatProPrivilegeCustomAvatarsSub()
             )
         ]
         
