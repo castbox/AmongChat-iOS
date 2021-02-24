@@ -42,6 +42,9 @@ extension AmongChat.Room {
         }
         
         func add(_ user: Entity.RoomUser) {
+            guard user.isEnableEntrance else {
+                return
+            }
             queue.enqueue(user) { [weak self] user in
                 //play
                 self?.playAnimate(with: user)

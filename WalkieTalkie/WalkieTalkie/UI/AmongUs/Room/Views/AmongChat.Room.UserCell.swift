@@ -294,7 +294,7 @@ extension AmongChat.Room.UserCell {
             return
         }
         
-        if let urlString = Entity.DecorationEntity.entityOf(id: user.decoPetId)?.url,
+        if let urlString = Entity.DecorationEntity.entityOf(id: user.decoPetId)?.sayUrl,
            let url = URL(string: urlString) {
             //svga
             svgaUrl = url

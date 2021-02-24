@@ -25,6 +25,8 @@ struct MsgError: Error, Codable {
         case notRoomHost = 3000 //'Only the room host can operate'
         case roomSeatsFull = 3001 //'The room is full'
         case roomUserKick = 3002 //'You are kicked off, can not enter this room'
+        case notEnoughRoomCard = 3004 // no free room card for create
+        case needUpgrade = 3005 //need upgrade app
         case roomNotFound = 202 //'can not find this room'
     }
     

@@ -138,6 +138,10 @@ extension Entity {
             }
         }
         
+        var isEnableEntrance: Bool {
+            return Entity.DecorationEntity.entityOf(id: decoPetId)?.url != nil
+        }
+        
         
         init(uid: Int, name: String?, pic: String?, seatNo: Int = 0, status: Status? = .connected, isMuted: Bool? = false, isMutedByLoginUser: Bool? = false, isVerified: Bool? = false, isVip: Bool? = false, decoPetId: Int? = 0) {
             self.uid = uid
