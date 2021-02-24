@@ -650,6 +650,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		26F7FE2F25E62D9C008F992C /* ProfileLook */ = {
+			isa = PBXGroup;
+			children = (
+				26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */,
+				26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */,
+				26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */,
+			);
+			path = ProfileLook;
+			sourceTree = "<group>";
+		};
 		2BA2DB492594AB510050BF8E /* Follower */ = {
 			isa = PBXGroup;
 			children = (
@@ -776,10 +786,8 @@
 				2BAB4EF52595C6D600A1C8DC /* LeaveGame */,
 				2BA2DB492594AB510050BF8E /* Follower */,
 				BDA05E9C250B229D0087933F /* BlockedUserList */,
+				26F7FE2F25E62D9C008F992C /* ProfileLook */,
 				FE87C2CB259C2C4400799883 /* ChannelUser.swift */,
-				26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */,
-				26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */,
-				26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */,
 			);
 			path = Social;
 			sourceTree = "<group>";
