@@ -492,18 +492,19 @@ extension Social.ProfileLookViewController {
                 
             }
             
+            selectedIcon.isHidden = decoration.locked
+            selectedIcon.image = decoration.selected ? R.image.ac_avatar_selected() : R.image.ac_avatar_unselected()
+            adBadge.isHidden = !decoration.locked
+            
             switch decoration.decoration.unlockType {
             case .rewarded:
                 adBadge.image = R.image.ac_avatar_ad()
             case .premium:
                 adBadge.image = R.image.ac_avatar_pro()
+                adBadge.isHidden = decoration.selected
             default:
                 adBadge.image = nil
             }
-            
-            selectedIcon.isHidden = decoration.locked
-            selectedIcon.image = decoration.selected ? R.image.ac_avatar_selected() : R.image.ac_avatar_unselected()
-            adBadge.isHidden = !decoration.locked
             
         }
         
