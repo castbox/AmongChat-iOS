@@ -565,10 +565,6 @@ extension DefaultsKeys {
         .init("among.chat.login.result", defaultValue: nil)
     }
     
-    var blockedUsersKey: DefaultsKey<[ChannelUser]> {
-        .init("blocked.users", defaultValue: [])
-    }
-    
     var blockedUsersV2Key: DefaultsKey<[Entity.RoomUser]> {
         .init("blocked.users.v2", defaultValue: [])
     }

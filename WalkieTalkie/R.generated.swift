@@ -1263,7 +1263,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 21 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1303,8 +1303,6 @@ struct R: Rswift.Validatable {
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
-    /// Nib `SocialTiktokItemView`.
-    static let socialTiktokItemView = _R.nib._SocialTiktokItemView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
     
@@ -1422,12 +1420,6 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
     }
     
-    /// `UINib(name: "SocialTiktokItemView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.socialTiktokItemView) instead")
-    static func socialTiktokItemView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.socialTiktokItemView)
-    }
-    
     /// `UINib(name: "TikTokShareView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
     static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
@@ -1508,10 +1500,6 @@ struct R: Rswift.Validatable {
     
     static func snapChatCreativeShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
-    static func socialTiktokItemView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.socialTiktokItemView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func tikTokShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -4566,7 +4554,6 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
-      try _SocialTiktokItemView.validate()
       try _TikTokShareView.validate()
     }
     
@@ -4824,24 +4811,6 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "snapchat_share_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'snapchat_share_bg' is used in nib 'SnapChatCreativeShareView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _SocialTiktokItemView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "SocialTiktokItemView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_social_tiktok", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_social_tiktok' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
