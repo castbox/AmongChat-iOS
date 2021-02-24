@@ -284,6 +284,7 @@ private extension Social.ProfileLookViewController {
         return signal
             .observeOn(MainScheduler.asyncInstance)
             .do(onSuccess: { [weak self] (success) in
+                guard success else { return }
                 self?.profileLookView.updateLook(decoration)
                 Settings.shared.updateProfile()
             }, onError: { [weak self] (error) in
