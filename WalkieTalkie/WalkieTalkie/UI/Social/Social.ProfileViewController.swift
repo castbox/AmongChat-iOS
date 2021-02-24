@@ -364,9 +364,9 @@ private extension Social.ProfileViewController {
         }
         showAmongAlert(title: message, message: nil,
                        cancelTitle: R.string.localizable.toastCancel(),
-                       confirmTitle: confirmString) { [weak self] in
-            self?.blockUser()
-        }
+                       confirmTitle: confirmString, confirmAction: { [weak self] in
+                        self?.blockUser()
+                       })
     }
     
     func blockUser() {
