@@ -277,6 +277,7 @@ extension Logger {
             case room_create
             case avatar
             case profile_look
+            case upload_avatar
         }
         
         static func logImp(_ source: ActionSource) {

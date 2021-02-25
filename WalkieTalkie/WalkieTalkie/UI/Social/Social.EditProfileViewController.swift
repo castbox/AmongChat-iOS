@@ -228,8 +228,9 @@ private extension Social.EditProfileViewController {
     
     @objc
     func onAvatarTapped() {        
-        let vc = Social.SelectAvatarViewController()
-        navigationController?.pushViewController(vc)
+        let vc = Social.CustomAvatarViewController()
+        vc.modalPresentationStyle = .overCurrentContext
+        present(vc, animated: false)
     }
     
     func updateProfileIfNeeded(_ profileProto: Entity.ProfileProto) {

@@ -59,6 +59,7 @@ extension APIService {
         case defaultDecorations
         case unlockDecoration([String : Any])
         case updateDecoration([String : Any])
+        case uploadFile(data: Data, ext: String, mimeType: String, type: FileType)
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -167,6 +168,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/unlock/decoration"
         case .updateDecoration:
             return "/account/decoration/upsert"
+        case .uploadFile:
+            return "/tool/file/upload"
         }
     }
     
@@ -223,6 +226,9 @@ extension APIService.AmongChatBackend: TargetType {
             return .put
         case .unFollow:
             return .delete
+            
+        case .uploadFile:
+            return .post
         }
     }
     
@@ -285,6 +291,12 @@ extension APIService.AmongChatBackend: TargetType {
              .updateDecoration(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+            
+        case let .uploadFile(data, ext, mimeType, type):
+            let fileData = Moya.MultipartFormData(provider: .data(data), name: "file", fileName: "ios_\(CFAbsoluteTimeGetCurrent()).\(ext)", mimeType: mimeType)
+            let extData = Moya.MultipartFormData(provider: .data(ext.data(using: .utf8)!), name: "file_ext")
+            let typeData = Moya.MultipartFormData(provider: .data(type.rawValue.data(using: .utf8)!), name: "res_type")
+            return .uploadMultipart([extData, typeData, fileData])
         }
     }
     
@@ -305,4 +317,15 @@ extension APIService.AmongChatBackend: CachePolicyGettableType {
     var cachePolicy: URLRequest.CachePolicy? {
         return nil
     }
+}
+
+extension APIService.AmongChatBackend {
+    
+    public enum FileType: String {
+        case audio
+        case video
+        case image
+        case binary
+    }
+    
 }

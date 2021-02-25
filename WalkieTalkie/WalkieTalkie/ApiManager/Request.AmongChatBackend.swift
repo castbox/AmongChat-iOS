@@ -664,4 +664,28 @@ extension Request {
             }
     }
     
+    static func uploadPng(image: UIImage) -> Single<String> {
+        
+        guard let data = image.pngData() else {
+            return Single.error(MsgError.default)
+        }
+        
+        return amongchatProvider.rx.request(.uploadFile(data: data, ext: "png", mimeType: "image/png", type: .image))
+            .mapJSON()
+            .map { item -> String in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0,
+                      let data = json["data"] as? [String: AnyObject],
+                      let url = data["object_url"] as? String else {
+                    throw MsgError.from(dic: json)
+                }
+                
+                return url
+            }
+    }
+    
 }

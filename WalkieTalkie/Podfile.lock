@@ -222,6 +222,7 @@ PODS:
   - pop (1.0.12)
   - PromisesObjC (1.2.8)
   - Protobuf (3.12.0)
+  - PryntTrimmerView (4.0.2)
   - PullToDismiss (2.2)
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
@@ -250,6 +251,7 @@ PODS:
   - SnapSDK/SCSDKLoginKit (1.4.4)
   - SnapSDK/SCSDKStoryKit (1.4.4)
   - SSZipArchive (2.1.5)
+  - SteviaLayout (4.7.3)
   - SVGAPlayer (2.5.6):
     - SVGAPlayer/Core (= 2.5.6)
     - SVGAPlayer/ProtoFiles (= 2.5.6)
@@ -294,6 +296,9 @@ PODS:
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.4.8)
   - WSFlexibleTouch (0.1.1)
+  - YPImagePicker (4.4.0):
+    - PryntTrimmerView (~> 4.0.2)
+    - SteviaLayout (~> 4.7.3)
   - YYText (1.0.7)
 
 DEPENDENCIES:
@@ -346,6 +351,7 @@ DEPENDENCIES:
   - TikTokOpenSDK (~> 3.0.2)
   - UIColor_Hex_Swift (~> 4.2.0)
   - WSFlexibleTouch
+  - YPImagePicker
   - YYText
 
 SPEC REPOS:
@@ -407,6 +413,7 @@ SPEC REPOS:
     - pop
     - PromisesObjC
     - Protobuf
+    - PryntTrimmerView
     - PullToDismiss
     - R.swift
     - R.swift.Library
@@ -419,6 +426,7 @@ SPEC REPOS:
     - SnapKit
     - SnapSDK
     - SSZipArchive
+    - SteviaLayout
     - SVGAPlayer
     - SwifterSwift
     - SwiftHash
@@ -431,6 +439,7 @@ SPEC REPOS:
     - UIColor_Hex_Swift
     - UnityAds
     - WSFlexibleTouch
+    - YPImagePicker
     - YYText
 
 EXTERNAL SOURCES:
@@ -501,6 +510,7 @@ SPEC CHECKSUMS:
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  PryntTrimmerView: 6a43cc90df5d99addeabd33d4ba09b1365322130
   PullToDismiss: 033572b7152fbf68db0407db882d546312813837
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
@@ -513,6 +523,7 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SnapSDK: 9ea8d26ca876b7f1d85fad2f2ec09852f3b156d0
   SSZipArchive: cefe1364104a0231268a5deb8495bdf2861f52f0
+  SteviaLayout: c2ecdcff57d44e38fd2f65e54ad52aeae28ca0c4
   SVGAPlayer: f3b3792ae66f7cb3f944ae373a40864db9a04331
   SwifterSwift: 334181863c416882d97b7a60c05054d9e4d799e2
   SwiftHash: 6d312abe61c8359bdef8d0093642f3a70b1c17ba
@@ -525,8 +536,9 @@ SPEC CHECKSUMS:
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
+  YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
 
-PODFILE CHECKSUM: e680d729a8acb20fb3e0f828e86d5c31111f216a
+PODFILE CHECKSUM: 498a3e30d2f2a7d9828c209ff0808fe38eabbd9a
 
 COCOAPODS: 1.10.0
