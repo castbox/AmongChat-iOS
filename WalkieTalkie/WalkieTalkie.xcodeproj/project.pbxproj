@@ -19,6 +19,7 @@
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
 		26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */; };
+		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
 		2B6B5F4A25A32E9F009D028D /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B5F4925A32E9F009D028D /* TableViewCell.swift */; };
@@ -213,7 +214,6 @@
 		FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE860D592446D2A800087B73 /* DynamicProperty.swift */; };
 		FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2C3259C29F000799883 /* ConnectState.swift */; };
 		FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2C7259C2A8300799883 /* UIColorExtension.swift */; };
-		FE87C2CC259C2C4400799883 /* ChannelUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2CB259C2C4400799883 /* ChannelUser.swift */; };
 		FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2CF259C2EC100799883 /* ShareContainerView.swift */; };
 		FE87C2D4259C2EC200799883 /* SnapChatCreativeShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE87C2D0259C2EC200799883 /* SnapChatCreativeShareView.xib */; };
 		FE87C2D5259C2EC200799883 /* SnapChatCreativeShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE87C2D1259C2EC200799883 /* SnapChatCreativeShareView.swift */; };
@@ -280,8 +280,6 @@
 		FED7B605244ED1B900D94F97 /* Logger+UserAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */; };
 		FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B606244EDEA500D94F97 /* Reachability.swift */; };
 		FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */; };
-		FEE0E7B225A4670500DC67B8 /* SocialTiktokItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */; };
-		FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */; };
 		FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */; };
 		FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */; };
 		FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */; };
@@ -329,6 +327,7 @@
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.ConsumableProduct.swift; sourceTree = "<group>"; };
+		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
 		2B6B5F4925A32E9F009D028D /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -548,7 +547,6 @@
 		FE860D592446D2A800087B73 /* DynamicProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicProperty.swift; sourceTree = "<group>"; };
 		FE87C2C3259C29F000799883 /* ConnectState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConnectState.swift; sourceTree = "<group>"; };
 		FE87C2C7259C2A8300799883 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
-		FE87C2CB259C2C4400799883 /* ChannelUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelUser.swift; sourceTree = "<group>"; };
 		FE87C2CF259C2EC100799883 /* ShareContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareContainerView.swift; sourceTree = "<group>"; };
 		FE87C2D0259C2EC200799883 /* SnapChatCreativeShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SnapChatCreativeShareView.xib; sourceTree = "<group>"; };
 		FE87C2D1259C2EC200799883 /* SnapChatCreativeShareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapChatCreativeShareView.swift; sourceTree = "<group>"; };
@@ -615,8 +613,6 @@
 		FED7B604244ED1B900D94F97 /* Logger+UserAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+UserAction.swift"; sourceTree = "<group>"; };
 		FED7B606244EDEA500D94F97 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		FEE0E79F25A44C3200DC67B8 /* UIViewLocalizableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewLocalizableExtension.swift; sourceTree = "<group>"; };
-		FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTiktokItemView.swift; sourceTree = "<group>"; };
-		FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTiktokItemView.xib; sourceTree = "<group>"; };
 		FEE8502E259B31DF00CF9A74 /* JoinRoomable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomable.swift; sourceTree = "<group>"; };
 		FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.TopEntranceView.swift; sourceTree = "<group>"; };
 		FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoomTopEntranceContentView.xib; sourceTree = "<group>"; };
@@ -652,6 +648,24 @@
 				71A6690FF0550B1005BB7022 /* Pods-WalkieTalkie.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		26F7FE2F25E62D9C008F992C /* ProfileLook */ = {
+			isa = PBXGroup;
+			children = (
+				26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */,
+				26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */,
+				26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */,
+			);
+			path = ProfileLook;
+			sourceTree = "<group>";
+		};
+		26F7FFED25E631CA008F992C /* CustomAvatar */ = {
+			isa = PBXGroup;
+			children = (
+				26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */,
+			);
+			path = CustomAvatar;
 			sourceTree = "<group>";
 		};
 		2BA2DB492594AB510050BF8E /* Follower */ = {
@@ -773,17 +787,13 @@
 				2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */,
 				FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */,
 				BD4DEE132507A2E4006476E0 /* Social.Widgets.AvatarView.swift */,
-				FEE0E7B125A4670500DC67B8 /* SocialTiktokItemView.swift */,
-				FEE0E7B525A4671600DC67B8 /* SocialTiktokItemView.xib */,
 				2BBBFD2B259CA9EF00A3AB2C /* Report */,
 				2BAB4F812595E1DC00A1C8DC /* Share */,
 				2BAB4EF52595C6D600A1C8DC /* LeaveGame */,
 				2BA2DB492594AB510050BF8E /* Follower */,
 				BDA05E9C250B229D0087933F /* BlockedUserList */,
-				FE87C2CB259C2C4400799883 /* ChannelUser.swift */,
-				26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */,
-				26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */,
-				26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */,
+				26F7FE2F25E62D9C008F992C /* ProfileLook */,
+				26F7FFED25E631CA008F992C /* CustomAvatar */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -1413,7 +1423,6 @@
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
-				FEE0E7B625A4671700DC67B8 /* SocialTiktokItemView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
 				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
@@ -1540,7 +1549,6 @@
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
 				2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
-				FEE0E7B225A4670500DC67B8 /* SocialTiktokItemView.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */,
@@ -1585,6 +1593,7 @@
 				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
+				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
@@ -1628,7 +1637,6 @@
 				2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */,
 				FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */,
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
-				FE87C2CC259C2C4400799883 /* ChannelUser.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
 				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,

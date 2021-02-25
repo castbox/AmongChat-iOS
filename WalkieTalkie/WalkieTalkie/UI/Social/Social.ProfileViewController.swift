@@ -55,8 +55,9 @@ extension Social {
                 guard let `self` = self else { return }
                 switch type {
                 case .avater:
-                    let vc = Social.SelectAvatarViewController()
-                    self.navigationController?.pushViewController(vc)
+                    let vc = Social.CustomAvatarViewController()
+                    vc.modalPresentationStyle = .overCurrentContext
+                    self.present(vc, animated: false)
                 case .edit:
                     
                     guard AmongChat.Login.canDoLoginEvent(style: .authNeeded(source: R.string.localizable.amongChatLoginAuthSourceProfile())) else {
@@ -364,9 +365,9 @@ private extension Social.ProfileViewController {
         }
         showAmongAlert(title: message, message: nil,
                        cancelTitle: R.string.localizable.toastCancel(),
-                       confirmTitle: confirmString) { [weak self] in
-            self?.blockUser()
-        }
+                       confirmTitle: confirmString, confirmAction: { [weak self] in
+                        self?.blockUser()
+                       })
     }
     
     func blockUser() {
