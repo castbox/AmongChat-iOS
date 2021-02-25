@@ -1437,7 +1437,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 265 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 266 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1771,6 +1771,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Friend added successfully
+      /// 
+      /// Locales: en
+      static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3079,6 +3083,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileFollowing(_: Void = ()) -> String {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Friend added successfully
+      /// 
+      /// Locales: en
+      static func followInvitedSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("follow.invited.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Go

@@ -124,7 +124,7 @@ class ShareManager: NSObject {
         linkBuilder?.socialMetaTagParameters = socialMetaTagParameters
         linkBuilder?.navigationInfoParameters = navigationInfoParameters
         linkBuilder?.shorten(completion: { url, warnings, error in
-            cdPrint("The long URL is: \(url)")
+            cdPrint("The shorten URL is: \(url)")
             if let url = url {
                 completionHandler(url.absoluteString)
             } else {

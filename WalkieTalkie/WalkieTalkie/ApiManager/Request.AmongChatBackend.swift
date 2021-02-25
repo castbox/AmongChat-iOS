@@ -666,4 +666,20 @@ extension Request {
             }
     }
     
+    static func userShareSign() -> Single<String?> {
+        return amongchatProvider.rx.request(.shareUserSign)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> String? in
+                json["sign"] as? String
+//                guard let sign = , else {
+//                    return false
+//                }
+//
+//                return true
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
 }

@@ -310,3 +310,6 @@
 "among.chat.profile.pet" = "Pet";
 "among.chat.profile.equip" = "Equip";
 "among.chat.profile.remove" = "Remove";
+
+//2.25
+"follow.invited.success" = "Friend added successfully";

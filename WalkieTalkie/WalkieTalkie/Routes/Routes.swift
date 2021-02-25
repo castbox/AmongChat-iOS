@@ -31,6 +31,7 @@ final class Routes {
             URI.Profile.self,
             URI.Search.self,
             URI.Avatars.self,
+            URI.InviteUser.self,
             ]
         
         types.forEach { (type) in
@@ -61,11 +62,11 @@ final class Routes {
             if !str.hasPrefix("/") {
                 str = "/" + str
             }
-            str = "https://walkietalkie.live" + str
+            str = "https://among.chat" + str
         }
         guard let url = str.robustURL else { return false }
         _ = Routes.shared
-        if url.host == "www.walkietalkie.live" || url.host == "walkietalkie.live" {
+        if url.host == "among.chat" {
             return JLRoutes.global().routeURL(url)
         } else {
             Routes.shared.uriSubject.onNext(URI.Undefined(url))

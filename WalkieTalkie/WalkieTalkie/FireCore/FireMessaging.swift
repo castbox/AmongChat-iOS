@@ -111,7 +111,14 @@
                 cdPrint("[UNUserNotificationCenter.requestAuthorization] \(succeed ? "request succeed": "request failed")")
                 mainQueueDispatchAsync {
                     UIApplication.shared.registerForRemoteNotifications()
+                    
+                    //follow
+                    mainQueueDispatchAsync(after: 1) {
+                        UIApplication.appDelegate?.followInvitedUserhandler?()
+                        UIApplication.appDelegate?.followInvitedUserhandler = nil
+                    }
                 }
+                //
             })
         }
     }

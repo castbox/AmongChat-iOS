@@ -436,5 +436,9 @@
 	<string>Light</string>
 	<key>gad_preferred_webview</key>
 	<string>wkwebview</string>
+    <key>FirebaseDynamicLinksCustomDomains</key>
+    <array>
+      <string>https://amongchat.page.link</string>
+    </array>
 </dict>
 </plist>

@@ -150,14 +150,23 @@ extension AmongChat.Home.RelationsViewController {
             guard let `self` = self else {
                 return
             }
-            let content = ShareManager.Content(type: .profile, targetType: .snapchat, content: R.string.localizable.shareApp(), url: "https://among.chat/uid/\(Settings.loginUserId!)")
             let removeHandler = self.view.raft.show(.loading)
-            ShareManager.default.share(with: content, .snapchat, viewController: self) { [weak self] in
-                removeHandler()
-            }
-//            ShareManager.default.share(with: "sssssss", type: .snapchat, viewController: self)
+            //get sign
+            Request.userShareSign()
+                .subscribe { sign in
+                    guard let sign = sign else {
+                        removeHandler()
+                        return
+                    }
+                    let content = ShareManager.Content(type: .profile, targetType: .snapchat, content: R.string.localizable.shareApp(), url: "https://among.chat/user?uid=\(Settings.loginUserId!)&sign=\(sign)")
+                    ShareManager.default.share(with: content, .snapchat, viewController: self) {
+                        removeHandler()
+                    }
+                } onError: { error in
+                    removeHandler()
+                }
+                .disposed(by: self.bag)
         }
-//        inviteView.showModal(in: self.tabBarController!)
     }
 
 }

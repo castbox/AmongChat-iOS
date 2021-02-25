@@ -59,6 +59,7 @@ extension APIService {
         case defaultDecorations
         case unlockDecoration([String : Any])
         case updateDecoration([String : Any])
+        case shareUserSign
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -167,6 +168,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/unlock/decoration"
         case .updateDecoration:
             return "/account/decoration/upsert"
+        case .shareUserSign:
+            return "/account/share/sign"
         }
     }
     
@@ -217,7 +220,8 @@ extension APIService.AmongChatBackend: TargetType {
              .requestSmsCode,
              .verifySmsCode,
              .defaultDecorations,
-             .userSearch:
+             .userSearch,
+             .shareUserSign:
             return .get
         case .follow:
             return .put
@@ -244,7 +248,8 @@ extension APIService.AmongChatBackend: TargetType {
              .accountMetaData,
              .contactList,
              .defaultDecorations,
-             .globalSetting:
+             .globalSetting,
+             .shareUserSign:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
         case .createRoom(let params),

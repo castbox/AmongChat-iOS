@@ -52,6 +52,8 @@ extension Routes {
                         self.handleProfile(uid: profile.uid)
                     case _ as URI.Avatars:
                         self.handleAvatars()
+                    case let user as URI.InviteUser:
+                        self.handleInviteUser(uid: user.uid)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -122,7 +124,26 @@ extension Routes {
             UIApplication.navigationController?.pushViewController(vc)
         }
         
+        func handleInviteUser(uid: String?) {
+            guard let uid = uid?.int else {
+                return
+            }
+            UIApplication.appDelegate?.followInvitedUserhandler = {
+                //检查
+                _ = Request.follow(uid: uid, type: "follow")
+                    .subscribe(onSuccess: { success in
+                        if success, let controller = UIApplication.topViewController()  {
+                            controller.view.raft.autoShow(.text(R.string.localizable.followInvitedSuccess()), interval: 3)
+                        }
+                    }, onError: { (error) in 
+                        cdPrint("handleInviteUser error:\(error.localizedDescription)")
+                    })
+                
+            }
+        }
+        
         func handleFollowers() {
+            
         }
         
         func showWebViewController(urlString: String) {

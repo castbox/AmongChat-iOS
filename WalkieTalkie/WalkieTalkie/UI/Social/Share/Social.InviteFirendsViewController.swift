@@ -371,36 +371,36 @@ extension Social.InviteFirendsViewController {
                 addSubviews(views: smsBtn, snapchatBtn, copyLinkBtn)
 
                 smsBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(20)
+                    make.left.equalTo(14.5)
                     make.top.equalTo(72)
                     make.width.equalTo(40)
                     make.height.equalTo(68)
                 }
                 
                 snapchatBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(smsBtn.snp.right).offset(40)
+                    make.left.equalTo(smsBtn.snp.right).offset(27)
                     make.top.equalTo(72)
                     make.width.equalTo(70)
                     make.height.equalTo(68)
                 }
 
                 copyLinkBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(snapchatBtn.snp.right).offset(40)
+                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
                     make.top.equalTo(72)
-                    make.width.equalTo(70)
+                    make.width.equalTo(68)
                     make.height.equalTo(68)
                 }
             } else {
                 addSubviews(views: snapchatBtn, copyLinkBtn)
                 snapchatBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(20)
+                    make.left.equalTo(14.5)
                     make.top.equalTo(72)
                     make.width.equalTo(40)
                     make.height.equalTo(68)
                 }
 
                 copyLinkBtn.snp.makeConstraints { (make) in
-                    make.left.equalTo(snapchatBtn.snp.right).offset(40)
+                    make.left.equalTo(snapchatBtn.snp.right).offset(15)
                     make.top.equalTo(72)
                     make.width.equalTo(40)
                     make.height.equalTo(68)
@@ -412,7 +412,7 @@ extension Social.InviteFirendsViewController {
             addSubviews(views: lineView, shareLinkBtn)
            
             shareLinkBtn.snp.makeConstraints { (make) in
-                make.left.equalTo(copyLinkBtn.snp.right).offset(40)
+                make.left.equalTo(copyLinkBtn.snp.right).offset(13)
                 make.centerY.equalTo(copyLinkBtn)
                 make.width.equalTo(70)
                 make.height.equalTo(68)

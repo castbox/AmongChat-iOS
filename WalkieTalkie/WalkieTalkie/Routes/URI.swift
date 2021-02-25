@@ -89,6 +89,24 @@ extension URI {
         
     }
     
+    //回流信息
+    struct InviteUser: URIRepresentable {
+        //https://among.chat/user?uid=xxx&sign=xxxxx
+        static func patterns() -> [String] {
+            return [
+                "/user/:uid",
+                "/user"
+            ]
+        }
+        
+        let uid: String?
+        
+        init?(_ paras: [String: Any]) {
+            self.uid = paras["uid"] as? String
+        }
+        
+    }
+    
     struct CreateRoom: URIRepresentable {
         
         static func patterns() -> [String] {
