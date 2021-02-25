@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 160 images.
+  /// This `R.image` struct is generated, and contains static references to 161 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -244,6 +244,8 @@ struct R: Rswift.Validatable {
     static let ac_privileges_left_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_left_line")
     /// Image `ac_privileges_right_line`.
     static let ac_privileges_right_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_right_line")
+    /// Image `ac_pro_icon_24`.
+    static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
     /// Image `ac_pro_privilege_badge`.
     static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
     /// Image `ac_pro_privilege_match`.
@@ -710,6 +712,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_privileges_right_line", bundle: ..., traitCollection: ...)`
     static func ac_privileges_right_line(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_privileges_right_line, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_icon_24", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
@@ -1548,7 +1555,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.infoplist` struct is generated, and contains static references to 5 localization keys.
+    /// This `R.string.infoplist` struct is generated, and contains static references to 6 localization keys.
     struct infoplist {
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1558,6 +1565,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsMicrophoneUsageDescription = Rswift.StringResource(key: "NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please allow Among Chat to use your Camera.
+      /// 
+      /// Locales: en
+      static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please allow Among Chat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1585,6 +1596,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Please allow Among Chat to use your Camera.
+      /// 
+      /// Locales: en
+      static func nsCameraUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Please allow Among Chat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1609,7 +1627,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 270 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 271 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1775,6 +1793,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomRebloxTitle = Rswift.StringResource(key: "among.chat.room.reblox.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Close
+      /// 
+      /// Locales: en
+      static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2977,6 +2999,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomRebloxTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.reblox.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Close
+      /// 
+      /// Locales: en
+      static func amongChatCustomAvatarClose(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.close", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Community guidelines

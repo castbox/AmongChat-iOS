@@ -315,5 +315,6 @@
 "among.chat.custom.avatar.use.default" = "Use an avatar";
 "among.chat.custom.avatar.take.photo" = "Take a photo";
 "among.chat.custom.avatar.select.image" = "Select an image";
+"among.chat.custom.avatar.close" = "Close";
 "among.chat.pro.privilege.custom.avatars" = "Upload your own avatar";
 "among.chat.pro.privilege.custom.avatars.sub" = "Your avatar can be different";

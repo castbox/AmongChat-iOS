@@ -99,6 +99,8 @@
 	<string>Please allow Among Chat to use your speech recognition</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow Among Chat to use your camera</string>
 	<key>SCSDKClientId</key>
 	<string>fe9236ab-e095-4e6c-a211-35c1c64465df</string>
 	<key>SCSDKRedirectUrl</key>
