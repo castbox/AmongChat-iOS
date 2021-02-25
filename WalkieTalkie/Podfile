@@ -153,6 +153,7 @@ target 'WalkieTalkie' do
     #https://github.com/mac-gallagher/Shuffle
 #    pod 'Shuffle-iOS'
     pod "Koloda"
+    pod 'YPImagePicker'
 end
 
 post_install do |installer|

@@ -311,6 +311,12 @@
 "among.chat.profile.equip" = "Equip";
 "among.chat.profile.remove" = "Remove";
 
-//2.25
+//1.14
 "follow.invited.success" = "Friend added successfully";
-"share.channel.ended.tips" = "This channel has ended. Join others and find new friends to play with!";
+//"share.channel.ended.tips" = "This channel has ended. Join others and find new friends to play with!";
+"among.chat.custom.avatar.use.default" = "Use an avatar";
+"among.chat.custom.avatar.take.photo" = "Take a photo";
+"among.chat.custom.avatar.select.image" = "Select an image";
+"among.chat.custom.avatar.close" = "Close";
+"among.chat.pro.privilege.custom.avatars" = "Upload your own avatar";
+"among.chat.pro.privilege.custom.avatars.sub" = "Your avatar can be different";

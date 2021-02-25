@@ -11,3 +11,4 @@ NSPhotoLibraryUsageDescription = "Please allow Among Chat to use your photo libr
 NSSpeechRecognitionUsageDescription = "Please allow Among Chat to use your speech recognition";
 NSContactsUsageDescription = "AmongChat uses your contacts to help you find friends and play together.";
 NSUserTrackingUsageDescription = "This identifier will be used to deliver personalized ads to you.";
+NSCameraUsageDescription = "Please allow Among Chat to use your Camera.";

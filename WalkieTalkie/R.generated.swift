@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 133 images.
+  /// This `R.image` struct is generated, and contains static references to 135 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -244,6 +244,8 @@ struct R: Rswift.Validatable {
     static let ac_privileges_left_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_left_line")
     /// Image `ac_privileges_right_line`.
     static let ac_privileges_right_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_right_line")
+    /// Image `ac_pro_icon_24`.
+    static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
     /// Image `ac_pro_privilege_badge`.
     static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
     /// Image `ac_pro_privilege_match`.
@@ -254,6 +256,8 @@ struct R: Rswift.Validatable {
     static let ac_pro_privilege_special_avatars = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_special_avatars")
     /// Image `ac_pro_privilege_unlimited_cards`.
     static let ac_pro_privilege_unlimited_cards = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_unlimited_cards")
+    /// Image `ac_pro_privilege_upload_avatar`.
+    static let ac_pro_privilege_upload_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_upload_avatar")
     /// Image `ac_pro_unbuy_badge`.
     static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
     /// Image `ac_pro_unlocked_badge`.
@@ -658,6 +662,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_privileges_right_line, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_pro_icon_24", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_privilege_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_badge, compatibleWith: traitCollection)
@@ -681,6 +690,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_pro_privilege_unlimited_cards", bundle: ..., traitCollection: ...)`
     static func ac_pro_privilege_unlimited_cards(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_unlimited_cards, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_pro_privilege_upload_avatar", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_upload_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_upload_avatar, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
@@ -1081,7 +1095,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 21 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1123,8 +1137,6 @@ struct R: Rswift.Validatable {
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
     /// Nib `SnapChatSharePhotoView`.
     static let snapChatSharePhotoView = _R.nib._SnapChatSharePhotoView()
-    /// Nib `SocialTiktokItemView`.
-    static let socialTiktokItemView = _R.nib._SocialTiktokItemView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
     
@@ -1248,12 +1260,6 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatSharePhotoView)
     }
     
-    /// `UINib(name: "SocialTiktokItemView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.socialTiktokItemView) instead")
-    static func socialTiktokItemView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.socialTiktokItemView)
-    }
-    
     /// `UINib(name: "TikTokShareView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.tikTokShareView) instead")
     static func tikTokShareView(_: Void = ()) -> UIKit.UINib {
@@ -1340,10 +1346,6 @@ struct R: Rswift.Validatable {
       return R.nib.snapChatSharePhotoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func socialTiktokItemView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.socialTiktokItemView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-    }
-    
     static func tikTokShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.tikTokShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1383,7 +1385,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.infoplist` struct is generated, and contains static references to 5 localization keys.
+    /// This `R.string.infoplist` struct is generated, and contains static references to 6 localization keys.
     struct infoplist {
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1393,6 +1395,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsMicrophoneUsageDescription = Rswift.StringResource(key: "NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please allow Among Chat to use your Camera.
+      /// 
+      /// Locales: en
+      static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please allow Among Chat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1420,6 +1426,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Please allow Among Chat to use your Camera.
+      /// 
+      /// Locales: en
+      static func nsCameraUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Please allow Among Chat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1444,7 +1457,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 267 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 266 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2310,10 +2323,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let permiumYearlyProductPrice = Rswift.StringResource(key: "permium.yearly.product.price", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: This channel has ended. Join others and find new friends to play with!
-      /// 
-      /// Locales: en
-      static let shareChannelEndedTips = Rswift.StringResource(key: "share.channel.ended.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This channel is private
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4027,13 +4036,6 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("permium.yearly.product.price", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
-      /// en translation: This channel has ended. Join others and find new friends to play with!
-      /// 
-      /// Locales: en
-      static func shareChannelEndedTips(_: Void = ()) -> String {
-        return NSLocalizedString("share.channel.ended.tips", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: This channel is private
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4419,7 +4421,6 @@ struct _R: Rswift.Validatable {
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
-      try _SocialTiktokItemView.validate()
       try _TikTokShareView.validate()
     }
     
@@ -4696,24 +4697,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ac_profile_avatar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_avatar' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_share_snapchat_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_share_snapchat_url_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_url_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
-      }
-      
-      fileprivate init() {}
-    }
-    
-    struct _SocialTiktokItemView: Rswift.NibResourceType, Rswift.Validatable {
-      let bundle = R.hostingBundle
-      let name = "SocialTiktokItemView"
-      
-      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_social_tiktok", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_social_tiktok' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
