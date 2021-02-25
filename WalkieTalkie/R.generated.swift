@@ -144,7 +144,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 132 images.
+  /// This `R.image` struct is generated, and contains static references to 133 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -374,6 +374,8 @@ struct R: Rswift.Validatable {
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
     /// Image `icon_setting`.
     static let icon_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting")
+    /// Image `icon_share_live_end`.
+    static let icon_share_live_end = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_live_end")
     /// Image `icon_social_find_contaccts`.
     static let icon_social_find_contaccts = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_find_contaccts")
     /// Image `icon_social_share_link`.
@@ -981,6 +983,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_setting, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_share_live_end", bundle: ..., traitCollection: ...)`
+    static func icon_share_live_end(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_live_end, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_social_find_contaccts", bundle: ..., traitCollection: ...)`
     static func icon_social_find_contaccts(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_social_find_contaccts, compatibleWith: traitCollection)
@@ -1437,7 +1444,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 266 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 267 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2303,6 +2310,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let permiumYearlyProductPrice = Rswift.StringResource(key: "permium.yearly.product.price", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: This channel has ended. Join others and find new friends to play with!
+      /// 
+      /// Locales: en
+      static let shareChannelEndedTips = Rswift.StringResource(key: "share.channel.ended.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: This channel is private
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4014,6 +4025,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func permiumYearlyProductPrice(_ value1: String) -> String {
         return String(format: NSLocalizedString("permium.yearly.product.price", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: This channel has ended. Join others and find new friends to play with!
+      /// 
+      /// Locales: en
+      static func shareChannelEndedTips(_: Void = ()) -> String {
+        return NSLocalizedString("share.channel.ended.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: This channel is private
