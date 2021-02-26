@@ -232,7 +232,7 @@ extension Social.ProfileViewController {
             nameLabel.attributedText = profile.nameWithVerified(fontSize: 26, withAge: true)
             currentName = nameLabel.text ?? ""
             uidLabel.text = "ID: \(profile.uid)"
-            avatarIV.setAvatarImage(with: profile.pictureUrl)
+            avatarIV.updateAvatar(with: profile)
             if isSelf {
                 editBtn.isHidden = false
             }
