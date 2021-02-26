@@ -223,12 +223,15 @@ extension Social.CustomAvatarViewController {
         switch source {
         case .album:
             config.screens = [.library]
+            config.wordings.permissionPopup.message = R.string.infoplist.nsPhotoLibraryUsageDescription()
         case .camera:
             config.screens = [.photo]
             config.usesFrontCamera = true
+            config.wordings.permissionPopup.message = R.string.infoplist.nsCameraUsageDescription()
         }
         
         config.showsPhotoFilters = false
+        config.hidesStatusBar = false
         let picker = YPImagePicker(configuration: config)
         present(picker, animated: true, completion: nil)
         
