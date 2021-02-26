@@ -93,6 +93,7 @@ extension Social {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
+            setupEvents()
         }
         
         override func viewDidLayoutSubviews() {
@@ -100,6 +101,16 @@ extension Social {
             containerView.addCorner(with: 20)
         }
         
+        override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+            UIView.animate(withDuration: AnimationDuration.normalSlow.rawValue, animations: { [weak self] in
+                
+                self?.view.backgroundColor = .clear
+                self?.containerView.transform = CGAffineTransform(translationX: 0, y: Frame.Screen.bounds.height)
+                
+            }, completion: { (_) in
+                super.dismiss(animated: false, completion: completion)
+            })
+        }
     }
     
 }
@@ -140,7 +151,7 @@ extension Social.CustomAvatarViewController {
     
     private func setupLayout() {
         
-        view.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.6)
+        view.backgroundColor = .clear
         
         let stack = UIStackView(arrangedSubviews: [useAvatarButton, takePhotoButton, selectImageButton, closeButton],
                                 axis: .vertical,
@@ -164,6 +175,23 @@ extension Social.CustomAvatarViewController {
             maker.bottom.equalToSuperview()
         }
         
+        containerView.transform = CGAffineTransform(translationX: 0, y: Frame.Screen.bounds.height)
+        
+    }
+    
+    private func setupEvents() {
+        rx.viewDidAppear
+            .take(1)
+            .subscribe(onNext: { [weak self] () in
+                
+                self?.view.backgroundColor = .clear
+                UIView.animate(withDuration: AnimationDuration.normalSlow.rawValue, animations: {
+                    
+                    self?.view.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.6)
+                    self?.containerView.transform = .identity
+                })
+            })
+            .disposed(by: bag)
     }
     
     private func uploadAvatar(via source: CustomAvatarSource) -> Single<Bool> {
