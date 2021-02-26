@@ -310,3 +310,12 @@
 "among.chat.profile.pet" = "애완 동물";
 "among.chat.profile.equip" = "갖추어 주다";
 "among.chat.profile.remove" = "없애다";
+
+//1.14
+"follow.invited.success" = "친구가 성공적으로 추가되었습니다.";
+"among.chat.custom.avatar.use.default" = "아바타 사용";
+"among.chat.custom.avatar.take.photo" = "사진을 찍다";
+"among.chat.custom.avatar.select.image" = "이미지 선택";
+"among.chat.custom.avatar.close" = "닫기";
+"among.chat.pro.privilege.custom.avatars" = "나만의 아바타 업로드";
+"among.chat.pro.privilege.custom.avatars.sub" = "당신의 아바타는 다를 수 있습니다";

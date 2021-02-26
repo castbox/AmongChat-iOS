@@ -310,3 +310,12 @@
 "among.chat.profile.pet" = "Animal";
 "among.chat.profile.equip" = "Equipar";
 "among.chat.profile.remove" = "Remover";
+
+//1.14
+"follow.invited.success" = "Amigo adicionado com sucesso";
+"among.chat.custom.avatar.use.default" = "Use um avatar";
+"among.chat.custom.avatar.take.photo" = "Tire uma foto";
+"among.chat.custom.avatar.select.image" = "Selecione uma imagem";
+"among.chat.custom.avatar.close" = "Fechar";
+"among.chat.pro.privilege.custom.avatars" = "Carregue seu próprio avatar";
+"among.chat.pro.privilege.custom.avatars.sub" = "Seu avatar pode ser diferente";

@@ -310,3 +310,12 @@
 "among.chat.profile.pet" = "حيوان اليف";
 "among.chat.profile.equip" = "تجهيز";
 "among.chat.profile.remove" = "إزالة";
+
+//1.14
+"follow.invited.success" = "تمت إضافة الصديق بنجاح";
+"among.chat.custom.avatar.use.default" = "استخدم الصورة الرمزية";
+"among.chat.custom.avatar.take.photo" = "التقاط صورة";
+"among.chat.custom.avatar.select.image" = "اختر صورة";
+"among.chat.custom.avatar.close" = "قريب";
+"among.chat.pro.privilege.custom.avatars" = "قم بتحميل الصورة الرمزية الخاصة بك";
+"among.chat.pro.privilege.custom.avatars.sub" = "يمكن أن تكون صورتك الرمزية مختلفة";

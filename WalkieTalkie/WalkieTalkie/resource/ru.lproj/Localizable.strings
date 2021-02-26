@@ -310,3 +310,12 @@
 "among.chat.profile.pet" = "Домашнее животное";
 "among.chat.profile.equip" = "Оборудовать";
 "among.chat.profile.remove" = "удалять";
+
+//1.14
+"follow.invited.success" = "Друг успешно добавлен";
+"among.chat.custom.avatar.use.default" = "Используйте аватар";
+"among.chat.custom.avatar.take.photo" = "Сфотографировать";
+"among.chat.custom.avatar.select.image" = "Выберите изображение";
+"among.chat.custom.avatar.close" = "Закрывать";
+"among.chat.pro.privilege.custom.avatars" = "Загрузите свой аватар";
+"among.chat.pro.privilege.custom.avatars.sub" = "Ваш аватар может быть другим";
