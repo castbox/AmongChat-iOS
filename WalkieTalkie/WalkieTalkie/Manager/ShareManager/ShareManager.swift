@@ -103,7 +103,7 @@ class ShareManager: NSObject {
         iosParameters.appStoreID = "1539641263"
         
         let androidParameters = DynamicLinkAndroidParameters(packageName: "walkie.talkie.among.us.friends")
-        androidParameters.fallbackURL = URL(string: "https://play.google.com/store/apps/details?id=walkie.talkie.among.us.friends")
+//        androidParameters.fallbackURL = URL(string: "https://play.google.com/store/apps/details?id=walkie.talkie.among.us.friends")
         let googleAnalyticsParameters = DynamicLinkGoogleAnalyticsParameters(source: type.googleSource, medium: type.googleMedium, campaign: type.googleCampaign)
         
         let itcAnalyticsParameters = DynamicLinkItunesConnectAnalyticsParameters()
