@@ -313,7 +313,6 @@
 
 //1.14
 "follow.invited.success" = "Friend added successfully";
-//"share.channel.ended.tips" = "This channel has ended. Join others and find new friends to play with!";
 "among.chat.custom.avatar.use.default" = "Use an avatar";
 "among.chat.custom.avatar.take.photo" = "Take a photo";
 "among.chat.custom.avatar.select.image" = "Select an image";

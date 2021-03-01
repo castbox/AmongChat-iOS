@@ -8,6 +8,7 @@
 
 NSMicrophoneUsageDescription = "Включить микрофон, чтобы разговаривать с другими участниками каналов";
 NSPhotoLibraryUsageDescription = "Разрешите AmongChat использовать вашу библиотеку фотографий";
-NSSpeechRecognitionUsageDescription = "Разрешите AmongChat использовать распознавание речи";
+NSSpeechRecognitionUsageDescription = "Разрешите AmongChat использовать вашу речь";
 NSContactsUsageDescription = "AmongChat использует ваши контакты, чтобы помочь вам найти друзей и вместе играть.";
 NSUserTrackingUsageDescription = "Этот идентификатор будет использоваться для показа вам персонализированной рекламы.";
+NSCameraUsageDescription = "Разрешите AmongChat использовать вашу камеру.";
