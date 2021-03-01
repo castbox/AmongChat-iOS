@@ -68,7 +68,9 @@ extension Social {
         
         override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesBegan(touches, with: event)
-            view.endEditing(true)
+            if touches.first?.view == userInputView.xibView {
+                view.endEditing(true)
+            }
         }
     }
 }
@@ -240,9 +242,10 @@ private extension Social.EditProfileViewController {
                 .do(onDispose: {
                     hudRemoval()
                 })
-                .subscribe(onSuccess: { (profile) in
-                    
+                .subscribe(onSuccess: { [weak self] (profile) in
                     guard let p = profile else {
+                        //show save error
+                        self?.view.raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
                         return
                     }
                     Settings.shared.amongChatUserProfile.value = p
@@ -250,6 +253,7 @@ private extension Social.EditProfileViewController {
                         Logger.Action.log(.profile_birthday_update_success, category: nil, birthdayStr)
                     }
                 }, onError: { (error) in
+                    hudRemoval()
                 })
                 .disposed(by: bag)
         }

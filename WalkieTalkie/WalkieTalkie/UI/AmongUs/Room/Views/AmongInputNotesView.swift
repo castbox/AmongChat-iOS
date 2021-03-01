@@ -63,6 +63,12 @@ class AmongInputNotesView: XibLoadableView {
             _ = textView.resignFirstResponder()
             return
         }
+        if let text = SensitiveWordChecker.firstSensitiveWord(in: name) {
+            //show
+            textView?.attributedText = redAttributesString(text: name, redText: text)
+            raft.autoShow(.text(R.string.localizable.contentContainSensitiveWords()))
+            return
+        }
         inputResultHandler?(name)
         _ = textView.resignFirstResponder()
     }
@@ -88,6 +94,7 @@ extension AmongInputNotesView: UITextViewDelegate {
               let rangeOfTextToReplace = Range(range, in: textFieldText) else {
             return false
         }
+        textView.textColor = .black
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + text.count
         hostNotesPlaceholderLabel.isHidden = count > 0
@@ -108,6 +115,15 @@ extension AmongInputNotesView: UITextViewDelegate {
 }
 
 extension AmongInputNotesView {
+    func redAttributesString(text: String, redText: String) -> NSAttributedString {
+        let attributes = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16)])
+        if let range = text.nsRange(of: redText) {
+            attributes.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red], range: range)
+        }
+        return attributes
+    }
+
+    
     func updateSelectedButton() {
         
     }

@@ -73,9 +73,13 @@ class SensitiveWordChecker {
                         return j
                     }
                 }
+                let predicate = NSPredicate(format: "SELF MATCHES %@", "[\\u4e00-\\u9fa5|0-9|a-zA-Z]")
                 let char = lowercasedText[j]
                 let previousChar = lowercasedText[lastIndex] //当前字符的上一个字符
-                return (char == " " || nextIndex == (lowercasedText.count - 1)) && (previousChar == " " || lastIndex == 0)
+//                char.trimmingCharacters(in: .illegalCharacters)
+                let value = predicate.evaluate(with: char)
+                print("char: \(char) evaluate: \(value)")
+                return ((char == " " || !value) || nextIndex == (lowercasedText.count - 1)) && ((previousChar == " " || !predicate.evaluate(with: char)) || lastIndex == 0)
             }
             if isLastOrFirstChar,
                 p.word.lowercased() == substring,

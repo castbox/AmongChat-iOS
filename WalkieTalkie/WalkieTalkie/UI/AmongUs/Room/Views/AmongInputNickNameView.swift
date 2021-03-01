@@ -100,6 +100,7 @@ extension AmongInputNickNameView: UITextFieldDelegate {
               let rangeOfTextToReplace = Range(range, in: textFieldText) else {
             return false
         }
+        textField.textColor = .black
         let substringToReplace = textFieldText[rangeOfTextToReplace]
         let count = textFieldText.count - substringToReplace.count + string.count
         return count <= 30
