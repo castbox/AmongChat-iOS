@@ -233,6 +233,7 @@ extension Social.CustomAvatarViewController {
         config.showsPhotoFilters = false
         config.hidesStatusBar = false
         let picker = YPImagePicker(configuration: config)
+        picker.imagePickerDelegate = self
         present(picker, animated: true, completion: nil)
         
         return Single<UIImage>.create(subscribe: { (subscriber) -> Disposable in
@@ -313,4 +314,15 @@ extension Social.CustomAvatarViewController {
             }
     }
 
+}
+
+extension Social.CustomAvatarViewController: YPImagePickerDelegate {
+    
+    func noPhotos() {
+        view.raft.autoShow(.text(MsgError.default.msg ?? R.string.localizable.amongChatUnknownError()))
+    }
+    
+    func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
+        return true
+    }
 }
