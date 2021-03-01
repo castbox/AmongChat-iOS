@@ -187,7 +187,7 @@ extension Social.CustomAvatarViewController {
                 self?.view.backgroundColor = .clear
                 UIView.animate(withDuration: AnimationDuration.normalSlow.rawValue, animations: {
                     
-                    self?.view.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.6)
+                    self?.view.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.7)
                     self?.containerView.transform = .identity
                 })
             })
