@@ -10,7 +10,7 @@ import Foundation
 import FirebaseDynamicLinks
 import SCSDKCreativeKit
 import MessageUI
-import TikTokOpenSDK
+//import TikTokOpenSDK
 import RxSwift
 import Kingfisher
 
@@ -336,8 +336,8 @@ extension ShareManager.ShareType {
         switch self {
         case .snapchat, .whatsapp:
             return UIApplication.shared.canOpenURL(URL(string: "\(rawValue)://")!)
-        case .ticktock:
-            return TikTokOpenSDKApplicationDelegate.sharedInstance().isAppInstalled()
+//        case .ticktock:
+//            return TikTokOpenSDKApplicationDelegate.sharedInstance().isAppInstalled()
         default:
             return true
         }

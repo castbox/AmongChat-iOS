@@ -133,7 +133,7 @@ target 'WalkieTalkie' do
 
     pod 'WSFlexibleTouch'
     
-    pod 'TikTokOpenSDK', '~> 3.0.2'
+#    pod 'TikTokOpenSDK', '~> 3.0.2'
     
     pod 'Kingfisher'
     pod 'YYText'
