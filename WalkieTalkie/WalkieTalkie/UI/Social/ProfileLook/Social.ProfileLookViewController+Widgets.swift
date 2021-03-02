@@ -187,7 +187,7 @@ extension Social.ProfileLookViewController {
             
             indicatorContainer.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
-                maker.centerY.equalToSuperview().offset(21.5)
+                maker.centerY.equalToSuperview().offset(19)
             }
             
             addSubviews(views: scrollView)
@@ -223,7 +223,7 @@ extension Social.ProfileLookViewController {
             for (idx, btn) in buttons.enumerated() {
                 
                 btn.snp.makeConstraints { (maker) in
-                    maker.centerY.equalToSuperview()
+                    maker.centerY.equalToSuperview().offset(-2)
                     if idx == 0 {
                         maker.leading.equalToSuperview().inset(20)
                     } else if idx == buttons.count - 1 {

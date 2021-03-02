@@ -126,7 +126,7 @@ private extension Social.ProfileLookViewController {
         
         segmentedButton.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(80.scalHValue)
+            maker.height.equalTo(59)
             maker.top.equalTo(profileLookView.snp.bottom)
         }
         
