@@ -90,6 +90,18 @@ extension Social {
             return btn
         }()
         
+        private lazy var bgTapGR: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event
+                .subscribe(onNext: { [weak self] (g) in
+                    guard let `self` = self,
+                    !self.containerView.frame.contains(g.location(in: self.view)) else { return }
+                    self.dismiss(animated: false)
+                })
+                .disposed(by: bag)
+            return g
+        }()
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -152,6 +164,7 @@ extension Social.CustomAvatarViewController {
     private func setupLayout() {
         
         view.backgroundColor = .clear
+        view.addGestureRecognizer(bgTapGR)
         
         let stack = UIStackView(arrangedSubviews: [useAvatarButton, takePhotoButton, selectImageButton, closeButton],
                                 axis: .vertical,
