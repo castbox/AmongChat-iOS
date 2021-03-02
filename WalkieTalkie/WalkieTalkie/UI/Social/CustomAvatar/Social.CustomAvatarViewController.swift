@@ -192,6 +192,16 @@ extension Social.CustomAvatarViewController {
                 })
             })
             .disposed(by: bag)
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.useAvatarButton.titleLabel?.redDotOff()
+                } else {
+                    self?.useAvatarButton.titleLabel?.redDotOn(rightInset: -8, topInset: 2.5, diameter: 8)
+                }
+            })
+            .disposed(by: bag)
     }
     
     private func uploadAvatar(via source: CustomAvatarSource) -> Single<Bool> {
