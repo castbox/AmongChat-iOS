@@ -206,13 +206,6 @@ extension Social.CustomAvatarViewController {
             .flatMap({ _ in self.selectImage(via: source) })
             .flatMap({ self.uploadImage(image: $0) })
             .flatMap({ self.useAvatar($0) })
-            .map({ (p) -> Entity.UserProfile in
-                guard let profile = p else {
-                    throw MsgError.default
-                }
-                
-                return profile
-            })
             .map ({ _ in true })
     }
     
@@ -259,18 +252,29 @@ extension Social.CustomAvatarViewController {
         
     }
     
-    private func uploadImage(image: UIImage) -> Single<String> {
+    private func uploadImage(image: UIImage) -> Single<(String, UIImage)> {
         
         guard let imgPng = image.scaled(toWidth: 200) else {
             return Single.error(MsgError.default)
         }
         
         return Request.uploadPng(image: imgPng)
+            .map { ($0, image) }
     }
     
-    private func useAvatar(_ url: String) -> Single<Entity.UserProfile?> {
-        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: url)
+    private func useAvatar(_ avatarTuple: (String, UIImage)) -> Single<Entity.UserProfile> {
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatarTuple.0)
         return Request.updateProfile(profileProto)
+            .map({ (p) -> Entity.UserProfile in
+                guard let profile = p else {
+                    throw MsgError.default
+                }
+                
+                return profile
+            })
+            .do(onSuccess: { (_) in
+                AvatarImageView.placeholder = avatarTuple.1
+            })
     }
     
     private func upgradeProIfNeeded(source: Logger.IAP.ActionSource) -> Single<Bool> {
