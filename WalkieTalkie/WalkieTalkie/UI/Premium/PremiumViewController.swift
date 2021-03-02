@@ -382,7 +382,7 @@ extension PremiumViewController {
                     .subscribe(onSuccess: { (_) in
                         self?.dismissSelf(purchased: true)
                     }, onError: { (error) in
-                        self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                        self?.view.raft.autoShow(.text( MsgError.default.msg ?? R.string.localizable.amongChatUnknownError() ))
                     })
                 
                 Defaults[\.purchasedItemsKey] = identifier
@@ -394,7 +394,7 @@ extension PremiumViewController {
                 cdPrint("Purchase failed")
                 DispatchQueue.main.async {
                     removeBlock()
-                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
+                    self?.view.raft.autoShow(.text( MsgError.default.msg ?? R.string.localizable.amongChatUnknownError() ))
                 }
                 if let s = self?.source {
                     Logger.IAP.logPurchaseResult(product: product.skProduct, source: s, isSuccess: false)

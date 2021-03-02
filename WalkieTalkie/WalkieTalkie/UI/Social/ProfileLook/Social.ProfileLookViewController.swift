@@ -251,6 +251,15 @@ private extension Social.ProfileLookViewController {
                         
                         return self.unlockDecorationStep2(decoration)
                     })
+                    .flatMap({ [weak self] (success) in
+                        
+                        guard let `self` = self,
+                              success else {
+                            return Single.error(MsgError.default)
+                        }
+                        
+                        return self.updateDecorationSelection(decoration, selected: true)
+                    })
                     .do(onSuccess: { (_) in
                         if decoration.decorationType == .pet {
                             Logger.Action.log(.profile_customize_pet_get_success, decoration.decoration.id.string)
@@ -275,6 +284,7 @@ private extension Social.ProfileLookViewController {
         return signal
             .observeOn(MainScheduler.asyncInstance)
             .do(onSuccess: { [weak self] (success) in
+                guard success else { return }
                 self?.profileLookView.updateLook(decoration)
                 Settings.shared.updateProfile()
             }, onError: { [weak self] (error) in
@@ -309,12 +319,13 @@ private extension Social.ProfileLookViewController {
         
         let unlockSignal: Single<Bool>
         
-        if decoration.decoration.unlockType == .pay {
+        switch decoration.decoration.unlockType {
+        case .pay, .premium:
             unlockSignal = Single.just(true)
                 .do(onSuccess: { (_) in
                     decoration.unlock()
                 })
-        } else {
+        default:
             unlockSignal = Request.unlockProfileDecoration(decoration.decoration)
                 .observeOn(MainScheduler.asyncInstance)
                 .do(onSuccess: { (success) in
@@ -324,15 +335,6 @@ private extension Social.ProfileLookViewController {
         }
         
         return unlockSignal
-            .flatMap { [weak self] (success) in
-                
-                guard let `self` = self,
-                      success else {
-                    return Single.error(MsgError.default)
-                }
-                
-                return self.updateDecorationSelection(decoration, selected: true)
-            }
     }
     
     func updateDecorationSelection(_ decoration: DecorationViewModel, selected: Bool) -> Single<Bool> {
