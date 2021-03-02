@@ -270,7 +270,9 @@ class ShareManager: NSObject {
         
         self.snapAPI.startSending(snapContent) { (error: Error?) in
             //                        removeHandler()
-            successHandler?()
+            mainQueueDispatchAsync {
+                successHandler?()
+            }
             //                self?.view.isUserInteractionEnabled = true
             //                self?.isSharing = false
             print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
