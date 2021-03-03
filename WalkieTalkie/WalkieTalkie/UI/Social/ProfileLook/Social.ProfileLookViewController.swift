@@ -389,6 +389,9 @@ private extension Social.ProfileLookViewController {
                     .take(1)
                     .timeout(.seconds(10), scheduler: MainScheduler.asyncInstance)
                     .asSingle()
+                    .do(onSuccess: { [weak self] (_) in
+                        self?.fetchData()
+                    })
             }
     }
     
