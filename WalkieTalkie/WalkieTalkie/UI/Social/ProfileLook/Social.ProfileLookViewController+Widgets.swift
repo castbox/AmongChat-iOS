@@ -92,6 +92,7 @@ extension Social.ProfileLookViewController {
         
         private func playSvga(_ resource: URL?) {
             svgaView.stopAnimation()
+            svgaView.clear()
             guard let resource = resource else {
                 return
             }
@@ -546,6 +547,7 @@ extension Social.ProfileLookViewController {
         
         private func playSvga(_ resource: URL?) {
             svgaView.stopAnimation()
+            svgaView.clear()
             guard let resource = resource else {
                 return
             }
