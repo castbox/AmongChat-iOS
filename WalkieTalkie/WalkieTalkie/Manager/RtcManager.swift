@@ -1,5 +1,5 @@
 //
-//  RtcManager.swift
+//  AgoraRtcManager.swift
 //  AgoraChatRoom
 //
 //  Created by LXH on 2019/11/25.
@@ -14,7 +14,30 @@ import Path
 import CastboxDebuger
 
 fileprivate func cdPrint(_ message: Any) {
-    Debug.info("[RtcManager]-\(message)")
+    Debug.info("[AgoraRtcManager]-\(message)")
+}
+
+enum RtcUserRole: Int {
+    case broadcaster = 1
+    case audience = 2
+}
+
+protocol RtcManageable {
+    //当前房间的 channel id
+    var channelId: String? { get set }
+    
+    func initialize()
+    
+    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?)
+    
+    func setClientRole(_ role: RtcUserRole)
+    
+    func mic(muted: Bool)
+    
+//    func muteAllRemoteAudioStreams(_ muted: Bool)
+    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32) -> Bool
+    
+    func leaveChannel()
 }
 
 
@@ -25,6 +48,7 @@ protocol RtcDelegate: class {
     
     func onJoinChannelTimeout(channelId: String?)
 
+    //用户上下线
     func onUserOnlineStateChanged(uid: UInt, isOnline: Bool)
 
     func onUserMuteAudio(uid: UInt, muted: Bool)
@@ -40,12 +64,13 @@ protocol RtcDelegate: class {
 
 //1761995123
 //106274582
-class RtcManager: NSObject {
-    static let shared = RtcManager()
+class AgoraRtcManager: NSObject, RtcManageable {
+    
+    static let shared = AgoraRtcManager()
 
     weak var delegate: RtcDelegate?
 
-    var unMuteUsers: [UInt] = []
+//    var unMuteUsers: [UInt] = []
     
 //    private var talkedUsers: [ChannelUser] = [] {
 //        didSet {
@@ -54,15 +79,15 @@ class RtcManager: NSObject {
 //    }
 
     ///current channel IDz
-    private(set) var channelId: String?
-    private(set) var role: AgoraClientRole?
+    var channelId: String?
+    private(set) var role: RtcUserRole?
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
     private var timeoutTimer: SwiftTimer?
-    private var recorderTimer: SwiftTimer?
-    private var haveUnmuteUser: Bool {
-        return !unMuteUsers.isEmpty
-    }
+//    private var recorderTimer: SwiftTimer?
+//    private var haveUnmuteUser: Bool {
+//        return !unMuteUsers.isEmpty
+//    }
     
     private var isLastmileProbeTesting = false {
         didSet {
@@ -84,7 +109,7 @@ class RtcManager: NSObject {
     }
 
     func initialize() {
-        mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.AppId, delegate: self)
+        mRtcEngine = AgoraRtcEngineKit.sharedEngine(withAppId: KeyCenter.Agora.AppId, delegate: self)
         mRtcEngine.setLogFile(logFilePath())
         mRtcEngine.setChannelProfile(.liveBroadcasting)
         mRtcEngine.setAudioProfile(.musicStandard, scenario: .gameStreaming)
@@ -93,10 +118,10 @@ class RtcManager: NSObject {
         //先开始测试
 //        isLastmileProbeTesting = true
     }
-
+    
     func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         //清除数据
-        unMuteUsers.removeAll()
+//        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
         self.channelId = channelId
         cdPrint("join \(channelId) \(userId)")
@@ -132,7 +157,7 @@ class RtcManager: NSObject {
         })
         timeoutTimer?.start()
     }
-    
+//
     func invalidTimerIfNeed() {
         guard timeoutTimer != nil else {
             return
@@ -140,69 +165,16 @@ class RtcManager: NSObject {
 //        timeoutTimer?.cancel()
         timeoutTimer = nil
     }
-
-    func setClientRole(_ role: AgoraClientRole) {
-        let result = mRtcEngine.setClientRole(role)
+    
+    func setClientRole(_ role: RtcUserRole) {
+        let result = mRtcEngine.setClientRole(AgoraClientRole(rawValue: role.rawValue)!)
         if result == 0 {
             cdPrint("setClientRole: \(role.rawValue) success")
         } else {
             cdPrint("setClientRole: \(role.rawValue) failed")
         }
         self.role = role
-//        updateRecordStatus()
     }
-    
-    func updateRecordStatus() {
-        if role == .broadcaster {
-            let path = Path.caches/"\(Date().timeIntervalSince1970.int)_record.wav"
-            SpeechRecognizer.default.add(file: path.string)
-            mRtcEngine.startAudioRecording(path.string, quality: .medium)
-            //倒计时5秒
-            cdPrint("start recording path: \(path)")
-            invalidRecordTimerIfNeed()
-            recorderTimer = SwiftTimer(interval: .seconds(2), handler: { [weak self] _ in
-                guard let `self` = self else {
-                    return
-                }
-                cdPrint("end recording path: \(path)")
-                self.mRtcEngine.stopAudioRecording()
-                SpeechRecognizer.default.startIfNeed()
-                self.invalidRecordTimerIfNeed()
-                mainQueueDispatchAsync(after: 0.2) { [weak self] in
-                    guard let `self` = self else {
-                        return
-                    }
-                    if self.role == .broadcaster {
-//                        self.updateRecordStatus()
-                    }
-                }
-            })
-            recorderTimer?.start()
-        } else {
-            cdPrint("end recording")
-            invalidRecordTimerIfNeed()
-            mRtcEngine.stopAudioRecording()
-            SpeechRecognizer.default.startIfNeed()
-        }
-    }
-    
-    func invalidRecordTimerIfNeed() {
-        guard recorderTimer != nil else {
-            return
-        }
-//        recorderTimer?.cancel()
-        recorderTimer = nil
-    }
-    
-    func muteAllRemoteAudioStreams(_ muted: Bool) {
-        mRtcEngine.muteAllRemoteAudioStreams(muted)
-    }
-    
-    //remove
-//    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-//        let uid = user.uid
-//        mRtcEngine.adjustUserPlaybackSignalVolume(uid.intValue.uInt, volume: volume)
-//    }
     
     func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) -> Bool {
         let result = mRtcEngine.muteRemoteAudioStream(uid.uInt, mute: volume == 0)
@@ -213,20 +185,11 @@ class RtcManager: NSObject {
         return result == 0
     }
 
-    func muteLocalAudioStream(_ muted: Bool) {
+    func mic(muted: Bool) {
         mRtcEngine.muteLocalAudioStream(muted)
         delegate?.onUserMuteAudio(uid: mUserId, muted: muted)
     }
-
-    func startAudioMixing(_ filePath: String?) {
-        if let `filePath` = filePath {
-            let volume = haveUnmuteUser ? 7 : 15
-            mRtcEngine.startAudioMixing(filePath, loopback: false, replace: false, cycle: 1)
-            mRtcEngine.adjustAudioMixingVolume(volume)
-            mRtcEngine.adjustAudioMixingPublishVolume(volume)
-        }
-    }
-
+    
     func stopAudioMixing() {
         mRtcEngine.stopAudioMixing()
     }
@@ -247,7 +210,7 @@ class RtcManager: NSObject {
 
     func leaveChannel() {
         //清除数据
-        unMuteUsers.removeAll()
+//        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
         mRtcEngine.leaveChannel(nil)
         setClientRole(.audience)
@@ -265,7 +228,7 @@ class RtcManager: NSObject {
     }
 }
 
-extension RtcManager: AgoraRtcEngineDelegate {
+extension AgoraRtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOccurError errorCode: AgoraErrorCode) {
         let reportError = NSError(domain: "com.talkie.walkie.rtc.connect", code: Int(errorCode.rawValue), userInfo: nil)
@@ -275,9 +238,9 @@ extension RtcManager: AgoraRtcEngineDelegate {
     
     func rtcEngine(_ engine: AgoraRtcEngineKit, connectionChangedTo state: AgoraConnectionStateType, reason: AgoraConnectionChangedReason) {
         cdPrint("connectionChangedTo: \(state.rawValue) reason: \(reason.rawValue)")
-        if state == .connected {
-            invalidTimerIfNeed()
-        }
+//        if state == .connected {
+//            invalidTimerIfNeed()
+//        }
         delegate?.onConnectionChangedTo(state: ConnectState(state), reason: reason)
     }
     
@@ -314,7 +277,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
     func rtcEngine(_ engine: AgoraRtcEngineKit, didJoinedOfUid uid: UInt, elapsed: Int) {
         cdPrint("didJoinedOfUid \(uid)")
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: true)
-        unMuteUsers.append(uid)
+//        unMuteUsers.append(uid)
 //        if !talkedUsers.contains(where: { $0.uid.uIntValue == uid }) {
 //            talkedUsers.append(ChannelUser.randomUser(uid: uid))
 //        } else {
@@ -331,7 +294,7 @@ extension RtcManager: AgoraRtcEngineDelegate {
 
     func rtcEngine(_ engine: AgoraRtcEngineKit, didOfflineOfUid uid: UInt, reason: AgoraUserOfflineReason) {
         cdPrint("didOfflineOfUid \(uid) resaon: \(reason.rawValue)")
-        unMuteUsers.removeAll(where: { $0 == uid })
+//        unMuteUsers.removeAll(where: { $0 == uid })
         delegate?.onUserOnlineStateChanged(uid: uid, isOnline: false)
 
 //        if reason == .quit {

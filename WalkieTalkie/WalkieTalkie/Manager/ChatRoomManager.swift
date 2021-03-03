@@ -35,14 +35,25 @@ protocol ChatRoomDelegate: class {
     
     func onJoinChannelTimeout(channelId: String?)
     
+    func onJoinChannelSuccess(channelId: String?)
+    
 //    func onChannelUserChanged(users: [ChannelUser])
 }
 
-class ChatRoomManager: SeatManager {
+class ChatRoomManager {
     static let shared = ChatRoomManager()
 
-    private lazy var mRtcManager: RtcManager = {
-        let manager = RtcManager.shared
+    //join 前必需指定类型
+    private var mRtcManager: RtcManageable!
+        
+    private lazy var agoraRtcManager: AgoraRtcManager = {
+        let manager = AgoraRtcManager.shared
+        manager.delegate = self
+        return manager
+    }()
+    
+    private lazy var zegoRtcManager: ZegoRtcManager = {
+        let manager = ZegoRtcManager.shared
         manager.delegate = self
         return manager
     }()
@@ -60,16 +71,16 @@ class ChatRoomManager: SeatManager {
     }
     
     var isConnectingState: Bool {
-        return state.isConnectingState
+        state.isConnectingState
     }
     
     var isConnectedState: Bool {
-        return state.isConnectedState
+        state.isConnectedState
     }
     
-    var role: AgoraClientRole? {
-        return mRtcManager.role
-    }
+//    var role: RtcUserRole? {
+//        mRtcManager.role
+//    }
     
 //    var isReachMaxUnmuteUserCount: Bool {
 //        guard let name = channelName,
@@ -103,7 +114,11 @@ class ChatRoomManager: SeatManager {
                 }
                 self?.startHeartBeating()
             })
-            
+    }
+    
+    func initialize() {
+        AgoraRtcManager.shared.initialize()
+        ZegoRtcManager.shared.initialize()
     }
 
     func getChannelData() -> ChannelData {
@@ -114,47 +129,60 @@ class ChatRoomManager: SeatManager {
 //        self
 //    }
 
-    func getRtcManager() -> RtcManager {
-        mRtcManager
-    }
+//    func getRtcManager() -> AgoraRtcManager {
+//        mRtcManager
+//    }
 
 //    func getRtmManager() -> RtmManager {
 //        mRtmManager
 //    }
 
+    func muteMyMic(muted: Bool) {
+        mRtcManager.mic(muted: muted)
+    }
+    
     func onSeatUpdated(position: Int) {
         delegate?.onSeatUpdated(position: position)
     }
 
     func joinChannel(channelId: String, completionHandler: ((Error?) -> Void)?) {
+        mRtcManager = zegoRtcManager
+        //判断 channel 类型
         if state == .connected {
             leaveChannel()
         }
-        _ = Request.amongchatProvider.rx.request(.rtcToken(["room_id": channelId]))
-            .mapJSON()
-            .mapToDataKeyJsonValue()
-            .mapTo(Entity.RTCToken.self)
-            .retry(2)
-//                .filterNilAndEmpty()
-            .subscribe { [weak self] token in
-                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
-                self.updateRole(true)
-                self.mRtcManager.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
-                    self?.channelName = channelId
-                    completionHandler?(nil)
-                }
-            } onError: { error in
-                completionHandler?(error)
-                cdPrint("error: \(error)")
-            }
+        //
+        self.mRtcManager?.joinChannel(channelId, "01VW5mYkU0V0ZDUFlYa0toMePLuUaLmspG9u0aU7kbTRe4bdwRDgEQKA4sXf3irtBNkAVlL9Ull2Ld5/v+xcxat/GYNrgG1yVLqR6xwZEQWNnXyidA+/SVubhlHSNbw3+aJKWtrDRTkVAOmBdHT/dafg==", Settings.loginUserId!.uInt) { [weak self] in
+            self?.channelName = channelId
+            self?.mRtcManager.setClientRole(.broadcaster)
+            completionHandler?(nil)
+        }
+//
+//        _ = Request.amongchatProvider.rx.request(.rtcToken(["room_id": channelId]))
+//            .mapJSON()
+//            .mapToDataKeyJsonValue()
+//            .mapTo(Entity.RTCToken.self)
+//            .retry(2)
+////                .filterNilAndEmpty()
+//            .subscribe { [weak self] token in
+//                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+//                self.updateRole(true)
+//                self.mRtcManager?.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
+//                    self?.channelName = channelId
+//                    completionHandler?(nil)
+//                }
+//            } onError: { error in
+//                completionHandler?(error)
+//                cdPrint("error: \(error)")
+//            }
     }
     
     func updateRole(_ isPublisher: Bool) {
-        let joinRole: AgoraClientRole
+        let joinRole: RtcUserRole
         if (isPublisher) {
-            joinRole = AgoraClientRole.broadcaster
+            joinRole = .broadcaster
         } else {
-            joinRole = AgoraClientRole.audience
+            joinRole = .audience
         }
         mRtcManager.setClientRole(joinRole)
     }
@@ -175,36 +203,6 @@ class ChatRoomManager: SeatManager {
         return mRtcManager.adjustUserPlaybackSignalVolume(uid, volume: volume)
     }
 
-//    private func checkAndBeAnchor() {
-//        let myUserId = String(Constants.sUserId)
-//
-//        if mChannelData.isAnchorMyself() {
-//            var index = mChannelData.indexOfSeatArray(myUserId)
-//            if index == NSNotFound {
-//                index = mChannelData.firstIndexOfEmptySeat()
-//            }
-////            toBroadcaster(myUserId, index)
-//        } else {
-//            if mChannelData.hasAnchor() {
-//                return
-//            }
-//            mRtmManager.addOrUpdateChannelAttributes(AttributeKey.KEY_ANCHOR_ID, myUserId, { [weak self] (code) in
-//                guard let `self` = self else {
-//                    return
-//                }
-//                if code == .attributeOperationErrorOk {
-//                    self.toBroadcaster(myUserId, self.mChannelData.firstIndexOfEmptySeat())
-//                }
-//            })
-//        }
-//    }
-
-//    func givingGift() {
-//        let message = Message(messageType: Message.MESSAGE_TYPE_GIFT, content: nil, sendId: Constants.sUserId)
-//        mRtmManager.sendMessage(message.toJsonString(), { [weak self] (code) in
-//            self?.delegate?.onUserGivingGift(userId: message.sendId)
-//        })
-//    }
 }
 
 //extension ChatRoomManager: MessageManager {
@@ -263,6 +261,7 @@ class ChatRoomManager: SeatManager {
 extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {
 //        mRtmManager.joinChannel(channelId, nil)
+        delegate?.onJoinChannelSuccess(channelId: channelId)
     }
     
     func onJoinChannelFailed(channelId: String?) {
@@ -386,7 +385,7 @@ extension ChatRoomManager {
     
     func requestHeartBeating() {
         var params: [String: Any] = [:]
-        if let channelId = mRtcManager.channelId {
+        if let channelId = mRtcManager?.channelId {
             params["room_id"] = channelId
         }
         cancelHeartBeatingRequest()

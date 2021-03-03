@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor(hex: 0x141414)
         
         setGlobalAppearance()
-        RtcManager.shared.initialize()
+        ChatRoomManager.shared.initialize()
         FirebaseApp.configure()
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
@@ -164,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        RtcManager.shared.leaveChannel()
+        AgoraRtcManager.shared.leaveChannel()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

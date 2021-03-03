@@ -51,7 +51,7 @@ extension AmongChat.Room {
         
         override private init() {
             super.init()
-            rtmKit = AgoraRtmKit(appId: KeyCenter.AppId, delegate: self)
+            rtmKit = AgoraRtmKit(appId: KeyCenter.Agora.AppId, delegate: self)
             bindEvents()
         }
         

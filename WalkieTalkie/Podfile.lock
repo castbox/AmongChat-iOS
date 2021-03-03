@@ -297,6 +297,7 @@ PODS:
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
   - YYText (1.0.7)
+  - ZegoExpressEngine/Audio (1.20.0)
 
 DEPENDENCIES:
   - Adjust (= 4.21.0)
@@ -349,6 +350,7 @@ DEPENDENCIES:
   - WSFlexibleTouch
   - YPImagePicker
   - YYText
+  - ZegoExpressEngine/Audio
 
 SPEC REPOS:
   "git@github.com:castbox/GuruSpecs.git":
@@ -435,6 +437,7 @@ SPEC REPOS:
     - WSFlexibleTouch
     - YPImagePicker
     - YYText
+    - ZegoExpressEngine
 
 EXTERNAL SOURCES:
   Bolts:
@@ -530,7 +533,8 @@ SPEC CHECKSUMS:
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 82586e233cbee25149d840b5f05bbc61c484136e
+PODFILE CHECKSUM: 8eecc43a836626fd71b93a863b59ad3457a7b10f
 
 COCOAPODS: 1.10.0

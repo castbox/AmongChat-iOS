@@ -603,6 +603,10 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
     
     // MARK: - ChatRoomDelegate
     
+    func onJoinChannelSuccess(channelId: String?) {
+        
+    }
+    
     func onJoinChannelFailed(channelId: String?) {
         //        self.hudRemoval?()
         //        self.hudRemoval = nil
