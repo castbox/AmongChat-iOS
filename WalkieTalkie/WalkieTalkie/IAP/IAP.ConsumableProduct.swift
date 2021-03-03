@@ -23,7 +23,7 @@ extension IAP {
         return consumableProductsRelay.asObservable()
     }
     
-    static let productPetPrefix: String = "wtas.iac.iap.pet"
+    static let productPetPrefix: String = "wtas.iam.iap.pet"
     
     static func refreshConsumableProducts(_ ids: [String]) {
         
