@@ -271,9 +271,9 @@ class ShareManager: NSObject {
             //                        removeHandler()
             mainQueueDispatchAsync {
                 successHandler?()
-            }
-            if let errorMsg = error?.localizedDescription {
-                viewController.view.raft.autoShow(.text(errorMsg))
+                if let errorMsg = error?.localizedDescription {
+                    viewController.view.raft.autoShow(.text(errorMsg))
+                }
             }
             //                self?.view.isUserInteractionEnabled = true
             //                self?.isSharing = false
