@@ -154,7 +154,6 @@ extension Social {
         
         @objc
         private func onConfirmBtn() {
-            Logger.Action.log(.age_done, loggerSource)
             
             let df = DateFormatter()
             df.dateFormat = "yyyyMMdd"
@@ -165,6 +164,16 @@ extension Social {
                 birthdayStr = "20050101"
             }
             
+            let years: Int
+            if let birthdayDate = df.date(from: birthdayStr) {
+                years = currentCalendar.dateComponents([.year], from: birthdayDate, to: todayNow).year ?? 15
+            } else {
+                years = 15
+            }
+            
+            let yearString = years < 13 ? "< 13" : years.string
+            Logger.Action.log(.age_done, loggerSource, extra: ["age": yearString])
+            
             let profile = Entity.ProfileProto(birthday: birthdayStr, name: nil, pictureUrl: nil)
             
             let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
@@ -174,7 +183,7 @@ extension Social {
                 })
                 .subscribe(onSuccess: { [weak self] (profile) in
                     defer {
-                        Logger.Action.log(.age_done_result, category: nil, self?.loggerSource, (profile != nil ? 0 : 1))
+                        Logger.Action.log(.age_done_result, category: nil, self?.loggerSource, (profile != nil ? 0 : 1), extra: ["age": yearString])
                         self?.onCompletion?(birthdayStr)
                     }
                     guard let p = profile else { return }
