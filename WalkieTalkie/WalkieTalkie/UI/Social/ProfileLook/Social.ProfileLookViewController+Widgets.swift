@@ -429,6 +429,8 @@ extension Social.ProfileLookViewController {
             return player
         }()
         
+        private lazy var svgaDisposable: Disposable? = nil
+        
         private lazy var statusLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 20)
@@ -546,21 +548,42 @@ extension Social.ProfileLookViewController {
         }
         
         private func playSvga(_ resource: URL?) {
+            
+            svgaDisposable?.dispose()
+            svgaDisposable = nil
+            
             svgaView.stopAnimation()
             svgaView.clear()
+            
             guard let resource = resource else {
                 return
             }
             
-            let parser = SVGAGlobalParser.defaut
-            parser.parse(with: resource,
-                         completionBlock: { [weak self] (item) in
-                            self?.svgaView.videoItem = item
-                            self?.svgaView.startAnimation()
-                         },
-                         failureBlock: { error in
-                            debugPrint("error: \(error?.localizedDescription ?? "")")
-                         })
+            svgaDisposable = Single<SVGAVideoEntity>.create(subscribe: { (subscriber) -> Disposable in
+                
+                let parser = SVGAGlobalParser.defaut
+                parser.parse(with: resource,
+                             completionBlock: { (item) in
+                                guard let item = item else {
+                                    subscriber(.error(MsgError.default))
+                                    return
+                                }
+                                subscriber(.success(item))
+                             },
+                             failureBlock: { error in
+                                debugPrint("error: \(error?.localizedDescription ?? "")")
+                                subscriber(.error(error ?? MsgError.default))
+                             })
+                
+                return Disposables.create()
+            })
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onSuccess: { [weak self] (item) in
+                self?.svgaView.videoItem = item
+                self?.svgaView.startAnimation()
+            }, onError: { (error) in
+                debugPrint("error: \(error.localizedDescription)")
+            })
         }
         
         func bindViewModel(_ viewModel: DecorationViewModel) {
