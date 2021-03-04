@@ -1,1 +1,5 @@
+Dear review team,
 
+We have added the correct AppTracking Transparency permission request in this version. Please kindly install the app for the first time, and you will see the request popup.
+
+Thank you!

@@ -41,65 +41,16 @@ extension Social {
             }
         }
         var followedHandle:((Bool) -> Void)?
-        private lazy var backBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            if isSelfProfile, navigationController?.viewControllers.count == 1 {
-                btn.setImage(R.image.ac_profile_close_down(), for: .normal)
-            } else {
-                btn.setImage(R.image.ac_profile_close(), for: .normal)
-            }
-            btn.rx.tap.observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    guard let `self` = self else { return }
-                    if self.navigationController?.viewControllers.count == 1 {
-                        self.dismiss(animated: true, completion: nil)
-                    } else {
-                        self.navigationController?.popViewController()
-                    }
-                }).disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var settingsBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_profile_settings(), for: .normal)
-            btn.rx.tap.observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    guard let `self` = self else { return }
-                    let vc = SettingViewController()
-                    self.navigationController?.pushViewController(vc)
-                }).disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.font = R.font.nunitoExtraBold(size: 24)
-            lb.textColor = .white
-            lb.textAlignment = .center
-            lb.text = R.string.localizable.profileProfile()
-            return lb
-        }()
-        
-        private lazy var moreBtn: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.setImage( R.image.ac_profile_more_icon(), for: .normal)
-            btn.rx.tap.observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self]() in
-                    self?.moreAction()
-                }).disposed(by: bag)
-            return btn
-        }()
         
         private lazy var headerView: ProfileView = {
-            let v = ProfileView(with: isSelfProfile)
+            let v = ProfileView(with: isSelfProfile, viewController: self)
             var vH: CGFloat {
                 guard isSelfProfile else {
-                    return 378
+                    return 241 + 122
                 }
                 return 241
             }
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH)//298  413
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH + Frame.Screen.width - 16)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
                 switch type {
@@ -120,6 +71,11 @@ extension Social {
                     self.followerAction()
                 case .following:
                     self.followingAction()
+                case .more:
+                    self.moreAction()
+                case .customize:
+                    let vc = Social.ProfileLookViewController()
+                    self.navigationController?.pushViewController(vc)
                 }
             }
             return v
@@ -226,49 +182,14 @@ private extension Social.ProfileViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
 
-        let navLayoutGuide = UIView()
-        navLayoutGuide.backgroundColor = .clear
-//        view.addLayoutGuide(navLayoutGuide)
-        view.addSubview(navLayoutGuide)
-        navLayoutGuide.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(Frame.Height.safeAeraTopHeight)
-            maker.height.equalTo(49)
-        }
-//
-        view.addSubviews(views: table, backBtn, titleLabel)
+        view.addSubviews(views: table)
         
-        titleLabel.snp.makeConstraints { (maker) in
-            maker.centerX.equalToSuperview()
-            maker.centerY.equalTo(navLayoutGuide)
-        }
-
         table.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(navLayoutGuide.snp.bottom)
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.leading.trailing.top.bottom.equalToSuperview()
         }
         
-        backBtn.snp.makeConstraints { (maker) in
-            maker.leading.equalToSuperview().offset(12.5)
-            maker.centerY.equalTo(navLayoutGuide)
-            maker.width.height.equalTo(40)//25
-        }
         if !isSelfProfile {
             options.removeAll()
-            view.addSubview(moreBtn)
-            moreBtn.snp.makeConstraints { (make) in
-                make.right.equalTo(-15)
-                make.centerY.equalTo(backBtn.snp.centerY)
-                make.width.height.equalTo(40)//24
-            }
-        } else {
-            view.addSubview(settingsBtn)
-            settingsBtn.snp.makeConstraints { (maker) in
-                maker.centerY.equalTo(navLayoutGuide)
-                maker.right.equalToSuperview().inset(10)
-                maker.height.width.equalTo(44)
-            }
         }
         table.tableHeaderView = headerView
         table.reloadData()
@@ -290,6 +211,7 @@ private extension Social.ProfileViewController {
         if isSelfProfile, navigationController?.viewControllers.count == 1 {
             pullToDismiss = PullToDismiss(scrollView: table)
             pullToDismiss?.delegate = self
+            pullToDismiss?.dismissableHeightPercentage = 0.4
         }
         
         if roomUser != nil {

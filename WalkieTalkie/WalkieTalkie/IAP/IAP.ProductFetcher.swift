@@ -18,7 +18,9 @@ extension IAP {
         
         init?(_ skProduct: SKProduct) {
             guard let info = IAP.Product.parse(skProduct) else {
+                #if DEBUG
                 assert(false, "not support this kind of product")
+                #endif
                 return nil
             }
             self.skProduct = skProduct
@@ -100,11 +102,13 @@ extension IAP.Product {
     
     enum Content {
         case premium
+        case consumable
     }
     
     enum Category {
         case sub(free: Period?, renewal: Period) // 比如，免费 7天，$xxx/2月
         case lifetime
+        case oneTime
     }
 
     class Period {
@@ -204,22 +208,29 @@ extension IAP.Product {
                     freeTrialPeriod = period
                 }
                 return Info(content: .premium, category: .sub(free: freeTrialPeriod, renewal: subPeriod))
-            } 
+            }
         }
         
         var category: Category? = nil
+        var content: Content = .premium
+        
         switch product.productIdentifier {
-        case let str where str.starts(with: IAP.productLifeTime):
+        case let str where str.starts(with: IAP.productWeek):
              category = .sub(free: nil, renewal: Period(1, .week))
         case let str where str.starts(with: IAP.productMonth):
             category = .sub(free: nil, renewal: Period(1, .month))
-        case let str where str.starts(with: IAP.productMonth):
+        case let str where str.starts(with: IAP.productYear):
             category = .sub(free: nil, renewal: Period(1, .year))
+        case let str where str.starts(with: IAP.productLifeTime):
+            category = .sub(free: nil, renewal: Period(Int.max, .year))
+        case let str where str.starts(with: IAP.productPetPrefix):
+            category = .oneTime
+            content = .consumable
         default:
             ()
         }
         if let cat = category {
-            return Info(content: .premium, category: cat)
+            return Info(content: content, category: cat)
         }
         return nil
     }

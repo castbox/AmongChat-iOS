@@ -194,6 +194,17 @@ extension Logger {
             case suggested_contact_page_clk
             case new_avatar_dialog_imp
             case new_avatar_dialog_clk
+            //
+            case enter_room_show_pet
+            
+            case profile_customize_imp
+            case profile_customize_clk
+            case profile_customize_rewarded_get
+            case profile_customize_rewarded_get_success
+            case profile_customize_pet_get
+            case profile_customize_pet_get_success
+            case profile_customize_pet_equip
+            case profile_customize_pet_remove
         }
         
         enum Category: String {

@@ -73,6 +73,32 @@ class Automator {
             .subscribe(onNext: { (_) in
             })
             .disposed(by: bag)
-
+        
+        Settings.shared.loginResult.replay()
+            .filterNil()
+            .take(1)
+            .flatMap { (_) in
+                Request.defaultProfileDecorations()
+            }
+            .subscribe(onNext: { (_) in
+                
+            })
+            .disposed(by: bag)
+        
+        Settings.shared.defaultProfileDecorationCategoryList.replay()
+            .subscribe(onNext: { (decoCateList) in
+                
+                let iapProductIds = decoCateList.compactMap({ $0.list.compactMap { (deco) in
+                    deco.product?.products.safe(0)?.productId }
+                })
+                .flatMap({ $0 })
+                
+                guard iapProductIds.count > 0 else {
+                    return
+                }
+                
+                IAP.refreshConsumableProducts(iapProductIds)
+            })
+            .disposed(by: bag)
     }
 }
