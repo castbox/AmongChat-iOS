@@ -192,6 +192,16 @@
 		FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */; };
 		FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */; };
 		FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */; };
+		FE7ED8FF25F20292009C608A /* room-emoji-darkgreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */; };
+		FE7ED90025F20292009C608A /* room-emoji-brown.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F625F20291009C608A /* room-emoji-brown.svga */; };
+		FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F725F20291009C608A /* room-emoji-pink.svga */; };
+		FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F825F20291009C608A /* room-emoji-red.svga */; };
+		FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F925F20291009C608A /* room-emoji-blue.svga */; };
+		FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FA25F20291009C608A /* room-emoji-green.svga */; };
+		FE7ED90525F20292009C608A /* room-emoji-orange.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */; };
+		FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */; };
+		FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */; };
+		FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */; };
 		FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089C92449E631006A1644 /* PrivateShareController.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
@@ -525,6 +535,16 @@
 		FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JustChillingInfoView.xib; sourceTree = "<group>"; };
 		FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputCodeView.xib; sourceTree = "<group>"; };
 		FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputCodeView.swift; sourceTree = "<group>"; };
+		FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-darkgreen.svga"; sourceTree = "<group>"; };
+		FE7ED8F625F20291009C608A /* room-emoji-brown.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-brown.svga"; sourceTree = "<group>"; };
+		FE7ED8F725F20291009C608A /* room-emoji-pink.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-pink.svga"; sourceTree = "<group>"; };
+		FE7ED8F825F20291009C608A /* room-emoji-red.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-red.svga"; sourceTree = "<group>"; };
+		FE7ED8F925F20291009C608A /* room-emoji-blue.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-blue.svga"; sourceTree = "<group>"; };
+		FE7ED8FA25F20291009C608A /* room-emoji-green.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-green.svga"; sourceTree = "<group>"; };
+		FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-orange.svga"; sourceTree = "<group>"; };
+		FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-bluegreen.svga"; sourceTree = "<group>"; };
+		FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-purple.svga"; sourceTree = "<group>"; };
+		FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-yellow.svga"; sourceTree = "<group>"; };
 		FE8089C92449E631006A1644 /* PrivateShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateShareController.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -1187,6 +1207,16 @@
 			children = (
 				265FB7C625B690A7004987AB /* mobileRegions.json */,
 				FEB6E6D225B5A9E3002C6946 /* login_bg.svga */,
+				FE7ED8F925F20291009C608A /* room-emoji-blue.svga */,
+				FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */,
+				FE7ED8F625F20291009C608A /* room-emoji-brown.svga */,
+				FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */,
+				FE7ED8FA25F20291009C608A /* room-emoji-green.svga */,
+				FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */,
+				FE7ED8F725F20291009C608A /* room-emoji-pink.svga */,
+				FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */,
+				FE7ED8F825F20291009C608A /* room-emoji-red.svga */,
+				FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */,
 				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
@@ -1393,6 +1423,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7ED90525F20292009C608A /* room-emoji-orange.svga in Resources */,
 				BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */,
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
 				FE7CEB58258A029F0067952C /* AmongChatRoomConfigView.xib in Resources */,
@@ -1403,13 +1434,16 @@
 				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
+				FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
 				BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
+				FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */,
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
+				FE7ED90025F20292009C608A /* room-emoji-brown.svga in Resources */,
 				BD9F272E25A716A800FA3616 /* Infoplist.strings in Resources */,
 				FEA298CF25E63804001D5F3C /* SnapChatSharePhotoView.xib in Resources */,
 				FE87C2D4259C2EC200799883 /* SnapChatCreativeShareView.xib in Resources */,
@@ -1417,9 +1451,13 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
 				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
+				FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */,
+				FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */,
 				FE730E5124ADCC5A00680062 /* TikTokShareView.xib in Resources */,
+				FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */,
 				FE7CE9E72589E5550067952C /* AmongRoomBottomBar.xib in Resources */,
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
+				FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
@@ -1431,6 +1469,8 @@
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
 				2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */,
+				FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */,
+				FE7ED8FF25F20292009C608A /* room-emoji-darkgreen.svga in Resources */,
 				265FB7C725B690A7004987AB /* mobileRegions.json in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);

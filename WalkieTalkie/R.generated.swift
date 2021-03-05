@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 7 files.
+  /// This `R.file` struct is generated, and contains static references to 17 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -33,6 +33,26 @@ struct R: Rswift.Validatable {
     static let login_bgSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "login_bg", pathExtension: "svga")
     /// Resource file `mobileRegions.json`.
     static let mobileRegionsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "mobileRegions", pathExtension: "json")
+    /// Resource file `room-emoji-blue.svga`.
+    static let roomEmojiBlueSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-blue", pathExtension: "svga")
+    /// Resource file `room-emoji-bluegreen.svga`.
+    static let roomEmojiBluegreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-bluegreen", pathExtension: "svga")
+    /// Resource file `room-emoji-brown.svga`.
+    static let roomEmojiBrownSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-brown", pathExtension: "svga")
+    /// Resource file `room-emoji-darkgreen.svga`.
+    static let roomEmojiDarkgreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-darkgreen", pathExtension: "svga")
+    /// Resource file `room-emoji-green.svga`.
+    static let roomEmojiGreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-green", pathExtension: "svga")
+    /// Resource file `room-emoji-orange.svga`.
+    static let roomEmojiOrangeSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-orange", pathExtension: "svga")
+    /// Resource file `room-emoji-pink.svga`.
+    static let roomEmojiPinkSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-pink", pathExtension: "svga")
+    /// Resource file `room-emoji-purple.svga`.
+    static let roomEmojiPurpleSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-purple", pathExtension: "svga")
+    /// Resource file `room-emoji-red.svga`.
+    static let roomEmojiRedSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-red", pathExtension: "svga")
+    /// Resource file `room-emoji-yellow.svga`.
+    static let roomEmojiYellowSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-yellow", pathExtension: "svga")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -73,6 +93,66 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "mobileRegions", withExtension: "json")`
     static func mobileRegionsJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.mobileRegionsJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-blue", withExtension: "svga")`
+    static func roomEmojiBlueSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBlueSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-bluegreen", withExtension: "svga")`
+    static func roomEmojiBluegreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBluegreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-brown", withExtension: "svga")`
+    static func roomEmojiBrownSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBrownSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-darkgreen", withExtension: "svga")`
+    static func roomEmojiDarkgreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiDarkgreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-green", withExtension: "svga")`
+    static func roomEmojiGreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiGreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-orange", withExtension: "svga")`
+    static func roomEmojiOrangeSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiOrangeSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-pink", withExtension: "svga")`
+    static func roomEmojiPinkSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiPinkSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-purple", withExtension: "svga")`
+    static func roomEmojiPurpleSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiPurpleSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-red", withExtension: "svga")`
+    static func roomEmojiRedSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiRedSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-yellow", withExtension: "svga")`
+    static func roomEmojiYellowSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiYellowSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -144,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 135 images.
+  /// This `R.image` struct is generated, and contains static references to 146 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -374,6 +454,28 @@ struct R: Rswift.Validatable {
     static let icon_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic")
     /// Image `icon_pri_ad`.
     static let icon_pri_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_ad")
+    /// Image `icon_room_bg_topicId_amongus`.
+    static let icon_room_bg_topicId_amongus = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_amongus")
+    /// Image `icon_room_bg_topicId_animalcrossing`.
+    static let icon_room_bg_topicId_animalcrossing = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_animalcrossing")
+    /// Image `icon_room_bg_topicId_brawlstars`.
+    static let icon_room_bg_topicId_brawlstars = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_brawlstars")
+    /// Image `icon_room_bg_topicId_callofduty`.
+    static let icon_room_bg_topicId_callofduty = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_callofduty")
+    /// Image `icon_room_bg_topicId_fortnite`.
+    static let icon_room_bg_topicId_fortnite = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_fortnite")
+    /// Image `icon_room_bg_topicId_freefire`.
+    static let icon_room_bg_topicId_freefire = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_freefire")
+    /// Image `icon_room_bg_topicId_justchatting`.
+    static let icon_room_bg_topicId_justchatting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_justchatting")
+    /// Image `icon_room_bg_topicId_minecraft`.
+    static let icon_room_bg_topicId_minecraft = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_minecraft")
+    /// Image `icon_room_bg_topicId_mobilelegends`.
+    static let icon_room_bg_topicId_mobilelegends = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_mobilelegends")
+    /// Image `icon_room_bg_topicId_pubgmobile`.
+    static let icon_room_bg_topicId_pubgmobile = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_pubgmobile")
+    /// Image `icon_room_bg_topicId_roblox`.
+    static let icon_room_bg_topicId_roblox = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_roblox")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
     /// Image `icon_setting`.
@@ -985,6 +1087,61 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_pri_ad", bundle: ..., traitCollection: ...)`
     static func icon_pri_ad(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_pri_ad, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_amongus", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_amongus(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_amongus, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_animalcrossing", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_animalcrossing(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_animalcrossing, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_brawlstars", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_brawlstars(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_brawlstars, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_callofduty", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_callofduty(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_callofduty, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_fortnite", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_fortnite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_fortnite, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_freefire", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_freefire(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_freefire, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_justchatting", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_justchatting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_justchatting, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_minecraft", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_minecraft(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_minecraft, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_mobilelegends", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_mobilelegends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_mobilelegends, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_pubgmobile", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_pubgmobile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_pubgmobile, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_roblox", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_roblox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_roblox, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_room_lock", bundle: ..., traitCollection: ...)`

@@ -465,6 +465,10 @@ extension AmongChat.Room {
             didShowShareEvents.append(event)
         }
         
+        func roomBgImage() -> UIImage? {
+            return UIImage(named: "icon_room_bg_topicId_\(room.topicId)")
+        }
+        
         func roomBgUrl() -> URL? {
             guard let setting = Settings.shared.globalSetting.value else {
                 return nil
@@ -600,6 +604,9 @@ private extension AmongChat.Room.ViewModel {
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    func onJoinChannelSuccess(channelId: String?) {
+        
+    }
     
     // MARK: - ChatRoomDelegate
     
