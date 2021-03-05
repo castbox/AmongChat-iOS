@@ -10,8 +10,10 @@ import UIKit
 
 class JustChillingInfoView: XibLoadableView {
     
+    @IBOutlet weak var setUpButton: UIButton!
     @IBOutlet weak var notesTitleButton: UIButton!
     @IBOutlet weak var notesDetailButton: UIButton!
+    @IBOutlet weak var detailTop: NSLayoutConstraint!
     
     var room: Entity.Room? {
         didSet {
@@ -19,17 +21,30 @@ class JustChillingInfoView: XibLoadableView {
                 return
             }
             switch room.topicType {
-            case .amongus, .chilling:
+            case .chilling:
                 notesDetailButton.isHidden = false
                 guard let string = room.note, !string.isEmpty else {
                     notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
-                    return
+                    break
                 }
                 notesDetailButton.setTitle(string, for: .normal)
             default:
                 notesDetailButton.isHidden = true
                 notesTitleButton.setTitle(room.topicType.notes, for: .normal)
             }
+            
+            if room.topicType == .chilling,
+               room.roomUserList.first?.uid == Settings.loginUserId,
+               room.note?.isEmpty ?? true {
+                setUpButton.isHidden = false
+                notesTitleButton.isHidden = true
+                detailTop.constant = 70
+            } else {
+                setUpButton.isHidden = true
+                notesTitleButton.isHidden = false
+                detailTop.constant = 60
+            }
+            
         }
     }
     

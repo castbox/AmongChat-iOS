@@ -1109,7 +1109,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 21 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1141,6 +1141,8 @@ struct R: Rswift.Validatable {
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `InfoWithNicknameView`.
+    static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
     /// Nib `RoomTopEntranceContentView`.
@@ -1244,6 +1246,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "InfoWithNicknameView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
+    static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.infoWithNicknameView)
+    }
+    
     /// `UINib(name: "JustChillingInfoView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.justChillingInfoView) instead")
     static func justChillingInfoView(_: Void = ()) -> UIKit.UINib {
@@ -1338,6 +1346,10 @@ struct R: Rswift.Validatable {
     
     static func endUserLicenseController(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func justChillingInfoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -4757,7 +4769,6 @@ struct _R: Rswift.Validatable {
   
   struct nib: Rswift.Validatable {
     static func validate() throws {
-      try _AmongChatRoomConfigView.validate()
       try _AmongChatRoomTopBar.validate()
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
@@ -4768,18 +4779,12 @@ struct _R: Rswift.Validatable {
       try _TikTokShareView.validate()
     }
     
-    struct _AmongChatRoomConfigView: Rswift.NibResourceType, Rswift.Validatable {
+    struct _AmongChatRoomConfigView: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "AmongChatRoomConfigView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
-      }
-      
-      static func validate() throws {
-        if UIKit.UIImage(named: "ac_icon_not", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_not' is used in nib 'AmongChatRoomConfigView', but couldn't be loaded.") }
-        if #available(iOS 11.0, *) {
-        }
       }
       
       fileprivate init() {}
@@ -4875,6 +4880,10 @@ struct _R: Rswift.Validatable {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
       fileprivate init() {}
     }
     
@@ -4968,6 +4977,21 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _InfoWithNicknameView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "InfoWithNicknameView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
       }
       
       fileprivate init() {}

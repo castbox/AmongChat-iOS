@@ -12,6 +12,7 @@ class AmongRoomInfoView: XibLoadableView {
 
     @IBOutlet weak var aeraLabel: UIButton!
     @IBOutlet weak var codeLabel: UILabel!
+    @IBOutlet weak var actionIcon: UIImageView!
     
     var tapHandler: CallBack?
     
@@ -19,6 +20,12 @@ class AmongRoomInfoView: XibLoadableView {
         didSet {
             codeLabel.text = room?.amongUsCode?.uppercased()
             aeraLabel.setTitle(room?.amongUsZone?.title, for: .normal)
+
+            if room?.roomUserList.first?.uid == Settings.loginUserId {
+                actionIcon.image = R.image.ac_room_code_edit()
+            } else {
+                actionIcon.image = R.image.ac_room_code_copy()
+            }
         }
     }
     

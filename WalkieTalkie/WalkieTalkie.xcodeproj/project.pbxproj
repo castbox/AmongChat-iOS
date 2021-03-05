@@ -14,6 +14,8 @@
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
+		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
+		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
@@ -320,6 +322,8 @@
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
+		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
+		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2696D42225B8082200C38C09 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -1278,6 +1282,8 @@
 				FE7CE9D62589C1C60067952C /* AmongRoomInfoView.xib */,
 				FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */,
 				FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */,
+				266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */,
+				266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */,
 				FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */,
 				FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */,
 				FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */,
@@ -1426,6 +1432,7 @@
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
 				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
+				266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */,
 				FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
@@ -1738,6 +1745,7 @@
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
+				266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
 				BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */,

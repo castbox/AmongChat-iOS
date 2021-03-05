@@ -398,6 +398,7 @@ extension AmongChat.Room.ViewController {
         messageBackgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.6).cgColor]
         
         topEntranceView = AmongChat.Room.TopEntranceView()
+        topEntranceView.isUserInteractionEnabled = false
         
         view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView, topEntranceView)
         
@@ -410,7 +411,7 @@ extension AmongChat.Room.ViewController {
         configView.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(topBar.snp.bottom)
-            maker.height.equalTo(107)
+            maker.height.equalTo(125)
         }
         
         bgView.snp.makeConstraints { (maker) in
@@ -743,6 +744,14 @@ extension AmongChat.Room.ViewController {
         
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
+        }
+        
+        configView.openGameHandler = { [weak self] in
+            guard let `self` = self, self.room.topicType.productId > 0 else {
+                return
+            }
+            self.showStoreProduct(with: self.room.topicType.productId)
+            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
         }
         
         topBar.leaveHandler = { [weak self] in

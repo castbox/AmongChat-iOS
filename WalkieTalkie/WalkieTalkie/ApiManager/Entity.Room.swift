@@ -40,6 +40,7 @@ extension Entity {
         var topicId: String
         let topicName: String
 //        var bgUrl: String?
+        var coverUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,
