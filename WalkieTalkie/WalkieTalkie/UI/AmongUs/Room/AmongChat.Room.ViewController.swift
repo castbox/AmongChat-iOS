@@ -47,7 +47,7 @@ extension AmongChat.Room {
         private var inputNotesView: AmongInputNotesView!
         private var nickNameInputView: AmongInputNickNameView!
         private var bottomBar: AmongRoomBottomBar!
-        private var toolView: AmongRoomToolView!
+//        private var toolView: AmongRoomToolView!
         private weak var socialShareViewController: Social.ShareRoomViewController?
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
@@ -56,7 +56,7 @@ extension AmongChat.Room {
             didSet {
                 UIView.animate(withDuration: 0.1) { [unowned self] in
                     topBar.alpha = style == .normal ? 1 : 0
-                    toolView.alpha = style == .normal ? 1 : 0
+//                    toolView.alpha = style == .normal ? 1 : 0
                     messageView.alpha = style == .normal ? 1 : 0
                     configView.alpha = style == .normal ? 1 : 0
                 }
@@ -385,7 +385,7 @@ extension AmongChat.Room.ViewController {
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
         
-        toolView = AmongRoomToolView()
+//        toolView = AmongRoomToolView()
         
         nickNameInputView = AmongInputNickNameView()
         nickNameInputView.alpha = 0
@@ -400,7 +400,9 @@ extension AmongChat.Room.ViewController {
         topEntranceView = AmongChat.Room.TopEntranceView()
         topEntranceView.isUserInteractionEnabled = false
         
-        view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView, topEntranceView)
+        view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView,
+//                         toolView,
+                         bottomBar, nickNameInputView, inputNotesView, topEntranceView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -425,14 +427,14 @@ extension AmongChat.Room.ViewController {
             maker.height.equalTo(251)
         }
         
-        toolView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(seatView.snp.bottom)
-            maker.height.equalTo(24)
-            maker.left.right.equalToSuperview()
-        }
+//        toolView.snp.makeConstraints { (maker) in
+//            maker.top.equalTo(seatView.snp.bottom)
+//            maker.height.equalTo(24)
+//            maker.left.right.equalToSuperview()
+//        }
         let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(toolView.snp.bottom).offset(messageViewTopEdge)
+            maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
         }
@@ -587,7 +589,7 @@ extension AmongChat.Room.ViewController {
                 self?.room = room
                 self?.topBar.set(room)
                 self?.configView.room = room
-                self?.toolView.set(room)
+//                self?.toolView.set(room)
                 self?.seatView.room = room
                 //update list and other
 //                self?.userCollectionView.reloadData()
@@ -824,17 +826,17 @@ extension AmongChat.Room.ViewController {
             self?.viewModel.update(notes: notes)
         }
         
-        toolView.setNickNameHandler = { [weak self] in
-            self?.editType = .nickName
-        }
-        
-        toolView.openGameHandler = { [weak self] in
-            guard let `self` = self, self.room.topicType.productId > 0 else {
-                return
-            }
-            self.showStoreProduct(with: self.room.topicType.productId)
-            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
-        }
+//        toolView.setNickNameHandler = { [weak self] in
+//            self?.editType = .nickName
+//        }
+//
+//        toolView.openGameHandler = { [weak self] in
+//            guard let `self` = self, self.room.topicType.productId > 0 else {
+//                return
+//            }
+//            self.showStoreProduct(with: self.room.topicType.productId)
+//            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
+//        }
         
         seatView.selectUserHandler = { [weak self] user in
             guard let user = user else {
