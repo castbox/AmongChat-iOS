@@ -9,6 +9,12 @@
 import Foundation
 import SwiftyUserDefaults
 
+protocol RTCJoinable {
+    var roomId: String { get }
+    var rtcType: Entity.Room.RtcType? { get }
+    var rtcBitRate: Int? { get }
+}
+
 extension Entity {
     
     enum RoomPublicType: String, Codable {
@@ -28,7 +34,12 @@ extension Entity {
     }
     
     //房间类型
-    struct Room: Codable {
+    struct Room: Codable, RTCJoinable {
+        
+        enum RtcType: String, Codable {
+            case agora
+            case zego
+        }
         
         var amongUsCode: String?
         var amongUsZone: AmongUsZone?
@@ -40,6 +51,8 @@ extension Entity {
         var topicId: String
         let topicName: String
 //        var bgUrl: String?
+        let rtcType: RtcType?
+        let rtcBitRate: Int?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,
@@ -117,6 +130,7 @@ extension Entity {
         var isVerified: Bool?
         var isVip: Bool?
         var decoPetId: Int
+        
         var nickname: String? {
             switch topic {
             case .fortnite:
@@ -175,6 +189,7 @@ extension Entity {
             case isVip = "is_vip"
             case decoPetId = "deco_pet_id"
         }
+        
         
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)

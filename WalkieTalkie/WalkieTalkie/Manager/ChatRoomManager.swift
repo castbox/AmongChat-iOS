@@ -145,36 +145,33 @@ class ChatRoomManager {
         delegate?.onSeatUpdated(position: position)
     }
 
-    func joinChannel(channelId: String, completionHandler: ((Error?) -> Void)?) {
-        mRtcManager = zegoRtcManager
+    func joinChannel(_ joinable: RTCJoinable, completionHandler: ((Error?) -> Void)?) {
+        switch (joinable.rtcType ?? .agora) {
+        case .agora:
+            mRtcManager = agoraRtcManager
+        case .zego:
+            mRtcManager = zegoRtcManager
+        }
         //判断 channel 类型
         if state == .connected {
             leaveChannel()
         }
-        //
-        self.mRtcManager?.joinChannel(channelId, "01VW5mYkU0V0ZDUFlYa0toMePLuUaLmspG9u0aU7kbTRe4bdwRDgEQKA4sXf3irtBNkAVlL9Ull2Ld5/v+xcxat/GYNrgG1yVLqR6xwZEQWNnXyidA+/SVubhlHSNbw3+aJKWtrDRTkVAOmBdHT/dafg==", Settings.loginUserId!.uInt) { [weak self] in
-            self?.channelName = channelId
-            self?.mRtcManager.setClientRole(.broadcaster)
-            completionHandler?(nil)
-        }
-//
-//        _ = Request.amongchatProvider.rx.request(.rtcToken(["room_id": channelId]))
-//            .mapJSON()
-//            .mapToDataKeyJsonValue()
-//            .mapTo(Entity.RTCToken.self)
-//            .retry(2)
-////                .filterNilAndEmpty()
-//            .subscribe { [weak self] token in
-//                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
-//                self.updateRole(true)
-//                self.mRtcManager?.joinChannel(channelId, token.roomToken, uid.uInt) { [weak self] in
-//                    self?.channelName = channelId
-//                    completionHandler?(nil)
-//                }
-//            } onError: { error in
-//                completionHandler?(error)
-//                cdPrint("error: \(error)")
-//            }
+        
+        _ = Request.rtcToken(joinable)
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onSuccess: { [weak self] token in
+                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+                if joinable.rtcType == .agora {
+                    self.updateRole(true)
+                }
+                self.mRtcManager?.joinChannel(joinable, token, uid.uInt) { [weak self] in
+                    self?.channelName = joinable.roomId
+                    completionHandler?(nil)
+                }
+            }, onError: { error in
+                completionHandler?(error)
+                cdPrint("error: \(error)")
+            })
     }
     
     func updateRole(_ isPublisher: Bool) {

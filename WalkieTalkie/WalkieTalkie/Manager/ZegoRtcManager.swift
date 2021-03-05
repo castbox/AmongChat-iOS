@@ -19,6 +19,7 @@ fileprivate func cdPrint(_ message: Any) {
 
 class ZegoRtcManager: NSObject, RtcManageable {
     
+    
     static let shared = ZegoRtcManager()
 
     weak var delegate: RtcDelegate?
@@ -59,7 +60,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
     }
 
     func initialize() {
-        ZegoExpressEngine.createEngine(withAppID: KeyCenter.Zego.AppId, appSign: KeyCenter.Zego.appSign, isTestEnv: true, scenario: .communication, eventHandler: self)
+        ZegoExpressEngine.createEngine(withAppID: KeyCenter.Zego.AppId, appSign: KeyCenter.Zego.appSign, isTestEnv: true, scenario: .live, eventHandler: self)
         mRtcEngine = ZegoExpressEngine.shared()
 
         let config = ZegoAudioConfig()
@@ -72,21 +73,33 @@ class ZegoRtcManager: NSObject, RtcManageable {
         mRtcEngine.enableHeadphoneAEC(true)
         //启动声浪监控
         mRtcEngine.startSoundLevelMonitor()
+        //设置重连时间
+        //10 人 进入后报错
         
     }
     
-    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+    func joinChannel(_ joinable: RTCJoinable, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+        cdPrint("join \(joinable.roomId) \(userId)")
+        
         //清除数据
-        //        unMuteUsers.removeAll()
-        //        talkedUsers.removeAll()
-        self.channelId = channelId
-        cdPrint("join \(channelId) \(userId)")
+        self.channelId = joinable.roomId
+        publishingStream.removeAll()
+        //
+        if let bitrate = joinable.rtcBitRate {
+            let config = ZegoAudioConfig()
+            config.codecID = .low3
+            config.bitrate = bitrate.int32
+            config.channel = .mono
+            mRtcEngine.setAudioConfig(config)
+        }
+        
         let config = ZegoRoomConfig()
         config.isUserStatusNotify = true
         config.token = token
+        
         self.joinChannelCompletionHandler = completionHandler
-        mRtcEngine.loginRoom(channelId, user: ZegoUser(userID: userId.string, userName: user.name ?? ""), config: config)
-        self.channelId = channelId
+        
+        mRtcEngine.loginRoom(joinable.roomId, user: ZegoUser(userID: userId.string, userName: user.name ?? ""), config: config)
     }
     
     func startTimeoutTimer() {
@@ -123,7 +136,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
     }
     
     func mic(muted: Bool) {
-        mRtcEngine.muteSpeaker(muted)
+        mRtcEngine.muteMicrophone(muted)
         delegate?.onUserMuteAudio(uid: mUserId, muted: muted)
     }
 
@@ -133,7 +146,6 @@ class ZegoRtcManager: NSObject, RtcManageable {
             return
         }
         mRtcEngine.logoutRoom(channelId)
-//        setClientRole(.audience)
         self.role = nil
         self.channelId = nil
     }
@@ -155,7 +167,7 @@ extension ZegoRtcManager: ZegoEventHandler {
     }
     
     func onEngineStateUpdate(_ state: ZegoEngineState) {
-        
+        cdPrint("onEngineStateUpdate: \(state.rawValue)")
     }
     
     func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String) {
@@ -186,14 +198,14 @@ extension ZegoRtcManager: ZegoEventHandler {
         //当前用户上麦成功
         if state == .publishing, errorCode == 0 {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: true)
+            cdPrint(" 📥 onPublisherStateUpdate, publishing: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
+
 
         } else {
             delegate?.onUserOnlineStateChanged(uid: mUserId, isOnline: false)
+            cdPrint(" 📥 onPublisherStateUpdate, Requesting: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
         }
-    }
-    
-    func onPlayerStateUpdate(_ state: ZegoPlayerState, errorCode: Int32, extendedData: [AnyHashable : Any]?, streamID: String) {
-        
+
     }
     
     func onRoomStreamUpdate(_ updateType: ZegoUpdateType, streamList: [ZegoStream], extendedData: [AnyHashable : Any]?, roomID: String) {
@@ -204,17 +216,32 @@ extension ZegoRtcManager: ZegoEventHandler {
                 //add
                 if !publishingStream.contains(where: { $0.streamID == stream.streamID }) {
                     publishingStream.append(stream)
-                    cdPrint(" 📥 Start playing stream, streamID: \(stream.streamID)");
-                    mRtcEngine.startPlayingStream(stream.streamID)
                 }
+                cdPrint(" 📥 onRoomStreamUpdate Start playing stream, streamID: \(stream.streamID)");
+                mRtcEngine.startPlayingStream(stream.streamID)
             }
         case .delete:
             streamList.forEach { stream in
                 publishingStream = publishingStream.filter { $0.streamID == stream.streamID && $0.user.userID == stream.user.userID }
+                cdPrint(" 📥 onRoomStreamUpdate delete stream, streamID: \(stream.streamID)");
                 mRtcEngine.stopPlayingStream(stream.streamID)
             }
             
         }
+    }
+    
+    func onPlayerStateUpdate(_ state: ZegoPlayerState, errorCode: Int32, extendedData: [AnyHashable : Any]?, streamID: String) {
+        switch state {
+        case .playRequesting:
+            cdPrint(" 📥 onPlayerStateUpdate, playRequesting: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
+        case .playing:
+            cdPrint(" 📥 onPlayerStateUpdate, playing: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
+        case .noPlay:
+            cdPrint(" 📥 onPlayerStateUpdate, noPlay: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
+        default:
+            cdPrint(" 📥 onPlayerStateUpdate, unknow: \(streamID) errorCode: \(errorCode) extendedData: \(extendedData)")
+        }
+
     }
     
     func onRoomUserUpdate(_ updateType: ZegoUpdateType, userList: [ZegoUser], roomID: String) {

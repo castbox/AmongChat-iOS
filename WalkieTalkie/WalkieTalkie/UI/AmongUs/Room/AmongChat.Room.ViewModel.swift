@@ -179,7 +179,7 @@ extension AmongChat.Room {
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
-            self.mManager.joinChannel(channelId: self.room.roomId) { error in
+            self.mManager.joinChannel(self.room) { error in
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true

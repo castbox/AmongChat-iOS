@@ -28,7 +28,7 @@ protocol RtcManageable {
     
     func initialize()
     
-    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?)
+    func joinChannel(_ joinable: RTCJoinable, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?)
     
     func setClientRole(_ role: RtcUserRole)
     
@@ -119,27 +119,20 @@ class AgoraRtcManager: NSObject, RtcManageable {
 //        isLastmileProbeTesting = true
     }
     
-    func joinChannel(_ channelId: String, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
+    func joinChannel(_ joinable: RTCJoinable, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?) {
         //清除数据
 //        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
-        self.channelId = channelId
+        self.channelId = joinable.roomId
         cdPrint("join \(channelId) \(userId)")
-        let result = mRtcEngine.joinChannel(byToken: token, channelId: channelId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
+        let result = mRtcEngine.joinChannel(byToken: token, channelId: joinable.roomId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
-//            self.channelId = channelId
             self.mUserId = uid
             completionHandler?()
-            self.delegate?.onJoinChannelSuccess(channelId: channelId)
-//            self.updateFirestoreChannelStatus(with: channelId)
-            
-//            if !self.talkedUsers.contains(where: { $0.uid.int!.uInt == uid }) {
-//                self.talkedUsers.append(ChannelUser.randomUser(uid: uid))
-//            }
-            
+            self.delegate?.onJoinChannelSuccess(channelId: joinable.roomId)
         })
         //start a time out timer
         if result != 0 {
