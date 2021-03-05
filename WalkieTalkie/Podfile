@@ -154,6 +154,7 @@ target 'WalkieTalkie' do
 #    pod 'Shuffle-iOS'
     pod "Koloda"
     pod 'YPImagePicker'
+    pod 'RAMAnimatedTabBarController'
 end
 
 post_install do |installer|
