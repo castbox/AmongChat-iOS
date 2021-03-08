@@ -12,10 +12,11 @@ import RxCocoa
 import RxGesture
 import NotificationBannerSwift
 import SwiftyUserDefaults
+import RAMAnimatedTabBarController
 
 extension AmongChat.Home {
     
-    class MainTabController: UITabBarController {
+    class MainTabController: RAMAnimatedTabBarController {
         
         private let imViewModel = IMViewModel()
         private let bag = DisposeBag()
@@ -64,7 +65,7 @@ extension AmongChat.Home.MainTabController {
         if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
             //dismiss previous
             dismissNotificationBanner()
-
+            
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             
             let view = AmongChat.Home.StrangeInvitationView()
@@ -77,10 +78,10 @@ extension AmongChat.Home.MainTabController {
             } ignore: { [weak self] in
                 self?.notificationBanner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "ignore")
-
+                
                 self?.dismissNotificationBanner()
             }
-
+            
             let banner = FloatingNotificationBanner(customView: view)
             banner.autoDismiss = false
             banner.bannerHeight = 112 + (Frame.Height.isXStyle ? 20 : 0)
@@ -155,9 +156,9 @@ extension AmongChat.Home.MainTabController {
                       !topVC.isRequestingRoom else {
                     return
                 }
-
+                
                 let invitationModal: AmongChat.Home.RoomInvitationModal
-
+                
                 if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
                     invitationModal = currentModal
                 } else {
@@ -165,7 +166,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.modalPresentationStyle = .overCurrentContext
                     topVC.present(invitationModal, animated: false)
                 }
-
+                
                 invitationModal.updateContent(user: user, room: room)
                 invitationModal.bindEvent(join: {
                     invitationModal.dismiss(animated: false) {
@@ -179,7 +180,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.dismiss(animated: false)
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
-//                self.onReceive(strangerInvigation: user, room: room)
+                //                self.onReceive(strangerInvigation: user, room: room)
                 HapticFeedback.Impact.warning()
             })
             .disposed(by: bag)
@@ -213,12 +214,18 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 let topicVC = AmongChat.Home.TopicsViewController()
+                let item = RAMAnimatedTabBarItem()
+                item.animation = AmongChat.Home.MainTabItemAnimation()
+                topicVC.tabBarItem = item
                 topicVC.tabBarItem.image = R.image.ac_home_topic_tab()
                 topicVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
                 return NavigationViewController(rootViewController: topicVC)
                 
             case .friends:
                 let relationVC = AmongChat.Home.RelationsViewController()
+                let item = RAMAnimatedTabBarItem()
+                item.animation = AmongChat.Home.MainTabItemAnimation()
+                relationVC.tabBarItem = item
                 relationVC.tabBarItem.image = R.image.ac_home_friends_tab()
                 relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
                 relationVC.loadViewIfNeeded()
@@ -242,6 +249,75 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
         HapticFeedback.Impact.light()
+    }
+    
+}
+
+extension AmongChat.Home {
+    
+    class MainTabItemAnimation: RAMItemAnimation {
+        
+        override func playAnimation(_ icon: UIImageView, textLabel _: UILabel) {
+            selectedAnimation(icon)
+        }
+        
+        override func deselectAnimation(_ icon: UIImageView, textLabel _: UILabel, defaultTextColor _: UIColor, defaultIconColor _: UIColor) {
+            deselectAnimation(icon)
+        }
+        
+        override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
+            if let iconImage = icon.image {
+                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
+                icon.image = renderImage
+                icon.tintColor = Theme.mainTintColor
+            }
+            icon.layer.transform = CATransform3DMakeRotation((-25) / 180.0 * .pi, 1.0, 1.0, 1.0)
+        }
+        
+        private func selectedAnimation(_ icon: UIImageView) {
+            
+            if let iconImage = icon.image {
+                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
+                icon.image = renderImage
+                icon.tintColor = Theme.mainTintColor
+            }
+            
+            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0) {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                    icon.layer.transform = CATransform3D(scaleX: 0.72, y: 0.72, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.3) {
+                    icon.layer.transform = CATransform3D(scaleX: 1.07, y: 1.07, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.25) {
+                    icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.65, relativeDuration: 0.35) {
+                    icon.layer.transform = CATransform3D(scaleX: 1, y: 1, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+            }
+        }
+        
+        private func deselectAnimation(_ icon: UIImageView) {
+            
+            if let iconImage = icon.image {
+                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
+                icon.image = renderImage
+                icon.tintColor = UIColor(hex6: 0x5D5D5D)
+            }
+            
+            icon.transform = .identity
+            
+        }
+        
     }
     
 }
