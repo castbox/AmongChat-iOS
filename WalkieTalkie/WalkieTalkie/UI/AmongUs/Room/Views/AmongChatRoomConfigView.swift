@@ -14,8 +14,14 @@ class AmongChatRoomConfigView: XibLoadableView {
     lazy var amongSetupView = AmongRoomInfoSetupView()
     lazy var amongInfoView = AmongRoomInfoView()
     lazy var justChillingInfoView = JustChillingInfoView()
+    lazy var infoWithNicknameView = InfoWithNicknameView()
+    
+    @IBOutlet weak var gameIconIV: UIImageView!
+    @IBOutlet weak var openGameButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
     
     var updateEditTypeHandler: ((RoomEditType) -> Void)?
+    var openGameHandler: CallBack?
     
     var room: Entity.Room {
         didSet {
@@ -34,6 +40,9 @@ class AmongChatRoomConfigView: XibLoadableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @IBAction func onOpenGameButton(_ sender: UIButton) {
+        openGameHandler?()
+    }
 }
 
 extension AmongChatRoomConfigView {
@@ -42,6 +51,7 @@ extension AmongChatRoomConfigView {
         switch room.topicType {
         case .amongus:
             justChillingInfoView.isHidden = true
+            infoWithNicknameView.isHidden = true
             amongSetupView.isHidden = room.isValidAmongConfig
             amongInfoView.isHidden = !room.isValidAmongConfig
             amongInfoView.room = room
@@ -51,7 +61,25 @@ extension AmongChatRoomConfigView {
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
             amongInfoView.isHidden = true
+            infoWithNicknameView.isHidden = true
             justChillingInfoView.room = room
+            
+        case .roblox,
+             .fortnite,
+             .freefire,
+             .minecraft,
+             .mobilelegends,
+             .pubgmobile,
+             .animalCrossing,
+             .brawlStars,
+             .callofduty:
+            
+            justChillingInfoView.isHidden = true
+            amongSetupView.isHidden = true
+            amongInfoView.isHidden = true
+            infoWithNicknameView.isHidden = false
+            infoWithNicknameView.room = room
+            
         default:
             justChillingInfoView.isHidden = false
             amongSetupView.isHidden = true
@@ -59,6 +87,16 @@ extension AmongChatRoomConfigView {
             justChillingInfoView.room = room
 //            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
         }
+        
+        if room.topicType.productId > 0 {
+            openGameButton.isHidden = false
+            nameLabel.isHidden = true
+        } else {
+            openGameButton.isHidden = true
+            nameLabel.isHidden = false
+            nameLabel.text = room.topicName
+        }
+        
     }
     
     func bindSubviewEvent() {
@@ -100,25 +138,41 @@ extension AmongChatRoomConfigView {
             }
 
         }
+        
+        infoWithNicknameView.setNickNameHandler = { [weak self] in
+            self?.updateEditTypeHandler?(AmongChat.Room.EditType.nickName)
+        }
     }
     
     func configureSubview() {
         amongSetupView.isHidden = true
         amongInfoView.isHidden = true
         justChillingInfoView.isHidden = true
-        addSubviews(views: amongSetupView, amongInfoView, justChillingInfoView)
+        infoWithNicknameView.isHidden = true
+        addSubviews(views: amongSetupView, amongInfoView, justChillingInfoView, infoWithNicknameView)
         
         amongSetupView.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview()
+            maker.top.right.bottom.equalToSuperview()
+            maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
         
         amongInfoView.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview()
+            maker.top.right.bottom.equalToSuperview()
+            maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
         
         justChillingInfoView.snp.makeConstraints { maker in
-            maker.edges.equalToSuperview()
+            maker.top.right.bottom.equalToSuperview()
+            maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
-
+        
+        infoWithNicknameView.snp.makeConstraints { (maker) in
+            maker.top.greaterThanOrEqualToSuperview().inset(10)
+            maker.centerY.equalToSuperview()
+            maker.right.equalToSuperview()
+            maker.left.equalTo(gameIconIV.snp.right).offset(28)
+        }
+        
+        gameIconIV.setImage(with: room.coverUrl)
     }
 }

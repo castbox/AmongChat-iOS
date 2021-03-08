@@ -25,6 +25,8 @@ extension AmongChat {
         case callofduty = "callofduty"
         case pubgmobile = "pubgmobile"
         case mobilelegends = "mobilelegends"
+        case brawlStars = "brawlstars"
+        case animalCrossing = "animalcrossing"
     }
     
     //用户身份
