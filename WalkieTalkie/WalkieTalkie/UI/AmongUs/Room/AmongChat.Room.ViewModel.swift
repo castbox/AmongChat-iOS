@@ -538,6 +538,9 @@ private extension AmongChat.Room.ViewModel {
         }
         roomReplay.accept(newRoom)
         
+        //同步状态
+        mManager.update(joinable: newRoom)
+        
         //人数为1时的分享控制
         if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,
            delayToShowShareView(event: .singlePerson, delay: 5) {

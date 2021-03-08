@@ -32,10 +32,12 @@ protocol RtcManageable {
     
     func setClientRole(_ role: RtcUserRole)
     
+    func update(joinable: RTCJoinable)
+    
     func mic(muted: Bool)
     
 //    func muteAllRemoteAudioStreams(_ muted: Bool)
-    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32) -> Bool
+    func adjustUserPlaybackSignalVolume(_ uid: UInt, volume: Int32) -> Bool
     
     func leaveChannel()
 }
@@ -84,6 +86,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
     private var timeoutTimer: SwiftTimer?
+    private var joinable: RTCJoinable?
 //    private var recorderTimer: SwiftTimer?
 //    private var haveUnmuteUser: Bool {
 //        return !unMuteUsers.isEmpty
@@ -124,6 +127,8 @@ class AgoraRtcManager: NSObject, RtcManageable {
 //        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
         self.channelId = joinable.roomId
+        self.joinable = joinable
+        
         cdPrint("join \(channelId) \(userId)")
         let result = mRtcEngine.joinChannel(byToken: token, channelId: joinable.roomId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("join success \(channel) \(uid)")
@@ -140,6 +145,10 @@ class AgoraRtcManager: NSObject, RtcManageable {
         } else {
             startTimeoutTimer()
         }
+    }
+    
+    func update(joinable: RTCJoinable) {
+        self.joinable = joinable
     }
     
     func startTimeoutTimer() {
@@ -169,8 +178,8 @@ class AgoraRtcManager: NSObject, RtcManageable {
         self.role = role
     }
     
-    func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) -> Bool {
-        let result = mRtcEngine.muteRemoteAudioStream(uid.uInt, mute: volume == 0)
+    func adjustUserPlaybackSignalVolume(_ uid: UInt, volume: Int32 = 0) -> Bool {
+        let result = mRtcEngine.muteRemoteAudioStream(uid, mute: volume == 0)
         cdPrint("adjustUserPlaybackSignalVolume value: \(volume) result: \(result)")
 //        if volume > 0 {
 //            mRtcEngine.adjustUserPlaybackSignalVolume(uid.uInt, volume: volume)

@@ -141,6 +141,10 @@ class ChatRoomManager {
         mRtcManager.mic(muted: muted)
     }
     
+    func update(joinable: RTCJoinable) {
+        mRtcManager?.update(joinable: joinable)
+    }
+    
     func onSeatUpdated(position: Int) {
         delegate?.onSeatUpdated(position: position)
     }
@@ -197,7 +201,7 @@ class ChatRoomManager {
 //        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
 //    }
     func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) -> Bool {
-        return mRtcManager.adjustUserPlaybackSignalVolume(uid, volume: volume)
+        return mRtcManager.adjustUserPlaybackSignalVolume(uid.uInt, volume: volume)
     }
 
 }

@@ -13,6 +13,7 @@ protocol RTCJoinable {
     var roomId: String { get }
     var rtcType: Entity.Room.RtcType? { get }
     var rtcBitRate: Int? { get }
+    var roomUserList: [Entity.RoomUser] { get set }
 }
 
 extension Entity {
