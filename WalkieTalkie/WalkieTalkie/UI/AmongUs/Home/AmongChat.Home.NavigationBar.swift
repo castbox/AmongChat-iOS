@@ -53,7 +53,7 @@ extension AmongChat.Home {
                     if let _ = ts {
                         self?.profileBtn.redDotOff()
                     } else {
-                        self?.profileBtn.redDotOn(rightOffset: 0, topOffset: 0)
+                        self?.profileBtn.redDotOn(rightInset: -2)
                     }
                 })
                 .disposed(by: bag)

@@ -90,6 +90,18 @@ extension Social {
             return btn
         }()
         
+        private lazy var bgTapGR: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event
+                .subscribe(onNext: { [weak self] (g) in
+                    guard let `self` = self,
+                    !self.containerView.frame.contains(g.location(in: self.view)) else { return }
+                    self.dismiss(animated: false)
+                })
+                .disposed(by: bag)
+            return g
+        }()
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
@@ -152,6 +164,7 @@ extension Social.CustomAvatarViewController {
     private func setupLayout() {
         
         view.backgroundColor = .clear
+        view.addGestureRecognizer(bgTapGR)
         
         let stack = UIStackView(arrangedSubviews: [useAvatarButton, takePhotoButton, selectImageButton, closeButton],
                                 axis: .vertical,
@@ -192,6 +205,16 @@ extension Social.CustomAvatarViewController {
                 })
             })
             .disposed(by: bag)
+        
+        Settings.shared.amongChatAvatarListShown.replay()
+            .subscribe(onNext: { [weak self] (ts) in
+                if let _ = ts {
+                    self?.useAvatarButton.titleLabel?.redDotOff()
+                } else {
+                    self?.useAvatarButton.titleLabel?.redDotOn(rightInset: -8, topInset: 2.5, diameter: 8)
+                }
+            })
+            .disposed(by: bag)
     }
     
     private func uploadAvatar(via source: CustomAvatarSource) -> Single<Bool> {
@@ -206,13 +229,6 @@ extension Social.CustomAvatarViewController {
             .flatMap({ _ in self.selectImage(via: source) })
             .flatMap({ self.uploadImage(image: $0) })
             .flatMap({ self.useAvatar($0) })
-            .map({ (p) -> Entity.UserProfile in
-                guard let profile = p else {
-                    throw MsgError.default
-                }
-                
-                return profile
-            })
             .map ({ _ in true })
     }
     
@@ -259,18 +275,29 @@ extension Social.CustomAvatarViewController {
         
     }
     
-    private func uploadImage(image: UIImage) -> Single<String> {
+    private func uploadImage(image: UIImage) -> Single<(String, UIImage)> {
         
         guard let imgPng = image.scaled(toWidth: 200) else {
             return Single.error(MsgError.default)
         }
         
         return Request.uploadPng(image: imgPng)
+            .map { ($0, image) }
     }
     
-    private func useAvatar(_ url: String) -> Single<Entity.UserProfile?> {
-        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: url)
+    private func useAvatar(_ avatarTuple: (String, UIImage)) -> Single<Entity.UserProfile> {
+        let profileProto = Entity.ProfileProto(birthday: nil, name: nil, pictureUrl: avatarTuple.0)
         return Request.updateProfile(profileProto)
+            .map({ (p) -> Entity.UserProfile in
+                guard let profile = p else {
+                    throw MsgError.default
+                }
+                
+                return profile
+            })
+            .do(onSuccess: { (_) in
+                AvatarImageView.placeholder = avatarTuple.1
+            })
     }
     
     private func upgradeProIfNeeded(source: Logger.IAP.ActionSource) -> Single<Bool> {

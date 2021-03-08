@@ -180,7 +180,7 @@ extension AmongChat.Home.MainTabController {
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
 //                self.onReceive(strangerInvigation: user, room: room)
-
+                HapticFeedback.Impact.warning()
             })
             .disposed(by: bag)
         

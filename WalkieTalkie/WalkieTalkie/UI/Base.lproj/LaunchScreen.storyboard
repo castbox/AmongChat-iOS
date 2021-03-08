@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OLD-hG-3aT">
-                                <rect key="frame" x="157" y="244.5" width="100" height="100"/>
+                                <rect key="frame" x="161.5" y="249.5" width="91" height="90"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_name" translatesAutoresizingMaskIntoConstraints="NO" id="Alc-cz-XgW">
                                 <rect key="frame" x="67" y="774" width="280" height="40"/>
@@ -47,7 +47,7 @@
     </scenes>
     <resources>
         <image name="ac_login_bg" width="375.5" height="812"/>
-        <image name="launch_logo" width="100" height="100"/>
+        <image name="launch_logo" width="90.666664123535156" height="90"/>
         <image name="launch_name" width="280" height="40"/>
     </resources>
 </document>

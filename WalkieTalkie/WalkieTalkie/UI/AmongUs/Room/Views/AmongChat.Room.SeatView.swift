@@ -191,7 +191,7 @@ extension AmongChat.Room.SeatView {
                 } else {
                     bottomStackView.addArrangedSubview(cell)
                 }
-                cell.emojis = room.topicType.roomEmojis
+                cell.emojisNames = room.topicType.roomEmojiNames
                 viewCache[index] = cell
                 nilableCell = cell
             }
