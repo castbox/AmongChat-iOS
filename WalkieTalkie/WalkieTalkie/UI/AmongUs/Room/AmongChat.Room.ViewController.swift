@@ -92,8 +92,11 @@ extension AmongChat.Room {
             let v = UIView()
             let ship = UIImageView()
             ship.contentMode = .scaleAspectFill
-            ship.setImage(with: viewModel.roomBgUrl())
-//            let star = UIImageView(image: R.image.star_bg())
+            if let image = viewModel.roomBgImage() {
+                ship.image = image
+            } else {
+                ship.setImage(with: viewModel.roomBgUrl())
+            }
             let mask = UIView()
             mask.backgroundColor = UIColor.black.alpha(0.5)
             v.addSubviews(views: ship, mask)
@@ -185,6 +188,8 @@ extension AmongChat.Room {
             return f
         }()
         
+        private var topEntranceView: AmongChat.Room.TopEntranceView!
+        
         override var screenName: Logger.Screen.Node.Start {
             return .room
         }
@@ -197,8 +202,8 @@ extension AmongChat.Room {
                 Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
                 //show loading
                 let viewModel = ViewModel.make(room, logSource)
-                completionHandler?(nil)
                 self.show(from: controller, with: viewModel)
+                completionHandler?(nil)
             }
         }
         
@@ -395,7 +400,9 @@ extension AmongChat.Room.ViewController {
         messageBackgroundLayer.endPoint = CGPoint(x: 0, y: 1)
         messageBackgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.6).cgColor]
         
-        view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView)
+        topEntranceView = AmongChat.Room.TopEntranceView()
+        
+        view.addSubviews(views: bgView, messageBackgroundView, messageView, seatView, messageInputContainerView, amongInputCodeView, topBar, configView, toolView, bottomBar, nickNameInputView, inputNotesView, topEntranceView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.right.equalToSuperview()
@@ -485,6 +492,12 @@ extension AmongChat.Room.ViewController {
 //                maker.edges.equalToSuperview()
 //            }
 //        }
+        
+        topEntranceView.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(configView.snp.top)
+            maker.height.equalTo(44)
+        }
 
     }
     
@@ -720,6 +733,12 @@ extension AmongChat.Room.ViewController {
                 self.view.raft.autoShow(.text(message))
             }
         }
+        
+        viewModel.onUserJoinedHandler = { [weak self] message in
+            self?.topEntranceView.add(message.user)
+        }
+        //
+        viewModel.addJoinMessage()
         
         viewModel.shareEventHandler = { [weak self] in
             self?.onShareBtn()

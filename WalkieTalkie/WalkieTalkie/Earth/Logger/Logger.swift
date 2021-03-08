@@ -80,10 +80,8 @@ class GuruAnalytics {
      - _eventName,      fb_content_id,  fb_content_type,    fb_level
      */
     static func log(event: String, category: String? = nil, name: String? = nil, value: Int64? = nil, content: String? = nil,
-                    iap_ab_group: String? = nil, error: Error? = nil) {
-        
+                    iap_ab_group: String? = nil, error: Error? = nil, extra: [String: Any]? = nil) {
         var firebaseInfo = [String: Any]()
-//        var facebookInfo = [String: Any]()
 
         defer {
             
@@ -104,7 +102,6 @@ class GuruAnalytics {
             FirebaseAnalytics.Analytics.logEvent(event, parameters: firebaseInfo)
             #endif
         }
-        
         firebaseInfo[AnalyticsParameterItemName] = name
 
 //        facebookInfo["fb_content_id"] = name
@@ -117,6 +114,11 @@ class GuruAnalytics {
         firebaseInfo[AnalyticsParameterValue] = value
 //        facebookInfo["fb_level"] = value
         firebaseInfo["iap_ab_group"] = iap_ab_group
+        if let extra = extra {
+            extra.forEach {
+                firebaseInfo[$0] = $1
+            }
+        }
 
         if let err = error {
            let nserr = err as NSError
@@ -276,6 +278,8 @@ extension Logger {
             case iap_home
             case room_create
             case avatar
+            case profile_look
+            case upload_avatar
         }
         
         static func logImp(_ source: ActionSource) {

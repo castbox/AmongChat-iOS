@@ -53,6 +53,10 @@
 	<string>235472688143702</string>
 	<key>FacebookDisplayName</key>
 	<string>AmongChat</string>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://amongchat.page.link</string>
+	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-2436733915645843~5026524148</string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -89,6 +93,8 @@
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow Among Chat to use your camera</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Please allow Among Chat to access contacts so you can compete with friends</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -100,7 +106,7 @@
 	<key>NSUserTrackingUsageDescription</key>
 	<string>This identifier will be used to deliver personalized ads to you.</string>
 	<key>SCSDKClientId</key>
-	<string>fe9236ab-e095-4e6c-a211-35c1c64465df</string>
+	<string>0878ad90-97e1-4f29-ac70-6a08c5fdf0a0</string>
 	<key>SCSDKRedirectUrl</key>
 	<string>amongchat://snaplogin</string>
 	<key>SCSDKScopes</key>
@@ -112,15 +118,19 @@
 	<array>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>v9wttpbfk9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>n38lu8286q.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>22mmun2rn5.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>238da6jt44.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>24t9a8vw3c.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -140,10 +150,6 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>424m5254lk.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>4468km3ulz.skadnetwork</string>
 		</dict>
 		<dict>
@@ -152,27 +158,15 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>44n7hlldy6.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>488r3q3dtq.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>4dzt52r2t5.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>4fzdc2evr5.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>4pfyvq9l8r.skadnetwork</string>
+			<string>523jb4fst2.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>523jb4fst2.skadnetwork</string>
+			<string>52fl2v3hgk.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -248,10 +242,6 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>cstr6suwn9.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>f38h382jlk.skadnetwork</string>
 		</dict>
 		<dict>
@@ -261,10 +251,6 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>ggvn48r87g.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>glqzh8vgby.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -281,10 +267,6 @@
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
 			<string>klf5c3l5u5.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>lr83yxwka7.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -332,15 +314,7 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>s39g8k73mm.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>t38b2kh725.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>tl55sbb4fm.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -356,15 +330,7 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>v79kvwwj4g.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>w9q455wk68.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
-			<string>wg4vff78zm.skadnetwork</string>
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
@@ -380,10 +346,6 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>ydx93a7ass.skadnetwork</string>
-		</dict>
-		<dict>
-			<key>SKAdNetworkIdentifier</key>
 			<string>yrqqpx2mcb.skadnetwork</string>
 		</dict>
 		<dict>
@@ -392,7 +354,119 @@
 		</dict>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
+			<string>ludvb6z3bs.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>tl55sbb4fm.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>ydx93a7ass.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>488r3q3dtq.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>24t9a8vw3c.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4dzt52r2t5.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>424m5254lk.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>wg4vff78zm.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>v79kvwwj4g.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>glqzh8vgby.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>44n7hlldy6.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>5tjdwbrq8w.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>4pfyvq9l8r.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
 			<string>zmvfpc5aq8.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>g28c52eehv.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>s39g8k73mm.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>238da6jt44.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>lr83yxwka7.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>252b5q8x7y.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>9g2aggbj52.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>ejvt5qm6ak.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>hdw39hrw9y.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>y45688jllp.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>dzg6xy7pwj.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>su67r6k2v3.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>8m87ys6875.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>6xzpu9s2p8.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>gta9lk7p23.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>feyaarzu9v.skadnetwork</string>
 		</dict>
 	</array>
 	<key>TikTokAppID</key>

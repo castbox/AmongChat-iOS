@@ -1,4 +1,6 @@
 Bienvenue sur l'application de chat vocal AmongChat!
-Vous pouvez maintenant définir votre nom d'utilisateur Roblox, votre nom d'affichage Fortnite ou votre surnom Free Fire dans les canaux.
-Vous pouvez également choisir différentes langues de chat dans les paramètres de l'application, pour mieux correspondre.
+Dans cette mise à jour, vous pouvez
+1. invitez des amis dans vos contacts à jouer ensemble;
+2. soyez le premier à obtenir de nouveaux avatars;
+3. choisissez de profiter des fonctionnalités VIP - badges et avatars exclusifs, pas de publicité, cartes illimitées, correspondance plus rapide, etc.
 Trouvez et discutez avec vos amis, profitez-en!

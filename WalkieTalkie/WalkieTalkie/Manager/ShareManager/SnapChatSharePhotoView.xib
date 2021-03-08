@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SnapChatSharePhotoView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="avatarView" destination="PUV-to-wFf" id="bto-Yy-NWp"/>
+                <outlet property="avatarWidthConstraint" destination="3Ru-tb-O4i" id="efm-hy-FvM"/>
+                <outlet property="clickTipsLabel" destination="tij-N4-18I" id="HxG-0Y-3d0"/>
+                <outlet property="linkViewbottomConstraint" destination="8av-di-xax" id="vMG-7s-Prh"/>
+                <outlet property="titleLabel" destination="FCE-VC-rts" id="h48-rF-Gsf"/>
+                <outlet property="titleLabelWidthConstraint" destination="s9t-06-Hl0" id="Shp-HE-zX7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_share_snapchat_bg" translatesAutoresizingMaskIntoConstraints="NO" id="Hyw-0p-vYX">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_profile_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="PUV-to-wFf">
+                    <rect key="frame" x="152" y="100" width="110" height="110"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="3Ru-tb-O4i"/>
+                        <constraint firstAttribute="width" secondItem="PUV-to-wFf" secondAttribute="height" multiplier="1:1" id="nHB-dS-tEU"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="55"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AmongChat is a cool voice chat app to match and find friends to play together." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCE-VC-rts">
+                    <rect key="frame" x="94.5" y="222" width="225" height="170.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="225" id="s9t-06-Hl0"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="25"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_share_snapchat_url_bg" translatesAutoresizingMaskIntoConstraints="NO" id="05h-ay-T15">
+                    <rect key="frame" x="56.5" y="661" width="301" height="141"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Would you like to be my teammate? Click here:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tij-N4-18I">
+                    <rect key="frame" x="94.5" y="605" width="225" height="44"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="16"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="05h-ay-T15" secondAttribute="bottom" constant="60" id="8av-di-xax"/>
+                <constraint firstItem="tij-N4-18I" firstAttribute="centerX" secondItem="05h-ay-T15" secondAttribute="centerX" id="8tl-Jg-jOn"/>
+                <constraint firstAttribute="bottom" secondItem="Hyw-0p-vYX" secondAttribute="bottom" id="E31-cJ-dhv"/>
+                <constraint firstItem="PUV-to-wFf" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="HAT-XG-vhc"/>
+                <constraint firstItem="05h-ay-T15" firstAttribute="centerX" secondItem="Hyw-0p-vYX" secondAttribute="centerX" id="IoN-Ud-rYg"/>
+                <constraint firstItem="FCE-VC-rts" firstAttribute="top" secondItem="PUV-to-wFf" secondAttribute="bottom" constant="12" id="LM4-nV-aI4"/>
+                <constraint firstAttribute="trailing" secondItem="Hyw-0p-vYX" secondAttribute="trailing" id="OJz-7t-anX"/>
+                <constraint firstItem="tij-N4-18I" firstAttribute="width" secondItem="FCE-VC-rts" secondAttribute="width" id="Q7K-pF-U1E"/>
+                <constraint firstItem="05h-ay-T15" firstAttribute="top" secondItem="tij-N4-18I" secondAttribute="bottom" constant="12" id="QdH-nO-Mg7"/>
+                <constraint firstItem="Hyw-0p-vYX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Zng-09-kvN"/>
+                <constraint firstItem="FCE-VC-rts" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="178" id="jNZ-P9-wXk"/>
+                <constraint firstItem="FCE-VC-rts" firstAttribute="centerX" secondItem="PUV-to-wFf" secondAttribute="centerX" id="mOx-nB-U6J"/>
+                <constraint firstItem="PUV-to-wFf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="56" id="quN-af-gjB"/>
+                <constraint firstItem="Hyw-0p-vYX" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="y6k-Sd-O8u"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="151"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ac_profile_avatar" width="90" height="90"/>
+        <image name="ac_share_snapchat_bg" width="376" height="812"/>
+        <image name="ac_share_snapchat_url_bg" width="300.66665649414062" height="141"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

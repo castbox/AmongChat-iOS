@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 7 files.
+  /// This `R.file` struct is generated, and contains static references to 17 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -33,6 +33,26 @@ struct R: Rswift.Validatable {
     static let login_bgSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "login_bg", pathExtension: "svga")
     /// Resource file `mobileRegions.json`.
     static let mobileRegionsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "mobileRegions", pathExtension: "json")
+    /// Resource file `room-emoji-blue.svga`.
+    static let roomEmojiBlueSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-blue", pathExtension: "svga")
+    /// Resource file `room-emoji-bluegreen.svga`.
+    static let roomEmojiBluegreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-bluegreen", pathExtension: "svga")
+    /// Resource file `room-emoji-brown.svga`.
+    static let roomEmojiBrownSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-brown", pathExtension: "svga")
+    /// Resource file `room-emoji-darkgreen.svga`.
+    static let roomEmojiDarkgreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-darkgreen", pathExtension: "svga")
+    /// Resource file `room-emoji-green.svga`.
+    static let roomEmojiGreenSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-green", pathExtension: "svga")
+    /// Resource file `room-emoji-orange.svga`.
+    static let roomEmojiOrangeSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-orange", pathExtension: "svga")
+    /// Resource file `room-emoji-pink.svga`.
+    static let roomEmojiPinkSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-pink", pathExtension: "svga")
+    /// Resource file `room-emoji-purple.svga`.
+    static let roomEmojiPurpleSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-purple", pathExtension: "svga")
+    /// Resource file `room-emoji-red.svga`.
+    static let roomEmojiRedSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-red", pathExtension: "svga")
+    /// Resource file `room-emoji-yellow.svga`.
+    static let roomEmojiYellowSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "room-emoji-yellow", pathExtension: "svga")
     
     /// `bundle.url(forResource: "Adjust-Info", withExtension: "plist")`
     static func adjustInfoPlist(_: Void = ()) -> Foundation.URL? {
@@ -73,6 +93,66 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "mobileRegions", withExtension: "json")`
     static func mobileRegionsJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.mobileRegionsJson
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-blue", withExtension: "svga")`
+    static func roomEmojiBlueSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBlueSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-bluegreen", withExtension: "svga")`
+    static func roomEmojiBluegreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBluegreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-brown", withExtension: "svga")`
+    static func roomEmojiBrownSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiBrownSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-darkgreen", withExtension: "svga")`
+    static func roomEmojiDarkgreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiDarkgreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-green", withExtension: "svga")`
+    static func roomEmojiGreenSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiGreenSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-orange", withExtension: "svga")`
+    static func roomEmojiOrangeSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiOrangeSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-pink", withExtension: "svga")`
+    static func roomEmojiPinkSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiPinkSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-purple", withExtension: "svga")`
+    static func roomEmojiPurpleSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiPurpleSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-red", withExtension: "svga")`
+    static func roomEmojiRedSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiRedSvga
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+    
+    /// `bundle.url(forResource: "room-emoji-yellow", withExtension: "svga")`
+    static func roomEmojiYellowSvga(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.roomEmojiYellowSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -144,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 153 images.
+  /// This `R.image` struct is generated, and contains static references to 146 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -244,6 +324,8 @@ struct R: Rswift.Validatable {
     static let ac_privileges_left_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_left_line")
     /// Image `ac_privileges_right_line`.
     static let ac_privileges_right_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_right_line")
+    /// Image `ac_pro_icon_24`.
+    static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
     /// Image `ac_pro_privilege_badge`.
     static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
     /// Image `ac_pro_privilege_match`.
@@ -254,16 +336,22 @@ struct R: Rswift.Validatable {
     static let ac_pro_privilege_special_avatars = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_special_avatars")
     /// Image `ac_pro_privilege_unlimited_cards`.
     static let ac_pro_privilege_unlimited_cards = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_unlimited_cards")
+    /// Image `ac_pro_privilege_upload_avatar`.
+    static let ac_pro_privilege_upload_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_upload_avatar")
     /// Image `ac_pro_unbuy_badge`.
     static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
     /// Image `ac_pro_unlocked_badge`.
     static let ac_pro_unlocked_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unlocked_badge")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
+    /// Image `ac_profile_back`.
+    static let ac_profile_back = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_back")
     /// Image `ac_profile_birthday`.
     static let ac_profile_birthday = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_birthday")
     /// Image `ac_profile_block`.
     static let ac_profile_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_block")
+    /// Image `ac_profile_close_circle`.
+    static let ac_profile_close_circle = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_circle")
     /// Image `ac_profile_close_down`.
     static let ac_profile_close_down = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_close_down")
     /// Image `ac_profile_close`.
@@ -272,12 +360,20 @@ struct R: Rswift.Validatable {
     static let ac_profile_communtiy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_communtiy")
     /// Image `ac_profile_edit`.
     static let ac_profile_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_edit")
+    /// Image `ac_profile_look_bg_defalut`.
+    static let ac_profile_look_bg_defalut = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_bg_defalut")
+    /// Image `ac_profile_look_pet_shadow`.
+    static let ac_profile_look_pet_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_pet_shadow")
+    /// Image `ac_profile_look_shadow`.
+    static let ac_profile_look_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_shadow")
+    /// Image `ac_profile_look_skin_default`.
+    static let ac_profile_look_skin_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_skin_default")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
     /// Image `ac_profile_pro`.
     static let ac_profile_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro")
-    /// Image `ac_profile_settings`.
-    static let ac_profile_settings = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_settings")
+    /// Image `ac_profile_setting`.
+    static let ac_profile_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_setting")
     /// Image `ac_profile_username`.
     static let ac_profile_username = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_username")
     /// Image `ac_rate_us`.
@@ -294,6 +390,8 @@ struct R: Rswift.Validatable {
     static let ac_room_card = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_card")
     /// Image `ac_room_copylink`.
     static let ac_room_copylink = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_copylink")
+    /// Image `ac_room_share_sn`.
+    static let ac_room_share_sn = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share_sn")
     /// Image `ac_room_share`.
     static let ac_room_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_room_share")
     /// Image `ac_set_birthday_birthday`.
@@ -306,6 +404,10 @@ struct R: Rswift.Validatable {
     static let ac_setting_region = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_setting_region")
     /// Image `ac_share_app`.
     static let ac_share_app = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_app")
+    /// Image `ac_share_snapchat_bg`.
+    static let ac_share_snapchat_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_bg")
+    /// Image `ac_share_snapchat_url_bg`.
+    static let ac_share_snapchat_url_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_url_bg")
     /// Image `ac_social_tiktok`.
     static let ac_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_social_tiktok")
     /// Image `backNor`.
@@ -338,36 +440,6 @@ struct R: Rswift.Validatable {
     static let btn_share = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_share")
     /// Image `btn_up`.
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
-    /// Image `channel_user_list_block`.
-    static let channel_user_list_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_block")
-    /// Image `channel_user_list_ear`.
-    static let channel_user_list_ear = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_ear")
-    /// Image `channel_user_list_followed`.
-    static let channel_user_list_followed = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_followed")
-    /// Image `channel_user_list_mic`.
-    static let channel_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mic")
-    /// Image `channel_user_list_mute`.
-    static let channel_user_list_mute = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_mute")
-    /// Image `channel_user_list_social`.
-    static let channel_user_list_social = Rswift.ImageResource(bundle: R.hostingBundle, name: "channel_user_list_social")
-    /// Image `default_avatar_0`.
-    static let default_avatar_0 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_0")
-    /// Image `default_avatar_1`.
-    static let default_avatar_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_1")
-    /// Image `default_avatar_2`.
-    static let default_avatar_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_2")
-    /// Image `default_avatar_3`.
-    static let default_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_3")
-    /// Image `default_avatar_4`.
-    static let default_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_4")
-    /// Image `default_avatar_5`.
-    static let default_avatar_5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "default_avatar_5")
-    /// Image `home_btn_bg_b`.
-    static let home_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg_b")
-    /// Image `home_btn_bg`.
-    static let home_btn_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_btn_bg")
-    /// Image `home_connect_btn_bg_b`.
-    static let home_connect_btn_bg_b = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_connect_btn_bg_b")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
     /// Image `iconReport`.
@@ -382,40 +454,34 @@ struct R: Rswift.Validatable {
     static let icon_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_mic")
     /// Image `icon_pri_ad`.
     static let icon_pri_ad = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_ad")
-    /// Image `icon_pri_join`.
-    static let icon_pri_join = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pri_join")
-    /// Image `icon_pro_persons`.
-    static let icon_pro_persons = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_persons")
-    /// Image `icon_pro_select_y`.
-    static let icon_pro_select_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select_y")
-    /// Image `icon_pro_select`.
-    static let icon_pro_select = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_select")
-    /// Image `icon_pro_y`.
-    static let icon_pro_y = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro_y")
-    /// Image `icon_pro`.
-    static let icon_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_pro")
-    /// Image `icon_push`.
-    static let icon_push = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_push")
+    /// Image `icon_room_bg_topicId_amongus`.
+    static let icon_room_bg_topicId_amongus = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_amongus")
+    /// Image `icon_room_bg_topicId_animalcrossing`.
+    static let icon_room_bg_topicId_animalcrossing = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_animalcrossing")
+    /// Image `icon_room_bg_topicId_brawlstars`.
+    static let icon_room_bg_topicId_brawlstars = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_brawlstars")
+    /// Image `icon_room_bg_topicId_callofduty`.
+    static let icon_room_bg_topicId_callofduty = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_callofduty")
+    /// Image `icon_room_bg_topicId_fortnite`.
+    static let icon_room_bg_topicId_fortnite = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_fortnite")
+    /// Image `icon_room_bg_topicId_freefire`.
+    static let icon_room_bg_topicId_freefire = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_freefire")
+    /// Image `icon_room_bg_topicId_justchatting`.
+    static let icon_room_bg_topicId_justchatting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_justchatting")
+    /// Image `icon_room_bg_topicId_minecraft`.
+    static let icon_room_bg_topicId_minecraft = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_minecraft")
+    /// Image `icon_room_bg_topicId_mobilelegends`.
+    static let icon_room_bg_topicId_mobilelegends = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_mobilelegends")
+    /// Image `icon_room_bg_topicId_pubgmobile`.
+    static let icon_room_bg_topicId_pubgmobile = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_pubgmobile")
+    /// Image `icon_room_bg_topicId_roblox`.
+    static let icon_room_bg_topicId_roblox = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_roblox")
     /// Image `icon_room_lock`.
     static let icon_room_lock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_lock")
-    /// Image `icon_setting_diamonds`.
-    static let icon_setting_diamonds = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_diamonds")
-    /// Image `icon_setting_star`.
-    static let icon_setting_star = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting_star")
     /// Image `icon_setting`.
     static let icon_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_setting")
-    /// Image `icon_share_bg`.
-    static let icon_share_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_bg")
-    /// Image `icon_share_message`.
-    static let icon_share_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_message")
-    /// Image `icon_share_more`.
-    static let icon_share_more = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_more")
-    /// Image `icon_share_snapchat`.
-    static let icon_share_snapchat = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_snapchat")
-    /// Image `icon_share_ticktock`.
-    static let icon_share_ticktock = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_ticktock")
-    /// Image `icon_share_whatsapp`.
-    static let icon_share_whatsapp = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_whatsapp")
+    /// Image `icon_share_live_end`.
+    static let icon_share_live_end = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_share_live_end")
     /// Image `icon_social_find_contaccts`.
     static let icon_social_find_contaccts = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_social_find_contaccts")
     /// Image `icon_social_share_link`.
@@ -698,6 +764,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_privileges_right_line, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_pro_icon_24", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_privilege_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_badge, compatibleWith: traitCollection)
@@ -723,6 +794,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_unlimited_cards, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_pro_privilege_upload_avatar", bundle: ..., traitCollection: ...)`
+    static func ac_pro_privilege_upload_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_privilege_upload_avatar, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_unbuy_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_unbuy_badge, compatibleWith: traitCollection)
@@ -736,6 +812,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
     static func ac_profile_avatar(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_avatar, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_back", bundle: ..., traitCollection: ...)`
+    static func ac_profile_back(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_back, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_birthday", bundle: ..., traitCollection: ...)`
@@ -753,6 +834,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_close, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_close_circle", bundle: ..., traitCollection: ...)`
+    static func ac_profile_close_circle(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_close_circle, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_close_down", bundle: ..., traitCollection: ...)`
     static func ac_profile_close_down(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_close_down, compatibleWith: traitCollection)
@@ -768,6 +854,26 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_profile_look_bg_defalut", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_bg_defalut(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_bg_defalut, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_pet_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_pet_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_pet_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_shadow", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_profile_look_skin_default", bundle: ..., traitCollection: ...)`
+    static func ac_profile_look_skin_default(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_look_skin_default, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
     static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
@@ -778,9 +884,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_profile_pro, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_profile_settings", bundle: ..., traitCollection: ...)`
-    static func ac_profile_settings(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_settings, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_profile_setting", bundle: ..., traitCollection: ...)`
+    static func ac_profile_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_profile_setting, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_username", bundle: ..., traitCollection: ...)`
@@ -828,6 +934,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_room_share, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_room_share_sn", bundle: ..., traitCollection: ...)`
+    static func ac_room_share_sn(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_room_share_sn, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_set_birthday_birthday", bundle: ..., traitCollection: ...)`
     static func ac_set_birthday_birthday(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_set_birthday_birthday, compatibleWith: traitCollection)
@@ -851,6 +962,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_share_app", bundle: ..., traitCollection: ...)`
     static func ac_share_app(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_share_app, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_share_snapchat_bg", bundle: ..., traitCollection: ...)`
+    static func ac_share_snapchat_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_share_snapchat_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_share_snapchat_url_bg", bundle: ..., traitCollection: ...)`
+    static func ac_share_snapchat_url_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_share_snapchat_url_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_social_tiktok", bundle: ..., traitCollection: ...)`
@@ -933,81 +1054,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.btn_up, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "channel_user_list_block", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_block(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_block, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_ear", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_ear(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_ear, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_followed", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_followed(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_followed, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_mic", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_mic, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_mute", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_mute(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_mute, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "channel_user_list_social", bundle: ..., traitCollection: ...)`
-    static func channel_user_list_social(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.channel_user_list_social, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_0", bundle: ..., traitCollection: ...)`
-    static func default_avatar_0(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_0, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_1", bundle: ..., traitCollection: ...)`
-    static func default_avatar_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_1, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_2", bundle: ..., traitCollection: ...)`
-    static func default_avatar_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_2, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_3", bundle: ..., traitCollection: ...)`
-    static func default_avatar_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_3, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_4", bundle: ..., traitCollection: ...)`
-    static func default_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_4, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "default_avatar_5", bundle: ..., traitCollection: ...)`
-    static func default_avatar_5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.default_avatar_5, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_btn_bg", bundle: ..., traitCollection: ...)`
-    static func home_btn_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_btn_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_btn_bg_b", bundle: ..., traitCollection: ...)`
-    static func home_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_btn_bg_b, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "home_connect_btn_bg_b", bundle: ..., traitCollection: ...)`
-    static func home_connect_btn_bg_b(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.home_connect_btn_bg_b, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "home_name_edit", bundle: ..., traitCollection: ...)`
     static func home_name_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
@@ -1043,39 +1089,59 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_pri_ad, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pri_join", bundle: ..., traitCollection: ...)`
-    static func icon_pri_join(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pri_join, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_amongus", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_amongus(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_amongus, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro", bundle: ..., traitCollection: ...)`
-    static func icon_pro(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_animalcrossing", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_animalcrossing(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_animalcrossing, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro_persons", bundle: ..., traitCollection: ...)`
-    static func icon_pro_persons(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_persons, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_brawlstars", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_brawlstars(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_brawlstars, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro_select", bundle: ..., traitCollection: ...)`
-    static func icon_pro_select(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_select, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_callofduty", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_callofduty(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_callofduty, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro_select_y", bundle: ..., traitCollection: ...)`
-    static func icon_pro_select_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_select_y, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_fortnite", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_fortnite(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_fortnite, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_pro_y", bundle: ..., traitCollection: ...)`
-    static func icon_pro_y(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_pro_y, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_freefire", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_freefire(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_freefire, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_push", bundle: ..., traitCollection: ...)`
-    static func icon_push(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_push, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_room_bg_topicId_justchatting", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_justchatting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_justchatting, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_minecraft", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_minecraft(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_minecraft, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_mobilelegends", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_mobilelegends(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_mobilelegends, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_pubgmobile", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_pubgmobile(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_pubgmobile, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_roblox", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_roblox(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_roblox, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_room_lock", bundle: ..., traitCollection: ...)`
@@ -1088,44 +1154,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_setting, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "icon_setting_diamonds", bundle: ..., traitCollection: ...)`
-    static func icon_setting_diamonds(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_setting_diamonds, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_setting_star", bundle: ..., traitCollection: ...)`
-    static func icon_setting_star(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_setting_star, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_bg", bundle: ..., traitCollection: ...)`
-    static func icon_share_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_bg, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_message", bundle: ..., traitCollection: ...)`
-    static func icon_share_message(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_message, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_more", bundle: ..., traitCollection: ...)`
-    static func icon_share_more(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_more, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_snapchat", bundle: ..., traitCollection: ...)`
-    static func icon_share_snapchat(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_snapchat, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_ticktock", bundle: ..., traitCollection: ...)`
-    static func icon_share_ticktock(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_ticktock, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_share_whatsapp", bundle: ..., traitCollection: ...)`
-    static func icon_share_whatsapp(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_share_whatsapp, compatibleWith: traitCollection)
+    /// `UIImage(named: "icon_share_live_end", bundle: ..., traitCollection: ...)`
+    static func icon_share_live_end(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_share_live_end, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_social_find_contaccts", bundle: ..., traitCollection: ...)`
@@ -1221,7 +1252,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 20 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 21 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1255,12 +1286,14 @@ struct R: Rswift.Validatable {
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `RoomTopEntranceContentView`.
+    static let roomTopEntranceContentView = _R.nib._RoomTopEntranceContentView()
     /// Nib `ShareContainerView`.
     static let shareContainerView = _R.nib._ShareContainerView()
     /// Nib `SnapChatCreativeShareView`.
     static let snapChatCreativeShareView = _R.nib._SnapChatCreativeShareView()
-    /// Nib `SocialTiktokItemView`.
-    static let socialTiktokItemView = _R.nib._SocialTiktokItemView()
+    /// Nib `SnapChatSharePhotoView`.
+    static let snapChatSharePhotoView = _R.nib._SnapChatSharePhotoView()
     /// Nib `TikTokShareView`.
     static let tikTokShareView = _R.nib._TikTokShareView()
     
@@ -1360,6 +1393,12 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
     }
     
+    /// `UINib(name: "RoomTopEntranceContentView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.roomTopEntranceContentView) instead")
+    static func roomTopEntranceContentView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.roomTopEntranceContentView)
+    }
+    
     /// `UINib(name: "ShareContainerView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.shareContainerView) instead")
     static func shareContainerView(_: Void = ()) -> UIKit.UINib {
@@ -1372,10 +1411,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.snapChatCreativeShareView)
     }
     
-    /// `UINib(name: "SocialTiktokItemView", in: bundle)`
-    @available(*, deprecated, message: "Use UINib(resource: R.nib.socialTiktokItemView) instead")
-    static func socialTiktokItemView(_: Void = ()) -> UIKit.UINib {
-      return UIKit.UINib(resource: R.nib.socialTiktokItemView)
+    /// `UINib(name: "SnapChatSharePhotoView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.snapChatSharePhotoView) instead")
+    static func snapChatSharePhotoView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.snapChatSharePhotoView)
     }
     
     /// `UINib(name: "TikTokShareView", in: bundle)`
@@ -1448,6 +1487,10 @@ struct R: Rswift.Validatable {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func roomTopEntranceContentView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.roomTopEntranceContentView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     static func shareContainerView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.shareContainerView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1456,8 +1499,8 @@ struct R: Rswift.Validatable {
       return R.nib.snapChatCreativeShareView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
-    static func socialTiktokItemView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
-      return R.nib.socialTiktokItemView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    static func snapChatSharePhotoView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.snapChatSharePhotoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func tikTokShareView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1499,7 +1542,7 @@ struct R: Rswift.Validatable {
   
   /// This `R.string` struct is generated, and contains static references to 2 localization tables.
   struct string {
-    /// This `R.string.infoplist` struct is generated, and contains static references to 5 localization keys.
+    /// This `R.string.infoplist` struct is generated, and contains static references to 6 localization keys.
     struct infoplist {
       /// en translation: AmongChat uses your contacts to help you find friends and play together.
       /// 
@@ -1509,11 +1552,15 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsMicrophoneUsageDescription = Rswift.StringResource(key: "NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Please allow Among Chat to use your photo library
+      /// en translation: Please allow AmongChat to use your Camera.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let nsCameraUsageDescription = Rswift.StringResource(key: "NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please allow AmongChat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsPhotoLibraryUsageDescription = Rswift.StringResource(key: "NSPhotoLibraryUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Please allow Among Chat to use your speech recognition
+      /// en translation: Please allow AmongChat to use your speech recognition
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let nsSpeechRecognitionUsageDescription = Rswift.StringResource(key: "NSSpeechRecognitionUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
@@ -1536,14 +1583,21 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("NSMicrophoneUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Please allow Among Chat to use your photo library
+      /// en translation: Please allow AmongChat to use your Camera.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func nsCameraUsageDescription(_: Void = ()) -> String {
+        return NSLocalizedString("NSCameraUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please allow AmongChat to use your photo library
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsPhotoLibraryUsageDescription(_: Void = ()) -> String {
         return NSLocalizedString("NSPhotoLibraryUsageDescription", tableName: "Infoplist", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Please allow Among Chat to use your speech recognition
+      /// en translation: Please allow AmongChat to use your speech recognition
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func nsSpeechRecognitionUsageDescription(_: Void = ()) -> String {
@@ -1560,7 +1614,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 258 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 272 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1638,6 +1692,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthAug = Rswift.StringResource(key: "month.aug", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: BG
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileBg = Rswift.StringResource(key: "among.chat.profile.bg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1722,6 +1780,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomRebloxTitle = Rswift.StringResource(key: "among.chat.room.reblox.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Close
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1762,6 +1824,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Customize
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileCustomize = Rswift.StringResource(key: "among.chat.profile.customize", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1798,6 +1864,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCodeInputTitle = Rswift.StringResource(key: "among.chat.login.code.input.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Equip
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileEquip = Rswift.StringResource(key: "among.chat.profile.equip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Europe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1882,6 +1952,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileFollowing = Rswift.StringResource(key: "profile.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Friend added successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1898,6 +1972,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectHarassment = Rswift.StringResource(key: "report.incorrect.harassment", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Hat
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileHat = Rswift.StringResource(key: "among.chat.profile.Hat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2150,6 +2228,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialInvitePlayWith = Rswift.StringResource(key: "social.invite.play.with", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Pet
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfilePet = Rswift.StringResource(key: "among.chat.profile.pet", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Play Now
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2222,6 +2304,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardTipTitle = Rswift.StringResource(key: "among.chat.create.room.card.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Remove
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileRemove = Rswift.StringResource(key: "among.chat.profile.remove", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2262,6 +2348,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialSeeAll = Rswift.StringResource(key: "social.see.all", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Select an image
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCustomAvatarSelectImage = Rswift.StringResource(key: "among.chat.custom.avatar.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sep
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2342,6 +2432,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileSignIn = Rswift.StringResource(key: "among.chat.profile.sign.in", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Skin
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileSkin = Rswift.StringResource(key: "among.chat.profile.skin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Skip
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2382,6 +2476,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Take a photo
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCustomAvatarTakePhoto = Rswift.StringResource(key: "among.chat.custom.avatar.take.photo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Terms
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2454,6 +2552,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Upload your own avatar
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProPrivilegeCustomAvatars = Rswift.StringResource(key: "among.chat.pro.privilege.custom.avatars", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2462,6 +2564,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardConsumeContent = Rswift.StringResource(key: "among.chat.create.room.card.consume.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Use an avatar
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCustomAvatarUseDefault = Rswift.StringResource(key: "among.chat.custom.avatar.use.default", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2518,6 +2624,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowing = Rswift.StringResource(key: "error.no.following", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Your avatar can be different
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProPrivilegeCustomAvatarsSub = Rswift.StringResource(key: "among.chat.pro.privilege.custom.avatars.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Your online friends
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2728,6 +2838,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.aug", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: BG
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileBg(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.bg", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2875,6 +2992,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.reblox.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Close
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCustomAvatarClose(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.close", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2945,6 +3069,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Customize
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileCustomize(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.customize", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Dec
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3006,6 +3137,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginCodeInputTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.code.input.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Equip
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileEquip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.equip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Europe
@@ -3155,6 +3293,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.following", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Friend added successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func followInvitedSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("follow.invited.success", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3181,6 +3326,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportIncorrectHarassment(_: Void = ()) -> String {
         return NSLocalizedString("report.incorrect.harassment", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Hat
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileHat(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.Hat", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
@@ -3624,6 +3776,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.invite.play.with", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Pet
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfilePet(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.pet", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Play Now
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3750,6 +3909,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.card.tip.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Remove
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileRemove(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.remove", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Report
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3818,6 +3984,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialSeeAll(_: Void = ()) -> String {
         return NSLocalizedString("social.see.all", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Select an image
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCustomAvatarSelectImage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.select.image", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sep
@@ -3960,6 +4133,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.profile.sign.in", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Skin
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProfileSkin(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.profile.skin", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Skip
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4028,6 +4208,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumFreeTrial(_: Void = ()) -> String {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Take a photo
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCustomAvatarTakePhoto(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.take.photo", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Terms
@@ -4156,6 +4343,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.incorrect.unreasonable", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Upload your own avatar
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProPrivilegeCustomAvatars(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.custom.avatars", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Use a SPACE card to create a channel. One free card per day, free cards do not stack.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4168,6 +4362,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardConsumeContent(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.consume.content", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Use an avatar
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCustomAvatarUseDefault(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.custom.avatar.use.default", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Wanna be more attractive and make more friends? Cool avatars are ready for you!
@@ -4266,6 +4467,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoFollowing(_: Void = ()) -> String {
         return NSLocalizedString("error.no.following", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Your avatar can be different
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatProPrivilegeCustomAvatarsSub(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.pro.privilege.custom.avatars.sub", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Your online friends
@@ -4435,7 +4643,7 @@ struct _R: Rswift.Validatable {
       try _AvatarGuideViewController.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
-      try _SocialTiktokItemView.validate()
+      try _SnapChatSharePhotoView.validate()
       try _TikTokShareView.validate()
     }
     
@@ -4655,6 +4863,17 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
+    struct _RoomTopEntranceContentView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "RoomTopEntranceContentView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
     struct _ShareContainerView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "ShareContainerView"
@@ -4689,17 +4908,18 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _SocialTiktokItemView: Rswift.NibResourceType, Rswift.Validatable {
+    struct _SnapChatSharePhotoView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
-      let name = "SocialTiktokItemView"
+      let name = "SnapChatSharePhotoView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       static func validate() throws {
-        if UIKit.UIImage(named: "ac_right_arrow", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_right_arrow' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_social_tiktok", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_social_tiktok' is used in nib 'SocialTiktokItemView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_profile_avatar", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_profile_avatar' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_share_snapchat_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_share_snapchat_url_bg", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_share_snapchat_url_bg' is used in nib 'SnapChatSharePhotoView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

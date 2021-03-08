@@ -174,7 +174,7 @@ extension Entity {
     struct DefaultAvatar: Codable {
         
         enum UnlockType: String, Codable {
-            case free, rewarded, premium
+            case free, rewarded, premium, pay
         }
         
         var avatarId: String
@@ -260,6 +260,7 @@ extension Entity {
             case user
             case room
             case messageType = "message_type"
+            case isOnline = "is_online"
         }
         
         func asPlayingUser() -> PlayingUser {
@@ -306,4 +307,117 @@ extension Entity {
         }
         var data: Data?
     }
+}
+
+extension Entity {
+    struct DecorationCategory: Codable {
+        var name: String
+        var list: [DecorationEntity]
+        
+        private enum CodingKeys: String, CodingKey {
+            case name
+            case list
+        }
+    }
+}
+
+extension Entity {
+    
+    struct DecorationEntity : Codable {
+        
+        var id: Int
+        var url: String
+        var listUrl: String?
+        var sayUrl: String?
+        var lock: Bool
+        var unlockType: Entity.DefaultAvatar.UnlockType?
+        var iapKey: String?
+        var decoType: String
+        var product: DecorationProduct?
+        var selected: Bool
+                
+        private enum CodingKeys: String, CodingKey {
+            case id
+            case url
+            case listUrl = "list_url"
+            case sayUrl = "say_url"
+            case lock
+            case unlockType = "type"
+            case iapKey = "iap_key"
+            case decoType = "deco_type"
+            case product
+            case selected
+        }
+        
+    }
+}
+
+extension Entity {
+    
+    struct DecorationProduct: Codable {
+        
+        var internalProductId: String
+        var products: [IAPProduct]
+        
+        struct IAPProduct: Codable {
+            
+            var productId: String
+            var deviceType: String
+            var price: Int
+            var name: String
+            
+            private enum CodingKeys: String, CodingKey {
+                case productId = "product_id"
+                case deviceType = "device_type"
+                case price
+                case name
+            }
+            
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case internalProductId = "internal_product_id"
+            case products
+        }
+        
+    }
+
+}
+
+extension Entity.DecorationCategory {
+    
+    enum DecorationType: String, Codable {
+        case skin, bg, pet, hat        
+    }
+    
+}
+
+extension Entity.DecorationEntity {
+    
+    static func entityOf(id: Int) -> Entity.DecorationEntity? {
+        guard id > 0 else {
+            return nil
+        }
+        let decorations = Settings.shared.defaultProfileDecorationCategoryList.value.flatMap { $0.list }
+        
+        return decorations.first { $0.id == id }
+    }
+    
+}
+
+extension Entity.UserProfile {
+    
+    var decorations: [Social.ProfileLookViewController.DecorationViewModel] {
+        
+        return [decoBgId, decoSkinId, decoHatId, decoPetId]
+            .compactMap({
+                guard let id = $0,
+                      let entity = Entity.DecorationEntity.entityOf(id: id),
+                      let decoType = Entity.DecorationCategory.DecorationType.init(rawValue: entity.decoType) else { return nil }
+                let deco = Social.ProfileLookViewController.DecorationViewModel(dataModel: entity, decorationType: decoType)
+                deco.selected = true
+                return deco
+            })
+    }
+    
 }

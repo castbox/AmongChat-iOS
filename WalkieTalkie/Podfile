@@ -85,7 +85,9 @@ target 'WalkieTalkie' do
 
     pod 'JLRoutes'
     
-    pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
+#    pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
+    pod 'LookinServer', :configurations => ['Debug']
+
     #https://github.com/realm/SwiftLint
     pod 'SwiftLint', '0.31.0',        :configurations => ["Debug"]
     pod 'Bolts',  :git => 'https://github.com/roremeol/Bolts-ObjC.git', :branch => 'master'
@@ -151,6 +153,7 @@ target 'WalkieTalkie' do
     #https://github.com/mac-gallagher/Shuffle
 #    pod 'Shuffle-iOS'
     pod "Koloda"
+    pod 'YPImagePicker'
 end
 
 post_install do |installer|

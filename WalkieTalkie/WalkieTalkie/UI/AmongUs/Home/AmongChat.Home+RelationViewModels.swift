@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 import AgoraRtmKit
 import SwiftyUserDefaults
+import SwiftyContacts
 
 extension AmongChat.Home {
     
@@ -73,6 +74,24 @@ extension AmongChat.Home {
                 .disposed(by: bag)
             
             suggestContactRawRelay
+                .flatMap { items -> Observable<[Entity.ContactFriend]> in
+                    //未授权时不显示
+                    return Observable.create { observer -> Disposable in
+                        SwiftyContacts.authorizationStatus { status in
+                            switch status {
+                            case .authorized:
+                                return observer.onNext(items)
+                            case .notDetermined, .restricted, .denied:
+                                return observer.onNext([])
+                            @unknown default:
+                                return observer.onNext([])
+                            }
+                        }
+                        return Disposables.create {
+                            
+                        }
+                    }
+                }
                 .map { [weak self] items -> [ContactViewModel] in
                     guard let `self` = self else { return [] }
                     return items.filter { item -> Bool in
@@ -85,11 +104,11 @@ extension AmongChat.Home {
             
             //remove
 //            suggestContactViewModelsRelay.accept(testArray)
-            let testArray = [
-                Entity.ContactFriend(phone: "1", name: "Wilson", count: 10),
-                Entity.ContactFriend(phone: "2", name: "WilsonYuan", count: 2),
-                Entity.ContactFriend(phone: "3", name: "XiaoMing", count: 112)
-            ]
+//            let testArray = [
+//                Entity.ContactFriend(phone: "1", name: "Wilson", count: 10),
+//                Entity.ContactFriend(phone: "2", name: "WilsonYuan", count: 2),
+//                Entity.ContactFriend(phone: "3", name: "XiaoMing", count: 112)
+//            ]
         }
         
         private let systemAgoraUid = Int(99999)
@@ -169,7 +188,7 @@ extension AmongChat.Home {
             }
             
             var onlineFriends = playingsRelay.value
-            onlineFriends.append(user)
+            onlineFriends.insert(user, at: 0)
             
             suggestStrangerRelay.accept(suggestionUsers)
             playingsRelay.accept(onlineFriends)

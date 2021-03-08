@@ -295,8 +295,27 @@
 "premium.restore.succeeded" = "Восстановление выполнено";
 
 "social.one.contact.firend" = "%@ друг в AmongChat";
+
 "tracking.guide.title" = "Пожалуйста, дайте нам свое согласие на";
 "tracking.guide.title.suffix" = "следующий экран";
 "tracking.guide.subtitle" = "Разрешив отслеживание, мы сможем лучше адаптировать рекламу, показываемую вам в AmongChat.";
 "tracking.guide.allow" = "Разрешить отслеживание";
 "tracking.guide.later" = "Позже";
+
+//1.13
+"among.chat.profile.customize" = "Настроить";
+"among.chat.profile.skin" = "Скин";
+"among.chat.profile.bg" = "Фон";
+"among.chat.profile.Hat" = "Шапка";
+"among.chat.profile.pet" = "Домашнее животное";
+"among.chat.profile.equip" = "Оборудовать";
+"among.chat.profile.remove" = "удалять";
+
+//1.14
+"follow.invited.success" = "Друг успешно добавлен";
+"among.chat.custom.avatar.use.default" = "Используйте аватар";
+"among.chat.custom.avatar.take.photo" = "Сфотографировать";
+"among.chat.custom.avatar.select.image" = "Выберите изображение";
+"among.chat.custom.avatar.close" = "Закрывать";
+"among.chat.pro.privilege.custom.avatars" = "Загрузите свой аватар";
+"among.chat.pro.privilege.custom.avatars.sub" = "Ваш аватар может быть другим";

@@ -194,6 +194,17 @@ extension Logger {
             case suggested_contact_page_clk
             case new_avatar_dialog_imp
             case new_avatar_dialog_clk
+            //
+            case enter_room_show_pet
+            
+            case profile_customize_imp
+            case profile_customize_clk
+            case profile_customize_rewarded_get
+            case profile_customize_rewarded_get_success
+            case profile_customize_pet_get
+            case profile_customize_pet_get_success
+            case profile_customize_pet_equip
+            case profile_customize_pet_remove
         }
         
         enum Category: String {
@@ -246,12 +257,12 @@ extension Logger {
             case go
         }
         
-        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
-            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value?.int64, content: nil)
+        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value?.int64, content: nil,  extra: extra)
         }
         
-        static func log(_ eventName: EventName, categoryValue: String?, _ itemName: String? = nil, _ value: Int? = nil) {
-            GuruAnalytics.log(event: eventName.rawValue, category: categoryValue, name: itemName, value: value?.int64, content: nil)
+        static func log(_ eventName: EventName, categoryValue: String?, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: categoryValue, name: itemName, value: value?.int64, content: nil, extra: extra)
         }
     }
 }

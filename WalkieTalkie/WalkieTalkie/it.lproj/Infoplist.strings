@@ -11,3 +11,4 @@ NSPhotoLibraryUsageDescription = "Consenti a AmongChat di utilizzare la tua libr
 NSSpeechRecognitionUsageDescription = "Consenti a AmongChat di utilizzare il riconoscimento vocale";
 NSContactsUsageDescription = "AmongChat usa i tuoi contatti per aiutarti a trovare amici e giocare insieme.";
 NSUserTrackingUsageDescription = "Questo identificatore verrà utilizzato per fornirti annunci personalizzati.";
+NSCameraUsageDescription = "Consenti a AmongChat di utilizzare la tua fotocamera.";

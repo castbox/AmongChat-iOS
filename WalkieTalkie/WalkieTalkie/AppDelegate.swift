@@ -26,6 +26,11 @@ import Kingfisher
 import GoogleSignIn
 import SCSDKLoginKit
 import FBSDKCoreKit
+import CastboxDebuger
+
+fileprivate func cdPrint(_ message: Any) {
+    Debug.info("[AppDelegate]-\(message)")
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,6 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     var isApplicationActiveReplay = BehaviorRelay(value: true)
+    
+    //invited event block
+    var followInvitedUserhandler: CallBack?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -120,7 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return
             }
             Routes.handle(url)
-//            _ = Routes.canHandle(url)
         }
     }
 
@@ -139,7 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 Routes.handle(url)
-//                _ = Routes.canHandle(url)
             }
         default:
             // not supported yet

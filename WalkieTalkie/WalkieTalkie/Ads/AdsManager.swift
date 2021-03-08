@@ -379,6 +379,7 @@ class AdsManager: NSObject {
     enum RewardedVideoPosition: CaseIterable {
         case channelCard
         case unlockAvatar
+        case profileLook
     }
     
     private class func rewardedVideoAdUnitId(of adPostion: RewardedVideoPosition) -> String {
@@ -387,6 +388,8 @@ class AdsManager: NSObject {
             return "a545cd81a6814a4bb06a6e6055ed5e58"
         case .channelCard:
             return "bacb18c823584a5cbcd04f6768e7bf9b"
+        case .profileLook:
+            return "4d8dcec7fe8c486b9437b1f25362c8a6"
         }
     }
     
@@ -418,7 +421,9 @@ class AdsManager: NSObject {
                 return isReady
             }
             .take(1)
-            .timeout(.seconds(15), scheduler: MainScheduler.asyncInstance)
+            .timeout(.seconds(15),
+                     other: Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed())),
+                     scheduler: MainScheduler.asyncInstance)
             .flatMap { [weak self] _ -> Observable<Void> in
                 guard let `self` = self else { return  .empty() }
                 self.hasRetryForAdLoadFailed = false
@@ -430,7 +435,9 @@ class AdsManager: NSObject {
                 
                 return self.rewardedVideoAdDidAppear
                     .take(1)
-                    .timeout(.seconds(5), scheduler: MainScheduler.asyncInstance)
+                    .timeout(.seconds(5),
+                             other: Observable.error(MsgError(code: 400, msg: R.string.localizable.amongChatRewardVideoLoadFailed())),
+                             scheduler: MainScheduler.asyncInstance)
                     .flatMap { [weak self] _ -> Observable<Bool> in
                         guard let `self` = self else {
                             return .just(false)

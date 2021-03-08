@@ -146,7 +146,27 @@ extension AmongChat.Home.RelationsViewController {
     private func shareApp() {
         let inviteView = Social.InviteFirendsViewController()
         presentPanModal(inviteView)
-//        inviteView.showModal(in: self.tabBarController!)
+        inviteView.shareSnapchatHandler = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            let removeHandler = self.view.raft.show(.loading)
+            //get sign
+            Request.userShareSign()
+                .subscribe { sign in
+                    guard let sign = sign else {
+                        removeHandler()
+                        return
+                    }
+                    let content = ShareManager.Content(type: .profile, targetType: .snapchat, content: R.string.localizable.shareApp(), url: "https://among.chat/user?uid=\(Settings.loginUserId!)&sign=\(sign)")
+                    ShareManager.default.share(with: content, .snapchat, viewController: self) {
+                        removeHandler()
+                    }
+                } onError: { error in
+                    removeHandler()
+                }
+                .disposed(by: self.bag)
+        }
     }
 
 }

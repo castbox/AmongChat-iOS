@@ -63,6 +63,7 @@ extension AmongChat.Room {
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
         var shareEventHandler: () -> Void = { }
+        var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
 
 
         private let imViewModel: IMViewModel
@@ -154,9 +155,6 @@ extension AmongChat.Room {
             imViewModel.messagesObservable
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (msg) in
-                    //处理消息
-                    //                    self?.messageListDataSource = msgs
-                    //                    self?.messages = msgs
                     self?.onReceiveChatRoom(crMessage: msg)
                 })
                 .disposed(by: bag)
@@ -165,6 +163,7 @@ extension AmongChat.Room {
                 .filter { $0 }
                 .subscribe { [weak self] _ in
                     self?.startUpdateBaseInfo()
+                    
                 }
                 .disposed(by: bag)
 
@@ -242,6 +241,15 @@ extension AmongChat.Room {
         func addSystemMessage() {
             let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(room.topicName), textColor: "FFFFFF", contentType: nil, msgType: .system)
             addUIMessage(message: system)
+        }
+        
+        func addJoinMessage() {
+            guard let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: room.loginUserSeatNo + 1) else {
+                return
+            }
+            let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom)
+            addUIMessage(message: joinRoomMsg)
+            onUserJoinedHandler?(joinRoomMsg)
         }
         
         // 添加消息
@@ -457,6 +465,10 @@ extension AmongChat.Room {
             didShowShareEvents.append(event)
         }
         
+        func roomBgImage() -> UIImage? {
+            return UIImage(named: "icon_room_bg_topicId_\(room.topicId)")
+        }
+        
         func roomBgUrl() -> URL? {
             guard let setting = Settings.shared.globalSetting.value else {
                 return nil
@@ -545,7 +557,10 @@ private extension AmongChat.Room.ViewModel {
         cdPrint("onReceiveChatRoom- \(crMessage)")
         if let message = crMessage as? ChatRoom.TextMessage {
             addUIMessage(message: message)
-        } else if let message = crMessage as? ChatRoom.JoinRoomMessage {
+        } else if let message = crMessage as? ChatRoom.JoinRoomMessage,
+                  message.user.uid != Settings.loginUserId {
+            //add to entrance queue
+            onUserJoinedHandler?(message)
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.SystemMessage {
             addUIMessage(message: message)
@@ -589,6 +604,9 @@ private extension AmongChat.Room.ViewModel {
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    func onJoinChannelSuccess(channelId: String?) {
+        
+    }
     
     // MARK: - ChatRoomDelegate
     

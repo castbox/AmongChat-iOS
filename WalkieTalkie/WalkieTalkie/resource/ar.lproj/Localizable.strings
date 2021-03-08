@@ -295,8 +295,27 @@
 "premium.restore.succeeded" = "نجحت الاستعادة";
 
 "social.one.contact.firend" = "%@ صديق على AmongChat";
+
 "tracking.guide.title" = "من فضلك اعطنا موافقتك على";
 "tracking.guide.title.suffix" = "الشاشة التالية";
 "tracking.guide.subtitle" = "من خلال السماح بالتتبع ، سنكون قادرين على تخصيص الإعلانات بشكل أفضل لك في AmongChat.";
 "tracking.guide.allow" = "السماح بالتتبع";
 "tracking.guide.later" = "في وقت لاحق";
+
+//1.13
+"among.chat.profile.customize" = "يعدل أو يكيف";
+"among.chat.profile.skin" = "سطح ";
+"among.chat.profile.bg" = "خلفية";
+"among.chat.profile.Hat" = "قبعة";
+"among.chat.profile.pet" = "حيوان اليف";
+"among.chat.profile.equip" = "تجهيز";
+"among.chat.profile.remove" = "إزالة";
+
+//1.14
+"follow.invited.success" = "تمت إضافة الصديق بنجاح";
+"among.chat.custom.avatar.use.default" = "استخدم الصورة الرمزية";
+"among.chat.custom.avatar.take.photo" = "التقاط صورة";
+"among.chat.custom.avatar.select.image" = "اختر صورة";
+"among.chat.custom.avatar.close" = "قريب";
+"among.chat.pro.privilege.custom.avatars" = "قم بتحميل الصورة الرمزية الخاصة بك";
+"among.chat.pro.privilege.custom.avatars.sub" = "يمكن أن تكون صورتك الرمزية مختلفة";

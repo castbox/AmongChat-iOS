@@ -25,6 +25,8 @@ struct MsgError: Error, Codable {
         case notRoomHost = 3000 //'Only the room host can operate'
         case roomSeatsFull = 3001 //'The room is full'
         case roomUserKick = 3002 //'You are kicked off, can not enter this room'
+        case notEnoughRoomCard = 3004 // no free room card for create
+        case needUpgrade = 3005 //need upgrade app
         case roomNotFound = 202 //'can not find this room'
     }
     
@@ -607,4 +609,101 @@ extension Request {
             })
 
     }
+    
+    static func defaultProfileDecorations() -> Single<[Entity.DecorationCategory]?> {
+        
+        return amongchatProvider.rx.request(.defaultDecorations)
+            .mapJSON()
+            .mapToDataKeyListValue()
+            .mapTo([Entity.DecorationCategory].self)
+            .do(onSuccess: { (list) in
+                guard let list = list else { return }
+                Settings.shared.defaultProfileDecorationCategoryList.value = list
+            })
+    }
+    
+    static func unlockProfileDecoration(_ decoration: Entity.DecorationEntity) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "decoration_id" : decoration.id,
+            "decoration_type" : decoration.decoType,
+        ]
+        
+        return amongchatProvider.rx.request(.unlockDecoration(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let process = json["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+        
+    }
+    
+    static func updateProfileDecoration(decoration: Entity.DecorationEntity, selected: Bool) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "decoration_id" : decoration.id,
+            "decoration_type" : decoration.decoType,
+            "selected" : selected ? 1 : 0,
+        ]
+        
+        return amongchatProvider.rx.request(.updateDecoration(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> Bool in
+                
+                guard let process = json["process"] as? Bool,
+                      process else {
+                    return false
+                }
+                
+                return true
+            }
+    }
+    
+    static func userShareSign() -> Single<String?> {
+        return amongchatProvider.rx.request(.shareUserSign)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map { (json) -> String? in
+                json["sign"] as? String
+//                guard let sign = , else {
+//                    return false
+//                }
+//
+//                return true
+            }
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
+    static func uploadPng(image: UIImage) -> Single<String> {
+        
+        guard let data = image.pngData() else {
+            return Single.error(MsgError.default)
+        }
+        
+        return amongchatProvider.rx.request(.uploadFile(data: data, ext: "png", mimeType: "image/png", type: .image))
+            .mapJSON()
+            .map { item -> String in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0,
+                      let data = json["data"] as? [String: AnyObject],
+                      let url = data["object_url"] as? String else {
+                    throw MsgError.from(dic: json)
+                }
+                
+                return url
+            }
+    }
+    
 }

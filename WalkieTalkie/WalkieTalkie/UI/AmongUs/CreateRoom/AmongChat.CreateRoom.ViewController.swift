@@ -484,16 +484,22 @@ extension AmongChat.CreateRoom.ViewController {
                 Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
                 
-                guard let msgError = error as? MsgError,
-                      msgError.code == 3004 else {
+                guard let msgError = error as? MsgError, let code = msgError.codeType else {
                     self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                     return
                 }
-                if Settings.shared.isProValue.value {
-                    //vip 状态已失效
-                    Settings.shared.updateProfile()
+                switch code {
+                case .notEnoughRoomCard:
+                    if Settings.shared.isProValue.value {
+                        //vip 状态已失效
+                        Settings.shared.updateProfile()
+                    }
+                    self?.showAdAlert(topic: topic)
+                case .needUpgrade:
+                    self?.view.raft.autoShow(.text(R.string.localizable.forceUpgradeTip()))
+                default:
+                    self?.view.raft.autoShow(.text(R.string.localizable.amongChatUnknownError()))
                 }
-                self?.showAdAlert(topic: topic)
                 
             })
     }
