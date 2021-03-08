@@ -282,46 +282,28 @@ extension AmongChat.Home {
                 icon.tintColor = Theme.mainTintColor
             }
             
-            icon.layer.transform = CATransform3DMakeRotation((-25) / 180.0 * .pi, 1.0, 1.0, 1.0)
-            
-            let group = CAAnimationGroup()
-            group.duration = 1.0
-            group.autoreverses = false
-            group.fillMode = .forwards
-            group.isRemovedOnCompletion = false
-            
-            let alpha = CABasicAnimation(keyPath: "opacity")
-            alpha.fromValue = 0
-            alpha.toValue = 1
-            alpha.beginTime = CFTimeInterval(0.0)
-            alpha.duration = CFTimeInterval(0.1)
-            alpha.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            
-            let scale1 = CABasicAnimation(keyPath: "transform.scale")
-            scale1.fromValue = 0.72
-            scale1.toValue = 1.07
-            scale1.beginTime = CFTimeInterval(0.1)
-            scale1.duration = CFTimeInterval(0.3)
-            scale1.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            
-            let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
-            rotate.fromValue = 0
-            rotate.toValue = -(Double.pi / 180 * 25)
-            rotate.beginTime = CFTimeInterval(0.1)
-            rotate.duration = CFTimeInterval(0.3)
-            rotate.timingFunction = CAMediaTimingFunction(name: .easeIn)
-            rotate.isRemovedOnCompletion = false
-            
-            let scale2 = CAKeyframeAnimation(keyPath: "transform.scale")
-            scale2.values = [1.07, 0.9, 1]
-            scale2.beginTime = CFTimeInterval(0.4)
-            scale2.duration = CFTimeInterval(0.5)
-            scale2.timingFunction = CAMediaTimingFunction(name: .easeOut)
-            
-            group.animations = [alpha, scale1, rotate, scale2]
-            
-            icon.layer.add(group, forKey: "selectedAnimation")
-            
+            UIView.animateKeyframes(withDuration: 1.0, delay: 0.0) {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) {
+                    icon.layer.transform = CATransform3D(scaleX: 0.72, y: 0.72, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.3) {
+                    icon.layer.transform = CATransform3D(scaleX: 1.07, y: 1.07, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.25) {
+                    icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.65, relativeDuration: 0.35) {
+                    icon.layer.transform = CATransform3D(scaleX: 1, y: 1, z: 1)
+                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                }
+                
+            }
         }
         
         private func deselectAnimation(_ icon: UIImageView) {
