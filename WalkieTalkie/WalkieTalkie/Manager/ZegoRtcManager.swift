@@ -231,6 +231,8 @@ extension ZegoRtcManager: ZegoEventHandler {
                 delegate?.onUserMuteAudio(uid: userId.uIntValue, muted: true)
             }
             
+        @unknown default:
+            ()
         }
     }
     
