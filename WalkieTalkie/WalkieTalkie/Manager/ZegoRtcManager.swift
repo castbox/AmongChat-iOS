@@ -51,27 +51,28 @@ class ZegoRtcManager: NSObject, RtcManageable {
     
     private var joinable: RTCJoinable?
 
-    
-    private override init() {
-        super.init()
-    }
-
     func initialize() {
+        //UPDATE CONFIG
+        let engineConfig = ZegoEngineConfig()
+        engineConfig.advancedConfig = [
+            "av_retry_time": "600",
+            "room_retry_time": "600",
+        ]
+        ZegoExpressEngine.setEngineConfig(engineConfig)
+//        ZegoExpressEngine.setSEIConfig(<#T##self: ZegoExpressEngine##ZegoExpressEngine#>)
+        
         ZegoExpressEngine.createEngine(withAppID: KeyCenter.Zego.AppId, appSign: KeyCenter.Zego.appSign, isTestEnv: true, scenario: .communication, eventHandler: self)
         mRtcEngine = ZegoExpressEngine.shared()
-
-        let config = ZegoAudioConfig()
-        config.codecID = .low3
-        config.bitrate = 32
-        config.channel = .mono
-        mRtcEngine.setAudioConfig(config)
+//        mRtcEngine.setconf
+        mRtcEngine.enableTrafficControl(true, property: .adaptiveAudioBitrate)
+        
         //降噪
-//        mRtcEngine.enableAEC(true)
-//        mRtcEngine.enableHeadphoneAEC(true)
+        mRtcEngine.setAECMode(.aggressive)
+        //
+        mRtcEngine.setANSMode(.medium)
+        
         //启动声浪监控
         mRtcEngine.startSoundLevelMonitor()
-        //设置重连时间
-        //10 人 进入后报错
         
     }
     
@@ -79,24 +80,18 @@ class ZegoRtcManager: NSObject, RtcManageable {
         cdPrint("------------------- join \(joinable.roomId) \(userId)")
         
         //清除数据
-        self.channelId = joinable.roomId
+        channelId = joinable.roomId
         publishingStream.removeAll()
         mutedUser.removeAll()
         otherMutedUser.removeAll()
-        //
-        if let bitrate = joinable.rtcBitRate {
-            let config = ZegoAudioConfig()
-            config.codecID = .low3
-            config.bitrate = bitrate.int32
-            config.channel = .mono
-            mRtcEngine.setAudioConfig(config)
-        }
+        
+        updateEngine(bitrate: joinable.rtcBitRate)
         
         let config = ZegoRoomConfig()
         config.isUserStatusNotify = true
         config.token = token
         
-        self.joinChannelCompletionHandler = completionHandler
+        joinChannelCompletionHandler = completionHandler
         
         mRtcEngine.loginRoom(joinable.roomId, user: ZegoUser(userID: userId.string, userName: user.name ?? ""), config: config)
         
@@ -105,23 +100,6 @@ class ZegoRtcManager: NSObject, RtcManageable {
     
     func update(joinable: RTCJoinable) {
         self.joinable = joinable
-    }
-    
-    func startTimeoutTimer() {
-        invalidTimerIfNeed()
-        timeoutTimer = SwiftTimer(interval: .seconds(60), handler: { [weak self] _ in
-            self?.delegate?.onJoinChannelTimeout(channelId: self?.channelId)
-            self?.invalidTimerIfNeed()
-        })
-        timeoutTimer?.start()
-    }
-//
-    func invalidTimerIfNeed() {
-        guard timeoutTimer != nil else {
-            return
-        }
-//        timeoutTimer?.cancel()
-        timeoutTimer = nil
     }
     
     func setClientRole(_ role: RtcUserRole) {
@@ -164,15 +142,6 @@ class ZegoRtcManager: NSObject, RtcManageable {
         mRtcEngine.logoutRoom(channelId)
         self.role = nil
         self.channelId = nil
-    }
-    
-    func logFilePath() -> String {
-        guard let directoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            return ""
-        }
-        let fileURL = directoryURL.appendingPathComponent("walkie_talkie_zego.log")
-        cdPrint("logFilePath: \(fileURL.path)")
-        return fileURL.path
     }
 }
 
@@ -331,5 +300,44 @@ extension ZegoRtcManager: ZegoEventHandler {
         }
     }
     
+}
+
+private extension ZegoRtcManager {
     
+    func updateEngine(bitrate: Int?) {
+        guard let bitrate = bitrate else {
+            return
+        }
+        let config = ZegoAudioConfig()
+        config.codecID = .low3
+        config.bitrate = bitrate.int32
+        config.channel = .mono
+        mRtcEngine.setAudioConfig(config)
+    }
+    
+    func startTimeoutTimer() {
+        invalidTimerIfNeed()
+        timeoutTimer = SwiftTimer(interval: .seconds(60), handler: { [weak self] _ in
+            self?.delegate?.onJoinChannelTimeout(channelId: self?.channelId)
+            self?.invalidTimerIfNeed()
+        })
+        timeoutTimer?.start()
+    }
+//
+    func invalidTimerIfNeed() {
+        guard timeoutTimer != nil else {
+            return
+        }
+//        timeoutTimer?.cancel()
+        timeoutTimer = nil
+    }
+    
+    func logFilePath() -> String {
+        guard let directoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return ""
+        }
+        let fileURL = directoryURL.appendingPathComponent("walkie_talkie_zego.log")
+        cdPrint("logFilePath: \(fileURL.path)")
+        return fileURL.path
+    }
 }
