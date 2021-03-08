@@ -126,7 +126,7 @@ private extension Social.ProfileLookViewController {
         
         segmentedButton.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(80.scalHValue)
+            maker.height.equalTo(59)
             maker.top.equalTo(profileLookView.snp.bottom)
         }
         
@@ -389,6 +389,9 @@ private extension Social.ProfileLookViewController {
                     .take(1)
                     .timeout(.seconds(10), scheduler: MainScheduler.asyncInstance)
                     .asSingle()
+                    .do(onSuccess: { [weak self] (_) in
+                        self?.fetchData()
+                    })
             }
     }
     

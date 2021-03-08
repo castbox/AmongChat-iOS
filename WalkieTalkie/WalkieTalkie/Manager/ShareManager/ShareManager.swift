@@ -267,10 +267,14 @@ class ShareManager: NSObject {
         //                snapContent.sticker = sticker /* Optional */
         //                //            snapContent.caption = textToShare /* Optional */
         //                snapContent.attachmentUrl = url /* Optional */
-        
         self.snapAPI.startSending(snapContent) { (error: Error?) in
             //                        removeHandler()
-            successHandler?()
+            mainQueueDispatchAsync {
+                successHandler?()
+                if let errorMsg = error?.localizedDescription {
+                    viewController.view.raft.autoShow(.text(errorMsg))
+                }
+            }
             //                self?.view.isUserInteractionEnabled = true
             //                self?.isSharing = false
             print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")

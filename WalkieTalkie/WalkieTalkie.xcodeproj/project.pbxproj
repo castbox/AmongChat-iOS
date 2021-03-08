@@ -14,6 +14,8 @@
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
 		265FB7CF25B6C402004987AB /* AmongChat.Login.RegionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */; };
+		266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */; };
+		266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */; };
 		2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2696D42225B8082200C38C09 /* UITextFieldExtension.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
@@ -192,6 +194,16 @@
 		FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */; };
 		FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */; };
 		FE7CEB79258A0FBA0067952C /* AmongInputCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */; };
+		FE7ED8FF25F20292009C608A /* room-emoji-darkgreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */; };
+		FE7ED90025F20292009C608A /* room-emoji-brown.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F625F20291009C608A /* room-emoji-brown.svga */; };
+		FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F725F20291009C608A /* room-emoji-pink.svga */; };
+		FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F825F20291009C608A /* room-emoji-red.svga */; };
+		FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8F925F20291009C608A /* room-emoji-blue.svga */; };
+		FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FA25F20291009C608A /* room-emoji-green.svga */; };
+		FE7ED90525F20292009C608A /* room-emoji-orange.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */; };
+		FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */; };
+		FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */; };
+		FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */; };
 		FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089C92449E631006A1644 /* PrivateShareController.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
@@ -321,6 +333,8 @@
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
 		265FB7CE25B6C402004987AB /* AmongChat.Login.RegionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.RegionModal.swift; sourceTree = "<group>"; };
+		266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InfoWithNicknameView.xib; sourceTree = "<group>"; };
+		266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWithNicknameView.swift; sourceTree = "<group>"; };
 		269456582519DFE2003AA34A /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		2694565A2519DFE2003AA34A /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2696D42225B8082200C38C09 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
@@ -526,6 +540,16 @@
 		FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = JustChillingInfoView.xib; sourceTree = "<group>"; };
 		FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongInputCodeView.xib; sourceTree = "<group>"; };
 		FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongInputCodeView.swift; sourceTree = "<group>"; };
+		FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-darkgreen.svga"; sourceTree = "<group>"; };
+		FE7ED8F625F20291009C608A /* room-emoji-brown.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-brown.svga"; sourceTree = "<group>"; };
+		FE7ED8F725F20291009C608A /* room-emoji-pink.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-pink.svga"; sourceTree = "<group>"; };
+		FE7ED8F825F20291009C608A /* room-emoji-red.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-red.svga"; sourceTree = "<group>"; };
+		FE7ED8F925F20291009C608A /* room-emoji-blue.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-blue.svga"; sourceTree = "<group>"; };
+		FE7ED8FA25F20291009C608A /* room-emoji-green.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-green.svga"; sourceTree = "<group>"; };
+		FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-orange.svga"; sourceTree = "<group>"; };
+		FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-bluegreen.svga"; sourceTree = "<group>"; };
+		FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-purple.svga"; sourceTree = "<group>"; };
+		FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-yellow.svga"; sourceTree = "<group>"; };
 		FE8089C92449E631006A1644 /* PrivateShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateShareController.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -1190,6 +1214,16 @@
 			children = (
 				265FB7C625B690A7004987AB /* mobileRegions.json */,
 				FEB6E6D225B5A9E3002C6946 /* login_bg.svga */,
+				FE7ED8F925F20291009C608A /* room-emoji-blue.svga */,
+				FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */,
+				FE7ED8F625F20291009C608A /* room-emoji-brown.svga */,
+				FE7ED8F525F20290009C608A /* room-emoji-darkgreen.svga */,
+				FE7ED8FA25F20291009C608A /* room-emoji-green.svga */,
+				FE7ED8FB25F20291009C608A /* room-emoji-orange.svga */,
+				FE7ED8F725F20291009C608A /* room-emoji-pink.svga */,
+				FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */,
+				FE7ED8F825F20291009C608A /* room-emoji-red.svga */,
+				FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */,
 				FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */,
 				BDC9D4B1258A2BC200412BDC /* Adjust-Info.plist */,
 				FE1A2DF4248A4BAD00F9A44D /* emojis.json */,
@@ -1281,6 +1315,8 @@
 				FE7CE9D62589C1C60067952C /* AmongRoomInfoView.xib */,
 				FE7CEB62258A05EC0067952C /* JustChillingInfoView.swift */,
 				FE7CEB6A258A060B0067952C /* JustChillingInfoView.xib */,
+				266A42F925F10CC4003B583B /* InfoWithNicknameView.swift */,
+				266A42F525F10C5A003B583B /* InfoWithNicknameView.xib */,
 				FE7CEB78258A0FBA0067952C /* AmongInputCodeView.swift */,
 				FE7CEB72258A0FA10067952C /* AmongInputCodeView.xib */,
 				FE9EF52F258B2DB7008C0BAD /* AmongInputNickNameView.swift */,
@@ -1396,6 +1432,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE7ED90525F20292009C608A /* room-emoji-orange.svga in Resources */,
 				BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */,
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
 				FE7CEB58258A029F0067952C /* AmongChatRoomConfigView.xib in Resources */,
@@ -1406,13 +1443,16 @@
 				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
+				FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
 				BD9F26C525A5EEBD00FA3616 /* SupportedLanguages.json in Resources */,
 				FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */,
 				FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */,
+				FE7ED90125F20292009C608A /* room-emoji-pink.svga in Resources */,
 				FE7CEB57258A029F0067952C /* AmongRoomInfoSetupView.xib in Resources */,
 				FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */,
 				FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */,
+				FE7ED90025F20292009C608A /* room-emoji-brown.svga in Resources */,
 				BD9F272E25A716A800FA3616 /* Infoplist.strings in Resources */,
 				FEA298CF25E63804001D5F3C /* SnapChatSharePhotoView.xib in Resources */,
 				FE87C2D4259C2EC200799883 /* SnapChatCreativeShareView.xib in Resources */,
@@ -1420,20 +1460,27 @@
 				FE746BCD24629A9800CAC554 /* Nunito-SemiBold.ttf in Resources */,
 				FEFF935E258B33480011A274 /* AmongInputNotesView.xib in Resources */,
 				FE9F69E025CD338600C0F118 /* AppTrackingGuideView.xib in Resources */,
+				FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */,
+				FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */,
 				FE730E5124ADCC5A00680062 /* TikTokShareView.xib in Resources */,
+				FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */,
 				FE7CE9E72589E5550067952C /* AmongRoomBottomBar.xib in Resources */,
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
+				FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
 				FEF170FF25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib in Resources */,
 				FE7CEB73258A0FA10067952C /* AmongInputCodeView.xib in Resources */,
 				FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */,
 				FEA2E93425C139E4007485A8 /* AvatarGuideViewController.xib in Resources */,
+				266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */,
 				FEB6E6D325B5A9E3002C6946 /* login_bg.svga in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
 				2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */,
+				FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */,
+				FE7ED8FF25F20292009C608A /* room-emoji-darkgreen.svga in Resources */,
 				265FB7C725B690A7004987AB /* mobileRegions.json in Resources */,
 				FE4FDAE02435E4C600CD5E97 /* GoogleService-Info.plist in Resources */,
 			);
@@ -1742,6 +1789,7 @@
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
+				266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
 				BDC9D13E2589BBF700412BDC /* AmongChat.Login.ViewController.swift in Sources */,
@@ -1983,7 +2031,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
@@ -2012,7 +2060,7 @@
 				CODE_SIGN_ENTITLEMENTS = WalkieTalkie/WalkieTalkie.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 69MW7VVKA9;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = i386;
 				INFOPLIST_FILE = WalkieTalkie/Info.plist;

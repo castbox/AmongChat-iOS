@@ -86,6 +86,8 @@ extension Entity {
         var nameCallofduty: String?
         var namePubgmobile: String?
         var nameMobilelegends: String?
+        var nameAnimalCrossing: String?
+        var nameBrawlStars: String?
         var isFollowed: Bool?
         var opTime: Double?
         var invited: Bool?
@@ -117,6 +119,8 @@ extension Entity {
             case nameCallofduty = "name_callofduty"
             case namePubgmobile = "name_pubgmobile"
             case nameMobilelegends = "name_mobilelegends"
+            case nameAnimalCrossing = "name_animalcrossing"
+            case nameBrawlStars = "name_brawlstars"
             case chatLanguage = "language_u"
             case isVerified = "is_verified"
             case isVip = "is_vip"

@@ -126,7 +126,7 @@ extension AmongChat.Room {
             return player
         }()
         
-        var emojis: [URL] = []
+        var emojisNames: [String] = []
         
         private var user: Entity.RoomUser?
         private var svgaUrl: URL?
@@ -174,7 +174,7 @@ extension AmongChat.Room {
             if let url = svgaUrl {
                 playSvga(url)
             } else {
-                playSvga(emojis.randomItem())
+                playSvga(emojisNames.randomItem())
             }
         }
         
@@ -201,6 +201,26 @@ extension AmongChat.Room {
                          },
                          failureBlock: { error in
                             debugPrint("error: \(error?.localizedDescription ?? "")")
+                         })
+        }
+        
+        func playSvga(_ name: String? = nil) {
+            guard let name = name else {
+                return
+            }
+            //如果正在播放，则不用再次播放
+            guard !isPlaySvgaEmoji else  {
+                return
+            }
+            let parser = SVGAGlobalParser.defaut
+            parser.parse(withNamed: name, in: nil,
+                         completionBlock: { [weak self] (item) in
+                            self?.isPlaySvgaEmoji = true
+                            self?.svgaView.videoItem = item
+                            self?.svgaView.startAnimation()
+                         },
+                         failureBlock: { error in
+                            debugPrint("error: \(error.localizedDescription ?? "")")
                          })
         }
         

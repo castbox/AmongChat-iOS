@@ -10,6 +10,8 @@ import UIKit
 
 class AvatarImageView: UIImageView {
     
+    static var placeholder: UIImage?
+    
     init() {
         super.init(frame: .zero)
         image = R.image.ac_profile_avatar()
@@ -26,7 +28,7 @@ class AvatarImageView: UIImageView {
     }
     
     func updateAvatar(with profile: Entity.UserProfile) {
-        setImage(with: profile.pictureUrl, placeholder: image ?? R.image.ac_profile_avatar())
+        setImage(with: profile.pictureUrl, placeholder: Self.placeholder ?? R.image.ac_profile_avatar())
     }
     
 }

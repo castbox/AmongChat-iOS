@@ -54,6 +54,7 @@ extension Entity {
 //        var bgUrl: String?
         let rtcType: RtcType?
         let rtcBitRate: Int?
+        var coverUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,

@@ -25,6 +25,8 @@ extension AmongChat {
         case callofduty = "callofduty"
         case pubgmobile = "pubgmobile"
         case mobilelegends = "mobilelegends"
+        case brawlStars = "brawlstars"
+        case animalCrossing = "animalcrossing"
     }
     
     //用户身份
@@ -41,6 +43,19 @@ extension AmongChat.Topic {
         }
         return setting.roomEmoji.first(where: { $0.topicType == self })
             .map { $0.emojiList } ?? []
+    }
+    
+    var roomEmojiNames: [String] {
+        ["room-emoji-yellow",
+        "room-emoji-blue",
+        "room-emoji-red",
+        "room-emoji-green",
+        "room-emoji-bluegreen",
+        "room-emoji-darkgreen",
+        "room-emoji-purple",
+        "room-emoji-orange",
+        "room-emoji-pink",
+        "room-emoji-brown"]
     }
     
 //    var roomBgUrl: URL? {

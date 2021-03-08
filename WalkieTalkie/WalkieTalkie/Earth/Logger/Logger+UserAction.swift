@@ -257,12 +257,12 @@ extension Logger {
             case go
         }
         
-        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil) {
-            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value?.int64, content: nil)
+        static func log(_ eventName: EventName, category: Category? = nil, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: category?.rawValue, name: itemName, value: value?.int64, content: nil,  extra: extra)
         }
         
-        static func log(_ eventName: EventName, categoryValue: String?, _ itemName: String? = nil, _ value: Int? = nil) {
-            GuruAnalytics.log(event: eventName.rawValue, category: categoryValue, name: itemName, value: value?.int64, content: nil)
+        static func log(_ eventName: EventName, categoryValue: String?, _ itemName: String? = nil, _ value: Int? = nil, extra: [String: Any]? = nil) {
+            GuruAnalytics.log(event: eventName.rawValue, category: categoryValue, name: itemName, value: value?.int64, content: nil, extra: extra)
         }
     }
 }

@@ -227,6 +227,7 @@ PODS:
   - R.swift (5.0.3):
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
+  - RAMAnimatedTabBarController (5.2.0)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -334,6 +335,7 @@ DEPENDENCIES:
   - Path.swift (~> 1.0.0)
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
+  - RAMAnimatedTabBarController
   - RxCocoa
   - RxGesture (= 3.0.2)
   - SDCAlertView
@@ -415,6 +417,7 @@ SPEC REPOS:
     - PullToDismiss
     - R.swift
     - R.swift.Library
+    - RAMAnimatedTabBarController
     - RxCocoa
     - RxGesture
     - RxRelay
@@ -511,6 +514,7 @@ SPEC CHECKSUMS:
   PullToDismiss: 033572b7152fbf68db0407db882d546312813837
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
+  RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
@@ -535,6 +539,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 8eecc43a836626fd71b93a863b59ad3457a7b10f
+PODFILE CHECKSUM: 5b05016bf7659464ab87f3859f6e2bc041d0f44a
 
 COCOAPODS: 1.10.0

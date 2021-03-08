@@ -178,7 +178,7 @@ private extension Social.EditProfileViewController {
                 if let _ = ts {
                     self?.randomIconIV.redDotOff()
                 } else {
-                    self?.randomIconIV.redDotOn(width: 8)
+                    self?.randomIconIV.redDotOn(rightInset: -2, diameter: 8)
                 }
             })
             .disposed(by: bag)
@@ -220,7 +220,7 @@ private extension Social.EditProfileViewController {
         } else {
             birthdayButton.setRightLabelText("")
         }
-        avatarIV.setAvatarImage(with: profile.pictureUrl)
+        avatarIV.updateAvatar(with: profile)
     }
     
     @objc
