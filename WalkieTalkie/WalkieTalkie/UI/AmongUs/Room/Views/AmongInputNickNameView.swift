@@ -33,7 +33,7 @@ class AmongInputNickNameView: XibLoadableView {
                 textField.text = Settings.shared.amongChatUserProfile.value?.nameFreefire
             case .minecraft:
                 textField.placeholder = R.string.localizable.roomMinecraftInputCodePlceholder()
-                textField.text = Settings.shared.amongChatUserProfile.value?.nameFreefire
+                textField.text = Settings.shared.amongChatUserProfile.value?.nameMineCraft
             case .callofduty:
                 textField.placeholder = R.string.localizable.roomCallOfDutyInputCodePlceholder()
                 textField.text = Settings.shared.amongChatUserProfile.value?.nameCallofduty
