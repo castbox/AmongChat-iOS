@@ -607,10 +607,6 @@ private extension AmongChat.Room.ViewModel {
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
-    func onJoinChannelSuccess(channelId: String?) {
-        
-    }
-    
     // MARK: - ChatRoomDelegate
     
     func onJoinChannelSuccess(channelId: String?) {
