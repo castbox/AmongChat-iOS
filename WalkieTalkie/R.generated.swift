@@ -224,7 +224,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 148 images.
+  /// This `R.image` struct is generated, and contains static references to 150 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -254,8 +254,10 @@ struct R: Rswift.Validatable {
     static let ac_home_create = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_create")
     /// Image `ac_home_friends_locked`.
     static let ac_home_friends_locked = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_friends_locked")
-    /// Image `ac_home_friends_tab`.
-    static let ac_home_friends_tab = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_friends_tab")
+    /// Image `ac_home_friends_tab_normal`.
+    static let ac_home_friends_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_friends_tab_normal")
+    /// Image `ac_home_friends_tab_selected`.
+    static let ac_home_friends_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_friends_tab_selected")
     /// Image `ac_home_invite`.
     static let ac_home_invite = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_invite")
     /// Image `ac_home_load_error`.
@@ -264,8 +266,10 @@ struct R: Rswift.Validatable {
     static let ac_home_profile = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_profile")
     /// Image `ac_home_tab_shadow`.
     static let ac_home_tab_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_tab_shadow")
-    /// Image `ac_home_topic_tab`.
-    static let ac_home_topic_tab = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab")
+    /// Image `ac_home_topic_tab_normal`.
+    static let ac_home_topic_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_normal")
+    /// Image `ac_home_topic_tab_selected`.
+    static let ac_home_topic_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_selected")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -593,9 +597,14 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_home_friends_locked, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_home_friends_tab", bundle: ..., traitCollection: ...)`
-    static func ac_home_friends_tab(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_home_friends_tab, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_home_friends_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_friends_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_friends_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_friends_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_friends_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_friends_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_invite", bundle: ..., traitCollection: ...)`
@@ -618,9 +627,14 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_home_tab_shadow, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_home_topic_tab", bundle: ..., traitCollection: ...)`
-    static func ac_home_topic_tab(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_home_topic_tab, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_home_topic_tab_normal", bundle: ..., traitCollection: ...)`
+    static func ac_home_topic_tab_normal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_topic_tab_normal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_home_topic_tab_selected", bundle: ..., traitCollection: ...)`
+    static func ac_home_topic_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_home_topic_tab_selected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
