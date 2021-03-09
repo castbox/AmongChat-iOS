@@ -141,7 +141,7 @@ class InfoWithNicknameView: XibLoadableView {
                     inGameNameName = R.string.localizable.amongChatRoomAnimalCrossingId()
 
                 case .brawlStars:
-                    if let name = profile?.nameCallofduty {
+                    if let name = profile?.nameBrawlStars {
                         nameTxt = R.string.localizable.amongChatRoomBrawlIdPrefix(name)
                         nameTxtAlignment = .left
                     } else {
