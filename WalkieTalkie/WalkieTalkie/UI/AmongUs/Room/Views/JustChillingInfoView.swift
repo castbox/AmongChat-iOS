@@ -10,9 +10,10 @@ import UIKit
 
 class JustChillingInfoView: XibLoadableView {
     
-    @IBOutlet weak var setUpButton: UIButton!
-    @IBOutlet weak var notesTitleButton: UIButton!
-    @IBOutlet weak var notesDetailButton: UIButton!
+    @IBOutlet weak var setUpView: UIView!
+    @IBOutlet weak var setUpLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     var room: Entity.Room? {
         didSet {
@@ -21,32 +22,36 @@ class JustChillingInfoView: XibLoadableView {
             }
             switch room.topicType {
             case .chilling:
-                notesDetailButton.isHidden = false
+                descriptionLabel.isHidden = false
                 guard let string = room.note, !string.isEmpty else {
-                    notesDetailButton.setTitle(R.string.localizable.amongChatRoomJustChatTitle(), for: .normal)
+                    descriptionLabel.text = R.string.localizable.amongChatRoomJustChatTitle()
+                    descriptionLabel.textColor = UIColor.white.alpha(0.65)
+                    descriptionLabel.font = R.font.nunitoExtraBold(size: 12)
                     break
                 }
-                notesDetailButton.setTitle(string, for: .normal)
+                descriptionLabel.text = string
+                descriptionLabel.textColor = .white
+                descriptionLabel.font = R.font.nunitoExtraBold(size: 13)
             default:
-                notesDetailButton.isHidden = true
-                notesTitleButton.setTitle(room.topicType.notes, for: .normal)
+                descriptionLabel.isHidden = true
+                titleLabel.text = room.topicType.notes
             }
             
             if room.topicType == .chilling,
                room.roomUserList.first?.uid == Settings.loginUserId,
                room.note?.isEmpty ?? true {
-                setUpButton.isHidden = false
-                notesTitleButton.isHidden = true
-                notesDetailButton.snp.remakeConstraints { (maker) in
-                    maker.top.equalTo(setUpButton.snp.bottom).offset(8)
+                setUpView.isHidden = false
+                titleLabel.isHidden = true
+                descriptionLabel.snp.remakeConstraints { (maker) in
+                    maker.top.equalTo(setUpView.snp.bottom).offset(8)
                     maker.left.bottom.equalToSuperview()
                     maker.right.lessThanOrEqualToSuperview().offset(-24)
                 }
             } else {
-                setUpButton.isHidden = true
-                notesTitleButton.isHidden = false
-                notesDetailButton.snp.remakeConstraints { (maker) in
-                    maker.top.equalTo(notesTitleButton.snp.bottom).offset(8)
+                setUpView.isHidden = true
+                titleLabel.isHidden = false
+                descriptionLabel.snp.remakeConstraints { (maker) in
+                    maker.top.equalTo(titleLabel.snp.bottom).offset(8)
                     maker.left.bottom.equalToSuperview()
                     maker.right.lessThanOrEqualToSuperview().offset(-24)
                 }
@@ -68,11 +73,7 @@ class JustChillingInfoView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
-        notesTitleButton.setTitle(R.string.localizable.roomHostsNotes(), for: .normal)
-        notesTitleButton.titleLabel?.numberOfLines = 0
-        notesDetailButton.titleLabel?.numberOfLines = 3
-        notesTitleButton.titleLabel?.textAlignment = .left
-        notesDetailButton.titleLabel?.textAlignment = .left
+        titleLabel.text = R.string.localizable.roomHostsNotes()
     }
     
     private func configureSubview() {
