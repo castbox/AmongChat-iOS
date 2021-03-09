@@ -57,11 +57,7 @@ class ChatRoomManager {
         manager.delegate = self
         return manager
     }()
-//    private lazy var mRtmManager: RtmManager = {
-//        let manager = RtmManager.shared
-//        manager.delegate = self
-//        return manager
-//    }()
+    
     weak var delegate: ChatRoomDelegate?
     
     private(set) var state: ConnectState = .disconnected {
@@ -77,23 +73,6 @@ class ChatRoomManager {
     var isConnectedState: Bool {
         state.isConnectedState
     }
-    
-//    var role: RtcUserRole? {
-//        mRtcManager.role
-//    }
-    
-//    var isReachMaxUnmuteUserCount: Bool {
-//        guard let name = channelName,
-//            !Settings.shared.isProValue.value else { //非会员
-//            return false
-//        }
-////        if name.isPrivate {
-////            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.sSpeakerLimit
-////        } else {
-////            return mRtcManager.unMuteUsers.count >= FireStore.channelConfig.gSpeakerLimit
-////        }
-//        return false
-//    }
 
     //current channel name
     private(set) var channelName: String?
@@ -101,6 +80,7 @@ class ChatRoomManager {
     private let stateObservable = BehaviorSubject<ConnectState>(value: .disconnected)
     
     private var mChannelData = ChannelData()
+    private var stateDispose: Disposable?
     private var scheduleDispose: Disposable?
     private var heartBeatingRequestDispose: Disposable?
 
@@ -125,18 +105,6 @@ class ChatRoomManager {
         mChannelData
     }
 
-//    func getMessageManager() -> MessageManager {
-//        self
-//    }
-
-//    func getRtcManager() -> AgoraRtcManager {
-//        mRtcManager
-//    }
-
-//    func getRtmManager() -> RtmManager {
-//        mRtmManager
-//    }
-
     func muteMyMic(muted: Bool) {
         mRtcManager.mic(muted: muted)
     }
@@ -148,27 +116,28 @@ class ChatRoomManager {
     func onSeatUpdated(position: Int) {
         delegate?.onSeatUpdated(position: position)
     }
-
+    
     func joinChannel(_ joinable: RTCJoinable, completionHandler: ((Error?) -> Void)?) {
-        
         //leave 时需要判断上一个引擎是否销毁
-        if state == .connected {
+        if state != .disconnected {
             leaveChannel()
         }
-        switch (joinable.rtcType ?? .agora) {
-        case .agora:
-            mRtcManager = agoraRtcManager
-        case .zego:
-            mRtcManager = zegoRtcManager
-        }
-        
-        _ = Request.rtcToken(joinable)
+        stateDispose?.dispose()
+        stateDispose = stateObservable
             .observeOn(MainScheduler.asyncInstance)
-            .subscribe(onSuccess: { [weak self] token in
-                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
-                if joinable.rtcType == .agora {
-                    self.updateRole(true)
+            .filter { $0 == .disconnected } //上一个 rtc 状态必须为断开，避免异常情况
+            .flatMap { [weak self] _ -> Observable<String?> in
+                switch (joinable.rtcType ?? .agora) {
+                case .agora:
+                    self?.mRtcManager = self?.agoraRtcManager
+                case .zego:
+                    self?.mRtcManager = self?.zegoRtcManager
                 }
+                return Request.rtcToken(joinable).asObservable()
+            }
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] token in
+                guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
                 self.mRtcManager?.joinChannel(joinable, token, uid.uInt) { [weak self] in
                     self?.channelName = joinable.roomId
                     completionHandler?(nil)
@@ -177,6 +146,7 @@ class ChatRoomManager {
                 completionHandler?(error)
                 cdPrint("error: \(error)")
             })
+
     }
     
     func updateRole(_ isPublisher: Bool) {
@@ -192,73 +162,18 @@ class ChatRoomManager {
 //    func leaveChannel(_ block: ((String) -> Void)? = nil) {
     func leaveChannel() {
         channelName = nil
+        stateDispose?.dispose()
         mRtcManager.leaveChannel()
         mChannelData.release()
         HapticFeedback.Impact.medium()
 //        block?(name)
     }
     
-//    func adjustUserPlaybackSignalVolume(_ user: ChannelUser, volume: Int32 = 0) {
-//        mRtcManager.adjustUserPlaybackSignalVolume(user, volume: volume)
-//    }
     func adjustUserPlaybackSignalVolume(_ uid: Int, volume: Int32 = 0) -> Bool {
         return mRtcManager.adjustUserPlaybackSignalVolume(uid.uInt, volume: volume)
     }
 
 }
-
-//extension ChatRoomManager: MessageManager {
-//    func sendOrder(userId: String, orderType: String, content: String?, callback: AgoraRtmSendPeerMessageBlock?) {
-//        if !mChannelData.isAnchorMyself() {
-//            return
-//        }
-//        let message = Message(orderType: orderType, content: content, sendId: Constants.sUserId)
-//        mRtmManager.sendMessageToPeer(userId, message.toJsonString(), callback)
-//    }
-//
-//    func sendMessage(text: String) {
-//        let message = Message(content: text, sendId: Constants.sUserId)
-//        mRtmManager.sendMessage(message.toJsonString(), { [weak self] (code) in
-//            if code == .errorOk {
-//                self?.addMessage(message: message)
-//            }
-//        })
-//    }
-//
-//    func processMessage(rtmMessage: AgoraRtmMessage) {
-//        if let message = Message.fromJsonString(rtmMessage.text) {
-//            switch message.messageType {
-//            case Message.MESSAGE_TYPE_TEXT:
-//                fallthrough
-//            case Message.MESSAGE_TYPE_IMAGE:
-//                addMessage(message: message)
-//            case Message.MESSAGE_TYPE_GIFT:
-//                delegate?.onUserGivingGift(userId: message.sendId)
-//            case Message.MESSAGE_TYPE_ORDER:
-//                let myUserId = String(Constants.sUserId)
-//                switch message.orderType {
-//                case Message.ORDER_TYPE_AUDIENCE:
-//                    toAudience(myUserId, nil)
-//                case Message.ORDER_TYPE_BROADCASTER:
-//                    if let content = message.content, let position = Int(content) {
-//                        toBroadcaster(myUserId, position)
-//                    }
-//                case Message.ORDER_TYPE_MUTE:
-//                    if let content = message.content, let muted = Bool(content) {
-//                        muteMic(myUserId, muted)
-//                    }
-//                default: break
-//                }
-//            default: break
-//            }
-//        }
-//    }
-//
-//    func addMessage(message: Message) {
-//        let position = mChannelData.addMessage(message: message)
-//        delegate?.onMessageAdded(position: position)
-//    }
-//}
 
 extension ChatRoomManager: RtcDelegate {
     func onJoinChannelSuccess(channelId: String) {

@@ -152,9 +152,9 @@ class InfoWithNicknameView: XibLoadableView {
                     inGameNameName = R.string.localizable.amongChatRoomBrawlId()
                     
                 default:
-                    #if DEBUG
-                    assertionFailure()
-                    #endif
+//                    #if DEBUG
+//                    assertionFailure()
+//                    #endif
                     ()
                 }
                 

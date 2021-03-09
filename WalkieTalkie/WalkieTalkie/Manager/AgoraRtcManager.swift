@@ -130,11 +130,13 @@ class AgoraRtcManager: NSObject, RtcManageable {
         self.joinable = joinable
         
         cdPrint("join \(channelId) \(userId)")
+        
         let result = mRtcEngine.joinChannel(byToken: token, channelId: joinable.roomId, info: nil, uid: userId, joinSuccess: { [weak self] (channel, uid, elapsed) in
             cdPrint("join success \(channel) \(uid)")
             guard let `self` = self else {
                 return
             }
+            self.setClientRole(.broadcaster)
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: joinable.roomId)
