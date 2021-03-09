@@ -14,9 +14,6 @@
         <array key="Nunito-ExtraBold.ttf">
             <string>Nunito-ExtraBold</string>
         </array>
-        <array key="Nunito-SemiBold.ttf">
-            <string>Nunito-SemiBold</string>
-        </array>
     </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongRoomInfoView" customModule="WalkieTalkie" customModuleProvider="target">
@@ -31,10 +28,10 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="125"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Only this channel host can set the code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyV-XZ-rIh">
-                    <rect key="frame" x="0.0" y="43" width="212.5" height="82"/>
-                    <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="12"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Only this channel host can set the code" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="CyV-XZ-rIh">
+                    <rect key="frame" x="0.0" y="43" width="235" height="82"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="13"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.setup.amongus.subtitle"/>
@@ -76,14 +73,15 @@
             <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="P6a-tu-sNy" firstAttribute="centerY" secondItem="uR9-sv-LpM" secondAttribute="centerY" id="0k8-A6-ejM"/>
+                <constraint firstAttribute="trailing" secondItem="CyV-XZ-rIh" secondAttribute="trailing" constant="24" id="3G1-Dj-kdY"/>
                 <constraint firstItem="uR9-sv-LpM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="9Od-wR-qcG"/>
                 <constraint firstItem="CyV-XZ-rIh" firstAttribute="top" secondItem="uR9-sv-LpM" secondAttribute="bottom" constant="12.5" id="9bN-4R-InP"/>
                 <constraint firstItem="zzX-53-SvF" firstAttribute="centerY" secondItem="uR9-sv-LpM" secondAttribute="centerY" id="QTb-rI-DZD"/>
                 <constraint firstItem="zzX-53-SvF" firstAttribute="leading" secondItem="P6a-tu-sNy" secondAttribute="trailing" constant="24" id="XhV-fn-ibb"/>
-                <constraint firstItem="CyV-XZ-rIh" firstAttribute="leading" secondItem="uR9-sv-LpM" secondAttribute="leading" id="Ybt-As-fkd"/>
                 <constraint firstItem="P6a-tu-sNy" firstAttribute="leading" secondItem="uR9-sv-LpM" secondAttribute="trailing" constant="4" id="oMG-ik-UT1"/>
                 <constraint firstItem="uR9-sv-LpM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ofw-2y-Dve"/>
                 <constraint firstAttribute="bottom" secondItem="CyV-XZ-rIh" secondAttribute="bottom" id="tli-Zb-vrT"/>
+                <constraint firstItem="CyV-XZ-rIh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ufx-wr-e2Z"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zzX-53-SvF" secondAttribute="trailing" constant="20" id="ypS-vg-hOW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
