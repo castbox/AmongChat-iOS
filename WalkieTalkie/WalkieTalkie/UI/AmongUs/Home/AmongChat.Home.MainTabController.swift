@@ -215,18 +215,24 @@ extension AmongChat.Home.MainTabController {
             case .topics:
                 let topicVC = AmongChat.Home.TopicsViewController()
                 let item = RAMAnimatedTabBarItem()
-                item.animation = AmongChat.Home.MainTabItemAnimation()
+                let anim = AmongChat.Home.MainTabItemAnimation()
+                anim.selectedImage = R.image.ac_home_topic_tab_selected()
+                anim.normalImage = R.image.ac_home_topic_tab_normal()
+                item.animation = anim
                 topicVC.tabBarItem = item
-                topicVC.tabBarItem.image = R.image.ac_home_topic_tab()
+                topicVC.tabBarItem.image = R.image.ac_home_topic_tab_normal()
                 topicVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
                 return NavigationViewController(rootViewController: topicVC)
                 
             case .friends:
                 let relationVC = AmongChat.Home.RelationsViewController()
                 let item = RAMAnimatedTabBarItem()
-                item.animation = AmongChat.Home.MainTabItemAnimation()
+                let anim = AmongChat.Home.MainTabItemAnimation()
+                anim.selectedImage = R.image.ac_home_friends_tab_selected()
+                anim.normalImage = R.image.ac_home_friends_tab_normal()
+                item.animation = anim
                 relationVC.tabBarItem = item
-                relationVC.tabBarItem.image = R.image.ac_home_friends_tab()
+                relationVC.tabBarItem.image = R.image.ac_home_friends_tab_normal()
                 relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
                 relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
@@ -257,6 +263,9 @@ extension AmongChat.Home {
     
     class MainTabItemAnimation: RAMItemAnimation {
         
+        var selectedImage: UIImage?
+        var normalImage: UIImage?
+        
         override func playAnimation(_ icon: UIImageView, textLabel _: UILabel) {
             selectedAnimation(icon)
         }
@@ -266,21 +275,12 @@ extension AmongChat.Home {
         }
         
         override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
-            if let iconImage = icon.image {
-                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
-                icon.image = renderImage
-                icon.tintColor = Theme.mainTintColor
-            }
+            icon.image = selectedImage
             icon.layer.transform = CATransform3DMakeRotation((-25) / 180.0 * .pi, 1.0, 1.0, 1.0)
         }
         
         private func selectedAnimation(_ icon: UIImageView) {
-            
-            if let iconImage = icon.image {
-                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
-                icon.image = renderImage
-                icon.tintColor = Theme.mainTintColor
-            }
+            icon.image = selectedImage
             
             UIView.animateKeyframes(withDuration: 1.0, delay: 0.0) {
                 
@@ -307,13 +307,7 @@ extension AmongChat.Home {
         }
         
         private func deselectAnimation(_ icon: UIImageView) {
-            
-            if let iconImage = icon.image {
-                let renderImage = iconImage.withRenderingMode(.alwaysTemplate)
-                icon.image = renderImage
-                icon.tintColor = UIColor(hex6: 0x5D5D5D)
-            }
-            
+            icon.image = normalImage
             icon.transform = .identity
             
         }
