@@ -150,15 +150,16 @@ class ChatRoomManager {
     }
 
     func joinChannel(_ joinable: RTCJoinable, completionHandler: ((Error?) -> Void)?) {
+        
+        //leave 时需要判断上一个引擎是否销毁
+        if state == .connected {
+            leaveChannel()
+        }
         switch (joinable.rtcType ?? .agora) {
         case .agora:
             mRtcManager = agoraRtcManager
         case .zego:
             mRtcManager = zegoRtcManager
-        }
-        //判断 channel 类型
-        if state == .connected {
-            leaveChannel()
         }
         
         _ = Request.rtcToken(joinable)

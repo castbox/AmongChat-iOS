@@ -153,7 +153,7 @@ class InfoWithNicknameView: XibLoadableView {
                     
                 default:
                     #if DEBUG
-                    assertionFailure()
+//                    assertionFailure()
                     #endif
                     ()
                 }
