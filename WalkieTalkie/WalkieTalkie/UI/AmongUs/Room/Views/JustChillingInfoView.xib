@@ -18,7 +18,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JustChillingInfoView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
-                <outlet property="detailTop" destination="7yq-i9-N0Q" id="Bz5-SA-4w5"/>
                 <outlet property="notesDetailButton" destination="SqD-Nt-qHV" id="s7Y-Ma-pc3"/>
                 <outlet property="notesTitleButton" destination="9pp-QH-sua" id="nJG-Ly-cI1"/>
                 <outlet property="setUpButton" destination="YNc-eS-uOv" id="Xz1-Tx-1CT"/>
@@ -30,7 +29,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YNc-eS-uOv">
-                    <rect key="frame" x="0.0" y="20" width="209" height="42"/>
+                    <rect key="frame" x="0.0" y="0.0" width="209" height="42"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="209" id="EtO-JC-VDU"/>
                         <constraint firstAttribute="height" constant="42" id="zc4-sn-rLi"/>
@@ -56,7 +55,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9pp-QH-sua">
-                    <rect key="frame" x="0.0" y="24" width="239" height="34"/>
+                    <rect key="frame" x="0.0" y="0.0" width="239" height="34"/>
                     <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="16"/>
                     <state key="normal" title="Host's Notes:">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -68,8 +67,8 @@
                         <action selector="hostNotesAction:" destination="-1" eventType="touchUpInside" id="qYE-1k-BqF"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-Nt-qHV">
-                    <rect key="frame" x="0.0" y="70" width="239" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqD-Nt-qHV">
+                    <rect key="frame" x="0.0" y="42" width="239" height="83"/>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="13"/>
                     <state key="normal" title="Host could setup notes so everyone could see it when they join the channel">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="0.65000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -85,14 +84,14 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="SqD-Nt-qHV" firstAttribute="leading" secondItem="9pp-QH-sua" secondAttribute="leading" id="1wS-VW-1eK"/>
-                <constraint firstItem="SqD-Nt-qHV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="70" id="7yq-i9-N0Q"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SqD-Nt-qHV" secondAttribute="bottom" constant="10" id="MaE-Ty-32U"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="SqD-Nt-qHV" secondAttribute="bottom" id="MaE-Ty-32U"/>
                 <constraint firstAttribute="trailing" secondItem="9pp-QH-sua" secondAttribute="trailing" constant="20" id="X1G-cU-meI"/>
                 <constraint firstItem="9pp-QH-sua" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="cUH-pX-uIy"/>
                 <constraint firstItem="SqD-Nt-qHV" firstAttribute="trailing" secondItem="9pp-QH-sua" secondAttribute="trailing" id="fQ8-2Z-v2h"/>
-                <constraint firstItem="YNc-eS-uOv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="jn5-h4-8sz"/>
-                <constraint firstItem="YNc-eS-uOv" firstAttribute="centerY" secondItem="9pp-QH-sua" secondAttribute="centerY" id="k8Z-TR-x2F"/>
+                <constraint firstItem="YNc-eS-uOv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jn5-h4-8sz"/>
+                <constraint firstItem="9pp-QH-sua" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="k5k-Ty-3be"/>
                 <constraint firstItem="YNc-eS-uOv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="pgn-1f-b2M"/>
+                <constraint firstItem="SqD-Nt-qHV" firstAttribute="top" secondItem="9pp-QH-sua" secondAttribute="bottom" constant="8" id="zdR-On-PhL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-10.869565217391305" y="130.24553571428572"/>

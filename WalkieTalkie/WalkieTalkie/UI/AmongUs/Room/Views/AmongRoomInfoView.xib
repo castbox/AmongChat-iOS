@@ -31,8 +31,8 @@
             <rect key="frame" x="0.0" y="0.0" width="259" height="125"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only this channel host can set the code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyV-XZ-rIh">
-                    <rect key="frame" x="0.0" y="67" width="212.5" height="16.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" text="Only this channel host can set the code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyV-XZ-rIh">
+                    <rect key="frame" x="0.0" y="43" width="212.5" height="82"/>
                     <fontDescription key="fontDescription" name="Nunito-SemiBold" family="Nunito" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -41,7 +41,7 @@
                     </userDefinedRuntimeAttributes>
                 </label>
                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zzX-53-SvF">
-                    <rect key="frame" x="133" y="27.5" width="45" height="24"/>
+                    <rect key="frame" x="133" y="3.5" width="45" height="24"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="via-LZ-bnP"/>
@@ -58,13 +58,13 @@
                     </userDefinedRuntimeAttributes>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EAVTZF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="uR9-sv-LpM">
-                    <rect key="frame" x="0.0" y="24" width="85" height="30.5"/>
+                    <rect key="frame" x="0.0" y="0.0" width="85" height="30.5"/>
                     <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="22"/>
                     <color key="textColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P6a-tu-sNy" userLabel="Action Icon">
-                    <rect key="frame" x="89" y="29.5" width="20" height="20"/>
+                    <rect key="frame" x="89" y="5.5" width="20" height="20"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="P6a-tu-sNy" secondAttribute="height" multiplier="1:1" id="8Cv-AQ-WKo"/>
@@ -82,7 +82,8 @@
                 <constraint firstItem="zzX-53-SvF" firstAttribute="leading" secondItem="P6a-tu-sNy" secondAttribute="trailing" constant="24" id="XhV-fn-ibb"/>
                 <constraint firstItem="CyV-XZ-rIh" firstAttribute="leading" secondItem="uR9-sv-LpM" secondAttribute="leading" id="Ybt-As-fkd"/>
                 <constraint firstItem="P6a-tu-sNy" firstAttribute="leading" secondItem="uR9-sv-LpM" secondAttribute="trailing" constant="4" id="oMG-ik-UT1"/>
-                <constraint firstItem="uR9-sv-LpM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="24" id="ofw-2y-Dve"/>
+                <constraint firstItem="uR9-sv-LpM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ofw-2y-Dve"/>
+                <constraint firstAttribute="bottom" secondItem="CyV-XZ-rIh" secondAttribute="bottom" id="tli-Zb-vrT"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="zzX-53-SvF" secondAttribute="trailing" constant="20" id="ypS-vg-hOW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

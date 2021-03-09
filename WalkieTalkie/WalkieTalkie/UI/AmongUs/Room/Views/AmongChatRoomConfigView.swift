@@ -152,17 +152,23 @@ extension AmongChatRoomConfigView {
         addSubviews(views: amongSetupView, amongInfoView, justChillingInfoView, infoWithNicknameView)
         
         amongSetupView.snp.makeConstraints { maker in
-            maker.top.right.bottom.equalToSuperview()
+            maker.top.greaterThanOrEqualToSuperview().inset(10)
+            maker.centerY.equalToSuperview()
+            maker.right.equalToSuperview()
             maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
         
         amongInfoView.snp.makeConstraints { maker in
-            maker.top.right.bottom.equalToSuperview()
+            maker.top.greaterThanOrEqualToSuperview().inset(10)
+            maker.centerY.equalToSuperview()
+            maker.right.equalToSuperview()
             maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
         
         justChillingInfoView.snp.makeConstraints { maker in
-            maker.top.right.bottom.equalToSuperview()
+            maker.top.greaterThanOrEqualToSuperview().inset(10)
+            maker.centerY.equalToSuperview()
+            maker.right.equalToSuperview()
             maker.left.equalTo(gameIconIV.snp.right).offset(28)
         }
         

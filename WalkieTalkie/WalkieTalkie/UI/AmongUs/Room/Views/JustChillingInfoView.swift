@@ -13,7 +13,6 @@ class JustChillingInfoView: XibLoadableView {
     @IBOutlet weak var setUpButton: UIButton!
     @IBOutlet weak var notesTitleButton: UIButton!
     @IBOutlet weak var notesDetailButton: UIButton!
-    @IBOutlet weak var detailTop: NSLayoutConstraint!
     
     var room: Entity.Room? {
         didSet {
@@ -38,11 +37,19 @@ class JustChillingInfoView: XibLoadableView {
                room.note?.isEmpty ?? true {
                 setUpButton.isHidden = false
                 notesTitleButton.isHidden = true
-                detailTop.constant = 70
+                notesDetailButton.snp.remakeConstraints { (maker) in
+                    maker.top.equalTo(setUpButton.snp.bottom).offset(8)
+                    maker.left.bottom.equalToSuperview()
+                    maker.right.lessThanOrEqualToSuperview().offset(-24)
+                }
             } else {
                 setUpButton.isHidden = true
                 notesTitleButton.isHidden = false
-                detailTop.constant = 60
+                notesDetailButton.snp.remakeConstraints { (maker) in
+                    maker.top.equalTo(notesTitleButton.snp.bottom).offset(8)
+                    maker.left.bottom.equalToSuperview()
+                    maker.right.lessThanOrEqualToSuperview().offset(-24)
+                }
             }
             
         }
