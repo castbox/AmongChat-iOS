@@ -19,6 +19,7 @@ class AmongChatRoomConfigView: XibLoadableView {
     @IBOutlet weak var gameIconIV: UIImageView!
     @IBOutlet weak var openGameButton: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var gameIconTop: NSLayoutConstraint!
     
     var updateEditTypeHandler: ((RoomEditType) -> Void)?
     var openGameHandler: CallBack?
@@ -91,10 +92,12 @@ extension AmongChatRoomConfigView {
         if room.topicType.productId > 0 {
             openGameButton.isHidden = false
             nameLabel.isHidden = true
+            gameIconTop.constant = 14.5
         } else {
             openGameButton.isHidden = true
             nameLabel.isHidden = false
             nameLabel.text = room.topicName
+            gameIconTop.constant = 18.5
         }
         
     }
