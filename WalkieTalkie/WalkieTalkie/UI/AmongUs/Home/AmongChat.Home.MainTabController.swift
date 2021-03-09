@@ -293,23 +293,19 @@ extension AmongChat.Home {
             UIView.animateKeyframes(withDuration: 0.5, delay: 0.0) {
                 
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.07, y: 1.07, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                    icon.transform = CGAffineTransform(scaleX: 1.07, y: 1.07).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.25) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.4, y: 1.4, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                    icon.transform = CGAffineTransform(scaleX: 1.4, y: 1.4).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.55, relativeDuration: 0.25) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.3, y: 1.3, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                    icon.transform = CGAffineTransform(scaleX: 1.3, y: 1.3).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
                 UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.4, y: 1.4, z: 1.4)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                    icon.transform = CGAffineTransform(scaleX: 1.4, y: 1.4).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
             }
