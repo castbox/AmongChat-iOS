@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongChatRoomConfigView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
                 <outlet property="gameIconIV" destination="bsU-Eh-8qV" id="Lhc-bG-sk4"/>
+                <outlet property="gameIconTop" destination="HLN-3s-ivj" id="MVP-oJ-beF"/>
                 <outlet property="nameLabel" destination="xfb-M2-wXi" id="Idi-pp-FWh"/>
                 <outlet property="openGameButton" destination="Svf-zr-AM7" id="Io3-Gh-9Bf"/>
             </connections>
@@ -90,8 +91,11 @@
                         <action selector="onOpenGameButton:" destination="-1" eventType="touchUpInside" id="8Ku-he-ea5"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-M2-wXi" userLabel="Game Name Label">
-                    <rect key="frame" x="56" y="87" width="0.0" height="0.0"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="xfb-M2-wXi" userLabel="Game Name Label">
+                    <rect key="frame" x="56" y="87" width="0.0" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="nt3-GM-zc7"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
