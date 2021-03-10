@@ -144,7 +144,7 @@ extension AmongChat.Home.MainTabController {
     }
     
     private func setupViewControllers() {
-        viewControllers = Tab.allCases.map({ $0.viewController })
+        setViewControllers(Tab.allCases.map({ $0.viewController }), animated: false)
     }
     
     private func setupEvent() {
@@ -215,27 +215,28 @@ extension AmongChat.Home.MainTabController {
             case .topics:
                 let topicVC = AmongChat.Home.TopicsViewController()
                 let item = RAMAnimatedTabBarItem()
+                item.image = R.image.ac_home_topic_tab_normal()
+                item.selectedImage = R.image.ac_home_topic_tab_selected()
+                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                item.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
                 let anim = AmongChat.Home.MainTabItemAnimation()
                 anim.selectedImage = R.image.ac_home_topic_tab_selected()
                 anim.normalImage = R.image.ac_home_topic_tab_normal()
                 item.animation = anim
                 topicVC.tabBarItem = item
-                topicVC.tabBarItem.image = R.image.ac_home_topic_tab_normal()
-                topicVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                topicVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
                 return NavigationViewController(rootViewController: topicVC)
                 
             case .friends:
                 let relationVC = AmongChat.Home.RelationsViewController()
                 let item = RAMAnimatedTabBarItem()
+                item.image = R.image.ac_home_friends_tab_normal()
+                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                item.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
                 let anim = AmongChat.Home.MainTabItemAnimation()
                 anim.selectedImage = R.image.ac_home_friends_tab_selected()
                 anim.normalImage = R.image.ac_home_friends_tab_normal()
                 item.animation = anim
                 relationVC.tabBarItem = item
-                relationVC.tabBarItem.image = R.image.ac_home_friends_tab_normal()
-                relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
-                relationVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
                 relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
             }
@@ -278,19 +279,19 @@ extension AmongChat.Home {
         
         override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = selectedImage
-            icon.layer.anchorPoint = CGPoint(x: 0, y: 1)
-            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1)
-            icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
         }
         
         override func deselectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = normalImage
-            icon.layer.anchorPoint = CGPoint(x: 0, y: 1)
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
         }
         
         private func selectedAnimation(_ icon: UIImageView) {
             icon.image = selectedImage
-            icon.layer.anchorPoint = CGPoint(x: 0, y: 1)
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
             
             UIView.animateKeyframes(withDuration: 0.9, delay: 0.0) {
                 
@@ -315,8 +316,9 @@ extension AmongChat.Home {
         
         private func deselectAnimation(_ icon: UIImageView) {
             icon.image = normalImage
-            icon.transform = .identity
             icon.layer.removeAllAnimations()
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
             
         }
         
