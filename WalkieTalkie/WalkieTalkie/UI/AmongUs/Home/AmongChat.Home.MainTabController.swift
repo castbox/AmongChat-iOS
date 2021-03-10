@@ -316,6 +316,7 @@ extension AmongChat.Home {
         private func deselectAnimation(_ icon: UIImageView) {
             icon.image = normalImage
             icon.transform = .identity
+            icon.layer.removeAllAnimations()
             
         }
         
