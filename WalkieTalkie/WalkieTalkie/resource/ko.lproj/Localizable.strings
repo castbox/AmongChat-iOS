@@ -319,3 +319,29 @@
 "among.chat.custom.avatar.close" = "닫기";
 "among.chat.pro.privilege.custom.avatars" = "나만의 아바타 업로드";
 "among.chat.pro.privilege.custom.avatars.sub" = "당신의 아바타는 다를 수 있습니다";
+
+//1.15
+"among.chat.room.just.chat.set.up.notes" = "여기에 메모 설정";
+"among.chat.room.set.animal.crossing.id" = "Animal Crossing ID 설정";
+"among.chat.room.animal.crossing.id" = "Animal Crossing ID";
+"among.chat.room.animal.crossing.id.prefix" = "ID: %1$@";
+"room.animal.crossing.id.placeholder" = "ANIMAL CROSSING ID";
+"among.chat.room.fortnite.name" = "Fortnite 표시 이름";
+"among.chat.room.fortnite.name.prefix" = "표시 이름: %1$@";
+"among.chat.room.set.brawl.id" = "Brawl Stars 팀 코드/ID 설정";
+"among.chat.room.brawl.id" = "Brawl Stars 팀 코드/ID";
+"room.brawl.id.placeholder" = "BRAWL STARS 팀 코드/ID";
+"among.chat.room.brawl.id.prefix" = "팀 코드/ID: %1$@";
+"among.chat.room.roblox.user.name" = "Roblox 사용자 이름";
+"among.chat.room.roblox.user.name.prefix" = "사용자 이름: %1$@";
+"among.chat.room.freefire.name" = "Free Fire 닉네임";
+"among.chat.room.freefire.name.prefix" = "닉네임: %1$@";
+"among.chat.room.mobile.legends.name" = "MLBB 이름/ID";
+"among.chat.room.mobile.legends.name.prefix" = "이름/ID: %1$@";
+"among.chat.room.minecraft.name" = "Minecraft 게이머 태그 설정";
+"among.chat.room.minecraft.name.prefix" = "게이머 태그: %1$@";
+"among.chat.room.pubg.name.id" = "PUBG 플레이어 이름/ID";
+"among.chat.room.pubg.name.id.prefix" = "이름/ID: %1$@";
+"among.chat.room.call.of.duty.name" = "COD 사용자 이름/UID";
+"among.chat.room.call.of.duty.name.prefix" = "사용자 이름/UID: %1$@";
+"among.chat.room.set.up.name.desc" = "자신의 %1$@을 설정하거나 다른 사람을 클릭하여 함께 플레이하십시오.";
