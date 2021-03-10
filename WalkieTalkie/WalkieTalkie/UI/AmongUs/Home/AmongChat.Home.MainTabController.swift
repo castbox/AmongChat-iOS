@@ -222,6 +222,7 @@ extension AmongChat.Home.MainTabController {
                 topicVC.tabBarItem = item
                 topicVC.tabBarItem.image = R.image.ac_home_topic_tab_normal()
                 topicVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                topicVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
                 return NavigationViewController(rootViewController: topicVC)
                 
             case .friends:
@@ -234,6 +235,7 @@ extension AmongChat.Home.MainTabController {
                 relationVC.tabBarItem = item
                 relationVC.tabBarItem.image = R.image.ac_home_friends_tab_normal()
                 relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                relationVC.tabBarItem.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
                 relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
             }
@@ -277,7 +279,7 @@ extension AmongChat.Home {
         override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
             icon.image = selectedImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 1)
-            icon.layer.transform = CATransform3D(scaleX: 1.4, y: 1.4, z: 1)
+            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1)
             icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
         }
         
@@ -289,27 +291,23 @@ extension AmongChat.Home {
         private func selectedAnimation(_ icon: UIImageView) {
             icon.image = selectedImage
             icon.layer.anchorPoint = CGPoint(x: 0, y: 1)
-
-            UIView.animateKeyframes(withDuration: 0.5, delay: 0.0) {
+            
+            UIView.animateKeyframes(withDuration: 0.9, delay: 0.0) {
                 
-                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.3) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.07, y: 1.07, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.07, y: 1.07).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.3, relativeDuration: 0.25) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.4, y: 1.4, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.55, relativeDuration: 0.25) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.3, y: 1.3, z: 1)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.1, y: 1.1).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
-                UIView.addKeyframe(withRelativeStartTime: 0.8, relativeDuration: 0.2) {
-                    icon.layer.transform = CATransform3D(scaleX: 1.4, y: 1.4, z: 1.4)
-                    icon.layer.transform.rotate(by: (-25) / 180.0 * .pi, x: 1, y: 1, z: 1)
+                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
                 }
                 
             }
