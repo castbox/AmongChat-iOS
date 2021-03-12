@@ -12,7 +12,7 @@ protocol SeatManager: class {
 
 //    func getMessageManager() -> MessageManager
 
-    func getRtcManager() -> RtcManager
+    func getRtcManager() -> AgoraRtcManager
 
 //    func getRtmManager() -> RtmManager
 
@@ -91,23 +91,23 @@ extension SeatManager {
 //        })
 //    }
 
-    func muteMic(_ userId: UInt, _ muted: Bool) {
-        if Constants.isMyself(userId) {
-            if !getChannelData().isUserOnline(String(userId)) {
-                return
-            }
-            getRtcManager().muteLocalAudioStream(muted)
-        } else {
-            if !getChannelData().isAnchorMyself() {
-                return
-            }
-//            getMessageManager().sendOrder(userId: userId, orderType: Message.ORDER_TYPE_MUTE, content: String(muted), callback: nil)
-        }
-    }
+//    func muteMic(_ userId: UInt, _ muted: Bool) {
+//        if Constants.isMyself(userId) {
+//            if !getChannelData().isUserOnline(String(userId)) {
+//                return
+//            }
+//            getRtcManager().muteLocalAudioStream(muted)
+//        } else {
+//            if !getChannelData().isAnchorMyself() {
+//                return
+//            }
+////            getMessageManager().sendOrder(userId: userId, orderType: Message.ORDER_TYPE_MUTE, content: String(muted), callback: nil)
+//        }
+//    }
     
-    func muteMyMic(muted: Bool) {
-        getRtcManager().muteLocalAudioStream(muted)
-    }
+//    func muteMyMic(muted: Bool) {
+//        getRtcManager().muteLocalAudioStream(muted)
+//    }
 
 //    func closeSeat(_ position: Int) {
 //        let channelData = getChannelData()

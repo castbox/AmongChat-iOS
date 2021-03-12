@@ -93,7 +93,7 @@
 		FE126D21243461EA00BEDD60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE126D20243461EA00BEDD60 /* Assets.xcassets */; };
 		FE126D24243461EA00BEDD60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE126D22243461EA00BEDD60 /* LaunchScreen.storyboard */; };
 		FE126D2F243461EB00BEDD60 /* WalkieTalkieTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D2E243461EB00BEDD60 /* WalkieTalkieTests.swift */; };
-		FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D39243481BC00BEDD60 /* RtcManager.swift */; };
+		FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D39243481BC00BEDD60 /* AgoraRtcManager.swift */; };
 		FE126D3F243481BD00BEDD60 /* RtmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3A243481BC00BEDD60 /* RtmManager.swift */; };
 		FE126D40243481BD00BEDD60 /* ChatRoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */; };
 		FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D3C243481BC00BEDD60 /* MessageManager.swift */; };
@@ -204,7 +204,6 @@
 		FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */; };
 		FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */; };
 		FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */; };
-		FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089C92449E631006A1644 /* PrivateShareController.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
 		FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80A58325AD96BB009914A7 /* Search.ViewController.swift */; };
@@ -282,6 +281,7 @@
 		FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AA24597B570075D139 /* Automator.Device.swift */; };
 		FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43AB24597B570075D139 /* Automator.Analytics.swift */; };
 		FECA43B2245987CA0075D139 /* PushSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECA43B1245987CA0075D139 /* PushSettingController.swift */; };
+		FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECBD85025E3D456000A3DB5 /* ZegoRtcManager.swift */; };
 		FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */; };
 		FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
@@ -435,7 +435,7 @@
 		FE126D2A243461EB00BEDD60 /* WalkieTalkieTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WalkieTalkieTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE126D2E243461EB00BEDD60 /* WalkieTalkieTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkieTalkieTests.swift; sourceTree = "<group>"; };
 		FE126D30243461EB00BEDD60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FE126D39243481BC00BEDD60 /* RtcManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RtcManager.swift; sourceTree = "<group>"; };
+		FE126D39243481BC00BEDD60 /* AgoraRtcManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgoraRtcManager.swift; sourceTree = "<group>"; };
 		FE126D3A243481BC00BEDD60 /* RtmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RtmManager.swift; sourceTree = "<group>"; };
 		FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatRoomManager.swift; sourceTree = "<group>"; };
 		FE126D3C243481BC00BEDD60 /* MessageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageManager.swift; sourceTree = "<group>"; };
@@ -548,7 +548,6 @@
 		FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-bluegreen.svga"; sourceTree = "<group>"; };
 		FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-purple.svga"; sourceTree = "<group>"; };
 		FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-yellow.svga"; sourceTree = "<group>"; };
-		FE8089C92449E631006A1644 /* PrivateShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateShareController.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FE80A58325AD96BB009914A7 /* Search.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.ViewController.swift; sourceTree = "<group>"; };
@@ -626,6 +625,7 @@
 		FECA43AA24597B570075D139 /* Automator.Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Device.swift; sourceTree = "<group>"; };
 		FECA43AB24597B570075D139 /* Automator.Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Automator.Analytics.swift; sourceTree = "<group>"; };
 		FECA43B1245987CA0075D139 /* PushSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushSettingController.swift; sourceTree = "<group>"; };
+		FECBD85025E3D456000A3DB5 /* ZegoRtcManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoRtcManager.swift; sourceTree = "<group>"; };
 		FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
 		FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
@@ -970,7 +970,8 @@
 				FE0D1A1F24488FE100518793 /* Utils */,
 				FE126D3B243481BC00BEDD60 /* ChatRoomManager.swift */,
 				FE126D3C243481BC00BEDD60 /* MessageManager.swift */,
-				FE126D39243481BC00BEDD60 /* RtcManager.swift */,
+				FE126D39243481BC00BEDD60 /* AgoraRtcManager.swift */,
+				FECBD85025E3D456000A3DB5 /* ZegoRtcManager.swift */,
 				FE126D3A243481BC00BEDD60 /* RtmManager.swift */,
 				FE87C2C3259C29F000799883 /* ConnectState.swift */,
 				FE126D3D243481BC00BEDD60 /* SeatManager.swift */,
@@ -1191,7 +1192,6 @@
 			children = (
 				BD6C36EA256E516900D1E708 /* AmongUs */,
 				BDB8F58524F7D5A0000027F8 /* Social */,
-				FE8089C92449E631006A1644 /* PrivateShareController.swift */,
 				FECA43BF2459AA6A0075D139 /* Premium */,
 				FECA43C02459AA7C0075D139 /* Settings */,
 				FE2AF9E5244DB0F400763747 /* WebViewController.swift */,
@@ -1722,7 +1722,6 @@
 				26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */,
 				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */,
-				FE8089CA2449E631006A1644 /* PrivateShareController.swift in Sources */,
 				BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */,
 				BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
@@ -1737,6 +1736,7 @@
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
 				BD680D752554F8220062CEC7 /* Ad.AppOpenAdManager.swift in Sources */,
 				BDE20C67258DE4B800245CBA /* AmongChat.Home.LoadErrorView.swift in Sources */,
+				FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */,
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
@@ -1793,7 +1793,7 @@
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
-				FE126D3E243481BD00BEDD60 /* RtcManager.swift in Sources */,
+				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
 				264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */,
@@ -2033,7 +2033,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.0;
+				MARKETING_VERSION = 1.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;
@@ -2061,7 +2061,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.15.0;
+				MARKETING_VERSION = 1.16.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.talkie.walkie.chat.among;
 				PRODUCT_MODULE_NAME = WalkieTalkie;
 				PRODUCT_NAME = AmongChat;

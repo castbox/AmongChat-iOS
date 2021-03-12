@@ -17,7 +17,6 @@ PODS:
   - Bolts/AppLinks (1.9.0):
     - Bolts/Tasks
   - Bolts/Tasks (1.9.0)
-  - BytedanceOpenPlatformSDK (3.0.1)
   - CastboxDebuger (1.3.2):
     - SSZipArchive (~> 2.1.4)
     - SwiftyBeaver (~> 1.9.0)
@@ -292,8 +291,6 @@ PODS:
   - SwiftyContacts (3.0.16)
   - SwiftyJSON (5.0.0)
   - SwiftyUserDefaults (5.0.0)
-  - TikTokOpenSDK (3.0.2):
-    - BytedanceOpenPlatformSDK (= 3.0.1)
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.4.8)
   - WSFlexibleTouch (0.1.1)
@@ -301,6 +298,7 @@ PODS:
     - PryntTrimmerView (~> 4.0.2)
     - SteviaLayout (~> 4.7.3)
   - YYText (1.0.7)
+  - ZegoExpressEngine/Audio (1.20.0)
 
 DEPENDENCIES:
   - Adjust (= 4.21.0)
@@ -350,11 +348,11 @@ DEPENDENCIES:
   - SwiftyContacts
   - SwiftyJSON
   - SwiftyUserDefaults (~> 5.0.0)
-  - TikTokOpenSDK (~> 3.0.2)
   - UIColor_Hex_Swift (~> 4.2.0)
   - WSFlexibleTouch
   - YPImagePicker
   - YYText
+  - ZegoExpressEngine/Audio
 
 SPEC REPOS:
   "git@github.com:castbox/GuruSpecs.git":
@@ -366,7 +364,6 @@ SPEC REPOS:
     - Alamofire
     - AppAuth
     - BetterSegmentedControl
-    - BytedanceOpenPlatformSDK
     - DeviceKit
     - DoraemonKit
     - FBSDKCoreKit
@@ -438,12 +435,12 @@ SPEC REPOS:
     - SwiftyContacts
     - SwiftyJSON
     - SwiftyUserDefaults
-    - TikTokOpenSDK
     - UIColor_Hex_Swift
     - UnityAds
     - WSFlexibleTouch
     - YPImagePicker
     - YYText
+    - ZegoExpressEngine
 
 EXTERNAL SOURCES:
   Bolts:
@@ -463,7 +460,6 @@ SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
   Bolts: 6ca038afe82c84106a3aa0c570a58d03e0f7e7f8
-  BytedanceOpenPlatformSDK: 48b6b7603f81daf50dd90cb337cd690bf3c51371
   CastboxDebuger: 28fb3c49a4675ddf8328b6b4797c31adfb2d175e
   DeviceKit: cadb5ff25d45fe186778bf2d0fd2ea4750542189
   DoraemonKit: 8587e7a9aae0773dfc96707d2369d89d2a21b3d2
@@ -536,13 +532,13 @@ SPEC CHECKSUMS:
   SwiftyContacts: c02b7908cfd18505c004a43162fd7b63218d2ba0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
-  TikTokOpenSDK: f81840227b18ba43c294b2839e5cfe46610647bf
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
+  ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: fe1c192796cf9c846a59b1c87f7752dc63a1ff1d
+PODFILE CHECKSUM: 5b05016bf7659464ab87f3859f6e2bc041d0f44a
 
 COCOAPODS: 1.10.0

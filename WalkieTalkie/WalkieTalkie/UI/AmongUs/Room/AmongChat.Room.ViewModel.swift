@@ -179,7 +179,7 @@ extension AmongChat.Room {
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
-            self.mManager.joinChannel(channelId: self.room.roomId) { error in
+            self.mManager.joinChannel(self.room) { error in
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
@@ -542,6 +542,9 @@ private extension AmongChat.Room.ViewModel {
         }
         roomReplay.accept(newRoom)
         
+        //同步状态
+        mManager.update(joinable: newRoom)
+        
         //人数为1时的分享控制
         if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,
            delayToShowShareView(event: .singlePerson, delay: 5) {
@@ -570,7 +573,8 @@ private extension AmongChat.Room.ViewModel {
                 update(message.room)
             }
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
-                  message.user.uid == Settings.loginUserId {
+                  message.user.uid == Settings.loginUserId,
+                  room.rtcType == .agora {
             //自己
             endRoomHandler?(.kickout(message.opRole))
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
@@ -604,11 +608,11 @@ private extension AmongChat.Room.ViewModel {
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {
+    // MARK: - ChatRoomDelegate
+    
     func onJoinChannelSuccess(channelId: String?) {
         
     }
-    
-    // MARK: - ChatRoomDelegate
     
     func onJoinChannelFailed(channelId: String?) {
         //        self.hudRemoval?()
@@ -652,7 +656,18 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         //            .disposed(by: bag)
     }
     
-    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+    func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
+        guard room.rtcType == .zego, state == .disconnected else {
+            return
+        }
+        switch reason {
+        case .kickByHost:
+            endRoomHandler?(.kickout(.host))
+        case .kickBySystemOfRoomInactive, .kickBySystemOfRoomFull:
+            endRoomHandler?(.kickout(.system))
+        default:
+            ()
+        }
         
     }
     
