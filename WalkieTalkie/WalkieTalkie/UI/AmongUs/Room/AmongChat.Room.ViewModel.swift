@@ -573,7 +573,8 @@ private extension AmongChat.Room.ViewModel {
                 update(message.room)
             }
         } else if let message = crMessage as? ChatRoom.KickOutMessage,
-                  message.user.uid == Settings.loginUserId {
+                  message.user.uid == Settings.loginUserId,
+                  room.rtcType == .agora {
             //自己
             endRoomHandler?(.kickout(message.opRole))
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
@@ -655,7 +656,18 @@ extension AmongChat.Room.ViewModel: ChatRoomDelegate {
         //            .disposed(by: bag)
     }
     
-    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+    func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
+        guard room.rtcType == .zego, state == .disconnected else {
+            return
+        }
+        switch reason {
+        case .kickByHost:
+            endRoomHandler?(.kickout(.host))
+        case .kickBySystemOfRoomInactive, .kickBySystemOfRoomFull:
+            endRoomHandler?(.kickout(.system))
+        default:
+            ()
+        }
         
     }
     

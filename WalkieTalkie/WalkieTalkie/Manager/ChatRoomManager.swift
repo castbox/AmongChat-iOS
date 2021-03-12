@@ -29,7 +29,7 @@ protocol ChatRoomDelegate: class {
 
     func onAudioVolumeIndication(userId: UInt, volume: UInt)
     
-    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason)
+    func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason)
     
     func onJoinChannelFailed(channelId: String?)
     
@@ -189,7 +189,7 @@ extension ChatRoomManager: RtcDelegate {
         delegate?.onJoinChannelTimeout(channelId: channelId)
     }
     
-    func onConnectionChangedTo(state: ConnectState, reason: AgoraConnectionChangedReason) {
+    func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
         self.state = state
         delegate?.onConnectionChangedTo(state: state, reason: reason)
     }

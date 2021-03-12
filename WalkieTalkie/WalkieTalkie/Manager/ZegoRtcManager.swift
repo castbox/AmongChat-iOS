@@ -160,6 +160,7 @@ extension ZegoRtcManager: ZegoEventHandler {
     }
     
     func onRoomStateUpdate(_ state: ZegoRoomState, errorCode: Int32, extendedData: [AnyHashable : Any]?, roomID: String) {
+        //
         if errorCode != 0 {
             let reportError = NSError(domain: "com.talkie.walkie.zego.rtc.connect", code: errorCode.int, userInfo: nil)
             GuruAnalytics.record(reportError, userInfo: nil)
@@ -176,12 +177,14 @@ extension ZegoRtcManager: ZegoEventHandler {
             ()
         case .disconnected:
             //已完全断开
+//            2021-03-10 15:39:33.501 1367-1367/walkie.talkie.among.us.friends D/RTCZegoEventHandler: [onRoomStateUpdate] hdPVqw3m DISCONNECTED 1002055 {"custom_kickout_message":"host"}
+            
             ()
         @unknown default:
             ()
         }
         cdPrint("connectionChangedTo: \(state.rawValue) errorCode: \(errorCode) extendedData: \(extendedData) roomID: \(roomID)")
-        delegate?.onConnectionChangedTo(state: ConnectState(zego: state), reason: .joinSuccess)
+        delegate?.onConnectionChangedTo(state: ConnectState(zego: state), reason: RtcConnectionChangedReason(zegoExtendData: extendedData))
     }
     
     func onPublisherStateUpdate(_ state: ZegoPublisherState, errorCode: Int32, extendedData: [AnyHashable : Any]?, streamID: String) {
