@@ -19,7 +19,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s9Z-XM-Ima">
                                 <rect key="frame" x="10" y="90" width="394" height="772"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -30,11 +30,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lc7-cf-on7">
+                                <rect key="frame" x="319" y="54.5" width="75" height="30"/>
+                                <state key="normal" title="Export Log"/>
+                                <connections>
+                                    <action selector="exportLogger:" destination="uhD-HK-ZY1" eventType="touchUpInside" id="YJ5-Dw-yWh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="kHb-MC-1Gs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Lc7-cf-on7" firstAttribute="centerY" secondItem="FTs-Vr-sVg" secondAttribute="centerY" id="4eZ-ej-urg"/>
                             <constraint firstItem="s9Z-XM-Ima" firstAttribute="leading" secondItem="kHb-MC-1Gs" secondAttribute="leading" constant="10" id="5Lu-j2-Xxo"/>
+                            <constraint firstItem="kHb-MC-1Gs" firstAttribute="trailing" secondItem="Lc7-cf-on7" secondAttribute="trailing" constant="20" id="Sqv-D4-JuA"/>
                             <constraint firstItem="FTs-Vr-sVg" firstAttribute="leading" secondItem="kHb-MC-1Gs" secondAttribute="leading" constant="15" id="W1U-yg-OIs"/>
                             <constraint firstItem="s9Z-XM-Ima" firstAttribute="top" secondItem="FTs-Vr-sVg" secondAttribute="bottom" constant="10" id="gCw-R6-9Oa"/>
                             <constraint firstItem="kHb-MC-1Gs" firstAttribute="bottom" secondItem="s9Z-XM-Ima" secondAttribute="bottom" id="jxM-f2-ypm"/>
@@ -73,6 +82,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
