@@ -319,3 +319,29 @@
 "among.chat.custom.avatar.close" = "قريب";
 "among.chat.pro.privilege.custom.avatars" = "قم بتحميل الصورة الرمزية الخاصة بك";
 "among.chat.pro.privilege.custom.avatars.sub" = "يمكن أن تكون صورتك الرمزية مختلفة";
+
+//1.15
+"among.chat.room.just.chat.set.up.notes" = "قم بإعداد الملاحظات هنا";
+"among.chat.room.set.animal.crossing.id" = "تعيين Animal Crossing ID";
+"among.chat.room.animal.crossing.id" = "Animal Crossing ID";
+"among.chat.room.animal.crossing.id.prefix" = "ID: %1$@";
+"room.animal.crossing.id.placeholder" = "ANIMAL CROSSING ID";
+"among.chat.room.fortnite.name" = "اسم عرض Fortnite";
+"among.chat.room.fortnite.name.prefix" = "اسم العرض: %1$@";
+"among.chat.room.set.brawl.id" = "تعيين Brawl Stars كود الفريق/ID";
+"among.chat.room.brawl.id" = "Brawl Stars كود الفريق/ID";
+"room.brawl.id.placeholder" = "BRAWL STARS كود الفريق/ID";
+"among.chat.room.brawl.id.prefix" = "كود الفريق/ID: %1$@";
+"among.chat.room.roblox.user.name" = "اسم مستخدم Roblox";
+"among.chat.room.roblox.user.name.prefix" = "اسم المستخدم: %1$@";
+"among.chat.room.freefire.name" = "Free Fire كنية";
+"among.chat.room.freefire.name.prefix" = "كنية: %1$@";
+"among.chat.room.mobile.legends.name" = "MLBB اسم/ID";
+"among.chat.room.mobile.legends.name.prefix" = "الاسم/ID: %1$@";
+"among.chat.room.minecraft.name" = "قم بتعيين Minecraft علامة اللاعب";
+"among.chat.room.minecraft.name.prefix" = "علامة اللاعب: %1$@";
+"among.chat.room.pubg.name.id" = "PUBG اسم اللاعب/ID";
+"among.chat.room.pubg.name.id.prefix" = "الاسم/ID: %1$@";
+"among.chat.room.call.of.duty.name" = "COD اسم المستخدم/UID";
+"among.chat.room.call.of.duty.name.prefix" = "اسم المستخدم/UID: %1$@";
+"among.chat.room.set.up.name.desc" = "قم بتعيين %1$@ الخاص بك أو انقر لنسخ الآخرين للعب معًا";

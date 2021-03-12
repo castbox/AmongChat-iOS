@@ -70,6 +70,15 @@ extension AmongChat.Room {
                 .disposed(by: bag)
         }
         
+        func loginRetryIfCould() {
+            if self.retryCount > 0 {
+                //clear token
+                Settings.shared.cachedRtmToken = nil
+                self.retryCount -= 1
+                self.loginSDK()
+            }
+        }
+        
         private func loginSDK() {
             loginDisposable?.dispose()
             loginDisposable = onlineRelay
@@ -87,7 +96,7 @@ extension AmongChat.Room {
                 })
                 .subscribe(onNext: { [weak self] token in
                     guard let `self` = self, let token = token, let uid = Settings.loginUserId?.string else { return }
-                    cdPrint("requet loginSDK")
+                    cdPrint("requet loginSDK token: \(token.rcToken)")
                     self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
                         guard let `self` = self else { return }
                         cdPrint("requet loginSDK code: \(code.rawValue)")
@@ -95,16 +104,12 @@ extension AmongChat.Room {
                             self.onlineRelay.accept(.online)
                         } else {
                             self.onlineRelay.accept(.offline)
-                            if self.retryCount > 0 {
-                                //clear token
-                                Settings.shared.cachedRtmToken = nil
-                                self.retryCount -= 1
-                                self.loginSDK()
-                            }
+                            self.loginRetryIfCould()
                         }
                     })
-                }, onError: { error in
-                    cdPrint("error: \(error)")
+                }, onError: { [weak self] error in
+                    cdPrint("requet loginSDK error: \(error)")
+                    self?.loginRetryIfCould()
                 })
             loginDisposable?.disposed(by: bag)
         }
@@ -113,11 +118,12 @@ extension AmongChat.Room {
             guard onlineRelay.value == .online else {
                 return
             }
-            
+            cdPrint("requet logoutSDK")
             rtmKit?.logout(completion: { [weak self] (code) in
-                guard code == .ok else {
-                    return
-                }
+//                guard code == .ok else {
+//                    return
+//                }
+                cdPrint("requet logoutSDK result: \(code)")
                 self?.onlineRelay.accept(.offline)
             })
             
@@ -181,7 +187,8 @@ extension AmongChat.Room {
         }
         
         func sendChannelMessage(_ message: String) -> Single<Bool> {
-            
+            cdPrint("sendChannelMessage message: \(message)")
+
             return Single<Bool>.create { [weak self] (subsciber) -> Disposable in
                 let rtmMessage = AgoraRtmMessage(text: message)
                 
