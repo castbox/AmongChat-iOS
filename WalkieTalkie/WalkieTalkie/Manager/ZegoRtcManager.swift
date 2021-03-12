@@ -27,8 +27,8 @@ class ZegoRtcManager: NSObject, RtcManageable {
     
     weak var delegate: RtcDelegate?
     
-    var user: Entity.UserProfile {
-        Settings.shared.amongChatUserProfile.value!
+    var user: Entity.UserProfile? {
+        Settings.shared.amongChatUserProfile.value
     }
     
     ///current channel IDz
@@ -97,7 +97,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
         
         joinChannelCompletionHandler = completionHandler
         
-        mRtcEngine.loginRoom(joinable.roomId, user: ZegoUser(userID: userId.string, userName: user.name ?? ""), config: config)
+        mRtcEngine.loginRoom(joinable.roomId, user: ZegoUser(userID: userId.string, userName: user?.name ?? ""), config: config)
         
         setClientRole(.broadcaster)
     }
@@ -110,7 +110,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
         switch role {
         case .broadcaster:
             //user id
-            mRtcEngine.startPublishingStream(user.uid.string)
+            mRtcEngine.startPublishingStream(user!.uid.string)
         case .audience:
             mRtcEngine.stopPublishingStream()
         }
@@ -221,7 +221,7 @@ extension ZegoRtcManager: ZegoEventHandler {
             }
             //检查 mute 状态
             joinable?.roomUserList.forEach { user in
-                if user.uid != self.user.uid {
+                if user.uid != self.user?.uid {
                     let isUnMuted = publishingStream.contains(where: { $0.user.userID == user.uid.string })
                     delegate?.onUserMuteAudio(uid: user.uid.uInt, muted: !isUnMuted)
                 }
@@ -295,7 +295,10 @@ extension ZegoRtcManager: ZegoEventHandler {
     
     //
     func onCapturedSoundLevelUpdate(_ soundLevel: NSNumber) {
-        delegate?.onAudioVolumeIndication(uid: user.uid.uInt, volume: soundLevel.uintValue)
+        guard let uid = user?.uid.uInt else {
+            return
+        }
+        delegate?.onAudioVolumeIndication(uid: uid, volume: soundLevel.uintValue)
     }
     
     func onRemoteMicStateUpdate(_ state: ZegoRemoteDeviceState, streamID: String) {
