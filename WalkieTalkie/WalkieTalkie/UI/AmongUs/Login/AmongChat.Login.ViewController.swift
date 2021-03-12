@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwift
 import SVGAPlayer
 import YYText
+import CoreMotion
 
 extension AmongChat.Login {
     
@@ -76,21 +77,51 @@ extension AmongChat.Login {
             let iv = UIImageView(image: R.image.ac_login_logo())
             return iv
         }()
-//        private lazy var bg = StarsOverlay()
-//        private lazy var bg: UIImageView = {
-//            let iv = UIImageView(image: R.image.ac_login_bg())
-//            iv.contentMode = .scaleAspectFill
-//            return iv
-//        }()
         
-        lazy var bg: SVGAPlayer = {
-            let player = SVGAPlayer(frame: .zero)
-            player.clearsAfterStop = false
-//            player.delegate = self
-            player.loops = 1
-            player.contentMode = .bottom
-            player.isUserInteractionEnabled = false
-            return player
+        private lazy var bg: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            return v
+        }()
+        
+        private lazy var avatarViews: [UIImageView] = {
+            return (1...12).map { (idx) -> UIImageView in
+                let width = CGFloat(30)
+                let x: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.width - width)))
+                let iv = UIImageView(image: UIImage(named: "ac_login_avatar_\(idx)"))
+                iv.frame = CGRect(x: x, y: 0, width: width, height: 80)
+                iv.contentMode = .scaleAspectFill
+                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: 0...90).degreesToRadians.cgFloat)
+                return iv
+            }
+        }()
+        
+        private lazy var gravityBehavior: UIGravityBehavior = {
+            let g = UIGravityBehavior(items: avatarViews)
+            return g
+        }()
+        
+        private lazy var dynamicAnimator: UIDynamicAnimator = {
+            let a = UIDynamicAnimator(referenceView: bg)
+            a.addBehavior(gravityBehavior)
+            
+            let collisionBehavior = UICollisionBehavior(items: avatarViews)
+            collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+            a.addBehavior(collisionBehavior)
+
+            let dynamicBehavior = UIDynamicItemBehavior(items: avatarViews)
+            dynamicBehavior.allowsRotation = true
+            dynamicBehavior.elasticity = 0.8
+            dynamicBehavior.friction = 0.2
+            a.addBehavior(dynamicBehavior)
+            
+            return a
+        }()
+        
+        private lazy var motionManager: CMMotionManager = {
+            let m = CMMotionManager()
+            m.deviceMotionUpdateInterval = 0.2;
+            return m
         }()
         
         private lazy var startBtn: UIButton = {
@@ -175,7 +206,7 @@ extension AmongChat.Login {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            playBackgroundSvga()
+            setupAvatars()
             Logger.Action.log(.login_imp)
         }
         
@@ -212,17 +243,6 @@ extension AmongChat.Login.ViewController {
 
 extension AmongChat.Login.ViewController {
     
-    // MARK: - convinience
-    func playBackgroundSvga() {
-        let parser = SVGAGlobalParser.defaut
-        parser.parse(withNamed: "login_bg", in: nil) { [weak self] (item) in
-            self?.bg.videoItem = item
-            self?.bg.startAnimation()
-         } failureBlock: { error in
-            debugPrint("error: \(error.localizedDescription ?? "")")
-         }
-    }
-    
     private func setupLayout() {
         
         view.addSubviews(views: bg, logoIV, startBtn, signInLabel)
@@ -246,6 +266,23 @@ extension AmongChat.Login.ViewController {
             maker.leading.trailing.equalToSuperview().inset(30)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-140)
         }
+    }
+    
+    private func setupAvatars() {
+        
+        bg.addSubviews(avatarViews)
+        
+        let _ = dynamicAnimator
+        
+        motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] (motion, error) in
+            
+            guard let `self` = self, let motion = motion else { return }
+            
+            let rotation = atan2(motion.attitude.pitch, motion.attitude.roll)
+            self.gravityBehavior.angle = CGFloat(rotation)
+            
+        }
+        
     }
     
     private func signInMore() {
