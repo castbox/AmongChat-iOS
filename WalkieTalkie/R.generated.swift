@@ -17,7 +17,7 @@ struct R: Rswift.Validatable {
     try intern.validate()
   }
   
-  /// This `R.file` struct is generated, and contains static references to 17 files.
+  /// This `R.file` struct is generated, and contains static references to 16 files.
   struct file {
     /// Resource file `Adjust-Info.plist`.
     static let adjustInfoPlist = Rswift.FileResource(bundle: R.hostingBundle, name: "Adjust-Info", pathExtension: "plist")
@@ -29,8 +29,6 @@ struct R: Rswift.Validatable {
     static let supportedLanguagesJson = Rswift.FileResource(bundle: R.hostingBundle, name: "SupportedLanguages", pathExtension: "json")
     /// Resource file `emojis.json`.
     static let emojisJson = Rswift.FileResource(bundle: R.hostingBundle, name: "emojis", pathExtension: "json")
-    /// Resource file `login_bg.svga`.
-    static let login_bgSvga = Rswift.FileResource(bundle: R.hostingBundle, name: "login_bg", pathExtension: "svga")
     /// Resource file `mobileRegions.json`.
     static let mobileRegionsJson = Rswift.FileResource(bundle: R.hostingBundle, name: "mobileRegions", pathExtension: "json")
     /// Resource file `room-emoji-blue.svga`.
@@ -81,12 +79,6 @@ struct R: Rswift.Validatable {
     /// `bundle.url(forResource: "emojis", withExtension: "json")`
     static func emojisJson(_: Void = ()) -> Foundation.URL? {
       let fileResource = R.file.emojisJson
-      return fileResource.bundle.url(forResource: fileResource)
-    }
-    
-    /// `bundle.url(forResource: "login_bg", withExtension: "svga")`
-    static func login_bgSvga(_: Void = ()) -> Foundation.URL? {
-      let fileResource = R.file.login_bgSvga
       return fileResource.bundle.url(forResource: fileResource)
     }
     
@@ -224,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 150 images.
+  /// This `R.image` struct is generated, and contains static references to 162 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -298,6 +290,30 @@ struct R: Rswift.Validatable {
     static let ac_kick_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_kick_selected")
     /// Image `ac_login_apple`.
     static let ac_login_apple = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_apple")
+    /// Image `ac_login_avatar_10`.
+    static let ac_login_avatar_10 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_10")
+    /// Image `ac_login_avatar_11`.
+    static let ac_login_avatar_11 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_11")
+    /// Image `ac_login_avatar_12`.
+    static let ac_login_avatar_12 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_12")
+    /// Image `ac_login_avatar_1`.
+    static let ac_login_avatar_1 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_1")
+    /// Image `ac_login_avatar_2`.
+    static let ac_login_avatar_2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_2")
+    /// Image `ac_login_avatar_3`.
+    static let ac_login_avatar_3 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_3")
+    /// Image `ac_login_avatar_4`.
+    static let ac_login_avatar_4 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_4")
+    /// Image `ac_login_avatar_5`.
+    static let ac_login_avatar_5 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_5")
+    /// Image `ac_login_avatar_6`.
+    static let ac_login_avatar_6 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_6")
+    /// Image `ac_login_avatar_7`.
+    static let ac_login_avatar_7 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_7")
+    /// Image `ac_login_avatar_8`.
+    static let ac_login_avatar_8 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_8")
+    /// Image `ac_login_avatar_9`.
+    static let ac_login_avatar_9 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_avatar_9")
     /// Image `ac_login_bg`.
     static let ac_login_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_login_bg")
     /// Image `ac_login_facebook`.
@@ -705,6 +721,66 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_login_apple", bundle: ..., traitCollection: ...)`
     static func ac_login_apple(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_login_apple, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_1", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_1(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_1, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_10", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_10(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_10, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_11", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_11(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_11, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_12", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_12(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_12, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_2", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_2, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_3", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_3(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_3, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_4", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_4(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_4, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_5", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_5(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_5, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_6", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_6(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_6, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_7", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_7(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_7, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_8", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_8(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_8, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_login_avatar_9", bundle: ..., traitCollection: ...)`
+    static func ac_login_avatar_9(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_login_avatar_9, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_login_bg", bundle: ..., traitCollection: ...)`
