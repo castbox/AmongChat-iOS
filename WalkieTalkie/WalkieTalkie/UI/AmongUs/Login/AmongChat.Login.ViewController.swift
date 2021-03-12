@@ -87,9 +87,11 @@ extension AmongChat.Login {
         private lazy var avatarViews: [UIImageView] = {
             return (1...12).map { (idx) -> UIImageView in
                 let width = CGFloat(52)
+                let height = CGFloat(88)
                 let x: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.width - width)))
+                let y: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.height / 3)))
                 let iv = UIImageView(image: UIImage(named: "ac_login_avatar_\(idx)"))
-                iv.frame = CGRect(x: x, y: 0, width: width, height: 88)
+                iv.frame = CGRect(x: x, y: y, width: width, height: height)
                 iv.contentMode = .scaleAspectFill
                 iv.transform = CGAffineTransform(rotationAngle: Int.random(in: 0...90).degreesToRadians.cgFloat)
                 iv.tag = idx
