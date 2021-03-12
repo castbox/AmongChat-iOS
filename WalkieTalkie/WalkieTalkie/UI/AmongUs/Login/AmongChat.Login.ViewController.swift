@@ -89,11 +89,11 @@ extension AmongChat.Login {
                 let width = CGFloat(52)
                 let height = CGFloat(88)
                 let x: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.width - width)))
-                let y: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.height / 3)))
+                let y: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.height / 4 - height)))
                 let iv = UIImageView(image: UIImage(named: "ac_login_avatar_\(idx)"))
                 iv.frame = CGRect(x: x, y: y, width: width, height: height)
                 iv.contentMode = .scaleAspectFill
-                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: 0...90).degreesToRadians.cgFloat)
+                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: -90...90).degreesToRadians.cgFloat)
                 iv.tag = idx
                 return iv
             }
