@@ -291,7 +291,8 @@ extension AmongChat.Login.ViewController {
         
         collisionSignal
             .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { (_) in
+            .subscribe(onNext: { [weak self] (_) in
+                guard self?.isVisible ?? false else { return }
                 HapticFeedback.Impact.heavy()
         })
         .disposed(by: bag)
