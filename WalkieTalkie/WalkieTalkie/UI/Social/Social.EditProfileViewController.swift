@@ -220,7 +220,7 @@ private extension Social.EditProfileViewController {
         } else {
             birthdayButton.setRightLabelText("")
         }
-        avatarIV.setAvatarImage(with: profile.pictureUrl)
+        avatarIV.updateAvatar(with: profile)
     }
     
     @objc

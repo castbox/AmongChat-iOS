@@ -12,10 +12,11 @@ import RxCocoa
 import RxGesture
 import NotificationBannerSwift
 import SwiftyUserDefaults
+import RAMAnimatedTabBarController
 
 extension AmongChat.Home {
     
-    class MainTabController: UITabBarController {
+    class MainTabController: RAMAnimatedTabBarController {
         
         private let imViewModel = IMViewModel()
         private let bag = DisposeBag()
@@ -64,7 +65,7 @@ extension AmongChat.Home.MainTabController {
         if (topVC is AmongChat.Home.TopicsViewController) || (topVC is AmongChat.Home.RelationsViewController) || (topVC is AmongChat.CreateRoom.ViewController) {
             //dismiss previous
             dismissNotificationBanner()
-
+            
             Logger.Action.log(.invite_top_dialog_imp, categoryValue: room.topicId)
             
             let view = AmongChat.Home.StrangeInvitationView()
@@ -77,10 +78,10 @@ extension AmongChat.Home.MainTabController {
             } ignore: { [weak self] in
                 self?.notificationBanner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "ignore")
-
+                
                 self?.dismissNotificationBanner()
             }
-
+            
             let banner = FloatingNotificationBanner(customView: view)
             banner.autoDismiss = false
             banner.bannerHeight = 112 + (Frame.Height.isXStyle ? 20 : 0)
@@ -143,7 +144,7 @@ extension AmongChat.Home.MainTabController {
     }
     
     private func setupViewControllers() {
-        viewControllers = Tab.allCases.map({ $0.viewController })
+        setViewControllers(Tab.allCases.map({ $0.viewController }), animated: false)
     }
     
     private func setupEvent() {
@@ -155,9 +156,9 @@ extension AmongChat.Home.MainTabController {
                       !topVC.isRequestingRoom else {
                     return
                 }
-
+                
                 let invitationModal: AmongChat.Home.RoomInvitationModal
-
+                
                 if let currentModal = topVC as? AmongChat.Home.RoomInvitationModal {
                     invitationModal = currentModal
                 } else {
@@ -165,7 +166,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.modalPresentationStyle = .overCurrentContext
                     topVC.present(invitationModal, animated: false)
                 }
-
+                
                 invitationModal.updateContent(user: user, room: room)
                 invitationModal.bindEvent(join: {
                     invitationModal.dismiss(animated: false) {
@@ -179,7 +180,7 @@ extension AmongChat.Home.MainTabController {
                     invitationModal.dismiss(animated: false)
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "ignore")
                 })
-//                self.onReceive(strangerInvigation: user, room: room)
+                //                self.onReceive(strangerInvigation: user, room: room)
                 HapticFeedback.Impact.warning()
             })
             .disposed(by: bag)
@@ -213,14 +214,29 @@ extension AmongChat.Home.MainTabController {
             switch self {
             case .topics:
                 let topicVC = AmongChat.Home.TopicsViewController()
-                topicVC.tabBarItem.image = R.image.ac_home_topic_tab()
-                topicVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                let item = RAMAnimatedTabBarItem()
+                item.image = R.image.ac_home_topic_tab_normal()
+                item.selectedImage = R.image.ac_home_topic_tab_selected()
+                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                item.titlePositionAdjustment = UIOffset(horizontal: 10, vertical: 6.5)
+                let anim = AmongChat.Home.MainTabItemAnimation()
+                anim.selectedImage = R.image.ac_home_topic_tab_selected()
+                anim.normalImage = R.image.ac_home_topic_tab_normal()
+                item.animation = anim
+                topicVC.tabBarItem = item
                 return NavigationViewController(rootViewController: topicVC)
                 
             case .friends:
                 let relationVC = AmongChat.Home.RelationsViewController()
-                relationVC.tabBarItem.image = R.image.ac_home_friends_tab()
-                relationVC.tabBarItem.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                let item = RAMAnimatedTabBarItem()
+                item.image = R.image.ac_home_friends_tab_normal()
+                item.imageInsets = UIEdgeInsets(top: 6.5, left: 0, bottom: -6.5, right: 0)
+                item.titlePositionAdjustment = UIOffset(horizontal: -10, vertical: 6.5)
+                let anim = AmongChat.Home.MainTabItemAnimation()
+                anim.selectedImage = R.image.ac_home_friends_tab_selected()
+                anim.normalImage = R.image.ac_home_friends_tab_normal()
+                item.animation = anim
+                relationVC.tabBarItem = item
                 relationVC.loadViewIfNeeded()
                 return NavigationViewController(rootViewController: relationVC)
             }
@@ -242,6 +258,70 @@ extension AmongChat.Home.MainTabController: UITabBarControllerDelegate {
             Logger.Action.log(.home_tab, categoryValue: "friends")
         }
         HapticFeedback.Impact.light()
+    }
+    
+}
+
+extension AmongChat.Home {
+    
+    class MainTabItemAnimation: RAMItemAnimation {
+        
+        var selectedImage: UIImage?
+        var normalImage: UIImage?
+        
+        override func playAnimation(_ icon: UIImageView, textLabel _: UILabel) {
+            selectedAnimation(icon)
+        }
+        
+        override func deselectAnimation(_ icon: UIImageView, textLabel _: UILabel, defaultTextColor _: UIColor, defaultIconColor _: UIColor) {
+            deselectAnimation(icon)
+        }
+        
+        override func selectedState(_ icon: UIImageView, textLabel _: UILabel) {
+            icon.image = selectedImage
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 1.2, y: 1.2, z: 1).rotated(by: (-25).degreesToRadians.cgFloat, x: 0.001, y: 0, z: 1)
+        }
+        
+        override func deselectedState(_ icon: UIImageView, textLabel _: UILabel) {
+            icon.image = normalImage
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1).rotated(by: 0.001, x: 0.001, y: 0, z: 1)
+        }
+        
+        private func selectedAnimation(_ icon: UIImageView) {
+            icon.image = selectedImage
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            
+            UIView.animateKeyframes(withDuration: 0.9, delay: 0.0) {
+                
+                UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.07, y: 1.07).rotated(by: (-25).degreesToRadians.cgFloat)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.1, y: 1.1).rotated(by: (-25).degreesToRadians.cgFloat)
+                }
+                
+                UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25) {
+                    icon.transform = CGAffineTransform(scaleX: 1.2, y: 1.2).rotated(by: (-25).degreesToRadians.cgFloat)
+                }
+                
+            }
+        }
+        
+        private func deselectAnimation(_ icon: UIImageView) {
+            icon.image = normalImage
+            icon.layer.removeAllAnimations()
+            icon.layer.anchorPoint = CGPoint(x: 0, y: 0.5)
+            icon.layer.transform = CATransform3D(scaleX: 0.9, y: 0.9, z: 1)
+            
+        }
+        
     }
     
 }

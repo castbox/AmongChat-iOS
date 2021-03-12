@@ -40,6 +40,7 @@ extension Entity {
         var topicId: String
         let topicName: String
 //        var bgUrl: String?
+        var coverUrl: String?
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,
@@ -113,6 +114,8 @@ extension Entity {
         var nameCallofduty: String?
         var namePubgmobile: String?
         var nameMobilelegends: String?
+        var nameAnimalCrossing: String?
+        var nameBrawlStars: String?
         var topic: AmongChat.Topic?
         var isVerified: Bool?
         var isVip: Bool?
@@ -133,6 +136,10 @@ extension Entity {
                 return namePubgmobile
             case .mobilelegends:
                 return nameMobilelegends
+            case .animalCrossing:
+                return nameAnimalCrossing
+            case .brawlStars:
+                return nameBrawlStars
             default:
                 return nil
             }
@@ -171,6 +178,8 @@ extension Entity {
             case nameCallofduty = "name_callofduty"
             case namePubgmobile = "name_pubgmobile"
             case nameMobilelegends = "name_mobilelegends"
+            case nameAnimalCrossing = "name_animalcrossing"
+            case nameBrawlStars = "name_brawlstars"
             case isVerified = "is_verified"
             case isVip = "is_vip"
             case decoPetId = "deco_pet_id"
@@ -194,6 +203,8 @@ extension Entity {
             self.nameCallofduty = try container.decodeStringIfPresent(.nameCallofduty)
             self.namePubgmobile = try container.decodeStringIfPresent(.namePubgmobile)
             self.nameMobilelegends = try container.decodeStringIfPresent(.nameMobilelegends)
+            self.nameBrawlStars = try container.decodeStringIfPresent(.nameBrawlStars)
+            self.nameAnimalCrossing = try container.decodeStringIfPresent(.nameAnimalCrossing)
             self.isVerified = try container.decodeBoolIfPresent(.isVerified) ?? false
             self.isVip = try container.decodeBoolIfPresent(.isVip) ?? false
             self.decoPetId = try container.decodeIntIfPresent(.decoPetId) ?? 0

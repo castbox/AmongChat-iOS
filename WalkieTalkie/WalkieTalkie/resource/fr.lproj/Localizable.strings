@@ -319,3 +319,29 @@
 "among.chat.custom.avatar.close" = "Fermer";
 "among.chat.pro.privilege.custom.avatars" = "Téléchargez votre propre avatar";
 "among.chat.pro.privilege.custom.avatars.sub" = "Votre avatar peut être différent";
+
+//1.15
+"among.chat.room.just.chat.set.up.notes" = "Mettre en place des notes ici";
+"among.chat.room.set.animal.crossing.id" = "Définir l'ID Animal Crossing";
+"among.chat.room.animal.crossing.id" = "Animal Crossing ID";
+"among.chat.room.animal.crossing.id.prefix" = "ID: %1$@";
+"room.animal.crossing.id.placeholder" = "ANIMAL CROSSING ID";
+"among.chat.room.fortnite.name" = "Nom d'affichage Fortnite";
+"among.chat.room.fortnite.name.prefix" = "Nom d'affichage: %1$@";
+"among.chat.room.set.brawl.id" = "Définir le code/ID de l'équipe Brawl Stars";
+"among.chat.room.brawl.id" = "Code/ID de l'équipe Brawl Stars";
+"room.brawl.id.placeholder" = "CODE/ID DE L'ÉQUIPE BRAWL STARS";
+"among.chat.room.brawl.id.prefix" = "Code/ID de l'équipe: %1$@";
+"among.chat.room.roblox.user.name" = "Nom d'utilisateur Roblox";
+"among.chat.room.roblox.user.name.prefix" = "Nom d'utilisateur: %1$@";
+"among.chat.room.freefire.name" = "Surnom du Free Fire";
+"among.chat.room.freefire.name.prefix" = "Surnom: %1$@";
+"among.chat.room.mobile.legends.name" = "MLBB Nom/ID";
+"among.chat.room.mobile.legends.name.prefix" = "Nom/ID: %1$@";
+"among.chat.room.minecraft.name" = "Définir le Balise de Joueur Minecraft";
+"among.chat.room.minecraft.name.prefix" = "Balise de Joueur: %1$@";
+"among.chat.room.pubg.name.id" = "PUBG Nom/ID du joueur ";
+"among.chat.room.pubg.name.id.prefix" = "Nom/ID: %1$@";
+"among.chat.room.call.of.duty.name" = "COD Nom d'utilisateur/UID ";
+"among.chat.room.call.of.duty.name.prefix" = "Nom d'utilisateur/UID: %1$@";
+"among.chat.room.set.up.name.desc" = "Définissez votre propre %1$@ ou cliquez pour copier les autres pour jouer ensemble";

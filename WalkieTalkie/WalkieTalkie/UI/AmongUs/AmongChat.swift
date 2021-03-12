@@ -25,6 +25,8 @@ extension AmongChat {
         case callofduty = "callofduty"
         case pubgmobile = "pubgmobile"
         case mobilelegends = "mobilelegends"
+        case brawlStars = "brawlstars"
+        case animalCrossing = "animalcrossing"
     }
     
     //用户身份
@@ -89,6 +91,10 @@ extension AmongChat.Topic {
             return 1287282214
         case .mobilelegends:
             return 1160056295
+        case .animalCrossing:
+            return 1179915619
+        case .brawlStars:
+            return 1229016807
         default:
             return 0
         }
