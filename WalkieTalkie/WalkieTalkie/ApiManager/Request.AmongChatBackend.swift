@@ -157,7 +157,7 @@ extension Request {
         if let rid = roomId { paras["room_id"] = rid }
         paras["topic_id"] = topicId
         if let s = source { paras["source"] = s }
-        
+        paras["rtc_support"] = "agora,zego"
         return amongchatProvider.rx.request(.enteryRoom(paras))
             .mapJSON()
             .map { item -> [String : AnyObject] in
@@ -177,10 +177,11 @@ extension Request {
     
     static func createRoom(_ room: Entity.RoomProto) -> Single<Entity.Room?> {
         
-        guard let params = room.dictionary else {
+        guard var params = room.dictionary else {
             return Observable.just(nil).asSingle()
         }
-        
+        params["rtc_support"] = "agora,zego"
+
         return amongchatProvider.rx.request(.createRoom(params))
             .mapJSON()
             .map { item -> [String : AnyObject] in
@@ -704,6 +705,22 @@ extension Request {
                 
                 return url
             }
+    }
+
+    static func rtcToken(_ joinable: RTCJoinable) -> Single<String?> {
+        let request: APIService.AmongChatBackend
+        switch (joinable.rtcType ?? .agora) {
+        case .agora:
+            request = .agorzRtcToken(["room_id": joinable.roomId])
+        case .zego:
+            request = .zegoRtcToken(["room_id": joinable.roomId])
+        }
+        return Request.amongchatProvider.rx.request(request)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.RTCToken.self)
+            .retry(2)
+            .map { $0?.roomToken }
     }
     
 }

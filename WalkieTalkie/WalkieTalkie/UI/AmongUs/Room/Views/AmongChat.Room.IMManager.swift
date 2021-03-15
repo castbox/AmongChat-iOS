@@ -51,7 +51,7 @@ extension AmongChat.Room {
         
         override private init() {
             super.init()
-            rtmKit = AgoraRtmKit(appId: KeyCenter.AppId, delegate: self)
+            rtmKit = AgoraRtmKit(appId: KeyCenter.Agora.AppId, delegate: self)
             bindEvents()
         }
         
@@ -100,7 +100,7 @@ extension AmongChat.Room {
                     self.rtmKit?.login(byToken: token.rcToken, user: uid, completion: { [weak self] (code) in
                         guard let `self` = self else { return }
                         cdPrint("requet loginSDK code: \(code.rawValue)")
-                        if code == .ok {
+                        if code == .ok || code == .alreadyLogin {
                             self.onlineRelay.accept(.online)
                         } else {
                             self.onlineRelay.accept(.offline)

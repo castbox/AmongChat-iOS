@@ -19,7 +19,7 @@ import DoraemonKit
 #endif
 import FirebaseInAppMessaging
 import FirebaseCrashlytics
-import TikTokOpenSDK
+//import TikTokOpenSDK
 import FirebaseDynamicLinks
 import Bolts
 import Kingfisher
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor(hex: 0x141414)
         
         setGlobalAppearance()
-        RtcManager.shared.initialize()
+        ChatRoomManager.shared.initialize()
         FirebaseApp.configure()
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
@@ -93,8 +93,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //设置内存缓存失效时间为12h,修复直播间内“闪“的问题
         KingfisherManager.shared.cache.memoryStorage.config.expiration = .seconds(60 * 60 * 24) //12 h
 
-        // end
-        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+//        // end
+//        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         
@@ -117,9 +117,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
-        } else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
-            return true
-        } else if ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) {
+        }
+//        else if TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: options[.sourceApplication] as? String, annotation: options[.annotation] ?? "") {
+//            return true
+//        }
+        else if ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) {
             return true
         }
         return FireLink.handle(dynamicLink: url) { [weak self] url in
@@ -162,7 +164,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        RtcManager.shared.leaveChannel()
+        AgoraRtcManager.shared.leaveChannel()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

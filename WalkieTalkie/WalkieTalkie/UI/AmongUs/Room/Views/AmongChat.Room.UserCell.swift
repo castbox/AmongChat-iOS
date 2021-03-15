@@ -167,6 +167,9 @@ extension AmongChat.Room {
         }
         
         func startSoundAnimation() {
+            guard user?.isMuted == false else {
+                return
+            }
             haloView.startLoading()
             if let url = svgaUrl {
                 playSvga(url)

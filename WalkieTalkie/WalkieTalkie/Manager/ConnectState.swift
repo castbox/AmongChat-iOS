@@ -7,6 +7,7 @@
 //
 
 import AgoraRtcKit
+import ZegoExpressEngine
 
 enum ConnectState: Int {
     case disconnected = 1
@@ -23,6 +24,19 @@ enum ConnectState: Int {
 //    case
     init(_ state: AgoraConnectionStateType) {
         self = ConnectState(rawValue: state.rawValue) ?? .failed
+    }
+    
+    init(zego state: ZegoRoomState) {
+        switch state {
+        case .connected:
+            self = .connected
+        case .connecting:
+            self = .connecting
+        case .disconnected:
+            self = .disconnected
+        @unknown default:
+            self = .disconnected
+        }
     }
 }
 

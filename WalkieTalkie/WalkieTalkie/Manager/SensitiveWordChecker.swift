@@ -78,7 +78,7 @@ class SensitiveWordChecker {
                 let previousChar = lowercasedText[lastIndex] //当前字符的上一个字符
 //                char.trimmingCharacters(in: .illegalCharacters)
                 let value = predicate.evaluate(with: char)
-                print("char: \(char) evaluate: \(value)")
+//                print("char: \(char) evaluate: \(value)")
                 return ((char == " " || !value) || nextIndex == (lowercasedText.count - 1)) && ((previousChar == " " || !predicate.evaluate(with: char)) || lastIndex == 0)
             }
             if isLastOrFirstChar,

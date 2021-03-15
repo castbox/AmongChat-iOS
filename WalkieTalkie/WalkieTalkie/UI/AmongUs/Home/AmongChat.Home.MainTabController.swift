@@ -223,8 +223,9 @@ extension AmongChat.Home.MainTabController {
                 anim.selectedImage = R.image.ac_home_topic_tab_selected()
                 anim.normalImage = R.image.ac_home_topic_tab_normal()
                 item.animation = anim
-                topicVC.tabBarItem = item
-                return NavigationViewController(rootViewController: topicVC)
+                let nav = NavigationViewController(rootViewController: topicVC)
+                nav.tabBarItem = item
+                return nav
                 
             case .friends:
                 let relationVC = AmongChat.Home.RelationsViewController()
@@ -238,7 +239,9 @@ extension AmongChat.Home.MainTabController {
                 item.animation = anim
                 relationVC.tabBarItem = item
                 relationVC.loadViewIfNeeded()
-                return NavigationViewController(rootViewController: relationVC)
+                let nav = NavigationViewController(rootViewController: relationVC)
+                nav.tabBarItem = item
+                return nav
             }
             
         }

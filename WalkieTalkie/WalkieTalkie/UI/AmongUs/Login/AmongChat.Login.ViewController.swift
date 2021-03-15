@@ -12,6 +12,7 @@ import RxCocoa
 import RxSwift
 import SVGAPlayer
 import YYText
+import CoreMotion
 
 extension AmongChat.Login {
     
@@ -76,21 +77,59 @@ extension AmongChat.Login {
             let iv = UIImageView(image: R.image.ac_login_logo())
             return iv
         }()
-//        private lazy var bg = StarsOverlay()
-//        private lazy var bg: UIImageView = {
-//            let iv = UIImageView(image: R.image.ac_login_bg())
-//            iv.contentMode = .scaleAspectFill
-//            return iv
-//        }()
         
-        lazy var bg: SVGAPlayer = {
-            let player = SVGAPlayer(frame: .zero)
-            player.clearsAfterStop = false
-//            player.delegate = self
-            player.loops = 1
-            player.contentMode = .bottom
-            player.isUserInteractionEnabled = false
-            return player
+        private lazy var bg: UIView = {
+            let v = UIView()
+            v.backgroundColor = .clear
+            return v
+        }()
+        
+        private lazy var avatarViews: [UIImageView] = {
+            return (1...12).map { (idx) -> UIImageView in
+                let width = CGFloat(52)
+                let height = CGFloat(88)
+                let x: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.width - width)))
+                let y: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.height / 4 - height)))
+                let iv = UIImageView(image: UIImage(named: "ac_login_avatar_\(idx)"))
+                iv.frame = CGRect(x: x, y: y, width: width, height: height)
+                iv.contentMode = .scaleAspectFill
+                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: -90...90).degreesToRadians.cgFloat)
+                iv.tag = idx
+                return iv
+            }
+        }()
+        
+        private lazy var gravityBehavior: UIGravityBehavior = {
+            let g = UIGravityBehavior(items: avatarViews)
+            g.magnitude = 3
+            return g
+        }()
+        
+        private lazy var dynamicAnimator: UIDynamicAnimator = {
+            let a = UIDynamicAnimator(referenceView: bg)
+            a.addBehavior(gravityBehavior)
+            
+            let collisionBehavior = UICollisionBehavior(items: avatarViews)
+            collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+            collisionBehavior.collisionDelegate = self
+            a.addBehavior(collisionBehavior)
+            
+            let dynamicBehavior = UIDynamicItemBehavior(items: avatarViews)
+            dynamicBehavior.allowsRotation = true
+            dynamicBehavior.elasticity = 0.6
+            dynamicBehavior.density = 3
+            dynamicBehavior.friction = 0.2
+            a.addBehavior(dynamicBehavior)
+            
+            return a
+        }()
+        
+        private let collisionSignal = PublishSubject<Void>()
+        
+        private lazy var motionManager: CMMotionManager = {
+            let m = CMMotionManager()
+            m.deviceMotionUpdateInterval = 0.2;
+            return m
         }()
         
         private lazy var startBtn: UIButton = {
@@ -132,7 +171,7 @@ extension AmongChat.Login {
             attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(hex6: 0xFFF000)],
                                  range: signInRange
             )
-                    
+            
             l.attributedText = attTxt
             
             l.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
@@ -175,7 +214,7 @@ extension AmongChat.Login {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            playBackgroundSvga()
+            setupAvatars()
             Logger.Action.log(.login_imp)
         }
         
@@ -212,17 +251,6 @@ extension AmongChat.Login.ViewController {
 
 extension AmongChat.Login.ViewController {
     
-    // MARK: - convinience
-    func playBackgroundSvga() {
-        let parser = SVGAGlobalParser.defaut
-        parser.parse(withNamed: "login_bg", in: nil) { [weak self] (item) in
-            self?.bg.videoItem = item
-            self?.bg.startAnimation()
-         } failureBlock: { error in
-            debugPrint("error: \(error.localizedDescription ?? "")")
-         }
-    }
-    
     private func setupLayout() {
         
         view.addSubviews(views: bg, logoIV, startBtn, signInLabel)
@@ -246,6 +274,30 @@ extension AmongChat.Login.ViewController {
             maker.leading.trailing.equalToSuperview().inset(30)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-140)
         }
+    }
+    
+    private func setupAvatars() {
+        
+        bg.addSubviews(avatarViews)
+        
+        let _ = dynamicAnimator
+        
+        motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] (motion, error) in
+            
+            guard let `self` = self, let motion = motion else { return }
+            
+            let rotation = atan2(motion.attitude.pitch, motion.attitude.roll)
+            self.gravityBehavior.angle = CGFloat(rotation)
+            
+        }
+        
+        collisionSignal
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                guard self?.isVisible ?? false else { return }
+                HapticFeedback.Impact.heavy()
+        })
+        .disposed(by: bag)
     }
     
     private func signInMore() {
@@ -277,6 +329,20 @@ extension AmongChat.Login.ViewController {
             loginFinishedSubject.onNext(())
         }
         
+    }
+    
+}
+
+extension AmongChat.Login.ViewController: UICollisionBehaviorDelegate {
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
+        
+        let v1 = item1 as! UIView
+        let v2 = item2 as! UIView
+        
+        if v1.tag == 1 || v2.tag == 2 {
+            collisionSignal.onNext(())
+        }
     }
     
 }

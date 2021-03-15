@@ -19,7 +19,8 @@ extension APIService {
         //        case roomUpdate([String: Any])
         case updateNickName([String: Any])
         case heartBeating([String: Any])
-        case rtcToken([String: Any])
+        case agorzRtcToken([String: Any])
+        case zegoRtcToken([String: Any])
         case rtmToken([String: Any])
         case leaveRoom([String: Any])
         case roomInfo([String: Any])
@@ -89,8 +90,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/rooms/nickname"
         case .heartBeating:
             return "/api/v1/rooms/heartbeat"
-        case .rtcToken:
+        case .agorzRtcToken:
             return "/live/room/token"
+        case .zegoRtcToken:
+            return "/live/room/token/zego"
         case .rtmToken:
             return "/live/token/agora"
         case .leaveRoom:
@@ -199,7 +202,8 @@ extension APIService.AmongChatBackend: TargetType {
              .enteryRoom,
              .heartBeating,
              .rtmToken,
-             .rtcToken,
+             .agorzRtcToken,
+             .zegoRtcToken,
              .profile,
              .leaveRoom,
              .defaultAvatars,
@@ -271,7 +275,8 @@ extension APIService.AmongChatBackend: TargetType {
              .updateNickName(let params),
              .heartBeating(let params),
              .roomInfo(let params),
-             .rtcToken(let params),
+             .agorzRtcToken(let params),
+             .zegoRtcToken(let params),
              .rtmToken(let params),
              .leaveRoom(let params),
              .kickUsers(let params),
