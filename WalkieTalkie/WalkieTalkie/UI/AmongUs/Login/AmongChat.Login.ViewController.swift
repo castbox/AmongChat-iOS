@@ -86,18 +86,22 @@ extension AmongChat.Login {
         
         private lazy var avatarViews: [UIImageView] = {
             return (1...12).map { (idx) -> UIImageView in
-                let width = CGFloat(30)
+                let width = CGFloat(52)
+                let height = CGFloat(88)
                 let x: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.width - width)))
+                let y: CGFloat = CGFloat(Int.random(in: 0..<Int(view.bounds.height / 4 - height)))
                 let iv = UIImageView(image: UIImage(named: "ac_login_avatar_\(idx)"))
-                iv.frame = CGRect(x: x, y: 0, width: width, height: 80)
+                iv.frame = CGRect(x: x, y: y, width: width, height: height)
                 iv.contentMode = .scaleAspectFill
-                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: 0...90).degreesToRadians.cgFloat)
+                iv.transform = CGAffineTransform(rotationAngle: Int.random(in: -90...90).degreesToRadians.cgFloat)
+                iv.tag = idx
                 return iv
             }
         }()
         
         private lazy var gravityBehavior: UIGravityBehavior = {
             let g = UIGravityBehavior(items: avatarViews)
+            g.magnitude = 3
             return g
         }()
         
@@ -107,16 +111,20 @@ extension AmongChat.Login {
             
             let collisionBehavior = UICollisionBehavior(items: avatarViews)
             collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+            collisionBehavior.collisionDelegate = self
             a.addBehavior(collisionBehavior)
-
+            
             let dynamicBehavior = UIDynamicItemBehavior(items: avatarViews)
             dynamicBehavior.allowsRotation = true
-            dynamicBehavior.elasticity = 0.8
+            dynamicBehavior.elasticity = 0.6
+            dynamicBehavior.density = 3
             dynamicBehavior.friction = 0.2
             a.addBehavior(dynamicBehavior)
             
             return a
         }()
+        
+        private let collisionSignal = PublishSubject<Void>()
         
         private lazy var motionManager: CMMotionManager = {
             let m = CMMotionManager()
@@ -163,7 +171,7 @@ extension AmongChat.Login {
             attTxt.addAttributes([NSAttributedString.Key.foregroundColor : UIColor(hex6: 0xFFF000)],
                                  range: signInRange
             )
-                    
+            
             l.attributedText = attTxt
             
             l.textTapAction = { [weak self] (containerView: UIView, text: NSAttributedString, range: NSRange, rect: CGRect) -> Void in
@@ -283,6 +291,13 @@ extension AmongChat.Login.ViewController {
             
         }
         
+        collisionSignal
+            .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] (_) in
+                guard self?.isVisible ?? false else { return }
+                HapticFeedback.Impact.heavy()
+        })
+        .disposed(by: bag)
     }
     
     private func signInMore() {
@@ -314,6 +329,20 @@ extension AmongChat.Login.ViewController {
             loginFinishedSubject.onNext(())
         }
         
+    }
+    
+}
+
+extension AmongChat.Login.ViewController: UICollisionBehaviorDelegate {
+    
+    func collisionBehavior(_ behavior: UICollisionBehavior, beganContactFor item1: UIDynamicItem, with item2: UIDynamicItem, at p: CGPoint) {
+        
+        let v1 = item1 as! UIView
+        let v2 = item2 as! UIView
+        
+        if v1.tag == 1 || v2.tag == 2 {
+            collisionSignal.onNext(())
+        }
     }
     
 }
