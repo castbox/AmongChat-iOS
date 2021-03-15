@@ -99,7 +99,7 @@ class ShareManager: NSObject {
         }
         let dynamicLinksDomainURIPrefix = "https://amongchat.page.link"
         let iosParameters = DynamicLinkIOSParameters(bundleID: Bundle.main.bundleIdentifier!)
-        iosParameters.fallbackURL = URL(string: "https://apps.apple.com/app/id1539641263")
+//        iosParameters.fallbackURL = URL(string: "https://apps.apple.com/app/id1539641263")
         iosParameters.appStoreID = "1539641263"
         
         let androidParameters = DynamicLinkAndroidParameters(packageName: "walkie.talkie.among.us.friends")
@@ -111,10 +111,11 @@ class ShareManager: NSObject {
         itcAnalyticsParameters.campaignToken = type.googleCampaign
         
         let socialMetaTagParameters = DynamicLinkSocialMetaTagParameters()
-        socialMetaTagParameters.title = "Share Among Chat app"
-        socialMetaTagParameters.descriptionText = "This link works whether the app is installed or not!"
+        socialMetaTagParameters.title = "Click here to team up and play together with me!"
+        socialMetaTagParameters.descriptionText = "Get the cool AmongChat app now"
+//        socialMetaTagParameters.imageURL = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG9bjspBHUEei0d_y1QL2eX9saE_i_MClJ8w&usqp=CAU")!
         let navigationInfoParameters = DynamicLinkNavigationInfoParameters()
-        navigationInfoParameters.isForcedRedirectEnabled = true
+        navigationInfoParameters.isForcedRedirectEnabled = false
         
         let linkBuilder = DynamicLinkComponents(link: link, domainURIPrefix: dynamicLinksDomainURIPrefix)
         linkBuilder?.iOSParameters = iosParameters
