@@ -18,6 +18,7 @@ extension AmongChat.Home {
     class RelationViewModel {
         struct Item {
             enum Group: Int {
+                case vipRecruit
                 case playing
                 case suggestContacts
                 case suggestStrangers
@@ -40,6 +41,8 @@ extension AmongChat.Home {
         
         private let suggestContactViewModelsRelay = BehaviorRelay<[ContactViewModel]>(value: [])
         
+        private let vipRecruitShouldShowRelay = BehaviorRelay<Bool>(value: true)
+        
         private let imManager = IMManager.shared
         
         lazy var readedSuggestContacts: [String] = {
@@ -51,8 +54,8 @@ extension AmongChat.Home {
         }
                 
         var dataSource: Observable<[Item]> {
-            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay)
-                .map { playings, contacts, strangers in
+            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay, vipRecruitShouldShowRelay)
+                .map { playings, contacts, strangers, vipShouldShow in
                     var array: [Item] = [Item(userLsit: playings, group: .playing)]
                     if !contacts.isEmpty {
                         array.append(Item(userLsit: contacts, group: .suggestContacts))
@@ -60,6 +63,11 @@ extension AmongChat.Home {
                     if !strangers.isEmpty {
                         array.append(Item(userLsit: strangers, group: .suggestStrangers))
                     }
+                    
+                    if vipShouldShow {
+                        array.append(Item(userLsit: [], group: .vipRecruit))
+                    }
+                    
                     array.sort { $0.group.rawValue < $1.group.rawValue }
                     return array
                 }
@@ -102,6 +110,12 @@ extension AmongChat.Home {
                 .bind(to: suggestContactViewModelsRelay)
                 .disposed(by: bag)
             
+            FireRemote.shared.remoteValue()
+                .subscribe(onNext: { [weak self] (r) in
+                    let shouldShow = r.value.vip_recruitment_banner_enable && (Defaults[\.vipRecruitmentChecked] == false)
+                    self?.vipRecruitShouldShowRelay.accept(shouldShow)
+                })
+                .disposed(by: bag)
             //remove
 //            suggestContactViewModelsRelay.accept(testArray)
 //            let testArray = [
@@ -203,6 +217,11 @@ extension AmongChat.Home {
             //clear
             readedSuggestContacts = []
             refreshSuggestContactsList()
+        }
+        
+        func checkVipRecruit() {
+            Defaults[\.vipRecruitmentChecked] = true
+            vipRecruitShouldShowRelay.accept(false)
         }
         
     }

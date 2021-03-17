@@ -216,8 +216,10 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
 //            enterRoom(roomId: "hdtt7bgi", topicId: nil,/* topic.topic.topicId,*/ logSource: .matchSource)
-            enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
-            onTap(topic)
+            Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self) { [weak self] in
+                self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
+                self?.onTap(topic)
+            }
         }
     }
     
