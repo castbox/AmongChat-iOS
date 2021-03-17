@@ -2501,6 +2501,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardTipTitle = Rswift.StringResource(key: "among.chat.create.room.card.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Remember your ID first, then let's go!
+      /// 
+      /// Locales: en
+      static let amongChatVipRecruitMsg = Rswift.StringResource(key: "among.chat.vip.recruit.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Remove
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2733,7 +2737,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCodeInputTiming = Rswift.StringResource(key: "among.chat.login.code.input.timing", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: To be a Verified User:
+      /// en translation: To be a Verified User
       /// 
       /// Locales: en
       static let amongChatVipRecruitTitle = Rswift.StringResource(key: "among.chat.vip.recruit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2821,10 +2825,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardInsufficientContent = Rswift.StringResource(key: "among.chat.create.room.card.insufficient.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: We Want You!
-      /// 
-      /// Locales: en
-      static let amongChatVipRecruitMsg = Rswift.StringResource(key: "among.chat.vip.recruit.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: We sent a code to %1$@ %2$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4263,6 +4263,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.card.tip.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Remember your ID first, then let's go!
+      /// 
+      /// Locales: en
+      static func amongChatVipRecruitMsg(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.vip.recruit.msg", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Remove
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4669,7 +4676,7 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.login.code.input.timing", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
-      /// en translation: To be a Verified User:
+      /// en translation: To be a Verified User
       /// 
       /// Locales: en
       static func amongChatVipRecruitTitle(_: Void = ()) -> String {
@@ -4821,13 +4828,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardInsufficientContent(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.insufficient.content", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: We Want You!
-      /// 
-      /// Locales: en
-      static func amongChatVipRecruitMsg(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.vip.recruit.msg", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: We sent a code to %1$@ %2$@
