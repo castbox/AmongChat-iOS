@@ -41,7 +41,7 @@ extension AmongChat.Home {
         
         private let suggestContactViewModelsRelay = BehaviorRelay<[ContactViewModel]>(value: [])
         
-        private let vipRecruitShouldShowRelay = BehaviorRelay<Bool>(value: true)
+        private let vipRecruitShouldShowRelay = BehaviorRelay<Bool>(value: vipRecruitShouldShow())
         
         private let imManager = IMManager.shared
         
@@ -110,12 +110,6 @@ extension AmongChat.Home {
                 .bind(to: suggestContactViewModelsRelay)
                 .disposed(by: bag)
             
-            FireRemote.shared.remoteValue()
-                .subscribe(onNext: { [weak self] (r) in
-                    let shouldShow = r.value.vip_recruitment_banner_enable && (Defaults[\.vipRecruitmentChecked] == false)
-                    self?.vipRecruitShouldShowRelay.accept(shouldShow)
-                })
-                .disposed(by: bag)
             //remove
 //            suggestContactViewModelsRelay.accept(testArray)
 //            let testArray = [
@@ -219,9 +213,13 @@ extension AmongChat.Home {
             refreshSuggestContactsList()
         }
         
+        private class func vipRecruitShouldShow() -> Bool {
+            return !Defaults[\.vipRecruitmentChecked]
+        }
+        
         func checkVipRecruit() {
             Defaults[\.vipRecruitmentChecked] = true
-            vipRecruitShouldShowRelay.accept(false)
+            vipRecruitShouldShowRelay.accept(Self.vipRecruitShouldShow())
         }
         
     }

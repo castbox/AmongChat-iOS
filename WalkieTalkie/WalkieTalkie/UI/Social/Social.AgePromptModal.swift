@@ -253,7 +253,8 @@ extension Social.AgePromptModal {
     
     class func showModalIfNeeded(fromVC: UIViewController, completion: @escaping (() -> Void) ) {
         
-        guard Settings.shared.amongChatUserProfile.value?.birthday?.isEmpty ?? true,
+        guard FireRemote.shared.value.age_prompt_enable,
+            Settings.shared.amongChatUserProfile.value?.birthday?.isEmpty ?? true,
             Defaults[\.setAgePromptShowsTime] == nil else {
             completion()
             return
