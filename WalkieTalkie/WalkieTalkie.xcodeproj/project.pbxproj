@@ -21,6 +21,7 @@
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
 		26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */; };
+		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
@@ -342,6 +343,7 @@
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.ConsumableProduct.swift; sourceTree = "<group>"; };
+		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 				BDA05E9C250B229D0087933F /* BlockedUserList */,
 				26F7FE2F25E62D9C008F992C /* ProfileLook */,
 				26F7FFED25E631CA008F992C /* CustomAvatar */,
+				26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */,
 			);
 			path = Social;
 			sourceTree = "<group>";
@@ -1748,6 +1751,7 @@
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
 				FEA298CB25E63714001D5F3C /* SnapChatSharePhotoView.swift in Sources */,
+				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
 				FE8DEA66243DB09A0059C252 /* APIService.swift in Sources */,
 				FEFF9356258B30980011A274 /* AmongChat.Room.ViewModel.swift in Sources */,

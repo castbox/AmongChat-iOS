@@ -282,22 +282,33 @@ extension AmongChat.Login.ViewController {
         
         let _ = dynamicAnimator
         
-        motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] (motion, error) in
-            
-            guard let `self` = self, let motion = motion else { return }
-            
-            let rotation = atan2(motion.attitude.pitch, motion.attitude.roll)
-            self.gravityBehavior.angle = CGFloat(rotation)
-            
-        }
+        rx.viewDidAppear
+            .subscribe(onNext: { [weak self] (_) in
+                
+                self?.motionManager.startDeviceMotionUpdates(to: OperationQueue.main) { [weak self] (motion, error) in
+                    
+                    guard let `self` = self, let motion = motion else { return }
+                    
+                    let rotation = atan2(motion.attitude.pitch, motion.attitude.roll)
+                    self.gravityBehavior.angle = CGFloat(rotation)
+                    
+                }
+                
+            })
+            .disposed(by: bag)
+        
+        rx.viewDidDisappear
+            .subscribe(onNext: { [weak self] (_) in
+                self?.motionManager.stopDeviceMotionUpdates()
+            })
+            .disposed(by: bag)
         
         collisionSignal
             .throttle(.seconds(1), latest: false, scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (_) in
-                guard self?.isVisible ?? false else { return }
+            .subscribe(onNext: { (_) in
                 HapticFeedback.Impact.heavy()
-        })
-        .disposed(by: bag)
+            })
+            .disposed(by: bag)
     }
     
     private func signInMore() {

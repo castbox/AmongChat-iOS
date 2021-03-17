@@ -87,6 +87,8 @@ extension FireRemote {
         
         let auditVersion: String
         
+        let age_prompt_enable: Bool
+        
         init(config: RemoteConfig) {
             cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
@@ -130,6 +132,7 @@ extension FireRemote {
             
             allowed_minimum_version = config["allowed_minimum_version"].stringValue ?? ""
             auditVersion = config["ios_audit_version"].stringValue ?? ""
+            age_prompt_enable = config["age_prompt_enable"].boolValue
         }
     }
 }

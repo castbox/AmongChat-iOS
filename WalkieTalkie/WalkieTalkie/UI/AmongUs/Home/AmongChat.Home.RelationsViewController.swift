@@ -12,6 +12,7 @@ extension AmongChat.Home {
     
     class RelationsViewController: WalkieTalkie.ViewController {
         
+        private typealias VIPRecruitCell = AmongChat.Home.VIPRecruitCell
         private typealias FriendCell = AmongChat.Home.FriendCell
         private typealias SuggestContactCell = AmongChat.Home.SuggestedContactCell
         private typealias SuggestionCell = AmongChat.Home.SuggestionCell
@@ -32,6 +33,7 @@ extension AmongChat.Home {
             layout.minimumLineSpacing = 0
             layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(VIPRecruitCell.self, forCellWithReuseIdentifier: NSStringFromClass(VIPRecruitCell.self))
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
             v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
@@ -113,12 +115,6 @@ extension AmongChat.Home.RelationsViewController {
                 self?.viewModel.refreshData()
             })
             .disposed(by: bag)
-
-//        rx.viewWillAppear
-//            .subscribe(onNext: { [weak self] (_) in
-//                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
-//            })
-//            .disposed(by: bag)
         
     }
     
@@ -190,6 +186,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         let item = dataSource.safe(section)
         if item?.group == .suggestContacts {
             return item?.userLsit.isEmpty == false ? 1 : 0
+        } else if item?.group == .vipRecruit {
+            return 1
         }
         return item?.userLsit.count ?? 0
     }
@@ -253,6 +251,20 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 })
             }
             return cell
+            
+        case .vipRecruit:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VIPRecruitCell.self), for: indexPath)
+            
+            if let cell = cell as? VIPRecruitCell {
+                cell.bind(goHandler: { [weak self] in
+                    self?.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
+                    self?.viewModel.checkVipRecruit()
+                }, onRunOutOfCards: { [weak self] in
+                    self?.viewModel.checkVipRecruit()
+                })
+            }
+            
+            return cell
         default:
             return collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
         }
@@ -292,6 +304,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
 //                        maker.top.bottom.equalToSuperview()
                         maker.bottom.equalToSuperview().offset(2)
                     }
+                default:
+                    ()
                 }
             }
             
@@ -301,7 +315,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             
         case UICollectionView.elementKindSectionFooter:
             
-            if indexPath.section == 0 {
+            if dataSource.safe(indexPath.section)?.group == .playing {
                 let shareFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath) as! ShareFooter
                 shareFooter.onSelect = { [weak self] in
                     self?.shareApp()
@@ -343,6 +357,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if dataSource.safe(indexPath.section)?.group == .suggestContacts {
             return CGSize(width: Frame.Screen.width, height: 104)
+        } else if dataSource.safe(indexPath.section)?.group == .vipRecruit {            
+            return VIPRecruitCell.size
         }
         return CGSize(width: Frame.Screen.width, height: 69)
 
@@ -364,11 +380,11 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
         if section == 0 {
             if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
                 return CGSize(width: Frame.Screen.width, height: 74)
+            } else if dataSource.safe(section)?.group == .vipRecruit {
+                return CGSize(width: Frame.Screen.width, height: 0)
             } else {
-//                return CGSize(width: Frame.Screen.width, height: 138)
                 return CGSize(width: Frame.Screen.width, height: 94)
             }
-            return CGSize(width: Frame.Screen.width, height: 74)
         } else {
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }

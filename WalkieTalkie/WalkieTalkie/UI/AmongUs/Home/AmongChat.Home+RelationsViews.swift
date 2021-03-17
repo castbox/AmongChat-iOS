@@ -675,4 +675,179 @@ extension AmongChat.Home {
         
     }
     
+    class VIPRecruitCell: UICollectionViewCell, KolodaViewDelegate, KolodaViewDataSource {
+        
+        private static let edgeInset = UIEdgeInsets(top: 24, left: 20, bottom: 24, right: 20)
+        
+        class var size: CGSize {
+            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 210 / 335 + edgeInset.top + edgeInset.bottom
+            return CGSize(width: Frame.Screen.width, height: h)
+        }
+        
+        class RecruitView: UIView {
+            
+            private let bag = DisposeBag()
+            
+            private lazy var bg: UIImageView = {
+                let i = UIImageView(image: R.image.ac_vip_recruit_banner())
+                return i
+            }()
+            
+            private lazy var titleLabel: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 16)
+                lb.textColor = .white
+                lb.text = R.string.localizable.amongChatVipRecruitTitle()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            private lazy var msgLabel: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoExtraBold(size: 24)
+                lb.textColor = .white
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                lb.text = R.string.localizable.amongChatVipRecruitMsg()
+                return lb
+            }()
+            
+            private lazy var goBtn: UIButton = {
+                let btn = UIButton()
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+                btn.setTitleColor(.white, for: .normal)
+                btn.setTitle(R.string.localizable.bigGo(), for: .normal)
+                btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 38, bottom: 0, right: 38)
+                btn.backgroundColor = UIColor.white.alpha(0.2)
+                btn.layer.masksToBounds = true
+                btn.layer.cornerRadius = 18
+                btn.rx.controlEvent(.primaryActionTriggered)
+                    .subscribe(onNext: { [weak self] (_) in
+                        self?.goHandler?()
+                    })
+                    .disposed(by: bag)
+                return btn
+            }()
+            
+            private var goHandler: (() -> Void)? = nil
+            
+            override init(frame: CGRect) {
+                super.init(frame: frame)
+                setUpLayout()
+            }
+            
+            required init?(coder: NSCoder) {
+                fatalError("init(coder:) has not been implemented")
+            }
+            
+            private func setUpLayout() {
+                layer.cornerRadius = 24
+                layer.masksToBounds = true
+                addSubviews(views: bg, titleLabel, msgLabel, goBtn)
+                
+                bg.snp.makeConstraints { (maker) in
+                    maker.edges.equalToSuperview()
+                }
+                
+                titleLabel.snp.makeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(32)
+                    maker.top.equalToSuperview().inset(47)
+                    maker.height.equalTo(22)
+                }
+                
+                msgLabel.snp.makeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(32)
+                    maker.top.equalTo(titleLabel.snp.bottom).offset(2)
+                    maker.height.equalTo(33)
+                }
+                
+                goBtn.snp.makeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.top.equalTo(msgLabel.snp.bottom).offset(24)
+                    maker.height.equalTo(36)
+                }
+                
+            }
+            
+            func bind(onGoBtn: @escaping CallBack) {
+                goHandler = onGoBtn
+            }
+            
+        }
+        
+        private lazy var cardStack: KolodaView = {
+            let k = KolodaView()
+            k.backgroundCardsTopMargin = 0
+            k.countOfVisibleCards = 1
+            k.backgroundCardsScalePercent = 1
+            k.delegate = self
+            k.dataSource = self
+            k.alphaValueSemiTransparent = 1
+            k.appearanceAnimationDuration = 0
+            return k
+        }()
+        private var goHandler: CallBack?
+        private var runOutOfCardsHandler: CallBack?
+                
+        override init(frame: CGRect) {
+            super.init(frame: .zero)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+                
+        private func setupLayout() {
+            contentView.backgroundColor = .clear
+            contentView.addSubviews(views: cardStack)
+            cardStack.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(Self.edgeInset)
+            }
+        }
+        
+        func bind(goHandler: @escaping CallBack,
+                  onRunOutOfCards: @escaping CallBack) {
+            self.goHandler = goHandler
+            runOutOfCardsHandler = onRunOutOfCards
+        }
+        
+        // MARK: - koloda
+        
+        func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
+            return 1
+        }
+        
+        func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
+            switch direction {
+            case .left, .right:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
+            let recruitView = RecruitView()
+            recruitView.bind(onGoBtn: { [weak self] in
+                self?.goHandler?()
+            })
+            return recruitView
+        }
+        
+        func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
+            switch direction {
+            case .right:
+                goHandler?()
+            default:
+                ()
+            }
+        }
+        
+        func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
+            runOutOfCardsHandler?()
+        }
+    }
+    
 }
