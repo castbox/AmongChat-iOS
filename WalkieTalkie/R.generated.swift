@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 162 images.
+  /// This `R.image` struct is generated, and contains static references to 163 images.
   struct image {
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
@@ -280,6 +280,8 @@ struct R: Rswift.Validatable {
     static let ac_icon_room_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_room_report")
     /// Image `ac_icon_seat_add`.
     static let ac_icon_seat_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_seat_add")
+    /// Image `ac_icon_send_emoji`.
+    static let ac_icon_send_emoji = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_emoji")
     /// Image `ac_icon_send_message`.
     static let ac_icon_send_message = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_send_message")
     /// Image `ac_icon_share`.
@@ -696,6 +698,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_icon_seat_add", bundle: ..., traitCollection: ...)`
     static func ac_icon_seat_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_seat_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_send_emoji", bundle: ..., traitCollection: ...)`
+    static func ac_icon_send_emoji(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_send_emoji, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_send_message", bundle: ..., traitCollection: ...)`
@@ -5099,6 +5106,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_icon_mic_on", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_mic_on' is used in nib 'AmongRoomBottomBar', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_icon_send_emoji", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_send_emoji' is used in nib 'AmongRoomBottomBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_send_message", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_send_message' is used in nib 'AmongRoomBottomBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_share", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_share' is used in nib 'AmongRoomBottomBar', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {

@@ -11,6 +11,7 @@ import UIKit
 class AmongRoomBottomBar: XibLoadableView {
     
     @IBOutlet weak var chatButton: UIButton!
+    @IBOutlet weak var emojiButton: UIButton!
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
@@ -44,6 +45,7 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var sendMessageHandler: CallBack?
     var shareHandler: CallBack?
+    var emojiHandler: CallBack?
     var changeMicStateHandler: ((Bool) -> Void)?
     
     var cancelKickHandler: CallBack?
@@ -81,6 +83,10 @@ class AmongRoomBottomBar: XibLoadableView {
         micButton.titleLabel?.adjustsFontSizeToFitWidth = true
     }
     
+    func update(_ room: Entity.Room) {
+        emojiButton.isHidden = room.topicType != .chilling
+    }
+    
     @IBAction func cancelKickAction(_ sender: Any) {
         cancelKickHandler?()
     }
@@ -95,6 +101,11 @@ class AmongRoomBottomBar: XibLoadableView {
     @IBAction func sendMessageButtonAction(_ sender: Any) {
         sendMessageHandler?()
     }
+    
+    @IBAction func emojiButtonAction(_ sender: Any) {
+        emojiHandler?()
+    }
+    
     
     @IBAction func shareButtonAction(_ sender: Any) {
         shareHandler?()

@@ -226,6 +226,36 @@ extension Entity {
             self.decoPetId = try container.decodeIntIfPresent(.decoPetId) ?? 0
         }
     }
+    
+    struct EmojiItem: Codable {
+        
+        enum EmojiType: Int, Codable {
+            case normal
+            case dice //骰子
+        }
+        let id: Int
+        let img: String
+        let price: Int //value 0 is free emoji
+        let duration: Int //value 0 is free emoji
+        let hide_delay_sec: Int
+        let resource: [String]
+        let type: EmojiType
+        var isEnable: Bool = true
+        
+        static func empty() -> EmojiItem {
+            return EmojiItem(id: 0, img: "", price: 0, duration: 0, hide_delay_sec: 0, resource: [], type: .normal)
+        }
+        
+        private enum CodingKeys: String, CodingKey {
+            case id
+            case img
+            case price
+            case duration
+            case hide_delay_sec
+            case resource
+            case type
+        }
+    }
 }
 
 extension Entity.AmongUsZone {

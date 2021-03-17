@@ -90,6 +90,15 @@ extension AmongChat.Room {
             fatalError("init(coder:) has not been implemented")
         }
         
+        func play(_ emoji: ChatRoom.EmojiMessage, completionHandler: CallBack?) {
+            let cell = viewCache.values.first(where: { cell -> Bool in
+                return cell.user?.uid == emoji.user.uid
+            })
+            cell?.play(emoji) { content in
+                completionHandler?()
+            }
+        }
+        
         private func bindSubviewEvent() {
 
         }

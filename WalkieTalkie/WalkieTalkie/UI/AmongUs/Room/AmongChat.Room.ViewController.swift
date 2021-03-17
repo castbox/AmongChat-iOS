@@ -52,6 +52,8 @@ extension AmongChat.Room {
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
         
+        private lazy var emojiPickerViewModel = AmongChat.Room.EmojiViewModel()
+        
         private var style = Style.normal {
             didSet {
                 UIView.animate(withDuration: 0.1) { [unowned self] in
@@ -592,6 +594,7 @@ extension AmongChat.Room.ViewController {
                 self?.room = room
                 self?.topBar.set(room)
                 self?.configView.room = room
+                self?.bottomBar.update(room)
 //                self?.toolView.set(room)
                 self?.seatView.room = room
                 //update list and other
@@ -740,6 +743,50 @@ extension AmongChat.Room.ViewController {
         viewModel.onUserJoinedHandler = { [weak self] message in
             self?.topEntranceView.add(message.user)
         }
+        
+        viewModel.messageHandler = { [weak self] message in
+            guard let `self` = self else {
+                return
+            }
+            switch message.msgType {
+            case .emoji:
+                guard let message = message as? ChatRoom.EmojiMessage,
+                      let seat = self.room.roomUserList.first(where: { $0.uid == message.user.uid }) else {
+                    return
+                }
+                let isSendByCurrentUser = seat.uid == Settings.loginUserId
+                if isSendByCurrentUser {
+                    //自己发的
+                    self.emojiPickerViewModel.itemIsSelectable = false
+                }
+                self.seatView.play(message) { [weak self] in
+                    if isSendByCurrentUser {
+                        self?.emojiPickerViewModel.itemIsSelectable = true
+                    }
+                }
+//                Logger.PageShow.logger("lv_rm_listener", "emoji_menu_imp", self.roomInfo.room_id, nil)
+                //麦上用户
+//                if self.roomInfo.type == .multi {
+//                    self.hostSeatView.play(message) { emoji in
+//                        if let userInfo = emoji?.userInfo,
+//                            userInfo.suid == currentUid {
+//                            self.emojiPickerViewModel.itemIsSelectable = true
+//                        }
+//                    }
+//
+//                } else if self.roomInfo.type == .dating {
+//                    self.datingView.play(message) { emoji in
+//                        if let userInfo = emoji?.userInfo,
+//                            userInfo.suid == currentUid {
+//                            self.emojiPickerViewModel.itemIsSelectable = true
+//                        }
+//                    }
+//                }
+
+            default:
+                ()
+            }
+        }
         //
         viewModel.addJoinMessage()
         
@@ -783,6 +830,20 @@ extension AmongChat.Room.ViewController {
         
         bottomBar.sendMessageHandler = { [weak self] in
             self?.editType = .message
+        }
+        
+        bottomBar.emojiHandler = { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
+            vc.didSelectItemHandler = { [weak self] emoji in
+                //
+                self?.viewModel.sendEmoji(emoji)
+//                Analytics.log(event: "lv_rm_listener", category: "emoji_menu_clk", name: self?.roomInfo.room_id)
+            }
+            vc.showModal(in: self)
+
         }
         
         bottomBar.shareHandler = { [weak self] in

@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="calcelKickButton" destination="dWS-gP-594" id="TkV-3A-V4y"/>
                 <outlet property="chatButton" destination="2Qu-aw-CJW" id="VSr-nq-c7Z"/>
+                <outlet property="emojiButton" destination="SKa-vb-OgV" id="mTI-UN-jht"/>
                 <outlet property="kickButton" destination="5wo-hj-acl" id="Z9s-VF-xAW"/>
                 <outlet property="kickToolContainer" destination="CRg-lQ-K5E" id="t3U-1b-JMa"/>
                 <outlet property="micButton" destination="owO-VN-chC" id="Zr8-HH-3wQ"/>
@@ -37,6 +38,17 @@
                     <state key="normal" image="ac_icon_send_message"/>
                     <connections>
                         <action selector="sendMessageButtonAction:" destination="-1" eventType="touchUpInside" id="F6A-KL-lPF"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKa-vb-OgV" userLabel="Emoji">
+                    <rect key="frame" x="82" y="0.0" width="42" height="42"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="42" id="1wg-DD-7H9"/>
+                        <constraint firstAttribute="height" constant="42" id="DZ3-sa-maO"/>
+                    </constraints>
+                    <state key="normal" image="ac_icon_send_emoji"/>
+                    <connections>
+                        <action selector="emojiButtonAction:" destination="-1" eventType="touchUpInside" id="F1V-2R-18h"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2H-0i-abU">
@@ -117,7 +129,10 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
+                <constraint firstItem="SKa-vb-OgV" firstAttribute="centerY" secondItem="2Qu-aw-CJW" secondAttribute="centerY" id="00M-0J-Wa6"/>
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CfV-IE-rUe"/>
+                <constraint firstItem="SKa-vb-OgV" firstAttribute="leading" secondItem="2Qu-aw-CJW" secondAttribute="trailing" constant="20" id="Fu7-5z-95J"/>
+                <constraint firstItem="SKa-vb-OgV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="82" id="JwJ-pM-31Q"/>
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XIQ-GK-m6H"/>
                 <constraint firstAttribute="bottom" secondItem="CRg-lQ-K5E" secondAttribute="bottom" id="Yp3-xa-9Ga"/>
                 <constraint firstItem="owO-VN-chC" firstAttribute="leading" secondItem="q2H-0i-abU" secondAttribute="trailing" constant="24" id="bHD-1K-w7C"/>
@@ -134,6 +149,7 @@
     </objects>
     <resources>
         <image name="ac_icon_mic_on" width="20" height="20"/>
+        <image name="ac_icon_send_emoji" width="42" height="42"/>
         <image name="ac_icon_send_message" width="42" height="42"/>
         <image name="ac_icon_share" width="42" height="42"/>
     </resources>
