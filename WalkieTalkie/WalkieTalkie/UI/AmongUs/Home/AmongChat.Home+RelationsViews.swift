@@ -677,10 +677,10 @@ extension AmongChat.Home {
     
     class VIPRecruitCell: UICollectionViewCell, KolodaViewDelegate, KolodaViewDataSource {
         
-        private static let edgeInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        private static let edgeInset = UIEdgeInsets(top: 24, left: 20, bottom: 24, right: 20)
         
         class var size: CGSize {
-            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 210 / 335
+            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 210 / 335 + edgeInset.top + edgeInset.bottom
             return CGSize(width: Frame.Screen.width, height: h)
         }
         
@@ -778,7 +778,9 @@ extension AmongChat.Home {
         
         private lazy var cardStack: KolodaView = {
             let k = KolodaView()
-            k.backgroundCardsTopMargin = 6
+            k.backgroundCardsTopMargin = 0
+            k.countOfVisibleCards = 1
+            k.backgroundCardsScalePercent = 1
             k.delegate = self
             k.dataSource = self
             k.alphaValueSemiTransparent = 1
