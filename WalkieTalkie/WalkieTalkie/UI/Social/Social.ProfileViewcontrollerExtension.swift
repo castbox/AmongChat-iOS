@@ -523,12 +523,12 @@ extension Social.ProfileViewController {
             leftIconIV.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.width.height.equalTo(40)
-                maker.leading.equalTo(16)
+                maker.leading.equalTo(24)
             }
             
             titleLabel.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
-                maker.leading.equalTo(leftIconIV.snp.trailing).offset(12)
+                maker.leading.equalTo(leftIconIV.snp.trailing).offset(16)
                 maker.trailing.lessThanOrEqualTo(rightIconIV.snp.leading).offset(-8)
             }
             

@@ -25,7 +25,7 @@ extension Social {
                 case .tiktok:
                     return R.image.ac_social_tiktok()
                 case .pro:
-                    return R.image.ac_pro_icon()
+                    return R.image.ac_profile_pro()
                 }
             }
             
