@@ -159,7 +159,6 @@ extension AmongChat.Home.RelationsViewController {
                         return
                     }
                     let content = ShareManager.Content(type: .profile, targetType: .snapchat, content: R.string.localizable.shareApp(), url: "https://among.chat/user?uid=\(Settings.loginUserId!)&sign=\(sign)")
-//                    let content = ShareManager.Content(type: .profile, targetType: .snapchat, content: R.string.localizable.shareApp(), url: "https://among.chat/room/UISIXIS")
                     ShareManager.default.share(with: content, .snapchat, viewController: self) {
                         removeHandler()
                     }

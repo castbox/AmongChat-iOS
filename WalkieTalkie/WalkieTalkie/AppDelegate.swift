@@ -65,13 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setGlobalAppearance()
         ChatRoomManager.shared.initialize()
-//        if let options = FirebaseOptions.defaultOptions() {
-//            options.deepLinkURLScheme = Config.scheme
-//            FirebaseApp.configure(options: options)
-//        } else {
-            FirebaseApp.configure()
-//        }
-//        FirebaseApp.configure()
+
+        FirebaseApp.configure()
+
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
