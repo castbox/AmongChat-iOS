@@ -2082,12 +2082,12 @@ struct R: Rswift.Validatable {
       static let amongChatRoomMinecraftNamePrefix = Rswift.StringResource(key: "among.chat.room.minecraft.name.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Get Verified
       /// 
-      /// Locales: en
-      static let amongChatVipRecruitTitle = Rswift.StringResource(key: "among.chat.vip.recruit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatVipRecruitTitle = Rswift.StringResource(key: "among.chat.vip.recruit.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Get in now!
       /// 
-      /// Locales: en
-      static let amongChatVipRecruitTitle2 = Rswift.StringResource(key: "among.chat.vip.recruit.title2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatVipRecruitTitle2 = Rswift.StringResource(key: "among.chat.vip.recruit.title2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2462,8 +2462,8 @@ struct R: Rswift.Validatable {
       static let amongChatCreateRoomCardTipTitle = Rswift.StringResource(key: "among.chat.create.room.card.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Remember your ID first, then let's go!
       /// 
-      /// Locales: en
-      static let amongChatVipRecruitMsg = Rswift.StringResource(key: "among.chat.vip.recruit.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatVipRecruitMsg = Rswift.StringResource(key: "among.chat.vip.recruit.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Remove
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2562,8 +2562,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomSetRebloxName = Rswift.StringResource(key: "among.chat.room.set.reblox.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set Your Age
       /// 
-      /// Locales: en
-      static let amongChatAgePromptTitle = Rswift.StringResource(key: "among.chat.age.prompt.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAgePromptTitle = Rswift.StringResource(key: "among.chat.age.prompt.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set up in-game code here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2774,8 +2774,8 @@ struct R: Rswift.Validatable {
       static let newAvatarsGuideSubtitle = Rswift.StringResource(key: "new.avatars.guide.subtitle", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Wanna match with other players more exactly? Set your real age now!
       /// 
-      /// Locales: en
-      static let amongChatAgePromptMsg = Rswift.StringResource(key: "among.chat.age.prompt.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAgePromptMsg = Rswift.StringResource(key: "among.chat.age.prompt.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Watch a short video to get one.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3569,14 +3569,14 @@ struct R: Rswift.Validatable {
       
       /// en translation: Get Verified
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatVipRecruitTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.vip.recruit.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Get in now!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatVipRecruitTitle2(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.vip.recruit.title2", bundle: R.hostingBundle, comment: "")
       }
@@ -4234,7 +4234,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Remember your ID first, then let's go!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatVipRecruitMsg(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.vip.recruit.msg", bundle: R.hostingBundle, comment: "")
       }
@@ -4409,7 +4409,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Set Your Age
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAgePromptTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.age.prompt.title", bundle: R.hostingBundle, comment: "")
       }
@@ -4780,7 +4780,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Wanna match with other players more exactly? Set your real age now!
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAgePromptMsg(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.age.prompt.msg", bundle: R.hostingBundle, comment: "")
       }
