@@ -173,7 +173,7 @@ class PremiumViewController: ViewController {
                 R.string.localizable.amongChatProPrivilegeUnlimitedCardsSub()
             ),
             (
-                R.image.ac_pro_privilege_badge(),
+                R.image.ac_pro_icon(),
                 R.string.localizable.amongChatProPrivilegeBadge(),
                 R.string.localizable.amongChatProPrivilegeBadgeSub()
             ),
@@ -420,7 +420,7 @@ extension PremiumViewController {
         Settings.shared.isProValue.replay()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] (isPro) in
-                self?.badgeIcon.image = isPro ? R.image.ac_pro_unlocked_badge() : R.image.ac_pro_unbuy_badge()
+                self?.badgeIcon.image = isPro ? R.image.ac_pro_icon() : R.image.ac_pro_unbuy_badge()
                 self?.titleLabel.text = isPro ? R.string.localizable.amongChatProfileProCenter() : R.string.localizable.profileUnlockPro()
                 guard isPro else { return }
                 
@@ -494,6 +494,7 @@ extension PremiumViewController {
         badgeIcon.snp.makeConstraints { (maker) in
             maker.trailing.centerY.equalTo(nameLayoutGuide)
             maker.leading.equalTo(nameLabel.snp.trailing).offset(4)
+            maker.width.height.equalTo(20)
         }
         
         let removableContentlayoutGuide = UILayoutGuide()
@@ -628,14 +629,14 @@ extension PremiumViewController {
             
             iconIV.snp.makeConstraints { (maker) in
                 maker.leading.centerY.equalToSuperview()
-                maker.width.height.equalTo(40)
-                maker.top.bottom.equalToSuperview().inset(4.5)
+                maker.width.height.equalTo(44)
+                maker.top.bottom.equalToSuperview().inset(2.5)
             }
             
             let textLayoutGuide = UILayoutGuide()
             addLayoutGuide(textLayoutGuide)
             textLayoutGuide.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(iconIV.snp.trailing).offset(8)
+                maker.leading.equalTo(iconIV.snp.trailing).offset(12)
                 maker.trailing.centerY.equalToSuperview()
             }
             

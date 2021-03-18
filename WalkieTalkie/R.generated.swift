@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 166 images.
+  /// This `R.image` struct is generated, and contains static references to 158 images.
   struct image {
     /// Image `ac_age_prompt_close`.
     static let ac_age_prompt_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_age_prompt_close")
@@ -350,10 +350,8 @@ struct R: Rswift.Validatable {
     static let ac_privileges_left_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_left_line")
     /// Image `ac_privileges_right_line`.
     static let ac_privileges_right_line = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_privileges_right_line")
-    /// Image `ac_pro_icon_24`.
-    static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
-    /// Image `ac_pro_privilege_badge`.
-    static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
+    /// Image `ac_pro_icon`.
+    static let ac_pro_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon")
     /// Image `ac_pro_privilege_match`.
     static let ac_pro_privilege_match = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_match")
     /// Image `ac_pro_privilege_no_ad`.
@@ -366,8 +364,6 @@ struct R: Rswift.Validatable {
     static let ac_pro_privilege_upload_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_upload_avatar")
     /// Image `ac_pro_unbuy_badge`.
     static let ac_pro_unbuy_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unbuy_badge")
-    /// Image `ac_pro_unlocked_badge`.
-    static let ac_pro_unlocked_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_unlocked_badge")
     /// Image `ac_profile_avatar`.
     static let ac_profile_avatar = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_avatar")
     /// Image `ac_profile_back`.
@@ -396,8 +392,6 @@ struct R: Rswift.Validatable {
     static let ac_profile_look_skin_default = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_look_skin_default")
     /// Image `ac_profile_more_icon`.
     static let ac_profile_more_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_more_icon")
-    /// Image `ac_profile_pro`.
-    static let ac_profile_pro = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_pro")
     /// Image `ac_profile_setting`.
     static let ac_profile_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_profile_setting")
     /// Image `ac_profile_username`.
@@ -522,18 +516,8 @@ struct R: Rswift.Validatable {
     static let icon_user_list_mic_block = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic_block")
     /// Image `icon_user_list_mic`.
     static let icon_user_list_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_user_list_mic")
-    /// Image `icon_verified_13`.
-    static let icon_verified_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_13")
-    /// Image `icon_verified_20`.
-    static let icon_verified_20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_20")
     /// Image `icon_verified`.
     static let icon_verified = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified")
-    /// Image `icon_vip_13`.
-    static let icon_vip_13 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_vip_13")
-    /// Image `icon_vip_20`.
-    static let icon_vip_20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_vip_20")
-    /// Image `icon_vip`.
-    static let icon_vip = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_vip")
     /// Image `launch_logo`.
     static let launch_logo = Rswift.ImageResource(bundle: R.hostingBundle, name: "launch_logo")
     /// Image `launch_name`.
@@ -881,14 +865,9 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_privileges_right_line, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_pro_icon_24", bundle: ..., traitCollection: ...)`
-    static func ac_pro_icon_24(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
-    static func ac_pro_privilege_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_pro_privilege_badge, compatibleWith: traitCollection)
+    /// `UIImage(named: "ac_pro_icon", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_pro_privilege_match", bundle: ..., traitCollection: ...)`
@@ -919,11 +898,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_pro_unbuy_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_unbuy_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_unbuy_badge, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_pro_unlocked_badge", bundle: ..., traitCollection: ...)`
-    static func ac_pro_unlocked_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_pro_unlocked_badge, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_avatar", bundle: ..., traitCollection: ...)`
@@ -994,11 +968,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_profile_more_icon", bundle: ..., traitCollection: ...)`
     static func ac_profile_more_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_profile_more_icon, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "ac_profile_pro", bundle: ..., traitCollection: ...)`
-    static func ac_profile_pro(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_profile_pro, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_profile_setting", bundle: ..., traitCollection: ...)`
@@ -1314,31 +1283,6 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_verified", bundle: ..., traitCollection: ...)`
     static func icon_verified(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_verified, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_verified_13", bundle: ..., traitCollection: ...)`
-    static func icon_verified_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_verified_13, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_verified_20", bundle: ..., traitCollection: ...)`
-    static func icon_verified_20(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_verified_20, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_vip", bundle: ..., traitCollection: ...)`
-    static func icon_vip(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_vip, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_vip_13", bundle: ..., traitCollection: ...)`
-    static func icon_vip_13(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_vip_13, compatibleWith: traitCollection)
-    }
-    
-    /// `UIImage(named: "icon_vip_20", bundle: ..., traitCollection: ...)`
-    static func icon_vip_20(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.icon_vip_20, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "launch_logo", bundle: ..., traitCollection: ...)`

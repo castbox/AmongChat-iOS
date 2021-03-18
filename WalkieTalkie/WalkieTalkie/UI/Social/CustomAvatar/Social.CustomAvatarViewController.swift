@@ -53,7 +53,7 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatCustomAvatarTakePhoto(), for: .normal)
             btn.backgroundColor = UIColor(hex6: 0x3D3D3D)
             btn.layer.cornerRadius = 24
-            btn.setImage(R.image.ac_pro_icon_24(), for: .normal)
+            btn.setImage(R.image.ac_pro_icon()?.scaled(toWidth: 24), for: .normal)
             btn.adjustsImageWhenHighlighted = false
             btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
             btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
@@ -68,7 +68,7 @@ extension Social {
             btn.setTitle(R.string.localizable.amongChatCustomAvatarSelectImage(), for: .normal)
             btn.backgroundColor = UIColor(hex6: 0x3D3D3D)
             btn.layer.cornerRadius = 24
-            btn.setImage(R.image.ac_pro_icon_24(), for: .normal)
+            btn.setImage(R.image.ac_pro_icon()?.scaled(toWidth: 24), for: .normal)
             btn.adjustsImageWhenHighlighted = false
             btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
             btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)

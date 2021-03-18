@@ -22,16 +22,14 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var extraTopPadding: CGFloat = 0
         var image: UIImage {
             if fontSize == 12 {
-                return R.image.icon_verified_13()!
             } else if fontSize > 24  {
                 extraTopPadding = -2
-                return R.image.icon_verified_20()!
             }
             return R.image.icon_verified()!
         }
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - fontSize)/2 + extraTopPadding, width: fontSize, height: fontSize)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
         fullString.yy_appendString(" ")
@@ -43,16 +41,14 @@ func attribuated(with name: String?, isVerified: Bool?, isVip: Bool?, fontSize: 
         var extraTopPadding: CGFloat = 0
         var image: UIImage {
             if fontSize == 12 {
-                return R.image.icon_vip_13()!
             } else if fontSize > 24  {
                 extraTopPadding = -2
-                return R.image.icon_vip_20()!
             }
-            return R.image.icon_vip()!
+            return R.image.ac_pro_icon()!
         }
         let imageAttachment = NSTextAttachment()
         imageAttachment.image = image
-        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2 + extraTopPadding, width: image.size.width, height: image.size.height)
+        imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - fontSize)/2 + extraTopPadding, width: fontSize, height: fontSize)
 
         let imageString = NSAttributedString(attachment: imageAttachment)
         fullString.yy_appendString(" ")
