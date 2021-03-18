@@ -779,7 +779,7 @@ extension AmongChat.Home {
                 }
                 
                 titleLabel2.snp.makeConstraints { (maker) in
-                    maker.leading.equalToSuperview().inset(32)
+                    maker.leading.trailing.equalToSuperview().inset(32)
                     maker.top.equalTo(titleLabel.snp.bottom)
                     maker.height.equalTo(22)
                 }
