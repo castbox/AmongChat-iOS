@@ -695,9 +695,24 @@ extension AmongChat.Home {
             
             private lazy var titleLabel: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoBold(size: 16)
+                lb.font = R.font.nunitoExtraBold(size: 24)
                 lb.textColor = .white
                 lb.text = R.string.localizable.amongChatVipRecruitTitle()
+                lb.textAlignment = .center
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            private lazy var badgeIcon: UIImageView = {
+                let i = UIImageView(image: R.image.icon_verified())
+                return i
+            }()
+            
+            private lazy var titleLabel2: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 16)
+                lb.textColor = .white
+                lb.text = R.string.localizable.amongChatVipRecruitTitle2()
                 lb.textAlignment = .center
                 lb.adjustsFontSizeToFitWidth = true
                 return lb
@@ -744,16 +759,23 @@ extension AmongChat.Home {
             private func setUpLayout() {
                 layer.cornerRadius = 24
                 layer.masksToBounds = true
-                addSubviews(views: bg, titleLabel, msgLabel, goBtn)
+                addSubviews(views: bg, titleLabel, badgeIcon, titleLabel2, msgLabel, goBtn)
                 
                 bg.snp.makeConstraints { (maker) in
                     maker.edges.equalToSuperview()
                 }
                 
                 titleLabel.snp.makeConstraints { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalToSuperview().inset(47)
-                    maker.height.equalTo(22)
+                    maker.leading.equalToSuperview().inset(32)
+                    maker.top.equalToSuperview().inset(24)
+                    maker.height.equalTo(33)
+                }
+                
+                badgeIcon.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(titleLabel.snp.trailing).offset(4)
+                    maker.width.height.equalTo(23)
+                    maker.centerY.equalTo(titleLabel)
+                    maker.trailing.greaterThanOrEqualToSuperview().inset(32)
                 }
                 
                 msgLabel.snp.makeConstraints { (maker) in
