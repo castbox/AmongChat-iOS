@@ -65,7 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setGlobalAppearance()
         ChatRoomManager.shared.initialize()
+
         FirebaseApp.configure()
+
         updateUserProperty()
 //        UserProperty.logUserID(String(Constants.sUserId))
         
@@ -108,12 +110,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        cdPrint("open url: \(url)")
+        cdPrint("application open url: \(url)")
         if SCSDKLoginClient.application(app, open: url, options: options) {
             return true
-        } else if url.scheme == Config.scheme  {
-            guard let parsedURL = BFURL(url: url) else { return false }
-            return Routes.handle(parsedURL.targetURL)
+        } else if url.scheme == Config.scheme,
+                  let parsedURL = BFURL(url: url),
+                  !parsedURL.targetURL.absoluteString.contains("google/link"), //ignore firebase dynamic deep link
+                  Routes.handle(parsedURL.targetURL) {
+            return true
         }
         else if url.absoluteString.hasPrefix("com.googleusercontent.apps") {
             return GIDSignIn.sharedInstance().handle(url)
@@ -125,7 +129,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         }
         return FireLink.handle(dynamicLink: url) { [weak self] url in
-            cdPrint("url: \(String(describing: url))")
+            cdPrint("handle dynamicLink url: \(String(describing: url))")
             guard let url = url else {
                 return
             }
