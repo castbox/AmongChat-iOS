@@ -704,7 +704,7 @@ extension AmongChat.Home {
             }()
             
             private lazy var badgeIcon: UIImageView = {
-                let i = UIImageView(image: R.image.icon_verified())
+                let i = UIImageView(image: R.image.icon_verified_23())
                 return i
             }()
             
