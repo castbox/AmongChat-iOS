@@ -99,7 +99,8 @@ class ZegoRtcManager: NSObject, RtcManageable {
         
         mRtcEngine.loginRoom(joinable.roomId, user: ZegoUser(userID: userId.string, userName: user?.name ?? ""), config: config)
         
-        setClientRole(.broadcaster)
+//        setClientRole(.broadcaster)
+        mic(muted: false)
     }
     
     func update(joinable: RTCJoinable) {
