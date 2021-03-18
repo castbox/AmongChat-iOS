@@ -819,6 +819,11 @@ extension AmongChat.Room.ViewController {
         topBar.reportHandler = { [weak self] in
             self?.showReportSheet()
         }
+        
+//        topBar.nextRoomHandler = { [weak self] in
+//            self?.
+//        }
+        
         topBar.changePublicStateHandler = { [weak self] in
             guard let `self` = self else { return }
             self.topBar.isIndicatorAnimate = true
