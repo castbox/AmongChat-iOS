@@ -816,7 +816,7 @@ extension AmongChat.Home {
             return k
         }()
         private var goHandler: CallBack?
-        private var runOutOfCardsHandler: CallBack?
+        private var ignoreHandler: CallBack?
                 
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -836,9 +836,9 @@ extension AmongChat.Home {
         }
         
         func bind(goHandler: @escaping CallBack,
-                  onRunOutOfCards: @escaping CallBack) {
+                  ignoreHandler: @escaping CallBack) {
             self.goHandler = goHandler
-            runOutOfCardsHandler = onRunOutOfCards
+            self.ignoreHandler = ignoreHandler
         }
         
         // MARK: - koloda
@@ -868,13 +868,15 @@ extension AmongChat.Home {
             switch direction {
             case .right:
                 goHandler?()
+            case .left:
+                ignoreHandler?()
             default:
                 ()
             }
         }
         
         func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-            runOutOfCardsHandler?()
+            cardStack.resetCurrentCardIndex()
         }
     }
     
