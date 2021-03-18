@@ -698,7 +698,7 @@ extension AmongChat.Home {
                 lb.font = R.font.nunitoExtraBold(size: 24)
                 lb.textColor = .white
                 lb.text = R.string.localizable.amongChatVipRecruitTitle()
-                lb.textAlignment = .center
+                lb.textAlignment = .left
                 lb.adjustsFontSizeToFitWidth = true
                 return lb
             }()
@@ -713,16 +713,16 @@ extension AmongChat.Home {
                 lb.font = R.font.nunitoBold(size: 16)
                 lb.textColor = .white
                 lb.text = R.string.localizable.amongChatVipRecruitTitle2()
-                lb.textAlignment = .center
+                lb.textAlignment = .left
                 lb.adjustsFontSizeToFitWidth = true
                 return lb
             }()
             
             private lazy var msgLabel: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoExtraBold(size: 24)
+                lb.font = R.font.nunitoBold(size: 16)
                 lb.textColor = .white
-                lb.textAlignment = .center
+                lb.textAlignment = .left
                 lb.adjustsFontSizeToFitWidth = true
                 lb.text = R.string.localizable.amongChatVipRecruitMsg()
                 return lb
@@ -775,18 +775,24 @@ extension AmongChat.Home {
                     maker.leading.equalTo(titleLabel.snp.trailing).offset(4)
                     maker.width.height.equalTo(23)
                     maker.centerY.equalTo(titleLabel)
-                    maker.trailing.greaterThanOrEqualToSuperview().inset(32)
+                    maker.trailing.lessThanOrEqualTo(-32)
+                }
+                
+                titleLabel2.snp.makeConstraints { (maker) in
+                    maker.leading.equalToSuperview().inset(32)
+                    maker.top.equalTo(titleLabel.snp.bottom)
+                    maker.height.equalTo(22)
                 }
                 
                 msgLabel.snp.makeConstraints { (maker) in
                     maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalTo(titleLabel.snp.bottom).offset(2)
-                    maker.height.equalTo(33)
+                    maker.top.equalTo(titleLabel2.snp.bottom).offset(14)
+                    maker.height.equalTo(22)
                 }
                 
                 goBtn.snp.makeConstraints { (maker) in
                     maker.centerX.equalToSuperview()
-                    maker.top.equalTo(msgLabel.snp.bottom).offset(24)
+                    maker.top.equalTo(msgLabel.snp.bottom).offset(37)
                     maker.height.equalTo(36)
                 }
                 
