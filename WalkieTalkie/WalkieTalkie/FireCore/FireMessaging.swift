@@ -11,11 +11,16 @@
  import FirebaseMessaging
  import FirebaseInstanceID
  import RxSwift
+ import CastboxDebuger
  
  /// https://firebase.google.com/docs/cloud-messaging/?authuser=0
  fileprivate let defaultHotTopic = ["hot-amongus"]
  private let oldHotTopic = ["hot"]
- //private func print()
+
+ 
+ fileprivate func cdPrint(_ message: Any) {
+     Debug.info("[FireMessaging]-\(message)")
+ }
  
  class FireMessaging: NSObject {
     
@@ -231,6 +236,7 @@
  extension FireMessaging: UNUserNotificationCenterDelegate {
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        cdPrint("userNotificationCenter willPresent- \(notification.request.content.userInfo)")
         let nilableMessage = APNSMessage(notification.request.content.userInfo)
         addPushLogger(.receive, msg: nilableMessage)
         guard let msg = nilableMessage else {
@@ -251,6 +257,7 @@
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let payload = response.notification.request.content.userInfo
+        cdPrint("userNotificationCenter didReceive- \(payload)")
         handleRemoteNotificationPayload(payload, withActionIdentifier: response.actionIdentifier)
         completionHandler()
     }
