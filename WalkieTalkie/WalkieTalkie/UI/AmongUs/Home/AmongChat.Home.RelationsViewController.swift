@@ -377,15 +377,22 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if section == 0 {
-            if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
+        
+        guard let item = dataSource.safe(section) else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
+        
+        switch item.group {
+        case .vipRecruit:
+            return CGSize(width: Frame.Screen.width, height: 0)
+        case .playing:
+            if item.userLsit.count > 0 {
                 return CGSize(width: Frame.Screen.width, height: 74)
-            } else if dataSource.safe(section)?.group == .vipRecruit {
-                return CGSize(width: Frame.Screen.width, height: 0)
             } else {
                 return CGSize(width: Frame.Screen.width, height: 94)
             }
-        } else {
+
+        default:
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }
     }
