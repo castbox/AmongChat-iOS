@@ -756,6 +756,14 @@ extension AmongChat.Home {
                 fatalError("init(coder:) has not been implemented")
             }
             
+            override func layoutSubviews() {
+                super.layoutSubviews()
+                titleLabel.font = R.font.nunitoExtraBold(size: 24.0 / 210 * bounds.height)
+                titleLabel2.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
+                msgLabel.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
+                goBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 16.0 / 210 * bounds.height)
+            }
+            
             private func setUpLayout() {
                 layer.cornerRadius = 24
                 layer.masksToBounds = true
@@ -768,7 +776,7 @@ extension AmongChat.Home {
                 titleLabel.snp.makeConstraints { (maker) in
                     maker.leading.equalToSuperview().inset(32)
                     maker.top.equalToSuperview().inset(24)
-                    maker.height.equalTo(33)
+                    maker.height.equalToSuperview().multipliedBy(33.0 / 210)
                 }
                 
                 badgeIcon.snp.makeConstraints { (maker) in
@@ -781,13 +789,13 @@ extension AmongChat.Home {
                 titleLabel2.snp.makeConstraints { (maker) in
                     maker.leading.trailing.equalToSuperview().inset(32)
                     maker.top.equalTo(titleLabel.snp.bottom)
-                    maker.height.equalTo(22)
+                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
                 }
                 
                 msgLabel.snp.makeConstraints { (maker) in
                     maker.leading.trailing.equalToSuperview().inset(32)
                     maker.top.equalTo(titleLabel2.snp.bottom).offset(14)
-                    maker.height.equalTo(22)
+                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
                 }
                 
                 goBtn.snp.makeConstraints { (maker) in
