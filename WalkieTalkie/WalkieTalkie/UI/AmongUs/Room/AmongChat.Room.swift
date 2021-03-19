@@ -11,3 +11,7 @@ import Foundation
 extension AmongChat {
     struct Room {}
 }
+
+extension AmongChat.Room {
+    
+}

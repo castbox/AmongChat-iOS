@@ -2476,8 +2476,8 @@ struct R: Rswift.Validatable {
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please sign in first to apply
       /// 
-      /// Locales: en
-      static let amongChatLoginAuthTipApply = Rswift.StringResource(key: "among.chat.login.auth.tip.apply", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatLoginAuthTipApply = Rswift.StringResource(key: "among.chat.login.auth.tip.apply", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please sign in/sign up first to %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4210,7 +4210,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Please sign in first to apply
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginAuthTipApply(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.tip.apply", bundle: R.hostingBundle, comment: "")
       }
@@ -5156,6 +5156,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "ac_icon_kick_user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_kick_user' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_icon_room_next", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_next' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }

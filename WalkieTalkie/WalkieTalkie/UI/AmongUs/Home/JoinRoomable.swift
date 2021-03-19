@@ -17,6 +17,8 @@ struct ParentPageSource {
     let key: String
 
     static let matchSource = ParentPageSource(key: "match")
+    //快速切换
+    static let roomSource = ParentPageSource(key: "room")
     
     enum Page: String {
         case none
@@ -27,6 +29,7 @@ struct ParentPageSource {
         case create_match ////hottopic
         
         case join_friend_room
+        case room //
     }
     
     var page: Page {
