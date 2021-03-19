@@ -352,3 +352,4 @@
 "among.chat.vip.recruit.title" = "Être vérifié";
 "among.chat.vip.recruit.title2" = "Entrez maintenant!";
 "among.chat.vip.recruit.msg" = "Rappelez-vous d'abord votre ID, puis allons-y!";
+"among.chat.login.auth.tip.apply" = "Veuillez d\'abord vous connecter pour postuler";
