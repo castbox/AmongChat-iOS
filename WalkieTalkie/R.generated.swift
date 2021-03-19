@@ -2476,8 +2476,8 @@ struct R: Rswift.Validatable {
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please sign in first to apply
       /// 
-      /// Locales: en
-      static let amongChatLoginAuthTipApply = Rswift.StringResource(key: "among.chat.login.auth.tip.apply", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatLoginAuthTipApply = Rswift.StringResource(key: "among.chat.login.auth.tip.apply", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Please sign in/sign up first to %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4210,7 +4210,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Please sign in first to apply
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginAuthTipApply(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.auth.tip.apply", bundle: R.hostingBundle, comment: "")
       }
