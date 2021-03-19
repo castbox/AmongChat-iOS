@@ -748,35 +748,16 @@ extension AmongChat.Room.ViewController {
                       let seat = self.room.roomUserList.first(where: { $0.uid == message.user.uid }) else {
                     return
                 }
-                let isSendByCurrentUser = seat.uid == Settings.loginUserId
-                if isSendByCurrentUser {
-                    //自己发的
-                    self.emojiPickerViewModel.itemIsSelectable = false
-                }
-                self.seatView.play(message) { [weak self] in
-                    if isSendByCurrentUser {
-                        self?.emojiPickerViewModel.itemIsSelectable = true
-                    }
-                }
-//                Logger.PageShow.logger("lv_rm_listener", "emoji_menu_imp", self.roomInfo.room_id, nil)
-                //麦上用户
-//                if self.roomInfo.type == .multi {
-//                    self.hostSeatView.play(message) { emoji in
-//                        if let userInfo = emoji?.userInfo,
-//                            userInfo.suid == currentUid {
-//                            self.emojiPickerViewModel.itemIsSelectable = true
-//                        }
-//                    }
-//
-//                } else if self.roomInfo.type == .dating {
-//                    self.datingView.play(message) { emoji in
-//                        if let userInfo = emoji?.userInfo,
-//                            userInfo.suid == currentUid {
-//                            self.emojiPickerViewModel.itemIsSelectable = true
-//                        }
-//                    }
+//                let isSendByCurrentUser = seat.uid == Settings.loginUserId
+//                if isSendByCurrentUser {
+//                    //自己发的
+//                    self.emojiPickerViewModel.itemIsSelectable = false
 //                }
-
+                self.seatView.play(message) { [weak self] in
+//                    if isSendByCurrentUser {
+//                        self?.emojiPickerViewModel.itemIsSelectable = true
+//                    }
+                }
             default:
                 ()
             }
@@ -837,11 +818,12 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else {
                 return
             }
+            Logger.Action.log(.room_emoji_clk, categoryValue: self.room.topicId)
             let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
             vc.didSelectItemHandler = { [weak self] emoji in
                 //
+                Logger.Action.log(.room_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
                 self?.viewModel.sendEmoji(emoji)
-//                Analytics.log(event: "lv_rm_listener", category: "emoji_menu_clk", name: self?.roomInfo.room_id)
             }
             vc.showModal(in: self)
 

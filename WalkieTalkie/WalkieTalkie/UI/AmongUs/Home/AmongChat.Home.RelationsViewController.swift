@@ -261,6 +261,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         return
                     }
                     self?.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
+                    Logger.Action.log(.home_friends_apply_verified)
                     self?.viewModel.checkVipRecruit()
                 }, ignoreHandler: { [weak self] in
                     self?.viewModel.checkVipRecruit()
@@ -269,7 +270,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             
             return cell
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

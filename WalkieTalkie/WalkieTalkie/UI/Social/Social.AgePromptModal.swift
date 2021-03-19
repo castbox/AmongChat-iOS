@@ -13,6 +13,8 @@ extension Social {
     
     class AgePromptModal: WalkieTalkie.ViewController {
         
+        var topicId: String?
+        
         private lazy var promptView: UIView = {
             let v = UIView()
             v.backgroundColor = UIColor(hex6: 0x222222)
@@ -178,6 +180,7 @@ extension Social {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
+            Logger.Action.log(.room_enter_set_age_imp, categoryValue: topicId)
         }
         
     }
@@ -193,6 +196,7 @@ extension Social.AgePromptModal {
     
     @objc
     private func onGoBtn() {
+        Logger.Action.log(.room_enter_set_age_confirm, categoryValue: topicId)
         
         promptView.removeFromSuperview()
         
@@ -220,6 +224,8 @@ extension Social.AgePromptModal {
             dismissSelf()
             return
         }
+        
+        Logger.Action.log(.room_enter_set_age_save, categoryValue: topicId)
         
         let df = DateFormatter()
         df.dateFormat = "yyyyMMdd"
@@ -288,7 +294,7 @@ extension Social.AgePromptModal {
 
 extension Social.AgePromptModal {
     
-    class func showModalIfNeeded(fromVC: UIViewController, completion: @escaping (() -> Void) ) {
+    class func showModalIfNeeded(fromVC: UIViewController, topicId: String, completion: @escaping (() -> Void) ) {
         
         guard FireRemote.shared.value.age_prompt_enable,
             Settings.shared.amongChatUserProfile.value?.birthday?.isEmpty ?? true,
@@ -298,6 +304,7 @@ extension Social.AgePromptModal {
         }
         
         let prompt = Social.AgePromptModal()
+        prompt.topicId = topicId
         prompt.completion = completion
         prompt.modalPresentationStyle = .overCurrentContext
         fromVC.present(prompt, animated: false)
