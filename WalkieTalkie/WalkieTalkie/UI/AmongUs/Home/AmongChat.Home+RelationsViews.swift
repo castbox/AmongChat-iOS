@@ -695,19 +695,34 @@ extension AmongChat.Home {
             
             private lazy var titleLabel: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoBold(size: 16)
+                lb.font = R.font.nunitoExtraBold(size: 24)
                 lb.textColor = .white
                 lb.text = R.string.localizable.amongChatVipRecruitTitle()
-                lb.textAlignment = .center
+                lb.textAlignment = .left
+                lb.adjustsFontSizeToFitWidth = true
+                return lb
+            }()
+            
+            private lazy var badgeIcon: UIImageView = {
+                let i = UIImageView(image: R.image.icon_verified_23())
+                return i
+            }()
+            
+            private lazy var titleLabel2: UILabel = {
+                let lb = UILabel()
+                lb.font = R.font.nunitoBold(size: 16)
+                lb.textColor = .white
+                lb.text = R.string.localizable.amongChatVipRecruitTitle2()
+                lb.textAlignment = .left
                 lb.adjustsFontSizeToFitWidth = true
                 return lb
             }()
             
             private lazy var msgLabel: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoExtraBold(size: 24)
+                lb.font = R.font.nunitoBold(size: 16)
                 lb.textColor = .white
-                lb.textAlignment = .center
+                lb.textAlignment = .left
                 lb.adjustsFontSizeToFitWidth = true
                 lb.text = R.string.localizable.amongChatVipRecruitMsg()
                 return lb
@@ -741,30 +756,51 @@ extension AmongChat.Home {
                 fatalError("init(coder:) has not been implemented")
             }
             
+            override func layoutSubviews() {
+                super.layoutSubviews()
+                titleLabel.font = R.font.nunitoExtraBold(size: 24.0 / 210 * bounds.height)
+                titleLabel2.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
+                msgLabel.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
+                goBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 16.0 / 210 * bounds.height)
+            }
+            
             private func setUpLayout() {
                 layer.cornerRadius = 24
                 layer.masksToBounds = true
-                addSubviews(views: bg, titleLabel, msgLabel, goBtn)
+                addSubviews(views: bg, titleLabel, badgeIcon, titleLabel2, msgLabel, goBtn)
                 
                 bg.snp.makeConstraints { (maker) in
                     maker.edges.equalToSuperview()
                 }
                 
                 titleLabel.snp.makeConstraints { (maker) in
+                    maker.leading.equalToSuperview().inset(32)
+                    maker.top.equalToSuperview().inset(24)
+                    maker.height.equalToSuperview().multipliedBy(33.0 / 210)
+                }
+                
+                badgeIcon.snp.makeConstraints { (maker) in
+                    maker.leading.equalTo(titleLabel.snp.trailing).offset(4)
+                    maker.width.height.equalTo(23)
+                    maker.centerY.equalTo(titleLabel)
+                    maker.trailing.lessThanOrEqualTo(-32)
+                }
+                
+                titleLabel2.snp.makeConstraints { (maker) in
                     maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalToSuperview().inset(47)
-                    maker.height.equalTo(22)
+                    maker.top.equalTo(titleLabel.snp.bottom)
+                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
                 }
                 
                 msgLabel.snp.makeConstraints { (maker) in
                     maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalTo(titleLabel.snp.bottom).offset(2)
-                    maker.height.equalTo(33)
+                    maker.top.equalTo(titleLabel2.snp.bottom).offset(14)
+                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
                 }
                 
                 goBtn.snp.makeConstraints { (maker) in
                     maker.centerX.equalToSuperview()
-                    maker.top.equalTo(msgLabel.snp.bottom).offset(24)
+                    maker.top.equalTo(msgLabel.snp.bottom).offset(37)
                     maker.height.equalTo(36)
                 }
                 
@@ -788,7 +824,7 @@ extension AmongChat.Home {
             return k
         }()
         private var goHandler: CallBack?
-        private var runOutOfCardsHandler: CallBack?
+        private var ignoreHandler: CallBack?
                 
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -808,9 +844,9 @@ extension AmongChat.Home {
         }
         
         func bind(goHandler: @escaping CallBack,
-                  onRunOutOfCards: @escaping CallBack) {
+                  ignoreHandler: @escaping CallBack) {
             self.goHandler = goHandler
-            runOutOfCardsHandler = onRunOutOfCards
+            self.ignoreHandler = ignoreHandler
         }
         
         // MARK: - koloda
@@ -840,13 +876,15 @@ extension AmongChat.Home {
             switch direction {
             case .right:
                 goHandler?()
+            case .left:
+                ignoreHandler?()
             default:
                 ()
             }
         }
         
         func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-            runOutOfCardsHandler?()
+            cardStack.resetCurrentCardIndex()
         }
     }
     

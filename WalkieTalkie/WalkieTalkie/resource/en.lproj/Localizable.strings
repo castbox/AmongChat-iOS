@@ -349,5 +349,6 @@
 //1.16
 "among.chat.age.prompt.title" = "Set Your Age";
 "among.chat.age.prompt.msg" = "Wanna match with other players more exactly? Set your real age now!";
-"among.chat.vip.recruit.title" = "To be a Verified User";
+"among.chat.vip.recruit.title" = "Get Verified";
+"among.chat.vip.recruit.title2" = "Get in now!";
 "among.chat.vip.recruit.msg" = "Remember your ID first, then let's go!";
