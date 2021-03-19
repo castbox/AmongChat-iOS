@@ -17,7 +17,8 @@
             <connections>
                 <outlet property="indicatorView" destination="xwU-py-alq" id="h4p-5e-xli"/>
                 <outlet property="kickButton" destination="NIv-N4-bFM" id="kBX-Cf-iU3"/>
-                <outlet property="leaveButton" destination="39w-62-qes" id="6nH-W0-Etx"/>
+                <outlet property="leaveButton" destination="5Dq-VT-bJT" id="zfv-1S-Hhe"/>
+                <outlet property="nextButton" destination="39w-62-qes" id="O27-pt-9x0"/>
                 <outlet property="publicButton" destination="nnL-fi-G2g" id="6Tw-wY-g5A"/>
             </connections>
         </placeholder>
@@ -64,19 +65,35 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="39w-62-qes" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                    <rect key="frame" x="360" y="13" width="44" height="24"/>
+                    <rect key="frame" x="308" y="13" width="44" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="44" id="ipA-dK-yhb"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
-                    <state key="normal" title="Next" image="ac_icon_leave">
+                    <state key="normal" title="Next" image="ac_icon_room_next">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="among.chat.login.next"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="nextRoomButtonAction:" destination="-1" eventType="touchUpInside" id="vHM-rR-zZj"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Dq-VT-bJT" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                    <rect key="frame" x="360" y="13" width="44" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Zvi-dP-wxD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                    <state key="normal" title="Leave" image="ac_icon_leave">
+                        <color key="titleColor" red="0.98431372549019602" green="0.34509803921568627" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.leave"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="Nke-EM-h0Q"/>
+                        <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="FvM-BZ-0BM"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
@@ -97,7 +114,7 @@
                     </connections>
                 </button>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="xwU-py-alq">
-                    <rect key="frame" x="330" y="15" width="20" height="20"/>
+                    <rect key="frame" x="278" y="15" width="20" height="20"/>
                 </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -109,9 +126,11 @@
                 <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="gGA-VZ-FHM" secondAttribute="centerY" id="KTm-Yf-80V"/>
                 <constraint firstItem="gGA-VZ-FHM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="NWV-LH-l6W"/>
                 <constraint firstItem="39w-62-qes" firstAttribute="leading" secondItem="xwU-py-alq" secondAttribute="trailing" constant="10" id="YVt-PD-CM6"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="39w-62-qes" secondAttribute="trailing" constant="10" id="Zoh-4f-pw5"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="39w-62-qes" secondAttribute="trailing" constant="62" id="Zoh-4f-pw5"/>
                 <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="gGA-VZ-FHM" secondAttribute="trailing" constant="4" id="aI6-5a-Mv3"/>
+                <constraint firstAttribute="trailing" secondItem="5Dq-VT-bJT" secondAttribute="trailing" constant="10" id="cV1-QZ-MyM"/>
                 <constraint firstItem="39w-62-qes" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="hEc-Nh-eGn"/>
+                <constraint firstItem="5Dq-VT-bJT" firstAttribute="centerY" secondItem="39w-62-qes" secondAttribute="centerY" id="ki5-NX-Xzi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-246.37681159420291" y="141.29464285714286"/>
@@ -120,6 +139,8 @@
     <resources>
         <image name="ac_icon_kick_user" width="24" height="24"/>
         <image name="ac_icon_leave" width="24" height="24"/>
+        <image name="ac_icon_room_next" width="24" height="24"/>
         <image name="ac_icon_room_report" width="24.5" height="24"/>
     </resources>
 </document>
+
