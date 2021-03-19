@@ -511,7 +511,7 @@ extension AmongChat.Room {
         }
         
         //快速切换房间
-        func nextRoom(completionHandler: ((_ errorMessage: String?) -> Void)?) {
+        func nextRoom(completionHandler: ((_ room: Entity.Room?, _ errorMessage: String?) -> Void)?) {
             //clear status
             let topicId = room.topicId
             requestLeaveChannel()
@@ -530,8 +530,8 @@ extension AmongChat.Room {
                     guard let room = room else {
                         return
                     }
-                    self?.update(room)
-                    completionHandler?(nil)
+//                    self?.update(room)
+                    completionHandler?(room, nil)
                 }, onError: { error in
     //                completion()
                     cdPrint("error: \(error.localizedDescription)")
@@ -545,7 +545,7 @@ extension AmongChat.Room {
                             return R.string.localizable.amongChatHomeEnterRoomFailed()
                         }
                     }
-                    completionHandler?(msg)
+                    completionHandler?(nil, msg)
                 })
                 .disposed(by: bag)
 

@@ -86,8 +86,8 @@ target 'WalkieTalkie' do
 
     pod 'JLRoutes'
     
-#    pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
-    pod 'LookinServer', :configurations => ['Debug']
+    pod 'Reveal-SDK', '4',       :configurations => ["Debug"]
+#    pod 'LookinServer', :configurations => ['Debug']
 
     #https://github.com/realm/SwiftLint
     pod 'SwiftLint', '0.31.0',        :configurations => ["Debug"]

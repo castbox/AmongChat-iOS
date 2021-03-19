@@ -52,6 +52,8 @@ extension AmongChat.Room {
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
         
+        var switchLiveRoomHandler: ((Entity.Room) -> Void)?
+        
         private lazy var emojiPickerViewModel = AmongChat.Room.EmojiViewModel()
         
         private var style = Style.normal {
@@ -927,10 +929,13 @@ extension AmongChat.Room.ViewController {
     func nextRoom() {
         let removeBlock = view.raft.show(.loading)
         view.isUserInteractionEnabled = false
-        viewModel.nextRoom { [weak self] errorMsg in
+        viewModel.nextRoom { [weak self] room, errorMsg in
             removeBlock()
             self?.view.isUserInteractionEnabled = true
-            self?.startRtcAndImService()
+//            self?.startRtcAndImService()
+            if let room = room {
+                self?.switchLiveRoomHandler?(room)
+            }
         }
 //        viewModel.nextRoom
 //        requestLeaveRoom(completionHandler: { [weak self] in

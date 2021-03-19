@@ -190,7 +190,6 @@ PODS:
   - Koloda (5.0.1):
     - pop (~> 1.0)
   - loady (1.0.5)
-  - LookinServer (1.0.0)
   - MarqueeLabel (4.0.5)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.5.0)
@@ -228,6 +227,7 @@ PODS:
     - R.swift.Library (~> 5.0.0)
   - R.swift.Library (5.0.1)
   - RAMAnimatedTabBarController (5.2.0)
+  - Reveal-SDK (4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -325,7 +325,6 @@ DEPENDENCIES:
   - Kingfisher
   - Koloda
   - loady
-  - LookinServer
   - MBProgressHUD (~> 1.0.0)
   - MJRefresh (~> 3.5.0)
   - mopub-ios-sdk/Core
@@ -336,6 +335,7 @@ DEPENDENCIES:
   - PullToDismiss (~> 2.2)
   - R.swift (~> 5.0.2)
   - RAMAnimatedTabBarController
+  - Reveal-SDK (= 4)
   - RxCocoa
   - RxGesture (= 3.0.2)
   - SDCAlertView
@@ -398,7 +398,6 @@ SPEC REPOS:
     - Kingfisher
     - Koloda
     - loady
-    - LookinServer
     - MarqueeLabel
     - MBProgressHUD
     - MJRefresh
@@ -418,6 +417,7 @@ SPEC REPOS:
     - R.swift
     - R.swift.Library
     - RAMAnimatedTabBarController
+    - Reveal-SDK
     - RxCocoa
     - RxGesture
     - RxRelay
@@ -495,7 +495,6 @@ SPEC CHECKSUMS:
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
   Koloda: d07b9199a383abc5898b62aa945a599f5e7c0c4b
   loady: f61bf59437eff190c80f0bd113783879bf3dc8f9
-  LookinServer: 0002891cd3cec5e082a910e897dfe71b4f06b89e
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
@@ -515,6 +514,7 @@ SPEC CHECKSUMS:
   R.swift: f5a87643b91ea569d23d6afb3eee9c743edde239
   R.swift.Library: cfe85d569d9bae6cb262922db130e7c3a7a5fad1
   RAMAnimatedTabBarController: 6863a386e7ae2ab227cd60aa73ab8ff56cdacfdd
+  Reveal-SDK: 178c927f1a3230648d3a92b96f6e730a35b2750a
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
@@ -539,6 +539,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 5b05016bf7659464ab87f3859f6e2bc041d0f44a
+PODFILE CHECKSUM: 5a472065c5fc4fc4175e2db1db4b6e0c54004c70
 
 COCOAPODS: 1.10.0
