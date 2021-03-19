@@ -515,13 +515,13 @@ extension AmongChat.Room {
             //clear status
             let topicId = room.topicId
             requestLeaveChannel()
-                .do(onNext: { [weak self] result in
-                    cdPrint("nextRoom leave room: \(result)")
-                    let emptyRoom = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "", roomUserList: [], state: .public, topicId: topicId, topicName: "", rtcType: .agora, rtcBitRate: nil, coverUrl: nil)
-                    self?.update(emptyRoom)
-                    self?.messages = []
-                    self?.triggerMessageListReload()
-                })
+//                .do(onNext: { [weak self] result in
+//                    cdPrint("nextRoom leave room: \(result)")
+//                    let emptyRoom = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "", roomUserList: [], state: .public, topicId: topicId, topicName: "", rtcType: .agora, rtcBitRate: nil, coverUrl: nil)
+//                    self?.update(emptyRoom)
+//                    self?.messages = []
+//                    self?.triggerMessageListReload()
+//                })
                 .flatMap { result -> Single<Entity.Room?> in
                     return Request.enterRoom(topicId: topicId, source: ParentPageSource(.room).key)
                 }

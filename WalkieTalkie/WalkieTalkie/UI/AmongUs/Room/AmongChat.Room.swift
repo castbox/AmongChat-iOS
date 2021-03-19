@@ -41,23 +41,22 @@ extension AmongChat.Room {
 //        }
         
         static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
-            AmongChat.Room.ContainerController.join(room: room, from: controller, logSource: logSource, completionHandler: completionHandler)
-//            controller.checkMicroPermission { [weak controller] in
-//                guard let controller = controller else {
-//                    return
-//                }
-//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-//                //show loading
-////                let viewModel = ViewModel.make(room, logSource)
-////                self.show(from: controller, with: viewModel)
-//                let vc = AmongChat.Room.ContainerController(with: room, logSource: logSource)
-//                controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-//                    guard let ancient = controller,
-//                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
-//                    ancient.navigationController?.viewControllers.removeAll(ancient)
-//                })
-//                completionHandler?(nil)
-//            }
+            controller.checkMicroPermission { [weak controller] in
+                guard let controller = controller else {
+                    return
+                }
+                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
+                //show loading
+//                let viewModel = ViewModel.make(room, logSource)
+//                self.show(from: controller, with: viewModel)
+                let vc = AmongChat.Room.ContainerController(with: room, logSource: logSource)
+                controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
+                    guard let ancient = controller,
+                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
+                    ancient.navigationController?.viewControllers.removeAll(ancient)
+                })
+                completionHandler?(nil)
+            }
         }
         
         private static func show(from controller: UIViewController, with viewModel: ViewModel) {
@@ -130,6 +129,7 @@ extension AmongChat.Room {
             roomViewController?.endAppearanceTransition()
             roomViewController?.switchLiveRoomHandler = { [weak self] nextRoom in
                 self?.previousRoomInfo = room
+                self?.room = nextRoom
                 self?.addListenerViewController()
             }
         }
