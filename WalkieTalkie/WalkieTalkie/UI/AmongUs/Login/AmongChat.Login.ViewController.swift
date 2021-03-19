@@ -21,6 +21,7 @@ extension AmongChat.Login {
         case inAppLogin
         case authNeeded(source: String)
         case unlockPro
+        case applyVerify //Please sign in first to apply
     }
     
     static var isLogedin: Bool {

@@ -257,7 +257,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             
             if let cell = cell as? VIPRecruitCell {
                 cell.bind(goHandler: { [weak self] in
-                    guard AmongChat.Login.canDoLoginEvent(style: .inAppLogin) else {
+                    guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
                         return
                     }
                     self?.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")

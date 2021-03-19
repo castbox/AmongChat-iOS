@@ -307,7 +307,8 @@ extension Logger.Action {
             } else {
                 return nil
             }
-            
+        case .applyVerify:
+            return "apply_verify"
         case .unlockPro:
             return nil
         }

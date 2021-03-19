@@ -1772,7 +1772,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 301 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 302 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2474,6 +2474,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialContactDeniedTitle = Rswift.StringResource(key: "social.contact.denied.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Please sign in first to apply
+      /// 
+      /// Locales: en
+      static let amongChatLoginAuthTipApply = Rswift.StringResource(key: "among.chat.login.auth.tip.apply", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Please sign in/sign up first to %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4202,6 +4206,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialContactDeniedTitle(_: Void = ()) -> String {
         return NSLocalizedString("social.contact.denied.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Please sign in first to apply
+      /// 
+      /// Locales: en
+      static func amongChatLoginAuthTipApply(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.login.auth.tip.apply", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Please sign in/sign up first to %1$@
