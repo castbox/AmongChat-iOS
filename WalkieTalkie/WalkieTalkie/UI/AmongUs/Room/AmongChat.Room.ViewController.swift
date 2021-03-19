@@ -841,11 +841,12 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else {
                 return
             }
+            Logger.Action.log(.room_emoji_clk, categoryValue: self.room.topicId)
             let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
             vc.didSelectItemHandler = { [weak self] emoji in
                 //
+                Logger.Action.log(.room_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
                 self?.viewModel.sendEmoji(emoji)
-//                Analytics.log(event: "lv_rm_listener", category: "emoji_menu_clk", name: self?.roomInfo.room_id)
             }
             vc.showModal(in: self)
 
