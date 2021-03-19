@@ -32,14 +32,14 @@ extension AmongChat.Room {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            view.backgroundColor = UIColor(hex: 0x1C1D1E)
+            view.backgroundColor = UIColor(hex: 0x303030)
             setUpSubviews()
             configureSubview()
         }
         
         private func setUpSubviews() {
             collectionView = UICollectionView(frame: .zero, collectionViewLayout: EmojiFlowLayout())
-            collectionView.backgroundColor = UIColor(hex: 0x1C1D1E)
+            collectionView.backgroundColor = .clear
             collectionView.dataSource = self
             collectionView.delegate = self
             collectionView.showsVerticalScrollIndicator = false
@@ -51,14 +51,14 @@ extension AmongChat.Room {
 
             view.addSubview(collectionView)
             collectionView.snp.makeConstraints { make in
-                make.top.equalTo(10)
+                make.top.equalTo(40)
                 make.left.right.equalToSuperview()
-                make.height.equalTo(viewModel.sheetHeight )
+                make.height.equalTo(viewModel.sheetHeight)
             }
             
             pageControl = UIPageControl()
             pageControl.currentPageIndicatorTintColor = .white
-            pageControl.pageIndicatorTintColor = UIColor(hex: 0xB2B2B2)
+            pageControl.pageIndicatorTintColor = UIColor(hex: 0x666666)
             view.addSubview(pageControl)
             pageControl.snp.makeConstraints { make in
                 make.centerX.equalToSuperview()
@@ -151,9 +151,9 @@ extension AmongChat.Room {
             titleLabel.textColor = .white
             titleLabel.font = UIFont.systemFont(ofSize: 12)
             iconView.snp.makeConstraints { make in
-                make.top.equalTo(8)
+                make.top.equalTo(0)
                 make.centerX.equalToSuperview()
-                make.width.height.equalTo(40)
+                make.width.height.equalTo(48)
             }
             titleLabel.snp.makeConstraints { make in
                 make.top.equalTo(self.iconView.snp.bottom).offset(8)
@@ -192,13 +192,13 @@ extension AmongChat.Room {
                 
                 let columnCount = 5
                 let itemCount = collectionView.numberOfItems(inSection: i)
-                let sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+                let sectionInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
                 
                 var sectionAttributes: [UICollectionViewLayoutAttributes] = []
                 for j in 0 ..< itemCount {
                     
                     let indexPath = IndexPath(item: j, section: i)
-                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - 10 * 2) / 5, height: 70)
+                    let itemSize = CGSize(width: (UIScreen.main.bounds.size.width - sectionInset.left * 2) / 5, height: 64)
                     //判断列/
                     let columenIndex = j % columnCount
                     let xOffset = CGFloat(i) * viewWidth + sectionInset.left + CGFloat(columenIndex) * (itemSize.width + minLineSpace)
@@ -262,7 +262,7 @@ extension AmongChat.Room.EmojiPickerController: Modalable {
     }
     
     func height() -> CGFloat {
-        return 166 + Frame.Height.safeAeraBottomHeight
+        return 227 + Frame.Height.safeAeraBottomHeight
     }
     
     func modalPresentationStyle() -> UIModalPresentationStyle {

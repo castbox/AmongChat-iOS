@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 167 images.
+  /// This `R.image` struct is generated, and contains static references to 168 images.
   struct image {
     /// Image `ac_age_prompt_close`.
     static let ac_age_prompt_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_age_prompt_close")
@@ -280,6 +280,8 @@ struct R: Rswift.Validatable {
     static let ac_icon_not = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_not")
     /// Image `ac_icon_room_disable_mic`.
     static let ac_icon_room_disable_mic = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_room_disable_mic")
+    /// Image `ac_icon_room_next`.
+    static let ac_icon_room_next = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_room_next")
     /// Image `ac_icon_room_report`.
     static let ac_icon_room_report = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_room_report")
     /// Image `ac_icon_seat_add`.
@@ -706,6 +708,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_icon_room_disable_mic", bundle: ..., traitCollection: ...)`
     static func ac_icon_room_disable_mic(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_icon_room_disable_mic, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_room_next", bundle: ..., traitCollection: ...)`
+    static func ac_icon_room_next(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_room_next, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_room_report", bundle: ..., traitCollection: ...)`
@@ -5138,6 +5145,7 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if UIKit.UIImage(named: "ac_icon_kick_user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_kick_user' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_icon_room_next", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_next' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }

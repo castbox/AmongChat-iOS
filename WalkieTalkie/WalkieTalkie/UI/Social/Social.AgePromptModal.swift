@@ -100,17 +100,25 @@ extension Social {
         private lazy var setAgeView: UIView = {
             let v = UIView()
             v.backgroundColor = UIColor(hex6: 0x222222)
-            v.addSubviews(views: birthdayPicker, saveBtn)
+            v.addSubviews(views: birthdayPicker, closeBtn, saveBtn)
             
             birthdayPicker.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
-                maker.top.equalToSuperview().inset(72)
+                maker.top.equalToSuperview().inset(40)
+            }
+            
+            closeBtn.snp.makeConstraints { (maker) in
+                maker.top.trailing.equalToSuperview().inset(10)
+                maker.width.height.equalTo(40)
             }
             
             saveBtn.snp.makeConstraints { (maker) in
-                maker.top.trailing.equalToSuperview().inset(20)
-                maker.height.equalTo(32)
+                maker.left.equalTo(30)
+                maker.right.equalTo(-30)
+                maker.height.equalTo(48)
+                maker.bottom.equalTo(-47 - Frame.Height.safeAeraBottomHeight)
             }
+
             return v
         }()
         
@@ -124,14 +132,31 @@ extension Social {
         
         private lazy var saveBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.titleLabel?.font = R.font.nunitoBlack(size: 20)
             btn.addTarget(self, action: #selector(onSaveBtn), for: .primaryActionTriggered)
-            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.backgroundColor = UIColor(hex6: 0x2B2B2B)
             btn.layer.masksToBounds = true
-            btn.layer.cornerRadius = 16
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+            btn.layer.cornerRadius = 24
+            btn.isEnabled = false
+            return btn
+        }()
+        
+        private lazy var closeBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+//            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+            btn.addTarget(self, action: #selector(onCloseBtn), for: .primaryActionTriggered)
+            btn.setImage(R.image.ac_age_prompt_close(), for: .normal)
+//            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
+//            btn.setTitleColor(.black, for: .normal)
+//            btn.isEnabled = false
+//            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+//            btn.layer.masksToBounds = true
+//            btn.layer.cornerRadius = 16
+//            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             return btn
         }()
         
@@ -173,18 +198,18 @@ extension Social.AgePromptModal {
         
         view.addSubviews(views: setAgeView)
         setAgeView.layer.cornerRadius = 20
+        let height = 371 + Frame.Height.safeAeraBottomHeight
         setAgeView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(357)
+            maker.height.equalTo(height)
             maker.bottom.equalToSuperview().offset(20)
         }
         
-        setAgeView.transform = CGAffineTransform(translationX: 0, y: 337)
-        
-        UIView.animate(withDuration: AnimationDuration.normalSlow.rawValue) { [weak self] in
+        setAgeView.transform = CGAffineTransform(translationX: 0, y: height)
+        let transitionAnimator = UIViewPropertyAnimator(duration: AnimationDuration.normal.rawValue, dampingRatio: 1, animations: { [weak self] in
             self?.setAgeView.transform = .identity
-        }
-        
+        })
+        transitionAnimator.startAnimation()
     }
     
     @objc
@@ -237,6 +262,18 @@ extension Social.AgePromptModal {
             .take(1)
             .subscribe(onNext: { (_) in
                 Defaults[\.setAgePromptShowsTime] = Date().timeIntervalSince1970
+            })
+            .disposed(by: bag)
+        
+        birthdayPicker.rx.itemSelected
+            .subscribe(onNext: { [weak self] (row, _) in
+                if row == 0 {
+                    self?.saveBtn.isEnabled = false
+                    self?.saveBtn.backgroundColor = UIColor(hex6: 0x2B2B2B)
+                } else {
+                    self?.saveBtn.isEnabled = true
+                    self?.saveBtn.backgroundColor = UIColor(hex6: 0xFFF000)
+                }
             })
             .disposed(by: bag)
     }

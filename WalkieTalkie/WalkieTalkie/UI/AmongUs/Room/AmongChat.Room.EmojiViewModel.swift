@@ -13,7 +13,7 @@ import RxCocoa
 extension AmongChat.Room {
     
     class EmojiViewModel {
-        var SHEER_ITEM_HEIGHT: CGFloat = 60
+        var SHEER_ITEM_HEIGHT: CGFloat = 64
         var SHEET_ITEM_SPACE: CGFloat = 0
         
         var sheetHeight: CGFloat {

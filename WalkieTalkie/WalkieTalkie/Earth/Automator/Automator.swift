@@ -25,7 +25,14 @@ class Automator {
             .subscribe(onNext: { (message) in
 //                Routes.handle(message.uri)
                 cdPrint("message: \(message.uri) \(message.userInfo)")
-                AppDelegate.handle(uri: message.uri)
+                //
+                if message.uri.contains("/web"),
+                   let urlString = message.userInfo["url"] as? String,
+                   let url = URL(string: urlString) {
+                    UIApplication.topViewController()?.open(url: url)
+                } else {
+                    AppDelegate.handle(uri: message.uri)
+                }
             })
             .disposed(by: bag)
         

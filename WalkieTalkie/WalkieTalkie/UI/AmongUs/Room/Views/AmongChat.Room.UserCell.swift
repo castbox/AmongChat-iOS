@@ -283,7 +283,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, svgaView, nameLabel, disableMicView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
