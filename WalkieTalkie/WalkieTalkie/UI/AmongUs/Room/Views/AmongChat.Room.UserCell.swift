@@ -192,9 +192,13 @@ extension AmongChat.Room {
         
         func stopSoundAnimation() {
 //            isPlaySvgaEmoji = false
-            svagPlayerStatus = .free
+            
             haloView.stopLoading()
-            svgaView.stopAnimation()
+            if svagPlayerStatus == .playingEmoji {
+                svgaView.stopAnimation()
+                svgaView.clear()
+                svagPlayerStatus = .free
+            }
         }
         
         func play(_ emoji: ChatRoom.EmojiMessage, completionHandler: @escaping (ChatRoom.EmojiMessage?) -> Void) {

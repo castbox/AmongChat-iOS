@@ -754,35 +754,16 @@ extension AmongChat.Room.ViewController {
                       let seat = self.room.roomUserList.first(where: { $0.uid == message.user.uid }) else {
                     return
                 }
-                let isSendByCurrentUser = seat.uid == Settings.loginUserId
-                if isSendByCurrentUser {
-                    //自己发的
-                    self.emojiPickerViewModel.itemIsSelectable = false
-                }
-                self.seatView.play(message) { [weak self] in
-                    if isSendByCurrentUser {
-                        self?.emojiPickerViewModel.itemIsSelectable = true
-                    }
-                }
-//                Logger.PageShow.logger("lv_rm_listener", "emoji_menu_imp", self.roomInfo.room_id, nil)
-                //麦上用户
-//                if self.roomInfo.type == .multi {
-//                    self.hostSeatView.play(message) { emoji in
-//                        if let userInfo = emoji?.userInfo,
-//                            userInfo.suid == currentUid {
-//                            self.emojiPickerViewModel.itemIsSelectable = true
-//                        }
-//                    }
-//
-//                } else if self.roomInfo.type == .dating {
-//                    self.datingView.play(message) { emoji in
-//                        if let userInfo = emoji?.userInfo,
-//                            userInfo.suid == currentUid {
-//                            self.emojiPickerViewModel.itemIsSelectable = true
-//                        }
-//                    }
+//                let isSendByCurrentUser = seat.uid == Settings.loginUserId
+//                if isSendByCurrentUser {
+//                    //自己发的
+//                    self.emojiPickerViewModel.itemIsSelectable = false
 //                }
-
+                self.seatView.play(message) { [weak self] in
+//                    if isSendByCurrentUser {
+//                        self?.emojiPickerViewModel.itemIsSelectable = true
+//                    }
+                }
             default:
                 ()
             }
