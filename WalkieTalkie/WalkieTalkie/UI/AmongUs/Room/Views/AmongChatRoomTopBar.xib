@@ -96,7 +96,7 @@
                         <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="FvM-BZ-0BM"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
                     <rect key="frame" x="133" y="13" width="44" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="44" id="W8l-0G-L5k"/>
@@ -143,4 +143,3 @@
         <image name="ac_icon_room_report" width="24.5" height="24"/>
     </resources>
 </document>
-

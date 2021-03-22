@@ -288,11 +288,12 @@ extension AmongChat.Room.ViewController {
         viewModel.requestLeaveChannel()
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
-                completionHandler?()
+//                completionHandler?()
             } onError: { error in
                 cdPrint("requestLeaveRoom error: \(error)")
-                completionHandler?()
+//                completionHandler?()
             }
+        completionHandler?()
 //        showRecommendUser(completionHandler)
         
 //        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
@@ -637,9 +638,14 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else { return }
             switch action {
             case .kickout(let role):
-                self.requestLeaveRoom {
-                    let vc = UIApplication.navigationController?.viewControllers.last
-                    vc?.showKickedAlert(with: role)
+                self.requestLeaveRoom { [weak self] in
+//                    self?.showRecommendUser()
+                    self?.dismissViewController(completionHandler: {
+//                        completionHandler?()
+                        let vc = UIApplication.navigationController?.viewControllers.last
+                        vc?.showKickedAlert(with: role)
+                    })
+
                 }
             default:
                 ()
