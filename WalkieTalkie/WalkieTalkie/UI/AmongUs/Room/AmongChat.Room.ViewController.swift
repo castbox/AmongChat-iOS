@@ -396,6 +396,7 @@ extension AmongChat.Room.ViewController {
         
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
+        bottomBar.update(room)
         
 //        toolView = AmongRoomToolView()
         

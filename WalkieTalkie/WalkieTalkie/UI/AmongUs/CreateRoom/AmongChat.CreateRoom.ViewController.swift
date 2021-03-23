@@ -480,7 +480,7 @@ extension AmongChat.CreateRoom.ViewController {
                     return
                 }
                 
-                AmongChat.Room.ViewController.join(room: room, from: self, logSource: ParentPageSource(.create))
+                AmongChat.Room.ContainerController.join(room: room, from: self, logSource: ParentPageSource(.create))
                 Settings.shared.lastCreatedTopic.value = topic.topic
             }, onError: { [weak self] (error) in
                 

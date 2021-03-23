@@ -90,6 +90,10 @@ extension AmongChat.Room {
 //            Logger.PageShow.logger("lv_rm_imp", fromSource, roomInfo.room_id, nil)
         }
         
+        func requestLeaveRoom() {
+            roomViewController?.requestLeaveRoom()
+        }
+        
         func addListenerViewController() {
             guard let room = room else {
                 navigationController?.popViewController(animated: true)

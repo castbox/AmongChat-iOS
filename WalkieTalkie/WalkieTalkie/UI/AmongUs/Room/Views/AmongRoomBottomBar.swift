@@ -90,6 +90,7 @@ class AmongRoomBottomBar: XibLoadableView {
     func update(_ room: Entity.Room) {
         self.room = room
         emojiButton.isHidden = room.topicType != .chilling
+        
     }
     
     @IBAction func cancelKickAction(_ sender: Any) {
