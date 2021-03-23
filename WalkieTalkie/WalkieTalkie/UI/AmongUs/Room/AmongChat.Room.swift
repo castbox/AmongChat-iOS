@@ -26,6 +26,8 @@ extension AmongChat.Room {
         var previousRoomInfo: Entity.Room?
         
         var logSource: ParentPageSource?
+        var removeLoadingHandler: CallBack? = nil
+
 //        var fromSource: String?
         
 //        var isRoomClosed: Bool {
@@ -110,6 +112,7 @@ extension AmongChat.Room {
             }
             let viewModel = ViewModel.make(room, logSource)
             roomViewController = AmongChat.Room.ViewController(viewModel: viewModel)
+            roomViewController?.showInnerJoinLoading = removeLoadingHandler == nil
 //            listenerViewController?.fromSource = fromSource
             roomViewController?.willMove(toParent: self)
             roomViewController?.beginAppearanceTransition(true, animated: true)
@@ -131,10 +134,23 @@ extension AmongChat.Room {
             view.addSubview(roomViewController!.view)
             roomViewController?.didMove(toParent: self)
             roomViewController?.endAppearanceTransition()
+//            roomViewController?.showInnerJoinLoading = true
             roomViewController?.switchLiveRoomHandler = { [weak self] nextRoom in
+                self?.logSource = .roomSource
                 self?.previousRoomInfo = room
                 self?.room = nextRoom
                 self?.addListenerViewController()
+            }
+            roomViewController?.showContainerLoading = { [weak self] isShow in
+                self?.removeLoadingHandler?()
+                self?.view.isUserInteractionEnabled = true
+                if isShow {
+                    self?.removeLoadingHandler = self?.view.raft.show(.loading)
+                    self?.view.isUserInteractionEnabled = false
+                }
+            }
+            if let hud = self.view.raft.topHud() {
+                self.view.bringSubviewToFront(hud)
             }
         }
         
