@@ -17,10 +17,12 @@
             <connections>
                 <outlet property="calcelKickButton" destination="dWS-gP-594" id="TkV-3A-V4y"/>
                 <outlet property="chatButton" destination="2Qu-aw-CJW" id="VSr-nq-c7Z"/>
+                <outlet property="emojiButton" destination="SKa-vb-OgV" id="mTI-UN-jht"/>
                 <outlet property="kickButton" destination="5wo-hj-acl" id="Z9s-VF-xAW"/>
                 <outlet property="kickToolContainer" destination="CRg-lQ-K5E" id="t3U-1b-JMa"/>
                 <outlet property="micButton" destination="owO-VN-chC" id="Zr8-HH-3wQ"/>
                 <outlet property="shareButton" destination="q2H-0i-abU" id="wOX-Pi-0Pv"/>
+                <outlet property="stackView" destination="J7M-gB-Ee3" id="NsR-pL-oKZ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -28,32 +30,47 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="42"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qu-aw-CJW">
-                    <rect key="frame" x="20" y="0.0" width="42" height="42"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="42" id="2zR-Nq-o4c"/>
-                        <constraint firstAttribute="height" constant="42" id="HCQ-C4-4HV"/>
-                    </constraints>
-                    <state key="normal" image="ac_icon_send_message"/>
-                    <connections>
-                        <action selector="sendMessageButtonAction:" destination="-1" eventType="touchUpInside" id="F6A-KL-lPF"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2H-0i-abU">
-                    <rect key="frame" x="193" y="0.0" width="42" height="42"/>
-                    <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="VcP-34-YLq"/>
-                        <constraint firstAttribute="height" constant="42" id="xJf-H6-O1f"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="y6g-e9-jiN"/>
-                        <constraint firstAttribute="width" constant="42" id="zzd-no-ItU"/>
-                    </constraints>
-                    <state key="normal" image="ac_icon_share"/>
-                    <connections>
-                        <action selector="shareButtonAction:" destination="-1" eventType="touchUpInside" id="ZiS-DM-0aQ"/>
-                    </connections>
-                </button>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="J7M-gB-Ee3">
+                    <rect key="frame" x="20" y="0.0" width="166" height="42"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Qu-aw-CJW" userLabel="message">
+                            <rect key="frame" x="0.0" y="0.0" width="42" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="42" id="2zR-Nq-o4c"/>
+                                <constraint firstAttribute="height" constant="42" id="HCQ-C4-4HV"/>
+                            </constraints>
+                            <state key="normal" image="ac_icon_send_message"/>
+                            <connections>
+                                <action selector="sendMessageButtonAction:" destination="-1" eventType="touchUpInside" id="F6A-KL-lPF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKa-vb-OgV" userLabel="Emoji">
+                            <rect key="frame" x="62" y="0.0" width="42" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="42" id="1wg-DD-7H9"/>
+                                <constraint firstAttribute="height" constant="42" id="DZ3-sa-maO"/>
+                            </constraints>
+                            <state key="normal" image="ac_icon_send_emoji"/>
+                            <connections>
+                                <action selector="emojiButtonAction:" destination="-1" eventType="touchUpInside" id="F1V-2R-18h"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q2H-0i-abU" userLabel="share">
+                            <rect key="frame" x="124" y="0.0" width="42" height="42"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="42" id="xJf-H6-O1f"/>
+                                <constraint firstAttribute="width" constant="42" id="zzd-no-ItU"/>
+                            </constraints>
+                            <state key="normal" image="ac_icon_share"/>
+                            <connections>
+                                <action selector="shareButtonAction:" destination="-1" eventType="touchUpInside" id="ZiS-DM-0aQ"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owO-VN-chC">
                     <rect key="frame" x="259" y="0.0" width="135" height="42"/>
+                    <color key="backgroundColor" red="1" green="0.94117647059999998" blue="0.0" alpha="0.56672699599999998" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="Eqs-Yh-K1H"/>
                         <constraint firstAttribute="width" constant="135" id="K9N-Ju-7Hk"/>
@@ -117,15 +134,13 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
+                <constraint firstItem="J7M-gB-Ee3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="93x-cW-1Fa"/>
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="CfV-IE-rUe"/>
                 <constraint firstItem="CRg-lQ-K5E" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="XIQ-GK-m6H"/>
                 <constraint firstAttribute="bottom" secondItem="CRg-lQ-K5E" secondAttribute="bottom" id="Yp3-xa-9Ga"/>
-                <constraint firstItem="owO-VN-chC" firstAttribute="leading" secondItem="q2H-0i-abU" secondAttribute="trailing" constant="24" id="bHD-1K-w7C"/>
-                <constraint firstItem="2Qu-aw-CJW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="e5E-Bs-ft9"/>
+                <constraint firstItem="J7M-gB-Ee3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="fXS-0i-a8C"/>
                 <constraint firstItem="owO-VN-chC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="gPW-Z5-mqD"/>
                 <constraint firstAttribute="trailing" secondItem="CRg-lQ-K5E" secondAttribute="trailing" id="gg3-2B-tH4"/>
-                <constraint firstItem="q2H-0i-abU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="nfc-22-8e5"/>
-                <constraint firstItem="2Qu-aw-CJW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="qw4-YR-7Mi"/>
                 <constraint firstAttribute="trailing" secondItem="owO-VN-chC" secondAttribute="trailing" constant="20" id="u8c-pd-5mL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -134,6 +149,7 @@
     </objects>
     <resources>
         <image name="ac_icon_mic_on" width="20" height="20"/>
+        <image name="ac_icon_send_emoji" width="42" height="42"/>
         <image name="ac_icon_send_message" width="42" height="42"/>
         <image name="ac_icon_share" width="42" height="42"/>
     </resources>

@@ -55,6 +55,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     @IBOutlet weak var publicButton: UIButton!
     @IBOutlet weak var kickButton: BottomTitleButton!
     @IBOutlet weak var leaveButton: BottomTitleButton!
+    @IBOutlet weak var nextButton: BottomTitleButton!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
     var room: Entity.Room?
@@ -62,6 +63,8 @@ class AmongChatRoomTopBar: XibLoadableView {
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
     var reportHandler: CallBack?
+    var nextRoomHandler: CallBack?
+    
     var isIndicatorAnimate: Bool = false {
         didSet {
             if isIndicatorAnimate {
@@ -124,6 +127,9 @@ class AmongChatRoomTopBar: XibLoadableView {
     }
     @IBAction func reportButtonAction(_ sender: Any) {
         reportHandler?()
+    }
+    @IBAction func nextRoomButtonAction(_ sender: Any) {
+        nextRoomHandler?()
     }
     
 }

@@ -64,6 +64,7 @@ extension AmongChat.Room {
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
         var shareEventHandler: () -> Void = { }
         var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
+        var messageHandler: ((ChatRoomMessage) -> Void)?
 
 
         private let imViewModel: IMViewModel
@@ -271,6 +272,25 @@ extension AmongChat.Room {
             imViewModel.sendText(message: textMessage)
             //append
             addUIMessage(message: textMessage)
+        }
+        
+        //send emoji message
+        func sendEmoji(_ emoji: Entity.EmojiItem) {
+            guard let resource = emoji.resource.randomElement(),
+                  let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId }) else {
+                return
+            }
+            let emojiMessage = ChatRoom.EmojiMessage(
+                resource: resource,
+                duration: emoji.duration,
+                hideDelaySec: emoji.hide_delay_sec,
+                emojiType: emoji.type,
+                msgType: .emoji,
+                user: user
+            )
+            imViewModel.sendText(message: emojiMessage) { [weak self] in
+                self?.messageHandler?(emojiMessage)
+            }
         }
         
         func changePublicType(_ completionHandler: CallBack? = nil) {
@@ -579,6 +599,8 @@ private extension AmongChat.Room.ViewModel {
             endRoomHandler?(.kickout(message.opRole))
         } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
             otherMutedUser.remove(message.user.uid.uInt)
+        } else if crMessage.msgType == .emoji {
+            messageHandler?(crMessage)
         }
     }
     

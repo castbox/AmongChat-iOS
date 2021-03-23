@@ -17,7 +17,7 @@
             <connections>
                 <outlet property="indicatorView" destination="xwU-py-alq" id="h4p-5e-xli"/>
                 <outlet property="kickButton" destination="NIv-N4-bFM" id="kBX-Cf-iU3"/>
-                <outlet property="leaveButton" destination="39w-62-qes" id="lPI-Pw-mg4"/>
+                <outlet property="leaveButton" destination="39w-62-qes" id="6nH-W0-Etx"/>
                 <outlet property="publicButton" destination="nnL-fi-G2g" id="6Tw-wY-g5A"/>
             </connections>
         </placeholder>
@@ -69,14 +69,14 @@
                         <constraint firstAttribute="width" constant="44" id="ipA-dK-yhb"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
-                    <state key="normal" title="Leave" image="ac_icon_leave">
+                    <state key="normal" title="Next" image="ac_icon_leave">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.leave"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="NWD-QO-Psh"/>
+                        <action selector="leaveButtonAction:" destination="-1" eventType="touchUpInside" id="Nke-EM-h0Q"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">

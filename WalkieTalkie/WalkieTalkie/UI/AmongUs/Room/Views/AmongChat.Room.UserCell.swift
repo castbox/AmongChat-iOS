@@ -26,6 +26,14 @@ extension AmongChat.Room {
         
         private static let haloViewAnimationKey = "halo_animation"
         
+        enum SvagPlayerStatus {
+            case free
+            //动画
+            case playingEmoji
+            //justchatting emoji 游戏
+            case playingEmojiGame
+        }
+        
         private lazy var indexLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -116,7 +124,7 @@ extension AmongChat.Room {
             return btn
         }()
         
-        lazy var svgaView: SVGAPlayer = {
+        private lazy var svgaView: SVGAPlayer = {
             let player = SVGAPlayer(frame: .zero)
             player.clearsAfterStop = true
             player.delegate = self
@@ -128,9 +136,13 @@ extension AmongChat.Room {
         
         var emojisNames: [String] = []
         
-        private var user: Entity.RoomUser?
+        var user: Entity.RoomUser?
         private var svgaUrl: URL?
-        private var isPlaySvgaEmoji: Bool = false
+//        private var isPlaySvgaEmoji: Bool = false
+        private var svagPlayerStatus: SvagPlayerStatus = .free
+        //
+        private var emojiContent: ChatRoom.EmojiMessage?
+        private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
 
         var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
         
@@ -179,27 +191,62 @@ extension AmongChat.Room {
         }
         
         func stopSoundAnimation() {
-            isPlaySvgaEmoji = false
+//            isPlaySvgaEmoji = false
+            
             haloView.stopLoading()
-            svgaView.stopAnimation()
+            if svagPlayerStatus == .playingEmoji {
+                svgaView.stopAnimation()
+                svgaView.clear()
+                svagPlayerStatus = .free
+            }
         }
         
-        func playSvga(_ resource: URL?) {
+        func play(_ emoji: ChatRoom.EmojiMessage, completionHandler: @escaping (ChatRoom.EmojiMessage?) -> Void) {
+            if !emoji.resource.isEmpty,
+                emoji.resource.hasSuffix("svga"),
+                let resource = URL(string: emoji.resource) {
+                emojiContent = emoji
+                
+                emojiPlayEndHandler = completionHandler
+                svagPlayerStatus = .playingEmojiGame
+                
+                let parser = SVGAGlobalParser.defaut
+                parser.parse(with: resource,
+                             completionBlock: { [weak self] (item) in
+                                self?.svgaView.clearsAfterStop = false
+                                self?.svgaView.videoItem = item
+                                self?.svgaView.startAnimation()
+                            },
+                             failureBlock: { [weak self] error in
+                                debugPrint("error: \(error?.localizedDescription ?? "")")
+                                self?.svagPlayerStatus = .free
+                                completionHandler(emoji)
+                            })
+            } else {
+                completionHandler(emoji)
+                svgaView.clear()
+            }
+        }
+        
+        private func playSvga(_ resource: URL?) {
             guard let resource = resource else {
                 return
             }
             //如果正在播放，则不用再次播放
-            guard !isPlaySvgaEmoji else  {
+            guard svagPlayerStatus == .free else {
                 return
             }
             let parser = SVGAGlobalParser.defaut
             parser.parse(with: resource,
                          completionBlock: { [weak self] (item) in
-                            self?.isPlaySvgaEmoji = true
+//                            self?.isPlaySvgaEmoji = true
+                            self?.svgaView.clearsAfterStop = true
+                            self?.svagPlayerStatus = .playingEmoji
                             self?.svgaView.videoItem = item
                             self?.svgaView.startAnimation()
                          },
-                         failureBlock: { error in
+                         failureBlock: { [weak self] error in
+                            self?.svagPlayerStatus = .free
                             debugPrint("error: \(error?.localizedDescription ?? "")")
                          })
         }
@@ -209,17 +256,20 @@ extension AmongChat.Room {
                 return
             }
             //如果正在播放，则不用再次播放
-            guard !isPlaySvgaEmoji else  {
+            guard svagPlayerStatus == .free else {
                 return
             }
             let parser = SVGAGlobalParser.defaut
             parser.parse(withNamed: name, in: nil,
                          completionBlock: { [weak self] (item) in
-                            self?.isPlaySvgaEmoji = true
+//                            self?.isPlaySvgaEmoji = true
+                            self?.svgaView.clearsAfterStop = true
+                            self?.svagPlayerStatus = .playingEmoji
                             self?.svgaView.videoItem = item
                             self?.svgaView.startAnimation()
                          },
-                         failureBlock: { error in
+                         failureBlock: { [weak self] error in
+                            self?.svagPlayerStatus = .free
                             debugPrint("error: \(error.localizedDescription ?? "")")
                          })
         }
@@ -237,7 +287,7 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, svgaView, nameLabel, disableMicView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
             
             indexLabel.snp.makeConstraints { (maker) in
                 maker.left.right.top.equalToSuperview()
@@ -294,7 +344,27 @@ extension AmongChat.Room {
 
 extension AmongChat.Room.UserCell: SVGAPlayerDelegate {
     func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
-        isPlaySvgaEmoji = false
+//        isPlaySvgaEmoji = false
+        switch svagPlayerStatus {
+        case .playingEmojiGame:
+//            svagPlayerStatus = .playingEmojiGame
+            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
+                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
+                    player.clear()
+                    player.videoItem = nil
+                    self?.emojiPlayEndHandler(self?.emojiContent)
+                    self?.svagPlayerStatus = .free
+                }
+            } else {
+                player.clear()
+                player.videoItem = nil
+                emojiPlayEndHandler(emojiContent)
+                svagPlayerStatus = .free
+            }
+            emojiContent = nil
+        default:
+            svagPlayerStatus = .free
+        }
     }
 }
 

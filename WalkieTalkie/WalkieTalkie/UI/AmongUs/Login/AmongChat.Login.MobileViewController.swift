@@ -36,7 +36,7 @@ extension AmongChat.Login {
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .white
-            case .authNeeded, .unlockPro:
+            case .authNeeded, .unlockPro, .applyVerify:
                 btn.addTarget(self, action: #selector(onCLoseBtn), for: .primaryActionTriggered)
                 btn.setImage(R.image.ac_profile_close()?.withRenderingMode(.alwaysTemplate), for: .normal)
                 btn.tintColor = .black
@@ -65,7 +65,6 @@ extension AmongChat.Login {
             case .authNeeded(let source):
                 l.text = R.string.localizable.amongChatLoginAuthTip(source)
                 l.numberOfLines = 2
-
             case .unlockPro:
                 let attTxt = NSMutableAttributedString()
                 let attachment = NSTextAttachment()
@@ -79,6 +78,9 @@ extension AmongChat.Login {
                 attTxt.append(NSAttributedString(string: R.string.localizable.amongChatLoginAuthTip(R.string.localizable.amongChatLoginAuthSourcePro()), attributes: [NSAttributedString.Key.font : h2Font]))
                 l.attributedText = attTxt
                 l.numberOfLines = 3
+            case .applyVerify:
+                l.text = R.string.localizable.amongChatLoginAuthTipApply()
+                l.numberOfLines = 2
             }
             
             return l
@@ -307,7 +309,7 @@ extension AmongChat.Login {
         
         override var preferredStatusBarStyle: UIStatusBarStyle {
             switch style {
-            case .authNeeded, .unlockPro:
+            case .authNeeded, .unlockPro, .applyVerify:
                 if #available(iOS 13.0, *) {
                     return .darkContent
                 } else {
@@ -594,7 +596,7 @@ extension AmongChat.Login.MobileViewController {
     private func setupTopTipLayout() {
         
         switch style {
-        case .authNeeded, .unlockPro:
+        case .authNeeded, .unlockPro, .applyVerify:
             view.insertSubview(topBg, belowSubview: backBtn)
             view.addSubviews(views: topTipLabel)
             
@@ -636,7 +638,7 @@ extension AmongChat.Login.MobileViewController {
                 maker.width.height.equalTo(24)
             }
             
-        case .inAppLogin, .authNeeded, .unlockPro:
+        case .inAppLogin, .authNeeded, .unlockPro, .applyVerify:
             backBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalToSuperview().inset(20)
                 maker.centerY.equalTo(navLayoutGuide)
@@ -661,7 +663,7 @@ extension AmongChat.Login.MobileViewController {
                 maker.top.equalTo(mobileIcon.snp.bottom).offset(8)
             }
             
-        case .authNeeded, .unlockPro:
+        case .authNeeded, .unlockPro, .applyVerify:
             mobileTitle.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(30)
                 maker.bottom.equalTo(mobileInputContainer.snp.top).offset(-12)

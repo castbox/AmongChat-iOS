@@ -10,7 +10,9 @@ import UIKit
 
 class AmongRoomBottomBar: XibLoadableView {
     
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var chatButton: UIButton!
+    @IBOutlet weak var emojiButton: UIButton!
     @IBOutlet weak var micButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
@@ -23,14 +25,12 @@ class AmongRoomBottomBar: XibLoadableView {
             switch style {
             case .normal:
                 kickToolContainer.isHidden = true
-                chatButton.isHidden = false
+                stackView.isHidden = false
                 micButton.isHidden = false
-                shareButton.isHidden = false
             case .kick:
                 kickToolContainer.isHidden = false
-                chatButton.isHidden = true
+                stackView.isHidden = true
                 micButton.isHidden = true
-                shareButton.isHidden = true
             }
         }
     }
@@ -44,10 +44,12 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var sendMessageHandler: CallBack?
     var shareHandler: CallBack?
+    var emojiHandler: CallBack?
     var changeMicStateHandler: ((Bool) -> Void)?
     
     var cancelKickHandler: CallBack?
     var kickSelectedHandler: (([Int]) -> Void)?
+    var room: Entity.Room?
     
     var isMicOn: Bool = true {
         didSet {
@@ -79,6 +81,15 @@ class AmongRoomBottomBar: XibLoadableView {
     
     private func configureSubview() {
         micButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        if Frame.Height.deviceDiagonalIsMinThan4_7,
+           room?.topicType == .chilling {
+            stackView.spacing = 5
+        }
+    }
+    
+    func update(_ room: Entity.Room) {
+        self.room = room
+        emojiButton.isHidden = room.topicType != .chilling
     }
     
     @IBAction func cancelKickAction(_ sender: Any) {
@@ -95,6 +106,11 @@ class AmongRoomBottomBar: XibLoadableView {
     @IBAction func sendMessageButtonAction(_ sender: Any) {
         sendMessageHandler?()
     }
+    
+    @IBAction func emojiButtonAction(_ sender: Any) {
+        emojiHandler?()
+    }
+    
     
     @IBAction func shareButtonAction(_ sender: Any) {
         shareHandler?()

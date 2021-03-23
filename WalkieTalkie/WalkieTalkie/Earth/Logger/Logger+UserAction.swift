@@ -119,9 +119,16 @@ extension Logger {
             case room_send_message_success
             case room_mic_state
             case room_user_profile_imp
+            case room_emoji_clk
+            case room_emoji_selected
             case room_user_profile_clk
             case room_amongus_code_copy
             case room_enter
+            case room_enter_set_age_imp
+            case room_enter_set_age_confirm
+            case room_enter_set_age_save
+            
+            
             case room_leave_clk
             case room_edit_nickname
             case room_edit_nickname_success
@@ -145,6 +152,7 @@ extension Logger {
             case home_friends_following_join
             case home_friends_invite_clk
             case home_friends_suggestion_following_clk
+            case home_friends_apply_verified
             case home_search_clk
             case search_done
             case search_result_clk
@@ -307,7 +315,8 @@ extension Logger.Action {
             } else {
                 return nil
             }
-            
+        case .applyVerify:
+            return "apply_verify"
         case .unlockPro:
             return nil
         }

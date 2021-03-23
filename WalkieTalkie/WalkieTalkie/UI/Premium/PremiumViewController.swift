@@ -494,6 +494,7 @@ extension PremiumViewController {
         badgeIcon.snp.makeConstraints { (maker) in
             maker.trailing.centerY.equalTo(nameLayoutGuide)
             maker.leading.equalTo(nameLabel.snp.trailing).offset(4)
+            maker.width.height.equalTo(20)
         }
         
         let removableContentlayoutGuide = UILayoutGuide()
@@ -628,14 +629,14 @@ extension PremiumViewController {
             
             iconIV.snp.makeConstraints { (maker) in
                 maker.leading.centerY.equalToSuperview()
-                maker.width.height.equalTo(40)
-                maker.top.bottom.equalToSuperview().inset(4.5)
+                maker.width.height.equalTo(44)
+                maker.top.bottom.equalToSuperview().inset(2.5)
             }
             
             let textLayoutGuide = UILayoutGuide()
             addLayoutGuide(textLayoutGuide)
             textLayoutGuide.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(iconIV.snp.trailing).offset(8)
+                maker.leading.equalTo(iconIV.snp.trailing).offset(12)
                 maker.trailing.centerY.equalToSuperview()
             }
             

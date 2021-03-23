@@ -655,6 +655,15 @@ extension DefaultsKeys {
     var defaultProfileDecorations: DefaultsKey<[[String : Any]]?> {
         .init("among.chat.default.profile.decoration.category.list", defaultValue: nil)
     }
+    
+    var setAgePromptShowsTime: DefaultsKey<Double?> {
+        .init("among.chat.set.age.prompt.shows.time.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: nil)
+    }
+    
+    var vipRecruitmentChecked: DefaultsKey<Bool> {
+        .init("among.chat.vip.recruitment.checked.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: false)
+    }
+    
 }
 
 //extension DefaultsAdapter {

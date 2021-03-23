@@ -90,6 +90,8 @@ extension AmongChat.Room.IMViewModel {
                         item = try JSONDecoder().decodeAnyData(ChatRoom.RoomInfoMessage.self, from: json) as ChatRoomMessage
                     case .system:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.SystemMessage.self, from: json) as ChatRoomMessage
+                    case .emoji:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.EmojiMessage.self, from: json) as ChatRoomMessage
                         
                     }
                 }
@@ -105,24 +107,20 @@ extension AmongChat.Room.IMViewModel {
             .disposed(by: bag)
     }
     
-//    func sendText(message: String, roomUser: Entity.Roo) {
-//        //find current user
-//        let textMessage = ChatRoom.TextMessage(text: message, user: Entity.RoomUser(uid: <#T##String?#>, name: <#T##String?#>, pictureUrl: <#T##String#>, seatNo: <#T##Int#>, status: <#T##Entity.RoomUser.Status?#>, isMuted: <#T##Bool?#>, robloxName: <#T##String?#>), messageType: <#T##ChatRoom.MessageType#>)
-//    }
-    
-    func sendText(message: ChatRoomMessage) {
+    func sendText(message: ChatRoomMessage, completionHandler: CallBack? = nil) {
         guard let string = message.asString else {
             return
         }
         imManager.sendChannelMessage(string)
             .catchErrorJustReturn(false)
-            .filter { _ -> Bool in
-                return message.msgType == .text
-            }
+//            .filter { _ -> Bool in
+//                return message.msgType == .text
+//            }
             .subscribe(onSuccess: { [weak self] (success) in
                 guard let `self` = self,
                     success else { return }
                 
+                completionHandler?()
 //                let msg = AgoraRtmMessage(text: text)
 //                let user = AgoraRtmMember()
 //                user.userId = "\(Constants.sUserId)"
@@ -161,6 +159,7 @@ extension ChatRoom {
         case systemLeave = "AC:Chatroom:SystemLeave"
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
+        case emoji = "AC:Chatroom:Emoji"
     }
     
     struct TextMessage: ChatRoomMessage {
@@ -253,6 +252,25 @@ extension ChatRoom {
             case msgType = "message_type"
             case textColor = "text_color"
             case contentType = "content_type"
+        }
+    }
+    
+    struct EmojiMessage: ChatRoomMessage {
+        
+        let resource: String
+        let duration: Int?
+        let hideDelaySec: Int?
+        let emojiType: Entity.EmojiItem.EmojiType?
+        let msgType: MessageType
+        let user: Entity.RoomUser
+        
+        private enum CodingKeys: String, CodingKey {
+            case resource = "resource"
+            case duration = "duration"
+            case hideDelaySec = "hide_delay_sec"
+            case msgType = "message_type"
+            case emojiType = "emoji_type"
+            case user
         }
     }
 }

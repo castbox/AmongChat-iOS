@@ -12,6 +12,7 @@ extension AmongChat.Home {
     
     class RelationsViewController: WalkieTalkie.ViewController {
         
+        private typealias VIPRecruitCell = AmongChat.Home.VIPRecruitCell
         private typealias FriendCell = AmongChat.Home.FriendCell
         private typealias SuggestContactCell = AmongChat.Home.SuggestedContactCell
         private typealias SuggestionCell = AmongChat.Home.SuggestionCell
@@ -32,6 +33,7 @@ extension AmongChat.Home {
             layout.minimumLineSpacing = 0
             layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(VIPRecruitCell.self, forCellWithReuseIdentifier: NSStringFromClass(VIPRecruitCell.self))
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
             v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
@@ -113,12 +115,6 @@ extension AmongChat.Home.RelationsViewController {
                 self?.viewModel.refreshData()
             })
             .disposed(by: bag)
-
-//        rx.viewWillAppear
-//            .subscribe(onNext: { [weak self] (_) in
-//                self?.friendsCollectionView.setContentOffset(.zero, animated: false)
-//            })
-//            .disposed(by: bag)
         
     }
     
@@ -190,6 +186,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         let item = dataSource.safe(section)
         if item?.group == .suggestContacts {
             return item?.userLsit.isEmpty == false ? 1 : 0
+        } else if item?.group == .vipRecruit {
+            return 1
         }
         return item?.userLsit.count ?? 0
     }
@@ -253,15 +251,37 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 })
             }
             return cell
-        default:
-            return collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
+            
+        case .vipRecruit:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VIPRecruitCell.self), for: indexPath)
+            
+            if let cell = cell as? VIPRecruitCell {
+                cell.bind(goHandler: { [weak self] in
+                    guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
+                        return
+                    }
+                    self?.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
+                    Logger.Action.log(.home_friends_apply_verified)
+                    self?.viewModel.checkVipRecruit()
+                }, ignoreHandler: { [weak self] in
+                    self?.viewModel.checkVipRecruit()
+                })
+            }
+            
+            return cell
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let reusableView: UICollectionReusableView
+        
+        guard let item = dataSource.safe(indexPath.section) else {
+            reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
+            reusableView.isHidden = true
+            return reusableView
+        }
         
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -272,36 +292,35 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 let controller = Social.ContactListViewController()
                 self?.navigationController?.pushViewController(controller)
             }
-            if let item = dataSource.safe(indexPath.section){
-                header.hideSeeAllButton = item.group != .suggestContacts
-                switch item.group {
-                case .playing:
-                    header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
-                        maker.leading.trailing.equalToSuperview().inset(20)
-                        maker.bottom.equalToSuperview().offset(2)
-                    }
-                case .suggestContacts:
-                    header.configTitle(R.string.localizable.socialSuggestedContacts()) { (maker) in
-                        maker.leading.trailing.equalToSuperview().inset(20)
-//                        maker.top.bottom.equalToSuperview()
-                        maker.bottom.equalToSuperview().offset(2)
-                    }
-                case .suggestStrangers:
-                    header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
-                        maker.leading.trailing.equalToSuperview().inset(20)
-//                        maker.top.bottom.equalToSuperview()
-                        maker.bottom.equalToSuperview().offset(2)
-                    }
+            header.hideSeeAllButton = item.group != .suggestContacts
+            switch item.group {
+            case .playing:
+                header.configTitle(R.string.localizable.amongChatHomeFriendsOnlineTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.bottom.equalToSuperview().offset(2)
                 }
+            case .suggestContacts:
+                header.configTitle(R.string.localizable.socialSuggestedContacts()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.bottom.equalToSuperview().offset(2)
+                }
+            case .suggestStrangers:
+                header.configTitle(R.string.localizable.amongChatHomeFriendsSuggestionTitle()) { (maker) in
+                    maker.leading.trailing.equalToSuperview().inset(20)
+                    maker.bottom.equalToSuperview().offset(2)
+                }
+            default:
+                ()
             }
             
-            header.isHidden = (dataSource.safe(indexPath.section)?.userLsit.count ?? 0) == 0
+            header.isHidden = (item.userLsit.count) == 0
             
             reusableView = header
             
         case UICollectionView.elementKindSectionFooter:
             
-            if indexPath.section == 0 {
+            switch item.group {
+            case .playing:
                 let shareFooter = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(ShareFooter.self), for: indexPath) as! ShareFooter
                 shareFooter.onSelect = { [weak self] in
                     self?.shareApp()
@@ -323,7 +342,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                 }
                 
                 reusableView = shareFooter
-            } else {
+                
+            default:
                 reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: NSStringFromClass(EmptyView.self), for: indexPath)
                 reusableView.isHidden = true
             }
@@ -343,33 +363,47 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if dataSource.safe(indexPath.section)?.group == .suggestContacts {
             return CGSize(width: Frame.Screen.width, height: 104)
+        } else if dataSource.safe(indexPath.section)?.group == .vipRecruit {            
+            return VIPRecruitCell.size
         }
         return CGSize(width: Frame.Screen.width, height: 69)
 
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        if let item = dataSource.safe(section),
-           item.userLsit.count > 0 {
+        
+        guard let item = dataSource.safe(section) else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
+        
+        if item.userLsit.count > 0 {
             if item.group == .playing {
                 return CGSize(width: Frame.Screen.width, height: 53.5)
             } else {
                 return CGSize(width: Frame.Screen.width, height: 85.5)
             }
+        } else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }
-        return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if section == 0 {
-            if dataSource.safe(section)?.userLsit.count ?? 0 > 0 {
+        
+        guard let item = dataSource.safe(section) else {
+            return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
+        }
+        
+        switch item.group {
+        case .vipRecruit:
+            return CGSize(width: Frame.Screen.width, height: 0)
+        case .playing:
+            if item.userLsit.count > 0 {
                 return CGSize(width: Frame.Screen.width, height: 74)
             } else {
-//                return CGSize(width: Frame.Screen.width, height: 138)
                 return CGSize(width: Frame.Screen.width, height: 94)
             }
-            return CGSize(width: Frame.Screen.width, height: 74)
-        } else {
+
+        default:
             return CGSize(width: CGFloat.leastNormalMagnitude, height: CGFloat.leastNormalMagnitude)
         }
     }

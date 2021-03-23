@@ -345,3 +345,11 @@
 "among.chat.room.call.of.duty.name" = "COD Benutzername/UID";
 "among.chat.room.call.of.duty.name.prefix" = "Benutzername/UID: %1$@";
 "among.chat.room.set.up.name.desc" = "Stellen Sie Ihre eigene %1$@ ein oder klicken Sie, um die anderer zu kopieren und zusammen zu spielen";
+
+//1.16
+"among.chat.age.prompt.title" = "Stellen Sie Ihr Alter ein";
+"among.chat.age.prompt.msg" = "Wollen Sie genauer mit anderen Spielern übereinstimmen? Stellen Sie jetzt Ihr wirkliches Alter ein!";
+"among.chat.vip.recruit.title" = "Verifiziert werden";
+"among.chat.vip.recruit.title2" = "Komm nun rein!";
+"among.chat.vip.recruit.msg" = "Erinnern Sie sich zuerst an Ihrer ID, dann lassen uns gehen!";
+"among.chat.login.auth.tip.apply" = "Bitte melden Sie sich zuerst an, um sich zu bewerben";
