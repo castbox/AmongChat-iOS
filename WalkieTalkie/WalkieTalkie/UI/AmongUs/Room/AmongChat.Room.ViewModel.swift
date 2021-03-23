@@ -44,10 +44,12 @@ extension AmongChat.Room {
             case block
             case unblock
         }
+        
         enum LoadDataStatus {
             case begin
             case end
         }
+        
         static var shared: ViewModel?
         
         var messages: [ChatRoomMessage] = []
@@ -66,8 +68,7 @@ extension AmongChat.Room {
         var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
         var messageHandler: ((ChatRoomMessage) -> Void)?
 
-
-        private let imViewModel: IMViewModel
+        private var imViewModel: IMViewModel!
         private let bag = DisposeBag()
         private var willShowShareEvent: ShareEvent?
         private var didShowShareEvents: [ShareEvent] = []
@@ -75,6 +76,8 @@ extension AmongChat.Room {
         private var canShowSinglePersonShareEvent = false
         //更新房间消息的时间
         private var lastestUpdateRoomMs: TimeInterval = 0
+        //当前房间状态， 只有在 connected 时，才需要根据 rtc 状态来刷新直播间
+        private var state: ConnectState = .disconnected
                 
         private lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
@@ -151,6 +154,18 @@ extension AmongChat.Room {
             }
             self.source = source
             roomReplay = BehaviorRelay(value: room)
+
+            
+            blockedUsers = Defaults[\.blockedUsersV2Key]
+            
+            setObservableSubject()
+            addSystemMessage()
+            enteredTimestamp = Date().timeIntervalSince1970
+            startShowShareTimerIfNeed()
+            update(room)
+        }
+        
+        func startImService() {
             imViewModel = IMViewModel(with: room.roomId)
             
             imViewModel.messagesObservable
@@ -167,19 +182,11 @@ extension AmongChat.Room {
                     
                 }
                 .disposed(by: bag)
-
-            
-            blockedUsers = Defaults[\.blockedUsersV2Key]
-            
-            setObservableSubject()
-            addSystemMessage()
-            enteredTimestamp = Date().timeIntervalSince1970
-            startShowShareTimerIfNeed()
-            update(room)
         }
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
+            state = .connected
             self.mManager.joinChannel(self.room) { error in
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
@@ -187,12 +194,14 @@ extension AmongChat.Room {
                     completionBlock?(error)
                 }
             }
+            startImService()
             return true
         }
         
         func requestLeaveChannel() -> Single<Bool> {
             mManager.leaveChannel()
             ViewModel.shared = nil
+            state = .disconnected
             UIApplication.shared.isIdleTimerDisabled = false
             return Request.leave(with: room.roomId)
         }
@@ -203,7 +212,6 @@ extension AmongChat.Room {
                     self?.requestRoomInfo()
                 })
                 .disposed(by: bag)
-
         }
         
         func setObservableSubject() {
@@ -326,11 +334,15 @@ extension AmongChat.Room {
         
         //MARK: -- Request
         func requestRoomInfo() {
-            Request.roomInfo(with: room.roomId)
+            let roomId = room.roomId
+            Request.roomInfo(with: roomId)
                 .asObservable()
                 .filterNilAndEmpty()
                 .subscribe(onNext: { [weak self] room in
-                    self?.update(room)
+                    guard let `self` = self, self.state != .disconnected, roomId == self.room.roomId else {
+                        return
+                    }
+                    self.update(room)
                 })
                 .disposed(by: bag)
         }
@@ -497,6 +509,47 @@ extension AmongChat.Room {
             return setting.roomBg.first(where: { $0.topicId == topicId })
                 .map { $0.bgUrl }
         }
+        
+        //快速切换房间
+        func nextRoom(completionHandler: ((_ room: Entity.Room?, _ errorMessage: String?) -> Void)?) {
+            //clear status
+            let topicId = room.topicId
+            requestLeaveChannel()
+//                .do(onNext: { [weak self] result in
+//                    cdPrint("nextRoom leave room: \(result)")
+//                    let emptyRoom = Entity.Room(amongUsCode: nil, amongUsZone: nil, note: nil, roomId: "", roomUserList: [], state: .public, topicId: topicId, topicName: "", rtcType: .agora, rtcBitRate: nil, coverUrl: nil)
+//                    self?.update(emptyRoom)
+//                    self?.messages = []
+//                    self?.triggerMessageListReload()
+//                })
+                .flatMap { result -> Single<Entity.Room?> in
+                    return Request.enterRoom(topicId: topicId, source: ParentPageSource(.room).key)
+                }
+                .subscribe(onSuccess: { [weak self] (room) in
+                    // TODO: - 进入房间
+                    guard let room = room else {
+                        return
+                    }
+//                    self?.update(room)
+                    completionHandler?(room, nil)
+                }, onError: { error in
+    //                completion()
+                    cdPrint("error: \(error.localizedDescription)")
+                    var msg: String {
+                        if let error = error as? MsgError {
+                            if let codeType = error.codeType, codeType == .needUpgrade {
+                                return R.string.localizable.forceUpgradeTip()
+                            }
+                            return error.localizedDescription
+                        } else {
+                            return R.string.localizable.amongChatHomeEnterRoomFailed()
+                        }
+                    }
+                    completionHandler?(nil, msg)
+                })
+                .disposed(by: bag)
+
+        }
     }
     
 }
@@ -578,6 +631,10 @@ private extension AmongChat.Room.ViewModel {
     
     func onReceiveChatRoom(crMessage: ChatRoomMessage) {
         cdPrint("onReceiveChatRoom- \(crMessage)")
+        guard state != .disconnected else {
+            return
+        }
+        
         if let message = crMessage as? ChatRoom.TextMessage {
             addUIMessage(message: message)
         } else if let message = crMessage as? ChatRoom.JoinRoomMessage,
@@ -616,6 +673,9 @@ private extension AmongChat.Room.ViewModel {
     }
     
     func delayToUpdateUserList(for userId: UInt, isOnline: Bool) {
+        guard state != .disconnected else {
+            return
+        }
         Observable.just(())
             .debounce(.seconds(1), scheduler: MainScheduler.asyncInstance)
             .subscribe { [weak self] _ in
@@ -627,6 +687,7 @@ private extension AmongChat.Room.ViewModel {
             }
             .disposed(by: bag)
     }
+    
 }
 
 extension AmongChat.Room.ViewModel: ChatRoomDelegate {

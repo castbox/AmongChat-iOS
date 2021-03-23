@@ -75,7 +75,7 @@ extension Routes {
         func handleRoom(_ channel: URI.Channel) {
                         
             //如果当前有在直播间内，退出后再加入
-            if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ViewController }) as? AmongChat.Room.ViewController {
+            if let roomViewController = UIApplication.navigationController?.viewControllers.first(where: { $0 is AmongChat.Room.ContainerController }) as? AmongChat.Room.ContainerController {
                 roomViewController.requestLeaveRoom()
                 //pop to room
                 UIApplication.navigationController?.popToRootViewController(animated: false)

@@ -52,6 +52,8 @@ extension AmongChat.Room {
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
         
+        var switchLiveRoomHandler: ((Entity.Room) -> Void)?
+        
         private lazy var emojiPickerViewModel = AmongChat.Room.EmojiViewModel()
         
         private var style = Style.normal {
@@ -213,7 +215,7 @@ extension AmongChat.Room {
             let vc = AmongChat.Room.ViewController(viewModel: viewModel)
             controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                 guard let ancient = controller,
-                      ancient is AmongChat.CreateRoom.ViewController else { return }
+                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
                 ancient.navigationController?.viewControllers.removeAll(ancient)
             })
         }
@@ -255,7 +257,9 @@ extension AmongChat.Room.ViewController {
     private func onCloseBtn() {
         showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
             guard let `self` = self else { return }
-            self.requestLeaveRoom()
+            self.requestLeaveRoom { [weak self] in
+                self?.showRecommendUser()
+            }
         }
     }
     
@@ -284,10 +288,13 @@ extension AmongChat.Room.ViewController {
         viewModel.requestLeaveChannel()
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
+//                completionHandler?()
             } onError: { error in
                 cdPrint("requestLeaveRoom error: \(error)")
+//                completionHandler?()
             }
-        showRecommendUser(completionHandler)
+        completionHandler?()
+//        showRecommendUser(completionHandler)
         
 //        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
 //        let removeBlock = { [weak self] in
@@ -389,6 +396,7 @@ extension AmongChat.Room.ViewController {
         
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
+        bottomBar.update(room)
         
 //        toolView = AmongRoomToolView()
         
@@ -506,20 +514,8 @@ extension AmongChat.Room.ViewController {
 
     }
     
-    
     private func bindSubviewEvent() {
-//        let removeBlock = view.raft.show(.loading, userInteractionEnabled: false)
-        topBar.isIndicatorAnimate = true
-//        view.isUserInteractionEnabled = false
-        viewModel.join { [weak self] error in
-//            removeBlock()
-            self?.topBar.isIndicatorAnimate = false
-//            self.view.isUserInteractionEnabled = false
-            if error != nil {
-                self?.requestLeaveRoom()
-            }
-        }
-        
+        startRtcAndImService()
 //        AdsManager.shared.mopubInitializeSuccessSubject
 //            .filter { _ -> Bool in
 //                return !Settings.shared.isProValue.value
@@ -643,9 +639,14 @@ extension AmongChat.Room.ViewController {
             guard let `self` = self else { return }
             switch action {
             case .kickout(let role):
-                self.requestLeaveRoom {
-                    let vc = UIApplication.navigationController?.viewControllers.last
-                    vc?.showKickedAlert(with: role)
+                self.requestLeaveRoom { [weak self] in
+//                    self?.showRecommendUser()
+                    self?.dismissViewController(completionHandler: {
+//                        completionHandler?()
+                        let vc = UIApplication.navigationController?.viewControllers.last
+                        vc?.showKickedAlert(with: role)
+                    })
+
                 }
             default:
                 ()
@@ -788,8 +789,10 @@ extension AmongChat.Room.ViewController {
         }
         
         topBar.leaveHandler = { [weak self] in
-            self?.requestLeaveRoom()
-//            self?.onCloseBtn()
+            guard let `self` = self else { return }
+            self.requestLeaveRoom { [weak self] in
+                self?.showRecommendUser()
+            }
         }
         
         topBar.kickOffHandler = { [weak self] in
@@ -801,9 +804,9 @@ extension AmongChat.Room.ViewController {
             self?.showReportSheet()
         }
         
-//        topBar.nextRoomHandler = { [weak self] in
-//            self?.
-//        }
+        topBar.nextRoomHandler = { [weak self] in
+            self?.nextRoom()
+        }
         
         topBar.changePublicStateHandler = { [weak self] in
             guard let `self` = self else { return }
@@ -896,6 +899,38 @@ extension AmongChat.Room.ViewController {
                 return
             }
         }
+    }
+    
+    func startRtcAndImService() {
+        //        let removeBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        topBar.isIndicatorAnimate = true
+        //        view.isUserInteractionEnabled = false
+        viewModel.join { [weak self] error in
+            //            removeBlock()
+            self?.topBar.isIndicatorAnimate = false
+            //            self.view.isUserInteractionEnabled = false
+            if error != nil {
+                self?.requestLeaveRoom()
+            }
+        }
+    }
+    
+    func nextRoom() {
+        let removeBlock = view.raft.show(.loading)
+        view.isUserInteractionEnabled = false
+        viewModel.nextRoom { [weak self] room, errorMsg in
+            removeBlock()
+            self?.view.isUserInteractionEnabled = true
+//            self?.startRtcAndImService()
+            if let room = room {
+                self?.switchLiveRoomHandler?(room)
+            }
+        }
+//        viewModel.nextRoom
+//        requestLeaveRoom(completionHandler: { [weak self] in
+//            hud()
+//            self?.enterRoom(roomId: nil, topicId: self?.room.topicId, logSource: ParentPageSource(.room), apiSource: nil)
+//        })
     }
     
     func onUserProfileSheet(action: AmongSheetController.ItemType, user: Entity.RoomUser) {

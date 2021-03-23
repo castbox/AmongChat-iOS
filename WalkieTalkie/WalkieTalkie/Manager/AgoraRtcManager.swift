@@ -260,7 +260,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
     }
     
     func setClientRole(_ role: RtcUserRole) {
-        let result = mRtcEngine.setClientRole(AgoraClientRole(rawValue: role.rawValue)!)
+        let result = mRtcEngine?.setClientRole(AgoraClientRole(rawValue: role.rawValue)!)
         if result == 0 {
             cdPrint("setClientRole: \(role.rawValue) success")
         } else {
@@ -305,7 +305,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
         //清除数据
 //        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
-        mRtcEngine.leaveChannel(nil)
+        mRtcEngine?.leaveChannel(nil)
         setClientRole(.audience)
         self.role = nil
         self.channelId = nil
