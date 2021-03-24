@@ -44,6 +44,7 @@ extension Raft where Base: UIView {
 //            return loadingView.removeBlock
 //        default:
             MBProgressHUD.hide(for: self.base, animated: false)
+        
             let hud = hudFor(type: type)
             hud.isUserInteractionEnabled = userInteractionEnabled
             hud.offset = offset
@@ -70,6 +71,10 @@ extension Raft where Base: UIView {
     
     func autoHide() {
         MBProgressHUD.hide(for: self.base, animated: true)
+    }
+    
+    func topHud() -> MBProgressHUD? {
+        return MBProgressHUD(for: self.base)
     }
     
     private func hudFor(type: ShowType, backColor: UIColor? = nil) -> MBProgressHUD {

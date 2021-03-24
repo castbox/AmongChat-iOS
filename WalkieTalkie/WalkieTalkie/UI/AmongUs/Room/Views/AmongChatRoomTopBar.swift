@@ -92,6 +92,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     private func configureSubview() {
         publicButton.titleLabel?.adjustsFontSizeToFitWidth = true
         leaveButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
 //        leaveButton.titleLabel?.numberOfLines = 0
     }
     

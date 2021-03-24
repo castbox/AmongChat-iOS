@@ -138,8 +138,8 @@ class ChatRoomManager {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] token in
                 guard let `self` = self, let token = token, let uid = Settings.loginUserId else { return }
+                self.channelName = joinable.roomId
                 self.mRtcManager?.joinChannel(joinable, token, uid.uInt) { [weak self] in
-                    self?.channelName = joinable.roomId
                     completionHandler?(nil)
                 }
             }, onError: { error in
@@ -302,7 +302,7 @@ extension ChatRoomManager {
     
     func requestHeartBeating() {
         var params: [String: Any] = [:]
-        if let channelId = mRtcManager?.channelId {
+        if let channelId = channelName {
             params["room_id"] = channelId
         }
         cancelHeartBeatingRequest()

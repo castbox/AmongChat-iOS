@@ -17,6 +17,8 @@ struct ParentPageSource {
     let key: String
 
     static let matchSource = ParentPageSource(key: "match")
+    //快速切换
+    static let roomSource = ParentPageSource(key: "room")
     
     enum Page: String {
         case none
@@ -27,6 +29,7 @@ struct ParentPageSource {
         case create_match ////hottopic
         
         case join_friend_room
+        case room //
     }
     
     var page: Page {
@@ -124,7 +127,7 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
             
-                AmongChat.Room.ViewController.join(room: room, from: self, logSource: logSource) { error in
+                AmongChat.Room.ContainerController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()

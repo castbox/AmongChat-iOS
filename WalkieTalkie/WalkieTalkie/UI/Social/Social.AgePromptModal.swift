@@ -136,7 +136,7 @@ extension Social {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoBlack(size: 20)
             btn.addTarget(self, action: #selector(onSaveBtn), for: .primaryActionTriggered)
-            btn.setTitle(R.string.localizable.profileDone(), for: .normal)
+            btn.setTitle(R.string.localizable.profileEditSaveBtn(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
             btn.backgroundColor = UIColor(hex6: 0xFFF000)

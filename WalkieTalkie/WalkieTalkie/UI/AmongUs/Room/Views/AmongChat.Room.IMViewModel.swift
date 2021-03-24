@@ -48,6 +48,10 @@ extension AmongChat.Room {
         }
         
         deinit {
+//            imManager.leaveChannel(channelId)
+        }
+        
+        func leaveChannel() {
             imManager.leaveChannel(channelId)
         }
                 

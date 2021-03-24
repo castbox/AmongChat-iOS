@@ -119,6 +119,8 @@ extension AmongChat.Room {
                 maker.leading.trailing.equalToSuperview().inset(leftEdge)
                 maker.height.equalTo(topStackView)
             }
+            
+            updateSeats()
         }
         
         func fetchRealation(with user: Entity.RoomUser) {
