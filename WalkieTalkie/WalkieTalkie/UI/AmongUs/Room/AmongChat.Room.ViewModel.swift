@@ -163,6 +163,9 @@ extension AmongChat.Room {
             enteredTimestamp = Date().timeIntervalSince1970
             startShowShareTimerIfNeed()
             update(room)
+            if room.loginUserSeatNo == 0 {
+                cdPrint("****\n\n----------------------------\n Error：room 信息未包含自己 \(room)")
+            }
         }
         
         func startImService() {
@@ -200,6 +203,7 @@ extension AmongChat.Room {
         
         func requestLeaveChannel() -> Single<Bool> {
             mManager.leaveChannel()
+            imViewModel.leaveChannel()
             ViewModel.shared = nil
             state = .disconnected
             UIApplication.shared.isIdleTimerDisabled = false
@@ -556,7 +560,8 @@ extension AmongChat.Room {
 
 private extension AmongChat.Room.ViewModel {
     func startShowShareTimerIfNeed() {
-        guard source?.isFromCreatePage == true else {
+        guard source?.isFromCreatePage == true,
+              room.roomUserList.first?.uid == Settings.loginUserId else {
             return
         }
         delayToShowShareView(event: .createdRoom)

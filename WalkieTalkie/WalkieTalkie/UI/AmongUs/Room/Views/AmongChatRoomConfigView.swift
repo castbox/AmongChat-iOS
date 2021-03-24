@@ -99,10 +99,11 @@ extension AmongChatRoomConfigView {
             nameLabel.text = room.topicName
             gameIconTop.constant = 18.5
         }
-        
     }
     
     func bindSubviewEvent() {
+        //sync state
+        
         amongSetupView.setupHandler = { [weak self] in
             guard let `self` = self else {
                 return
@@ -152,6 +153,13 @@ extension AmongChatRoomConfigView {
         amongInfoView.isHidden = true
         justChillingInfoView.isHidden = true
         infoWithNicknameView.isHidden = true
+        openGameButton.isHidden = true
+        nameLabel.isHidden = true
+        
+        infoWithNicknameView.room = room
+        amongInfoView.room = room
+        justChillingInfoView.room = room
+        
         addSubviews(views: amongSetupView, amongInfoView, justChillingInfoView, infoWithNicknameView)
         
         amongSetupView.snp.makeConstraints { maker in

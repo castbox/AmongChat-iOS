@@ -53,6 +53,9 @@ extension AmongChat.Room {
         private var keyboardHiddenBlock: CallBack?
         
         var switchLiveRoomHandler: ((Entity.Room) -> Void)?
+        //显示父视图 loading
+        var showContainerLoading: ((Bool) -> Void)?
+        var showInnerJoinLoading: Bool = false
         
         private lazy var emojiPickerViewModel = AmongChat.Room.EmojiViewModel()
         
@@ -902,13 +905,14 @@ extension AmongChat.Room.ViewController {
     }
     
     func startRtcAndImService() {
-        //        let removeBlock = view.raft.show(.loading, userInteractionEnabled: false)
-        topBar.isIndicatorAnimate = true
+        
+        topBar.isIndicatorAnimate = showInnerJoinLoading
         //        view.isUserInteractionEnabled = false
         viewModel.join { [weak self] error in
             //            removeBlock()
             self?.topBar.isIndicatorAnimate = false
             //            self.view.isUserInteractionEnabled = false
+            self?.showContainerLoading?(false)
             if error != nil {
                 self?.requestLeaveRoom()
             }
@@ -916,11 +920,12 @@ extension AmongChat.Room.ViewController {
     }
     
     func nextRoom() {
-        let removeBlock = view.raft.show(.loading)
-        view.isUserInteractionEnabled = false
+//        let removeBlock = view.raft.show(.loading)
+//        view.isUserInteractionEnabled = false
+        showContainerLoading?(true)
         viewModel.nextRoom { [weak self] room, errorMsg in
-            removeBlock()
-            self?.view.isUserInteractionEnabled = true
+//            removeBlock()
+//            self?.view.isUserInteractionEnabled = true
 //            self?.startRtcAndImService()
             if let room = room {
                 self?.switchLiveRoomHandler?(room)
