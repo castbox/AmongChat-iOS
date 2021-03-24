@@ -922,13 +922,17 @@ extension AmongChat.Room.ViewController {
     func nextRoom() {
 //        let removeBlock = view.raft.show(.loading)
 //        view.isUserInteractionEnabled = false
+        Logger.Action.log(.room_next_room_clk, categoryValue: room.topicName)
         showContainerLoading?(true)
         viewModel.nextRoom { [weak self] room, errorMsg in
 //            removeBlock()
 //            self?.view.isUserInteractionEnabled = true
 //            self?.startRtcAndImService()
             if let room = room {
+                Logger.Action.log(.room_next_room_success, categoryValue: room.topicName)
                 self?.switchLiveRoomHandler?(room)
+            } else {
+                self?.showContainerLoading?(false)
             }
         }
 //        viewModel.nextRoom
