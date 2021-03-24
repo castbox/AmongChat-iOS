@@ -18,14 +18,14 @@ extension Social {
         
         enum Option {
             case tiktok
-            case pro
+            case gameStats
             
             func image() -> UIImage? {
                 switch self {
                 case .tiktok:
                     return R.image.ac_social_tiktok()
-                case .pro:
-                    return R.image.ac_profile_pro()
+                case .gameStats:
+                    return R.image.ac_profile_game()
                 }
             }
             
@@ -33,10 +33,8 @@ extension Social {
                 switch self {
                 case .tiktok:
                     return R.string.localizable.profileShareTiktokTitle()
-                case .pro:
-                    return Settings.shared.isProValue.value ?
-                        R.string.localizable.amongChatProfileProCenter() :
-                        R.string.localizable.profileUnlockPro()
+                case .gameStats:
+                    return R.string.localizable.amongChatProfileAddAGame()
                 }
             }
         }
@@ -124,7 +122,7 @@ extension Social {
             return v
         }()
         
-        private lazy var options: [Option] = [.pro, .tiktok]
+        private lazy var options: [Option] = [.gameStats, .tiktok]
         
         private var relationData: Entity.RelationData?
         
@@ -416,8 +414,8 @@ private extension Social.ProfileViewController {
     }
     
     private func upgradePro() {        
-        presentPremiumView(source: .setting)
-        Logger.UserAction.log(.update_pro, "settings")
+        let chooseGameVC = Social.ChooseGame.ViewController()
+        navigationController?.pushViewController(chooseGameVC, animated: true)
     }
 
 }
@@ -443,7 +441,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         tableView.deselectRow(at: indexPath, animated: true)
         if let op = options.safe(indexPath.row) {
             switch op {
-            case .pro:
+            case .gameStats:
                 upgradePro()
             case .tiktok:
                 Logger.Action.log(.profile_tiktok_amongchat_tag_clk)

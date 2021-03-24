@@ -31,3 +31,11 @@ extension Reactive where Base: UIViewController {
     }
 
 }
+
+extension Reactive where Base: UIButton {
+    
+    var isEnable: ControlEvent<Void> {
+        let source = self.methodInvoked(#selector(setter: Base.isEnabled)).map { _ in }
+        return ControlEvent(events: source)
+    }
+}
