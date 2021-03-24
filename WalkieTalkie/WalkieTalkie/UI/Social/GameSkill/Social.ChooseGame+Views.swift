@@ -20,6 +20,7 @@ extension Social.ChooseGame {
             lb.textColor = UIColor(hexString: "#FFFFFF")
             lb.font = R.font.nunitoExtraBold(size: 16)
             lb.adjustsFontSizeToFitWidth = true
+            lb.text = R.string.localizable.amongChatAdded()
             
             let i = UIImageView(image: R.image.ac_choose_game_added())
             
@@ -61,6 +62,12 @@ extension Social.ChooseGame {
             addedView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
+        }
+        
+        func bindViewModel(_ viewModel: Social.ChooseGame.GameViewModel) {
+            titleLabel.text = viewModel.name
+            coverIV.setImage(with: viewModel.coverUrl?.url)
+            addedView.isHidden = !viewModel.skill.isAdd
         }
         
     }

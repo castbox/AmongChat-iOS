@@ -76,8 +76,7 @@ extension Social.AddStatsViewController {
             v.addSubview(btn)
             
             btn.snp.makeConstraints { (maker) in
-                maker.center.equalToSuperview()
-                maker.width.height.equalTo(40)
+                maker.edges.equalToSuperview()
             }
             
             return v

@@ -43,7 +43,6 @@ extension Social {
         private lazy var doneButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 24
-            btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.isEnable
                 .subscribe(onNext: { [weak btn] (_) in
                     
@@ -62,6 +61,7 @@ extension Social {
             btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.addTarget(self, action: #selector(onDoneBtn), for: .primaryActionTriggered)
+            btn.isEnabled = false
             return btn
         }()
         
@@ -82,6 +82,7 @@ extension Social {
             let s = StatsView(.demo)
             s.titleLabel.text = R.string.localizable.amongChatExample()
             s.descLabel.text = R.string.localizable.amongChatAddStatsExampleDescription()
+            s.screenshotIV.setImage(with: game.skill.example)
             return s
         }()
         
@@ -108,6 +109,19 @@ extension Social {
             }
         }
         
+        var gameUpdatedHandler: (() -> Void)? = nil
+        
+        private let game: Social.ChooseGame.GameViewModel
+        
+        init(_ game: Social.ChooseGame.GameViewModel) {
+            self.game = game
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
@@ -123,7 +137,24 @@ extension Social.AddStatsViewController {
             
     @objc
     private func onDoneBtn() {
+        guard let image = screenshot else {
+            return
+        }
         
+        let hudRemoval: (() -> Void)? = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        uploadImage(image: image)
+            .flatMap({ Request.setGameSkill(game: self.game.skill, screenshotUrl: $0.0) })
+            .do(onDispose: {
+                hudRemoval?()
+            })
+            .subscribe( onSuccess: { [weak self] (_) in
+                self?.navigationController?.popViewController(animated: true)
+                self?.gameUpdatedHandler?()
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.localizedDescription))
+            })
+            .disposed(by: bag)
     }
 }
 
@@ -206,7 +237,7 @@ extension Social.AddStatsViewController {
                 defer {
                     picker.dismiss(animated: true, completion: nil)
                 }
-
+                
                 guard let photo = items.singlePhoto else {
                     subscriber(.error(MsgError.default))
                     return
