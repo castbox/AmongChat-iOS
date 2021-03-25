@@ -672,20 +672,23 @@ extension Social.ProfileViewController {
             backgroundColor = .clear
             selectionStyle = .none
             
-            contentView.layer.addSublayer(gradientLayer)
+            let container = UIView()
+            container.backgroundColor = .clear
+            container.layer.addSublayer(gradientLayer)
             
-            contentView.addSubviews(views: nameLabel, deleteButton, statsIV)
+            container.addSubviews(views: nameLabel, deleteButton, statsIV)
+            contentView.addSubview(container)
                         
-            contentView.snp.makeConstraints { (maker) in
+            container.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(20)
                 maker.top.bottom.equalToSuperview().inset(12)
             }
             
-            contentView.layer.cornerRadius = 12
-            contentView.clipsToBounds = true
+            container.layer.cornerRadius = 12
+            container.layer.masksToBounds = true
             
             let titleLayout = UILayoutGuide()
-            contentView.addLayoutGuide(titleLayout)
+            container.addLayoutGuide(titleLayout)
             titleLayout.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalToSuperview()
                 maker.height.equalTo(44)
