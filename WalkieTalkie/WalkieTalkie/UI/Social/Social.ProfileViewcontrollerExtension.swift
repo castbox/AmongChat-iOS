@@ -458,7 +458,6 @@ extension Social.ProfileViewController {
             editBtn.snp.makeConstraints { (maker) in
                 maker.trailing.equalTo(-20)
                 maker.centerY.equalTo(nameLabel.snp.centerY)
-                maker.height.width.equalTo(24)
             }
             editBtn.isHidden = true
             
