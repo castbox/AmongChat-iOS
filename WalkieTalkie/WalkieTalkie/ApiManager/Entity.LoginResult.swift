@@ -443,6 +443,7 @@ extension Entity {
         let topicId: String
         let img: String
         let topicName: String
+        let h5: String
     }
     
 }

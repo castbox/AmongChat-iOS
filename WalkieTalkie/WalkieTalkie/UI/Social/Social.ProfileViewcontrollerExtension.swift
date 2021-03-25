@@ -207,14 +207,21 @@ extension Social.ProfileViewController {
             return btn
         }()
         
-        private lazy var followButton: UIButton = {
-            let btn = UIButton()
-            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+        private lazy var loginButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.layer.cornerRadius = 26.5
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
-            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            btn.isHidden = true
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#FFF000".color()
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe { _ in
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
+                }
+                .disposed(by: bag)
             return btn
         }()
         
@@ -297,33 +304,6 @@ extension Social.ProfileViewController {
                     redCountLabel.isHidden = true
                 }
             }
-            let follow = model.isFollowed ?? false
-            setFollowButton(follow)
-        }
-        
-        func setFollowButton(_ isFollowed: Bool) {
-            if isFollowed {
-                greyFollowButton()
-            } else {
-                yellowFollowButton()
-            }
-            followButton.isHidden = false
-        }
-        
-        private func greyFollowButton() {
-            followButton.setTitle(R.string.localizable.profileFollowing(), for: .normal)
-            followButton.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
-            followButton.layer.borderWidth = 3
-            followButton.layer.borderColor = UIColor(hex6: 0x898989).cgColor
-            followButton.backgroundColor = UIColor.theme(.backgroundBlack)
-        }
-        
-        private func yellowFollowButton() {
-            followButton.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            followButton.backgroundColor = UIColor(hex6: 0xFFF000)
-            followButton.layer.borderWidth = 3
-            followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            followButton.setTitleColor(.black, for: .normal)
         }
         
         private func bindSubviewEvent() {
@@ -341,7 +321,7 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(49)
             }
             
-            addSubviews(views: infoContainer, skinView, backBtn, titleLabel)
+            addSubviews(views: infoContainer, skinView, backBtn, titleLabel, loginButton)
             
             skinView.addSubview(customizeBtn)
                         
@@ -355,6 +335,12 @@ extension Social.ProfileViewController {
                 maker.centerY.equalTo(navLayoutGuide)
                 maker.width.height.equalTo(40)//25
             }
+            
+            loginButton.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.bottom.equalToSuperview().offset(-88)
+                maker.height.equalTo(48)
+            }
             if !isSelf {
                 addSubview(moreBtn)
                 moreBtn.snp.makeConstraints { (make) in
@@ -362,6 +348,7 @@ extension Social.ProfileViewController {
                     make.centerY.equalTo(backBtn.snp.centerY)
                     make.width.height.equalTo(40)//24
                 }
+                loginButton.isHidden = true
             } else {
                 addSubview(settingsBtn)
                 settingsBtn.snp.makeConstraints { (maker) in
@@ -377,9 +364,15 @@ extension Social.ProfileViewController {
                     maker.right.equalTo(settingsBtn.snp.left).offset(-16)
                     maker.height.equalTo(40)
                 }
+                
+                Settings.shared.loginResult.replay()
+                    .subscribe(onNext: { [weak self] (_) in
+                        self?.loginButton.isHidden = AmongChat.Login.isLogedin
+                    })
+                    .disposed(by: bag)
             }
 
-            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
+            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, redCountLabel)
 
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -483,17 +476,6 @@ extension Social.ProfileViewController {
         }
         
         private func setLayoutForOther() {
-            
-            followButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(followingBtn.snp.bottom).offset(56)
-                maker.leading.trailing.equalToSuperview().inset(20)
-                maker.height.equalTo(53)
-            }
-            followButton.rx.tap
-                .subscribe(onNext: { [weak self]() in
-                    self?.headerHandle?(.follow)
-                }).disposed(by: bag)
-            
             editBtn.isHidden = true
             changeIcon.isHidden = true
             customizeBtn.isHidden = true
@@ -652,7 +634,7 @@ extension Social.ProfileViewController {
         
         private lazy var deleteButton: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_back(), for: .normal)
+            btn.setImage(R.image.ac_profile_delete_game_stats(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.deleteHandler?()
@@ -663,6 +645,8 @@ extension Social.ProfileViewController {
         
         private lazy var statsIV: UIImageView = {
             let i = UIImageView()
+            i.contentMode = .scaleAspectFill
+            i.clipsToBounds = true
             return i
         }()
         
@@ -699,6 +683,7 @@ extension Social.ProfileViewController {
             }
             
             contentView.layer.cornerRadius = 12
+            contentView.clipsToBounds = true
             
             let titleLayout = UILayoutGuide()
             contentView.addLayoutGuide(titleLayout)
@@ -730,6 +715,11 @@ extension Social.ProfileViewController {
             super.layoutSubviews()
             contentView.layoutIfNeeded()
             gradientLayer.frame = contentView.bounds
+        }
+        
+        func bind(_ game: Entity.UserGameSkill) {
+            nameLabel.text = game.topicName.uppercased()
+            statsIV.setImage(with: game.img)
         }
     }
     
