@@ -48,6 +48,37 @@ extension Social.ProfileViewController {
             return btn
         }()
         
+        private lazy var proBtn: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_pro_icon_22(), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0xFFEC96), for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
+            btn.rx.tap.observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self]() in
+                    guard let `self` = self else { return }
+                    self.controller?.presentPremiumView(source: .setting)
+                    Logger.UserAction.log(.update_pro, "settings")
+                }).disposed(by: bag)
+            
+            Settings.shared.isProValue.replay()
+                .subscribe(onNext: { (isPro) in
+                    
+                    if isPro {
+                        btn.setTitle(nil, for: .normal)
+                    } else {
+                        btn.setTitle(R.string.localizable.profileUnlockPro(), for: .normal)
+                    }
+                    
+                })
+                .disposed(by: bag)
+            btn.layer.cornerRadius = 20
+            btn.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.2)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
+            return btn
+        }()
+        
         private lazy var settingsBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.setImage(R.image.ac_profile_setting(), for: .normal)
@@ -176,14 +207,21 @@ extension Social.ProfileViewController {
             return btn
         }()
         
-        private lazy var followButton: UIButton = {
-            let btn = UIButton()
-            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+        private lazy var loginButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.adjustsImageWhenHighlighted = false
+            btn.layer.masksToBounds = true
+            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.layer.cornerRadius = 26.5
+            btn.titleLabel?.textAlignment = .center
             btn.setTitleColor(.black, for: .normal)
-            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            btn.isHidden = true
+            btn.layer.cornerRadius = 24
+            btn.backgroundColor = "#FFF000".color()
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe { _ in
+                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
+                }
+                .disposed(by: bag)
             return btn
         }()
         
@@ -266,33 +304,6 @@ extension Social.ProfileViewController {
                     redCountLabel.isHidden = true
                 }
             }
-            let follow = model.isFollowed ?? false
-            setFollowButton(follow)
-        }
-        
-        func setFollowButton(_ isFollowed: Bool) {
-            if isFollowed {
-                greyFollowButton()
-            } else {
-                yellowFollowButton()
-            }
-            followButton.isHidden = false
-        }
-        
-        private func greyFollowButton() {
-            followButton.setTitle(R.string.localizable.profileFollowing(), for: .normal)
-            followButton.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
-            followButton.layer.borderWidth = 3
-            followButton.layer.borderColor = UIColor(hex6: 0x898989).cgColor
-            followButton.backgroundColor = UIColor.theme(.backgroundBlack)
-        }
-        
-        private func yellowFollowButton() {
-            followButton.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
-            followButton.backgroundColor = UIColor(hex6: 0xFFF000)
-            followButton.layer.borderWidth = 3
-            followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            followButton.setTitleColor(.black, for: .normal)
         }
         
         private func bindSubviewEvent() {
@@ -310,7 +321,7 @@ extension Social.ProfileViewController {
                 maker.height.equalTo(49)
             }
             
-            addSubviews(views: infoContainer, skinView, backBtn, titleLabel)
+            addSubviews(views: infoContainer, skinView, backBtn, titleLabel, loginButton)
             
             skinView.addSubview(customizeBtn)
                         
@@ -324,6 +335,12 @@ extension Social.ProfileViewController {
                 maker.centerY.equalTo(navLayoutGuide)
                 maker.width.height.equalTo(40)//25
             }
+            
+            loginButton.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.bottom.equalToSuperview().offset(-88)
+                maker.height.equalTo(48)
+            }
             if !isSelf {
                 addSubview(moreBtn)
                 moreBtn.snp.makeConstraints { (make) in
@@ -331,15 +348,31 @@ extension Social.ProfileViewController {
                     make.centerY.equalTo(backBtn.snp.centerY)
                     make.width.height.equalTo(40)//24
                 }
+                loginButton.isHidden = true
             } else {
                 addSubview(settingsBtn)
                 settingsBtn.snp.makeConstraints { (maker) in
                     maker.centerY.equalTo(navLayoutGuide)
                     maker.right.equalToSuperview().inset(20)
                 }
+                
+                titleLabel.isHidden = true
+                
+                addSubview(proBtn)
+                proBtn.snp.makeConstraints { (maker) in
+                    maker.centerY.equalTo(navLayoutGuide)
+                    maker.right.equalTo(settingsBtn.snp.left).offset(-16)
+                    maker.height.equalTo(40)
+                }
+                
+                Settings.shared.loginResult.replay()
+                    .subscribe(onNext: { [weak self] (_) in
+                        self?.loginButton.isHidden = AmongChat.Login.isLogedin
+                    })
+                    .disposed(by: bag)
             }
 
-            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, followButton, redCountLabel)
+            infoContainer.addSubviews(views: avatarIV, changeIcon, editBtn, relationContainer, redCountLabel)
 
             followingBtn.snp.makeConstraints { (maker) in
                 maker.leading.top.bottom.equalToSuperview()
@@ -443,17 +476,6 @@ extension Social.ProfileViewController {
         }
         
         private func setLayoutForOther() {
-            
-            followButton.snp.makeConstraints { (maker) in
-                maker.top.equalTo(followingBtn.snp.bottom).offset(56)
-                maker.leading.trailing.equalToSuperview().inset(20)
-                maker.height.equalTo(53)
-            }
-            followButton.rx.tap
-                .subscribe(onNext: { [weak self]() in
-                    self?.headerHandle?(.follow)
-                }).disposed(by: bag)
-            
             editBtn.isHidden = true
             changeIcon.isHidden = true
             customizeBtn.isHidden = true
@@ -594,4 +616,111 @@ extension Social.ProfileViewController {
             subtitleLabel.appendKern()
         }
     }
+}
+
+extension Social.ProfileViewController {
+    
+    class GameCell: UITableViewCell {
+        
+        private let bag = DisposeBag()
+        
+        private lazy var nameLabel: UILabel = {
+            let lb = UILabel()
+            lb.textColor = UIColor(hexString: "#FFFFFF")
+            lb.font = R.font.bungeeRegular(size: 20)
+            lb.adjustsFontSizeToFitWidth = true
+            return lb
+        }()
+        
+        private lazy var deleteButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.setImage(R.image.ac_profile_delete_game_stats(), for: .normal)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.deleteHandler?()
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var statsIV: UIImageView = {
+            let i = UIImageView()
+            i.contentMode = .scaleAspectFill
+            i.clipsToBounds = true
+            return i
+        }()
+        
+        private lazy var gradientLayer: CAGradientLayer = {
+            let l = CAGradientLayer()
+            l.colors = [UIColor(hex6: 0x303030).cgColor, UIColor(hex6: 0x222222).cgColor]
+            l.startPoint = CGPoint(x: 0, y: 0)
+            l.endPoint = CGPoint(x: 1, y: 0)
+            return l
+        }()
+        
+        var deleteHandler: (() -> Void)? = nil
+                
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            backgroundColor = .clear
+            selectionStyle = .none
+            
+            contentView.layer.addSublayer(gradientLayer)
+            
+            contentView.addSubviews(views: nameLabel, deleteButton, statsIV)
+                        
+            contentView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.top.bottom.equalToSuperview().inset(12)
+            }
+            
+            contentView.layer.cornerRadius = 12
+            contentView.clipsToBounds = true
+            
+            let titleLayout = UILayoutGuide()
+            contentView.addLayoutGuide(titleLayout)
+            titleLayout.snp.makeConstraints { (maker) in
+                maker.leading.top.trailing.equalToSuperview()
+                maker.height.equalTo(44)
+            }
+            
+            nameLabel.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(16)
+                maker.centerY.equalTo(titleLayout)
+                maker.height.equalTo(20)
+                maker.trailing.lessThanOrEqualTo(deleteButton.snp.leading).offset(-23)
+            }
+            
+            deleteButton.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(20)
+                maker.centerY.equalTo(titleLayout)
+                maker.trailing.equalTo(-12)
+            }
+            
+            statsIV.snp.makeConstraints { (maker) in
+                maker.leading.trailing.bottom.equalToSuperview()
+                maker.top.equalTo(titleLayout.snp.bottom)
+            }
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            contentView.layoutIfNeeded()
+            gradientLayer.frame = contentView.bounds
+        }
+        
+        func bind(_ game: Entity.UserGameSkill) {
+            nameLabel.text = game.topicName.uppercased()
+            statsIV.setImage(with: game.img)
+        }
+    }
+    
 }

@@ -62,6 +62,10 @@ extension APIService {
         case updateDecoration([String : Any])
         case shareUserSign
         case uploadFile(data: Data, ext: String, mimeType: String, type: FileType)
+        case gameSkills
+        case setGameSkill([String : Any])
+        case removeGameSkill([String : Any])
+        case userGameSkills([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -176,6 +180,14 @@ extension APIService.AmongChatBackend: TargetType {
             return "/account/share/sign"
         case .uploadFile:
             return "/tool/file/upload"
+        case .gameSkills:
+            return "/api/v1/topics/skill"
+        case .setGameSkill:
+            return "/api/v1/game/skill"
+        case .removeGameSkill:
+            return "/api/v1/game/skill"
+        case .userGameSkills:
+            return "/api/v1/game/skill/list"
         }
     }
     
@@ -195,6 +207,7 @@ extension APIService.AmongChatBackend: TargetType {
              .contactUpload,
              .unlockDecoration,
              .updateDecoration,
+             .setGameSkill,
              .logout:
             return .post
             
@@ -228,11 +241,14 @@ extension APIService.AmongChatBackend: TargetType {
              .verifySmsCode,
              .defaultDecorations,
              .userSearch,
+             .gameSkills,
+             .userGameSkills,
              .shareUserSign:
             return .get
         case .follow:
             return .put
-        case .unFollow:
+        case .removeGameSkill,
+            .unFollow:
             return .delete
             
         case .uploadFile:
@@ -259,6 +275,7 @@ extension APIService.AmongChatBackend: TargetType {
              .contactList,
              .defaultDecorations,
              .globalSetting,
+             .gameSkills,
              .shareUserSign:
             return .requestParameters(parameters: [:], encoding: URLEncoding.default)
             
@@ -299,6 +316,9 @@ extension APIService.AmongChatBackend: TargetType {
              .verifySmsCode(let params),
              .unlockDecoration(let params),
              .updateDecoration(let params),
+             .setGameSkill(let params),
+             .removeGameSkill(let params),
+             .userGameSkills(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

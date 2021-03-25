@@ -10,6 +10,9 @@
 		2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2604716225ADA878007D88AE /* Bungee-Regular.ttf */; };
 		26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26057F8825C1712900718D3E /* AvatarImageView.swift */; };
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
+		26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B5C260A1A6400636E50 /* Social.AddStatsViewController.swift */; };
+		26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */; };
+		26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -22,6 +25,8 @@
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
 		26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */; };
 		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
+		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
+		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
@@ -333,6 +338,9 @@
 		2604716225ADA878007D88AE /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		26057F8825C1712900718D3E /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
+		26259B5C260A1A6400636E50 /* Social.AddStatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AddStatsViewController.swift; sourceTree = "<group>"; };
+		26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.AddStatsViewController+Views.swift"; sourceTree = "<group>"; };
+		26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewModel.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -347,6 +355,8 @@
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		26AFD90625CAB81200B652E8 /* IAP.ConsumableProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAP.ConsumableProduct.swift; sourceTree = "<group>"; };
 		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
+		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
+		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
@@ -684,6 +694,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		26DC825A2609C59B000A9111 /* GameSkill */ = {
+			isa = PBXGroup;
+			children = (
+				26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */,
+				26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */,
+				26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */,
+				26259B5C260A1A6400636E50 /* Social.AddStatsViewController.swift */,
+				26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */,
+			);
+			path = GameSkill;
+			sourceTree = "<group>";
+		};
 		26F7FE2F25E62D9C008F992C /* ProfileLook */ = {
 			isa = PBXGroup;
 			children = (
@@ -830,6 +852,7 @@
 				BDA05E9C250B229D0087933F /* BlockedUserList */,
 				26F7FE2F25E62D9C008F992C /* ProfileLook */,
 				26F7FFED25E631CA008F992C /* CustomAvatar */,
+				26DC825A2609C59B000A9111 /* GameSkill */,
 				26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */,
 			);
 			path = Social;
@@ -1682,6 +1705,7 @@
 				FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */,
 				2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */,
 				FE684884244BD9F900F87AF9 /* GradientView.swift in Sources */,
+				26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */,
 				FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */,
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
@@ -1694,6 +1718,7 @@
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
 				26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
+				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
 				FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */,
 				FE79F393258CE06D00E9BC6C /* AmongSheetIconItemCell.swift in Sources */,
@@ -1712,6 +1737,7 @@
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
 				BDC9D1422589C92800412BDC /* PolicyLabel.swift in Sources */,
 				FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */,
+				26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */,
 				FE8DEA68243DB09A0059C252 /* ApiManager.Observable.swift in Sources */,
 				FE9F69E425CD3E3200C0F118 /* PermissionManager.swift in Sources */,
 				FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */,
@@ -1769,6 +1795,7 @@
 				FE68488C244BDD0400F87AF9 /* UserProperty.swift in Sources */,
 				FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */,
 				FE79F387258CDE6B00E9BC6C /* AmongSheetController.swift in Sources */,
+				26259B5D260A1A6400636E50 /* Social.AddStatsViewController.swift in Sources */,
 				FEA298CB25E63714001D5F3C /* SnapChatSharePhotoView.swift in Sources */,
 				26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */,
 				2BA2DB462594AB320050BF8E /* Social.FollowerViewController.swift in Sources */,
@@ -1854,6 +1881,7 @@
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
+				26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */,
 				FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */,

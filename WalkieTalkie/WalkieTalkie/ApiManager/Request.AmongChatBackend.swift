@@ -723,4 +723,92 @@ extension Request {
             .map { $0?.roomToken }
     }
     
+    static func presetGameSkills() -> Single<[Entity.GameSkill]> {
+        
+        return amongchatProvider.rx.request(.gameSkills)
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["topicList"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.GameSkill].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func setGameSkill(game: Entity.GameSkill, screenshotUrl: String) -> Single<Void> {
+        
+        let params = [
+            "topic_id" : game.topicId,
+            "img" : screenshotUrl
+        ]
+        
+        return amongchatProvider.rx.request(.setGameSkill(params))
+            .mapJSON()
+            .map { item in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0 else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func removeGameSkill(game: Entity.UserGameSkill) -> Single<Void> {
+        let params = [
+            "topic_id" : game.topicId
+        ]
+        
+        return amongchatProvider.rx.request(.removeGameSkill(params))
+            .mapJSON()
+            .map { item in
+                guard let json = item as? [String: AnyObject],
+                      let code = json["code"] as? Int else {
+                    throw MsgError.default
+                }
+                
+                guard code == 0 else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func gameSkills(uid: Int) -> Single<[Entity.UserGameSkill]> {
+        let params = [
+            "uid" : uid
+        ]
+        
+        return amongchatProvider.rx.request(.userGameSkills(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["game_skill_list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.UserGameSkill].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

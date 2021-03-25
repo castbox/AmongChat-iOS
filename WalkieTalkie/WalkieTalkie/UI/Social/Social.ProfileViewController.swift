@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 import SwiftyUserDefaults
 import PullToDismiss
+import SDCAlertView
 
 extension Social {
     
@@ -18,14 +19,14 @@ extension Social {
         
         enum Option {
             case tiktok
-            case pro
+            case gameStats
             
             func image() -> UIImage? {
                 switch self {
                 case .tiktok:
                     return R.image.ac_social_tiktok()
-                case .pro:
-                    return R.image.ac_profile_pro()
+                case .gameStats:
+                    return R.image.ac_profile_game()
                 }
             }
             
@@ -33,24 +34,51 @@ extension Social {
                 switch self {
                 case .tiktok:
                     return R.string.localizable.profileShareTiktokTitle()
-                case .pro:
-                    return Settings.shared.isProValue.value ?
-                        R.string.localizable.amongChatProfileProCenter() :
-                        R.string.localizable.profileUnlockPro()
+                case .gameStats:
+                    return R.string.localizable.amongChatProfileAddAGame()
                 }
             }
         }
         var followedHandle:((Bool) -> Void)?
         
+        var tableHeaderHeight: CGFloat {
+            guard isSelfProfile else {
+                return 241 + 122 + Frame.Screen.width - 16
+            }
+            return 241 + Frame.Screen.width - 16
+        }
+        
+        private lazy var followButton: UIButton = {
+            let btn = UIButton()
+            btn.backgroundColor = UIColor(hex6: 0xFFF000)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.layer.cornerRadius = 24
+            btn.setTitleColor(.black, for: .normal)
+            btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+            btn.rx.tap
+                .subscribe(onNext: { [weak self]() in
+                    self?.headerView.headerHandle?(.follow)
+                }).disposed(by: bag)
+            btn.isHidden = true
+            return btn
+        }()
+        
+        private lazy var bottomGradientView: GradientView = {
+            let v = Social.ChooseGame.bottomGradientView()
+            v.addSubviews(views: followButton)
+            followButton.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.top.equalTo(40)
+                maker.height.equalTo(48)
+                maker.leading.equalTo(20)
+            }
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var headerView: ProfileView = {
             let v = ProfileView(with: isSelfProfile, viewController: self)
-            var vH: CGFloat {
-                guard isSelfProfile else {
-                    return 241 + 122
-                }
-                return 241
-            }
-            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: vH + Frame.Screen.width - 16)//298  413
+            v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: tableHeaderHeight)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
                 switch type {
@@ -83,50 +111,27 @@ extension Social {
         }()
         
         private lazy var table: UITableView = {
-            let tb = UITableView(frame: .zero, style: .plain)
+            let tb = UITableView(frame: .zero, style: .grouped)
             tb.dataSource = self
             tb.delegate = self
             tb.separatorStyle = .none
             tb.showsVerticalScrollIndicator = false
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
-            tb.rowHeight = 92
             tb.register(cellWithClass: ProfileTableCell.self)
+            tb.register(cellWithClass: GameCell.self)
             tb.neverAdjustContentInset()
             return tb
         }()
         
-        private lazy var loginButton: UIButton = {
-            let btn = UIButton(type: .custom)
-            btn.adjustsImageWhenHighlighted = false
-            btn.layer.masksToBounds = true
-            btn.setTitle(R.string.localizable.amongChatProfileSignIn(), for: .normal)
-            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-            btn.titleLabel?.textAlignment = .center
-            btn.setTitleColor(.black, for: .normal)
-            btn.layer.cornerRadius = 24
-            btn.backgroundColor = "#FFF000".color()
-            btn.rx.controlEvent(.primaryActionTriggered)
-                .subscribe { _ in
-                    _ = AmongChat.Login.canDoLoginEvent(style: .inAppLogin)
-                }
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var loginHeader: UIView = {
-            let v = UIView()
-            v.addSubview(loginButton)
-            loginButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.equalToSuperview().offset(12)
-                maker.height.equalTo(48)
-            }
-            return v
-        }()
-        
-        private lazy var options: [Option] = [.pro, .tiktok]
+        private lazy var options: [Option] = [.gameStats, .tiktok]
         
         private var relationData: Entity.RelationData?
+        
+        private var gameSkills = [Entity.UserGameSkill]() {
+            didSet {
+                table.reloadData()
+            }
+        }
         
         override var screenName: Logger.Screen.Node.Start {
             if isSelfProfile {
@@ -183,17 +188,44 @@ private extension Social.ProfileViewController {
         statusBarStyle = .lightContent
         view.backgroundColor = UIColor.theme(.backgroundBlack)
 
-        view.addSubviews(views: table)
+        view.addSubviews(views: table, bottomGradientView)
         
         table.snp.makeConstraints { (maker) in
             maker.leading.trailing.top.bottom.equalToSuperview()
         }
         
+        bottomGradientView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.bottom.equalToSuperview()
+            maker.height.equalTo(134)
+        }
+        
         if !isSelfProfile {
-            options.removeAll()
+            options = [.gameStats]
+            bottomGradientView.isHidden = false
         }
         table.tableHeaderView = headerView
         table.reloadData()
+        
+        Settings.shared.loginResult.replay()
+            .subscribe(onNext: { [weak self] (_) in
+                
+                guard let `self` = self,
+                      self.isSelfProfile else {
+                    return
+                }
+                
+                var frame = self.headerView.frame
+                
+                if AmongChat.Login.isLogedin {
+                    frame.size.height = self.tableHeaderHeight
+                } else {
+                    frame.size.height = self.tableHeaderHeight + 140
+                }
+                
+                self.table.tableHeaderView?.frame = frame
+            })
+            .disposed(by: bag)
+
     }
     
     func loadData() {
@@ -206,6 +238,18 @@ private extension Social.ProfileViewController {
             }, onError: {(error) in
                 cdPrint("profilePage error : \(error.localizedDescription)")
             }).disposed(by: bag)
+    }
+    
+    func loadGameSkills() {
+        
+        Request.gameSkills(uid: uid)
+            .subscribe(onSuccess: { [weak self] (skills) in
+                self?.gameSkills = skills
+            }, onError: { (error) in
+                
+            })
+            .disposed(by: bag)
+        
     }
     
     func setupData() {
@@ -267,6 +311,7 @@ private extension Social.ProfileViewController {
                 .disposed(by: bag)
 
         }
+        loadGameSkills()
     }
     
     func fetchRealation() {
@@ -276,6 +321,8 @@ private extension Social.ProfileViewController {
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
                 self.headerView.setViewData(data, isSelf: self.isSelfProfile)
+                let follow = data.isFollowed ?? false
+                self.setFollowButton(follow)
             }, onError: { (error) in
                 cdPrint("relationData error :\(error.localizedDescription)")
             }).disposed(by: bag)
@@ -294,7 +341,7 @@ private extension Social.ProfileViewController {
                     if success {
                         self.fetchRealation()
                         self.relationData?.isFollowed = false
-                        self.headerView.setFollowButton(false)
+                        self.setFollowButton(false)
                         self.followedHandle?(false)
                     }
                 }, onError: { (error) in
@@ -310,7 +357,7 @@ private extension Social.ProfileViewController {
                     if success {
                         self.fetchRealation()
                         self.relationData?.isFollowed = true
-                        self.headerView.setFollowButton(true)
+                        self.setFollowButton(true)
                         self.followedHandle?(true)
                     }
                 }, onError: { (error) in
@@ -415,36 +462,157 @@ private extension Social.ProfileViewController {
         
     }
     
-    private func upgradePro() {        
-        presentPremiumView(source: .setting)
-        Logger.UserAction.log(.update_pro, "settings")
+    private func toAddAGame() {        
+        let chooseGameVC = Social.ChooseGame.ViewController()
+        chooseGameVC.gameUpdatedHandler = { [weak self] in
+            self?.loadGameSkills()
+        }
+        navigationController?.pushViewController(chooseGameVC, animated: true)
     }
-
+    
+    private func toRemoveGameSkill(_ game: Entity.UserGameSkill, completionHandler: @escaping (() -> Void)) {
+        
+        let messageAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.amongChatGameStatsDeleteTip(),
+                                                                 attributes: [
+            NSAttributedString.Key.font : R.font.nunitoExtraBold(size: 16),
+            .foregroundColor: UIColor.white
+        ])
+        
+        let cancelAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.toastCancel(), attributes: [
+                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
+                .foregroundColor: "#6C6C6C".color()
+            ])
+        
+        let confirmAttr = NSAttributedString(string: R.string.localizable.amongChatDelete(), attributes: [
+            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
+            .foregroundColor: "#FB5858".color()
+        ])
+        
+        let alertVC = AlertController(attributedTitle: nil, attributedMessage: messageAttr, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
+        
+        alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal, handler: { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            let hudRemoval: (() -> Void)? = self.view.raft.show(.loading, userInteractionEnabled: false)
+            
+            Request.removeGameSkill(game: game)
+                .do(onDispose: {
+                    hudRemoval?()
+                })
+                .subscribe(onSuccess: { (_) in
+                    completionHandler()
+                }, onError: { (error) in
+                    
+                })
+                .disposed(by: self.bag)
+        })
+        )
+        
+        alertVC.present()
+        
+    }
+    
+    func setFollowButton(_ isFollowed: Bool) {
+        if isFollowed {
+            greyFollowButton()
+        } else {
+            yellowFollowButton()
+        }
+        followButton.isHidden = false
+    }
+    
+    private func greyFollowButton() {
+        followButton.setTitle(R.string.localizable.profileFollowing(), for: .normal)
+        followButton.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+        followButton.layer.borderWidth = 3
+        followButton.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+        followButton.backgroundColor = UIColor.theme(.backgroundBlack)
+    }
+    
+    private func yellowFollowButton() {
+        followButton.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
+        followButton.backgroundColor = UIColor(hex6: 0xFFF000)
+        followButton.layer.borderWidth = 3
+        followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
+        followButton.setTitleColor(.black, for: .normal)
+    }
 }
 // MARK: - UITableView
 extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return options.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        guard let op = options.safe(section) else {
+            return 0
+        }
+        
+        switch op {
+        case .gameStats:
+            if isSelfProfile {
+                return max(1, gameSkills.count)
+            } else {
+                return gameSkills.count
+            }
+            
+        case .tiktok:
+            return 1
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
-
-        if let op = options.safe(indexPath.row) {
+        let op = options[indexPath.section]
+        
+        switch op {
+        case .gameStats:
             
+            if let game = gameSkills.safe(indexPath.row) {
+                let cell = tableView.dequeueReusableCell(withClass: GameCell.self, for: indexPath)
+                cell.bind(game)
+                cell.deleteHandler = { [weak self] in
+                    self?.toRemoveGameSkill(game, completionHandler: {
+                        self?.loadGameSkills()
+                    })
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
+                cell.configCell(with: op)
+                return cell
+            }
+            
+        case .tiktok:
+            let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
             cell.configCell(with: op)
+            return cell
         }
-        return cell
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if let op = options.safe(indexPath.row) {
+        if let op = options.safe(indexPath.section) {
             switch op {
-            case .pro:
-                upgradePro()
+            case .gameStats:
+                
+                if let game = gameSkills.safe(indexPath.row) {
+                    // TODO: - 跳转H5
+                    game.h5
+                } else {
+                    toAddAGame()
+                }
+                
             case .tiktok:
                 Logger.Action.log(.profile_tiktok_amongchat_tag_clk)
                 guard let url = URL(string: "https://www.tiktok.com/tag/amongchat") else {
@@ -457,21 +625,138 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if !AmongChat.Login.isLogedin && isSelfProfile{
-            return 104
-        } else {
+        guard let op = options.safe(indexPath.section) else {
             return .leastNormalMagnitude
+        }
+        
+        switch op {
+        case .gameStats:
+            
+            if let _ = gameSkills.safe(indexPath.row) {
+                return 44 + (Frame.Screen.width - 20 * 2) * 180.0 / 335.0 + 12 * 2
+            } else {
+                return 92
+            }
+            
+        case .tiktok:
+            return 92
         }
         
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if !AmongChat.Login.isLogedin && isSelfProfile {
-            return loginHeader
-        } else {
+        
+        guard let op = options.safe(section) else {
             return nil
         }
+        
+        let v = UIView()
+        let l = UILabel()
+        l.textColor = UIColor(hexString: "#FFFFFF")
+        l.font = R.font.nunitoExtraBold(size: 20)
+        l.adjustsFontSizeToFitWidth = true
+        
+        v.addSubview(l)
+        l.snp.makeConstraints { (maker) in
+            maker.centerY.equalToSuperview()
+            maker.leading.equalTo(20)
+            maker.height.equalTo(27)
+        }
+        switch op {
+        case .gameStats:
+            
+            if isSelfProfile {
+                
+                l.text = R.string.localizable.amongChatProfileMyGameStats()
+
+                if gameSkills.count > 0 {
+
+                    let btn = UIButton(type: .custom)
+                    btn.setImage(R.image.ac_profile_add_game_stats(), for: .normal)
+                    btn.setTitle(R.string.localizable.amongChatProfileAddGame(), for: .normal)
+                    btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+                    btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
+                    btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
+                    btn.rx.controlEvent(.primaryActionTriggered)
+                        .subscribe(onNext: { [weak self] (_) in
+                            self?.toAddAGame()
+                        })
+                        .disposed(by: bag)
+                    
+                    v.addSubview(btn)
+                    
+                    btn.snp.makeConstraints { (maker) in
+                        maker.centerY.equalToSuperview()
+                        maker.trailing.equalTo(-20)
+                        maker.height.equalTo(27)
+                    }
+                    l.snp.makeConstraints { (maker) in
+                        maker.trailing.lessThanOrEqualTo(btn.snp.leading).offset(-20)
+                    }
+                    
+                } else {
+                    l.snp.makeConstraints { (maker) in
+                        maker.trailing.lessThanOrEqualTo(-20)
+                    }
+                }
+                
+            } else {
+                
+                if gameSkills.count > 0 {
+                    l.text = R.string.localizable.amongChatProfileGameStats()
+                    l.snp.makeConstraints { (maker) in
+                        maker.trailing.lessThanOrEqualTo(-20)
+                    }
+                }
+                
+            }
+            
+        case .tiktok:
+            l.text = R.string.localizable.amongChatProfileMakeTiktokVideo()
+            l.snp.makeConstraints { (maker) in
+                maker.trailing.lessThanOrEqualTo(-20)
+            }
+            
+        }
+        
+        return v
     }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard let op = options.safe(section) else {
+            return .leastNormalMagnitude
+        }
+        
+        switch op {
+        case .gameStats:
+            
+            if gameSkills.count > 0 {
+                return 40
+            } else {
+                return 28
+            }
+            
+        case .tiktok:
+            
+            if isSelfProfile {
+                return 46
+            } else {
+                return 134
+            }
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let v = UIView()
+        v.backgroundColor = .clear
+        return v
+    }
+    
 }
