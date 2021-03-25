@@ -216,7 +216,7 @@ class JSBridge {
                 })
             }
             
-            if let webVC = self.vc as? WebController {
+            if let webVC = self.vc as? WebViewController {
                 let fontBW = request.value["font_color"] as! Int8
                 if fontBW == 1 {
                     //black

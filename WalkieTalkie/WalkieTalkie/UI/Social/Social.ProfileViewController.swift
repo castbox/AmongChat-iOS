@@ -608,7 +608,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 
                 if let game = gameSkills.safe(indexPath.row) {
                     // TODO: - 跳转H5
-                    game.h5
+                    WebViewController.pushFrom(self, url: game.h5.url, contentType: .gameSkill(game))
                 } else {
                     toAddAGame()
                 }

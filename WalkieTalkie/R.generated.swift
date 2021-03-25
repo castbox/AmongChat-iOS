@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 175 images.
+  /// This `R.image` struct is generated, and contains static references to 176 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -272,6 +272,8 @@ struct R: Rswift.Validatable {
     static let ac_home_topic_tab_normal = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_normal")
     /// Image `ac_home_topic_tab_selected`.
     static let ac_home_topic_tab_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_topic_tab_selected")
+    /// Image `ac_icon_game_edit`.
+    static let ac_icon_game_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_game_edit")
     /// Image `ac_icon_kick_user`.
     static let ac_icon_kick_user = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_icon_kick_user")
     /// Image `ac_icon_leave`.
@@ -702,6 +704,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_home_topic_tab_selected", bundle: ..., traitCollection: ...)`
     static func ac_home_topic_tab_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_home_topic_tab_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_icon_game_edit", bundle: ..., traitCollection: ...)`
+    static func ac_icon_game_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_icon_game_edit, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_icon_kick_user", bundle: ..., traitCollection: ...)`
