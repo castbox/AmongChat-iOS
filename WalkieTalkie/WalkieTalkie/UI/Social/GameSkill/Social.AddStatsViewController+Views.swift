@@ -49,9 +49,8 @@ extension Social.AddStatsViewController {
             let lb = UILabel()
             lb.font = R.font.nunitoBold(size: 16)
             lb.textColor = UIColor(hex6: 0x898989)
-            lb.numberOfLines = 2
+            lb.numberOfLines = 0
             lb.textAlignment = .left
-            lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
         
@@ -142,8 +141,7 @@ extension Social.AddStatsViewController {
             
             descLabel.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalTo(titleLabel)
-                maker.top.equalTo(titleLabel.snp.bottom).offset(2)
-                maker.height.equalTo(43)
+                maker.top.equalTo(titleLabel.snp.bottom).offset(4)
             }
             
             addView.snp.makeConstraints { (maker) in
