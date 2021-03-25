@@ -690,7 +690,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
 
                     let btn = UIButton(type: .custom)
                     btn.setImage(R.image.ac_profile_add_game_stats(), for: .normal)
-                    btn.setTitle(R.string.localizable.amongChatProfileAddGame(), for: .normal)
+                    btn.setTitle(R.string.localizable.amongChatProfileAddAGame(), for: .normal)
                     btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                     btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
                     btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
