@@ -107,11 +107,16 @@ extension AmongChat.Room {
         private var room: Entity.Room {
             roomReplay.value
         }
+        
         private var enteredTimestamp: TimeInterval!
-        var showRecommendUser: Bool {
+        var stayDuration: Int {
             let gap = Date().timeIntervalSince1970 - enteredTimestamp
             cdPrint("now time stamp gap : \(gap.int)")
-            return (gap.int / 60) > 6
+            return gap.int
+        }
+        
+        var showRecommendUser: Bool {
+            (stayDuration / 60) > 6
         }
         
         let isMuteMicObservable = BehaviorRelay<Bool>(value: false)
