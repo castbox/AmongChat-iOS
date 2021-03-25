@@ -293,6 +293,7 @@ PODS:
   - SwiftyUserDefaults (5.0.0)
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.4.8)
+  - WebViewJavascriptBridge (7.0.0)
   - WSFlexibleTouch (0.1.1)
   - YPImagePicker (4.4.0):
     - PryntTrimmerView (~> 4.0.2)
@@ -349,6 +350,7 @@ DEPENDENCIES:
   - SwiftyJSON
   - SwiftyUserDefaults (~> 5.0.0)
   - UIColor_Hex_Swift (~> 4.2.0)
+  - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
   - YPImagePicker
   - YYText
@@ -446,11 +448,17 @@ EXTERNAL SOURCES:
   Bolts:
     :branch: master
     :git: https://github.com/roremeol/Bolts-ObjC.git
+  WebViewJavascriptBridge:
+    :branch: Remove-UIWebView-Support
+    :git: https://github.com/devSC/WebViewJavascriptBridge.git
 
 CHECKOUT OPTIONS:
   Bolts:
     :commit: 3122920f097d94e3d65bda41f32970f00a6795f4
     :git: https://github.com/roremeol/Bolts-ObjC.git
+  WebViewJavascriptBridge:
+    :commit: c2f99cbde00c410c2ca6512de5cecaa30d133cfc
+    :git: https://github.com/devSC/WebViewJavascriptBridge.git
 
 SPEC CHECKSUMS:
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
@@ -534,11 +542,12 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
+  WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 5a472065c5fc4fc4175e2db1db4b6e0c54004c70
+PODFILE CHECKSUM: c0e12318313c15de739783a7eabfd4be509873a9
 
 COCOAPODS: 1.10.0

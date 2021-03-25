@@ -273,6 +273,9 @@
 		FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DA2449C74F006454F6 /* Modal.Container.swift */; };
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD68DD258BA42900977579 /* EncodableExtension.swift */; };
+		FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */; };
+		FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */; };
+		FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */; };
 		FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */; };
 		FEC17A4924A99BF0003719BC /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4824A99BF0003719BC /* Entity.swift */; };
 		FEC17A4B24A9B957003719BC /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC17A4A24A9B957003719BC /* Request.swift */; };
@@ -620,6 +623,9 @@
 		FEAD54DA2449C74F006454F6 /* Modal.Container.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Container.swift; sourceTree = "<group>"; };
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD68DD258BA42900977579 /* EncodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
+		FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Support.swift; sourceTree = "<group>"; };
+		FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
+		FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Links.swift; sourceTree = "<group>"; };
 		FEC10DCD25C0340A0014F8DD /* Social.ContactListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ContactListViewController.swift; sourceTree = "<group>"; };
 		FEC17A4824A99BF0003719BC /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		FEC17A4A24A9B957003719BC /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -1019,6 +1025,7 @@
 		FE401E49244DAD6B0081F793 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				FEBCFEA4260C3B9900DD9B8D /* JSBridge */,
 				FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */,
 				FE6AF8572457E03500FD474A /* RxKeyboard.swift */,
 				FE2AF9FA244DDDC700763747 /* URLUnit.swift */,
@@ -1183,6 +1190,16 @@
 				FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		FEBCFEA4260C3B9900DD9B8D /* JSBridge */ = {
+			isa = PBXGroup;
+			children = (
+				FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */,
+				FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */,
+				FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */,
+			);
+			path = JSBridge;
 			sourceTree = "<group>";
 		};
 		FECA43A824597B570075D139 /* Automator */ = {
@@ -1648,6 +1665,7 @@
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
+				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
@@ -1738,6 +1756,7 @@
 				FE7218712456D900005274CA /* FireMessaging.swift in Sources */,
 				FE8DEA6A243DB09A0059C252 /* ApiManager.Transform.swift in Sources */,
 				FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */,
+				FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */,
 				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
@@ -1837,6 +1856,7 @@
 				FEAD54DD2449C74F006454F6 /* Modal.Container.swift in Sources */,
 				FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */,
 				BD6739BD2595EEAD00B3305B /* AmongChat.Home+RelationViewModels.swift in Sources */,
+				FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
