@@ -421,3 +421,29 @@ extension Entity.UserProfile {
     }
     
 }
+
+extension Entity {
+    
+    struct GameSkill: Codable {
+        let topicId: String
+        let topicName: String
+        let coverUrl: String
+        let example: String
+        let isAdd: Bool
+        private enum CodingKeys: String, CodingKey {
+            case topicId
+            case topicName
+            case coverUrl = "cover_url"
+            case example
+            case isAdd = "is_add"
+        }
+    }
+    
+    struct UserGameSkill: Codable {
+        let topicId: String
+        let img: String
+        let topicName: String
+        let h5: String
+    }
+    
+}

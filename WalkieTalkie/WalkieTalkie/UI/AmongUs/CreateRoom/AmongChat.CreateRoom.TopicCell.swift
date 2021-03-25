@@ -12,13 +12,13 @@ extension AmongChat.CreateRoom {
     
     class TopicCell: UICollectionViewCell {
         
-        private lazy var coverIV: UIImageView = {
+        lazy var coverIV: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
             return i
         }()
         
-        private lazy var gradientMusk: CAGradientLayer = {
+        lazy var gradientMusk: CAGradientLayer = {
             let l = CAGradientLayer()
             l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 0.16).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
             l.startPoint = CGPoint(x: 0.5, y: 0.5)
@@ -27,7 +27,7 @@ extension AmongChat.CreateRoom {
             return l
         }()
         
-        private lazy var titleLabel: UILabel = {
+        lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.textColor = UIColor(hexString: "#FFFFFF")
             lb.font = R.font.bungeeRegular(size: 20)
@@ -36,7 +36,7 @@ extension AmongChat.CreateRoom {
             return lb
         }()
         
-        private lazy var checkIcon: UIImageView = {
+        lazy var checkIcon: UIImageView = {
             let i = UIImageView(image: R.image.ac_avatar_selected())
             i.isHidden = true
             return i
