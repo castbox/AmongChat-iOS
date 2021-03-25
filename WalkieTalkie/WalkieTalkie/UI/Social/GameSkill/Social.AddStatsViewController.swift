@@ -153,7 +153,7 @@ extension Social.AddStatsViewController {
                 hudRemoval?()
             })
             .subscribe( onSuccess: { [weak self] (_) in
-                self?.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popToRootViewController(animated: true)
                 self?.gameUpdatedHandler?()
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
