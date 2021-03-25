@@ -271,9 +271,16 @@ extension Social.AddStatsViewController {
             callback(image)
         })]
         
+        let closeBtn = UIButton(type: .custom)
+        closeBtn.setImage(R.image.ac_profile_close(), for: .normal)
+        closeBtn.frame = CGRect(origin: .zero, size: CGSize(width: 24, height: 24))
+        
         let galleryViewController = GalleryViewController(startIndex: 0,
                                                           itemsDataSource: self,
-                                                          configuration: [.deleteButtonMode(.none), .thumbnailsButtonMode(.none), .closeButtonMode(.none)])
+                                                          configuration: [.deleteButtonMode(.none),
+                                                                          .thumbnailsButtonMode(.none),
+                                                                          .closeButtonMode(.custom(closeBtn)),
+                                                                          .closeLayout(.pinRight(20 + Frame.Height.safeAeraTopHeight, 20))])
         
         self.presentImageGallery(galleryViewController)
 
