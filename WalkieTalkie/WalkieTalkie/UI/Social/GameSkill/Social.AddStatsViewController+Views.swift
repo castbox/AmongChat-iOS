@@ -58,7 +58,7 @@ extension Social.AddStatsViewController {
             let v = DashedLineBorderView()
             
             v.layer.strokeColor = UIColor(hex6: 0x313131).cgColor
-            v.layer.lineDashPattern = [15, 15]
+            v.layer.lineDashPattern = [8, 10]
             v.layer.fillColor = nil
             v.layer.lineWidth = 4
             v.layer.lineCap = .round
