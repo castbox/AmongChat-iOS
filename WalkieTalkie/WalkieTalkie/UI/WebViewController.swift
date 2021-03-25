@@ -349,16 +349,23 @@ private extension WebViewController {
     @objc func editButtonAction() {
         switch contentType {
         case let .gameSkill(skill):
-            ()
+            let game = Social.ChooseGame.GameViewModel(with: Entity.GameSkill(topicId: skill.topicId,
+                                                                              topicName: skill.topicName,
+                                                                              coverUrl: "",
+                                                                              example: skill.example,
+                                                                              isAdd: false))
+            let addStatsVC = Social.AddStatsViewController(game)
+            navigationController?.pushViewController(addStatsVC, animated: true)
+            addStatsVC.gameUpdatedHandler = { [weak self] in
+                
+                guard let url = self?.url else {
+                    return
+                }
+                self?.load(url: url)
+            }
         default:
             ()
         }
-//        let addStatsVC = Social.AddStatsViewController(game)
-//        navigationController?.pushViewController(addStatsVC, animated: true)
-//        addStatsVC.gameUpdatedHandler = { [weak self] in
-//            self?.gameUpdatedHandler?()
-//            self?.fetchData()
-//        }
     }
     
     func showSystemNavigationBar() {

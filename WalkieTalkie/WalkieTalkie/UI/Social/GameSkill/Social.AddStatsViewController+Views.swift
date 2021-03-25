@@ -37,7 +37,7 @@ extension Social.AddStatsViewController {
         
         private let bag = DisposeBag()
         
-        let titleLabel: UILabel = {
+        private(set) lazy var titleLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 24)
             lb.textColor = UIColor.white
@@ -45,7 +45,7 @@ extension Social.AddStatsViewController {
             return lb
         }()
         
-        let descLabel: UILabel = {
+        private(set) lazy var descLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoBold(size: 16)
             lb.textColor = UIColor(hex6: 0x898989)
@@ -82,11 +82,18 @@ extension Social.AddStatsViewController {
             return v
         }()
         
-        let screenshotIV: UIImageView = {
+        private(set) lazy var screenshotIV: UIImageView = {
             let i = UIImageView()
             i.layer.cornerRadius = 12
             i.contentMode = .scaleAspectFill
             i.clipsToBounds = true
+            let tapGR = UITapGestureRecognizer()
+            i.isUserInteractionEnabled = true
+            i.addGestureRecognizer(tapGR)
+            tapGR.rx.event.subscribe(onNext: { [weak self] (_) in
+                self?.viewImageHandler?(self?.screenshotIV.image)
+            })
+            .disposed(by: bag)
             return i
         }()
         
@@ -111,6 +118,7 @@ extension Social.AddStatsViewController {
         
         var addHandler: (() -> Void)? = nil
         var removeHandler: (() -> Void)? = nil
+        var viewImageHandler: ((UIImage?) -> Void)? = nil
         
         init(_ style: Style) {
             self.style = style

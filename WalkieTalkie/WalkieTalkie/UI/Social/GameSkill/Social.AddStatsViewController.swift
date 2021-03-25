@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import YPImagePicker
+import ImageViewer
 
 extension Social {
     
@@ -75,6 +76,9 @@ extension Social {
             s.removeHandler = { [weak self] in
                 self?.screenshot = nil
             }
+            s.viewImageHandler = { [weak self] (image) in
+                self?.showImageViewer(image)
+            }
             return s
         }()
         
@@ -83,6 +87,9 @@ extension Social {
             s.titleLabel.text = R.string.localizable.amongChatExample()
             s.descLabel.text = R.string.localizable.amongChatAddStatsExampleDescription()
             s.screenshotIV.setImage(with: game.skill.example)
+            s.viewImageHandler = { [weak self] (image) in
+                self?.showImageViewer(image)
+            }
             return s
         }()
         
@@ -105,6 +112,8 @@ extension Social {
         }
         
         var gameUpdatedHandler: (() -> Void)? = nil
+        
+        private var imageGalleryItems = [GalleryItem]()
         
         private let game: Social.ChooseGame.GameViewModel
         
@@ -254,6 +263,22 @@ extension Social.AddStatsViewController {
             .map { ($0, image) }
     }
     
+    private func showImageViewer(_ image: UIImage?) {
+        
+        guard let image = image else { return }
+        
+        imageGalleryItems = [GalleryItem.image(fetchImageBlock: { (callback) in
+            callback(image)
+        })]
+        
+        let galleryViewController = GalleryViewController(startIndex: 0,
+                                                          itemsDataSource: self,
+                                                          configuration: [.deleteButtonMode(.none), .thumbnailsButtonMode(.none), .closeButtonMode(.none)])
+        
+        self.presentImageGallery(galleryViewController)
+
+    }
+    
 }
 
 extension Social.AddStatsViewController: YPImagePickerDelegate {
@@ -264,5 +289,16 @@ extension Social.AddStatsViewController: YPImagePickerDelegate {
     
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool {
         return true
+    }
+}
+
+extension Social.AddStatsViewController: GalleryItemsDataSource {
+    
+    func itemCount() -> Int {
+        return imageGalleryItems.count
+    }
+    
+    func provideGalleryItem(_ index: Int) -> GalleryItem {
+        return imageGalleryItems[index]
     }
 }

@@ -123,7 +123,7 @@ extension Social {
             return tb
         }()
         
-        private lazy var options: [Option] = [.gameStats, .tiktok]
+        private lazy var options = [Option]()
         
         private var relationData: Entity.RelationData?
         
@@ -202,7 +202,18 @@ private extension Social.ProfileViewController {
         if !isSelfProfile {
             options = [.gameStats]
             bottomGradientView.isHidden = false
+        } else {
+            if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
+                options = [.gameStats, .tiktok]
+            } else {
+                #if DEBUG
+                options = [.gameStats, .tiktok]
+                #else
+                options = [.tiktok]
+                #endif
+            }
         }
+        
         table.tableHeaderView = headerView
         table.reloadData()
         
