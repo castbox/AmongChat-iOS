@@ -73,3 +73,17 @@ extension Social.ChooseGame {
     }
     
 }
+
+extension Social.ChooseGame {
+    
+    static func bottomGradientView() -> GradientView{
+        let v = GradientView()
+        let l = v.layer
+        l.colors = [UIColor(hex6: 0x191919, alpha: 0).cgColor, UIColor(hex6: 0x1D1D1D, alpha: 0.18).cgColor, UIColor(hex6: 0x232323, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
+        l.startPoint = CGPoint(x: 0.5, y: 0)
+        l.endPoint = CGPoint(x: 0.5, y: 0.41)
+        l.locations = [0, 0.3, 0.6, 1]
+        return v
+    }
+    
+}

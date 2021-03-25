@@ -87,12 +87,7 @@ extension Social {
         }()
         
         private lazy var bottomGradientView: GradientView = {
-            let v = GradientView()
-            let l = v.layer
-            l.colors = [UIColor(hex6: 0x191919, alpha: 0).cgColor, UIColor(hex6: 0x1D1D1D, alpha: 0.18).cgColor, UIColor(hex6: 0x232323, alpha: 0.57).cgColor, UIColor(hex6: 0x121212).cgColor]
-            l.startPoint = CGPoint(x: 0.5, y: 0)
-            l.endPoint = CGPoint(x: 0.5, y: 1)
-            l.locations = [0, 0.25, 0.5, 0.75, 1]
+            let v = Social.ChooseGame.bottomGradientView()
             v.addSubviews(views: doneButton)
             doneButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
