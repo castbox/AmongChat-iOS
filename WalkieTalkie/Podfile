@@ -157,6 +157,7 @@ target 'WalkieTalkie' do
     pod 'YPImagePicker'
     pod 'RAMAnimatedTabBarController'
     pod 'WebViewJavascriptBridge', :git => 'https://github.com/devSC/WebViewJavascriptBridge.git', :branch => "Remove-UIWebView-Support"
+    pod 'ImageViewer'
 end
 
 post_install do |installer|
