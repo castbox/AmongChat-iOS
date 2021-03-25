@@ -121,6 +121,8 @@ extension Logger {
             case room_user_profile_imp
             case room_emoji_clk
             case room_emoji_selected
+            case room_next_room_clk
+            case room_next_room_success
             case room_user_profile_clk
             case room_amongus_code_copy
             case room_enter
