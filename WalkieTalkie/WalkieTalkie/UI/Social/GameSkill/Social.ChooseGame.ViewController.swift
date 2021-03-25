@@ -90,7 +90,7 @@ extension Social.ChooseGame {
             v.addSubviews(views: nextButton)
             nextButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(40)
+                maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }

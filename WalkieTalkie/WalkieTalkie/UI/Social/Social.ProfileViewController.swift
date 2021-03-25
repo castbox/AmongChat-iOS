@@ -68,7 +68,7 @@ extension Social {
             v.addSubviews(views: followButton)
             followButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(40)
+                maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }
