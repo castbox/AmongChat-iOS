@@ -353,3 +353,19 @@
 "among.chat.vip.recruit.title2" = "Входи сейчас!";
 "among.chat.vip.recruit.msg" = "Сначала запомните свой ID, а потом поехали!";
 "among.chat.login.auth.tip.apply" = "Пожалуйста, войдите сначала, чтобы подать заявку";
+
+//1.16.3
+"among.chat.profile.my.game.stats" = "Моя игровая статистика";
+"among.chat.profile.game.stats" = "Игровая статистика";
+"among.chat.profile.add.a.game" = "Добавить игру";
+"among.chat.profile.add.game" = "Добавить игру";
+"among.chat.profile.make.tiktok.video" = "Сделать видео в Tiktok";
+"among.chat.choose.game" = "Выберите игру";
+"among.chat.added" = "Добавлен";
+"among.chat.add.stats" = "Добавьте свою статистику";
+"among.chat.add.stats.upload.screenshot" = "Загрузите скриншот";
+"among.chat.add.stats.upload.screenshot.description" = "Сделайте снимок экрана со страницей статистики в игре и загрузите ее сюда.";
+"among.chat.example" = "Пример";
+"among.chat.add.stats.example.description" = "Вот как должен выглядеть скриншот.";
+"among.chat.game.stats.delete.tip" = "Вы уверены, что хотите удалить игровую статистику?";
+"among.chat.delete" = "Удалить";

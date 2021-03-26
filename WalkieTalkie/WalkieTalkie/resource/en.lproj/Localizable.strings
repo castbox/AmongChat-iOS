@@ -354,7 +354,7 @@
 "among.chat.vip.recruit.msg" = "Remember your ID first, then let's go!";
 "among.chat.login.auth.tip.apply" = "Please sign in first to apply";
 
-//1.17
+//1.16.3
 "among.chat.profile.my.game.stats" = "My Gaming Stats";
 "among.chat.profile.game.stats" = "Gaming Stats";
 "among.chat.profile.add.a.game" = "Add a Game";

@@ -1872,24 +1872,24 @@ struct R: Rswift.Validatable {
       static let roomAnimalCrossingIdPlaceholder = Rswift.StringResource(key: "room.animal.crossing.id.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add Game
       /// 
-      /// Locales: en
-      static let amongChatProfileAddGame = Rswift.StringResource(key: "among.chat.profile.add.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileAddGame = Rswift.StringResource(key: "among.chat.profile.add.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add New Friends
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialAddNew = Rswift.StringResource(key: "social.add.new", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add Your Stats
       /// 
-      /// Locales: en
-      static let amongChatAddStats = Rswift.StringResource(key: "among.chat.add.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddStats = Rswift.StringResource(key: "among.chat.add.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add a Game
       /// 
-      /// Locales: en
-      static let amongChatProfileAddAGame = Rswift.StringResource(key: "among.chat.profile.add.a.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileAddAGame = Rswift.StringResource(key: "among.chat.profile.add.a.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Added
       /// 
-      /// Locales: en
-      static let amongChatAdded = Rswift.StringResource(key: "among.chat.added", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAdded = Rswift.StringResource(key: "among.chat.added", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1920,8 +1920,8 @@ struct R: Rswift.Validatable {
       static let profileBlockMessage = Rswift.StringResource(key: "profile.block.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Are you sure to delete the gaming stats?
       /// 
-      /// Locales: en
-      static let amongChatGameStatsDeleteTip = Rswift.StringResource(key: "among.chat.game.stats.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGameStatsDeleteTip = Rswift.StringResource(key: "among.chat.game.stats.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2004,8 +2004,8 @@ struct R: Rswift.Validatable {
       static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Choose a Game
       /// 
-      /// Locales: en
-      static let amongChatChooseGame = Rswift.StringResource(key: "among.chat.choose.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatChooseGame = Rswift.StringResource(key: "among.chat.choose.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Claim
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2092,8 +2092,8 @@ struct R: Rswift.Validatable {
       static let monthDec = Rswift.StringResource(key: "month.dec", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Delete
       /// 
-      /// Locales: en
-      static let amongChatDelete = Rswift.StringResource(key: "among.chat.delete", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatDelete = Rswift.StringResource(key: "among.chat.delete", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2140,8 +2140,8 @@ struct R: Rswift.Validatable {
       static let amongusServerNorthEurope = Rswift.StringResource(key: "amongus.server.north.europe", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Example
       /// 
-      /// Locales: en
-      static let amongChatExample = Rswift.StringResource(key: "among.chat.example", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatExample = Rswift.StringResource(key: "among.chat.example", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Exclusive PRO badge
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2240,8 +2240,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomMinecraftNamePrefix = Rswift.StringResource(key: "among.chat.room.minecraft.name.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Gaming Stats
       /// 
-      /// Locales: en
-      static let amongChatProfileGameStats = Rswift.StringResource(key: "among.chat.profile.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileGameStats = Rswift.StringResource(key: "among.chat.profile.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Get Verified
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2272,8 +2272,8 @@ struct R: Rswift.Validatable {
       static let amongChatProfileHat = Rswift.StringResource(key: "among.chat.profile.Hat", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Here’s how the screenshot should look like.
       /// 
-      /// Locales: en
-      static let amongChatAddStatsExampleDescription = Rswift.StringResource(key: "among.chat.add.stats.example.description", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddStatsExampleDescription = Rswift.StringResource(key: "among.chat.add.stats.example.description", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Hey, we need one more person to join to start our game. Come join us here: %@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2384,8 +2384,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomMobileLegendsName = Rswift.StringResource(key: "among.chat.room.mobile.legends.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Make Tiktok video
       /// 
-      /// Locales: en
-      static let amongChatProfileMakeTiktokVideo = Rswift.StringResource(key: "among.chat.profile.make.tiktok.video", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileMakeTiktokVideo = Rswift.StringResource(key: "among.chat.profile.make.tiktok.video", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Make your #amongchat video on TikTok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2412,8 +2412,8 @@ struct R: Rswift.Validatable {
       static let roomUserListMuted = Rswift.StringResource(key: "room.user.list.muted", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: My Gaming Stats
       /// 
-      /// Locales: en
-      static let amongChatProfileMyGameStats = Rswift.StringResource(key: "among.chat.profile.my.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatProfileMyGameStats = Rswift.StringResource(key: "among.chat.profile.my.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: NICKNAME
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2684,8 +2684,8 @@ struct R: Rswift.Validatable {
       static let amongChatRoomMessagePlaceholder = Rswift.StringResource(key: "among.chat.room.message.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Screenshot the statistics page in the game and upload it here.
       /// 
-      /// Locales: en
-      static let amongChatAddStatsUploadScreenshotDescription = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot.description", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddStatsUploadScreenshotDescription = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot.description", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Search by name
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2928,8 +2928,8 @@ struct R: Rswift.Validatable {
       static let reportIncorrectUnreasonable = Rswift.StringResource(key: "report.incorrect.unreasonable", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Upload a screenshot
       /// 
-      /// Locales: en
-      static let amongChatAddStatsUploadScreenshot = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddStatsUploadScreenshot = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3167,7 +3167,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Add Game
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileAddGame(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.add.game", bundle: R.hostingBundle, comment: "")
       }
@@ -3181,21 +3181,21 @@ struct R: Rswift.Validatable {
       
       /// en translation: Add Your Stats
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAddStats(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.add.stats", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Add a Game
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileAddAGame(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.add.a.game", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Added
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAdded(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.added", bundle: R.hostingBundle, comment: "")
       }
@@ -3251,7 +3251,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Are you sure to delete the gaming stats?
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatGameStatsDeleteTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.game.stats.delete.tip", bundle: R.hostingBundle, comment: "")
       }
@@ -3398,7 +3398,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Choose a Game
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatChooseGame(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.choose.game", bundle: R.hostingBundle, comment: "")
       }
@@ -3552,7 +3552,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Delete
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatDelete(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.delete", bundle: R.hostingBundle, comment: "")
       }
@@ -3636,7 +3636,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Example
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatExample(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.example", bundle: R.hostingBundle, comment: "")
       }
@@ -3811,7 +3811,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Gaming Stats
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileGameStats(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.game.stats", bundle: R.hostingBundle, comment: "")
       }
@@ -3867,7 +3867,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Here’s how the screenshot should look like.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAddStatsExampleDescription(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.add.stats.example.description", bundle: R.hostingBundle, comment: "")
       }
@@ -4063,7 +4063,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Make Tiktok video
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileMakeTiktokVideo(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.make.tiktok.video", bundle: R.hostingBundle, comment: "")
       }
@@ -4112,7 +4112,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: My Gaming Stats
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatProfileMyGameStats(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.profile.my.game.stats", bundle: R.hostingBundle, comment: "")
       }
@@ -4588,7 +4588,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Screenshot the statistics page in the game and upload it here.
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAddStatsUploadScreenshotDescription(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.add.stats.upload.screenshot.description", bundle: R.hostingBundle, comment: "")
       }
@@ -5015,7 +5015,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Upload a screenshot
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAddStatsUploadScreenshot(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.add.stats.upload.screenshot", bundle: R.hostingBundle, comment: "")
       }
