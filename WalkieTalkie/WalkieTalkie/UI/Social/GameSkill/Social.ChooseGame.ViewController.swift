@@ -138,6 +138,7 @@ extension Social.ChooseGame.ViewController {
         guard let game = selectedGame else {
             return
         }
+        Logger.Action.log(.gameskill_choose_game_next_clk, categoryValue: game.skill.topicId)
         
         let addStatsVC = Social.AddStatsViewController(game)
         navigationController?.pushViewController(addStatsVC, animated: true)

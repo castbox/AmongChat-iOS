@@ -155,7 +155,9 @@ extension Social.AddStatsViewController {
             .subscribe( onSuccess: { [weak self] (_) in
                 self?.navigationController?.popToRootViewController(animated: true)
                 self?.gameUpdatedHandler?()
+                Logger.Action.log(.gameskill_add_state_done, categoryValue: self?.game.skill.topicId, nil, 0)
             }, onError: { [weak self] (error) in
+                Logger.Action.log(.gameskill_add_state_done, categoryValue: self?.game.skill.topicId, nil, 1)
                 self?.view.raft.autoShow(.text(error.localizedDescription))
             })
             .disposed(by: bag)

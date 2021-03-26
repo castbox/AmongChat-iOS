@@ -349,6 +349,7 @@ private extension WebViewController {
     @objc func editButtonAction() {
         switch contentType {
         case let .gameSkill(skill):
+            Logger.Action.log(.profile_game_state_detail_edit_clk, categoryValue: skill.topicId)
             let game = Social.ChooseGame.GameViewModel(with: Entity.GameSkill(topicId: skill.topicId,
                                                                               topicName: skill.topicName,
                                                                               coverUrl: "",

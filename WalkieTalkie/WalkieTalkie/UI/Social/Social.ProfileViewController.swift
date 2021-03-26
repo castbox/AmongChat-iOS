@@ -279,6 +279,9 @@ private extension Social.ProfileViewController {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
                     guard let profile = profile else { return }
+                    if profile.isVerified == true {
+                        Logger.Action.log(.profile_show_verify_icon)
+                    }
                     self?.headerView.configProfile(profile)
                 })
                 .disposed(by: bag)
@@ -474,7 +477,8 @@ private extension Social.ProfileViewController {
         
     }
     
-    private func toAddAGame() {        
+    private func toAddAGame() {
+        Logger.Action.log(.profile_add_game_clk)
         let chooseGameVC = Social.ChooseGame.ViewController()
         chooseGameVC.gameUpdatedHandler = { [weak self] in
             self?.loadGameSkills()
@@ -483,6 +487,7 @@ private extension Social.ProfileViewController {
     }
     
     private func toRemoveGameSkill(_ game: Entity.UserGameSkill, completionHandler: @escaping (() -> Void)) {
+        Logger.Action.log(.profile_game_state_item_delete_clk, categoryValue: game.topicId)
         
         let messageAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.amongChatGameStatsDeleteTip(),
                                                                  attributes: [
@@ -619,10 +624,11 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         if let op = options.safe(indexPath.section) {
             switch op {
             case .gameStats:
-                
                 if let game = gameSkills.safe(indexPath.row) {
                     // TODO: - 跳转H5
                     WebViewController.pushFrom(self, url: game.h5.url, contentType: .gameSkill(game))
+                    Logger.Action.log(isSelfProfile ? .profile_game_state_item_clk : .profile_other_game_state_item_clk, categoryValue: game.topicId)
+                    
                 } else {
                     toAddAGame()
                 }
