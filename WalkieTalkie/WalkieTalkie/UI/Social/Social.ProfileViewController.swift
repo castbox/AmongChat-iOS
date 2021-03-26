@@ -486,19 +486,21 @@ private extension Social.ProfileViewController {
         
         let messageAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.amongChatGameStatsDeleteTip(),
                                                                  attributes: [
-            NSAttributedString.Key.font : R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: UIColor.white
-        ])
+                                                                    NSAttributedString.Key.font : R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                                    .foregroundColor: UIColor.white
+                                                                 ])
         
-        let cancelAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.toastCancel(), attributes: [
-                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-                .foregroundColor: "#6C6C6C".color()
-            ])
+        let cancelAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.toastCancel(),
+                                                                attributes: [
+                                                                    NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                                    .foregroundColor: "#6C6C6C".color()
+                                                                ])
         
-        let confirmAttr = NSAttributedString(string: R.string.localizable.amongChatDelete(), attributes: [
-            NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16),
-            .foregroundColor: "#FB5858".color()
-        ])
+        let confirmAttr = NSAttributedString(string: R.string.localizable.amongChatDelete(),
+                                             attributes: [
+                                                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                .foregroundColor: "#FB5858".color()
+                                             ])
         
         let alertVC = AlertController(attributedTitle: nil, attributedMessage: messageAttr, preferredStyle: .alert)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
