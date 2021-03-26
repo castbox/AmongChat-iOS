@@ -42,9 +42,6 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         
         var tableHeaderHeight: CGFloat {
-            guard isSelfProfile else {
-                return 241 + 122 + Frame.Screen.width - 16
-            }
             return 241 + Frame.Screen.width - 16
         }
         
@@ -746,11 +743,14 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         
         switch op {
         case .gameStats:
-            
-            if gameSkills.count > 0 {
-                return 40
+            if isSelfProfile {
+                if gameSkills.count > 0 {
+                    return 40
+                } else {
+                    return 28
+                }
             } else {
-                return 28
+                return 134
             }
             
         case .tiktok:
