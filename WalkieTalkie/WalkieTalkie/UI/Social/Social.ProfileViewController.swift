@@ -42,9 +42,6 @@ extension Social {
         var followedHandle:((Bool) -> Void)?
         
         var tableHeaderHeight: CGFloat {
-            guard isSelfProfile else {
-                return 241 + 122 + Frame.Screen.width - 16
-            }
             return 241 + Frame.Screen.width - 16
         }
         
@@ -68,7 +65,7 @@ extension Social {
             v.addSubviews(views: followButton)
             followButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(40)
+                maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }
@@ -190,18 +187,19 @@ private extension Social.ProfileViewController {
 
         view.addSubviews(views: table, bottomGradientView)
         
-        table.snp.makeConstraints { (maker) in
-            maker.leading.trailing.top.bottom.equalToSuperview()
-        }
-        
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
         
         if !isSelfProfile {
             options = [.gameStats]
             bottomGradientView.isHidden = false
+            table.snp.makeConstraints { (maker) in
+                maker.leading.trailing.top.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            }
         } else {
             if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
                 options = [.gameStats, .tiktok]
@@ -211,6 +209,9 @@ private extension Social.ProfileViewController {
                 #else
                 options = [.tiktok]
                 #endif
+            }
+            table.snp.makeConstraints { (maker) in
+                maker.leading.trailing.top.bottom.equalToSuperview()
             }
         }
         
@@ -690,7 +691,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
 
                     let btn = UIButton(type: .custom)
                     btn.setImage(R.image.ac_profile_add_game_stats(), for: .normal)
-                    btn.setTitle(R.string.localizable.amongChatProfileAddGame(), for: .normal)
+                    btn.setTitle(R.string.localizable.amongChatProfileAddAGame(), for: .normal)
                     btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                     btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 4)
                     btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
@@ -746,11 +747,14 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         
         switch op {
         case .gameStats:
-            
-            if gameSkills.count > 0 {
-                return 40
+            if isSelfProfile {
+                if gameSkills.count > 0 {
+                    return 40
+                } else {
+                    return 28
+                }
             } else {
-                return 28
+                return 134
             }
             
         case .tiktok:

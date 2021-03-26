@@ -90,7 +90,7 @@ extension Social.ChooseGame {
             v.addSubviews(views: nextButton)
             nextButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(40)
+                maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }
@@ -171,12 +171,14 @@ extension Social.ChooseGame.ViewController {
         }
         
         gameCollectionView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(navLayoutGuide.snp.bottom)
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
         

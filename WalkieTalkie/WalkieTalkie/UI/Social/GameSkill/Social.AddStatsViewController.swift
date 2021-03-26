@@ -98,7 +98,7 @@ extension Social {
             v.addSubviews(views: doneButton)
             doneButton.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.top.equalTo(40)
+                maker.bottom.equalTo(-33)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }
@@ -153,7 +153,7 @@ extension Social.AddStatsViewController {
                 hudRemoval?()
             })
             .subscribe( onSuccess: { [weak self] (_) in
-                self?.navigationController?.popViewController(animated: true)
+                self?.navigationController?.popToRootViewController(animated: true)
                 self?.gameUpdatedHandler?()
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
@@ -186,12 +186,14 @@ extension Social.AddStatsViewController {
         }
         
         layoutScrollView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
         
@@ -271,9 +273,16 @@ extension Social.AddStatsViewController {
             callback(image)
         })]
         
+        let closeBtn = UIButton(type: .custom)
+        closeBtn.setImage(R.image.ac_profile_close(), for: .normal)
+        closeBtn.frame = CGRect(origin: .zero, size: CGSize(width: 24, height: 24))
+        
         let galleryViewController = GalleryViewController(startIndex: 0,
                                                           itemsDataSource: self,
-                                                          configuration: [.deleteButtonMode(.none), .thumbnailsButtonMode(.none), .closeButtonMode(.none)])
+                                                          configuration: [.deleteButtonMode(.none),
+                                                                          .thumbnailsButtonMode(.none),
+                                                                          .closeButtonMode(.custom(closeBtn)),
+                                                                          .closeLayout(.pinRight(20 + Frame.Height.safeAeraTopHeight, 20))])
         
         self.presentImageGallery(galleryViewController)
 
