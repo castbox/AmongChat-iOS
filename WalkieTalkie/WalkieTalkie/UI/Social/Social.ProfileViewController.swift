@@ -533,6 +533,7 @@ private extension Social.ProfileViewController {
         })
         )
         
+        alertVC.view.backgroundColor = UIColor.black.alpha(0.6)
         alertVC.present()
         
     }
