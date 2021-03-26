@@ -186,12 +186,14 @@ extension Social.AddStatsViewController {
         }
         
         layoutScrollView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.top.equalTo(navLayoutGuide.snp.bottom)
         }
         
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
         

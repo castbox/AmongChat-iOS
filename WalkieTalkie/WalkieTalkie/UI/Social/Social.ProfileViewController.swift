@@ -187,18 +187,19 @@ private extension Social.ProfileViewController {
 
         view.addSubviews(views: table, bottomGradientView)
         
-        table.snp.makeConstraints { (maker) in
-            maker.leading.trailing.top.bottom.equalToSuperview()
-        }
-        
         bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.bottom.equalToSuperview()
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
         
         if !isSelfProfile {
             options = [.gameStats]
             bottomGradientView.isHidden = false
+            table.snp.makeConstraints { (maker) in
+                maker.leading.trailing.top.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            }
         } else {
             if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
                 options = [.gameStats, .tiktok]
@@ -208,6 +209,9 @@ private extension Social.ProfileViewController {
                 #else
                 options = [.tiktok]
                 #endif
+            }
+            table.snp.makeConstraints { (maker) in
+                maker.leading.trailing.top.bottom.equalToSuperview()
             }
         }
         
