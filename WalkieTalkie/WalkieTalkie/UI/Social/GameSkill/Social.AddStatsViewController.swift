@@ -263,8 +263,37 @@ extension Social.AddStatsViewController {
     
     private func uploadImage(image: UIImage) -> Single<(String, UIImage)> {
         
-        return Request.uploadPng(image: image)
+        return compressImage(image: image)
+            .flatMap ({
+                Request.uploadPng(image: $0)
+            })
             .map { ($0, image) }
+    }
+    
+    private func compressImage(image: UIImage) -> Single<UIImage> {
+        
+        return Single.create { (subscriber) -> Disposable in
+            
+            DispatchQueue.global().async {
+                
+                var croppedImg: UIImage = image
+                
+                while (croppedImg.pngData()?.count ?? 0)  > 256 * 1024 {
+                    
+                    guard let newImage = croppedImg.scaled(toWidth: croppedImg.size.width * 0.9) else {
+                        break
+                    }
+                    
+                    croppedImg = newImage
+                    
+                }
+                
+                subscriber(.success(croppedImg))
+            }
+            
+            return Disposables.create()
+        }
+        
     }
     
     private func showImageViewer(_ image: UIImage?) {
