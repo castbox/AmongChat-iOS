@@ -353,3 +353,19 @@
 "among.chat.vip.recruit.title2" = "Get in now!";
 "among.chat.vip.recruit.msg" = "Remember your ID first, then let's go!";
 "among.chat.login.auth.tip.apply" = "Please sign in first to apply";
+
+//1.16.3
+"among.chat.profile.my.game.stats" = "My Gaming Stats";
+"among.chat.profile.game.stats" = "Gaming Stats";
+"among.chat.profile.add.a.game" = "Add a Game";
+"among.chat.profile.add.game" = "Add Game";
+"among.chat.profile.make.tiktok.video" = "Make Tiktok video";
+"among.chat.choose.game" = "Choose a Game";
+"among.chat.added" = "Added";
+"among.chat.add.stats" = "Add Your Stats";
+"among.chat.add.stats.upload.screenshot" = "Upload a screenshot";
+"among.chat.add.stats.upload.screenshot.description" = "Screenshot the statistics page in the game and upload it here.";
+"among.chat.example" = "Example";
+"among.chat.add.stats.example.description" = "Here’s how the screenshot should look like.";
+"among.chat.game.stats.delete.tip" = "Are you sure to delete the gaming stats?";
+"among.chat.delete" = "Delete";

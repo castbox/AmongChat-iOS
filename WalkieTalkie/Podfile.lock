@@ -3,7 +3,7 @@ PODS:
     - Adjust/Core (= 4.21.0)
   - Adjust/Core (4.21.0)
   - AgoraAudio_iOS (3.1.0)
-  - AgoraRtm_iOS (1.4.2)
+  - AgoraRtm_iOS (1.4.3)
   - Alamofire (5.2.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
@@ -182,6 +182,7 @@ PODS:
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
   - HWPanModal (0.8.0)
+  - ImageViewer (6.0.0)
   - IQKeyboardManagerSwift (6.2.1)
   - JLRoutes (2.1)
   - Kingfisher (5.15.8):
@@ -293,6 +294,7 @@ PODS:
   - SwiftyUserDefaults (5.0.0)
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.4.8)
+  - WebViewJavascriptBridge (7.0.0)
   - WSFlexibleTouch (0.1.1)
   - YPImagePicker (4.4.0):
     - PryntTrimmerView (~> 4.0.2)
@@ -303,7 +305,7 @@ PODS:
 DEPENDENCIES:
   - Adjust (= 4.21.0)
   - AgoraAudio_iOS (= 3.1.0)
-  - AgoraRtm_iOS (= 1.4.2)
+  - AgoraRtm_iOS (= 1.4.3)
   - BetterSegmentedControl
   - Bolts (from `https://github.com/roremeol/Bolts-ObjC.git`, branch `master`)
   - CastboxDebuger (~> 1.3.2)
@@ -320,6 +322,7 @@ DEPENDENCIES:
   - Firebase/RemoteConfig
   - GoogleSignIn
   - HWPanModal
+  - ImageViewer
   - IQKeyboardManagerSwift (~> 6.2.0)
   - JLRoutes
   - Kingfisher
@@ -349,6 +352,7 @@ DEPENDENCIES:
   - SwiftyJSON
   - SwiftyUserDefaults (~> 5.0.0)
   - UIColor_Hex_Swift (~> 4.2.0)
+  - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
   - YPImagePicker
   - YYText
@@ -393,6 +397,7 @@ SPEC REPOS:
     - GTMAppAuth
     - GTMSessionFetcher
     - HWPanModal
+    - ImageViewer
     - IQKeyboardManagerSwift
     - JLRoutes
     - Kingfisher
@@ -446,16 +451,22 @@ EXTERNAL SOURCES:
   Bolts:
     :branch: master
     :git: https://github.com/roremeol/Bolts-ObjC.git
+  WebViewJavascriptBridge:
+    :branch: Remove-UIWebView-Support
+    :git: https://github.com/devSC/WebViewJavascriptBridge.git
 
 CHECKOUT OPTIONS:
   Bolts:
     :commit: 3122920f097d94e3d65bda41f32970f00a6795f4
     :git: https://github.com/roremeol/Bolts-ObjC.git
+  WebViewJavascriptBridge:
+    :commit: c2f99cbde00c410c2ca6512de5cecaa30d133cfc
+    :git: https://github.com/devSC/WebViewJavascriptBridge.git
 
 SPEC CHECKSUMS:
   Adjust: 7091afbeb9935103636f80f73742d21a83e085ae
   AgoraAudio_iOS: 3b14259bacfddcc9dd392ff65d4d474b2c17e89f
-  AgoraRtm_iOS: 5fb55028ec41659a8d88bebecc5c95a742102d4f
+  AgoraRtm_iOS: 178257883dd6773d3d26ca51045456c35221b715
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   BetterSegmentedControl: 85d1b0343a09603b098884d527f550dfc8e6cdd9
@@ -490,6 +501,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   HWPanModal: d3c902548346b19f6bb0e667567a06f8b82049a9
+  ImageViewer: cb88ef1c0ba19161bc10702adfdcebc116a7a59d
   IQKeyboardManagerSwift: 0f0ae8935360b4003e6ea1ac7c19898f01e2f7c7
   JLRoutes: d755245322b94227662ea3e43492fdca94e05c5b
   Kingfisher: a3c03d702433fa6cfedabb2bddbe076fb8f2e902
@@ -534,11 +546,12 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
+  WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
   WSFlexibleTouch: 307b10e025bbb4c8ee89fa1075f930020b0791c3
   YPImagePicker: 15aed8bcaa4dad976e11b6114126d731a2f9f3c9
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 5a472065c5fc4fc4175e2db1db4b6e0c54004c70
+PODFILE CHECKSUM: 317410cff24e6d8699f0ea1e75081fcae10a5041
 
 COCOAPODS: 1.10.0

@@ -89,11 +89,8 @@ class GuruAnalytics {
             info["event_name"] = event
             #if DEBUG
             let valueString = info.keys.sorted().map { key -> String in
-                let value = info[key]
-                if let stringValue = value as? String {
-                    return "\(key): " + stringValue
-                } else if let intValue = value as? Int {
-                    return "\(key): \(intValue)"
+                if let value = info[key] {
+                    return "\(key): \(value)"
                 }
                 return ""
             }.joined(separator: "  ")

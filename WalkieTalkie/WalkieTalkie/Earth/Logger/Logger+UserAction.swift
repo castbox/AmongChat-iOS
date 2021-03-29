@@ -215,6 +215,14 @@ extension Logger {
             case profile_customize_pet_get_success
             case profile_customize_pet_equip
             case profile_customize_pet_remove
+            case profile_show_verify_icon
+            case profile_add_game_clk
+            case profile_game_state_item_clk
+            case profile_game_state_item_delete_clk
+            case gameskill_choose_game_next_clk
+            case gameskill_add_state_done
+            case profile_other_game_state_item_clk
+            case profile_game_state_detail_edit_clk
         }
         
         enum Category: String {

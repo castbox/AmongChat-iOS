@@ -352,4 +352,20 @@
 "among.chat.vip.recruit.title" = "Être vérifié";
 "among.chat.vip.recruit.title2" = "Entrez maintenant!";
 "among.chat.vip.recruit.msg" = "Rappelez-vous d'abord votre ID, puis allons-y!";
-"among.chat.login.auth.tip.apply" = "Veuillez d\'abord vous connecter pour postuler";
+"among.chat.login.auth.tip.apply" = "Veuillez d'abord vous connecter pour postuler";
+
+//1.16.3
+"among.chat.profile.my.game.stats" = "Mes Statistiques de Jeu";
+"among.chat.profile.game.stats" = "Statistiques de Jeu";
+"among.chat.profile.add.a.game" = "Ajouter un Jeu";
+"among.chat.profile.add.game" = "Ajouter un Jeu";
+"among.chat.profile.make.tiktok.video" = "Faire une vidéo Tiktok";
+"among.chat.choose.game" = "Choisissez un Jeu";
+"among.chat.added" = "Ajoutée";
+"among.chat.add.stats" = "Ajoutez Vos Statistiques";
+"among.chat.add.stats.upload.screenshot" = "Téléchargez une capture d'écran";
+"among.chat.add.stats.upload.screenshot.description" = "Capturez la page des statistiques du jeu et téléchargez-la ici.";
+"among.chat.example" = "Exemple";
+"among.chat.add.stats.example.description" = "Voici à quoi devrait ressembler la capture d'écran.";
+"among.chat.game.stats.delete.tip" = "Êtes-vous sûr de supprimer les statistiques de jeu?";
+"among.chat.delete" = "Effacer";

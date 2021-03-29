@@ -90,6 +90,9 @@ struct Config {
         return "MM/dd/yyyy HH:mm:ss"
     }
     
+    static var officialUrlHosts: String {
+        "among.chat"
+    }
 }
 
 extension Config.AppEnvironment {
