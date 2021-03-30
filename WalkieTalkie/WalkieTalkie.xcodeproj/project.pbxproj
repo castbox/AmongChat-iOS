@@ -152,6 +152,10 @@
 		FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */; };
 		FE64007224C7014200DEE336 /* EndUserLicenseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE64007024C7014200DEE336 /* EndUserLicenseController.swift */; };
 		FE64007324C7014200DEE336 /* EndUserLicenseController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE64007124C7014200DEE336 /* EndUserLicenseController.xib */; };
+		FE6738A62611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */; };
+		FE6738AA2611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */; };
+		FE6738AE2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6738AD2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift */; };
+		FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE6738B12611F5270044C0D2 /* AmongChat.Room.MessageListView.swift */; };
 		FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */; };
 		FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684874244BD2E700F87AF9 /* AdsManager.swift */; };
 		FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE684876244BD3D200F87AF9 /* AdsDebugger.swift */; };
@@ -508,6 +512,10 @@
 		FE6306AA2450076E00CEA651 /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
 		FE64007024C7014200DEE336 /* EndUserLicenseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndUserLicenseController.swift; sourceTree = "<group>"; };
 		FE64007124C7014200DEE336 /* EndUserLicenseController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EndUserLicenseController.xib; sourceTree = "<group>"; };
+		FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.ViewController.swift; sourceTree = "<group>"; };
+		FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.ViewModel.swift; sourceTree = "<group>"; };
+		FE6738AD2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.MessageInputView.swift; sourceTree = "<group>"; };
+		FE6738B12611F5270044C0D2 /* AmongChat.Room.MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.MessageListView.swift; sourceTree = "<group>"; };
 		FE684870244B4B5600F87AF9 /* PasswordGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordGenerator.swift; sourceTree = "<group>"; };
 		FE684874244BD2E700F87AF9 /* AdsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		FE684876244BD3D200F87AF9 /* AdsDebugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdsDebugger.swift; sourceTree = "<group>"; };
@@ -764,6 +772,8 @@
 			isa = PBXGroup;
 			children = (
 				BD6C36EC256E525000D1E708 /* AmongChat.swift */,
+				FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */,
+				FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */,
 				BD6C36FE256E7CAD00D1E708 /* Room */,
 				BD6C36EB256E517E00D1E708 /* Home */,
 				BD754CBC258B9CDD00ECC177 /* CreateRoom */,
@@ -1379,6 +1389,8 @@
 				FE79F392258CE06D00E9BC6C /* AmongSheetIconItemCell.xib */,
 				FEF170FA25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift */,
 				FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */,
+				FE6738AD2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift */,
+				FE6738B12611F5270044C0D2 /* AmongChat.Room.MessageListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1648,6 +1660,7 @@
 				FE401E3C244D9C450081F793 /* IAP.ProductFetcher.swift in Sources */,
 				26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */,
 				BDC9D29E2589D69B00412BDC /* AmongChat.Login.Manager.swift in Sources */,
+				FE6738A62611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift in Sources */,
 				FE126D572434823B00BEDD60 /* AlertUtil.swift in Sources */,
 				FE68488A244BDC3A00F87AF9 /* UIView.swift in Sources */,
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
@@ -1716,6 +1729,7 @@
 				FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */,
 				2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */,
 				FE126D582434823B00BEDD60 /* MemberUtil.swift in Sources */,
+				FE6738AE2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift in Sources */,
 				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
@@ -1814,6 +1828,7 @@
 				FE2AF9E8244DB16F00763747 /* UIViewController+Safari.swift in Sources */,
 				FEAD54D62449B6A0006454F6 /* GestureBackable.swift in Sources */,
 				BDE20C0F258DD45B00245CBA /* APIService.Cache.swift in Sources */,
+				FE6738AA2611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift in Sources */,
 				FE7720BF258E1521006A2F1B /* UIAlertControllerExtension.swift in Sources */,
 				FE68487E244BD66200F87AF9 /* NativeToMRectAdView.swift in Sources */,
 				FEC17A4F24A9BB92003719BC /* APIService.CastboxBackend.swift in Sources */,
@@ -1854,6 +1869,7 @@
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
+				FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
 				264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,

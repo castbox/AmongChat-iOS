@@ -18,6 +18,15 @@ fileprivate func cdPrint(_ message: Any) {
     Debug.info("[AmongChat.Room.ViewModel]-\(message)")
 }
 
+protocol SendMessageable {
+    func sendText(message: String?)
+}
+
+protocol MessageDataSource: class {
+    var messages: [ChatRoomMessage] { get set }
+    var messageListUpdateEventHandler: CallBack? { get set }
+}
+
 extension AmongChat.Room {
     
     enum EndRoomAction {
@@ -33,7 +42,7 @@ extension AmongChat.Room {
     }
     
     
-    class ViewModel {
+    class ViewModel: SendMessageable, MessageDataSource {
         
         enum ShareEvent {
             case createdRoom //创建时弹出
@@ -61,7 +70,7 @@ extension AmongChat.Room {
         private var messageEventEmitter = PublishSubject<ChatRoomMessage>()
         private var messageListReloadTrigger = PublishSubject<()>()
         var endRoomHandler: ((_ action: EndRoomAction) -> Void)?
-        var messageEventHandler: () -> Void = { }
+        var messageListUpdateEventHandler: CallBack?
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
         var shareEventHandler: () -> Void = { }
@@ -251,7 +260,7 @@ extension AmongChat.Room {
                 .asObserver()
                 .debounce(.fromSeconds(0.8), scheduler: MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] _ in
-                    self?.messageEventHandler()
+                    self?.messageListUpdateEventHandler?()
                 })
                 .disposed(by: bag)
         }
@@ -285,6 +294,7 @@ extension AmongChat.Room {
                   let user = room.roomUserList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
+            Logger.Action.log(.room_send_message_success, categoryValue: room.topicId)
             let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
             imViewModel.sendText(message: textMessage)
             //append
