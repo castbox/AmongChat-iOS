@@ -292,6 +292,7 @@ PODS:
   - SwiftyContacts (3.0.16)
   - SwiftyJSON (5.0.0)
   - SwiftyUserDefaults (5.0.0)
+  - UICollectionViewLeftAlignedLayout (1.0.2)
   - UIColor_Hex_Swift (4.2.0)
   - UnityAds (3.4.8)
   - WebViewJavascriptBridge (7.0.0)
@@ -351,6 +352,7 @@ DEPENDENCIES:
   - SwiftyContacts
   - SwiftyJSON
   - SwiftyUserDefaults (~> 5.0.0)
+  - UICollectionViewLeftAlignedLayout
   - UIColor_Hex_Swift (~> 4.2.0)
   - WebViewJavascriptBridge (from `https://github.com/devSC/WebViewJavascriptBridge.git`, branch `Remove-UIWebView-Support`)
   - WSFlexibleTouch
@@ -440,6 +442,7 @@ SPEC REPOS:
     - SwiftyContacts
     - SwiftyJSON
     - SwiftyUserDefaults
+    - UICollectionViewLeftAlignedLayout
     - UIColor_Hex_Swift
     - UnityAds
     - WSFlexibleTouch
@@ -544,6 +547,7 @@ SPEC CHECKSUMS:
   SwiftyContacts: c02b7908cfd18505c004a43162fd7b63218d2ba0
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
   SwiftyUserDefaults: 33fcb42bd1feb53a37d873feb62c82967db5f7f6
+  UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
   UIColor_Hex_Swift: bc07fc197421ee896b9ed6dcfa2054b7fbf75145
   UnityAds: 729ce6e485d5ae45df03ad13e440cde6967feee3
   WebViewJavascriptBridge: 31111973095ed8d340ca56c3abdd1ec5cad9f6c4
@@ -552,6 +556,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZegoExpressEngine: 9d40a73953c000b9a511a58706a37bb14c18948e
 
-PODFILE CHECKSUM: 317410cff24e6d8699f0ea1e75081fcae10a5041
+PODFILE CHECKSUM: ae4143d3cd4ce665b56ec3af97624f4e3b1e1131
 
 COCOAPODS: 1.10.0

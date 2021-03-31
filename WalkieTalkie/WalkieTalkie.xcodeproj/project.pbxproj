@@ -14,6 +14,12 @@
 		26259B61260B11B800636E50 /* Social.AddStatsViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */; };
 		26259B6B260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */; };
 		26259F56260D8D0F00636E50 /* SmallSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26259F55260D8D0F00636E50 /* SmallSizeButton.swift */; };
+		263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */; };
+		263F8ACB2613271500282F8F /* FansGroup.TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */; };
+		263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */; };
+		263F8AD326149A6900282F8F /* FansGroup.SelectCoverModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */; };
+		263F8AD72614A22200282F8F /* FansGroup.AddMemberControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */; };
+		263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -28,6 +34,9 @@
 		26DBBF7626008C1B00A1B9BA /* Social.AgePromptModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */; };
 		26DC82752609C891000A9111 /* Social.ChooseGame.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */; };
 		26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */; };
+		26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4149B2611C4EA003ED5BE /* FansGroup.swift */; };
+		26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */; };
+		26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */; };
 		26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */; };
 		2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */; };
 		2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */; };
@@ -343,6 +352,12 @@
 		26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.AddStatsViewController+Views.swift"; sourceTree = "<group>"; };
 		26259B6A260B3E7400636E50 /* Social.ChooseGame.ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewModel.swift; sourceTree = "<group>"; };
 		26259F55260D8D0F00636E50 /* SmallSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallSizeButton.swift; sourceTree = "<group>"; };
+		263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.AddTopicViewController.swift; sourceTree = "<group>"; };
+		263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.TopicViewModel.swift; sourceTree = "<group>"; };
+		263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupsViewController.swift; sourceTree = "<group>"; };
+		263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.SelectCoverModal.swift; sourceTree = "<group>"; };
+		263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.AddMemberControlller.swift; sourceTree = "<group>"; };
+		263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.AddMemberController+Views.swift"; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -359,6 +374,9 @@
 		26DBBF7526008C1B00A1B9BA /* Social.AgePromptModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.AgePromptModal.swift; sourceTree = "<group>"; };
 		26DC82742609C891000A9111 /* Social.ChooseGame.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ChooseGame.ViewController.swift; sourceTree = "<group>"; };
 		26DC82782609C8F1000A9111 /* Social.ChooseGame+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ChooseGame+Views.swift"; sourceTree = "<group>"; };
+		26F4149B2611C4EA003ED5BE /* FansGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.swift; sourceTree = "<group>"; };
+		26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.CreateGroupViewController.swift; sourceTree = "<group>"; };
+		26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.swift; sourceTree = "<group>"; };
 		26F7023925E670CC008F992C /* Social.CustomAvatarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.CustomAvatarViewController.swift; sourceTree = "<group>"; };
 		2B51C881258B8ED700BAE937 /* Social.DatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Social.DatePickerView.swift; sourceTree = "<group>"; };
 		2B51C893258C6EC700BAE937 /* Social.BirthdaySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.BirthdaySetViewController.swift; sourceTree = "<group>"; };
@@ -706,6 +724,22 @@
 				26259B60260B11B800636E50 /* Social.AddStatsViewController+Views.swift */,
 			);
 			path = GameSkill;
+			sourceTree = "<group>";
+		};
+		26F414952611BB56003ED5BE /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				26F4149B2611C4EA003ED5BE /* FansGroup.swift */,
+				26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */,
+				26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */,
+				263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */,
+				263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */,
+				263F8ACA2613271500282F8F /* FansGroup.TopicViewModel.swift */,
+				263F8ACE26132B3100282F8F /* FansGroup.GroupsViewController.swift */,
+				263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */,
+				263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */,
+			);
+			path = Group;
 			sourceTree = "<group>";
 		};
 		26F7FE2F25E62D9C008F992C /* ProfileLook */ = {
@@ -1241,6 +1275,7 @@
 		FECA43B42459A8360075D139 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				26F414952611BB56003ED5BE /* Group */,
 				BD6C36EA256E516900D1E708 /* AmongUs */,
 				BDB8F58524F7D5A0000027F8 /* Social */,
 				FECA43BF2459AA6A0075D139 /* Premium */,
@@ -1653,6 +1688,7 @@
 				FE49CEAD2436F00100C36EC6 /* UILabelExtension.swift in Sources */,
 				BDF3D8DB259B2B230047A460 /* AmongChat.Home.RoomInvitationModal.swift in Sources */,
 				FE860D542446D29E00087B73 /* Knife.swift in Sources */,
+				26F414A42611C548003ED5BE /* FansGroup.CreateGroupViewController.swift in Sources */,
 				2696D42325B8082200C38C09 /* UITextFieldExtension.swift in Sources */,
 				FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */,
 				FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */,
@@ -1688,6 +1724,7 @@
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
 				BD680D7A2554F89D0062CEC7 /* Logger+AppOpenAd.swift in Sources */,
 				BD73B10124FE363D009D0AC7 /* Social.BlockedUserList.ViewController.swift in Sources */,
+				263F872B26130EE500282F8F /* FansGroup.AddTopicViewController.swift in Sources */,
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
@@ -1726,9 +1763,11 @@
 				FEF170FB25C9598C004C3FD3 /* AmongChat.Room.TopEntranceView.swift in Sources */,
 				FE79F393258CE06D00E9BC6C /* AmongSheetIconItemCell.swift in Sources */,
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
+				26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */,
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
+				263F8ACF26132B3100282F8F /* FansGroup.GroupsViewController.swift in Sources */,
 				FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */,
 				FE684877244BD3D200F87AF9 /* AdsDebugger.swift in Sources */,
 				26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */,
@@ -1829,10 +1868,12 @@
 				FE9F69DC25CD337000C0F118 /* AppTrackingGuideView.swift in Sources */,
 				BD6C36FA256E530100D1E708 /* AmongChat.Home.TopicsViewController.swift in Sources */,
 				BD8B4E5F257F1C9B00BE6520 /* AmongChat.Room.IMViewModel.swift in Sources */,
+				26F4149C2611C4EA003ED5BE /* FansGroup.swift in Sources */,
 				BD6C36F5256E526B00D1E708 /* AmongChat.Home.swift in Sources */,
 				FE860D5D2446D2A800087B73 /* DynamicProperty.swift in Sources */,
 				BDB8F58924F7DA46000027F8 /* Social.ProfileViewController.swift in Sources */,
 				26259F56260D8D0F00636E50 /* SmallSizeButton.swift in Sources */,
+				263F8ACB2613271500282F8F /* FansGroup.TopicViewModel.swift in Sources */,
 				FE8DEA67243DB09A0059C252 /* Codable.Extension.swift in Sources */,
 				FE125F5F25B7D92800609D81 /* Social.InviteFirendsViewController.swift in Sources */,
 				FE80A59325ADA605009914A7 /* AmongChat.Login.StarsOverlay.swift in Sources */,
@@ -1842,6 +1883,7 @@
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
+				263F8AD326149A6900282F8F /* FansGroup.SelectCoverModal.swift in Sources */,
 				266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
 				FE860D4D2446D1D700087B73 /* Theme.swift in Sources */,
@@ -1855,6 +1897,8 @@
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
+				263F8AD72614A22200282F8F /* FansGroup.AddMemberControlller.swift in Sources */,
+				263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */,
 				264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */,
 				FE401E3A244D9C450081F793 /* IAP.Observer.swift in Sources */,
 				26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */,

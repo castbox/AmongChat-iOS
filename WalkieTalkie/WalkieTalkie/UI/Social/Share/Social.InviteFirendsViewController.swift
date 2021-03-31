@@ -307,7 +307,7 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
 
 extension Social.InviteFirendsViewController {
     
-    private class ShareHeaderView: UIView {
+    class ShareHeaderView: UIView {
         
         enum ItemType {
             case sms, snapchat, copylink, sharelink
