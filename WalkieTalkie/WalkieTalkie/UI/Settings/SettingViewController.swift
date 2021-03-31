@@ -260,6 +260,16 @@ extension SettingViewController {
         }
     }
     
+    private func getVerified() {
+        
+        guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
+            return
+        }
+        self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
+        Logger.Action.log(.home_friends_apply_verified)
+        
+    }
+    
     private func generateDataSource(languages: [Language] = []) -> [Option] {
         var options: [Option] = [
             Option(type: .blockList, selectionHandler: { [weak self] in
@@ -289,6 +299,16 @@ extension SettingViewController {
                 self?.navigationController?.pushViewController(vc, animated: true)
             })
             options.insert(regionOption, at: 0)
+        }
+        
+        if let profile = Settings.shared.amongChatUserProfile.value,
+           !(profile.isVerified ?? false) {
+            
+            let op = Option(type: .getVerified, selectionHandler: { [weak self] in
+                self?.getVerified()
+            })
+            
+            options.append(op)
         }
         
         return options
@@ -343,6 +363,7 @@ extension SettingViewController {
             case community
             case blockList
             case restorePurchase
+            case getVerified
         }
         
         let type: OptionType
@@ -363,6 +384,8 @@ extension SettingViewController {
                 return R.string.localizable.profileBlockUser()
             case .restorePurchase:
                 return R.string.localizable.premiumRestorePurchases()
+            case .getVerified:
+                return R.string.localizable.amongChatSettingGetVerified()
             }
         }
         
@@ -380,6 +403,8 @@ extension SettingViewController {
                 return R.image.ac_profile_block()
             case .restorePurchase:
                 return R.image.ac_restore_purchases()
+            case .getVerified:
+                return R.image.icon_verified_30()
             }
         }
         

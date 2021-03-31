@@ -369,3 +369,6 @@
 "among.chat.add.stats.example.description" = "Here’s how the screenshot should look like.";
 "among.chat.game.stats.delete.tip" = "Are you sure to delete the gaming stats?";
 "among.chat.delete" = "Delete";
+
+//1.17
+"among.chat.setting.get.verified" = "Get verified";

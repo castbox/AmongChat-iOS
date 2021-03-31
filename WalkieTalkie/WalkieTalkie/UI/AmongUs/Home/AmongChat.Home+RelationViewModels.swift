@@ -18,7 +18,7 @@ extension AmongChat.Home {
     class RelationViewModel {
         struct Item {
             enum Group: Int {
-                case vipRecruit
+                case fansGroup
                 case playing
                 case suggestContacts
                 case suggestStrangers
@@ -41,8 +41,6 @@ extension AmongChat.Home {
         
         private let suggestContactViewModelsRelay = BehaviorRelay<[ContactViewModel]>(value: [])
         
-        private let vipRecruitShouldShowRelay = BehaviorRelay<Bool>(value: vipRecruitShouldShow())
-        
         private let imManager = IMManager.shared
         
         lazy var readedSuggestContacts: [String] = {
@@ -54,18 +52,17 @@ extension AmongChat.Home {
         }
                 
         var dataSource: Observable<[Item]> {
-            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay, vipRecruitShouldShowRelay)
-                .map { playings, contacts, strangers, vipShouldShow in
-                    var array: [Item] = [Item(userLsit: playings, group: .playing)]
+            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay)
+                .map { playings, contacts, strangers in
+                    var array: [Item] = [
+                        Item(userLsit: [], group: .fansGroup),
+                        Item(userLsit: playings, group: .playing)
+                    ]
                     if !contacts.isEmpty {
                         array.append(Item(userLsit: contacts, group: .suggestContacts))
                     }
                     if !strangers.isEmpty {
                         array.append(Item(userLsit: strangers, group: .suggestStrangers))
-                    }
-                    
-                    if vipShouldShow {
-                        array.append(Item(userLsit: [], group: .vipRecruit))
                     }
                     
                     array.sort { $0.group.rawValue < $1.group.rawValue }
@@ -211,15 +208,6 @@ extension AmongChat.Home {
             //clear
             readedSuggestContacts = []
             refreshSuggestContactsList()
-        }
-        
-        private class func vipRecruitShouldShow() -> Bool {
-            return !Defaults[\.vipRecruitmentChecked]
-        }
-        
-        func checkVipRecruit() {
-            Defaults[\.vipRecruitmentChecked] = true
-            vipRecruitShouldShowRelay.accept(Self.vipRecruitShouldShow())
         }
         
     }

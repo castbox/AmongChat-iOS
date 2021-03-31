@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 176 images.
+  /// This `R.image` struct is generated, and contains static references to 177 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -250,6 +250,8 @@ struct R: Rswift.Validatable {
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
     /// Image `ac_create_room_bar_top_shadow`.
     static let ac_create_room_bar_top_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_create_room_bar_top_shadow")
+    /// Image `ac_group_banner`.
+    static let ac_group_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner")
     /// Image `ac_home_banner`.
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
@@ -458,8 +460,6 @@ struct R: Rswift.Validatable {
     static let ac_share_snapchat_url_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_url_bg")
     /// Image `ac_social_tiktok`.
     static let ac_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_social_tiktok")
-    /// Image `ac_vip_recruit_banner`.
-    static let ac_vip_recruit_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_vip_recruit_banner")
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
     /// Image `btn_add`.
@@ -546,6 +546,8 @@ struct R: Rswift.Validatable {
     static let icon_verified_20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_20")
     /// Image `icon_verified_23`.
     static let icon_verified_23 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_23")
+    /// Image `icon_verified_30`.
+    static let icon_verified_30 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_30")
     /// Image `icon_verified`.
     static let icon_verified = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified")
     /// Image `icon_vip_13`.
@@ -649,6 +651,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_create_room_bar_top_shadow", bundle: ..., traitCollection: ...)`
     static func ac_create_room_bar_top_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_create_room_bar_top_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_banner", bundle: ..., traitCollection: ...)`
+    static func ac_group_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_banner, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
@@ -1171,11 +1178,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_social_tiktok, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_vip_recruit_banner", bundle: ..., traitCollection: ...)`
-    static func ac_vip_recruit_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_vip_recruit_banner, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
     static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.backNor, compatibleWith: traitCollection)
@@ -1394,6 +1396,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_verified_23", bundle: ..., traitCollection: ...)`
     static func icon_verified_23(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_verified_23, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_verified_30", bundle: ..., traitCollection: ...)`
+    static func icon_verified_30(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_verified_30, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_vip", bundle: ..., traitCollection: ...)`
@@ -1828,7 +1835,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 316 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 317 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2250,6 +2257,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatVipRecruitTitle2 = Rswift.StringResource(key: "among.chat.vip.recruit.title2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Get verified
+      /// 
+      /// Locales: en
+      static let amongChatSettingGetVerified = Rswift.StringResource(key: "among.chat.setting.get.verified", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3828,6 +3839,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatVipRecruitTitle2(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.vip.recruit.title2", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Get verified
+      /// 
+      /// Locales: en
+      static func amongChatSettingGetVerified(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.setting.get.verified", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Go
