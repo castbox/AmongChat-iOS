@@ -69,6 +69,17 @@ extension Social {
 //            ShareRoomViewModel.roomShareItems = items
         }
         
+        override func addNoDataView(_ message: String, image: UIImage? = nil) {
+            removeNoDataView()
+            let v = NoDataView(with: message, image: image, topEdge: 100.scalValue)
+            view.addSubview(v)
+            v.snp.makeConstraints { (maker) in
+                maker.top.equalTo(159)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(500 - 159)
+            }
+        }
+        
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
