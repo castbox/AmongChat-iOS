@@ -42,6 +42,7 @@ public class RxKeyboard: NSObject, RxKeyboardType {
   /// when changed keyboard show and hide.
   public let isHidden: Driver<Bool>
 
+    var animationDuration: Double = 0
   // MARK: Private
 
   private let disposeBag = DisposeBag()
@@ -82,6 +83,9 @@ public class RxKeyboard: NSObject, RxKeyboardType {
 
     // keyboard will change frame
     let willChangeFrame = NotificationCenter.default.rx.notification(keyboardWillChangeFrame)
+        .do(onNext: { [weak self] (notification) in
+            self?.animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0
+        })
       .map { notification -> CGRect in
         let rectValue = notification.userInfo?[keyboardFrameEndKey] as? NSValue
         return rectValue?.cgRectValue ?? defaultFrame
@@ -97,6 +101,9 @@ public class RxKeyboard: NSObject, RxKeyboardType {
 
     // keyboard will hide
     let willHide = NotificationCenter.default.rx.notification(keyboardWillHide)
+        .do(onNext: { [weak self] (notification) in
+            self?.animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double ?? 0
+        })
       .map { notification -> CGRect in
         let rectValue = notification.userInfo?[keyboardFrameEndKey] as? NSValue
         return rectValue?.cgRectValue ?? defaultFrame

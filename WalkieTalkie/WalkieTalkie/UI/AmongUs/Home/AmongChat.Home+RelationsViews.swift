@@ -674,158 +674,41 @@ extension AmongChat.Home {
     class EmptyReusableView: UICollectionReusableView {
         
     }
+}
+
+extension AmongChat.Home {
     
-    class VIPRecruitCell: UICollectionViewCell, KolodaViewDelegate, KolodaViewDataSource {
+    class FansGroupBannerCell: UICollectionViewCell {
         
         private static let edgeInset = UIEdgeInsets(top: 24, left: 20, bottom: 24, right: 20)
         
+        private let bag = DisposeBag()
+        
         class var size: CGSize {
-            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 210 / 335 + edgeInset.top + edgeInset.bottom
+            let h = (Frame.Screen.width - edgeInset.left - edgeInset.right) * 155 / 335 + edgeInset.top + edgeInset.bottom
             return CGSize(width: Frame.Screen.width, height: h)
         }
         
-        class RecruitView: UIView {
-            
-            private let bag = DisposeBag()
-            
-            private lazy var bg: UIImageView = {
-                let i = UIImageView(image: R.image.ac_vip_recruit_banner())
-                return i
-            }()
-            
-            private lazy var titleLabel: UILabel = {
-                let lb = UILabel()
-                lb.font = R.font.nunitoExtraBold(size: 24)
-                lb.textColor = .white
-                lb.text = R.string.localizable.amongChatVipRecruitTitle()
-                lb.textAlignment = .left
-                lb.adjustsFontSizeToFitWidth = true
-                return lb
-            }()
-            
-            private lazy var badgeIcon: UIImageView = {
-                let i = UIImageView(image: R.image.icon_verified_23())
-                return i
-            }()
-            
-            private lazy var titleLabel2: UILabel = {
-                let lb = UILabel()
-                lb.font = R.font.nunitoBold(size: 16)
-                lb.textColor = .white
-                lb.text = R.string.localizable.amongChatVipRecruitTitle2()
-                lb.textAlignment = .left
-                lb.adjustsFontSizeToFitWidth = true
-                return lb
-            }()
-            
-            private lazy var msgLabel: UILabel = {
-                let lb = UILabel()
-                lb.font = R.font.nunitoBold(size: 16)
-                lb.textColor = .white
-                lb.textAlignment = .left
-                lb.adjustsFontSizeToFitWidth = true
-                lb.text = R.string.localizable.amongChatVipRecruitMsg()
-                return lb
-            }()
-            
-            private lazy var goBtn: UIButton = {
-                let btn = UIButton()
-                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
-                btn.setTitleColor(.white, for: .normal)
-                btn.setTitle(R.string.localizable.bigGo(), for: .normal)
-                btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 38, bottom: 0, right: 38)
-                btn.backgroundColor = UIColor.white.alpha(0.2)
-                btn.layer.masksToBounds = true
-                btn.layer.cornerRadius = 18
-                btn.rx.controlEvent(.primaryActionTriggered)
-                    .subscribe(onNext: { [weak self] (_) in
-                        self?.goHandler?()
-                    })
-                    .disposed(by: bag)
-                return btn
-            }()
-            
-            private var goHandler: (() -> Void)? = nil
-            
-            override init(frame: CGRect) {
-                super.init(frame: frame)
-                setUpLayout()
-            }
-            
-            required init?(coder: NSCoder) {
-                fatalError("init(coder:) has not been implemented")
-            }
-            
-            override func layoutSubviews() {
-                super.layoutSubviews()
-                titleLabel.font = R.font.nunitoExtraBold(size: 24.0 / 210 * bounds.height)
-                titleLabel2.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
-                msgLabel.font = R.font.nunitoBold(size: 16.0 / 210 * bounds.height)
-                goBtn.titleLabel?.font = R.font.nunitoExtraBold(size: 16.0 / 210 * bounds.height)
-            }
-            
-            private func setUpLayout() {
-                layer.cornerRadius = 24
-                layer.masksToBounds = true
-                addSubviews(views: bg, titleLabel, badgeIcon, titleLabel2, msgLabel, goBtn)
-                
-                bg.snp.makeConstraints { (maker) in
-                    maker.edges.equalToSuperview()
-                }
-                
-                titleLabel.snp.makeConstraints { (maker) in
-                    maker.leading.equalToSuperview().inset(32)
-                    maker.top.equalToSuperview().inset(24)
-                    maker.height.equalToSuperview().multipliedBy(33.0 / 210)
-                }
-                
-                badgeIcon.snp.makeConstraints { (maker) in
-                    maker.leading.equalTo(titleLabel.snp.trailing).offset(4)
-                    maker.width.height.equalTo(23)
-                    maker.centerY.equalTo(titleLabel)
-                    maker.trailing.lessThanOrEqualTo(-32)
-                }
-                
-                titleLabel2.snp.makeConstraints { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalTo(titleLabel.snp.bottom)
-                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
-                }
-                
-                msgLabel.snp.makeConstraints { (maker) in
-                    maker.leading.trailing.equalToSuperview().inset(32)
-                    maker.top.equalTo(titleLabel2.snp.bottom).offset(14)
-                    maker.height.equalToSuperview().multipliedBy(22.0 / 210)
-                }
-                
-                goBtn.snp.makeConstraints { (maker) in
-                    maker.centerX.equalToSuperview()
-                    maker.top.equalTo(msgLabel.snp.bottom).offset(37)
-                    maker.height.equalTo(36)
-                }
-                
-            }
-            
-            func bind(onGoBtn: @escaping CallBack) {
-                goHandler = onGoBtn
-            }
-            
-        }
-        
-        private lazy var cardStack: KolodaView = {
-            let k = KolodaView()
-            k.backgroundCardsTopMargin = 0
-            k.countOfVisibleCards = 1
-            k.backgroundCardsScalePercent = 1
-            k.delegate = self
-            k.dataSource = self
-            k.alphaValueSemiTransparent = 1
-            k.appearanceAnimationDuration = 0
-            return k
+        private lazy var bg: UIImageView = {
+            let i = UIImageView(image: R.image.ac_group_banner())
+            i.layer.cornerRadius = 24
+            i.clipsToBounds = true
+            return i
         }()
-        private var goHandler: CallBack?
-        private var ignoreHandler: CallBack?
-                
+        
+        private lazy var tapGR: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.tapHandler?()
+                })
+                .disposed(by: bag)
+
+            return g
+        }()
+        
+        var tapHandler: (() -> Void)? = nil
+        
         override init(frame: CGRect) {
             super.init(frame: .zero)
             setupLayout()
@@ -836,56 +719,17 @@ extension AmongChat.Home {
         }
                 
         private func setupLayout() {
+            
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: cardStack)
-            cardStack.snp.makeConstraints { (maker) in
+            contentView.addGestureRecognizer(tapGR)
+            
+            contentView.addSubviews(views: bg)
+            
+            bg.snp.makeConstraints { (maker) in
                 maker.edges.equalTo(Self.edgeInset)
             }
         }
         
-        func bind(goHandler: @escaping CallBack,
-                  ignoreHandler: @escaping CallBack) {
-            self.goHandler = goHandler
-            self.ignoreHandler = ignoreHandler
-        }
-        
-        // MARK: - koloda
-        
-        func kolodaNumberOfCards(_ koloda: KolodaView) -> Int {
-            return 1
-        }
-        
-        func koloda(_ koloda: KolodaView, shouldSwipeCardAt index: Int, in direction: SwipeResultDirection) -> Bool {
-            switch direction {
-            case .left, .right:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        func koloda(_ koloda: KolodaView, viewForCardAt index: Int) -> UIView {
-            let recruitView = RecruitView()
-            recruitView.bind(onGoBtn: { [weak self] in
-                self?.goHandler?()
-            })
-            return recruitView
-        }
-        
-        func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-            switch direction {
-            case .right:
-                goHandler?()
-            case .left:
-                ignoreHandler?()
-            default:
-                ()
-            }
-        }
-        
-        func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-            cardStack.resetCurrentCardIndex()
-        }
     }
-    
+
 }

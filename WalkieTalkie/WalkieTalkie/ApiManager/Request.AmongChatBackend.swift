@@ -811,4 +811,28 @@ extension Request {
             }
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    //MARK: - Group
+    
+    static func createGroup(group: Entity.GroupProto) -> Single<Entity.Group> {
+        
+        guard let params = group.dictionary else {
+            return Single.error(MsgError.default)
+        }
+        
+        return amongchatProvider.rx.request(.createGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Group.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }
