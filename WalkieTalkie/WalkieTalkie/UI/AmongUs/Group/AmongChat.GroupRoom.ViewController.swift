@@ -99,7 +99,7 @@ extension AmongChat.GroupRoom {
         
         lazy var hostView = AmongGroupHostView()
         private lazy var seatView: AmongChat.Room.SeatView = {
-            return AmongChat.Room.SeatView(room: room, viewModel: viewModel)
+            return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
         
         private lazy var messageView: AmongChat.Room.MessageListView = {

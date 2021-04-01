@@ -90,6 +90,8 @@
 		BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */; };
 		BDFEFEF125864517007F40FC /* AmongChat.CreateRoom.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */; };
 		EB8FD964FCC137E5EFBAC3A9 /* Pods_WalkieTalkie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E854ECD4DE35AE9FE7830E2 /* Pods_WalkieTalkie.framework */; };
+		FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */; };
+		FE078C8D2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */; };
 		FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2024489BB700518793 /* FrozenButton.swift */; };
 		FE0D1A2724489FE300518793 /* UIBezierPathExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */; };
 		FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D1A282448A06200518793 /* UIViewExtension.swift */; };
@@ -455,6 +457,8 @@
 		BDFCA5722595E237000ABB39 /* AmongChat.Home+RelationsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AmongChat.Home+RelationsViews.swift"; sourceTree = "<group>"; };
 		BDFEFEF025864517007F40FC /* AmongChat.CreateRoom.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.CreateRoom.ViewController.swift; sourceTree = "<group>"; };
 		C9D4669FC4AE9531B2D57FFB /* Pods-WalkieTalkie.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WalkieTalkie.debug.xcconfig"; path = "Target Support Files/Pods-WalkieTalkie/Pods-WalkieTalkie.debug.xcconfig"; sourceTree = "<group>"; };
+		FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.MembersController.swift; sourceTree = "<group>"; };
+		FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.MembersViewModel.swift; sourceTree = "<group>"; };
 		FE0D1A2024489BB700518793 /* FrozenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrozenButton.swift; sourceTree = "<group>"; };
 		FE0D1A2624489FE300518793 /* UIBezierPathExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBezierPathExtension.swift; sourceTree = "<group>"; };
 		FE0D1A282448A06200518793 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
@@ -1365,6 +1369,8 @@
 				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
 				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
 				FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */,
+				FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */,
+				FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -1782,6 +1788,7 @@
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
 				26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */,
+				FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,
 				26DC82792609C8F1000A9111 /* Social.ChooseGame+Views.swift in Sources */,
 				FE7CE9D32589C1BE0067952C /* AmongRoomInfoView.swift in Sources */,
@@ -1906,6 +1913,7 @@
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
+				FE078C8D2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift in Sources */,
 				FE914B1226146AD700C755FF /* AmongChat.GroupRoom.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */,
