@@ -216,6 +216,7 @@ extension AmongChat.Room {
         }
         
         func requestLeaveChannel() -> Single<Bool> {
+            Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, stayDuration)
             mManager.leaveChannel()
             imViewModel.leaveChannel()
             ViewModel.shared = nil

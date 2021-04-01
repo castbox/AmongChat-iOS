@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import EasyTipView
 
 extension AmongChat.GroupRoom {
     
@@ -121,6 +122,8 @@ extension AmongChat.GroupRoom {
         }()
         
         private var topEntranceView: AmongChat.Room.TopEntranceView!
+        
+        private var tipView: EasyTipView?
         
         override var screenName: Logger.Screen.Node.Start {
             return .room
@@ -249,6 +252,28 @@ extension AmongChat.GroupRoom.ViewController {
 extension AmongChat.GroupRoom.ViewController {
     
     // MARK: -
+    
+//    @objc func showShareTipView() {
+//        var preferences = EasyTipView.Preferences()
+//        preferences.drawing.font = UIFont.systemFont(ofSize: 14)
+//        preferences.drawing.foregroundColor = .black
+//        preferences.drawing.backgroundColor = .white
+//        preferences.drawing.arrowPosition = .bottom
+//
+//        tipView = EasyTipView(text: "Share your livecast to the people that you want to invite",
+//                              preferences: preferences,
+//                              delegate: self)
+//        tipView?.tag = 0
+//        tipView?.show(animated: true, forView: moreButton, withinSuperview: view)
+//        Observable<Int>
+//            .interval(.seconds(5), scheduler: MainScheduler.instance)
+//            .single()
+//            .subscribe(onNext: { [weak welf = self] _ in
+//                guard let `self` = welf else { return }
+//                self.dismissTipView()
+//            })
+//            .disposed(by: self.bag)
+//    }
     
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
@@ -499,10 +524,33 @@ extension AmongChat.GroupRoom.ViewController {
 //            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
 //        }
 //
-        topBar.leaveHandler = { [weak self] in
+//        topBar.leaveHandler = { [weak self] in
+//            guard let `self` = self else { return }
+//            self.requestLeaveRoom { [weak self] in
+//                self?.showRecommendUser()
+//            }
+//        }
+        
+        topBar.actionHandler = { [weak self] type in
             guard let `self` = self else { return }
-            self.requestLeaveRoom { [weak self] in
-                self?.showRecommendUser()
+            switch type {
+            case .leave:
+                self.requestLeaveRoom { [weak self] in
+                    self?.showRecommendUser()
+                }
+            case .topic:
+                let vc = FansGroup.AddTopicViewController(self.room.topicId)
+                vc.topicSelectedHandler = { [weak self] topic in
+//                    self?.viewModel.topicRelay.accept(topic)
+                }
+                self.presentPanModal(vc)
+            case .memberList:
+                let vc = AmongChat.GroupRoom.MembersController(with: 0)
+                self.presentPanModal(vc)
+            case .groupInfo:
+                ()
+            case .setupCode:
+                ()
             }
         }
 //

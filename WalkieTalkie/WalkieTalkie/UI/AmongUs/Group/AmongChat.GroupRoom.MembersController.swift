@@ -427,7 +427,7 @@ extension AmongChat.GroupRoom.MembersController {
             
             addSubview(titleLabel)
             titleLabel.snp.makeConstraints { (make) in
-                make.bottom.equalTo(16)
+                make.bottom.equalTo(-16)
                 make.centerX.equalToSuperview()
             }
             

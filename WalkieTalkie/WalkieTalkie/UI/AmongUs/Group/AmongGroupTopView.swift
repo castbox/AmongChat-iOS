@@ -7,9 +7,19 @@
 //
 
 import UIKit
-
+import EasyTipView
+import RxSwift
+import RxCocoa
 
 class AmongGroupTopView: XibLoadableView {
+    enum Action {
+        case groupInfo
+        case memberList
+        case leave
+        case topic
+        case setupCode
+    }
+    
     @IBOutlet weak var coverView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var groupCountLabel: UILabel!
@@ -24,8 +34,9 @@ class AmongGroupTopView: XibLoadableView {
     @IBOutlet weak var userCountLabel: UILabel!
 
     private lazy var backgroundLayer = CAGradientLayer()
-
+    
 //    var room: Entity.Room?
+    var actionHandler: ((Action) -> Void)?
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
     var kickOffHandler: CallBack?
@@ -155,11 +166,20 @@ class AmongGroupTopView: XibLoadableView {
 //        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
     }
     
+    @IBAction func tapMembersAction(_ sender: Any) {
+        actionHandler?(.memberList)
+    }
+    
+    @IBAction func tapGroupAvatarAction(_ sender: Any) {
+        actionHandler?(.groupInfo)
+    }
+    
     @IBAction func tapTopicAction(_ sender: Any) {
-        
+        actionHandler?(.topic)
     }
     
     @IBAction func leaveButtonAction(_ sender: Any) {
-        leaveHandler?()
+//        leaveHandler?()
+        actionHandler?(.leave)
     }
 }

@@ -80,8 +80,9 @@
                         <outletCollection property="gestureRecognizers" destination="SjQ-TQ-YLU" appends="YES" id="Inj-1M-M4c"/>
                     </connections>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWz-1U-3Vo">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DWz-1U-3Vo">
                     <rect key="frame" x="20" y="60" width="52" height="52"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="52" id="G97-PU-DuE"/>
                         <constraint firstAttribute="width" constant="52" id="aOQ-M2-tNX"/>
@@ -97,6 +98,9 @@
                             <color key="value" red="0.34901960780000002" green="0.1764705882" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="GZQ-GP-MxK" appends="YES" id="Gtw-JU-qq4"/>
+                    </connections>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Among Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SZ-8w-hQo">
                     <rect key="frame" x="84" y="60" width="69.5" height="19.5"/>
@@ -230,12 +234,16 @@
                                 <constraint firstItem="0Hi-du-MVm" firstAttribute="leading" secondItem="GdY-vE-Yi0" secondAttribute="trailing" constant="3.5" id="zxL-dC-lCy"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="12"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
+                    <gestureRecognizers/>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="11B-Je-PFL" appends="YES" id="gw9-xO-kce"/>
+                    </connections>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJd-et-XRw" customClass="AmongGroupTopicConfigView" customModule="WalkieTalkie" customModuleProvider="target">
                     <rect key="frame" x="153.5" y="132" width="238.5" height="32"/>
@@ -268,9 +276,19 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
         </view>
-        <tapGestureRecognizer id="SjQ-TQ-YLU">
+        <tapGestureRecognizer id="SjQ-TQ-YLU" userLabel="topic">
             <connections>
                 <action selector="tapTopicAction:" destination="-1" id="HQB-78-tYt"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="GZQ-GP-MxK" userLabel="group avatar">
+            <connections>
+                <action selector="tapGroupAvatarAction:" destination="-1" id="YEe-MR-A8x"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="11B-Je-PFL" userLabel="members">
+            <connections>
+                <action selector="tapMembersAction:" destination="-1" id="lCL-3w-rfL"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

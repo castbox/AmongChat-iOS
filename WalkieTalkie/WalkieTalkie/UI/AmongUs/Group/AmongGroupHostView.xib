@@ -15,7 +15,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongGroupHostView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="groupJoinButton" destination="GwP-Kq-ajX" id="aWD-KF-Pke"/>
                 <outlet property="hostView" destination="HBc-V3-NcN" id="pL6-dh-uxE"/>
+                <outlet property="raiseButton" destination="tlE-wC-8PO" id="czj-1M-qcs"/>
                 <outlet property="stackView" destination="aCF-k6-tr1" id="ka8-Vu-rd7"/>
             </connections>
         </placeholder>
@@ -54,7 +56,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBc-V3-NcN">
                             <rect key="frame" x="138" y="0.0" width="138" height="126"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q">
+                                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q">
                                     <rect key="frame" x="50" y="25" width="38" height="38"/>
                                     <gestureRecognizers/>
                                     <constraints>
