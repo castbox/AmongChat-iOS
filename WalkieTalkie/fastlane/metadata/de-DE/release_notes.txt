@@ -1,6 +1,5 @@
 Willkommen in der Voice-Chat-App AmongChat!
-In diesem Update können Sie
-1. die Freunde in Ihren Kontakten einladen, um zusammen zu spielen;
-2. der Erste sein, der neue Avatare bekommt;
-3. die VIP-Funktionen wählen - exklusive Abzeichen und Avatare, keine Werbung, unbegrenzte Karten, schnelleres Matching usw.
-Finden und sprechen Sie mit Ihren Freunden, viel Spaß!
+Für alle verifizierten Benutzer können Sie jetzt Ihre Spielstatistikseiten hochladen.
+Andere Fehlerbehebungen und Leistungsverbesserungen stehen für Sie bereit.
+Finden und sprechen Sie mit Ihren Freunden, spielen zusammen und viel Spaß!
+

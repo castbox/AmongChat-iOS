@@ -1,6 +1,4 @@
 Selamat datang di aplikasi obrolan suara AmongChat!
-Dalam pembaruan ini, Anda bisa
-1. undang teman di kontak Anda untuk bermain bersama;
-2. jadilah orang pertama yang mendapatkan avatar baru;
-3. pilih untuk menikmati fitur VIP - lencana & avatar eksklusif, tanpa iklan, kartu tak terbatas, lebih cepat mencocokkan, dll.
-Temukan dan Obrolan Suara dengan teman-teman Anda, nikmatilah!
+Untuk semua pengguna terverifikasi, Anda dapat mengupload halaman statistik game Anda sekarang.
+Perbaikan bug dan peningkatan kinerja lainnya.
+Temukan dan Obrolan Suara dengan teman-teman Anda, mainkan bersama, dan nikmatilah!
