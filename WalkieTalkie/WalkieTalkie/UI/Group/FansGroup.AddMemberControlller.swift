@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import MessageUI
 
 extension FansGroup {
     
@@ -33,17 +36,77 @@ extension FansGroup {
             tb.backgroundColor = .clear
             return tb
         }()
+        private lazy var smsBtn: ShareButton = {
+            let btn = ShareButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
+            btn.tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    
+                })
+                .disposed(by: bag)
+            return btn
+        }()
         
-        private typealias ShareHeaderView = Social.InviteFirendsViewController.ShareHeaderView
-        private lazy var headerView = ShareHeaderView()
+        private lazy var snapchatBtn: ShareButton = {
+            let btn = ShareButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
+            btn.tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var copyLinkBtn: ShareButton = {
+            let btn = ShareButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
+            btn.tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var shareLinkBtn: ShareButton = {
+            let btn = ShareButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
+            btn.tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    
+                })
+                .disposed(by: bag)
+            return btn
+        }()
+        
+        private lazy var shareView: UIStackView = {
+            let v = UIStackView()
+            v.axis = .horizontal
+            v.spacing = 0
+            v.distribution = .fillEqually
+            
+            let btns: [UIView]
+            
+            if MFMessageComposeViewController.canSendText() {
+                btns = [smsBtn, snapchatBtn, copyLinkBtn, shareLinkBtn]
+            } else {
+                btns = [snapchatBtn, copyLinkBtn, shareLinkBtn]
+            }
+            v.addArrangedSubviews(btns)
+            btns.forEach { (v) in
+                v.snp.makeConstraints { (maker) in
+                    maker.width.equalTo(80)
+                    maker.height.equalTo(67)
+                }
+            }
+            v.backgroundColor = .clear
+            return v
+        }()
         
         private lazy var doneButton: UIButton = {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 24
             btn.setTitle(R.string.localizable.profileDone(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
-            btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
                     self?.navigationController?.popToRootViewController(animated: true)
@@ -64,9 +127,26 @@ extension FansGroup {
             return v
         }()
         
+        let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
+        private var hasMoreData = true
+        private var isLoading = false
+        
+        private let groupId: String
+                
+        init(groupId: String) {
+            self.groupId = groupId
+            super.init(nibName: nil, bundle: nil)
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
+            setUpEvents()
+            loadData()
         }
     }
     
@@ -78,7 +158,7 @@ extension FansGroup.AddMemberController {
         
         navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
-        view.addSubviews(views: navView, headerView, tableView, bottomGradientView)
+        view.addSubviews(views: navView, shareView, tableView, bottomGradientView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
@@ -86,15 +166,15 @@ extension FansGroup.AddMemberController {
             maker.height.equalTo(49)
         }
         
-        headerView.snp.makeConstraints { maker in
-            maker.top.equalTo(navView.snp.bottom)
-            maker.leading.trailing.equalToSuperview()
-            maker.height.equalTo(159)
+        shareView.snp.makeConstraints { maker in
+            maker.top.equalTo(navView.snp.bottom).offset(24)
+            maker.leading.equalToSuperview()
+            maker.trailing.lessThanOrEqualToSuperview()
         }
         
         tableView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(headerView.snp.bottom)
+            maker.top.equalTo(shareView.snp.bottom).offset(10)
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
@@ -104,9 +184,58 @@ extension FansGroup.AddMemberController {
             maker.height.equalTo(134)
         }
         
-        let footer = UIView()
-        footer.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 134))
-        tableView.tableFooterView = footer
+        tableView.pullToLoadMore { [weak self] in
+            self?.loadData()
+        }
+    }
+    
+    private func setUpEvents() {
+        membersRelay
+            .subscribe(onNext: { [weak self] (_) in
+                self?.tableView.reloadData()
+            })
+            .disposed(by: bag)
+
+    }
+                
+    private func loadData() {
+        
+        guard hasMoreData,
+              !isLoading else {
+            return
+        }
+        
+        isLoading = true
+        
+        Request.availableFollowersToAddToGroup(groupId: groupId,
+                                               skipMs: membersRelay.value.last?.member.opTime ?? 0)
+            .do(onDispose: { [weak self] () in
+                self?.isLoading = false
+            })
+            .subscribe(onSuccess: { [weak self] (followers) in
+                
+                guard let `self` = self else {
+                    return
+                }
+                var members = self.membersRelay.value
+                members.append(contentsOf: followers.list.map({ MemeberViewModel(member: $0)}))
+                self.membersRelay.accept(members)
+                self.hasMoreData = followers.more
+                self.tableView.endLoadMore(followers.more)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func addMember(_ member: MemeberViewModel, at indexPath: IndexPath) {
+        
+        member.add()
+        tableView.reloadRows(at: [indexPath], with: .none)
+        
+        Request.addMember(member.member.uid, to: groupId)
+            .subscribe(onSuccess: { [weak self] (_) in
+            })
+            .disposed(by: bag)
+        
     }
 }
 
@@ -115,11 +244,44 @@ extension FansGroup.AddMemberController: UITableViewDataSource {
     // MARK: - UITableView Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return membersRelay.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MemberCell.self), for: indexPath)
+        if let cell = cell as? MemberCell,
+              let user = membersRelay.value.safe(indexPath.row) {
+            cell.bind(viewModel: user,
+                      onAdd: { [weak self] in
+                        self?.addMember(user, at: indexPath)
+                      }, onAvatarTap: {
+                        
+                      })
+        }
         return cell
+    }
+}
+
+extension FansGroup.AddMemberController {
+    
+    class MemeberViewModel {
+        
+        private(set) var member: Entity.UserProfile
+        
+        init(member: Entity.UserProfile) {
+            self.member = member
+        }
+        
+        var inGroup: Bool {
+            return member.inGroup ?? false
+        }
+        
+        func add() {
+            member.inGroup = true
+        }
+        
+        func remove() {
+            member.inGroup = false
+        }
     }
 }

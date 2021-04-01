@@ -15,11 +15,30 @@ extension FansGroup.AddMemberController {
         
         private let bag = DisposeBag()
         
-        private lazy var userView: AmongChat.Home.UserView = {
-            let v = AmongChat.Home.UserView()
-            return v
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
+            iv.layer.cornerRadius = 20
+            iv.layer.masksToBounds = true
+            iv.isUserInteractionEnabled = true
+            return iv
         }()
-                
+        
+        private lazy var avatarTap: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            g.rx.event.subscribe(onNext: { [weak self] (_) in
+                self?.avatarTapHandler?()
+            })
+            .disposed(by: bag)
+            return g
+        }()
+        
+        private lazy var nameLabel: UILabel = {
+            let lb = UILabel()
+            lb.font = R.font.nunitoExtraBold(size: 16)
+            lb.textColor = .white
+            return lb
+        }()
+
         private lazy var addBtn: UIButton = {
             let btn = UIButton(type: .custom)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
@@ -29,6 +48,11 @@ extension FansGroup.AddMemberController {
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.addHandler?()
+                })
+                .disposed(by: bag)
             return btn
         }()
         
@@ -36,9 +60,13 @@ extension FansGroup.AddMemberController {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.text = R.string.localizable.amongChatGroupAddMemberInGroup()
+            l.textColor = UIColor(hex6: 0x898989)
             return l
         }()
-                
+        
+        private var avatarTapHandler: (() -> Void)? = nil
+        private var addHandler: (() -> Void)? = nil
+
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             setupLayout()
@@ -51,33 +79,104 @@ extension FansGroup.AddMemberController {
         private func setupLayout() {
             backgroundColor = .clear
             selectionStyle = .none
+
+            avatarIV.addGestureRecognizer(avatarTap)
             
-            contentView.addSubviews(views: userView, addBtn)
-                        
-            let buttonLayout = UILayoutGuide()
-            contentView.addLayoutGuide(buttonLayout)
-            buttonLayout.snp.makeConstraints { (maker) in
+            contentView.addSubviews(views: avatarIV, nameLabel, addBtn, inGroupLabel)
+            
+            avatarIV.snp.makeConstraints { (maker) in
+                maker.width.height.equalTo(40)
+                maker.centerY.equalToSuperview()
+                maker.leading.equalToSuperview().inset(20)
+            }
+            
+            let textLayout = UILayoutGuide()
+            contentView.addLayoutGuide(textLayout)
+            
+            textLayout.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview()
+            }
+            
+            nameLabel.snp.makeConstraints { (maker) in
+                maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
+                maker.trailing.equalTo(addBtn.snp.leading).offset(-12)
+                maker.centerY.equalTo(textLayout)
+            }
+            
+            addBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(20)
                 maker.height.equalTo(32)
             }
             
-            userView.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().offset(20)
-                maker.top.bottom.equalToSuperview()
-                maker.trailing.lessThanOrEqualTo(buttonLayout.snp.leading).offset(-20)
-            }
-            
-            addBtn.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(buttonLayout)
+            inGroupLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.centerY.equalTo(addBtn)
             }
             
         }
         
-        func bind(viewModel: Entity.ContactFriend,
+        func bind(viewModel: FansGroup.AddMemberController.MemeberViewModel,
                   onAdd: @escaping () -> Void,
                   onAvatarTap: @escaping () -> Void) {
-            userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
+            
+            avatarIV.updateAvatar(with: viewModel.member)
+            nameLabel.text = viewModel.member.name
+            
+            addBtn.isHidden = viewModel.inGroup
+            inGroupLabel.isHidden = !viewModel.inGroup
+            addHandler = onAdd
+            avatarTapHandler = onAvatarTap
+            
+        }
+        
+    }
+    
+}
+
+extension FansGroup.AddMemberController {
+    
+    class ShareButton: UIView {
+        
+        private(set) lazy var iconImageV = UIImageView()
+        
+        private(set) lazy var titleLabel: UILabel = {
+            let lb = UILabel()
+            lb.textAlignment = .center
+            lb.font = R.font.nunitoBold(size: 14)
+            lb.textColor = .white
+            lb.adjustsFontSizeToFitWidth = true
+            return lb
+        }()
+        
+        private(set) lazy var tap: UITapGestureRecognizer = {
+            let g = UITapGestureRecognizer()
+            return g
+        }()
+        
+        init(with icon: UIImage?, title: String) {
+            super.init(frame: .zero)
+            
+            addGestureRecognizer(tap)
+            
+            addSubviews(views: iconImageV, titleLabel)
+            iconImageV.snp.makeConstraints { (maker) in
+                maker.top.centerX.equalToSuperview()
+                maker.width.equalTo(iconImageV.snp.height)
+            }
+            
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.top.equalTo(iconImageV.snp.bottom).offset(8)
+                maker.centerX.bottom.equalToSuperview()
+                maker.leading.greaterThanOrEqualToSuperview()
+            }
+            
+            iconImageV.image = icon
+            titleLabel.text = title
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
         }
         
     }

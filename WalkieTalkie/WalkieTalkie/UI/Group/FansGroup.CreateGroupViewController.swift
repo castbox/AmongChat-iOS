@@ -113,7 +113,7 @@ extension FansGroup.CreateGroupViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (group) in
-                let vc = FansGroup.AddMemberController()
+                let vc = FansGroup.AddMemberController(groupId: group.gid)
                 self?.navigationController?.pushViewController(vc, animated: true)
             })
             .disposed(by: bag)

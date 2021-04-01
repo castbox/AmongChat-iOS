@@ -98,7 +98,8 @@ extension Entity {
         var decoSkinId: Int?
         var decoHatId: Int?
         var decoPetId: Int?
-        
+        var inGroup: Bool?
+
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
             case appleAuthData = "apple_auth_data"
@@ -128,6 +129,7 @@ extension Entity {
             case decoSkinId = "deco_skin_id"
             case decoHatId = "deco_hat_id"
             case decoPetId = "deco_pet_id"
+            case inGroup = "in_group"
         }
     }
     
