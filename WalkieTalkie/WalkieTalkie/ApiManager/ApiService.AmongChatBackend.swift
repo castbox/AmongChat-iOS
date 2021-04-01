@@ -66,6 +66,7 @@ extension APIService {
         case setGameSkill([String : Any])
         case removeGameSkill([String : Any])
         case userGameSkills([String : Any])
+        case createGroup([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -188,6 +189,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/game/skill"
         case .userGameSkills:
             return "/api/v1/game/skill/list"
+        case .createGroup:
+            return "/api/v1/group/create"
         }
     }
     
@@ -208,6 +211,7 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockDecoration,
              .updateDecoration,
              .setGameSkill,
+             .createGroup,
              .logout:
             return .post
             
@@ -284,6 +288,7 @@ extension APIService.AmongChatBackend: TargetType {
              .updateRoomInfo(let params),
              .receipt(let params),
              .contactUpload(let params),
+             .createGroup(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             

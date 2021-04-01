@@ -14,7 +14,12 @@ extension FansGroup {
         
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
-            n.leftBtn.isHidden = true
+            n.leftBtn.setImage(R.image.ac_back(), for: .normal)
+            n.leftBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.navigationController?.popToRootViewController(animated: true)
+                })
+                .disposed(by: bag)
             n.titleLabel.text = R.string.localizable.amongChatGroupAddMembers()
             return n
         }()
@@ -41,7 +46,7 @@ extension FansGroup {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    
+                    self?.navigationController?.popToRootViewController(animated: true)
                 })
                 .disposed(by: bag)
             return btn
@@ -70,6 +75,8 @@ extension FansGroup {
 extension FansGroup.AddMemberController {
     
     private func setUpLayout() {
+        
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         view.addSubviews(views: navView, headerView, tableView, bottomGradientView)
         

@@ -295,6 +295,7 @@ extension FansGroup.Views {
         
         func textFieldDidEndEditing(_ textField: UITextField) {
             isEdtingRelay.accept(false)
+            textField.text = textField.text?.trim()
         }
     }
     
@@ -404,6 +405,7 @@ extension FansGroup.Views {
         
         func textViewDidEndEditing(_ textView: UITextView) {
             isEdtingRelay.accept(false)
+            textView.text = textView.text.trim()
         }
     }
     

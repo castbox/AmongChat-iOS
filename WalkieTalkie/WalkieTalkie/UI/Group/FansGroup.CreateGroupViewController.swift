@@ -106,6 +106,18 @@ extension FansGroup.CreateGroupViewController {
     @objc
     private func onNextBtn() {
         
+        let hudRemoval = self.view.raft.show(.loading)
+
+        viewModel.createGroup()
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (group) in
+                let vc = FansGroup.AddMemberController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: bag)
+
     }
 }
 
@@ -262,7 +274,31 @@ extension FansGroup.CreateGroupViewController {
                     return true
                 })
         }
-                
+        
+        func createGroup() -> Single<Entity.Group> {
+            
+            guard let cover = coverRelay.value,
+                  let name = nameRelay.value,
+                  let desc = descriptionRelay.value,
+                  let topic = topicRelay.value else {
+                return Single.error(MsgError.default)
+            }
+            
+            return uploadCover(coverImage: cover)
+                .flatMap { (coverUrl) in
+                    let groupProto = Entity.GroupProto(topicId: topic.topic.topicId, cover: coverUrl, name: name, description: desc)
+                    return Request.createGroup(group: groupProto)
+                }
+        }
+        
+        private func uploadCover(coverImage: UIImage) -> Single<String> {
+            guard let imgPng = coverImage.scaled(toWidth: 300) else {
+                return Single.error(MsgError.default)
+            }
+            
+            return Request.uploadPng(image: imgPng)
+        }
+        
     }
     
 }

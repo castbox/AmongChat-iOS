@@ -20,6 +20,7 @@
 		263F8AD326149A6900282F8F /* FansGroup.SelectCoverModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */; };
 		263F8AD72614A22200282F8F /* FansGroup.AddMemberControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */; };
 		263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */; };
+		263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADE26156D7F00282F8F /* Entity.Group.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -358,6 +359,7 @@
 		263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.SelectCoverModal.swift; sourceTree = "<group>"; };
 		263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.AddMemberControlller.swift; sourceTree = "<group>"; };
 		263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.AddMemberController+Views.swift"; sourceTree = "<group>"; };
+		263F8ADE26156D7F00282F8F /* Entity.Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Group.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -1226,6 +1228,7 @@
 				FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */,
 				FEC17A4824A99BF0003719BC /* Entity.swift */,
 				BDC9D2A12589DA2D00412BDC /* Entity.LoginResult.swift */,
+				263F8ADE26156D7F00282F8F /* Entity.Group.swift */,
 				2BAB4F862596031600A1C8DC /* Entity.Profile.swift */,
 				FE9EF523258B0C07008C0BAD /* Entity.Room.swift */,
 			);
@@ -1828,6 +1831,7 @@
 				FE49CEAB2436EFE600C36EC6 /* StringExtension.swift in Sources */,
 				FE126D41243481BD00BEDD60 /* MessageManager.swift in Sources */,
 				FE126D52243481FF00BEDD60 /* Seat.swift in Sources */,
+				263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */,
 				FE79F375258C731400E9BC6C /* SoundAnimationView.swift in Sources */,
 				BDFCA56F25959428000ABB39 /* AmongChat.Home.RelationsViewController.swift in Sources */,
 				FE126D18243461E800BEDD60 /* AppDelegate.swift in Sources */,
