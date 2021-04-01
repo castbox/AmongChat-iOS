@@ -1,5 +1,5 @@
 //
-//  AmongChat.GroupRoom.MembersController.swift
+//  AmongChat.GroupRoom.RequestListController.swift
 //  WalkieTalkie
 //
 //  Created by 袁仕崇 on 01/04/21.
@@ -13,7 +13,12 @@ import SwiftyUserDefaults
 import HWPanModal
 
 extension AmongChat.GroupRoom {
-    class MembersController: WalkieTalkie.ViewController {
+    class RequestListController: WalkieTalkie.ViewController {
+        enum Style {
+            case groupJoin
+            case hostJoin
+        }
+        
         private lazy var titleView: HeaderView = {
             let v = HeaderView()
             v.title = R.string.localizable.groupRoomMembersTitle()
@@ -24,7 +29,8 @@ extension AmongChat.GroupRoom {
             let tb = UITableView(frame: .zero, style: .plain)
             tb.dataSource = self
             tb.delegate = self
-            tb.register(cellWithClass: MembersCell.self)
+            tb.register(nibWithCellClass: AmongGroupJoinRequestCell.self)
+            //            tb.register(cellWithClass: MembersCell.self)
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
             return tb
@@ -37,10 +43,6 @@ extension AmongChat.GroupRoom {
         }
         private var uid = 0
         private var isSelf = false
-        
-//        override var screenName: Logger.Screen.Node.Start {
-//            return .followers
-//        }
         
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
@@ -65,10 +67,10 @@ extension AmongChat.GroupRoom {
             view.backgroundColor = UIColor.theme(.backgroundBlack)
             
             
-//            Logger.Action.log(.profile_following_imp, category: nil)
+            //            Logger.Action.log(.profile_following_imp, category: nil)
             
             view.addSubviews(views: titleView)
-                        
+            
             titleView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview()
                 maker.height.equalTo(65.5)
@@ -93,22 +95,22 @@ extension AmongChat.GroupRoom {
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             
-                Request.followingList(uid: uid, skipMs: 0)
-                    .subscribe(onSuccess: { [weak self](data) in
-                        removeBlock()
-                        guard let `self` = self, let data = data else { return }
-                        self.userList = data.list ?? []
-                        if self.userList.isEmpty {
-                            self.addNoDataView(R.string.localizable.errorNoFollowing())
-                        }
-                        self.tableView.endLoadMore(data.more ?? false)
-                    }, onError: { [weak self](error) in
-                        removeBlock()
-                        self?.addErrorView({ [weak self] in
-                            self?.loadData()
-                        })
-                        cdPrint("followingList error: \(error.localizedDescription)")
-                    }).disposed(by: bag)
+            Request.followingList(uid: uid, skipMs: 0)
+                .subscribe(onSuccess: { [weak self](data) in
+                    removeBlock()
+                    guard let `self` = self, let data = data else { return }
+                    self.userList = data.list ?? []
+                    if self.userList.isEmpty {
+                        self.addNoDataView(R.string.localizable.errorNoFollowing())
+                    }
+                    self.tableView.endLoadMore(data.more ?? false)
+                }, onError: { [weak self](error) in
+                    removeBlock()
+                    self?.addErrorView({ [weak self] in
+                        self?.loadData()
+                    })
+                    cdPrint("followingList error: \(error.localizedDescription)")
+                }).disposed(by: bag)
         }
         
         private func loadMore() {
@@ -129,7 +131,7 @@ extension AmongChat.GroupRoom {
     }
 }
 // MARK: - UITableView
-extension AmongChat.GroupRoom.MembersController: UITableViewDataSource, UITableViewDelegate {
+extension AmongChat.GroupRoom.RequestListController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userList.count
@@ -137,20 +139,20 @@ extension AmongChat.GroupRoom.MembersController: UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withClass: MembersCell.self)
+        let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
         if let user = userList.safe(indexPath.row) {
-//            cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
-            cell.updateFollowData = { [weak self] (follow) in
-                guard let `self` = self else { return }
-                self.userList[indexPath.row].isFollowed = follow
-                self.addLogForFollow(with: self.userList[indexPath.row].uid)
-            }
+            //            cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
+            //            cell.updateFollowData = { [weak self] (follow) in
+            //                guard let `self` = self else { return }
+            //                self.userList[indexPath.row].isFollowed = follow
+            //                self.addLogForFollow(with: self.userList[indexPath.row].uid)
+            //            }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,51 +162,51 @@ extension AmongChat.GroupRoom.MembersController: UITableViewDataSource, UITableV
             let vc = Social.ProfileViewController(with: user.uid)
             vc.followedHandle = { [weak self](followed) in
                 guard let `self` = self else { return }
-//                if self.isSelf && self.isFollowing {
-//                    if followed {
-//                        self.userList.insert(user, at: indexPath.row)
-//                    } else {
-//                        self.userList.remove(at: indexPath.row)
-//                    }
-//                }
+                //                if self.isSelf && self.isFollowing {
+                //                    if followed {
+                //                        self.userList.insert(user, at: indexPath.row)
+                //                    } else {
+                //                        self.userList.remove(at: indexPath.row)
+                //                    }
+                //                }
             }
             self.navigationController?.pushViewController(vc)
         }
     }
     
     private func addLogForFollow(with uid: Int) {
-//        if isSelf {
-//            if isFollowing {
-//                Logger.Action.log(.profile_following_clk, category: .follow, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_followers_clk, category: .follow, "\(uid)")
-//            }
-//        } else {
-//            if isFollowing {
-//                Logger.Action.log(.profile_other_followers_clk, category: .follow, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_other_following_clk, category: .follow, "\(uid)")
-//            }
-//        }
+        //        if isSelf {
+        //            if isFollowing {
+        //                Logger.Action.log(.profile_following_clk, category: .follow, "\(uid)")
+        //            } else {
+        //                Logger.Action.log(.profile_followers_clk, category: .follow, "\(uid)")
+        //            }
+        //        } else {
+        //            if isFollowing {
+        //                Logger.Action.log(.profile_other_followers_clk, category: .follow, "\(uid)")
+        //            } else {
+        //                Logger.Action.log(.profile_other_following_clk, category: .follow, "\(uid)")
+        //            }
+        //        }
     }
     private func addLogForProfile(with uid: Int) {
-//        if isSelf {
-//            if isFollowing {
-//                Logger.Action.log(.profile_following_clk, category: .profile, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_followers_clk, category: .profile, "\(uid)")
-//            }
-//        } else {
-//            if isFollowing {
-//                Logger.Action.log(.profile_other_following_clk, category: .profile, "\(uid)")
-//            } else {
-//                Logger.Action.log(.profile_other_followers_clk, category: .profile, "\(uid)")
-//            }
-//        }
+        //        if isSelf {
+        //            if isFollowing {
+        //                Logger.Action.log(.profile_following_clk, category: .profile, "\(uid)")
+        //            } else {
+        //                Logger.Action.log(.profile_followers_clk, category: .profile, "\(uid)")
+        //            }
+        //        } else {
+        //            if isFollowing {
+        //                Logger.Action.log(.profile_other_following_clk, category: .profile, "\(uid)")
+        //            } else {
+        //                Logger.Action.log(.profile_other_followers_clk, category: .profile, "\(uid)")
+        //            }
+        //        }
     }
 }
 
-extension AmongChat.GroupRoom.MembersController {
+extension AmongChat.GroupRoom.RequestListController {
     
     class MembersCell: TableViewCell {
         
@@ -217,7 +219,7 @@ extension AmongChat.GroupRoom.MembersController {
             let v = AmongChat.Home.UserView()
             return v
         }()
-
+        
         private lazy var followBtn: UIButton = {
             let btn = UIButton()
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
@@ -270,7 +272,7 @@ extension AmongChat.GroupRoom.MembersController {
                 maker.top.bottom.equalToSuperview()
                 maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
             }
-
+            
             followBtn.snp.makeConstraints { (maker) in
                 maker.edges.equalTo(buttonLayout)
             }
@@ -308,8 +310,8 @@ extension AmongChat.GroupRoom.MembersController {
                 }
             }
             
-//            avatarIV.setAvatarImage(with: model.pictureUrl)
-//            usernameLabel.attributedText = model.nameWithVerified()
+            //            avatarIV.setAvatarImage(with: model.pictureUrl)
+            //            usernameLabel.attributedText = model.nameWithVerified()
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)
         }
@@ -405,7 +407,7 @@ extension AmongChat.GroupRoom.MembersController {
 }
 
 
-extension AmongChat.GroupRoom.MembersController {
+extension AmongChat.GroupRoom.RequestListController {
     
     private class HeaderView: UIView {
         
@@ -421,7 +423,7 @@ extension AmongChat.GroupRoom.MembersController {
             set { titleLabel.text = newValue }
             get { titleLabel.text }
         }
-                
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             
@@ -448,7 +450,7 @@ extension AmongChat.GroupRoom.MembersController {
     }
 }
 
-extension AmongChat.GroupRoom.MembersController {
+extension AmongChat.GroupRoom.RequestListController {
     
     override func longFormHeight() -> PanModalHeight {
         return PanModalHeight(type: .topInset, height: 0)
@@ -475,4 +477,5 @@ extension AmongChat.GroupRoom.MembersController {
     }
     
 }
+
 

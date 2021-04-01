@@ -1897,7 +1897,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 317 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 318 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2375,6 +2375,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomAnimalCrossingIdPrefix = Rswift.StringResource(key: "among.chat.room.animal.crossing.id.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: In Channel Members
+      /// 
+      /// Locales: en
+      static let groupRoomMembersTitle = Rswift.StringResource(key: "group.room.members.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Incorrect information
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3999,6 +4003,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomAnimalCrossingIdPrefix(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.room.animal.crossing.id.prefix", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: In Channel Members
+      /// 
+      /// Locales: en
+      static func groupRoomMembersTitle(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.members.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Incorrect information
