@@ -127,7 +127,7 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
             
-                AmongChat.Room.ContainerController.join(room: room, from: self, logSource: logSource) { error in
+                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()

@@ -118,6 +118,10 @@
 		FE126D5A2434825900BEDD60 /* KeyCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D592434825900BEDD60 /* KeyCenter.swift */; };
 		FE126D5C2434922E00BEDD60 /* ObservableOptionalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */; };
 		FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */; };
+		FE169E2426134A1500AD7866 /* AmongGroupHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */; };
+		FE169E2826134A2000AD7866 /* AmongGroupHostView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */; };
+		FE169E2E2613516500AD7866 /* AmongGroupJoinRequestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */; };
+		FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */; };
 		FE1A2DF3248A3BDC00F9A44D /* Data+Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */; };
 		FE1A2DF5248A4BAD00F9A44D /* emojis.json in Resources */ = {isa = PBXBuildFile; fileRef = FE1A2DF4248A4BAD00F9A44D /* emojis.json */; };
 		FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9E5244DB0F400763747 /* WebViewController.swift */; };
@@ -254,6 +258,9 @@
 		FE8DEA6C243DB09A0059C252 /* KeyedDecodingContainer.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */; };
 		FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */; };
 		FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */; };
+		FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B0B2614663A00C755FF /* AmongChat.Room.BackgroundView.swift */; };
+		FE914B1226146AD700C755FF /* AmongChat.GroupRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */; };
+		FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE914B1526146DC900C755FF /* BottomTitleButton.swift */; };
 		FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE97371424AB3D050015ECE6 /* DebugViewController.swift */; };
 		FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */; };
 		FE9B29F42488D250009A4969 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9B29F32488D250009A4969 /* ConfettiView.swift */; };
@@ -300,6 +307,10 @@
 		FECBD85125E3D456000A3DB5 /* ZegoRtcManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECBD85025E3D456000A3DB5 /* ZegoRtcManager.swift */; };
 		FECFC4FC24666DD500B10EEE /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */; };
 		FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */; };
+		FED38C82261318BB003C3F7D /* AmongGroupTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED38C81261318BB003C3F7D /* AmongGroupTopView.swift */; };
+		FED38C86261318D2003C3F7D /* AmongGroupTopView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */; };
+		FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */; };
+		FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */; };
 		FED7B5FC244EC99300D94F97 /* ScreenLifeLogable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */; };
 		FED7B5FF244EC9E100D94F97 /* Logger+Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */; };
 		FED7B601244EC9FB00D94F97 /* LoggerPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FED7B600244EC9FB00D94F97 /* LoggerPath.swift */; };
@@ -476,6 +487,10 @@
 		FE126D592434825900BEDD60 /* KeyCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCenter.swift; sourceTree = "<group>"; };
 		FE126D5B2434922E00BEDD60 /* ObservableOptionalExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableOptionalExtension.swift; sourceTree = "<group>"; };
 		FE126D5F2434967A00BEDD60 /* SwiftTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftTimer.swift; sourceTree = "<group>"; };
+		FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupHostView.swift; sourceTree = "<group>"; };
+		FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupHostView.xib; sourceTree = "<group>"; };
+		FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupJoinRequestCell.xib; sourceTree = "<group>"; };
+		FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupJoinRequestCell.swift; sourceTree = "<group>"; };
 		FE1A2DF2248A3BDC00F9A44D /* Data+Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Crypto.swift"; sourceTree = "<group>"; };
 		FE1A2DF4248A4BAD00F9A44D /* emojis.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emojis.json; sourceTree = "<group>"; };
 		FE2AF9E5244DB0F400763747 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
@@ -614,6 +629,9 @@
 		FE8DEA60243DB0980059C252 /* KeyedDecodingContainer.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyedDecodingContainer.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA61243DB0990059C252 /* JSONDecoder.Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecoder.Extension.swift; sourceTree = "<group>"; };
 		FE8DEA62243DB0990059C252 /* ApiManager.ErrorHandle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiManager.ErrorHandle.swift; sourceTree = "<group>"; };
+		FE914B0B2614663A00C755FF /* AmongChat.Room.BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Room.BackgroundView.swift; sourceTree = "<group>"; };
+		FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.swift; sourceTree = "<group>"; };
+		FE914B1526146DC900C755FF /* BottomTitleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTitleButton.swift; sourceTree = "<group>"; };
 		FE97371424AB3D050015ECE6 /* DebugViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugViewController.swift; sourceTree = "<group>"; };
 		FE9B29F12488CD4B009A4969 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		FE9B29F32488D250009A4969 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
@@ -660,6 +678,10 @@
 		FECBD85025E3D456000A3DB5 /* ZegoRtcManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZegoRtcManager.swift; sourceTree = "<group>"; };
 		FECFC4FB24666DD500B10EEE /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
 		FED24F15258A63B800ED4A97 /* Nunito-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-ExtraBold.ttf"; sourceTree = "<group>"; };
+		FED38C81261318BB003C3F7D /* AmongGroupTopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupTopView.swift; sourceTree = "<group>"; };
+		FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopView.xib; sourceTree = "<group>"; };
+		FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupTopicConfigView.swift; sourceTree = "<group>"; };
+		FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AmongGroupTopicConfigView.xib; sourceTree = "<group>"; };
 		FED7B5FB244EC99300D94F97 /* ScreenLifeLogable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLifeLogable.swift; sourceTree = "<group>"; };
 		FED7B5FE244EC9E100D94F97 /* Logger+Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Screen.swift"; sourceTree = "<group>"; };
 		FED7B600244EC9FB00D94F97 /* LoggerPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerPath.swift; sourceTree = "<group>"; };
@@ -772,8 +794,7 @@
 			isa = PBXGroup;
 			children = (
 				BD6C36EC256E525000D1E708 /* AmongChat.swift */,
-				FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */,
-				FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */,
+				FED38C7E261317BD003C3F7D /* Group */,
 				BD6C36FE256E7CAD00D1E708 /* Room */,
 				BD6C36EB256E517E00D1E708 /* Home */,
 				BD754CBC258B9CDD00ECC177 /* CreateRoom */,
@@ -1095,6 +1116,7 @@
 				26057F8825C1712900718D3E /* AvatarImageView.swift */,
 				FEA2E93D25C166E6007485A8 /* UserTagView.swift */,
 				26259F55260D8D0F00636E50 /* SmallSizeButton.swift */,
+				FE914B1526146DC900C755FF /* BottomTitleButton.swift */,
 			);
 			path = Widge;
 			sourceTree = "<group>";
@@ -1329,6 +1351,24 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		FED38C7E261317BD003C3F7D /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */,
+				FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */,
+				FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */,
+				FED38C81261318BB003C3F7D /* AmongGroupTopView.swift */,
+				FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */,
+				FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */,
+				FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */,
+				FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */,
+				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
+				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
+				FE169E2C2613516500AD7866 /* AmongGroupJoinRequestCell.xib */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
 		FED7B5FD244EC9C500D94F97 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -1391,6 +1431,7 @@
 				FEF170FE25C95BE0004C3FD3 /* RoomTopEntranceContentView.xib */,
 				FE6738AD2611F1840044C0D2 /* AmongChat.Room.MessageInputView.swift */,
 				FE6738B12611F5270044C0D2 /* AmongChat.Room.MessageListView.swift */,
+				FE914B0B2614663A00C755FF /* AmongChat.Room.BackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1490,6 +1531,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FED38C86261318D2003C3F7D /* AmongGroupTopView.xib in Resources */,
 				FE7ED90525F20292009C608A /* room-emoji-orange.svga in Resources */,
 				BDB8F58D24F8B5D6000027F8 /* Nunito-Regular.ttf in Resources */,
 				FE746BD124629A9800CAC554 /* Nunito-Bold.ttf in Resources */,
@@ -1500,6 +1542,7 @@
 				FE9EF52C258B23BC008C0BAD /* AmongRoomToolView.xib in Resources */,
 				BDC9D4B2258A2BC200412BDC /* Adjust-Info.plist in Resources */,
 				FE7CEB6B258A060B0067952C /* JustChillingInfoView.xib in Resources */,
+				FE169E2826134A2000AD7866 /* AmongGroupHostView.xib in Resources */,
 				FE79F394258CE06D00E9BC6C /* AmongSheetIconItemCell.xib in Resources */,
 				FE7ED90325F20292009C608A /* room-emoji-blue.svga in Resources */,
 				FE746BCE24629A9800CAC554 /* Localizable.strings in Resources */,
@@ -1524,6 +1567,7 @@
 				FE7ED90425F20292009C608A /* room-emoji-green.svga in Resources */,
 				FE7CE9E72589E5550067952C /* AmongRoomBottomBar.xib in Resources */,
 				FE9EF534258B2DC1008C0BAD /* AmongInputNickNameView.xib in Resources */,
+				FE169E2E2613516500AD7866 /* AmongGroupJoinRequestCell.xib in Resources */,
 				FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */,
 				BDB21A52250A20DA000ADC20 /* Nunito-BoldItalic.ttf in Resources */,
 				FE7CE9D72589C1C60067952C /* AmongRoomInfoView.xib in Resources */,
@@ -1534,6 +1578,7 @@
 				266A42F625F10C5A003B583B /* InfoWithNicknameView.xib in Resources */,
 				FE126D1F243461E800BEDD60 /* Main.storyboard in Resources */,
 				FE87C2D6259C2EC200799883 /* ShareContainerView.xib in Resources */,
+				FED38C8E26132984003C3F7D /* AmongGroupTopicConfigView.xib in Resources */,
 				FED24F16258A63B800ED4A97 /* Nunito-ExtraBold.ttf in Resources */,
 				2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */,
 				FE7ED90225F20292009C608A /* room-emoji-red.svga in Resources */,
@@ -1696,6 +1741,7 @@
 				BDF3D8D7259B26B70047A460 /* AmongChat.Home.MainTabController.IMViewModel.swift in Sources */,
 				FE4FDAD92435D0AB00CD5E97 /* Logger.swift in Sources */,
 				FE9B29F22488CD4B009A4969 /* SpeechRecognizer.swift in Sources */,
+				FE169E33261351C400AD7866 /* AmongGroupJoinRequestCell.swift in Sources */,
 				FE68487C244BD65B00F87AF9 /* NativeAdView.swift in Sources */,
 				FECA43AE24597B570075D139 /* Automator.Analytics.swift in Sources */,
 				FE126D50243481FF00BEDD60 /* VoiceChanger.swift in Sources */,
@@ -1704,6 +1750,7 @@
 				BDA05E9E250B22D50087933F /* Social.BlockedUserList.Widgets.swift in Sources */,
 				26F7023A25E670CC008F992C /* Social.CustomAvatarViewController.swift in Sources */,
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
+				FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */,
 				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
@@ -1713,6 +1760,7 @@
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
 				BDC9D2A22589DA2D00412BDC /* Entity.LoginResult.swift in Sources */,
+				FED38C82261318BB003C3F7D /* AmongGroupTopView.swift in Sources */,
 				FE789E562590539100DAF5D3 /* SensitiveWordChecker.swift in Sources */,
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				FE3AEE6125AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift in Sources */,
@@ -1749,6 +1797,7 @@
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */,
 				FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */,
+				FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */,
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,
 				FE860D492446D1D700087B73 /* Countable.swift in Sources */,
 				FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */,
@@ -1783,6 +1832,7 @@
 				BD754CBE258B9D0E00ECC177 /* AmongChat.CreateRoom.swift in Sources */,
 				FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */,
 				FE860D482446D1D700087B73 /* UIView+Theme.swift in Sources */,
+				FE169E2426134A1500AD7866 /* AmongGroupHostView.swift in Sources */,
 				FE8DEA6D243DB09A0059C252 /* JSONDecoder.Extension.swift in Sources */,
 				FE9EF528258B23B5008C0BAD /* AmongRoomToolView.swift in Sources */,
 				FE401E39244D9C450081F793 /* IAP.swift in Sources */,
@@ -1856,6 +1906,7 @@
 				FE8DEA64243DB09A0059C252 /* ApiManager.swift in Sources */,
 				FEFF935A258B33420011A274 /* AmongInputNotesView.swift in Sources */,
 				FEC10DCE25C0340A0014F8DD /* Social.ContactListViewController.swift in Sources */,
+				FE914B1226146AD700C755FF /* AmongChat.GroupRoom.swift in Sources */,
 				FE8DEA6E243DB09A0059C252 /* ApiManager.ErrorHandle.swift in Sources */,
 				266A42FA25F10CC4003B583B /* InfoWithNicknameView.swift in Sources */,
 				FE8DEA69243DB09A0059C252 /* ApiManager.Json.swift in Sources */,
@@ -1866,6 +1917,7 @@
 				FE7CE9E32589E5450067952C /* AmongRoomBottomBar.swift in Sources */,
 				FE684887244BDBEC00F87AF9 /* FireRemote.swift in Sources */,
 				FE7218752456DA36005274CA /* Extension.swift in Sources */,
+				FE914B0C2614663A00C755FF /* AmongChat.Room.BackgroundView.swift in Sources */,
 				26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */,
 				BDD692772536DE2900260F1F /* Ad.InterstitialManager.swift in Sources */,
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,

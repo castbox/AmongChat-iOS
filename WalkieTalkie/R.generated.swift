@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 176 images.
+  /// This `R.image` struct is generated, and contains static references to 179 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -250,6 +250,12 @@ struct R: Rswift.Validatable {
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
     /// Image `ac_create_room_bar_top_shadow`.
     static let ac_create_room_bar_top_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_create_room_bar_top_shadow")
+    /// Image `ac_group_host_request`.
+    static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
+    /// Image `ac_group_join_request`.
+    static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
+    /// Image `ac_group_room_count`.
+    static let ac_group_room_count = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_count")
     /// Image `ac_home_banner`.
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
@@ -649,6 +655,21 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_create_room_bar_top_shadow", bundle: ..., traitCollection: ...)`
     static func ac_create_room_bar_top_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_create_room_bar_top_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_host_request", bundle: ..., traitCollection: ...)`
+    static func ac_group_host_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_host_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_join_request", bundle: ..., traitCollection: ...)`
+    static func ac_group_join_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_join_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_count", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_count(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_count, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
@@ -1454,12 +1475,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 26 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
     /// Nib `AmongChatRoomTopBar`.
     static let amongChatRoomTopBar = _R.nib._AmongChatRoomTopBar()
+    /// Nib `AmongGroupHostView`.
+    static let amongGroupHostView = _R.nib._AmongGroupHostView()
+    /// Nib `AmongGroupJoinRequestCell`.
+    static let amongGroupJoinRequestCell = _R.nib._AmongGroupJoinRequestCell()
+    /// Nib `AmongGroupTopView`.
+    static let amongGroupTopView = _R.nib._AmongGroupTopView()
+    /// Nib `AmongGroupTopicConfigView`.
+    static let amongGroupTopicConfigView = _R.nib._AmongGroupTopicConfigView()
     /// Nib `AmongInputCodeView`.
     static let amongInputCodeView = _R.nib._AmongInputCodeView()
     /// Nib `AmongInputNickNameView`.
@@ -1511,6 +1540,30 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongChatRoomTopBar) instead")
     static func amongChatRoomTopBar(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongChatRoomTopBar)
+    }
+    
+    /// `UINib(name: "AmongGroupHostView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupHostView) instead")
+    static func amongGroupHostView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupHostView)
+    }
+    
+    /// `UINib(name: "AmongGroupJoinRequestCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCell) instead")
+    static func amongGroupJoinRequestCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCell)
+    }
+    
+    /// `UINib(name: "AmongGroupTopView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupTopView) instead")
+    static func amongGroupTopView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupTopView)
+    }
+    
+    /// `UINib(name: "AmongGroupTopicConfigView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupTopicConfigView) instead")
+    static func amongGroupTopicConfigView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupTopicConfigView)
     }
     
     /// `UINib(name: "AmongInputCodeView", in: bundle)`
@@ -1639,6 +1692,22 @@ struct R: Rswift.Validatable {
     
     static func amongChatRoomTopBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.amongChatRoomTopBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupHostView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupHostView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupJoinRequestCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
+      return R.nib.amongGroupJoinRequestCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+    }
+    
+    static func amongGroupTopView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupTopView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupTopicConfigView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupTopicConfigView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func amongInputCodeView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1828,7 +1897,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 316 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 317 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2106,6 +2175,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileDone = Rswift.StringResource(key: "profile.done", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Drop
+      /// 
+      /// Locales: en
+      static let alertDrop = Rswift.StringResource(key: "alert.drop", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ENTER YOUR PRIVATE CODE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3576,6 +3649,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileDone(_: Void = ()) -> String {
         return NSLocalizedString("profile.done", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Drop
+      /// 
+      /// Locales: en
+      static func alertDrop(_: Void = ()) -> String {
+        return NSLocalizedString("alert.drop", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: ENTER YOUR PRIVATE CODE
@@ -5335,6 +5415,8 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _AmongChatRoomTopBar.validate()
+      try _AmongGroupHostView.validate()
+      try _AmongGroupTopView.validate()
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
@@ -5370,6 +5452,79 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupHostView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupHostView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func fourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[3] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      func thirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[2] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_host_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupJoinRequestCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupJoinRequestCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupTopView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupTopView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_count", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_count' is used in nib 'AmongGroupTopView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongGroupTopView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupTopicConfigView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupTopicConfigView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

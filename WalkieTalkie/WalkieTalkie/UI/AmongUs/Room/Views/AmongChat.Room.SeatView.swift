@@ -15,12 +15,17 @@ import SwiftyUserDefaults
 extension AmongChat.Room {
     class SeatView: UIView {
         
+        enum ItemStyle {
+            case normal
+            case group
+        }
+        
         let bag = DisposeBag()
         
         private let fixedListLength = Int(10)
-        let itemWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
-        let itemHeight: CGFloat = 125.5
-        lazy var leftEdge: CGFloat = (UIScreen.main.bounds.width - itemWidth * 5) / 2
+        static let itemWidth: CGFloat = ((UIScreen.main.bounds.width - 20 * 2) / 5).floor
+        static var itemHeight: CGFloat = 125.5
+        lazy var leftEdge: CGFloat = (UIScreen.main.bounds.width - AmongChat.Room.SeatView.itemWidth * 5) / 2
 
         lazy var topStackView: UIStackView = {
             let stack = UIStackView(arrangedSubviews: [])
@@ -72,15 +77,22 @@ extension AmongChat.Room {
             }
         }
         
+        var itemStyle: ItemStyle = .normal {
+            didSet {
+                AmongChat.Room.SeatView.itemHeight = itemStyle == .normal ? 125.5 : 100
+            }
+        }
+        
         var selectedKickUserHandler: (([Int]) -> Void)?
         
         var selectUserHandler: ((Entity.RoomUser?) -> Void)?
         
         var userProfileSheetActionHandler: ((AmongSheetController.ItemType, _ user: Entity.RoomUser) -> Void)?
         
-        init(room: Entity.Room, viewModel: AmongChat.Room.ViewModel) {
+        init(room: Entity.Room, itemStyle: ItemStyle = .normal, viewModel: AmongChat.Room.ViewModel) {
             self.room = room
             self.viewModel = viewModel
+            self.itemStyle = itemStyle
             super.init(frame: .zero)
             bindSubviewEvent()
             configureSubview()
@@ -196,7 +208,8 @@ extension AmongChat.Room.SeatView {
         for index in 0 ..< fixedListLength {
             var nilableCell = viewCache[index]
             if nilableCell == nil {
-                let cell = AmongChat.Room.UserCell(frame: CGRect(x: 0, y: 0, width: itemWidth, height: itemHeight))
+                //CGRect(x: 0, y: 0, width: AmongChat.Room.SeatView.itemWidth, height: AmongChat.Room.SeatView.itemHeight
+                let cell = AmongChat.Room.UserCell(itemStyle: itemStyle)
                 if index < 5 {
                     topStackView.addArrangedSubview(cell)
                 } else {

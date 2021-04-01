@@ -117,7 +117,7 @@ extension AmongChat.Room {
         }()
         
         private lazy var seatView: AmongChat.Room.SeatView = {
-            return AmongChat.Room.SeatView(room: room, viewModel: viewModel)
+            return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
         
         private lazy var messageView: MessageListView = {

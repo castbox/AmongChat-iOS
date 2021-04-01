@@ -20,6 +20,8 @@ class SVGAGlobalParser: SVGAParser {
     }
 }
 
+typealias AmongRoomUserCell = AmongChat.Room.UserCell
+
 extension AmongChat.Room {
     
     class UserCell: UICollectionViewCell {
@@ -48,9 +50,9 @@ extension AmongChat.Room {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 20
             btn.layer.masksToBounds = true
-            btn.layer.borderWidth = 0.5
+//            btn.layer.borderWidth = 0.5
             btn.imageView?.contentMode = .scaleAspectFill
-            btn.layer.borderColor = UIColor.white.alpha(0.8).cgColor
+//            btn.layer.borderColor = UIColor.white.alpha(0.8).cgColor
             btn.backgroundColor = UIColor.white.alpha(0.2)
             btn.addTarget(self, action: #selector(userIconButtonAction), for: .touchUpInside)
             return btn
@@ -151,14 +153,18 @@ extension AmongChat.Room {
                 kickSelectedView.isHidden = !isKickSelected
             }
         }
+        let itemStyle: AmongChat.Room.SeatView.ItemStyle
         
-        override init(frame: CGRect) {
+        init(itemStyle: AmongChat.Room.SeatView.ItemStyle) {
+            self.itemStyle = itemStyle
             super.init(frame: .zero)
             setupLayout()
         }
         
         required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+            self.itemStyle = .normal
+            super.init(coder: coder)
+            setupLayout()
         }
         
 //        @objc
@@ -287,11 +293,24 @@ extension AmongChat.Room {
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
             
-            indexLabel.snp.makeConstraints { (maker) in
-                maker.left.right.top.equalToSuperview()
-                maker.height.equalTo(21.5)
+            if itemStyle == .normal {
+                contentView.addSubviews(views: indexLabel)
+                indexLabel.snp.makeConstraints { (maker) in
+                    maker.left.right.top.equalToSuperview()
+                    maker.height.equalTo(21.5)
+                }
+                avatarIV.snp.makeConstraints { (maker) in
+                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.centerX.equalToSuperview()
+                    maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+                }
+            } else {
+                avatarIV.snp.makeConstraints { (maker) in
+                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.centerX.top.equalToSuperview()
+                }
             }
             
             //            haloView.soundWidth = 60
@@ -300,11 +319,6 @@ extension AmongChat.Room {
                 maker.width.height.equalTo(60)
             }
             
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.size.equalTo(CGSize(width: 40, height: 40))
-                maker.centerX.equalToSuperview()
-                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
-            }
             
             svgaView.snp.makeConstraints { make in
                 make.center.equalTo(avatarIV)
