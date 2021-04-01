@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 extension FansGroup {
     struct Views {}
@@ -141,9 +142,11 @@ extension FansGroup.Views {
         override func layoutSubviews() {
             super.layoutSubviews()
             cover.layer.cornerRadius = cover.bounds.height / 2
+            layer.cornerRadius = bounds.height / 2
         }
         
         private func setUpLayout() {
+            clipsToBounds = true
             addSubviews(views: bg, cover, nameLabel)
             
             bg.snp.makeConstraints { (maker) in
@@ -234,6 +237,8 @@ extension FansGroup.Views {
         
         private let maxInputLength = Int(30)
         
+        let isEdtingRelay = BehaviorRelay<Bool>(value: false)
+        
         private(set) lazy var inputField: UITextField = {
             let f = UITextField()
             f.backgroundColor = .clear
@@ -284,6 +289,13 @@ extension FansGroup.Views {
             return count <= maxInputLength
         }
         
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            isEdtingRelay.accept(true)
+        }
+        
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            isEdtingRelay.accept(false)
+        }
     }
     
 }
@@ -297,11 +309,12 @@ extension FansGroup.Views {
         private let maxInputLength = Int(280)
         private let textViewMinHeight = CGFloat(74)
         
+        let isEdtingRelay = BehaviorRelay<Bool>(value: false)
+        
         private(set) lazy var inputTextView: UITextView = {
             let f = UITextView()
             f.backgroundColor = .clear
             f.keyboardAppearance = .dark
-            f.returnKeyType = .done
             f.textContainerInset = .zero
             f.textContainer.lineFragmentPadding = 0
             f.delegate = self
@@ -384,6 +397,14 @@ extension FansGroup.Views {
             let count = textFieldText.count - substringToReplace.count + text.count
             return count <= maxInputLength
         }
+        
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            isEdtingRelay.accept(true)
+        }
+        
+        func textViewDidEndEditing(_ textView: UITextView) {
+            isEdtingRelay.accept(false)
+        }
     }
     
 }
@@ -392,7 +413,11 @@ extension FansGroup.Views {
     
     class GroupBigCoverView: UIView {
         
-        private(set) lazy var coverIV: UIImageView = {
+        let coverRelay = BehaviorRelay<UIImage?>(value: nil)
+        
+        private let bag = DisposeBag()
+        
+        private lazy var coverIV: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleAspectFill
             iv.clipsToBounds = true
@@ -408,6 +433,7 @@ extension FansGroup.Views {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -434,6 +460,13 @@ extension FansGroup.Views {
             }
         }
         
+        private func setUpEvents() {
+            coverRelay.subscribe(onNext: { [weak self] (image) in
+                self?.coverIV.image = image
+            })
+            .disposed(by: bag)
+        }
+        
     }
     
 }
@@ -444,7 +477,9 @@ extension FansGroup.Views {
         
         private let bag = DisposeBag()
         
-        private(set) lazy var coverIV: UIImageView = {
+        let coverRelay = BehaviorRelay<UIImage?>(value: nil)
+        
+        private lazy var coverIV: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleAspectFill
             iv.rx.observe(UIImage.self, "image")
@@ -461,13 +496,14 @@ extension FansGroup.Views {
             return iv
         }()
         
-        private(set) lazy var addIcon: UIImageView = {
+        private lazy var addIcon: UIImageView = {
             let iv = UIImageView(image: R.image.ac_group_cover_add())
             return iv
         }()
         
-        private(set) lazy var changeIcon: UIImageView = {
+        private lazy var changeIcon: UIImageView = {
             let iv = UIImageView(image: R.image.ac_group_cover_edit())
+            iv.isHidden = true
             return iv
         }()
         
@@ -480,10 +516,15 @@ extension FansGroup.Views {
             return g
         }()
         
-        var editable: Bool = true {
-            didSet {
-                changeIcon.isHidden = !editable
-                addIcon.isHidden = !editable
+        private let editableRelay = BehaviorRelay<Bool>(value: true)
+        
+        var editable: Bool {
+            get {
+                return editableRelay.value
+            }
+            
+            set {
+                editableRelay.accept(newValue)
             }
         }
         
@@ -492,6 +533,7 @@ extension FansGroup.Views {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -521,6 +563,21 @@ extension FansGroup.Views {
                 maker.bottom.equalToSuperview().inset(2)
             }
             
+        }
+        
+        private func setUpEvents() {
+            
+            Observable.combineLatest(editableRelay, coverRelay)
+                .subscribe(onNext: { [weak self] editable, image in
+                    
+                    self?.coverIV.image = image
+                    
+                    self?.changeIcon.isHidden = !editable || image == nil
+                    self?.addIcon.isHidden = !editable && image != nil
+                    
+                })
+                .disposed(by: bag)
+
         }
         
     }
@@ -566,7 +623,7 @@ extension FansGroup.Views {
         }()
         
         private lazy var accessoryIV: UIImageView = {
-            let i = UIImageView()
+            let i = UIImageView(image: R.image.ac_right_arrow())
             i.isHidden = true
             return i
         }()
@@ -614,20 +671,22 @@ extension FansGroup.Views {
             }
             
             accessoryIV.snp.makeConstraints { (maker) in
-                maker.centerY.trailing.equalToSuperview()
+                maker.centerY.equalToSuperview()
+                maker.width.height.equalTo(20)
+                maker.right.equalToSuperview().inset(20)
             }
         }
         
-        func bindViewModel(_ viewModel: FansGroup.TopicViewModel) {
+        func bindViewModel(_ viewModel: FansGroup.TopicViewModel?) {
             
-            placeholderLabel.isHidden = true
-            addButton.isHidden = true
+            placeholderLabel.isHidden = (viewModel != nil)
+            addButton.isHidden = (viewModel != nil)
             
-            topicView.isHidden = false
-            accessoryIV.isHidden = false
+            topicView.isHidden = (viewModel == nil)
+            accessoryIV.isHidden = (viewModel == nil)
             
-            topicView.cover.setImage(with: viewModel.coverUrl?.url)
-            topicView.nameLabel.text = viewModel.name
+            topicView.cover.setImage(with: viewModel?.coverUrl?.url)
+            topicView.nameLabel.text = viewModel?.name
         }
         
     }
@@ -637,7 +696,11 @@ extension FansGroup.Views {
     
     class GroupInfoSetUpView: UIView {
         
-        private(set) lazy var topBg: GroupBigCoverView = {
+        private let bag = DisposeBag()
+        
+        private let topBgHeight = CGFloat(254.0)
+        
+        private lazy var topBg: GroupBigCoverView = {
             let b = GroupBigCoverView()
             return b
         }()
@@ -692,10 +755,24 @@ extension FansGroup.Views {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
+        }
+        
+        func enlargeTopGbHeight(extraHeight: CGFloat) {
+            
+            guard extraHeight >= 0 else {
+                return
+            }
+            
+            topBg.snp.updateConstraints { (maker) in
+                maker.top.equalTo(-extraHeight)
+                maker.height.equalTo(topBgHeight + extraHeight)
+            }
+            
         }
         
         private func setUpLayout() {
@@ -705,8 +782,9 @@ extension FansGroup.Views {
             addSubviews(views: topBg, addCoverBtn, nameTitleLabel, nameView, descriptionTitleLabel, descriptionView, topicTitleLabel, topicSetView)
             
             topBg.snp.makeConstraints { (maker) in
-                maker.leading.top.trailing.equalToSuperview()
-                maker.height.equalTo(254.0)
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(0)
+                maker.height.equalTo(topBgHeight)
             }
             
             addCoverBtn.snp.makeConstraints { (maker) in
@@ -750,6 +828,13 @@ extension FansGroup.Views {
                 maker.top.equalTo(topicTitleLabel.snp.bottom).offset(12)
                 maker.bottom.equalToSuperview()
             }
+            
+        }
+        
+        private func setUpEvents() {
+            
+            addCoverBtn.coverRelay.bind(to: topBg.coverRelay)
+                .disposed(by: bag)
             
         }
         

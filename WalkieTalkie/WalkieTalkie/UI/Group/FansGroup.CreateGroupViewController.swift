@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 extension FansGroup {
     
@@ -32,12 +34,14 @@ extension FansGroup {
                 s.contentInsetAdjustmentBehavior = .never
             }
             s.keyboardDismissMode = .onDrag
+            s.delegate = self
             return s
         }()
         
         private typealias InfoSetUpView = FansGroup.Views.GroupInfoSetUpView
         private lazy var setUpInfoView: InfoSetUpView = {
             let s = InfoSetUpView()
+            s.addCoverBtn.editable = true
             return s
         }()
         
@@ -82,6 +86,8 @@ extension FansGroup {
             }
             return v
         }()
+        
+        private let viewModel = ViewModel()
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -146,18 +152,117 @@ extension FansGroup.CreateGroupViewController {
         setUpInfoView.addCoverBtn.tapHandler = { [weak self] in
             let vc = FansGroup.SelectCoverModal()
             vc.imageSelectedHandler = { image in
-                
+                self?.viewModel.coverRelay.accept(image)
             }
             vc.showModal(in: self)
         }
         
         setUpInfoView.topicSetView.tapHandler = { [weak self] in
-            let vc = FansGroup.AddTopicViewController()
-            vc.topicSelectedHandler = { topic in
-                
+            let vc = FansGroup.AddTopicViewController(self?.viewModel.topicRelay.value?.topic.topicId)
+            vc.topicSelectedHandler = { [weak self] topic in
+                self?.viewModel.topicRelay.accept(topic)
             }
             self?.presentPanModal(vc)
         }
+        
+        viewModel.coverRelay
+            .bind(to: setUpInfoView.addCoverBtn.coverRelay)
+            .disposed(by: bag)
+        
+        setUpInfoView.nameView.inputField.rx.text
+            .bind(to: viewModel.nameRelay)
+            .disposed(by: bag)
+        
+        setUpInfoView.descriptionView.inputTextView.rx.text
+            .bind(to: viewModel.descriptionRelay)
+            .disposed(by: bag)
+        
+        viewModel.topicRelay
+            .subscribe(onNext: { [weak self] (topic) in
+                self?.setUpInfoView.topicSetView.bindViewModel(topic)
+            })
+            .disposed(by: bag)
+        
+        viewModel.isValid
+            .bind(to: nextButton.rx.isEnabled)
+            .disposed(by: bag)
+        
+        let textingView = Observable.merge(
+            setUpInfoView.nameView.isEdtingRelay
+                .map({ [weak self] (isEditing) -> UIView? in
+                    return isEditing ? self?.setUpInfoView.nameView : nil
+                }),
+            setUpInfoView.descriptionView.isEdtingRelay
+                .map({ (isEditing) -> UIView? in
+                    return isEditing ? self.setUpInfoView.descriptionView : nil
+                })
+        )
+        .filterNil()
+        
+        Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(), textingView)
+            .subscribe(onNext: { [weak self] keyboardVisibleHeight, textingView in
+                                
+                guard let `self` = self else { return }
+                
+                guard keyboardVisibleHeight > 0 else {
+                    self.layoutScrollView.contentOffset = .zero
+                    return
+                }
+                
+                let rect = self.setUpInfoView.convert(textingView.frame, to: self.view)
+                let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY
+                
+                guard distance < 0 else {
+                    return
+                }
+                
+                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
+                    self.layoutScrollView.contentOffset.y = self.layoutScrollView.contentOffset.y - distance
+                }
+            })
+            .disposed(by: bag)
+
+    }
+    
+}
+
+extension FansGroup.CreateGroupViewController: UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        setUpInfoView.enlargeTopGbHeight(extraHeight: -scrollView.contentOffset.y)
+    }
+    
+}
+
+extension FansGroup.CreateGroupViewController {
+    
+    class ViewModel {
+        
+        let coverRelay = BehaviorRelay<UIImage?>(value: nil)
+        
+        let nameRelay = BehaviorRelay<String?>(value: nil)
+
+        let descriptionRelay = BehaviorRelay<String?>(value: nil)
+        
+        let topicRelay = BehaviorRelay<FansGroup.TopicViewModel?>(value: nil)
+        
+        var isValid: Observable<Bool> {
+            return Observable.combineLatest(coverRelay, nameRelay, descriptionRelay, topicRelay)
+                .map({ cover, name, desc, topic -> Bool in
+                    
+                    guard let _ = cover,
+                          let name = name,
+                          !name.isEmpty,
+                          let desc = desc,
+                          !desc.isEmpty,
+                          let _ = topic else {
+                        return false
+                    }
+                    
+                    return true
+                })
+        }
+                
     }
     
 }

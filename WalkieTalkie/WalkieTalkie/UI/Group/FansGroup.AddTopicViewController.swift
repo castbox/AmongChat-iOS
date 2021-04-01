@@ -89,14 +89,6 @@ extension FansGroup {
         private lazy var topicDataSource: [TopicViewModel] = Settings.shared.supportedTopics.value?.topicList.map({ TopicViewModel(with: $0) }) ?? [] {
             didSet {
                 topicCollectionView.reloadData()
-                
-                guard let topicId = initialSelectedTopicId,
-                      let idx = topicDataSource.firstIndex(where: { $0.topic.topicId == topicId }) else {
-                    return
-                }
-                
-                topicCollectionView.selectItem(at: IndexPath(item: idx, section: 0), animated: false, scrollPosition: .top)
-                
             }
         }
         
@@ -120,6 +112,7 @@ extension FansGroup {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
+            initialSelect()
         }
         
     }
@@ -142,6 +135,15 @@ extension FansGroup.AddTopicViewController {
             maker.top.equalTo(topBar.snp.bottom)
         }
         
+    }
+    
+    private func initialSelect() {
+        guard let topicId = initialSelectedTopicId,
+              let idx = topicDataSource.firstIndex(where: { $0.topic.topicId == topicId }) else {
+            return
+        }
+        
+        topicCollectionView.selectItem(at: IndexPath(item: idx, section: 0), animated: false, scrollPosition: .top)
     }
     
     private func fetchData() {
