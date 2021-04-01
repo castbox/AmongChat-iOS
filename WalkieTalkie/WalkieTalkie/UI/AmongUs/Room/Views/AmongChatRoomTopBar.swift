@@ -58,6 +58,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     @IBOutlet weak var nextButton: BottomTitleButton!
     @IBOutlet weak var indicatorView: UIActivityIndicatorView!
     
+    @IBOutlet weak var stackView: UIStackView!
     var room: Entity.Room?
     var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
@@ -93,6 +94,13 @@ class AmongChatRoomTopBar: XibLoadableView {
         publicButton.titleLabel?.adjustsFontSizeToFitWidth = true
         leaveButton.titleLabel?.adjustsFontSizeToFitWidth = true
         nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        //remote config
+        if !Settings.shared.showQuickChangeRoomButton {
+            nextButton.isHidden = true
+            stackView.removeArrangedSubview(nextButton)
+        } else {
+            nextButton.isHidden = false
+        }
 //        leaveButton.titleLabel?.numberOfLines = 0
     }
     

@@ -89,6 +89,9 @@ extension FireRemote {
         
         let age_prompt_enable: Bool
         
+        //展示直播间快速切换房间
+        let showQuickChangeRoomButton: Bool
+        
         init(config: RemoteConfig) {
             cdPrint("remote config: \(config.allKeys(from: .remote))")
             let str = config["premium_prompt"].stringValue ?? ""
@@ -133,6 +136,8 @@ extension FireRemote {
             allowed_minimum_version = config["allowed_minimum_version"].stringValue ?? ""
             auditVersion = config["ios_audit_version"].stringValue ?? ""
             age_prompt_enable = config["age_prompt_enable"].boolValue
+            //
+            showQuickChangeRoomButton = config["show_quick_change_button"].boolValue
         }
     }
 }
