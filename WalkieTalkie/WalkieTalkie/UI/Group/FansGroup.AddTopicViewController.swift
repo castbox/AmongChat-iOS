@@ -113,6 +113,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             initialSelect()
+            fetchData()
         }
         
     }
