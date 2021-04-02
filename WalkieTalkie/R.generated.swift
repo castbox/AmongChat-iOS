@@ -1496,7 +1496,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 26 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 28 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1536,6 +1536,10 @@ struct R: Rswift.Validatable {
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `FansGroupItemCell`.
+    static let fansGroupItemCell = _R.nib._FansGroupItemCell()
+    /// Nib `FansGroupSelfItemCell`.
+    static let fansGroupSelfItemCell = _R.nib._FansGroupSelfItemCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
@@ -1665,6 +1669,18 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "FansGroupItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupItemCell) instead")
+    static func fansGroupItemCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.fansGroupItemCell)
+    }
+    
+    /// `UINib(name: "FansGroupSelfItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupSelfItemCell) instead")
+    static func fansGroupSelfItemCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.fansGroupSelfItemCell)
+    }
+    
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
     static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
@@ -1783,6 +1799,14 @@ struct R: Rswift.Validatable {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func fansGroupItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
+      return R.nib.fansGroupItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
+    }
+    
+    static func fansGroupSelfItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
+      return R.nib.fansGroupSelfItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
+    }
+    
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1814,12 +1838,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
     /// Reuse identifier `AmongSheetUserCell`.
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
+    /// Reuse identifier `FansGroupSelfItemCell`.
+    static let fansGroupSelfItemCell: Rswift.ReuseIdentifier<FansGroupSelfItemCell> = Rswift.ReuseIdentifier(identifier: "FansGroupSelfItemCell")
     
     fileprivate init() {}
   }
@@ -1918,7 +1944,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 334 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 337 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2232,6 +2258,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Edit
+      /// 
+      /// Locales: en
+      static let groupItemEdit = Rswift.StringResource(key: "group.item.edit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Enable
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2634,6 +2664,10 @@ struct R: Rswift.Validatable {
       static let alertOk = Rswift.StringResource(key: "alert.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Online
       /// 
+      /// Locales: en
+      static let groupOnline = Rswift.StringResource(key: "group.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Online
+      /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Only the channel owner can change this
@@ -2984,6 +3018,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProPrivilegeBadgeSub = Rswift.StringResource(key: "among.chat.pro.privilege.badge.sub", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Start
+      /// 
+      /// Locales: en
+      static let groupItemStartLive = Rswift.StringResource(key: "group.item.start.live", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Start
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3803,6 +3841,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Edit
+      /// 
+      /// Locales: en
+      static func groupItemEdit(_: Void = ()) -> String {
+        return NSLocalizedString("group.item.edit", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Enable
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4505,6 +4550,13 @@ struct R: Rswift.Validatable {
       
       /// en translation: Online
       /// 
+      /// Locales: en
+      static func groupOnline(_: Void = ()) -> String {
+        return NSLocalizedString("group.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Online
+      /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialStatusOnline(_: Void = ()) -> String {
         return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
@@ -5121,6 +5173,13 @@ struct R: Rswift.Validatable {
       
       /// en translation: Start
       /// 
+      /// Locales: en
+      static func groupItemStartLive(_: Void = ()) -> String {
+        return NSLocalizedString("group.item.start.live", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Start
+      /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginStart(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.start", bundle: R.hostingBundle, comment: "")
@@ -5628,6 +5687,7 @@ struct _R: Rswift.Validatable {
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
+      try _FansGroupItemCell.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
@@ -5915,6 +5975,37 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FansGroupItemCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "FansGroupItemCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_count", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_count' is used in nib 'FansGroupItemCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FansGroupSelfItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = FansGroupSelfItemCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "FansGroupSelfItemCell"
+      let name = "FansGroupSelfItemCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
       }
       
       fileprivate init() {}

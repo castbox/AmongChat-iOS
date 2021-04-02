@@ -374,6 +374,9 @@
 //3.31 - wilson
 "alert.drop" = "Drop";
 "group.room.members.title" = "In Channel Members";
+"group.item.edit" = "Edit";
+"group.item.start.live" = "Start";
+"group.online" = "Online";
 
 //1.17
 "among.chat.setting.get.verified" = "Get verified";
