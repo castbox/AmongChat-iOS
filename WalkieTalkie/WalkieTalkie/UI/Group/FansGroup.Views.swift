@@ -837,6 +837,13 @@ extension FansGroup.Views {
                 maker.bottom.equalToSuperview()
             }
             
+            let tap = UITapGestureRecognizer()
+            addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.endEditing(true)
+                })
+                .disposed(by: bag)
         }
         
         private func setUpEvents() {

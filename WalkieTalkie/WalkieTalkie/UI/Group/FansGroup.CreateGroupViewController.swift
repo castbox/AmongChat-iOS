@@ -33,7 +33,7 @@ extension FansGroup {
             if #available(iOS 11.0, *) {
                 s.contentInsetAdjustmentBehavior = .never
             }
-            s.keyboardDismissMode = .onDrag
+            s.keyboardDismissMode = .interactive
             s.delegate = self
             return s
         }()
