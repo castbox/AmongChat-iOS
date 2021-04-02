@@ -69,6 +69,12 @@ extension APIService {
         case createGroup([String : Any])
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
+        case groupList([String : Any])
+        case myGroupList([String : Any])
+        case groupListOfHost([String : Any])
+        case groupListOfJoined([String : Any])
+        case groupAppliedUserList([String : Any])
+        case groupMemberList([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -197,6 +203,18 @@ extension APIService.AmongChatBackend: TargetType {
             return "/social/relation/group/followers"
         case .addMemberToGroup:
             return "/api/v1/group/member"
+        case .groupList:
+            return "/api/v1/group/list"
+        case .myGroupList:
+            return "/api/v1/my/group/list"
+        case .groupListOfHost:
+            return "/api/v1/user/host/group/list"
+        case .groupListOfJoined:
+            return "/api/v1/user/join/group/list"
+        case .groupAppliedUserList:
+            return "/api/v1/group/apply/list"
+        case .groupMemberList:
+            return "/api/v1/group/member/list"
         }
     }
     
@@ -255,6 +273,12 @@ extension APIService.AmongChatBackend: TargetType {
              .gameSkills,
              .userGameSkills,
              .followersToAddToGroup,
+             .groupList,
+             .myGroupList,
+             .groupListOfHost,
+             .groupListOfJoined,
+             .groupAppliedUserList,
+             .groupMemberList,
              .shareUserSign:
             return .get
         case .follow:
@@ -334,6 +358,12 @@ extension APIService.AmongChatBackend: TargetType {
              .userGameSkills(let params),
              .followersToAddToGroup(let params),
              .addMemberToGroup(let params),
+             .groupList(let params),
+             .myGroupList(let params),
+             .groupListOfHost(let params),
+             .groupListOfJoined(let params),
+             .groupAppliedUserList(let params),
+             .groupMemberList(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

@@ -79,9 +79,10 @@ extension Entity.GroupInfo {
 
 extension Entity {
     
-    struct FollowersToAddToGroup: Codable {
+    struct GroupUserList: Codable {
         var list: [Entity.UserProfile]
         var more: Bool
+        var count: Int
     }
     
 }

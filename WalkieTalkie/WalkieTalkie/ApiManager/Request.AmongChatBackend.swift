@@ -838,7 +838,7 @@ extension Request {
     
     static func availableFollowersToAddToGroup(groupId: String,
                                         limit: Int = 10,
-                                        skipMs: Double) -> Single<Entity.FollowersToAddToGroup> {
+                                        skipMs: Double) -> Single<Entity.GroupUserList> {
         
         let params: [String : Any] = [
             "gid" : groupId,
@@ -849,7 +849,7 @@ extension Request {
         return amongchatProvider.rx.request(.followersToAddToGroup(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapTo(Entity.FollowersToAddToGroup.self)
+            .mapTo(Entity.GroupUserList.self)
             .map({
                 
                 guard let r = $0 else {
@@ -873,4 +873,165 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
     }
+    
+    static func groupList(skip: Int, limit: Int = 20) -> Single<[Entity.Group]> {
+        
+        let params: [String : Any] = [
+            "skip" : skip,
+            "limit" : limit,
+        ]
+        
+        return amongchatProvider.rx.request(.groupList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.Group].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func myGroupList(skip: Int, limit: Int = 20) -> Single<[Entity.Group]> {
+        
+        let params: [String : Any] = [
+            "skip" : skip,
+            "limit" : limit,
+        ]
+        
+        return amongchatProvider.rx.request(.myGroupList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.Group].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func groupListOfHost(_ hostUid: Int, skip: Int, limit: Int = 20) -> Single<[Entity.Group]> {
+        
+        let params: [String : Any] = [
+            "uid" : hostUid,
+            "skip" : skip,
+            "limit" : limit,
+        ]
+        
+        return amongchatProvider.rx.request(.groupListOfHost(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.Group].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func groupListOfUserJoined(_ uid: Int, skip: Int, limit: Int = 20) -> Single<[Entity.Group]> {
+        
+        let params: [String : Any] = [
+            "uid" : uid,
+            "skip" : skip,
+            "limit" : limit,
+        ]
+        
+        return amongchatProvider.rx.request(.groupListOfJoined(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .map({ data -> [[String : AnyObject]] in
+                guard let list = data["list"] as? [[String : AnyObject]] else {
+                    return []
+                }
+                return list
+            })
+            .mapTo([Entity.Group].self)
+            .map {
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            }
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func appliedUsersOfGroup(_ groupId: String,
+                                    limit: Int = 10,
+                                    skipMs: Double) -> Single<Entity.GroupUserList> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId,
+            "limit" : limit,
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.groupAppliedUserList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.GroupUserList.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func membersOfGroup(_ groupId: String,
+                               limit: Int = 10,
+                               skipMs: Double) -> Single<Entity.GroupUserList> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId,
+            "limit" : limit,
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.groupMemberList(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.GroupUserList.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
 }
