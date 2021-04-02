@@ -118,6 +118,8 @@ extension FansGroup.CreateGroupViewController {
             .subscribe(onSuccess: { [weak self] (group) in
                 let vc = FansGroup.AddMemberController(groupId: group.gid)
                 self?.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
 
