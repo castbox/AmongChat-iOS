@@ -241,7 +241,16 @@ extension FansGroup.CreateGroupViewController {
 extension FansGroup.CreateGroupViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setUpInfoView.enlargeTopGbHeight(extraHeight: -scrollView.contentOffset.y)
+        
+        let distance = scrollView.contentOffset.y
+        
+        setUpInfoView.enlargeTopGbHeight(extraHeight: -distance)
+        
+        navView.snp.updateConstraints { (maker) in
+            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
+        }
+        
+        navView.alpha = 1 - distance / 49
     }
     
 }
