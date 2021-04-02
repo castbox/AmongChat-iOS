@@ -12,11 +12,7 @@ class FansGroupItemCell: UITableViewCell {
 
     @IBOutlet weak var groupAvatarView: UIImageView!
     @IBOutlet weak var groupTitleLabel: UILabel!
-    @IBOutlet weak var groupIntroLabel: UILabel!
-    @IBOutlet weak var opContainer: UIStackView!
-    @IBOutlet weak var editButton: UIButton!
-    @IBOutlet weak var startButton: UIButton!
-    
+    @IBOutlet weak var groupIntroLabel: UILabel!    
     
     @IBOutlet weak var groupInfoContainer: UIView!
     @IBOutlet weak var topicIconView: UIImageView!

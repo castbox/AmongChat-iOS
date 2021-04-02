@@ -377,6 +377,7 @@
 "group.item.edit" = "Edit";
 "group.item.start.live" = "Start";
 "group.online" = "Online";
+"group.owner" = "Owner";
 
 //1.17
 "among.chat.setting.get.verified" = "Get verified";

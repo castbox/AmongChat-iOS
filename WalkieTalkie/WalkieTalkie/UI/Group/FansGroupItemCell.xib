@@ -34,50 +34,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="5Ya-Jr-U6q">
-                                        <rect key="frame" x="0.0" y="81" width="151" height="32"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsh-HE-0tW">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="32"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="ogR-jK-3Po"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                                                <state key="normal" title="Edit">
-                                                    <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="16"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.item.edit"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9SK-Rs-TW0">
-                                                <rect key="frame" x="85.5" y="0.0" width="65.5" height="32"/>
-                                                <color key="backgroundColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="32" id="6eU-CK-c2H"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                                                <state key="normal" title="Start">
-                                                    <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="16"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.item.start.live"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just Relax" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hRD-C8-2Ic">
                                         <rect key="frame" x="0.0" y="46" width="151" height="19.5"/>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
@@ -85,10 +41,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzi-vP-6B3">
-                                        <rect key="frame" x="0.0" y="89" width="151" height="24"/>
+                                        <rect key="frame" x="0.0" y="89" width="155" height="24"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="2jf-b5-buY">
-                                                <rect key="frame" x="104" y="4" width="47" height="16.5"/>
+                                                <rect key="frame" x="108" y="4" width="47" height="16.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="ac_group_room_count" translatesAutoresizingMaskIntoConstraints="NO" id="fuz-Px-g61">
                                                         <rect key="frame" x="0.0" y="0.0" width="16" height="16.5"/>
@@ -113,7 +69,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IMz-65-HFw">
-                                                <rect key="frame" x="0.0" y="0.0" width="113.5" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="109.5" height="24"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WPg-FA-hq9">
                                                         <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
@@ -146,7 +102,7 @@
                                                     <constraint firstItem="WPg-FA-hq9" firstAttribute="leading" secondItem="IMz-65-HFw" secondAttribute="leading" id="5NA-O0-Lae"/>
                                                     <constraint firstItem="MfV-Vc-e8X" firstAttribute="centerY" secondItem="WPg-FA-hq9" secondAttribute="centerY" id="eiI-re-elM"/>
                                                     <constraint firstItem="MfV-Vc-e8X" firstAttribute="leading" secondItem="WPg-FA-hq9" secondAttribute="trailing" constant="8" id="nkM-PU-7ZX"/>
-                                                    <constraint firstAttribute="trailing" secondItem="MfV-Vc-e8X" secondAttribute="trailing" constant="12" id="rKW-cK-Aed"/>
+                                                    <constraint firstAttribute="trailing" secondItem="MfV-Vc-e8X" secondAttribute="trailing" constant="8" id="rKW-cK-Aed"/>
                                                     <constraint firstAttribute="height" constant="24" id="t6s-1y-OFc"/>
                                                     <constraint firstItem="WPg-FA-hq9" firstAttribute="top" secondItem="IMz-65-HFw" secondAttribute="top" id="uOf-j4-Osf"/>
                                                 </constraints>
@@ -171,15 +127,12 @@
                                 <constraints>
                                     <constraint firstItem="hRD-C8-2Ic" firstAttribute="top" secondItem="PWR-wo-8Bp" secondAttribute="bottom" constant="1" id="37s-Jf-bpY"/>
                                     <constraint firstItem="hRD-C8-2Ic" firstAttribute="leading" secondItem="PWR-wo-8Bp" secondAttribute="leading" id="6wI-Kt-vql"/>
+                                    <constraint firstItem="xzi-vP-6B3" firstAttribute="leading" secondItem="PWR-wo-8Bp" secondAttribute="leading" id="FN4-rZ-SFH"/>
                                     <constraint firstItem="PWR-wo-8Bp" firstAttribute="leading" secondItem="DQy-qF-a9c" secondAttribute="leading" id="OsW-ai-nuH"/>
-                                    <constraint firstItem="5Ya-Jr-U6q" firstAttribute="leading" secondItem="xzi-vP-6B3" secondAttribute="leading" id="UBz-1A-fg9"/>
-                                    <constraint firstItem="5Ya-Jr-U6q" firstAttribute="trailing" secondItem="PWR-wo-8Bp" secondAttribute="trailing" id="gHN-Ud-dzF"/>
-                                    <constraint firstItem="5Ya-Jr-U6q" firstAttribute="trailing" secondItem="xzi-vP-6B3" secondAttribute="trailing" id="gaF-ds-gHG"/>
-                                    <constraint firstAttribute="bottom" secondItem="5Ya-Jr-U6q" secondAttribute="bottom" constant="16" id="in6-kl-XoC"/>
+                                    <constraint firstAttribute="bottom" secondItem="xzi-vP-6B3" secondAttribute="bottom" constant="16" id="SS6-dJ-7C2"/>
+                                    <constraint firstAttribute="trailing" secondItem="xzi-vP-6B3" secondAttribute="trailing" constant="16" id="h6Q-qZ-JQ0"/>
                                     <constraint firstItem="hRD-C8-2Ic" firstAttribute="trailing" secondItem="PWR-wo-8Bp" secondAttribute="trailing" id="rny-2t-e6t"/>
                                     <constraint firstItem="PWR-wo-8Bp" firstAttribute="top" secondItem="DQy-qF-a9c" secondAttribute="top" constant="20" id="tMd-Iu-L4p"/>
-                                    <constraint firstItem="5Ya-Jr-U6q" firstAttribute="bottom" secondItem="xzi-vP-6B3" secondAttribute="bottom" id="uzX-oh-MMy"/>
-                                    <constraint firstItem="5Ya-Jr-U6q" firstAttribute="leading" secondItem="PWR-wo-8Bp" secondAttribute="leading" id="xga-kt-pKC"/>
                                     <constraint firstAttribute="trailing" secondItem="PWR-wo-8Bp" secondAttribute="trailing" constant="20" id="z0j-sT-bL3"/>
                                 </constraints>
                             </view>
@@ -270,15 +223,12 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="editButton" destination="zsh-HE-0tW" id="xKp-ho-oJM"/>
                 <outlet property="groupAvatarView" destination="n4D-Ez-TWP" id="kaA-L3-fug"/>
                 <outlet property="groupInfoContainer" destination="xzi-vP-6B3" id="YXn-wc-Ph9"/>
                 <outlet property="groupIntroLabel" destination="hRD-C8-2Ic" id="EAc-aG-J0p"/>
                 <outlet property="groupTitleLabel" destination="PWR-wo-8Bp" id="a4z-4q-8bu"/>
                 <outlet property="groupUserCountLabel" destination="1EL-gt-pda" id="paZ-k9-hHm"/>
                 <outlet property="onlineTagView" destination="3cB-sx-pWZ" id="9hz-O6-vO0"/>
-                <outlet property="opContainer" destination="5Ya-Jr-U6q" id="zv9-sv-bCI"/>
-                <outlet property="startButton" destination="9SK-Rs-TW0" id="6Uq-oI-SzL"/>
                 <outlet property="topicIconView" destination="WPg-FA-hq9" id="A7u-Pb-lHa"/>
                 <outlet property="topicNameLabel" destination="MfV-Vc-e8X" id="AlA-go-5js"/>
             </connections>

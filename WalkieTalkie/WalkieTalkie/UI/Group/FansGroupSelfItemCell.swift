@@ -9,7 +9,12 @@
 import UIKit
 
 class FansGroupSelfItemCell: UITableViewCell {
-
+    @IBOutlet weak var opContainer: UIStackView!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var groupIconView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
