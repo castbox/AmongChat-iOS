@@ -378,6 +378,9 @@
 "group.item.start.live" = "Start";
 "group.online" = "Online";
 "group.owner" = "Owner";
+"group.room.join.request" = "Join Requests";
+"group.room.host.request" = "Raised Hands";
+
 
 //1.17
 "among.chat.setting.get.verified" = "Get verified";

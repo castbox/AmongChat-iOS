@@ -73,6 +73,7 @@ extension APIService {
         case createGroup([String : Any])
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
+        case groupLiveUserList([String: Any])
     }
 }
 
@@ -204,7 +205,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/live/enter"
         case .leaveGroupChannel:
             return "/api/v1/group/live/leave"
-
+        case .groupLiveUserList:
+            return "/api/v1/group/live/user/list"
         case .createGroup:
             return "/api/v1/group/create"
         case .followersToAddToGroup:
@@ -269,8 +271,9 @@ extension APIService.AmongChatBackend: TargetType {
              .gameSkills,
              .startGroupChannel,
              .stopGroupChannel,
-                .enterGroupChannel,
-                .leaveGroupChannel,
+             .enterGroupChannel,
+             .leaveGroupChannel,
+             .groupLiveUserList,
              .userGameSkills,
              .followersToAddToGroup,
              .shareUserSign:
@@ -354,6 +357,7 @@ extension APIService.AmongChatBackend: TargetType {
              .stopGroupChannel(let params),
              .enterGroupChannel(let params),
              .leaveGroupChannel(let params),
+             .groupLiveUserList(let params),
              .followersToAddToGroup(let params),
              .addMemberToGroup(let params),
              .unFollow(let params):

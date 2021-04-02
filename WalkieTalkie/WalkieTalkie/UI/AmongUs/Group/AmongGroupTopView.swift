@@ -56,14 +56,14 @@ class AmongGroupTopView: XibLoadableView {
     var updateEditTypeHandler: ((RoomEditType) -> Void)?
     var openGameHandler: CallBack?
     
-    var room: Entity.GroupRoom {
+    var group: Entity.GroupRoom {
         didSet {
             updateSubview()
         }
     }
     
-    init(_ room: Entity.GroupRoom) {
-        self.room = room
+    init(_ group: Entity.GroupRoom) {
+        self.group = group
         super.init(frame: .zero)
         configureSubview()
         bindSubviewEvent()
@@ -87,6 +87,15 @@ class AmongGroupTopView: XibLoadableView {
     }
         
     private func updateSubview() {
+        titleLabel.text = group.name
+        topicNameLabel.text = group.topicName
+        topicIcon.setImage(with: group.coverURL)
+        coverView.setImage(with: group.cover)
+        groupCountLabel.text = group.membersCount.string
+        //first
+        userCountLabel.text = group.playerCount?.string
+        configView.group = group
+        
 //        switch room.topicType {
 //        case .amongus:
 //            justChillingInfoView.isHidden = true
@@ -162,7 +171,7 @@ class AmongGroupTopView: XibLoadableView {
 //            publicButton.setBackgroundImage("E6309E".color().image, for: .normal)
 //        }
 //        kickButton.isHidden = !room.loginUserIsAdmin
-        self.room = room
+        self.group = room
 //        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
     }
     

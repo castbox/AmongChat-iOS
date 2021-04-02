@@ -914,6 +914,27 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func roomUserList(groupId: String) -> Single<Entity.GroupRoom?> {
+        let params: [String : Any] = [
+            "gid": groupId
+        ]
+        return amongchatProvider.rx.request(.groupLiveUserList(params))
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["group"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .mapTo(Entity.GroupRoom.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func leaveChannel(groupId: String) -> Single<Bool> {
         return amongchatProvider.rx.request(.leaveGroupChannel(["gid": groupId]))
             .mapJSON()

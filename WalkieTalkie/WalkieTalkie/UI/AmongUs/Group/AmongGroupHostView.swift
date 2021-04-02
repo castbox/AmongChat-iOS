@@ -17,10 +17,34 @@ class AmongGroupHostView: XibLoadableView {
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var raiseButton: UIImageView!
     @IBOutlet weak var groupJoinButton: UIImageView!
+    @IBOutlet weak var hostAvatarView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var gameNameButton: UIButton!
+    @IBOutlet weak var indexLabel: UILabel!
     
     private var tipView: EasyTipView?
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
 //    private var userCell: AmongChat.Room.UserCell!
+    
+    var group: Entity.GroupRoom? {
+        didSet {
+            hostAvatarView.setImage(with: group?.broadcaster.pictureUrl)
+            nameLabel.text = group?.broadcaster.name
+            if let group = group, group.hostNickname.isValid {
+                gameNameButton.setTitle(group.hostNickname, for: .normal)
+            } else {
+                //set nick name
+                gameNameButton.setTitle("UserName", for: .normal)
+            }
+            if Settings.loginUserId == group?.broadcaster.uid {
+                nameLabel.textColor = "#FFF000".color()
+            } else {
+                nameLabel.textColor = .white
+            }
+            indexLabel.textColor = nameLabel.textColor
+            gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,6 +93,10 @@ class AmongGroupHostView: XibLoadableView {
     
     @IBAction func hostAvatarAction(_ sender: Any) {
         showShareTipView()
+    }
+    
+    @IBAction func gameNameAction(_ sender: Any) {
+        
     }
     
     private func bindSubviewEvent() {

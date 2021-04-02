@@ -420,6 +420,7 @@ extension AmongChat.GroupRoom.ViewController {
 //                }
                 self?.room = room
                 self?.topBar.set(room)
+                self?.hostView.group = room
 //                self?.configView.room = room
                 self?.bottomBar.update(room)
 //                self?.toolView.set(room)

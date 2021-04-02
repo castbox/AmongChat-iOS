@@ -15,8 +15,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongGroupHostView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="gameNameButton" destination="vg2-8c-Z9C" id="n98-zo-dC0"/>
                 <outlet property="groupJoinButton" destination="GwP-Kq-ajX" id="aWD-KF-Pke"/>
+                <outlet property="hostAvatarView" destination="S3g-46-o4q" id="lXM-8F-DMt"/>
                 <outlet property="hostView" destination="HBc-V3-NcN" id="pL6-dh-uxE"/>
+                <outlet property="indexLabel" destination="387-CP-ORP" id="btJ-tA-IPN"/>
+                <outlet property="nameLabel" destination="rTp-yf-TGr" id="Gwt-mh-yKL"/>
                 <outlet property="raiseButton" destination="tlE-wC-8PO" id="czj-1M-qcs"/>
                 <outlet property="stackView" destination="aCF-k6-tr1" id="ka8-Vu-rd7"/>
             </connections>
@@ -44,6 +48,9 @@
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.host.request"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <constraints>
@@ -56,6 +63,12 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBc-V3-NcN">
                             <rect key="frame" x="138" y="0.0" width="138" height="126"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="387-CP-ORP">
+                                    <rect key="frame" x="51" y="0.0" width="36.5" height="22"/>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q">
                                     <rect key="frame" x="50" y="25" width="38" height="38"/>
                                     <gestureRecognizers/>
@@ -74,21 +87,39 @@
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr">
                                     <rect key="frame" x="55" y="68" width="28.5" height="16.5"/>
+                                    <gestureRecognizers/>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="387-CP-ORP">
-                                    <rect key="frame" x="51" y="0.0" width="36.5" height="22"/>
-                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg2-8c-Z9C">
+                                    <rect key="frame" x="45.5" y="88.5" width="47" height="20"/>
+                                    <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="hlR-Na-YYF"/>
+                                        <constraint firstAttribute="height" constant="20" id="zgZ-hl-UDw"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                                    <inset key="contentEdgeInsets" minX="7" minY="3.5" maxX="7" maxY="3.5"/>
+                                    <state key="normal" title="Button">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="gameNameAction:" destination="-1" eventType="touchUpInside" id="PP5-Pn-bU6"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <constraints>
                                 <constraint firstItem="S3g-46-o4q" firstAttribute="centerX" secondItem="387-CP-ORP" secondAttribute="centerX" id="ZSb-aN-3Uq"/>
                                 <constraint firstItem="S3g-46-o4q" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" constant="25" id="d4E-Yh-lWK"/>
                                 <constraint firstItem="387-CP-ORP" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" id="ed5-Yv-HqE"/>
+                                <constraint firstItem="vg2-8c-Z9C" firstAttribute="centerX" secondItem="rTp-yf-TGr" secondAttribute="centerX" id="fL1-y6-8Ao"/>
+                                <constraint firstItem="vg2-8c-Z9C" firstAttribute="top" secondItem="rTp-yf-TGr" secondAttribute="bottom" constant="4" id="l3o-xH-7eK"/>
                                 <constraint firstItem="387-CP-ORP" firstAttribute="centerX" secondItem="HBc-V3-NcN" secondAttribute="centerX" id="mUt-rf-1LR"/>
                                 <constraint firstItem="rTp-yf-TGr" firstAttribute="centerX" secondItem="S3g-46-o4q" secondAttribute="centerX" id="uWM-Oj-s8Q"/>
                                 <constraint firstItem="rTp-yf-TGr" firstAttribute="top" secondItem="S3g-46-o4q" secondAttribute="bottom" constant="5" id="xhG-Q2-xCV"/>
@@ -97,18 +128,21 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfG-Zb-QV2">
                             <rect key="frame" x="276" y="0.0" width="138" height="126"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="GwP-Kq-ajX">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_join_request" translatesAutoresizingMaskIntoConstraints="NO" id="GwP-Kq-ajX">
                                     <rect key="frame" x="57" y="25" width="24" height="24"/>
                                     <gestureRecognizers/>
                                     <connections>
                                         <outletCollection property="gestureRecognizers" destination="uGp-rb-0Kf" appends="YES" id="GNX-63-8r9"/>
                                     </connections>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raised Hands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-dT-fgd">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Requests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-dT-fgd">
                                     <rect key="frame" x="30" y="51" width="78" height="16.5"/>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.join.request"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                             </subviews>
                             <constraints>
@@ -149,5 +183,6 @@
     </objects>
     <resources>
         <image name="ac_group_host_request" width="24" height="24"/>
+        <image name="ac_group_join_request" width="24" height="24"/>
     </resources>
 </document>

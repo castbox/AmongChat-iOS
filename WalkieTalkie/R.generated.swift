@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 182 images.
+  /// This `R.image` struct is generated, and contains static references to 183 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -262,6 +262,8 @@ struct R: Rswift.Validatable {
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
     /// Image `ac_group_room_count`.
     static let ac_group_room_count = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_count")
+    /// Image `ac_group_room_note`.
+    static let ac_group_room_note = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_note")
     /// Image `ac_home_banner`.
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
@@ -691,6 +693,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_room_count", bundle: ..., traitCollection: ...)`
     static func ac_group_room_count(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_room_count, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_note", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_note(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_note, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
@@ -1944,7 +1951,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 338 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 340 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2514,6 +2521,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialJoinAction = Rswift.StringResource(key: "social.join.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Join Requests
+      /// 
+      /// Locales: en
+      static let groupRoomJoinRequest = Rswift.StringResource(key: "group.room.join.request", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Jul
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2826,6 +2837,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomRobloxInputCodePlceholder = Rswift.StringResource(key: "room.roblox.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Raised Hands
+      /// 
+      /// Locales: en
+      static let groupRoomHostRequest = Rswift.StringResource(key: "group.room.host.request", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Rate us
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4293,6 +4308,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.join.action", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Join Requests
+      /// 
+      /// Locales: en
+      static func groupRoomJoinRequest(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.join.request", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Jul
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4837,6 +4859,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomRobloxInputCodePlceholder(_: Void = ()) -> String {
         return NSLocalizedString("room.roblox.input.code.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Raised Hands
+      /// 
+      /// Locales: en
+      static func groupRoomHostRequest(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.host.request", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Rate us
@@ -5695,6 +5724,7 @@ struct _R: Rswift.Validatable {
       try _AmongChatRoomTopBar.validate()
       try _AmongGroupHostView.validate()
       try _AmongGroupTopView.validate()
+      try _AmongGroupTopicConfigView.validate()
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
@@ -5758,6 +5788,7 @@ struct _R: Rswift.Validatable {
       
       static func validate() throws {
         if UIKit.UIImage(named: "ac_group_host_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_group_join_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_join_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -5806,12 +5837,18 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    struct _AmongGroupTopicConfigView: Rswift.NibResourceType {
+    struct _AmongGroupTopicConfigView: Rswift.NibResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
       let name = "AmongGroupTopicConfigView"
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_note", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_note' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
       }
       
       fileprivate init() {}

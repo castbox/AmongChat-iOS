@@ -96,10 +96,10 @@ extension Entity {
         
         let uid: Int
         let gid: String
+        //group cover
         let cover: String
         let name: String
         let status, createTime: Int
-        let coverURL: String
         let broadcaster: Entity.UserProfile
         let membersCount: Int
 //        let liveID: String
@@ -109,6 +109,8 @@ extension Entity {
         //
         
         var topicId, topicName: String
+        //topic cover url
+        let coverURL: String
         let rtcType: Entity.Room.RtcType?
         let rtcBitRate: Int?
         var userList: [Entity.RoomUser]
@@ -144,6 +146,31 @@ extension Entity {
                 }
             }
             return 0
+        }
+        
+        var hostNickname: String? {
+            switch topicType {
+            case .fortnite:
+                return broadcaster.nameFortnite
+            case .freefire:
+                return broadcaster.nameFreefire
+            case .roblox:
+                return broadcaster.nameRoblox
+            case .minecraft:
+                return broadcaster.nameMineCraft
+            case .callofduty:
+                return broadcaster.nameCallofduty
+            case .pubgmobile:
+                return broadcaster.namePubgmobile
+            case .mobilelegends:
+                return broadcaster.nameMobilelegends
+            case .animalCrossing:
+                return broadcaster.nameAnimalCrossing
+            case .brawlStars:
+                return broadcaster.nameBrawlStars
+            default:
+                return nil
+            }
         }
 
         enum CodingKeys: String, CodingKey {
