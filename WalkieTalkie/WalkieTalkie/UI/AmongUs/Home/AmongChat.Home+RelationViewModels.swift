@@ -233,7 +233,7 @@ extension AmongChat.Home {
     
     class PlayingViewModel {
         
-        private let playingModel: Entity.PlayingUser
+        let playingModel: Entity.PlayingUser
         
         init(with model: Entity.PlayingUser) {
             playingModel = model

@@ -76,3 +76,12 @@ extension Entity.GroupInfo {
         return UserStatus(rawValue: userStatusInt)
     }
 }
+
+extension Entity {
+    
+    struct FollowersToAddToGroup: Codable {
+        var list: [Entity.UserProfile]
+        var more: Bool
+    }
+    
+}

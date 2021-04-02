@@ -67,6 +67,8 @@ extension APIService {
         case removeGameSkill([String : Any])
         case userGameSkills([String : Any])
         case createGroup([String : Any])
+        case followersToAddToGroup([String : Any])
+        case addMemberToGroup([String : Any])
     }
 }
 extension APIService.AmongChatBackend: TargetType {
@@ -191,6 +193,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/game/skill/list"
         case .createGroup:
             return "/api/v1/group/create"
+        case .followersToAddToGroup:
+            return "/social/relation/group/followers"
+        case .addMemberToGroup:
+            return "/api/v1/group/member"
         }
     }
     
@@ -212,6 +218,7 @@ extension APIService.AmongChatBackend: TargetType {
              .updateDecoration,
              .setGameSkill,
              .createGroup,
+             .addMemberToGroup,
              .logout:
             return .post
             
@@ -247,6 +254,7 @@ extension APIService.AmongChatBackend: TargetType {
              .userSearch,
              .gameSkills,
              .userGameSkills,
+             .followersToAddToGroup,
              .shareUserSign:
             return .get
         case .follow:
@@ -324,6 +332,8 @@ extension APIService.AmongChatBackend: TargetType {
              .setGameSkill(let params),
              .removeGameSkill(let params),
              .userGameSkills(let params),
+             .followersToAddToGroup(let params),
+             .addMemberToGroup(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

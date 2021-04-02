@@ -15,8 +15,8 @@ extension AmongChat.Home {
     
     class UserView: UIView {
         
-        private lazy var avatarIV: UIImageView = {
-            let iv = UIImageView()
+        private lazy var avatarIV: AvatarImageView = {
+            let iv = AvatarImageView()
             iv.layer.cornerRadius = 20
             iv.layer.masksToBounds = true
             return iv
@@ -88,7 +88,7 @@ extension AmongChat.Home {
         
         func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
             
-            avatarIV.setImage(with: URL(string: viewModel.userAvatarUrl), placeholder: R.image.ac_profile_avatar())
+            avatarIV.updateAvatar(with: viewModel.playingModel.user)
             
             nameLabel.attributedText = viewModel.userName
             

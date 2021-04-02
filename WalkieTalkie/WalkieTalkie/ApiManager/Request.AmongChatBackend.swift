@@ -835,4 +835,42 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
+    
+    static func availableFollowersToAddToGroup(groupId: String,
+                                        limit: Int = 10,
+                                        skipMs: Double) -> Single<Entity.FollowersToAddToGroup> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId,
+            "limit" : limit,
+            "skip_ms" : skipMs
+        ]
+        
+        return amongchatProvider.rx.request(.followersToAddToGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowersToAddToGroup.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func addMember(_ uid: Int, to group: String) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "gid" : group,
+            "uid" : uid
+        ]
+        
+        return amongchatProvider.rx.request(.addMemberToGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+    }
 }
