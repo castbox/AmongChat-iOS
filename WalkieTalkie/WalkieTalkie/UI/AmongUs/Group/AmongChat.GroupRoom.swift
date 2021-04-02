@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 extension AmongChat {
     struct GroupRoom {
@@ -20,12 +21,12 @@ extension AmongChat.GroupRoom {
     class ContainerController: WalkieTalkie.ViewController, GestureBackable {
         var isEnableScreenEdgeGesture: Bool = false
         
-        var room: Entity.Room!
+        var room: Entity.GroupRoom!
         var roomViewController: AmongChat.GroupRoom.ViewController?
         var broadcasterPictureURL: String?
         var broadcasterName: String?
         var enterRoomErrorHandler: (() -> Void)?
-        var previousRoomInfo: Entity.Room?
+        var previousRoomInfo: Entity.GroupRoom?
         
         var logSource: ParentPageSource?
         var removeLoadingHandler: CallBack? = nil
@@ -44,13 +45,14 @@ extension AmongChat.GroupRoom {
 //            return .lightContent
 //        }
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+        //Defaults[\.testGroup] = group.asString
+        static func join(room: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-                //show loading
+//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
+//                show loading
 //                let viewModel = ViewModel.make(room, logSource)
 //                self.show(from: controller, with: viewModel)
                 let vc = AmongChat.GroupRoom.ContainerController(with: room, logSource: logSource)
@@ -73,7 +75,7 @@ extension AmongChat.GroupRoom {
         }
         
         // MARK: - init
-        init(with room: Entity.Room, logSource: ParentPageSource? = nil) {
+        init(with room: Entity.GroupRoom, logSource: ParentPageSource? = nil) {
             self.room = room
             self.logSource = logSource
 //            self.broadcasterPictureURL = roomInfo.broadcaster?.picture_url
@@ -137,12 +139,12 @@ extension AmongChat.GroupRoom {
             roomViewController?.didMove(toParent: self)
             roomViewController?.endAppearanceTransition()
 //            roomViewController?.showInnerJoinLoading = true
-            roomViewController?.switchLiveRoomHandler = { [weak self] nextRoom in
-                self?.logSource = .roomSource
-                self?.previousRoomInfo = room
-                self?.room = nextRoom
-                self?.addListenerViewController()
-            }
+//            roomViewController?.switchLiveRoomHandler = { [weak self] nextRoom in
+//                self?.logSource = .roomSource
+//                self?.previousRoomInfo = room
+//                self?.room = nextRoom
+//                self?.addListenerViewController()
+//            }
             roomViewController?.showContainerLoading = { [weak self] isShow in
                 self?.removeLoadingHandler?()
                 self?.view.isUserInteractionEnabled = true

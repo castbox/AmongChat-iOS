@@ -19,7 +19,7 @@ extension AmongChat.GroupRoom {
         
         private typealias UserCell = AmongChat.Room.UserCell
         
-        private var room: Entity.Room
+        private var room: Entity.GroupRoom
         private let viewModel: ViewModel
 
         private var topBar: AmongGroupTopView!
@@ -129,30 +129,30 @@ extension AmongChat.GroupRoom {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
-            controller.checkMicroPermission { [weak controller] in
-                guard let controller = controller else {
-                    return
-                }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-                //show loading
-                let viewModel = ViewModel(room: room, source: logSource)
-                self.show(from: controller, with: viewModel)
-                completionHandler?(nil)
-            }
-        }
+//        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+//            controller.checkMicroPermission { [weak controller] in
+//                guard let controller = controller else {
+//                    return
+//                }
+//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
+//                //show loading
+//                let viewModel = ViewModel(room: room, source: logSource)
+//                self.show(from: controller, with: viewModel)
+//                completionHandler?(nil)
+//            }
+//        }
         
-        static func show(from controller: UIViewController, with viewModel: ViewModel) {
-            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
-            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-                guard let ancient = controller,
-                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
-                ancient.navigationController?.viewControllers.removeAll(ancient)
-            })
-        }
+//        static func show(from controller: UIViewController, with viewModel: ViewModel) {
+//            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
+//            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
+//                guard let ancient = controller,
+//                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
+//                ancient.navigationController?.viewControllers.removeAll(ancient)
+//            })
+//        }
                 
         init(viewModel: ViewModel) {
-            self.room = viewModel.roomReplay.value
+            self.room = viewModel.roomReplay.value as! Entity.GroupRoom
             self.viewModel = viewModel
             super.init(nibName: nil, bundle: nil)
         }
@@ -210,7 +210,6 @@ extension AmongChat.GroupRoom.ViewController {
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
         Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, viewModel.stayDuration)
-        
         viewModel.requestLeaveChannel()
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
@@ -413,7 +412,12 @@ extension AmongChat.GroupRoom.ViewController {
         
         viewModel.roomReplay
             .observeOn(MainScheduler.asyncInstance)
+            .map { $0 as? Entity.GroupRoom }
+            .filterNil()
             .subscribe(onNext: { [weak self] room in
+//                guard let room = room else {
+//                    return
+//                }
                 self?.room = room
                 self?.topBar.set(room)
 //                self?.configView.room = room
@@ -495,7 +499,7 @@ extension AmongChat.GroupRoom.ViewController {
             switch message.msgType {
             case .emoji:
                 guard let message = message as? ChatRoom.EmojiMessage,
-                      let seat = self.room.roomUserList.first(where: { $0.uid == message.user.uid }) else {
+                      let seat = self.room.userList.first(where: { $0.uid == message.user.uid }) else {
                     return
                 }
                 self.seatView.play(message) { [weak self] in
@@ -567,14 +571,14 @@ extension AmongChat.GroupRoom.ViewController {
 //            self?.nextRoom()
 //        }
         
-        topBar.changePublicStateHandler = { [weak self] in
-            guard let `self` = self else { return }
-            self.topBar.isIndicatorAnimate = true
-            self.viewModel.changePublicType { [weak self] in
-                self?.topBar.isIndicatorAnimate = false
-            }
-            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
-        }
+//        topBar.changePublicStateHandler = { [weak self] in
+//            guard let `self` = self else { return }
+//            self.topBar.isIndicatorAnimate = true
+//            self.viewModel.changePublicType { [weak self] in
+//                self?.topBar.isIndicatorAnimate = false
+//            }
+//            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
+//        }
         
         bottomBar.sendMessageHandler = { [weak self] in
             self?.editType = .message
@@ -625,18 +629,18 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
-            self?.viewModel.updateAmong(code: code, aera: aera)
+//            self?.viewModel.updateAmong(code: code, aera: aera)
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
         }
         
         nickNameInputView.inputResultHandler = { [weak self] text in
             Logger.Action.log(.room_edit_nickname_success, categoryValue: self?.room.topicId)
-            self?.viewModel.update(nickName: text)
+//            self?.viewModel.update(nickName: text)
         }
         
         inputNotesView.inputResultHandler = { [weak self] notes in
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
-            self?.viewModel.update(notes: notes)
+//            self?.viewModel.update(notes: notes)
         }
                 
         seatView.selectUserHandler = { [weak self] user in
@@ -663,18 +667,6 @@ extension AmongChat.GroupRoom.ViewController {
         }
     }
     
-    func nextRoom() {
-        Logger.Action.log(.room_next_room_clk, categoryValue: room.topicName)
-        showContainerLoading?(true)
-        viewModel.nextRoom { [weak self] room, errorMsg in
-            if let room = room {
-                Logger.Action.log(.room_next_room_success, categoryValue: room.topicName)
-                self?.switchLiveRoomHandler?(room)
-            } else {
-                self?.showContainerLoading?(false)
-            }
-        }
-    }
     
     func onUserProfileSheet(action: AmongSheetController.ItemType, user: Entity.RoomUser) {
         switch action {
@@ -703,14 +695,14 @@ extension AmongChat.GroupRoom.ViewController {
     
     func requestKick(_ users: [Int]) {
         let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
-        self.viewModel.requestKick(users)
-            .subscribe { [weak self] result in
-                removeBlock()
-                self?.style = .normal
-            } onError: { error in
-                removeBlock()
-            }
-            .disposed(by: self.bag)
+//        self.viewModel.requestKick(users)
+//            .subscribe { [weak self] result in
+//                removeBlock()
+//                self?.style = .normal
+//            } onError: { error in
+//                removeBlock()
+//            }
+//            .disposed(by: self.bag)
     }
 }
 

@@ -38,7 +38,7 @@ class JustChillingInfoView: XibLoadableView {
             }
             
             if room.topicType == .chilling,
-               room.roomUserList.first?.uid == Settings.loginUserId,
+               room.userList.first?.uid == Settings.loginUserId,
                room.note?.isEmpty ?? true {
                 setUpView.isHidden = false
                 titleLabel.isHidden = true

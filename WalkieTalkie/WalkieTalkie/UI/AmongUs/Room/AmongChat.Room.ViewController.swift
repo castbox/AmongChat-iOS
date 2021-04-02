@@ -144,30 +144,30 @@ extension AmongChat.Room {
             return .room
         }
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
-            controller.checkMicroPermission { [weak controller] in
-                guard let controller = controller else {
-                    return
-                }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-                //show loading
-                let viewModel = ViewModel.make(room, logSource)
-                self.show(from: controller, with: viewModel)
-                completionHandler?(nil)
-            }
-        }
-        
-        static func show(from controller: UIViewController, with viewModel: ViewModel) {
-            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
-            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-                guard let ancient = controller,
-                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
-                ancient.navigationController?.viewControllers.removeAll(ancient)
-            })
-        }
+//        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+//            controller.checkMicroPermission { [weak controller] in
+//                guard let controller = controller else {
+//                    return
+//                }
+//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
+//                //show loading
+//                let viewModel = ViewModel.make(room, logSource)
+//                self.show(from: controller, with: viewModel)
+//                completionHandler?(nil)
+//            }
+//        }
+//
+//        static func show(from controller: UIViewController, with viewModel: ViewModel) {
+//            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
+//            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
+//                guard let ancient = controller,
+//                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
+//                ancient.navigationController?.viewControllers.removeAll(ancient)
+//            })
+//        }
                 
         init(viewModel: ViewModel) {
-            self.room = viewModel.roomReplay.value
+            self.room = viewModel.roomReplay.value as! Entity.Room
             self.viewModel = viewModel
             super.init(nibName: nil, bundle: nil)
         }
@@ -400,6 +400,8 @@ extension AmongChat.Room.ViewController {
             .disposed(by: bag)
         
         viewModel.roomReplay
+            .map { $0 as? Entity.Room }
+            .filterNil()
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] room in
                 self?.room = room
@@ -483,7 +485,7 @@ extension AmongChat.Room.ViewController {
             switch message.msgType {
             case .emoji:
                 guard let message = message as? ChatRoom.EmojiMessage,
-                      let seat = self.room.roomUserList.first(where: { $0.uid == message.user.uid }) else {
+                      let seat = self.room.userList.first(where: { $0.uid == message.user.uid }) else {
                     return
                 }
                 self.seatView.play(message) { [weak self] in

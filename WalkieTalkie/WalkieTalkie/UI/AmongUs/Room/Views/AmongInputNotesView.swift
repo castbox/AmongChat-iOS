@@ -39,7 +39,7 @@ class AmongInputNotesView: XibLoadableView {
         textView.textContainerInset = UIEdgeInsets(top: 20, left: 15, bottom: 20, right: 20)
     }
     
-    func show(with room: Entity.Room) {
+    func show(with room: RoomInfoable) {
         hostNotesPlaceholderLabel.isHidden = room.note.isValid
         textView.text = room.note
         _ = becomeFirstResponder()

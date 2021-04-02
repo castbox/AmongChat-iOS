@@ -66,11 +66,16 @@ extension APIService {
         case setGameSkill([String : Any])
         case removeGameSkill([String : Any])
         case userGameSkills([String : Any])
+        case startGroupChannel([String : Any])
+        case stopGroupChannel([String: Any])
+        case enterGroupChannel([String : Any])
+        case leaveGroupChannel([String : Any])
         case createGroup([String : Any])
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
     }
 }
+
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
         let url: String
@@ -191,6 +196,15 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/game/skill"
         case .userGameSkills:
             return "/api/v1/game/skill/list"
+        case .startGroupChannel:
+            return "/api/v1/group/live/start"
+        case .stopGroupChannel:
+            return "/api/v1/group/live/stop"
+        case .enterGroupChannel:
+            return "/api/v1/group/live/enter"
+        case .leaveGroupChannel:
+            return "/api/v1/group/live/leave"
+
         case .createGroup:
             return "/api/v1/group/create"
         case .followersToAddToGroup:
@@ -253,6 +267,10 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultDecorations,
              .userSearch,
              .gameSkills,
+             .startGroupChannel,
+             .stopGroupChannel,
+                .enterGroupChannel,
+                .leaveGroupChannel,
              .userGameSkills,
              .followersToAddToGroup,
              .shareUserSign:
@@ -332,6 +350,10 @@ extension APIService.AmongChatBackend: TargetType {
              .setGameSkill(let params),
              .removeGameSkill(let params),
              .userGameSkills(let params),
+             .startGroupChannel(let params),
+             .stopGroupChannel(let params),
+             .enterGroupChannel(let params),
+             .leaveGroupChannel(let params),
              .followersToAddToGroup(let params),
              .addMemberToGroup(let params),
              .unFollow(let params):

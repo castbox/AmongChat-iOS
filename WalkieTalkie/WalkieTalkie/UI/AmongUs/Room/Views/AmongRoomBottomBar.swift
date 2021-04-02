@@ -49,7 +49,7 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var cancelKickHandler: CallBack?
     var kickSelectedHandler: (([Int]) -> Void)?
-    var room: Entity.Room?
+    var room: RoomInfoable?
     
     var isMicOn: Bool = true {
         didSet {
@@ -87,7 +87,7 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
-    func update(_ room: Entity.Room) {
+    func update(_ room: RoomInfoable) {
         self.room = room
         emojiButton.isHidden = room.topicType != .chilling
         

@@ -148,6 +148,7 @@
 		FE2AF9F8244DCC0400763747 /* Routes.Constructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */; };
 		FE2AF9F9244DCC0400763747 /* Routes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9F3244DCC0200763747 /* Routes.swift */; };
 		FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2AF9FA244DDDC700763747 /* URLUnit.swift */; };
+		FE2DF3F52616EE640038F963 /* AmongChat.BaseRoomViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE2DF3F42616EE640038F963 /* AmongChat.BaseRoomViewModel.swift */; };
 		FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE392C672466C5AA00A2CCF3 /* KernUI.swift */; };
 		FE3AEE6125AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3AEE6025AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift */; };
 		FE401E39244D9C450081F793 /* IAP.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE401E32244D9C450081F793 /* IAP.swift */; };
@@ -534,6 +535,7 @@
 		FE2AF9F2244DCC0200763747 /* Routes.Constructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.Constructor.swift; sourceTree = "<group>"; };
 		FE2AF9F3244DCC0200763747 /* Routes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Routes.swift; sourceTree = "<group>"; };
 		FE2AF9FA244DDDC700763747 /* URLUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLUnit.swift; sourceTree = "<group>"; };
+		FE2DF3F42616EE640038F963 /* AmongChat.BaseRoomViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.BaseRoomViewModel.swift; sourceTree = "<group>"; };
 		FE392C672466C5AA00A2CCF3 /* KernUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KernUI.swift; sourceTree = "<group>"; };
 		FE3AEE6025AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Home.NavigationBar.swift; sourceTree = "<group>"; };
 		FE3AEE6425AED1B600E91D01 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 				BD6C36FF256E7CD300D1E708 /* AmongChat.Room.swift */,
 				BD6C370A256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift */,
 				FEFF9355258B30970011A274 /* AmongChat.Room.ViewModel.swift */,
+				FE2DF3F42616EE640038F963 /* AmongChat.BaseRoomViewModel.swift */,
 				FEC2A93625CA5117001B9556 /* AmongChat.Room.QueueManager.swift */,
 				FE8338F22601EAA7009DF361 /* AmongChat.Room.EmojiPickerController.swift */,
 				FE8338F62601EAF0009DF361 /* AmongChat.Room.EmojiViewModel.swift */,
@@ -1830,6 +1833,7 @@
 				FE860D4F2446D1D700087B73 /* Font.swift in Sources */,
 				FE3AEE6125AEA7A500E91D01 /* AmongChat.Home.NavigationBar.swift in Sources */,
 				2B51C894258C6EC700BAE937 /* Social.BirthdaySetViewController.swift in Sources */,
+				FE2DF3F52616EE640038F963 /* AmongChat.BaseRoomViewModel.swift in Sources */,
 				FE126D4F243481FF00BEDD60 /* AttributeKey.swift in Sources */,
 				FE7CEB63258A05EC0067952C /* JustChillingInfoView.swift in Sources */,
 				2B51C882258B8ED700BAE937 /* Social.DatePickerView.swift in Sources */,

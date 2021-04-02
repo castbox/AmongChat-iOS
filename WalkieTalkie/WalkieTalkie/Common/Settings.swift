@@ -660,6 +660,10 @@ extension DefaultsKeys {
         .init("among.chat.set.age.prompt.shows.time.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: nil)
     }
     
+    var testGroup: DefaultsKey<String?> {
+        .init("among.chat.test.temp.group", defaultValue: nil)
+    }
+    
 }
 
 //extension DefaultsAdapter {

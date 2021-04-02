@@ -127,7 +127,7 @@ extension JoinRoomable where Self: ViewController {
                     return
                 }
             
-                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
+                AmongChat.Room.ContainerController.join(room: room, from: self, logSource: logSource) { error in
                     completion()
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()
@@ -149,6 +149,97 @@ extension JoinRoomable where Self: ViewController {
                 self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
             })
             .disposed(by: bag)
+
+    }
+    
+    func enterRoom(groupId: String, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+//        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
+        //
+        UIApplication.tabBarController?.dismissNotificationBanner()
+        //
+//        var topic = topicId
+//        if roomId == nil {
+//            topic = topicId ?? AmongChat.Topic.amongus.rawValue
+//        }
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let completion = { [weak self] in
+            self?.contentScrollView?.isUserInteractionEnabled = true
+            self?.isRequestingRoom = false
+            hudRemoval()
+        }
+        
+        contentScrollView?.isUserInteractionEnabled = false
+        isRequestingRoom = true
+        //request
+        Request.startChannel(groupId: groupId)
+            .subscribe { [weak self] (room) in
+                // TODO: - 进入房间
+                guard let `self` = self else {
+                    return
+                }
+                guard let room = room else {
+                    completion()
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
+                    return
+                }
+            
+                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
+                    completion()
+                    //dismiss
+                    UIApplication.tabBarController?.dismissNotificationBanner()
+                }
+
+            } onError: { [weak self] (error) in
+                completion()
+                cdPrint("error: \(error.localizedDescription)")
+                var msg: String {
+                    if let error = error as? MsgError {
+                        if let codeType = error.codeType, codeType == .needUpgrade {
+                            return R.string.localizable.forceUpgradeTip()
+                        }
+                        return error.localizedDescription
+                    } else {
+                        return R.string.localizable.amongChatHomeEnterRoomFailed()
+                    }
+                }
+                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
+            }
+            .disposed(by: bag)
+//        Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
+//            .subscribe(onSuccess: { [weak self] (room) in
+//                // TODO: - 进入房间
+//                guard let `self` = self else {
+//                    return
+//                }
+//                guard let room = room else {
+//                    completion()
+//                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
+//                    return
+//                }
+//
+//                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
+//                    completion()
+//                    //dismiss
+//                    UIApplication.tabBarController?.dismissNotificationBanner()
+//                }
+//
+//            }, onError: { [weak self] (error) in
+//                completion()
+//                cdPrint("error: \(error.localizedDescription)")
+//                var msg: String {
+//                    if let error = error as? MsgError {
+//                        if let codeType = error.codeType, codeType == .needUpgrade {
+//                            return R.string.localizable.forceUpgradeTip()
+//                        }
+//                        return error.localizedDescription
+//                    } else {
+//                        return R.string.localizable.amongChatHomeEnterRoomFailed()
+//                    }
+//                }
+//                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
+//            })
+//            .disposed(by: bag)
 
     }
     

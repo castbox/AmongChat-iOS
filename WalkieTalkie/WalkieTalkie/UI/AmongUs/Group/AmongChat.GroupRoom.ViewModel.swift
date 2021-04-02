@@ -33,20 +33,35 @@ extension AmongChat.GroupRoom {
 //    }
     
     
-    class ViewModel: AmongChat.Room.ViewModel {
-     
-//        override static func make(_ room: Entity.Room, _ source: ParentPageSource?) -> ViewModel {
-////            guard let shared = self.shared,
-////                  shared.room.roomId == room.roomId else {
-////                let manager = ViewModel(room: room, source: source)
-////                //退出之前房间
-////                //                self.shared?.quitRoom()
-////                //设置新房间
-////                self.shared = manager
-////                return manager
-////            }
-////            return shared
-//            return ViewModel(room: room, source: source)
+    class ViewModel: AmongChat.BaseRoomViewModel {
+        var group: Entity.GroupRoom {
+            roomReplay.value as! Entity.GroupRoom
+        }
+        
+        
+//        override init(room: RoomInfoable, source: ParentPageSource?) {
+//            
 //        }
+        
+//        init(room: RoomInfoable, source: ParentPageSource?) {
+//
+//        }
+        
+        
+        func requestLeaveChannel() -> Single<Bool> {
+//            Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, stayDuration)
+//            mManager.leaveChannel()
+//            imViewModel.leaveChannel()
+            quitServices()
+//            ViewModel.shared = nil
+//            state = .disconnected
+//            UIApplication.shared.isIdleTimerDisabled = false
+            //
+            if group.loginUserIsAdmin {
+                return Request.stopChannel(groupId: group.gid)
+            }
+            return Request.leaveChannel(groupId: group.gid)
+        }
+
     }
 }

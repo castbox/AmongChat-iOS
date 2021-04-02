@@ -69,7 +69,7 @@ class AmongChatRoomTopBar: XibLoadableView {
     }
     
     @IBAction func publicButtonAction(_ sender: Any) {
-        if room?.roomUserList.first?.uid == Settings.loginUserId {
+        if room?.userList.first?.uid == Settings.loginUserId {
             changePublicStateHandler?()
         } else {
             Logger.Action.log(.room_change_state_clk, categoryValue: room?.topicId)

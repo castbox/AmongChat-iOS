@@ -215,10 +215,24 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-//            enterRoom(roomId: "hdtt7bgi", topicId: nil,/* topic.topic.topicId,*/ logSource: .matchSource)
-            Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
-                self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
-                self?.onTap(topic)
+            if topic.topic.topicId != "amongus" {
+                //group
+                guard let json = Defaults[\.testGroup]?.jsonObject() else {
+                    return
+                }
+                var group: Entity.Group?
+                decoderCatcher {
+                    group = try JSONDecoder().decodeAnyData(Entity.Group.self, from: json)
+                }
+                guard let item = group else {
+                    return
+                }
+                self.enterRoom(groupId: item.gid, logSource: .matchSource, apiSource: nil)
+            } else {
+                Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
+                    self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
+                    self?.onTap(topic)
+                }
             }
         }
     }

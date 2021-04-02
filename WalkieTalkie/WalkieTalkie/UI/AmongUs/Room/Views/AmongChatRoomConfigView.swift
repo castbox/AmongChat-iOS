@@ -108,7 +108,7 @@ extension AmongChatRoomConfigView {
             guard let `self` = self else {
                 return
             }
-            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+            if self.room.userList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
                 Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
@@ -120,7 +120,7 @@ extension AmongChatRoomConfigView {
             guard let `self` = self else {
                 return
             }
-            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+            if self.room.userList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.chillingSetup)
             } else {
                 Logger.Action.log(.room_edit_clk, categoryValue: self.room.topicId)
@@ -133,7 +133,7 @@ extension AmongChatRoomConfigView {
             guard let `self` = self else {
                 return
             }
-            if self.room.roomUserList.first?.uid == Settings.loginUserId {
+            if self.room.userList.first?.uid == Settings.loginUserId {
                 self.updateEditTypeHandler?(AmongChat.Room.EditType.amongSetup)
             } else {
                 Logger.Action.log(.room_amongus_code_copy)

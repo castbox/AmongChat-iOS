@@ -203,7 +203,7 @@ extension Request {
         guard var params = room?.dictionary else {
             return Observable<Entity.Room?>.empty().asSingle()
         }
-        params.removeValue(forKey: "roomUserList")
+        params.removeValue(forKey: "userList")
         return amongchatProvider.rx.request(.updateRoomInfo(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -860,6 +860,69 @@ extension Request {
             })
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func startChannel(groupId: String) -> Single<Entity.GroupRoom?> {
+        let params: [String : Any] = [
+            "gid": groupId
+        ]
+        return amongchatProvider.rx.request(.startGroupChannel(params))
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["group"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .mapTo(Entity.GroupRoom.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func stopChannel(groupId: String) -> Single<Bool> {
+        let params: [String : Any] = [
+            "gid": groupId
+        ]
+        return amongchatProvider.rx.request(.stopGroupChannel(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func enterChannel(groupId: String) -> Single<Entity.GroupRoom?> {
+        let params: [String : Any] = [
+            "gid": groupId
+        ]
+        return amongchatProvider.rx.request(.enterGroupChannel(params))
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["group"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .mapTo(Entity.GroupRoom.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func leaveChannel(groupId: String) -> Single<Bool> {
+        return amongchatProvider.rx.request(.leaveGroupChannel(["gid": groupId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
+    
     
     static func addMember(_ uid: Int, to group: String) -> Single<Bool> {
         

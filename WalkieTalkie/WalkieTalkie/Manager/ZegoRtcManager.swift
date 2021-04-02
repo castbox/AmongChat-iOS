@@ -221,7 +221,7 @@ extension ZegoRtcManager: ZegoEventHandler {
                 otherMutedUser.remove(userId.uIntValue)
             }
             //检查 mute 状态
-            joinable?.roomUserList.forEach { user in
+            joinable?.userList.forEach { user in
                 if user.uid != self.user?.uid {
                     let isUnMuted = publishingStream.contains(where: { $0.user.userID == user.uid.string })
                     delegate?.onUserMuteAudio(uid: user.uid.uInt, muted: !isUnMuted)

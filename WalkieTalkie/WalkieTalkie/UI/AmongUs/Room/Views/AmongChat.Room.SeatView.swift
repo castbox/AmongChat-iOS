@@ -56,9 +56,9 @@ extension AmongChat.Room {
         
         fileprivate var viewCache: [Int: AmongChat.Room.UserCell] = [:]
         
-        let viewModel: AmongChat.Room.ViewModel
+        let viewModel: AmongChat.BaseRoomViewModel
                 
-        var room: Entity.Room! {
+        var room: RoomInfoable! {
             didSet {
                 dataSource = room.userListMap
             }
@@ -89,7 +89,7 @@ extension AmongChat.Room {
         
         var userProfileSheetActionHandler: ((AmongSheetController.ItemType, _ user: Entity.RoomUser) -> Void)?
         
-        init(room: Entity.Room, itemStyle: ItemStyle = .normal, viewModel: AmongChat.Room.ViewModel) {
+        init(room: RoomInfoable, itemStyle: ItemStyle = .normal, viewModel: AmongChat.BaseRoomViewModel) {
             self.room = room
             self.viewModel = viewModel
             self.itemStyle = itemStyle
@@ -170,7 +170,7 @@ extension AmongChat.Room {
             let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
             
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-            if viewModel.roomReplay.value.roomUserList.first?.uid == Settings.loginUserId {
+            if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
                 items.append(.kick)
             }
             

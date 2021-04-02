@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 extension FansGroup {
     
@@ -113,6 +114,7 @@ extension FansGroup.CreateGroupViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (group) in
+                Defaults[\.testGroup] = group.asString
                 let vc = FansGroup.AddMemberController(groupId: group.gid)
                 self?.navigationController?.pushViewController(vc, animated: true)
             })

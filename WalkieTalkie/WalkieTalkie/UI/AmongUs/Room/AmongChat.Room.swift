@@ -110,7 +110,7 @@ extension AmongChat.Room {
                 roomViewController?.endAppearanceTransition()
                 roomViewController = nil
             }
-            let viewModel = ViewModel.make(room, logSource)
+            let viewModel = ViewModel(room: room, source: logSource)
             roomViewController = AmongChat.Room.ViewController(viewModel: viewModel)
             roomViewController?.showInnerJoinLoading = removeLoadingHandler == nil
 //            listenerViewController?.fromSource = fromSource

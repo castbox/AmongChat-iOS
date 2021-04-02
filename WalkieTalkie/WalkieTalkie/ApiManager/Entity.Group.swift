@@ -85,3 +85,84 @@ extension Entity {
     }
     
 }
+
+
+extension Entity {
+    // MARK: - GroupRoom
+    struct GroupRoom: Codable, RoomInfoable {
+        var roomId: String {
+            gid
+        }
+        
+        let uid: Int
+        let gid: String
+        let cover: String
+        let name: String
+        let status, createTime: Int
+        let coverURL: String
+        let broadcaster: Entity.UserProfile
+        let membersCount: Int
+//        let liveID: String
+        let playerCount, onlineUserCount: Int?
+        let usersUpdateTime: UInt
+        var description: String?
+        //
+        
+        var topicId, topicName: String
+        let rtcType: Entity.Room.RtcType?
+        let rtcBitRate: Int?
+        var userList: [Entity.RoomUser]
+        var amongUsCode: String?
+        var amongUsZone: AmongUsZone?
+        var note: String?
+        
+        
+//        var userListMap: [Int: RoomUser] {
+//            var map: [Int: RoomUser] = [:]
+//            userList.forEach { user in
+//                map[user.seatNo - 1] = user
+//            }
+//            return map
+//        }
+        
+        var loginUserIsAdmin: Bool {
+            return uid == Settings.loginUserId
+        }
+        
+        var topicType: AmongChat.Topic {
+            guard let topic = AmongChat.Topic(rawValue: topicId) else {
+                return .chilling
+            }
+            
+            return topic
+        }
+        
+        var loginUserSeatNo: Int {
+            for (index, user) in userList.enumerated() {
+                if user.uid == Settings.loginUserId {
+                    return index
+                }
+            }
+            return 0
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case uid, gid
+            case topicId
+            case cover, name
+            case description = "description"
+            case status, createTime, rtcType, topicName
+            case coverURL = "coverUrl"
+            case broadcaster, membersCount
+//            case liveID = "liveId"
+            case userList, playerCount
+            case usersUpdateTime = "_usersUpdateTime"
+            case onlineUserCount = "online_user_count"
+            case rtcBitRate = "rtc_bit_rate"
+            case amongUsCode
+            case amongUsZone
+            case note
+        }
+    }
+
+}

@@ -13,7 +13,28 @@ protocol RTCJoinable {
     var roomId: String { get }
     var rtcType: Entity.Room.RtcType? { get }
     var rtcBitRate: Int? { get }
-    var roomUserList: [Entity.RoomUser] { get set }
+    var userList: [Entity.RoomUser] { get set }
+}
+
+protocol RoomInfoable: RTCJoinable {
+    var topicId: String { get set }
+    var topicName: String { get }
+    var topicType: AmongChat.Topic { get }
+    var loginUserIsAdmin: Bool { get }
+    var loginUserSeatNo: Int { get }
+    var amongUsCode: String? { get set }
+    var amongUsZone: Entity.AmongUsZone? { get set }
+    var note: String? { get set }
+}
+
+extension RoomInfoable {
+    var userListMap: [Int: Entity.RoomUser] {
+        var map: [Int: Entity.RoomUser] = [:]
+        userList.forEach { user in
+            map[user.seatNo - 1] = user
+        }
+        return map
+    }
 }
 
 extension Entity {
@@ -33,9 +54,9 @@ extension Entity {
         case asia = 2
         case europe = 3
     }
-    
+
     //房间类型
-    struct Room: Codable, RTCJoinable {
+    struct Room: Codable, RoomInfoable {
         
         enum RtcType: String, Codable {
             case agora
@@ -46,12 +67,10 @@ extension Entity {
         var amongUsZone: AmongUsZone?
         var note: String?
         let roomId: String
-        
-        var roomUserList: [RoomUser]
+        var userList: [RoomUser]
         var state: RoomPublicType
         var topicId: String
         let topicName: String
-//        var bgUrl: String?
         let rtcType: RtcType?
         let rtcBitRate: Int?
         var coverUrl: String?
@@ -63,14 +82,6 @@ extension Entity {
                 return false
             }
             return !code.isEmpty
-        }
-        
-        var userListMap: [Int: RoomUser] {
-            var map: [Int: RoomUser] = [:]
-            roomUserList.forEach { user in
-                map[user.seatNo - 1] = user
-            }
-            return map
         }
         
         var loginUserIsAdmin: Bool {
@@ -86,12 +97,26 @@ extension Entity {
         }
         
         var loginUserSeatNo: Int {
-            for (index, user) in roomUserList.enumerated() {
+            for (index, user) in userList.enumerated() {
                 if user.uid == Settings.loginUserId {
                     return index
                 }
             }
             return 0
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case amongUsCode
+            case amongUsZone
+            case note
+            case roomId
+            case userList = "roomUserList"
+            case state
+            case topicId
+            case topicName
+            case rtcType
+            case rtcBitRate
+            case coverUrl
         }
     }
     
