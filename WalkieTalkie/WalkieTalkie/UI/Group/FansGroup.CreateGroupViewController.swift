@@ -47,7 +47,10 @@ extension FansGroup {
         
         private lazy var bottomTipLabel: UILabel = {
             let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textColor = UIColor(hex6: 0x595959)
             l.numberOfLines = 0
+            l.text = R.string.localizable.amongChatCreateGroupTip()
             return l
         }()
         
@@ -153,7 +156,7 @@ extension FansGroup.CreateGroupViewController {
                 
         bottomTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(20)
-            maker.top.equalTo(setUpInfoView.snp.bottom).offset(36)
+            maker.top.equalTo(setUpInfoView.snp.bottom).offset(32)
             maker.bottom.equalToSuperview().offset(-150)
         }
         

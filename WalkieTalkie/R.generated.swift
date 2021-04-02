@@ -1951,7 +1951,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 337 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 338 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2721,6 +2721,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomTagOpenGame = Rswift.StringResource(key: "room.tag.open.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Owner
+      /// 
+      /// Locales: en
+      static let groupOwner = Rswift.StringResource(key: "group.owner", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: PRO
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4644,6 +4648,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomTagOpenGame(_: Void = ()) -> String {
         return NSLocalizedString("room.tag.open.game", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Owner
+      /// 
+      /// Locales: en
+      static func groupOwner(_: Void = ()) -> String {
+        return NSLocalizedString("group.owner", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PRO
