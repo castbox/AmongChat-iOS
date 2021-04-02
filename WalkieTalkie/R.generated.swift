@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 182 images.
+  /// This `R.image` struct is generated, and contains static references to 183 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -254,6 +254,8 @@ struct R: Rswift.Validatable {
     static let ac_group_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner")
     /// Image `ac_group_cover_add`.
     static let ac_group_cover_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_add")
+    /// Image `ac_group_cover_default_bg`.
+    static let ac_group_cover_default_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_default_bg")
     /// Image `ac_group_cover_edit`.
     static let ac_group_cover_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_edit")
     /// Image `ac_group_host_request`.
@@ -671,6 +673,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_cover_add", bundle: ..., traitCollection: ...)`
     static func ac_group_cover_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_cover_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_cover_default_bg", bundle: ..., traitCollection: ...)`
+    static func ac_group_cover_default_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_cover_default_bg, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_cover_edit", bundle: ..., traitCollection: ...)`

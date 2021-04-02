@@ -464,7 +464,13 @@ extension FansGroup.Views {
         
         private func setUpEvents() {
             coverRelay.subscribe(onNext: { [weak self] (image) in
-                self?.coverIV.image = image
+                if image != nil {
+                    self?.coverIV.image = image
+                    self?.blurView.isHidden = false
+                } else {
+                    self?.coverIV.image = R.image.ac_group_cover_default_bg()
+                    self?.blurView.isHidden = true
+                }
             })
             .disposed(by: bag)
         }
