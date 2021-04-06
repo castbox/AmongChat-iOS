@@ -87,7 +87,7 @@ extension Logger {
             case profile_avatar_clk
             case profile_avatar_get
             case profile_avatar_get_success
-            case profile_avatar_get_ad_timeout
+            case profile_avatar_get_failed
             case profile_nikename_clk
             case profile_birthday_clk
             case profile_birthday_update_success
