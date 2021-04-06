@@ -13,6 +13,12 @@ import RxCocoa
 
 class AmongGroupHostView: XibLoadableView {
     
+    enum Action {
+        case joinHost
+        case joinGroup
+        case editNickName
+    }
+    
     @IBOutlet weak var hostView: UIView!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var raiseButton: UIImageView!
@@ -24,7 +30,8 @@ class AmongGroupHostView: XibLoadableView {
     
     private var tipView: EasyTipView?
     private let bag = DisposeBag()
-//    private var userCell: AmongChat.Room.UserCell!
+    
+    var actionHandler: ((Action) -> Void)?
     
     var group: Entity.GroupRoom? {
         didSet {
@@ -84,15 +91,15 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBAction func raisedHandsAction(_ sender: Any) {
-        
+        actionHandler?(.joinHost)
     }
     
     @IBAction func joinReuqestAction(_ sender: Any) {
-        
+        actionHandler?(.joinGroup)
     }
     
     @IBAction func hostAvatarAction(_ sender: Any) {
-        showShareTipView()
+//        showShareTipView()
     }
     
     @IBAction func gameNameAction(_ sender: Any) {
