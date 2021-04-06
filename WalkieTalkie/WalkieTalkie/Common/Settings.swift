@@ -405,6 +405,22 @@ class Settings {
         return true
     }
     
+    var showQuickChangeRoomButton: Bool {
+        //新用户
+        if Defaults[\.showQuickChangeRoomButton] == false {
+            let remoteValue = FireRemote.shared.value.showQuickChangeRoomButton
+            Defaults[\.showQuickChangeRoomButton] = remoteValue
+        }
+        return Defaults[\.showQuickChangeRoomButton] ?? false
+    }
+    
+    //设置默认值
+    func updateDefaultConfig() {
+        if Defaults[\.showQuickChangeRoomButton] == nil {
+            Defaults[\.showQuickChangeRoomButton] = Defaults[\.loginResultKey] != nil
+        }
+    }
+    
     private func updateAvatarGuideUpdateTime() {
         let current = Date().string(withFormat: "yyyy-MM-dd")
         Defaults[\.avatarGuideUpdateTime] = current
@@ -434,6 +450,7 @@ class Settings {
                 cdPrint("")
             })
     }
+    
     func clearAll() {
         loginResult.value = nil
         amongChatUserProfile.value = nil
@@ -664,6 +681,10 @@ extension DefaultsKeys {
         .init("among.chat.test.temp.group", defaultValue: nil)
     }
     
+    
+    var showQuickChangeRoomButton: DefaultsKey<Bool?> {
+        .init("show.quick.change.button", defaultValue: nil)
+    }
 }
 
 //extension DefaultsAdapter {

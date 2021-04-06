@@ -79,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = AdjustAnalytics.sharedInstance
         
         Settings.shared.startObserver()
+        Settings.shared.updateDefaultConfig()
         setupInitialView()
         
         IAP.prefetchProducts()
