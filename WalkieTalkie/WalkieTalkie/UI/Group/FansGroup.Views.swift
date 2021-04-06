@@ -464,7 +464,13 @@ extension FansGroup.Views {
         
         private func setUpEvents() {
             coverRelay.subscribe(onNext: { [weak self] (image) in
-                self?.coverIV.image = image
+                if image != nil {
+                    self?.coverIV.image = image
+                    self?.blurView.isHidden = false
+                } else {
+                    self?.coverIV.image = R.image.ac_group_cover_default_bg()
+                    self?.blurView.isHidden = true
+                }
             })
             .disposed(by: bag)
         }
@@ -831,6 +837,13 @@ extension FansGroup.Views {
                 maker.bottom.equalToSuperview()
             }
             
+            let tap = UITapGestureRecognizer()
+            addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.endEditing(true)
+                })
+                .disposed(by: bag)
         }
         
         private func setUpEvents() {

@@ -34,7 +34,7 @@ extension FansGroup {
             if #available(iOS 11.0, *) {
                 s.contentInsetAdjustmentBehavior = .never
             }
-            s.keyboardDismissMode = .onDrag
+            s.keyboardDismissMode = .interactive
             s.delegate = self
             return s
         }()
@@ -48,7 +48,10 @@ extension FansGroup {
         
         private lazy var bottomTipLabel: UILabel = {
             let l = UILabel()
+            l.font = R.font.nunitoBold(size: 14)
+            l.textColor = UIColor(hex6: 0x595959)
             l.numberOfLines = 0
+            l.text = R.string.localizable.amongChatCreateGroupTip()
             return l
         }()
         
@@ -117,6 +120,8 @@ extension FansGroup.CreateGroupViewController {
                 Defaults[\.testGroup] = group.asString
                 let vc = FansGroup.AddMemberController(groupId: group.gid)
                 self?.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
 
@@ -155,7 +160,7 @@ extension FansGroup.CreateGroupViewController {
                 
         bottomTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(20)
-            maker.top.equalTo(setUpInfoView.snp.bottom).offset(36)
+            maker.top.equalTo(setUpInfoView.snp.bottom).offset(32)
             maker.bottom.equalToSuperview().offset(-150)
         }
         
@@ -243,7 +248,16 @@ extension FansGroup.CreateGroupViewController {
 extension FansGroup.CreateGroupViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        setUpInfoView.enlargeTopGbHeight(extraHeight: -scrollView.contentOffset.y)
+        
+        let distance = scrollView.contentOffset.y
+        
+        setUpInfoView.enlargeTopGbHeight(extraHeight: -distance)
+        
+        navView.snp.updateConstraints { (maker) in
+            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
+        }
+        
+        navView.alpha = 1 - distance / 49
     }
     
 }
