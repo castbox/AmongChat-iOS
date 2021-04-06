@@ -21,9 +21,10 @@ extension AmongChat.GroupRoom {
                 dataSourceReplay.accept(items)
             }
         }
+        static var shared: MembersViewModel?
         
         private let bag = DisposeBag()
-        private let groupId: String;
+        private let groupId: String
         init(groupId: String) {
             self.groupId = groupId
         }

@@ -1094,7 +1094,7 @@ extension Request {
     }
 
     static func membersOfGroup(_ groupId: String,
-                               limit: Int = 10,
+                               limit: Int = 20,
                                skipMs: Double) -> Single<Entity.GroupUserList> {
         
         let params: [String : Any] = [
@@ -1118,4 +1118,12 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
 
+    static func apply(groupId: String) -> Single<Bool> {
+        return amongchatProvider.rx.request(.groupApply(["gid": groupId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+        
+    }
 }

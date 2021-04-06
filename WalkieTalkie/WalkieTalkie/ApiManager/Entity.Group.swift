@@ -82,7 +82,7 @@ extension Entity {
     struct GroupUserList: Codable {
         var list: [Entity.UserProfile]
         var more: Bool
-        var count: Int
+        var count: Int?
     }
     
 }

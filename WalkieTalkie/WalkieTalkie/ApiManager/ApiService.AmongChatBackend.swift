@@ -80,6 +80,7 @@ extension APIService {
         case groupListOfJoined([String : Any])
         case groupAppliedUserList([String : Any])
         case groupMemberList([String : Any])
+        case groupApply([String : Any])
     }
 }
 
@@ -231,6 +232,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/apply/list"
         case .groupMemberList:
             return "/api/v1/group/member/list"
+        case .groupApply:
+            return "/api/v1/group/apply"
         }
     }
     
@@ -253,6 +256,8 @@ extension APIService.AmongChatBackend: TargetType {
              .setGameSkill,
              .createGroup,
              .addMemberToGroup,
+             .groupLiveUserList,
+             .groupApply,
              .logout:
             return .post
             
@@ -291,7 +296,6 @@ extension APIService.AmongChatBackend: TargetType {
              .stopGroupChannel,
              .enterGroupChannel,
              .leaveGroupChannel,
-             .groupLiveUserList,
              .userGameSkills,
              .followersToAddToGroup,
              .groupList,
@@ -390,6 +394,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
              .groupMemberList(let params),
+             .groupApply(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

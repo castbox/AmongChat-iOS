@@ -113,6 +113,19 @@ extension AmongChat.Home {
             }
         }
         
+        func bind(viewModel: Entity.UserProfile, onAvatarTap: @escaping () -> Void) {
+            
+            avatarIV.updateAvatar(with: viewModel)
+            
+            nameLabel.attributedText = viewModel.nameWithVerified()
+//            if viewModel.count == 1 {
+//                statusLabel.text = R.string.localizable.socialOneContactFirend(viewModel.count.string)
+//            } else {
+//                
+//                statusLabel.text = R.string.localizable.socialContactFirendsCount(viewModel.count.string)
+//            }
+        }
+        
     }
     
     class FriendCell: UICollectionViewCell {

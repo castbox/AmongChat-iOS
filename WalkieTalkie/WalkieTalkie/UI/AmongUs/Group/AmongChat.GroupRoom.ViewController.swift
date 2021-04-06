@@ -541,7 +541,7 @@ extension AmongChat.GroupRoom.ViewController {
             switch type {
             case .leave:
                 self.requestLeaveRoom { [weak self] in
-                    self?.showRecommendUser()
+//                    self?.showRecommendUser()
                 }
             case .topic:
                 let vc = FansGroup.AddTopicViewController(self.room.topicId)
@@ -550,7 +550,7 @@ extension AmongChat.GroupRoom.ViewController {
                 }
                 self.presentPanModal(vc)
             case .memberList:
-                let vc = AmongChat.GroupRoom.MembersController(with: 0)
+                let vc = AmongChat.GroupRoom.MembersController(with: self.room.gid)
                 self.presentPanModal(vc)
             case .groupInfo:
                 ()

@@ -35,19 +35,15 @@ extension AmongChat.GroupRoom {
                 tableView.reloadData()
             }
         }
-        private var uid = 0
-        private var isSelf = false
         
 //        override var screenName: Logger.Screen.Node.Start {
 //            return .followers
 //        }
-        
-        init(with uid: Int) {
+        private let groupId: String
+        init(with groupId: String) {
+            self.groupId = groupId
             super.init(nibName: nil, bundle: nil)
-            self.uid = uid
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
-            self.isSelf = uid == selfUid
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -93,10 +89,10 @@ extension AmongChat.GroupRoom {
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             
-                Request.followingList(uid: uid, skipMs: 0)
+            Request.membersOfGroup(groupId, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
-                        guard let `self` = self, let data = data else { return }
+                        guard let `self` = self else { return }
                         self.userList = data.list ?? []
                         if self.userList.isEmpty {
                             self.addNoDataView(R.string.localizable.errorNoFollowing())
@@ -114,9 +110,9 @@ extension AmongChat.GroupRoom {
         private func loadMore() {
             let skipMS = userList.last?.opTime ?? 0
             
-            Request.followingList(uid: uid, skipMs: skipMS)
+            Request.membersOfGroup(groupId, skipMs: skipMS)
                 .subscribe(onSuccess: { [weak self](data) in
-                    guard let data = data else { return }
+//                    guard let data = data else { return }
                     let list =  data.list ?? []
                     var origenList = self?.userList
                     list.forEach({ origenList?.append($0)})
@@ -139,7 +135,7 @@ extension AmongChat.GroupRoom.MembersController: UITableViewDataSource, UITableV
         
         let cell = tableView.dequeueReusableCell(withClass: MembersCell.self)
         if let user = userList.safe(indexPath.row) {
-//            cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
+            cell.configView(with: user, isFollowing: false, isSelf: false)
             cell.updateFollowData = { [weak self] (follow) in
                 guard let `self` = self else { return }
                 self.userList[indexPath.row].isFollowed = follow
@@ -223,6 +219,7 @@ extension AmongChat.GroupRoom.MembersController {
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.setTitle(R.string.localizable.channelUserListFollow(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .normal)
+            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
             btn.layer.masksToBounds = true
             btn.layer.cornerRadius = 16
             btn.layer.borderWidth = 2
@@ -257,22 +254,20 @@ extension AmongChat.GroupRoom.MembersController {
             backgroundColor = .clear
             
             contentView.addSubviews(views: userView, followBtn)
-            let buttonLayout = UILayoutGuide()
-            contentView.addLayoutGuide(buttonLayout)
-            buttonLayout.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.trailing.equalToSuperview().inset(20)
-                maker.height.equalTo(32)
-            }
+            
+            followBtn.setContentCompressionResistancePriority(.required, for: .horizontal)
             
             userView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().offset(20)
                 maker.top.bottom.equalToSuperview()
-                maker.trailing.equalTo(buttonLayout.snp.leading).offset(-20)
+                maker.trailing.lessThanOrEqualTo(followBtn.snp.leading).offset(-20)
             }
 
             followBtn.snp.makeConstraints { (maker) in
-                maker.edges.equalTo(buttonLayout)
+//                maker.edges.equalTo(buttonLayout)
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalToSuperview().inset(20)
+                maker.height.equalTo(32)
             }
             
             followBtn.rx.tap
@@ -292,22 +287,24 @@ extension AmongChat.GroupRoom.MembersController {
         func configView(with model: Entity.UserProfile, isFollowing: Bool, isSelf: Bool) {
             self.isStranger = false
             self.userInfo = model
-            if isSelf {
-                if isFollowing {
-                    followBtn.isHidden = true
-                } else {
-                    followBtn.isHidden = false
-                }
-            } else {
-                followBtn.isHidden = false
-                if !isFollowing {
-                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-                    if selfUid == model.uid {
-                        followBtn.isHidden = true
-                    }
-                }
+//            if isSelf {
+//                if isFollowing {
+//                    followBtn.isHidden = true
+//                } else {
+//                    followBtn.isHidden = false
+//                }
+//            } else {
+//                followBtn.isHidden = false
+//                if !isFollowing {
+//                    let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+//                    if selfUid == model.uid {
+//                        followBtn.isHidden = true
+//                    }
+//                }
+//            }
+            userView.bind(viewModel: model) {
+                
             }
-            
 //            avatarIV.setAvatarImage(with: model.pictureUrl)
 //            usernameLabel.attributedText = model.nameWithVerified()
             let isfollow = model.isFollowed ?? false
