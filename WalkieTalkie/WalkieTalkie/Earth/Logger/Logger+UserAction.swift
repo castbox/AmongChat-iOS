@@ -87,6 +87,7 @@ extension Logger {
             case profile_avatar_clk
             case profile_avatar_get
             case profile_avatar_get_success
+            case profile_avatar_get_ad_timeout
             case profile_nikename_clk
             case profile_birthday_clk
             case profile_birthday_update_success
@@ -223,6 +224,7 @@ extension Logger {
             case gameskill_add_state_done
             case profile_other_game_state_item_clk
             case profile_game_state_detail_edit_clk
+            case attracking_request_imp
         }
         
         enum Category: String {

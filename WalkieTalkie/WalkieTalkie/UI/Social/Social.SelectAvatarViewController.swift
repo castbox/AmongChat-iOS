@@ -313,6 +313,11 @@ extension Social.SelectAvatarViewController {
                     if let _ = error as? RxError {
                         self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()), backColor: UIColor(hex6: 0x2E2E2E))
                     } else {
+                        if let msgErroor = error as? MsgError,
+                           msgErroor.code == 400 {
+                            //广告加载超时
+                            Logger.Action.log(.profile_avatar_get_ad_timeout, category: .rewarded, "\(avatar.avatarId)")
+                        }
                         self?.view.raft.autoShow(.text(error.localizedDescription), backColor: UIColor(hex6: 0x2E2E2E))
                     }
                 })
