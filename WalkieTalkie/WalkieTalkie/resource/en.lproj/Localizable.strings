@@ -399,3 +399,7 @@
 "among.chat.group.cover.take.photo" = "Take Selfie";
 "among.chat.group.cover.select.image" = "Choose Image";
 "among.chat.group.add.members" = "Add Members";
+"among.chat.group.list.empty" = "Oops, no groups yet!";
+"among.chat.my.groups" = "My Groups";
+"among.chat.explore" = "Explore";
+"among.chat.group.get.verfied" = "Become verified and create new group";

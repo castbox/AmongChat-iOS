@@ -265,9 +265,7 @@ extension SettingViewController {
         guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
             return
         }
-        self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
-        Logger.Action.log(.home_friends_apply_verified)
-        
+        self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")        
     }
     
     private func generateDataSource(languages: [Language] = []) -> [Option] {
