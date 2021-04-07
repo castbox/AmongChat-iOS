@@ -1116,14 +1116,52 @@ extension Request {
             })
             .observeOn(MainScheduler.asyncInstance)
     }
-
-    static func apply(groupId: String) -> Single<Bool> {
-        return amongchatProvider.rx.request(.groupApply(["gid": groupId]))
+    
+    static func groupInfo(_ groupId: String) -> Single<Entity.GroupInfo> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId
+        ]
+        
+        return amongchatProvider.rx.request(.groupInfo(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.GroupInfo.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func leaveGroup(_ groupId: String) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId
+        ]
+        
+        return amongchatProvider.rx.request(.leaveGroup(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func applyToJoinGroup(_ groupId: String) -> Single<Bool> {
         
+        let params: [String : Any] = [
+            "gid" : groupId
+        ]
+        
+        return amongchatProvider.rx.request(.applyToJoinGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func update(_ group: Entity.GroupRoom) -> Single<Entity.GroupRoom?> {

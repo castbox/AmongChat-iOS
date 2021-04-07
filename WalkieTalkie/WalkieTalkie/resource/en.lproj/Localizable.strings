@@ -430,3 +430,10 @@
 "among.chat.my.groups" = "My Groups";
 "among.chat.explore" = "Explore";
 "among.chat.group.get.verfied" = "Become verified and create new group";
+"among.chat.group.info" = "Group Info";
+"among.chat.group.apply.to.join" = "Apply to join";
+"among.chat.group.admin" = "Admin";
+"among.chat.group.members" = "Members";
+"among.chat.group.add.members" = "Add members";
+"among.chat.group.leave.group" = "Leave group";
+"among.chat.group.info.expand" = "…More";
