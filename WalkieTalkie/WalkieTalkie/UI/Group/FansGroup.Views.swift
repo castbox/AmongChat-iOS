@@ -856,3 +856,63 @@ extension FansGroup.Views {
     }
     
 }
+
+
+extension FansGroup.Views {
+    class BottomGradientButton: UIView {
+        private lazy var button: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.layer.cornerRadius = 24
+            btn.setTitle(R.string.localizable.amongChatCreateNewGroup(), for: .normal)
+            btn.setTitleColor(.black, for: .normal)
+            btn.backgroundColor = UIColor(hexString: "#FFF000")
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.addTarget(self, action: #selector(buttonAction), for: .primaryActionTriggered)
+            return btn
+        }()
+        
+        private lazy var bottomGradientView: GradientView = {
+            let v = Social.ChooseGame.bottomGradientView()
+            v.addSubviews(views: button)
+            button.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.bottom.equalTo(-10 - Frame.Height.safeAeraBottomHeight)
+                maker.height.equalTo(48)
+                maker.leading.equalTo(20)
+            }
+            return v
+        }()
+        
+        var actionHandler: CallBack?
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            configureSubview()
+            bindSubviewEvent()
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func setTitle(_ title: String?, for state: UIControl.State) {
+            button.setTitle(title, for: state)
+        }
+        
+        private func bindSubviewEvent() {
+            
+        }
+        
+        @objc func buttonAction() {
+            actionHandler?()
+        }
+        
+        private func configureSubview() {
+            addSubviews(views: bottomGradientView)
+            
+            bottomGradientView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+        }
+    }
+}
