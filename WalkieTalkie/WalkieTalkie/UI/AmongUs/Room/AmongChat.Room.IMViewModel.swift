@@ -77,7 +77,7 @@ extension AmongChat.Room.IMViewModel {
         guard let string = message.asString else {
             return
         }
-        imManager.sendChannelMessage(string)
+        imManager.send(channelMessage: string)
             .catchErrorJustReturn(false)
 //            .filter { _ -> Bool in
 //                return message.msgType == .text
