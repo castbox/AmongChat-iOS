@@ -74,7 +74,7 @@ extension AmongChat.GroupRoom {
                 case .robloxSetup:
                     self.view.bringSubviewToFront(inputNotesView)
                     inputNotesView.notes = room.robloxLink
-                    inputNotesView.placeHolder = R.string.localizable.roomSetupHostNotes()
+                    inputNotesView.placeHolder = R.string.localizable.groupRoomSetUpLink()
                     inputNotesView.isLinkContent = true
                     inputNotesView.show(with: room)
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
@@ -134,32 +134,12 @@ extension AmongChat.GroupRoom {
         
         private var tipView: EasyTipView?
         
+        private var applyButton: FansGroup.Views.BottomGradientButton!
+        
         override var screenName: Logger.Screen.Node.Start {
             return .room
         }
-        
-//        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
-//            controller.checkMicroPermission { [weak controller] in
-//                guard let controller = controller else {
-//                    return
-//                }
-//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-//                //show loading
-//                let viewModel = ViewModel(room: room, source: logSource)
-//                self.show(from: controller, with: viewModel)
-//                completionHandler?(nil)
-//            }
-//        }
-        
-//        static func show(from controller: UIViewController, with viewModel: ViewModel) {
-//            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
-//            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-//                guard let ancient = controller,
-//                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
-//                ancient.navigationController?.viewControllers.removeAll(ancient)
-//            })
-//        }
-                
+                        
         init(viewModel: ViewModel) {
             self.room = viewModel.roomReplay.value as! Entity.GroupRoom
             self.viewModel = viewModel
@@ -261,28 +241,6 @@ extension AmongChat.GroupRoom.ViewController {
     
     // MARK: -
     
-//    @objc func showShareTipView() {
-//        var preferences = EasyTipView.Preferences()
-//        preferences.drawing.font = UIFont.systemFont(ofSize: 14)
-//        preferences.drawing.foregroundColor = .black
-//        preferences.drawing.backgroundColor = .white
-//        preferences.drawing.arrowPosition = .bottom
-//
-//        tipView = EasyTipView(text: "Share your livecast to the people that you want to invite",
-//                              preferences: preferences,
-//                              delegate: self)
-//        tipView?.tag = 0
-//        tipView?.show(animated: true, forView: moreButton, withinSuperview: view)
-//        Observable<Int>
-//            .interval(.seconds(5), scheduler: MainScheduler.instance)
-//            .single()
-//            .subscribe(onNext: { [weak welf = self] _ in
-//                guard let `self` = welf else { return }
-//                self.dismissTipView()
-//            })
-//            .disposed(by: self.bag)
-//    }
-    
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
@@ -307,9 +265,12 @@ extension AmongChat.GroupRoom.ViewController {
         topEntranceView = AmongChat.Room.TopEntranceView()
         topEntranceView.isUserInteractionEnabled = false
         
+        applyButton = FansGroup.Views.BottomGradientButton()
+        applyButton.isHidden = true
+//        applyButton.setTitle(<#T##title: String?##String?#>, for: <#T##UIControl.State#>)
         view.addSubviews(views: bgView, messageView, hostView, seatView, messageInputContainerView, amongInputCodeView, topBar,
 //                         toolView,
-                         bottomBar, nickNameInputView, inputNotesView, topEntranceView)
+                         bottomBar, applyButton, nickNameInputView, inputNotesView, topEntranceView)
         
         topBar.snp.makeConstraints { maker in
             maker.left.top.right.equalToSuperview()
@@ -374,6 +335,12 @@ extension AmongChat.GroupRoom.ViewController {
             maker.top.equalTo(26 + Frame.Height.safeAeraTopHeight)
             maker.height.equalTo(44)
         }
+        
+        applyButton.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.height.equalTo(100 + Frame.Height.safeAeraBottomHeight)
+        }
 
     }
     
@@ -404,7 +371,7 @@ extension AmongChat.GroupRoom.ViewController {
                     self.nickNameInputView.snp.updateConstraints { (maker) in
                         maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
-                case .chillingSetup:
+                case .chillingSetup, .robloxSetup:
                     self.inputNotesView.snp.updateConstraints { (maker) in
                         maker.bottom.equalToSuperview().offset(-keyboardVisibleHeight)
                     }
@@ -574,28 +541,9 @@ extension AmongChat.GroupRoom.ViewController {
             }
         }
         
-//
-//        topBar.kickOffHandler = { [weak self] in
-//            Logger.Action.log(.admin_kick_imp, categoryValue: self?.room.topicId)
-//            self?.style = .kick
-//        }
-        
         topBar.reportHandler = { [weak self] in
             self?.showReportSheet()
         }
-        
-//        topBar.nextRoomHandler = { [weak self] in
-//            self?.nextRoom()
-//        }
-        
-//        topBar.changePublicStateHandler = { [weak self] in
-//            guard let `self` = self else { return }
-//            self.topBar.isIndicatorAnimate = true
-//            self.viewModel.changePublicType { [weak self] in
-//                self?.topBar.isIndicatorAnimate = false
-//            }
-//            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
-//        }
         
         hostView.actionHandler = { [weak self] type in
             guard let `self` = self else { return }
@@ -603,10 +551,11 @@ extension AmongChat.GroupRoom.ViewController {
             case .editNickName:
                 self.editType = .nickName
             case .joinGroup:
-                let vc = AmongChat.GroupRoom.RequestListController(with: self.room.gid, type: .groupJoin)
+                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.room.gid, type: .groupJoin)
                 self.presentPanModal(vc)
             case .joinHost:
-                let vc = AmongChat.GroupRoom.RequestListController(with: self.room.gid, type: .hostJoin)
+                //data source
+                let vc = AmongChat.GroupRoom.HostRequestListController(with: self.room.gid, type: .hostJoin)
                 self.presentPanModal(vc)
             }
         }
@@ -680,6 +629,10 @@ extension AmongChat.GroupRoom.ViewController {
                 self?.onShareBtn()
                 return
             }
+        }
+        
+        applyButton.actionHandler = { [weak self] in
+            
         }
     }
     

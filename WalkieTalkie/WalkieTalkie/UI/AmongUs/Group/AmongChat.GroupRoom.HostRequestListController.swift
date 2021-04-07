@@ -1,8 +1,8 @@
 //
-//  AmongChat.GroupRoom.RequestListController.swift
+//  AmongChat.GroupRoom.HostRequestListController.swift
 //  WalkieTalkie
 //
-//  Created by 袁仕崇 on 01/04/21.
+//  Created by 袁仕崇 on 07/04/21.
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
@@ -13,7 +13,7 @@ import SwiftyUserDefaults
 import HWPanModal
 
 extension AmongChat.GroupRoom {
-    class RequestListController: WalkieTalkie.ViewController {
+    class HostRequestListController: WalkieTalkie.ViewController {
         enum ListType {
             case groupJoin
             case hostJoin
@@ -128,7 +128,7 @@ extension AmongChat.GroupRoom {
     }
 }
 // MARK: - UITableView
-extension AmongChat.GroupRoom.RequestListController: UITableViewDataSource, UITableViewDelegate {
+extension AmongChat.GroupRoom.HostRequestListController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userList.count
@@ -203,7 +203,7 @@ extension AmongChat.GroupRoom.RequestListController: UITableViewDataSource, UITa
     }
 }
 
-extension AmongChat.GroupRoom.RequestListController {
+extension AmongChat.GroupRoom.HostRequestListController {
     
     class MembersCell: TableViewCell {
         
@@ -403,7 +403,7 @@ extension AmongChat.GroupRoom.RequestListController {
     }
 }
 
-extension AmongChat.GroupRoom.RequestListController {
+extension AmongChat.GroupRoom.HostRequestListController {
     
     override func longFormHeight() -> PanModalHeight {
         return PanModalHeight(type: .topInset, height: 0)
@@ -426,9 +426,10 @@ extension AmongChat.GroupRoom.RequestListController {
     }
     
     override func showDragIndicator() -> Bool {
-        return false
+        return true
     }
     
 }
+
 
 

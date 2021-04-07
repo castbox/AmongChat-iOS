@@ -159,7 +159,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
             case .roblox:
                 actionHandler?(.setupLink)
             default:
-                actionHandler?(.setupLink)
+                actionHandler?(.setupNotes)
             }
         }
     }

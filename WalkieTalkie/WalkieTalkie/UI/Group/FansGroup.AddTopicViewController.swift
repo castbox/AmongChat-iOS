@@ -52,6 +52,7 @@ extension FansGroup {
                 let lb = UILabel()
                 lb.font = R.font.nunitoExtraBold(size: 24)
                 lb.textColor = UIColor.white
+                lb.text = R.string.localizable.amongChatAddTopic()
                 return lb
             }()
             

@@ -95,6 +95,10 @@ extension AmongChat.GroupRoom {
 //                .disposed(by: bag)
         }
         
+        override func roomBgUrl() -> URL? {
+            return group.bgUrl?.url
+        }
+        
         func updateAmong(code: String, aera: Entity.AmongUsZone) {
             var room = group
             room.amongUsCode = code

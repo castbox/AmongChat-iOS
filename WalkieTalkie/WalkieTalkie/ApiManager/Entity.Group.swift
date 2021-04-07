@@ -112,6 +112,7 @@ extension Entity {
         var topicId, topicName: String
         //topic cover url
         let coverURL: String
+        let bgUrl: String?
         let rtcType: Entity.Room.RtcType?
         let rtcBitRate: Int?
         var userList: [Entity.RoomUser]
@@ -183,6 +184,7 @@ extension Entity {
             case description = "description"
             case status, createTime, rtcType, topicName
             case coverURL = "coverUrl"
+            case bgUrl
             case broadcaster, membersCount
 //            case liveID = "liveId"
             case userList, playerCount
