@@ -13,7 +13,9 @@ import MessageUI
 
 extension FansGroup {
     
-    class AddMemberController: WalkieTalkie.ViewController {
+    class AddMemberController: WalkieTalkie.ViewController, GestureBackable {
+        
+        var isEnableScreenEdgeGesture: Bool = false
         
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
@@ -156,8 +158,6 @@ extension FansGroup {
 extension FansGroup.AddMemberController {
     
     private func setUpLayout() {
-        
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         
         view.addSubviews(views: navView, shareView, tableView, bottomGradientView)
         
