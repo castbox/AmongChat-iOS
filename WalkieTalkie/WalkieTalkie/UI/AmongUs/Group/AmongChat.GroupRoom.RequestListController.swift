@@ -14,13 +14,13 @@ import HWPanModal
 
 extension AmongChat.GroupRoom {
     class RequestListController: WalkieTalkie.ViewController {
-        enum Style {
+        enum ListType {
             case groupJoin
             case hostJoin
         }
         
-        private lazy var titleView: HeaderView = {
-            let v = HeaderView()
+        private lazy var titleView: AmongChat.GroupRoom.MembersController.HeaderView = {
+            let v = AmongChat.GroupRoom.MembersController.HeaderView()
             v.title = R.string.localizable.groupRoomMembersTitle()
             return v
         }()
@@ -41,15 +41,15 @@ extension AmongChat.GroupRoom {
                 tableView.reloadData()
             }
         }
-        private var uid = 0
+        private let gid: String
         private var isSelf = false
         
-        init(with uid: Int) {
+        init(with gid: String, type: ListType) {
+            self.gid = gid
             super.init(nibName: nil, bundle: nil)
-            self.uid = uid
-            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
-            self.isSelf = uid == selfUid
+//            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
+//            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
+//            self.isSelf = uid == selfUid
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -64,17 +64,14 @@ extension AmongChat.GroupRoom {
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor.theme(.backgroundBlack)
-            
-            
-            //            Logger.Action.log(.profile_following_imp, category: nil)
+            view.backgroundColor = "222222".color()
             
             view.addSubviews(views: titleView)
             
             titleView.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview()
+                maker.top.leading.trailing.equalToSuperview()
                 maker.height.equalTo(65.5)
-                maker.top.equalTo(topLayoutGuide.snp.bottom)
+//                maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
             view.addSubview(tableView)
@@ -95,10 +92,10 @@ extension AmongChat.GroupRoom {
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             
-            Request.followingList(uid: uid, skipMs: 0)
+            Request.appliedUsersOfGroup(gid, skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
-                    guard let `self` = self, let data = data else { return }
+                    guard let `self` = self else { return }
                     self.userList = data.list ?? []
                     if self.userList.isEmpty {
                         self.addNoDataView(R.string.localizable.errorNoFollowing())
@@ -116,9 +113,9 @@ extension AmongChat.GroupRoom {
         private func loadMore() {
             let skipMS = userList.last?.opTime ?? 0
             
-            Request.followingList(uid: uid, skipMs: skipMS)
+            Request.appliedUsersOfGroup(gid, skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
-                    guard let data = data else { return }
+//                    guard let data = data else { return }
                     let list =  data.list ?? []
                     var origenList = self?.userList
                     list.forEach({ origenList?.append($0)})
@@ -141,18 +138,18 @@ extension AmongChat.GroupRoom.RequestListController: UITableViewDataSource, UITa
         
         let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
         if let user = userList.safe(indexPath.row) {
-            //            cell.configView(with: user, isFollowing: isFollowing, isSelf: isSelf)
-            //            cell.updateFollowData = { [weak self] (follow) in
-            //                guard let `self` = self else { return }
-            //                self.userList[indexPath.row].isFollowed = follow
-            //                self.addLogForFollow(with: self.userList[indexPath.row].uid)
-            //            }
+            cell.profile = user
+//            cell.updateFollowData = { [weak self] (follow) in
+//                guard let `self` = self else { return }
+//                self.userList[indexPath.row].isFollowed = follow
+//                self.addLogForFollow(with: self.userList[indexPath.row].uid)
+//            }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 124
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -402,50 +399,6 @@ extension AmongChat.GroupRoom.RequestListController {
                         cdPrint("invite user error:\(error.localizedDescription)")
                     }).disposed(by: bag)
             }
-        }
-    }
-}
-
-
-extension AmongChat.GroupRoom.RequestListController {
-    
-    private class HeaderView: UIView {
-        
-        private lazy var titleLabel: WalkieLabel = {
-            let lb = WalkieLabel()
-            lb.textAlignment = .center
-            lb.font = R.font.nunitoExtraBold(size: 16)
-            lb.textColor = .white
-            return lb
-        }()
-        
-        var title: String? {
-            set { titleLabel.text = newValue }
-            get { titleLabel.text }
-        }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            
-            addSubview(titleLabel)
-            titleLabel.snp.makeConstraints { (make) in
-                make.bottom.equalTo(16)
-                make.centerX.equalToSuperview()
-            }
-            
-            
-            let lineView = UIView()
-            lineView.backgroundColor = UIColor.white.alpha(0.08)
-            addSubviews(views: lineView)
-            
-            lineView.snp.makeConstraints { maker in
-                maker.left.right.bottom.equalToSuperview()
-                maker.height.equalTo(1)
-            }
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
         }
     }
 }

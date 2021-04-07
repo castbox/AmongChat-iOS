@@ -43,7 +43,6 @@ extension AmongChat.GroupRoom {
         init(with groupId: String) {
             self.groupId = groupId
             super.init(nibName: nil, bundle: nil)
-            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -58,7 +57,8 @@ extension AmongChat.GroupRoom {
         
         private func setupLayout() {
             isNavigationBarHiddenWhenAppear = true
-            view.backgroundColor = UIColor.theme(.backgroundBlack)
+//            view.backgroundColor = UIColor.theme(.backgroundBlack)
+            view.backgroundColor = "222222".color()
             
             
 //            Logger.Action.log(.profile_following_imp, category: nil)
@@ -404,7 +404,7 @@ extension AmongChat.GroupRoom.MembersController {
 
 extension AmongChat.GroupRoom.MembersController {
     
-    private class HeaderView: UIView {
+    class HeaderView: UIView {
         
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()

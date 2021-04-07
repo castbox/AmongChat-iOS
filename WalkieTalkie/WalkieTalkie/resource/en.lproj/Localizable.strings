@@ -380,6 +380,12 @@
 "group.owner" = "Owner";
 "group.room.join.request" = "Join Requests";
 "group.room.host.request" = "Raised Hands";
+"group.room.raised.hands.title" = "%@ Raised Hands";
+"group.room.join.request.title" = "%@ Join Requests";
+"group.room.set.up.code" = "Set up code";
+"group.room.set.up.notes" = "Set up notes";
+"group.room.set.up.link" = "Set up Link";
+"group.room.host.notes" = "Hosts's notes:";
 
 
 //1.17

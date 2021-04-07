@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Bold.ttf">
+            <string>Nunito-Bold</string>
+        </array>
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongGroupRoomTipsView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="editButton" destination="pQd-SA-XdH" id="YC9-HI-FmK"/>
+                <outlet property="introLabel" destination="Cfp-N2-5Kc" id="0pP-GV-Hj1"/>
+                <outlet property="titleLabel" destination="Ua9-h9-iGh" id="5Bg-Q6-ERV"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ua9-h9-iGh">
+                    <rect key="frame" x="16" y="13" width="42" height="22"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label Label Label Label Label Label Label Label Label Label Label Label Label Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cfp-N2-5Kc">
+                    <rect key="frame" x="16" y="39" width="362" height="45"/>
+                    <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pQd-SA-XdH">
+                    <rect key="frame" x="348" y="4" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Yts-fj-Nsy"/>
+                        <constraint firstAttribute="height" constant="40" id="yVg-FT-WU6"/>
+                    </constraints>
+                    <state key="normal" image="ac_group_room_tip_edit"/>
+                    <connections>
+                        <action selector="editButtonAction:" destination="-1" eventType="touchUpInside" id="JsD-aO-lhu"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Cfp-N2-5Kc" firstAttribute="top" secondItem="Ua9-h9-iGh" secondAttribute="bottom" constant="4" id="4nj-qc-UiV"/>
+                <constraint firstAttribute="trailing" secondItem="pQd-SA-XdH" secondAttribute="trailing" constant="6" id="M8t-Bh-axg"/>
+                <constraint firstAttribute="trailing" secondItem="Cfp-N2-5Kc" secondAttribute="trailing" constant="16" id="b6i-Ux-AVe"/>
+                <constraint firstItem="Ua9-h9-iGh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="cJf-to-hi2"/>
+                <constraint firstItem="Ua9-h9-iGh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="h2k-TC-j8k"/>
+                <constraint firstAttribute="bottom" secondItem="Cfp-N2-5Kc" secondAttribute="bottom" constant="16" id="pVR-iR-Bkb"/>
+                <constraint firstItem="Cfp-N2-5Kc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="wCC-DK-OgW"/>
+                <constraint firstItem="pQd-SA-XdH" firstAttribute="centerY" secondItem="Ua9-h9-iGh" secondAttribute="centerY" id="wZ0-8J-tBd"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="14.492753623188406" y="-109.15178571428571"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ac_group_room_tip_edit" width="20" height="20"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

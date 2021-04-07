@@ -22,6 +22,9 @@
                 <outlet property="amongUsContainer" destination="rxn-lv-7ck" id="JI3-i7-a8w"/>
                 <outlet property="codeLabel" destination="Llb-Ev-uJf" id="chD-hw-7JM"/>
                 <outlet property="notesButton" destination="jIy-8v-dhh" id="iff-Up-SoN"/>
+                <outlet property="robloxContainer" destination="14b-Uq-Mqg" id="H3e-JU-JA8"/>
+                <outlet property="robloxLinkButton" destination="ReU-bS-7Fz" id="RaP-MY-e9x"/>
+                <outlet property="robloxLinkEditButton" destination="ZRh-fx-Jod" id="EgW-SR-iWv"/>
                 <outlet property="serviceLocationButton" destination="bDc-E0-7Ma" id="Nmu-p0-T6s"/>
                 <outlet property="setupButton" destination="ZkS-bx-s7a" id="gYw-sQ-Rqw"/>
             </connections>
@@ -37,6 +40,9 @@
                         <constraint firstAttribute="width" constant="44" id="Hpy-B7-Uwz"/>
                     </constraints>
                     <state key="normal" image="ac_group_room_note"/>
+                    <connections>
+                        <action selector="notesButtonAction:" destination="-1" eventType="touchUpInside" id="1Vg-NK-MKs"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkS-bx-s7a">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
@@ -60,6 +66,53 @@
                         <action selector="setupButtonAction:" destination="-1" eventType="touchUpInside" id="osB-ya-Z2R"/>
                     </connections>
                 </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14b-Uq-Mqg">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                    <subviews>
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReU-bS-7Fz">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="robloxCopyAction:" destination="-1" eventType="touchUpInside" id="AKM-eN-iYE"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-fx-Jod">
+                            <rect key="frame" x="382" y="0.0" width="32" height="32"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" image="ac_group_room_copy">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="robloxCopyAction:" destination="-1" eventType="touchUpInside" id="1UG-iv-bpR"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="ReU-bS-7Fz" firstAttribute="leading" secondItem="14b-Uq-Mqg" secondAttribute="leading" id="Af5-zE-Bb5"/>
+                        <constraint firstAttribute="bottom" secondItem="ZRh-fx-Jod" secondAttribute="bottom" id="DdU-7O-sM4"/>
+                        <constraint firstAttribute="bottom" secondItem="ReU-bS-7Fz" secondAttribute="bottom" id="Zfa-o7-0LY"/>
+                        <constraint firstAttribute="trailing" secondItem="ZRh-fx-Jod" secondAttribute="trailing" id="cEf-kQ-gS9"/>
+                        <constraint firstItem="ZRh-fx-Jod" firstAttribute="top" secondItem="14b-Uq-Mqg" secondAttribute="top" id="s87-gx-ihy"/>
+                        <constraint firstItem="ZRh-fx-Jod" firstAttribute="leading" secondItem="ReU-bS-7Fz" secondAttribute="trailing" id="vao-r9-4AH"/>
+                        <constraint firstItem="ReU-bS-7Fz" firstAttribute="top" secondItem="14b-Uq-Mqg" secondAttribute="top" id="xJd-1A-ef8"/>
+                    </constraints>
+                </view>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxn-lv-7ck">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                     <subviews>
@@ -109,6 +162,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="ZkS-bx-s7a" secondAttribute="trailing" id="5Z1-0W-Gog"/>
                 <constraint firstItem="rxn-lv-7ck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DPZ-gu-ahK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="14b-Uq-Mqg" secondAttribute="bottom" id="EZc-sv-WYZ"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rxn-lv-7ck" secondAttribute="trailing" id="Fqe-bf-1qu"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jIy-8v-dhh" secondAttribute="bottom" id="MdN-KC-cRy"/>
                 <constraint firstItem="ZkS-bx-s7a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Vfk-No-7Ta"/>
@@ -117,13 +171,17 @@
                 <constraint firstItem="jIy-8v-dhh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cwD-3a-C36"/>
                 <constraint firstAttribute="bottom" secondItem="rxn-lv-7ck" secondAttribute="bottom" id="dQn-Ip-94b"/>
                 <constraint firstItem="ZkS-bx-s7a" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gyt-GM-ict"/>
+                <constraint firstItem="14b-Uq-Mqg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jvU-Xw-zdZ"/>
+                <constraint firstItem="14b-Uq-Mqg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kQ9-4L-f2W"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ZkS-bx-s7a" secondAttribute="bottom" id="qz1-hL-TXU"/>
+                <constraint firstAttribute="trailing" secondItem="14b-Uq-Mqg" secondAttribute="trailing" id="v4H-Y8-cdW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="139" y="-8"/>
         </view>
     </objects>
     <resources>
+        <image name="ac_group_room_copy" width="20" height="20"/>
         <image name="ac_group_room_note" width="24" height="24"/>
     </resources>
 </document>

@@ -66,7 +66,16 @@ extension AmongChat.GroupRoom {
                     Logger.Action.log(.room_edit_nickname, categoryValue: room.topicId)
                 case .chillingSetup:
                     self.view.bringSubviewToFront(inputNotesView)
+                    inputNotesView.placeHolder = R.string.localizable.roomSetupHostNotes()
                     inputNotesView.notes = room.note
+                    inputNotesView.isLinkContent = false
+                    inputNotesView.show(with: room)
+                    Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
+                case .robloxSetup:
+                    self.view.bringSubviewToFront(inputNotesView)
+                    inputNotesView.notes = room.robloxLink
+                    inputNotesView.placeHolder = R.string.localizable.roomSetupHostNotes()
+                    inputNotesView.isLinkContent = true
                     inputNotesView.show(with: room)
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 default:
@@ -555,9 +564,15 @@ extension AmongChat.GroupRoom.ViewController {
             case .groupInfo:
                 ()
             case .setupCode:
-                ()
+                self.editType = .amongSetup
+            case .setupLink:
+                self.editType = .robloxSetup
+            case .setupNotes:
+                self.editType = .chillingSetup
+            
             }
         }
+        
 //
 //        topBar.kickOffHandler = { [weak self] in
 //            Logger.Action.log(.admin_kick_imp, categoryValue: self?.room.topicId)
@@ -580,6 +595,20 @@ extension AmongChat.GroupRoom.ViewController {
 //            }
 //            Logger.Action.log(.admin_change_state, categoryValue: self.room.state.rawValue)
 //        }
+        
+        hostView.actionHandler = { [weak self] type in
+            guard let `self` = self else { return }
+            switch type {
+            case .editNickName:
+                self.editType = .nickName
+            case .joinGroup:
+                let vc = AmongChat.GroupRoom.RequestListController(with: self.room.gid, type: .groupJoin)
+                self.presentPanModal(vc)
+            case .joinHost:
+                let vc = AmongChat.GroupRoom.RequestListController(with: self.room.gid, type: .hostJoin)
+                self.presentPanModal(vc)
+            }
+        }
         
         bottomBar.sendMessageHandler = { [weak self] in
             self?.editType = .message

@@ -235,6 +235,7 @@
 		FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */; };
 		FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */; };
 		FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */; };
+		FE80677D261C90C900207992 /* AmongGroupRoomTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
 		FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80A58325AD96BB009914A7 /* Search.ViewController.swift */; };
@@ -624,6 +625,7 @@
 		FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-bluegreen.svga"; sourceTree = "<group>"; };
 		FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-purple.svga"; sourceTree = "<group>"; };
 		FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-yellow.svga"; sourceTree = "<group>"; };
+		FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupRoomTipsView.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FE80A58325AD96BB009914A7 /* Search.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.ViewController.swift; sourceTree = "<group>"; };
@@ -1420,6 +1422,7 @@
 				FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */,
 				FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */,
 				FED38C8D26132984003C3F7D /* AmongGroupTopicConfigView.xib */,
+				FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */,
 				FE169E2326134A1500AD7866 /* AmongGroupHostView.swift */,
 				FE169E2726134A2000AD7866 /* AmongGroupHostView.xib */,
 				FE169E31261351C400AD7866 /* AmongGroupJoinRequestCell.swift */,
@@ -1917,6 +1920,7 @@
 				FE126D4B243481FF00BEDD60 /* Constants.swift in Sources */,
 				2BAB4F832595E25600A1C8DC /* Social.ShareRoomViewController.swift in Sources */,
 				BDFCA5732595E239000ABB39 /* AmongChat.Home+RelationsViews.swift in Sources */,
+				FE80677D261C90C900207992 /* AmongGroupRoomTipsView.swift in Sources */,
 				BD4DEE142507A2E5006476E0 /* Social.Widgets.AvatarView.swift in Sources */,
 				FE860D472446D1D700087B73 /* Theme.Palette.swift in Sources */,
 				FE7218712456D900005274CA /* FireMessaging.swift in Sources */,

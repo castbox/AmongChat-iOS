@@ -7,14 +7,32 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class AmongInputNotesView: XibLoadableView {
 
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var inputContainerView: UIView!
     @IBOutlet weak var hostNotesPlaceholderLabel: UILabel!
+    @IBOutlet weak var doneButton: UIButton!
+    
+    private let bag = DisposeBag()
     
     var inputResultHandler: ((String) -> Void)?
+    
+    var isLinkContent: Bool = false {
+        didSet {
+            doneButton.isEnabled = !isLinkContent
+//            textView.send
+        }
+    }
+    
+    var placeHolder: String? {
+        didSet {
+            hostNotesPlaceholderLabel.text = placeHolder
+        }
+    }
     var notes: String? {
         didSet {
             textView.text = notes
@@ -32,7 +50,13 @@ class AmongInputNotesView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
-        
+        textView.rx.text
+            .filter { [weak self] _ -> Bool in
+                return self?.isLinkContent == true
+            }
+            .map { $0?.isValidUrl ?? false }
+            .bind(to: doneButton.rx.isEnabled)
+            .disposed(by: bag)
     }
     
     private func configureSubview() {
@@ -63,6 +87,7 @@ class AmongInputNotesView: XibLoadableView {
             _ = textView.resignFirstResponder()
             return
         }
+        
         if let text = SensitiveWordChecker.firstSensitiveWord(in: name) {
             //show
             textView?.attributedText = redAttributesString(text: name, redText: text)

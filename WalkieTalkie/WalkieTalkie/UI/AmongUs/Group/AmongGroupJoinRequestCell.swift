@@ -9,6 +9,11 @@
 import UIKit
 
 class AmongGroupJoinRequestCell: UITableViewCell {
+    enum Action {
+        case accept
+        case reject
+    }
+    
     private lazy var userView: AmongChat.Home.UserView = {
         let v = AmongChat.Home.UserView()
         return v
@@ -16,6 +21,19 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
+    
+    var actionHandler: ((Action) -> Void)?
+    
+    var profile: Entity.UserProfile? {
+        didSet {
+            guard let profile = profile else {
+                return
+            }
+            userView.bind(viewModel: profile) {
+                
+            }
+        }
+    }
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -26,7 +44,9 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        configureSubview()
+        bindSubviewEvent()
     }
     
     override func awakeFromNib() {
@@ -40,26 +60,20 @@ class AmongGroupJoinRequestCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
     func bindSubviewEvent() {
         
     }
     
     func configureSubview() {
-        contentView.backgroundColor = .clear
+//        contentView.backgroundColor = .clear
         
         contentView.addSubviews(views: userView)
-        
-//        let buttonLayout = UILayoutGuide()
-//        contentView.addLayoutGuide(buttonLayout)
-//        buttonLayout.snp.makeConstraints { (maker) in
-//            maker.centerY.equalToSuperview()
-//            maker.trailing.equalToSuperview().inset(20)
-//            maker.height.equalTo(32)
-//        }
-        
+
         userView.snp.makeConstraints { (maker) in
             maker.leading.top.equalToSuperview().offset(20)
             maker.trailing.equalTo(-20)
+            maker.height.equalTo(40)
         }
     }
     

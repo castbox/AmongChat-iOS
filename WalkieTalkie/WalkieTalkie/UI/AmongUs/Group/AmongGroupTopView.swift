@@ -18,6 +18,8 @@ class AmongGroupTopView: XibLoadableView {
         case leave
         case topic
         case setupCode
+        case setupLink
+        case setupNotes
     }
     
     @IBOutlet weak var coverView: UIImageView!
@@ -83,7 +85,16 @@ class AmongGroupTopView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
-        
+        configView.actionHandler = { [weak self] action in
+            switch action {
+            case .setupCode:
+                self?.actionHandler?(.setupCode)
+            case .setupLink:
+                self?.actionHandler?(.setupLink)
+            case .setupNotes:
+                self?.actionHandler?(.setupNotes)
+            }
+        }
     }
         
     private func updateSubview() {
@@ -95,57 +106,6 @@ class AmongGroupTopView: XibLoadableView {
         //first
         userCountLabel.text = group.playerCount?.string
         configView.group = group
-        
-//        switch room.topicType {
-//        case .amongus:
-//            justChillingInfoView.isHidden = true
-//            infoWithNicknameView.isHidden = true
-//            amongSetupView.isHidden = room.isValidAmongConfig
-//            amongInfoView.isHidden = !room.isValidAmongConfig
-//            amongInfoView.room = room
-////            amongSetupView.isUserInteractionEnabled = room.loginUserIsAdmin
-////            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
-//        case .chilling:
-//            justChillingInfoView.isHidden = false
-//            amongSetupView.isHidden = true
-//            amongInfoView.isHidden = true
-//            infoWithNicknameView.isHidden = true
-//            justChillingInfoView.room = room
-//
-//        case .roblox,
-//             .fortnite,
-//             .freefire,
-//             .minecraft,
-//             .mobilelegends,
-//             .pubgmobile,
-//             .animalCrossing,
-//             .brawlStars,
-//             .callofduty:
-//
-//            justChillingInfoView.isHidden = true
-//            amongSetupView.isHidden = true
-//            amongInfoView.isHidden = true
-//            infoWithNicknameView.isHidden = false
-//            infoWithNicknameView.room = room
-//
-//        default:
-//            justChillingInfoView.isHidden = false
-//            amongSetupView.isHidden = true
-//            amongInfoView.isHidden = true
-//            justChillingInfoView.room = room
-////            justChillingInfoView.isUserInteractionEnabled = room.loginUserIsAdmin
-//        }
-        
-//        if room.topicType.productId > 0 {
-//            openGameButton.isHidden = false
-//            nameLabel.isHidden = true
-//            gameIconTop.constant = 14.5
-//        } else {
-//            openGameButton.isHidden = true
-//            nameLabel.isHidden = false
-//            nameLabel.text = room.topicName
-//            gameIconTop.constant = 18.5
-//        }
     }
     
     private func configureSubview() {

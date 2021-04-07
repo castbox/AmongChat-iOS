@@ -118,6 +118,8 @@ extension Entity {
         var amongUsCode: String?
         var amongUsZone: AmongUsZone?
         var note: String?
+        var robloxLink: String?
+//        var link
         
         
 //        var userListMap: [Int: RoomUser] {
@@ -190,6 +192,7 @@ extension Entity {
             case amongUsCode
             case amongUsZone
             case note
+            case robloxLink = "roblox_link"
         }
     }
 
