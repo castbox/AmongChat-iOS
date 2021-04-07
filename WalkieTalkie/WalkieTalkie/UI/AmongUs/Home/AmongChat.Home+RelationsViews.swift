@@ -15,22 +15,30 @@ extension AmongChat.Home {
     
     class UserView: UIView {
         
+        private let bag = DisposeBag()
+        
         private lazy var avatarIV: AvatarImageView = {
             let iv = AvatarImageView()
             iv.layer.cornerRadius = 20
             iv.layer.masksToBounds = true
+            iv.isUserInteractionEnabled = true
+            iv.addGestureRecognizer(avatarTap)
             return iv
         }()
         
         private lazy var avatarTap: UITapGestureRecognizer = {
             let g = UITapGestureRecognizer()
-            avatarIV.isUserInteractionEnabled = true
-            avatarIV.addGestureRecognizer(g)
+            g.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.avatarTapHandler?()
+                })
+                .disposed(by: bag)
+
             return g
         }()
         
-        private var avatarTapDisposable: Disposable? = nil
-        
+        private var avatarTapHandler: (() -> Void)? = nil
+                
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
             lb.font = R.font.nunitoExtraBold(size: 16)
@@ -93,11 +101,7 @@ extension AmongChat.Home {
             nameLabel.attributedText = viewModel.userName
             
             statusLabel.text = viewModel.playingStatus
-            
-            avatarTapDisposable?.dispose()
-            avatarTapDisposable = avatarTap.rx.event.subscribe(onNext: { (_) in
-                onAvatarTap()
-            })
+            avatarTapHandler = onAvatarTap
         }
         
         func bind(viewModel: Entity.ContactFriend, onAvatarTap: @escaping () -> Void) {
@@ -126,6 +130,12 @@ extension AmongChat.Home {
 //            }
         }
         
+        func bind(profile: Entity.UserProfile, onAvatarTap: @escaping () -> Void) {
+            
+            avatarIV.updateAvatar(with: profile)
+            nameLabel.attributedText = profile.nameWithVerified()
+            avatarTapHandler = onAvatarTap
+        }
     }
     
     class FriendCell: UICollectionViewCell {
