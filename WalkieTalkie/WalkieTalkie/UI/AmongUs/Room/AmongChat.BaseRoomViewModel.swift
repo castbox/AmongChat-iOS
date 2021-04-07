@@ -73,7 +73,7 @@ extension AmongChat {
         //创建房间后，人数由>1人到1人时弹
         private var canShowSinglePersonShareEvent = false
         //更新房间消息的时间
-        private var lastestUpdateRoomMs: TimeInterval = 0
+        var lastestUpdateRoomMs: TimeInterval = 0
         //当前房间状态， 只有在 connected 时，才需要根据 rtc 状态来刷新直播间
         private(set) var state: ConnectState = .disconnected
         
@@ -98,13 +98,13 @@ extension AmongChat {
         }
         
         //登录用户主动 muted
-        private(set) var mutedUser = Set<UInt>() {
+        var mutedUser = Set<UInt>() {
             didSet {
                 update(roomInfo)
             }
         }
         //其他用户自己 muted
-        private(set) var otherMutedUser = Set<UInt>() {
+        var otherMutedUser = Set<UInt>() {
             didSet {
                 update(roomInfo)
             }
@@ -555,8 +555,40 @@ extension AmongChat {
                 canShowSinglePersonShareEvent = true
             }
         }
+        
+        //chat room message
+        func onReceiveChatRoom(crMessage: ChatRoomMessage) {
+            cdPrint("onReceiveChatRoom- \(crMessage)")
+            guard state != .disconnected else {
+                return
+            }
+            
+            if let message = crMessage as? ChatRoom.TextMessage {
+                addUIMessage(message: message)
+            } else if let message = crMessage as? ChatRoom.JoinRoomMessage,
+                      message.user.uid != Settings.loginUserId {
+                //add to entrance queue
+                onUserJoinedHandler?(message)
+                addUIMessage(message: message)
+            } else if let message = crMessage as? ChatRoom.SystemMessage {
+                addUIMessage(message: message)
+            } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
+                if message.ms > lastestUpdateRoomMs {
+                    lastestUpdateRoomMs = message.ms
+                    update(message.room)
+                }
+            } else if let message = crMessage as? ChatRoom.KickOutMessage,
+                      message.user.uid == Settings.loginUserId,
+                      roomInfo.rtcType == .agora {
+                //自己
+                endRoomHandler?(.kickout(message.opRole))
+            } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
+                otherMutedUser.remove(message.user.uid.uInt)
+            } else if crMessage.msgType == .emoji {
+                messageHandler?(crMessage)
+            }
+        }
     }
-    
 }
 
 private extension AmongChat.BaseRoomViewModel {
@@ -588,38 +620,6 @@ private extension AmongChat.BaseRoomViewModel {
         return true
     }
     
-    
-    func onReceiveChatRoom(crMessage: ChatRoomMessage) {
-        cdPrint("onReceiveChatRoom- \(crMessage)")
-        guard state != .disconnected else {
-            return
-        }
-        
-        if let message = crMessage as? ChatRoom.TextMessage {
-            addUIMessage(message: message)
-        } else if let message = crMessage as? ChatRoom.JoinRoomMessage,
-                  message.user.uid != Settings.loginUserId {
-            //add to entrance queue
-            onUserJoinedHandler?(message)
-            addUIMessage(message: message)
-        } else if let message = crMessage as? ChatRoom.SystemMessage {
-            addUIMessage(message: message)
-        } else if let message = crMessage as? ChatRoom.RoomInfoMessage {
-            if message.ms > lastestUpdateRoomMs {
-                lastestUpdateRoomMs = message.ms
-                update(message.room)
-            }
-        } else if let message = crMessage as? ChatRoom.KickOutMessage,
-                  message.user.uid == Settings.loginUserId,
-                  roomInfo.rtcType == .agora {
-            //自己
-            endRoomHandler?(.kickout(message.opRole))
-        } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
-            otherMutedUser.remove(message.user.uid.uInt)
-        } else if crMessage.msgType == .emoji {
-            messageHandler?(crMessage)
-        }
-    }
     
     func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
         let userList = roomInfo.userList

@@ -681,9 +681,12 @@ extension DefaultsKeys {
         .init("among.chat.test.temp.group", defaultValue: nil)
     }
     
-    
     var showQuickChangeRoomButton: DefaultsKey<Bool?> {
         .init("show.quick.change.button", defaultValue: nil)
+    }
+    
+    static func groupRoomCanShowGameNameTips(for topic: AmongChat.Topic) -> DefaultsKey<Bool> {
+        .init("group.room.can.show.game.name.tips.\(topic.rawValue)", defaultValue: true)
     }
 }
 

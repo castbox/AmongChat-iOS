@@ -48,7 +48,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     serviceLocationButton.setTitle(group.amongUsZone?.title, for: .normal)
                     amongUsContainer.isHidden = !group.amongUsCode.isValid
                     setupButton.isHidden = group.amongUsCode.isValid
-                    if group.userList.first?.uid == Settings.loginUserId {
+                    if group.loginUserIsAdmin {
                         actionIcon.image = R.image.ac_room_code_edit()
                     } else {
                         actionIcon.image = R.image.ac_room_code_copy()
@@ -84,23 +84,11 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     codeLabel.text = group.amongUsCode?.uppercased()
                     serviceLocationButton.setTitle(group.amongUsZone?.title, for: .normal)
                     amongUsContainer.isHidden = !group.amongUsCode.isValid
-                    //                    setupButton.isHidden = group.amongUsCode.isValid
-                    if group.userList.first?.uid == Settings.loginUserId {
-                        actionIcon.image = R.image.ac_room_code_edit()
-                    } else {
-                        actionIcon.image = R.image.ac_room_code_copy()
-                    }
-                    //                    setupButton.setTitle(R.string.localizable.groupRoomSetUpCode(), for: .normal)
-                    
-                    //
+                    actionIcon.image = R.image.ac_room_code_copy()
                     robloxContainer.isHidden = true
                     notesButton.isHidden = true
                 case .roblox:
                     robloxContainer.isHidden = !group.robloxLink.isValid
-                    //                    setupButton.isHidden = group.robloxLink.isValid
-                    
-                    //                    setupButton.setTitle(R.string.localizable.groupRoomSetUpLink(), for: .normal)
-                    
                     let titleString = NSAttributedString(string: group.robloxLink ?? "", attributes: [NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue])
                     robloxLinkButton.setAttributedTitle(titleString, for: .normal)
                     robloxLinkEditButton.setImage(R.image.ac_group_room_copy(), for: .normal)
@@ -175,7 +163,14 @@ class AmongGroupTopicConfigView: XibLoadableView {
                 actionHandler?(.setupLink)
             }
         }
-        notesButtonAction(sender)
+    }
+    @IBAction func amongUsContainerAction(_ sender: Any) {
+        if group?.loginUserIsAdmin == true {
+            actionHandler?(.setupCode)
+        } else {
+            group?.amongUsCode?.copyToPasteboardWithHaptic()
+        }
+        
     }
 }
 

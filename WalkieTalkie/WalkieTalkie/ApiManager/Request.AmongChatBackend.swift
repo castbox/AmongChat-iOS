@@ -1126,4 +1126,22 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
         
     }
+    
+    static func update(_ group: Entity.GroupRoom) -> Single<Entity.GroupRoom?> {
+        guard var params = group.dictionary else {
+            return Observable<Entity.GroupRoom?>.empty().asSingle()
+        }
+        params.removeValue(forKey: "userList")
+        return amongchatProvider.rx.request(.updateGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+//            .map { (jsonAny) -> [String: AnyObject] in
+//                guard let room = jsonAny["data"] as? [String: AnyObject] else {
+//                    return [:]
+//                }
+//                return room
+//            }
+            .mapTo(Entity.GroupRoom.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }

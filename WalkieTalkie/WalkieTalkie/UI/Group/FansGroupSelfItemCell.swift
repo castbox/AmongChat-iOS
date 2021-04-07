@@ -9,11 +9,18 @@
 import UIKit
 
 class FansGroupSelfItemCell: UITableViewCell {
+    enum Action {
+        case start
+        case edit
+    }
+    
     @IBOutlet weak var opContainer: UIStackView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var groupIconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var actionHandler: ((Action) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +31,13 @@ class FansGroupSelfItemCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    @IBAction func editButtonAction(_ sender: Any) {
+        actionHandler?(.edit)
+    }
+    
+    @IBAction func startLiveButtonAction(_ sender: Any) {
+        actionHandler?(.start)
     }
     
 }

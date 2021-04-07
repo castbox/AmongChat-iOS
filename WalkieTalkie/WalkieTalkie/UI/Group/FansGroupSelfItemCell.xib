@@ -55,6 +55,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.item.edit"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="editButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="R5S-Ka-HvH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRt-ns-J7t">
                                         <rect key="frame" x="87.5" y="0.0" width="67.5" height="32"/>
@@ -72,6 +75,9 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.item.start.live"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="startLiveButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="urM-ZF-yen"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

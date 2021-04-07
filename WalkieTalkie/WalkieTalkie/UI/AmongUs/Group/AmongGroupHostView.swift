@@ -10,6 +10,7 @@ import UIKit
 import EasyTipView
 import RxSwift
 import RxCocoa
+import SwiftyUserDefaults
 
 class AmongGroupHostView: XibLoadableView {
     
@@ -30,6 +31,7 @@ class AmongGroupHostView: XibLoadableView {
     
     private var tipView: EasyTipView?
     private let bag = DisposeBag()
+//    private var isShowTips: Bool
     
     var actionHandler: ((Action) -> Void)?
     
@@ -41,7 +43,9 @@ class AmongGroupHostView: XibLoadableView {
                 gameNameButton.setTitle(group.hostNickname, for: .normal)
             } else {
                 //set nick name
-                gameNameButton.setTitle("UserName", for: .normal)
+                gameNameButton.setTitle(group?.topicType.groupGameNamePlaceholder, for: .normal)
+                //show
+                showGameNameTipsIfNeed()
             }
             if Settings.loginUserId == group?.broadcaster.uid {
                 nameLabel.textColor = "#FFF000".color()
@@ -50,6 +54,7 @@ class AmongGroupHostView: XibLoadableView {
             }
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
+            gameNameButton.isHidden = group?.topicType == .amongus
         }
     }
     
@@ -64,18 +69,24 @@ class AmongGroupHostView: XibLoadableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func showShareTipView() {
+    func showGameNameTipsIfNeed() {
+        guard let group = group,
+              Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: group.topicType)],
+              let tips = group.topicType.groupGameNamePlaceholderTips else {
+            return
+        }
+        Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: group.topicType)] = false
         var preferences = EasyTipView.Preferences()
         preferences.drawing.font = R.font.nunitoExtraBold(size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
         preferences.drawing.foregroundColor = .black
         preferences.drawing.backgroundColor = .white
-        preferences.drawing.arrowPosition = .bottom
+        preferences.drawing.arrowPosition = .top
         
-        tipView = EasyTipView(text: "Share your livecast to the people that you want to invite",
+        tipView = EasyTipView(text: tips,
                               preferences: preferences,
                               delegate: self)
         tipView?.tag = 0
-        tipView?.show(animated: true, forView: raiseButton, withinSuperview: superview)
+        tipView?.show(animated: true, forView: gameNameButton, withinSuperview: superview)
         Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)
             .single()
@@ -103,7 +114,7 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBAction func gameNameAction(_ sender: Any) {
-        
+        actionHandler?(.editNickName)
     }
     
     private func bindSubviewEvent() {

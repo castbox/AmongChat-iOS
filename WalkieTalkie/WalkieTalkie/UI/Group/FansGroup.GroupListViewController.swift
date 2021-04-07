@@ -138,6 +138,14 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
         if group.isOwnedByMe {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
             cell.groupIconView.setImage(with: group.group.cover?.url)
+            cell.actionHandler = { [weak self] action in
+                switch action {
+                case .edit:
+                    ()
+                case .start:
+                    self?.enterRoom(groupId: group.group.gid, logSource: .matchSource, apiSource: nil)
+                }
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)

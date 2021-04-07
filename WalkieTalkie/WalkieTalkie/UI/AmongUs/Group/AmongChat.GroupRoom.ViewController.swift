@@ -232,18 +232,18 @@ extension AmongChat.GroupRoom.ViewController {
     
     
     private func showRecommendUser(_ completionHandler: CallBack? = nil) {
-        if viewModel.showRecommendUser {
-            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId, topicId: viewModel.roomReplay.value.topicId)
-            navigationController?.pushViewController(vc, completion: { [weak self] in
-                completionHandler?()
-                guard let `self` = self else { return }
-                self.navigationController?.viewControllers.removeAll(self)
-            })
-        } else {
+//        if viewModel.showRecommendUser {
+//            let vc = Social.LeaveGameViewController(with: self.viewModel.roomReplay.value.roomId, topicId: viewModel.roomReplay.value.topicId)
+//            navigationController?.pushViewController(vc, completion: { [weak self] in
+//                completionHandler?()
+//                guard let `self` = self else { return }
+//                self.navigationController?.viewControllers.removeAll(self)
+//            })
+//        } else {
             dismissViewController(completionHandler: {
                 completionHandler?()
             })
-        }
+//        }
         Social.ShareRoomViewController.clear()
     }
     
@@ -371,7 +371,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         topEntranceView.snp.makeConstraints { maker in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(topBar.snp.top)
+            maker.top.equalTo(26 + Frame.Height.safeAeraTopHeight)
             maker.height.equalTo(44)
         }
 
@@ -550,12 +550,13 @@ extension AmongChat.GroupRoom.ViewController {
             switch type {
             case .leave:
                 self.requestLeaveRoom { [weak self] in
-//                    self?.showRecommendUser()
+                    self?.showRecommendUser()
                 }
             case .topic:
                 let vc = FansGroup.AddTopicViewController(self.room.topicId)
                 vc.topicSelectedHandler = { [weak self] topic in
-//                    self?.viewModel.topicRelay.accept(topic)
+                    //update topic
+                    self?.viewModel.update(topicId: topic.topic.topicId)
                 }
                 self.presentPanModal(vc)
             case .memberList:
@@ -659,7 +660,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
-//            self?.viewModel.updateAmong(code: code, aera: aera)
+            self?.viewModel.updateAmong(code: code, aera: aera)
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
         }
         
@@ -670,7 +671,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         inputNotesView.inputResultHandler = { [weak self] notes in
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
-//            self?.viewModel.update(notes: notes)
+            self?.viewModel.update(notes: notes)
         }
                 
         seatView.selectUserHandler = { [weak self] user in

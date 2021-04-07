@@ -116,7 +116,7 @@ class AmongGroupTopView: XibLoadableView {
         layer.insertSublayer(backgroundLayer, at: 0)
         backgroundLayer.startPoint = CGPoint(x: 0, y: 0)
         backgroundLayer.endPoint = CGPoint(x: 1, y: 1)
-        backgroundLayer.locations = [0, 0.5, 0.75]
+        backgroundLayer.locations = [-0.2, 0.3, 0.75]
         backgroundLayer.colors = ["65F0FF".color().cgColor, "3C40B1".color().cgColor, "0D0063".color().cgColor,]
 
     }

@@ -120,4 +120,50 @@ extension AmongChat.Topic {
             return nil
         }
     }
+    
+    var groupGameNamePlaceholder: String? {
+        switch self {
+        case .roblox:
+            return R.string.localizable.groupRoomRobloxGameNamePlceholder()
+        case .minecraft:
+            return R.string.localizable.groupRoomMinecraftGameNamePlceholder()
+        case .freefire:
+            return R.string.localizable.groupRoomFreefireGameNamePlceholder()
+        case .fortnite:
+            return R.string.localizable.groupRoomFortniteGameNamePlceholder()
+        case .callofduty:
+            return R.string.localizable.groupRoomCallOfDutyGameNamePlceholder()
+        case .mobilelegends:
+            return R.string.localizable.groupRoomMobileLegendsGameNamePlceholder()
+        case .pubgmobile:
+            return R.string.localizable.groupRoomPubgMobileGameNamePlceholder()
+        case .animalCrossing:
+            return R.string.localizable.groupRoomAnimalCrossingGameNamePlaceholder()
+        default:
+            return nil
+        }
+    }
+    
+    var groupGameNamePlaceholderTips: String? {
+        switch self {
+        case .roblox:
+            return R.string.localizable.groupRoomRobloxGameNameTips()
+        case .minecraft:
+            return R.string.localizable.groupRoomMinecraftGameNameTips()
+        case .freefire:
+            return R.string.localizable.groupRoomFreefireGameNameTips()
+        case .fortnite:
+            return R.string.localizable.groupRoomFortniteGameNameTips()
+        case .callofduty:
+            return R.string.localizable.groupRoomCallOfDutyGameNameTips()
+        case .mobilelegends:
+            return R.string.localizable.groupRoomPubgMobileGameNameTips()
+        case .pubgmobile:
+            return R.string.localizable.groupRoomPubgMobileGameNameTips()
+        case .animalCrossing:
+            return R.string.localizable.groupRoomAnimalCrossingGameNameTips()
+        default:
+            return nil
+        }
+    }
 }

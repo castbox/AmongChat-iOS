@@ -96,7 +96,14 @@ extension AmongChat.Room.IMViewModel {
                         item = try JSONDecoder().decodeAnyData(ChatRoom.SystemMessage.self, from: json) as ChatRoomMessage
                     case .emoji:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.EmojiMessage.self, from: json) as ChatRoomMessage
-                        
+                    case .groupInfo:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupInfoMessage.self, from: json) as ChatRoomMessage
+                    case .groupJoinRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupJoinRoomMessage.self, from: json) as ChatRoomMessage
+                    case .groupLeaveRoom:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupLeaveRoomMessage.self, from: json) as ChatRoomMessage
+                    case .groupLiveEnd:
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupLeaveRoomMessage.self, from: json) as ChatRoomMessage
                     }
                 }
                 return item
@@ -164,6 +171,17 @@ extension ChatRoom {
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
         case emoji = "AC:Chatroom:Emoji"
+        
+        //group
+        case groupJoinRoom = "AC:Chatroom:GroupLiveJoin"
+        case groupLeaveRoom = "AC:Chatroom:GroupLiveLeave"
+        case groupLiveEnd = "AC:Chatroom:GroupLiveEnd"
+        case groupInfo = "AC:Chatroom:GroupInfo"
+//        MSG_TYPE_PEER_GROUP_APPLY = 'AC:PEER:GroupApply'
+//        GROUP_APPLY_REQUEST = 1
+//        GROUP_APPLY_ACCEPT = 2
+//        GROUP_APPLY_REJECT = 3
+        
     }
     
     struct TextMessage: ChatRoomMessage {
@@ -277,6 +295,42 @@ extension ChatRoom {
             case user
         }
     }
+    
+    //MARK: // - Group Room Message
+    struct GroupInfoMessage: ChatRoomMessage {
+        let group: Entity.GroupRoom
+        let msgType: MessageType
+        let ms: TimeInterval//: 1611648904017
+        
+        private enum CodingKeys: String, CodingKey {
+            case group
+            case msgType = "message_type"
+            case ms
+        }
+    }
+    
+    
+    struct GroupJoinRoomMessage: ChatRoomMessage {
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct GroupLeaveRoomMessage: ChatRoomMessage {
+        let groupId: String
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case groupId = "group_id"
+            case user
+            case msgType = "message_type"
+        }
+    }
+
 }
 
 extension ChatRoom.MessageType {

@@ -74,6 +74,7 @@ extension APIService {
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
         case groupLiveUserList([String: Any])
+        case updateGroup([String: Any])
         case groupList([String : Any])
         case myGroupList([String : Any])
         case groupListOfHost([String : Any])
@@ -220,6 +221,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/social/relation/group/followers"
         case .addMemberToGroup:
             return "/api/v1/group/member"
+        case .updateGroup:
+            return "/api/v1/group/update"
         case .groupList:
             return "/api/v1/group/list"
         case .myGroupList:
@@ -258,6 +261,7 @@ extension APIService.AmongChatBackend: TargetType {
              .addMemberToGroup,
              .groupLiveUserList,
              .groupApply,
+             .updateGroup,
              .logout:
             return .post
             
@@ -343,6 +347,7 @@ extension APIService.AmongChatBackend: TargetType {
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
+             .updateGroup(let params),
              .receipt(let params),
              .contactUpload(let params),
              .createGroup(let params),
