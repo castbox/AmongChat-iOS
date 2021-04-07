@@ -14,7 +14,7 @@ extension AmongChat.Home.MainTabController {
     
     class IMViewModel {
         
-        private let imManager = AmongChat.Room.IMManager.shared
+        private let imManager = IMManager.shared
         
         private let bag = DisposeBag()
         
@@ -32,8 +32,8 @@ extension AmongChat.Home.MainTabController {
         
         init() {
             imManager.newPeerMessageObservable
-                .subscribe(onNext: { [weak self] message, sender in
-                    self?.handleIMMessage(message: message, sender: sender)
+                .subscribe(onNext: { [weak self] message in
+                    self?.handleIMMessage(message: message)
                 })
                 .disposed(by: bag)
             
@@ -51,18 +51,16 @@ extension AmongChat.Home.MainTabController {
         private let roomInvitationMessageType = "AC:PEER:Invite"
         private let roomInvitationInviteStranger = "AC:PEER:InviteStranger"
 
-        private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
+        private func handleIMMessage(message: PeerMessage) {
             
-            guard message.type == .text,
-                  let json = message.text.jsonObject(),
-                  let invitationMsg = JSONDecoder().mapTo(Entity.FriendUpdatingInfo.self, from: json),
+            guard let invitationMsg = message as? Entity.FriendUpdatingInfo,
                   let room = invitationMsg.room else {
                 return
             }
-
-            if invitationMsg.messageType == roomInvitationMessageType {
+            
+            if invitationMsg.msgType == .roomInvitation {
                 invitationSubject.onNext((invitationMsg.user, room))
-            } else if invitationMsg.messageType == roomInvitationInviteStranger {
+            } else if invitationMsg.msgType == .roomInvitationInviteStranger {
                 invitationRecommendSubject.onNext((invitationMsg.user, room))
             }
         }

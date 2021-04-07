@@ -220,7 +220,6 @@ extension Request {
     }
     
     static func updateRoom(topic: AmongChat.Topic, nickName: String, with roomId: String) -> Single<Bool> {
-        
         return amongchatProvider.rx.request(.roomNickName(["name_\(topic.rawValue)": nickName, "room_id": roomId]))
             .mapJSON()
             .mapToDataKeyJsonValue()
@@ -1143,5 +1142,12 @@ extension Request {
 //            }
             .mapTo(Entity.GroupRoom.self)
             .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func updateNickName(_ nickName: String, groupId: String, topic: AmongChat.Topic) -> Single<Bool> {
+        return amongchatProvider.rx.request(.roomNickName(["name_\(topic.rawValue)": nickName, "gid": groupId]))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
     }
 }

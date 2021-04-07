@@ -551,11 +551,11 @@ extension AmongChat.GroupRoom.ViewController {
             case .editNickName:
                 self.editType = .nickName
             case .joinGroup:
-                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.room.gid, type: .groupJoin)
+                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.room.gid)
                 self.presentPanModal(vc)
             case .joinHost:
                 //data source
-                let vc = AmongChat.GroupRoom.HostRequestListController(with: self.room.gid, type: .hostJoin)
+                let vc = AmongChat.GroupRoom.HostRequestListController(with: self.room.gid)
                 self.presentPanModal(vc)
             }
         }
@@ -615,7 +615,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         nickNameInputView.inputResultHandler = { [weak self] text in
             Logger.Action.log(.room_edit_nickname_success, categoryValue: self?.room.topicId)
-//            self?.viewModel.update(nickName: text)
+            self?.viewModel.update(nickName: text)
         }
         
         inputNotesView.inputResultHandler = { [weak self] notes in

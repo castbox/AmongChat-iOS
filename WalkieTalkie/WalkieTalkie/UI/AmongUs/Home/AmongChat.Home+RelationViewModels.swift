@@ -29,8 +29,6 @@ extension AmongChat.Home {
             
         }
         
-        private typealias IMManager = AmongChat.Room.IMManager
-        
         private let bag = DisposeBag()
         
         private let playingsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
@@ -73,8 +71,8 @@ extension AmongChat.Home {
         
         init() {
             imManager.newPeerMessageObservable
-                .subscribe(onNext: { [weak self] message, sender in
-                    self?.handleIMMessage(message: message, sender: sender)
+                .subscribe(onNext: { [weak self] message in
+                    self?.handleIMMessage(message: message)
                 })
                 .disposed(by: bag)
             
@@ -116,19 +114,14 @@ extension AmongChat.Home {
 //            ]
         }
         
-        private let systemAgoraUid = Int(99999)
-        private let friendsInfoMessageType = "AC:PEER:FriendsInfo"
-        
-        private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
+        private func handleIMMessage(message: PeerMessage) {
             
-            guard sender == "\(systemAgoraUid)" else {
-                return
-            }
+//            guard sender == "\(systemAgoraUid)" else {
+//                return
+//            }
             
-            guard message.type == .text,
-                  let json = message.text.jsonObject(),
-                  let friendInfo = JSONDecoder().mapTo(Entity.FriendUpdatingInfo.self, from: json),
-                  friendInfo.messageType == friendsInfoMessageType else {
+            guard message.msgType == .friendsInfo,
+                  let friendInfo = message as? Entity.FriendUpdatingInfo else {
                 return
             }
             

@@ -118,6 +118,17 @@ extension AmongChat.GroupRoom {
             updateInfo(group: room)
         }
         
+        func update(nickName: String) {
+            Request.updateNickName(nickName, groupId: group.gid, topic: group.topicType)
+                .subscribe { _ in
+                    //refresh nick name
+                    Settings.shared.updateProfile()
+                } onError: { _ in
+                    
+                }
+                .disposed(by: bag)
+        }
+        
         func updateInfo(group: Entity.GroupRoom, _ completionHandler: CallBack? = nil) {
             //update
             Request.update(group)

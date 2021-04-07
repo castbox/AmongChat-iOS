@@ -249,17 +249,19 @@ extension Entity {
 }
 
 extension Entity {
-    struct FriendUpdatingInfo: Codable {
+    
+    struct FriendUpdatingInfo: PeerMessage {
+        
         typealias Room = PlayingUser.Room
         var user: UserProfile
         var room: Room?
         var isOnline: Bool?
-        var messageType: String
-        
+        var msgType: Peer.MessageType
+
         private enum CodingKeys: String, CodingKey {
             case user
             case room
-            case messageType = "message_type"
+            case msgType = "message_type"
             case isOnline = "is_online"
         }
         

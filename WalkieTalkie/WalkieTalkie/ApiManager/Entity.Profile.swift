@@ -99,6 +99,31 @@ extension Entity {
         var decoHatId: Int?
         var decoPetId: Int?
         var inGroup: Bool?
+        
+        func hostNickname(for topicType: AmongChat.Topic) -> String? {
+            switch topicType {
+            case .fortnite:
+                return nameFortnite
+            case .freefire:
+                return nameFreefire
+            case .roblox:
+                return nameRoblox
+            case .minecraft:
+                return nameMineCraft
+            case .callofduty:
+                return nameCallofduty
+            case .pubgmobile:
+                return namePubgmobile
+            case .mobilelegends:
+                return nameMobilelegends
+            case .animalCrossing:
+                return nameAnimalCrossing
+            case .brawlStars:
+                return nameBrawlStars
+            default:
+                return nil
+            }
+        }
 
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"

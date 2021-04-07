@@ -14,11 +14,6 @@ import HWPanModal
 
 extension AmongChat.GroupRoom {
     class HostRequestListController: WalkieTalkie.ViewController {
-        enum ListType {
-            case groupJoin
-            case hostJoin
-        }
-        
         private lazy var titleView: AmongChat.GroupRoom.MembersController.HeaderView = {
             let v = AmongChat.GroupRoom.MembersController.HeaderView()
             v.title = R.string.localizable.groupRoomMembersTitle()
@@ -44,7 +39,7 @@ extension AmongChat.GroupRoom {
         private let gid: String
         private var isSelf = false
         
-        init(with gid: String, type: ListType) {
+        init(with gid: String) {
             self.gid = gid
             super.init(nibName: nil, bundle: nil)
 //            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0

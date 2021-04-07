@@ -60,21 +60,6 @@ extension AmongChat.Room {
             return btn
         }()
         
-//        private lazy var avatarIV: UIImageView = {
-//            let iv = UIImageView()
-//            iv.layer.cornerRadius = 20
-//            iv.layer.masksToBounds = true
-//            iv.layer.borderWidth = 0.5
-//            iv.contentMode = .scaleAspectFill
-//            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
-//            iv.backgroundColor = UIColor.white.alpha(0.2)
-//            iv.isUserInteractionEnabled = true
-////            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
-////            longPressGesture.minimumPressDuration = 0.5
-////            iv.addGestureRecognizer(longPressGesture)
-//            return iv
-//        }()
-        
         private lazy var kickSelectedView: UIImageView = {
             let iv = UIImageView()
             iv.layer.cornerRadius = 20
@@ -137,6 +122,12 @@ extension AmongChat.Room {
             player.isUserInteractionEnabled = false
             return player
         }()
+        
+        lazy var loadingView: SeatLoadingView = {
+            let view = SeatLoadingView(frame: .zero)
+            return view
+        }()
+
         
         private var svgaUrl: URL?
         //        private var isPlaySvgaEmoji: Bool = false
@@ -285,6 +276,15 @@ extension AmongChat.Room {
                          })
         }
         
+        /// loading动画
+        func startLoading() {
+            loadingView.startLoading()
+        }
+        
+        func stopLoading() {
+            loadingView.stopLoading()
+        }
+        
         func showGameNameTipsIfNeed() {
             guard let topic = topic,
                   Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)],
@@ -374,7 +374,6 @@ extension AmongChat.Room {
                 }
             }
             
-            //            haloView.soundWidth = 60
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
                 maker.width.height.equalTo(60)
@@ -402,9 +401,7 @@ extension AmongChat.Room {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
-//                maker.left.right.equalToSuperview()
                 maker.trailing.leading.equalToSuperview().inset(2)
-                //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
             gameNameButton.snp.makeConstraints { maker in
@@ -412,6 +409,12 @@ extension AmongChat.Room {
                 maker.left.equalTo(3)
                 maker.right.equalTo(-3)
                 maker.height.equalTo(20)
+            }
+            
+            loadingView.snp.makeConstraints { make in
+                make.center.equalTo(avatarIV)
+                make.width.equalTo(32)
+                make.height.equalTo(16)
             }
         }
     }

@@ -90,6 +90,18 @@ extension Entity {
 
 extension Entity {
     // MARK: - GroupRoom
+//    struct GroupEnter: Codable {
+//        user_status：当前用户与该group的关系
+//        GROUP_USER_STATUS_OWNER = 1
+//        GROUP_USER_STATUS_ADMIN = 2
+//        GROUP_USER_STATUS_MEMBER = 3
+//        GROUP_USER_STATUS_APPLIED = 4
+//        GROUP_USER_STATUS_NONE = 5
+//
+//        let userStatus:
+//        let processed: Bool
+//    }
+    
     struct GroupRoom: Codable, RoomInfoable {
         var roomId: String {
             gid

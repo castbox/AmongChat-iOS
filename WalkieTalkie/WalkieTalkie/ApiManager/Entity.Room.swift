@@ -120,6 +120,11 @@ extension Entity {
         }
     }
     
+    struct RoomSeat {
+        let user: RoomUser
+        var call: ChatRoom.GroupInfoMessage
+    }
+    
     struct RoomUser: Codable, Hashable, DefaultsSerializable, Verifiedable {
         enum Status: String, Codable, DefaultsSerializable {
             case connected
