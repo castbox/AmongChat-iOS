@@ -149,9 +149,8 @@ class AmongGroupTopicConfigView: XibLoadableView {
                 self.tipView?.dismiss()
             })
             .disposed(by: self.bag)
-        //
-
     }
+    
     @IBAction func setupButtonAction(_ sender: Any) {
         if group?.loginUserIsAdmin == true {
             switch group?.topicType {

@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import Kingfisher
 import SVGAPlayer
+import EasyTipView
+import SwiftyUserDefaults
 
 class SVGAGlobalParser: SVGAParser {
     static let defaut = SVGAGlobalParser()
@@ -136,16 +138,19 @@ extension AmongChat.Room {
             return player
         }()
         
-        var emojisNames: [String] = []
-        
-        var user: Entity.RoomUser?
         private var svgaUrl: URL?
-//        private var isPlaySvgaEmoji: Bool = false
+        //        private var isPlaySvgaEmoji: Bool = false
         private var svagPlayerStatus: SvagPlayerStatus = .free
         //
         private var emojiContent: ChatRoom.EmojiMessage?
         private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
-
+        //
+        private var tipView: EasyTipView?
+        private let bag = DisposeBag()
+        
+        var emojisNames: [String] = []
+        var topic: AmongChat.Topic?
+        var user: Entity.RoomUser?
         var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
         
         var isKickSelected: Bool = false {
@@ -280,6 +285,35 @@ extension AmongChat.Room {
                          })
         }
         
+        func showGameNameTipsIfNeed() {
+            guard let topic = topic,
+                  Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)],
+                  let tips = topic.groupGameNamePlaceholderTips else {
+                return
+            }
+            Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)] = false
+            var preferences = EasyTipView.Preferences()
+            preferences.drawing.font = R.font.nunitoExtraBold(size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+            preferences.drawing.foregroundColor = .black
+            preferences.drawing.backgroundColor = .white
+            preferences.drawing.arrowPosition = .top
+            
+            tipView = EasyTipView(text: tips,
+                                  preferences: preferences,
+                                  delegate: self)
+            tipView?.tag = 0
+            tipView?.show(animated: true, forView: gameNameButton, withinSuperview: containingController?.view)
+            Observable<Int>
+                .interval(.seconds(5), scheduler: MainScheduler.instance)
+                .single()
+                .subscribe(onNext: { [weak welf = self] _ in
+                    guard let `self` = welf else { return }
+                    self.tipView?.dismiss()
+                })
+                .disposed(by: self.bag)
+        }
+        
+        
         @objc
         func userIconButtonAction() {
             clickAvatarHandler?(user)
@@ -385,6 +419,8 @@ extension AmongChat.Room.UserCell: SVGAPlayerDelegate {
 extension AmongChat.Room.UserCell {
     
     func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
+        self.topic = topic
+        
         if index == 1 {
             indexLabel.text = "\(index)-Host"
         } else {
@@ -396,6 +432,7 @@ extension AmongChat.Room.UserCell {
             indexLabel.textColor = .white
         }        
         nameLabel.textColor = indexLabel.textColor
+        
         guard let user = user else {
             clearStyle()
             return
@@ -420,8 +457,19 @@ extension AmongChat.Room.UserCell {
             avatarIV.layer.borderWidth = 0.5
             nameLabel.attributedText = user.nameWithVerified(fontSize: 12)
         }
-        gameNameButton.setTitle(user.nickname, for: .normal)
-        gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+        //
+        if itemStyle == .normal {
+            gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+            gameNameButton.setTitle(user.nickname, for: .normal)
+        } else if user.uid == Settings.loginUserId {
+            gameNameButton.isHidden = !topic.enableNickName
+            if user.nickname.isValid {
+                gameNameButton.setTitle(user.nickname, for: .normal)
+            } else {
+                gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                showGameNameTipsIfNeed()
+            }
+        }
         if isKickSelected {
             mutedLabel.isHidden = true
             disableMicView.isHidden = true
@@ -453,4 +501,16 @@ extension AmongChat.Room.UserCell {
         disableMicView.isHidden = true
     }
     
+}
+
+
+extension AmongChat.Room.UserCell: EasyTipViewDelegate {
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+//        dismissTipView()
+        self.tipView?.dismiss()
+    }
+    
+    func easyTipViewDidDismiss(_ tipView : EasyTipView) {
+        
+    }
 }
