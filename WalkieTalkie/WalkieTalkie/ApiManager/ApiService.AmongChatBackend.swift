@@ -28,6 +28,7 @@ extension APIService {
         case kickUsers([String : Any])
         case summary([String : Any])
         case roomNickName([String: Any])
+        case groupNickName([String: Any])
         case profile([String : Any])
         case updateProfile([String : Any])
         case defaultAvatars([String : Any])
@@ -223,6 +224,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/member"
         case .updateGroup:
             return "/api/v1/group/update"
+        case .groupNickName:
+            return "/api/v1/group/live/nickname"
         case .groupList:
             return "/api/v1/group/list"
         case .myGroupList:
@@ -261,6 +264,7 @@ extension APIService.AmongChatBackend: TargetType {
              .addMemberToGroup,
              .groupLiveUserList,
              .groupApply,
+             .groupNickName,
              .updateGroup,
              .logout:
             return .post
@@ -395,6 +399,7 @@ extension APIService.AmongChatBackend: TargetType {
              .addMemberToGroup(let params),
              .groupList(let params),
              .myGroupList(let params),
+             .groupNickName(let params),
              .groupListOfHost(let params),
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
