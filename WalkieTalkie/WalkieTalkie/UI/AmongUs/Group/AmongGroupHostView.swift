@@ -55,6 +55,7 @@ class AmongGroupHostView: XibLoadableView {
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
             gameNameButton.isHidden = group?.topicType == .amongus
+            updateGameNameTitle()
         }
     }
     
@@ -118,24 +119,32 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     private func bindSubviewEvent() {
-//        userCell.bind(nil, topic: .amongus, index: 0)
+        Settings.shared.amongChatUserProfile.replay()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] profile in
+                self?.updateGameNameTitle()
+            })
+            .disposed(by: bag)
+        
     }
     
     private func configureSubview() {
-//        hostView?.bind(nil, topic: .amongus, index: 0)
-//        userCell = AmongChat.Room.UserCell(frame: CGRect(x: 0, y: 0, width: AmongChat.Room.SeatView.itemWidth, height: AmongChat.Room.SeatView.itemHeight))
-//        hostView.addSubview(userCell)
-//        userCell.snp.makeConstraints { maker in
-//            maker.width.equalTo(AmongChat.Room.SeatView.itemWidth)
-//            maker.height.equalTo(AmongChat.Room.SeatView.itemHeight)
-//            maker.center.equalToSuperview()
-//        }
-//        if index < 5 {
-//            topStackView.addArrangedSubview(cell)
-//        } else {
-//            bottomStackView.addArrangedSubview(cell)
-//        }
-//        cell.emojisNames = room.topicType.roomEmojiNames
+
+    }
+    
+    private func updateGameNameTitle() {
+        guard let group = group,
+              group.loginUserIsAdmin,
+              let profile = Settings.shared.amongChatUserProfile.value else {
+            return
+        }
+        //
+        guard let name = profile.hostNickname(for: group.topicType),
+              !name.isEmpty else {
+            gameNameButton.setTitle(group.topicType.groupGameNamePlaceholder, for: .normal)
+            return
+        }
+        gameNameButton.setTitle(name, for: .normal)
 
     }
     

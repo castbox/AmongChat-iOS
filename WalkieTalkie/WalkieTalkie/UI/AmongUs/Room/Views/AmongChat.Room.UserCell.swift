@@ -325,9 +325,36 @@ extension AmongChat.Room {
             containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
+        private func bindSubviewEvent() {
+            Settings.shared.amongChatUserProfile.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] profile in
+                    self?.updateGameNameTitle()
+                })
+                .disposed(by: bag)
+            
+        }
+        
+        private func updateGameNameTitle() {
+            guard let user = user,
+                  user.uid == Settings.loginUserId,
+                  let topic = topic,
+                  let profile = Settings.shared.amongChatUserProfile.value else {
+                return
+            }
+            //
+            guard let name = profile.hostNickname(for: topic),
+                  !name.isEmpty else {
+                gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                return
+            }
+            gameNameButton.setTitle(name, for: .normal)
+
+        }
+        
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView, loadingView)
             
             if itemStyle == .normal {
                 contentView.addSubviews(views: indexLabel)
