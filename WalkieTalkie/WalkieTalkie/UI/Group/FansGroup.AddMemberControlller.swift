@@ -36,6 +36,7 @@ extension FansGroup {
             tb.backgroundColor = .clear
             return tb
         }()
+        
         private lazy var smsBtn: ShareButton = {
             let btn = ShareButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
             btn.tap.rx.event
@@ -127,7 +128,7 @@ extension FansGroup {
             return v
         }()
         
-        let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
+        private let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
         
