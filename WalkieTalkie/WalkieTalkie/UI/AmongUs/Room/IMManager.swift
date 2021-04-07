@@ -101,6 +101,8 @@ class IMManager: NSObject {
                         item = try JSONDecoder().decodeAnyData(Peer.GroupRoomCallMessage.self, from: json) as PeerMessage
                     case .groupPeerApply:
                         item = try JSONDecoder().decodeAnyData(Peer.GroupApplyMessage.self, from: json) as PeerMessage
+                    case .roomInvitation, .roomInvitationInviteStranger:
+                        item = try JSONDecoder().decodeAnyData(Entity.FriendUpdatingInfo.self, from: json) as PeerMessage
                     case .friendsInfo:
                         if sender.int == IMManager.systemAgoraUid {
                             item = try JSONDecoder().decodeAnyData(Entity.FriendUpdatingInfo.self, from: json) as PeerMessage
