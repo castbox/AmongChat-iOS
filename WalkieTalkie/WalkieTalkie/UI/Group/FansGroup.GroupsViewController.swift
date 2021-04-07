@@ -136,11 +136,21 @@ extension FansGroup {
             return v
         }()
         
-        private var pageIndex = Int(0)
+        private var pageIndex: Int = 0 {
+            didSet {
+                segmentedButton.updateSelectedIndex(pageIndex)
+            }
+        }
         
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
+        }
+        
+        override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            
+            layoutScrollView.contentSize = CGSize(width: layoutScrollView.bounds.width * 2, height: layoutScrollView.bounds.height)
         }
     }
     
@@ -164,6 +174,9 @@ extension FansGroup.GroupsViewController {
             maker.height.equalTo(60)
         }
         
+        let scrollLayoutGuide = UILayoutGuide()
+        view.addLayoutGuide(scrollLayoutGuide)
+        
         if let p = Settings.shared.amongChatUserProfile.value,
            !(p.isVerified ?? false) {
             
@@ -174,21 +187,45 @@ extension FansGroup.GroupsViewController {
                 maker.top.equalTo(segmentedButton.snp.bottom)
             }
             
-            layoutScrollView.snp.makeConstraints { (maker) in
+            scrollLayoutGuide.snp.makeConstraints { (maker) in
                 maker.top.equalTo(getVerifiedView.snp.bottom)
                 maker.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-                maker.width.equalTo(view.width).multipliedBy(2)
             }
             
         } else {
-            layoutScrollView.snp.makeConstraints { (maker) in
+            
+            scrollLayoutGuide.snp.makeConstraints { (maker) in
                 maker.top.equalTo(segmentedButton.snp.bottom)
                 maker.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-                maker.width.equalTo(view.width).multipliedBy(2)
             }
         }
+        
+        layoutScrollView.snp.makeConstraints { (maker) in
+            maker.edges.equalTo(scrollLayoutGuide)
+        }
+        
+        let myGroupList = FansGroup.GroupListViewController(source: .myGroups)
+        addChild(myGroupList)
+        layoutScrollView.addSubview(myGroupList.view)
+        myGroupList.view.snp.makeConstraints { (maker) in
+            maker.leading.top.bottom.equalToSuperview()
+            maker.width.equalTo(view.snp.width)
+            maker.height.equalToSuperview()
+        }
+        myGroupList.didMove(toParent: self)
+                
+        let allGroupList = FansGroup.GroupListViewController(source: .allGroups)
+        addChild(allGroupList)
+        layoutScrollView.addSubview(allGroupList.view)
+        allGroupList.view.snp.makeConstraints { (maker) in
+            maker.top.bottom.trailing.equalToSuperview()
+            maker.leading.equalTo(myGroupList.view.snp.trailing)
+            maker.width.equalTo(view.snp.width)
+            maker.height.equalToSuperview()
+        }
+        allGroupList.didMove(toParent: self)
         
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()

@@ -15,7 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FansGroupSelfItemCell" id="KGk-i7-Jjw" customClass="FansGroupSelfItemCell" customModule="WalkieTalkie" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FansGroupSelfItemCell" id="KGk-i7-Jjw" customClass="FansGroupSelfItemCell" customModule="WalkieTalkie" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -97,6 +97,11 @@
                             <constraint firstAttribute="width" constant="97" id="AdR-wO-uAG"/>
                             <constraint firstAttribute="height" constant="97" id="fFo-8w-uPx"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="12"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrY-4D-YVp">
                         <rect key="frame" x="65.5" y="14" width="51.5" height="24"/>
@@ -132,7 +137,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="NUB-7f-Tfz" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="1b8-ha-O5u"/>
                     <constraint firstItem="ECr-KO-5sv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4O7-ko-nzQ"/>
@@ -145,6 +150,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="editButton" destination="Ncw-3k-kYD" id="cJN-pE-sp8"/>
                 <outlet property="groupIconView" destination="ECr-KO-5sv" id="e5i-xu-eRk"/>

@@ -18,11 +18,21 @@ class FansGroupItemCell: UITableViewCell {
     @IBOutlet weak var topicIconView: UIImageView!
     @IBOutlet weak var topicNameLabel: UILabel!
     @IBOutlet weak var groupUserCountLabel: UILabel!
+    @IBOutlet weak var topicContainer: UIView!
     @IBOutlet weak var onlineTagView: UIView!
+    
+    private(set) lazy var topicView: FansGroup.Views.GroupTopicView = {
+        let v = FansGroup.Views.GroupTopicView()
+        return v
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        topicContainer.addSubview(topicView)
+        topicView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
