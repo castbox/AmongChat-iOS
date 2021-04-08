@@ -164,8 +164,14 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
 
 extension FansGroup.GroupListViewController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let group = groupsRelay.value.safe(indexPath.row) else {
+            return
+        }
+        
+        let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

@@ -490,17 +490,6 @@ extension FansGroup.Views {
         private lazy var coverIV: UIImageView = {
             let iv = UIImageView()
             iv.contentMode = .scaleAspectFill
-            iv.rx.observe(UIImage.self, "image")
-                .subscribe(onNext: { [weak self] (image) in
-                    
-                    guard let `self` = self,
-                          self.editable else { return }
-                    
-                    self.addIcon.isHidden = (image != nil)
-                    self.changeIcon.isHidden = (image != nil)
-                    
-                })
-                .disposed(by: bag)
             return iv
         }()
         
@@ -580,8 +569,11 @@ extension FansGroup.Views {
                     
                     self?.coverIV.image = image
                     
-                    self?.changeIcon.isHidden = !editable || image == nil
-                    self?.addIcon.isHidden = !editable && image != nil
+                    let showChangeIcon = editable && image != nil
+                    let showAddIcon = editable && image == nil
+                    
+                    self?.changeIcon.isHidden = !showChangeIcon
+                    self?.addIcon.isHidden = !showAddIcon
                     
                 })
                 .disposed(by: bag)

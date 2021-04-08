@@ -82,7 +82,9 @@ extension APIService {
         case groupListOfJoined([String : Any])
         case groupAppliedUserList([String : Any])
         case groupMemberList([String : Any])
-        case groupApply([String : Any])
+        case groupInfo([String : Any])
+        case leaveGroup([String : Any])
+        case applyToJoinGroup([String : Any])
     }
 }
 
@@ -238,7 +240,11 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/apply/list"
         case .groupMemberList:
             return "/api/v1/group/member/list"
-        case .groupApply:
+        case .groupInfo:
+            return "/api/v1/group/page"
+        case .leaveGroup:
+            return "/api/v1/group/leave"
+        case .applyToJoinGroup:
             return "/api/v1/group/apply"
         }
     }
@@ -263,9 +269,9 @@ extension APIService.AmongChatBackend: TargetType {
              .createGroup,
              .addMemberToGroup,
              .groupLiveUserList,
-             .groupApply,
              .groupNickName,
              .updateGroup,
+             .applyToJoinGroup,
              .logout:
             return .post
             
@@ -312,6 +318,8 @@ extension APIService.AmongChatBackend: TargetType {
              .groupListOfJoined,
              .groupAppliedUserList,
              .groupMemberList,
+             .groupInfo,
+             .leaveGroup,
              .shareUserSign:
             return .get
         case .follow:
@@ -404,7 +412,9 @@ extension APIService.AmongChatBackend: TargetType {
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
              .groupMemberList(let params),
-             .groupApply(let params),
+             .groupInfo(let params),
+             .leaveGroup(let params),
+             .applyToJoinGroup(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             
