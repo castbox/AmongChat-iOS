@@ -32,6 +32,8 @@
 		269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */; };
 		269A6DE4261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DE3261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift */; };
 		269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */; };
+		269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */; };
+		269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -407,6 +409,8 @@
 		269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupInfoViewController.swift; sourceTree = "<group>"; };
 		269A6DE3261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupInfoViewController+Views.swift"; sourceTree = "<group>"; };
 		269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupInfoViewController+ViewModels.swift"; sourceTree = "<group>"; };
+		269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupMemberListViewController.swift; sourceTree = "<group>"; };
+		269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupMemberListViewController+Views.swift"; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -812,6 +816,8 @@
 				269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */,
 				269A6DE3261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift */,
 				269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */,
+				269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */,
+				269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */,
 				FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */,
 				FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */,
 				FEA600002615F67300255E06 /* FansGroupItemCell.swift */,
@@ -1898,6 +1904,7 @@
 				FE0D1A2124489BB700518793 /* FrozenButton.swift in Sources */,
 				26F414AA2611DB1D003ED5BE /* FansGroup.Views.swift in Sources */,
 				FE87C2D3259C2EC200799883 /* ShareContainerView.swift in Sources */,
+				269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */,
 				FECA43AD24597B570075D139 /* Automator.Device.swift in Sources */,
 				2BAB4F872596031600A1C8DC /* Entity.Profile.swift in Sources */,
 				FEA600022615F67300255E06 /* FansGroupItemCell.swift in Sources */,
@@ -2073,6 +2080,7 @@
 				FE79F371258C6C6100E9BC6C /* UIViewControllerPermissionExtension.swift in Sources */,
 				FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */,
 				BD6C3700256E7CD300D1E708 /* AmongChat.Room.swift in Sources */,
+				269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */,
 				FE126D51243481FF00BEDD60 /* Message.swift in Sources */,
 				FEC2A94925CAB637001B9556 /* StringSizeExtension.swift in Sources */,
 				FE2AF9E6244DB0F500763747 /* WebViewController.swift in Sources */,
