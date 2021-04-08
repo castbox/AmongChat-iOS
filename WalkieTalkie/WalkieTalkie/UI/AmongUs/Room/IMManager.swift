@@ -98,7 +98,7 @@ class IMManager: NSObject {
                     case .text:
                         item = try JSONDecoder().decodeAnyData(Peer.TextMessage.self, from: json) as PeerMessage
                     case .groupPeerCall:
-                        item = try JSONDecoder().decodeAnyData(Peer.GroupRoomCallMessage.self, from: json) as PeerMessage
+                        item = try JSONDecoder().decodeAnyData(Peer.CallMessage.self, from: json) as PeerMessage
                     case .groupPeerApply:
                         item = try JSONDecoder().decodeAnyData(Peer.GroupApplyMessage.self, from: json) as PeerMessage
                     case .roomInvitation, .roomInvitationInviteStranger:
@@ -176,7 +176,7 @@ class IMManager: NSObject {
         
     }
     
-    private func sendPeer(message: String, to: Int) -> Single<Bool> {
+    func sendPeer(message: String, to: Int) -> Single<Bool> {
         cdPrint("sendPeer message: \(message) to: \(to)")
         return Single<Bool>.create { [weak self] (subsciber) -> Disposable in
             let rtmMessage = AgoraRtmMessage(text: message)

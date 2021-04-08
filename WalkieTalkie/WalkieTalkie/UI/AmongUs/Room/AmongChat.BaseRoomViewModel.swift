@@ -64,7 +64,7 @@ extension AmongChat {
         var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
         var messageHandler: ((ChatRoomMessage) -> Void)?
 
-        private var imViewModel: AmongChat.Room.IMViewModel!
+        var imViewModel: AmongChat.Room.IMViewModel!
         
         let bag = DisposeBag()
         
@@ -85,7 +85,7 @@ extension AmongChat {
             roomReplay.value
         }
         
-        private lazy var mManager: ChatRoomManager = {
+        lazy var mManager: ChatRoomManager = {
             let manager = ChatRoomManager.shared
             manager.delegate = self
             return manager
@@ -182,10 +182,17 @@ extension AmongChat {
         func startImService() {
             imViewModel = AmongChat.Room.IMViewModel(with: roomInfo.roomId)
             
-            imViewModel.messagesObservable
+            imViewModel.roomMessagesObservable
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] (msg) in
                     self?.onReceiveChatRoom(crMessage: msg)
+                })
+                .disposed(by: bag)
+            
+            imViewModel.peerMessagesObservable
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] (msg) in
+                    self?.onReceivePeer(message: msg)
                 })
                 .disposed(by: bag)
             
@@ -587,6 +594,11 @@ extension AmongChat {
             } else if crMessage.msgType == .emoji {
                 messageHandler?(crMessage)
             }
+        }
+        
+        func onReceivePeer(message: PeerMessage) {
+            //
+            
         }
     }
 }

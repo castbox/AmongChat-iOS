@@ -149,14 +149,14 @@ class ChatRoomManager {
 
     }
     
-    func updateRole(_ isPublisher: Bool) {
-        let joinRole: RtcUserRole
-        if (isPublisher) {
-            joinRole = .broadcaster
-        } else {
-            joinRole = .audience
-        }
-        mRtcManager.setClientRole(joinRole)
+    func updateRole(_ role: RtcUserRole) {
+//        let joinRole: RtcUserRole
+//        if (isPublisher) {
+//            joinRole = .broadcaster
+//        } else {
+//            joinRole = .audience
+//        }
+        mRtcManager.setClientRole(role)
     }
 
 //    func leaveChannel(_ block: ((String) -> Void)? = nil) {

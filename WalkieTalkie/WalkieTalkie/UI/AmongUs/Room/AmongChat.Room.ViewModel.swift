@@ -188,7 +188,7 @@ extension AmongChat.Room {
 //        func startImService() {
 //            imViewModel = IMViewModel(with: room.roomId)
 //
-//            imViewModel.messagesObservable
+//            imViewModel.roomMessagesObservable
 //                .observeOn(MainScheduler.asyncInstance)
 //                .subscribe(onNext: { [weak self] (msg) in
 //                    self?.onReceiveChatRoom(crMessage: msg)

@@ -27,9 +27,14 @@ extension AmongChat.Room {
         
         private let bag = DisposeBag()
         
-        var messagesObservable: Observable<ChatRoomMessage> {
+        var roomMessagesObservable: Observable<ChatRoomMessage> {
             return messageRelay.asObservable()
                 .filterNilAndEmpty()
+        }
+        
+        var peerMessagesObservable: Observable<PeerMessage> {
+            return imManager.newPeerMessageObservable
+//                .filterNilAndEmpty()
         }
         
         var imReadySignal: Observable<Bool> {
@@ -97,5 +102,31 @@ extension AmongChat.Room.IMViewModel {
             .disposed(by: bag)
         
     }
+    
+    func sendPeer(message: PeerMessage, to: Int, completionHandler: CallBack? = nil) {
+        guard let string = message.asString else {
+            return
+        }
+        imManager.send(channelMessage: string)
+            .catchErrorJustReturn(false)
+//            .filter { _ -> Bool in
+//                return message.msgType == .text
+//            }
+            .subscribe(onSuccess: { [weak self] (success) in
+                guard let `self` = self,
+                    success else { return }
+                
+                completionHandler?()
+//                let msg = AgoraRtmMessage(text: text)
+//                let user = AgoraRtmMember()
+//                user.userId = "\(Constants.sUserId)"
+//                user.channelId = self.channelId
+//
+//                self.appendNewMessage(message)
+            })
+            .disposed(by: bag)
+
+    }
+    
         
 }

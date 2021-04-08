@@ -197,35 +197,35 @@ extension ChatRoom {
         }
     }
 
-    struct GroupRoomCallMessage: ChatRoomMessage {
-        
-        enum Action: Int32, Codable {
-            case none = 0
-            case request = 1
-            case accept = 2
-            case reject = 3
-            case hangup = 4
-            case invite = 5
-            case invite_reject = 6
-        }
-        
-        var action: Action = .none// call-in状态 1request 2accept 3reject 4handup 5invite 6invite_reject
-        var gid: String = ""
-        var expireTime: Int64 = 0
-        var extra: String = ""
-        var position: Int = 0
-        let msgType: MessageType
-
-        
-        private enum CodingKeys: String, CodingKey {
-            case action
-            case gid
-            case expireTime = "expire_time"
-            case extra
-            case position
-            case msgType = "message_type"
-        }
-    }
+//    struct GroupRoomCallMessage: ChatRoomMessage {
+//        
+//        enum Action: Int32, Codable {
+//            case none = 0
+//            case request = 1
+//            case accept = 2
+//            case reject = 3
+//            case hangup = 4
+//            case invite = 5
+//            case invite_reject = 6
+//        }
+//        
+//        var action: Action = .none// call-in状态 1request 2accept 3reject 4handup 5invite 6invite_reject
+//        var gid: String = ""
+//        var expireTime: Int64 = 0
+//        var extra: String = ""
+//        var position: Int = 0
+//        let msgType: MessageType
+//
+//        
+//        private enum CodingKeys: String, CodingKey {
+//            case action
+//            case gid
+//            case expireTime = "expire_time"
+//            case extra
+//            case position
+//            case msgType = "message_type"
+//        }
+//    }
 }
 
 extension ChatRoom.MessageType {

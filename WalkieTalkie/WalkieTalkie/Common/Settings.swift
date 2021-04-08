@@ -464,6 +464,10 @@ extension Settings {
         return shared.loginResult.value?.uid
     }
     
+    static var loginUserProfile: Entity.UserProfile? {
+        return shared.amongChatUserProfile.value
+    }
+    
     func fetchGlobalConfig() {
         _ = Request.amongchatProvider.rx.request(.globalSetting)
             .retry(2)

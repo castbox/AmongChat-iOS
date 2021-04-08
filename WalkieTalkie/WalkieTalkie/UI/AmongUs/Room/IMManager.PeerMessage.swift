@@ -13,6 +13,7 @@ struct Peer {
 }
 
 protocol PeerMessageable {
+    var user: Entity.UserProfile { get set }
     var msgType: Peer.MessageType { get }
 }
 
@@ -39,7 +40,7 @@ extension Peer {
     struct TextMessage: PeerMessage {
         
         let content: String
-        let user: Entity.RoomUser
+        var user: Entity.UserProfile
         let msgType: MessageType
         
         private enum CodingKeys: String, CodingKey {
@@ -61,6 +62,7 @@ extension Peer {
         let textColor: String?
         let contentType: ContentType?
         let msgType: MessageType
+        var user: Entity.UserProfile
         
         var text: String {
             contentType?.text ?? content
@@ -71,10 +73,11 @@ extension Peer {
             case msgType = "message_type"
             case textColor = "text_color"
             case contentType = "content_type"
+            case user
         }
     }
     
-    struct GroupRoomCallMessage: PeerMessage {
+    struct CallMessage: PeerMessage {
         
         enum Action: Int32, Codable {
             case none = 0
@@ -91,8 +94,27 @@ extension Peer {
         var expireTime: Int64 = 0
         var extra: String = ""
         var position: Int = 0
-        let msgType: MessageType
-
+        let msgType: MessageType = .groupPeerCall
+        var user: Entity.UserProfile
+        
+        
+        init(action: Action,
+             gid: String,
+             expireTime: Int64,
+             extra: String,
+             position: Int,
+             user: Entity.UserProfile) {
+            self.action = action
+            self.gid = gid
+            self.expireTime = expireTime
+            self.extra = extra
+            self.position = position
+            self.user = user
+        }
+        
+        static func empty(gid: String) -> CallMessage {
+            return CallMessage(action: .none, gid: gid, expireTime: 0, extra: "", position: 0, user: Settings.loginUserProfile!)
+        }
         
         private enum CodingKeys: String, CodingKey {
             case action
@@ -101,12 +123,13 @@ extension Peer {
             case extra
             case position
             case msgType = "message_type"
+            case user
         }
     }
     
     struct GroupApplyMessage: PeerMessage {
+        var user: Entity.UserProfile
         var msgType: Peer.MessageType
-        
         
     }
 }
@@ -145,56 +168,56 @@ extension Peer.SystemMessage: MessageListable {
     }
 }
 
-extension Peer.TextMessage: MessageListable {
-    var rawContent: String? {
-        content
-    }
-    
-    var attrString: NSAttributedString {
-        let pargraph = NSMutableParagraphStyle()
-        pargraph.lineBreakMode = .byTruncatingTail
-        pargraph.lineHeightMultiple = 0
-        
-        let nameAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: "ABABAB".color(),
-            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
-            .paragraphStyle: pargraph
-//            .kern: 0.5
-        ]
-        
-        let contentAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
-            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
-            .paragraphStyle: pargraph
-//            .kern: 0.5
-        ]
-        let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
-        if user.isVerified == true {
-            let font = R.font.nunitoExtraBold(size: 12)!
-            let image = R.image.icon_verified_13()!
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = image
-            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            mutableNormalString.yy_appendString(" ")
-            mutableNormalString.append(imageString)
-        }
-        if user.isVip == true {
-            let font = R.font.nunitoExtraBold(size: 12)!
-            let image = R.image.icon_vip_13()!
-            let imageAttachment = NSTextAttachment()
-            imageAttachment.image = image
-            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
-            let imageString = NSAttributedString(attachment: imageAttachment)
-            mutableNormalString.yy_appendString(" ")
-            mutableNormalString.append(imageString)
-        }
-        
-        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
-        return mutableNormalString
-    }
-}
+//extension Peer.TextMessage: MessageListable {
+//    var rawContent: String? {
+//        content
+//    }
+//    
+//    var attrString: NSAttributedString {
+//        let pargraph = NSMutableParagraphStyle()
+//        pargraph.lineBreakMode = .byTruncatingTail
+//        pargraph.lineHeightMultiple = 0
+//        
+//        let nameAttr: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: "ABABAB".color(),
+//            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+//            .paragraphStyle: pargraph
+////            .kern: 0.5
+//        ]
+//        
+//        let contentAttr: [NSAttributedString.Key: Any] = [
+//            .foregroundColor: UIColor.white,
+//            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+//            .paragraphStyle: pargraph
+////            .kern: 0.5
+//        ]
+//        let mutableNormalString = NSMutableAttributedString()
+//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+//        if user.isVerified == true {
+//            let font = R.font.nunitoExtraBold(size: 12)!
+//            let image = R.image.icon_verified_13()!
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            mutableNormalString.yy_appendString(" ")
+//            mutableNormalString.append(imageString)
+//        }
+//        if user.isVip == true {
+//            let font = R.font.nunitoExtraBold(size: 12)!
+//            let image = R.image.icon_vip_13()!
+//            let imageAttachment = NSTextAttachment()
+//            imageAttachment.image = image
+//            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+//            let imageString = NSAttributedString(attachment: imageAttachment)
+//            mutableNormalString.yy_appendString(" ")
+//            mutableNormalString.append(imageString)
+//        }
+//        
+//        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
+//        return mutableNormalString
+//    }
+//}
 
 extension Peer.SystemMessage.ContentType {
     var text: String {

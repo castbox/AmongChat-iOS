@@ -13,6 +13,45 @@ import SVGAPlayer
 import SwiftyUserDefaults
 
 extension AmongChat.Room {
+    class SeatItem {
+        let isEmpty: Bool
+        var callContent: Peer.CallMessage
+        var user: Entity.RoomUser?
+        
+        var isLock: Bool = false
+        var isActive: Bool = false
+        var isMuted: Bool = false
+        
+//        var emoji: EmojiContent?
+//        var emojiPlayEndHandler: (EmojiContent?) -> Void = { _ in }
+        
+        var isValid: Bool {
+            return !callContent.gid.isEmpty && user?.uid != nil
+        }
+        
+        init(_ gid: String, _ user: Entity.RoomUser? = nil, action: Peer.CallMessage.Action = .none) {
+            
+            self.callContent = Peer.CallMessage.empty(gid: gid)
+            self.user = user
+            self.isEmpty = user == nil
+//            self.emoji = nil
+        }
+        
+        func clear() {
+            user = nil
+            callContent = Peer.CallMessage.empty(gid: callContent.gid)
+            isActive = false
+            isLock = false
+            isMuted = false
+        }
+        
+        static func ==(_ lhs: SeatItem, _ rhs: SeatItem) -> Bool {
+            return lhs.user?.uid == rhs.user?.uid && lhs.callContent.action == rhs.callContent.action
+        }
+    }
+}
+
+extension AmongChat.Room {
     class SeatView: UIView {
         
         enum ItemStyle {
