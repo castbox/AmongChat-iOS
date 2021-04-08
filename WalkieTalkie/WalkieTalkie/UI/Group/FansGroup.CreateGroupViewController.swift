@@ -105,7 +105,9 @@ extension FansGroup.CreateGroupViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (group) in
+                #if DEBUG
                 Defaults[\.testGroup] = group.asString
+                #endif
                 let vc = FansGroup.AddMemberController(groupId: group.gid)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }, onError: { [weak self] (error) in
