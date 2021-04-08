@@ -111,14 +111,19 @@ extension FansGroup.Views {
     
     class GroupTopicView: UIView {
         
-        private(set) lazy var cover: UIImageView = {
+        let coverSourceRelay = BehaviorRelay<Any?>(value: nil) // accept String or UIImage
+        let nameRelay = BehaviorRelay<String?>(value: nil)
+        
+        private let bag = DisposeBag()
+        
+        private lazy var cover: UIImageView = {
             let i = UIImageView()
             i.contentMode = .scaleAspectFill
             i.clipsToBounds = true
             return i
         }()
         
-        private(set) lazy var nameLabel: UILabel = {
+        private lazy var nameLabel: UILabel = {
             let l = UILabel()
             l.font = Self.nameFont
             l.textColor = UIColor.white
@@ -133,6 +138,7 @@ extension FansGroup.Views {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -163,6 +169,23 @@ extension FansGroup.Views {
                 maker.right.equalToSuperview().inset(Self.nameInset.right)
                 maker.top.bottom.equalToSuperview()
             }
+        }
+        
+        private func setUpEvents() {
+            
+            Observable.combineLatest(nameRelay, coverSourceRelay)
+                .subscribe(onNext: { [weak self] name, coverSource in
+                    
+                    if let url = coverSource as? ResourceComaptible {
+                        self?.cover.setImage(with: url)
+                    } else if let image = coverSource as? UIImage {
+                        self?.cover.image = image
+                    }
+                    
+                    self?.nameLabel.text = name
+                })
+                .disposed(by: bag)
+            
         }
         
         private static let nameFont = R.font.nunitoExtraBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .heavy)
@@ -224,8 +247,8 @@ extension FansGroup.Views {
         }
         
         func bindViewModel(_ viewModel: FansGroup.TopicViewModel) {
-            topicView.cover.setImage(with: viewModel.coverUrl?.url)
-            topicView.nameLabel.text = viewModel.name
+            topicView.coverSourceRelay.accept(viewModel.coverUrl?.url)
+            topicView.nameRelay.accept(viewModel.name)
         }
         
     }
@@ -642,6 +665,7 @@ extension FansGroup.Views {
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
+            setUpEvents()
         }
         
         required init?(coder: NSCoder) {
@@ -677,16 +701,27 @@ extension FansGroup.Views {
             }
         }
         
+        private func setUpEvents() {
+            
+            Observable.combineLatest(topicView.nameRelay, topicView.coverSourceRelay)
+                .subscribe(onNext: { [weak self] name, coverSoure in
+                    
+                    let topicIsNull = name == nil && coverSoure == nil
+                    
+                    self?.placeholderLabel.isHidden = !topicIsNull
+                    self?.addButton.isHidden = !topicIsNull
+                    
+                    self?.topicView.isHidden = topicIsNull
+                    self?.accessoryIV.isHidden = topicIsNull
+                    
+                })
+                .disposed(by: bag)
+            
+        }
+        
         func bindViewModel(_ viewModel: FansGroup.TopicViewModel?) {
-            
-            placeholderLabel.isHidden = (viewModel != nil)
-            addButton.isHidden = (viewModel != nil)
-            
-            topicView.isHidden = (viewModel == nil)
-            accessoryIV.isHidden = (viewModel == nil)
-            
-            topicView.cover.setImage(with: viewModel?.coverUrl?.url)
-            topicView.nameLabel.text = viewModel?.name
+            topicView.coverSourceRelay.accept(viewModel?.coverUrl?.url)
+            topicView.nameRelay.accept(viewModel?.name)
         }
         
     }

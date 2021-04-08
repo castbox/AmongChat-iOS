@@ -153,8 +153,8 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
             cell.groupTitleLabel.text = group.group.name
             cell.groupIntroLabel.text = group.group.description
             cell.groupUserCountLabel.text = "\(group.group.membersCount)"
-            cell.topicView.cover.setImage(with: group.group.coverUrl)
-            cell.topicView.nameLabel.text = group.group.topicName
+            cell.topicView.coverSourceRelay.accept(group.group.coverUrl)
+            cell.topicView.nameRelay.accept(group.group.topicName)
             cell.groupInfoContainer.isHidden = false
             cell.onlineTagView.isHidden = group.group.status == 0
             return cell
