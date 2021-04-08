@@ -27,18 +27,6 @@ extension FansGroup {
             return n
         }()
         
-        private lazy var layoutScrollView: UIScrollView = {
-            let s = UIScrollView()
-            s.showsVerticalScrollIndicator = false
-            s.showsHorizontalScrollIndicator = false
-            if #available(iOS 11.0, *) {
-                s.contentInsetAdjustmentBehavior = .never
-            }
-            s.keyboardDismissMode = .interactive
-            s.delegate = self
-            return s
-        }()
-        
         private typealias InfoSetUpView = FansGroup.Views.GroupInfoSetUpView
         private lazy var setUpInfoView: InfoSetUpView = {
             let s = InfoSetUpView()
@@ -132,11 +120,10 @@ extension FansGroup.CreateGroupViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: layoutScrollView, navView, bottomGradientView)
+        view.addSubviews(views: setUpInfoView, navView, bottomGradientView)
         
-        layoutScrollView.snp.makeConstraints { (maker) in
+        setUpInfoView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
-            maker.width.equalToSuperview()
         }
         
         navView.snp.makeConstraints { (maker) in
@@ -151,16 +138,11 @@ extension FansGroup.CreateGroupViewController {
             maker.height.equalTo(134)
         }
         
-        layoutScrollView.addSubviews(views: setUpInfoView, bottomTipLabel)
+        setUpInfoView.appendViewContainer.addSubviews(views: bottomTipLabel)
         
-        setUpInfoView.snp.makeConstraints { (maker) in
-            maker.leading.top.trailing.equalToSuperview()
-            maker.width.equalToSuperview()
-        }
-                
         bottomTipLabel.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview().inset(20)
-            maker.top.equalTo(setUpInfoView.snp.bottom).offset(32)
+            maker.top.equalToSuperview().offset(32)
             maker.bottom.equalToSuperview().offset(-150)
         }
         
@@ -206,58 +188,21 @@ extension FansGroup.CreateGroupViewController {
             .bind(to: nextButton.rx.isEnabled)
             .disposed(by: bag)
         
-        let textingView = Observable.merge(
-            setUpInfoView.nameView.isEdtingRelay
-                .map({ [weak self] (isEditing) -> UIView? in
-                    return isEditing ? self?.setUpInfoView.nameView : nil
-                }),
-            setUpInfoView.descriptionView.isEdtingRelay
-                .map({ (isEditing) -> UIView? in
-                    return isEditing ? self.setUpInfoView.descriptionView : nil
-                })
-        )
-        .filterNil()
-        
-        Observable.combineLatest(RxKeyboard.instance.visibleHeight.asObservable(), textingView)
-            .subscribe(onNext: { [weak self] keyboardVisibleHeight, textingView in
-                                
+        setUpInfoView.layoutScrollView.rx.contentOffset
+            .subscribe(onNext: { [weak self] (point) in
+                
                 guard let `self` = self else { return }
                 
-                guard keyboardVisibleHeight > 0 else {
-                    self.layoutScrollView.contentOffset = .zero
-                    return
+                let distance = point.y
+                
+                self.navView.snp.updateConstraints { (maker) in
+                    maker.top.equalTo(self.topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
                 }
                 
-                let rect = self.setUpInfoView.convert(textingView.frame, to: self.view)
-                let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY
-                
-                guard distance < 0 else {
-                    return
-                }
-                
-                UIView.animate(withDuration: RxKeyboard.instance.animationDuration) {
-                    self.layoutScrollView.contentOffset.y = self.layoutScrollView.contentOffset.y - distance
-                }
+                self.navView.alpha = 1 - distance / 49
             })
             .disposed(by: bag)
 
-    }
-    
-}
-
-extension FansGroup.CreateGroupViewController: UIScrollViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-        let distance = scrollView.contentOffset.y
-        
-        setUpInfoView.enlargeTopGbHeight(extraHeight: -distance)
-        
-        navView.snp.updateConstraints { (maker) in
-            maker.top.equalTo(topLayoutGuide.snp.bottom).offset(min(0, -distance / 3))
-        }
-        
-        navView.alpha = 1 - distance / 49
     }
     
 }

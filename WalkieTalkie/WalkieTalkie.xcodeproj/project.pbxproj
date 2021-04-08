@@ -34,6 +34,7 @@
 		269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */; };
 		269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */; };
 		269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */; };
+		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -411,6 +412,7 @@
 		269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupInfoViewController+ViewModels.swift"; sourceTree = "<group>"; };
 		269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupMemberListViewController.swift; sourceTree = "<group>"; };
 		269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupMemberListViewController+Views.swift"; sourceTree = "<group>"; };
+		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 			children = (
 				26F4149B2611C4EA003ED5BE /* FansGroup.swift */,
 				26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */,
+				269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */,
 				26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */,
 				263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */,
 				263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */,
@@ -1822,6 +1825,7 @@
 				FED7B603244ECAA600D94F97 /* Logger+PageShow.swift in Sources */,
 				FE126D602434967A00BEDD60 /* SwiftTimer.swift in Sources */,
 				FEC7855A25A8577300E343F7 /* BaseNotificationBannerExtension.swift in Sources */,
+				269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */,
 				BD754CB3258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift in Sources */,
 				FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */,
 				FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */,
