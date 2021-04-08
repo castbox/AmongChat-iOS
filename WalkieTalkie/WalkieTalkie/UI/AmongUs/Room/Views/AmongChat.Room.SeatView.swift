@@ -29,9 +29,9 @@ extension AmongChat.Room {
             return !callContent.gid.isEmpty && user?.uid != nil
         }
         
-        init(_ gid: String, _ user: Entity.RoomUser? = nil, action: Peer.CallMessage.Action = .none) {
+        init(_ gid: String, _ user: Entity.RoomUser? = nil, action: Peer.CallMessage.Action = .none, callContent: Peer.CallMessage? = nil) {
             
-            self.callContent = Peer.CallMessage.empty(gid: gid)
+            self.callContent = callContent ?? Peer.CallMessage.empty(gid: gid)
             self.user = user
             self.isEmpty = user == nil
 //            self.emoji = nil
@@ -84,11 +84,12 @@ extension AmongChat.Room {
             return stack
         }()
         
-        private var dataSource: [Int: Entity.RoomUser] = [:] {
+        var dataSource: [Int: AmongChat.Room.SeatItem] = [:] {
             didSet {
                 guard UIApplication.appDelegate?.isApplicationActiveReplay.value == true else {
                     return
                 }
+                //组装
                 updateSeats()
             }
         }
@@ -99,7 +100,7 @@ extension AmongChat.Room {
                 
         var room: RoomInfoable! {
             didSet {
-                dataSource = room.userListMap
+//                dataSource = room.userListMap
             }
         }
         
@@ -125,6 +126,8 @@ extension AmongChat.Room {
         var selectedKickUserHandler: (([Int]) -> Void)?
         
         var selectUserHandler: ((Entity.RoomUser?) -> Void)?
+        
+        var requestOnSeatHandler: ((Int) -> Void)?
         
         var userProfileSheetActionHandler: ((AmongSheetController.ItemType, _ user: Entity.RoomUser) -> Void)?
         
@@ -221,7 +224,7 @@ extension AmongChat.Room {
             }
         }
         
-        func select(_ user: Entity.RoomUser?) {
+        func select(_ index: Int, user: Entity.RoomUser?) {
             if style == .kick {
                 if let user = user,
                    user.uid != Settings.loginUserId {
@@ -232,11 +235,16 @@ extension AmongChat.Room {
                     }
                 }
             } else {
-                guard let user = user else {
-                    selectUserHandler?(nil)
-                    return
+                if let user = user {
+                    fetchRealation(with: user)
+                } else {
+                    //
+                    if itemStyle == .group {
+                        requestOnSeatHandler?(index)
+                    } else {
+                        selectUserHandler?(nil)
+                    }
                 }
-                fetchRealation(with: user)
             }
         }
     }
@@ -258,19 +266,32 @@ extension AmongChat.Room.SeatView {
                 viewCache[index] = cell
                 nilableCell = cell
             }
-            guard let cell = nilableCell else {
+            guard let cell = nilableCell, let item = dataSource[index] else {
                 return
             }
             // callin状态
-            cell.clickAvatarHandler = { [weak self] user in
-                self?.select(user)
+            if item.callContent.action == .request {
+//                cell.seatButton.setImage(nil, for: .normal)
+//                cell.hostNameLabel.text = nil
+//                cell.userInfo = nil
+//                cell.startLoading()
+//                cell.set(item: nil)
+                //clear
+                cell.clearStyle()
+                cell.startLoading()
+                continue
+            } else {
+                cell.stopLoading()
             }
-            if style == .kick, let item = dataSource[index] {
-                cell.isKickSelected = selectedKickUser.contains(item.uid)
+            cell.clickAvatarHandler = { [weak self] user in
+                self?.select(index, user: user)
+            }
+            if style == .kick, let user = item.user {
+                cell.isKickSelected = selectedKickUser.contains(user.uid)
             } else {
                 cell.isKickSelected = false
             }
-            cell.bind(dataSource[index], topic: room.topicType, index: index + 1)
+            cell.bind(dataSource[index]?.user, topic: room.topicType, index: index + 1)
         }
     }
 }

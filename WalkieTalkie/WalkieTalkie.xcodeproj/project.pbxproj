@@ -245,6 +245,7 @@
 		FE806796261DC84500207992 /* ChatRoomMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE806795261DC84500207992 /* ChatRoomMessage.swift */; };
 		FE80679E261DD2C300207992 /* IMManager.PeerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80679D261DD2C300207992 /* IMManager.PeerMessage.swift */; };
 		FE8067A2261DD2E300207992 /* IMManager.ChatRoomMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8067A1261DD2E300207992 /* IMManager.ChatRoomMessage.swift */; };
+		FE8067A8261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8067A7261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift */; };
 		FE8089CC2449E7FD006A1644 /* PremiumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */; };
 		FE8089CE2449EE65006A1644 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8089CD2449EE65006A1644 /* SettingViewController.swift */; };
 		FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80A58325AD96BB009914A7 /* Search.ViewController.swift */; };
@@ -644,6 +645,7 @@
 		FE806795261DC84500207992 /* ChatRoomMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomMessage.swift; sourceTree = "<group>"; };
 		FE80679D261DD2C300207992 /* IMManager.PeerMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMManager.PeerMessage.swift; sourceTree = "<group>"; };
 		FE8067A1261DD2E300207992 /* IMManager.ChatRoomMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMManager.ChatRoomMessage.swift; sourceTree = "<group>"; };
+		FE8067A7261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.HostViewModel.swift; sourceTree = "<group>"; };
 		FE8089CB2449E7FD006A1644 /* PremiumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumViewController.swift; sourceTree = "<group>"; };
 		FE8089CD2449EE65006A1644 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FE80A58325AD96BB009914A7 /* Search.ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.ViewController.swift; sourceTree = "<group>"; };
@@ -1446,6 +1448,7 @@
 				FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */,
 				FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */,
 				FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */,
+				FE8067A7261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift */,
 				FED38C81261318BB003C3F7D /* AmongGroupTopView.swift */,
 				FED38C85261318D2003C3F7D /* AmongGroupTopView.xib */,
 				FED38C8926132976003C3F7D /* AmongGroupTopicConfigView.swift */,
@@ -1855,7 +1858,7 @@
 				FE684880244BD72A00F87AF9 /* Settings.swift in Sources */,
 				BDB8F58724F7D925000027F8 /* Social.swift in Sources */,
 				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
-				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.RequestListController.swift in Sources */,
+				FE078C912615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift in Sources */,
 				269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */,
 				FE860D4E2446D1D700087B73 /* Padding.swift in Sources */,
 				FE2AF9F7244DCC0400763747 /* URI.swift in Sources */,
@@ -1883,6 +1886,7 @@
 				2B956766259B3262001C7B91 /* Social.ProfileViewcontrollerExtension.swift in Sources */,
 				FE4FDADB2435D70A00CD5E97 /* FireLink.swift in Sources */,
 				BD754CB9258B9CC300ECC177 /* AmongChat.CreateRoom.TopicCell.swift in Sources */,
+				FE8067A8261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift in Sources */,
 				26AFD90725CAB81300B652E8 /* IAP.ConsumableProduct.swift in Sources */,
 				FE078C892615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift in Sources */,
 				FE684879244BD45F00F87AF9 /* DateUtil.swift in Sources */,

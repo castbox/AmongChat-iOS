@@ -25,9 +25,8 @@ class SeatLoadingView: UIView {
     override init(frame: CGRect) {
         super.init(frame: .zero)
         
-        backgroundColor = UIColor.theme(.backgroundWhite)
+        backgroundColor = .clear
         layer.cornerRadius = 8
-//                clipsToBounds = true
         isHidden = true
         
         for i in 0..<3 {

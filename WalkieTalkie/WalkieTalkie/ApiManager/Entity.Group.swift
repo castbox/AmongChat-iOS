@@ -28,7 +28,7 @@ extension Entity {
         var cover: String?
         var name: String?
         var description: String?
-        var status: Int
+        var status: Int //0 关播 1 开播
         var createTime: Double
         var rtcType: String?
         var topicName: String?
@@ -48,8 +48,8 @@ extension Entity {
             var count: Int
         }
         
-        var group: Group
-        var members: Members
+        var group: GroupRoom
+        var members: Members?
         var userStatusInt: Int
 
         private enum CodingKeys: String, CodingKey {
@@ -112,7 +112,8 @@ extension Entity {
         //group cover
         let cover: String
         let name: String
-        let status, createTime: Int
+        let status: Int //0 关播 1 开播
+        let createTime: Int
         let broadcaster: Entity.UserProfile
         let membersCount: Int
 //        let liveID: String

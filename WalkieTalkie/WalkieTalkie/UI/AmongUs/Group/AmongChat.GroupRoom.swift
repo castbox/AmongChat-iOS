@@ -46,7 +46,7 @@ extension AmongChat.GroupRoom {
 //        }
         
         //Defaults[\.testGroup] = group.asString
-        static func join(room: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(group: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
@@ -55,7 +55,7 @@ extension AmongChat.GroupRoom {
 //                show loading
 //                let viewModel = ViewModel.make(room, logSource)
 //                self.show(from: controller, with: viewModel)
-                let vc = AmongChat.GroupRoom.ContainerController(with: room, logSource: logSource)
+                let vc = AmongChat.GroupRoom.ContainerController(with: group, logSource: logSource)
                 controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                     guard let ancient = controller,
                           (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ViewController) else { return }

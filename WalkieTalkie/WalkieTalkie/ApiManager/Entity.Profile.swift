@@ -235,3 +235,11 @@ extension Entity.UserProfile {
         return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId)
     }
 }
+
+
+extension Entity {
+    struct CallInItem {
+        let user: UserProfile
+        let message: Peer.CallMessage
+    }
+}

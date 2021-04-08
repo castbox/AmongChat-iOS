@@ -143,7 +143,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
                 case .edit:
                     ()
                 case .start:
-                    self?.enterRoom(groupId: group.group.gid, logSource: .matchSource, apiSource: nil)
+                    self?.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
                 }
             }
             return cell
@@ -156,6 +156,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
             cell.topicView.cover.setImage(with: group.group.coverUrl)
             cell.topicView.nameLabel.text = group.group.topicName
             cell.groupInfoContainer.isHidden = false
+            cell.onlineTagView.isHidden = group.group.status == 0
             return cell
         }
         
@@ -169,9 +170,13 @@ extension FansGroup.GroupListViewController: UITableViewDelegate {
         guard let group = groupsRelay.value.safe(indexPath.row) else {
             return
         }
-        
-        let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)
-        navigationController?.pushViewController(vc, animated: true)
+        if group.group.status == 1 {
+            enterRoom(group: group.group, logSource: nil, apiSource: nil)
+        } else {
+            
+            let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
 }

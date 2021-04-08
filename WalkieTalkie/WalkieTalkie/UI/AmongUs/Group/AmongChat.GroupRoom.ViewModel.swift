@@ -53,40 +53,69 @@ extension PhoneCallRejectType {
 }
 
 extension AmongChat.GroupRoom {
-    
-//    enum EndRoomAction {
-//        case accountKicked
-//        case disconnected
-//        case normalClose //true if enter a closed room for listener
-//        case tokenError
-//        case forbidden //被封
-//        //listener
-//        case enterClosedRoom
-//        case kickout(ChatRoom.KickOutMessage.Role) //被踢出
-//        case beBlocked
-//    }
-    
-    
+        
     class ViewModel: AmongChat.BaseRoomViewModel {
         var callSwitch: Bool = true
         //host call in list
-        var callInList: [Entity.RoomUser] = []
+//        var callInList: [Entity.RoomUser] = []
         
         
         var group: Entity.GroupRoom {
             roomReplay.value as! Entity.GroupRoom
         }
         
+        //存储
+        private var seatDataSource: [Int: AmongChat.Room.SeatItem] = [:] {
+            didSet {
+                seatDataSourceReplay.accept(seatDataSource)
+            }
+        }
         
-//        override init(room: RoomInfoable, source: ParentPageSource?) {
-//            
-//        }
+        let seatDataSourceReplay = BehaviorRelay<[Int: AmongChat.Room.SeatItem]>(value: [:])
         
-//        init(room: RoomInfoable, source: ParentPageSource?) {
-//
-//        }
+        
+        override init(room: RoomInfoable, source: ParentPageSource?) {
+            super.init(room: room, source: source)
+        }
+        
+        func updateSeatDataSource() {
+            for index in 0 ..< 10 {
+                //当前已有数据，重新填充信息
+                let item: AmongChat.Room.SeatItem
+                if let prevItem = seatDataSource[index] {
+                    item = prevItem
+                } else {
+                    item = AmongChat.Room.SeatItem(group.roomId)
+                }
+                if let user = group.userListMap[index] {
+                    item.user = user
+                }
+                seatDataSource[index] = item
+            }
+        }
+        
+        func requestOnSeat(at position: Int) {
+            guard position >= 0 && position < 10,
+                  let user = Settings.loginUserProfile?.toRoomUser(with: position),
+                  let item = seatDataSource[position] else {
+                return
+            }
+            //拿到改位置占位 item
+            //将 item 更改为 loading 状态
+            item.user = user
+            item.callContent = Peer.CallMessage(action: .request, gid: group.gid, expireTime: 30, position: position, user: user)
+            sendCall(action: .request, position: position)
+            //update state
+            seatDataSource[position] = item
+        }
         
         //MARK: - override
+        override func update(_ room: RoomInfoable) {
+            super.update(room)
+            //
+            updateSeatDataSource()
+        }
+        
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
             cdPrint("onReceiveChatRoom- \(crMessage)")
             guard state != .disconnected else {
@@ -154,90 +183,19 @@ extension AmongChat.GroupRoom {
         var callingHandler: (PhoneCallRejectType, Peer.CallMessage) -> Void = { _, _ in }
         
         var callinInviteHandler: () -> Void = { }
-        //MARK: - For host
-        // MARK: - CALL - 1request 2accept 3reject 4handup 5invite 6reject
-//        func sendCallSignal(isAccept: Bool, userInfo: LVEntity.CallInUserInfo) {
-//            if isAccept { // 准备连接
-//                // 判断call-in限制数量
-//                var callinHostsCount = callInList.filter { $0.action == 2 }.count
-//                // 如果callin列表数据没有值 则使用麦位数据
-//                if callinHostsCount == 0 {
-//                    callinHostsCount = seats.itemsRelay.value.filter { $0.userInfo.suid != 0 }.count
-//                }
-//                guard callinHostsCount <= 5 || (roomInfo.type == .dating && callinHostsCount <= 6) else {
-//                    return
-//                }
-//
-//                self.seats.callin(userInfo)
-//
-//                /// FIXME: - 逻辑全部移到seat里面
-//                if let targetUserInfo = LVEntity.BaseUserInfo.copyFrom(userInfo: userInfo) {
-//
-//                    let content = CallContent()
-//                    content.action = .accept
-//                    content.room_id = roomInfo.room_id
-//                    content.expire_time = Int64(userInfo.expired ?? 30)
-//                    content.extra = userInfo.extra ?? ""
-//                    content.position = userInfo.position
-//                    LiveEngine.shared.sendSignal(dest: targetUserInfo, content: content)
-//                    // report
-//                    Request.Livecast.Live.Room.reportCallIn(uid: userInfo.suid, roomID: roomInfo.room_id, roomLiveID: roomInfo.room_live_id ?? "")
-//                        .subscribe(onNext: {}).disposed(by: bag)
-//                    // 更新action状态
-//                    userInfo.action = CallContent.Action.accept.rawValue
-//                    callInListHandler()
-//                }
-//            } else if let targetUserInfo = LVEntity.BaseUserInfo.copyFrom(userInfo: userInfo) {
-//                let content = CallContent()
-//                content.action = .hangup
-//                content.room_id = roomInfo.room_id
-//                content.expire_time = Int64(userInfo.expired ?? 30)
-//                content.extra = userInfo.extra ?? ""
-//                content.position = userInfo.position
-//                LiveEngine.shared.sendSignal(dest: targetUserInfo, content: content)
-//                // report
-//                Request.Livecast.Live.Room.reportCallOut(uid: userInfo.suid, roomID: roomInfo.room_id, roomLiveID: roomInfo.room_live_id ?? "")
-//                    .observeOn(MainScheduler.asyncInstance)
-//                    .subscribe()
-//                    .disposed(by: bag)
-//                // 直接断开
-//                deleteCallInList(userInfo.suid)
-//            } else {
-//
-//            }
-//        }
-//
-//        func rejestCall(userInfo: LVEntity.CallInUserInfo) {
-//            // 直接断开
-//            deleteCallInList(userInfo.suid)
-//
-//            if let targetUserInfo = LVEntity.BaseUserInfo.copyFrom(userInfo: userInfo) {
-//                let content = CallContent()
-//                /// FIXME: 通话成功之后挂断还是action 3 吗
-//                content.action = .reject
-//                content.room_id = roomInfo.room_id
-//                content.expire_time = Int64(userInfo.expired ?? 30)
-//                content.extra = userInfo.extra ?? ""
-//                LiveEngine.shared.sendSignal(dest: targetUserInfo, content: content)
-//                /// FIXED: - 操作原子性问题
-//                callInListHandler()
-//            } else {
-//                cdAssertFailure("targetUserInfo == nil")
-//            }
-//        }
         
         //MARK: - For Auidiance
-        func sendMessage(call action: Peer.CallMessage.Action, expired: Int64, extra: String, position: Int? = nil) {
+        func sendMessage(call action: Peer.CallMessage.Action, expired: Int64, extra: String, position: Int = 0) {
             //user
-            let content = Peer.CallMessage(action: action, gid: group.gid, expireTime: expired, extra: extra, position: position ?? 0, user: Settings.loginUserProfile!)
+            let content = Peer.CallMessage(action: action, gid: group.gid, expireTime: expired, extra: extra, position: position ?? 0, user: Settings.loginUserProfile!.toRoomUser(with: position))
             imViewModel.sendPeer(message: content, to: group.broadcaster.uid)
         }
         
         // MARK: - CALL
-        func sendCall(action: Peer.CallMessage.Action, position: Int? = nil) {
+        func sendCall(action: Peer.CallMessage.Action, position: Int = 0) {
+            cdPrint("sendCall action: \(action)")
             switch action {
             case .request:
-                cdPrint("sendSingnal:listener:dataManager")
                 phoneCallState = .requesting
                 sendMessage(call: action, expired: 30, extra: "", position: position)
 //                LiveEngine.shared.sendCallSignal(action: .request, roomInfo: roomInfo, expired: 30, extra: "", position: position)

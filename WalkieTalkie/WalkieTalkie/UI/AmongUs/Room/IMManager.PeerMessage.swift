@@ -13,7 +13,7 @@ struct Peer {
 }
 
 protocol PeerMessageable {
-    var user: Entity.UserProfile { get set }
+//    var user: Entity.UserProfile { get set }
     var msgType: Peer.MessageType { get }
 }
 
@@ -95,15 +95,15 @@ extension Peer {
         var extra: String = ""
         var position: Int = 0
         let msgType: MessageType = .groupPeerCall
-        var user: Entity.UserProfile
+        var user: Entity.RoomUser
         
         
         init(action: Action,
              gid: String,
              expireTime: Int64,
-             extra: String,
+             extra: String = "",
              position: Int,
-             user: Entity.UserProfile) {
+             user: Entity.RoomUser) {
             self.action = action
             self.gid = gid
             self.expireTime = expireTime
@@ -113,7 +113,7 @@ extension Peer {
         }
         
         static func empty(gid: String) -> CallMessage {
-            return CallMessage(action: .none, gid: gid, expireTime: 0, extra: "", position: 0, user: Settings.loginUserProfile!)
+            return CallMessage(action: .none, gid: gid, expireTime: 0, extra: "", position: 0, user: Settings.loginUserProfile!.toRoomUser(with: 0))
         }
         
         private enum CodingKeys: String, CodingKey {
@@ -172,19 +172,19 @@ extension Peer.SystemMessage: MessageListable {
 //    var rawContent: String? {
 //        content
 //    }
-//    
+//
 //    var attrString: NSAttributedString {
 //        let pargraph = NSMutableParagraphStyle()
 //        pargraph.lineBreakMode = .byTruncatingTail
 //        pargraph.lineHeightMultiple = 0
-//        
+//
 //        let nameAttr: [NSAttributedString.Key: Any] = [
 //            .foregroundColor: "ABABAB".color(),
 //            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
 //            .paragraphStyle: pargraph
 ////            .kern: 0.5
 //        ]
-//        
+//
 //        let contentAttr: [NSAttributedString.Key: Any] = [
 //            .foregroundColor: UIColor.white,
 //            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
@@ -213,7 +213,7 @@ extension Peer.SystemMessage: MessageListable {
 //            mutableNormalString.yy_appendString(" ")
 //            mutableNormalString.append(imageString)
 //        }
-//        
+//
 //        mutableNormalString.append(NSAttributedString(string: "  \(content)", attributes: contentAttr))
 //        return mutableNormalString
 //    }

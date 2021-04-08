@@ -227,7 +227,7 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
                 guard let item = group else {
                     return
                 }
-                self.enterRoom(groupId: item.gid, logSource: .matchSource, apiSource: nil)
+                self.enterRoom(group: item, logSource: .matchSource, apiSource: nil)
             } else {
                 Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
                     self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)

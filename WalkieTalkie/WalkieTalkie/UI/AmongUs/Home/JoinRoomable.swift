@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol JoinRoomable {
     var contentScrollView: UIScrollView? { get }
@@ -152,7 +154,7 @@ extension JoinRoomable where Self: ViewController {
 
     }
     
-    func enterRoom(groupId: String, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+    func enterRoom(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
 //        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()
@@ -171,20 +173,29 @@ extension JoinRoomable where Self: ViewController {
         
         contentScrollView?.isUserInteractionEnabled = false
         isRequestingRoom = true
-        //request
-        Request.startChannel(groupId: groupId)
-            .subscribe { [weak self] (room) in
+        //start or enter
+        var requestObservable: Single<Entity.GroupRoom?> {
+            if group.uid == Settings.loginUserId {
+                //request
+                return Request.startChannel(groupId: group.gid)
+            } else {
+                //request
+                return Request.enterChannel(groupId: group.gid)
+            }
+        }
+        requestObservable
+            .subscribe { [weak self] (group) in
                 // TODO: - 进入房间
                 guard let `self` = self else {
                     return
                 }
-                guard let room = room else {
+                guard let group = group else {
                     completion()
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
             
-                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
+                AmongChat.GroupRoom.ContainerController.join(group: group, from: self, logSource: logSource) { error in
                     completion()
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()

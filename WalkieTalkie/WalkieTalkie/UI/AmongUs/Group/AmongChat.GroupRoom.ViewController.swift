@@ -239,8 +239,24 @@ extension AmongChat.GroupRoom.ViewController {
 
 extension AmongChat.GroupRoom.ViewController {
     
-    // MARK: -
+    /// 修改数据 发送 call-in-req
+//    func requestPosition(at position: Int) {
+//        //
+//        guard position >= 0 && position < 10 else { return }
+//        //更改麦位状态
+//            if let item = self.dataManager.multiHostItems.value.safe(position) {
+//                item.userInfo = LiveEngine.getCurrentLiveUserInfo()
+//                let call = CallContent()
+//                call.action = .request
+//                call.room_id = self.roomInfo?.room_id ?? ""
+//                call.position = position
+//                item.callContent = call
+//                self.dataManager.sendCallSignal(isCallRequest: true, position: position)
+//                self.dataManager.multiHostItems.accept(self.dataManager.multiHostItems.value)
+//            }
+//    }
     
+    // MARK: -
     private func setupLayout() {
         isNavigationBarHiddenWhenAppear = true
         statusBarStyle = .lightContent
@@ -406,6 +422,13 @@ extension AmongChat.GroupRoom.ViewController {
             })
             .disposed(by: bag)
         
+        viewModel.seatDataSourceReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] dataSource in
+                self?.seatView.dataSource = dataSource
+            })
+            .disposed(by: bag)
+
         viewModel.soundAnimationIndex
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
@@ -530,7 +553,8 @@ extension AmongChat.GroupRoom.ViewController {
                 let vc = AmongChat.GroupRoom.MembersController(with: self.room.gid)
                 self.presentPanModal(vc)
             case .groupInfo:
-                ()
+                let vc = FansGroup.GroupInfoViewController(groupId: self.room.gid)
+                self.navigationController?.pushViewController(vc, animated: true)
             case .setupCode:
                 self.editType = .amongSetup
             case .setupLink:
@@ -629,6 +653,10 @@ extension AmongChat.GroupRoom.ViewController {
                 self?.onShareBtn()
                 return
             }
+        }
+        
+        seatView.requestOnSeatHandler = { [weak self] position in
+            self?.viewModel.requestOnSeat(at: position)
         }
         
         applyButton.actionHandler = { [weak self] in
