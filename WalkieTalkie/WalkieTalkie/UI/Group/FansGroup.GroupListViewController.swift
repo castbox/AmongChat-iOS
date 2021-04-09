@@ -172,7 +172,6 @@ extension FansGroup.GroupListViewController {
             })
             .disposed(by: bag)
     }
-
 }
 
 extension FansGroup.GroupListViewController: UITableViewDataSource {
@@ -191,11 +190,12 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
         if group.isOwnedByMe {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
             cell.bindData(group.group) { [weak self] action in
+                guard let `self` = self else { return }
                 switch action {
                 case .edit:
-                    ()
+                    FansGroup.GroupEditViewController.gotoEditGroup(group.group.gid, fromVC: self)
                 case .start:
-                    self?.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
+                    self.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
                 }
             }
             return cell

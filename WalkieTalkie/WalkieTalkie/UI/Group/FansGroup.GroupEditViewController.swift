@@ -406,3 +406,22 @@ extension FansGroup.GroupEditViewController {
     }
     
 }
+
+extension FansGroup.GroupEditViewController {
+    
+    class func gotoEditGroup(_ groupId: String, fromVC: UIViewController) {
+        
+        let hudRemoval = fromVC.view.raft.show(.loading)
+        
+        let _ = Request.groupInfo(groupId)
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { (groupInfo) in
+                let vc = FansGroup.GroupEditViewController(groupInfo: groupInfo)
+                fromVC.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { (error) in
+                fromVC.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+            })
+    }
+}
