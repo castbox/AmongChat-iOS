@@ -20,6 +20,8 @@ extension Social {
         enum Option {
             case tiktok
             case gameStats
+            case groupsCreated
+            case groupsJoined
             
             func image() -> UIImage? {
                 switch self {
@@ -27,15 +29,19 @@ extension Social {
                     return R.image.ac_social_tiktok()
                 case .gameStats:
                     return R.image.ac_profile_game()
+                case .groupsJoined, .groupsCreated:
+                    return nil
                 }
             }
             
-            func text() -> String {
+            func text() -> String? {
                 switch self {
                 case .tiktok:
                     return R.string.localizable.profileShareTiktokTitle()
                 case .gameStats:
                     return R.string.localizable.amongChatProfileAddAGame()
+                case .groupsJoined, .groupsCreated:
+                    return nil
                 }
             }
         }
@@ -74,7 +80,7 @@ extension Social {
         }()
         
         private lazy var headerView: ProfileView = {
-            let v = ProfileView(with: isSelfProfile, viewController: self)
+            let v = ProfileView(with: isSelfProfile.value, viewController: self)
             v.frame = CGRect(x: 0, y: 0, width: Frame.Screen.width, height: tableHeaderHeight)//298  413
             v.headerHandle = { [weak self] type in
                 guard let `self` = self else { return }
@@ -116,11 +122,18 @@ extension Social {
             tb.backgroundColor = UIColor.theme(.backgroundBlack)
             tb.register(cellWithClass: ProfileTableCell.self)
             tb.register(cellWithClass: GameCell.self)
+            tb.register(nibWithCellClass: FansGroupSelfItemCell.self)
+            tb.register(nibWithCellClass: FansGroupItemCell.self)
+            tb.register(cellWithClass: JoinedGroupsCell.self)
             tb.neverAdjustContentInset()
             return tb
         }()
         
-        private lazy var options = [Option]()
+        private lazy var options = [Option]() {
+            didSet {
+                table.reloadData()
+            }
+        }
         
         private var relationData: Entity.RelationData?
         
@@ -131,26 +144,29 @@ extension Social {
         }
         
         override var screenName: Logger.Screen.Node.Start {
-            if isSelfProfile {
+            if isSelfProfile.value {
                 return .profile
             }
             return .profile_other
         }
         
         private var uid = 0
-        private var isSelfProfile = true
+        private let isSelfProfile = BehaviorRelay(value: true)
         private var blocked = false
         var roomUser: Entity.RoomUser!
         private var userProfile: Entity.UserProfile?
         private var pullToDismiss: PullToDismiss?
-
+        
+        private let createdGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
+        private let joinedGroupsRelay = BehaviorRelay<[Entity.Group]>(value: [])
+        
         init(with uid: Int) {
             super.init(nibName: nil, bundle: nil)
             self.isNavigationBarHiddenWhenAppear = true
             self.uid = uid
             let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
             cdPrint(" uid is \(uid)  self uid is \(selfUid)")
-            self.isSelfProfile = uid == selfUid
+            self.isSelfProfile.accept(uid == selfUid)
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -161,16 +177,7 @@ extension Social {
             super.viewDidLoad()
             setupLayout()
             setupData()
-            rx.viewDidAppear.take(1)
-                .subscribe(onNext: { [weak self](_) in
-                    guard let `self` = self else { return }
-                    if self.isSelfProfile {
-                        Logger.Action.log(.profile_imp, category: nil)
-                    } else {
-                        Logger.Action.log(.profile_other_imp, category: nil, "\(self.uid)")
-                    }
-                })
-                .disposed(by: bag)
+            setUpEvents()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -193,26 +200,9 @@ private extension Social.ProfileViewController {
             maker.height.equalTo(134)
         }
         
-        if !isSelfProfile {
-            options = [.gameStats]
-            bottomGradientView.isHidden = false
-            table.snp.makeConstraints { (maker) in
-                maker.leading.trailing.top.equalToSuperview()
-                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            }
-        } else {
-            if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
-                options = [.gameStats, .tiktok]
-            } else {
-                #if DEBUG
-                options = [.gameStats, .tiktok]
-                #else
-                options = [.tiktok]
-                #endif
-            }
-            table.snp.makeConstraints { (maker) in
-                maker.leading.trailing.top.bottom.equalToSuperview()
-            }
+        table.snp.makeConstraints { (maker) in
+            maker.leading.trailing.top.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
         }
         
         table.tableHeaderView = headerView
@@ -222,7 +212,7 @@ private extension Social.ProfileViewController {
             .subscribe(onNext: { [weak self] (_) in
                 
                 guard let `self` = self,
-                      self.isSelfProfile else {
+                      self.isSelfProfile.value else {
                     return
                 }
                 
@@ -238,6 +228,49 @@ private extension Social.ProfileViewController {
             })
             .disposed(by: bag)
 
+    }
+    
+    func setUpEvents() {
+        
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { [weak self](_) in
+                guard let `self` = self else { return }
+                if self.isSelfProfile.value {
+                    Logger.Action.log(.profile_imp, category: nil)
+                } else {
+                    Logger.Action.log(.profile_other_imp, category: nil, "\(self.uid)")
+                }
+            })
+            .disposed(by: bag)
+        
+        Observable.combineLatest(isSelfProfile, createdGroupsRelay, joinedGroupsRelay)
+            .subscribe(onNext: { [weak self] isSelf, createdGroups, joinedGroups in
+                
+                if !isSelf {
+                    self?.options = [.gameStats]
+                    self?.bottomGradientView.isHidden = false
+                } else {
+                    if let v = Settings.shared.amongChatUserProfile.value?.isVerified, v {
+                        self?.options = [.gameStats, .tiktok]
+                    } else {
+                        #if DEBUG
+                        self?.options = [.gameStats, .tiktok]
+                        #else
+                        self?.options = [.tiktok]
+                        #endif
+                    }
+                }
+                
+                if joinedGroups.count > 0 {
+                    self?.options.insert(.groupsJoined, at: 0)
+                }
+                
+                if createdGroups.count > 0 {
+                    self?.options.insert(.groupsCreated, at: 0)
+                }
+                
+            })
+            .disposed(by: bag)
     }
     
     func loadData() {
@@ -264,8 +297,24 @@ private extension Social.ProfileViewController {
         
     }
     
+    func fetchCreatedGroups() {
+        Request.groupListOfHost(uid, skip: 0, limit: 2)
+            .subscribe(onSuccess: { [weak self] (groupList) in
+                self?.createdGroupsRelay.accept(groupList)
+            })
+            .disposed(by: bag)
+    }
+    
+    func fetchJoinedGroups() {
+        Request.groupListOfUserJoined(uid, skip: 0, limit: 3)
+            .subscribe(onSuccess: { [weak self] (groupList) in
+                self?.joinedGroupsRelay.accept(groupList)
+            })
+            .disposed(by: bag)
+    }
+    
     func setupData() {
-        if isSelfProfile, navigationController?.viewControllers.count == 1 {
+        if isSelfProfile.value, navigationController?.viewControllers.count == 1 {
             pullToDismiss = PullToDismiss(scrollView: table)
             pullToDismiss?.delegate = self
             pullToDismiss?.dismissableHeightPercentage = 0.4
@@ -275,7 +324,7 @@ private extension Social.ProfileViewController {
             self.headerView.setProfileData(self.roomUser)
         }
         loadData()
-        if isSelfProfile {
+        if isSelfProfile.value {
             Settings.shared.amongChatUserProfile.replay()
                 .subscribe(onNext: { [weak self] (profile) in
                     guard let profile = profile else { return }
@@ -327,6 +376,8 @@ private extension Social.ProfileViewController {
 
         }
         loadGameSkills()
+        fetchCreatedGroups()
+        fetchJoinedGroups()
     }
     
     func fetchRealation() {
@@ -335,7 +386,7 @@ private extension Social.ProfileViewController {
                 guard let `self` = self, let data = data else { return }
                 self.relationData = data
                 self.blocked = data.isBlocked ?? false
-                self.headerView.setViewData(data, isSelf: self.isSelfProfile)
+                self.headerView.setViewData(data, isSelf: self.isSelfProfile.value)
                 let follow = data.isFollowed ?? false
                 self.setFollowButton(follow)
             }, onError: { (error) in
@@ -383,7 +434,7 @@ private extension Social.ProfileViewController {
     }
     
     func followerAction() {
-        if !isSelfProfile {
+        if !isSelfProfile.value {
             Logger.Action.log(.profile_other_clk, category: .followers, "\(uid)")
         }
         headerView.redCountLabel.isHidden = true
@@ -392,7 +443,7 @@ private extension Social.ProfileViewController {
     }
     
     func followingAction() {
-        if !isSelfProfile {
+        if !isSelfProfile.value {
             Logger.Action.log(.profile_other_clk, category: .following, "\(uid)")
         }
         let vc = Social.FollowerViewController(with: uid, isFollowing: true)
@@ -578,13 +629,19 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         
         switch op {
         case .gameStats:
-            if isSelfProfile {
+            if isSelfProfile.value {
                 return max(1, gameSkills.count)
             } else {
                 return gameSkills.count
             }
             
         case .tiktok:
+            return 1
+            
+        case .groupsCreated:
+            return createdGroupsRelay.value.count
+            
+        case .groupsJoined:
             return 1
         }
         
@@ -616,6 +673,34 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             let cell = tableView.dequeueReusableCell(withClass: ProfileTableCell.self, for: indexPath)
             cell.configCell(with: op)
             return cell
+            
+        case .groupsCreated:
+            
+            let group = createdGroupsRelay.value[indexPath.row]
+            
+            if isSelfProfile.value {
+                let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self)
+                cell.bindData(group)  { [weak self] action in
+                    switch action {
+                    case .edit:
+                        ()
+//                        let editVC = FansGroup.GroupEditViewController(groupInfo: )
+                        
+                    case .start:
+                        self?.enterRoom(group: group, logSource: .matchSource, apiSource: nil)
+                    }
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self)
+                cell.bindData(group)
+                return cell
+            }
+            
+        case .groupsJoined:
+            let cell = tableView.dequeueReusableCell(withClass: JoinedGroupsCell.self)
+            cell.bind(joinedGroupsRelay.value)
+            return cell
         }
         
     }
@@ -628,7 +713,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 if let game = gameSkills.safe(indexPath.row) {
                     // TODO: - 跳转H5
                     WebViewController.pushFrom(self, url: game.h5.url, contentType: .gameSkill(game))
-                    Logger.Action.log(isSelfProfile ? .profile_game_state_item_clk : .profile_other_game_state_item_clk, categoryValue: game.topicId)
+                    Logger.Action.log(isSelfProfile.value ? .profile_game_state_item_clk : .profile_other_game_state_item_clk, categoryValue: game.topicId)
                     
                 } else {
                     toAddAGame()
@@ -642,6 +727,9 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 UIApplication.shared.open(url, options: [:]) { _ in
                     
                 }
+                
+            case .groupsJoined, .groupsCreated:
+                ()
             }
         }
     }
@@ -663,6 +751,12 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             
         case .tiktok:
             return 92
+            
+        case .groupsCreated:
+            return 149
+            
+        case .groupsJoined:
+            return 111
         }
         
     }
@@ -692,7 +786,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         switch op {
         case .gameStats:
             
-            if isSelfProfile {
+            if isSelfProfile.value {
                 
                 l.text = R.string.localizable.amongChatProfileMyGameStats()
 
@@ -744,6 +838,62 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 maker.trailing.lessThanOrEqualTo(-20)
             }
             
+        case .groupsCreated:
+            
+            if isSelfProfile.value {
+                l.text = R.string.localizable.amongChatGroupGroupsOwnedByMe()
+            } else {
+                l.text = R.string.localizable.amongChatGroupGroupsCreated()
+            }
+            
+            let btn = SmallSizeButton(type: .custom)
+            btn.setTitle(R.string.localizable.socialSeeAll(), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    let listVC = FansGroup.GroupListViewController(source: .createdGroups(self.uid))
+                    self.navigationController?.pushViewController(listVC, animated: true)
+                })
+                .disposed(by: bag)
+            
+            v.addSubview(btn)
+            
+            btn.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalTo(-20)
+            }
+            
+            l.snp.makeConstraints { (maker) in
+                maker.trailing.lessThanOrEqualTo(btn.snp.leading).offset(-20)
+            }
+            
+        case .groupsJoined:
+            l.text = R.string.localizable.amongChatGroupGroupsJoined()
+
+            let btn = SmallSizeButton(type: .custom)
+            btn.setTitle(R.string.localizable.socialSeeAll(), for: .normal)
+            btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
+            btn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    let listVC = FansGroup.GroupListViewController(source: .joinedGroups(self.uid))
+                    self.navigationController?.pushViewController(listVC, animated: true)
+                })
+                .disposed(by: bag)
+            
+            v.addSubview(btn)
+            
+            btn.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.trailing.equalTo(-20)
+            }
+            l.snp.makeConstraints { (maker) in
+                maker.trailing.lessThanOrEqualTo(btn.snp.leading).offset(-20)
+            }
+
         }
         
         return v
@@ -756,7 +906,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
         
         switch op {
         case .gameStats:
-            if isSelfProfile {
+            if isSelfProfile.value {
                 if gameSkills.count > 0 {
                     return 40
                 } else {
@@ -768,11 +918,14 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             
         case .tiktok:
             
-            if isSelfProfile {
+            if isSelfProfile.value {
                 return 46
             } else {
                 return 134
             }
+            
+        case .groupsJoined, .groupsCreated:
+            return 28
         }
         
     }
