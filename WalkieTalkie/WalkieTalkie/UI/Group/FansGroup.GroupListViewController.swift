@@ -63,6 +63,7 @@ extension FansGroup {
                 // Fallback on earlier versions
                 automaticallyAdjustsScrollViewInsets = false
             }
+            tb.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 100, right: 0)
             return tb
         }()
         
