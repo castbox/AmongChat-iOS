@@ -101,7 +101,7 @@ extension FansGroup.Views {
             fatalError("init(coder:) has not been implemented")
         }
         
-        func enlargeTopGbHeight(extraHeight: CGFloat) {
+        private func enlargeTopGbHeight(extraHeight: CGFloat) {
             
             guard extraHeight >= 0 else {
                 return
