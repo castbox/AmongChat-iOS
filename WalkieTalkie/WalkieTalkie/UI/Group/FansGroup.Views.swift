@@ -730,7 +730,7 @@ extension FansGroup.Views {
 
 extension FansGroup.Views {
     class BottomGradientButton: UIView {
-        private lazy var button: UIButton = {
+        private(set) lazy var button: UIButton = {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 24
             btn.clipsToBounds = true
@@ -749,7 +749,8 @@ extension FansGroup.Views {
             v.addSubviews(views: button)
             button.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
-                maker.bottom.equalTo(-10 - Frame.Height.safeAeraBottomHeight)
+                maker.top.equalTo(40)
+                maker.bottom.equalTo(-46)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }

@@ -130,7 +130,7 @@ extension AmongChat.Home {
 //            }
         }
         
-        func bind(profile: Entity.UserProfile, onAvatarTap: @escaping () -> Void) {
+        func bind(profile: Entity.UserProfile, onAvatarTap: (() -> Void)? = nil) {
             
             avatarIV.updateAvatar(with: profile)
             nameLabel.attributedText = profile.nameWithVerified()

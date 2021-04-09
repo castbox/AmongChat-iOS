@@ -1259,4 +1259,19 @@ extension Request {
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func kickMemberFromGroup(_ groupId: String, uids: [Int]) -> Single<Bool> {
+        
+        let params: [String : Any] = [
+            "gid" : groupId,
+            "uids" : uids
+        ]
+        
+        return amongchatProvider.rx.request(.kickMemberFromGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
 }

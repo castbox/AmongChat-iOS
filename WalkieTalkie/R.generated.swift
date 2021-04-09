@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 194 images.
+  /// This `R.image` struct is generated, and contains static references to 196 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -282,8 +282,12 @@ struct R: Rswift.Validatable {
     static let ac_group_room_rb_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_rb_edit")
     /// Image `ac_group_room_tip_edit`.
     static let ac_group_room_tip_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_tip_edit")
+    /// Image `ac_group_selected`.
+    static let ac_group_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_selected")
     /// Image `ac_group_setting`.
     static let ac_group_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_setting")
+    /// Image `ac_group_unselected`.
+    static let ac_group_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_unselected")
     /// Image `ac_home_banner`.
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
@@ -767,9 +771,19 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_room_tip_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_group_selected", bundle: ..., traitCollection: ...)`
+    static func ac_group_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_selected, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_group_setting", bundle: ..., traitCollection: ...)`
     static func ac_group_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_setting, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_unselected", bundle: ..., traitCollection: ...)`
+    static func ac_group_unselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_unselected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
@@ -2028,7 +2042,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 385 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 386 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2722,6 +2736,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKick = Rswift.StringResource(key: "among.chat.room.kick", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Kick Selected (%1$@)
+      /// 
+      /// Locales: en
+      static let amongChatGroupKickMemberButtonTitle = Rswift.StringResource(key: "among.chat.group.kick.member.button.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Kick Selected (%@)
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4780,6 +4798,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomKick(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.kick", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Kick Selected (%1$@)
+      /// 
+      /// Locales: en
+      static func amongChatGroupKickMemberButtonTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.kick.member.button.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Kick Selected (%@)

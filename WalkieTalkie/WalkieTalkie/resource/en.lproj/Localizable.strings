@@ -447,3 +447,4 @@
 "among.chat.group.requests" = "Requests";
 "among.chat.group.delete.group" = "Delete group";
 "among.chat.group.delete.tip" = "Are you sure to delete the group?";
+"among.chat.group.kick.member.button.title" = "Kick Selected (%1$@)";

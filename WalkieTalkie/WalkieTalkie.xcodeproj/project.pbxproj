@@ -37,6 +37,7 @@
 		269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */; };
 		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
 		269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */; };
+		269A6E122620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -418,6 +419,7 @@
 		269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupMemberListViewController+Views.swift"; sourceTree = "<group>"; };
 		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
 		269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupJoinRequestListViewController.swift; sourceTree = "<group>"; };
+		269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.SelectGroupMemberViewController.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -829,6 +831,7 @@
 				269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */,
 				269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */,
 				269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */,
+				269A6E112620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift */,
 				FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */,
 				FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */,
 				FEA600002615F67300255E06 /* FansGroupItemCell.swift */,
@@ -2068,6 +2071,7 @@
 				FE730E4F24ADCC4C00680062 /* TikTokShareView.swift in Sources */,
 				FE6738B22611F5270044C0D2 /* AmongChat.Room.MessageListView.swift in Sources */,
 				FE126D3E243481BD00BEDD60 /* AgoraRtcManager.swift in Sources */,
+				269A6E122620459700A07C7D /* FansGroup.SelectGroupMemberViewController.swift in Sources */,
 				263F8AD72614A22200282F8F /* FansGroup.AddMemberControlller.swift in Sources */,
 				263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */,
 				264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */,

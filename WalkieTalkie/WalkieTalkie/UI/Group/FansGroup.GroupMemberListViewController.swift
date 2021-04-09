@@ -204,6 +204,9 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
                             //TODO: - go to kick
+                            guard let `self` = self else { return }
+                            let selectVC = FansGroup.SelectGroupMemberViewController(with: self.groupInfo)
+                            self.navigationController?.pushViewController(selectVC, animated: true)
                         })
                         .disposed(by: bag)
 
