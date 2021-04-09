@@ -71,6 +71,16 @@ extension FansGroup.GroupJoinRequestListViewController: UITableViewDataSource {
         cell.contentView.backgroundColor = .clear
         if let user = usersRelay.value.safe(indexPath.row) {
             cell.profile = user
+            cell.actionHandler = { [weak self] action in
+                switch action {
+                case .accept:
+                    self?.handleJoinRequest(for: user.uid, accept: true)
+                case .reject:
+                    self?.handleJoinRequest(for: user.uid, accept: false)
+                case .ignore:
+                    ()
+                }
+            }
         }
         return cell
     }
@@ -144,4 +154,23 @@ extension FansGroup.GroupJoinRequestListViewController {
         
     }
     
+    private func handleJoinRequest(for uid: Int, accept: Bool) {
+        let removeBlock = view.raft.show(.loading)
+        Request.handleGroupApply(of: uid, groupId: groupInfo.group.gid, accept: accept)
+            .do(onDispose: { () in
+                removeBlock()
+            })
+            .subscribe(onSuccess: { [weak self] result in
+                guard let `self` = self else { return }
+                //remove
+                
+                var users = self.usersRelay.value
+                users.removeAll { $0.uid == uid }
+                self.usersRelay.accept(users)
+                
+            }, onError: { (error) in
+                
+            }).disposed(by: bag)
+    }
+
 }
