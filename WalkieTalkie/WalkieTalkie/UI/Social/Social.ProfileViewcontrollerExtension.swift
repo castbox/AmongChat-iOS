@@ -748,6 +748,16 @@ extension Social.ProfileViewController {
             return i
         }()
         
+        lazy var gradientMusk: CAGradientLayer = {
+            let l = CAGradientLayer()
+            l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 0.16).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
+            l.startPoint = CGPoint(x: 0.5, y: 0.5)
+            l.endPoint = CGPoint(x: 0.5, y: 1.22)
+            l.locations = [0, 0.2, 1]
+            l.cornerRadius = 12
+            return l
+        }()
+        
         private lazy var onlineStatusView: UIView = {
             let v = UIView()
             v.backgroundColor = UIColor(hex6: 0xFFFFFF)
@@ -795,9 +805,16 @@ extension Social.ProfileViewController {
             fatalError("init(coder:) has not been implemented")
         }
         
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            gradientMusk.frame = bounds
+        }
+        
         private func setUpLayout() {
             
             addSubviews(views: coverIV, nameLabel, onlineStatusView)
+            
+            layer.insertSublayer(gradientMusk, above: coverIV.layer)
             
             coverIV.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
