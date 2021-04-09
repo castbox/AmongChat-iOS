@@ -40,15 +40,6 @@ extension ChatRoom {
         case groupLeaveRoom = "AC:Chatroom:GroupLiveLeave"
         case groupLiveEnd = "AC:Chatroom:GroupLiveEnd"
         case groupInfo = "AC:Chatroom:GroupInfo"
-        
-        //peer
-        case groupPeerCall = "AC:PEER:Call"
-        case groupPeerApply = "AC:PEER:GroupApply"
-//        MSG_TYPE_PEER_GROUP_APPLY = 'AC:PEER:GroupApply'
-//        GROUP_APPLY_REQUEST = 1
-//        GROUP_APPLY_ACCEPT = 2
-//        GROUP_APPLY_REJECT = 3
-        
     }
     
     struct TextMessage: ChatRoomMessage {

@@ -23,9 +23,10 @@ extension Peer {
     enum MessageType: String, Codable {
         case text = "AC:Chatroom:Text"
         //上麦消息
-        case groupPeerCall = "AC:PEER:Call"
+        case groupRoomCall = "AC:PEER:Call"
         //group 申请后消息
-        case groupPeerApply = "AC:PEER:GroupApply"
+        case groupApply = "AC:PEER:GroupApply"
+        //更新 friends 消息
         case friendsInfo = "AC:PEER:FriendsInfo"
         case roomInvitation = "AC:PEER:Invite"
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
@@ -88,7 +89,7 @@ extension Peer {
         var expireTime: Int64 = 0
         var extra: String = ""
         var position: Int = 0
-        let msgType: MessageType = .groupPeerCall
+        let msgType: MessageType = .groupRoomCall
         var user: Entity.RoomUser
         
         

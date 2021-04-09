@@ -81,14 +81,23 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just Relax" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-lR-hwZ">
+                                <rect key="frame" x="93" y="42" width="155" height="19.5"/>
+                                <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="14"/>
+                                <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="fiJ-Sm-h79" firstAttribute="trailing" secondItem="ddu-74-btn" secondAttribute="trailing" id="47U-nK-2PP"/>
                             <constraint firstItem="fiJ-Sm-h79" firstAttribute="leading" secondItem="ddu-74-btn" secondAttribute="leading" id="Ghu-pN-jXu"/>
                             <constraint firstItem="ddu-74-btn" firstAttribute="leading" secondItem="NUB-7f-Tfz" secondAttribute="leading" constant="93" id="Ipy-kV-BnP"/>
+                            <constraint firstItem="Ugd-lR-hwZ" firstAttribute="top" secondItem="ddu-74-btn" secondAttribute="bottom" constant="1" id="KUQ-6Y-tUx"/>
+                            <constraint firstItem="ddu-74-btn" firstAttribute="trailing" secondItem="Ugd-lR-hwZ" secondAttribute="trailing" id="S3K-xb-3JB"/>
                             <constraint firstAttribute="bottom" secondItem="fiJ-Sm-h79" secondAttribute="bottom" constant="16" id="Xba-vh-mKm"/>
                             <constraint firstAttribute="trailing" secondItem="ddu-74-btn" secondAttribute="trailing" constant="16" id="d4P-jq-Bmd"/>
+                            <constraint firstItem="ddu-74-btn" firstAttribute="leading" secondItem="Ugd-lR-hwZ" secondAttribute="leading" id="tXO-cu-t5h"/>
                             <constraint firstItem="ddu-74-btn" firstAttribute="top" secondItem="NUB-7f-Tfz" secondAttribute="top" constant="16" id="uXd-HR-5AP"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -160,6 +169,7 @@
             <connections>
                 <outlet property="editButton" destination="Ncw-3k-kYD" id="cJN-pE-sp8"/>
                 <outlet property="groupIconView" destination="ECr-KO-5sv" id="e5i-xu-eRk"/>
+                <outlet property="introLabel" destination="Ugd-lR-hwZ" id="7ir-sY-Uag"/>
                 <outlet property="startButton" destination="TRt-ns-J7t" id="jp9-mS-OoT"/>
                 <outlet property="titleLabel" destination="ddu-74-btn" id="lXR-z1-1nr"/>
             </connections>

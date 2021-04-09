@@ -153,6 +153,11 @@ extension AmongChat.GroupRoom {
         }
         
         override func onReceivePeer(message: PeerMessage) {
+            //当前为 host, 处理申请
+            
+            
+            //非 Host
+            
             if let applyMessage = message as? Peer.GroupApplyMessage,
                applyMessage.gid == group.gid {
                 let status: Entity.GroupInfo.UserStatus
@@ -183,6 +188,10 @@ extension AmongChat.GroupRoom {
 //                    self.update(room)
 //                })
 //                .disposed(by: bag)
+        }
+        
+        override func roomBgImage() -> UIImage? {
+            return UIImage(named: "icon_room_bg_topicId_group")
         }
         
         override func roomBgUrl() -> URL? {

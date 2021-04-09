@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 193 images.
+  /// This `R.image` struct is generated, and contains static references to 194 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -548,6 +548,8 @@ struct R: Rswift.Validatable {
     static let icon_room_bg_topicId_fortnite = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_fortnite")
     /// Image `icon_room_bg_topicId_freefire`.
     static let icon_room_bg_topicId_freefire = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_freefire")
+    /// Image `icon_room_bg_topicId_group`.
+    static let icon_room_bg_topicId_group = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_group")
     /// Image `icon_room_bg_topicId_justchatting`.
     static let icon_room_bg_topicId_justchatting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_justchatting")
     /// Image `icon_room_bg_topicId_minecraft`.
@@ -1428,6 +1430,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "icon_room_bg_topicId_freefire", bundle: ..., traitCollection: ...)`
     static func icon_room_bg_topicId_freefire(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_freefire, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "icon_room_bg_topicId_group", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_group(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_group, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "icon_room_bg_topicId_justchatting", bundle: ..., traitCollection: ...)`

@@ -23,6 +23,22 @@ extension AmongChat.GroupRoom {
         
         init(with gid: String) {
             self.gid = gid
+            
+            IMManager.shared.newPeerMessageObservable
+                .filter { $0.msgType == .groupApply }
+                .subscribe(onNext: { [weak self] message in
+                    guard let applyMsg = message as? Peer.GroupApplyMessage,
+                          applyMsg.action == .request else {
+                        return
+                    }
+                    self?.updateCount()
+                })
+                .disposed(by: bag)
+            
+            self.updateCount()
+        }
+        
+        func updateCount() {
             //reqest
             loadData()
                 .subscribe()
@@ -155,7 +171,8 @@ extension AmongChat.GroupRoom {
                 .subscribe(onSuccess: { [weak self] result in
                     removeBlock()
                     //remove
-                    self?.userList = self?.userList.filter { $0.uid == uid } ?? []
+                    let list = self?.userList.filter { $0.uid == uid } ?? []
+                    self?.userList = list
 //                    self?.tableView.beginUpdates()
 //                    self?.tableView.deleteRows(at: [index], with: .automatic)
 //                    self?.tableView.endUpdates()

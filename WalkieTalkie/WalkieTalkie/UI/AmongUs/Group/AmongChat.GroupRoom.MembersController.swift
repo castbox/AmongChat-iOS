@@ -89,7 +89,7 @@ extension AmongChat.GroupRoom {
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
             
-            Request.membersOfGroup(groupId, skipMs: 0)
+            Request.groupLiveUserList(groupId, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
                         guard let `self` = self else { return }
@@ -110,14 +110,14 @@ extension AmongChat.GroupRoom {
         private func loadMore() {
             let skipMS = userList.last?.opTime ?? 0
             
-            Request.membersOfGroup(groupId, skipMs: skipMS)
+            Request.groupLiveUserList(groupId, skipMs: skipMS)
                 .subscribe(onSuccess: { [weak self](data) in
 //                    guard let data = data else { return }
-                    let list =  data.list ?? []
+                    let list =  data.list
                     var origenList = self?.userList
                     list.forEach({ origenList?.append($0)})
                     self?.userList = origenList ?? []
-                    self?.tableView.endLoadMore(data.more ?? false)
+                    self?.tableView.endLoadMore(data.more)
                 }, onError: { (error) in
                     cdPrint("followingList error: \(error.localizedDescription)")
                 }).disposed(by: bag)

@@ -30,28 +30,7 @@ extension AmongChat.GroupRoom {
         }
         
         func loadData(withCompletionHandler: ((Error?) -> Void)? = nil) {
-            Request.roomUserList(groupId: groupId)
-                .subscribe { room in
-                    
-                } onError: { error in
-                    
-                }
-//                Request.followingList(uid: uid, skipMs: 0)
-//                    .subscribe(onSuccess: { [weak self](data) in
-//                        removeBlock()
-//                        guard let `self` = self, let data = data else { return }
-//                        self.userList = data.list ?? []
-//                        if self.userList.isEmpty {
-//                            self.addNoDataView(R.string.localizable.errorNoFollowing())
-//                        }
-//                        self.tableView.endLoadMore(data.more ?? false)
-//                    }, onError: { [weak self](error) in
-//                        removeBlock()
-//                        self?.addErrorView({ [weak self] in
-//                            self?.loadData()
-//                        })
-//                        cdPrint("followingList error: \(error.localizedDescription)")
-//                    }).disposed(by: bag)
+
         }
         
 //        func loadMore() {

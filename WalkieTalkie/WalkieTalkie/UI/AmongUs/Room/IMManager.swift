@@ -96,9 +96,9 @@ class IMManager: NSObject {
                     switch type {
                     case .text:
                         item = try JSONDecoder().decodeAnyData(Peer.TextMessage.self, from: json) as PeerMessage
-                    case .groupPeerCall:
+                    case .groupRoomCall:
                         item = try JSONDecoder().decodeAnyData(Peer.CallMessage.self, from: json) as PeerMessage
-                    case .groupPeerApply:
+                    case .groupApply:
                         item = try JSONDecoder().decodeAnyData(Peer.GroupApplyMessage.self, from: json) as PeerMessage
                     case .roomInvitation, .roomInvitationInviteStranger:
                         item = try JSONDecoder().decodeAnyData(Entity.FriendUpdatingInfo.self, from: json) as PeerMessage

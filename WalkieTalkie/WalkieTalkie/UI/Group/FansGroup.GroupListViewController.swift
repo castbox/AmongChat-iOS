@@ -137,6 +137,8 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
         
         if group.isOwnedByMe {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
+            cell.titleLabel.text = group.group.name
+            cell.introLabel.text = group.group.description
             cell.groupIconView.setImage(with: group.group.cover?.url)
             cell.actionHandler = { [weak self] action in
                 switch action {
