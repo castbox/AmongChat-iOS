@@ -102,7 +102,7 @@ extension FansGroup {
         
         init(groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
-            let topic = Entity.SummaryTopic(topicId: groupInfo.group.topicId, coverUrl: groupInfo.group.coverUrl, bgUrl: nil, playerCount: nil, topicName: groupInfo.group.topicName)
+            let topic = Entity.SummaryTopic(topicId: groupInfo.group.topicId, coverUrl: groupInfo.group.coverURL, bgUrl: nil, playerCount: nil, topicName: groupInfo.group.topicName)
             currentTopic = FansGroup.TopicViewModel(with: topic)
             super.init(nibName: nil, bundle: nil)
         }
@@ -160,7 +160,7 @@ extension FansGroup.GroupEditViewController {
         setUpInfoView.nameView.inputField.text = groupInfo.group.name
         setUpInfoView.descriptionView.inputTextView.text = groupInfo.group.description
         
-        if let cover = groupInfo.group.cover?.url {
+        if let cover = groupInfo.group.cover.url {
             KingfisherManager.shared.retrieveImageObservable(with: cover)
                 .take(1)
                 .bind(to: setUpInfoView.addCoverBtn.coverRelay)
