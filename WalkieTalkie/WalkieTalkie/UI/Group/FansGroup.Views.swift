@@ -319,6 +319,7 @@ extension FansGroup.Views {
         func textFieldDidEndEditing(_ textField: UITextField) {
             isEdtingRelay.accept(false)
             textField.text = textField.text?.trim()
+            textField.sendActions(for: .valueChanged)
         }
     }
     
