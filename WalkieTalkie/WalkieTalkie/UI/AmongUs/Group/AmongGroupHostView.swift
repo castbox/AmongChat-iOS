@@ -22,8 +22,10 @@ class AmongGroupHostView: XibLoadableView {
     
     @IBOutlet weak var hostView: UIView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var raiseHandsContainer: UIView!
     @IBOutlet weak var raiseButton: UIImageView!
-    @IBOutlet weak var groupJoinButton: UIImageView!
+    @IBOutlet weak var applyGroupContainer: UIView!
+    @IBOutlet weak var applyGroupButton: UIImageView!
     @IBOutlet weak var hostAvatarView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var gameNameButton: UIButton!
@@ -54,6 +56,8 @@ class AmongGroupHostView: XibLoadableView {
             } else {
                 nameLabel.textColor = .white
             }
+            applyGroupContainer.isHidden = group?.loginUserIsAdmin == false
+            raiseHandsContainer.isHidden = applyGroupContainer.isHidden
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
             gameNameButton.isHidden = group?.topicType == .amongus
@@ -62,7 +66,7 @@ class AmongGroupHostView: XibLoadableView {
     }
     
 //    var groupRequestCount: Int {
-//        groupJoinButton.redDotOn()
+//        applyGroup.redDotOn()
 //    }
     
     override init(frame: CGRect) {
@@ -119,11 +123,11 @@ class AmongGroupHostView: XibLoadableView {
     
     func updateApplyGroupBadge(with count: Int) {
         if applyGroupBadge == nil {
-            applyGroupBadge = BadgeHub(view: groupJoinButton) // Initially count set to 0
+            applyGroupBadge = BadgeHub(view: applyGroupButton) // Initially count set to 0
             applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
             applyGroupBadge?.scaleCircleSize(by: 0.4)
-            applyGroupBadge?.setCircleAtFrame(CGRect(x: groupJoinButton.bounds.width - 5, y: 0, width: 16, height: 16))
+            applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 5, y: 0, width: 16, height: 16))
 //            segmentedView.clipsToBounds = false
 //            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
         }

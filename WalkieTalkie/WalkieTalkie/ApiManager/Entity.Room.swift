@@ -150,7 +150,7 @@ extension Entity {
         let uid: Int
         var name: String?
         let pictureUrl: String?
-        let seatNo: Int
+        var seatNo: Int
         var status: Status
         var isMuted: Bool
         var isMutedByLoginUser: Bool
@@ -241,7 +241,7 @@ extension Entity {
             self.uid = try container.decodeInt(.uid)
             self.name = try container.decodeString(.name)
             self.pictureUrl = try container.decodeString(.pictureUrl)
-            self.seatNo = try container.decodeInt(.seatNo)
+            self.seatNo = try container.decodeIntIfPresent(.seatNo) ?? 0
 //            self.status = try container.decodeString(.status)
             self.isMuted = try container.decodeBoolIfPresent(.isMuted) ?? false
             self.isMutedByLoginUser = try container.decodeBoolIfPresent(.isMutedByLoginUser) ?? false

@@ -177,10 +177,12 @@ extension ChatRoom {
     }
     
     struct GroupJoinRoomMessage: ChatRoomMessage {
+        let gid: String
         let user: Entity.RoomUser
         let msgType: MessageType
         
         private enum CodingKeys: String, CodingKey {
+            case gid
             case user
             case msgType = "message_type"
         }

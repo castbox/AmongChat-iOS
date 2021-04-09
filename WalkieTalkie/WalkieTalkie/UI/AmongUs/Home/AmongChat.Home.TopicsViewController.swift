@@ -21,7 +21,7 @@ extension AmongChat.Home {
         private typealias TopicCell = AmongChat.Home.TopicCell
         private typealias TopicViewModel = AmongChat.Home.TopicViewModel
         private lazy var navigationView = NavigationBar()
-            
+        
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
@@ -108,7 +108,7 @@ extension AmongChat.Home.TopicsViewController {
     // MARK: -
     
     private func setupLayout() {
-                
+        
         view.addSubviews(views: navigationView, topicCollectionView)
         
         navigationView.snp.makeConstraints { (maker) in
@@ -138,26 +138,26 @@ extension AmongChat.Home.TopicsViewController {
                 NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification).map({ _ in })
             )
         )
-            .filter({ visible, _ in
-                return visible
-            })
-            .throttle(.seconds(30), scheduler: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] (_) in
-                self?.fetchSummaryData()
-            })
-            .disposed(by: bag)
-                
-//        rx.viewWillAppear
-//            .subscribe(onNext: { [weak self] (_) in
-//                self?.topicCollectionView.setContentOffset(.zero, animated: false)
-//            })
-//            .disposed(by: bag)
+        .filter({ visible, _ in
+            return visible
+        })
+        .throttle(.seconds(30), scheduler: MainScheduler.asyncInstance)
+        .subscribe(onNext: { [weak self] (_) in
+            self?.fetchSummaryData()
+        })
+        .disposed(by: bag)
+        
+        //        rx.viewWillAppear
+        //            .subscribe(onNext: { [weak self] (_) in
+        //                self?.topicCollectionView.setContentOffset(.zero, animated: false)
+        //            })
+        //            .disposed(by: bag)
     }
     
     private func fetchSummaryData() {
         var hudRemoval: Raft.RemoveBlock? = nil
         if topicsDataSource.count == 0 {
-           hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+            hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
         }
         
         Request.summary()
@@ -193,13 +193,13 @@ extension AmongChat.Home.TopicsViewController {
 }
 
 extension AmongChat.Home.TopicsViewController: UICollectionViewDataSource {
-
+    
     // MARK: - UICollectionView
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return topicsDataSource.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(TopicCell.self), for: indexPath)
         if let cell = cell as? TopicCell,
@@ -208,31 +208,16 @@ extension AmongChat.Home.TopicsViewController: UICollectionViewDataSource {
         }
         return cell
     }
-
+    
 }
 
 extension AmongChat.Home.TopicsViewController: UICollectionViewDelegate {
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let topic = topicsDataSource.safe(indexPath.item) {
-            if topic.topic.topicId != "amongus" {
-                //group
-                guard let json = Defaults[\.testGroup]?.jsonObject() else {
-                    return
-                }
-                var group: Entity.Group?
-                decoderCatcher {
-                    group = try JSONDecoder().decodeAnyData(Entity.Group.self, from: json)
-                }
-                guard let item = group else {
-                    return
-                }
-                self.enterRoom(group: item, logSource: .matchSource, apiSource: nil)
-            } else {
-                Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
-                    self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
-                    self?.onTap(topic)
-                }
+            Social.AgePromptModal.showModalIfNeeded(fromVC: UIApplication.tabBarController ?? self, topicId: topic.topic.topicId) { [weak self] in
+                self?.enterRoom(roomId: nil, topicId: topic.topic.topicId, logSource: .matchSource)
+                self?.onTap(topic)
             }
         }
     }

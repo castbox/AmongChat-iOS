@@ -15,13 +15,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongGroupHostView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="applyGroupButton" destination="GwP-Kq-ajX" id="hGX-eR-pJQ"/>
+                <outlet property="applyGroupContainer" destination="tHz-Fp-JjA" id="d0L-ut-aAa"/>
                 <outlet property="gameNameButton" destination="vg2-8c-Z9C" id="n98-zo-dC0"/>
-                <outlet property="groupJoinButton" destination="GwP-Kq-ajX" id="aWD-KF-Pke"/>
                 <outlet property="hostAvatarView" destination="S3g-46-o4q" id="lXM-8F-DMt"/>
                 <outlet property="hostView" destination="HBc-V3-NcN" id="pL6-dh-uxE"/>
                 <outlet property="indexLabel" destination="387-CP-ORP" id="btJ-tA-IPN"/>
                 <outlet property="nameLabel" destination="rTp-yf-TGr" id="Gwt-mh-yKL"/>
                 <outlet property="raiseButton" destination="tlE-wC-8PO" id="czj-1M-qcs"/>
+                <outlet property="raiseHandsContainer" destination="djI-HT-S4w" id="SJg-IW-BEJ"/>
                 <outlet property="stackView" destination="aCF-k6-tr1" id="ka8-Vu-rd7"/>
             </connections>
         </placeholder>
@@ -36,28 +38,44 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yG3-wc-Tgk">
                             <rect key="frame" x="0.0" y="0.0" width="138" height="126"/>
                             <subviews>
-                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="tlE-wC-8PO">
-                                    <rect key="frame" x="57" y="25" width="24" height="24"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="djI-HT-S4w">
+                                    <rect key="frame" x="30" y="25" width="78" height="47.5"/>
+                                    <subviews>
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="tlE-wC-8PO">
+                                            <rect key="frame" x="27" y="0.0" width="24" height="24"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="hdg-Zq-b15"/>
+                                            </connections>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raised Hands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xu-w8-CNh">
+                                            <rect key="frame" x="0.0" y="26" width="78" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.host.request"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
                                     <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstItem="7xu-w8-CNh" firstAttribute="top" secondItem="tlE-wC-8PO" secondAttribute="bottom" constant="2" id="6xA-FH-ZfC"/>
+                                        <constraint firstItem="tlE-wC-8PO" firstAttribute="top" secondItem="djI-HT-S4w" secondAttribute="top" id="AHo-DZ-iZq"/>
+                                        <constraint firstAttribute="trailing" secondItem="7xu-w8-CNh" secondAttribute="trailing" id="EMc-Tc-BgA"/>
+                                        <constraint firstItem="7xu-w8-CNh" firstAttribute="leading" secondItem="djI-HT-S4w" secondAttribute="leading" id="Fe3-yW-dh1"/>
+                                        <constraint firstAttribute="bottom" secondItem="7xu-w8-CNh" secondAttribute="bottom" constant="5" id="JHv-O0-U4Q"/>
+                                        <constraint firstItem="7xu-w8-CNh" firstAttribute="centerX" secondItem="tlE-wC-8PO" secondAttribute="centerX" id="RaH-1k-Y0s"/>
+                                        <constraint firstItem="tlE-wC-8PO" firstAttribute="centerX" secondItem="djI-HT-S4w" secondAttribute="centerX" id="pgj-xX-vwU"/>
+                                    </constraints>
                                     <connections>
-                                        <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="hdg-Zq-b15"/>
+                                        <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="9DH-SR-FrG"/>
                                     </connections>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raised Hands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xu-w8-CNh">
-                                    <rect key="frame" x="30" y="51" width="78" height="16.5"/>
-                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.host.request"/>
-                                    </userDefinedRuntimeAttributes>
-                                </label>
+                                </view>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="7xu-w8-CNh" firstAttribute="centerX" secondItem="tlE-wC-8PO" secondAttribute="centerX" id="1HH-e2-MGP"/>
-                                <constraint firstItem="tlE-wC-8PO" firstAttribute="top" secondItem="yG3-wc-Tgk" secondAttribute="top" constant="25" id="OhD-Ap-ZhF"/>
-                                <constraint firstItem="7xu-w8-CNh" firstAttribute="top" secondItem="tlE-wC-8PO" secondAttribute="bottom" constant="2" id="h52-qP-aGy"/>
-                                <constraint firstItem="tlE-wC-8PO" firstAttribute="centerX" secondItem="yG3-wc-Tgk" secondAttribute="centerX" id="j9f-8A-ZKp"/>
+                                <constraint firstItem="djI-HT-S4w" firstAttribute="top" secondItem="yG3-wc-Tgk" secondAttribute="top" constant="25" id="fnd-e0-LiQ"/>
+                                <constraint firstItem="djI-HT-S4w" firstAttribute="centerX" secondItem="yG3-wc-Tgk" secondAttribute="centerX" id="zVA-Os-9c6"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HBc-V3-NcN">
@@ -128,28 +146,44 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfG-Zb-QV2">
                             <rect key="frame" x="276" y="0.0" width="138" height="126"/>
                             <subviews>
-                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_join_request" translatesAutoresizingMaskIntoConstraints="NO" id="GwP-Kq-ajX">
-                                    <rect key="frame" x="57" y="25" width="24" height="24"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tHz-Fp-JjA">
+                                    <rect key="frame" x="30" y="25" width="78" height="42.5"/>
+                                    <subviews>
+                                        <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_join_request" translatesAutoresizingMaskIntoConstraints="NO" id="GwP-Kq-ajX">
+                                            <rect key="frame" x="27" y="0.0" width="24" height="24"/>
+                                            <gestureRecognizers/>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="uGp-rb-0Kf" appends="YES" id="GNX-63-8r9"/>
+                                            </connections>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Requests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-dT-fgd">
+                                            <rect key="frame" x="0.0" y="26" width="78" height="16.5"/>
+                                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.join.request"/>
+                                            </userDefinedRuntimeAttributes>
+                                        </label>
+                                    </subviews>
                                     <gestureRecognizers/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="bHg-dT-fgd" secondAttribute="trailing" id="ShA-By-zIY"/>
+                                        <constraint firstItem="bHg-dT-fgd" firstAttribute="leading" secondItem="tHz-Fp-JjA" secondAttribute="leading" id="VPr-2u-mGS"/>
+                                        <constraint firstItem="GwP-Kq-ajX" firstAttribute="top" secondItem="tHz-Fp-JjA" secondAttribute="top" id="chy-Vg-PDl"/>
+                                        <constraint firstItem="GwP-Kq-ajX" firstAttribute="centerX" secondItem="tHz-Fp-JjA" secondAttribute="centerX" id="m2A-eU-WIx"/>
+                                        <constraint firstItem="bHg-dT-fgd" firstAttribute="centerX" secondItem="GwP-Kq-ajX" secondAttribute="centerX" id="qY7-7r-VMc"/>
+                                        <constraint firstAttribute="bottom" secondItem="bHg-dT-fgd" secondAttribute="bottom" id="tJv-We-EhZ"/>
+                                        <constraint firstItem="bHg-dT-fgd" firstAttribute="top" secondItem="GwP-Kq-ajX" secondAttribute="bottom" constant="2" id="ycG-eP-1FW"/>
+                                    </constraints>
                                     <connections>
-                                        <outletCollection property="gestureRecognizers" destination="uGp-rb-0Kf" appends="YES" id="GNX-63-8r9"/>
+                                        <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="yi2-DF-Vx4"/>
                                     </connections>
-                                </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Requests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-dT-fgd">
-                                    <rect key="frame" x="30" y="51" width="78" height="16.5"/>
-                                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.room.join.request"/>
-                                    </userDefinedRuntimeAttributes>
-                                </label>
+                                </view>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="GwP-Kq-ajX" firstAttribute="top" secondItem="GfG-Zb-QV2" secondAttribute="top" constant="25" id="I3S-vL-ng3"/>
-                                <constraint firstItem="GwP-Kq-ajX" firstAttribute="centerX" secondItem="GfG-Zb-QV2" secondAttribute="centerX" id="M1R-Qx-g58"/>
-                                <constraint firstItem="bHg-dT-fgd" firstAttribute="centerX" secondItem="GwP-Kq-ajX" secondAttribute="centerX" id="UXb-Bn-JyT"/>
-                                <constraint firstItem="bHg-dT-fgd" firstAttribute="top" secondItem="GwP-Kq-ajX" secondAttribute="bottom" constant="2" id="wHO-KP-6GM"/>
+                                <constraint firstItem="tHz-Fp-JjA" firstAttribute="top" secondItem="GfG-Zb-QV2" secondAttribute="top" constant="25" id="Xbj-1T-Dww"/>
+                                <constraint firstItem="tHz-Fp-JjA" firstAttribute="centerX" secondItem="GfG-Zb-QV2" secondAttribute="centerX" id="iDy-X9-vVv"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -165,11 +199,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-249" y="93"/>
         </view>
-        <tapGestureRecognizer id="ucd-cL-f0h" userLabel="raised handls">
-            <connections>
-                <action selector="raisedHandsAction:" destination="-1" id="HZp-PF-FoW"/>
-            </connections>
-        </tapGestureRecognizer>
         <tapGestureRecognizer id="uGp-rb-0Kf" userLabel="join requests">
             <connections>
                 <action selector="joinReuqestAction:" destination="-1" id="Mtx-NZ-8hg"/>
@@ -178,6 +207,11 @@
         <tapGestureRecognizer id="KQG-Fd-J64" userLabel="host Tap Gesture Recognizer">
             <connections>
                 <action selector="hostAvatarAction:" destination="-1" id="oKP-Zl-91V"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ucd-cL-f0h" userLabel="raised handls">
+            <connections>
+                <action selector="raisedHandsAction:" destination="-1" id="HZp-PF-FoW"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

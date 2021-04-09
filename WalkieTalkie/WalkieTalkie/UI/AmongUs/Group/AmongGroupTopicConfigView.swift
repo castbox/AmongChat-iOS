@@ -134,6 +134,9 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.cornerRadius = 12
         
         let view = AmongGroupRoomTipsView()
+        view.editHandler = { [weak self] in
+            self?.actionHandler?(.setupNotes)
+        }
         let viewSize = view.update(group)
         view.size = viewSize
         tipView = EasyTipView(contentView: view,

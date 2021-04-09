@@ -169,54 +169,7 @@ extension AmongChat.Room {
                 Logger.Action.log(.admin_imp, categoryValue: room.topicId)
             }
             super.init(room: room, source: source)
-//            self.source = source
-//            roomReplay = BehaviorRelay(value: room)
-//
-//
-//            blockedUsers = Defaults[\.blockedUsersV2Key]
-//
-//            setObservableSubject()
-//            addSystemMessage()
-//            enteredTimestamp = Date().timeIntervalSince1970
-//            startShowShareTimerIfNeed()
-//            update(room)
-//            if room.loginUserSeatNo == 0 {
-//                cdPrint("****\n\n----------------------------\n Error：room 信息未包含自己 \(room)")
-//            }
         }
-        
-//        func startImService() {
-//            imViewModel = IMViewModel(with: room.roomId)
-//
-//            imViewModel.roomMessagesObservable
-//                .observeOn(MainScheduler.asyncInstance)
-//                .subscribe(onNext: { [weak self] (msg) in
-//                    self?.onReceiveChatRoom(crMessage: msg)
-//                })
-//                .disposed(by: bag)
-//
-//            imViewModel.imReadySignal
-//                .filter { $0 }
-//                .subscribe { [weak self] _ in
-//                    self?.startUpdateBaseInfo()
-//
-//                }
-//                .disposed(by: bag)
-//        }
-        
-//        @discardableResult
-//        func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
-//            state = .connected
-//            self.mManager.joinChannel(self.room) { error in
-//                mainQueueDispatchAsync {
-//                    HapticFeedback.Impact.success()
-//                    UIApplication.shared.isIdleTimerDisabled = true
-//                    completionBlock?(error)
-//                }
-//            }
-//            startImService()
-//            return true
-//        }
         
         func requestLeaveChannel() -> Single<Bool> {
             Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, stayDuration)
