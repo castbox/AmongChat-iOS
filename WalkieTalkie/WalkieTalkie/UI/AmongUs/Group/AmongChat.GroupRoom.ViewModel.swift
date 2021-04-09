@@ -64,14 +64,6 @@ extension AmongChat.GroupRoom {
             roomReplay.value as! Entity.GroupRoom
         }
         
-        //存储
-        private var seatDataSource: [Int: AmongChat.Room.SeatItem] = [:] {
-            didSet {
-                seatDataSourceReplay.accept(seatDataSource)
-            }
-        }
-        
-        let seatDataSourceReplay = BehaviorRelay<[Int: AmongChat.Room.SeatItem]>(value: [:])
         let groupInfoReplay: BehaviorRelay<Entity.GroupInfo>
         
         init(groupInfo: Entity.GroupInfo, source: ParentPageSource?) {
@@ -79,21 +71,21 @@ extension AmongChat.GroupRoom {
             super.init(room: groupInfo.group, source: source)
         }
         
-        func updateSeatDataSource() {
-            for index in 0 ..< 10 {
-                //当前已有数据，重新填充信息
-                let item: AmongChat.Room.SeatItem
-                if let prevItem = seatDataSource[index] {
-                    item = prevItem
-                } else {
-                    item = AmongChat.Room.SeatItem(group.roomId)
-                }
-                if let user = group.userListMap[index] {
-                    item.user = user
-                }
-                seatDataSource[index] = item
-            }
-        }
+//        func updateSeatDataSource() {
+//            for index in 0 ..< 10 {
+//                //当前已有数据，重新填充信息
+//                let item: AmongChat.Room.SeatItem
+//                if let prevItem = seatDataSource[index] {
+//                    item = prevItem
+//                } else {
+//                    item = AmongChat.Room.SeatItem(group.roomId)
+//                }
+//                if let user = group.userListMap[index] {
+//                    item.user = user
+//                }
+//                seatDataSource[index] = item
+//            }
+//        }
         
         func requestOnSeat(at position: Int) {
             guard position >= 0 && position < 10,
@@ -157,7 +149,6 @@ extension AmongChat.GroupRoom {
             
             
             //非 Host
-            
             if let applyMessage = message as? Peer.GroupApplyMessage,
                applyMessage.gid == group.gid {
                 let status: Entity.GroupInfo.UserStatus

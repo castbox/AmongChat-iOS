@@ -84,20 +84,8 @@ extension AmongChat.Room.IMViewModel {
         }
         imManager.send(channelMessage: string)
             .catchErrorJustReturn(false)
-//            .filter { _ -> Bool in
-//                return message.msgType == .text
-//            }
-            .subscribe(onSuccess: { [weak self] (success) in
-                guard let `self` = self,
-                    success else { return }
-                
+            .subscribe(onSuccess: { _ in
                 completionHandler?()
-//                let msg = AgoraRtmMessage(text: text)
-//                let user = AgoraRtmMember()
-//                user.userId = "\(Constants.sUserId)"
-//                user.channelId = self.channelId
-//
-//                self.appendNewMessage(message)
             })
             .disposed(by: bag)
         
@@ -107,22 +95,10 @@ extension AmongChat.Room.IMViewModel {
         guard let string = message.asString else {
             return
         }
-        imManager.send(channelMessage: string)
+        imManager.sendPeer(message: string, to: to)
             .catchErrorJustReturn(false)
-//            .filter { _ -> Bool in
-//                return message.msgType == .text
-//            }
-            .subscribe(onSuccess: { [weak self] (success) in
-                guard let `self` = self,
-                    success else { return }
-                
+            .subscribe(onSuccess: { _ in
                 completionHandler?()
-//                let msg = AgoraRtmMessage(text: text)
-//                let user = AgoraRtmMember()
-//                user.userId = "\(Constants.sUserId)"
-//                user.channelId = self.channelId
-//
-//                self.appendNewMessage(message)
             })
             .disposed(by: bag)
 

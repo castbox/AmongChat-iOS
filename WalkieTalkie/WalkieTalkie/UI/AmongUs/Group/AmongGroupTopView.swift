@@ -27,9 +27,14 @@ class AmongGroupTopView: XibLoadableView {
     @IBOutlet weak var groupCountLabel: UILabel!
     
     @IBOutlet weak var leaveButton: BottomTitleButton!
+    
     @IBOutlet weak var topicIcon: UIImageView!
     @IBOutlet weak var topicNameLabel: UILabel!
+    
     @IBOutlet weak var configView: AmongGroupTopicConfigView!
+    
+    @IBOutlet weak var onlineUserStackView: UIStackView!
+    //
     @IBOutlet weak var firstUserIcon: UIImageView!
     @IBOutlet weak var secondUserIcon: UIImageView!
     @IBOutlet weak var thirdUserIcon: UIImageView!
@@ -106,6 +111,7 @@ class AmongGroupTopView: XibLoadableView {
         //first
         userCountLabel.text = group.playerCount?.string
         configView.group = group
+        onlineUserStackView.isHidden = group.onlineUserCount == 0
     }
     
     private func configureSubview() {

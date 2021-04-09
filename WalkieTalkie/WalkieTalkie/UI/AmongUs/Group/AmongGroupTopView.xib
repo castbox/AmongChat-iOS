@@ -20,6 +20,7 @@
                 <outlet property="firstUserIcon" destination="sZu-K0-2OT" id="B0s-iO-w56"/>
                 <outlet property="groupCountLabel" destination="WhG-wF-xoC" id="XON-hu-ygM"/>
                 <outlet property="leaveButton" destination="dKc-qh-cd3" id="sB2-bx-OMC"/>
+                <outlet property="onlineUserStackView" destination="cF1-E1-ltn" id="J6Z-LQ-ri8"/>
                 <outlet property="secondUserIcon" destination="Kwg-3B-Lye" id="caJ-wR-duM"/>
                 <outlet property="thirdUserIcon" destination="bIf-jM-3Gy" id="L9i-Ib-RG2"/>
                 <outlet property="titleLabel" destination="4SZ-8w-hQo" id="f4V-7i-Dbp"/>

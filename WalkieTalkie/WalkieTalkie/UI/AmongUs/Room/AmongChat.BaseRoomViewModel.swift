@@ -78,6 +78,14 @@ extension AmongChat {
         private(set) var state: ConnectState = .disconnected
         
 //        private var roomInfo: RTCJoinable
+        //存储
+        var seatDataSource: [Int: AmongChat.Room.SeatItem] = [:] {
+            didSet {
+                seatDataSourceReplay.accept(seatDataSource)
+            }
+        }
+        
+        let seatDataSourceReplay = BehaviorRelay<[Int: AmongChat.Room.SeatItem]>(value: [:])
         
         let roomReplay: BehaviorRelay<RoomInfoable>
         
@@ -330,6 +338,22 @@ extension AmongChat {
             }
         }
         
+        func updateSeatDataSource() {
+            for index in 0 ..< 10 {
+                //当前已有数据，重新填充信息
+                let item: AmongChat.Room.SeatItem
+                if let prevItem = seatDataSource[index] {
+                    item = prevItem
+                } else {
+                    item = AmongChat.Room.SeatItem(roomInfo.roomId)
+                }
+                if let user = roomInfo.userListMap[index] {
+                    item.user = user
+                }
+                seatDataSource[index] = item
+            }
+        }
+        
 //        func update(_ userList: [Entity.RoomUser]) {
 //            let blockedUsers = self.blockedUsers
 //            var copyOfUserList = userList
@@ -551,6 +575,8 @@ extension AmongChat {
             
             //同步状态
             mManager.update(joinable: newRoom)
+            
+            updateSeatDataSource()
             
             //人数为1时的分享控制
             if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,

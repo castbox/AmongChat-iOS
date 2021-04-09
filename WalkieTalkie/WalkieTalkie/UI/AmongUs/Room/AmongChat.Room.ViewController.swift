@@ -415,6 +415,13 @@ extension AmongChat.Room.ViewController {
             })
             .disposed(by: bag)
         
+        viewModel.seatDataSourceReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] dataSource in
+                self?.seatView.dataSource = dataSource
+            })
+            .disposed(by: bag)
+        
         viewModel.soundAnimationIndex
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
