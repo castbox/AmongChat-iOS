@@ -731,6 +731,8 @@ extension Social.ProfileViewController {
     
     class GroupAvatarView: UIView {
         
+        private let bag = DisposeBag()
+        
         private lazy var nameLabel: UILabel = {
             let lb = UILabel()
             lb.textColor = UIColor(hexString: "#FFFFFF")
@@ -782,6 +784,8 @@ extension Social.ProfileViewController {
             return v
         }()
         
+        var tapHandler: (() -> Void)? = nil
+        
         override init(frame: CGRect) {
             super.init(frame: frame)
             setUpLayout()
@@ -809,11 +813,20 @@ extension Social.ProfileViewController {
                 maker.top.equalTo(-10)
                 maker.width.equalTo(64)
             }
+            
+            let tap = UITapGestureRecognizer()
+            addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.tapHandler?()
+                })
+                .disposed(by: bag)
         }
         
-        func bindData(_ group: Entity.Group) {
+        func bindData(_ group: Entity.Group, tapHandler: (() -> Void)? = nil) {
             coverIV.setImage(with: group.cover?.url)
             nameLabel.text = group.name
+            self.tapHandler = tapHandler
             #if DEBUG
             onlineStatusView.isHidden = false
             #else
@@ -847,11 +860,13 @@ extension Social.ProfileViewController {
             }
         }
         
-        func bind(_ groups: [Entity.Group]) {
+        func bind(_ groups: [Entity.Group], onGroupTapped: ((Entity.Group) -> Void)? = nil) {
             
             let groupAvatarViews = groups.map { (group) -> GroupAvatarView in
                 let g = GroupAvatarView()
-                g.bindData(group)
+                g.bindData(group) {
+                    onGroupTapped?(group)
+                }
                 return g
             }
             

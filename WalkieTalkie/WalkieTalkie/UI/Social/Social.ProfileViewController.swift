@@ -698,7 +698,16 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             
         case .groupsJoined:
             let cell = tableView.dequeueReusableCell(withClass: JoinedGroupsCell.self)
-            cell.bind(joinedGroupsRelay.value)
+            cell.bind(joinedGroupsRelay.value) { [weak self] (group) in
+                
+                if group.status == 1 {
+                    self?.enterRoom(group: group, logSource: nil, apiSource: nil)
+                } else {
+                    let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
+                    self?.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }
             return cell
         }
         
@@ -727,8 +736,22 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     
                 }
                 
-            case .groupsJoined, .groupsCreated:
+            case .groupsJoined:
                 ()
+            case .groupsCreated:
+                
+                guard let group = createdGroupsRelay.value.safe(indexPath.row) else {
+                    return
+                }
+                
+                if group.status == 1 {
+                    enterRoom(group: group, logSource: nil, apiSource: nil)
+                } else {
+                    
+                    let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
+                    navigationController?.pushViewController(vc, animated: true)
+                }
+
             }
         }
     }
