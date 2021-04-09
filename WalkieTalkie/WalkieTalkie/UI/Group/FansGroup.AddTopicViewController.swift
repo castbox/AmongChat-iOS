@@ -113,7 +113,6 @@ extension FansGroup {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
-            initialSelect()
             fetchData()
         }
         
@@ -162,6 +161,7 @@ extension FansGroup.AddTopicViewController {
                 }
                 Settings.shared.supportedTopics.value = summary
                 self?.topicDataSource = summary.topicList.map({ TopicViewModel(with: $0) })
+                self?.initialSelect()
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.localizedDescription))
             })
