@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 191 images.
+  /// This `R.image` struct is generated, and contains static references to 192 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -260,6 +260,8 @@ struct R: Rswift.Validatable {
     static let ac_group_cover_default_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_default_bg")
     /// Image `ac_group_cover_edit`.
     static let ac_group_cover_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_edit")
+    /// Image `ac_group_delete`.
+    static let ac_group_delete = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_delete")
     /// Image `ac_group_get_verirfied`.
     static let ac_group_get_verirfied = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_get_verirfied")
     /// Image `ac_group_host_request`.
@@ -704,6 +706,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_cover_edit", bundle: ..., traitCollection: ...)`
     static func ac_group_cover_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_cover_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_delete", bundle: ..., traitCollection: ...)`
+    static func ac_group_delete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_delete, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_get_verirfied", bundle: ..., traitCollection: ...)`
@@ -2007,7 +2014,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 375 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 379 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2133,6 +2140,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGameStatsDeleteTip = Rswift.StringResource(key: "among.chat.game.stats.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure to delete the group?
+      /// 
+      /// Locales: en
+      static let amongChatGroupDeleteTip = Rswift.StringResource(key: "among.chat.group.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2357,6 +2368,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatDelete = Rswift.StringResource(key: "among.chat.delete", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Delete group
+      /// 
+      /// Locales: en
+      static let amongChatGroupDeleteGroup = Rswift.StringResource(key: "among.chat.group.delete.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2665,6 +2680,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let groupRoomJoinRequest = Rswift.StringResource(key: "group.room.join.request", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Joined
+      /// 
+      /// Locales: en
+      static let amongChatGroupJoined = Rswift.StringResource(key: "among.chat.group.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Jul
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3029,6 +3048,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Requests
+      /// 
+      /// Locales: en
+      static let amongChatGroupRequests = Rswift.StringResource(key: "among.chat.group.requests", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Resend
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3727,6 +3750,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.game.stats.delete.tip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Are you sure to delete the group?
+      /// 
+      /// Locales: en
+      static func amongChatGroupDeleteTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.delete.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4117,6 +4147,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatDelete(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.delete", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Delete group
+      /// 
+      /// Locales: en
+      static func amongChatGroupDeleteGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.delete.group", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Didn't receive the code? %1$@
@@ -4656,6 +4693,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func groupRoomJoinRequest(_: Void = ()) -> String {
         return NSLocalizedString("group.room.join.request", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Joined
+      /// 
+      /// Locales: en
+      static func amongChatGroupJoined(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.joined", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Jul
@@ -5293,6 +5337,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func reportTitle(_: Void = ()) -> String {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Requests
+      /// 
+      /// Locales: en
+      static func amongChatGroupRequests(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.requests", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Resend

@@ -247,14 +247,14 @@ extension FansGroup.CreateGroupViewController {
                 return Single.error(MsgError.default)
             }
             
-            return uploadCover(coverImage: cover)
+            return Self.uploadCover(coverImage: cover)
                 .flatMap { (coverUrl) in
                     let groupProto = Entity.GroupProto(topicId: topic.topic.topicId, cover: coverUrl, name: name, description: desc)
                     return Request.createGroup(group: groupProto)
                 }
         }
         
-        private func uploadCover(coverImage: UIImage) -> Single<String> {
+        class func uploadCover(coverImage: UIImage) -> Single<String> {
             guard let imgPng = coverImage.scaled(toWidth: 300) else {
                 return Single.error(MsgError.default)
             }

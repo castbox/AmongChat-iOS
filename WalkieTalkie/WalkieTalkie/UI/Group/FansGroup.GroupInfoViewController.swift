@@ -37,7 +37,7 @@ extension FansGroup {
             btn.setImage(R.image.ac_group_setting(), for: .normal)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    
+                    self?.gotoEdit()
                 })
                 .disposed(by: bag)
             btn.isHidden = true
@@ -220,5 +220,15 @@ extension FansGroup.GroupInfoViewController {
             })
             .disposed(by: bag)
 
+    }
+    
+    private func gotoEdit() {
+        
+        guard let info = groupInfoViewModel?.groupInfo else {
+            return
+        }
+        
+        let editVC = FansGroup.GroupEditViewController(groupInfo: info)
+        navigationController?.pushViewController(editVC, animated: true)
     }
 }

@@ -11,10 +11,10 @@ import Foundation
 extension Entity {
     
     struct GroupProto: Codable {
-        var topicId: String
-        var cover: String
-        var name: String
-        var description: String
+        var topicId: String?
+        var cover: String?
+        var name: String?
+        var description: String?
     }
     
 }

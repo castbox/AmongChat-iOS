@@ -32,6 +32,7 @@
 		269A6DE0261D589700A07C7D /* FansGroup.GroupInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */; };
 		269A6DE4261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DE3261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift */; };
 		269A6DE8261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */; };
+		269A6DF2261EA85F00A07C7D /* FansGroup.GroupEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */; };
 		269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */; };
 		269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */; };
 		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
@@ -410,6 +411,7 @@
 		269A6DDF261D589700A07C7D /* FansGroup.GroupInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupInfoViewController.swift; sourceTree = "<group>"; };
 		269A6DE3261D8F0C00A07C7D /* FansGroup.GroupInfoViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupInfoViewController+Views.swift"; sourceTree = "<group>"; };
 		269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupInfoViewController+ViewModels.swift"; sourceTree = "<group>"; };
+		269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupEditViewController.swift; sourceTree = "<group>"; };
 		269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupMemberListViewController.swift; sourceTree = "<group>"; };
 		269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupMemberListViewController+Views.swift"; sourceTree = "<group>"; };
 		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				269A6DE7261D9DFD00A07C7D /* FansGroup.GroupInfoViewController+ViewModels.swift */,
 				269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */,
 				269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */,
+				269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */,
 				FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */,
 				FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */,
 				FEA600002615F67300255E06 /* FansGroupItemCell.swift */,
@@ -1933,6 +1936,7 @@
 				BD91A399258C9153008931AD /* AmongChat.Home.TopicCell.swift in Sources */,
 				FE392C682466C5AA00A2CCF3 /* KernUI.swift in Sources */,
 				FE775CE8258E5262002A21F6 /* UITextFieldInspectable.swift in Sources */,
+				269A6DF2261EA85F00A07C7D /* FansGroup.GroupEditViewController.swift in Sources */,
 				FE6AF8582457E03500FD474A /* RxKeyboard.swift in Sources */,
 				FEE8502F259B31DF00CF9A74 /* JoinRoomable.swift in Sources */,
 				FE0D1A292448A06200518793 /* UIViewExtension.swift in Sources */,

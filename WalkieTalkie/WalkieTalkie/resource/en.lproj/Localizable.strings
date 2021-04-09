@@ -437,3 +437,7 @@
 "among.chat.group.add.members" = "Add members";
 "among.chat.group.leave.group" = "Leave group";
 "among.chat.group.info.expand" = "…More";
+"among.chat.group.joined" = "Joined";
+"among.chat.group.requests" = "Requests";
+"among.chat.group.delete.group" = "Delete group";
+"among.chat.group.delete.tip" = "Are you sure to delete the group?";

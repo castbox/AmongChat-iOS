@@ -1188,4 +1188,38 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
     }
+    
+    static func updateGroup(_ groupId: String, groupData: Entity.GroupProto) -> Single<Entity.Group> {
+        
+        guard var params = groupData.dictionary else {
+            return Observable<Entity.Group>.empty().asSingle()
+        }
+        
+        params["gid"] = groupId
+        
+        return amongchatProvider.rx.request(.updateGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Group.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+
+    static func deleteGroup(_ groupId: String) -> Single<Bool> {
+        
+        let params: [String : Any] = ["gid" : groupId]
+        
+        return amongchatProvider.rx.request(.deleteGroup(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
+    }
 }
