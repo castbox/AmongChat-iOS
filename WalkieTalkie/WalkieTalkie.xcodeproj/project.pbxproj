@@ -36,6 +36,7 @@
 		269A6DF6261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */; };
 		269A6DFA261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */; };
 		269A6E08261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */; };
+		269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */; };
 		26AFD8B125C9742800B652E8 /* Social.ProfileLookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */; };
 		26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */; };
 		26AFD8B925CA7E6600B652E8 /* Social.ProfileLookViewController+ViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */; };
@@ -416,6 +417,7 @@
 		269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupMemberListViewController.swift; sourceTree = "<group>"; };
 		269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.GroupMemberListViewController+Views.swift"; sourceTree = "<group>"; };
 		269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.GroupInfoSetUpView.swift; sourceTree = "<group>"; };
+		269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.GroupJoinRequestListViewController.swift; sourceTree = "<group>"; };
 		26AFD8B025C9742800B652E8 /* Social.ProfileLookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Social.ProfileLookViewController.swift; sourceTree = "<group>"; };
 		26AFD8B425C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+Widgets.swift"; sourceTree = "<group>"; };
 		26AFD8B825CA7E6500B652E8 /* Social.ProfileLookViewController+ViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Social.ProfileLookViewController+ViewModels.swift"; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 				269A6DF5261EAD9300A07C7D /* FansGroup.GroupMemberListViewController.swift */,
 				269A6DF9261EAE3F00A07C7D /* FansGroup.GroupMemberListViewController+Views.swift */,
 				269A6DF1261EA85E00A07C7D /* FansGroup.GroupEditViewController.swift */,
+				269A6E0D26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift */,
 				FE078E6A2615EBFA004C38C5 /* FansGroupSelfItemCell.swift */,
 				FE078E6B2615EBFA004C38C5 /* FansGroupSelfItemCell.xib */,
 				FEA600002615F67300255E06 /* FansGroupItemCell.swift */,
@@ -1893,6 +1896,7 @@
 				FE80A58425AD96BB009914A7 /* Search.ViewController.swift in Sources */,
 				FE684871244B4B5600F87AF9 /* PasswordGenerator.swift in Sources */,
 				FE860D5B2446D2A800087B73 /* Castbox+Rx.swift in Sources */,
+				269A6E0E26203E3300A07C7D /* FansGroup.GroupJoinRequestListViewController.swift in Sources */,
 				FEC17A4924A99BF0003719BC /* Entity.swift in Sources */,
 				FE87C2C4259C29F000799883 /* ConnectState.swift in Sources */,
 				2BBBFD2D259CAA1100A3AB2C /* Social.ReportViewController.swift in Sources */,

@@ -74,6 +74,7 @@ extension FansGroup {
             let bg = UIView()
             bg.backgroundColor = UIColor(hex6: 0x121212)
             s.addSubview(bg)
+            s.sendSubviewToBack(bg)
             bg.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview().inset(UIEdgeInsets(top: -Frame.Height.safeAeraTopHeight, left: 0, bottom: 0, right: 0))
             }
@@ -122,7 +123,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             bindSubviewEvents()
-            setUpMemberList()
+            setUpMemberListAndRequestList()
         }
     }
     
@@ -359,7 +360,7 @@ extension FansGroup.GroupEditViewController {
         
     }
     
-    private func setUpMemberList() {
+    private func setUpMemberListAndRequestList() {
         
         let memberListVC = FansGroup.GroupMemberListViewController(with: groupInfo)
         addChild(memberListVC)
@@ -370,19 +371,38 @@ extension FansGroup.GroupEditViewController {
             maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
         }
         memberListVC.didMove(toParent: self)
-        memberListVC.tableView.rx.contentOffset
-            .subscribe(onNext: { [weak self, weak memberListVC] (point) in
-                guard let `self` = self,
-                      point.y < 0,
-                      point.y > -self.segmentedBtnHeight else { return }
-                
-                var offset = self.setUpInfoView.layoutScrollView.contentOffset
-                offset.y = offset.y + point.y
-                
-                self.setUpInfoView.layoutScrollView.setContentOffset(offset, animated: false)
-                memberListVC?.tableView.contentOffset = .zero
+        
+        let requestListVC = FansGroup.GroupJoinRequestListViewController(with: groupInfo)
+        addChild(requestListVC)
+        listScrollView.addSubview(requestListVC.view)
+        requestListVC.view.snp.makeConstraints { (maker) in
+            maker.leading.equalTo(memberListVC.view.snp.trailing)
+            maker.trailing.top.bottom.equalToSuperview()
+            maker.width.equalTo(view.snp.width)
+            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
+        }
+        requestListVC.didMove(toParent: self)
+        
+        Observable.merge(
+            memberListVC.tableView.rx.contentOffset.map({ [weak memberListVC] in
+                (memberListVC?.tableView, $0)
+            }),
+            requestListVC.tableView.rx.contentOffset.map({ [weak requestListVC] in
+                (requestListVC?.tableView, $0)
             })
-            .disposed(by: bag)
+        )
+        .subscribe(onNext: { [weak self] table, point in
+            guard let `self` = self,
+                  point.y < 0,
+                  point.y > -self.segmentedBtnHeight else { return }
+            
+            var offset = self.setUpInfoView.layoutScrollView.contentOffset
+            offset.y = offset.y + point.y
+            
+            self.setUpInfoView.layoutScrollView.setContentOffset(offset, animated: false)
+            table?.contentOffset = .zero
+        })
+        .disposed(by: bag)
     }
     
 }
