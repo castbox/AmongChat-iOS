@@ -51,6 +51,10 @@ extension Entity {
         var group: GroupRoom
         var members: Members?
         var userStatusInt: Int
+        
+        var showApplyButton: Bool {
+            (userStatusEnum == .some(.applied) || userStatusEnum == .some(.none))
+        }
 
         private enum CodingKeys: String, CodingKey {
             case group
@@ -74,6 +78,17 @@ extension Entity.GroupInfo {
     
     var userStatusEnum: UserStatus? {
         return UserStatus(rawValue: userStatusInt)
+    }
+    
+    var titleForApplyButton: String? {
+        switch userStatusEnum {
+        case .applied?:
+            return R.string.localizable.amongChatGroupApplied()
+        case .none?:
+            return R.string.localizable.amongChatGroupApplyToJoin()
+        default:
+            return nil
+        }
     }
 }
 
@@ -133,6 +148,9 @@ extension Entity {
         var amongUsZone: AmongUsZone?
         var note: String?
         var robloxLink: String?
+        var defaultRole: RtcUserRole {
+            loginUserIsAdmin ? .broadcaster : .audience
+        }
 //        var link
         
         

@@ -386,6 +386,11 @@
 "group.room.set.up.notes" = "Set up notes";
 "group.room.set.up.link" = "Set up Link";
 "group.room.host.notes" = "Hosts's notes:";
+"group.room.accept" = "Accept";
+"group.room.reject" = "Reject";
+"group.room.ignore" = "Ignore";
+"group.room.apply.group.list.empty" = "Oops, no requests yet!";
+"group.room.apply.seat.list.empty" = "Oops, handsyet!";
 
 "group.room.roblox.game.name.plceholder" = "Username";
 "group.room.call.of.duty.game.name.plceholder" = "Username/UID";
@@ -432,6 +437,7 @@
 "among.chat.group.get.verfied" = "Become verified and create new group";
 "among.chat.group.info" = "Group Info";
 "among.chat.group.apply.to.join" = "Apply to join";
+"among.chat.group.applied" = "Applied";
 "among.chat.group.admin" = "Admin";
 "among.chat.group.members" = "Members";
 "among.chat.group.add.members" = "Add members";

@@ -733,9 +733,12 @@ extension FansGroup.Views {
         private lazy var button: UIButton = {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 24
+            btn.clipsToBounds = true
             btn.setTitle(R.string.localizable.amongChatCreateNewGroup(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
-            btn.backgroundColor = UIColor(hexString: "#FFF000")
+            btn.setTitleColor("#757575".color(), for: .disabled)
+            btn.setBackgroundImage("#FFF000".color().image, for: .normal)
+            btn.setBackgroundImage("#2B2B2B".color().image, for: .disabled)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.addTarget(self, action: #selector(buttonAction), for: .primaryActionTriggered)
             return btn
@@ -752,6 +755,11 @@ extension FansGroup.Views {
             }
             return v
         }()
+        
+        var isEnabled: Bool {
+            get { button.isEnabled }
+            set { button.isEnabled = newValue }
+        }
         
         var actionHandler: CallBack?
         

@@ -174,28 +174,34 @@ extension JoinRoomable where Self: ViewController {
         contentScrollView?.isUserInteractionEnabled = false
         isRequestingRoom = true
         //start or enter
-        var requestObservable: Single<Entity.GroupRoom?> {
+        var requestObservable: Single<Entity.GroupInfo?> {
             if group.uid == Settings.loginUserId {
                 //request
                 return Request.startChannel(groupId: group.gid)
+                    .map { item -> Entity.GroupInfo? in
+                        guard let item = item else {
+                            return nil
+                        }
+                        return Entity.GroupInfo(group: item, members: nil, userStatusInt: 1)
+                    }
             } else {
                 //request
                 return Request.enterChannel(groupId: group.gid)
             }
         }
         requestObservable
-            .subscribe { [weak self] (group) in
+            .subscribe { [weak self] groupInfo in
                 // TODO: - 进入房间
                 guard let `self` = self else {
                     return
                 }
-                guard let group = group else {
+                guard let groupInfo = groupInfo else {
                     completion()
                     self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
                     return
                 }
             
-                AmongChat.GroupRoom.ContainerController.join(group: group, from: self, logSource: logSource) { error in
+                AmongChat.GroupRoom.ContainerController.join(with: groupInfo, from: self, logSource: logSource) { error in
                     completion()
                     //dismiss
                     UIApplication.tabBarController?.dismissNotificationBanner()

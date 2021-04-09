@@ -12,6 +12,12 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     enum Action {
         case accept
         case reject
+        case ignore
+    }
+    
+    enum ButtonStyle {
+        case applyGroup
+        case applyOnSeat
     }
     
     private lazy var userView: AmongChat.Home.UserView = {
@@ -21,6 +27,18 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
+    
+    var style: ButtonStyle = .applyGroup {
+        didSet {
+            switch style {
+            case .applyOnSeat:
+                leftButton.setTitle(R.string.localizable.groupRoomReject(), for: .normal)
+            case .applyGroup:
+                leftButton.setTitle(R.string.localizable.groupRoomIgnore(), for: .normal)
+            }
+            rightButton.setTitle(R.string.localizable.groupRoomAccept(), for: .normal)
+        }
+    }
     
     var actionHandler: ((Action) -> Void)?
     
@@ -75,6 +93,13 @@ class AmongGroupJoinRequestCell: UITableViewCell {
             maker.trailing.equalTo(-20)
             maker.height.equalTo(40)
         }
+    }
+    @IBAction func rightButtonAction(_ sender: Any) {
+        actionHandler?(.accept)
+    }
+    
+    @IBAction func leftButtonAction(_ sender: Any) {
+        actionHandler?(style == .applyGroup ? .ignore: .reject)
     }
     
 }

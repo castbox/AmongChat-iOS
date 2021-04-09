@@ -56,9 +56,9 @@ extension AmongChat.GroupRoom {
         
     class ViewModel: AmongChat.BaseRoomViewModel {
         var callSwitch: Bool = true
-        //host call in list
-//        var callInList: [Entity.RoomUser] = []
-        
+        var groupInfo: Entity.GroupInfo {
+            groupInfoReplay.value
+        }
         
         var group: Entity.GroupRoom {
             roomReplay.value as! Entity.GroupRoom
@@ -72,10 +72,11 @@ extension AmongChat.GroupRoom {
         }
         
         let seatDataSourceReplay = BehaviorRelay<[Int: AmongChat.Room.SeatItem]>(value: [:])
+        let groupInfoReplay: BehaviorRelay<Entity.GroupInfo>
         
-        
-        override init(room: RoomInfoable, source: ParentPageSource?) {
-            super.init(room: room, source: source)
+        init(groupInfo: Entity.GroupInfo, source: ParentPageSource?) {
+            groupInfoReplay = BehaviorRelay(value: groupInfo)
+            super.init(room: groupInfo.group, source: source)
         }
         
         func updateSeatDataSource() {
@@ -152,7 +153,21 @@ extension AmongChat.GroupRoom {
         }
         
         override func onReceivePeer(message: PeerMessage) {
-            
+            if let applyMessage = message as? Peer.GroupApplyMessage,
+               applyMessage.gid == group.gid {
+                let status: Entity.GroupInfo.UserStatus
+                switch applyMessage.action {
+                case .accept:
+                    status = .memeber
+                case .reject:
+                    status = .none
+                case .request:
+                    status = .applied
+                }
+                var info = self.groupInfo
+                info.userStatusInt = status.rawValue
+                self.groupInfoReplay.accept(info)
+            }
         }
         
         //MARK: -- Request
@@ -413,6 +428,26 @@ extension AmongChat.GroupRoom {
                 return Request.stopChannel(groupId: group.gid)
             }
             return Request.leaveChannel(groupId: group.gid)
+        }
+        
+        func applyJoinGroup() -> Single<Bool> {
+//            let hudRemoval = self.view.raft.show(.loading)
+            return Request.applyToJoinGroup(group.gid)
+                .do(onSuccess: { [weak self] _ in
+                    guard let `self` = self else { return }
+                    var info = self.groupInfo
+                    info.userStatusInt = Entity.GroupInfo.UserStatus.applied.rawValue
+                    self.groupInfoReplay.accept(info)
+                })
+//                .do(onDispose: {
+////                    hudRemoval()
+//                })
+//                .subscribe(onSuccess: { [weak self] (_) in
+//                    self?.bottomGradientView.isHidden = true
+//                }, onError: { [weak self] (error) in
+//                    self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+//                })
+//                .disposed(by: bag)
         }
 
     }

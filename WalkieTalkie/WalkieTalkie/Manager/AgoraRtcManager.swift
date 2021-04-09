@@ -225,7 +225,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
             guard let `self` = self else {
                 return
             }
-            self.setClientRole(.broadcaster)
+            self.setClientRole(joinable.defaultRole)
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: joinable.roomId)

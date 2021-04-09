@@ -16,7 +16,7 @@ extension AmongChat.GroupRoom {
     class HostRequestListController: WalkieTalkie.ViewController {
         private lazy var titleView: AmongChat.GroupRoom.MembersController.HeaderView = {
             let v = AmongChat.GroupRoom.MembersController.HeaderView()
-            v.title = R.string.localizable.groupRoomMembersTitle()
+//            v.title = R.string.localizable.groupRoomMembersTitle()
             return v
         }()
         
@@ -42,9 +42,6 @@ extension AmongChat.GroupRoom {
         init(with gid: String) {
             self.gid = gid
             super.init(nibName: nil, bundle: nil)
-//            let selfUid = Settings.shared.amongChatUserProfile.value?.uid ?? 0
-//            cdPrint(" uid is \(uid)  self uid is \(selfUid)")
-//            self.isSelf = uid == selfUid
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -91,7 +88,7 @@ extension AmongChat.GroupRoom {
                 .subscribe(onSuccess: { [weak self](data) in
                     removeBlock()
                     guard let `self` = self else { return }
-                    self.userList = data.list ?? []
+                    self.userList = data.list
                     if self.userList.isEmpty {
                         self.addNoDataView(R.string.localizable.errorNoFollowing())
                     }
@@ -111,7 +108,7 @@ extension AmongChat.GroupRoom {
             Request.appliedUsersOfGroup(gid, skipMs: 0)
                 .subscribe(onSuccess: { [weak self](data) in
 //                    guard let data = data else { return }
-                    let list =  data.list ?? []
+                    let list =  data.list
                     var origenList = self?.userList
                     list.forEach({ origenList?.append($0)})
                     self?.userList = origenList ?? []
@@ -421,7 +418,7 @@ extension AmongChat.GroupRoom.HostRequestListController {
     }
     
     override func showDragIndicator() -> Bool {
-        return true
+        return false
     }
     
 }

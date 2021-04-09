@@ -35,7 +35,7 @@ extension FansGroup.GroupInfoViewController {
             guard let s = groupInfo.userStatusEnum else {
                 return .none
             }
-            
+
             return s
         }
     }

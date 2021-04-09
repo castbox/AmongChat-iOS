@@ -892,24 +892,24 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func enterChannel(groupId: String) -> Single<Entity.GroupRoom?> {
+    static func enterChannel(groupId: String) -> Single<Entity.GroupInfo?> {
         let params: [String : Any] = [
             "gid": groupId
         ]
         return amongchatProvider.rx.request(.enterGroupChannel(params))
             .mapJSON()
-            .map { item -> [String : AnyObject] in
-                guard let json = item as? [String: AnyObject] else {
-                    throw MsgError.default
-                }
-                if let data = json["data"] as? [String: AnyObject],
-                   let roomData = data["group"] as? [String : AnyObject] {
-                    return roomData
-                } else {
-                    throw MsgError.from(dic: json)
-                }
-            }
-            .mapTo(Entity.GroupRoom.self)
+            .mapToDataKeyJsonValue()
+//            .map { item -> [String : AnyObject] in
+//                guard let json = item as? [String: AnyObject] else {
+//                    throw MsgError.default
+//                }
+//                if let data = json["data"] as? [String: AnyObject] {
+//                    return data
+//                } else {
+//                    throw MsgError.from(dic: json)
+//                }
+//            }
+            .mapTo(Entity.GroupInfo.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -1183,7 +1183,7 @@ extension Request {
     }
     
     static func updateNickName(_ nickName: String, groupId: String, topic: AmongChat.Topic) -> Single<Bool> {
-        return amongchatProvider.rx.request(.roomNickName(["name_\(topic.rawValue)": nickName, "gid": groupId]))
+        return amongchatProvider.rx.request(.groupNickName(["name_\(topic.rawValue)": nickName, "gid": groupId]))
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
@@ -1209,6 +1209,17 @@ extension Request {
                 
                 return r
             })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func handleGroupApply(of uid: Int, groupId: String, accept: Bool) -> Single<Bool> {
+        
+        let params: [String : Any] = ["gid" : groupId, "uid": uid, "accept": accept.int]
+        
+        return amongchatProvider.rx.request(.handleGroupApply(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
 

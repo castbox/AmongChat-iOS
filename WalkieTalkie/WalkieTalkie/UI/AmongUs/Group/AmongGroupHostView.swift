@@ -29,6 +29,8 @@ class AmongGroupHostView: XibLoadableView {
     @IBOutlet weak var gameNameButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     
+    private var onSeatBadge: BadgeHub?
+    private var applyGroupBadge: BadgeHub?
     private var tipView: EasyTipView?
     private let bag = DisposeBag()
 //    private var isShowTips: Bool
@@ -58,6 +60,10 @@ class AmongGroupHostView: XibLoadableView {
             updateGameNameTitle()
         }
     }
+    
+//    var groupRequestCount: Int {
+//        groupJoinButton.redDotOn()
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,6 +102,32 @@ class AmongGroupHostView: XibLoadableView {
                 self.dismissTipView()
             })
             .disposed(by: self.bag)
+    }
+
+    func updateOnSeatBadge(with count: Int) {
+        if onSeatBadge == nil {
+            onSeatBadge = BadgeHub(view: raiseButton) // Initially count set to 0
+            onSeatBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
+            onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
+            onSeatBadge?.scaleCircleSize(by: 0.4)
+            onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width - 5, y: 0, width: 16, height: 16))
+//            segmentedView.clipsToBounds = false
+//            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
+        }
+        onSeatBadge?.setCount(count)
+    }
+    
+    func updateApplyGroupBadge(with count: Int) {
+        if applyGroupBadge == nil {
+            applyGroupBadge = BadgeHub(view: groupJoinButton) // Initially count set to 0
+            applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
+            applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
+            applyGroupBadge?.scaleCircleSize(by: 0.4)
+            applyGroupBadge?.setCircleAtFrame(CGRect(x: groupJoinButton.bounds.width - 5, y: 0, width: 16, height: 16))
+//            segmentedView.clipsToBounds = false
+//            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
+        }
+        applyGroupBadge?.setCount(count)
     }
     
     @objc func dismissTipView() {

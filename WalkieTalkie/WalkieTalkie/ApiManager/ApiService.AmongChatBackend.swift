@@ -86,6 +86,7 @@ extension APIService {
         case leaveGroup([String : Any])
         case applyToJoinGroup([String : Any])
         case deleteGroup([String : Any])
+        case handleGroupApply([String: Any])
     }
 }
 
@@ -249,6 +250,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/apply"
         case .deleteGroup:
             return "/api/v1/group"
+        case .handleGroupApply:
+            return "/api/v1/group/apply/handle"
         }
     }
     
@@ -275,6 +278,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupNickName,
              .updateGroup,
              .applyToJoinGroup,
+             .handleGroupApply,
              .logout:
             return .post
             
@@ -419,6 +423,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupInfo(let params),
              .leaveGroup(let params),
              .applyToJoinGroup(let params),
+             .handleGroupApply(let params),
              .deleteGroup(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)

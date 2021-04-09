@@ -85,7 +85,6 @@ class IMManager: NSObject {
         return newPeerMessageSubject.asObservable()
             .observeOn(SerialDispatchQueueScheduler(qos: .default))
             .map { (message, sender) -> PeerMessage? in
-                cdPrint("PEER - sender: \(sender) text: \(message.text)")
                 guard message.type == .text,
                       let json = message.text.jsonObject(),
                       let messageType = json["message_type"] as? String,
@@ -316,7 +315,7 @@ extension IMManager: AgoraRtmDelegate {
     }
     
     func rtmKit(_ kit: AgoraRtmKit, messageReceived message: AgoraRtmMessage, fromPeer peerId: String) {
-        cdPrint("receive peer message: \(message) peer: \(peerId)")
+        cdPrint("receive peer message: \(message.text) from: \(peerId)")
         newPeerMessageSubject.onNext((message, peerId))
     }
 }

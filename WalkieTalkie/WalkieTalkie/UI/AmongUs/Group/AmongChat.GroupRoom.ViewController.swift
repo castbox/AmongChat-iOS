@@ -136,6 +136,8 @@ extension AmongChat.GroupRoom {
         
         private var applyButton: FansGroup.Views.BottomGradientButton!
         
+        let joinRequestViewModel: AmongChat.GroupRoom.JoinRequestViewModel
+        
         override var screenName: Logger.Screen.Node.Start {
             return .room
         }
@@ -143,6 +145,7 @@ extension AmongChat.GroupRoom {
         init(viewModel: ViewModel) {
             self.room = viewModel.roomReplay.value as! Entity.GroupRoom
             self.viewModel = viewModel
+            self.joinRequestViewModel = AmongChat.GroupRoom.JoinRequestViewModel(with: viewModel.group.gid)
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -255,110 +258,6 @@ extension AmongChat.GroupRoom.ViewController {
 //                self.dataManager.multiHostItems.accept(self.dataManager.multiHostItems.value)
 //            }
 //    }
-    
-    // MARK: -
-    private func setupLayout() {
-        isNavigationBarHiddenWhenAppear = true
-        statusBarStyle = .lightContent
-        view.backgroundColor = UIColor(hex6: 0x00011B)
-                
-        topBar = AmongGroupTopView(room)
-//        configView = AmongChatRoomConfigView(room)
-        
-        amongInputCodeView = AmongInputCodeView()
-        amongInputCodeView.alpha = 0
-        
-        bottomBar = AmongRoomBottomBar()
-        bottomBar.isMicOn = true
-        bottomBar.update(room)
-        
-        nickNameInputView = AmongInputNickNameView()
-        nickNameInputView.alpha = 0
-        
-        inputNotesView = AmongInputNotesView()
-        inputNotesView.alpha = 0
-                
-        topEntranceView = AmongChat.Room.TopEntranceView()
-        topEntranceView.isUserInteractionEnabled = false
-        
-        applyButton = FansGroup.Views.BottomGradientButton()
-        applyButton.isHidden = true
-//        applyButton.setTitle(<#T##title: String?##String?#>, for: <#T##UIControl.State#>)
-        view.addSubviews(views: bgView, messageView, hostView, seatView, messageInputContainerView, amongInputCodeView, topBar,
-//                         toolView,
-                         bottomBar, applyButton, nickNameInputView, inputNotesView, topEntranceView)
-        
-        topBar.snp.makeConstraints { maker in
-            maker.left.top.right.equalToSuperview()
-            maker.height.equalTo(150 + Frame.Height.safeAeraTopHeight)
-        }
-        
-//        configView.snp.makeConstraints { maker in
-//            maker.left.right.equalToSuperview()
-//            maker.top.equalTo(topBar.snp.bottom)
-//            maker.height.equalTo(125)
-//        }
-        
-        bgView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
-        }
-        
-        let hostViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 25
-        hostView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(topBar.snp.bottom).offset(hostViewTopEdge)
-            maker.height.equalTo(125.5)
-        }
-
-        seatView.snp.makeConstraints { (maker) in
-            maker.left.right.equalToSuperview()
-            maker.top.equalTo(hostView.snp.bottom)
-            maker.height.equalTo(251)
-        }
-        
-        let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
-        messageView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
-            maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
-            maker.left.right.equalToSuperview()
-        }
-        
-        messageInputContainerView.snp.makeConstraints { (maker) in
-            maker.left.top.right.equalToSuperview()
-            maker.bottom.equalToSuperview()
-        }
-        
-        amongInputCodeView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
-        }
-        
-        nickNameInputView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
-        }
-        
-        inputNotesView.snp.makeConstraints { (maker) in
-            maker.left.top.right.bottom.equalToSuperview()
-        }
-        
-        bottomBar.snp.makeConstraints { maker in
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-5)
-            maker.left.right.equalToSuperview()
-            maker.height.equalTo(42)
-        }
-        
-        topEntranceView.snp.makeConstraints { maker in
-            maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(26 + Frame.Height.safeAeraTopHeight)
-            maker.height.equalTo(44)
-        }
-        
-        applyButton.snp.makeConstraints { maker in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalToSuperview()
-            maker.height.equalTo(100 + Frame.Height.safeAeraBottomHeight)
-        }
-
-    }
     
     private func bindSubviewEvent() {
         startRtcAndImService()
@@ -516,6 +415,16 @@ extension AmongChat.GroupRoom.ViewController {
             self?.onShareBtn()
         }
         
+        viewModel.groupInfoReplay
+            .subscribeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] info in
+                self?.applyButton.setTitle(info.titleForApplyButton, for: .normal)
+                self?.applyButton.isHidden = !info.showApplyButton
+                self?.applyButton.isEnabled = info.userStatusEnum == .some(.none)
+            })
+            .disposed(by: bag)
+
+
 //        configView.updateEditTypeHandler = { [weak self] editType in
 //            self?.editType = editType
 //        }
@@ -534,6 +443,7 @@ extension AmongChat.GroupRoom.ViewController {
 //                self?.showRecommendUser()
 //            }
 //        }
+        
         
         topBar.actionHandler = { [weak self] type in
             guard let `self` = self else { return }
@@ -575,7 +485,7 @@ extension AmongChat.GroupRoom.ViewController {
             case .editNickName:
                 self.editType = .nickName
             case .joinGroup:
-                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.room.gid)
+                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.joinRequestViewModel)
                 self.presentPanModal(vc)
             case .joinHost:
                 //data source
@@ -583,6 +493,12 @@ extension AmongChat.GroupRoom.ViewController {
                 self.presentPanModal(vc)
             }
         }
+        
+        joinRequestViewModel.countReplay
+            .subscribe(onNext: { [weak self] count in
+                self?.hostView.updateApplyGroupBadge(with: count)
+            })
+            .disposed(by: bag)
         
         bottomBar.sendMessageHandler = { [weak self] in
             self?.editType = .message
@@ -660,8 +576,22 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         applyButton.actionHandler = { [weak self] in
-            
+            self?.applyJoinGroup()
         }
+    }
+    
+    func applyJoinGroup() {
+        let hudRemoval = self.view.raft.show(.loading)
+        viewModel.applyJoinGroup()
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (_) in
+//                self?.bottomGradientView.isHidden = true
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
     }
     
     func startRtcAndImService() {
@@ -715,6 +645,112 @@ extension AmongChat.GroupRoom.ViewController {
 //                removeBlock()
 //            }
 //            .disposed(by: self.bag)
+    }
+    
+    // MARK: -
+    private func setupLayout() {
+        isNavigationBarHiddenWhenAppear = true
+        statusBarStyle = .lightContent
+        view.backgroundColor = UIColor(hex6: 0x00011B)
+                
+        topBar = AmongGroupTopView(room)
+//        configView = AmongChatRoomConfigView(room)
+        
+        amongInputCodeView = AmongInputCodeView()
+        amongInputCodeView.alpha = 0
+        
+        bottomBar = AmongRoomBottomBar()
+        bottomBar.isMicOn = true
+        bottomBar.update(room)
+        
+        nickNameInputView = AmongInputNickNameView()
+        nickNameInputView.alpha = 0
+        
+        inputNotesView = AmongInputNotesView()
+        inputNotesView.alpha = 0
+                
+        topEntranceView = AmongChat.Room.TopEntranceView()
+        topEntranceView.isUserInteractionEnabled = false
+        
+        applyButton = FansGroup.Views.BottomGradientButton()
+//        applyButton.setTitle(viewModel.groupInfo.titleForApplyButton, for: .normal)
+        applyButton.isHidden = true
+//        applyButton.isEnabled = !viewModel.groupInfo.showApplyButton
+        
+        view.addSubviews(views: bgView, messageView, hostView, seatView, messageInputContainerView, amongInputCodeView, topBar,
+//                         toolView,
+                         bottomBar, applyButton, nickNameInputView, inputNotesView, topEntranceView)
+        
+        topBar.snp.makeConstraints { maker in
+            maker.left.top.right.equalToSuperview()
+            maker.height.equalTo(150 + Frame.Height.safeAeraTopHeight)
+        }
+        
+//        configView.snp.makeConstraints { maker in
+//            maker.left.right.equalToSuperview()
+//            maker.top.equalTo(topBar.snp.bottom)
+//            maker.height.equalTo(125)
+//        }
+        
+        bgView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        let hostViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 25
+        hostView.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(topBar.snp.bottom).offset(hostViewTopEdge)
+            maker.height.equalTo(125.5)
+        }
+
+        seatView.snp.makeConstraints { (maker) in
+            maker.left.right.equalToSuperview()
+            maker.top.equalTo(hostView.snp.bottom)
+            maker.height.equalTo(251)
+        }
+        
+        let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
+        messageView.snp.makeConstraints { (maker) in
+            maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
+            maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
+            maker.left.right.equalToSuperview()
+        }
+        
+        messageInputContainerView.snp.makeConstraints { (maker) in
+            maker.left.top.right.equalToSuperview()
+            maker.bottom.equalToSuperview()
+        }
+        
+        amongInputCodeView.snp.makeConstraints { (maker) in
+            maker.left.top.right.bottom.equalToSuperview()
+        }
+        
+        nickNameInputView.snp.makeConstraints { (maker) in
+            maker.left.top.right.bottom.equalToSuperview()
+        }
+        
+        inputNotesView.snp.makeConstraints { (maker) in
+            maker.left.top.right.bottom.equalToSuperview()
+        }
+        
+        bottomBar.snp.makeConstraints { maker in
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-5)
+            maker.left.right.equalToSuperview()
+            maker.height.equalTo(42)
+        }
+        
+        topEntranceView.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview()
+            maker.top.equalTo(26 + Frame.Height.safeAeraTopHeight)
+            maker.height.equalTo(44)
+        }
+        
+        applyButton.snp.makeConstraints { maker in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.height.equalTo(100 + Frame.Height.safeAeraBottomHeight)
+        }
+
     }
 }
 

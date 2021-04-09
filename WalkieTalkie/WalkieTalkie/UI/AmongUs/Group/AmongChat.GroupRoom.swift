@@ -21,7 +21,7 @@ extension AmongChat.GroupRoom {
     class ContainerController: WalkieTalkie.ViewController, GestureBackable {
         var isEnableScreenEdgeGesture: Bool = false
         
-        var room: Entity.GroupRoom!
+        var groupInfo: Entity.GroupInfo!
         var roomViewController: AmongChat.GroupRoom.ViewController?
         var broadcasterPictureURL: String?
         var broadcasterName: String?
@@ -46,7 +46,11 @@ extension AmongChat.GroupRoom {
 //        }
         
         //Defaults[\.testGroup] = group.asString
-        static func join(group: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(with group: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+            join(with: Entity.GroupInfo(group: group, members: nil, userStatusInt: 1), from: controller)
+        }
+        
+        static func join(with groupInfo: Entity.GroupInfo, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
@@ -55,7 +59,7 @@ extension AmongChat.GroupRoom {
 //                show loading
 //                let viewModel = ViewModel.make(room, logSource)
 //                self.show(from: controller, with: viewModel)
-                let vc = AmongChat.GroupRoom.ContainerController(with: group, logSource: logSource)
+                let vc = AmongChat.GroupRoom.ContainerController(with: groupInfo, logSource: logSource)
                 controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                     guard let ancient = controller,
                           (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ViewController) else { return }
@@ -75,8 +79,8 @@ extension AmongChat.GroupRoom {
         }
         
         // MARK: - init
-        init(with room: Entity.GroupRoom, logSource: ParentPageSource? = nil) {
-            self.room = room
+        init(with info: Entity.GroupInfo, logSource: ParentPageSource? = nil) {
+            self.groupInfo = info
             self.logSource = logSource
 //            self.broadcasterPictureURL = roomInfo.broadcaster?.picture_url
 //            self.broadcasterName = roomInfo.broadcaster?.name
@@ -101,7 +105,7 @@ extension AmongChat.GroupRoom {
         }
         
         func addListenerViewController() {
-            guard let room = room else {
+            guard let groupInfo = groupInfo else {
                 navigationController?.popViewController(animated: true)
                 return
             }
@@ -114,7 +118,7 @@ extension AmongChat.GroupRoom {
                 roomViewController?.endAppearanceTransition()
                 roomViewController = nil
             }
-            let viewModel = ViewModel(room: room, source: logSource)
+            let viewModel = ViewModel(groupInfo: groupInfo, source: logSource)
             roomViewController = AmongChat.GroupRoom.ViewController(viewModel: viewModel)
             roomViewController?.showInnerJoinLoading = removeLoadingHandler == nil
 //            listenerViewController?.fromSource = fromSource

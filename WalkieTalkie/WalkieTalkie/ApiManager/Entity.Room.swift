@@ -14,6 +14,7 @@ protocol RTCJoinable {
     var rtcType: Entity.Room.RtcType? { get }
     var rtcBitRate: Int? { get }
     var userList: [Entity.RoomUser] { get set }
+    var defaultRole: RtcUserRole { get }
 }
 
 protocol RoomInfoable: RTCJoinable {
@@ -74,6 +75,8 @@ extension Entity {
         let rtcType: RtcType?
         let rtcBitRate: Int?
         var coverUrl: String?
+        //
+        var defaultRole: RtcUserRole = .broadcaster
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,

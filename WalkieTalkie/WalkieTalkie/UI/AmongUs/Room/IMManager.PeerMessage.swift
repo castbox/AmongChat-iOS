@@ -22,19 +22,13 @@ typealias PeerMessage = PeerMessageable & Codable
 extension Peer {
     enum MessageType: String, Codable {
         case text = "AC:Chatroom:Text"
-        //peer
+        //上麦消息
         case groupPeerCall = "AC:PEER:Call"
+        //group 申请后消息
         case groupPeerApply = "AC:PEER:GroupApply"
         case friendsInfo = "AC:PEER:FriendsInfo"
         case roomInvitation = "AC:PEER:Invite"
         case roomInvitationInviteStranger = "AC:PEER:InviteStranger"
-
-
-//        MSG_TYPE_PEER_GROUP_APPLY = 'AC:PEER:GroupApply'
-//        GROUP_APPLY_REQUEST = 1
-//        GROUP_APPLY_ACCEPT = 2
-//        GROUP_APPLY_REJECT = 3
-        
     }
     
     struct TextMessage: PeerMessage {
@@ -128,9 +122,15 @@ extension Peer {
     }
     
     struct GroupApplyMessage: PeerMessage {
-        var user: Entity.UserProfile
-        var msgType: Peer.MessageType
+        enum Action: Int, Codable {
+            case request = 1
+            case accept = 2
+            case reject = 3
+        }
         
+        var gid: String
+        var action: Action
+        var msgType: Peer.MessageType
     }
 }
 

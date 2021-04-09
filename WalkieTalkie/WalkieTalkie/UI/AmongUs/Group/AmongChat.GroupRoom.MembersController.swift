@@ -405,6 +405,13 @@ extension AmongChat.GroupRoom.MembersController {
 extension AmongChat.GroupRoom.MembersController {
     
     class HeaderView: UIView {
+        let bar: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0xFFFFFF, alpha: 0.2)
+            v.layer.cornerRadius = 2
+            v.clipsToBounds = true
+            return v
+        }()
         
         private lazy var titleLabel: WalkieLabel = {
             let lb = WalkieLabel()
@@ -422,12 +429,18 @@ extension AmongChat.GroupRoom.MembersController {
         override init(frame: CGRect) {
             super.init(frame: frame)
             
-            addSubview(titleLabel)
+            addSubviews(views: titleLabel, bar)
             titleLabel.snp.makeConstraints { (make) in
                 make.bottom.equalTo(-16)
                 make.centerX.equalToSuperview()
             }
             
+            bar.snp.makeConstraints { (maker) in
+                maker.top.equalTo(8)
+                maker.height.equalTo(4)
+                maker.width.equalTo(36)
+                maker.centerX.equalToSuperview()
+            }
             
             let lineView = UIView()
             lineView.backgroundColor = UIColor.white.alpha(0.08)
