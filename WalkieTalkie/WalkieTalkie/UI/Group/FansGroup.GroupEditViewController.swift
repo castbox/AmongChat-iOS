@@ -71,6 +71,12 @@ extension FansGroup {
         private typealias SegmentedButton = FansGroup.GroupsViewController.SegmentedButton
         private lazy var segmentedButton: SegmentedButton = {
             let s = SegmentedButton()
+            let bg = UIView()
+            bg.backgroundColor = UIColor(hex6: 0x121212)
+            s.addSubview(bg)
+            bg.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: -Frame.Height.safeAeraTopHeight, left: 0, bottom: 0, right: 0))
+            }
             s.selectedIndexObservable
                 .subscribe(onNext: { [weak self] (idx) in
                     guard let `self` = self else { return }
@@ -81,6 +87,7 @@ extension FansGroup {
             s.setTitles(titles: [R.string.localizable.amongChatGroupJoined(), R.string.localizable.amongChatGroupRequests()])
             return s
         }()
+        private let segmentedBtnHeight = CGFloat(60)
         
         private lazy var listScrollView: UIScrollView = {
             let s = UIScrollView()
@@ -115,6 +122,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             bindSubviewEvents()
+            setUpMemberList()
         }
     }
     
@@ -132,7 +140,7 @@ extension FansGroup.GroupEditViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: setUpInfoView, navView)
+        view.addSubviews(views: setUpInfoView, navView, segmentedButton)
         
         setUpInfoView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -145,10 +153,10 @@ extension FansGroup.GroupEditViewController {
         }
         
         listScrollView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(deleteView.snp.bottom).offset(104)
+            maker.top.equalTo(deleteView.snp.bottom).offset(segmentedBtnHeight)
             maker.leading.trailing.bottom.equalToSuperview()
-            maker.width.equalTo(view.snp.width).multipliedBy(2)
-            maker.height.equalTo(view.snp.height)
+            maker.width.equalTo(view.snp.width)
+            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
         }
         
         navView.snp.makeConstraints { (maker) in
@@ -227,6 +235,16 @@ extension FansGroup.GroupEditViewController {
                 }
                 
                 self.navView.alpha = 1 - distance / 49
+                
+                self.segmentedButton.isHidden = self.setUpInfoView.layoutScrollView.contentSize.height <= 0
+                
+                let listScrollViewTop = self.setUpInfoView.appendViewContainer.convert(self.listScrollView.origin, to: self.view).y
+                
+                self.segmentedButton.snp.remakeConstraints { (maker) in
+                    maker.leading.trailing.equalToSuperview()
+                    maker.height.equalTo(self.segmentedBtnHeight)
+                    maker.top.equalTo(max(Frame.Height.safeAeraTopHeight, listScrollViewTop - self.segmentedBtnHeight))
+                }
             })
             .disposed(by: bag)
         
@@ -339,6 +357,32 @@ extension FansGroup.GroupEditViewController {
         alertVC.view.backgroundColor = UIColor.black.alpha(0.6)
         alertVC.present()
         
+    }
+    
+    private func setUpMemberList() {
+        
+        let memberListVC = FansGroup.GroupMemberListViewController(with: groupInfo)
+        addChild(memberListVC)
+        listScrollView.addSubview(memberListVC.view)
+        memberListVC.view.snp.makeConstraints { (maker) in
+            maker.leading.top.bottom.equalToSuperview()
+            maker.width.equalTo(view.snp.width)
+            maker.height.equalTo(view.snp.height).inset((Frame.Height.safeAeraTopHeight + segmentedBtnHeight) / 2)
+        }
+        memberListVC.didMove(toParent: self)
+        memberListVC.tableView.rx.contentOffset
+            .subscribe(onNext: { [weak self, weak memberListVC] (point) in
+                guard let `self` = self,
+                      point.y < 0,
+                      point.y > -self.segmentedBtnHeight else { return }
+                
+                var offset = self.setUpInfoView.layoutScrollView.contentOffset
+                offset.y = offset.y + point.y
+                
+                self.setUpInfoView.layoutScrollView.setContentOffset(offset, animated: false)
+                memberListVC?.tableView.contentOffset = .zero
+            })
+            .disposed(by: bag)
     }
     
 }
