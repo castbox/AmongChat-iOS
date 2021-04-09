@@ -87,6 +87,7 @@ extension APIService {
         case applyToJoinGroup([String : Any])
         case deleteGroup([String : Any])
         case handleGroupApply([String: Any])
+        case kickMemberFromGroup([String : Any])
     }
 }
 
@@ -252,6 +253,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group"
         case .handleGroupApply:
             return "/api/v1/group/apply/handle"
+        case .kickMemberFromGroup:
+            return "/api/v1/group/member"
         }
     }
     
@@ -333,7 +336,8 @@ extension APIService.AmongChatBackend: TargetType {
             return .put
         case .removeGameSkill,
              .deleteGroup,
-            .unFollow:
+             .kickMemberFromGroup,
+             .unFollow:
             return .delete
             
         case .uploadFile:
@@ -371,6 +375,7 @@ extension APIService.AmongChatBackend: TargetType {
              .receipt(let params),
              .contactUpload(let params),
              .createGroup(let params),
+             .kickMemberFromGroup(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             

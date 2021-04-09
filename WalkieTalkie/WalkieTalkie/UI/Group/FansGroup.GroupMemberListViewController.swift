@@ -193,6 +193,34 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 maker.centerY.equalToSuperview()
                 maker.height.equalTo(22)
             }
+            
+            if groupInfo.group.uid.isSelfUid {
+                
+                let kickButton: UIButton = {
+                    let btn = SmallSizeButton(type: .custom)
+                    btn.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
+                    btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+                    btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
+                    btn.rx.controlEvent(.primaryActionTriggered)
+                        .subscribe(onNext: { [weak self] (_) in
+                            //TODO: - go to kick
+                            guard let `self` = self else { return }
+                            let selectVC = FansGroup.SelectGroupMemberViewController(with: self.groupInfo)
+                            self.navigationController?.pushViewController(selectVC, animated: true)
+                        })
+                        .disposed(by: bag)
+
+                    return btn
+                }()
+                
+                v.addSubview(kickButton)
+                kickButton.snp.makeConstraints { (maker) in
+                    maker.centerY.equalToSuperview()
+                    maker.trailing.equalToSuperview().inset(20)
+                }
+                
+            }
+            
         }
         
         return v
