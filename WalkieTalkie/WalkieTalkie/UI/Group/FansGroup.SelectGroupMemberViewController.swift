@@ -59,7 +59,7 @@ extension FansGroup {
         }()
         
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .grouped)
+            let tb = UITableView(frame: .zero, style: .plain)
             tb.register(MemberCell.self, forCellReuseIdentifier: NSStringFromClass(MemberCell.self))
             tb.dataSource = self
             tb.delegate = self
@@ -72,6 +72,7 @@ extension FansGroup {
                 // Fallback on earlier versions
                 automaticallyAdjustsScrollViewInsets = false
             }
+            tb.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 100, right: 0)
             return tb
         }()
         

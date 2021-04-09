@@ -49,7 +49,7 @@ extension FansGroup {
         }()
         
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .grouped)
+            let tb = UITableView(frame: .zero, style: .plain)
             tb.register(nibWithCellClass: FansGroupSelfItemCell.self)
             tb.register(nibWithCellClass: FansGroupItemCell.self)
             tb.dataSource = self
