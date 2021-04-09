@@ -137,10 +137,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
         
         if group.isOwnedByMe {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
-            cell.titleLabel.text = group.group.name
-            cell.introLabel.text = group.group.description
-            cell.groupIconView.setImage(with: group.group.cover?.url)
-            cell.actionHandler = { [weak self] action in
+            cell.bindData(group.group) { [weak self] action in
                 switch action {
                 case .edit:
                     ()
@@ -151,14 +148,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
-            cell.groupAvatarView.setImage(with: group.group.cover?.url)
-            cell.groupTitleLabel.text = group.group.name
-            cell.groupIntroLabel.text = group.group.description
-            cell.groupUserCountLabel.text = "\(group.group.membersCount)"
-            cell.topicView.coverSourceRelay.accept(group.group.coverUrl)
-            cell.topicView.nameRelay.accept(group.group.topicName)
-            cell.groupInfoContainer.isHidden = false
-            cell.onlineTagView.isHidden = group.group.status == 0
+            cell.bindData(group.group)
             return cell
         }
         

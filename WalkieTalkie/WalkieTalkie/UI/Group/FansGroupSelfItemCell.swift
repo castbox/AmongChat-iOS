@@ -21,7 +21,7 @@ class FansGroupSelfItemCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var introLabel: UILabel!
     
-    var actionHandler: ((Action) -> Void)?
+    private var actionHandler: ((Action) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,4 +41,11 @@ class FansGroupSelfItemCell: UITableViewCell {
         actionHandler?(.start)
     }
     
+    func bindData(_ group: Entity.Group, actionHandler: ((Action) -> Void)? = nil) {
+        titleLabel.text = group.name
+        introLabel.text = group.description
+        groupIconView.setImage(with: group.cover?.url)
+        self.actionHandler = actionHandler
+    }
+
 }
