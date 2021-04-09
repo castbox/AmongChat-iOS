@@ -42,7 +42,7 @@ extension FansGroup {
                 let btn = UIButton(type: .custom)
                 btn.layer.cornerRadius = 25
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
-                btn.setTitle(R.string.localizable.amongChatGroupLeaveGroup(), for: .normal)
+                btn.setTitle(R.string.localizable.amongChatGroupDeleteGroup(), for: .normal)
                 btn.setImage(R.image.ac_group_delete(), for: .normal)
                 btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
                 btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
