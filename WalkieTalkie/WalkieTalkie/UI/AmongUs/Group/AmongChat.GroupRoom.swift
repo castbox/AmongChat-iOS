@@ -55,10 +55,6 @@ extension AmongChat.GroupRoom {
                 guard let controller = controller else {
                     return
                 }
-//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-//                show loading
-//                let viewModel = ViewModel.make(room, logSource)
-//                self.show(from: controller, with: viewModel)
                 let vc = AmongChat.GroupRoom.ContainerController(with: groupInfo, logSource: logSource)
                 controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                     guard let ancient = controller,
@@ -69,21 +65,10 @@ extension AmongChat.GroupRoom {
             }
         }
         
-        private static func show(from controller: UIViewController, with viewModel: ViewModel) {
-            let vc = AmongChat.GroupRoom.ViewController(viewModel: viewModel)
-            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-                guard let ancient = controller,
-                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ViewController) else { return }
-                ancient.navigationController?.viewControllers.removeAll(ancient)
-            })
-        }
-        
         // MARK: - init
         init(with info: Entity.GroupInfo, logSource: ParentPageSource? = nil) {
             self.groupInfo = info
             self.logSource = logSource
-//            self.broadcasterPictureURL = roomInfo.broadcaster?.picture_url
-//            self.broadcasterName = roomInfo.broadcaster?.name
             super.init(nibName: nil, bundle: nil)
         }
                 
@@ -118,7 +103,13 @@ extension AmongChat.GroupRoom {
                 roomViewController?.endAppearanceTransition()
                 roomViewController = nil
             }
-            let viewModel = ViewModel(groupInfo: groupInfo, source: logSource)
+            //听众和主播
+            let viewModel: AmongChat.GroupRoom.BaseViewModel
+            if groupInfo.group.loginUserIsAdmin {
+                viewModel = AmongChat.GroupRoom.BroadcasterViewModel(groupInfo: groupInfo, source: logSource)
+            } else {
+                viewModel = AmongChat.GroupRoom.AudienceViewModel(groupInfo: groupInfo, source: logSource)
+            }
             roomViewController = AmongChat.GroupRoom.ViewController(viewModel: viewModel)
             roomViewController?.showInnerJoinLoading = removeLoadingHandler == nil
 //            listenerViewController?.fromSource = fromSource

@@ -11,8 +11,11 @@ import RxSwift
 import RxCocoa
 import EasyTipView
 
+typealias AudienceViewModel = AmongChat.GroupRoom.AudienceViewModel
+typealias BroadcasterViewModel = AmongChat.GroupRoom.BroadcasterViewModel
+
 extension AmongChat.GroupRoom {
-    
+        
     class ViewController: WalkieTalkie.ViewController, GestureBackable {
         
         var isEnableScreenEdgeGesture: Bool = false
@@ -20,7 +23,12 @@ extension AmongChat.GroupRoom {
         private typealias UserCell = AmongChat.Room.UserCell
         
         private var room: Entity.GroupRoom
-        private let viewModel: ViewModel
+        
+        //
+        private let viewModel: BaseViewModel
+        //
+        var audienceViewModel: AudienceViewModel? { viewModel as? AudienceViewModel }
+        var broadcasterViewModel: BroadcasterViewModel? { viewModel as? BroadcasterViewModel }
 
         private var topBar: AmongGroupTopView!
 //        private var configView: AmongChatRoomConfigView!
@@ -142,7 +150,7 @@ extension AmongChat.GroupRoom {
             return .room
         }
                         
-        init(viewModel: ViewModel) {
+        init(viewModel: BaseViewModel) {
             self.room = viewModel.roomReplay.value as! Entity.GroupRoom
             self.viewModel = viewModel
             self.joinRequestViewModel = AmongChat.GroupRoom.JoinRequestViewModel(with: viewModel.group.gid)
@@ -572,7 +580,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         seatView.requestOnSeatHandler = { [weak self] position in
-            self?.viewModel.requestOnSeat(at: position)
+            self?.audienceViewModel?.requestOnSeat(at: position)
         }
         
         applyButton.actionHandler = { [weak self] in
@@ -582,7 +590,7 @@ extension AmongChat.GroupRoom.ViewController {
     
     func applyJoinGroup() {
         let hudRemoval = self.view.raft.show(.loading)
-        viewModel.applyJoinGroup()
+        audienceViewModel?.applyJoinGroup()
             .do(onDispose: {
                 hudRemoval()
             })

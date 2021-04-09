@@ -326,6 +326,7 @@
 		FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */; };
 		FEAD68DE258BA42900977579 /* EncodableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAD68DD258BA42900977579 /* EncodableExtension.swift */; };
 		FEAE2561262045DC001F10A9 /* BadgeHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE2560262045DC001F10A9 /* BadgeHub.swift */; };
+		FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */; };
 		FEBCFEA8260C3B9900DD9B8D /* JSBridge.Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */; };
 		FEBCFEA9260C3B9900DD9B8D /* JSBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */; };
 		FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */; };
@@ -733,6 +734,7 @@
 		FEAD54DB2449C74F006454F6 /* Modal.Cover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Modal.Cover.swift; sourceTree = "<group>"; };
 		FEAD68DD258BA42900977579 /* EncodableExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncodableExtension.swift; sourceTree = "<group>"; };
 		FEAE2560262045DC001F10A9 /* BadgeHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BadgeHub.swift; sourceTree = "<group>"; };
+		FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.GroupRoomBaseViewModel.swift; sourceTree = "<group>"; };
 		FEBCFEA5260C3B9900DD9B8D /* JSBridge.Support.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Support.swift; sourceTree = "<group>"; };
 		FEBCFEA6260C3B9900DD9B8D /* JSBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.swift; sourceTree = "<group>"; };
 		FEBCFEA7260C3B9900DD9B8D /* JSBridge.Links.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBridge.Links.swift; sourceTree = "<group>"; };
@@ -1468,6 +1470,7 @@
 			children = (
 				FE914B1126146AD700C755FF /* AmongChat.GroupRoom.swift */,
 				FE6738A52611BAD80044C0D2 /* AmongChat.GroupRoom.ViewController.swift */,
+				FEAE256626207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift */,
 				FE6738A92611EB870044C0D2 /* AmongChat.GroupRoom.ViewModel.swift */,
 				FE8067A7261ED69C00207992 /* AmongChat.GroupRoom.HostViewModel.swift */,
 				FED38C81261318BB003C3F7D /* AmongGroupTopView.swift */,
@@ -1873,6 +1876,7 @@
 				FEE0E7A025A44C3200DC67B8 /* UIViewLocalizableExtension.swift in Sources */,
 				FE914B1626146DC900C755FF /* BottomTitleButton.swift in Sources */,
 				FEBCFEAA260C3B9900DD9B8D /* JSBridge.Links.swift in Sources */,
+				FEAE256726207477001F10A9 /* AmongChat.GroupRoom.GroupRoomBaseViewModel.swift in Sources */,
 				FE7CEB59258A029F0067952C /* AmongChatRoomConfigView.swift in Sources */,
 				FE87C2C8259C2A8300799883 /* UIColorExtension.swift in Sources */,
 				FE401E3D244D9C450081F793 /* IAP.ProductDealer.swift in Sources */,
