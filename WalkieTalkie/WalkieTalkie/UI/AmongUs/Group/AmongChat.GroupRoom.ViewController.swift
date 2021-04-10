@@ -267,6 +267,29 @@ extension AmongChat.GroupRoom.ViewController {
 //            }
 //    }
     
+//    func onSeatRequestListAction(<#parameters#>) -> <#return type#> {
+//        let vc = AmongChat.GroupRoom.SeatRequestListController(with: replay)
+//        vc.actionHandler = { [weak self, weak vc] user, action in
+//            guard let `self` = self else { return }
+//            switch action {
+//            case .accept:
+//                let removeHandler = vc?.view.raft.show(.loading)
+//                self.broadcasterViewModel?.requestGroupRoomSeatAdd(for: user)
+//                    .subscribe(onSuccess: { [weak self] result in
+//                        removeHandler?()
+//                        self?.broadcasterViewModel?.sendCallSignal(isAccept: true, user)
+//                    }, onError: { error in
+//                        removeHandler?()
+//                    })
+//                    .disposed(by: self.bag)
+//            case .reject:
+//                self.broadcasterViewModel?.sendCallSignal(isAccept: false, user)
+//            }
+//
+//        }
+//
+//    }
+    
     private func bindSubviewEvent() {
         startRtcAndImService()
 
@@ -497,7 +520,28 @@ extension AmongChat.GroupRoom.ViewController {
                 self.presentPanModal(vc)
             case .joinHost:
                 //data source
-                let vc = AmongChat.GroupRoom.HostRequestListController(with: self.room.gid)
+                guard let replay = self.broadcasterViewModel?.callInListReplay else {
+                    return
+                }
+                let vc = AmongChat.GroupRoom.SeatRequestListController(with: replay)
+                vc.actionHandler = { [weak self, weak vc] user, action in
+                    guard let `self` = self else { return }
+                    switch action {
+                    case .accept:
+                        let removeHandler = vc?.view.raft.show(.loading)
+                        self.broadcasterViewModel?.requestGroupRoomSeatAdd(for: user)
+                            .subscribe(onSuccess: { [weak self] result in
+                                removeHandler?()
+                                self?.broadcasterViewModel?.sendCallSignal(isAccept: true, user)
+                            }, onError: { error in
+                                removeHandler?()
+                            })
+                            .disposed(by: self.bag)
+                    case .reject:
+                        self.broadcasterViewModel?.sendCallSignal(isAccept: false, user)
+                    }
+                    
+                }
                 self.presentPanModal(vc)
             }
         }
@@ -764,4 +808,118 @@ extension AmongChat.GroupRoom.ViewController {
 
 extension AmongChat.GroupRoom.ViewController {
     
+}
+
+//MARK: - For Audience
+private extension AmongChat.GroupRoom.ViewController {
+    
+    func showToast(with string: String?) {
+        guard let msg = string else {
+            return
+        }
+        view.raft.autoShow(.text(msg))
+    }
+    
+    func onReceiveCalling(message: Peer.CallMessage, rejectType: PhoneCallRejectType) {
+        // 主播拒绝callin
+        if rejectType != .none {
+            showToast(with: rejectType.message)
+//                Toast.showToast(alertType: .warnning, message: rejectType.message)
+//                if rejectType == .host {
+//                    self.minimizePhoneCallView()
+//                    self.phoneCallView.beHungUp(with: call.action)
+//                } else {
+//                    self.phoneCallView.retryState()
+//                }
+//                self.dataManager.isMuteMic = false
+//                self.moreFuncViewModel?.update(.callin, isSelected: false)
+            // 去除静音按钮
+//                self.removeMuteButton()
+            
+//                if self.dataManager.roomInfo.multi_host, let position = self.dataManager.seatsIndex() {
+//                    let tmp = self.dataManager.multiHostItems.value
+//                    tmp[position].clear()
+//                    self.dataManager.multiHostItems.accept(tmp)
+//                }
+            audienceViewModel?.clearSeatCallState()
+            bottomBar.isMicButtonHidden = true
+        } else {// 主播同意callin
+            if audienceViewModel?.phoneCallState == .calling {
+//                self.phoneCallView.startCalling()
+                //update state
+                audienceViewModel?.updateOnSeatState(with: message)
+                bottomBar.isMicButtonHidden = false
+                //
+//                self.baseFuncStackView.insertArrangedSubview(self.muteButton, at: 1)
+//                self.updateBaseFuncStackViewLayout()
+//                self.moreFuncViewModel?.update(.callin, isSelected: true)
+//                cdPrint("action: \(call.action)")
+            } else if audienceViewModel?.phoneCallState == .readyForCall {// 听众hangup
+//                self.phoneCallView.beHungUp(with: call.action)
+                //                            self.phoneButton.isSelected = false
+//                self.moreFuncViewModel?.update(.callin, isSelected: false)
+                //主动挂断
+//                if call.action == .none {
+//                    self.phoneCallViewTimerDispose?.dispose()
+//                    self.phoneCallViewTimerDispose = nil
+//                    self.phoneCallViewTimerDispose =
+//                        Observable<Int>
+//                            .interval(.seconds(2), scheduler: MainScheduler.instance)
+//                            .single()
+//                            .subscribe(onNext: { [weak welf = self] _ in
+//                                guard let `self` = welf else { return }
+//                                self.minimizePhoneCallView()
+//                            })
+//                    self.phoneCallViewTimerDispose?.disposed(by: self.bag)
+//                }
+//                if self.dataManager.roomInfo.multi_host, let position = self.dataManager.seatsIndex() {
+//                    cdPrint("action: \(call.action)")
+//                    // 更新call-in之后的状态
+//                    let tmp = self.dataManager.multiHostItems.value
+//                    tmp[position].clear()
+//                    self.dataManager.multiHostItems.accept(tmp)
+//                }
+                // 去除静音按钮
+//                self.removeMuteButton()
+                //设置 speak
+                //                            self.dataManager.isEnableSpeakerphone = true
+                audienceViewModel?.clearSeatCallState()
+            }
+        }
+
+    }
+    
+    func bindCallEvent() {
+        //
+        //        bottomBar.isMicButtonHidden = group
+        audienceViewModel?.callingHandler = { [weak self] rejectType, call in
+            //            guard let `self` = self else { return }
+            self?.onReceiveCalling(message: call, rejectType: rejectType)
+            
+        }
+        
+        broadcasterViewModel?.callInListReplay
+            .subscribe(onNext: { [weak self] users in
+                self?.hostView.updateOnSeatBadge(with: users.count)
+            })
+            .disposed(by: bag)
+        //
+//        broadcasterViewModel?.callInListHandler = { [weak self] in
+//            guard let `self` = self else { return }
+//            // 多人连麦
+//            //                if self.roomInfo.type == .multi || self.roomInfo.type == .dating {
+//            // 只显示requesting的主播
+//            let tmp = self.dataManager.callInList.filter({ (info) -> Bool in
+//                return info.action == 1
+//            })
+//            self.callInListView.callInUsers = tmp
+//            //                } else {
+//            //                    self.callInListView.callInUsers = self.dataManager.callInList
+//            //                }
+//            self.callInListView.callInList = self.dataManager.callInList
+//            // phonebutton 状态
+//            let requestList = self.callInListView.callInUsers.filter { $0.action == 1 }
+//            self.phoneButtonBadge?.setCount(requestList.count)
+//        }
+    }
 }

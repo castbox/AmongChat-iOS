@@ -21,21 +21,52 @@ fileprivate func cdPrint(_ message: Any) {
 extension AmongChat.GroupRoom {
         
     class AudienceViewModel: BaseViewModel {
+        
+//        var callMsgHandler: ((PhoneCallRejectType, Peer.CallMessage) -> Void)?
         var callSwitch: Bool = true
         
         func requestOnSeat(at position: Int) {
             guard position >= 0 && position < 10,
-                  let user = Settings.loginUserProfile?.toRoomUser(with: position),
+                  let user = Settings.loginUserProfile,
                   let item = seatDataSource[position] else {
                 return
             }
             //拿到改位置占位 item
             //将 item 更改为 loading 状态
-            item.user = user
+            item.user = user.toRoomUser(with: position)
             item.callContent = Peer.CallMessage(action: .request, gid: group.gid, expireTime: 30, position: position, user: user)
             sendCall(action: .request, position: position)
             //update state
             seatDataSource[position] = item
+        }
+        
+        //清除当前calling麦位状态
+        func clearSeatCallState() {
+            if let position = seatsIndex(),
+               let item = seatDataSource[position] {
+                item.clear()
+                seatDataSource[position] = item
+            }
+        }
+        
+        //
+        func updateOnSeatState(with callMessage: Peer.CallMessage) {
+            if let position = seatsIndex(),
+               let item = seatDataSource[position] {
+                // 更新call-in之后的状态
+                item.callContent = callMessage
+                seatDataSource[position] = item
+            }
+        }
+        
+        func seatsIndex(of uid: Int? = nil) -> Int? {
+            let uid = uid ?? (Settings.loginUserId ?? 0)
+            for (index, dic) in seatDataSource.enumerated() {
+                if dic.value.user?.uid == uid  {
+                    return dic.key
+                }
+            }
+            return nil
         }
         
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
@@ -69,14 +100,11 @@ extension AmongChat.GroupRoom {
                 messageHandler?(crMessage)
             }
 //            else if message.messageType == .call { // Call 电话状态
-//                self.callMessageHandler(callContent: content as? CallContent)
+//                self.onReceiveCallMessage(callContent: content as? CallContent)
 //            }
         }
         
         override func onReceivePeer(message: PeerMessage) {
-            //当前为 host, 处理申请
-            
-            
             //非 Host
             if let applyMessage = message as? Peer.GroupApplyMessage,
                applyMessage.gid == group.gid {
@@ -92,7 +120,11 @@ extension AmongChat.GroupRoom {
                 var info = self.groupInfo
                 info.userStatusInt = status.rawValue
                 self.groupInfoReplay.accept(info)
+            } else if let applyMessage = message as? Peer.CallMessage {
+                //收到主播回复消息
+                onReceiveCall(applyMessage)
             }
+                 
         }
         
         override func roomBgImage() -> UIImage? {
@@ -116,7 +148,7 @@ extension AmongChat.GroupRoom {
         //MARK: - For Auidiance
         func sendMessage(call action: Peer.CallMessage.Action, expired: Int64, extra: String, position: Int = 0) {
             //user
-            let content = Peer.CallMessage(action: action, gid: group.gid, expireTime: expired, extra: extra, position: position ?? 0, user: Settings.loginUserProfile!.toRoomUser(with: position))
+            let content = Peer.CallMessage(action: action, gid: group.gid, expireTime: expired, extra: extra, position: position, user: Settings.loginUserProfile!)
             imViewModel.sendPeer(message: content, to: group.broadcaster.uid)
         }
         
@@ -126,12 +158,12 @@ extension AmongChat.GroupRoom {
             switch action {
             case .request:
                 phoneCallState = .requesting
-                sendMessage(call: action, expired: 30, extra: "", position: position)
+                sendMessage(call: action, expired: 90, extra: "", position: position)
 //                LiveEngine.shared.sendCallSignal(action: .request, roomInfo: roomInfo, expired: 30, extra: "", position: position)
                 
                 //30 秒倒计时后自动挂断
                 let timer = Observable<Int>
-                    .timer(.seconds(30), scheduler: MainScheduler.instance)
+                    .timer(.seconds(90), scheduler: MainScheduler.instance)
                 callinRequestTimerDispose?.dispose()
                 callinRequestTimerDispose = nil
                 callinRequestTimerDispose = timer
@@ -146,45 +178,16 @@ extension AmongChat.GroupRoom {
                 callinRequestTimerDispose?.dispose()
                 callinRequestTimerDispose = nil
                 phoneCallState = PhoneCallState.readyForCall
-                sendMessage(call: action, expired: 30, extra: "", position: position)
+                sendMessage(call: action, expired: 90, extra: "", position: position)
 //                LiveEngine.shared.sendCallSignal(action: .invite_reject, roomInfo: roomInfo, expired: 30, extra: "", position: position)
 
             default:
                 // 直接断开
                 phoneCallState = PhoneCallState.readyForCall
-                sendMessage(call: .hangup, expired: 30, extra: "", position: position)
+                sendMessage(call: .hangup, expired: 90, extra: "", position: position)
 //                LiveEngine.shared.sendCallSignal(action: .hangup, roomInfo: roomInfo, expired: 30, extra: "", position: position)
 
             }
-//            if isCallRequest { // 准备连接
-//                cdPrint("sendSingnal:listener:dataManager")
-//                phoneCallState = .requesting
-//                LiveEngine.shared.sendCallSignal(action: .request, roomInfo: roomInfo, expired: 30, extra: "", position: position)
-//                let timer = Observable<Int>
-//                    .timer(.seconds(30), scheduler: MainScheduler.instance)
-//                callinRequestTimerDispose?.dispose()
-//                callinRequestTimerDispose = nil
-//                callinRequestTimerDispose = timer
-//                    .subscribe(onNext: { [weak self] _ in
-//                        guard let `self` = self else { return }
-//                        if self.phoneCallState == .requesting {
-//                            self.phoneCallHangUpBySelf(.timeout)
-//                        }
-//                    })
-//                callinRequestTimerDispose?.disposed(by: bag)
-//            } else {
-//                // invite reject
-//                if isInviteReject {
-//                    callinRequestTimerDispose?.dispose()
-//                    callinRequestTimerDispose = nil
-//                    phoneCallState = PhoneCallState.readyForCall
-//                    LiveEngine.shared.sendCallSignal(action: .invite_reject, roomInfo: roomInfo, expired: 30, extra: "", position: position)
-//                    return
-//                }
-//                // 直接断开
-//                phoneCallState = PhoneCallState.readyForCall
-//                LiveEngine.shared.sendCallSignal(action: .hangup, roomInfo: roomInfo, expired: 30, extra: "", position: position)
-//            }
         }
         
 //        func sendPhoneCallEventIfNeed() {
@@ -201,9 +204,9 @@ extension AmongChat.GroupRoom {
             phoneCallHangUpBySelf()
         }
         
-        func callMessageHandler(callContent: Peer.CallMessage?) {
+        func onReceiveCall(_ message: Peer.CallMessage?) {
             
-            guard let callContent = callContent else {
+            guard let callContent = message else {
                 return
             }
             
@@ -251,7 +254,7 @@ extension AmongChat.GroupRoom {
                 mManager.updateRole(.audience)
 //                mManager.updateRole(isPublisher: false)
             }
-//            callingHandler(rejectType, call ?? Peer.CallMessage())
+            callingHandler(rejectType, call ?? Peer.CallMessage.empty(gid: group.gid))
         }
         
         func startPhoneCall(call: Peer.CallMessage? = nil) {

@@ -90,7 +90,7 @@ extension Peer {
         var extra: String = ""
         var position: Int = 0
         let msgType: MessageType = .groupRoomCall
-        var user: Entity.RoomUser
+        var user: Entity.UserProfile
         
         
         init(action: Action,
@@ -98,7 +98,7 @@ extension Peer {
              expireTime: Int64,
              extra: String = "",
              position: Int,
-             user: Entity.RoomUser) {
+             user: Entity.UserProfile) {
             self.action = action
             self.gid = gid
             self.expireTime = expireTime
@@ -108,7 +108,7 @@ extension Peer {
         }
         
         static func empty(gid: String) -> CallMessage {
-            return CallMessage(action: .none, gid: gid, expireTime: 0, extra: "", position: 0, user: Settings.loginUserProfile!.toRoomUser(with: 0))
+            return CallMessage(action: .none, gid: gid, expireTime: 0, extra: "", position: 0, user: Settings.loginUserProfile!)
         }
         
         private enum CodingKeys: String, CodingKey {

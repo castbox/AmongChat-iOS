@@ -65,6 +65,11 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
+    var isMicButtonHidden: Bool {
+        get { micButton.isHidden }
+        set { micButton.isHidden = newValue }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         bindSubviewEvent()

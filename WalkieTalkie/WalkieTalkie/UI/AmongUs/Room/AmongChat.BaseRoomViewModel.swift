@@ -784,7 +784,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
         }
     }
     
-    func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
+    @objc func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
         //delay to request
         guard shouldRefreshRoom(uid: uid, isOnline: isOnline) else {
             return

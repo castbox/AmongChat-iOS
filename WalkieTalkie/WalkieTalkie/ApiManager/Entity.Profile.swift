@@ -238,8 +238,12 @@ extension Entity.UserProfile {
 
 
 extension Entity {
-    struct CallInItem {
-        let user: UserProfile
-        let message: Peer.CallMessage
+    struct CallInUser {
+        var uid: Int { user.uid }
+        var user: UserProfile { message.user }
+        var message: Peer.CallMessage
+        //开始通话时间戳
+        var startTimeStamp: Double?
+        
     }
 }

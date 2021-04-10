@@ -75,6 +75,8 @@ extension APIService {
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
         case groupLiveUserList([String: Any])
+        case groupRoomSeatAdd([String: Any])
+        case groupRoomSeatRemove([String: Any])
         case updateGroup([String: Any])
         case groupList([String : Any])
         case myGroupList([String : Any])
@@ -239,6 +241,10 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/user/host/group/list"
         case .groupListOfJoined:
             return "/api/v1/user/join/group/list"
+        case .groupRoomSeatAdd:
+            return "/api/v1/group/seats/add"
+        case .groupRoomSeatRemove:
+            return "/api/v1/group/seats/remove"
         case .groupAppliedUserList:
             return "/api/v1/group/apply/list"
         case .groupMemberList:
@@ -326,6 +332,8 @@ extension APIService.AmongChatBackend: TargetType {
              .myGroupList,
              .groupListOfHost,
              .groupListOfJoined,
+             .groupRoomSeatAdd,
+             .groupRoomSeatRemove,
              .groupAppliedUserList,
              .groupMemberList,
              .groupInfo,
@@ -425,6 +433,8 @@ extension APIService.AmongChatBackend: TargetType {
              .groupListOfJoined(let params),
              .groupAppliedUserList(let params),
              .groupMemberList(let params),
+             .groupRoomSeatRemove(let params),
+             .groupRoomSeatAdd(let params),
              .groupInfo(let params),
              .leaveGroup(let params),
              .applyToJoinGroup(let params),

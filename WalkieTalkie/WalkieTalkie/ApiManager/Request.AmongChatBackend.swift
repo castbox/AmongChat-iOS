@@ -1248,6 +1248,41 @@ extension Request {
             .mapToProcessedValue()
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Bool> {
+        let params: [String : Any] = ["gid" : groupId, "uid": uid, "seat_no": position]
+        return amongchatProvider.rx.request(.groupRoomSeatAdd(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapToProcessedValue()
+//            .mapTo(Entity.Group.self)
+//            .map({
+//
+//                guard let r = $0 else {
+//                    throw MsgError.default
+//                }
+//
+//                return r
+//            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
+    static func groupRoomSeatRemove(_ groupId: String, uid: Int) -> Single<Entity.Group> {
+        let params: [String : Any] = ["gid" : groupId, "uid": uid]
+        return amongchatProvider.rx.request(.groupRoomSeatRemove(params))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.Group.self)
+            .map({
+                
+                guard let r = $0 else {
+                    throw MsgError.default
+                }
+                
+                return r
+            })
+            .observeOn(MainScheduler.asyncInstance)
+    }
 
     static func deleteGroup(_ groupId: String) -> Single<Bool> {
         
