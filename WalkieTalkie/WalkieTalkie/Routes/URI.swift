@@ -182,6 +182,24 @@ extension URI {
         }
     }
     
+    struct FansGroup: URIRepresentable {
+        
+        static func patterns() -> [String] {
+            return [
+                "/group"
+            ]
+        }
+        let groupId: String
+        
+        init?(_ paras: [String : Any]) {
+            
+            guard let gid = paras["gid"] as? String else { return nil }
+            
+            groupId = gid
+        }
+        
+    }
+    
     struct Undefined: URIRepresentable {
         
         static func patterns() -> [String] {

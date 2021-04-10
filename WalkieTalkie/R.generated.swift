@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 196 images.
+  /// This `R.image` struct is generated, and contains static references to 197 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -270,8 +270,6 @@ struct R: Rswift.Validatable {
     static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
     /// Image `ac_group_join_request`.
     static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
-    /// Image `ac_group_no_data`.
-    static let ac_group_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_no_data")
     /// Image `ac_group_room_copy`.
     static let ac_group_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_copy")
     /// Image `ac_group_room_count`.
@@ -286,6 +284,10 @@ struct R: Rswift.Validatable {
     static let ac_group_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_selected")
     /// Image `ac_group_setting`.
     static let ac_group_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_setting")
+    /// Image `ac_group_snapchat_share_click_tips`.
+    static let ac_group_snapchat_share_click_tips = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_snapchat_share_click_tips")
+    /// Image `ac_group_snapchat_share_title`.
+    static let ac_group_snapchat_share_title = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_snapchat_share_title")
     /// Image `ac_group_unselected`.
     static let ac_group_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_unselected")
     /// Image `ac_home_banner`.
@@ -741,11 +743,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_group_join_request, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_group_no_data", bundle: ..., traitCollection: ...)`
-    static func ac_group_no_data(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_group_no_data, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "ac_group_room_copy", bundle: ..., traitCollection: ...)`
     static func ac_group_room_copy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_room_copy, compatibleWith: traitCollection)
@@ -779,6 +776,16 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_group_setting", bundle: ..., traitCollection: ...)`
     static func ac_group_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_group_setting, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_snapchat_share_click_tips", bundle: ..., traitCollection: ...)`
+    static func ac_group_snapchat_share_click_tips(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_snapchat_share_click_tips, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_snapchat_share_title", bundle: ..., traitCollection: ...)`
+    static func ac_group_snapchat_share_title(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_snapchat_share_title, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_unselected", bundle: ..., traitCollection: ...)`
@@ -2042,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 396 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 397 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2684,6 +2691,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatSetBirthDayTitle = Rswift.StringResource(key: "among.chat.set.birth.day.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: I'm %1$@ on AmongChat, hang with us and let's have some fun in our %2$@ group. Click the link to join: %3$@
+      /// 
+      /// Locales: en
+      static let amongChatGroupShareContent = Rswift.StringResource(key: "among.chat.group.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: ID
       /// 
       /// Locales: en
@@ -4747,6 +4758,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatSetBirthDayTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.set.birth.day.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: I'm %1$@ on AmongChat, hang with us and let's have some fun in our %2$@ group. Click the link to join: %3$@
+      /// 
+      /// Locales: en
+      static func amongChatGroupShareContent(_ value1: String, _ value2: String, _ value3: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.share.content", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2, value3)
       }
       
       /// en translation: ID

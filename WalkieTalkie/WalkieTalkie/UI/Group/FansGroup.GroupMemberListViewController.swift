@@ -102,7 +102,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDataSource {
                 guard let `self` = self else {
                     return
                 }
-                let vc = FansGroup.AddMemberController(groupId: self.groupInfo.group.gid)
+                let vc = FansGroup.AddMemberController(groupId: self.groupInfo.group.gid, nil, self.groupInfo.group)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             

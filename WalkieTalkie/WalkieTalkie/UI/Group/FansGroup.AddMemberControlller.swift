@@ -40,67 +40,8 @@ extension FansGroup {
             return tb
         }()
         
-        private lazy var smsBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var snapchatBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var copyLinkBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var shareLinkBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var shareView: UIStackView = {
-            let v = UIStackView()
-            v.axis = .horizontal
-            v.spacing = 0
-            v.distribution = .fillEqually
-            
-            let btns: [UIView]
-            
-            if MFMessageComposeViewController.canSendText() {
-                btns = [smsBtn, snapchatBtn, copyLinkBtn, shareLinkBtn]
-            } else {
-                btns = [snapchatBtn, copyLinkBtn, shareLinkBtn]
-            }
-            v.addArrangedSubviews(btns)
-            btns.forEach { (v) in
-                v.snp.makeConstraints { (maker) in
-                    maker.width.equalTo(80)
-                    maker.height.equalTo(67)
-                }
-            }
-            v.backgroundColor = .clear
+        private lazy var shareView: FansGroup.Views.ShareBar = {
+            let v = FansGroup.Views.ShareBar()
             return v
         }()
         
@@ -118,7 +59,7 @@ extension FansGroup {
                 .disposed(by: bag)
             return btn
         }()
-                
+        
         private lazy var bottomGradientView: GradientView = {
             let v = Social.ChooseGame.bottomGradientView()
             v.addSubviews(views: doneButton)
@@ -131,14 +72,36 @@ extension FansGroup {
             return v
         }()
         
+        private var shareUrl: String {
+            return "https://among.chat/group?gid=\(groupId)"
+        }
+        
+        private var shareText: String {
+            return R.string.localizable.amongChatGroupShareContent(Settings.shared.amongChatUserProfile.value?.name ?? "",
+                                                                   groupName,
+                                                                   shareUrl)
+        }
+        
+        private var groupName: String {
+            return groupEntity?.name ?? groupRoomEntity?.name ?? ""
+        }
+        
+        private var groupCover: String? {
+            return groupEntity?.cover ?? groupRoomEntity?.cover
+        }
+        
         private let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
         
         private let groupId: String
-                
-        init(groupId: String) {
+        private let groupEntity: Entity.Group?
+        private let groupRoomEntity: Entity.GroupRoom?
+        
+        init(groupId: String, _ group: Entity.Group? = nil, _ groupRoom: Entity.GroupRoom? = nil) {
             self.groupId = groupId
+            groupEntity = group
+            groupRoomEntity = groupRoom
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -170,8 +133,7 @@ extension FansGroup.AddMemberController {
         
         shareView.snp.makeConstraints { maker in
             maker.top.equalTo(navView.snp.bottom).offset(24)
-            maker.leading.equalToSuperview()
-            maker.trailing.lessThanOrEqualToSuperview()
+            maker.leading.trailing.equalToSuperview()
         }
         
         tableView.snp.makeConstraints { (maker) in
@@ -197,9 +159,30 @@ extension FansGroup.AddMemberController {
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
-
-    }
+        
+        shareView.selectedSourceObservable
+            .subscribe(onNext: { [weak self] (source) in
                 
+                guard let `self` = self else { return }
+                
+                switch source {
+                case .sms:
+                    self.sendSMS(body: self.shareText)
+                    
+                case .snapchat:
+                    self.shareSnapchat()
+                    
+                case .copyLink:
+                    self.copyLink()
+                    
+                case .shareLink:
+                    self.shareLink()
+                    
+                }
+            })
+            .disposed(by: bag)
+    }
+    
     private func loadData() {
         
         guard hasMoreData,
@@ -239,6 +222,35 @@ extension FansGroup.AddMemberController {
             .disposed(by: bag)
         
     }
+    
+    private func shareSnapchat() {
+        
+        let removeHandler = view.raft.show(.loading)
+        
+        let content = ShareManager.Content(type: .group(groupCover), targetType: .snapchat, content: R.string.localizable.shareApp(), url: self.shareUrl)
+        ShareManager.default.share(with: content, .snapchat, viewController: self) {
+            removeHandler()
+        }
+    }
+    
+    private func copyLink() {
+        shareText.copyToPasteboardWithHaptic()
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
+    }
+    
+    private func shareLink() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(items: [shareText], viewController: self) { () in
+            removeBlock()
+        }
+    }
+    
 }
 
 extension FansGroup.AddMemberController: UITableViewDataSource {
@@ -252,7 +264,7 @@ extension FansGroup.AddMemberController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MemberCell.self), for: indexPath)
         if let cell = cell as? MemberCell,
-              let user = membersRelay.value.safe(indexPath.row) {
+           let user = membersRelay.value.safe(indexPath.row) {
             cell.bind(viewModel: user,
                       onAdd: { [weak self] in
                         self?.addMember(user, at: indexPath)

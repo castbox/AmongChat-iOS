@@ -254,21 +254,26 @@ extension Entity {
         
         typealias Room = PlayingUser.Room
         var user: UserProfile
-        var room: Room?
+        private var _room: Room?
         var isOnline: Bool?
         var msgType: Peer.MessageType
-
+        private var _group: Room?
+        
+        var room: Room? {
+            return _room ?? _group
+        }
+        
         private enum CodingKeys: String, CodingKey {
             case user
-            case room
+            case _room = "room"
             case msgType = "message_type"
             case isOnline = "is_online"
+            case _group = "group"
         }
         
         func asPlayingUser() -> PlayingUser {
             return PlayingUser(user: user, room: room)
         }
-        
     }
 }
 

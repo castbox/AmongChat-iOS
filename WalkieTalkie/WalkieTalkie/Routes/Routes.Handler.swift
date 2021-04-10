@@ -54,6 +54,8 @@ extension Routes {
                         self.handleAvatars()
                     case let user as URI.InviteUser:
                         self.handleInviteUser(uid: user.uid)
+                    case let group as URI.FansGroup:
+                        self.handleFansGroup(group.groupId)
                     default:
                         cdAssertFailure("should never enter here")
                     }
@@ -144,6 +146,11 @@ extension Routes {
         
         func handleFollowers() {
             
+        }
+        
+        func handleFansGroup(_ groupId: String) {
+            let vc = FansGroup.GroupInfoViewController(groupId: groupId)
+            UIApplication.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {
