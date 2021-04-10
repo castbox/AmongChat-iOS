@@ -189,7 +189,12 @@ extension FansGroup.GroupInfoViewController {
         addChild(listVC)
         view.addSubview(listVC.view)
         listVC.view.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+            if bottomGradientView.isHidden {
+                maker.edges.equalToSuperview()
+            } else {
+                maker.leading.top.trailing.equalToSuperview()
+                maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            }
         }
         view.sendSubviewToBack(listVC.view)
         listVC.didMove(toParent: self)
