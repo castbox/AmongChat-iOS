@@ -108,7 +108,7 @@ extension FansGroup.CreateGroupViewController {
                 #if DEBUG
                 Defaults[\.testGroup] = group.asString
                 #endif
-                let vc = FansGroup.AddMemberController(groupId: group.gid)
+                let vc = FansGroup.AddMemberController(groupId: group.gid, group)
                 self?.navigationController?.pushViewController(vc, animated: true)
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))

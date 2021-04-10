@@ -42,16 +42,6 @@ extension FansGroup {
         
         private lazy var shareView: FansGroup.Views.ShareBar = {
             let v = FansGroup.Views.ShareBar()
-            v.selectedSourceObservable
-                .subscribe(onNext: { (source) in
-//                    switch source {
-//                    case .sms:
-//                    case .snapchat:
-//                    case .copyLink:
-//                    case .shareLink:
-//                    }
-                })
-                .disposed(by: bag)
             return v
         }()
         
@@ -82,14 +72,36 @@ extension FansGroup {
             return v
         }()
         
+        private var shareUrl: String {
+            return "https://among.chat/group?gid=\(groupId)"
+        }
+        
+        private var shareText: String {
+            return R.string.localizable.amongChatGroupShareContent(Settings.shared.amongChatUserProfile.value?.name ?? "",
+                                                                   groupName,
+                                                                   shareUrl)
+        }
+        
+        private var groupName: String {
+            return groupEntity?.name ?? groupRoomEntity?.name ?? ""
+        }
+        
+        private var groupCover: String? {
+            return groupEntity?.cover ?? groupRoomEntity?.cover
+        }
+        
         private let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
         
         private let groupId: String
+        private let groupEntity: Entity.Group?
+        private let groupRoomEntity: Entity.GroupRoom?
         
-        init(groupId: String) {
+        init(groupId: String, _ group: Entity.Group? = nil, _ groupRoom: Entity.GroupRoom? = nil) {
             self.groupId = groupId
+            groupEntity = group
+            groupRoomEntity = groupRoom
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -148,6 +160,27 @@ extension FansGroup.AddMemberController {
             })
             .disposed(by: bag)
         
+        shareView.selectedSourceObservable
+            .subscribe(onNext: { [weak self] (source) in
+                
+                guard let `self` = self else { return }
+                
+                switch source {
+                case .sms:
+                    self.sendSMS(body: self.shareText)
+                    
+                case .snapchat:
+                    self.shareSnapchat()
+                    
+                case .copyLink:
+                    self.copyLink()
+                    
+                case .shareLink:
+                    self.shareLink()
+                    
+                }
+            })
+            .disposed(by: bag)
     }
     
     private func loadData() {
@@ -189,6 +222,35 @@ extension FansGroup.AddMemberController {
             .disposed(by: bag)
         
     }
+    
+    private func shareSnapchat() {
+        
+        let removeHandler = view.raft.show(.loading)
+        
+        let content = ShareManager.Content(type: .group(groupCover), targetType: .snapchat, content: R.string.localizable.shareApp(), url: self.shareUrl)
+        ShareManager.default.share(with: content, .snapchat, viewController: self) {
+            removeHandler()
+        }
+    }
+    
+    private func copyLink() {
+        shareText.copyToPasteboardWithHaptic()
+        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
+    }
+    
+    private func shareLink() {
+        let removeHUDBlock = view.raft.show(.loading, userInteractionEnabled: false)
+        let removeBlock = { [weak self] in
+            self?.view.isUserInteractionEnabled = true
+            removeHUDBlock()
+        }
+        
+        self.view.isUserInteractionEnabled = false
+        ShareManager.default.showActivity(items: [shareText], viewController: self) { () in
+            removeBlock()
+        }
+    }
+    
 }
 
 extension FansGroup.AddMemberController: UITableViewDataSource {
