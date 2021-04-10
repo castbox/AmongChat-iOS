@@ -192,9 +192,9 @@ extension FansGroup.GroupsViewController {
                 maker.leading.trailing.equalToSuperview()
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
-            
+            bottomGradientView.isHidden = true
         } else {
-            
+            bottomGradientView.isHidden = false
             scrollLayoutGuide.snp.makeConstraints { (maker) in
                 maker.top.equalTo(segmentedButton.snp.bottom)
                 maker.leading.trailing.equalToSuperview()
