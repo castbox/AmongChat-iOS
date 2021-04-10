@@ -21,6 +21,7 @@
 		263F8AD72614A22200282F8F /* FansGroup.AddMemberControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */; };
 		263F8ADB2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */; };
 		263F8ADF26156D7F00282F8F /* Entity.Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263F8ADE26156D7F00282F8F /* Entity.Group.swift */; };
+		263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */; };
 		264A076325B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */; };
 		265FB7C725B690A7004987AB /* mobileRegions.json in Resources */ = {isa = PBXBuildFile; fileRef = 265FB7C625B690A7004987AB /* mobileRegions.json */; };
 		265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */; };
@@ -403,6 +404,7 @@
 		263F8AD62614A22200282F8F /* FansGroup.AddMemberControlller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.AddMemberControlller.swift; sourceTree = "<group>"; };
 		263F8ADA2614A47D00282F8F /* FansGroup.AddMemberController+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FansGroup.AddMemberController+Views.swift"; sourceTree = "<group>"; };
 		263F8ADE26156D7F00282F8F /* Entity.Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Group.swift; sourceTree = "<group>"; };
+		263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Views.ShareBar.swift; sourceTree = "<group>"; };
 		264A076225B6FE67001F998E /* AmongChat.Login.SmsCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.SmsCodeViewController.swift; sourceTree = "<group>"; };
 		265FB7C625B690A7004987AB /* mobileRegions.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = mobileRegions.json; sourceTree = "<group>"; };
 		265FB7CA25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.Login.MobileViewController.swift; sourceTree = "<group>"; };
@@ -820,6 +822,7 @@
 				26F4149B2611C4EA003ED5BE /* FansGroup.swift */,
 				26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */,
 				269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */,
+				263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */,
 				26F414A32611C548003ED5BE /* FansGroup.CreateGroupViewController.swift */,
 				263F8AD226149A6900282F8F /* FansGroup.SelectCoverModal.swift */,
 				263F872A26130EE500282F8F /* FansGroup.AddTopicViewController.swift */,
@@ -1823,6 +1826,7 @@
 				2BAB4EF72595C6F200A1C8DC /* Social.LeaveGameViewController.swift in Sources */,
 				BDFEFEF125864517007F40FC /* AmongChat.CreateRoom.ViewController.swift in Sources */,
 				FE6306AB2450076E00CEA651 /* NSObjectExtension.swift in Sources */,
+				263FC49726218B9A00EC0588 /* FansGroup.Views.ShareBar.swift in Sources */,
 				2B9566FA259ADD2E001C7B91 /* R.generated.swift in Sources */,
 				FE2AF9EC244DC24300763747 /* AppConfig.swift in Sources */,
 				BD6C370B256E7D0C00D1E708 /* AmongChat.Room.ViewController.swift in Sources */,

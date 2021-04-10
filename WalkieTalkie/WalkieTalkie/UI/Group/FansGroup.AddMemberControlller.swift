@@ -40,67 +40,18 @@ extension FansGroup {
             return tb
         }()
         
-        private lazy var smsBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_share(), title: R.string.localizable.socialSms())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
+        private lazy var shareView: FansGroup.Views.ShareBar = {
+            let v = FansGroup.Views.ShareBar()
+            v.selectedSourceObservable
+                .subscribe(onNext: { (source) in
+//                    switch source {
+//                    case .sms:
+//                    case .snapchat:
+//                    case .copyLink:
+//                    case .shareLink:
+//                    }
                 })
                 .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var snapchatBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_share_sn(), title: "Snapchat")
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var copyLinkBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.ac_room_copylink(), title: R.string.localizable.socialCopyLink())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var shareLinkBtn: ShareButton = {
-            let btn = ShareButton(with: R.image.icon_social_share_link(), title: R.string.localizable.socialShareLink())
-            btn.tap.rx.event
-                .subscribe(onNext: { [weak self] (_) in
-                    
-                })
-                .disposed(by: bag)
-            return btn
-        }()
-        
-        private lazy var shareView: UIStackView = {
-            let v = UIStackView()
-            v.axis = .horizontal
-            v.spacing = 0
-            v.distribution = .fillEqually
-            
-            let btns: [UIView]
-            
-            if MFMessageComposeViewController.canSendText() {
-                btns = [smsBtn, snapchatBtn, copyLinkBtn, shareLinkBtn]
-            } else {
-                btns = [snapchatBtn, copyLinkBtn, shareLinkBtn]
-            }
-            v.addArrangedSubviews(btns)
-            btns.forEach { (v) in
-                v.snp.makeConstraints { (maker) in
-                    maker.width.equalTo(80)
-                    maker.height.equalTo(67)
-                }
-            }
-            v.backgroundColor = .clear
             return v
         }()
         
@@ -118,7 +69,7 @@ extension FansGroup {
                 .disposed(by: bag)
             return btn
         }()
-                
+        
         private lazy var bottomGradientView: GradientView = {
             let v = Social.ChooseGame.bottomGradientView()
             v.addSubviews(views: doneButton)
@@ -136,7 +87,7 @@ extension FansGroup {
         private var isLoading = false
         
         private let groupId: String
-                
+        
         init(groupId: String) {
             self.groupId = groupId
             super.init(nibName: nil, bundle: nil)
@@ -170,8 +121,7 @@ extension FansGroup.AddMemberController {
         
         shareView.snp.makeConstraints { maker in
             maker.top.equalTo(navView.snp.bottom).offset(24)
-            maker.leading.equalToSuperview()
-            maker.trailing.lessThanOrEqualToSuperview()
+            maker.leading.trailing.equalToSuperview()
         }
         
         tableView.snp.makeConstraints { (maker) in
@@ -197,9 +147,9 @@ extension FansGroup.AddMemberController {
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
-
+        
     }
-                
+    
     private func loadData() {
         
         guard hasMoreData,
@@ -252,7 +202,7 @@ extension FansGroup.AddMemberController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MemberCell.self), for: indexPath)
         if let cell = cell as? MemberCell,
-              let user = membersRelay.value.safe(indexPath.row) {
+           let user = membersRelay.value.safe(indexPath.row) {
             cell.bind(viewModel: user,
                       onAdd: { [weak self] in
                         self?.addMember(user, at: indexPath)
