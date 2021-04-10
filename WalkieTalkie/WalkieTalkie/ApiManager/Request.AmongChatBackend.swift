@@ -1249,38 +1249,33 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Bool> {
+    static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Entity.GroupRoom?> {
         let params: [String : Any] = ["gid" : groupId, "uid": uid, "seat_no": position]
         return amongchatProvider.rx.request(.groupRoomSeatAdd(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapToProcessedValue()
-//            .mapTo(Entity.Group.self)
-//            .map({
-//
-//                guard let r = $0 else {
-//                    throw MsgError.default
-//                }
-//
-//                return r
-//            })
+            .map({ data -> [String : AnyObject] in
+                guard let group = data["group"] as? [String : AnyObject] else {
+                    return [:]
+                }
+                return group
+            })
+            .mapTo(Entity.GroupRoom.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func groupRoomSeatRemove(_ groupId: String, uid: Int) -> Single<Entity.Group> {
+    static func groupRoomSeatRemove(_ groupId: String, uid: Int) -> Single<Entity.GroupRoom?> {
         let params: [String : Any] = ["gid" : groupId, "uid": uid]
         return amongchatProvider.rx.request(.groupRoomSeatRemove(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
-            .mapTo(Entity.Group.self)
-            .map({
-                
-                guard let r = $0 else {
-                    throw MsgError.default
+            .map({ data -> [String : AnyObject] in
+                guard let group = data["group"] as? [String : AnyObject] else {
+                    return [:]
                 }
-                
-                return r
+                return group
             })
+            .mapTo(Entity.GroupRoom.self)
             .observeOn(MainScheduler.asyncInstance)
     }
 

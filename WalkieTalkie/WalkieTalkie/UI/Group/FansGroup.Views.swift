@@ -750,7 +750,7 @@ extension FansGroup.Views {
             button.snp.makeConstraints { (maker) in
                 maker.centerX.equalToSuperview()
                 maker.top.equalTo(40)
-                maker.bottom.equalTo(-46)
+//                maker.bottom.equalTo(-46)
                 maker.height.equalTo(48)
                 maker.leading.equalTo(20)
             }

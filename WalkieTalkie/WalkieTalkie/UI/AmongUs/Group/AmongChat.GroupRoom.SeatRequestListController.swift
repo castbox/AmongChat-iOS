@@ -92,6 +92,7 @@ extension AmongChat.GroupRoom {
             dataSourceReplay
                 .observeOn(MainScheduler.asyncInstance)
                 .subscribe(onNext: { [weak self] source in
+                    self?.titleView.title = R.string.localizable.groupRoomRaisedHandsTitle(source.count.string)
                     self?.userList = source
                 })
                 .disposed(by: bag)
@@ -147,10 +148,8 @@ extension AmongChat.GroupRoom.SeatRequestListController: UITableViewDataSource, 
                 switch action {
                 case .accept:
                     self?.actionHandler?(user, .accept)
-//                    self?.handlerSeatRequest(for: user.uid, accept: true, at: indexPath)
                 case .reject:
                     self?.actionHandler?(user, .reject)
-//                    self?.handlerSeatRequest(for: user.uid, accept: false, at: indexPath)
                 case .ignore:
                     ()
                 }

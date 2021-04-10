@@ -149,14 +149,19 @@ class ChatRoomManager {
 
     }
     
-    func updateRole(_ role: RtcUserRole) {
-//        let joinRole: RtcUserRole
-//        if (isPublisher) {
-//            joinRole = .broadcaster
-//        } else {
-//            joinRole = .audience
-//        }
-        mRtcManager.setClientRole(role)
+//    func updateRole(_ role: RtcUserRole) {
+////        let joinRole: RtcUserRole
+////        if (isPublisher) {
+////            joinRole = .broadcaster
+////        } else {
+////            joinRole = .audience
+////        }
+//        mRtcManager.setClientRole(role)
+//    }
+    
+    var rtcRole: RtcUserRole {
+        set { mRtcManager.clientRole = newValue }
+        get { mRtcManager.clientRole }
     }
 
 //    func leaveChannel(_ block: ((String) -> Void)? = nil) {

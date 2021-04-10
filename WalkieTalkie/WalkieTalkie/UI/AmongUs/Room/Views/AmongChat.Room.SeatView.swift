@@ -45,6 +45,10 @@ extension AmongChat.Room {
             isMuted = false
         }
         
+        func toCallInUser() -> Entity.CallInUser {
+            return Entity.CallInUser(message: callContent, startTimeStamp: 0)
+        }
+        
         static func ==(_ lhs: SeatItem, _ rhs: SeatItem) -> Bool {
             return lhs.user?.uid == rhs.user?.uid && lhs.callContent.action == rhs.callContent.action
         }
@@ -84,7 +88,7 @@ extension AmongChat.Room {
             return stack
         }()
         
-        var dataSource: [Int: AmongChat.Room.SeatItem] = [:] {
+        var dataSource: [AmongChat.Room.SeatItem] = [] {
             didSet {
                 guard UIApplication.appDelegate?.isApplicationActiveReplay.value == true else {
                     return
@@ -102,6 +106,10 @@ extension AmongChat.Room {
             didSet {
 //                dataSource = room.userListMap
             }
+        }
+        
+        var group: Entity.GroupRoom? {
+            return room as? Entity.GroupRoom
         }
         
         var style: AmongChat.Room.Style = .normal {
@@ -177,8 +185,19 @@ extension AmongChat.Room {
             updateSeats()
         }
         
+        func showDropSelfAlert(with user: Entity.RoomUser) {
+            containingController?.showAmongAlert(title: nil, message: R.string.localizable.groupRoomDropSelfTips(), cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), cancelAction: nil, confirmAction: { [weak self] in
+                //
+                self?.userProfileSheetActionHandler?(.drop, user)
+            })
+        }
+        
         func fetchRealation(with user: Entity.RoomUser) {
             guard user.uid != Settings.loginUserId else {
+                if itemStyle == .group {
+                    //show alert
+                    showDropSelfAlert(with: user)
+                }
                 return
             }
             let removeBlock = parentViewController?.view.raft.show(.loading)
@@ -208,6 +227,10 @@ extension AmongChat.Room {
             if !isFollowed {
                 items.append(.follow)
             }
+            //
+            if group?.loginUserIsAdmin == true {
+                items.append(.drop)
+            }
             let isBlocked = relation.isBlocked ?? false
             let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
             
@@ -236,6 +259,7 @@ extension AmongChat.Room {
                 }
             } else {
                 if let user = user {
+                    //区分 style
                     fetchRealation(with: user)
                 } else {
                     //
@@ -266,7 +290,7 @@ extension AmongChat.Room.SeatView {
                 viewCache[index] = cell
                 nilableCell = cell
             }
-            guard let cell = nilableCell, let item = dataSource[index] else {
+            guard let cell = nilableCell, let item = dataSource.safe(index) else {
                 return
             }
             // callin状态
@@ -291,7 +315,7 @@ extension AmongChat.Room.SeatView {
             } else {
                 cell.isKickSelected = false
             }
-            cell.bind(dataSource[index]?.user, topic: room.topicType, index: index + 1)
+            cell.bind(dataSource.safe(index)?.user, topic: room.topicType, index: index + 1)
         }
     }
 }

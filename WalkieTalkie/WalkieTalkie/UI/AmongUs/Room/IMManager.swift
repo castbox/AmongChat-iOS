@@ -70,7 +70,7 @@ class IMManager: NSObject {
                     case .groupLeaveRoom:
                         item = try JSONDecoder().decodeAnyData(ChatRoom.GroupLeaveRoomMessage.self, from: json) as ChatRoomMessage
                     case .groupLiveEnd:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupLeaveRoomMessage.self, from: json) as ChatRoomMessage
+                        item = try JSONDecoder().decodeAnyData(ChatRoom.GroupRoomEndMessage.self, from: json) as ChatRoomMessage
                     default:
                         assert(true, "message type not handler")
                         item = nil

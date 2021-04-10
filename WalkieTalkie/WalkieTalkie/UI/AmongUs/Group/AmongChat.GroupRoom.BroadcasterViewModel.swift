@@ -84,10 +84,19 @@ extension AmongChat.GroupRoom {
         }
         
         override func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
+            super.onUserOnlineStateChanged(uid: uid, isOnline: isOnline)
             //用户下线，并且在麦上 通知服务端
             if !isOnline, callInUser(for: uid.int) != nil {
                 //
                 Request.groupRoomSeatRemove(group.gid, uid: uid.int)
+                    .do(onSuccess: { [weak self] group in
+                        guard let group = group else {
+                            return
+                        }
+                        self?.update(group)
+                    })
+                    .subscribe()
+                    .disposed(by: bag)
                 callInList(remove: uid.int)
             }
         }
@@ -96,10 +105,13 @@ extension AmongChat.GroupRoom {
         
         //MARK: - For host
         func callInUser(for uid: Int) -> Entity.CallInUser? {
-            guard let info = callInList.first(where: { $0.user.uid == uid }) else {
-                return nil
+            //
+            if let user = seatDataSource.first(where: { $0.user?.uid == uid }) {
+                return user.toCallInUser()
+            } else if let info = callInList.first(where: { $0.user.uid == uid }) {
+                return info
             }
-            return info
+            return nil
         }
         
         //        func callInList(add userInfo: LiveUserInfo?, action: Peer.CallMessage.Action, extra: String, expire_time: Int64, position: Int, autoShowTips: Bool = true) {
@@ -155,8 +167,14 @@ extension AmongChat.GroupRoom {
             }
         }
         
-        func requestGroupRoomSeatAdd(for user: Entity.CallInUser) -> Single<Bool> {
-            return Request.groupRoomSeatAdd(group.gid, uid: user.uid, in: user.message.position)
+        func requestGroupRoomSeatAdd(for user: Entity.CallInUser) -> Single<Entity.GroupRoom?> {
+            return Request.groupRoomSeatAdd(group.gid, uid: user.uid, in: user.message.position + 1)
+                .do(onSuccess: { [weak self] group in
+                    guard let group = group else {
+                        return
+                    }
+                    self?.update(group)
+                })
         }
         
         // MARK: - CALL - 1request 2accept 3reject 4handup 5invite 6reject
@@ -189,22 +207,23 @@ extension AmongChat.GroupRoom {
 //                //remove
 //                callInList(remove: user.uid)
 //                callInListHandler()
-                rejectCall(user: callInUser)
+//                rejectCall(user: callInUser)
+                rejectCall(uid: callInUser.uid)
             }
         }
         
-        //
-        func rejectCall(user: Entity.CallInUser) {
+        func rejectCall(uid: Int) {
             // 直接断开
-            guard let callInUser = callInUser(for: user.uid) else {
+            guard let callInUser = callInUser(for: uid) else {
                 return
             }
             
             var message = callInUser.message
-            message.action = .reject
-            imViewModel.sendPeer(message: message, to: user.uid)
+            //未接通时为 reject，接通后为 reject
+            message.action = message.action == .request ? .reject : .hangup
+            imViewModel.sendPeer(message: message, to: uid)
             //remove
-            callInList(remove: user.uid)
+            callInList(remove: uid)
             callInListHandler()
         }
         

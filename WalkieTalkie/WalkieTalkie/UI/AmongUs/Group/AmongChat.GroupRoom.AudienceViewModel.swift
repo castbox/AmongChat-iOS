@@ -23,12 +23,49 @@ extension AmongChat.GroupRoom {
     class AudienceViewModel: BaseViewModel {
         
 //        var callMsgHandler: ((PhoneCallRejectType, Peer.CallMessage) -> Void)?
+        //MARK: -
+        
+        var phoneCallState = PhoneCallState.preparing
+
+        var callinRequestTimerDispose: Disposable?
+        
+        var callingHandler: (PhoneCallRejectType, Peer.CallMessage) -> Void = { _, _ in }
+        
+        var callinInviteHandler: () -> Void = { }
+        
         var callSwitch: Bool = true
+        
+        override var state: ConnectState {
+            didSet {
+                syncPhoneCallStateIfNeed()
+            }
+        }
+        
+        override func update(_ room: RoomInfoable) {
+            super.update(room)
+            //
+            syncPhoneCallStateIfNeed()
+        }
+        
+        func syncPhoneCallStateIfNeed() {
+            //如果麦上有自己, 但自己没连麦，需要主动上麦
+            guard state == .connected else {
+                return
+            }
+//            if group.userList.contains(where: { $0.uid == Settings.loginUserId }) {
+//                if mManager.rtcRole == .audience {
+//                    updatePhoneCallState(.calling)
+//                }
+//            }
+//            else if mManager.rtcRole == .broadcaster {
+//                updatePhoneCallState(.readyForCall)
+//            }
+        }
         
         func requestOnSeat(at position: Int) {
             guard position >= 0 && position < 10,
                   let user = Settings.loginUserProfile,
-                  let item = seatDataSource[position] else {
+                  let item = seatDataSource.safe(position) else {
                 return
             }
             //拿到改位置占位 item
@@ -43,7 +80,7 @@ extension AmongChat.GroupRoom {
         //清除当前calling麦位状态
         func clearSeatCallState() {
             if let position = seatsIndex(),
-               let item = seatDataSource[position] {
+               let item = seatDataSource.safe(position) {
                 item.clear()
                 seatDataSource[position] = item
             }
@@ -52,7 +89,7 @@ extension AmongChat.GroupRoom {
         //
         func updateOnSeatState(with callMessage: Peer.CallMessage) {
             if let position = seatsIndex(),
-               let item = seatDataSource[position] {
+               let item = seatDataSource.safe(position) {
                 // 更新call-in之后的状态
                 item.callContent = callMessage
                 seatDataSource[position] = item
@@ -61,9 +98,9 @@ extension AmongChat.GroupRoom {
         
         func seatsIndex(of uid: Int? = nil) -> Int? {
             let uid = uid ?? (Settings.loginUserId ?? 0)
-            for (index, dic) in seatDataSource.enumerated() {
-                if dic.value.user?.uid == uid  {
-                    return dic.key
+            for (_, item) in seatDataSource.enumerated() {
+                if item.user?.uid == uid  {
+                    return item.user?.seatNo
                 }
             }
             return nil
@@ -96,6 +133,9 @@ extension AmongChat.GroupRoom {
                 endRoomHandler?(.kickout(message.opRole))
             } else if let message = crMessage as? ChatRoom.GroupLeaveRoomMessage {
                 otherMutedUser.remove(message.user.uid.uInt)
+            } else if let message = crMessage as? ChatRoom.GroupRoomEndMessage,
+                      message.gid == group.gid {
+                endRoomHandler?(.normalClose)
             } else if crMessage.msgType == .emoji {
                 messageHandler?(crMessage)
             }
@@ -127,6 +167,12 @@ extension AmongChat.GroupRoom {
                  
         }
         
+//        func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
+//            if state == .connected {
+//                syncPhoneCallStateIfNeed()
+//            }
+//        }
+        
         override func roomBgImage() -> UIImage? {
             return UIImage(named: "icon_room_bg_topicId_group")
         }
@@ -134,16 +180,6 @@ extension AmongChat.GroupRoom {
         override func roomBgUrl() -> URL? {
             return group.bgUrl?.url
         }
-        
-        //MARK: -
-        
-        var phoneCallState = PhoneCallState.preparing
-
-        var callinRequestTimerDispose: Disposable?
-        
-        var callingHandler: (PhoneCallRejectType, Peer.CallMessage) -> Void = { _, _ in }
-        
-        var callinInviteHandler: () -> Void = { }
         
         //MARK: - For Auidiance
         func sendMessage(call action: Peer.CallMessage.Action, expired: Int64, extra: String, position: Int = 0) {
@@ -248,11 +284,9 @@ extension AmongChat.GroupRoom {
             
             phoneCallState = state
             if state == .calling {
-                mManager.updateRole(.broadcaster)
-//                mManager.updateRole(isPublisher: true)
+                mManager.rtcRole = .broadcaster
             } else {
-                mManager.updateRole(.audience)
-//                mManager.updateRole(isPublisher: false)
+                mManager.rtcRole = .audience
             }
             callingHandler(rejectType, call ?? Peer.CallMessage.empty(gid: group.gid))
         }

@@ -220,6 +220,15 @@ extension AmongChat.GroupRoom {
 //                })
 //        }
 
+        override func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
+            //当主播
+            if otherMutedUser.contains(uid) {
+                otherMutedUser.remove(uid)
+            }
+            if mutedUser.contains(uid) {
+                mutedUser.remove(uid)
+            }
+        }
     }
     
 }

@@ -411,7 +411,13 @@
 "group.room.minecraft.game.name.tips" = "Click to set up Minecraft Gamertag";
 "group.room.animal.crossing.game.name.tips" = "Click to set up Animal Crossing ID";
 "room.brawl.game.name.tips" = "Click to set up Brawl Stars Team code/ID";
-
+"group.room.drop.self.tips" = "Going back to the audience?";
+"group.room.apply.seat.rejected.tips" = "The admin rejected your request to speak";
+"group.room.anoymonus.user.apply.seat.tips"= "You can only raise your hand if you join the group";
+"group.room.audience.change.topic.tips" = "Only the admin can change the topic";
+"group.room.yes" = "Yes";
+"group.room.no" = "No";
+"group.room.end.tips" = "Group session just ended";
 
 //1.17
 "among.chat.setting.get.verified" = "Get verified";

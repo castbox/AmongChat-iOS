@@ -180,12 +180,25 @@ extension ChatRoom {
     }
     
     struct GroupLeaveRoomMessage: ChatRoomMessage {
+        //{"gid": "hduj2zFF", "live_id": null, "message_type": "AC:Chatroom:GroupLiveEnd"}
         let groupId: String
         let user: Entity.RoomUser
         let msgType: MessageType
         private enum CodingKeys: String, CodingKey {
-            case groupId = "group_id"
+            case groupId = "gid"
             case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct GroupRoomEndMessage: ChatRoomMessage {
+        
+        let gid: String
+        let liveId: String?
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case gid
+            case liveId = "live_id"
             case msgType = "message_type"
         }
     }

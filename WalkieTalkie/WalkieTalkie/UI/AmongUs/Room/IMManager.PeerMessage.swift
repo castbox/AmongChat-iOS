@@ -132,6 +132,12 @@ extension Peer {
         var gid: String
         var action: Action
         var msgType: Peer.MessageType
+        
+        private enum CodingKeys: String, CodingKey {
+            case action
+            case gid
+            case msgType = "message_type"
+        }
     }
 }
 

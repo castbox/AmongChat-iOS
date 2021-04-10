@@ -75,17 +75,17 @@ extension AmongChat {
         //更新房间消息的时间
         var lastestUpdateRoomMs: TimeInterval = 0
         //当前房间状态， 只有在 connected 时，才需要根据 rtc 状态来刷新直播间
-        private(set) var state: ConnectState = .disconnected
+        var state: ConnectState = .disconnected
         
 //        private var roomInfo: RTCJoinable
         //存储
-        var seatDataSource: [Int: AmongChat.Room.SeatItem] = [:] {
+        var seatDataSource: [AmongChat.Room.SeatItem] = [] {
             didSet {
                 seatDataSourceReplay.accept(seatDataSource)
             }
         }
         
-        let seatDataSourceReplay = BehaviorRelay<[Int: AmongChat.Room.SeatItem]>(value: [:])
+        let seatDataSourceReplay = BehaviorRelay<[AmongChat.Room.SeatItem]>(value: [])
         
         let roomReplay: BehaviorRelay<RoomInfoable>
         
@@ -215,8 +215,9 @@ extension AmongChat {
         
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
-            state = .connected
-            self.mManager.joinChannel(roomInfo) { error in
+            state = .connecting
+            self.mManager.joinChannel(roomInfo) { [weak self] error in
+                self?.state = .connected
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
                     UIApplication.shared.isIdleTimerDisabled = true
@@ -339,19 +340,20 @@ extension AmongChat {
         }
         
         func updateSeatDataSource() {
+            var dataSource: [AmongChat.Room.SeatItem] = []
             for index in 0 ..< 10 {
                 //当前已有数据，重新填充信息
                 let item: AmongChat.Room.SeatItem
-                if let prevItem = seatDataSource[index] {
+                if let prevItem = seatDataSource.safe(index) {
                     item = prevItem
                 } else {
                     item = AmongChat.Room.SeatItem(roomInfo.roomId)
                 }
-                if let user = roomInfo.userListMap[index] {
-                    item.user = user
-                }
-                seatDataSource[index] = item
+                item.user = roomInfo.userListMap[index]
+                dataSource.append(item)
+//                seatDataSource[index] = item
             }
+            seatDataSource = dataSource
         }
         
 //        func update(_ userList: [Entity.RoomUser]) {

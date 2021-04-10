@@ -171,7 +171,7 @@ extension AmongChat.GroupRoom {
                 .subscribe(onSuccess: { [weak self] result in
                     removeBlock()
                     //remove
-                    let list = self?.userList.filter { $0.uid == uid } ?? []
+                    let list = self?.userList.filter { $0.uid != uid } ?? []
                     self?.userList = list
 //                    self?.tableView.beginUpdates()
 //                    self?.tableView.deleteRows(at: [index], with: .automatic)
@@ -199,9 +199,9 @@ extension AmongChat.GroupRoom.JoinRequestListController: UITableViewDataSource, 
                 case .accept:
                     self?.handlerJoinRequest(for: user.uid, accept: true, at: indexPath)
                 case .reject:
-                    self?.handlerJoinRequest(for: user.uid, accept: false, at: indexPath)
-                case .ignore:
                     ()
+                case .ignore:
+                    self?.handlerJoinRequest(for: user.uid, accept: false, at: indexPath)
                 }
             }
         }

@@ -34,7 +34,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
     ///current channel IDz
     var channelId: String?
     
-    private(set) var role: RtcUserRole?
+    private(set) var role: RtcUserRole = .broadcaster
     
     private var mUserId: UInt = 0
     
@@ -107,14 +107,19 @@ class ZegoRtcManager: NSObject, RtcManageable {
         self.joinable = joinable
     }
     
-    func setClientRole(_ role: RtcUserRole) {
-        switch role {
-        case .broadcaster:
-            //user id
-            mRtcEngine.startPublishingStream(user!.uid.string)
-        case .audience:
-            mRtcEngine.stopPublishingStream()
+    //
+    var clientRole: RtcUserRole {
+        set {
+            switch newValue {
+            case .broadcaster:
+                //user id
+                mRtcEngine.startPublishingStream(user!.uid.string)
+            case .audience:
+                mRtcEngine.stopPublishingStream()
+            }
+            role = newValue
         }
+        get { role }
     }
     
     func adjustUserPlaybackSignalVolume(_ uid: UInt, volume: Int32 = 0) -> Bool {
@@ -135,7 +140,7 @@ class ZegoRtcManager: NSObject, RtcManageable {
     
     func mic(muted: Bool) {
         mRtcEngine.muteMicrophone(muted)
-        setClientRole(muted ? .audience: .broadcaster)
+        clientRole = muted ? .audience: .broadcaster
         delegate?.onUserMuteAudio(uid: mUserId, muted: muted)
     }
 
@@ -145,7 +150,8 @@ class ZegoRtcManager: NSObject, RtcManageable {
             return
         }
         mRtcEngine.logoutRoom(channelId)
-        self.role = nil
+        self.role = .broadcaster
+//        self.role = nil
         self.channelId = nil
     }
 }

@@ -378,6 +378,16 @@ extension AmongChat.GroupRoom.ViewController {
                     })
 
                 }
+            case .normalClose:
+                self.requestLeaveRoom { [weak self] in
+//                    self?.showRecommendUser()
+                    self?.dismissViewController(completionHandler: {
+//                        completionHandler?()
+                        let vc = UIApplication.navigationController?.viewControllers.last
+                        vc?.view.raft.autoShow(.text(R.string.localizable.groupRoomEndTips()))
+                    })
+
+                }
             default:
                 ()
             }
@@ -484,6 +494,10 @@ extension AmongChat.GroupRoom.ViewController {
                     self?.showRecommendUser()
                 }
             case .topic:
+                guard self.viewModel.group.loginUserIsAdmin else {
+                    self.view.raft.autoShow(.text(R.string.localizable.groupRoomAudienceChangeTopicTips()))
+                    return
+                }
                 let vc = FansGroup.AddTopicViewController(self.room.topicId)
                 vc.topicSelectedHandler = { [weak self] topic in
                     //update topic
@@ -624,12 +638,20 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         seatView.requestOnSeatHandler = { [weak self] position in
+            //判断关系
+            guard self?.viewModel.groupInfo.userStatusEnum == .some(.memeber) else {
+                //
+                self?.view.raft.autoShow(.text(R.string.localizable.groupRoomAnoymonusUserApplySeatTips()))
+                return
+            }
             self?.audienceViewModel?.requestOnSeat(at: position)
         }
         
         applyButton.actionHandler = { [weak self] in
             self?.applyJoinGroup()
         }
+        
+        bindCallEvent()
     }
     
     func applyJoinGroup() {
@@ -682,6 +704,14 @@ extension AmongChat.GroupRoom.ViewController {
             self.showReportSheet()
         case .kick:
             requestKick([user.uid])
+        case .drop:
+            if viewModel.group.loginUserIsAdmin {
+                //踢人
+                broadcasterViewModel?.rejectCall(uid: user.uid)
+            } else {
+                //下麦
+                audienceViewModel?.phoneCallHangUpBySelf()
+            }
         default:
             ()
         }
