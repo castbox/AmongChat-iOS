@@ -133,7 +133,7 @@ extension Entity {
         let membersCount: Int
 //        let liveID: String
         let playerCount, onlineUserCount: Int?
-        let usersUpdateTime: UInt
+        let usersUpdateTime: UInt?
         var description: String?
         //
         
@@ -143,7 +143,7 @@ extension Entity {
         let bgUrl: String?
         let rtcType: Entity.Room.RtcType?
         let rtcBitRate: Int?
-        var userList: [Entity.RoomUser]
+        var aliasUserList: [Entity.RoomUser]?
         var amongUsCode: String?
         var amongUsZone: AmongUsZone?
         var note: String?
@@ -161,6 +161,21 @@ extension Entity {
 //            }
 //            return map
 //        }
+        
+        var userList: [Entity.RoomUser] {
+            
+            get {
+                guard let l = aliasUserList else {
+                    return []
+                }
+                
+                return l
+            }
+            
+            set {
+                aliasUserList = newValue
+            }
+        }
         
         var loginUserIsAdmin: Bool {
             return uid == Settings.loginUserId
@@ -218,7 +233,8 @@ extension Entity {
             case bgUrl
             case broadcaster, membersCount
 //            case liveID = "liveId"
-            case userList, playerCount
+            case playerCount
+            case aliasUserList = "userList"
             case usersUpdateTime = "_usersUpdateTime"
             case onlineUserCount = "online_user_count"
             case rtcBitRate = "rtc_bit_rate"

@@ -21,8 +21,35 @@ extension FansGroup {
             case createdGroups(Int)
         }
         
+        private lazy var navView: FansGroup.Views.NavigationBar = {
+            let n = FansGroup.Views.NavigationBar()
+            n.leftBtn.setImage(R.image.ac_back(), for: .normal)
+            n.leftBtn.rx.controlEvent(.primaryActionTriggered)
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.navigationController?.popViewController()
+                })
+                .disposed(by: bag)
+            
+            switch source {
+            case .createdGroups(let uid):
+                
+                if uid.isSelfUid {
+                    n.titleLabel.text = R.string.localizable.amongChatGroupGroupsOwnedByMe()
+                } else {
+                    n.titleLabel.text = R.string.localizable.amongChatGroupGroupsCreated()
+                }
+                
+            case .joinedGroups:
+                n.titleLabel.text = R.string.localizable.amongChatGroupGroupsJoined()
+            default:
+                ()
+            }
+            
+            return n
+        }()
+        
         private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .grouped)
+            let tb = UITableView(frame: .zero, style: .plain)
             tb.register(nibWithCellClass: FansGroupSelfItemCell.self)
             tb.register(nibWithCellClass: FansGroupItemCell.self)
             tb.dataSource = self
@@ -30,6 +57,13 @@ extension FansGroup {
             tb.rowHeight = 149
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
+            if #available(iOS 11.0, *) {
+                tb.contentInsetAdjustmentBehavior = .never
+            } else {
+                // Fallback on earlier versions
+                automaticallyAdjustsScrollViewInsets = false
+            }
+            tb.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 100, right: 0)
             return tb
         }()
         
@@ -63,9 +97,28 @@ extension FansGroup.GroupListViewController {
     
     private func setUpLayout() {
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { (maker) in
-            maker.edges.equalToSuperview()
+        
+        switch source {
+        case .myGroups, .allGroups:
+            tableView.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
+        case .createdGroups, .joinedGroups:
+            view.addSubview(navView)
+            
+            navView.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview()
+                maker.top.equalTo(topLayoutGuide.snp.bottom)
+                maker.height.equalTo(49)
+            }
+            
+            tableView.snp.makeConstraints { (maker) in
+                maker.leading.bottom.trailing.equalToSuperview()
+                maker.top.equalTo(navView.snp.bottom)
+            }
         }
+        
         tableView.pullToLoadMore { [weak self] in
             self?.loadData()
         }
@@ -119,7 +172,6 @@ extension FansGroup.GroupListViewController {
             })
             .disposed(by: bag)
     }
-
 }
 
 extension FansGroup.GroupListViewController: UITableViewDataSource {
@@ -137,28 +189,19 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
         
         if group.isOwnedByMe {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
-            cell.titleLabel.text = group.group.name
-            cell.introLabel.text = group.group.description
-            cell.groupIconView.setImage(with: group.group.cover?.url)
-            cell.actionHandler = { [weak self] action in
+            cell.bindData(group.group) { [weak self] action in
+                guard let `self` = self else { return }
                 switch action {
                 case .edit:
-                    ()
+                    FansGroup.GroupEditViewController.gotoEditGroup(group.group.gid, fromVC: self)
                 case .start:
-                    self?.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
+                    self.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
                 }
             }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
-            cell.groupAvatarView.setImage(with: group.group.cover?.url)
-            cell.groupTitleLabel.text = group.group.name
-            cell.groupIntroLabel.text = group.group.description
-            cell.groupUserCountLabel.text = "\(group.group.membersCount)"
-            cell.topicView.coverSourceRelay.accept(group.group.coverUrl)
-            cell.topicView.nameRelay.accept(group.group.topicName)
-            cell.groupInfoContainer.isHidden = false
-            cell.onlineTagView.isHidden = group.group.status == 0
+            cell.bindData(group.group)
             return cell
         }
         

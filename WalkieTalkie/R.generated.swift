@@ -2042,7 +2042,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 386 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 389 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2624,6 +2624,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatGroupTopic = Rswift.StringResource(key: "among.chat.group.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Groups Created
+      /// 
+      /// Locales: en
+      static let amongChatGroupGroupsCreated = Rswift.StringResource(key: "among.chat.group.groups.created", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Groups Joined
+      /// 
+      /// Locales: en
+      static let amongChatGroupGroupsJoined = Rswift.StringResource(key: "among.chat.group.groups.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2968,6 +2976,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let groupOwner = Rswift.StringResource(key: "group.owner", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Owner Groups
+      /// 
+      /// Locales: en
+      static let amongChatGroupGroupsOwnedByMe = Rswift.StringResource(key: "among.chat.group.groups.owned.by.me", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: PRO
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4604,6 +4616,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.group.topic", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Groups Created
+      /// 
+      /// Locales: en
+      static func amongChatGroupGroupsCreated(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.created", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Groups Joined
+      /// 
+      /// Locales: en
+      static func amongChatGroupGroupsJoined(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5204,6 +5230,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func groupOwner(_: Void = ()) -> String {
         return NSLocalizedString("group.owner", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Owner Groups
+      /// 
+      /// Locales: en
+      static func amongChatGroupGroupsOwnedByMe(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.owned.by.me", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PRO
