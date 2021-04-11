@@ -11,6 +11,7 @@ import EasyTipView
 import RxSwift
 import RxCocoa
 import SwiftyUserDefaults
+import SVGAPlayer
 
 class AmongGroupHostView: XibLoadableView {
     
@@ -31,18 +32,66 @@ class AmongGroupHostView: XibLoadableView {
     @IBOutlet weak var gameNameButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     
+    private lazy var disableMicView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = R.image.ac_icon_room_disable_mic()
+        iv.isHidden = true
+        return iv
+    }()
+    
+    private lazy var svgaView: SVGAPlayer = {
+        let player = SVGAPlayer(frame: .zero)
+        player.clearsAfterStop = true
+        player.delegate = self
+        player.loops = 1
+        player.contentMode = .scaleAspectFill
+        player.isUserInteractionEnabled = false
+        return player
+    }()
+    
+    private lazy var mutedLabel: UILabel = {
+        let lb = UILabel()
+        lb.font = R.font.nunitoExtraBold(size: 10)
+        lb.textColor = "FB5858".color()
+        lb.textAlignment = .center
+        lb.text = R.string.localizable.roomUserListMuted()
+        lb.backgroundColor = UIColor.black.alpha(0.7)
+        lb.isHidden = true
+        lb.cornerRadius = 20
+        return lb
+    }()
+    
+    private var svgaUrl: URL?
+    private var svagPlayerStatus: AmongChat.Room.UserCell.SvagPlayerStatus = .free
+    private lazy var haloView = SoundAnimationView(frame: .zero)
+    private let bag = DisposeBag()
+    
+    var emojisNames: [String] = []
+    
     private var onSeatBadge: BadgeHub?
     private var applyGroupBadge: BadgeHub?
     private var tipView: EasyTipView?
-    private let bag = DisposeBag()
+//    private let bag = DisposeBag()
 //    private var isShowTips: Bool
     
     var actionHandler: ((Action) -> Void)?
     
     var group: Entity.GroupRoom? {
         didSet {
+            
             hostAvatarView.setImage(with: group?.broadcaster.pictureUrl)
             nameLabel.text = group?.broadcaster.name
+            emojisNames = group?.topicType.roomEmojiNames ?? []
+            
+            //
+            if let urlString = Entity.DecorationEntity.entityOf(id: group?.broadcaster.decoPetId ?? 0)?.sayUrl,
+               let url = URL(string: urlString) {
+                //svga
+                svgaUrl = url
+            } else {
+                svgaUrl = nil
+            }
+
             if let group = group, group.hostNickname.isValid {
                 gameNameButton.setTitle(group.hostNickname, for: .normal)
             } else {
@@ -51,6 +100,7 @@ class AmongGroupHostView: XibLoadableView {
                 //show
                 showGameNameTipsIfNeed()
             }
+            
             if Settings.loginUserId == group?.broadcaster.uid {
                 nameLabel.textColor = "#FFF000".color()
             } else {
@@ -63,6 +113,33 @@ class AmongGroupHostView: XibLoadableView {
             gameNameButton.isHidden = group?.topicType == .amongus
             updateGameNameTitle()
         }
+    }
+    
+    var hostProfile: Entity.RoomUser? {
+        didSet {
+            if hostProfile?.isMutedByLoginUser == true {
+                mutedLabel.isHidden = false
+                disableMicView.isHidden = true
+            } else {
+                mutedLabel.isHidden = true
+                disableMicView.isHidden = !(hostProfile?.isMuted ?? false)
+            }
+
+//            disableMicView
+//            if user.status == .talking {
+//                startSoundAnimation()
+//            } else if user.status == .muted {
+//                stopSoundAnimation()
+//            }
+        }
+//        if let urlString = Entity.DecorationEntity.entityOf(id: hostProfile.decoPetId)?.sayUrl,
+//           let url = URL(string: urlString) {
+//            //svga
+//            svgaUrl = url
+//        } else {
+//            svgaUrl = nil
+//        }
+
     }
     
 //    var groupRequestCount: Int {
@@ -82,6 +159,7 @@ class AmongGroupHostView: XibLoadableView {
     
     func showGameNameTipsIfNeed() {
         guard let group = group,
+              group.loginUserIsAdmin,
               Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: group.topicType)],
               let tips = group.topicType.groupGameNamePlaceholderTips else {
             return
@@ -134,6 +212,75 @@ class AmongGroupHostView: XibLoadableView {
         applyGroupBadge?.setCount(count)
     }
     
+    func startSoundAnimation() {
+        guard hostProfile?.isMuted == false else {
+            return
+        }
+        haloView.startLoading()
+        if let url = svgaUrl {
+            playSvga(url)
+        } else {
+            playSvga(emojisNames.randomItem())
+        }
+    }
+    
+    func stopSoundAnimation() {
+//            isPlaySvgaEmoji = false
+        
+        haloView.stopLoading()
+        if svagPlayerStatus == .playingEmoji {
+            svgaView.stopAnimation()
+            svgaView.clear()
+            svagPlayerStatus = .free
+        }
+    }
+    
+    func playSvga(_ name: String? = nil) {
+        guard let name = name else {
+            return
+        }
+        //如果正在播放，则不用再次播放
+        guard svagPlayerStatus == .free else {
+            return
+        }
+        let parser = SVGAGlobalParser.defaut
+        parser.parse(withNamed: name, in: nil,
+                     completionBlock: { [weak self] (item) in
+//                            self?.isPlaySvgaEmoji = true
+                        self?.svgaView.clearsAfterStop = true
+                        self?.svagPlayerStatus = .playingEmoji
+                        self?.svgaView.videoItem = item
+                        self?.svgaView.startAnimation()
+                     },
+                     failureBlock: { [weak self] error in
+                        self?.svagPlayerStatus = .free
+                        debugPrint("error: \(error.localizedDescription ?? "")")
+                     })
+    }
+    
+    private func playSvga(_ resource: URL?) {
+        guard let resource = resource else {
+            return
+        }
+        //如果正在播放，则不用再次播放
+        guard svagPlayerStatus == .free else {
+            return
+        }
+        let parser = SVGAGlobalParser.defaut
+        parser.parse(with: resource,
+                     completionBlock: { [weak self] (item) in
+//                            self?.isPlaySvgaEmoji = true
+                        self?.svgaView.clearsAfterStop = true
+                        self?.svagPlayerStatus = .playingEmoji
+                        self?.svgaView.videoItem = item
+                        self?.svgaView.startAnimation()
+                     },
+                     failureBlock: { [weak self] error in
+                        self?.svagPlayerStatus = .free
+                        debugPrint("error: \(error?.localizedDescription ?? "")")
+                     })
+    }
+    
     @objc func dismissTipView() {
         tipView?.dismiss()
     }
@@ -161,11 +308,28 @@ class AmongGroupHostView: XibLoadableView {
                 self?.updateGameNameTitle()
             })
             .disposed(by: bag)
-        
     }
     
     private func configureSubview() {
-
+        addSubviews(views: haloView, disableMicView, svgaView, mutedLabel)
+        haloView.snp.makeConstraints { (maker) in
+            maker.center.equalTo(hostAvatarView)
+            maker.width.height.equalTo(60)
+        }
+        
+        svgaView.snp.makeConstraints { make in
+            make.center.equalTo(hostAvatarView)
+            make.width.height.equalTo(hostAvatarView)
+        }
+        
+        disableMicView.snp.makeConstraints { (maker) in
+            maker.right.bottom.equalTo(hostAvatarView)
+        }
+        
+        mutedLabel.snp.makeConstraints { (maker) in
+            maker.center.equalTo(hostAvatarView)
+            maker.width.height.equalTo(hostAvatarView)
+        }
     }
     
     private func updateGameNameTitle() {
@@ -194,4 +358,8 @@ extension AmongGroupHostView: EasyTipViewDelegate {
     func easyTipViewDidDismiss(_ tipView : EasyTipView) {
         
     }
+}
+
+extension AmongGroupHostView: SVGAPlayerDelegate {
+    
 }

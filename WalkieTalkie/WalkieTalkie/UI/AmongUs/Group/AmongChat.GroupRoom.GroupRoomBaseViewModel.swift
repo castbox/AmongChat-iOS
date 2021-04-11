@@ -63,10 +63,52 @@ extension AmongChat.GroupRoom {
         }
         
         let groupInfoReplay: BehaviorRelay<Entity.GroupInfo>
+
+        //听众列表
+        let listenerListReplay = BehaviorRelay<[Entity.UserProfile]>(value: [])
+        var listenerList = [Entity.UserProfile]() {
+            didSet {
+                listenerListReplay.accept(listenerList)
+            }
+        }
+        
+        let listenerCountReplay = BehaviorRelay<Int>(value: 0)
+        var listenerCount: Int = 0 {
+            didSet {
+                listenerCountReplay.accept(listenerCount)
+            }
+        }
+        
+        var broadcaster: Entity.RoomUser {
+            broadcasterReplay.value
+        }
+        
+        let broadcasterReplay: BehaviorRelay<Entity.RoomUser>
+        var updateListenerInfoHandler: () -> Void = { }
         
         init(groupInfo: Entity.GroupInfo, source: ParentPageSource?) {
             groupInfoReplay = BehaviorRelay(value: groupInfo)
+            broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
+            loadListenerList()
+        }
+        
+        override func update(_ room: RoomInfoable) {
+            super.update(room)
+            
+//            guard let group = room as? Entity.GroupRoom else {
+//                return
+//            }
+            //同步
+            let user = updateSeatUserStatus(broadcaster)
+//            if group.loginUserIsAdmin {
+//                user.isMuted = mutedUser.contains(group.uid.uInt)
+//            } else {
+//                user.isMuted = otherMutedUser.contains(group.uid.uInt)
+//            }
+            if user != broadcaster {
+                broadcasterReplay.accept(user)
+            }
         }
         
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
@@ -82,6 +124,11 @@ extension AmongChat.GroupRoom {
                 //add to entrance queue
 //                onUserJoinedHandler?(message)
                 addUIMessage(message: message)
+                if listenerList.count < 3 {
+                    loadListenerList()
+                } else {
+                    listenerCount += 1
+                }
             } else if let message = crMessage as? ChatRoom.SystemMessage {
                 addUIMessage(message: message)
             } else if let message = crMessage as? ChatRoom.GroupInfoMessage {
@@ -95,36 +142,17 @@ extension AmongChat.GroupRoom {
                 //自己
                 endRoomHandler?(.kickout(message.opRole))
             } else if let message = crMessage as? ChatRoom.GroupLeaveRoomMessage {
+                //remove
+                listenerList(remove: message.user.uid)
+                listenerCount -= 1
                 otherMutedUser.remove(message.user.uid.uInt)
             } else if crMessage.msgType == .emoji {
                 messageHandler?(crMessage)
             }
 //            else if message.messageType == .call { // Call 电话状态
-//                self.callMessageHandler(callContent: content as? CallContent)
+//                self.onReceiveCallMessage(callContent: content as? CallContent)
 //            }
         }
-        
-//        override func onReceivePeer(message: PeerMessage) {
-//            //当前为 host, 处理申请
-//
-//
-//            //非 Host
-//            if let applyMessage = message as? Peer.GroupApplyMessage,
-//               applyMessage.gid == group.gid {
-//                let status: Entity.GroupInfo.UserStatus
-//                switch applyMessage.action {
-//                case .accept:
-//                    status = .memeber
-//                case .reject:
-//                    status = .none
-//                case .request:
-//                    status = .applied
-//                }
-//                var info = self.groupInfo
-//                info.userStatusInt = status.rawValue
-//                self.groupInfoReplay.accept(info)
-//            }
-//        }
         
         //MARK: -- Request
         override func requestRoomInfo() {
@@ -149,6 +177,119 @@ extension AmongChat.GroupRoom {
             return group.bgUrl?.url
         }
         
+        //MARK - Listener User list
+        // 新听众进入
+        func insertNewListener(_ userInfo: Entity.UserProfile?, forceRefresh: Bool = false) {
+            
+            guard let newListener = userInfo,
+                newListener.uid != Int(group.uid) else { //不能将主播添加进
+                    if forceRefresh {
+                        updateRoomListenerInfoDisplay()
+                    }
+                    return
+            }
+            
+//            if Knife.Auth.shared.isAnonymUser(Int64(newListener.suid)) {
+//                return
+//            }
+            
+            // ignore hose 去重 如果已经在队列里, 不用处理
+            if listenerList.contains(where: { listener -> Bool in
+                return listener.uid == newListener.uid
+            }) {
+                if forceRefresh {
+                    updateRoomListenerInfoDisplay()
+                }
+                return
+            }
+            listenerList.append(newListener)
+            updateRoomListenerInfoDisplay()
+        }
+        
+//        func addContribution(forUser userInfo: Entity.UserProfile?, contribution: Int) {
+//            guard let userInfo = userInfo else {
+//                return
+//            }
+//
+//            insertNewListener(userInfo.toDict() as NSDictionary?)
+//
+//            for listener in listenerList where listener.uid == userInfo.uid {
+//                listener.contribution = (listener.contribution + contribution)
+//                updateRoomListenerInfoDisplay()
+//                break
+//            }
+//        }
+        
+//        func addContribution(forUser uid: Int, contribution: Int) {
+//            guard uid > 0 else {
+//                return
+//            }
+//
+//            for listener in listenerList where listener.uid == uid {
+//                listener.contribution = (listener.contribution + contribution)
+//                updateRoomListenerInfoDisplay()
+//                break
+//            }
+//        }
+        
+        // 听众退出
+        func listenerList(remove user: Entity.UserProfile?) {
+            guard let newListener = user else {
+                return
+            }
+            
+            _ = listenerList.removeElement { listener -> Bool in
+                return listener.uid == newListener.uid
+            }
+            updateRoomListenerInfoDisplay()
+        }
+        
+        func listenerList(remove uid: Int?) {
+            guard let suid = uid else { return }
+            listenerList.removeElement { listener -> Bool in
+                return listener.uid == suid
+            }
+            updateRoomListenerInfoDisplay()
+        }
+        
+        func updateRoomListenerInfoDisplay() {
+//            listenerList.sort(by: { (left, right) -> Bool in
+//                let rightC = right.contribution
+//                let leftC = left.contribution
+//
+//                if leftC > rightC {
+//                    return true
+//                }
+//                if leftC == rightC, (right.uid == Knife.Settings.shared.profile.value?.uid.intValue ?? 0 ||
+//                    left.uid == Knife.Settings.shared.profile.value?.uid.intValue ?? 0) {
+//                    return true
+//                }
+//
+//                return false
+//            })
+            // 刷新页面
+            updateListenerInfoHandler()
+        }
+        
+        func loadListenerList() {
+            Request.groupLiveUserList(group.gid, skipMs: 0)
+                .subscribe(onSuccess: { [weak self] data in
+                    self?.listenerList = data.list
+                    self?.listenerCount = data.count ?? data.list.count
+                }, onError: { [weak self](error) in
+                    cdPrint("followingList error: \(error.localizedDescription)")
+                }).disposed(by: bag)
+            //
+            //            Request.Livecast.Live.Room.users(roomID: roomInfo.room_id, skip: 0, limit: 200)
+            //                .observeOn(MainScheduler.instance)
+            //                .subscribe(onNext: { [weak self] listener in
+            //                    guard let `self` = self else { return }
+            //                    self.listenerList = listener.list
+            //                    self.mySelf = listener.user
+            //                    self.insertNewListener(self.currentUserInfo, forceRefresh: true)
+            //                }).disposed(by: bag)
+        }
+        
         func updateAmong(code: String, aera: Entity.AmongUsZone) {
             var room = group
             room.amongUsCode = code
@@ -159,13 +300,20 @@ extension AmongChat.GroupRoom {
         func update(topicId: String) {
             var room = self.group
             room.topicId = topicId
+            room.note = nil
+            room.robloxLink = nil
             updateInfo(group: room)
         }
         
         func update(notes: String) {
             var room = self.group
-            room.note = notes
+            if group.topicType == .roblox {
+                room.robloxLink = notes
+            } else {
+                room.note = notes
+            }
             updateInfo(group: room)
+                
         }
         
         func update(nickName: String) {
@@ -227,6 +375,31 @@ extension AmongChat.GroupRoom {
             }
             if mutedUser.contains(uid) {
                 mutedUser.remove(uid)
+            }
+        }
+        
+        override func onUserStatusChanged(userId: UInt, muted: Bool) {
+            //host mute
+            if userId == group.uid {
+                if muted {
+                    otherMutedUser.insert(userId)
+                } else {
+                    otherMutedUser.remove(userId)
+                }
+                soundAnimationIndex.accept(-1)
+            } else {
+                super.onUserStatusChanged(userId: userId, muted: muted)
+            }
+        }
+        
+//        func onUserStatusChanged(userId: UInt, muted: Bool) {
+        override func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+    //        cdPrint("userId: \(userId) volume: \(volume)")
+            if group.loginUserIsAdmin, userId.int == group.uid {
+                //-1 is host
+                soundAnimationIndex.accept(-1)
+            } else {
+                super.onAudioVolumeIndication(userId: userId, volume: volume)
             }
         }
     }

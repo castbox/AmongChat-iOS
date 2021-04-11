@@ -541,36 +541,33 @@ extension AmongChat {
 //
 //        }
         
+        func updateSeatUserStatus(_ user: Entity.RoomUser) -> Entity.RoomUser {
+            var newUser = user
+            if blockedUsers.contains(where: { $0.uid == user.uid }) {
+                newUser.status = .blocked
+                newUser.isMuted = true
+                newUser.isMutedByLoginUser = true
+            } else {
+                if otherMutedUser.contains(user.uid.uInt) || mutedUser.contains(user.uid.uInt) {
+                    newUser.isMuted = true
+                    newUser.status = .muted
+                    newUser.isMutedByLoginUser = mutedUser.contains(user.uid.uInt)
+                } else {
+                    newUser.isMuted = false
+                    newUser.status = .connected
+                    newUser.isMutedByLoginUser = false
+                }
+            }
+            return newUser
+        }
+        
         func update(_ room: RoomInfoable) {
-            
-            //when first to admin logger
-    //        if room.loginUserIsAdmin,
-    //           self.room.loginUserIsAdmin != room.loginUserIsAdmin {
-    //            Logger.Action.log(.admin_imp, categoryValue: room.topicId)
-    //        }
-            
             var newRoom = room
             let userList = newRoom.userList
-            let blockedUsers = self.blockedUsers
+//            let blockedUsers = self.blockedUsers
             newRoom.userList = userList.map { user -> Entity.RoomUser in
-                var newUser = user
+                var newUser = updateSeatUserStatus(user)
                 newUser.topic = room.topicType
-                if blockedUsers.contains(where: { $0.uid == user.uid }) {
-                    newUser.status = .blocked
-                    newUser.isMuted = true
-                    newUser.isMutedByLoginUser = true
-                } else {
-                    if otherMutedUser.contains(user.uid.uInt) || mutedUser.contains(user.uid.uInt) {
-                        newUser.isMuted = true
-                        newUser.status = .muted
-                        newUser.isMutedByLoginUser = mutedUser.contains(user.uid.uInt)
-                    } else {
-                        newUser.isMuted = false
-                        newUser.status = .connected
-                        newUser.isMutedByLoginUser = false
-                    }
-
-                }
                 return newUser
             }
             roomReplay.accept(newRoom)
@@ -769,7 +766,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
         
     }
     
-    func onUserStatusChanged(userId: UInt, muted: Bool) {
+    @objc func onUserStatusChanged(userId: UInt, muted: Bool) {
         let userList = roomInfo.userList
         if userList.contains(where: { $0.uid.uInt == userId }), muted {
             otherMutedUser.insert(userId)
@@ -800,10 +797,14 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
         
     }
     
-    func onAudioVolumeIndication(userId: UInt, volume: UInt) {
+    @objc func onAudioVolumeIndication(userId: UInt, volume: UInt) {
 //        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = roomInfo.userList.first(where: { $0.uid.uInt == userId }) {
-            self.soundAnimationIndex.accept(user.seatNo - 1)
+            soundAnimationIndex.accept(user.seatNo - 1)
+        } else if let group = roomInfo as? Entity.GroupRoom,
+                  userId.int == group.uid {
+            //-1 is host
+            soundAnimationIndex.accept(-1)
         }
     }
     

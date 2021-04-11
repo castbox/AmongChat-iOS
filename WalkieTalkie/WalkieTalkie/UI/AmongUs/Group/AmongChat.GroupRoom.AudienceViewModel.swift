@@ -111,37 +111,12 @@ extension AmongChat.GroupRoom {
             guard state != .disconnected else {
                 return
             }
-            
-            if let message = crMessage as? ChatRoom.TextMessage {
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.GroupJoinRoomMessage,
-                      message.user.uid != Settings.loginUserId {
-                //add to entrance queue
-//                onUserJoinedHandler?(message)
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.SystemMessage {
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.GroupInfoMessage {
-                if message.ms > lastestUpdateRoomMs {
-                    lastestUpdateRoomMs = message.ms
-                    update(message.group)
-                }
-            } else if let message = crMessage as? ChatRoom.KickOutMessage,
-                      message.user.uid == Settings.loginUserId,
-                      group.rtcType == .agora {
-                //自己
-                endRoomHandler?(.kickout(message.opRole))
-            } else if let message = crMessage as? ChatRoom.GroupLeaveRoomMessage {
-                otherMutedUser.remove(message.user.uid.uInt)
-            } else if let message = crMessage as? ChatRoom.GroupRoomEndMessage,
+            if let message = crMessage as? ChatRoom.GroupRoomEndMessage,
                       message.gid == group.gid {
                 endRoomHandler?(.normalClose)
-            } else if crMessage.msgType == .emoji {
-                messageHandler?(crMessage)
+            } else {
+                super.onReceiveChatRoom(crMessage: crMessage)
             }
-//            else if message.messageType == .call { // Call 电话状态
-//                self.onReceiveCallMessage(callContent: content as? CallContent)
-//            }
         }
         
         override func onReceivePeer(message: PeerMessage) {

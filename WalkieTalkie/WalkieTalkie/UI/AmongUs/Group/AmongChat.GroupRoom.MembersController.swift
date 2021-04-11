@@ -93,7 +93,7 @@ extension AmongChat.GroupRoom {
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
                         guard let `self` = self else { return }
-                        self.userList = data.list ?? []
+                        self.userList = data.list
                         if self.userList.isEmpty {
                             self.addNoDataView(R.string.localizable.errorNoFollowing())
                         }

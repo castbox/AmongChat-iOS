@@ -1,20 +1,20 @@
 //
-//  AmongChat.GroupRoom.MembersViewModel.swift
+//  AmongChat.GroupRoom.JoinRequestViewModel.swift
 //  WalkieTalkie
 //
-//  Created by 袁仕崇 on 01/04/21.
+//  Created by 袁仕崇 on 10/04/21.
 //  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
 import Foundation
 import RxSwift
 import RxCocoa
-import Contacts
-import SwiftyContacts
+import SwiftyUserDefaults
+import HWPanModal
 
 extension AmongChat.GroupRoom {
-    class MembersViewModel {
-        //        static let shared: JoinRequestViewModel?
+    class JoinRequestViewModel {
+//        static let shared: JoinRequestViewModel?
         let gid: String
         
         var countReplay = BehaviorRelay(value: 0)

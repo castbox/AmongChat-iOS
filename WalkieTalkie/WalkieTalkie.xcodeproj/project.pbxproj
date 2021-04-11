@@ -301,6 +301,7 @@
 		FE9BC9E7258A3CDD002F82AF /* ApiService.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */; };
 		FE9BC9EB258A3ED5002F82AF /* Request.AmongChatBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */; };
 		FE9BCA44258A5344002F82AF /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9BCA43258A5344002F82AF /* IntExtension.swift */; };
+		FE9EE3F92621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */; };
 		FE9EF520258AFF88008C0BAD /* UIImageViewNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */; };
 		FE9EF524258B0C07008C0BAD /* Entity.Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF523258B0C07008C0BAD /* Entity.Room.swift */; };
 		FE9EF528258B23B5008C0BAD /* AmongRoomToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9EF527258B23B5008C0BAD /* AmongRoomToolView.swift */; };
@@ -711,6 +712,7 @@
 		FE9BC9E6258A3CDD002F82AF /* ApiService.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9BC9EA258A3ED5002F82AF /* Request.AmongChatBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.AmongChatBackend.swift; sourceTree = "<group>"; };
 		FE9BCA43258A5344002F82AF /* IntExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.JoinRequestViewModel.swift; sourceTree = "<group>"; };
 		FE9EF51F258AFF88008C0BAD /* UIImageViewNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewNetwork.swift; sourceTree = "<group>"; };
 		FE9EF523258B0C07008C0BAD /* Entity.Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Room.swift; sourceTree = "<group>"; };
 		FE9EF527258B23B5008C0BAD /* AmongRoomToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongRoomToolView.swift; sourceTree = "<group>"; };
@@ -1491,6 +1493,7 @@
 				FE078C882615B64B004C38C5 /* AmongChat.GroupRoom.MembersController.swift */,
 				FE078C8C2615B74A004C38C5 /* AmongChat.GroupRoom.MembersViewModel.swift */,
 				FE078C902615C028004C38C5 /* AmongChat.GroupRoom.JoinRequestListController.swift */,
+				FE9EE3F82621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift */,
 				FE80678D261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift */,
 			);
 			path = Group;
@@ -2094,6 +2097,7 @@
 				FE684875244BD2E700F87AF9 /* AdsManager.swift in Sources */,
 				FE8338F32601EAA7009DF361 /* AmongChat.Room.EmojiPickerController.swift in Sources */,
 				FE8DEA63243DB09A0059C252 /* ApiManager.Config.swift in Sources */,
+				FE9EE3F92621CA350053B020 /* AmongChat.GroupRoom.JoinRequestViewModel.swift in Sources */,
 				FE2AF9FB244DDDC700763747 /* URLUnit.swift in Sources */,
 				FE79F38D258CDFA500E9BC6C /* AmongSheetUserCell.swift in Sources */,
 				FE126D4D243481FF00BEDD60 /* Member.swift in Sources */,

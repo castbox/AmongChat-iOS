@@ -287,6 +287,7 @@ extension AmongChat.Room {
         
         func showGameNameTipsIfNeed() {
             guard let topic = topic,
+                  user?.uid == Settings.loginUserId,
                   Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)],
                   let tips = topic.groupGameNamePlaceholderTips else {
                 return
@@ -491,13 +492,17 @@ extension AmongChat.Room.UserCell {
         if itemStyle == .normal {
             gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
             gameNameButton.setTitle(user.nickname, for: .normal)
-        } else if user.uid == Settings.loginUserId {
-            gameNameButton.isHidden = !topic.enableNickName
-            if user.nickname.isValid {
-                gameNameButton.setTitle(user.nickname, for: .normal)
+        } else {
+            if user.uid == Settings.loginUserId {
+                gameNameButton.isHidden = !topic.enableNickName
+                if user.nickname.isValid {
+                    gameNameButton.setTitle(user.nickname, for: .normal)
+                } else {
+                    gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                    showGameNameTipsIfNeed()
+                }
             } else {
-                gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
-                showGameNameTipsIfNeed()
+                gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
             }
         }
         if isKickSelected {

@@ -114,7 +114,7 @@ extension AmongChat.GroupRoom {
             return nil
         }
         
-        //        func callInList(add userInfo: LiveUserInfo?, action: Peer.CallMessage.Action, extra: String, expire_time: Int64, position: Int, autoShowTips: Bool = true) {
+        //        func callInList(add userInfo: Entity.UserProfile?, action: Peer.CallMessage.Action, extra: String, expire_time: Int64, position: Int, autoShowTips: Bool = true) {
         func callInList(add message: Peer.CallMessage) {
             var callInUserInfo = Entity.CallInUser(message: message)
             
@@ -136,7 +136,8 @@ extension AmongChat.GroupRoom {
                 let timeNow = Date(timeIntervalSinceNow: 0)
                 callInUserInfo.startTimeStamp = timeNow.timeIntervalSince1970
             }
-            callInList.append(callInUserInfo)
+            callInList.insert(callInUserInfo, at: 0)
+//            append(callInUserInfo)
             callInListHandler()
 //            if autoShowTips {
 //                callInTipHandler(userInfo, true)

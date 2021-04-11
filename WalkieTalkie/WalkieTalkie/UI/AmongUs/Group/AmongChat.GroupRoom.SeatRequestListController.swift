@@ -94,6 +94,11 @@ extension AmongChat.GroupRoom {
                 .subscribe(onNext: { [weak self] source in
                     self?.titleView.title = R.string.localizable.groupRoomRaisedHandsTitle(source.count.string)
                     self?.userList = source
+                    if source.isEmpty {
+                        self?.addNoDataView(R.string.localizable.groupRoomApplySeatListEmpty(), image: R.image.ac_among_apply_empty())
+                    } else {
+                        self?.removeNoDataView()
+                    }
                 })
                 .disposed(by: bag)
         }

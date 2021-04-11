@@ -151,24 +151,12 @@ extension Entity {
         var defaultRole: RtcUserRole {
             loginUserIsAdmin ? .broadcaster : .audience
         }
-//        var link
-        
-        
-//        var userListMap: [Int: RoomUser] {
-//            var map: [Int: RoomUser] = [:]
-//            userList.forEach { user in
-//                map[user.seatNo - 1] = user
-//            }
-//            return map
-//        }
         
         var userList: [Entity.RoomUser] {
-            
             get {
                 guard let l = aliasUserList else {
                     return []
                 }
-                
                 return l
             }
             
@@ -241,7 +229,7 @@ extension Entity {
             case amongUsCode
             case amongUsZone
             case note
-            case robloxLink = "roblox_link"
+            case robloxLink
         }
     }
 

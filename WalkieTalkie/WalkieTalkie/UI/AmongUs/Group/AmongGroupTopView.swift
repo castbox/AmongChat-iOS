@@ -69,6 +69,44 @@ class AmongGroupTopView: XibLoadableView {
         }
     }
     
+    var listenerList: [Entity.UserProfile] = [] {
+        didSet {
+            onlineUserStackView.isHidden = listenerList.isEmpty
+            if let firstUser = listenerList.safe(0) {
+                firstUserIcon.isHidden = false
+                onlineUserStackView.insertArrangedSubview(firstUserIcon, at: 0)
+                firstUserIcon.setAvatarImage(with: firstUser.pictureUrl)
+            } else {
+                firstUserIcon.isHidden = true
+                onlineUserStackView.removeArrangedSubview(firstUserIcon)
+            }
+            
+            if let user = listenerList.safe(1) {
+                secondUserIcon.isHidden = false
+                onlineUserStackView.insertArrangedSubview(secondUserIcon, at: 1)
+                secondUserIcon.setAvatarImage(with: user.pictureUrl)
+            } else {
+                secondUserIcon.isHidden = true
+                onlineUserStackView.removeArrangedSubview(secondUserIcon)
+            }
+            
+            if let user = listenerList.safe(2) {
+                thirdUserIcon.isHidden = false
+                onlineUserStackView.insertArrangedSubview(thirdUserIcon, at: 2)
+                thirdUserIcon.setAvatarImage(with: user.pictureUrl)
+            } else {
+                thirdUserIcon.isHidden = true
+                onlineUserStackView.removeArrangedSubview(thirdUserIcon)
+            }
+        }
+    }
+    
+    var listenerCount: Int = 0 {
+        didSet {
+            userCountLabel.text = listenerCount.string
+        }
+    }
+    
     init(_ group: Entity.GroupRoom) {
         self.group = group
         super.init(frame: .zero)
@@ -81,6 +119,21 @@ class AmongGroupTopView: XibLoadableView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    
+    
+    func set(_ room: Entity.GroupRoom) {
+//        switch room.state {
+//        case .public:
+//            publicButton.setTitle(R.string.localizable.roomPublic(), for: .normal)
+//            publicButton.setBackgroundImage("592DFF".color().image, for: .normal)
+//        case .private:
+//            publicButton.setTitle(R.string.localizable.roomPrivate(), for: .normal)
+//            publicButton.setBackgroundImage("E6309E".color().image, for: .normal)
+//        }
+//        kickButton.isHidden = !room.loginUserIsAdmin
+        self.group = room
+//        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
+    }
     
     override func layoutSubviews() {
         backgroundLayer.frame = bounds
@@ -125,20 +178,6 @@ class AmongGroupTopView: XibLoadableView {
         backgroundLayer.locations = [-0.2, 0.3, 0.75]
         backgroundLayer.colors = ["65F0FF".color().cgColor, "3C40B1".color().cgColor, "0D0063".color().cgColor,]
 
-    }
-    
-    func set(_ room: Entity.GroupRoom) {
-//        switch room.state {
-//        case .public:
-//            publicButton.setTitle(R.string.localizable.roomPublic(), for: .normal)
-//            publicButton.setBackgroundImage("592DFF".color().image, for: .normal)
-//        case .private:
-//            publicButton.setTitle(R.string.localizable.roomPrivate(), for: .normal)
-//            publicButton.setBackgroundImage("E6309E".color().image, for: .normal)
-//        }
-//        kickButton.isHidden = !room.loginUserIsAdmin
-        self.group = room
-//        publicButton.isUserInteractionEnabled = room.loginUserIsAdmin
     }
     
     @IBAction func tapMembersAction(_ sender: Any) {

@@ -358,8 +358,35 @@ extension AmongChat.GroupRoom.ViewController {
                 self?.seatView.dataSource = dataSource
             })
             .disposed(by: bag)
+        
+        viewModel.listenerListReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] dataSource in
+                self?.topBar.listenerList = dataSource
+            })
+            .disposed(by: bag)
+        
+        viewModel.listenerCountReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] count in
+                self?.topBar.listenerCount = count
+            })
+            .disposed(by: bag)
+        
+        viewModel.broadcasterReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] user in
+                self?.hostView.hostProfile = user
+            })
+            .disposed(by: bag)
 
         viewModel.soundAnimationIndex
+            .do(onNext: { [weak self] index in
+                guard index == -1 else {
+                    return
+                }
+                self?.hostView.startSoundAnimation()
+            })
             .bind(to: seatView.rx.soundAnimation)
             .disposed(by: bag)
 
