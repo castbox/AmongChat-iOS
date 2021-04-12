@@ -109,7 +109,15 @@ extension FansGroup.CreateGroupViewController {
                 Defaults[\.testGroup] = group.asString
                 #endif
                 let vc = FansGroup.AddMemberController(groupId: group.gid, group)
-                self?.navigationController?.pushViewController(vc, animated: true)
+                vc.isEnableScreenEdgeGesture = false
+                let rootVC = self?.navigationController?.viewControllers.first as? WalkieTalkie.ViewController
+                vc.doneHandler = { [weak vc] in
+                    vc?.navigationController?.popViewController(animated: true)
+                    rootVC?.enter(group: group)
+                }
+                self?.navigationController?.pushViewController(vc, completion: {
+                    self?.navigationController?.viewControllers.removeAll(where: { $0 is Self })
+                })
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })

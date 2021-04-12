@@ -15,14 +15,14 @@ extension FansGroup {
     
     class AddMemberController: WalkieTalkie.ViewController, GestureBackable {
         
-        var isEnableScreenEdgeGesture: Bool = false
+        var isEnableScreenEdgeGesture: Bool = true
         
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
             n.leftBtn.setImage(R.image.ac_back(), for: .normal)
             n.leftBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    self?.navigationController?.popToRootViewController(animated: true)
+                    self?.navigationController?.popViewController()
                 })
                 .disposed(by: bag)
             n.titleLabel.text = R.string.localizable.amongChatGroupAddMembers()
@@ -54,11 +54,10 @@ extension FansGroup {
             btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    guard let `self` = self else { return }
-                    if let roomViewController = self.navigationController?.viewControllers.first(where: { $0 is AmongChat.GroupRoom.ContainerController }) as? AmongChat.GroupRoom.ContainerController {
-                        self.navigationController?.popViewController()
+                    if let done = self?.doneHandler {
+                        done()
                     } else {
-                        self.enter(group: self.groupEntity)
+                        self?.navigationController?.popViewController(animated: true)
                     }
                 })
                 .disposed(by: bag)
@@ -88,7 +87,7 @@ extension FansGroup {
         }
         
         private var groupName: String {
-            return groupEntity.name ?? ""
+            return groupEntity.name
         }
         
         private var groupCover: String? {
@@ -101,12 +100,17 @@ extension FansGroup {
         
         private let groupId: String
         private let groupEntity: Entity.Group
-//        private let groupRoomEntity: Entity.Group?
+        private let newAddedMember = PublishSubject<MemeberViewModel>()
+        
+        var doneHandler: (() -> Void)? = nil
+        
+        var newAddedMemberObservable: Observable<Entity.UserProfile> {
+            return newAddedMember.map { $0.member }.asObservable()
+        }
         
         init(groupId: String, _ group: Entity.Group) {
             self.groupId = groupId
             groupEntity = group
-//            groupRoomEntity = groupRoom
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -222,7 +226,9 @@ extension FansGroup.AddMemberController {
         tableView.reloadRows(at: [indexPath], with: .none)
         
         Request.addMember(member.member.uid, to: groupId)
-            .subscribe(onSuccess: { [weak self] (_) in
+            .subscribe(onSuccess: { [weak self] (success) in
+                guard success else { return }
+                self?.newAddedMember.onNext(member)
             })
             .disposed(by: bag)
         

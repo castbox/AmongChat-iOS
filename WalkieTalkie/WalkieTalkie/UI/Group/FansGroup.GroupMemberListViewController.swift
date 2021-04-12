@@ -103,6 +103,15 @@ extension FansGroup.GroupMemberListViewController: UITableViewDataSource {
                     return
                 }
                 let vc = FansGroup.AddMemberController(groupId: self.groupInfo.group.gid, self.groupInfo.group)
+                vc.newAddedMemberObservable
+                    .subscribe(onNext: { (user) in
+                                                
+                        var members = self.membersRelay.value
+                        members.insert(user, at: 0)
+                        self.membersRelay.accept(members)
+                        
+                    })
+                    .disposed(by: self.bag)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             
