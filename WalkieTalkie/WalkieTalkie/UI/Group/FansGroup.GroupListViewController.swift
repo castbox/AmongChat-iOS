@@ -132,6 +132,10 @@ extension FansGroup.GroupListViewController {
             }
         }
         
+        tableView.pullToRefresh { [weak self] in
+            self?.loadData(refresh: true)
+        }
+        
         tableView.pullToLoadMore { [weak self] in
             self?.loadData()
         }
@@ -149,9 +153,9 @@ extension FansGroup.GroupListViewController {
         
     }
                 
-    private func loadData(initialLoad: Bool = false) {
+    private func loadData(initialLoad: Bool = false, refresh: Bool = false) {
         
-        guard hasMoreData,
+        guard hasMoreData || refresh,
               !isLoading else {
             return
         }
@@ -160,15 +164,17 @@ extension FansGroup.GroupListViewController {
         
         let loader: Single<[Entity.Group]>
         
+        let skip: Int = refresh ? 0 : groupsRelay.value.count
+        
         switch source {
         case .myGroups:
-            loader = Request.myGroupList(skip: groupsRelay.value.count)
+            loader = Request.myGroupList(skip: skip)
         case .allGroups:
-            loader = Request.groupList(skip: groupsRelay.value.count)
+            loader = Request.groupList(skip: skip)
         case .createdGroups(let uid):
-            loader = Request.groupListOfHost(uid, skip: groupsRelay.value.count)
+            loader = Request.groupListOfHost(uid, skip: skip)
         case .joinedGroups(let uid):
-            loader = Request.groupListOfUserJoined(uid, skip: groupsRelay.value.count)
+            loader = Request.groupListOfUserJoined(uid, skip: skip)
         }
         
         var hudRemoval: (() -> Void)? = nil
@@ -187,6 +193,9 @@ extension FansGroup.GroupListViewController {
                     return
                 }
                 var groups = self.groupsRelay.value
+                if refresh {
+                    groups.removeAll()
+                }
                 groups.append(contentsOf: groupList.map({ GroupViewModel(group: $0) }))
                 self.groupsRelay.accept(groups)
                 self.hasMoreData = groupList.count > 0
