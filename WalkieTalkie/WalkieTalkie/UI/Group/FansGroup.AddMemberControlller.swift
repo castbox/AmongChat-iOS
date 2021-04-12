@@ -88,7 +88,7 @@ extension FansGroup {
         }
         
         private var groupName: String {
-            return groupEntity.name ?? ""
+            return groupEntity.name
         }
         
         private var groupCover: String? {
@@ -101,12 +101,15 @@ extension FansGroup {
         
         private let groupId: String
         private let groupEntity: Entity.Group
-//        private let groupRoomEntity: Entity.Group?
+        private let newAddedMember = PublishSubject<MemeberViewModel>()
+        
+        var newAddedMemberObservable: Observable<Entity.UserProfile> {
+            return newAddedMember.map { $0.member }.asObservable()
+        }
         
         init(groupId: String, _ group: Entity.Group) {
             self.groupId = groupId
             groupEntity = group
-//            groupRoomEntity = groupRoom
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -222,7 +225,9 @@ extension FansGroup.AddMemberController {
         tableView.reloadRows(at: [indexPath], with: .none)
         
         Request.addMember(member.member.uid, to: groupId)
-            .subscribe(onSuccess: { [weak self] (_) in
+            .subscribe(onSuccess: { [weak self] (success) in
+                guard success else { return }
+                self?.newAddedMember.onNext(member)
             })
             .disposed(by: bag)
         
