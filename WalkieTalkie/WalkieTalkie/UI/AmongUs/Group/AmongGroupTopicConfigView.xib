@@ -66,12 +66,12 @@
                         <action selector="setupButtonAction:" destination="-1" eventType="touchUpInside" id="osB-ya-Z2R"/>
                     </connections>
                 </button>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14b-Uq-Mqg">
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14b-Uq-Mqg" userLabel="roblox">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReU-bS-7Fz">
                             <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
-                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                             <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
                             <state key="normal" title="Button">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

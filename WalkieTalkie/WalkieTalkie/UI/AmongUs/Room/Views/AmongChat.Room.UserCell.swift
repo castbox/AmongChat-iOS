@@ -334,9 +334,7 @@ extension AmongChat.Room {
                 actionHandler?(.editGameName)
                 return
             }
-            user?.nickname?.copyToPasteboardWithHaptic()
-            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
-                
+            user?.nickname?.copyToPasteboardWithHaptic()                
         }
         
         private func bindSubviewEvent() {

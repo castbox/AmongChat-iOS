@@ -61,7 +61,7 @@ extension AmongChat {
         var followUserSuccess: ((LoadDataStatus, Bool) -> Void)?
         var blockUserResult: ((LoadDataStatus, BlockType, Bool) -> Void)?
         var shareEventHandler: () -> Void = { }
-        var onUserJoinedHandler: ((ChatRoom.JoinRoomMessage) -> Void)?
+        var onUserJoinedHandler: ((Entity.RoomUser) -> Void)?
         var messageHandler: ((ChatRoomMessage) -> Void)?
 
         var imViewModel: AmongChat.Room.IMViewModel!
@@ -294,7 +294,7 @@ extension AmongChat {
             }
             let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom)
             addUIMessage(message: joinRoomMsg)
-            onUserJoinedHandler?(joinRoomMsg)
+            onUserJoinedHandler?(joinRoomMsg.user)
         }
         
         // 添加消息
@@ -600,7 +600,7 @@ extension AmongChat {
             } else if let message = crMessage as? ChatRoom.JoinRoomMessage,
                       message.user.uid != Settings.loginUserId {
                 //add to entrance queue
-                onUserJoinedHandler?(message)
+                onUserJoinedHandler?(message.user)
                 addUIMessage(message: message)
             } else if let message = crMessage as? ChatRoom.SystemMessage {
                 addUIMessage(message: message)

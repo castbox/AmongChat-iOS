@@ -100,7 +100,7 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupContainer.isHidden = !group.loginUserIsAdmin
             raiseHandsContainer.isHidden = applyGroupContainer.isHidden
             indexLabel.textColor = nameLabel.textColor
-            gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
+//            gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
             
             gameNameButton.isHidden = !group.topicType.enableNickName
 
@@ -232,7 +232,7 @@ class AmongGroupHostView: XibLoadableView {
             onSeatBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
             onSeatBadge?.scaleCircleSize(by: 0.4)
-            onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width - 5, y: 0, width: 16, height: 16))
+            onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: 16, height: 16))
 //            segmentedView.clipsToBounds = false
 //            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
         }
@@ -245,7 +245,7 @@ class AmongGroupHostView: XibLoadableView {
             applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
             applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
             applyGroupBadge?.scaleCircleSize(by: 0.4)
-            applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 5, y: 0, width: 16, height: 16))
+            applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 1, y: -8, width: 16, height: 16))
 //            segmentedView.clipsToBounds = false
 //            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
         }
@@ -358,7 +358,9 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     private func configureSubview() {
-        addSubviews(views: haloView, disableMicView, svgaView, mutedLabel)
+        insertSubview(haloView, at: 0)
+        
+        addSubviews(views: disableMicView, svgaView, mutedLabel)
         haloView.snp.makeConstraints { (maker) in
             maker.center.equalTo(hostAvatarView)
             maker.width.height.equalTo(60)
@@ -377,6 +379,8 @@ class AmongGroupHostView: XibLoadableView {
             maker.center.equalTo(hostAvatarView)
             maker.width.height.equalTo(hostAvatarView)
         }
+        
+        gameNameButton.titleLabel?.lineBreakMode = .byTruncatingTail
     }
     
     private func updateGameNameTitle() {
@@ -407,5 +411,27 @@ extension AmongGroupHostView: EasyTipViewDelegate {
 }
 
 extension AmongGroupHostView: SVGAPlayerDelegate {
-    
+    func svgaPlayerDidFinishedAnimation(_ player: SVGAPlayer!) {
+//        isPlaySvgaEmoji = false
+//        switch svagPlayerStatus {
+//        case .playingEmojiGame:
+////            svagPlayerStatus = .playingEmojiGame
+//            if let emoji = emojiContent, let hideDelaySec = emoji.hideDelaySec, hideDelaySec > 0 {
+//                mainQueueDispatchAsync(after: Double(hideDelaySec)) { [weak self] in
+//                    player.clear()
+//                    player.videoItem = nil
+//                    self?.emojiPlayEndHandler(self?.emojiContent)
+//                    self?.svagPlayerStatus = .free
+//                }
+//            } else {
+//                player.clear()
+//                player.videoItem = nil
+//                emojiPlayEndHandler(emojiContent)
+//                svagPlayerStatus = .free
+//            }
+//            emojiContent = nil
+//        default:
+            svagPlayerStatus = .free
+//        }
+    }
 }

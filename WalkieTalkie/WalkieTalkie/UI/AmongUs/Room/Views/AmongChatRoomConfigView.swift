@@ -138,7 +138,6 @@ extension AmongChatRoomConfigView {
             } else {
                 Logger.Action.log(.room_amongus_code_copy)
                 self.room.amongUsCode?.copyToPasteboardWithHaptic()
-                self.containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
             }
 
         }

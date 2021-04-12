@@ -16,7 +16,8 @@ extension AmongChat.Room {
         
         private lazy var messageBackgroundLayer = CAGradientLayer()
         private lazy var messageBackgroundView: UIView = {
-           let view = UIView()
+            let view = UIView()
+            view.backgroundColor = .clear
             view.layer.insertSublayer(messageBackgroundLayer, at: 0)
             return view
         }()
@@ -26,7 +27,6 @@ extension AmongChat.Room {
             tb.backgroundColor = .clear
             tb.dataSource = self
             tb.delegate = self
-//            tb.isHidden = true
             tb.separatorStyle = .none
             tb.rowHeight = UITableView.automaticDimension
             tb.estimatedRowHeight = 80
@@ -46,6 +46,7 @@ extension AmongChat.Room {
         }
         
         override func layoutSubviews() {
+            super.layoutSubviews()
             messageBackgroundLayer.frame = messageBackgroundView.bounds
         }
         
@@ -56,7 +57,7 @@ extension AmongChat.Room {
                 let height = self.messageView.bounds.size.height
                 let contentOffsetY = self.messageView.contentOffset.y
                 let bottomOffset = contentHeight - contentOffsetY
-    //            self.newMessageButton.isHidden = true
+                //            self.newMessageButton.isHidden = true
                 // 消息不足一屏
                 if contentHeight < height {
                     self.messageView.reloadData()
@@ -73,11 +74,11 @@ extension AmongChat.Room {
                             self.messageView.scrollToRow(at: endPath, at: .bottom, animated: true)
                         }
                     } else {
-    //                    if self.messageView.numberOfRows(inSection: 0) <= 2 {
-    //                        self.newMessageButton.isHidden = true
-    //                    } else {
-    //                        self.newMessageButton.isHidden = false
-    //                    }
+                        //                    if self.messageView.numberOfRows(inSection: 0) <= 2 {
+                        //                        self.newMessageButton.isHidden = true
+                        //                    } else {
+                        //                        self.newMessageButton.isHidden = false
+                        //                    }
                         self.messageView.reloadData()
                     }
                 }
@@ -93,22 +94,21 @@ extension AmongChat.Room {
             messageBackgroundLayer.startPoint = CGPoint(x: 0, y: 0)
             messageBackgroundLayer.endPoint = CGPoint(x: 0, y: 1)
             messageBackgroundLayer.colors = [UIColor.black.alpha(0).cgColor, UIColor.black.alpha(0.6).cgColor]
-
+            
             addSubviews(views: messageBackgroundView, messageView)
-//            let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
+            //            let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
             messageView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
-//                maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
-//                maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
-//                maker.left.right.equalToSuperview()
+                //                maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
+                //                maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
+                //                maker.left.right.equalToSuperview()
             }
             
             messageBackgroundView.snp.makeConstraints { (maker) in
-                maker.edges.equalToSuperview()
-//                maker.top.left.right.equalTo(messageView)
-//                maker.bottom.equalToSuperview()
+                maker.leading.top.trailing.equalToSuperview()
+                maker.bottom.equalToSuperview().offset(10 + 42 + Frame.Height.safeAeraBottomHeight + 5)
             }
-
+            
         }
         
         func messageListScrollToBottom() {
@@ -148,11 +148,10 @@ extension AmongChat.Room.MessageListView: UITableViewDataSource, UITableViewDele
         
         if let message = dataSource?.messages.safe(indexPath.row) as? MessageListable {
             message.rawContent?.copyToPasteboardWithHaptic()
-            superview?.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
         }
         
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.001
     }

@@ -122,7 +122,7 @@ extension AmongChat.GroupRoom {
             } else if let message = crMessage as? ChatRoom.GroupJoinRoomMessage,
                       message.user.uid != Settings.loginUserId {
                 //add to entrance queue
-//                onUserJoinedHandler?(message)
+                onUserJoinedHandler?(message.user)
                 addUIMessage(message: message)
                 if listenerList.count < 3 {
                     loadListenerList()
@@ -276,15 +276,6 @@ extension AmongChat.GroupRoom {
                 }, onError: { [weak self](error) in
                     cdPrint("followingList error: \(error.localizedDescription)")
                 }).disposed(by: bag)
-            //
-            //            Request.Livecast.Live.Room.users(roomID: roomInfo.room_id, skip: 0, limit: 200)
-            //                .observeOn(MainScheduler.instance)
-            //                .subscribe(onNext: { [weak self] listener in
-            //                    guard let `self` = self else { return }
-            //                    self.listenerList = listener.list
-            //                    self.mySelf = listener.user
-            //                    self.insertNewListener(self.currentUserInfo, forceRefresh: true)
-            //                }).disposed(by: bag)
         }
         
         func updateAmong(code: String, aera: Entity.AmongUsZone) {

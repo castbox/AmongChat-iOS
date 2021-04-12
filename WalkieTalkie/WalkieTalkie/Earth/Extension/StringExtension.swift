@@ -274,6 +274,7 @@ extension String {
     func copyToPasteboardWithHaptic() {
         copyToPasteboard()
         HapticFeedback.Impact.success()
+        UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
 
 }

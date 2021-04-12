@@ -246,7 +246,6 @@ extension FansGroup.AddMemberController {
     
     private func copyLink() {
         shareText.copyToPasteboardWithHaptic()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
     
     private func shareLink() {

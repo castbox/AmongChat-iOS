@@ -90,7 +90,9 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     notesButton.isHidden = true
                 case .roblox:
                     robloxContainer.isHidden = !group.robloxLink.isValid
-                    let titleString = NSAttributedString(string: group.robloxLink ?? "", attributes: [NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue])
+                    let paragraph = NSMutableParagraphStyle()
+                    paragraph.lineBreakMode = .byTruncatingTail
+                    let titleString = NSAttributedString(string: group.robloxLink ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue, NSAttributedString.Key.paragraphStyle: paragraph])
                     robloxLinkButton.setAttributedTitle(titleString, for: .normal)
                     robloxLinkEditButton.setImage(R.image.ac_group_room_copy(), for: .normal)
                     amongUsContainer.isHidden = true
@@ -122,6 +124,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
             
             //copy
             group?.robloxLink?.copyToPasteboardWithHaptic()
+            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
         }
         
     }

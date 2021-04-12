@@ -120,10 +120,7 @@ extension AmongChat.GroupRoom {
             return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
         
-        private lazy var messageView: AmongChat.Room.MessageListView = {
-            let tb = AmongChat.Room.MessageListView()
-            return tb
-        }()
+        private lazy var messageView = AmongChat.Room.MessageListView()
                 
         private lazy var adContainer: UIView = {
             let v = UIView()
@@ -417,8 +414,8 @@ extension AmongChat.GroupRoom.ViewController {
             }
         }
         
-        viewModel.onUserJoinedHandler = { [weak self] message in
-            self?.topEntranceView.add(message.user)
+        viewModel.onUserJoinedHandler = { [weak self] user in
+            self?.topEntranceView.add(user)
         }
         
         viewModel.messageHandler = { [weak self] message in
@@ -816,9 +813,8 @@ extension AmongChat.GroupRoom.ViewController {
             maker.height.equalTo(251)
         }
         
-        let messageViewTopEdge = Frame.Height.deviceDiagonalIsMinThan4_7 ? 0 : 17
         messageView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(seatView.snp.bottom).offset(messageViewTopEdge)
+            maker.top.equalTo(seatView.snp.bottom).offset(-20)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
         }
@@ -848,7 +844,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         topEntranceView.snp.makeConstraints { maker in
             maker.leading.trailing.equalToSuperview()
-            maker.top.equalTo(26 + Frame.Height.safeAeraTopHeight)
+            maker.top.equalTo(topBar.snp.bottom).offset(12)
             maker.height.equalTo(44)
         }
         

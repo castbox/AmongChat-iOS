@@ -114,7 +114,7 @@
                                     <rect key="frame" x="45.5" y="88.5" width="47" height="20"/>
                                     <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="80" id="hlR-Na-YYF"/>
+                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="hlR-Na-YYF"/>
                                         <constraint firstAttribute="height" constant="20" id="zgZ-hl-UDw"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>

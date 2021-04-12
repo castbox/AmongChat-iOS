@@ -481,8 +481,8 @@ extension AmongChat.Room.ViewController {
             }
         }
         
-        viewModel.onUserJoinedHandler = { [weak self] message in
-            self?.topEntranceView.add(message.user)
+        viewModel.onUserJoinedHandler = { [weak self] user in
+            self?.topEntranceView.add(user)
         }
         
         viewModel.messageHandler = { [weak self] message in
