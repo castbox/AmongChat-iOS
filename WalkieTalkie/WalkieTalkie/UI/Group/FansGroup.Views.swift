@@ -795,3 +795,50 @@ extension FansGroup.Views {
         }
     }
 }
+
+extension FansGroup.Views {
+    
+    class EmptyDataView: UIView {
+        
+        private lazy var iconIV: UIImageView = {
+            let i = UIImageView(image: R.image.ac_among_apply_empty())
+            return i
+        }()
+        
+        private(set) lazy var titleLabel: UILabel = {
+            let l = UILabel()
+            l.font = R.font.nunitoExtraBold(size: 16)
+            l.textColor = UIColor(hex6: 0xABABAB)
+            l.textAlignment = .center
+            l.numberOfLines = 0
+            return l
+        }()
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setUpLayout() {
+            
+            addSubviews(views: iconIV, titleLabel)
+            
+            iconIV.snp.makeConstraints { (maker) in
+                maker.top.centerX.equalToSuperview()
+                maker.width.height.equalTo(140)
+            }
+            
+            titleLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.bottom.equalToSuperview()
+                maker.top.equalTo(iconIV.snp.bottom).offset(4)
+            }
+            
+        }
+        
+    }
+    
+}

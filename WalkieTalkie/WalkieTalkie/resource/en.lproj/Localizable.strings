@@ -371,7 +371,7 @@
 "among.chat.delete" = "Delete";
 
 
-//3.31 - wilson
+//1.17
 "alert.drop" = "Drop";
 "group.room.members.title" = "In Channel Members";
 "group.item.edit" = "Edit";
@@ -391,7 +391,6 @@
 "group.room.ignore" = "Ignore";
 "group.room.apply.group.list.empty" = "Oops, no requests yet!";
 "group.room.apply.seat.list.empty" = "Oops, handsyet!";
-
 "group.room.roblox.game.name.plceholder" = "Username";
 "group.room.call.of.duty.game.name.plceholder" = "Username/UID";
 "group.room.pubg.mobile.game.name.plceholder" = "Name/ID";
@@ -401,7 +400,6 @@
 "group.room.minecraft.game.name.plceholder" = "Gamertag";
 "group.room.animal.crossing.game.name.placeholder" = "ID";
 "group.room.brawl.game.name.placeholder" = "Team code/ID";
-
 "group.room.roblox.game.name.tips" = "Click to set up Roblox Username";
 "group.room.call.of.duty.game.name.tips" = "Click to set up COD Username/UID";
 "group.room.pubg.mobile.game.name.tips" = "Click to set up PUBG Player Name/ID";
@@ -418,8 +416,6 @@
 "group.room.yes" = "Yes";
 "group.room.no" = "No";
 "group.room.end.tips" = "Group session just ended";
-
-//1.17
 "among.chat.setting.get.verified" = "Get verified";
 "among.chat.create.new.group" = "Create new group";
 "among.chat.group" = "Group";
