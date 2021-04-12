@@ -31,6 +31,13 @@ extension FansGroup {
             return tb
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.groupRoomApplyGroupListEmpty()
+            v.isHidden = true
+            return v
+        }()
+        
         private let usersRelay = BehaviorRelay<[Entity.UserProfile]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
@@ -107,7 +114,13 @@ extension FansGroup.GroupJoinRequestListViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: tableView)
+        view.addSubviews(views: emptyView, tableView)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(100)
+        }
         
         tableView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
@@ -120,7 +133,9 @@ extension FansGroup.GroupJoinRequestListViewController {
     
     private func setUpEvents() {
         usersRelay
-            .subscribe(onNext: { [weak self] (_) in
+            .subscribe(onNext: { [weak self] (requests) in
+                self?.emptyView.isHidden = requests.count > 0
+                self?.tableView.isHidden = !(requests.count > 0)
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)

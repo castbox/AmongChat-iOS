@@ -67,6 +67,13 @@ extension FansGroup {
             return tb
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.amongChatGroupListEmpty()
+            v.isHidden = true
+            return v
+        }()
+        
         private let groupsRelay = BehaviorRelay<[GroupViewModel]>(value: [])
         private var hasMoreData = true
         private var isLoading = false
@@ -86,7 +93,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
-            loadData()
+            loadData(initialLoad: true)
         }
         
     }
@@ -96,7 +103,13 @@ extension FansGroup {
 extension FansGroup.GroupListViewController {
     
     private func setUpLayout() {
-        view.addSubview(tableView)
+        view.addSubviews(views: emptyView, tableView)
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(100)
+        }
         
         switch source {
         case .myGroups, .allGroups:
@@ -126,14 +139,17 @@ extension FansGroup.GroupListViewController {
     
     private func setUpEvents() {
         groupsRelay
-            .subscribe(onNext: { [weak self] (_) in
+            .skip(1)
+            .subscribe(onNext: { [weak self] (groups) in
+                self?.emptyView.isHidden = groups.count > 0
+                self?.tableView.isHidden = !(groups.count > 0)
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
 
     }
                 
-    private func loadData() {
+    private func loadData(initialLoad: Bool = false) {
         
         guard hasMoreData,
               !isLoading else {
@@ -155,9 +171,15 @@ extension FansGroup.GroupListViewController {
             loader = Request.groupListOfUserJoined(uid, skip: groupsRelay.value.count)
         }
         
+        var hudRemoval: (() -> Void)? = nil
+        if initialLoad {
+            hudRemoval = self.view.raft.show(.loading)
+        }
+        
         loader
             .do(onDispose: { [weak self] () in
                 self?.isLoading = false
+                hudRemoval?()
             })
             .subscribe(onSuccess: { [weak self] (groupList) in
                 
