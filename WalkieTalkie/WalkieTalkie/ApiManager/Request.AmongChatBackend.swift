@@ -981,6 +981,7 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func groupList(skip: Int, limit: Int = 20) -> Single<[Entity.Group]> {
@@ -1213,6 +1214,7 @@ extension Request {
             .mapJSON()
             .mapToDataKeyJsonValue()
             .mapToProcessedValue()
+            .observeOn(MainScheduler.asyncInstance)
     }
     
     static func updateGroup(_ groupId: String, groupData: Entity.GroupProto) -> Single<Entity.Group> {
