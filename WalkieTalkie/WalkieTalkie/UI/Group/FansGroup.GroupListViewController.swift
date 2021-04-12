@@ -195,7 +195,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
                 case .edit:
                     FansGroup.GroupEditViewController.gotoEditGroup(group.group.gid, fromVC: self)
                 case .start:
-                    self.enterRoom(group: group.group, logSource: .matchSource, apiSource: nil)
+                    self.enter(group: group.group, logSource: .matchSource, apiSource: nil)
                 }
             }
             return cell
@@ -216,7 +216,7 @@ extension FansGroup.GroupListViewController: UITableViewDelegate {
             return
         }
         if group.group.status == 1 {
-            enterRoom(group: group.group, logSource: nil, apiSource: nil)
+            enter(group: group.group, logSource: nil, apiSource: nil)
         } else {
             
             let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)

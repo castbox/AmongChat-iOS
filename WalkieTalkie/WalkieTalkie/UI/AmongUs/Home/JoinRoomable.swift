@@ -154,7 +154,7 @@ extension JoinRoomable where Self: ViewController {
 
     }
     
-    func enterRoom(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
 //        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()

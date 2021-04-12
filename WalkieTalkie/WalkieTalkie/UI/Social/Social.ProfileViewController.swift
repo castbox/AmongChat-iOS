@@ -686,7 +686,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     case .edit:
                         FansGroup.GroupEditViewController.gotoEditGroup(group.gid, fromVC: self)
                     case .start:
-                        self.enterRoom(group: group, logSource: .matchSource, apiSource: nil)
+                        self.enter(group: group, logSource: .matchSource, apiSource: nil)
                     }
                 }
                 return cell
@@ -701,7 +701,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             cell.bind(joinedGroupsRelay.value) { [weak self] (group) in
                 
                 if group.status == 1 {
-                    self?.enterRoom(group: group, logSource: nil, apiSource: nil)
+                    self?.enter(group: group, logSource: nil, apiSource: nil)
                 } else {
                     let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
                     self?.navigationController?.pushViewController(vc, animated: true)
@@ -745,7 +745,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                 }
                 
                 if group.status == 1 {
-                    enterRoom(group: group, logSource: nil, apiSource: nil)
+                    enter(group: group, logSource: nil, apiSource: nil)
                 } else {
                     
                     let vc = FansGroup.GroupInfoViewController(groupId: group.gid)

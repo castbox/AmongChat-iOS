@@ -39,10 +39,10 @@ class AmongGroupTopView: XibLoadableView {
     @IBOutlet weak var secondUserIcon: UIImageView!
     @IBOutlet weak var thirdUserIcon: UIImageView!
     @IBOutlet weak var userCountLabel: UILabel!
-
-    private lazy var backgroundLayer = CAGradientLayer()
+    @IBOutlet weak var topicContainer: UIView!
     
-//    var room: Entity.Room?
+    private lazy var topicContainerBg = FansGroup.Views.LeftEclipseView()
+    private lazy var backgroundLayer = CAGradientLayer()
     var actionHandler: ((Action) -> Void)?
 //    var changePublicStateHandler: CallBack?
     var leaveHandler: CallBack?
@@ -168,7 +168,11 @@ class AmongGroupTopView: XibLoadableView {
     }
     
     private func configureSubview() {
-//        publicButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        topicContainer.addSubview(topicContainerBg)
+        topicContainerBg.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
+        
         leaveButton.titleLabel?.adjustsFontSizeToFitWidth = true
 //        nextButton.titleLabel?.adjustsFontSizeToFitWidth = true
 //        leaveButton.titleLabel?.numberOfLines = 0

@@ -91,15 +91,6 @@ class AmongGroupHostView: XibLoadableView {
             } else {
                 svgaUrl = nil
             }
-
-            if let group = group, group.hostNickname.isValid {
-                gameNameButton.setTitle(group.hostNickname, for: .normal)
-            } else {
-                //set nick name
-                gameNameButton.setTitle(group?.topicType.groupGameNamePlaceholder, for: .normal)
-                //show
-                showGameNameTipsIfNeed()
-            }
             
             if Settings.loginUserId == group?.broadcaster.uid {
                 nameLabel.textColor = "#FFF000".color()
@@ -110,7 +101,20 @@ class AmongGroupHostView: XibLoadableView {
             raiseHandsContainer.isHidden = applyGroupContainer.isHidden
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
+            
             gameNameButton.isHidden = group?.topicType == .amongus
+
+            if group?.hostNickname.isValid == true {
+                gameNameButton.setTitle(group?.hostNickname, for: .normal)
+            } else if group?.loginUserIsAdmin == true {
+                //set nick name
+                gameNameButton.setTitle(group?.topicType.groupGameNamePlaceholder, for: .normal)
+                //show
+                showGameNameTipsIfNeed()
+            } else {
+                gameNameButton.isHidden = true
+            }
+            
             updateGameNameTitle()
         }
     }
@@ -298,6 +302,9 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBAction func gameNameAction(_ sender: Any) {
+        guard group?.loginUserIsAdmin == true else {
+            return
+        }
         actionHandler?(.editNickName)
     }
     

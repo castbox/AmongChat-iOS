@@ -24,6 +24,7 @@
                 <outlet property="secondUserIcon" destination="Kwg-3B-Lye" id="caJ-wR-duM"/>
                 <outlet property="thirdUserIcon" destination="bIf-jM-3Gy" id="L9i-Ib-RG2"/>
                 <outlet property="titleLabel" destination="4SZ-8w-hQo" id="f4V-7i-Dbp"/>
+                <outlet property="topicContainer" destination="BkK-0g-L3M" id="0aH-cy-DoG"/>
                 <outlet property="topicIcon" destination="NdW-fx-MrD" id="WeK-hp-M2c"/>
                 <outlet property="topicNameLabel" destination="5iP-9n-7pK" id="2t0-s4-jUK"/>
                 <outlet property="userCountLabel" destination="0Hi-du-MVm" id="sIx-qr-ngE"/>
@@ -47,12 +48,6 @@
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="16"/>
                                 </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="2"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" red="0.34901960780000002" green="0.1764705882" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Among Us" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iP-9n-7pK">
@@ -62,7 +57,6 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="5iP-9n-7pK" firstAttribute="leading" secondItem="NdW-fx-MrD" secondAttribute="trailing" constant="8" id="5LP-TX-X7u"/>
