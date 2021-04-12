@@ -279,8 +279,6 @@ extension FansGroup.AddMemberController: UITableViewDataSource {
             cell.bind(viewModel: user,
                       onAdd: { [weak self] in
                         self?.addMember(user, at: indexPath)
-                      }, onAvatarTap: {
-                        
                       })
         }
         return cell

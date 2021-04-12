@@ -14,29 +14,11 @@ extension FansGroup.AddMemberController {
     class MemberCell: UITableViewCell {
         
         private let bag = DisposeBag()
-        
-        private lazy var avatarIV: AvatarImageView = {
-            let iv = AvatarImageView()
-            iv.layer.cornerRadius = 20
-            iv.layer.masksToBounds = true
-            iv.isUserInteractionEnabled = true
-            return iv
-        }()
-        
-        private lazy var avatarTap: UITapGestureRecognizer = {
-            let g = UITapGestureRecognizer()
-            g.rx.event.subscribe(onNext: { [weak self] (_) in
-                self?.avatarTapHandler?()
-            })
-            .disposed(by: bag)
-            return g
-        }()
-        
-        private lazy var nameLabel: UILabel = {
-            let lb = UILabel()
-            lb.font = R.font.nunitoExtraBold(size: 16)
-            lb.textColor = .white
-            return lb
+                
+        private typealias UserView = AmongChat.Home.UserView
+        private lazy var userView: UserView = {
+            let v = UserView()
+            return v
         }()
 
         private lazy var addBtn: UIButton = {
@@ -79,31 +61,15 @@ extension FansGroup.AddMemberController {
         private func setupLayout() {
             backgroundColor = .clear
             selectionStyle = .none
-
-            avatarIV.addGestureRecognizer(avatarTap)
             
-            contentView.addSubviews(views: avatarIV, nameLabel, addBtn, inGroupLabel)
+            contentView.addSubviews(views: userView, addBtn, inGroupLabel)
             
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.width.height.equalTo(40)
-                maker.centerY.equalToSuperview()
+            userView.snp.makeConstraints { (maker) in
                 maker.leading.equalToSuperview().inset(20)
+                maker.top.bottom.equalToSuperview()
+                maker.trailing.lessThanOrEqualTo(addBtn.snp.leading).offset(-12)
             }
-            
-            let textLayout = UILayoutGuide()
-            contentView.addLayoutGuide(textLayout)
-            
-            textLayout.snp.makeConstraints { (maker) in
-                maker.centerY.equalToSuperview()
-                maker.trailing.equalToSuperview()
-            }
-            
-            nameLabel.snp.makeConstraints { (maker) in
-                maker.leading.equalTo(avatarIV.snp.trailing).offset(12)
-                maker.trailing.equalTo(addBtn.snp.leading).offset(-12)
-                maker.centerY.equalTo(textLayout)
-            }
-            
+                        
             addBtn.snp.makeConstraints { (maker) in
                 maker.centerY.equalToSuperview()
                 maker.trailing.equalToSuperview().inset(20)
@@ -114,19 +80,20 @@ extension FansGroup.AddMemberController {
                 maker.leading.trailing.centerY.equalTo(addBtn)
             }
             
+            addBtn.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            addBtn.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultHigh.rawValue + 1), for: .horizontal)
+            userView.setContentHuggingPriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            userView.setContentCompressionResistancePriority(UILayoutPriority(UILayoutPriority.defaultLow.rawValue - 1), for: .horizontal)
+            
         }
         
-        func bind(viewModel: FansGroup.AddMemberController.MemeberViewModel,
-                  onAdd: @escaping () -> Void,
-                  onAvatarTap: @escaping () -> Void) {
+        func bind(viewModel: FansGroup.AddMemberController.MemeberViewModel, onAdd: @escaping () -> Void) {
             
-            avatarIV.updateAvatar(with: viewModel.member)
-            nameLabel.text = viewModel.member.name
+            userView.bind(profile: viewModel.member)
             
             addBtn.isHidden = viewModel.inGroup
             inGroupLabel.isHidden = !viewModel.inGroup
             addHandler = onAdd
-            avatarTapHandler = onAvatarTap
             
         }
         
