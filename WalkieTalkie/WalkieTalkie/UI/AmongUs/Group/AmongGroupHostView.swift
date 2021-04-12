@@ -102,20 +102,20 @@ class AmongGroupHostView: XibLoadableView {
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
             
-            gameNameButton.isHidden = group.topicType == .amongus
+            gameNameButton.isHidden = group.topicType.enableNickName
 
-            if group.hostNickname.isValid {
-                gameNameButton.setTitle(group.hostNickname, for: .normal)
-            } else if group.loginUserIsAdmin {
-                //set nick name
-                gameNameButton.setTitle(group.topicType.groupGameNamePlaceholder, for: .normal)
-                //show
-                showGameNameTipsIfNeed()
-            } else {
-                gameNameButton.isHidden = true
+            if group.topicType.enableNickName {
+                if group.hostNickname.isValid {
+                    gameNameButton.setTitle(group.hostNickname, for: .normal)
+                } else if group.loginUserIsAdmin {
+                    //set nick name
+                    gameNameButton.setTitle(group.topicType.groupGameNamePlaceholder, for: .normal)
+                    //show
+                    showGameNameTipsIfNeed()
+                }
+                updateGameNameTitle()
             }
-            
-            updateGameNameTitle()
+        
         }
     }
     

@@ -42,8 +42,8 @@ enum PhoneCallRejectType {
 extension PhoneCallRejectType {
     var message: String? {
         switch self {
-//        case .host:
-//            return R.string.localizable.toastCallinReject()
+        case .host:
+            return R.string.localizable.groupRoomApplySeatRejectedTips()
 //        case .timeout:
 //            return R.string.localizable.liveCallinBusy()
         default:
@@ -356,6 +356,21 @@ extension AmongChat.GroupRoom {
                 return Request.stopChannel(groupId: group.gid)
             }
             return Request.leaveChannel(groupId: group.gid)
+        }
+        
+        func requestSeats(remove uid: Int) -> Single<Entity.Group?> {
+            //用户下线，并且在麦上 通知服务端
+            guard seatDataSource.contains(where: { $0.user?.uid == uid}) else {
+                return Single.just(nil)
+            }
+            return Request.groupRoomSeatRemove(group.gid, uid: uid)
+                .do(onSuccess: { [weak self] group in
+                    guard let group = group else {
+                        return
+                    }
+                    self?.update(group)
+//                    self?.callInList(remove: uid)
+                })
         }
         
 //        func applyJoinGroup() -> Single<Bool> {

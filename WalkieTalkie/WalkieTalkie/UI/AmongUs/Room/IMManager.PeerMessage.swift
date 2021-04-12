@@ -83,6 +83,7 @@ extension Peer {
             case invite = 5
             case invite_reject = 6
         }
+        static let defaultExpireTime = 10
         
         var action: Action = .none// call-in状态 1request 2accept 3reject 4handup 5invite 6invite_reject
         var gid: String = ""
@@ -95,7 +96,7 @@ extension Peer {
         
         init(action: Action,
              gid: String,
-             expireTime: Int64,
+             expireTime: Int64 = CallMessage.defaultExpireTime.int64,
              extra: String = "",
              position: Int,
              user: Entity.UserProfile) {

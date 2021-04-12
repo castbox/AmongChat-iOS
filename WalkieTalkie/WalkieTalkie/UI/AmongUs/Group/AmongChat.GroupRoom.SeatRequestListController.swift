@@ -148,6 +148,7 @@ extension AmongChat.GroupRoom.SeatRequestListController: UITableViewDataSource, 
         
         let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
         if let user = userList.safe(indexPath.row) {
+            cell.style = .applyOnSeat
             cell.profile = user.user
             cell.actionHandler = { [weak self] action in
                 switch action {

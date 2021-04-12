@@ -85,20 +85,12 @@ extension AmongChat.GroupRoom {
         
         override func onUserOnlineStateChanged(uid: UInt, isOnline: Bool) {
             super.onUserOnlineStateChanged(uid: uid, isOnline: isOnline)
-            //用户下线，并且在麦上 通知服务端
-            if !isOnline, callInUser(for: uid.int) != nil {
-                //
-                Request.groupRoomSeatRemove(group.gid, uid: uid.int)
-                    .do(onSuccess: { [weak self] group in
-                        guard let group = group else {
-                            return
-                        }
-                        self?.update(group)
-                    })
-                    .subscribe()
-                    .disposed(by: bag)
-                callInList(remove: uid.int)
-            }
+//            guard !isOnline else {
+//                return
+//            }
+//            requestSeats(remove: uid)
+//                .subscribe()
+//                .disposed(by: bag)
         }
         
         //MARK: -
@@ -114,20 +106,8 @@ extension AmongChat.GroupRoom {
             return nil
         }
         
-        //        func callInList(add userInfo: Entity.UserProfile?, action: Peer.CallMessage.Action, extra: String, expire_time: Int64, position: Int, autoShowTips: Bool = true) {
         func callInList(add message: Peer.CallMessage) {
             var callInUserInfo = Entity.CallInUser(message: message)
-            
-//            if callInList.contains(where: { item -> Bool in
-//                if item.user.uid == callInUserInfo.user.uid {
-//                    //同步 extra 信息
-//                    item.message.extra = callInUserInfo.message.extra
-//                    return true
-//                }
-//                return false
-//            }) {
-//                return
-//            }
             guard !callInList.contains(where: { $0.user.uid == callInUserInfo.user.uid }) else {
                 return
             }
@@ -137,11 +117,11 @@ extension AmongChat.GroupRoom {
                 callInUserInfo.startTimeStamp = timeNow.timeIntervalSince1970
             }
             callInList.insert(callInUserInfo, at: 0)
-//            append(callInUserInfo)
+            //            append(callInUserInfo)
             callInListHandler()
-//            if autoShowTips {
-//                callInTipHandler(userInfo, true)
-//            }
+            //            if autoShowTips {
+            //                callInTipHandler(userInfo, true)
+            //            }
         }
         
         func onReceiveCall(message: Peer.CallMessage?) {
@@ -158,10 +138,10 @@ extension AmongChat.GroupRoom {
                     return
                 }
             } else if message.action == .invite_reject {
-//                let message = NSLocalizedString("%@ can't join right now", comment: "").replacingOccurrences(of: "%@", with: callContent.userInfo?.name ?? "")
-//                DispatchQueue.main.async {
-//                    Toast.showToast(alertType: .operationComplete, message: message)
-//                }
+                //                let message = NSLocalizedString("%@ can't join right now", comment: "").replacingOccurrences(of: "%@", with: callContent.userInfo?.name ?? "")
+                //                DispatchQueue.main.async {
+                //                    Toast.showToast(alertType: .operationComplete, message: message)
+                //                }
                 return
             } else {
                 cdPrint("other action: \(message)")
@@ -169,7 +149,7 @@ extension AmongChat.GroupRoom {
         }
         
         func requestGroupRoomSeatAdd(for user: Entity.CallInUser) -> Single<Entity.Group?> {
-            return Request.groupRoomSeatAdd(group.gid, uid: user.uid, in: user.message.position + 1)
+            return Request.groupRoomSeatAdd(group.gid, uid: user.uid, in: user.message.position)
                 .do(onSuccess: { [weak self] group in
                     guard let group = group else {
                         return
@@ -180,34 +160,27 @@ extension AmongChat.GroupRoom {
         
         // MARK: - CALL - 1request 2accept 3reject 4handup 5invite 6reject
         func sendCallSignal(isAccept: Bool, _ callInUser: Entity.CallInUser) {
-//            guard let callInUser = callInUser(for: user.uid) else {
-//                return
-//            }
+            //            guard let callInUser = callInUser(for: user.uid) else {
+            //                return
+            //            }
             if isAccept { // 准备连接
                 // 判断call-in限制数量
-                var callinHostsCount = callInList.filter { $0.message.action == 2 }.count
-                // 如果callin列表数据没有值 则使用麦位数据
-                if callinHostsCount == 0 {
-                    callinHostsCount = group.userList.filter { $0.uid != 0 }.count //
-                }
-                guard callinHostsCount <= 10 else {
-                    return
-                }
+//                var callinHostsCount = callInList.filter { $0.message.action == 2 }.count
+//                // 如果callin列表数据没有值 则使用麦位数据
+//                if callinHostsCount == 0 {
+//                    callinHostsCount = group.userList.filter { $0.uid != 0 }.count //
+//                }
+//                guard callinHostsCount <= 10 else {
+//                    return
+//                }
                 //可以接受，找到 callin 列表中当前message
-                                 var message = callInUser.message
-                message.action = .accept
-                imViewModel.sendPeer(message: message, to: callInUser.uid)
+//                var message = callInUser.message
+//                message.action = .accept
+//                imViewModel.sendPeer(message: message, to: callInUser.uid)
                 //remove
                 callInList(remove: callInUser.uid)
                 callInListHandler()
             } else {
-//                var message = callInUser.message
-//                message.action = .reject
-//                imViewModel.sendPeer(message: message, to: user.uid)
-//                //remove
-//                callInList(remove: user.uid)
-//                callInListHandler()
-//                rejectCall(user: callInUser)
                 rejectCall(uid: callInUser.uid)
             }
         }
@@ -238,7 +211,7 @@ extension AmongChat.GroupRoom {
                 return false
             }
             //移除麦位信息
-//            seats.dropSeat(by: uid)
+            //            seats.dropSeat(by: uid)
             callInListHandler()
         }
         

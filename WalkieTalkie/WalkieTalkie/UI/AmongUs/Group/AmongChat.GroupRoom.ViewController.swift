@@ -252,46 +252,6 @@ extension AmongChat.GroupRoom.ViewController {
 
 extension AmongChat.GroupRoom.ViewController {
     
-    /// 修改数据 发送 call-in-req
-//    func requestPosition(at position: Int) {
-//        //
-//        guard position >= 0 && position < 10 else { return }
-//        //更改麦位状态
-//            if let item = self.dataManager.multiHostItems.value.safe(position) {
-//                item.userInfo = LiveEngine.getCurrentLiveUserInfo()
-//                let call = CallContent()
-//                call.action = .request
-//                call.room_id = self.roomInfo?.room_id ?? ""
-//                call.position = position
-//                item.callContent = call
-//                self.dataManager.sendCallSignal(isCallRequest: true, position: position)
-//                self.dataManager.multiHostItems.accept(self.dataManager.multiHostItems.value)
-//            }
-//    }
-    
-//    func onSeatRequestListAction(<#parameters#>) -> <#return type#> {
-//        let vc = AmongChat.GroupRoom.SeatRequestListController(with: replay)
-//        vc.actionHandler = { [weak self, weak vc] user, action in
-//            guard let `self` = self else { return }
-//            switch action {
-//            case .accept:
-//                let removeHandler = vc?.view.raft.show(.loading)
-//                self.broadcasterViewModel?.requestGroupRoomSeatAdd(for: user)
-//                    .subscribe(onSuccess: { [weak self] result in
-//                        removeHandler?()
-//                        self?.broadcasterViewModel?.sendCallSignal(isAccept: true, user)
-//                    }, onError: { error in
-//                        removeHandler?()
-//                    })
-//                    .disposed(by: self.bag)
-//            case .reject:
-//                self.broadcasterViewModel?.sendCallSignal(isAccept: false, user)
-//            }
-//
-//        }
-//
-//    }
-    
     private func bindSubviewEvent() {
         startRtcAndImService()
 
@@ -576,8 +536,9 @@ extension AmongChat.GroupRoom.ViewController {
                             .subscribe(onSuccess: { [weak self] result in
                                 removeHandler?()
                                 self?.broadcasterViewModel?.sendCallSignal(isAccept: true, user)
-                            }, onError: { error in
+                            }, onError: { [weak self] error in
                                 removeHandler?()
+                                self?.view.raft.autoShow(.text(R.string.localizable.serverLostTips()))
                             })
                             .disposed(by: self.bag)
                     case .reject:
@@ -756,16 +717,29 @@ extension AmongChat.GroupRoom.ViewController {
         case .kick:
             requestKick([user.uid])
         case .drop:
-            if viewModel.group.loginUserIsAdmin {
-                //踢人
-                broadcasterViewModel?.rejectCall(uid: user.uid)
-            } else {
-                //下麦
-                audienceViewModel?.phoneCallHangUpBySelf()
-            }
+            requestSeats(remove: user.uid)
         default:
             ()
         }
+    }
+    
+    func requestSeats(remove uid: Int) {
+        let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+        viewModel.requestSeats(remove: uid)
+            .subscribe { [weak self] result in
+                removeBlock()
+                if self?.viewModel.group.loginUserIsAdmin == true {
+                    //踢人
+                    self?.broadcasterViewModel?.rejectCall(uid: uid)
+                } else {
+                    //下麦
+//                    self?.audienceViewModel?.phoneCallHangUpBySelf()
+                }
+            } onError: { [weak self] error in
+                removeBlock()
+                self?.view.raft.autoShow(.text(R.string.localizable.serverLostTips()))
+            }
+            .disposed(by: self.bag)
     }
     
     func requestKick(_ users: [Int]) {
@@ -932,23 +906,5 @@ private extension AmongChat.GroupRoom.ViewController {
                 self?.hostView.updateOnSeatBadge(with: users.count)
             })
             .disposed(by: bag)
-        //
-//        broadcasterViewModel?.callInListHandler = { [weak self] in
-//            guard let `self` = self else { return }
-//            // 多人连麦
-//            //                if self.roomInfo.type == .multi || self.roomInfo.type == .dating {
-//            // 只显示requesting的主播
-//            let tmp = self.dataManager.callInList.filter({ (info) -> Bool in
-//                return info.action == 1
-//            })
-//            self.callInListView.callInUsers = tmp
-//            //                } else {
-//            //                    self.callInListView.callInUsers = self.dataManager.callInList
-//            //                }
-//            self.callInListView.callInList = self.dataManager.callInList
-//            // phonebutton 状态
-//            let requestList = self.callInListView.callInUsers.filter { $0.action == 1 }
-//            self.phoneButtonBadge?.setCount(requestList.count)
-//        }
     }
 }

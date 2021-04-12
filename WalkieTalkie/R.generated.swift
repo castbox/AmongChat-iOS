@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 397 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 398 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2995,6 +2995,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, server connection was lost, please try again later.
+      /// 
+      /// Locales: en
+      static let serverLostTips = Rswift.StringResource(key: "server.lost.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5290,6 +5294,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoTeammates(_: Void = ()) -> String {
         return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, server connection was lost, please try again later.
+      /// 
+      /// Locales: en
+      static func serverLostTips(_: Void = ()) -> String {
+        return NSLocalizedString("server.lost.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Open Game
