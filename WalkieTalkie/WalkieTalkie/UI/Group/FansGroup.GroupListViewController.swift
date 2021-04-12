@@ -146,7 +146,7 @@ extension FansGroup.GroupListViewController {
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
-
+        
     }
                 
     private func loadData(initialLoad: Bool = false) {
@@ -194,6 +194,44 @@ extension FansGroup.GroupListViewController {
             })
             .disposed(by: bag)
     }
+    
+    private func gotoEditGroup(_ groupId: String) {
+        
+        let hudRemoval = view.raft.show(.loading)
+        
+        FansGroup.GroupEditViewController.groupEditVC(groupId)
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (vc) in
+                vc.editingHandler = { action, group in
+                    
+                    guard let `self` = self else { return }
+                    
+                    switch action {
+                    case .delete:
+                        var groups = self.groupsRelay.value
+                        groups.removeAll(where: { $0.group.gid == group.gid })
+                        self.groupsRelay.accept(groups)
+                    case .update:
+                        
+                        var groups = self.groupsRelay.value
+                        if let idx = groups.firstIndex(where: { $0.group.gid == group.gid }) {
+                            let updatedGroup = GroupViewModel(group: group)
+                            groups[idx] = updatedGroup
+                            self.groupsRelay.accept(groups)
+                        }
+                        
+                    }
+                    
+                }
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
+        
+    }
 }
 
 extension FansGroup.GroupListViewController: UITableViewDataSource {
@@ -215,7 +253,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
                 guard let `self` = self else { return }
                 switch action {
                 case .edit:
-                    FansGroup.GroupEditViewController.gotoEditGroup(group.group.gid, fromVC: self)
+                    self.gotoEditGroup(group.group.gid)
                 case .start:
                     self.enter(group: group.group, logSource: .matchSource, apiSource: nil)
                 }

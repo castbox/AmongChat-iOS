@@ -16,6 +16,11 @@ extension FansGroup {
     
     class GroupEditViewController: WalkieTalkie.ViewController {
         
+        enum EditAction {
+            case update
+            case delete
+        }
+        
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
             n.leftBtn.setImage(R.image.ac_back(), for: .normal)
@@ -51,7 +56,7 @@ extension FansGroup {
                 btn.rx.controlEvent(.primaryActionTriggered)
                     .subscribe(onNext: { [weak self] (_) in
                         self?.toDeleteGroup(completionHandler: {
-                            self?.navigationController?.popToRootViewController(animated: true)
+                            self?.navigationController?.popViewController(animated: true)
                         })
                     })
                     .disposed(by: bag)
@@ -107,6 +112,8 @@ extension FansGroup {
         
         private var groupInfo: Entity.GroupInfo
         private var currentTopic: FansGroup.TopicViewModel
+        
+        var editingHandler: ((EditAction, Entity.Group) -> Void)? = nil
         
         init(groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -253,60 +260,54 @@ extension FansGroup.GroupEditViewController {
     
     private func updateGroupCover(_ image: UIImage) {
         
+        let hudRemoval = self.view.raft.show(.loading)
+        
         FansGroup.CreateGroupViewController.ViewModel.uploadCover(coverImage: image)
-            .flatMap { [weak self] (coverUrl) -> Single<Void> in
-                guard let `self` = self else {
-                    return Single.error(MsgError.default)
-                }
-                let groupProto = Entity.GroupProto(topicId: nil, cover: coverUrl, name: nil, description: nil)
-                return Request.updateGroup(self.groupInfo.group.gid, groupData: groupProto).map { _ in }
-            }
-            .subscribe(onSuccess: { (_) in
-                
-            }, onError: { (error) in
-                
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .map({
+                Entity.GroupProto(topicId: nil, cover: $0, name: nil, description: nil)
+            })
+            .subscribe(onSuccess: { [weak self] (groupProto) in
+                self?.updateGroup(groupProto)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
     }
     
     private func updateGroupName(_ name: String?) {
-        
-        guard let name = name else { return }
-        
-        let groupProto = Entity.GroupProto(topicId: nil, cover: nil, name: name, description: nil)
-        Request.updateGroup(groupInfo.group.gid, groupData: groupProto)
-            .subscribe(onSuccess: { (_) in
-                
-            }, onError: { (error) in
-                
-            })
-            .disposed(by: bag)
+        updateGroup(Entity.GroupProto(topicId: nil, cover: nil, name: name, description: nil))
     }
     
     private func updateGroupDescription(_ desc: String?) {
-        
-        guard let desc = desc else { return }
-        
-        let groupProto = Entity.GroupProto(topicId: nil, cover: nil, name: nil, description: desc)
-        Request.updateGroup(groupInfo.group.gid, groupData: groupProto)
-            .subscribe(onSuccess: { (_) in
-                
-            }, onError: { (error) in
-                
-            })
-            .disposed(by: bag)
+        updateGroup(Entity.GroupProto(topicId: nil, cover: nil, name: nil, description: desc))
     }
     
     private func updateGroupTopic(_ topicId: String) {
+        updateGroup(Entity.GroupProto(topicId: topicId, cover: nil, name: nil, description: nil))
+    }
+    
+    private func updateGroup(_ groupProto: Entity.GroupProto) {
         
-        let groupProto = Entity.GroupProto(topicId: topicId, cover: nil, name: nil, description: nil)
+        guard groupProto.isValid else {
+            return
+        }
+        
+        let hudRemoval = self.view.raft.show(.loading)
+        
         Request.updateGroup(groupInfo.group.gid, groupData: groupProto)
-            .subscribe(onSuccess: { (_) in
-                
-            }, onError: { (error) in
-                
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (group) in
+                self?.editingHandler?(.update, group)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
+        
     }
     
     private func toDeleteGroup(completionHandler: @escaping (() -> Void)) {
@@ -346,7 +347,9 @@ extension FansGroup.GroupEditViewController {
                 .do(onDispose: {
                     hudRemoval?()
                 })
-                .subscribe(onSuccess: { (_) in
+                .subscribe(onSuccess: { [weak self] (_) in
+                    guard let `self` = self else { return }
+                    self.editingHandler?(.delete, self.groupInfo.group)
                     completionHandler()
                 }, onError: { (error) in
                     
@@ -424,19 +427,8 @@ extension FansGroup.GroupEditViewController {
 
 extension FansGroup.GroupEditViewController {
     
-    class func gotoEditGroup(_ groupId: String, fromVC: UIViewController) {
-        
-        let hudRemoval = fromVC.view.raft.show(.loading)
-        
-        let _ = Request.groupInfo(groupId)
-            .do(onDispose: {
-                hudRemoval()
-            })
-            .subscribe(onSuccess: { (groupInfo) in
-                let vc = FansGroup.GroupEditViewController(groupInfo: groupInfo)
-                fromVC.navigationController?.pushViewController(vc, animated: true)
-            }, onError: { (error) in
-                fromVC.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
-            })
+    class func groupEditVC(_ groupId: String) -> Single<FansGroup.GroupEditViewController> {
+        return Request.groupInfo(groupId)
+            .map({ return FansGroup.GroupEditViewController(groupInfo: $0) })
     }
 }

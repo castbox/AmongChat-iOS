@@ -613,6 +613,49 @@ private extension Social.ProfileViewController {
         followButton.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
         followButton.setTitleColor(.black, for: .normal)
     }
+    
+    private func gotoEditGroup(_ groupId: String) {
+        
+        let hudRemoval = view.raft.show(.loading)
+        
+        FansGroup.GroupEditViewController.groupEditVC(groupId)
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (vc) in
+                vc.editingHandler = { action, group in
+                    
+                    guard let `self` = self else { return }
+                    
+                    switch action {
+                    case .delete:
+                        var groups = self.createdGroupsRelay.value
+                        groups.removeAll(where: { $0.gid == group.gid })
+                        
+                        if groups.count > 0 {
+                            self.createdGroupsRelay.accept(groups)
+                        } else {
+                            self.fetchCreatedGroups()
+                        }
+                        
+                    case .update:
+                        
+                        var groups = self.createdGroupsRelay.value
+                        if let idx = groups.firstIndex(where: { $0.gid == group.gid }) {
+                            groups[idx] = group
+                            self.createdGroupsRelay.accept(groups)
+                        }
+                        
+                    }
+
+                }
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
+        
+    }
 }
 // MARK: - UITableView
 extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelegate {
@@ -684,7 +727,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     guard let `self` = self else { return }
                     switch action {
                     case .edit:
-                        FansGroup.GroupEditViewController.gotoEditGroup(group.gid, fromVC: self)
+                        self.gotoEditGroup(group.gid)
                     case .start:
                         self.enter(group: group, logSource: .matchSource, apiSource: nil)
                     }
