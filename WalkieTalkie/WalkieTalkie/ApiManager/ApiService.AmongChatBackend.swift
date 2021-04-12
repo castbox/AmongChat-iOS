@@ -72,6 +72,7 @@ extension APIService {
         case enterGroupChannel([String : Any])
         case leaveGroupChannel([String : Any])
         case createGroup([String : Any])
+        case groupCheckHaveLive
         case followersToAddToGroup([String : Any])
         case addMemberToGroup([String : Any])
         case groupLiveUserList([String: Any])
@@ -226,6 +227,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/group/live/user/list"
         case .createGroup:
             return "/api/v1/group/create"
+        case .groupCheckHaveLive:
+            return "/api/v1/group/live/check"
         case .followersToAddToGroup:
             return "/social/relation/group/followers"
         case .addMemberToGroup:
@@ -330,6 +333,7 @@ extension APIService.AmongChatBackend: TargetType {
              .stopGroupChannel,
              .enterGroupChannel,
              .leaveGroupChannel,
+             .groupCheckHaveLive,
              .userGameSkills,
              .followersToAddToGroup,
              .groupList,
@@ -374,6 +378,7 @@ extension APIService.AmongChatBackend: TargetType {
              .topics,
              .accountMetaData,
              .contactList,
+             .groupCheckHaveLive,
              .defaultDecorations,
              .globalSetting,
              .gameSkills,

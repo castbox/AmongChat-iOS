@@ -969,6 +969,24 @@ extension Request {
         
     }
     
+    static func groupCheckHaveLive() -> Single<Entity.Group?> {
+        return amongchatProvider.rx.request(.groupCheckHaveLive)
+            .mapJSON()
+            .map { item -> [String : AnyObject] in
+                guard let json = item as? [String: AnyObject] else {
+                    throw MsgError.default
+                }
+                if let data = json["data"] as? [String: AnyObject],
+                   let roomData = data["group"] as? [String : AnyObject] {
+                    return roomData
+                } else {
+                    throw MsgError.from(dic: json)
+                }
+            }
+            .mapTo(Entity.Group.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     
     static func addMember(_ uid: Int, to group: String) -> Single<Bool> {
         
@@ -1199,12 +1217,6 @@ extension Request {
         return amongchatProvider.rx.request(.updateGroup(params))
             .mapJSON()
             .mapToDataKeyJsonValue()
-//            .map { (jsonAny) -> [String: AnyObject] in
-//                guard let room = jsonAny["data"] as? [String: AnyObject] else {
-//                    return [:]
-//                }
-//                return room
-//            }
             .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }

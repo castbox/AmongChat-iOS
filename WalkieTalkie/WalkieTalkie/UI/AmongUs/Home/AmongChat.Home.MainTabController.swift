@@ -25,6 +25,11 @@ extension AmongChat.Home {
         
         private weak var notificationBanner: FloatingNotificationBanner?
         private weak var notificationBannerDimmerView: UIView?
+        
+        var topVC: WalkieTalkie.ViewController? {
+            UIApplication.topViewController() as? WalkieTalkie.ViewController
+        }
+        
         override func viewDidLoad() {
             super.viewDidLoad()
             delegate = self
@@ -199,8 +204,25 @@ extension AmongChat.Home.MainTabController {
                 self?.showAvatarGuideViewController(with: setting)
             })
             .disposed(by: bag)
+        //
+        checkHaveGroupLiveRoom()
     }
     
+    func checkHaveGroupLiveRoom() {
+        Request.groupCheckHaveLive()
+            .compactMap { $0 }
+            .subscribe(onSuccess: { [weak self] group in
+                guard let `self` = self else { return }
+                self.topVC?.showAmongAlert(title: R.string.localizable.groupRoomResumeTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel(), confirmTitle: R.string.localizable.groupRoomResumeOk(), confirmAction: { [weak self] in
+                    self?.topVC?.enter(group: group)
+                })
+                
+            }, onError: { error in
+                
+            })
+            .disposed(by: bag)
+
+    }
 }
 
 extension AmongChat.Home.MainTabController {

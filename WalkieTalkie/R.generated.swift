@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 398 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 400 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3167,6 +3167,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumRestoreSucceeded = Rswift.StringResource(key: "premium.restore.succeeded", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Resume
+      /// 
+      /// Locales: en
+      static let groupRoomResumeOk = Rswift.StringResource(key: "group.room.resume.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Resume broadcasting
+      /// 
+      /// Locales: en
+      static let groupRoomResumeTitle = Rswift.StringResource(key: "group.room.resume.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5595,6 +5603,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumRestoreSucceeded(_: Void = ()) -> String {
         return NSLocalizedString("premium.restore.succeeded", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Resume
+      /// 
+      /// Locales: en
+      static func groupRoomResumeOk(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.resume.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Resume broadcasting
+      /// 
+      /// Locales: en
+      static func groupRoomResumeTitle(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.resume.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Roblox Username

@@ -417,6 +417,8 @@
 "group.room.no" = "No";
 "group.room.end.tips" = "Group session just ended";
 "server.lost.tips" = "Oops, server connection was lost, please try again later.";
+"group.room.resume.title" = "Resume broadcasting";
+"group.room.resume.ok" = "Resume";
 
 "among.chat.setting.get.verified" = "Get verified";
 "among.chat.create.new.group" = "Create new group";
