@@ -2379,10 +2379,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialCopyLink = Rswift.StringResource(key: "social.copy.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Creat a Group
-      /// 
-      /// Locales: en
-      static let amongChatCreateAGroup = Rswift.StringResource(key: "among.chat.create.a.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2395,6 +2391,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Create a Group
+      /// 
+      /// Locales: en
+      static let amongChatCreateAGroup = Rswift.StringResource(key: "among.chat.create.a.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Create new group
       /// 
       /// Locales: en
@@ -4230,13 +4230,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.copy.link", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Creat a Group
-      /// 
-      /// Locales: en
-      static func amongChatCreateAGroup(_: Void = ()) -> String {
-        return NSLocalizedString("among.chat.create.a.group", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Create
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4256,6 +4249,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create a Group
+      /// 
+      /// Locales: en
+      static func amongChatCreateAGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.a.group", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Create new group

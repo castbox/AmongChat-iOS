@@ -194,7 +194,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             let l = UILabel()
             l.font = R.font.nunitoExtraBold(size: 16)
             l.textColor = UIColor(hex6: 0x898989)
-            l.text = "\(groupInfo.group.membersCount - 1)" + " " + R.string.localizable.amongChatGroupMembers()
+            l.text = "\(groupInfo.group.membersCount)" + " " + R.string.localizable.amongChatGroupMembers()
             
             v.addSubview(l)
             l.snp.makeConstraints { (maker) in
