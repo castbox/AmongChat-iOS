@@ -113,7 +113,7 @@ extension FansGroup.CreateGroupViewController {
                 let rootVC = self?.navigationController?.viewControllers.first as? WalkieTalkie.ViewController
                 vc.doneHandler = { [weak vc] in
                     vc?.navigationController?.popViewController(animated: true)
-                    rootVC?.enterRoom(group: group, logSource: .matchSource, apiSource: nil)
+                    rootVC?.enter(group: group)
                 }
                 self?.navigationController?.pushViewController(vc, completion: {
                     self?.navigationController?.viewControllers.removeAll(where: { $0 is Self })
