@@ -41,40 +41,14 @@ extension AmongChat.GroupRoom {
         
         //MARK: - override
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
-            cdPrint("onReceiveChatRoom- \(crMessage)")
-            guard state != .disconnected else {
-                return
-            }
-            
-            if let message = crMessage as? ChatRoom.TextMessage {
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.GroupJoinRoomMessage,
-                      message.user.uid != Settings.loginUserId {
-                //add to entrance queue
-                //                onUserJoinedHandler?(message)
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.SystemMessage {
-                addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.GroupInfoMessage {
-                if message.ms > lastestUpdateRoomMs {
-                    lastestUpdateRoomMs = message.ms
-                    update(message.group)
-                }
-            } else if let message = crMessage as? ChatRoom.KickOutMessage,
-                      message.user.uid == Settings.loginUserId,
-                      group.rtcType == .agora {
-                //自己
-                endRoomHandler?(.kickout(message.opRole))
+            if let message = crMessage as? ChatRoom.KickOutMessage,
+               message.user.uid != Settings.loginUserId,
+               group.rtcType == .agora {
                 callInList(remove: message.user.uid)
             } else if let message = crMessage as? ChatRoom.GroupLeaveRoomMessage {
-                otherMutedUser.remove(message.user.uid.uInt)
                 callInList(remove: message.user.uid)
-            } else if crMessage.msgType == .emoji {
-                messageHandler?(crMessage)
             }
-            //            else if message.messageType == .call { // Call 电话状态
-            //                self.callMessageHandler(callContent: content as? CallContent)
-            //            }
+            super.onReceiveChatRoom(crMessage: crMessage)
         }
         
         override func onReceivePeer(message: PeerMessage) {

@@ -113,9 +113,9 @@ extension AmongChat.GroupRoom {
         
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
             cdPrint("onReceiveChatRoom- \(crMessage)")
-            guard state != .disconnected else {
-                return
-            }
+//            guard state != .disconnected else {
+//                return
+//            }
             
             if let message = crMessage as? ChatRoom.TextMessage {
                 addUIMessage(message: message)
@@ -149,9 +149,6 @@ extension AmongChat.GroupRoom {
             } else if crMessage.msgType == .emoji {
                 messageHandler?(crMessage)
             }
-//            else if message.messageType == .call { // Call 电话状态
-//                self.onReceiveCallMessage(callContent: content as? CallContent)
-//            }
         }
         
         //MARK: -- Request
