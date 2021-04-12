@@ -89,7 +89,8 @@ extension FansGroup {
             let btn = v.button
             btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
-            btn.backgroundColor = UIColor(hexString: "#2B2B2B")
+            btn.setBackgroundImage("#2B2B2B".color().image, for: .normal)
+            btn.setBackgroundImage("#2B2B2B".color().image, for: .disabled)
 
             selectedMembersRelay.map { $0.count }
                 .subscribe(onNext: { (count) in
