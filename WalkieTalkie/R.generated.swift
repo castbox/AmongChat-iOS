@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 397 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 398 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2987,6 +2987,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoSearch = Rswift.StringResource(key: "error.no.search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no members yet!
+      /// 
+      /// Locales: en
+      static let amongChatGroupMembersEmptyTip = Rswift.StringResource(key: "among.chat.group.members.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no requests yet!
       /// 
       /// Locales: en
@@ -5276,6 +5280,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func errorNoSearch(_: Void = ()) -> String {
         return NSLocalizedString("error.no.search", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no members yet!
+      /// 
+      /// Locales: en
+      static func amongChatGroupMembersEmptyTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.members.empty.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, no requests yet!

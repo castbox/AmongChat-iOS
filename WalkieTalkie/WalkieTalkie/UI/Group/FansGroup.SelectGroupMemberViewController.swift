@@ -76,6 +76,13 @@ extension FansGroup {
             return tb
         }()
         
+        private lazy var emptyView: FansGroup.Views.EmptyDataView = {
+            let v = FansGroup.Views.EmptyDataView()
+            v.titleLabel.text = R.string.localizable.amongChatGroupMembersEmptyTip()
+            v.isHidden = true
+            return v
+        }()
+        
         private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
             let v = FansGroup.Views.BottomGradientButton()
             
@@ -110,6 +117,11 @@ extension FansGroup {
         
         private let groupInfo: Entity.GroupInfo
         
+        private let kickedMembersSubject = PublishSubject<[Int]>()
+        var kickedMembersObservable: Observable<[Int]> {
+            return kickedMembersSubject.asObservable()
+        }
+        
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
             super.init(nibName: nil, bundle: nil)
@@ -123,7 +135,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             setUpEvents()
-            fetchMembers()
+            fetchMembers(initialLoad: true)
         }
         
     }
@@ -173,12 +185,18 @@ extension FansGroup.SelectGroupMemberViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: navView, tableView, bottomGradientView)
+        view.addSubviews(views: navView, emptyView, tableView, bottomGradientView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.top.equalTo(topLayoutGuide.snp.bottom)
             maker.height.equalTo(49)
+        }
+        
+        emptyView.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.leading.greaterThanOrEqualToSuperview().offset(40)
+            maker.top.equalTo(100)
         }
         
         tableView.snp.makeConstraints { (maker) in
@@ -190,6 +208,11 @@ extension FansGroup.SelectGroupMemberViewController {
         bottomGradientView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.height.equalTo(134)
+        }
+        
+        tableView.pullToRefresh { [weak self] in
+            self?.fetchMembers(refresh: true)
         }
         
         tableView.pullToLoadMore { [weak self] in
@@ -199,32 +222,48 @@ extension FansGroup.SelectGroupMemberViewController {
     
     private func setUpEvents() {
         membersRelay
-            .subscribe(onNext: { [weak self] (_) in
+            .skip(1)
+            .subscribe(onNext: { [weak self] (members) in
+                self?.emptyView.isHidden = members.count > 0
+                self?.tableView.isHidden = !(members.count > 0)
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
         
     }
     
-    private func fetchMembers() {
-        guard hasMoreData,
+    private func fetchMembers(initialLoad: Bool = false, refresh: Bool = false) {
+        guard hasMoreData || refresh,
               !isLoading else {
             return
         }
         
         isLoading = true
         
+        var hudRemoval: (() -> Void)? = nil
+        if initialLoad {
+            hudRemoval = self.view.raft.show(.loading)
+        }
+        
+        let skip: Double = refresh ? 0 : membersRelay.value.last?.user.opTime ?? 0
+        
         Request.membersOfGroup(groupInfo.group.gid,
-                               skipMs: membersRelay.value.last?.user.opTime ?? 0)
+                               skipMs: skip)
             .do(onDispose: { [weak self] () in
                 self?.isLoading = false
+                hudRemoval?()
             })
             .subscribe(onSuccess: { [weak self] (memberList) in
                 
                 guard let `self` = self else {
                     return
                 }
+                
+                
                 var members = self.membersRelay.value
+                if refresh {
+                    members.removeAll()
+                }
                 members.append(contentsOf: memberList.list.map({ CellViewModel(user: $0) }))
                 self.membersRelay.accept(members)
                 self.hasMoreData = memberList.more
@@ -255,6 +294,8 @@ extension FansGroup.SelectGroupMemberViewController {
                 var members = self.membersRelay.value
                 members.removeAll(where: { $0.isSelected })
                 self.membersRelay.accept(members)
+                self.hasMoreData = true
+                self.kickedMembersSubject.onNext(uids)
                 
             }, onError: { (error) in
                 
