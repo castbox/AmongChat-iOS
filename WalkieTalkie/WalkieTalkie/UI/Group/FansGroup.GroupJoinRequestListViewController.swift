@@ -44,6 +44,10 @@ extension FansGroup {
         
         private let groupInfo: Entity.GroupInfo
         
+        var requestsCountObservable: Observable<Int> {
+            return usersRelay.map { $0.count }.asObservable()
+        }
+        
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
             super.init(nibName: nil, bundle: nil)

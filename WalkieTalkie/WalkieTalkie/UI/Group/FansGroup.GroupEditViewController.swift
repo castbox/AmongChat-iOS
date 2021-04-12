@@ -403,6 +403,21 @@ extension FansGroup.GroupEditViewController {
             table?.contentOffset = .zero
         })
         .disposed(by: bag)
+        
+        requestListVC.requestsCountObservable
+            .subscribe(onNext: { [weak self] (count) in
+                
+                let requestsTitleLabel = (self?.segmentedButton.buttonOf(1) as? UIButton)?.titleLabel
+                
+                guard count > 0 else {
+                    requestsTitleLabel?.redDotOff()
+                    return
+                }
+                
+                requestsTitleLabel?.redDotOn(string: count.string, rightInset: 0, topInset: 0, diameter: 16)
+                
+            })
+            .disposed(by: bag)
     }
     
 }

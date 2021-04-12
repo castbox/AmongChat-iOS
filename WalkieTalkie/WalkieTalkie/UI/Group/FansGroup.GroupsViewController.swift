@@ -375,6 +375,9 @@ extension FansGroup.GroupsViewController {
             selectedIndexrRelay.accept(index)
         }
         
+        func buttonOf(_ index: Int) -> UIView? {
+            return buttons.safe(index)
+        }
     }
     
 }
