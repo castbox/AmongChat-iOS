@@ -801,7 +801,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
 //        cdPrint("userId: \(userId) volume: \(volume)")
         if let user = roomInfo.userList.first(where: { $0.uid.uInt == userId }) {
             soundAnimationIndex.accept(user.seatNo - 1)
-        } else if let group = roomInfo as? Entity.GroupRoom,
+        } else if let group = roomInfo as? Entity.Group,
                   userId.int == group.uid {
             //-1 is host
             soundAnimationIndex.accept(-1)

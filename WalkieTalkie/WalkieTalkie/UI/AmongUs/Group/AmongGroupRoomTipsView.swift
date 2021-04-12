@@ -39,7 +39,7 @@ class AmongGroupRoomTipsView: UIView {
     
     var editHandler: CallBack?
     
-    var group: Entity.GroupRoom? {
+    var group: Entity.Group? {
         didSet {
             introLabel.text = group?.note ?? "Label Label Label Label Label Label Label Label Label Label Label Label Label Label"
             editButton.isHidden = group?.loginUserIsAdmin == false
@@ -56,7 +56,7 @@ class AmongGroupRoomTipsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func update(_ group: Entity.GroupRoom) -> CGSize {
+    func update(_ group: Entity.Group) -> CGSize {
         let introString = group.note ?? "Label Label Label Label Label Label Label Label Label Label Label Label Label Label"
         introLabel.text = introString
         editButton.isHidden = group.loginUserIsAdmin == false

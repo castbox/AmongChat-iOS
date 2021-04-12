@@ -54,7 +54,12 @@ extension FansGroup {
             btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
-                    self?.navigationController?.popToRootViewController(animated: true)
+                    guard let `self` = self else { return }
+                    if let roomViewController = self.navigationController?.viewControllers.first(where: { $0 is AmongChat.GroupRoom.ContainerController }) as? AmongChat.GroupRoom.ContainerController {
+                        self.navigationController?.popViewController()
+                    } else {
+                        self.enter(group: self.groupEntity)
+                    }
                 })
                 .disposed(by: bag)
             return btn
@@ -83,11 +88,11 @@ extension FansGroup {
         }
         
         private var groupName: String {
-            return groupEntity?.name ?? groupRoomEntity?.name ?? ""
+            return groupEntity.name ?? ""
         }
         
         private var groupCover: String? {
-            return groupEntity?.cover ?? groupRoomEntity?.cover
+            return groupEntity.cover
         }
         
         private let membersRelay = BehaviorRelay<[MemeberViewModel]>(value: [])
@@ -95,13 +100,13 @@ extension FansGroup {
         private var isLoading = false
         
         private let groupId: String
-        private let groupEntity: Entity.Group?
-        private let groupRoomEntity: Entity.GroupRoom?
+        private let groupEntity: Entity.Group
+//        private let groupRoomEntity: Entity.Group?
         
-        init(groupId: String, _ group: Entity.Group? = nil, _ groupRoom: Entity.GroupRoom? = nil) {
+        init(groupId: String, _ group: Entity.Group) {
             self.groupId = groupId
             groupEntity = group
-            groupRoomEntity = groupRoom
+//            groupRoomEntity = groupRoom
             super.init(nibName: nil, bundle: nil)
         }
         

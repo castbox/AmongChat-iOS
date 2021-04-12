@@ -860,7 +860,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func startChannel(groupId: String) -> Single<Entity.GroupRoom?> {
+    static func startChannel(groupId: String) -> Single<Entity.Group?> {
         let params: [String : Any] = [
             "gid": groupId
         ]
@@ -877,7 +877,7 @@ extension Request {
                     throw MsgError.from(dic: json)
                 }
             }
-            .mapTo(Entity.GroupRoom.self)
+            .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -913,7 +913,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-//    static func roomUserList(groupId: String) -> Single<Entity.GroupRoom?> {
+//    static func roomUserList(groupId: String) -> Single<Entity.Group?> {
 //        let params: [String : Any] = [
 //            "gid": groupId
 //        ]
@@ -930,7 +930,7 @@ extension Request {
 //                    throw MsgError.from(dic: json)
 //                }
 //            }
-//            .mapTo(Entity.GroupRoom.self)
+//            .mapTo(Entity.Group.self)
 //            .observeOn(MainScheduler.asyncInstance)
 //    }
     
@@ -1190,9 +1190,9 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func update(_ group: Entity.GroupRoom) -> Single<Entity.GroupRoom?> {
+    static func update(_ group: Entity.Group) -> Single<Entity.Group?> {
         guard var params = group.dictionary else {
-            return Observable<Entity.GroupRoom?>.empty().asSingle()
+            return Observable<Entity.Group?>.empty().asSingle()
         }
         params.removeValue(forKey: "userList")
         return amongchatProvider.rx.request(.updateGroup(params))
@@ -1204,7 +1204,7 @@ extension Request {
 //                }
 //                return room
 //            }
-            .mapTo(Entity.GroupRoom.self)
+            .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
@@ -1249,7 +1249,7 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Entity.GroupRoom?> {
+    static func groupRoomSeatAdd(_ groupId: String, uid: Int, in position: Int) -> Single<Entity.Group?> {
         let params: [String : Any] = ["gid" : groupId, "uid": uid, "seat_no": position]
         return amongchatProvider.rx.request(.groupRoomSeatAdd(params))
             .mapJSON()
@@ -1260,11 +1260,11 @@ extension Request {
                 }
                 return group
             })
-            .mapTo(Entity.GroupRoom.self)
+            .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }
     
-    static func groupRoomSeatRemove(_ groupId: String, uid: Int) -> Single<Entity.GroupRoom?> {
+    static func groupRoomSeatRemove(_ groupId: String, uid: Int) -> Single<Entity.Group?> {
         let params: [String : Any] = ["gid" : groupId, "uid": uid]
         return amongchatProvider.rx.request(.groupRoomSeatRemove(params))
             .mapJSON()
@@ -1275,7 +1275,7 @@ extension Request {
                 }
                 return group
             })
-            .mapTo(Entity.GroupRoom.self)
+            .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }
 

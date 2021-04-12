@@ -58,8 +58,8 @@ extension AmongChat.GroupRoom {
             groupInfoReplay.value
         }
         
-        var group: Entity.GroupRoom {
-            roomReplay.value as! Entity.GroupRoom
+        var group: Entity.Group {
+            roomReplay.value as! Entity.Group
         }
         
         let groupInfoReplay: BehaviorRelay<Entity.GroupInfo>
@@ -96,7 +96,7 @@ extension AmongChat.GroupRoom {
         override func update(_ room: RoomInfoable) {
             super.update(room)
             
-//            guard let group = room as? Entity.GroupRoom else {
+//            guard let group = room as? Entity.Group else {
 //                return
 //            }
             //同步
@@ -327,7 +327,7 @@ extension AmongChat.GroupRoom {
                 .disposed(by: bag)
         }
         
-        func updateInfo(group: Entity.GroupRoom, _ completionHandler: CallBack? = nil) {
+        func updateInfo(group: Entity.Group, _ completionHandler: CallBack? = nil) {
             //update
             Request.update(group)
                 .catchErrorJustReturn(self.group)

@@ -43,11 +43,11 @@ class FansGroupItemCell: UITableViewCell {
     
     func bindData(_ group: Entity.Group) {
         
-        groupAvatarView.setImage(with: group.cover?.url)
+        groupAvatarView.setImage(with: group.cover.url)
         groupTitleLabel.text = group.name
         groupIntroLabel.text = group.description
         groupUserCountLabel.text = "\(group.membersCount)"
-        topicView.coverSourceRelay.accept(group.coverUrl)
+        topicView.coverSourceRelay.accept(group.coverURL)
         topicView.nameRelay.accept(group.topicName)
         groupInfoContainer.isHidden = false
         onlineTagView.isHidden = group.status == 0

@@ -63,7 +63,7 @@ class AmongGroupTopView: XibLoadableView {
     var updateEditTypeHandler: ((RoomEditType) -> Void)?
     var openGameHandler: CallBack?
     
-    var group: Entity.GroupRoom {
+    var group: Entity.Group {
         didSet {
             updateSubview()
         }
@@ -107,7 +107,7 @@ class AmongGroupTopView: XibLoadableView {
         }
     }
     
-    init(_ group: Entity.GroupRoom) {
+    init(_ group: Entity.Group) {
         self.group = group
         super.init(frame: .zero)
         configureSubview()
@@ -121,7 +121,7 @@ class AmongGroupTopView: XibLoadableView {
 
     
     
-    func set(_ room: Entity.GroupRoom) {
+    func set(_ room: Entity.Group) {
 //        switch room.state {
 //        case .public:
 //            publicButton.setTitle(R.string.localizable.roomPublic(), for: .normal)

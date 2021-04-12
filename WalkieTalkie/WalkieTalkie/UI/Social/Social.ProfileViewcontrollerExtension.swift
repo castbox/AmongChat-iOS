@@ -841,7 +841,7 @@ extension Social.ProfileViewController {
         }
         
         func bindData(_ group: Entity.Group, tapHandler: (() -> Void)? = nil) {
-            coverIV.setImage(with: group.cover?.url)
+            coverIV.setImage(with: group.cover.url)
             nameLabel.text = group.name
             self.tapHandler = tapHandler
             #if DEBUG

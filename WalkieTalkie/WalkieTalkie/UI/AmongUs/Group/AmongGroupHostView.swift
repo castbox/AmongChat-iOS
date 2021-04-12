@@ -76,7 +76,7 @@ class AmongGroupHostView: XibLoadableView {
     
     var actionHandler: ((Action) -> Void)?
     
-    var group: Entity.GroupRoom? {
+    var group: Entity.Group? {
         didSet {
             
             hostAvatarView.setImage(with: group?.broadcaster.pictureUrl)

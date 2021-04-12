@@ -108,8 +108,8 @@ extension AmongChat.Room {
             }
         }
         
-        var group: Entity.GroupRoom? {
-            return room as? Entity.GroupRoom
+        var group: Entity.Group? {
+            return room as? Entity.Group
         }
         
         var style: AmongChat.Room.Style = .normal {

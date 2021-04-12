@@ -156,7 +156,7 @@ extension ChatRoom {
     
     //MARK: // - Group Room Message
     struct GroupInfoMessage: ChatRoomMessage {
-        let group: Entity.GroupRoom
+        let group: Entity.Group
         let msgType: MessageType
         let ms: TimeInterval//: 1611648904017
         

@@ -36,7 +36,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     var actionHandler: ((Action) -> Void)?
     var haveShowNoteTips = false
     
-    var group: Entity.GroupRoom? {
+    var group: Entity.Group? {
         didSet {
             guard let group = group else {
                 return

@@ -168,7 +168,7 @@ extension AmongChat.GroupRoom {
             }
         }
         
-        func requestGroupRoomSeatAdd(for user: Entity.CallInUser) -> Single<Entity.GroupRoom?> {
+        func requestGroupRoomSeatAdd(for user: Entity.CallInUser) -> Single<Entity.Group?> {
             return Request.groupRoomSeatAdd(group.gid, uid: user.uid, in: user.message.position + 1)
                 .do(onSuccess: { [weak self] group in
                     guard let group = group else {

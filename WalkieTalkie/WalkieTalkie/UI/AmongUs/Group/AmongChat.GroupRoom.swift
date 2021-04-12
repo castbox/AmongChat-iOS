@@ -26,7 +26,7 @@ extension AmongChat.GroupRoom {
         var broadcasterPictureURL: String?
         var broadcasterName: String?
         var enterRoomErrorHandler: (() -> Void)?
-        var previousRoomInfo: Entity.GroupRoom?
+        var previousRoomInfo: Entity.Group?
         
         var logSource: ParentPageSource?
         var removeLoadingHandler: CallBack? = nil
@@ -46,7 +46,7 @@ extension AmongChat.GroupRoom {
 //        }
         
         //Defaults[\.testGroup] = group.asString
-        static func join(with group: Entity.GroupRoom, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(with group: Entity.Group, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             join(with: Entity.GroupInfo(group: group, members: nil, userStatusInt: 1), from: controller)
         }
         

@@ -44,7 +44,7 @@ class FansGroupSelfItemCell: UITableViewCell {
     func bindData(_ group: Entity.Group, actionHandler: ((Action) -> Void)? = nil) {
         titleLabel.text = group.name
         introLabel.text = group.description
-        groupIconView.setImage(with: group.cover?.url)
+        groupIconView.setImage(with: group.cover.url)
         self.actionHandler = actionHandler
     }
 

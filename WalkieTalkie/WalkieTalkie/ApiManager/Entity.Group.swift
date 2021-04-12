@@ -21,21 +21,21 @@ extension Entity {
 
 extension Entity {
     
-    struct Group: Codable {
-        var uid: Int
-        var gid: String
-        var topicId: String
-        var cover: String?
-        var name: String?
-        var description: String?
-        var status: Int //0 关播 1 开播
-        var createTime: Double
-        var rtcType: String?
-        var topicName: String?
-        var coverUrl: String?
-        var broadcaster: Entity.UserProfile
-        var membersCount: Int
-    }
+//    struct Group: Codable {
+//        var uid: Int
+//        var gid: String
+//        var topicId: String
+//        var cover: String?
+//        var name: String?
+//        var description: String?
+//        var status: Int //0 关播 1 开播
+//        var createTime: Double
+//        var rtcType: String?
+//        var topicName: String?
+//        var coverUrl: String?
+//        var broadcaster: Entity.UserProfile
+//        var membersCount: Int
+//    }
     
 }
 
@@ -48,7 +48,7 @@ extension Entity {
             var count: Int
         }
         
-        var group: GroupRoom
+        var group: Group
         var members: Members?
         var userStatusInt: Int
         
@@ -117,7 +117,7 @@ extension Entity {
 //        let processed: Bool
 //    }
     
-    struct GroupRoom: Codable, RoomInfoable {
+    struct Group: Codable, RoomInfoable {
         var roomId: String {
             gid
         }

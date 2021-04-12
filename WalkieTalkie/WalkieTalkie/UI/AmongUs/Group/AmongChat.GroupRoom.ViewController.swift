@@ -22,7 +22,7 @@ extension AmongChat.GroupRoom {
         
         private typealias UserCell = AmongChat.Room.UserCell
         
-        private var room: Entity.GroupRoom
+        private var room: Entity.Group
         
         //
         private let viewModel: BaseViewModel
@@ -151,7 +151,7 @@ extension AmongChat.GroupRoom {
         }
                         
         init(viewModel: BaseViewModel) {
-            self.room = viewModel.roomReplay.value as! Entity.GroupRoom
+            self.room = viewModel.roomReplay.value as! Entity.Group
             self.viewModel = viewModel
             self.joinRequestViewModel = AmongChat.GroupRoom.JoinRequestViewModel(with: viewModel.group.gid)
             super.init(nibName: nil, bundle: nil)
@@ -334,7 +334,7 @@ extension AmongChat.GroupRoom.ViewController {
         
         viewModel.roomReplay
             .observeOn(MainScheduler.asyncInstance)
-            .map { $0 as? Entity.GroupRoom }
+            .map { $0 as? Entity.Group }
             .filterNil()
             .subscribe(onNext: { [weak self] room in
 //                guard let room = room else {
