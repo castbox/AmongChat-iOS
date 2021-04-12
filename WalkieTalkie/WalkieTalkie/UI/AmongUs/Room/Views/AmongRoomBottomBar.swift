@@ -94,7 +94,11 @@ class AmongRoomBottomBar: XibLoadableView {
     
     func update(_ room: RoomInfoable) {
         self.room = room
-        emojiButton.isHidden = room.topicType != .chilling
+        if room.isGroup {
+            emojiButton.isHidden = true
+        } else {
+            emojiButton.isHidden = room.topicType != .chilling
+        }
         
     }
     

@@ -215,7 +215,7 @@ extension AmongChat.Room.ViewController {
         guard socialShareViewController == nil else {
             return
         }
-        let link = "https://among.chat/room/\(room.roomId)"
+        let link = R.string.localizable.socialShareUrl("https://among.chat/room/\(room.roomId)")
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
         vc.showModal(in: self)
 
@@ -590,19 +590,23 @@ extension AmongChat.Room.ViewController {
             self.requestKick(users)
         }
         
-        seatView.selectedKickUserHandler = { [weak self] users in
-            self?.bottomBar.selectedKickUser = users
-        }
-        
         seatView.actionHandler = { [weak self] action in
             switch action {
             case .editGameName:
                 self?.editType = .nickName
+            case .selectUser(let user):
+                guard let user = user else {
+                    Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
+                    self?.onShareBtn()
+                    return
+                }
+            case .selectedKickUser(let users):
+                self?.bottomBar.selectedKickUser = users
+            case let .userProfileSheetAction(item, user):
+                self?.onUserProfileSheet(action: item, user: user)
+            default:
+                ()
             }
-        }
-        
-        seatView.userProfileSheetActionHandler = { [weak self] item, user in
-            self?.onUserProfileSheet(action: item, user: user)
         }
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
@@ -618,14 +622,6 @@ extension AmongChat.Room.ViewController {
         inputNotesView.inputResultHandler = { [weak self] notes in
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
             self?.viewModel.update(notes: notes)
-        }
-                
-        seatView.selectUserHandler = { [weak self] user in
-            guard let user = user else {
-                Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
-                self?.onShareBtn()
-                return
-            }
         }
     }
     

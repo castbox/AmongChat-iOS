@@ -115,7 +115,7 @@ extension AmongChat.GroupRoom {
             return v
         }()
         
-        lazy var hostView = AmongGroupHostView()
+        lazy var hostView = AmongGroupHostView(group: room, viewModel: viewModel)
         private lazy var seatView: AmongChat.Room.SeatView = {
             return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
         }()
@@ -197,11 +197,13 @@ extension AmongChat.GroupRoom.ViewController {
             }
             return
         }
-        guard socialShareViewController == nil else {
+        guard socialShareViewController == nil, let name = Settings.loginUserProfile?.name else {
             return
         }
-        let link = "https://among.chat/room/\(room.roomId)"
-        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId)
+        let link = R.string.localizable.amongChatGroupShareContent(name,
+                                                                   room.name,
+                                                                   "https://among.chat/group?gid=\(room.roomId)") 
+        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId, isGroup: true)
         vc.showModal(in: self)
 
         viewModel.didShowShareView()
@@ -584,6 +586,8 @@ extension AmongChat.GroupRoom.ViewController {
                     
                 }
                 self.presentPanModal(vc)
+            case let .userProfileSheetAction(item, user):
+                self.onUserProfileSheet(action: item, user: user)
             }
         }
         
@@ -633,20 +637,51 @@ extension AmongChat.GroupRoom.ViewController {
             self.requestKick(users)
         }
         
-        seatView.selectedKickUserHandler = { [weak self] users in
-            self?.bottomBar.selectedKickUser = users
-        }
-        
-        seatView.userProfileSheetActionHandler = { [weak self] item, user in
-            self?.onUserProfileSheet(action: item, user: user)
-        }
-        
         seatView.actionHandler = { [weak self] action in
             switch action {
             case .editGameName:
                 self?.editType = .nickName
+            case .selectUser(let user):
+                guard let user = user else {
+                    Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
+                    self?.onShareBtn()
+                    return
+                }
+                ()
+            case .requestOnSeat(let position):
+                //判断关系
+                guard self?.viewModel.groupInfo.userStatusEnum == .some(.memeber) else {
+                    //
+                    self?.view.raft.autoShow(.text(R.string.localizable.groupRoomAnoymonusUserApplySeatTips()))
+                    return
+                }
+                self?.audienceViewModel?.requestOnSeat(at: position)
+            case .selectedKickUser(let users):
+                self?.bottomBar.selectedKickUser = users
+            case let .userProfileSheetAction(item, user):
+                self?.onUserProfileSheet(action: item, user: user)
             }
         }
+        
+        
+//        seatView.selectUserHandler = { [weak self] user in
+//            guard let user = user else {
+//                Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
+//                self?.onShareBtn()
+//                return
+//            }
+//        }
+//
+//        seatView.requestOnSeatHandler = { [weak self] position in
+//            //判断关系
+//            guard self?.viewModel.groupInfo.userStatusEnum == .some(.memeber) else {
+//                //
+//                self?.view.raft.autoShow(.text(R.string.localizable.groupRoomAnoymonusUserApplySeatTips()))
+//                return
+//            }
+//            self?.audienceViewModel?.requestOnSeat(at: position)
+//        }
+
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
             self?.viewModel.updateAmong(code: code, aera: aera)
@@ -663,24 +698,6 @@ extension AmongChat.GroupRoom.ViewController {
             self?.viewModel.update(notes: notes)
         }
                 
-        seatView.selectUserHandler = { [weak self] user in
-            guard let user = user else {
-                Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
-                self?.onShareBtn()
-                return
-            }
-        }
-        
-        seatView.requestOnSeatHandler = { [weak self] position in
-            //判断关系
-            guard self?.viewModel.groupInfo.userStatusEnum == .some(.memeber) else {
-                //
-                self?.view.raft.autoShow(.text(R.string.localizable.groupRoomAnoymonusUserApplySeatTips()))
-                return
-            }
-            self?.audienceViewModel?.requestOnSeat(at: position)
-        }
-        
         applyButton.actionHandler = { [weak self] in
             self?.applyJoinGroup()
         }

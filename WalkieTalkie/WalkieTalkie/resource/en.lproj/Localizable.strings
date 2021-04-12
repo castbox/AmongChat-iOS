@@ -416,6 +416,7 @@
 "group.room.yes" = "Yes";
 "group.room.no" = "No";
 "group.room.end.tips" = "Group session just ended";
+
 "among.chat.setting.get.verified" = "Get verified";
 "among.chat.create.new.group" = "Create new group";
 "among.chat.group" = "Group";

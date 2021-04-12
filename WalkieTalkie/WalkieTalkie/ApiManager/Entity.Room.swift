@@ -29,6 +29,10 @@ protocol RoomInfoable: RTCJoinable {
 }
 
 extension RoomInfoable {
+    var isGroup: Bool {
+        return self is Entity.Group
+    }
+    
     var userListMap: [Int: Entity.RoomUser] {
         var map: [Int: Entity.RoomUser] = [:]
         userList.forEach { user in

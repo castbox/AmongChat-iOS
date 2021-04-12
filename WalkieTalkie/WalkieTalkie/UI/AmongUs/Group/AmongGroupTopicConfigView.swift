@@ -102,7 +102,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     robloxContainer.isHidden = true
                     amongUsContainer.isHidden = true
                     //show notes
-                    if !haveShowNoteTips {
+                    if !haveShowNoteTips, group.note.isValid {
                         haveShowNoteTips = true
                         notesButtonAction(notesButton)
                     }

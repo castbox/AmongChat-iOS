@@ -55,6 +55,68 @@ extension AmongChat.Room {
     }
 }
 
+//protocol SeatUserShowSheetable {
+//    var room: RoomInfoable? { get set }
+//    var bag: DisposeBag { get }
+//}
+//
+//extension SeatUserShowSheetable where Self: UIView {
+//    var group: Entity.Group? {
+//        return room as? Entity.Group
+//    }
+//
+//    func fetchRealation(with user: Entity.RoomUser) {
+//        guard user.uid != Settings.loginUserId else {
+//            return
+//        }
+//        let removeBlock = parentViewController?.view.raft.show(.loading)
+//        Request.relationData(uid: user.uid).asObservable()
+//            .observeOn(MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] relation in
+//                removeBlock?()
+//                guard let `self` = self,
+//                      let data = relation else { return }
+//                self.showAvatarSheet(with: user, relation: data)
+//            }, onError: { error in
+//                removeBlock?()
+//                cdPrint("relationData error :\(error.localizedDescription)")
+//            })
+//            .disposed(by: bag)
+//    }
+//
+//    func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
+//        guard let viewController = containingController else {
+//            return
+//        }
+////        Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+//
+//        var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
+//
+//        let isFollowed = relation.isFollowed ?? false
+//        if !isFollowed {
+//            items.append(.follow)
+//        }
+//        //
+//        if group?.loginUserIsAdmin == true {
+//            items.append(.drop)
+//        }
+//        let isBlocked = relation.isBlocked ?? false
+//        let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
+//
+//        let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
+//        if room.userList.first?.uid == Settings.loginUserId {
+//            items.append(.kick)
+//        }
+//
+//        items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
+//
+//        AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+//            Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+//            self?.actionHandler?(.userProfileSheetAction(item, user))
+//        }
+//    }
+//}
+
 extension AmongChat.Room {
     class SeatView: UIView {
         
@@ -120,7 +182,8 @@ extension AmongChat.Room {
         
         private var selectedKickUser = Set<Int>() {
             didSet {
-                selectedKickUserHandler?(Array(selectedKickUser))
+                actionHandler?(.selectedKickUser(Array(selectedKickUser)))
+//                selectedKickUserHandler?(Array(selectedKickUser))
                 updateSeats()
             }
         }
@@ -134,17 +197,13 @@ extension AmongChat.Room {
         //
         enum Action {
             case editGameName
+            case selectedKickUser([Int])
+            case selectUser(Entity.RoomUser?)
+            case requestOnSeat(Int)
+            case userProfileSheetAction(AmongSheetController.ItemType, _ user: Entity.RoomUser)
         }
         
         var actionHandler: ((Action) -> Void)?
-        
-        var selectedKickUserHandler: (([Int]) -> Void)?
-        
-        var selectUserHandler: ((Entity.RoomUser?) -> Void)?
-        
-        var requestOnSeatHandler: ((Int) -> Void)?
-        
-        var userProfileSheetActionHandler: ((AmongSheetController.ItemType, _ user: Entity.RoomUser) -> Void)?
         
         init(room: RoomInfoable, itemStyle: ItemStyle = .normal, viewModel: AmongChat.BaseRoomViewModel) {
             self.room = room
@@ -195,7 +254,8 @@ extension AmongChat.Room {
         func showDropSelfAlert(with user: Entity.RoomUser) {
             containingController?.showAmongAlert(title: nil, message: R.string.localizable.groupRoomDropSelfTips(), cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), cancelAction: nil, confirmAction: { [weak self] in
                 //
-                self?.userProfileSheetActionHandler?(.drop, user)
+                self?.actionHandler?(.userProfileSheetAction(.drop, user))
+//                self?.userProfileSheetActionHandler?(.drop, user)
             })
         }
         
@@ -250,7 +310,7 @@ extension AmongChat.Room {
 
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
                 Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
-                self?.userProfileSheetActionHandler?(item, user)
+                self?.actionHandler?(.userProfileSheetAction(item, user))
             }
         }
         
@@ -269,11 +329,13 @@ extension AmongChat.Room {
                     //区分 style
                     fetchRealation(with: user)
                 } else {
-                    //
-                    if itemStyle == .group {
-                        requestOnSeatHandler?(index)
+                    //当前为 group & 非管理员 & 并且没在麦上
+                    if itemStyle == .group,
+                       group?.loginUserIsAdmin == false,
+                       !dataSource.contains(where: { $0.user?.uid == Settings.loginUserId }) {
+                        actionHandler?(.requestOnSeat(index))
                     } else {
-                        selectUserHandler?(nil)
+                        actionHandler?(.selectUser(nil))
                     }
                 }
             }

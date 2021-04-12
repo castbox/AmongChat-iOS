@@ -118,10 +118,12 @@ extension Social {
         private var roomId = ""
         private var topicId = ""
         private var hiddened = false
+        private let isGroup: Bool
         
-        init(with linkUrl: String, roomId: String, topicId: String) {
+        init(with linkUrl: String, roomId: String, topicId: String, isGroup: Bool = false) {
+            self.isGroup = isGroup
             super.init(nibName: nil, bundle: nil)
-            self.linkUrl = R.string.localizable.socialShareUrl(linkUrl)
+            self.linkUrl = linkUrl
             self.roomId = roomId
             self.topicId = topicId
         }
@@ -223,7 +225,7 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
         if let item = items.safe(indexPath.section), let user = item.userLsit.safe(indexPath.row) {
-            cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger)
+            cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger, isGroup: self.isGroup)
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
                 //                user.invited = follow

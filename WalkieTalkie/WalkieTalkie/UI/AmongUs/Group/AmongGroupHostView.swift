@@ -19,6 +19,7 @@ class AmongGroupHostView: XibLoadableView {
         case joinHost
         case joinGroup
         case editNickName
+        case userProfileSheetAction(AmongSheetController.ItemType, _ user: Entity.RoomUser)
     }
     
     @IBOutlet weak var hostView: UIView!
@@ -76,15 +77,14 @@ class AmongGroupHostView: XibLoadableView {
     
     var actionHandler: ((Action) -> Void)?
     
-    var group: Entity.Group? {
+    var group: Entity.Group {
         didSet {
-            
-            hostAvatarView.setImage(with: group?.broadcaster.pictureUrl)
-            nameLabel.text = group?.broadcaster.name
-            emojisNames = group?.topicType.roomEmojiNames ?? []
+            hostAvatarView.setImage(with: group.broadcaster.pictureUrl)
+            nameLabel.text = group.broadcaster.name
+            emojisNames = group.topicType.roomEmojiNames ?? []
             
             //
-            if let urlString = Entity.DecorationEntity.entityOf(id: group?.broadcaster.decoPetId ?? 0)?.sayUrl,
+            if let urlString = Entity.DecorationEntity.entityOf(id: group.broadcaster.decoPetId ?? 0)?.sayUrl,
                let url = URL(string: urlString) {
                 //svga
                 svgaUrl = url
@@ -92,23 +92,23 @@ class AmongGroupHostView: XibLoadableView {
                 svgaUrl = nil
             }
             
-            if Settings.loginUserId == group?.broadcaster.uid {
+            if Settings.loginUserId == group.broadcaster.uid {
                 nameLabel.textColor = "#FFF000".color()
             } else {
                 nameLabel.textColor = .white
             }
-            applyGroupContainer.isHidden = group?.loginUserIsAdmin == false
+            applyGroupContainer.isHidden = !group.loginUserIsAdmin
             raiseHandsContainer.isHidden = applyGroupContainer.isHidden
             indexLabel.textColor = nameLabel.textColor
             gameNameButton.setTitleColor(nameLabel.textColor, for: .normal)
             
-            gameNameButton.isHidden = group?.topicType == .amongus
+            gameNameButton.isHidden = group.topicType == .amongus
 
-            if group?.hostNickname.isValid == true {
-                gameNameButton.setTitle(group?.hostNickname, for: .normal)
-            } else if group?.loginUserIsAdmin == true {
+            if group.hostNickname.isValid {
+                gameNameButton.setTitle(group.hostNickname, for: .normal)
+            } else if group.loginUserIsAdmin {
                 //set nick name
-                gameNameButton.setTitle(group?.topicType.groupGameNamePlaceholder, for: .normal)
+                gameNameButton.setTitle(group.topicType.groupGameNamePlaceholder, for: .normal)
                 //show
                 showGameNameTipsIfNeed()
             } else {
@@ -128,42 +128,74 @@ class AmongGroupHostView: XibLoadableView {
                 mutedLabel.isHidden = true
                 disableMicView.isHidden = !(hostProfile?.isMuted ?? false)
             }
-
-//            disableMicView
-//            if user.status == .talking {
-//                startSoundAnimation()
-//            } else if user.status == .muted {
-//                stopSoundAnimation()
-//            }
         }
-//        if let urlString = Entity.DecorationEntity.entityOf(id: hostProfile.decoPetId)?.sayUrl,
-//           let url = URL(string: urlString) {
-//            //svga
-//            svgaUrl = url
-//        } else {
-//            svgaUrl = nil
-//        }
 
     }
     
-//    var groupRequestCount: Int {
-//        applyGroup.redDotOn()
-//    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let viewModel: AmongChat.BaseRoomViewModel
+
+    init(group: Entity.Group, viewModel: AmongChat.BaseRoomViewModel) {
+        self.viewModel = viewModel
+        self.group = group
+        super.init(frame: .zero)
         configureSubview()
         bindSubviewEvent()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func fetchRealation(with user: Entity.RoomUser) {
+        let removeBlock = parentViewController?.view.raft.show(.loading)
+        Request.relationData(uid: user.uid).asObservable()
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] relation in
+                removeBlock?()
+                guard let `self` = self,
+                      let data = relation else { return }
+                self.showAvatarSheet(with: user, relation: data)
+            }, onError: { error in
+                removeBlock?()
+                cdPrint("relationData error :\(error.localizedDescription)")
+            })
+            .disposed(by: bag)
+    }
+    
+    func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
+        guard let viewController = containingController else {
+            return
+        }
+//        Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+        
+        var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
+
+        let isFollowed = relation.isFollowed ?? false
+        if !isFollowed {
+            items.append(.follow)
+        }
+        //
+        if group.loginUserIsAdmin == true {
+            items.append(.drop)
+        }
+        let isBlocked = relation.isBlocked ?? false
+        let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
+        
+        let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
+        if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
+            items.append(.kick)
+        }
+        
+        items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
+
+        AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
+//            Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+            self?.actionHandler?(.userProfileSheetAction(item, user))
+        }
+    }
+    
     func showGameNameTipsIfNeed() {
-        guard let group = group,
-              group.loginUserIsAdmin,
+        guard group.loginUserIsAdmin,
               Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: group.topicType)],
               let tips = group.topicType.groupGameNamePlaceholderTips else {
             return
@@ -298,11 +330,15 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBAction func hostAvatarAction(_ sender: Any) {
-//        showShareTipView()
+        guard let user = hostProfile,
+              group.uid != Settings.loginUserId else {
+            return
+        }
+        fetchRealation(with: user)
     }
     
     @IBAction func gameNameAction(_ sender: Any) {
-        guard group?.loginUserIsAdmin == true else {
+        guard group.loginUserIsAdmin else {
             return
         }
         actionHandler?(.editNickName)
@@ -340,8 +376,7 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     private func updateGameNameTitle() {
-        guard let group = group,
-              group.loginUserIsAdmin,
+        guard group.loginUserIsAdmin,
               let profile = Settings.shared.amongChatUserProfile.value else {
             return
         }

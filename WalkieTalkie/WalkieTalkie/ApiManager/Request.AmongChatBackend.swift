@@ -1278,6 +1278,15 @@ extension Request {
             .mapTo(Entity.Group.self)
             .observeOn(MainScheduler.asyncInstance)
     }
+    
+    static func groupRoomInviteUser(gid: String, uid: Int, isStranger: Bool) -> Single<Entity.FollowData?> {
+        let paras = ["gid": gid, "uid": uid, "is_stranger": isStranger.int] as [String : Any]
+        return amongchatProvider.rx.request(.groupRoomInviteUser(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
 
     static func deleteGroup(_ groupId: String) -> Single<Bool> {
         
