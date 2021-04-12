@@ -98,9 +98,9 @@ extension AmongChat.GroupRoom {
         
         func seatsIndex(of uid: Int? = nil) -> Int? {
             let uid = uid ?? (Settings.loginUserId ?? 0)
-            for (_, item) in seatDataSource.enumerated() {
+            for (index, item) in seatDataSource.enumerated() {
                 if item.user?.uid == uid  {
-                    return item.user?.seatNo
+                    return index
                 }
             }
             return nil

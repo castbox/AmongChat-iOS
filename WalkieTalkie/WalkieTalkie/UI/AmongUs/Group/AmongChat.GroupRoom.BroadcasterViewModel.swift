@@ -194,8 +194,7 @@ extension AmongChat.GroupRoom {
                     return
                 }
                 //可以接受，找到 callin 列表中当前message
-                
-                var message = callInUser.message
+                                 var message = callInUser.message
                 message.action = .accept
                 imViewModel.sendPeer(message: message, to: callInUser.uid)
                 //remove

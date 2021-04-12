@@ -34,6 +34,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     private let bag = DisposeBag()
     
     var actionHandler: ((Action) -> Void)?
+    var haveShowNoteTips = false
     
     var group: Entity.GroupRoom? {
         didSet {
@@ -100,6 +101,11 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     //                    setupButton.setTitle(R.string.localizable.groupRoomSetUpNotes(), for: .normal)
                     robloxContainer.isHidden = true
                     amongUsContainer.isHidden = true
+                    //show notes
+                    if !haveShowNoteTips {
+                        haveShowNoteTips = true
+                        notesButtonAction(notesButton)
+                    }
                 }
                 setupButton.isHidden = true
             }

@@ -131,6 +131,13 @@ extension AmongChat.Room {
             }
         }
         
+        //
+        enum Action {
+            case editGameName
+        }
+        
+        var actionHandler: ((Action) -> Void)?
+        
         var selectedKickUserHandler: (([Int]) -> Void)?
         
         var selectUserHandler: ((Entity.RoomUser?) -> Void)?
@@ -290,7 +297,18 @@ extension AmongChat.Room.SeatView {
                 viewCache[index] = cell
                 nilableCell = cell
             }
+            nilableCell?.clickAvatarHandler = { [weak self] user in
+                self?.select(index, user: user)
+            }
+            nilableCell?.actionHandler = { [weak self] action in
+                switch action {
+                case .editGameName:
+                    self?.actionHandler?(.editGameName)
+                }
+            }
+            
             guard let cell = nilableCell, let item = dataSource.safe(index) else {
+                nilableCell?.bind(nil, topic: room.topicType, index: index + 1)
                 return
             }
             // callin状态
@@ -306,9 +324,6 @@ extension AmongChat.Room.SeatView {
                 continue
             } else {
                 cell.stopLoading()
-            }
-            cell.clickAvatarHandler = { [weak self] user in
-                self?.select(index, user: user)
             }
             if style == .kick, let user = item.user {
                 cell.isKickSelected = selectedKickUser.contains(user.uid)

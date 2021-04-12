@@ -641,6 +641,13 @@ extension AmongChat.GroupRoom.ViewController {
             self?.onUserProfileSheet(action: item, user: user)
         }
         
+        seatView.actionHandler = { [weak self] action in
+            switch action {
+            case .editGameName:
+                self?.editType = .nickName
+            }
+        }
+        
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
             self?.viewModel.updateAmong(code: code, aera: aera)
             Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
@@ -881,65 +888,13 @@ private extension AmongChat.GroupRoom.ViewController {
         // 主播拒绝callin
         if rejectType != .none {
             showToast(with: rejectType.message)
-//                Toast.showToast(alertType: .warnning, message: rejectType.message)
-//                if rejectType == .host {
-//                    self.minimizePhoneCallView()
-//                    self.phoneCallView.beHungUp(with: call.action)
-//                } else {
-//                    self.phoneCallView.retryState()
-//                }
-//                self.dataManager.isMuteMic = false
-//                self.moreFuncViewModel?.update(.callin, isSelected: false)
-            // 去除静音按钮
-//                self.removeMuteButton()
-            
-//                if self.dataManager.roomInfo.multi_host, let position = self.dataManager.seatsIndex() {
-//                    let tmp = self.dataManager.multiHostItems.value
-//                    tmp[position].clear()
-//                    self.dataManager.multiHostItems.accept(tmp)
-//                }
             audienceViewModel?.clearSeatCallState()
             bottomBar.isMicButtonHidden = true
         } else {// 主播同意callin
             if audienceViewModel?.phoneCallState == .calling {
-//                self.phoneCallView.startCalling()
-                //update state
                 audienceViewModel?.updateOnSeatState(with: message)
                 bottomBar.isMicButtonHidden = false
-                //
-//                self.baseFuncStackView.insertArrangedSubview(self.muteButton, at: 1)
-//                self.updateBaseFuncStackViewLayout()
-//                self.moreFuncViewModel?.update(.callin, isSelected: true)
-//                cdPrint("action: \(call.action)")
             } else if audienceViewModel?.phoneCallState == .readyForCall {// 听众hangup
-//                self.phoneCallView.beHungUp(with: call.action)
-                //                            self.phoneButton.isSelected = false
-//                self.moreFuncViewModel?.update(.callin, isSelected: false)
-                //主动挂断
-//                if call.action == .none {
-//                    self.phoneCallViewTimerDispose?.dispose()
-//                    self.phoneCallViewTimerDispose = nil
-//                    self.phoneCallViewTimerDispose =
-//                        Observable<Int>
-//                            .interval(.seconds(2), scheduler: MainScheduler.instance)
-//                            .single()
-//                            .subscribe(onNext: { [weak welf = self] _ in
-//                                guard let `self` = welf else { return }
-//                                self.minimizePhoneCallView()
-//                            })
-//                    self.phoneCallViewTimerDispose?.disposed(by: self.bag)
-//                }
-//                if self.dataManager.roomInfo.multi_host, let position = self.dataManager.seatsIndex() {
-//                    cdPrint("action: \(call.action)")
-//                    // 更新call-in之后的状态
-//                    let tmp = self.dataManager.multiHostItems.value
-//                    tmp[position].clear()
-//                    self.dataManager.multiHostItems.accept(tmp)
-//                }
-                // 去除静音按钮
-//                self.removeMuteButton()
-                //设置 speak
-                //                            self.dataManager.isEnableSpeakerphone = true
                 audienceViewModel?.clearSeatCallState()
             }
         }
@@ -948,7 +903,7 @@ private extension AmongChat.GroupRoom.ViewController {
     
     func bindCallEvent() {
         //
-        //        bottomBar.isMicButtonHidden = group
+        bottomBar.isMicButtonHidden = !room.loginUserIsAdmin
         audienceViewModel?.callingHandler = { [weak self] rejectType, call in
             //            guard let `self` = self else { return }
             self?.onReceiveCalling(message: call, rejectType: rejectType)

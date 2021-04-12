@@ -142,7 +142,13 @@ extension AmongChat.Room {
         var emojisNames: [String] = []
         var topic: AmongChat.Topic?
         var user: Entity.RoomUser?
+        
+        enum Action {
+            case editGameName
+        }
+        
         var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
+        var actionHandler: ((Action) -> Void)?
         
         var isKickSelected: Bool = false {
             didSet {
@@ -322,8 +328,15 @@ extension AmongChat.Room {
         
         @objc
         func gameNameButtonAction() {
+            //
+            if itemStyle == .group, user?.uid == Settings.loginUserId {
+                //edit
+                actionHandler?(.editGameName)
+                return
+            }
             user?.nickname?.copyToPasteboardWithHaptic()
             containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+                
         }
         
         private func bindSubviewEvent() {

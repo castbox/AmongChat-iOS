@@ -594,6 +594,13 @@ extension AmongChat.Room.ViewController {
             self?.bottomBar.selectedKickUser = users
         }
         
+        seatView.actionHandler = { [weak self] action in
+            switch action {
+            case .editGameName:
+                self?.editType = .nickName
+            }
+        }
+        
         seatView.userProfileSheetActionHandler = { [weak self] item, user in
             self?.onUserProfileSheet(action: item, user: user)
         }
