@@ -25,7 +25,7 @@ extension FansGroup.Views {
             if #available(iOS 11.0, *) {
                 s.contentInsetAdjustmentBehavior = .never
             }
-            s.keyboardDismissMode = .interactive
+            s.keyboardDismissMode = .onDrag
             return s
         }()
         
