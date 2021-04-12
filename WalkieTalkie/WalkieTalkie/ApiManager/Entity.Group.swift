@@ -15,6 +15,15 @@ extension Entity {
         var cover: String?
         var name: String?
         var description: String?
+        
+        var isValid: Bool {
+            
+            return !(topicId?.isEmpty ?? true) ||
+                !(cover?.isEmpty ?? true) ||
+                !(name?.isEmpty ?? true) ||
+                !(description?.isEmpty ?? true)
+            
+        }
     }
     
 }

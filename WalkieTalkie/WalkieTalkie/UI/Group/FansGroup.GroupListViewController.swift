@@ -132,6 +132,10 @@ extension FansGroup.GroupListViewController {
             }
         }
         
+        tableView.pullToRefresh { [weak self] in
+            self?.loadData(refresh: true)
+        }
+        
         tableView.pullToLoadMore { [weak self] in
             self?.loadData()
         }
@@ -146,12 +150,12 @@ extension FansGroup.GroupListViewController {
                 self?.tableView.reloadData()
             })
             .disposed(by: bag)
-
+        
     }
                 
-    private func loadData(initialLoad: Bool = false) {
+    private func loadData(initialLoad: Bool = false, refresh: Bool = false) {
         
-        guard hasMoreData,
+        guard hasMoreData || refresh,
               !isLoading else {
             return
         }
@@ -160,15 +164,17 @@ extension FansGroup.GroupListViewController {
         
         let loader: Single<[Entity.Group]>
         
+        let skip: Int = refresh ? 0 : groupsRelay.value.count
+        
         switch source {
         case .myGroups:
-            loader = Request.myGroupList(skip: groupsRelay.value.count)
+            loader = Request.myGroupList(skip: skip)
         case .allGroups:
-            loader = Request.groupList(skip: groupsRelay.value.count)
+            loader = Request.groupList(skip: skip)
         case .createdGroups(let uid):
-            loader = Request.groupListOfHost(uid, skip: groupsRelay.value.count)
+            loader = Request.groupListOfHost(uid, skip: skip)
         case .joinedGroups(let uid):
-            loader = Request.groupListOfUserJoined(uid, skip: groupsRelay.value.count)
+            loader = Request.groupListOfUserJoined(uid, skip: skip)
         }
         
         var hudRemoval: (() -> Void)? = nil
@@ -187,12 +193,53 @@ extension FansGroup.GroupListViewController {
                     return
                 }
                 var groups = self.groupsRelay.value
+                if refresh {
+                    groups.removeAll()
+                }
                 groups.append(contentsOf: groupList.map({ GroupViewModel(group: $0) }))
                 self.groupsRelay.accept(groups)
                 self.hasMoreData = groupList.count > 0
                 self.tableView.endLoadMore(self.hasMoreData)
             })
             .disposed(by: bag)
+    }
+    
+    private func gotoEditGroup(_ groupId: String) {
+        
+        let hudRemoval = view.raft.show(.loading)
+        
+        FansGroup.GroupEditViewController.groupEditVC(groupId)
+            .do(onDispose: {
+                hudRemoval()
+            })
+            .subscribe(onSuccess: { [weak self] (vc) in
+                vc.editingHandler = { action, group in
+                    
+                    guard let `self` = self else { return }
+                    
+                    switch action {
+                    case .delete:
+                        var groups = self.groupsRelay.value
+                        groups.removeAll(where: { $0.group.gid == group.gid })
+                        self.groupsRelay.accept(groups)
+                    case .update:
+                        
+                        var groups = self.groupsRelay.value
+                        if let idx = groups.firstIndex(where: { $0.group.gid == group.gid }) {
+                            let updatedGroup = GroupViewModel(group: group)
+                            groups[idx] = updatedGroup
+                            self.groupsRelay.accept(groups)
+                        }
+                        
+                    }
+                    
+                }
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }, onError: { [weak self] (error) in
+                self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
+            })
+            .disposed(by: bag)
+        
     }
 }
 
@@ -215,7 +262,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
                 guard let `self` = self else { return }
                 switch action {
                 case .edit:
-                    FansGroup.GroupEditViewController.gotoEditGroup(group.group.gid, fromVC: self)
+                    self.gotoEditGroup(group.group.gid)
                 case .start:
                     self.enter(group: group.group, logSource: .matchSource, apiSource: nil)
                 }

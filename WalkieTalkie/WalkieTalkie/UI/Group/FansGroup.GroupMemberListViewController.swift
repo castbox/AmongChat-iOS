@@ -212,9 +212,19 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                     btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
-                            //TODO: - go to kick
+                            //MARK: - go to kick
                             guard let `self` = self else { return }
                             let selectVC = FansGroup.SelectGroupMemberViewController(with: self.groupInfo)
+                            selectVC.kickedMembersObservable
+                                .subscribe(onNext: { (uids) in
+                                    var members = self.membersRelay.value
+                                    uids.forEach { (uid) in
+                                        members.removeAll { $0.uid == uid }
+                                    }
+                                    self.membersRelay.accept(members)
+                                })
+                                .disposed(by: self.bag)
+                            
                             self.navigationController?.pushViewController(selectVC, animated: true)
                         })
                         .disposed(by: bag)
