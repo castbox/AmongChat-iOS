@@ -299,15 +299,11 @@ extension SettingViewController {
             options.insert(regionOption, at: 0)
         }
         
-        if let profile = Settings.shared.amongChatUserProfile.value,
-           !(profile.isVerified ?? false) {
-            
-            let op = Option(type: .getVerified, selectionHandler: { [weak self] in
-                self?.getVerified()
-            })
-            
-            options.append(op)
-        }
+        let verifiedOp = Option(type: .getVerified, selectionHandler: { [weak self] in
+            self?.getVerified()
+        })
+        
+        options.append(verifiedOp)
         
         return options
     }
