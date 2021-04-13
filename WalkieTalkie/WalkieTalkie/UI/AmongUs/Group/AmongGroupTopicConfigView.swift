@@ -132,6 +132,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     
     @IBAction func notesButtonAction(_ sender: Any) {
         guard let group = group, tipView == nil  else {
+            tipView?.dismiss()
             return
         }
         //show notes
