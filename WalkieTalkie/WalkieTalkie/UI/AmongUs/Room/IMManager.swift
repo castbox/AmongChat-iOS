@@ -101,10 +101,10 @@ class IMManager: NSObject {
                     case .groupApply:
                         item = try JSONDecoder().decodeAnyData(Peer.GroupApplyMessage.self, from: json) as PeerMessage
                     case .roomInvitation, .roomInvitationInviteStranger:
-                        item = try JSONDecoder().decodeAnyData(Entity.FriendUpdatingInfo.self, from: json) as PeerMessage
+                        item = try JSONDecoder().decodeAnyData(Peer.FriendUpdatingInfo.self, from: json) as PeerMessage
                     case .friendsInfo:
                         if sender.int == IMManager.systemAgoraUid {
-                            item = try JSONDecoder().decodeAnyData(Entity.FriendUpdatingInfo.self, from: json) as PeerMessage
+                            item = try JSONDecoder().decodeAnyData(Peer.FriendUpdatingInfo.self, from: json) as PeerMessage
                         }
                     default:
                         assert(true, "message type not handler")

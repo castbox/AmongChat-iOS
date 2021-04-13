@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 401 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 402 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3623,6 +3623,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatChannelInvitationMsg = Rswift.StringResource(key: "among.chat.channel.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: is inviting you to their %1$@ group
+      /// 
+      /// Locales: en
+      static let amongChatGroupInvitationMsg = Rswift.StringResource(key: "among.chat.group.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: joined
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6405,6 +6409,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatChannelInvitationMsg(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.channel.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: is inviting you to their %1$@ group
+      /// 
+      /// Locales: en
+      static func amongChatGroupInvitationMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: joined

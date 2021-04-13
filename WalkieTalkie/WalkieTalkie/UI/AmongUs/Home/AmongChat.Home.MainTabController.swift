@@ -63,7 +63,7 @@ extension AmongChat.Home.MainTabController {
         }
     }
     
-    func onReceive(strangerInvigation user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+    func onReceive(strangerInvigation user: Entity.UserProfile, room: Peer.FriendUpdatingInfo.Room) {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
             return
         }
@@ -78,6 +78,7 @@ extension AmongChat.Home.MainTabController {
             view.bindEvent { [weak self] in
                 self?.notificationBanner?.isDismissedByTapEvent = true
                 Logger.Action.log(.invite_top_dialog_clk, categoryValue: room.topicId, "join")
+                //
                 self?.enter(room: room)
                 self?.dismissNotificationBanner()
             } ignore: { [weak self] in
@@ -120,11 +121,15 @@ extension AmongChat.Home.MainTabController {
     }
     
     
-    func enter(room: Entity.FriendUpdatingInfo.Room) {
+    func enter(room: Peer.FriendUpdatingInfo.Room) {
         guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
             return
         }
-        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+        if room.isGroup, let gid = room.gid {
+            topVC.enter(group: gid)
+        } else {
+            topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+        }
     }
     
     private func setupLayout() {
@@ -173,12 +178,10 @@ extension AmongChat.Home.MainTabController {
                 }
                 
                 invitationModal.updateContent(user: user, room: room)
-                invitationModal.bindEvent(join: {
-                    invitationModal.dismiss(animated: false) {
-                        guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController else {
-                            return
-                        }
-                        topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+                invitationModal.bindEvent(join: { [weak self] in
+                    guard let `self` = self else { return }
+                    invitationModal.dismiss(animated: false) { [weak self] in
+                        self?.enter(room: room)
                     }
                     Logger.Action.log(.invite_dialog_clk, categoryValue: room.topicId, "join")
                 }, ignore: {

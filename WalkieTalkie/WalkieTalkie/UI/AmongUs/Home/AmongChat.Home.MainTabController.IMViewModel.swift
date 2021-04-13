@@ -18,15 +18,15 @@ extension AmongChat.Home.MainTabController {
         
         private let bag = DisposeBag()
         
-        private let invitationSubject = PublishSubject<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)>()
+        private let invitationSubject = PublishSubject<(Entity.UserProfile, Peer.FriendUpdatingInfo.Room)>()
         
-        private let invitationRecommendSubject = PublishSubject<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)>()
+        private let invitationRecommendSubject = PublishSubject<(Entity.UserProfile, Peer.FriendUpdatingInfo.Room)>()
         
-        var invitationObservable: Observable<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)> {
+        var invitationObservable: Observable<(Entity.UserProfile, Peer.FriendUpdatingInfo.Room)> {
             return invitationSubject.asObservable()
         }
 
-        var invitationRecommendObservable: Observable<(Entity.UserProfile, Entity.FriendUpdatingInfo.Room)> {
+        var invitationRecommendObservable: Observable<(Entity.UserProfile, Peer.FriendUpdatingInfo.Room)> {
             return invitationRecommendSubject.asObservable()
         }
         
@@ -53,7 +53,7 @@ extension AmongChat.Home.MainTabController {
 
         private func handleIMMessage(message: PeerMessage) {
             
-            guard let invitationMsg = message as? Entity.FriendUpdatingInfo,
+            guard let invitationMsg = message as? Peer.FriendUpdatingInfo,
                   let room = invitationMsg.room else {
                 return
             }

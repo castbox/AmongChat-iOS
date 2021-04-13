@@ -121,7 +121,7 @@ extension AmongChat.Home {
 //            }
             
             guard message.msgType == .friendsInfo,
-                  let friendInfo = message as? Entity.FriendUpdatingInfo else {
+                  let friendInfo = message as? Peer.FriendUpdatingInfo else {
                 return
             }
             

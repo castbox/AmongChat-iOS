@@ -155,6 +155,10 @@ extension JoinRoomable where Self: ViewController {
     }
     
     func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+        enter(group: group.gid, adminUid: group.uid, logSource: logSource, apiSource: apiSource)
+    }
+    
+    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
 //        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()
@@ -175,9 +179,9 @@ extension JoinRoomable where Self: ViewController {
         isRequestingRoom = true
         //start or enter
         var requestObservable: Single<Entity.GroupInfo?> {
-            if group.uid == Settings.loginUserId {
+            if adminUid == Settings.loginUserId {
                 //request
-                return Request.startChannel(groupId: group.gid)
+                return Request.startChannel(groupId: gid)
                     .map { item -> Entity.GroupInfo? in
                         guard let item = item else {
                             return nil
@@ -186,7 +190,7 @@ extension JoinRoomable where Self: ViewController {
                     }
             } else {
                 //request
-                return Request.enterChannel(groupId: group.gid)
+                return Request.enterChannel(groupId: gid)
             }
         }
         requestObservable

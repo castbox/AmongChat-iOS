@@ -207,16 +207,22 @@ extension Entity {
         var user: Entity.UserProfile
         
         struct Room: Codable {
-            var roomId: String
+            var roomId: String?
+            var gid: String?
             var state: RoomPublicType
             var topicId: String
             var playerCount: Int
             var topicName: String
             
+            var isGroup: Bool {
+                gid != nil
+            }
+            
             init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 
-                self.roomId = try container.decodeString(.roomId)
+                self.roomId = try container.decodeStringIfPresent(.roomId)
+                self.gid = try container.decodeStringIfPresent(.gid)
                 let stateStr = (try? container.decodeString(.state)) ?? ""
                 self.state = RoomPublicType(rawValue: stateStr) ?? .private
                 self.topicId = try container.decodeString(.topicId)
@@ -250,31 +256,31 @@ extension Entity {
 
 extension Entity {
     
-    struct FriendUpdatingInfo: PeerMessage {
-        
-        typealias Room = PlayingUser.Room
-        var user: UserProfile
-        private var _room: Room?
-        var isOnline: Bool?
-        var msgType: Peer.MessageType
-        private var _group: Room?
-        
-        var room: Room? {
-            return _room ?? _group
-        }
-        
-        private enum CodingKeys: String, CodingKey {
-            case user
-            case _room = "room"
-            case msgType = "message_type"
-            case isOnline = "is_online"
-            case _group = "group"
-        }
-        
-        func asPlayingUser() -> PlayingUser {
-            return PlayingUser(user: user, room: room)
-        }
-    }
+//    struct FriendUpdatingInfo: PeerMessage {
+//        
+//        typealias Room = PlayingUser.Room
+//        var user: UserProfile
+//        private var room: Room?
+//        var isOnline: Bool?
+//        var msgType: Peer.MessageType
+//        private var group: Entity.Group?
+//        
+////        var room: RoomInfoable? {
+////            return _room ?? _group
+////        }
+//        
+//        private enum CodingKeys: String, CodingKey {
+//            case user
+//            case room = "room"
+//            case msgType = "message_type"
+//            case isOnline = "is_online"
+//            case group = "group"
+//        }
+//        
+////        func asPlayingUser() -> PlayingUser {
+////            return PlayingUser(user: user, room: room)
+////        }
+//    }
 }
 
 extension Entity {
