@@ -112,7 +112,9 @@ class AmongGroupHostView: XibLoadableView {
                     //set nick name
                     gameNameButton.setTitle(group.topicType.groupGameNamePlaceholder, for: .normal)
                     //show
-                    showGameNameTipsIfNeed()
+                        mainQueueDispatchAsync(after: 0.2) { [weak self] in
+                            self?.showGameNameTipsIfNeed()
+                        }
                     } else {
                         gameNameButton.isHidden = true
                     }
@@ -230,11 +232,9 @@ class AmongGroupHostView: XibLoadableView {
         if onSeatBadge == nil {
             onSeatBadge = BadgeHub(view: raiseButton) // Initially count set to 0
             onSeatBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
-            onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
             onSeatBadge?.scaleCircleSize(by: 0.4)
             onSeatBadge?.setCircleAtFrame(CGRect(x: raiseButton.bounds.width-1, y: -8, width: 16, height: 16))
-//            segmentedView.clipsToBounds = false
-//            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
+            onSeatBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         onSeatBadge?.setCount(count)
     }
@@ -243,11 +243,9 @@ class AmongGroupHostView: XibLoadableView {
         if applyGroupBadge == nil {
             applyGroupBadge = BadgeHub(view: applyGroupButton) // Initially count set to 0
             applyGroupBadge?.setCircleColor(UIColor(hex: 0xFB5858), label: .white)
-            applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
             applyGroupBadge?.scaleCircleSize(by: 0.4)
             applyGroupBadge?.setCircleAtFrame(CGRect(x: applyGroupButton.bounds.width - 1, y: -8, width: 16, height: 16))
-//            segmentedView.clipsToBounds = false
-//            Logger.PageShow.logger("lv_rm_pk", "pk_receive",room.room_id, nil)
+            applyGroupBadge?.setCountLabel(R.font.nunitoExtraBold(size: 12))
         }
         applyGroupBadge?.setCount(count)
     }

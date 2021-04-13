@@ -106,7 +106,10 @@ class AmongGroupTopicConfigView: XibLoadableView {
                     //show notes
                     if !haveShowNoteTips, group.note.isValid {
                         haveShowNoteTips = true
-                        notesButtonAction(notesButton)
+                        //delay
+                        mainQueueDispatchAsync(after: 0.2) { [weak self] in
+                            self?.notesButtonAction(self?.notesButton)
+                        }
                     }
                 }
                 setupButton.isHidden = true
@@ -120,8 +123,6 @@ class AmongGroupTopicConfigView: XibLoadableView {
             //edit
             actionHandler?(.setupLink)
         } else {
-//            actionHandler?(.setupLink)
-            
             //copy
             group?.robloxLink?.copyToPasteboardWithHaptic()
             containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
@@ -130,7 +131,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     }
     
     @IBAction func notesButtonAction(_ sender: Any) {
-        guard let group = group else {
+        guard let group = group, tipView == nil  else {
             return
         }
         //show notes
@@ -141,6 +142,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.arrowPosition = .top
         preferences.positioning.contentInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         preferences.drawing.cornerRadius = 12
+        preferences.animating.dismissDuration = 0.4
         
         let view = AmongGroupRoomTipsView()
         view.editHandler = { [weak self] in
@@ -156,9 +158,9 @@ class AmongGroupTopicConfigView: XibLoadableView {
         Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)
             .single()
-            .subscribe(onNext: { [weak welf = self] _ in
-                guard let `self` = welf else { return }
-                self.tipView?.dismiss()
+            .subscribe(onNext: { [weak self] _ in
+                self?.tipView?.dismiss()
+                self?.tipView = nil
             })
             .disposed(by: self.bag)
     }

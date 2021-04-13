@@ -284,6 +284,7 @@ extension AmongChat.Room {
         
         /// loading动画
         func startLoading() {
+            avatarIV.setImage(nil, for: .normal)
             loadingView.startLoading()
         }
         
@@ -510,6 +511,7 @@ extension AmongChat.Room.UserCell {
                     gameNameButton.setTitle(user.nickname, for: .normal)
                 } else {
                     gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                    
                     showGameNameTipsIfNeed()
                 }
             } else {
@@ -536,7 +538,9 @@ extension AmongChat.Room.UserCell {
         svgaUrl = nil
         stopSoundAnimation()
         avatarIV.kf.cancelImageDownloadTask()
-        avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
+        if loadingView.isHidden {
+            avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
+        }
         avatarIV.imageView?.contentMode = .center
         avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
