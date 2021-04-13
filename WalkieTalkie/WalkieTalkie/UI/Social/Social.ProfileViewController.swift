@@ -308,7 +308,7 @@ private extension Social.ProfileViewController {
     func fetchJoinedGroups() {
         Request.groupListOfUserJoined(uid, skip: 0, limit: 3)
             .subscribe(onSuccess: { [weak self] (groupList) in
-                self?.joinedGroupsRelay.accept(groupList)
+                self?.joinedGroupsRelay.accept( groupList.sorted(by: \.status, with: >) )
             })
             .disposed(by: bag)
     }
