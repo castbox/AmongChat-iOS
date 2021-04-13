@@ -116,7 +116,7 @@ extension Routes {
                 navigationVc.modalPresentationStyle = .overCurrentContext
                 UIApplication.tabBarController?.present(navigationVc, animated: true, completion: nil)
             } else {
-                UIApplication.navigationController?.pushViewController(vc)
+                UIApplication.topViewController()?.navigationController?.pushViewController(vc)
 
             }
         }

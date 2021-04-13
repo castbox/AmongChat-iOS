@@ -308,7 +308,7 @@ private extension Social.ProfileViewController {
     func fetchJoinedGroups() {
         Request.groupListOfUserJoined(uid, skip: 0, limit: 3)
             .subscribe(onSuccess: { [weak self] (groupList) in
-                self?.joinedGroupsRelay.accept(groupList)
+                self?.joinedGroupsRelay.accept( groupList.sorted(by: \.status, with: >) )
             })
             .disposed(by: bag)
     }
@@ -723,6 +723,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             
             if isSelfProfile.value {
                 let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self)
+                cell.tagView.isHidden = true
                 cell.bindData(group)  { [weak self] action in
                     guard let `self` = self else { return }
                     switch action {

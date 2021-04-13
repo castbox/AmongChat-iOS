@@ -41,9 +41,8 @@ extension FansGroup.GroupMemberListViewController {
             }
         }
         
-        func bind(user: Entity.UserProfile,
-                  onAvatarTap: @escaping () -> Void) {
-            userView.bind(profile: user, onAvatarTap: onAvatarTap)
+        func bind(user: Entity.UserProfile) {
+            userView.bind(profile: user)
         }
         
     }

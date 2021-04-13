@@ -36,7 +36,7 @@ extension FansGroup {
             tb.rowHeight = 70
             tb.separatorStyle = .none
             tb.backgroundColor = .clear
-            tb.contentInset = UIEdgeInsets(top: 4, left: 0, bottom: 100, right: 0)
+            tb.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 100, right: 0)
             return tb
         }()
         

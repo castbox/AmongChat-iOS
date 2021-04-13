@@ -14,12 +14,11 @@ class FansGroupSelfItemCell: UITableViewCell {
         case edit
     }
     
-    @IBOutlet weak var opContainer: UIStackView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var groupIconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var introLabel: UILabel!
+    @IBOutlet weak var tagView: UIView!
     
     private var actionHandler: ((Action) -> Void)?
     
@@ -43,7 +42,6 @@ class FansGroupSelfItemCell: UITableViewCell {
     
     func bindData(_ group: Entity.Group, actionHandler: ((Action) -> Void)? = nil) {
         titleLabel.text = group.name
-        introLabel.text = group.description
         groupIconView.setImage(with: group.cover.url)
         self.actionHandler = actionHandler
     }

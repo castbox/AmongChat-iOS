@@ -133,6 +133,7 @@ extension FansGroup.Views {
         
         private lazy var bg: LeftEclipseView = {
             let v = LeftEclipseView()
+            v.gap = 2.5
             return v
         }()
         

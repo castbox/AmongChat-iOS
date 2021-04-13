@@ -755,6 +755,7 @@ extension Social.ProfileViewController {
             l.endPoint = CGPoint(x: 0.5, y: 1.22)
             l.locations = [0, 0.2, 1]
             l.cornerRadius = 12
+            l.opacity = 0.6
             return l
         }()
         
@@ -826,7 +827,7 @@ extension Social.ProfileViewController {
             }
             
             onlineStatusView.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview()
+                maker.trailing.equalToSuperview().offset(2.5)
                 maker.top.equalTo(-10)
                 maker.width.equalTo(64)
             }

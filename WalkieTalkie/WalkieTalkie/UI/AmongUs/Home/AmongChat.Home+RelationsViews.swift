@@ -30,7 +30,15 @@ extension AmongChat.Home {
             let g = UITapGestureRecognizer()
             g.rx.event
                 .subscribe(onNext: { [weak self] (_) in
-                    self?.avatarTapHandler?()
+                    
+                    guard let `self` = self else { return }
+                    
+                    if let h = self.avatarTapHandler {
+                        h()
+                    } else if let uid = self.uid {
+                        Routes.handle("/profile/\(uid)")
+                    }
+                    
                 })
                 .disposed(by: bag)
 
@@ -53,6 +61,8 @@ extension AmongChat.Home {
             lb.adjustsFontSizeToFitWidth = true
             return lb
         }()
+        
+        private var uid: Int? = nil
         
         override init(frame: CGRect) {
             super.init(frame: .zero)
@@ -95,7 +105,7 @@ extension AmongChat.Home {
         }
         
         func bind(viewModel: PlayingViewModel, onAvatarTap: @escaping () -> Void) {
-            
+            uid = viewModel.uid
             avatarIV.updateAvatar(with: viewModel.playingModel.user)
             
             nameLabel.attributedText = viewModel.userName
@@ -118,7 +128,7 @@ extension AmongChat.Home {
         }
         
         func bind(viewModel: Entity.UserProfile, onAvatarTap: @escaping () -> Void) {
-            
+            uid = viewModel.uid
             avatarIV.updateAvatar(with: viewModel)
             
             nameLabel.attributedText = viewModel.nameWithVerified()
@@ -131,7 +141,7 @@ extension AmongChat.Home {
         }
         
         func bind(profile: Entity.UserProfile, onAvatarTap: (() -> Void)? = nil) {
-            
+            uid = profile.uid
             avatarIV.updateAvatar(with: profile)
             nameLabel.attributedText = profile.nameWithVerified()
             avatarTapHandler = onAvatarTap

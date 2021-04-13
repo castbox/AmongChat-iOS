@@ -43,6 +43,8 @@ extension FansGroup.AddMemberController {
             l.font = R.font.nunitoExtraBold(size: 16)
             l.text = R.string.localizable.amongChatGroupAddMemberInGroup()
             l.textColor = UIColor(hex6: 0x898989)
+            l.textAlignment = .center
+            l.adjustsFontSizeToFitWidth = true
             return l
         }()
         
