@@ -723,6 +723,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             
             if isSelfProfile.value {
                 let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self)
+                cell.tagView.isHidden = true
                 cell.bindData(group)  { [weak self] action in
                     guard let `self` = self else { return }
                     switch action {

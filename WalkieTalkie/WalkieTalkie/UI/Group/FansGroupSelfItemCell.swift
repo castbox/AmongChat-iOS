@@ -18,6 +18,7 @@ class FansGroupSelfItemCell: UITableViewCell {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var groupIconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var tagView: UIView!
     
     private var actionHandler: ((Action) -> Void)?
     

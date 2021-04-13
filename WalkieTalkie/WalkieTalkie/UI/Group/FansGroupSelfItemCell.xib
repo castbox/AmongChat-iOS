@@ -162,6 +162,7 @@
                 <outlet property="editButton" destination="Ncw-3k-kYD" id="cJN-pE-sp8"/>
                 <outlet property="groupIconView" destination="ECr-KO-5sv" id="e5i-xu-eRk"/>
                 <outlet property="startButton" destination="TRt-ns-J7t" id="jp9-mS-OoT"/>
+                <outlet property="tagView" destination="JrY-4D-YVp" id="Of0-IA-Cve"/>
                 <outlet property="titleLabel" destination="ddu-74-btn" id="lXR-z1-1nr"/>
             </connections>
             <point key="canvasLocation" x="30" y="154"/>
