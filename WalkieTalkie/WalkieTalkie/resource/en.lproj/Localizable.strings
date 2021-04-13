@@ -385,12 +385,12 @@
 "group.room.set.up.code" = "Set up code";
 "group.room.set.up.notes" = "Set up notes";
 "group.room.set.up.link" = "Set up Link";
-"group.room.host.notes" = "Hosts's notes:";
+"group.room.host.notes" = "Host's notes:";
 "group.room.accept" = "Accept";
 "group.room.reject" = "Reject";
 "group.room.ignore" = "Ignore";
 "group.room.apply.group.list.empty" = "Oops, no requests yet!";
-"group.room.apply.seat.list.empty" = "Oops, handsyet!";
+"group.room.apply.seat.list.empty" = "Oops, no raised hands yet!";
 "group.room.roblox.game.name.plceholder" = "Username";
 "group.room.call.of.duty.game.name.plceholder" = "Username/UID";
 "group.room.pubg.mobile.game.name.plceholder" = "Name/ID";

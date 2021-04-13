@@ -2692,12 +2692,12 @@ struct R: Rswift.Validatable {
       static let roomSetupHostNotes = Rswift.StringResource(key: "room.setup.host.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Host's notes:
       /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let roomHostsNotes = Rswift.StringResource(key: "room.hosts.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Hosts's notes:
-      /// 
       /// Locales: en
       static let groupRoomHostNotes = Rswift.StringResource(key: "group.room.host.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomHostsNotes = Rswift.StringResource(key: "room.hosts.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Hot topics
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2974,10 +2974,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCodeWrong = Rswift.StringResource(key: "among.chat.login.code.wrong", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: Oops, handsyet!
-      /// 
-      /// Locales: en
-      static let groupRoomApplySeatListEmpty = Rswift.StringResource(key: "group.room.apply.seat.list.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no Internet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3006,6 +3002,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatGroupMembersEmptyTip = Rswift.StringResource(key: "among.chat.group.members.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Oops, no raised hands yet!
+      /// 
+      /// Locales: en
+      static let groupRoomApplySeatListEmpty = Rswift.StringResource(key: "group.room.apply.seat.list.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Oops, no requests yet!
       /// 
       /// Locales: en
@@ -4783,16 +4783,16 @@ struct R: Rswift.Validatable {
       
       /// en translation: Host's notes:
       /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func roomHostsNotes(_: Void = ()) -> String {
-        return NSLocalizedString("room.hosts.notes", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: Hosts's notes:
-      /// 
       /// Locales: en
       static func groupRoomHostNotes(_: Void = ()) -> String {
         return NSLocalizedString("group.room.host.notes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func roomHostsNotes(_: Void = ()) -> String {
+        return NSLocalizedString("room.hosts.notes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Hot topics
@@ -5278,13 +5278,6 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.login.code.wrong", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Oops, handsyet!
-      /// 
-      /// Locales: en
-      static func groupRoomApplySeatListEmpty(_: Void = ()) -> String {
-        return NSLocalizedString("group.room.apply.seat.list.empty", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Oops, no Internet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5332,6 +5325,13 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatGroupMembersEmptyTip(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.members.empty.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no raised hands yet!
+      /// 
+      /// Locales: en
+      static func groupRoomApplySeatListEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.apply.seat.list.empty", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Oops, no requests yet!
