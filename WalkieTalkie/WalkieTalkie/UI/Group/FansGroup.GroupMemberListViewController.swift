@@ -37,6 +37,7 @@ extension FansGroup {
         private var isLoading = false
         
         private let groupInfo: Entity.GroupInfo
+        var showKick = false
         
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -197,7 +198,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 maker.height.equalTo(22)
             }
             
-            if groupInfo.group.uid.isSelfUid {
+            if showKick {
                 
                 let kickButton: UIButton = {
                     let btn = SmallSizeButton(type: .custom)

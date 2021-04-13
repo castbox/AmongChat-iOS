@@ -366,6 +366,7 @@ extension FansGroup.GroupEditViewController {
     private func setUpMemberListAndRequestList() {
         
         let memberListVC = FansGroup.GroupMemberListViewController(with: groupInfo)
+        memberListVC.showKick = true
         addChild(memberListVC)
         listScrollView.addSubview(memberListVC.view)
         memberListVC.view.snp.makeConstraints { (maker) in
