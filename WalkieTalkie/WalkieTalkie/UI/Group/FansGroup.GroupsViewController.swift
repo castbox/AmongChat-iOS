@@ -312,7 +312,7 @@ extension FansGroup.GroupsViewController {
                 let btn = UIButton(type: .custom)
                 btn.setTitleColor(UIColor(hex6: 0x595959), for: .normal)
                 btn.setTitleColor(UIColor(hex6: 0xFFF000), for: .selected)
-                btn.titleLabel?.font = R.font.nunitoBold(size: 24)
+                btn.titleLabel?.font = R.font.nunitoExtraBold(size: 24)
                 btn.setTitle(title, for: .normal)
                 btn.rx.controlEvent(.primaryActionTriggered)
                     .subscribe(onNext: { [weak self] () in
