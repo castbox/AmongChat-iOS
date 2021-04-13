@@ -192,7 +192,7 @@ extension FansGroup.Views {
         
         private static let nameFont = R.font.nunitoExtraBold(size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .heavy)
         
-        private static let nameInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 12)
+        private static let nameInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
         class func viewSize(for topicName: String, coverSize: CGSize) -> CGSize {
             let width = topicName.width(withConstrainedHeight: coverSize.height, font: nameFont) + coverSize.width + nameInset.left + nameInset.right
