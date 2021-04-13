@@ -126,14 +126,10 @@ extension FansGroup.GroupMemberListViewController: UITableViewDataSource {
             }
             
             if section == 0 {
-                memberCell.bind(user: groupInfo.group.broadcaster) {
-                    
-                }
+                memberCell.bind(user: groupInfo.group.broadcaster)
                 
             } else if let member = membersRelay.value.safe(indexPath.row) {
-                memberCell.bind(user: member) {
-                    
-                }
+                memberCell.bind(user: member)
             }
             
             return cell

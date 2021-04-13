@@ -84,7 +84,7 @@ extension URI {
         let uid: Int?
         
         init?(_ paras: [String: Any]) {
-            self.uid = paras["uid"] as? Int
+            self.uid = Int(paras["uid"] as? String ?? "")
         }
         
     }
