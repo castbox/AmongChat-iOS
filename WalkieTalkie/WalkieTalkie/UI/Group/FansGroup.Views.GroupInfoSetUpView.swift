@@ -223,7 +223,7 @@ extension FansGroup.Views {
                     }
                     
                     let rect = self.innerContainerView.convert(textingView.frame, to: self)
-                    let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY
+                    let distance = Frame.Screen.height - keyboardVisibleHeight - rect.maxY - 40
                     
                     guard distance < 0 else {
                         return
