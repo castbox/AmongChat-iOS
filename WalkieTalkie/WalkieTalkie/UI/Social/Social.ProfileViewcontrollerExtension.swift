@@ -856,6 +856,11 @@ extension Social.ProfileViewController {
         
     class JoinedGroupsCell: UITableViewCell {
         
+        class var groupViewWidth: CGFloat {
+            let width = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).rounded(.towardZero)
+            return width
+        }
+        
         private var groupViews = [GroupAvatarView]()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -893,16 +898,14 @@ extension Social.ProfileViewController {
             }
             
             groupViews = groupAvatarViews
-                        
-            let width = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).rounded(.towardZero)
             
             contentView.addSubviews(groupViews)
             
             for (idx, v) in groupViews.enumerated() {
                 v.snp.makeConstraints { (maker) in
-                    maker.width.height.equalTo(width)
+                    maker.width.height.equalTo(Self.groupViewWidth)
                     maker.top.equalToSuperview()
-                    maker.leading.equalToSuperview().offset(idx.cgFloat * (width + 16))
+                    maker.leading.equalToSuperview().offset(idx.cgFloat * (Self.groupViewWidth + 16))
                 }
             }
         }

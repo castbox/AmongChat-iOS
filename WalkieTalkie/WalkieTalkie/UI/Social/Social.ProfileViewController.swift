@@ -822,7 +822,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             return 149
             
         case .groupsJoined:
-            return 111
+            return JoinedGroupsCell.groupViewWidth + 24
         }
         
     }
