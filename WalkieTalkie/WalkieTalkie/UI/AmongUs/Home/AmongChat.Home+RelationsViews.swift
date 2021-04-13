@@ -437,8 +437,8 @@ extension AmongChat.Home {
             lineView.snp.makeConstraints { maker in
                 maker.centerY.equalTo(buttonLayout)
                 maker.leading.equalTo(skipButton.snp.trailing)
-                maker.height.equalTo(28)
-                maker.width.equalTo(0.5)
+                maker.height.equalTo(24)
+                maker.width.equalTo(2)
             }
             
             inviteButton.snp.makeConstraints { (maker) in
