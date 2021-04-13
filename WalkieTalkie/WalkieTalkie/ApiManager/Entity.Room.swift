@@ -245,7 +245,7 @@ extension Entity {
             self.uid = try container.decodeInt(.uid)
             self.name = try container.decodeString(.name)
             self.pictureUrl = try container.decodeString(.pictureUrl)
-            self.seatNo = try container.decodeIntIfPresent(.seatNo) ?? 0
+            self.seatNo = try container.decodeIntIfPresent(.seatNo) ?? -1
 //            self.status = try container.decodeString(.status)
             self.isMuted = try container.decodeBoolIfPresent(.isMuted) ?? false
             self.isMutedByLoginUser = try container.decodeBoolIfPresent(.isMutedByLoginUser) ?? false

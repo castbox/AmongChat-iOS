@@ -516,6 +516,7 @@ extension AmongChat.Room.UserCell {
                 }
             } else {
                 gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+                gameNameButton.setTitle(user.nickname, for: .normal)
             }
         }
         if isKickSelected {

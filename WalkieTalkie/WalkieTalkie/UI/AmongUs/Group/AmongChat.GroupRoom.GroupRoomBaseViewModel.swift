@@ -93,6 +93,25 @@ extension AmongChat.GroupRoom {
             loadListenerList()
         }
         
+        override func sendText(message: String?) {
+            guard
+                let message = message?.trimmed,
+                  !message.isEmpty else {
+                return
+            }
+            let user: Entity.RoomUser
+            if let seatUser = group.userList.first(where: { $0.uid == Settings.loginUserId })  {
+                user = seatUser
+            } else  {
+                user = Settings.loginUserProfile!.toRoomUser(with: -1)
+            }
+//            Logger.Action.log(.room_send_message_success, categoryValue: room.topicId)
+            let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
+            imViewModel.sendText(message: textMessage)
+            //append
+            addUIMessage(message: textMessage)
+        }
+        
         override func update(_ room: RoomInfoable) {
             super.update(room)
             

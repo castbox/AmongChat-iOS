@@ -292,7 +292,11 @@ extension ChatRoom.TextMessage: MessageListable {
 //            .kern: 0.5
         ]
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
         if user.isVerified == true {
             let font = R.font.nunitoExtraBold(size: 12)!
             let image = R.image.icon_verified_13()!
@@ -344,7 +348,12 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         ]
         
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
         //
         if user.isVerified == true {
             let font = R.font.nunitoExtraBold(size: 12)!
