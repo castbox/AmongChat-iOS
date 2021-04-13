@@ -2056,7 +2056,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 403 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 404 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2198,6 +2198,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure to leave the group?
+      /// 
+      /// Locales: en
+      static let amongChatGroupLeaveTip = Rswift.StringResource(key: "among.chat.group.leave.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2330,7 +2334,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let groupRoomCallOfDutyGameNameTips = Rswift.StringResource(key: "group.room.call.of.duty.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Click to set up Fortnit Display Name
+      /// en translation: Click to set up Fortnite Display Name
       /// 
       /// Locales: en
       static let groupRoomFortniteGameNameTips = Rswift.StringResource(key: "group.room.fortnite.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -3916,6 +3920,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.leave.room.tip.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Are you sure to leave the group?
+      /// 
+      /// Locales: en
+      static func amongChatGroupLeaveTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.leave.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4147,7 +4158,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.call.of.duty.game.name.tips", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Click to set up Fortnit Display Name
+      /// en translation: Click to set up Fortnite Display Name
       /// 
       /// Locales: en
       static func groupRoomFortniteGameNameTips(_: Void = ()) -> String {

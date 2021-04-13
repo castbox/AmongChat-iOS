@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SDCAlertView
 
 extension FansGroup {
     
@@ -154,15 +155,53 @@ extension FansGroup.GroupInfoViewController {
     }
     
     private func leaveGroup() {
-        let hudRemoval = self.view.raft.show(.loading)
-        Request.leaveGroup(groupId)
-            .do(onDispose: {
-                hudRemoval()
-            })
-            .subscribe(onSuccess: { [weak self] (_) in
-                self?.navigationController?.popViewController(animated: true)
-            })
-            .disposed(by: bag)
+        
+        let messageAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.amongChatGroupLeaveTip(),
+                                                                 attributes: [
+                                                                    NSAttributedString.Key.font : R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                                    .foregroundColor: UIColor.white
+                                                                 ])
+        
+        let cancelAttr: NSAttributedString = NSAttributedString(string: R.string.localizable.toastCancel(),
+                                                                attributes: [
+                                                                    NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                                    .foregroundColor: "#6C6C6C".color()
+                                                                ])
+        
+        let confirmAttr = NSAttributedString(string: R.string.localizable.roomLeave(),
+                                             attributes: [
+                                                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                .foregroundColor: "#FB5858".color()
+                                             ])
+        
+        let alertVC = AlertController(attributedTitle: nil, attributedMessage: messageAttr, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
+        
+        alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal, handler: { [weak self] _ in
+            guard let `self` = self else { return }
+            
+            let hudRemoval: (() -> Void)? = self.view.raft.show(.loading, userInteractionEnabled: false)
+            
+            Request.leaveGroup(self.groupId)
+                .do(onDispose: {
+                    hudRemoval?()
+                })
+                .subscribe(onSuccess: { [weak self] (_) in
+                    self?.navigationController?.popViewController(animated: true)
+                })
+                .disposed(by: self.bag)
+            
+        })
+        )
+        
+        alertVC.view.backgroundColor = UIColor.black.alpha(0.6)
+        alertVC.present()
+        
     }
     
     private func apply() {
