@@ -25,7 +25,8 @@ extension FansGroup.GroupInfoViewController {
         private let namePadding = CGFloat(20)
         private let descTop = CGFloat(255)
         private let descBottom = CGFloat(24)
-        private let leaveBtnLayoutGuideHeight = CGFloat(85)
+        private let leaveBtnLayoutGuideHeight = CGFloat(86)
+        private let leaveViewBottomSpace = CGFloat(22)
         
         private lazy var topBg: FansGroup.Views.GroupBigCoverView = {
             let b = FansGroup.Views.GroupBigCoverView()
@@ -69,6 +70,9 @@ extension FansGroup.GroupInfoViewController {
                 btn.layer.cornerRadius = 25
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 btn.setTitle(R.string.localizable.amongChatGroupLeaveGroup(), for: .normal)
+                btn.setImage(R.image.ac_group_Leave(), for: .normal)
+                btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
                 btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
                 btn.backgroundColor = UIColor(hex6: 0x232323)
                 btn.rx.controlEvent(.primaryActionTriggered)
@@ -140,6 +144,7 @@ extension FansGroup.GroupInfoViewController {
             leaveView.snp.makeConstraints { (maker) in
                 maker.leading.trailing.bottom.equalToSuperview()
                 maker.height.equalTo(0)
+                maker.bottom.equalToSuperview().inset(leaveViewBottomSpace)
             }
             
         }
@@ -204,7 +209,7 @@ extension FansGroup.GroupInfoViewController {
             
             let descHeight = descriptionLabel.text?.height(forConstrainedWidth: bounds.width - namePadding * 2, font: descriptionLabel.font).ceil ?? 0
             
-            var height = descTop + descHeight + descBottom
+            var height = descTop + descHeight + descBottom + leaveViewBottomSpace
             
             switch groupInfo?.userStatus {
             case .memeber:

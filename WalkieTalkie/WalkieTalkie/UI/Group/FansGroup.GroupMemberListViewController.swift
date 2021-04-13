@@ -145,9 +145,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 {
-            return 52
-        } else if section == 1{
+        if section == 0 || section == 1{
             return 26
         } else {
             return .leastNormalMagnitude
@@ -181,7 +179,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             v.addSubview(l)
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.equalTo(24)
+                maker.centerY.equalToSuperview()
                 maker.height.equalTo(22)
             }
             
@@ -240,6 +238,11 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
         
         return v
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let v = UIView()
+        return v
     }
     
 }

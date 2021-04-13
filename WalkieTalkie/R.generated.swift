@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 197 images.
+  /// This `R.image` struct is generated, and contains static references to 198 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -252,6 +252,8 @@ struct R: Rswift.Validatable {
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
     /// Image `ac_create_room_bar_top_shadow`.
     static let ac_create_room_bar_top_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_create_room_bar_top_shadow")
+    /// Image `ac_group_Leave`.
+    static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
     /// Image `ac_group_add`.
     static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
     /// Image `ac_group_banner`.
@@ -696,6 +698,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_create_room_bar_top_shadow", bundle: ..., traitCollection: ...)`
     static func ac_create_room_bar_top_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_create_room_bar_top_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_Leave", bundle: ..., traitCollection: ...)`
+    static func ac_group_Leave(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_Leave, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_group_add", bundle: ..., traitCollection: ...)`
