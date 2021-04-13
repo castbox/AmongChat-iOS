@@ -93,6 +93,17 @@ extension AmongChat.GroupRoom {
             loadListenerList()
         }
         
+        override func addJoinMessage() {
+            guard !group.loginUserIsAdmin,
+                  let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: -1) else {
+                return
+            }
+            let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom, isGroupRoomHostMsg: group.loginUserIsAdmin)
+            addUIMessage(message: joinRoomMsg)
+            onUserJoinedHandler?(joinRoomMsg.user)
+        }
+
+        
         override func sendText(message: String?) {
             guard
                 let message = message?.trimmed,
@@ -106,7 +117,7 @@ extension AmongChat.GroupRoom {
                 user = Settings.loginUserProfile!.toRoomUser(with: -1)
             }
 //            Logger.Action.log(.room_send_message_success, categoryValue: room.topicId)
-            let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
+            let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text, isGroupRoomHostMsg: group.loginUserIsAdmin)
             imViewModel.sendText(message: textMessage)
             //append
             addUIMessage(message: textMessage)
@@ -136,10 +147,12 @@ extension AmongChat.GroupRoom {
 //                return
 //            }
             
-            if let message = crMessage as? ChatRoom.TextMessage {
+            if var message = crMessage as? ChatRoom.TextMessage {
+                message.isGroupRoomHostMsg = message.user.uid == group.uid
                 addUIMessage(message: message)
-            } else if let message = crMessage as? ChatRoom.GroupJoinRoomMessage,
+            } else if var message = crMessage as? ChatRoom.GroupJoinRoomMessage,
                       message.user.uid != Settings.loginUserId {
+                message.isGroupRoomHostMsg = message.user.uid == group.uid
                 //add to entrance queue
                 onUserJoinedHandler?(message.user)
                 addUIMessage(message: message)

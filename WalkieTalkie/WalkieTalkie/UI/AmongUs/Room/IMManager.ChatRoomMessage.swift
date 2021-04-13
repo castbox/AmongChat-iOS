@@ -19,6 +19,7 @@ protocol ChatRoomMessageable {
 protocol MessageListable {
     var attrString: NSAttributedString { get }
     var rawContent: String? { get }
+    var isGroupRoomHostMsg: Bool { get set }
 }
 
 typealias ChatRoomMessage = ChatRoomMessageable & Codable
@@ -42,10 +43,13 @@ extension ChatRoom {
         case groupInfo = "AC:Chatroom:GroupInfo"
     }
     
-    struct TextMessage: ChatRoomMessage {
+    struct TextMessage: ChatRoomMessage, MessageListable {
+        
         let content: String
         let user: Entity.RoomUser
         let msgType: MessageType
+        
+        var isGroupRoomHostMsg: Bool = false
         
         private enum CodingKeys: String, CodingKey {
             case content
@@ -66,10 +70,12 @@ extension ChatRoom {
         }
     }
 
-    struct JoinRoomMessage: ChatRoomMessage {
+    struct JoinRoomMessage: ChatRoomMessage, MessageListable {
         let user: Entity.RoomUser
         let msgType: MessageType
         
+        var isGroupRoomHostMsg: Bool = false
+
         private enum CodingKeys: String, CodingKey {
             case user
             case msgType = "message_type"
@@ -111,7 +117,7 @@ extension ChatRoom {
     }
     
     //red color
-    struct SystemMessage: ChatRoomMessage {
+    struct SystemMessage: ChatRoomMessage, MessageListable {
         
         enum ContentType: String, Codable {
             case `public`
@@ -122,7 +128,9 @@ extension ChatRoom {
         let textColor: String?
         let contentType: ContentType?
         let msgType: MessageType
-        
+
+        var isGroupRoomHostMsg: Bool = false
+
         var text: String {
             contentType?.text ?? content
         }
@@ -167,10 +175,11 @@ extension ChatRoom {
         }
     }
     
-    struct GroupJoinRoomMessage: ChatRoomMessage {
+    struct GroupJoinRoomMessage: ChatRoomMessage, MessageListable {
         let gid: String
         let user: Entity.RoomUser
         let msgType: MessageType
+        var isGroupRoomHostMsg: Bool = false
         
         private enum CodingKeys: String, CodingKey {
             case gid
@@ -246,7 +255,7 @@ extension ChatRoom.MessageType {
     }
 }
 
-extension ChatRoom.SystemMessage: MessageListable {
+extension ChatRoom.SystemMessage {
     var rawContent: String? {
         text
     }
@@ -268,7 +277,7 @@ extension ChatRoom.SystemMessage: MessageListable {
     }
 }
 
-extension ChatRoom.TextMessage: MessageListable {
+extension ChatRoom.TextMessage {
     var rawContent: String? {
         content
     }
@@ -292,7 +301,9 @@ extension ChatRoom.TextMessage: MessageListable {
 //            .kern: 0.5
         ]
         let mutableNormalString = NSMutableAttributedString()
-        if user.seatNo >= 0 {
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
             mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         } else {
             mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
@@ -323,7 +334,7 @@ extension ChatRoom.TextMessage: MessageListable {
     }
 }
 
-extension ChatRoom.JoinRoomMessage: MessageListable {
+extension ChatRoom.JoinRoomMessage {
     var rawContent: String? {
         nil
     }
@@ -349,7 +360,9 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         
         let mutableNormalString = NSMutableAttributedString()
 //        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
-        if user.seatNo >= 0 {
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
             mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
         } else {
             mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
@@ -406,3 +419,64 @@ extension ChatRoom.SystemMessage.ContentType {
     
 }
 
+extension ChatRoom.GroupJoinRoomMessage {
+    var rawContent: String? {
+        nil
+    }
+    
+    var attrString: NSAttributedString {
+        let pargraph = NSMutableParagraphStyle()
+        pargraph.lineBreakMode = .byTruncatingTail
+        pargraph.lineHeightMultiple = 0
+        
+        let nameAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: "ABABAB".color(),
+            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let contentAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
+        //
+        if user.isVerified == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_verified_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableNormalString.yy_appendString(" ")
+            mutableNormalString.append(imageString)
+        }
+        
+        if user.isVip == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_vip_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+//            if user.isVerified == false {
+            mutableNormalString.yy_appendString(" ")
+//            }
+            mutableNormalString.append(imageString)
+        }
+        mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
+        return mutableNormalString
+    }
+}

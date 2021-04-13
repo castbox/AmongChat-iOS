@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 402 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 403 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2667,6 +2667,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Host
+      /// 
+      /// Locales: en
+      static let amongChatGroupHost = Rswift.StringResource(key: "among.chat.group.host", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4736,6 +4740,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialShareUrl(_ value1: String) -> String {
         return String(format: NSLocalizedString("social.share.url", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Host
+      /// 
+      /// Locales: en
+      static func amongChatGroupHost(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.host", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Host could set up note so everyone could see it when they join

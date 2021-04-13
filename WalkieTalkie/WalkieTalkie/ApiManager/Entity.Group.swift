@@ -192,7 +192,7 @@ extension Entity {
                     return index
                 }
             }
-            return 0
+            return -1
         }
         
         var hostNickname: String? {

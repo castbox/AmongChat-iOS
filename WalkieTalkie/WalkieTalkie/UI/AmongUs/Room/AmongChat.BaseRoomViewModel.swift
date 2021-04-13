@@ -259,7 +259,7 @@ extension AmongChat {
                     if let text = message as? ChatRoom.TextMessage {
                         //过滤
                         let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
-                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType)
+                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType, isGroupRoomHostMsg: text.isGroupRoomHostMsg)
                     } else {
                         return message
                     }

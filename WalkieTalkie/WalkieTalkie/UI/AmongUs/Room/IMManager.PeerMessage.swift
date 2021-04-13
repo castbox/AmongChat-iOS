@@ -46,8 +46,9 @@ extension Peer {
     }
 
     //red color
-    struct SystemMessage: PeerMessage {
-        
+    struct SystemMessage: PeerMessage, MessageListable {
+        var isGroupRoomHostMsg: Bool = false
+                
         enum ContentType: String, Codable {
             case `public`
             case `private`
@@ -180,7 +181,7 @@ extension Peer.MessageType {
 //    }
 }
 
-extension Peer.SystemMessage: MessageListable {
+extension Peer.SystemMessage {
     var rawContent: String? {
         text
     }
