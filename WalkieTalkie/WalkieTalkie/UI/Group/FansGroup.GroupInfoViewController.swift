@@ -273,6 +273,18 @@ extension FansGroup.GroupInfoViewController {
         }
         
         let editVC = FansGroup.GroupEditViewController(groupInfo: info)
+        editVC.editingHandler = { [weak self] action, group in
+            
+            guard let `self` = self else { return }
+            
+            switch action {
+            case .delete:
+                self.navigationController?.viewControllers.removeAll(where: { $0 === self })
+            case .update:
+                ()
+            }
+            
+        }
         navigationController?.pushViewController(editVC, animated: true)
     }
 }
