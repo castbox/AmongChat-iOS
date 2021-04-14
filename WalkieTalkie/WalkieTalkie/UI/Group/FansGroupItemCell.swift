@@ -20,6 +20,7 @@ class FansGroupItemCell: UITableViewCell {
     @IBOutlet weak var groupUserCountLabel: UILabel!
     @IBOutlet weak var topicContainer: UIView!
     @IBOutlet weak var onlineTagView: UIView!
+    @IBOutlet weak var bgView: UIView!
     
     private(set) lazy var topicView: FansGroup.Views.GroupTopicView = {
         let v = FansGroup.Views.GroupTopicView()
@@ -33,6 +34,8 @@ class FansGroupItemCell: UITableViewCell {
         topicView.snp.makeConstraints { (maker) in
             maker.edges.equalToSuperview()
         }
+        onlineTagView.layer.borderColor = UIColor(hex6: 0x222222).cgColor
+        bgView.backgroundColor = UIColor(hex6: 0x222222)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

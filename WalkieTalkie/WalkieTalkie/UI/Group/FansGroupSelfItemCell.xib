@@ -82,7 +82,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fiJ-Sm-h79" firstAttribute="trailing" secondItem="ddu-74-btn" secondAttribute="trailing" id="47U-nK-2PP"/>
                             <constraint firstItem="fiJ-Sm-h79" firstAttribute="leading" secondItem="ddu-74-btn" secondAttribute="leading" id="Ghu-pN-jXu"/>
@@ -112,6 +112,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JrY-4D-YVp" userLabel="Tag View">
                         <rect key="frame" x="68" y="16" width="51.5" height="24"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HaD-el-ArI" userLabel="bg">
+                                <rect key="frame" x="0.5" y="0.0" width="50.5" height="24"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Owner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="heQ-NE-ySs">
                                 <rect key="frame" x="6.5" y="5" width="39" height="14"/>
                                 <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
@@ -122,10 +126,14 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="HaD-el-ArI" secondAttribute="bottom" id="K9W-q1-6sY"/>
                             <constraint firstItem="heQ-NE-ySs" firstAttribute="top" secondItem="JrY-4D-YVp" secondAttribute="top" constant="5" id="Uyn-sl-ONt"/>
+                            <constraint firstItem="HaD-el-ArI" firstAttribute="top" secondItem="JrY-4D-YVp" secondAttribute="top" id="WoJ-0p-Po6"/>
                             <constraint firstAttribute="trailing" secondItem="heQ-NE-ySs" secondAttribute="trailing" constant="6" id="g7n-8k-nLo"/>
+                            <constraint firstItem="HaD-el-ArI" firstAttribute="leading" secondItem="JrY-4D-YVp" secondAttribute="leading" constant="0.5" id="lMV-bM-Uht"/>
+                            <constraint firstAttribute="trailing" secondItem="HaD-el-ArI" secondAttribute="trailing" constant="0.5" id="nID-mB-4QD"/>
                             <constraint firstAttribute="bottom" secondItem="heQ-NE-ySs" secondAttribute="bottom" constant="5" id="qwA-2g-ylv"/>
                             <constraint firstAttribute="height" constant="24" id="r73-k5-jeh"/>
                             <constraint firstItem="heQ-NE-ySs" firstAttribute="leading" secondItem="JrY-4D-YVp" secondAttribute="leading" constant="6.5" id="ycl-2c-if6"/>
@@ -133,9 +141,6 @@
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="12"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                <color key="value" red="0.13333333333333333" green="0.13333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                 <real key="value" value="2.5"/>
@@ -159,6 +164,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="bgView" destination="NUB-7f-Tfz" id="AEH-Z7-ihk"/>
                 <outlet property="editButton" destination="Ncw-3k-kYD" id="cJN-pE-sp8"/>
                 <outlet property="groupIconView" destination="ECr-KO-5sv" id="e5i-xu-eRk"/>
                 <outlet property="startButton" destination="TRt-ns-J7t" id="jp9-mS-OoT"/>
