@@ -15,12 +15,7 @@ import SDCAlertView
 extension FansGroup {
     
     class GroupEditViewController: WalkieTalkie.ViewController {
-        
-        enum EditAction {
-            case update
-            case delete
-        }
-        
+                
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
             n.leftBtn.setImage(R.image.ac_back(), for: .normal)
@@ -117,8 +112,6 @@ extension FansGroup {
         
         private var groupInfo: Entity.GroupInfo
         private var currentTopic: FansGroup.TopicViewModel
-        
-        var editingHandler: ((EditAction, Entity.Group) -> Void)? = nil
         
         init(groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -307,8 +300,8 @@ extension FansGroup.GroupEditViewController {
             .do(onDispose: {
                 hudRemoval()
             })
-            .subscribe(onSuccess: { [weak self] (group) in
-                self?.editingHandler?(.update, group)
+            .subscribe(onSuccess: { (group) in
+                FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .updated)
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
@@ -356,7 +349,7 @@ extension FansGroup.GroupEditViewController {
                 })
                 .subscribe(onSuccess: { [weak self] (_) in
                     guard let `self` = self else { return }
-                    self.editingHandler?(.delete, self.groupInfo.group)
+                    FansGroup.GroupUpdateNotification.publishNotificationOf(group: self.groupInfo.group, action: .removed)
                     completionHandler()
                 }, onError: { (error) in
                     

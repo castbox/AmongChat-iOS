@@ -142,6 +142,31 @@ extension FansGroup.GroupInfoViewController {
         }
         
     }
+    
+    private func setUpEvents() {
+        
+        NotificationCenter.default.rx.notification(FansGroup.GroupUpdateNotification.notificationName)
+            .subscribe(onNext: { [weak self] (noti) in
+                guard let `self` = self else { return }
+                guard let (action, group) = FansGroup.GroupUpdateNotification.getDataFromNotification(noti) else { return }
+                
+                switch action {
+                case .added:
+                    ()
+                
+                case .removed:
+                    guard group.gid == self.groupId else {
+                        return
+                    }
+                    self.navigationController?.viewControllers.removeAll(where: { $0 === self })
+
+                case .updated:
+                    ()
+                }
+            })
+            .disposed(by: bag)
+        
+    }
         
     private func fetchInfo() {
         
@@ -194,6 +219,9 @@ extension FansGroup.GroupInfoViewController {
                     hudRemoval?()
                 })
                 .subscribe(onSuccess: { [weak self] (_) in
+                    if let group = self?.groupInfoViewModel?.groupInfo.group {
+                        FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .removed)
+                    }
                     self?.navigationController?.popViewController(animated: true)
                 })
                 .disposed(by: self.bag)
@@ -275,18 +303,6 @@ extension FansGroup.GroupInfoViewController {
         }
         
         let editVC = FansGroup.GroupEditViewController(groupInfo: info)
-        editVC.editingHandler = { [weak self] action, group in
-            
-            guard let `self` = self else { return }
-            
-            switch action {
-            case .delete:
-                self.navigationController?.viewControllers.removeAll(where: { $0 === self })
-            case .update:
-                ()
-            }
-            
-        }
         navigationController?.pushViewController(editVC, animated: true)
     }
 }
