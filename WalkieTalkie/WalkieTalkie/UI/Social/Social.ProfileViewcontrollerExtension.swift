@@ -50,7 +50,6 @@ extension Social.ProfileViewController {
         
         private lazy var proBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_pro_icon_22(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFEC96), for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.rx.tap.observeOn(MainScheduler.instance)
@@ -64,18 +63,24 @@ extension Social.ProfileViewController {
                 .subscribe(onNext: { (isPro) in
                     
                     if isPro {
+                        btn.setImage(R.image.ac_pro_icon_bg_40(), for: .normal)
                         btn.setTitle(nil, for: .normal)
+                        btn.backgroundColor = .clear
+                        btn.contentEdgeInsets = .zero
+                        btn.titleEdgeInsets = .zero
+                        btn.imageEdgeInsets = .zero
                     } else {
+                        btn.setImage(R.image.ac_pro_icon_22(), for: .normal)
                         btn.setTitle(R.string.localizable.profileUnlockPro(), for: .normal)
+                        btn.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.2)
+                        btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+                        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                        btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
                     }
                     
                 })
                 .disposed(by: bag)
             btn.layer.cornerRadius = 20
-            btn.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.2)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
             return btn
         }()
         
