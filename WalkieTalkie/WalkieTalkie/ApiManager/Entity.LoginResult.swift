@@ -254,8 +254,21 @@ extension Entity {
         }
         
         var room: Room?
+        var group: Room?
         
     }
+}
+
+extension Entity.PlayingUser {
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.user = try container.decode(Entity.UserProfile.self, forKey: .user)
+        self.room = (try? container.decode(Room.self, forKey: .room)) ?? (try? container.decode(Room.self, forKey: .group))
+        self.group = try? container.decode(Room.self, forKey: .group)
+    }
+
 }
 
 extension Entity {

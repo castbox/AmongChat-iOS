@@ -201,7 +201,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.userLsit.safe(indexPath.item) {
-                cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
+                cell.bind(viewModel: playing, onJoin: { [weak self] in
                     
                     guard let roomState = playing.roomState,
                           roomState == .public else {
@@ -209,9 +209,10 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         return
                     }
                     
-                    if let gid = playing.playingModel.room?.gid {
+                    if let gid = playing.groupId {
                         self?.enter(group: gid)
-                    } else {
+                    } else if let roomId = playing.roomId,
+                              let topicId = playing.roomTopicId {
                         self?.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))
                     }
                     
