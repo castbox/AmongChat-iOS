@@ -1,4 +1,3 @@
 Bienvenue sur l'application de chat vocal AmongChat!
-Pour tous les utilisateurs vérifiés, vous pouvez télécharger vos pages de statistiques de jeu maintenant.
-Autres corrections de bogues et améliorations des performances.
+Cette mise à jour inclut des corrections de bogues et des améliorations de performances.
 Trouvez et discutez avec vos amis, jouez ensemble et amusez-vous!

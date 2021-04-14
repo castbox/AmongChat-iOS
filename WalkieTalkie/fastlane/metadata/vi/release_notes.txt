@@ -1,4 +1,3 @@
 Chào mừng bạn đến với ứng dụng trò chuyện thoại AmongChat!
-Đối với tất cả người dùng đã xác minh, bạn có thể tải lên các trang thống kê trò chơi của mình ngay bây giờ.
-Các bản sửa lỗi và cải tiến hiệu suất khác.
+Bản cập nhật này bao gồm các bản sửa lỗi và cải tiến hiệu suất.
 Tìm và Trò chuyện bằng giọng nói với bạn bè của bạn, chơi cùng nhau và tận hưởng!

@@ -1,4 +1,3 @@
 ¡Bienvenido a la aplicación de chat de voz AmongChat!
-Para todos los usuarios verificados, puede cargar sus páginas de estadísticas de juegos ahora.
-Otras correcciones de errores y mejoras de rendimiento.
+Esta actualización incluye correcciones de errores y mejoras de rendimiento.
 Busque y chatee por voz con sus amigos, jueguen juntos y disfruten.
