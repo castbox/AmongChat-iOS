@@ -49,9 +49,12 @@ extension FansGroup {
                 btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
                 btn.setTitle(R.string.localizable.amongChatGroupDeleteGroup(), for: .normal)
                 btn.setImage(R.image.ac_group_delete(), for: .normal)
+                btn.setImage(R.image.ac_group_delete()?.withRenderingMode(.alwaysTemplate), for: .disabled)
+                btn.tintColor = UIColor(hex6: 0x757575)
                 btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
                 btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
                 btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
+                btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
                 btn.backgroundColor = UIColor(hex6: 0x232323)
                 btn.rx.controlEvent(.primaryActionTriggered)
                     .subscribe(onNext: { [weak self] (_) in
@@ -62,6 +65,8 @@ extension FansGroup {
                     .disposed(by: bag)
                 return btn
             }()
+            
+            deleteBtn.isEnabled = groupInfo.group.status == 0
             
             v.addSubview(deleteBtn)
             deleteBtn.snp.makeConstraints { (maker) in
