@@ -164,7 +164,7 @@ extension FansGroup.GroupsViewController {
     
     private func setUpLayout() {
         
-        view.addSubviews(views: navView, segmentedButton, layoutScrollView, bottomGradientView)
+        view.addSubviews(views: navView, segmentedButton, layoutScrollView)
         
         navView.snp.makeConstraints { (maker) in
             maker.leading.trailing.equalToSuperview()
@@ -219,6 +219,13 @@ extension FansGroup.GroupsViewController {
             maker.height.equalToSuperview()
         }
         myGroupList.didMove(toParent: self)
+        
+        myGroupList.view.addSubview(bottomGradientView)
+        bottomGradientView.snp.makeConstraints { (maker) in
+            maker.leading.trailing.equalToSuperview()
+            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
+            maker.height.equalTo(134)
+        }
                 
         let allGroupList = FansGroup.GroupListViewController(source: .allGroups)
         addChild(allGroupList)
@@ -230,13 +237,6 @@ extension FansGroup.GroupsViewController {
             maker.height.equalToSuperview()
         }
         allGroupList.didMove(toParent: self)
-        
-        bottomGradientView.snp.makeConstraints { (maker) in
-            maker.leading.trailing.equalToSuperview()
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top)
-            maker.height.equalTo(134)
-        }
-        
     }
     
     private func getVerified() {
