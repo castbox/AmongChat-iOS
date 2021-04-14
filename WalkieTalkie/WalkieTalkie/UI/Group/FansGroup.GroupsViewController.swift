@@ -30,6 +30,7 @@ extension FansGroup {
             let s = SegmentedButton()
             s.selectedIndexObservable
                 .subscribe(onNext: { [weak self] (idx) in
+                    Logger.Action.log(.group_list_tab_clk, categoryValue: idx == 0 ? "my_group" : "explore")
                     guard let `self` = self else { return }
                     let offset = CGPoint(x: self.layoutScrollView.bounds.width * CGFloat(idx), y: 0)
                     self.layoutScrollView.setContentOffset(offset, animated: true)
@@ -66,6 +67,7 @@ extension FansGroup {
                 btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 26, bottom: 0, right: 26)
                 btn.rx.controlEvent(.primaryActionTriggered)
                     .subscribe(onNext: { [weak self] (_) in
+                        Logger.Action.log(.group_list_clk, categoryValue: "go_verify")
                         self?.getVerified()
                     })
                     .disposed(by: bag)
@@ -119,6 +121,7 @@ extension FansGroup {
                 .subscribe(onNext: { [weak self] (_) in
                     let vc = FansGroup.CreateGroupViewController()
                     self?.navigationController?.pushViewController(vc)
+                    Logger.Action.log(.group_list_clk, categoryValue: "create")
                 })
                 .disposed(by: bag)
             return btn
@@ -145,6 +148,7 @@ extension FansGroup {
         override func viewDidLoad() {
             super.viewDidLoad()
             setUpLayout()
+            setUpEvents()
         }
         
         override func viewDidLayoutSubviews() {
@@ -243,6 +247,13 @@ extension FansGroup.GroupsViewController {
         self.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
     }
     
+    private func setUpEvents() {
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.group_list_imp)
+            })
+            .disposed(by: bag)
+    }
 }
 
 extension FansGroup.GroupsViewController: UIScrollViewDelegate {

@@ -114,6 +114,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             fetchData()
+            setUpEvents()
         }
         
     }
@@ -168,6 +169,14 @@ extension FansGroup.AddTopicViewController {
             .disposed(by: bag)        
     }
     
+    private func setUpEvents() {
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { (_) in
+                Logger.Action.log(.group_create_add_topic_imp)
+            })
+            .disposed(by: bag)
+
+    }
 }
 
 extension FansGroup.AddTopicViewController: UICollectionViewDataSource {
@@ -204,7 +213,7 @@ extension FansGroup.AddTopicViewController: UICollectionViewDelegate {
         topicSelectedHandler?(topic)
         
         dismiss(animated: true)
-        
+        Logger.Action.log(.group_create_add_topic_clk, categoryValue: topic.topic.topicId)
     }
 }
 

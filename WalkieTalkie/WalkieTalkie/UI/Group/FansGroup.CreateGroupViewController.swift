@@ -122,7 +122,8 @@ extension FansGroup.CreateGroupViewController {
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
             .disposed(by: bag)
-
+        
+        Logger.Action.log(.group_create_info_next)
     }
 }
 
