@@ -105,6 +105,7 @@ class PermissionManager {
             completionHandler?()
             return
         }
+                
         let alert = AlertController(title: nil, message: nil)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
         visualStyle.backgroundColor = "#222222".color()
@@ -115,6 +116,7 @@ class PermissionManager {
         alert.contentView.addSubview(content)
         content.allowTrackingHandler = { [weak alert] in
             alert?.dismiss(animated: false) {
+                Logger.Action.log(.attracking_request_imp)
                 ATTrackingManager.requestTrackingAuthorization { status in
                     cdPrint("requestTrackingAuthorization result state: \(status.rawValue)")
                     Defaults[key: DefaultsKeys.permissionRequestStatusKey(for: .appTracking)] = status.rawValue.int
