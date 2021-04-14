@@ -210,7 +210,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                     }
                     
                     if let gid = playing.groupId {
-                        self?.enter(group: gid)
+                        self?.enter(group: gid, logSource: .init(.friends))
                     } else if let roomId = playing.roomId,
                               let topicId = playing.roomTopicId {
                         self?.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))

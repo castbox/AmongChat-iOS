@@ -143,28 +143,6 @@ extension AmongChat.Room {
         override var screenName: Logger.Screen.Node.Start {
             return .room
         }
-        
-//        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
-//            controller.checkMicroPermission { [weak controller] in
-//                guard let controller = controller else {
-//                    return
-//                }
-//                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
-//                //show loading
-//                let viewModel = ViewModel.make(room, logSource)
-//                self.show(from: controller, with: viewModel)
-//                completionHandler?(nil)
-//            }
-//        }
-//
-//        static func show(from controller: UIViewController, with viewModel: ViewModel) {
-//            let vc = AmongChat.Room.ViewController(viewModel: viewModel)
-//            controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
-//                guard let ancient = controller,
-//                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
-//                ancient.navigationController?.viewControllers.removeAll(ancient)
-//            })
-//        }
                 
         init(viewModel: ViewModel) {
             self.room = viewModel.roomReplay.value as! Entity.Room

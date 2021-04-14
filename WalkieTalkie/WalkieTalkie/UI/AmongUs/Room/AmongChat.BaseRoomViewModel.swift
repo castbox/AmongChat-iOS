@@ -313,9 +313,11 @@ extension AmongChat {
                   let user = roomInfo.userList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
-//            Logger.Action.log(.room_send_message_success, categoryValue: room.topicId)
+
             let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
-            imViewModel.sendText(message: textMessage)
+            imViewModel.sendText(message: textMessage) { [weak self] in
+                Logger.Action.log(.group_send_message_success, categoryValue: self?.roomInfo.topicId)
+            }
             //append
             addUIMessage(message: textMessage)
         }

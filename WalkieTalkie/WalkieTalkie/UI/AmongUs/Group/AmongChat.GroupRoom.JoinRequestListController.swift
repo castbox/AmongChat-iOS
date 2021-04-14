@@ -43,8 +43,9 @@ extension AmongChat.GroupRoom {
         }
         let viewModel: AmongChat.GroupRoom.JoinRequestViewModel
         var gid: String { viewModel.gid }
-        
-        init(with viewModel: AmongChat.GroupRoom.JoinRequestViewModel) {
+        let topicId: String
+        init(with topicId: String, viewModel: AmongChat.GroupRoom.JoinRequestViewModel) {
+            self.topicId = topicId
             self.viewModel = viewModel
             super.init(nibName: nil, bundle: nil)
         }
@@ -161,10 +162,12 @@ extension AmongChat.GroupRoom.JoinRequestListController: UITableViewDataSource, 
             cell.actionHandler = { [weak self] action in
                 switch action {
                 case .accept:
+                    Logger.Action.log(.group_broadcaster_join_request_accept, categoryValue: self?.topicId)
                     self?.handlerJoinRequest(for: user.uid, accept: true, at: indexPath)
                 case .reject:
                     ()
                 case .ignore:
+                    Logger.Action.log(.group_broadcaster_join_request_ignore, categoryValue: self?.topicId)
                     self?.handlerJoinRequest(for: user.uid, accept: false, at: indexPath)
                 }
             }

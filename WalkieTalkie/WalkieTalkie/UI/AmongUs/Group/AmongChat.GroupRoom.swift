@@ -45,7 +45,6 @@ extension AmongChat.GroupRoom {
 //            return .lightContent
 //        }
         
-        //Defaults[\.testGroup] = group.asString
         static func join(with group: Entity.Group, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             join(with: Entity.GroupInfo(group: group, members: nil, userStatusInt: 1), from: controller)
         }
@@ -55,10 +54,11 @@ extension AmongChat.GroupRoom {
                 guard let controller = controller else {
                     return
                 }
+                Logger.Action.log(.group_enter, categoryValue: groupInfo.group.topicId, logSource?.key)
                 let vc = AmongChat.GroupRoom.ContainerController(with: groupInfo, logSource: logSource)
                 controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                     guard let ancient = controller,
-                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ViewController) else { return }
+                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ContainerController || ancient is AmongChat.Room.ContainerController) else { return }
                     ancient.navigationController?.viewControllers.removeAll(ancient)
                 })
                 completionHandler?(nil)

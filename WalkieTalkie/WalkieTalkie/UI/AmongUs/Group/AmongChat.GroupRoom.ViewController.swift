@@ -71,14 +71,14 @@ extension AmongChat.GroupRoom {
                 case .nickName:
                     self.view.bringSubviewToFront(nickNameInputView)
                     nickNameInputView.becomeFirstResponder(with: room)
-                    Logger.Action.log(.room_edit_nickname, categoryValue: room.topicId)
+                    Logger.Action.log(.group_edit_nickname, categoryValue: room.topicId)
                 case .chillingSetup:
                     self.view.bringSubviewToFront(inputNotesView)
                     inputNotesView.placeHolder = R.string.localizable.roomSetupHostNotes()
                     inputNotesView.notes = room.note
                     inputNotesView.isLinkContent = false
                     inputNotesView.show(with: room)
-                    Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
+                    Logger.Action.log(.group_edit_clk, categoryValue: room.topicId)
                 case .robloxSetup:
                     self.view.bringSubviewToFront(inputNotesView)
 //                    inputNotesView.notes = room.robloxLink
@@ -87,7 +87,7 @@ extension AmongChat.GroupRoom {
                     inputNotesView.show(with: room)
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 default:
-                    Logger.Action.log(.room_send_message_clk, categoryValue: self.room.topicId)
+                    Logger.Action.log(.group_send_message_clk, categoryValue: self.room.topicId)
 //                    messageInputField.becomeFirstResponder()
                     messageInputContainerView.becomeFirstResponder()
                 }
@@ -208,7 +208,7 @@ extension AmongChat.GroupRoom.ViewController {
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
-        Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, viewModel.stayDuration)
+        Logger.Action.log(.group_leave_clk, categoryValue: room.topicId, nil, viewModel.stayDuration)
         viewModel.requestLeaveChannel()
             .subscribe { _ in
                 cdPrint("requestLeaveRoom success")
@@ -461,7 +461,7 @@ extension AmongChat.GroupRoom.ViewController {
 //                return
 //            }
 //            self.showStoreProduct(with: self.room.topicType.productId)
-//            Logger.Action.log(.room_open_game, categoryValue: self.room.topicId)
+//            Logger.Action.log(.group_open_game, categoryValue: self.room.topicId)
 //        }
 //
 //        topBar.leaveHandler = { [weak self] in
@@ -491,9 +491,11 @@ extension AmongChat.GroupRoom.ViewController {
                 }
                 self.presentPanModal(vc)
             case .memberList:
+                Logger.Action.log(.group_member_list_imp, categoryValue: self.room.topicId)
                 let vc = AmongChat.GroupRoom.MembersController(with: self.room.gid)
                 self.presentPanModal(vc)
             case .groupInfo:
+                Logger.Action.log(.group_cover_clk, categoryValue: self.room.topicId)
                 let vc = FansGroup.GroupInfoViewController(groupId: self.room.gid)
                 self.navigationController?.pushViewController(vc, animated: true)
             case .setupCode:
@@ -516,14 +518,16 @@ extension AmongChat.GroupRoom.ViewController {
             case .editNickName:
                 self.editType = .nickName
             case .joinGroup:
-                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.joinRequestViewModel)
+                Logger.Action.log(.group_broadcaster_join_request_imp, categoryValue: self.room.topicId)
+                let vc = AmongChat.GroupRoom.JoinRequestListController(with: self.room.topicId, viewModel: self.joinRequestViewModel)
                 self.presentPanModal(vc)
             case .joinHost:
                 //data source
                 guard let replay = self.broadcasterViewModel?.callInListReplay else {
                     return
                 }
-                let vc = AmongChat.GroupRoom.SeatRequestListController(with: replay)
+                Logger.Action.log(.group_broadcaster_raise_hands_imp, categoryValue: self.room.topicId)
+                let vc = AmongChat.GroupRoom.SeatRequestListController(with: self.room, replay: replay)
                 vc.actionHandler = { [weak self, weak vc] user, action in
                     guard let `self` = self else { return }
                     switch action {
@@ -559,29 +563,29 @@ extension AmongChat.GroupRoom.ViewController {
             self?.editType = .message
         }
         
-        bottomBar.emojiHandler = { [weak self] in
-            guard let `self` = self else {
-                return
-            }
-            Logger.Action.log(.room_emoji_clk, categoryValue: self.room.topicId)
-            let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
-            vc.didSelectItemHandler = { [weak self] emoji in
-                //
-                Logger.Action.log(.room_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
-                self?.viewModel.sendEmoji(emoji)
-            }
-            vc.showModal(in: self)
-
-        }
+//        bottomBar.emojiHandler = { [weak self] in
+//            guard let `self` = self else {
+//                return
+//            }
+//            Logger.Action.log(.group_emoji_clk, categoryValue: self.room.topicId)
+//            let vc = AmongChat.Room.EmojiPickerController(self.emojiPickerViewModel)
+//            vc.didSelectItemHandler = { [weak self] emoji in
+//                //
+//                Logger.Action.log(.group_emoji_selected, categoryValue: self?.room.topicId, emoji.id.string)
+//                self?.viewModel.sendEmoji(emoji)
+//            }
+//            vc.showModal(in: self)
+//
+//        }
         
         bottomBar.shareHandler = { [weak self] in
 //            self?.editType = .message
             self?.onShareBtn()
-            Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "btn")
+            Logger.Action.log(.group_share_clk, categoryValue: self?.room.topicId, "btn")
         }
         
         bottomBar.changeMicStateHandler = { [weak self] micOn in
-            Logger.Action.log(.room_mic_state, categoryValue: self?.room.topicId, micOn ? "on" : "off")
+            Logger.Action.log(.group_mic_state, categoryValue: self?.room.topicId, micOn ? "on" : "off")
             self?.viewModel.isMuteMic = !micOn
         }
         
@@ -601,7 +605,7 @@ extension AmongChat.GroupRoom.ViewController {
                 self?.editType = .nickName
             case .selectUser(let user):
                 guard let user = user else {
-                    Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
+                    Logger.Action.log(.group_share_clk, categoryValue: self?.room.topicId, "seat")
                     self?.onShareBtn()
                     return
                 }
@@ -613,6 +617,7 @@ extension AmongChat.GroupRoom.ViewController {
                     self?.view.raft.autoShow(.text(R.string.localizable.groupRoomAnoymonusUserApplySeatTips()))
                     return
                 }
+                Logger.Action.log(.group_audience_raise_hands_clk, categoryValue: self?.room.topicId, "seat")
                 self?.audienceViewModel?.requestOnSeat(at: position)
             case .selectedKickUser(let users):
                 self?.bottomBar.selectedKickUser = users
@@ -624,7 +629,7 @@ extension AmongChat.GroupRoom.ViewController {
         
 //        seatView.selectUserHandler = { [weak self] user in
 //            guard let user = user else {
-//                Logger.Action.log(.room_share_clk, categoryValue: self?.room.topicId, "seat")
+//                Logger.Action.log(.group_share_clk, categoryValue: self?.room.topicId, "seat")
 //                self?.onShareBtn()
 //                return
 //            }
@@ -643,20 +648,25 @@ extension AmongChat.GroupRoom.ViewController {
         
         amongInputCodeView.inputResultHandler = { [weak self] code, aera in
             self?.viewModel.updateAmong(code: code, aera: aera)
-            Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
+            Logger.Action.log(.group_amongus_code_set_done, categoryValue: self?.room.topicId)
         }
         
         nickNameInputView.inputResultHandler = { [weak self] text in
-            Logger.Action.log(.room_edit_nickname_success, categoryValue: self?.room.topicId)
+            Logger.Action.log(.group_edit_nickname_success, categoryValue: self?.room.topicId)
             self?.viewModel.update(nickName: text)
         }
         
         inputNotesView.inputResultHandler = { [weak self] notes in
-            Logger.Action.log(.admin_edit_success, categoryValue: self?.room.topicId)
+            if self?.room.topicType == .roblox {
+                Logger.Action.log(.group_roblox_link_set_done, categoryValue: self?.room.topicId)
+            } else {
+                Logger.Action.log(.group_notes_set_done, categoryValue: self?.room.topicId)
+            }
             self?.viewModel.update(notes: notes)
         }
                 
         applyButton.actionHandler = { [weak self] in
+            Logger.Action.log(.group_apply_join_clk, categoryValue: self?.room.topicId)
             self?.applyJoinGroup()
         }
         

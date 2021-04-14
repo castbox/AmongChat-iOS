@@ -136,9 +136,9 @@ class AmongGroupTopicConfigView: XibLoadableView {
             //edit
             actionHandler?(.setupLink)
         } else {
+            Logger.Action.log(.group_roblox_link_copy)
             //copy
             group?.robloxLink?.copyToPasteboardWithHaptic()
-//            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
         }
         
     }
@@ -204,6 +204,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         if group?.loginUserIsAdmin == true {
             actionHandler?(.setupCode)
         } else {
+            Logger.Action.log(.group_amongus_code_copy)
             group?.amongUsCode?.copyToPasteboardWithHaptic()
         }
         

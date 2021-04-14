@@ -267,7 +267,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
                 case .edit:
                     self.gotoEditGroup(group.group.gid)
                 case .start:
-                    self.enter(group: group.group, logSource: .matchSource, apiSource: nil)
+                    self.enter(group: group.group, logSource: .init(.my_group), apiSource: nil)
                 }
             }
             return cell
@@ -288,7 +288,7 @@ extension FansGroup.GroupListViewController: UITableViewDelegate {
             return
         }
         if group.group.status == 1 {
-            enter(group: group.group, logSource: nil, apiSource: nil)
+            enter(group: group.group, logSource: .init(.explore), apiSource: nil)
         } else {
             
             let vc = FansGroup.GroupInfoViewController(groupId: group.group.gid)

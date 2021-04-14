@@ -54,7 +54,7 @@ extension AmongChat.Room {
                 let vc = AmongChat.Room.ContainerController(with: room, logSource: logSource)
                 controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                     guard let ancient = controller,
-                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
+                          (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ContainerController || ancient is AmongChat.Room.ContainerController) else { return }
                     ancient.navigationController?.viewControllers.removeAll(ancient)
                 })
                 completionHandler?(nil)
@@ -65,7 +65,7 @@ extension AmongChat.Room {
             let vc = AmongChat.Room.ViewController(viewModel: viewModel)
             controller.navigationController?.pushViewController(vc, completion: { [weak controller] in
                 guard let ancient = controller,
-                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.Room.ViewController) else { return }
+                      (ancient is AmongChat.CreateRoom.ViewController || ancient is AmongChat.GroupRoom.ContainerController || ancient is AmongChat.Room.ContainerController) else { return }
                 ancient.navigationController?.viewControllers.removeAll(ancient)
             })
         }

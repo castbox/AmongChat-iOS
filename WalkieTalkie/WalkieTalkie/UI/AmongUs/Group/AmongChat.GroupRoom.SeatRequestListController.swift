@@ -74,9 +74,11 @@ extension AmongChat.GroupRoom {
         }
         var actionHandler: ((Entity.CallInUser, Action) -> Void)?
         
+        private let group: Entity.Group
         private let dataSourceReplay: BehaviorRelay<[Entity.CallInUser]>
         
-        init(with replay: BehaviorRelay<[Entity.CallInUser]>) {
+        init(with group: Entity.Group, replay: BehaviorRelay<[Entity.CallInUser]>) {
+            self.group = group
             self.dataSourceReplay = replay
             super.init(nibName: nil, bundle: nil)
             
@@ -89,7 +91,6 @@ extension AmongChat.GroupRoom {
         override func viewDidLoad() {
             super.viewDidLoad()
             setupLayout()
-            
             //
             dataSourceReplay
                 .observeOn(MainScheduler.asyncInstance)
@@ -147,8 +148,10 @@ extension AmongChat.GroupRoom.SeatRequestListController: UITableViewDataSource, 
             cell.actionHandler = { [weak self] action in
                 switch action {
                 case .accept:
+                    Logger.Action.log(.group_raise_hands_accept, categoryValue: self?.group.topicId)
                     self?.actionHandler?(user, .accept)
                 case .reject:
+                    Logger.Action.log(.group_raise_hands_reject, categoryValue: self?.group.topicId)
                     self?.actionHandler?(user, .reject)
                 case .ignore:
                     ()

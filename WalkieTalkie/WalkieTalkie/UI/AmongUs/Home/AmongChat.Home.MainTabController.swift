@@ -126,9 +126,9 @@ extension AmongChat.Home.MainTabController {
             return
         }
         if room.isGroup, let gid = room.gid {
-            topVC.enter(group: gid)
+            topVC.enter(group: gid, logSource: .init(.invite))
         } else {
-            topVC.enterRoom(roomId: room.roomId, topicId: room.topicId)
+            topVC.enterRoom(roomId: room.roomId, topicId: room.topicId, logSource: .init(.invite))
         }
     }
     

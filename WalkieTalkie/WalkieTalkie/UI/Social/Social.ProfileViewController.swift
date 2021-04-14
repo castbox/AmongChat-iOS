@@ -731,7 +731,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                         self.gotoEditGroup(group.gid)
                         Logger.Action.log(.profile_group_clk, categoryValue: "edit")
                     case .start:
-                        self.enter(group: group, logSource: .matchSource, apiSource: nil)
+                        self.enter(group: group, logSource: .init(.profile), apiSource: nil)
                         Logger.Action.log(.profile_group_clk, categoryValue: "start")
                     }
                 }
@@ -747,7 +747,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             cell.bind(joinedGroupsRelay.value) { [weak self] (group) in
                 
                 if group.status == 1 {
-                    self?.enter(group: group, logSource: nil, apiSource: nil)
+                    self?.enter(group: group, logSource: .init(.profile), apiSource: nil)
                 } else {
                     let vc = FansGroup.GroupInfoViewController(groupId: group.gid)
                     self?.navigationController?.pushViewController(vc, animated: true)

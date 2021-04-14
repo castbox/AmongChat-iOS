@@ -232,41 +232,6 @@ extension JoinRoomable where Self: ViewController {
                 self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
             }
             .disposed(by: bag)
-//        Request.enterRoom(roomId: roomId, topicId: topic, source: apiSource?.key)
-//            .subscribe(onSuccess: { [weak self] (room) in
-//                // TODO: - 进入房间
-//                guard let `self` = self else {
-//                    return
-//                }
-//                guard let room = room else {
-//                    completion()
-//                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
-//                    return
-//                }
-//
-//                AmongChat.GroupRoom.ContainerController.join(room: room, from: self, logSource: logSource) { error in
-//                    completion()
-//                    //dismiss
-//                    UIApplication.tabBarController?.dismissNotificationBanner()
-//                }
-//
-//            }, onError: { [weak self] (error) in
-//                completion()
-//                cdPrint("error: \(error.localizedDescription)")
-//                var msg: String {
-//                    if let error = error as? MsgError {
-//                        if let codeType = error.codeType, codeType == .needUpgrade {
-//                            return R.string.localizable.forceUpgradeTip()
-//                        }
-//                        return error.localizedDescription
-//                    } else {
-//                        return R.string.localizable.amongChatHomeEnterRoomFailed()
-//                    }
-//                }
-//                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
-//            })
-//            .disposed(by: bag)
-
     }
     
 }

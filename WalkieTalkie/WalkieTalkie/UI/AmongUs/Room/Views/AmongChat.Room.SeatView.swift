@@ -253,6 +253,7 @@ extension AmongChat.Room {
         func showDropSelfAlert(with user: Entity.RoomUser) {
             containingController?.showAmongAlert(title: R.string.localizable.groupRoomDropSelfTips(), message: nil, cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), cancelAction: nil, confirmAction: { [weak self] in
                 //
+                Logger.Action.log(.group_audience_drop_confirm, categoryValue: self?.room.topicId)
                 self?.actionHandler?(.userProfileSheetAction(.drop, user))
 //                self?.userProfileSheetActionHandler?(.drop, user)
             })
@@ -285,7 +286,11 @@ extension AmongChat.Room {
             guard let viewController = containingController else {
                 return
             }
-            Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+            if itemStyle == .group {
+                Logger.Action.log(.group_user_profile_imp, categoryValue: room.topicId)
+            } else {
+                Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
+            }
             
             var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
 
@@ -308,7 +313,11 @@ extension AmongChat.Room {
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
 
             AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
-                Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+                if self?.itemStyle == .group {
+                    Logger.Action.log(.group_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+                } else {
+                    Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
+                }
                 self?.actionHandler?(.userProfileSheetAction(item, user))
             }
         }
