@@ -207,7 +207,11 @@ extension FansGroup.GroupInfoViewController {
         
         var viewSize: CGSize {
             
-            let descHeight = descriptionLabel.text?.height(forConstrainedWidth: bounds.width - namePadding * 2, font: descriptionLabel.font).ceil ?? 0
+            var descHeight: CGFloat = 0
+            if let text = descriptionLabel.attributedText,
+               let textSize = YYTextLayout(containerSize: CGSize(width: bounds.width - namePadding * 2, height: .greatestFiniteMagnitude), text: text)?.textBoundingSize {
+                descHeight = textSize.height.ceil
+            }
             
             var height = descTop + descHeight + descBottom + leaveViewBottomSpace
             
