@@ -186,6 +186,7 @@ extension URI {
         
         static func patterns() -> [String] {
             return [
+                "/group/:gid",
                 "/group"
             ]
         }

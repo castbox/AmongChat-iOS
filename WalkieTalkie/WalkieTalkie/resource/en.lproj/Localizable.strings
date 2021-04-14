@@ -463,3 +463,5 @@
 "among.chat.group.leave.tip" = "Are you sure to leave the group?";
 "group.room.audience.droped.tips" = "Oh no, you were kicked from the stage.";
 "group.apply.reject.tips" = "Sorry, your application was rejected.";
+
+"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";

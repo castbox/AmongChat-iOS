@@ -2063,7 +2063,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 406 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 407 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3557,6 +3557,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatWelcomeMessage = Rswift.StringResource(key: "among.chat.welcome.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en
+      static let groupWelcomeMessage = Rswift.StringResource(key: "group.welcome.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: What’s your phone number?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6299,6 +6303,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatWelcomeMessage(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.welcome.message", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en
+      static func groupWelcomeMessage(_ value1: String) -> String {
+        return String(format: NSLocalizedString("group.welcome.message", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: What’s your phone number?

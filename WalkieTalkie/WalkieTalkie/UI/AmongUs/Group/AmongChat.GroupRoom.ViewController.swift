@@ -199,7 +199,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         let link = R.string.localizable.amongChatGroupShareContent(name,
                                                                    room.name,
-                                                                   "https://among.chat/group?gid=\(room.roomId)") 
+                                                                   "https://among.chat/group/\(room.roomId)")
         let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId, isGroup: true)
         vc.showModal(in: self)
 
@@ -820,7 +820,7 @@ extension AmongChat.GroupRoom.ViewController {
 
         seatView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
-            maker.top.equalTo(hostView.snp.bottom)
+            maker.top.equalTo(hostView.snp.bottom).offset(8)
             maker.height.equalTo(AmongChat.Room.SeatView.itemHeight * 2)
         }
         
@@ -885,12 +885,7 @@ private extension AmongChat.GroupRoom.ViewController {
     func onReceiveCalling(message: Peer.CallMessage, rejectType: PhoneCallRejectType) {
         // 主播拒绝callin
         if rejectType != .none {
-//            if message.action == .hangup {
-//                //连麦后被下麦
-//                showToast(with: R.string.localizable.groupRoomAudienceDropedTips())
-//            } else {
             showToast(with: rejectType.message)
-//            }
             audienceViewModel?.clearSeatCallState()
             bottomBar.isMicButtonHidden = true
         } else {// 主播同意callin

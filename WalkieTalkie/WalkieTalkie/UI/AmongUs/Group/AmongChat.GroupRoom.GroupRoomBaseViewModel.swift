@@ -96,6 +96,11 @@ extension AmongChat.GroupRoom {
             startScheduleEvent()
         }
         
+        override func addSystemMessage() {
+            let system = ChatRoom.SystemMessage(content: R.string.localizable.groupWelcomeMessage(group.name), textColor: "FFFFFF", contentType: nil, msgType: .system)
+            addUIMessage(message: system)
+        }
+        
         override func addJoinMessage() {
             guard !group.loginUserIsAdmin,
                   let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: -1) else {

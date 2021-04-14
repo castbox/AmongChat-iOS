@@ -23,7 +23,7 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBOutlet weak var hostView: UIView!
-    @IBOutlet weak var stackView: UIStackView!
+//    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var raiseHandsContainer: UIView!
     @IBOutlet weak var raiseButton: UIImageView!
     @IBOutlet weak var applyGroupContainer: UIView!
