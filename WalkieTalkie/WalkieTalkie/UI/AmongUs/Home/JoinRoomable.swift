@@ -32,6 +32,11 @@ struct ParentPageSource {
         
         case join_friend_room
         case room //
+        
+        case my_group
+        case explore
+        case invite
+        case profile
     }
     
     var page: Page {

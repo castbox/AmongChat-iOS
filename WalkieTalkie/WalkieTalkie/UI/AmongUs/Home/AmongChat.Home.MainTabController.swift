@@ -162,7 +162,7 @@ extension AmongChat.Home.MainTabController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(onNext: { user, room in
                 guard let topVC = UIApplication.topViewController() as? WalkieTalkie.ViewController,
-                      !(topVC is AmongChat.Room.ContainerController),
+                      !(topVC is AmongChat.Room.ContainerController) && !(topVC is AmongChat.GroupRoom.ContainerController),
                       !topVC.isRequestingRoom else {
                     return
                 }
