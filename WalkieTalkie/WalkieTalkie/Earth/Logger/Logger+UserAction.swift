@@ -223,6 +223,18 @@ extension Logger {
             case gameskill_add_state_done
             case profile_other_game_state_item_clk
             case profile_game_state_detail_edit_clk
+            
+            //group
+            case profile_group_clk
+            case profile_other_group_clk
+            case group_list_imp
+            case group_list_clk
+            case group_list_tab_clk
+            case group_create_info_next
+            case group_create_add_topic_imp
+            case group_create_add_topic_clk
+            case group_add_members_imp
+            case group_add_members_clk
         }
         
         enum Category: String {

@@ -729,8 +729,10 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
                     switch action {
                     case .edit:
                         self.gotoEditGroup(group.gid)
+                        Logger.Action.log(.profile_group_clk, categoryValue: "edit")
                     case .start:
                         self.enter(group: group, logSource: .matchSource, apiSource: nil)
+                        Logger.Action.log(.profile_group_clk, categoryValue: "start")
                     }
                 }
                 return cell
@@ -783,11 +785,10 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             case .groupsJoined:
                 ()
             case .groupsCreated:
-                
+                Logger.Action.log( isSelfProfile.value ? .profile_group_clk : .profile_other_group_clk, categoryValue: "group")
                 guard let group = createdGroupsRelay.value.safe(indexPath.row) else {
                     return
                 }
-                
                 if group.status == 1 {
                     enter(group: group, logSource: nil, apiSource: nil)
                 } else {
@@ -918,6 +919,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
+                    Logger.Action.log(.profile_group_clk, categoryValue: "see_all")
                     guard let `self` = self else { return }
                     let listVC = FansGroup.GroupListViewController(source: .createdGroups(self.uid))
                     self.navigationController?.pushViewController(listVC, animated: true)
@@ -944,6 +946,7 @@ extension Social.ProfileViewController: UITableViewDataSource, UITableViewDelega
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
+                    Logger.Action.log(.profile_group_clk, categoryValue: "see_all")
                     guard let `self` = self else { return }
                     let listVC = FansGroup.GroupListViewController(source: .joinedGroups(self.uid))
                     self.navigationController?.pushViewController(listVC, animated: true)

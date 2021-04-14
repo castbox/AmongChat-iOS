@@ -47,6 +47,18 @@ extension FansGroup.Views {
                 }
             }
             
+            var stringValue: String {
+                switch self {
+                case .sms:
+                    return "sms"
+                case .snapchat:
+                    return "snapchat"
+                case .copyLink:
+                    return "copy"
+                case .shareLink:
+                    return "sharelink"
+                }
+            }
         }
         
         private lazy var shareSourcesView: UICollectionView = {

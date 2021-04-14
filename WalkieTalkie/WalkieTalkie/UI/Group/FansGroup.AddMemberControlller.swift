@@ -59,6 +59,7 @@ extension FansGroup {
                     } else {
                         self?.navigationController?.popViewController(animated: true)
                     }
+                    Logger.Action.log(.group_add_members_clk, categoryValue: self?.groupEntity.topicId, "done")
                 })
                 .disposed(by: bag)
             return btn
@@ -172,6 +173,8 @@ extension FansGroup.AddMemberController {
         shareView.selectedSourceObservable
             .subscribe(onNext: { [weak self] (source) in
                 
+                Logger.Action.log(.group_add_members_clk, categoryValue: self?.groupEntity.topicId, source.stringValue)
+                
                 guard let `self` = self else { return }
                 
                 switch source {
@@ -190,6 +193,13 @@ extension FansGroup.AddMemberController {
                 }
             })
             .disposed(by: bag)
+        
+        rx.viewDidAppear.take(1)
+            .subscribe(onNext: { [weak self] (_) in
+                Logger.Action.log(.group_add_members_imp, categoryValue: self?.groupEntity.topicId)
+            })
+            .disposed(by: bag)
+
     }
     
     private func loadData() {
@@ -278,6 +288,7 @@ extension FansGroup.AddMemberController: UITableViewDataSource {
             cell.bind(viewModel: user,
                       onAdd: { [weak self] in
                         self?.addMember(user, at: indexPath)
+                        Logger.Action.log(.group_add_members_clk, categoryValue: self?.groupEntity.topicId, "add")
                       })
         }
         return cell
