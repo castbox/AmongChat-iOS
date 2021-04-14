@@ -131,7 +131,7 @@ extension Social.ProfileViewController {
             btn.setTitle(R.string.localizable.amongChatProfileCustomize(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.setBackgroundImage("#FFF000".color().image, for: .normal)
-            btn.cornerRadius = 18
+            btn.cornerRadius = 19
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -404,7 +404,7 @@ extension Social.ProfileViewController {
             customizeBtn.snp.makeConstraints { maker in
                 maker.trailing.equalTo(-20)
                 maker.bottom.equalTo(-20)
-                maker.height.equalTo(36)
+                maker.height.equalTo(38)
             }
             
             infoContainer.snp.makeConstraints { maker in
