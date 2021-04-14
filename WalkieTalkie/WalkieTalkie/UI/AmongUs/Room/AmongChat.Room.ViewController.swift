@@ -224,11 +224,7 @@ extension AmongChat.Room.ViewController {
     }
     
     func requestLeaveRoom(completionHandler: CallBack? = nil) {
-<<<<<<< HEAD
-//        Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, nil, viewModel.stayDuration)
-=======
         Logger.Action.log(.room_leave_clk, categoryValue: room.topicId, "default", viewModel.stayDuration)
->>>>>>> hotfix/1.16.5
         
         viewModel.requestLeaveChannel()
             .subscribe { _ in
