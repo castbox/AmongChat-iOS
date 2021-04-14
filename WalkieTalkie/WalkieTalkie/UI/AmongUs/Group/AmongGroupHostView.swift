@@ -340,10 +340,11 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @IBAction func gameNameAction(_ sender: Any) {
-        guard group.loginUserIsAdmin else {
-            return
+        if group.loginUserIsAdmin {
+            actionHandler?(.editNickName)
+        } else if let nickName = group.broadcaster.hostNickname(for: group.topicType) {
+            nickName.copyToPasteboardWithHaptic()
         }
-        actionHandler?(.editNickName)
     }
     
     private func bindSubviewEvent() {

@@ -2049,7 +2049,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 403 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 405 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2323,7 +2323,7 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let groupRoomCallOfDutyGameNameTips = Rswift.StringResource(key: "group.room.call.of.duty.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Click to set up Fortnit Display Name
+      /// en translation: Click to set up Fortnite Display Name
       /// 
       /// Locales: en
       static let groupRoomFortniteGameNameTips = Rswift.StringResource(key: "group.room.fortnite.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
@@ -2931,6 +2931,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthOct = Rswift.StringResource(key: "month.oct", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oh no, you were kicked from the stage.
+      /// 
+      /// Locales: en
+      static let groupRoomAudienceDropedTips = Rswift.StringResource(key: "group.room.audience.droped.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Ok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3343,6 +3347,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, your application was rejected.
+      /// 
+      /// Locales: en
+      static let groupApplyRejectTips = Rswift.StringResource(key: "group.apply.reject.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Sorry, your device does not support this feature.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4140,7 +4148,7 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.call.of.duty.game.name.tips", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Click to set up Fortnit Display Name
+      /// en translation: Click to set up Fortnite Display Name
       /// 
       /// Locales: en
       static func groupRoomFortniteGameNameTips(_: Void = ()) -> String {
@@ -5204,6 +5212,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.oct", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oh no, you were kicked from the stage.
+      /// 
+      /// Locales: en
+      static func groupRoomAudienceDropedTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.audience.droped.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Ok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5923,6 +5938,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCommonError(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Sorry, your application was rejected.
+      /// 
+      /// Locales: en
+      static func groupApplyRejectTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.apply.reject.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Sorry, your device does not support this feature.

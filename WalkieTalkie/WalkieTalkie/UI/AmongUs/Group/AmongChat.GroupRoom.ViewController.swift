@@ -81,7 +81,7 @@ extension AmongChat.GroupRoom {
                     Logger.Action.log(.admin_edit_imp, categoryValue: room.topicId)
                 case .robloxSetup:
                     self.view.bringSubviewToFront(inputNotesView)
-                    inputNotesView.notes = room.robloxLink
+//                    inputNotesView.notes = room.robloxLink
                     inputNotesView.placeHolder = R.string.localizable.groupRoomSetUpLink()
                     inputNotesView.isLinkContent = true
                     inputNotesView.show(with: room)
@@ -721,17 +721,18 @@ extension AmongChat.GroupRoom.ViewController {
     }
     
     func requestSeats(remove uid: Int) {
+        if viewModel.group.loginUserIsAdmin == true {
+            //踢人
+           broadcasterViewModel?.rejectCall(uid: uid)
+        }
+        else {
+            //下麦
+            //                    self?.audienceViewModel?.phoneCallHangUpBySelf()
+        }
         let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
         viewModel.requestSeats(remove: uid)
             .subscribe { [weak self] result in
                 removeBlock()
-                if self?.viewModel.group.loginUserIsAdmin == true {
-                    //踢人
-                    self?.broadcasterViewModel?.rejectCall(uid: uid)
-                } else {
-                    //下麦
-//                    self?.audienceViewModel?.phoneCallHangUpBySelf()
-                }
             } onError: { [weak self] error in
                 removeBlock()
                 self?.view.raft.autoShow(.text(R.string.localizable.serverLostTips()))
@@ -874,7 +875,12 @@ private extension AmongChat.GroupRoom.ViewController {
     func onReceiveCalling(message: Peer.CallMessage, rejectType: PhoneCallRejectType) {
         // 主播拒绝callin
         if rejectType != .none {
+//            if message.action == .hangup {
+//                //连麦后被下麦
+//                showToast(with: R.string.localizable.groupRoomAudienceDropedTips())
+//            } else {
             showToast(with: rejectType.message)
+//            }
             audienceViewModel?.clearSeatCallState()
             bottomBar.isMicButtonHidden = true
         } else {// 主播同意callin

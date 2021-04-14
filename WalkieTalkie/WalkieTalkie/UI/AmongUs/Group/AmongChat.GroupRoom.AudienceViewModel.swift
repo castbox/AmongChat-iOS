@@ -54,7 +54,10 @@ extension AmongChat.GroupRoom {
             }
             if group.userList.contains(where: { $0.uid == Settings.loginUserId }) {
                 if mManager.rtcRole == .audience {
-                    updatePhoneCallState(.calling)
+                    //update message
+                    var message = seatDataSource.first(where: { $0.callContent.user.uid == Settings.loginUserId })?.callContent ?? Peer.CallMessage.empty(gid: group.gid)
+                    message.action = .accept
+                    updatePhoneCallState(.calling, rejectType: .none, call: message)
                 }
             }
             else if mManager.rtcRole == .broadcaster { //
@@ -84,6 +87,8 @@ extension AmongChat.GroupRoom {
                 case .accept:
                     status = .memeber
                 case .reject:
+                    //show toast
+                    UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.groupApplyRejectTips()))
                     status = .none
                 case .request:
                     status = .applied
@@ -251,21 +256,20 @@ extension AmongChat.GroupRoom {
         }
         
         func phoneCallReject(call: Peer.CallMessage? = nil) {
-            updatePhoneCallState(.readyForCall, rejectType: .host, call: call)
+            updatePhoneCallState(.readyForCall, rejectType: .hostReject, call: call)
         }
         
         func phoneCallHandUp(call: Peer.CallMessage? = nil) {
             var rejectType: PhoneCallRejectType {
-                guard call != nil else {
+                guard let call = call else {
                     return .none
                 }
-                return .host
+                if call.action == .hangup {
+                    return .hostHungup
+                }
+                return .hostReject
             }
             updatePhoneCallState(.readyForCall, rejectType: rejectType, call: call)
-            // report
-//            Request.Livecast.Live.Room.reportCallOut(uid: Int(call?.userInfo?.suid ?? 0), roomID: roomInfo.room_id, roomLiveID: roomInfo.room_live_id ?? "")
-//                .subscribe()
-//                .disposed(by: bag)
         }
         
         func phoneCallHangUpBySelf(_ rejectType: PhoneCallRejectType = .none) {

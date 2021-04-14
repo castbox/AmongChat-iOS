@@ -224,7 +224,7 @@ extension AmongChat.GroupRoom.MembersController {
             btn.layer.cornerRadius = 16
             btn.layer.borderWidth = 2
             btn.layer.borderColor = UIColor(hex6: 0xFFF000).cgColor
-            btn.backgroundColor = UIColor.theme(.backgroundBlack)
+            btn.backgroundColor = "222222".color()
             btn.titleLabel?.lineBreakMode = .byTruncatingMiddle
             return btn
         }()
@@ -309,6 +309,7 @@ extension AmongChat.GroupRoom.MembersController {
 //            usernameLabel.attributedText = model.nameWithVerified()
             let isfollow = model.isFollowed ?? false
             setFollow(isfollow)
+            followBtn.isHidden = model.uid == Settings.loginUserId
         }
         
         func setFollow(_ isFolllow: Bool) {

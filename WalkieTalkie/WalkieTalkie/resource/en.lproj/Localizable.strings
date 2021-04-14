@@ -464,3 +464,5 @@
 //
 "among.chat.group.invitation.msg" = "is inviting you to their %1$@ group";
 "among.chat.group.host" = "Host";
+"group.room.audience.droped.tips" = "Oh no, you were kicked from the stage.";
+"group.apply.reject.tips" = "Sorry, your application was rejected.";

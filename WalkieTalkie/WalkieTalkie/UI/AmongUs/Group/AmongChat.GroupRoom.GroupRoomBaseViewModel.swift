@@ -35,15 +35,18 @@ enum PhoneCallAction {
 
 enum PhoneCallRejectType {
     case none
-    case host
+    case hostReject
+    case hostHungup
     case timeout
 }
 
 extension PhoneCallRejectType {
     var message: String? {
         switch self {
-        case .host:
+        case .hostReject:
             return R.string.localizable.groupRoomApplySeatRejectedTips()
+        case .hostHungup:
+            return R.string.localizable.groupRoomAudienceDropedTips()
 //        case .timeout:
 //            return R.string.localizable.liveCallinBusy()
         default:

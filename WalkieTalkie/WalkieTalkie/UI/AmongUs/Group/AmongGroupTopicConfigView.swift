@@ -32,6 +32,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     @IBOutlet weak var robloxLinkEditButton: UIButton!
     private var tipView: EasyTipView?
     private let bag = DisposeBag()
+    private var scheduleDispose: Disposable?
     
     var actionHandler: ((Action) -> Void)?
     var haveShowNoteTips = false
@@ -116,6 +117,11 @@ class AmongGroupTopicConfigView: XibLoadableView {
             }
         }
     }
+    func dismissTipsView() {
+        scheduleDispose?.dispose()
+        tipView?.dismiss()
+        tipView = nil
+    }
     
     @IBAction func robloxCopyAction(_ sender: Any) {
         //
@@ -132,7 +138,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
     
     @IBAction func notesButtonAction(_ sender: Any) {
         guard let group = group, tipView == nil  else {
-            tipView?.dismiss()
+            dismissTipsView()
             return
         }
         //show notes
@@ -143,7 +149,8 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.arrowPosition = .top
         preferences.positioning.contentInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         preferences.drawing.cornerRadius = 12
-        preferences.animating.dismissDuration = 0.4
+        preferences.animating.dismissDuration = 0.5
+        preferences.animating.showDuration = 0.5
         
         let view = AmongGroupRoomTipsView()
         view.editHandler = { [weak self] in
@@ -156,14 +163,13 @@ class AmongGroupTopicConfigView: XibLoadableView {
                               delegate: self)
         tipView?.tag = 0
         tipView?.show(animated: true, forView: notesButton, withinSuperview: containingController?.view)
-        Observable<Int>
+        scheduleDispose = Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)
             .single()
             .subscribe(onNext: { [weak self] _ in
-                self?.tipView?.dismiss()
-                self?.tipView = nil
+                self?.dismissTipsView()
             })
-            .disposed(by: self.bag)
+        scheduleDispose?.disposed(by: bag)
     }
     
     @IBAction func setupButtonAction(_ sender: Any) {
@@ -190,11 +196,10 @@ class AmongGroupTopicConfigView: XibLoadableView {
 
 extension AmongGroupTopicConfigView: EasyTipViewDelegate {
     func easyTipViewDidTap(_ tipView: EasyTipView) {
-//        dismissTipView()
-        self.tipView?.dismiss()
+        dismissTipsView()
     }
     
     func easyTipViewDidDismiss(_ tipView : EasyTipView) {
-        
+        dismissTipsView()
     }
 }

@@ -64,8 +64,15 @@ class AmongInputNotesView: XibLoadableView {
     }
     
     func show(with room: RoomInfoable) {
-        hostNotesPlaceholderLabel.isHidden = room.note.isValid
-        textView.text = room.note
+        if let group = room as? Entity.Group, group.topicType == .roblox {
+            hostNotesPlaceholderLabel.text = R.string.localizable.groupRoomSetUpLink()
+            hostNotesPlaceholderLabel.isHidden = group.robloxLink.isValid
+            textView.text = group.robloxLink
+        } else {
+            hostNotesPlaceholderLabel.text = R.string.localizable.roomSetupHostNotes()
+            hostNotesPlaceholderLabel.isHidden = room.note.isValid
+            textView.text = room.note
+        }
         _ = becomeFirstResponder()
     }
     
