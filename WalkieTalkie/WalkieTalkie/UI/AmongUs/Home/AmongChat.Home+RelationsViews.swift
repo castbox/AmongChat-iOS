@@ -216,7 +216,7 @@ extension AmongChat.Home {
         }
         
         func bind(viewModel: PlayingViewModel,
-                  onJoin: @escaping (_ roomId: String, _ topicId: String) -> Void,
+                  onJoin: @escaping () -> Void,
                   onAvatarTap: @escaping () -> Void) {
             userView.bind(viewModel: viewModel, onAvatarTap: onAvatarTap)
             
@@ -231,21 +231,13 @@ extension AmongChat.Home {
             joinDisposable?.dispose()
             joinDisposable = joinBtn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
-                    guard let roomId = viewModel.roomId,
-                          let topicId = viewModel.roomTopicId else {
-                        return
-                    }
-                    onJoin(roomId, topicId)
+                    onJoin()
                 })
             
             lockedDisposable?.dispose()
             lockedDisposable = lockedIcon.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { (_) in
-                    guard let roomId = viewModel.roomId,
-                          let topicId = viewModel.roomTopicId else {
-                        return
-                    }
-                    onJoin(roomId, topicId)
+                    onJoin()
                 })
         }
         

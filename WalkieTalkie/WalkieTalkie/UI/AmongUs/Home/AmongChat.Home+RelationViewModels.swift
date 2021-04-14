@@ -258,6 +258,9 @@ extension AmongChat.Home {
         }
         
         var roomState: Entity.RoomPublicType? {
+            if playingModel.room?.isGroup ?? false {
+                return .public
+            }
             return playingModel.room?.state
         }
         
@@ -267,6 +270,10 @@ extension AmongChat.Home {
         
         var roomTopicId: String? {
             return playingModel.room?.topicId
+        }
+        
+        var groupId: String? {
+            return playingModel.room?.gid
         }
         
     }
