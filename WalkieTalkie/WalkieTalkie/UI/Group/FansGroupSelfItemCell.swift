@@ -19,12 +19,15 @@ class FansGroupSelfItemCell: UITableViewCell {
     @IBOutlet weak var groupIconView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tagView: UIView!
+    @IBOutlet weak var bgView: UIView!
     
     private var actionHandler: ((Action) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        tagView.layer.borderColor = UIColor(hex6: 0x222222).cgColor
+        bgView.backgroundColor = UIColor(hex6: 0x222222)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
