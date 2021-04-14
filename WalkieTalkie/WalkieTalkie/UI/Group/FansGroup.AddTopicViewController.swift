@@ -50,7 +50,7 @@ extension FansGroup {
             
             let titleLabel: UILabel = {
                 let lb = UILabel()
-                lb.font = R.font.nunitoExtraBold(size: 24)
+                lb.font = R.font.nunitoExtraBold(size: 16)
                 lb.textColor = UIColor.white
                 lb.text = R.string.localizable.amongChatAddTopic()
                 return lb

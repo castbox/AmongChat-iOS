@@ -250,7 +250,11 @@ extension AmongChat.Home {
                 return R.string.localizable.socialStatusOnline().lowercased()
             }
             
-            return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
+            if room.isGroup {
+                return R.string.localizable.amongChatGroupAddMemberInGroup()
+            } else {
+                return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
+            }
         }
         
         var roomState: Entity.RoomPublicType? {

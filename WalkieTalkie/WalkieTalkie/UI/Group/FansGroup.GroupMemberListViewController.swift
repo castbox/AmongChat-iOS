@@ -37,6 +37,7 @@ extension FansGroup {
         private var isLoading = false
         
         private let groupInfo: Entity.GroupInfo
+        var showKick = false
         
         init(with groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
@@ -145,9 +146,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 {
-            return 52
-        } else if section == 1{
+        if section == 0 || section == 1{
             return 26
         } else {
             return .leastNormalMagnitude
@@ -181,7 +180,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
             v.addSubview(l)
             l.snp.makeConstraints { (maker) in
                 maker.leading.trailing.equalToSuperview().inset(20)
-                maker.top.equalTo(24)
+                maker.centerY.equalToSuperview()
                 maker.height.equalTo(22)
             }
             
@@ -199,12 +198,12 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                 maker.height.equalTo(22)
             }
             
-            if groupInfo.group.uid.isSelfUid {
+            if showKick {
                 
                 let kickButton: UIButton = {
                     let btn = SmallSizeButton(type: .custom)
                     btn.setTitle(R.string.localizable.amongChatRoomKick(), for: .normal)
-                    btn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+                    btn.setTitleColor(UIColor(hex6: 0xfff000), for: .normal)
                     btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
@@ -240,6 +239,11 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
         
         return v
         
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let v = UIView()
+        return v
     }
     
 }

@@ -196,6 +196,9 @@ extension FansGroup.GroupListViewController {
                 if refresh {
                     groups.removeAll()
                 }
+                groups.removeAll { (group) -> Bool in
+                    groupList.contains { $0.gid == group.group.gid }
+                }
                 groups.append(contentsOf: groupList.map({ GroupViewModel(group: $0) }))
                 self.groupsRelay.accept(groups)
                 self.hasMoreData = groupList.count > 0
