@@ -34,6 +34,11 @@ extension AmongChat.GroupRoom {
         private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
+                if userList.isEmpty {
+                    addNoDataView(R.string.localizable.groupRoomApplyGroupListEmpty(), image: R.image.ac_among_apply_empty())
+                } else {
+                    removeNoDataView()
+                }
             }
         }
         let viewModel: AmongChat.GroupRoom.JoinRequestViewModel
@@ -81,17 +86,25 @@ extension AmongChat.GroupRoom {
             }
         }
         
+        override func addNoDataView(_ message: String, image: UIImage? = nil) {
+            removeNoDataView()
+            let v = NoDataView(with: message, image: image, topEdge: 60)
+            view.addSubview(v)
+            v.snp.makeConstraints { (maker) in
+                maker.top.equalTo(60)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(500 - 120)
+            }
+        }
+        
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
-            
             viewModel.loadData()
-                .subscribe(onSuccess: { [weak self](data) in
+                .subscribe(onSuccess: { [weak self] data in
                     removeBlock()
                     guard let `self` = self else { return }
                     self.userList = data.list
-                    if self.userList.isEmpty {
-                        self.addNoDataView(R.string.localizable.groupRoomApplyGroupListEmpty(), image: R.image.ac_among_apply_empty())
-                    }
+
                     self.titleView.title = R.string.localizable.groupRoomJoinRequestTitle(data.count?.string ?? "")
                     self.tableView.endLoadMore(data.more)
                 }, onError: { [weak self](error) in
@@ -127,9 +140,6 @@ extension AmongChat.GroupRoom {
                     let list = self?.userList.filter { $0.uid != uid } ?? []
                     self?.userList = list
                     self?.viewModel.updateCount()
-//                    self?.tableView.beginUpdates()
-//                    self?.tableView.deleteRows(at: [index], with: .automatic)
-//                    self?.tableView.endUpdates()
                 }, onError: { (error) in
                     removeBlock()
                 }).disposed(by: bag)

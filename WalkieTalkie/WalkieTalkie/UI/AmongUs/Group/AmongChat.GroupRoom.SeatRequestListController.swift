@@ -65,7 +65,9 @@ extension AmongChat.GroupRoom {
         private var userList: [Entity.CallInUser] = [] {
             didSet {
                 if userList.isEmpty {
-                    self.addNoDataView(R.string.localizable.errorNoFollowing())
+                    addNoDataView(R.string.localizable.groupRoomApplySeatListEmpty(), image: R.image.ac_among_apply_empty())
+                } else {
+                    removeNoDataView()
                 }
                 tableView.reloadData()
             }
@@ -94,13 +96,19 @@ extension AmongChat.GroupRoom {
                 .subscribe(onNext: { [weak self] source in
                     self?.titleView.title = R.string.localizable.groupRoomRaisedHandsTitle(source.count.string)
                     self?.userList = source
-                    if source.isEmpty {
-                        self?.addNoDataView(R.string.localizable.groupRoomApplySeatListEmpty(), image: R.image.ac_among_apply_empty())
-                    } else {
-                        self?.removeNoDataView()
-                    }
                 })
                 .disposed(by: bag)
+        }
+        
+        override func addNoDataView(_ message: String, image: UIImage? = nil) {
+            removeNoDataView()
+            let v = NoDataView(with: message, image: image, topEdge: 60)
+            view.addSubview(v)
+            v.snp.makeConstraints { (maker) in
+                maker.top.equalTo(60)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(500 - 120)
+            }
         }
         
         private func setupLayout() {
@@ -112,7 +120,6 @@ extension AmongChat.GroupRoom {
             titleView.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
                 maker.height.equalTo(65.5)
-                //                maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
             view.addSubview(tableView)
@@ -122,19 +129,6 @@ extension AmongChat.GroupRoom {
                 maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             }
         }
-        
-//        private func handlerSeatRequest(for uid: Int, accept: Bool, at index: IndexPath) {
-//            let removeBlock = view.raft.show(.loading)
-//            Request.handleGroupApply(of: uid, groupId: gid, accept: accept)
-//                .subscribe(onSuccess: { [weak self] result in
-//                    removeBlock()
-//                    //remove
-//                    let list = self?.userList.filter { $0.uid == uid } ?? []
-//                    self?.userList = list
-//                }, onError: { (error) in
-//                    removeBlock()
-//                }).disposed(by: bag)
-//        }
     }
 }
 // MARK: - UITableView

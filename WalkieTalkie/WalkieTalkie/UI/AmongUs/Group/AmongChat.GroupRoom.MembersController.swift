@@ -33,6 +33,11 @@ extension AmongChat.GroupRoom {
         private var userList: [Entity.UserProfile] = [] {
             didSet {
                 tableView.reloadData()
+                if userList.isEmpty {
+                    addNoDataView(R.string.localizable.errorNoFollowing())
+                } else {
+                    removeNoDataView()
+                }
             }
         }
         
@@ -86,18 +91,25 @@ extension AmongChat.GroupRoom {
             }
         }
         
+        override func addNoDataView(_ message: String, image: UIImage? = nil) {
+            removeNoDataView()
+            let v = NoDataView(with: message, image: image, topEdge: 60)
+            view.addSubview(v)
+            v.snp.makeConstraints { (maker) in
+                maker.top.equalTo(60)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(500 - 120)
+            }
+        }
+        
         private func loadData() {
             let removeBlock = view.raft.show(.loading)
-            
             Request.groupLiveUserList(groupId, skipMs: 0)
                     .subscribe(onSuccess: { [weak self](data) in
                         removeBlock()
                         guard let `self` = self else { return }
                         self.userList = data.list
-                        if self.userList.isEmpty {
-                            self.addNoDataView(R.string.localizable.errorNoFollowing())
-                        }
-                        self.tableView.endLoadMore(data.more ?? false)
+                        self.tableView.endLoadMore(data.more)
                     }, onError: { [weak self](error) in
                         removeBlock()
                         self?.addErrorView({ [weak self] in
