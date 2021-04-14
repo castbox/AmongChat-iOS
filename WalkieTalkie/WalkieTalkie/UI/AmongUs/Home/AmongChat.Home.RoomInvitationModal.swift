@@ -196,7 +196,7 @@ extension AmongChat.Home {
             avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             nameLabel.attributedText = user.nameWithVerified(fontSize: 20)
             if room.isGroup {
-                msgLabel.text = R.string.localizable.amongChatGroupInvitationMsg(room.topicName.uppercased())
+                msgLabel.text = R.string.localizable.amongChatGroupInvitationMsg(room.name.uppercased())
             } else {
                 msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
             }

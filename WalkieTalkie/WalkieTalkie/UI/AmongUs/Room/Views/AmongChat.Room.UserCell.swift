@@ -477,7 +477,7 @@ extension AmongChat.Room.UserCell {
         nameLabel.textColor = indexLabel.textColor
         
         guard let user = user else {
-            clearStyle()
+            clearStyle(index)
             return
         }
         
@@ -534,7 +534,7 @@ extension AmongChat.Room.UserCell {
         self.user = user
     }
     
-    func clearStyle() {
+    func clearStyle(_ index: Int = 0) {
         user = nil
         svgaUrl = nil
         stopSoundAnimation()
@@ -542,10 +542,14 @@ extension AmongChat.Room.UserCell {
         if loadingView.isHidden {
             avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
         }
+        if itemStyle == .group {
+            nameLabel.text = index.string
+        } else {
+            nameLabel.text = ""
+        }
         avatarIV.imageView?.contentMode = .center
         avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
-        nameLabel.text = ""
         gameNameButton.setTitle(nil, for: .normal)
         gameNameButton.isHidden = true
         mutedLabel.isHidden = true

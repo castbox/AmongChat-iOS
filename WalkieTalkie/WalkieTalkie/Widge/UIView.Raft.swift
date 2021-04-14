@@ -87,6 +87,7 @@ extension Raft where Base: UIView {
             hud.bezelView.color = "222222".color()
         }
         hud.bezelView.style = .solidColor
+        hud.margin = 16
         hud.bezelView.layer.cornerRadius = 12
         switch type {
         case .loading:

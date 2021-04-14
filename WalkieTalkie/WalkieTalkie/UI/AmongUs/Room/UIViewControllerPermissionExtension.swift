@@ -154,6 +154,8 @@ extension UIViewController {
         
         let alertVC = AlertController(attributedTitle: titleAttr, attributedMessage: messageAttr, preferredStyle: .alert)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
+//        visualStyle.contentPadding = 
+//        visualStyle.verticalElementSpacing = 40
         visualStyle.backgroundColor = "#222222".color()
         visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
 //        visualStyle.dimmingColor = UIColor.black.alpha(0.7)

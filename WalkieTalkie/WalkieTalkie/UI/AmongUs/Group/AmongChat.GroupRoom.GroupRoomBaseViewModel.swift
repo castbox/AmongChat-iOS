@@ -93,7 +93,7 @@ extension AmongChat.GroupRoom {
             groupInfoReplay = BehaviorRelay(value: groupInfo)
             broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
-            loadListenerList()
+            startScheduleEvent()
         }
         
         override func addJoinMessage() {
@@ -128,17 +128,8 @@ extension AmongChat.GroupRoom {
         
         override func update(_ room: RoomInfoable) {
             super.update(room)
-            
-//            guard let group = room as? Entity.Group else {
-//                return
-//            }
             //同步
             let user = updateSeatUserStatus(broadcaster)
-//            if group.loginUserIsAdmin {
-//                user.isMuted = mutedUser.contains(group.uid.uInt)
-//            } else {
-//                user.isMuted = otherMutedUser.contains(group.uid.uInt)
-//            }
             if user != broadcaster {
                 broadcasterReplay.accept(user)
             }
@@ -160,7 +151,7 @@ extension AmongChat.GroupRoom {
                 onUserJoinedHandler?(message.user)
                 addUIMessage(message: message)
                 if listenerList.count < 3 {
-                    loadListenerList()
+                    updateListenerList()
                 } else {
                     listenerCount += 1
                 }
@@ -238,32 +229,6 @@ extension AmongChat.GroupRoom {
             updateRoomListenerInfoDisplay()
         }
         
-//        func addContribution(forUser userInfo: Entity.UserProfile?, contribution: Int) {
-//            guard let userInfo = userInfo else {
-//                return
-//            }
-//
-//            insertNewListener(userInfo.toDict() as NSDictionary?)
-//
-//            for listener in listenerList where listener.uid == userInfo.uid {
-//                listener.contribution = (listener.contribution + contribution)
-//                updateRoomListenerInfoDisplay()
-//                break
-//            }
-//        }
-        
-//        func addContribution(forUser uid: Int, contribution: Int) {
-//            guard uid > 0 else {
-//                return
-//            }
-//
-//            for listener in listenerList where listener.uid == uid {
-//                listener.contribution = (listener.contribution + contribution)
-//                updateRoomListenerInfoDisplay()
-//                break
-//            }
-//        }
-        
         // 听众退出
         func listenerList(remove user: Entity.UserProfile?) {
             guard let newListener = user else {
@@ -285,30 +250,25 @@ extension AmongChat.GroupRoom {
         }
         
         func updateRoomListenerInfoDisplay() {
-//            listenerList.sort(by: { (left, right) -> Bool in
-//                let rightC = right.contribution
-//                let leftC = left.contribution
-//
-//                if leftC > rightC {
-//                    return true
-//                }
-//                if leftC == rightC, (right.uid == Knife.Settings.shared.profile.value?.uid.intValue ?? 0 ||
-//                    left.uid == Knife.Settings.shared.profile.value?.uid.intValue ?? 0) {
-//                    return true
-//                }
-//
-//                return false
-//            })
             // 刷新页面
             updateListenerInfoHandler()
         }
         
-        func loadListenerList() {
+        func startScheduleEvent() {
+            Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
+                .startWith(0)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.updateListenerList()
+                })
+                .disposed(by: bag)
+        }
+        
+        func updateListenerList() {
             Request.groupLiveUserList(group.gid, skipMs: 0)
                 .subscribe(onSuccess: { [weak self] data in
                     self?.listenerList = data.list
                     self?.listenerCount = data.count ?? data.list.count
-                }, onError: { [weak self](error) in
+                }, onError: { (error) in
                     cdPrint("followingList error: \(error.localizedDescription)")
                 }).disposed(by: bag)
         }

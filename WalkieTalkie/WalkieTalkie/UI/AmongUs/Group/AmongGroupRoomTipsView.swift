@@ -12,7 +12,7 @@ import SnapKit
 class AmongGroupRoomTipsView: UIView {
     
     private lazy var titleLabel: UILabel = {
-        let lb = UILabel(frame: CGRect(x: 16, y: 11, width: bounds.width, height: 22))
+        let lb = UILabel(frame: CGRect(x: 10, y: 9, width: bounds.width, height: 22))
         lb.font = R.font.nunitoExtraBold(size: 16)
         lb.textColor = .black
         lb.text = R.string.localizable.groupRoomHostNotes()
@@ -20,7 +20,7 @@ class AmongGroupRoomTipsView: UIView {
     }()
     
     private lazy var introLabel: UILabel = {
-        let lb = UILabel(frame: CGRect(x: 16, y: 36.5, width: bounds.width, height: 22))
+        let lb = UILabel(frame: CGRect(x: 10, y: 34, width: bounds.width, height: 22))
         lb.font = R.font.nunitoExtraBold(size: 12)
         lb.textColor = "#666666".color()
         lb.numberOfLines = 0
@@ -62,11 +62,11 @@ class AmongGroupRoomTipsView: UIView {
         editButton.isHidden = group.loginUserIsAdmin == false
         //size
         let maxWidth: CGFloat = 252.scalValue.int.cgFloat
-        let size = introString.boundingRect(with: CGSize(width: maxWidth - 16 * 2, height: 400), font: R.font.nunitoExtraBold(size: 12)!)
+        let size = introString.boundingRect(with: CGSize(width: maxWidth - 11 * 2, height: 400), font: R.font.nunitoExtraBold(size: 12)!)
         introLabel.size = CGSize(width: size.width, height: size.height)
-        let viewSize = CGSize(width: maxWidth, height: size.height + 46 + 16)
-        titleLabel.width = viewSize.width - 60
-        editButton.left = viewSize.width - 46
+        let viewSize = CGSize(width: maxWidth, height: size.height + 34 + 16)
+        titleLabel.width = size.width
+        editButton.left = viewSize.width - 40
         return viewSize
     }
     

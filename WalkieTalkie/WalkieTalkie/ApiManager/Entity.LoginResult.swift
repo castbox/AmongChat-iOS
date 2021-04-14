@@ -213,6 +213,7 @@ extension Entity {
             var topicId: String
             var playerCount: Int
             var topicName: String
+            var name: String
             
             var isGroup: Bool {
                 gid != nil
@@ -227,7 +228,9 @@ extension Entity {
                 self.state = RoomPublicType(rawValue: stateStr) ?? .private
                 self.topicId = try container.decodeString(.topicId)
                 self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
-                self.topicName = try container.decodeString(.topicName)
+                let topicName = try container.decodeString(.topicName)
+                self.topicName = topicName
+                self.name = try container.decodeStringIfPresent(.name) ?? topicName
             }
             
             #if DEBUG
@@ -238,6 +241,7 @@ extension Entity {
                 topicId = "amongus"
                 playerCount = 0
                 topicName = "Among Us"
+                name = ""
             }
             
             static func defaultRoom() -> Room {

@@ -811,11 +811,11 @@ extension AmongChat.GroupRoom.ViewController {
         seatView.snp.makeConstraints { (maker) in
             maker.left.right.equalToSuperview()
             maker.top.equalTo(hostView.snp.bottom)
-            maker.height.equalTo(251)
+            maker.height.equalTo(AmongChat.Room.SeatView.itemHeight * 2)
         }
         
         messageView.snp.makeConstraints { (maker) in
-            maker.top.equalTo(seatView.snp.bottom).offset(-20)
+            maker.top.equalTo(seatView.snp.bottom)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
             maker.left.right.equalToSuperview()
         }

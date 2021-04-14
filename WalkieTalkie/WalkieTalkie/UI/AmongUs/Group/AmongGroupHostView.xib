@@ -44,9 +44,6 @@
                                         <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="tlE-wC-8PO">
                                             <rect key="frame" x="27" y="0.0" width="24" height="24"/>
                                             <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="hdg-Zq-b15"/>
-                                            </connections>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raised Hands" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7xu-w8-CNh">
                                             <rect key="frame" x="0.0" y="26" width="78" height="16.5"/>
@@ -111,10 +108,10 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg2-8c-Z9C">
-                                    <rect key="frame" x="45.5" y="88.5" width="47" height="20"/>
+                                    <rect key="frame" x="39" y="88.5" width="60" height="20"/>
                                     <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="60" id="hlR-Na-YYF"/>
+                                        <constraint firstAttribute="width" constant="60" id="hlR-Na-YYF"/>
                                         <constraint firstAttribute="height" constant="20" id="zgZ-hl-UDw"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
@@ -152,9 +149,6 @@
                                         <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_join_request" translatesAutoresizingMaskIntoConstraints="NO" id="GwP-Kq-ajX">
                                             <rect key="frame" x="27" y="0.0" width="24" height="24"/>
                                             <gestureRecognizers/>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="uGp-rb-0Kf" appends="YES" id="GNX-63-8r9"/>
-                                            </connections>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Requests" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHg-dT-fgd">
                                             <rect key="frame" x="0.0" y="26" width="78" height="16.5"/>
@@ -177,7 +171,7 @@
                                         <constraint firstItem="bHg-dT-fgd" firstAttribute="top" secondItem="GwP-Kq-ajX" secondAttribute="bottom" constant="2" id="ycG-eP-1FW"/>
                                     </constraints>
                                     <connections>
-                                        <outletCollection property="gestureRecognizers" destination="ucd-cL-f0h" appends="YES" id="yi2-DF-Vx4"/>
+                                        <outletCollection property="gestureRecognizers" destination="uGp-rb-0Kf" appends="YES" id="tno-K7-R0I"/>
                                     </connections>
                                 </view>
                             </subviews>
@@ -199,11 +193,6 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-249" y="93"/>
         </view>
-        <tapGestureRecognizer id="uGp-rb-0Kf" userLabel="join requests">
-            <connections>
-                <action selector="joinReuqestAction:" destination="-1" id="Mtx-NZ-8hg"/>
-            </connections>
-        </tapGestureRecognizer>
         <tapGestureRecognizer id="KQG-Fd-J64" userLabel="host Tap Gesture Recognizer">
             <connections>
                 <action selector="hostAvatarAction:" destination="-1" id="oKP-Zl-91V"/>
@@ -212,6 +201,11 @@
         <tapGestureRecognizer id="ucd-cL-f0h" userLabel="raised handls">
             <connections>
                 <action selector="raisedHandsAction:" destination="-1" id="HZp-PF-FoW"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="uGp-rb-0Kf" userLabel="join requests">
+            <connections>
+                <action selector="joinReuqestAction:" destination="-1" id="Mtx-NZ-8hg"/>
             </connections>
         </tapGestureRecognizer>
     </objects>

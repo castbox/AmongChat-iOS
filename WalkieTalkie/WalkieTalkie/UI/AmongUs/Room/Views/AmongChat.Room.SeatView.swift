@@ -188,11 +188,7 @@ extension AmongChat.Room {
             }
         }
         
-        var itemStyle: ItemStyle = .normal {
-            didSet {
-                AmongChat.Room.SeatView.itemHeight = itemStyle == .normal ? 125.5 : 100
-            }
-        }
+        let itemStyle: ItemStyle
         
         //
         enum Action {
@@ -210,8 +206,8 @@ extension AmongChat.Room {
             self.viewModel = viewModel
             self.itemStyle = itemStyle
             super.init(frame: .zero)
-            bindSubviewEvent()
             configureSubview()
+            bindSubviewEvent()
         }
         
         required init?(coder aDecoder: NSCoder) {
@@ -232,6 +228,8 @@ extension AmongChat.Room {
         }
         
         private func configureSubview() {
+            AmongChat.Room.SeatView.itemHeight = itemStyle == .normal ? 125.5 : 100
+
             backgroundColor = .clear
             
             addSubviews(views: topStackView, bottomStackView)
@@ -239,6 +237,7 @@ extension AmongChat.Room {
             topStackView.snp.makeConstraints { (maker) in
                 maker.top.equalToSuperview()
                 maker.leading.trailing.equalToSuperview().inset(leftEdge)
+                maker.height.equalTo(SeatView.itemHeight)
             }
             
             bottomStackView.snp.makeConstraints { (maker) in
@@ -252,7 +251,7 @@ extension AmongChat.Room {
         }
         
         func showDropSelfAlert(with user: Entity.RoomUser) {
-            containingController?.showAmongAlert(title: nil, message: R.string.localizable.groupRoomDropSelfTips(), cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), cancelAction: nil, confirmAction: { [weak self] in
+            containingController?.showAmongAlert(title: R.string.localizable.groupRoomDropSelfTips(), message: nil, cancelTitle: R.string.localizable.groupRoomNo(), confirmTitle: R.string.localizable.groupRoomYes(), cancelAction: nil, confirmAction: { [weak self] in
                 //
                 self?.actionHandler?(.userProfileSheetAction(.drop, user))
 //                self?.userProfileSheetActionHandler?(.drop, user)
@@ -375,13 +374,7 @@ extension AmongChat.Room.SeatView {
             }
             // callin状态
             if item.callContent.action == .request {
-//                cell.seatButton.setImage(nil, for: .normal)
-//                cell.hostNameLabel.text = nil
-//                cell.userInfo = nil
-//                cell.startLoading()
-//                cell.set(item: nil)
-                //clear
-                cell.clearStyle()
+                cell.clearStyle(index)
                 cell.startLoading()
                 continue
             } else {

@@ -123,6 +123,13 @@ class AmongGroupTopicConfigView: XibLoadableView {
         tipView = nil
     }
     
+    @IBAction func robloxLinkTapAction(_ sender: Any) {
+        guard let urlString = group?.robloxLink, let url = URL(string: urlString) else {
+            group?.robloxLink?.copyToPasteboardWithHaptic()
+            return
+        }
+        containingController?.open(url: url)
+    }
     @IBAction func robloxCopyAction(_ sender: Any) {
         //
         if group?.loginUserIsAdmin == true {
@@ -131,7 +138,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
         } else {
             //copy
             group?.robloxLink?.copyToPasteboardWithHaptic()
-            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
+//            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
         }
         
     }
@@ -151,6 +158,15 @@ class AmongGroupTopicConfigView: XibLoadableView {
         preferences.drawing.cornerRadius = 12
         preferences.animating.dismissDuration = 0.5
         preferences.animating.showDuration = 0.5
+        
+        let bgView = UIView(frame: Frame.Screen.bounds)
+        bgView.rx.tapGesture()
+            .subscribe(onNext: { [weak self] gesture in
+                gesture.view?.removeFromSuperview()
+                self?.dismissTipsView()
+            })
+            .disposed(by: bag)
+        containingController?.view.addSubview(bgView)
         
         let view = AmongGroupRoomTipsView()
         view.editHandler = { [weak self] in
