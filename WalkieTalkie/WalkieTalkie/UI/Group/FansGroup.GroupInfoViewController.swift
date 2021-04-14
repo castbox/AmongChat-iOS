@@ -117,6 +117,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             fetchInfo()
+            setUpEvents()
         }
         
     }
