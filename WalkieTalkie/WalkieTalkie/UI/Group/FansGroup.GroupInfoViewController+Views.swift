@@ -125,7 +125,7 @@ extension FansGroup.GroupInfoViewController {
             
             coverView.snp.makeConstraints { (maker) in
                 maker.leading.equalTo(20)
-                maker.top.equalTo(117)
+                maker.top.equalTo(Frame.Height.safeAeraTopHeight + 49 + 24)
                 maker.width.height.equalTo(97)
             }
             
