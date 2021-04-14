@@ -49,6 +49,7 @@ extension FansGroup {
             let h = GroupHeaderView()
             h.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 254))
             h.leaveHandler = { [weak self] in
+                Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfoViewModel?.groupInfo.group.topicId, "leave_confirm")
                 self?.leaveGroup()
             }
             
@@ -72,6 +73,7 @@ extension FansGroup {
             btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
+                    Logger.Action.log(.group_info_clk, categoryValue:  self?.groupInfoViewModel?.groupInfo.group.topicId, "apply")
                     self?.apply()
                 })
                 .disposed(by: bag)

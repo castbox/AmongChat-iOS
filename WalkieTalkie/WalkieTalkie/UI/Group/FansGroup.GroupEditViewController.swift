@@ -203,6 +203,7 @@ extension FansGroup.GroupEditViewController {
         }
         
         setUpInfoView.topicSetView.tapHandler = { [weak self] in
+            Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "add_topic")
             let vc = FansGroup.AddTopicViewController(self?.currentTopic.topic.topicId)
             vc.topicSelectedHandler = { [weak self] topic in
                 self?.currentTopic = topic
@@ -344,6 +345,7 @@ extension FansGroup.GroupEditViewController {
         alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
         
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal, handler: { [weak self] _ in
+            Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "delete_confirm")
             guard let `self` = self else { return }
             
             let hudRemoval: (() -> Void)? = self.view.raft.show(.loading, userInteractionEnabled: false)
