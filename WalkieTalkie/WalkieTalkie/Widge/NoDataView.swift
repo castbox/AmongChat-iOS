@@ -31,7 +31,7 @@ class NoDataView: UIView {
         addSubviews(views: icon, messageLabel)
         
         icon.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(120)
+            maker.width.height.greaterThanOrEqualTo(120)
             maker.top.equalTo(topEdge ?? 165.scalValue)
             maker.centerX.equalToSuperview()
         }
