@@ -435,7 +435,6 @@
 "among.chat.create.group.tip" = "Public groups are discoverable. People will apply to join.";
 "among.chat.group.cover.take.photo" = "Take Selfie";
 "among.chat.group.cover.select.image" = "Choose Image";
-"among.chat.group.add.members" = "Add Members";
 "among.chat.group.list.empty" = "Oops, no groups yet!";
 "among.chat.my.groups" = "My Groups";
 "among.chat.explore" = "Explore";
@@ -465,4 +464,3 @@
 "group.apply.reject.tips" = "Sorry, your application was rejected.";
 
 "group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
-"group.invite.ingroup" = "In group";
