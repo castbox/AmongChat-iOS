@@ -52,9 +52,7 @@ extension AmongChat.Room {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 20
             btn.layer.masksToBounds = true
-//            btn.layer.borderWidth = 0.5
             btn.imageView?.contentMode = .scaleAspectFill
-//            btn.layer.borderColor = UIColor.white.alpha(0.8).cgColor
             btn.backgroundColor = UIColor.white.alpha(0.2)
             btn.addTarget(self, action: #selector(userIconButtonAction), for: .touchUpInside)
             return btn
@@ -498,7 +496,6 @@ extension AmongChat.Room.UserCell {
         if self.user?.uid != user.uid {
             avatarIV.imageView?.contentMode = .scaleAspectFill
             avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
-            avatarIV.layer.borderWidth = 0.5
             nameLabel.attributedText = user.nameWithVerified(fontSize: 12)
         }
         
@@ -549,7 +546,6 @@ extension AmongChat.Room.UserCell {
             nameLabel.text = ""
         }
         avatarIV.imageView?.contentMode = .center
-        avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
         gameNameButton.setTitle(nil, for: .normal)
         gameNameButton.isHidden = true
