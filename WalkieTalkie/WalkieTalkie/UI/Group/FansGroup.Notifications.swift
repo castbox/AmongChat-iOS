@@ -7,37 +7,42 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 extension FansGroup {
     
     struct GroupUpdateNotification {
         
-        static let notificationName = Notification.Name("among.chat.fans.group.update")
-        static let actionKey = "action"
-        static let groupEntityKey = "group"
+        private static let notificationName = Notification.Name("among.chat.fans.group.update")
+        private static let actionKey = "action"
+        private static let groupEntityKey = "group"
         
         enum Action {
             case added
             case removed
             case updated
         }
-        
-        static func getDataFromNotification(_ notification: Notification) -> (Action, Entity.Group)? {
-            
-            guard let userInfo = notification.userInfo,
-                  let action = userInfo[actionKey] as? Action,
-                  let group = userInfo[groupEntityKey] as? Entity.Group else {
-                return nil
-            }
-            
-            return (action, group)
+                        
+        static var groupUpdated: Observable<(Action, Entity.Group)> {
+            return NotificationCenter.default.rx.notification(notificationName)
+                .map { (notification) -> (Action, Entity.Group)? in
+                    guard let userInfo = notification.userInfo,
+                          let action = userInfo[actionKey] as? Action,
+                          let group = userInfo[groupEntityKey] as? Entity.Group else {
+                        return nil
+                    }
+                    
+                    return (action, group)
+                }
+                .filterNil()
         }
         
         static func publishNotificationOf(group: Entity.Group, action: Action) {
-            NotificationCenter.default.post(name: FansGroup.GroupUpdateNotification.notificationName,
+            NotificationCenter.default.post(name: notificationName,
                                             object: nil, userInfo: [
-                                                FansGroup.GroupUpdateNotification.actionKey : action,
-                                                FansGroup.GroupUpdateNotification.groupEntityKey : group
+                                                actionKey : action,
+                                                groupEntityKey : group
                                             ])
         }
         
