@@ -83,10 +83,11 @@ extension FansGroup {
             return v
         }()
         
-        private lazy var bottomGradientView: FansGroup.Views.BottomGradientButton = {
-            let v = FansGroup.Views.BottomGradientButton()
-            
-            let btn = v.button
+        private lazy var kickButton: UIButton = {
+            let btn = UIButton(type: .custom)
+            btn.layer.cornerRadius = 24
+            btn.clipsToBounds = true
+            btn.titleLabel?.font = R.font.nunitoExtraBold(size: 20)
             btn.setTitleColor(UIColor(hex6: 0xFB5858), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0x757575), for: .disabled)
             btn.setBackgroundImage("#2B2B2B".color().image, for: .normal)
@@ -108,6 +109,18 @@ extension FansGroup {
                 })
                 .disposed(by: bag)
             
+            return btn
+        }()
+        
+        private lazy var bottomGradientView: GradientView = {
+            let v = Social.ChooseGame.bottomGradientView()
+            v.addSubviews(views: kickButton)
+            kickButton.snp.makeConstraints { (maker) in
+                maker.centerX.equalToSuperview()
+                maker.bottom.equalTo(-33)
+                maker.height.equalTo(48)
+                maker.leading.equalTo(20)
+            }
             return v
         }()
         
