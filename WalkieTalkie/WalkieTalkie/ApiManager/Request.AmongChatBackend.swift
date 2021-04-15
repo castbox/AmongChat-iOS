@@ -419,6 +419,15 @@ extension Request {
             .observeOn(MainScheduler.asyncInstance)
     }
     
+    static func groupRoomInviteFriends(gid: String, skipMs: Double) -> Single<Entity.FollowData?> {
+        let paras = ["gid": gid, "limit": limit, "skip_ms": skipMs] as [String : Any]
+        return amongchatProvider.rx.request(.groupRoomInviteFriends(paras))
+            .mapJSON()
+            .mapToDataKeyJsonValue()
+            .mapTo(Entity.FollowData.self)
+            .observeOn(MainScheduler.asyncInstance)
+    }
+    
     static func onlineStrangers() -> Single<Entity.FollowData?> {
         return amongchatProvider.rx.request(.onlineStrangers)
             .mapJSON()

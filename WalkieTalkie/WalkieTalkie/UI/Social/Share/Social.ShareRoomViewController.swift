@@ -29,6 +29,11 @@ extension Social {
         static var roomShareItems: [Item] = []
         private let bag = DisposeBag()
         
+        private let gid: String?
+        
+        init(with gid: String? = nil) {
+            self.gid = gid
+        }
         
         func loadData() {
             let users = Self.roomShareItems
@@ -40,7 +45,13 @@ extension Social {
         }
         
         func requestFriends(skipMs: Double = 0) {
-            Request.inviteFriends(skipMs: skipMs)
+            let request: Single<Entity.FollowData?>
+            if let gid = gid {
+                request = Request.groupRoomInviteFriends(gid: gid, skipMs: skipMs)
+            } else {
+                request = Request.inviteFriends(skipMs: skipMs)
+            }
+            request
                 .subscribe(onSuccess: { [weak self](data) in
                     guard let `self` = self, let data = data else {
                         return
@@ -106,7 +117,7 @@ extension Social {
         }()
         
         private lazy var headerView = ShareHeaderView()
-        private lazy var viewModel = ShareRoomViewModel()
+        private lazy var viewModel = ShareRoomViewModel(with: gid)
         
         private var items: [ShareRoomViewModel.Item] = [] {
             didSet {
@@ -118,10 +129,11 @@ extension Social {
         private var roomId = ""
         private var topicId = ""
         private var hiddened = false
-        private let isGroup: Bool
+        private var isGroup: Bool { gid != nil }
+        private let gid: String?
         
-        init(with linkUrl: String, roomId: String, topicId: String, isGroup: Bool = false) {
-            self.isGroup = isGroup
+        init(with linkUrl: String, roomId: String, topicId: String, gid: String? = nil) {
+            self.gid = gid
             super.init(nibName: nil, bundle: nil)
             self.linkUrl = linkUrl
             self.roomId = roomId

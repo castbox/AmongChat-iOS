@@ -412,8 +412,9 @@ extension Social {
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.attributedText = model.nameWithVerified()
             
-            let invited = userInfo.invited ?? false
-            if invited {
+            if userInfo.inGroup ?? false {
+                grayInGroupStyle()
+            } else if userInfo.invited ?? false {
                 grayInviteStyle()
             }
         }
@@ -444,6 +445,13 @@ extension Social {
         
         private func grayInviteStyle() {
             followBtn.setTitle(R.string.localizable.socialInvited(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.backgroundColor = UIColor(hex6: 0x222222)
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+        }
+        
+        private func grayInGroupStyle() {
+            followBtn.setTitle(R.string.localizable.groupInviteIngroup(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0x222222)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
@@ -483,7 +491,7 @@ extension Social {
         }
         
         private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
-            let invited = userInfo.invited ?? false
+            let invited = userInfo.invited ?? false || userInfo.inGroup ?? false
             guard !invited else {
                 return
             }

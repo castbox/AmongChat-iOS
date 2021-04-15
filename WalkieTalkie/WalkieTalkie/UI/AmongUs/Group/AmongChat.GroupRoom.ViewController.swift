@@ -200,7 +200,7 @@ extension AmongChat.GroupRoom.ViewController {
         let link = R.string.localizable.amongChatGroupShareContent(name,
                                                                    room.name,
                                                                    "https://among.chat/group/\(room.roomId)")
-        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId, isGroup: true)
+        let vc = Social.ShareRoomViewController(with: link, roomId: room.roomId, topicId: viewModel.roomReplay.value.topicId, gid: room.gid)
         vc.showModal(in: self)
 
         viewModel.didShowShareView()

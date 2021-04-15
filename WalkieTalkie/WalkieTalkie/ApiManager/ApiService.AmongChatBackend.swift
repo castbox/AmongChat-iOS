@@ -48,6 +48,7 @@ extension APIService {
         case recommendedUsers
         case exitRoomRecommend([String: Any])
         case inviteFriends([String: Any])
+        case groupRoomInviteFriends([String: Any])
         case inviteUser([String: Any])
         case onlineStrangers
         case userSearch([String: Any])
@@ -177,6 +178,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/end/user/list"
         case .inviteFriends:
             return "/social/relation/friends"
+        case .groupRoomInviteFriends:
+            return "/social/relation/group/live/followers"
         case .inviteUser:
             return "/api/v1/rooms/invite"
         case .onlineStrangers:
@@ -319,6 +322,7 @@ extension APIService.AmongChatBackend: TargetType {
              .recommendedUsers,
              .playingList,
              .inviteFriends,
+             .groupRoomInviteFriends,
              .exitRoomRecommend,
              .onlineStrangers,
              .topics,
@@ -446,6 +450,7 @@ extension APIService.AmongChatBackend: TargetType {
              .groupRoomSeatAdd(let params),
              .groupRoomInviteUser(let params),
              .groupInfo(let params),
+             .groupRoomInviteFriends(let params),
              .leaveGroup(let params),
              .applyToJoinGroup(let params),
              .handleGroupApply(let params),
