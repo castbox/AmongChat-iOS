@@ -151,10 +151,9 @@ extension FansGroup.GroupListViewController {
             })
             .disposed(by: bag)
         
-        NotificationCenter.default.rx.notification(FansGroup.GroupUpdateNotification.notificationName)
-            .subscribe(onNext: { [weak self] (noti) in
+        FansGroup.GroupUpdateNotification.groupUpdated
+            .subscribe(onNext: { [weak self] action, group in
                 guard let `self` = self else { return }
-                guard let (action, group) = FansGroup.GroupUpdateNotification.getDataFromNotification(noti) else { return }
                 
                 switch action {
                 case .added:
