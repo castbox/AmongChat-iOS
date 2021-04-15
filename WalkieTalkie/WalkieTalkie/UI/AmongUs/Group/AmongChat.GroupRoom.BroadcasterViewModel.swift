@@ -39,6 +39,10 @@ extension AmongChat.GroupRoom {
         
         var callInTipHandler: (Entity.CallInUser, Bool) -> Void = { _, _ in }
         
+        deinit {
+            cdPrint("AmongChat.GroupRoom.BroadcasterViewModel-Deinit")
+        }
+        
         //MARK: - override
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
             if let message = crMessage as? ChatRoom.KickOutMessage,
@@ -46,6 +50,7 @@ extension AmongChat.GroupRoom {
                group.rtcType == .agora {
                 callInList(remove: message.user.uid)
             } else if let message = crMessage as? ChatRoom.GroupLeaveRoomMessage {
+                //
                 callInList(remove: message.user.uid)
             }
             super.onReceiveChatRoom(crMessage: crMessage)

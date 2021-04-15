@@ -91,11 +91,17 @@ extension AmongChat.GroupRoom {
         
         private var didAddJoinMessage: Bool = false
         
+        deinit {
+            cdPrint("AmongChat.GroupRoom.BaseViewModel-Deinit")
+        }
+        
         init(groupInfo: Entity.GroupInfo, source: ParentPageSource?) {
             groupInfoReplay = BehaviorRelay(value: groupInfo)
             broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
             startScheduleEvent()
+            //update profile
+            Settings.shared.updateProfile()
         }
         
         override func startShowShareTimerIfNeed() {
@@ -177,7 +183,7 @@ extension AmongChat.GroupRoom {
                 //add to entrance queue
                 onUserJoinedHandler?(message.user)
                 addUIMessage(message: message)
-                if listenerList.count < 3 {
+                if listenerList.count <= 3 {
                     updateListenerList()
                 } else {
                     listenerCount += 1
@@ -310,9 +316,9 @@ extension AmongChat.GroupRoom {
         func update(topicId: String) {
             var room = self.group
             room.topicId = topicId
-            room.note = nil
-            room.robloxLink = nil
-            room.amongUsCode = nil
+            room.note = ""
+            room.robloxLink = ""
+            room.amongUsCode = ""
             room.amongUsZone = nil
             updateInfo(group: room)
         }

@@ -41,6 +41,10 @@ extension AmongChat.GroupRoom {
             }
         }
         
+        deinit {
+            cdPrint("AmongChat.GroupRoom.AudienceViewModel-Deinit")
+        }
+        
         override func update(_ room: RoomInfoable) {
             super.update(room)
             //
@@ -97,7 +101,12 @@ extension AmongChat.GroupRoom {
                     status = .memeber
                 case .reject:
                     //show toast
-                    UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.groupApplyRejectTips()))
+                    //当前状态为申请
+                    if groupInfo.userStatusEnum == .some(.applied) {
+                        UIApplication.topViewController()?.view.raft.autoShow(.text(R.string.localizable.groupApplyRejectTips()))
+                    } else {
+                        hangupCallIfNeed()
+                    }
                     status = .none
                 case .request:
                     status = .applied
@@ -192,9 +201,7 @@ extension AmongChat.GroupRoom {
                 callinRequestTimerDispose = timer
                     .subscribe(onNext: { [weak self] _ in
                         guard let `self` = self else { return }
-                        if self.phoneCallState == .requesting {
-                            self.phoneCallHangUpBySelf(.timeout)
-                        }
+                        self.phoneCallHangUpBySelf(.timeout)
                     })
                 callinRequestTimerDispose?.disposed(by: bag)
             case .invite_reject:
@@ -214,9 +221,6 @@ extension AmongChat.GroupRoom {
         }
         
         func hangupCallIfNeed() {
-            guard phoneCallState == .requesting else {
-                return
-            }
             phoneCallHangUpBySelf()
         }
         
@@ -286,6 +290,9 @@ extension AmongChat.GroupRoom {
         }
         
         func phoneCallHangUpBySelf(_ rejectType: PhoneCallRejectType = .none) {
+            guard phoneCallState == .requesting else {
+                return
+            }
             updatePhoneCallState(.readyForCall, rejectType: rejectType)
             sendCall(action: .hangup)
         }
