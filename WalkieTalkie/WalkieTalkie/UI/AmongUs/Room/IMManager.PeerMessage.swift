@@ -84,7 +84,7 @@ extension Peer {
             case invite = 5
             case invite_reject = 6
         }
-        static let defaultExpireTime = 10
+        static let defaultExpireTime = 60
         
         var action: Action = .none// call-in状态 1request 2accept 3reject 4handup 5invite 6invite_reject
         var gid: String = ""

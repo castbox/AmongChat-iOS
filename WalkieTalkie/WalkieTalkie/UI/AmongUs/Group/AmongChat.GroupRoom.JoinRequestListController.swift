@@ -70,7 +70,6 @@ extension AmongChat.GroupRoom {
             titleView.snp.makeConstraints { (maker) in
                 maker.top.leading.trailing.equalToSuperview()
                 maker.height.equalTo(65.5)
-                //                maker.top.equalTo(topLayoutGuide.snp.bottom)
             }
             
             view.addSubview(tableView)
@@ -162,7 +161,7 @@ extension AmongChat.GroupRoom.JoinRequestListController: UITableViewDataSource, 
         
         let cell = tableView.dequeueReusableCell(withClass: AmongGroupJoinRequestCell.self)
         if let user = userList.safe(indexPath.row) {
-            cell.profile = user
+            cell.bind(user, showFollowsCount: true)
             cell.actionHandler = { [weak self] action in
                 switch action {
                 case .accept:

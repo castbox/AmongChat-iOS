@@ -278,6 +278,26 @@ class Settings {
             })
             .asPublishProperty()
     }()
+    
+    
+    let profilePage: PublishProperty<Entity.ProfilePage?> = {
+        typealias Profile = Entity.ProfilePage
+        let profile: Profile?
+        
+        if let dict = Defaults[\.userProfilePageDataKey],
+           let p = try? JSONDecoder().decodeAnyData(Profile.self, from: dict) {
+            profile = p
+        } else {
+            profile = nil
+        }
+        
+        return DynamicProperty.stored(profile)
+            .didSet({ (event) in
+                Defaults[\.userProfilePageDataKey] = event.new?.dictionary
+            })
+            .asPublishProperty()
+    }()
+
         
     // 首页Summary缓存临时方案
     let amongChatHomeSummary: PublishProperty<Entity.Summary?> = {
@@ -446,6 +466,7 @@ class Settings {
                     return
                 }
                 Settings.shared.amongChatUserProfile.value = p.profile
+                Settings.shared.profilePage.value = p
             }, onError: { (error) in
                 cdPrint("")
             })
@@ -466,6 +487,14 @@ extension Settings {
     
     static var loginUserProfile: Entity.UserProfile? {
         return shared.amongChatUserProfile.value
+    }
+    
+    static var profilePage: Entity.ProfilePage? {
+         shared.profilePage.value
+    }
+    
+    static var profileFollowData: Entity.RelationData? {
+        return shared.profilePage.value?.followData
     }
     
     func fetchGlobalConfig() {
@@ -600,6 +629,10 @@ extension DefaultsKeys {
     
     var amongChatUserProfileKey: DefaultsKey<[String : Any]?> {
         .init("among.chat.user.profile", defaultValue: nil)
+    }
+    
+    var userProfilePageDataKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.user.profile.page", defaultValue: nil)
     }
     
     var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {

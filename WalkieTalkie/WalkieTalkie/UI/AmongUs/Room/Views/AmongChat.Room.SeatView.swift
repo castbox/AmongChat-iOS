@@ -245,7 +245,9 @@ extension AmongChat.Room {
             
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
             if itemStyle == .group {
-                
+//                if group?.loginUserIsAdmin == true {
+//                    items.append(.kick)
+//                }
             } else {
                 if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
                     items.append(.kick)

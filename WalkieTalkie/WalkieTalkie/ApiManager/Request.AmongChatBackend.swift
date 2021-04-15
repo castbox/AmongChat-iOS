@@ -368,6 +368,14 @@ extension Request {
             .mapToDataKeyJsonValue()
             .mapTo(Entity.RelationData.self)
             .observeOn(MainScheduler.asyncInstance)
+            .do { data in
+                guard let data = data, uid == Settings.loginUserId else {
+                    return
+                }
+                var profilePage = Settings.profilePage
+                profilePage?.followData = data
+                Settings.shared.profilePage.value = profilePage
+            }
     }
     
     static func blockList(uid: Int, skipMs: Double) -> Single<Entity.FollowData?> {

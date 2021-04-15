@@ -169,7 +169,11 @@ extension AmongChat.GroupRoom {
         
         func sendMessage(call action: Peer.CallMessage.Action, position: Int = 0) {
             //user
-            let content = Peer.CallMessage(action: action, gid: group.gid, position: position, user: Settings.loginUserProfile!)
+            guard var profile = Settings.loginUserProfile else {
+                return
+            }
+            profile.followersCount = Settings.profilePage?.followData?.followersCount
+            let content = Peer.CallMessage(action: action, gid: group.gid, position: position, user: profile)
             imViewModel.sendPeer(message: content, to: group.broadcaster.uid)
         }
         

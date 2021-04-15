@@ -100,6 +100,9 @@ extension Entity {
         var decoPetId: Int?
         var inGroup: Bool?
         
+        //
+        var followersCount: Int?
+        
         func hostNickname(for topicType: AmongChat.Topic) -> String? {
             switch topicType {
             case .fortnite:
@@ -155,6 +158,7 @@ extension Entity {
             case decoHatId = "deco_hat_id"
             case decoPetId = "deco_pet_id"
             case inGroup = "in_group"
+            case followersCount = "followers_count"
         }
     }
     

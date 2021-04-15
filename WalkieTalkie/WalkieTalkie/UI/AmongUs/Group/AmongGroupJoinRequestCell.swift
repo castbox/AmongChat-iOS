@@ -42,16 +42,7 @@ class AmongGroupJoinRequestCell: UITableViewCell {
     
     var actionHandler: ((Action) -> Void)?
     
-    var profile: Entity.UserProfile? {
-        didSet {
-            guard let profile = profile else {
-                return
-            }
-            userView.bind(viewModel: profile) {
-                
-            }
-        }
-    }
+    var profile: Entity.UserProfile? 
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -78,6 +69,15 @@ class AmongGroupJoinRequestCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func bind(_ profile: Entity.UserProfile?, showFollowsCount: Bool = false) {
+        self.profile = profile
+        guard let profile = profile else {
+            return
+        }
+        userView.bind(viewModel: profile, showFollowersCount: showFollowsCount) {
+            
+        }
+    }
     
     func bindSubviewEvent() {
         
