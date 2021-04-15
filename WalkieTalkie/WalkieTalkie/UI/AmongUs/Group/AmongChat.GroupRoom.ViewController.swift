@@ -829,7 +829,7 @@ extension AmongChat.GroupRoom.ViewController {
             maker.height.equalTo(AmongChat.Room.SeatView.itemHeight * 2)
         }
         
-        let topEdge = Frame.Height.deviceDiagonalIsMinThan5_5 ? 0 : Frame.Scale.height(61.5)
+        let topEdge = Frame.Height.deviceDiagonalIsMinThan6_1 ? 10 : 61.5
         messageView.snp.makeConstraints { (maker) in
             maker.top.equalTo(seatView.snp.bottom).offset(topEdge)
             maker.bottom.equalTo(bottomBar.snp.top).offset(-10)
