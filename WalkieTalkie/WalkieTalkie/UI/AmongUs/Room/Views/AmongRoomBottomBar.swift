@@ -67,7 +67,13 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var isMicButtonHidden: Bool {
         get { micButton.isHidden }
-        set { micButton.isHidden = newValue }
+        set {
+            micButton.isHidden = newValue
+            //hidden 同时 mic 为关闭状态
+            if !newValue, !isMicOn {
+                changeMicStateAction(self.micButton)
+            }
+        }
     }
     
     override init(frame: CGRect) {

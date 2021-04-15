@@ -900,6 +900,7 @@ private extension AmongChat.GroupRoom.ViewController {
                 bottomBar.isMicButtonHidden = false
             } else if audienceViewModel?.phoneCallState == .readyForCall {// 听众hangup
                 audienceViewModel?.clearSeatCallState()
+                bottomBar.isMicButtonHidden = true
             }
         }
 
