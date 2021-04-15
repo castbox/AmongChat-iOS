@@ -81,19 +81,11 @@ class ChatRoomManager {
     
     private var mChannelData = ChannelData()
     private var stateDispose: Disposable?
-    private var scheduleDispose: Disposable?
+//    private var scheduleDispose: Disposable?
     private var heartBeatingRequestDispose: Disposable?
 
     private init() {
-        _ = Settings.shared.loginResult.replay()
-            .subscribe(onNext: { [weak self] result in
-                guard let result = result, result.uid > 0 else {
-                    self?.scheduleDispose?.dispose()
-                    self?.heartBeatingRequestDispose?.dispose()
-                    return
-                }
-                self?.startHeartBeating()
-            })
+        startScheduleEvent()
     }
     
     func initialize() {
@@ -292,20 +284,27 @@ extension ChatRoomManager: RtcDelegate {
 //}
 
 extension ChatRoomManager {
-    func startHeartBeating() {
-        scheduleDispose?.dispose()
-        scheduleDispose = nil
-        scheduleDispose = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
-            .startWith(0)
+    func startScheduleEvent() {
+        _ = Observable<Int>.interval(.seconds(60), scheduler: SerialDispatchQueueScheduler(qos: .default))
             .subscribe(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self.requestHeartBeating()
-            }, onDisposed: {
-                cdPrint("heart beating onDisposed")
+            })
+        
+        _ = Settings.shared.loginResult.replay()
+            .subscribe(onNext: { [weak self] result in
+                guard let result = result, result.uid > 0 else {
+                    self?.heartBeatingRequestDispose?.dispose()
+                    return
+                }
+                self?.requestHeartBeating()
             })
     }
     
     func requestHeartBeating() {
+        guard let uid = Settings.loginUserId, uid > 0 else {
+            return
+        }
         var params: [String: Any] = [:]
         if let channelId = channelName {
             params["room_id"] = channelId
