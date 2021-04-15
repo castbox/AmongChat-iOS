@@ -24,6 +24,8 @@ extension Social {
         }
         
         private var frientds: [Entity.UserProfile] = []
+        //
+        static var invitedUser: [Int] = []
         
         /// room share
         static var roomShareItems: [Item] = []
@@ -36,12 +38,12 @@ extension Social {
         }
         
         func loadData() {
-            let users = Self.roomShareItems
-            if users.isEmpty {
+//            let users = Self.roomShareItems
+//            if users.isEmpty {
                 requestFriends()
-            } else {
-                items = users
-            }
+//            } else {
+//                items = users
+//            }
         }
         
         func requestFriends(skipMs: Double = 0) {
@@ -84,7 +86,13 @@ extension Social {
                 return
             }
             var items = self.items.filter { $0.group != group }
-            items.append(Item(userLsit: list, group: group))
+            //
+            let newList = list.map { item -> Entity.UserProfile in
+                var profile = item
+                profile.invited = Self.invitedUser.contains(profile.uid)
+                return profile
+            }
+            items.append(Item(userLsit: newList, group: group))
             self.items = items.sorted { (old, previous) -> Bool in
                 old.group.rawValue < previous.group.rawValue
             }
@@ -95,6 +103,7 @@ extension Social {
         
         /// clear temp data
         class func clear() {
+            Self.invitedUser = []
             Self.roomShareItems = []
         }
     }
@@ -240,6 +249,12 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
                 //                user.invited = follow
+                //
+                if follow, !Social.ShareRoomViewModel.invitedUser.contains(user.uid) {
+                    Social.ShareRoomViewModel.invitedUser.append(user.uid)
+                } else {
+                    Social.ShareRoomViewModel.invitedUser.removeAll(user.uid)
+                }
                 self.items[indexPath.section].userLsit[indexPath.row].invited = follow
                 //                self.userList[indexPath.row].invited = follow
                 Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), item.group == .friends ? "invite" : "invite_stranger")
