@@ -202,8 +202,7 @@ extension AmongChat.CreateRoom.ViewController {
         
         Logger.Action.log(.create_topic_create, categoryValue: topic.topic.topicId, privateStateSwitch.roomPublicType.rawValue)
         
-        let alert = amongChatAlert(title: nil,
-                                   cancelTitle: R.string.localizable.toastCancel(),
+        let alert = amongChatAlert(cancelTitle: R.string.localizable.toastCancel(),
                                    confirmTitle: R.string.localizable.amongChatCreateRoomCreate(),
                                    cancelAction: {
                                     Logger.Action.log(.space_card_use_dialog_clk, categoryValue: "cancel")
@@ -258,7 +257,7 @@ extension AmongChat.CreateRoom.ViewController {
         
         Logger.Action.log(.space_card_tip_clk)
         
-        let alert = amongChatAlert(title: nil, confirmTitle: R.string.localizable.toastConfirm())
+        let alert = amongChatAlert(confirmTitle: R.string.localizable.toastConfirm())
         
         let content: UIView = {
             let v = UIView()
@@ -759,4 +758,47 @@ fileprivate extension Entity.RoomPublicType {
     }
 }
 
-
+extension AmongChat.CreateRoom.ViewController {
+    
+    private func amongChatAlert(cancelTitle: String? = nil, confirmTitle: String? = nil, cancelAction: (() -> Void)? = nil, confirmAction: (() -> Void)? = nil) -> AlertController {
+        
+        var cancelAttr: NSAttributedString? = nil
+        if let cancel = cancelTitle {
+            cancelAttr = NSAttributedString(string: cancel,
+                                            attributes: [
+                                                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                .foregroundColor: "#6C6C6C".color()
+                                            ])
+        }
+        
+        var confirmAttr: NSAttributedString? = nil
+        if let confirm = confirmTitle {
+            confirmAttr = NSAttributedString(string: confirm,
+                                             attributes: [
+                                                NSAttributedString.Key.font: R.font.nunitoExtraBold(size: 16) ?? UIFont.systemFont(ofSize: 16, weight: .heavy),
+                                                .foregroundColor: "#FFF000".color()
+                                             ])
+        }
+        
+        let alertVC = AlertController(attributedTitle: nil, attributedMessage: nil, preferredStyle: .alert)
+        let visualStyle = AlertVisualStyle(alertStyle: .alert)
+        visualStyle.backgroundColor = "#222222".color()
+        visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
+        alertVC.visualStyle = visualStyle
+        
+        if let c = cancelAttr {
+            alertVC.addAction(AlertAction(attributedTitle: c, style: .normal, handler: { _ in
+                cancelAction?()
+            }))
+        }
+        
+        if let c = confirmAttr {
+            alertVC.addAction(AlertAction(attributedTitle: c, style: .normal) { _ in
+                confirmAction?()
+            })
+        }
+        
+        return alertVC
+    }
+    
+}
