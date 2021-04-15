@@ -106,7 +106,7 @@ extension AmongChat.Room {
             
             messageBackgroundView.snp.makeConstraints { (maker) in
                 maker.leading.top.trailing.equalToSuperview()
-                maker.bottom.equalToSuperview().offset(10 + 42 + (Frame.Height.isXStyle ? -Frame.Height.safeAeraTopHeight : -20) + 5)
+                maker.bottom.equalToSuperview().offset(10 + 42 + (Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : 20) + 5)
             }
             
         }

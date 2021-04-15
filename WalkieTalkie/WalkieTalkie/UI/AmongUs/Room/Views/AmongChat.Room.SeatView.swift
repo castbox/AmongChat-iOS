@@ -55,68 +55,6 @@ extension AmongChat.Room {
     }
 }
 
-//protocol SeatUserShowSheetable {
-//    var room: RoomInfoable? { get set }
-//    var bag: DisposeBag { get }
-//}
-//
-//extension SeatUserShowSheetable where Self: UIView {
-//    var group: Entity.Group? {
-//        return room as? Entity.Group
-//    }
-//
-//    func fetchRealation(with user: Entity.RoomUser) {
-//        guard user.uid != Settings.loginUserId else {
-//            return
-//        }
-//        let removeBlock = parentViewController?.view.raft.show(.loading)
-//        Request.relationData(uid: user.uid).asObservable()
-//            .observeOn(MainScheduler.asyncInstance)
-//            .subscribe(onNext: { [weak self] relation in
-//                removeBlock?()
-//                guard let `self` = self,
-//                      let data = relation else { return }
-//                self.showAvatarSheet(with: user, relation: data)
-//            }, onError: { error in
-//                removeBlock?()
-//                cdPrint("relationData error :\(error.localizedDescription)")
-//            })
-//            .disposed(by: bag)
-//    }
-//
-//    func showAvatarSheet(with user: Entity.RoomUser, relation: Entity.RelationData) {
-//        guard let viewController = containingController else {
-//            return
-//        }
-////        Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
-//
-//        var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
-//
-//        let isFollowed = relation.isFollowed ?? false
-//        if !isFollowed {
-//            items.append(.follow)
-//        }
-//        //
-//        if group?.loginUserIsAdmin == true {
-//            items.append(.drop)
-//        }
-//        let isBlocked = relation.isBlocked ?? false
-//        let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
-//
-//        let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-//        if room.userList.first?.uid == Settings.loginUserId {
-//            items.append(.kick)
-//        }
-//
-//        items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
-//
-//        AmongSheetController.show(with: user, items: items, in: viewController) { [weak self] item in
-//            Logger.Action.log(.room_user_profile_clk, categoryValue: self?.room.topicId, item.rawValue)
-//            self?.actionHandler?(.userProfileSheetAction(item, user))
-//        }
-//    }
-//}
-
 extension AmongChat.Room {
     class SeatView: UIView {
         
@@ -306,8 +244,12 @@ extension AmongChat.Room {
             let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
             
             let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-            if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
-                items.append(.kick)
+            if itemStyle == .group {
+                
+            } else {
+                if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
+                    items.append(.kick)
+                }
             }
             
             items.append(contentsOf: [blockItem, muteItem, .report, .cancel])

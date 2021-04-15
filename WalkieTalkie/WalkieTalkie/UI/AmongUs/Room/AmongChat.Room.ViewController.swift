@@ -322,7 +322,7 @@ extension AmongChat.Room.ViewController {
         }
         
         bottomBar.snp.makeConstraints { maker in
-            maker.bottom.equalTo(Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : -20)
+            maker.bottom.equalTo(Frame.Height.isXStyle ? -Frame.Height.safeAeraTopHeight : -20)
             maker.left.right.equalToSuperview()
             maker.height.equalTo(42)
         }

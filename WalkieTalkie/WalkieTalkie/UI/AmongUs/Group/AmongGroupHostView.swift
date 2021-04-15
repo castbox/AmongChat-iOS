@@ -187,9 +187,9 @@ class AmongGroupHostView: XibLoadableView {
         let blockItem: AmongSheetController.ItemType = isBlocked ? .unblock : .block
         
         let muteItem: AmongSheetController.ItemType = viewModel.mutedUser.contains(user.uid.uInt) ? .unmute : .mute
-        if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
-            items.append(.kick)
-        }
+//        if viewModel.roomReplay.value.userList.first?.uid == Settings.loginUserId {
+//            items.append(.kick)
+//        }
         
         items.append(contentsOf: [blockItem, muteItem, .report, .cancel])
 

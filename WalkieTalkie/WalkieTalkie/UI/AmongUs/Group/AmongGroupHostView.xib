@@ -96,8 +96,8 @@
                                 <outletCollection property="gestureRecognizers" destination="KQG-Fd-J64" appends="YES" id="eTc-ct-3uP"/>
                             </connections>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr">
-                            <rect key="frame" x="5" y="68" width="57" height="16.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr">
+                            <rect key="frame" x="2" y="68" width="63" height="16.5"/>
                             <gestureRecognizers/>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,7 +126,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="rTp-yf-TGr" secondAttribute="trailing" constant="5" id="74B-DD-R4i"/>
+                        <constraint firstAttribute="trailing" secondItem="rTp-yf-TGr" secondAttribute="trailing" constant="2" id="74B-DD-R4i"/>
                         <constraint firstAttribute="width" constant="67" id="Kzs-WP-cDh"/>
                         <constraint firstItem="S3g-46-o4q" firstAttribute="centerX" secondItem="387-CP-ORP" secondAttribute="centerX" id="ZSb-aN-3Uq"/>
                         <constraint firstItem="S3g-46-o4q" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" constant="25" id="d4E-Yh-lWK"/>
@@ -134,7 +134,6 @@
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="centerX" secondItem="rTp-yf-TGr" secondAttribute="centerX" id="fL1-y6-8Ao"/>
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="top" secondItem="rTp-yf-TGr" secondAttribute="bottom" constant="4" id="l3o-xH-7eK"/>
                         <constraint firstItem="387-CP-ORP" firstAttribute="centerX" secondItem="HBc-V3-NcN" secondAttribute="centerX" id="mUt-rf-1LR"/>
-                        <constraint firstItem="rTp-yf-TGr" firstAttribute="leading" secondItem="HBc-V3-NcN" secondAttribute="leading" constant="5" id="pnp-Xg-8Lj"/>
                         <constraint firstItem="rTp-yf-TGr" firstAttribute="centerX" secondItem="S3g-46-o4q" secondAttribute="centerX" id="uWM-Oj-s8Q"/>
                         <constraint firstItem="rTp-yf-TGr" firstAttribute="top" secondItem="S3g-46-o4q" secondAttribute="bottom" constant="5" id="xhG-Q2-xCV"/>
                     </constraints>

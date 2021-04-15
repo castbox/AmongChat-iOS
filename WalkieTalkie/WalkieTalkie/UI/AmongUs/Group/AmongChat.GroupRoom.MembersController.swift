@@ -158,7 +158,15 @@ extension AmongChat.GroupRoom.MembersController: UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 64
+        return 74
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 12
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

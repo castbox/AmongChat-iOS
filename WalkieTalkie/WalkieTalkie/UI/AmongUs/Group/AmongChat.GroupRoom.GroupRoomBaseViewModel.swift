@@ -89,11 +89,28 @@ extension AmongChat.GroupRoom {
         let broadcasterReplay: BehaviorRelay<Entity.RoomUser>
         var updateListenerInfoHandler: () -> Void = { }
         
+        private var didAddJoinMessage: Bool = false
+        
         init(groupInfo: Entity.GroupInfo, source: ParentPageSource?) {
             groupInfoReplay = BehaviorRelay(value: groupInfo)
             broadcasterReplay = BehaviorRelay(value: groupInfo.group.broadcaster.toRoomUser(with: -1))
             super.init(room: groupInfo.group, source: source)
             startScheduleEvent()
+        }
+        
+        override func startShowShareTimerIfNeed() {
+            guard group.loginUserIsAdmin,
+                  group.userList.isEmpty else {
+                return
+            }
+            delayToShowShareView(event: .createdRoom)
+        }
+        
+        override func delayToShowShareViewIfNeed() {
+            guard group.loginUserIsAdmin else {
+                return
+            }
+            super.delayToShowShareViewIfNeed()
         }
         
         override func addSystemMessage() {
@@ -102,10 +119,12 @@ extension AmongChat.GroupRoom {
         }
         
         override func addJoinMessage() {
-            guard !group.loginUserIsAdmin,
+            guard groupInfo.userStatusEnum == .some(.memeber),
+                  !didAddJoinMessage,
                   let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: -1) else {
                 return
             }
+            didAddJoinMessage = true
             let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom, isGroupRoomHostMsg: group.loginUserIsAdmin)
             addUIMessage(message: joinRoomMsg)
             onUserJoinedHandler?(joinRoomMsg.user)
@@ -149,8 +168,11 @@ extension AmongChat.GroupRoom {
             if var message = crMessage as? ChatRoom.TextMessage {
                 message.isGroupRoomHostMsg = message.user.uid == group.uid
                 addUIMessage(message: message)
-            } else if var message = crMessage as? ChatRoom.GroupJoinRoomMessage,
-                      message.user.uid != Settings.loginUserId {
+            } else if var message = crMessage as? ChatRoom.GroupJoinRoomMessage {
+                guard message.user.uid != Settings.loginUserId else {
+                    addJoinMessage()
+                    return
+                }
                 message.isGroupRoomHostMsg = message.user.uid == group.uid
                 //add to entrance queue
                 onUserJoinedHandler?(message.user)

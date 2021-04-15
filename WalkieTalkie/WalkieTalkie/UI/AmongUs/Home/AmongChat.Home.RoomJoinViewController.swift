@@ -174,7 +174,7 @@ extension AmongChat.Home {
             let msgAttr = NSMutableAttributedString(string: "@")
             msgAttr.append(user.nameWithVerified(fontSize: 14))
             if room.isGroup {
-                msgAttr.yy_appendString(" " + R.string.localizable.amongChatGroupInvitationMsg(room.name.uppercased()))
+                msgAttr.yy_appendString(" " + R.string.localizable.amongChatGroupInvitationMsg(room.name))
             } else {
                 msgAttr.yy_appendString(" " + R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased()))
             }

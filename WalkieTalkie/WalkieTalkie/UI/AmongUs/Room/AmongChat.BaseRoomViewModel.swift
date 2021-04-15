@@ -579,15 +579,7 @@ extension AmongChat {
             
             updateSeatDataSource()
             
-            //人数为1时的分享控制
-            if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), userList.count == 1,
-               delayToShowShareView(event: .singlePerson, delay: 5) {
-                canShowSinglePersonShareEvent = false
-            }
-    //
-            if !didShowShareEvents.contains(.singlePerson), userList.count > 1 {
-                canShowSinglePersonShareEvent = true
-            }
+            delayToShowShareViewIfNeed()
         }
         
         //chat room message
@@ -627,38 +619,50 @@ extension AmongChat {
             //
             
         }
+        
+        func startShowShareTimerIfNeed() {
+            guard source?.isFromCreatePage == true
+                else {
+                return
+            }
+            delayToShowShareView(event: .createdRoom)
+        }
+        
+        func delayToShowShareViewIfNeed() {
+            //人数为1时的分享控制
+            if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), roomInfo.userList.count == 1,
+               delayToShowShareView(event: .singlePerson, delay: 5) {
+                canShowSinglePersonShareEvent = false
+            }
+    //
+            if !didShowShareEvents.contains(.singlePerson), roomInfo.userList.count > 1 {
+                canShowSinglePersonShareEvent = true
+            }
+        }
+        
+        func delayToShowShareView(event: ShareEvent, delay duration: Int = 3) -> Bool {
+            guard !didShowShareEvents.contains(event), willShowShareEvent == nil else {
+                return false
+            }
+            willShowShareEvent = event
+            Observable.just(())
+                .delay(.seconds(duration), scheduler: MainScheduler.asyncInstance)
+                .subscribe { [weak self] _ in
+                    guard let `self` = self else { return }
+                    self.willShowShareEvent = nil
+                    if !self.didShowShareEvents.contains(event) {
+                        self.didShowShareEvents.append(event)
+                        self.shareEventHandler()
+                    }
+                }
+                .disposed(by: bag)
+            return true
+        }
+        
     }
 }
 
 private extension AmongChat.BaseRoomViewModel {
-    func startShowShareTimerIfNeed() {
-        guard source?.isFromCreatePage == true
-//              room.userList.first?.uid == Settings.loginUserId
-            else {
-            return
-        }
-        delayToShowShareView(event: .createdRoom)
-    }
-    
-    func delayToShowShareView(event: ShareEvent, delay duration: Int = 3) -> Bool {
-        guard !didShowShareEvents.contains(event), willShowShareEvent == nil else {
-            return false
-        }
-        willShowShareEvent = event
-        Observable.just(())
-            .delay(.seconds(duration), scheduler: MainScheduler.asyncInstance)
-            .subscribe { [weak self] _ in
-                guard let `self` = self else { return }
-                self.willShowShareEvent = nil
-                if !self.didShowShareEvents.contains(event) {
-                    self.didShowShareEvents.append(event)
-                    self.shareEventHandler()
-                }
-            }
-            .disposed(by: bag)
-        return true
-    }
-    
     
     func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
         let userList = roomInfo.userList
