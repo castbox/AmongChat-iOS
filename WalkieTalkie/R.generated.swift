@@ -2063,7 +2063,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 408 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 407 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2737,10 +2737,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let amongChatGroupAddMemberInGroup = Rswift.StringResource(key: "among.chat.group.add.member.in.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: In group
-      /// 
-      /// Locales: en
-      static let groupInviteIngroup = Rswift.StringResource(key: "group.invite.ingroup", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Incorrect information
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4872,13 +4868,6 @@ struct R: Rswift.Validatable {
       /// Locales: en
       static func amongChatGroupAddMemberInGroup(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.group.add.member.in.group", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: In group
-      /// 
-      /// Locales: en
-      static func groupInviteIngroup(_: Void = ()) -> String {
-        return NSLocalizedString("group.invite.ingroup", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Incorrect information

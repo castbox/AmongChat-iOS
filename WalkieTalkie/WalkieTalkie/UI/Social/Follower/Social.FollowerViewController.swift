@@ -451,7 +451,7 @@ extension Social {
         }
         
         private func grayInGroupStyle() {
-            followBtn.setTitle(R.string.localizable.groupInviteIngroup(), for: .normal)
+            followBtn.setTitle(R.string.localizable.amongChatGroupAddMemberInGroup(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0x222222)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
