@@ -159,11 +159,11 @@ extension JoinRoomable where Self: ViewController {
 
     }
     
-    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
-        enter(group: group.gid, adminUid: group.uid, logSource: logSource, apiSource: apiSource)
+    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
+        enter(group: group.gid, adminUid: group.uid, logSource: logSource, apiSource: apiSource, completionHandler: completionHandler)
     }
     
-    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil) {
+    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
 //        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
         //
         UIApplication.tabBarController?.dismissNotificationBanner()
@@ -178,6 +178,7 @@ extension JoinRoomable where Self: ViewController {
             self?.contentScrollView?.isUserInteractionEnabled = true
             self?.isRequestingRoom = false
             hudRemoval()
+            completionHandler?()
         }
         
         contentScrollView?.isUserInteractionEnabled = false
