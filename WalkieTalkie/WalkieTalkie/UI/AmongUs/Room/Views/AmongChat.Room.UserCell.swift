@@ -134,7 +134,8 @@ extension AmongChat.Room {
         private var emojiContent: ChatRoom.EmojiMessage?
         private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
         //
-        private var tipView: EasyTipView?
+        private weak var tipView: EasyTipView?
+        private weak var tipBgView: UIView?
         private let bag = DisposeBag()
         
         var emojisNames: [String] = []
@@ -304,22 +305,38 @@ extension AmongChat.Room {
             preferences.drawing.backgroundColor = .white
             preferences.drawing.arrowPosition = .top
             
-            tipView = EasyTipView(text: tips,
+            let tipView = EasyTipView(text: tips,
                                   preferences: preferences,
                                   delegate: self)
-            tipView?.tag = 0
-            tipView?.show(animated: true, forView: gameNameButton, withinSuperview: containingController?.view)
+            
+            let bgView = UIView(frame: Frame.Screen.bounds)
+            bgView.rx.tapGesture()
+                .subscribe(onNext: { [weak self] gesture in
+                    self?.dismissTipsView()
+                })
+                .disposed(by: bag)
+            self.tipBgView = bgView
+            containingController?.view.addSubview(bgView)
+            
+            tipView.tag = 0
+            tipView.show(animated: true, forView: gameNameButton, withinSuperview: containingController?.view)
+            self.tipView = tipView
             Observable<Int>
                 .interval(.seconds(5), scheduler: MainScheduler.instance)
                 .single()
                 .subscribe(onNext: { [weak welf = self] _ in
                     guard let `self` = welf else { return }
-                    self.tipView?.dismiss()
-                    self.tipView = nil
+                    self.dismissTipsView()
                 })
                 .disposed(by: self.bag)
         }
         
+        func dismissTipsView() {
+            tipBgView?.removeFromSuperview()
+            tipView?.dismiss()
+            tipView = nil
+            tipBgView = nil
+        }
         
         @objc
         func userIconButtonAction() {
@@ -511,7 +528,9 @@ extension AmongChat.Room.UserCell {
                     gameNameButton.setTitle(user.nickname, for: .normal)
                 } else {
                     gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
-                    showGameNameTipsIfNeed()
+                    mainQueueDispatchAsync(after: 0.2) { [weak self] in
+                        self?.showGameNameTipsIfNeed()
+                    }
                 }
             } else {
                 gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
@@ -552,17 +571,16 @@ extension AmongChat.Room.UserCell {
         mutedLabel.isHidden = true
         disableMicView.isHidden = true
     }
-    
 }
 
 
 extension AmongChat.Room.UserCell: EasyTipViewDelegate {
     func easyTipViewDidTap(_ tipView: EasyTipView) {
 //        dismissTipView()
-        self.tipView?.dismiss()
+        self.dismissTipsView()
     }
     
     func easyTipViewDidDismiss(_ tipView : EasyTipView) {
-        
+        self.dismissTipsView()
     }
 }
