@@ -210,7 +210,7 @@ extension FansGroup.SelectGroupMemberViewController {
         emptyView.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
             maker.leading.greaterThanOrEqualToSuperview().offset(40)
-            maker.top.equalTo(100)
+            maker.top.equalTo(navView.snp.bottom).offset(160)
         }
         
         tableView.snp.makeConstraints { (maker) in
