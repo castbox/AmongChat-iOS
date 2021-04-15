@@ -55,9 +55,18 @@ extension AmongChat.GroupRoom {
             if group.userList.contains(where: { $0.uid == Settings.loginUserId }) {
                 if mManager.rtcRole == .audience {
                     //update message
-                    var message = seatDataSource.first(where: { $0.callContent.user.uid == Settings.loginUserId })?.callContent ?? Peer.CallMessage.empty(gid: group.gid)
-                    message.action = .accept
-                    updatePhoneCallState(.calling, rejectType: .none, call: message)
+                    var message: Peer.CallMessage?
+                    seatDataSource.forEach { seat in
+//                        var seat = item
+                        if seat.callContent.user.uid == Settings.loginUserId {
+                            seat.callContent.action = .accept
+                            message = seat.callContent
+                        } else {
+                            //clear requesting state
+                            seat.callContent.action = .none
+                        }
+                    }
+                    updatePhoneCallState(.calling, rejectType: .none, call: message ?? Peer.CallMessage.empty(gid: group.gid))
                 }
             }
             else if mManager.rtcRole == .broadcaster { //
@@ -66,10 +75,10 @@ extension AmongChat.GroupRoom {
         }
         
         override func onReceiveChatRoom(crMessage: ChatRoomMessage) {
-            cdPrint("onReceiveChatRoom- \(crMessage)")
-            guard state != .disconnected else {
-                return
-            }
+//            cdPrint("onReceiveChatRoom- \(crMessage)")
+//            guard state != .disconnected else {
+//                return
+//            }
             if let message = crMessage as? ChatRoom.GroupRoomEndMessage,
                       message.gid == group.gid {
                 endRoomHandler?(.normalClose)

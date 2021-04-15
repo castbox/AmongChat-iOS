@@ -296,7 +296,7 @@ extension AmongChat.Room {
             guard let topic = topic,
                   user?.uid == Settings.loginUserId,
                   Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)],
-                  let tips = topic.groupGameNamePlaceholderTips else {
+                  let tips = topic.groupGameNamePlaceholderTips, self.tipView == nil else {
                 return
             }
             Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)] = false
@@ -317,6 +317,7 @@ extension AmongChat.Room {
                 .subscribe(onNext: { [weak welf = self] _ in
                     guard let `self` = welf else { return }
                     self.tipView?.dismiss()
+                    self.tipView = nil
                 })
                 .disposed(by: self.bag)
         }
@@ -500,6 +501,8 @@ extension AmongChat.Room.UserCell {
             avatarIV.layer.borderWidth = 0.5
             nameLabel.attributedText = user.nameWithVerified(fontSize: 12)
         }
+        
+        self.user = user
         //
         if itemStyle == .normal {
             gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
@@ -511,7 +514,6 @@ extension AmongChat.Room.UserCell {
                     gameNameButton.setTitle(user.nickname, for: .normal)
                 } else {
                     gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
-                    
                     showGameNameTipsIfNeed()
                 }
             } else {
@@ -531,7 +533,6 @@ extension AmongChat.Room.UserCell {
                 disableMicView.isHidden = !user.isMuted
             }
         }
-        self.user = user
     }
     
     func clearStyle(_ index: Int = 0) {

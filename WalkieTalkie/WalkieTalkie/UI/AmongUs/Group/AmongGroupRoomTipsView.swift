@@ -65,7 +65,7 @@ class AmongGroupRoomTipsView: UIView {
         let size = introString.boundingRect(with: CGSize(width: maxWidth - 11 * 2, height: 400), font: R.font.nunitoExtraBold(size: 12)!)
         introLabel.size = CGSize(width: size.width, height: size.height)
         let viewSize = CGSize(width: maxWidth, height: size.height + 34 + 16)
-        titleLabel.width = size.width
+        titleLabel.width = viewSize.width - 100
         editButton.left = viewSize.width - 40
         return viewSize
     }

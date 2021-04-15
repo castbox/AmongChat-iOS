@@ -80,7 +80,7 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ac_group_host_request" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q">
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S3g-46-o4q">
                             <rect key="frame" x="14.5" y="25" width="38" height="38"/>
                             <gestureRecognizers/>
                             <constraints>
@@ -96,14 +96,14 @@
                                 <outletCollection property="gestureRecognizers" destination="KQG-Fd-J64" appends="YES" id="eTc-ct-3uP"/>
                             </connections>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Alice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr">
-                            <rect key="frame" x="19.5" y="68" width="28.5" height="16.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rTp-yf-TGr">
+                            <rect key="frame" x="5" y="68" width="57" height="16.5"/>
                             <gestureRecognizers/>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg2-8c-Z9C">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vg2-8c-Z9C">
                             <rect key="frame" x="3.5" y="88.5" width="60" height="20"/>
                             <color key="backgroundColor" white="1" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -112,7 +112,7 @@
                             </constraints>
                             <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
                             <inset key="contentEdgeInsets" minX="7" minY="3.5" maxX="7" maxY="3.5"/>
-                            <state key="normal" title="Button">
+                            <state key="normal" title=" ">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -126,6 +126,7 @@
                         </button>
                     </subviews>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="rTp-yf-TGr" secondAttribute="trailing" constant="5" id="74B-DD-R4i"/>
                         <constraint firstAttribute="width" constant="67" id="Kzs-WP-cDh"/>
                         <constraint firstItem="S3g-46-o4q" firstAttribute="centerX" secondItem="387-CP-ORP" secondAttribute="centerX" id="ZSb-aN-3Uq"/>
                         <constraint firstItem="S3g-46-o4q" firstAttribute="top" secondItem="HBc-V3-NcN" secondAttribute="top" constant="25" id="d4E-Yh-lWK"/>
@@ -133,6 +134,7 @@
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="centerX" secondItem="rTp-yf-TGr" secondAttribute="centerX" id="fL1-y6-8Ao"/>
                         <constraint firstItem="vg2-8c-Z9C" firstAttribute="top" secondItem="rTp-yf-TGr" secondAttribute="bottom" constant="4" id="l3o-xH-7eK"/>
                         <constraint firstItem="387-CP-ORP" firstAttribute="centerX" secondItem="HBc-V3-NcN" secondAttribute="centerX" id="mUt-rf-1LR"/>
+                        <constraint firstItem="rTp-yf-TGr" firstAttribute="leading" secondItem="HBc-V3-NcN" secondAttribute="leading" constant="5" id="pnp-Xg-8Lj"/>
                         <constraint firstItem="rTp-yf-TGr" firstAttribute="centerX" secondItem="S3g-46-o4q" secondAttribute="centerX" id="uWM-Oj-s8Q"/>
                         <constraint firstItem="rTp-yf-TGr" firstAttribute="top" secondItem="S3g-46-o4q" secondAttribute="bottom" constant="5" id="xhG-Q2-xCV"/>
                     </constraints>

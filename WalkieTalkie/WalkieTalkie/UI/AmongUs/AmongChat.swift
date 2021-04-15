@@ -139,8 +139,9 @@ extension AmongChat.Topic {
             return R.string.localizable.groupRoomPubgMobileGameNamePlceholder()
         case .animalCrossing:
             return R.string.localizable.groupRoomAnimalCrossingGameNamePlaceholder()
-//        case .wild
-        default:
+        case .brawlStars:
+            return R.string.localizable.groupRoomBrawlGameNamePlaceholder()
+        case .amongus, .chilling:
             return nil
         }
     }

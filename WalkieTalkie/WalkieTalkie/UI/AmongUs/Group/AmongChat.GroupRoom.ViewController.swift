@@ -447,6 +447,7 @@ extension AmongChat.GroupRoom.ViewController {
             .subscribe(onNext: { [weak self] info in
                 self?.applyButton.setTitle(info.titleForApplyButton, for: .normal)
                 self?.applyButton.isHidden = !info.showApplyButton
+                self?.bottomBar.isHidden = info.showApplyButton
                 self?.applyButton.isEnabled = info.userStatusEnum == .some(.none)
             })
             .disposed(by: bag)
@@ -537,6 +538,10 @@ extension AmongChat.GroupRoom.ViewController {
                             .subscribe(onSuccess: { [weak self] result in
                                 removeHandler?()
                                 self?.broadcasterViewModel?.sendCallSignal(isAccept: true, user)
+                                //
+                                if self?.broadcasterViewModel?.callInListReplay.value.isEmpty == true {
+                                    vc?.dismiss(animated: true, completion: nil)
+                                }
                             }, onError: { [weak self] error in
                                 removeHandler?()
                                 self?.view.raft.autoShow(.text(R.string.localizable.serverLostTips()))
@@ -848,7 +853,7 @@ extension AmongChat.GroupRoom.ViewController {
         }
         
         bottomBar.snp.makeConstraints { maker in
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-5)
+            maker.bottom.equalTo(Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : -20)
             maker.left.right.equalToSuperview()
             maker.height.equalTo(42)
         }

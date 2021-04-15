@@ -117,7 +117,7 @@ extension AmongChat.Room {
         }()
         
         private lazy var seatView: AmongChat.Room.SeatView = {
-            return AmongChat.Room.SeatView(room: room, itemStyle: .group, viewModel: viewModel)
+            return AmongChat.Room.SeatView(room: room, viewModel: viewModel)
         }()
         
         private lazy var messageView: MessageListView = {
@@ -322,7 +322,7 @@ extension AmongChat.Room.ViewController {
         }
         
         bottomBar.snp.makeConstraints { maker in
-            maker.bottom.equalTo(bottomLayoutGuide.snp.top).offset(-5)
+            maker.bottom.equalTo(Frame.Height.isXStyle ? Frame.Height.safeAeraTopHeight : -20)
             maker.left.right.equalToSuperview()
             maker.height.equalTo(42)
         }

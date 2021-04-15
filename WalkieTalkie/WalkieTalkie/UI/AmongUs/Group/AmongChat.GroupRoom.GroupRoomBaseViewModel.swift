@@ -290,6 +290,8 @@ extension AmongChat.GroupRoom {
             room.topicId = topicId
             room.note = nil
             room.robloxLink = nil
+            room.amongUsCode = nil
+            room.amongUsZone = nil
             updateInfo(group: room)
         }
         

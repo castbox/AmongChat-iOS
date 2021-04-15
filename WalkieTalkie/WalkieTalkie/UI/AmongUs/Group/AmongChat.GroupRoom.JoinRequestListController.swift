@@ -39,6 +39,7 @@ extension AmongChat.GroupRoom {
                 } else {
                     removeNoDataView()
                 }
+                titleView.title = R.string.localizable.groupRoomJoinRequestTitle(userList.count.string)
             }
         }
         let viewModel: AmongChat.GroupRoom.JoinRequestViewModel
@@ -105,8 +106,6 @@ extension AmongChat.GroupRoom {
                     removeBlock()
                     guard let `self` = self else { return }
                     self.userList = data.list
-
-                    self.titleView.title = R.string.localizable.groupRoomJoinRequestTitle(data.count?.string ?? "")
                     self.tableView.endLoadMore(data.more)
                 }, onError: { [weak self](error) in
                     removeBlock()
@@ -141,6 +140,11 @@ extension AmongChat.GroupRoom {
                     let list = self?.userList.filter { $0.uid != uid } ?? []
                     self?.userList = list
                     self?.viewModel.updateCount()
+                    //
+                    if list.isEmpty {
+                        //dismiss
+                        self?.dismiss(animated: true, completion: nil)
+                    }
                 }, onError: { (error) in
                     removeBlock()
                 }).disposed(by: bag)

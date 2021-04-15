@@ -80,10 +80,9 @@ class AmongGroupHostView: XibLoadableView {
     var group: Entity.Group {
         didSet {
             hostAvatarView.setImage(with: group.broadcaster.pictureUrl)
-            nameLabel.text = group.broadcaster.name
-            emojisNames = group.topicType.roomEmojiNames ?? []
+            nameLabel.attributedText = group.broadcaster.nameWithVerified(fontSize: 12, withAge: false)
+            emojisNames = group.topicType.roomEmojiNames
             
-            //
             if let urlString = Entity.DecorationEntity.entityOf(id: group.broadcaster.decoPetId ?? 0)?.sayUrl,
                let url = URL(string: urlString) {
                 //svga
