@@ -32,12 +32,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fiJ-Sm-h79">
-                                <rect key="frame" x="93" y="81" width="155" height="32"/>
+                                <rect key="frame" x="93" y="75" width="155" height="38"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncw-3k-kYD">
-                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="67.5" height="38"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="UzY-4E-6lW"/>
+                                            <constraint firstAttribute="height" constant="38" id="UzY-4E-6lW"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                                         <state key="normal" title="Edit">
@@ -45,7 +45,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="16"/>
+                                                <integer key="value" value="19"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -60,10 +60,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TRt-ns-J7t">
-                                        <rect key="frame" x="87.5" y="0.0" width="67.5" height="32"/>
+                                        <rect key="frame" x="87.5" y="0.0" width="67.5" height="38"/>
                                         <color key="backgroundColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="32" id="wOQ-Mu-beB"/>
+                                            <constraint firstAttribute="height" constant="38" id="wOQ-Mu-beB"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
                                         <state key="normal" title="Start">
@@ -71,7 +71,7 @@
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="16"/>
+                                                <integer key="value" value="19"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="group.item.start.live"/>
                                         </userDefinedRuntimeAttributes>

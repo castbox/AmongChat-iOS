@@ -100,6 +100,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDataSource {
             }
             
             addCell.tapHandler = { [weak self] in
+                Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "add_member")
                 guard let `self` = self else {
                     return
                 }
@@ -208,6 +209,7 @@ extension FansGroup.GroupMemberListViewController: UITableViewDelegate {
                     btn.rx.controlEvent(.primaryActionTriggered)
                         .subscribe(onNext: { [weak self] (_) in
                             //MARK: - go to kick
+                            Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "kick")
                             guard let `self` = self else { return }
                             let selectVC = FansGroup.SelectGroupMemberViewController(with: self.groupInfo)
                             selectVC.kickedMembersObservable

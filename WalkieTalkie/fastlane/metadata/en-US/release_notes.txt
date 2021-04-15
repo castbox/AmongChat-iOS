@@ -1,4 +1,3 @@
 Welcome to AmongChat voice chat app!
-For all verified users, you can upload your game statistics pages now.
-Other bug fixes and performance improvements.
+This update includes bug fixes and performance improvements.
 Find and Voice Chat with your friends, play together, and enjoy!

@@ -1,5 +1,3 @@
 Willkommen in der Voice-Chat-App AmongChat!
-Für alle verifizierten Benutzer können Sie jetzt Ihre Spielstatistikseiten hochladen.
-Andere Fehlerbehebungen und Leistungsverbesserungen stehen für Sie bereit.
+Dieses Update enthält Fehlerkorrekturen und Leistungsverbesserungen.
 Finden und sprechen Sie mit Ihren Freunden, spielen zusammen und viel Spaß!
-

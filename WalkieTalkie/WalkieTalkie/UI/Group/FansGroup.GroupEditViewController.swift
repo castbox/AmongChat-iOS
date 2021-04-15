@@ -15,12 +15,7 @@ import SDCAlertView
 extension FansGroup {
     
     class GroupEditViewController: WalkieTalkie.ViewController {
-        
-        enum EditAction {
-            case update
-            case delete
-        }
-        
+                
         private lazy var navView: FansGroup.Views.NavigationBar = {
             let n = FansGroup.Views.NavigationBar()
             n.leftBtn.setImage(R.image.ac_back(), for: .normal)
@@ -118,8 +113,6 @@ extension FansGroup {
         private var groupInfo: Entity.GroupInfo
         private var currentTopic: FansGroup.TopicViewModel
         
-        var editingHandler: ((EditAction, Entity.Group) -> Void)? = nil
-        
         init(groupInfo: Entity.GroupInfo) {
             self.groupInfo = groupInfo
             let topic = Entity.SummaryTopic(topicId: groupInfo.group.topicId, coverUrl: groupInfo.group.coverURL, bgUrl: nil, playerCount: nil, topicName: groupInfo.group.topicName)
@@ -203,6 +196,7 @@ extension FansGroup.GroupEditViewController {
         }
         
         setUpInfoView.topicSetView.tapHandler = { [weak self] in
+            Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "add_topic")
             let vc = FansGroup.AddTopicViewController(self?.currentTopic.topic.topicId)
             vc.topicSelectedHandler = { [weak self] topic in
                 self?.currentTopic = topic
@@ -306,8 +300,8 @@ extension FansGroup.GroupEditViewController {
             .do(onDispose: {
                 hudRemoval()
             })
-            .subscribe(onSuccess: { [weak self] (group) in
-                self?.editingHandler?(.update, group)
+            .subscribe(onSuccess: { (group) in
+                FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .updated)
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))
             })
@@ -344,6 +338,7 @@ extension FansGroup.GroupEditViewController {
         alertVC.addAction(AlertAction(attributedTitle: cancelAttr, style: .normal))
         
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal, handler: { [weak self] _ in
+            Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfo.group.topicId, "delete_confirm")
             guard let `self` = self else { return }
             
             let hudRemoval: (() -> Void)? = self.view.raft.show(.loading, userInteractionEnabled: false)
@@ -354,7 +349,7 @@ extension FansGroup.GroupEditViewController {
                 })
                 .subscribe(onSuccess: { [weak self] (_) in
                     guard let `self` = self else { return }
-                    self.editingHandler?(.delete, self.groupInfo.group)
+                    FansGroup.GroupUpdateNotification.publishNotificationOf(group: self.groupInfo.group, action: .removed)
                     completionHandler()
                 }, onError: { (error) in
                     

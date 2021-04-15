@@ -49,6 +49,7 @@ extension FansGroup {
             let h = GroupHeaderView()
             h.frame = CGRect(origin: .zero, size: CGSize(width: Frame.Screen.width, height: 254))
             h.leaveHandler = { [weak self] in
+                Logger.Action.log(.group_info_clk, categoryValue: self?.groupInfoViewModel?.groupInfo.group.topicId, "leave_confirm")
                 self?.leaveGroup()
             }
             
@@ -72,6 +73,7 @@ extension FansGroup {
             btn.backgroundColor = UIColor(hexString: "#FFF000")
             btn.rx.controlEvent(.primaryActionTriggered)
                 .subscribe(onNext: { [weak self] (_) in
+                    Logger.Action.log(.group_info_clk, categoryValue:  self?.groupInfoViewModel?.groupInfo.group.topicId, "apply")
                     self?.apply()
                 })
                 .disposed(by: bag)
@@ -115,6 +117,7 @@ extension FansGroup {
             super.viewDidLoad()
             setUpLayout()
             fetchInfo()
+            setUpEvents()
         }
         
     }
@@ -138,6 +141,31 @@ extension FansGroup.GroupInfoViewController {
             maker.bottom.equalTo(bottomLayoutGuide.snp.top)
             maker.height.equalTo(134)
         }
+        
+    }
+    
+    private func setUpEvents() {
+        
+        NotificationCenter.default.rx.notification(FansGroup.GroupUpdateNotification.notificationName)
+            .subscribe(onNext: { [weak self] (noti) in
+                guard let `self` = self else { return }
+                guard let (action, group) = FansGroup.GroupUpdateNotification.getDataFromNotification(noti) else { return }
+                
+                switch action {
+                case .added:
+                    ()
+                
+                case .removed:
+                    guard group.gid == self.groupId else {
+                        return
+                    }
+                    self.navigationController?.viewControllers.removeAll(where: { $0 === self })
+
+                case .updated:
+                    ()
+                }
+            })
+            .disposed(by: bag)
         
     }
         
@@ -192,6 +220,9 @@ extension FansGroup.GroupInfoViewController {
                     hudRemoval?()
                 })
                 .subscribe(onSuccess: { [weak self] (_) in
+                    if let group = self?.groupInfoViewModel?.groupInfo.group {
+                        FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .removed)
+                    }
                     self?.navigationController?.popViewController(animated: true)
                 })
                 .disposed(by: self.bag)
@@ -273,18 +304,6 @@ extension FansGroup.GroupInfoViewController {
         }
         
         let editVC = FansGroup.GroupEditViewController(groupInfo: info)
-        editVC.editingHandler = { [weak self] action, group in
-            
-            guard let `self` = self else { return }
-            
-            switch action {
-            case .delete:
-                self.navigationController?.viewControllers.removeAll(where: { $0 === self })
-            case .update:
-                ()
-            }
-            
-        }
         navigationController?.pushViewController(editVC, animated: true)
     }
 }

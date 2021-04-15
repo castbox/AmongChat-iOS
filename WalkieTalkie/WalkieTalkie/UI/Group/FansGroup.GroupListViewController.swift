@@ -151,6 +151,35 @@ extension FansGroup.GroupListViewController {
             })
             .disposed(by: bag)
         
+        NotificationCenter.default.rx.notification(FansGroup.GroupUpdateNotification.notificationName)
+            .subscribe(onNext: { [weak self] (noti) in
+                guard let `self` = self else { return }
+                guard let (action, group) = FansGroup.GroupUpdateNotification.getDataFromNotification(noti) else { return }
+                
+                switch action {
+                case .added:
+                    var groups = self.groupsRelay.value
+                    groups.removeAll(where: { $0.group.gid == group.gid })
+                    groups.insert(GroupViewModel(group: group), at: 0)
+                    self.groupsRelay.accept(groups)
+                    
+                case .removed:
+                    var groups = self.groupsRelay.value
+                    groups.removeAll(where: { $0.group.gid == group.gid })
+                    self.groupsRelay.accept(groups)
+                    
+                case .updated:
+                    var groups = self.groupsRelay.value
+                    if let idx = groups.firstIndex(where: { $0.group.gid == group.gid }) {
+                        let updatedGroup = GroupViewModel(group: group)
+                        groups[idx] = updatedGroup
+                        self.groupsRelay.accept(groups)
+                    }
+                    
+                }
+            })
+            .disposed(by: bag)
+        
     }
                 
     private func loadData(initialLoad: Bool = false, refresh: Bool = false) {
@@ -216,27 +245,6 @@ extension FansGroup.GroupListViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (vc) in
-                vc.editingHandler = { action, group in
-                    
-                    guard let `self` = self else { return }
-                    
-                    switch action {
-                    case .delete:
-                        var groups = self.groupsRelay.value
-                        groups.removeAll(where: { $0.group.gid == group.gid })
-                        self.groupsRelay.accept(groups)
-                    case .update:
-                        
-                        var groups = self.groupsRelay.value
-                        if let idx = groups.firstIndex(where: { $0.group.gid == group.gid }) {
-                            let updatedGroup = GroupViewModel(group: group)
-                            groups[idx] = updatedGroup
-                            self.groupsRelay.accept(groups)
-                        }
-                        
-                    }
-                    
-                }
                 self?.navigationController?.pushViewController(vc, animated: true)
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2602C16026271D5000CB3469 /* FansGroup.Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2602C15F26271D5000CB3469 /* FansGroup.Notifications.swift */; };
 		2604716325ADA878007D88AE /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2604716225ADA878007D88AE /* Bungee-Regular.ttf */; };
 		26057F8925C1712900718D3E /* AvatarImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26057F8825C1712900718D3E /* AvatarImageView.swift */; };
 		26126058251C7B5800CD1A98 /* UserDefaults+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */; };
@@ -391,6 +392,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2602C15F26271D5000CB3469 /* FansGroup.Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FansGroup.Notifications.swift; sourceTree = "<group>"; };
 		2604716225ADA878007D88AE /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		26057F8825C1712900718D3E /* AvatarImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageView.swift; sourceTree = "<group>"; };
 		26126057251C7B5800CD1A98 /* UserDefaults+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extension.swift"; sourceTree = "<group>"; };
@@ -822,6 +824,7 @@
 			isa = PBXGroup;
 			children = (
 				26F4149B2611C4EA003ED5BE /* FansGroup.swift */,
+				2602C15F26271D5000CB3469 /* FansGroup.Notifications.swift */,
 				26F414A92611DB1D003ED5BE /* FansGroup.Views.swift */,
 				269A6E07261EFDFC00A07C7D /* FansGroup.Views.GroupInfoSetUpView.swift */,
 				263FC49626218B9A00EC0588 /* FansGroup.Views.ShareBar.swift */,
@@ -1946,6 +1949,7 @@
 				26AFD8B525C976D900B652E8 /* Social.ProfileLookViewController+Widgets.swift in Sources */,
 				FE126D4E243481FF00BEDD60 /* Channel.swift in Sources */,
 				2BAB4F7E2595D53D00A1C8DC /* UIScrollViewExtension.swift in Sources */,
+				2602C16026271D5000CB3469 /* FansGroup.Notifications.swift in Sources */,
 				FEA2E93E25C166E6007485A8 /* UserTagView.swift in Sources */,
 				FED38C8A26132976003C3F7D /* AmongGroupTopicConfigView.swift in Sources */,
 				FE97371524AB3D050015ECE6 /* DebugViewController.swift in Sources */,

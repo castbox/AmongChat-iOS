@@ -271,6 +271,36 @@ private extension Social.ProfileViewController {
                 
             })
             .disposed(by: bag)
+        
+        NotificationCenter.default.rx.notification(FansGroup.GroupUpdateNotification.notificationName)
+            .subscribe(onNext: { [weak self] (noti) in
+                guard let `self` = self else { return }
+                guard let (action, group) = FansGroup.GroupUpdateNotification.getDataFromNotification(noti) else { return }
+                
+                switch action {
+                case .added:
+                    ()
+                
+                case .removed:
+                    var groups = self.createdGroupsRelay.value
+                    groups.removeAll(where: { $0.gid == group.gid })
+                    
+                    if groups.count > 0 {
+                        self.createdGroupsRelay.accept(groups)
+                    } else {
+                        self.fetchCreatedGroups()
+                    }
+
+                case .updated:
+                    var groups = self.createdGroupsRelay.value
+                    if let idx = groups.firstIndex(where: { $0.gid == group.gid }) {
+                        groups[idx] = group
+                        self.createdGroupsRelay.accept(groups)
+                    }
+
+                }
+            })
+            .disposed(by: bag)
     }
     
     func loadData() {
@@ -623,32 +653,6 @@ private extension Social.ProfileViewController {
                 hudRemoval()
             })
             .subscribe(onSuccess: { [weak self] (vc) in
-                vc.editingHandler = { action, group in
-                    
-                    guard let `self` = self else { return }
-                    
-                    switch action {
-                    case .delete:
-                        var groups = self.createdGroupsRelay.value
-                        groups.removeAll(where: { $0.gid == group.gid })
-                        
-                        if groups.count > 0 {
-                            self.createdGroupsRelay.accept(groups)
-                        } else {
-                            self.fetchCreatedGroups()
-                        }
-                        
-                    case .update:
-                        
-                        var groups = self.createdGroupsRelay.value
-                        if let idx = groups.firstIndex(where: { $0.gid == group.gid }) {
-                            groups[idx] = group
-                            self.createdGroupsRelay.accept(groups)
-                        }
-                        
-                    }
-
-                }
                 self?.navigationController?.pushViewController(vc, animated: true)
             }, onError: { [weak self] (error) in
                 self?.view.raft.autoShow(.text(error.msgOfError ?? R.string.localizable.amongChatUnknownError()))

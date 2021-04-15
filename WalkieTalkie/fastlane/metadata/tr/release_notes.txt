@@ -1,4 +1,3 @@
 AmongChat sesli sohbet uygulamasına hoş geldiniz!
-Tüm doğrulanmış kullanıcılar için, oyun istatistikleri sayfalarınızı şimdi yükleyebilirsiniz.
-Diğer hata düzeltmeleri ve performans iyileştirmeleri.
+Bu güncelleme, hata düzeltmeleri ve performans iyileştirmeleri içerir.
 Arkadaşlarınızı bulun ve Sesli Sohbet edin, birlikte oynayın ve keyfini çıkarın!

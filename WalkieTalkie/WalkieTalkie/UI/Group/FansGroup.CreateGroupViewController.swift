@@ -108,6 +108,7 @@ extension FansGroup.CreateGroupViewController {
                 #if DEBUG
                 Defaults[\.testGroup] = group.asString
                 #endif
+                FansGroup.GroupUpdateNotification.publishNotificationOf(group: group, action: .added)
                 let vc = FansGroup.AddMemberController(groupId: group.gid, group)
                 vc.isEnableScreenEdgeGesture = false
                 let rootVC = self?.navigationController?.viewControllers.first as? WalkieTalkie.ViewController

@@ -15,7 +15,7 @@ extension FansGroup {
     class GroupJoinRequestListViewController: WalkieTalkie.ViewController {
         
         private(set) lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .grouped)
+            let tb = UITableView(frame: .zero, style: .plain)
             tb.register(nibWithCellClass: AmongGroupJoinRequestCell.self)
             tb.dataSource = self
             tb.delegate = self
