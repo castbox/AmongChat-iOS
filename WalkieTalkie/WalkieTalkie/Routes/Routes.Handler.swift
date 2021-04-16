@@ -150,7 +150,7 @@ extension Routes {
         
         func handleFansGroup(_ groupId: String) {
             let vc = FansGroup.GroupInfoViewController(groupId: groupId)
-            UIApplication.navigationController?.pushViewController(vc)
+            UIApplication.topViewController()?.navigationController?.pushViewController(vc)
         }
         
         func showWebViewController(urlString: String) {
