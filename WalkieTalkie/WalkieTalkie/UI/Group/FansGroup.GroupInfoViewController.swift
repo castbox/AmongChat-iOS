@@ -62,7 +62,11 @@ extension FansGroup {
             return h
         }()
         
-        private var tableView: UITableView!
+        private var tableView: UITableView! {
+            didSet {
+                tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 134, right: 0)
+            }
+        }
         
         private lazy var applyButton: UIButton = {
             let btn = UIButton(type: .custom)
