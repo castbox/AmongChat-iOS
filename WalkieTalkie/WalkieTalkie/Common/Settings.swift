@@ -278,6 +278,26 @@ class Settings {
             })
             .asPublishProperty()
     }()
+    
+    
+    let profilePage: PublishProperty<Entity.ProfilePage?> = {
+        typealias Profile = Entity.ProfilePage
+        let profile: Profile?
+        
+        if let dict = Defaults[\.userProfilePageDataKey],
+           let p = try? JSONDecoder().decodeAnyData(Profile.self, from: dict) {
+            profile = p
+        } else {
+            profile = nil
+        }
+        
+        return DynamicProperty.stored(profile)
+            .didSet({ (event) in
+                Defaults[\.userProfilePageDataKey] = event.new?.dictionary
+            })
+            .asPublishProperty()
+    }()
+
         
     // 首页Summary缓存临时方案
     let amongChatHomeSummary: PublishProperty<Entity.Summary?> = {
@@ -446,6 +466,7 @@ class Settings {
                     return
                 }
                 Settings.shared.amongChatUserProfile.value = p.profile
+                Settings.shared.profilePage.value = p
             }, onError: { (error) in
                 cdPrint("")
             })
@@ -462,6 +483,18 @@ class Settings {
 extension Settings {
     static var loginUserId: Int? {
         return shared.loginResult.value?.uid
+    }
+    
+    static var loginUserProfile: Entity.UserProfile? {
+        return shared.amongChatUserProfile.value
+    }
+    
+    static var profilePage: Entity.ProfilePage? {
+         shared.profilePage.value
+    }
+    
+    static var profileFollowData: Entity.RelationData? {
+        return shared.profilePage.value?.followData
     }
     
     func fetchGlobalConfig() {
@@ -598,6 +631,10 @@ extension DefaultsKeys {
         .init("among.chat.user.profile", defaultValue: nil)
     }
     
+    var userProfilePageDataKey: DefaultsKey<[String : Any]?> {
+        .init("among.chat.user.profile.page", defaultValue: nil)
+    }
+    
     var joinChannelRequestsSentKey: DefaultsKey<[String : Double]> {
         .init("social.join.channel.request.sent.list", defaultValue: [:])
     }
@@ -677,13 +714,16 @@ extension DefaultsKeys {
         .init("among.chat.set.age.prompt.shows.time.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: nil)
     }
     
-    var vipRecruitmentChecked: DefaultsKey<Bool> {
-        .init("among.chat.vip.recruitment.checked.\(Settings.shared.amongChatUserProfile.value?.uid ?? 0)", defaultValue: false)
+    var testGroup: DefaultsKey<String?> {
+        .init("among.chat.test.temp.group", defaultValue: nil)
     }
-    
     
     var showQuickChangeRoomButton: DefaultsKey<Bool?> {
         .init("show.quick.change.button", defaultValue: nil)
+    }
+    
+    static func groupRoomCanShowGameNameTips(for topic: AmongChat.Topic) -> DefaultsKey<Bool> {
+        .init("group.room.can.show.game.name.tips.\(topic.rawValue)", defaultValue: true)
     }
 }
 

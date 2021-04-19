@@ -218,7 +218,7 @@ import RxSwift
 //        }
 //    }
 //
-//    func addAndSetTags(_ userInfo: LiveUserInfo?, role: RoleView.RoleType?) {
+//    func addAndSetTags(_ userInfo: Entity.UserProfile?, role: RoleView.RoleType?) {
 //        let userLevel = userInfo?.userLevel ?? 0
 //        let badge = FireStore.shared.badge(for: userInfo?.badge ?? 0)
 //        let hostLevel = userInfo?.hostLevel ?? 0

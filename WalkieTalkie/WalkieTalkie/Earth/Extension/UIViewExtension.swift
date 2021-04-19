@@ -132,7 +132,7 @@ extension UIView {
         static var key = "redDotImageView"
     }
     
-    func redDotOn(rightInset: CGFloat = 0, topInset: CGFloat = 0, diameter: CGFloat = 12) {
+    func redDotOn(string: String? = nil, rightInset: CGFloat = 0, topInset: CGFloat = 0, diameter: CGFloat = 12) {
         guard redDotIV == nil else {
             return
         }
@@ -145,6 +145,30 @@ extension UIView {
             maker.top.equalToSuperview().inset(topInset)
             maker.trailing.equalToSuperview().inset(rightInset)
         }
+        
+        if let string = string {
+            
+            let l = UILabel()
+            l.font = R.font.nunitoExtraBold(size: 12)
+            l.text = string
+            l.textColor = .white
+            iv.addSubview(l)
+            l.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 0, left: 4.5, bottom: 0, right: 4))
+            }
+            
+            let textWidth = l.sizeThatFits(CGSize(width: .greatestFiniteMagnitude, height: diameter)).width.ceil
+            let viewWidth = max(textWidth + 4 + 4, diameter)
+            
+            iv.snp.remakeConstraints { (maker) in
+                maker.height.equalTo(diameter)
+                maker.width.equalTo(viewWidth)
+                maker.top.equalToSuperview().inset(topInset)
+                maker.trailing.equalToSuperview().inset(-viewWidth + rightInset)
+            }
+            
+        }
+        
         redDotIV = iv
     }
     

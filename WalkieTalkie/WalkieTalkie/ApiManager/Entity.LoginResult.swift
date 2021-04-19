@@ -207,21 +207,30 @@ extension Entity {
         var user: Entity.UserProfile
         
         struct Room: Codable {
-            var roomId: String
+            var roomId: String?
+            var gid: String?
             var state: RoomPublicType
             var topicId: String
             var playerCount: Int
             var topicName: String
+            var name: String
+            
+            var isGroup: Bool {
+                gid != nil
+            }
             
             init(from decoder: Decoder) throws {
                 let container = try decoder.container(keyedBy: CodingKeys.self)
                 
-                self.roomId = try container.decodeString(.roomId)
+                self.roomId = try container.decodeStringIfPresent(.roomId)
+                self.gid = try container.decodeStringIfPresent(.gid)
                 let stateStr = (try? container.decodeString(.state)) ?? ""
                 self.state = RoomPublicType(rawValue: stateStr) ?? .private
                 self.topicId = try container.decodeString(.topicId)
                 self.playerCount = (try? container.decodeInt(.playerCount)) ?? 0
-                self.topicName = try container.decodeString(.topicName)
+                let topicName = try container.decodeString(.topicName)
+                self.topicName = topicName
+                self.name = try container.decodeStringIfPresent(.name) ?? topicName
             }
             
             #if DEBUG
@@ -232,6 +241,7 @@ extension Entity {
                 topicId = "amongus"
                 playerCount = 0
                 topicName = "Among Us"
+                name = ""
             }
             
             static func defaultRoom() -> Room {
@@ -244,30 +254,50 @@ extension Entity {
         }
         
         var room: Room?
+        var group: Room?
         
     }
 }
 
-extension Entity {
-    struct FriendUpdatingInfo: Codable {
-        typealias Room = PlayingUser.Room
-        var user: UserProfile
-        var room: Room?
-        var isOnline: Bool?
-        var messageType: String
+extension Entity.PlayingUser {
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        private enum CodingKeys: String, CodingKey {
-            case user
-            case room
-            case messageType = "message_type"
-            case isOnline = "is_online"
-        }
-        
-        func asPlayingUser() -> PlayingUser {
-            return PlayingUser(user: user, room: room)
-        }
-        
+        self.user = try container.decode(Entity.UserProfile.self, forKey: .user)
+        self.room = (try? container.decode(Room.self, forKey: .room)) ?? (try? container.decode(Room.self, forKey: .group))
+        self.group = try? container.decode(Room.self, forKey: .group)
     }
+
+}
+
+extension Entity {
+    
+//    struct FriendUpdatingInfo: PeerMessage {
+//        
+//        typealias Room = PlayingUser.Room
+//        var user: UserProfile
+//        private var room: Room?
+//        var isOnline: Bool?
+//        var msgType: Peer.MessageType
+//        private var group: Entity.Group?
+//        
+////        var room: RoomInfoable? {
+////            return _room ?? _group
+////        }
+//        
+//        private enum CodingKeys: String, CodingKey {
+//            case user
+//            case room = "room"
+//            case msgType = "message_type"
+//            case isOnline = "is_online"
+//            case group = "group"
+//        }
+//        
+////        func asPlayingUser() -> PlayingUser {
+////            return PlayingUser(user: user, room: room)
+////        }
+//    }
 }
 
 extension Entity {

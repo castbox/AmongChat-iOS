@@ -28,7 +28,16 @@ class AvatarImageView: UIImageView {
     }
     
     func updateAvatar(with profile: Entity.UserProfile) {
-        setImage(with: profile.pictureUrl, placeholder: Self.placeholder ?? R.image.ac_profile_avatar())
+        
+        let placeholder: UIImage?
+        
+        if profile.uid.isSelfUid {
+            placeholder = Self.placeholder ?? R.image.ac_profile_avatar()
+        } else {
+            placeholder = R.image.ac_profile_avatar()
+        }
+        
+        setImage(with: profile.pictureUrl, placeholder: placeholder)
     }
     
 }

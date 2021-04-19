@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongInputNotesView" customModule="WalkieTalkie" customModuleProvider="target">
             <connections>
+                <outlet property="doneButton" destination="m7Q-Oc-Ezf" id="C0Y-4I-NZ5"/>
                 <outlet property="hostNotesPlaceholderLabel" destination="sQi-nv-Qh1" id="Awv-et-eUX"/>
                 <outlet property="inputContainerView" destination="8PJ-kg-P8j" id="MZO-GU-wQf"/>
                 <outlet property="textView" destination="SM9-T1-bpH" id="FPR-GN-fnu"/>

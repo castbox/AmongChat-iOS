@@ -69,7 +69,7 @@ extension AmongChat.Home {
         
         private let bag = DisposeBag()
         
-        private var room: Entity.FriendUpdatingInfo.Room? = nil
+        private var room: Peer.FriendUpdatingInfo.Room?
         private var joinHandler: CallBack?
         private var ignoreHandler: CallBack?
         
@@ -167,13 +167,17 @@ extension AmongChat.Home {
         }
         
         
-        func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+        func updateContent(user: Entity.UserProfile, room: Peer.FriendUpdatingInfo.Room) {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             //            nameLabel.text =
             let msgAttr = NSMutableAttributedString(string: "@")
             msgAttr.append(user.nameWithVerified(fontSize: 14))
-            msgAttr.yy_appendString(" " + R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased()))
+            if room.isGroup {
+                msgAttr.yy_appendString(" " + R.string.localizable.amongChatGroupInvitationMsg(room.name))
+            } else {
+                msgAttr.yy_appendString(" " + R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased()))
+            }
             msgLabel.attributedText = msgAttr
         }
         
@@ -228,7 +232,7 @@ extension AmongChat.Home {
         
         private var joinBtnDisposable: Disposable? = nil
         
-        private var room: Entity.FriendUpdatingInfo.Room? = nil
+        private var room: RoomInfoable? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -288,7 +292,7 @@ extension AmongChat.Home {
         }
         
         
-        func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+        func updateContent(user: Entity.UserProfile, room: RoomInfoable) {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl))
             //            nameLabel.text =

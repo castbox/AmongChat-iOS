@@ -24,23 +24,36 @@ extension Social {
         }
         
         private var frientds: [Entity.UserProfile] = []
+        //
+        static var invitedUser: [Int] = []
         
         /// room share
         static var roomShareItems: [Item] = []
         private let bag = DisposeBag()
         
+        private let gid: String?
+        
+        init(with gid: String? = nil) {
+            self.gid = gid
+        }
         
         func loadData() {
-            let users = Self.roomShareItems
-            if users.isEmpty {
+//            let users = Self.roomShareItems
+//            if users.isEmpty {
                 requestFriends()
-            } else {
-                items = users
-            }
+//            } else {
+//                items = users
+//            }
         }
         
         func requestFriends(skipMs: Double = 0) {
-            Request.inviteFriends(skipMs: skipMs)
+            let request: Single<Entity.FollowData?>
+            if let gid = gid {
+                request = Request.groupRoomInviteFriends(gid: gid, skipMs: skipMs)
+            } else {
+                request = Request.inviteFriends(skipMs: skipMs)
+            }
+            request
                 .subscribe(onSuccess: { [weak self](data) in
                     guard let `self` = self, let data = data else {
                         return
@@ -73,7 +86,13 @@ extension Social {
                 return
             }
             var items = self.items.filter { $0.group != group }
-            items.append(Item(userLsit: list, group: group))
+            //
+            let newList = list.map { item -> Entity.UserProfile in
+                var profile = item
+                profile.invited = Self.invitedUser.contains(profile.uid)
+                return profile
+            }
+            items.append(Item(userLsit: newList, group: group))
             self.items = items.sorted { (old, previous) -> Bool in
                 old.group.rawValue < previous.group.rawValue
             }
@@ -84,6 +103,7 @@ extension Social {
         
         /// clear temp data
         class func clear() {
+            Self.invitedUser = []
             Self.roomShareItems = []
         }
     }
@@ -106,7 +126,7 @@ extension Social {
         }()
         
         private lazy var headerView = ShareHeaderView()
-        private lazy var viewModel = ShareRoomViewModel()
+        private lazy var viewModel = ShareRoomViewModel(with: gid)
         
         private var items: [ShareRoomViewModel.Item] = [] {
             didSet {
@@ -118,10 +138,13 @@ extension Social {
         private var roomId = ""
         private var topicId = ""
         private var hiddened = false
+        private var isGroup: Bool { gid != nil }
+        private let gid: String?
         
-        init(with linkUrl: String, roomId: String, topicId: String) {
+        init(with linkUrl: String, roomId: String, topicId: String, gid: String? = nil) {
+            self.gid = gid
             super.init(nibName: nil, bundle: nil)
-            self.linkUrl = R.string.localizable.socialShareUrl(linkUrl)
+            self.linkUrl = linkUrl
             self.roomId = roomId
             self.topicId = topicId
         }
@@ -203,7 +226,6 @@ private extension Social.ShareRoomViewController {
     func copyLink() {
         Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "copy")
         linkUrl.copyToPasteboardWithHaptic()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
 }
 
@@ -223,10 +245,16 @@ extension Social.ShareRoomViewController: UITableViewDataSource, UITableViewDele
         
         let cell = tableView.dequeueReusableCell(withClass: Social.FollowerCell.self)
         if let item = items.safe(indexPath.section), let user = item.userLsit.safe(indexPath.row) {
-            cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger)
+            cell.setCellDataForShare(with: user, roomId: roomId, isStranger: item.group == .stranger, isGroup: self.isGroup)
             cell.updateInviteData = { [weak self] (follow) in
                 guard let `self` = self else { return }
                 //                user.invited = follow
+                //
+                if follow, !Social.ShareRoomViewModel.invitedUser.contains(user.uid) {
+                    Social.ShareRoomViewModel.invitedUser.append(user.uid)
+                } else {
+                    Social.ShareRoomViewModel.invitedUser.removeAll(user.uid)
+                }
                 self.items[indexPath.section].userLsit[indexPath.row].invited = follow
                 //                self.userList[indexPath.row].invited = follow
                 Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: self.topicId), item.group == .friends ? "invite" : "invite_stranger")

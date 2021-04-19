@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 176 images.
+  /// This `R.image` struct is generated, and contains static references to 199 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -226,6 +226,8 @@ struct R: Rswift.Validatable {
     static let ac_age_prompt_close = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_age_prompt_close")
     /// Image `ac_age_prompt_icon`.
     static let ac_age_prompt_icon = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_age_prompt_icon")
+    /// Image `ac_among_apply_empty`.
+    static let ac_among_apply_empty = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_apply_empty")
     /// Image `ac_among_no_data`.
     static let ac_among_no_data = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_among_no_data")
     /// Image `ac_among_no_search_result`.
@@ -250,6 +252,46 @@ struct R: Rswift.Validatable {
     static let ac_choose_game_added = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_choose_game_added")
     /// Image `ac_create_room_bar_top_shadow`.
     static let ac_create_room_bar_top_shadow = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_create_room_bar_top_shadow")
+    /// Image `ac_group_Leave`.
+    static let ac_group_Leave = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_Leave")
+    /// Image `ac_group_add`.
+    static let ac_group_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_add")
+    /// Image `ac_group_banner`.
+    static let ac_group_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_banner")
+    /// Image `ac_group_cover_add`.
+    static let ac_group_cover_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_add")
+    /// Image `ac_group_cover_default_bg`.
+    static let ac_group_cover_default_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_default_bg")
+    /// Image `ac_group_cover_edit`.
+    static let ac_group_cover_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_cover_edit")
+    /// Image `ac_group_delete`.
+    static let ac_group_delete = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_delete")
+    /// Image `ac_group_get_verirfied`.
+    static let ac_group_get_verirfied = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_get_verirfied")
+    /// Image `ac_group_host_request`.
+    static let ac_group_host_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_host_request")
+    /// Image `ac_group_join_request`.
+    static let ac_group_join_request = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_join_request")
+    /// Image `ac_group_room_copy`.
+    static let ac_group_room_copy = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_copy")
+    /// Image `ac_group_room_count`.
+    static let ac_group_room_count = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_count")
+    /// Image `ac_group_room_note`.
+    static let ac_group_room_note = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_note")
+    /// Image `ac_group_room_rb_edit`.
+    static let ac_group_room_rb_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_rb_edit")
+    /// Image `ac_group_room_tip_edit`.
+    static let ac_group_room_tip_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_room_tip_edit")
+    /// Image `ac_group_selected`.
+    static let ac_group_selected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_selected")
+    /// Image `ac_group_setting`.
+    static let ac_group_setting = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_setting")
+    /// Image `ac_group_snapchat_share_click_tips`.
+    static let ac_group_snapchat_share_click_tips = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_snapchat_share_click_tips")
+    /// Image `ac_group_snapchat_share_title`.
+    static let ac_group_snapchat_share_title = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_snapchat_share_title")
+    /// Image `ac_group_unselected`.
+    static let ac_group_unselected = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_group_unselected")
     /// Image `ac_home_banner`.
     static let ac_home_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_home_banner")
     /// Image `ac_home_create`.
@@ -364,6 +406,8 @@ struct R: Rswift.Validatable {
     static let ac_pro_icon_22 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_22")
     /// Image `ac_pro_icon_24`.
     static let ac_pro_icon_24 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_24")
+    /// Image `ac_pro_icon_bg_40`.
+    static let ac_pro_icon_bg_40 = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_icon_bg_40")
     /// Image `ac_pro_privilege_badge`.
     static let ac_pro_privilege_badge = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_pro_privilege_badge")
     /// Image `ac_pro_privilege_match`.
@@ -458,8 +502,6 @@ struct R: Rswift.Validatable {
     static let ac_share_snapchat_url_bg = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_share_snapchat_url_bg")
     /// Image `ac_social_tiktok`.
     static let ac_social_tiktok = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_social_tiktok")
-    /// Image `ac_vip_recruit_banner`.
-    static let ac_vip_recruit_banner = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_vip_recruit_banner")
     /// Image `backNor`.
     static let backNor = Rswift.ImageResource(bundle: R.hostingBundle, name: "backNor")
     /// Image `btn_add`.
@@ -516,6 +558,8 @@ struct R: Rswift.Validatable {
     static let icon_room_bg_topicId_fortnite = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_fortnite")
     /// Image `icon_room_bg_topicId_freefire`.
     static let icon_room_bg_topicId_freefire = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_freefire")
+    /// Image `icon_room_bg_topicId_group`.
+    static let icon_room_bg_topicId_group = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_group")
     /// Image `icon_room_bg_topicId_justchatting`.
     static let icon_room_bg_topicId_justchatting = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_room_bg_topicId_justchatting")
     /// Image `icon_room_bg_topicId_minecraft`.
@@ -546,6 +590,8 @@ struct R: Rswift.Validatable {
     static let icon_verified_20 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_20")
     /// Image `icon_verified_23`.
     static let icon_verified_23 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_23")
+    /// Image `icon_verified_30`.
+    static let icon_verified_30 = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified_30")
     /// Image `icon_verified`.
     static let icon_verified = Rswift.ImageResource(bundle: R.hostingBundle, name: "icon_verified")
     /// Image `icon_vip_13`.
@@ -589,6 +635,11 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_age_prompt_icon", bundle: ..., traitCollection: ...)`
     static func ac_age_prompt_icon(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_age_prompt_icon, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_among_apply_empty", bundle: ..., traitCollection: ...)`
+    static func ac_among_apply_empty(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_among_apply_empty, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_among_no_data", bundle: ..., traitCollection: ...)`
@@ -649,6 +700,106 @@ struct R: Rswift.Validatable {
     /// `UIImage(named: "ac_create_room_bar_top_shadow", bundle: ..., traitCollection: ...)`
     static func ac_create_room_bar_top_shadow(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_create_room_bar_top_shadow, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_Leave", bundle: ..., traitCollection: ...)`
+    static func ac_group_Leave(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_Leave, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_add", bundle: ..., traitCollection: ...)`
+    static func ac_group_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_banner", bundle: ..., traitCollection: ...)`
+    static func ac_group_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_banner, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_cover_add", bundle: ..., traitCollection: ...)`
+    static func ac_group_cover_add(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_cover_add, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_cover_default_bg", bundle: ..., traitCollection: ...)`
+    static func ac_group_cover_default_bg(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_cover_default_bg, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_cover_edit", bundle: ..., traitCollection: ...)`
+    static func ac_group_cover_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_cover_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_delete", bundle: ..., traitCollection: ...)`
+    static func ac_group_delete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_delete, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_get_verirfied", bundle: ..., traitCollection: ...)`
+    static func ac_group_get_verirfied(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_get_verirfied, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_host_request", bundle: ..., traitCollection: ...)`
+    static func ac_group_host_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_host_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_join_request", bundle: ..., traitCollection: ...)`
+    static func ac_group_join_request(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_join_request, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_copy", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_copy(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_copy, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_count", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_count(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_count, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_note", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_note(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_note, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_rb_edit", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_rb_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_rb_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_room_tip_edit", bundle: ..., traitCollection: ...)`
+    static func ac_group_room_tip_edit(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_room_tip_edit, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_selected", bundle: ..., traitCollection: ...)`
+    static func ac_group_selected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_selected, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_setting", bundle: ..., traitCollection: ...)`
+    static func ac_group_setting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_setting, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_snapchat_share_click_tips", bundle: ..., traitCollection: ...)`
+    static func ac_group_snapchat_share_click_tips(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_snapchat_share_click_tips, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_snapchat_share_title", bundle: ..., traitCollection: ...)`
+    static func ac_group_snapchat_share_title(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_snapchat_share_title, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "ac_group_unselected", bundle: ..., traitCollection: ...)`
+    static func ac_group_unselected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_group_unselected, compatibleWith: traitCollection)
     }
     
     /// `UIImage(named: "ac_home_banner", bundle: ..., traitCollection: ...)`
@@ -936,6 +1087,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_pro_icon_24, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "ac_pro_icon_bg_40", bundle: ..., traitCollection: ...)`
+    static func ac_pro_icon_bg_40(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.ac_pro_icon_bg_40, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "ac_pro_privilege_badge", bundle: ..., traitCollection: ...)`
     static func ac_pro_privilege_badge(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.ac_pro_privilege_badge, compatibleWith: traitCollection)
@@ -1171,11 +1327,6 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.ac_social_tiktok, compatibleWith: traitCollection)
     }
     
-    /// `UIImage(named: "ac_vip_recruit_banner", bundle: ..., traitCollection: ...)`
-    static func ac_vip_recruit_banner(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
-      return UIKit.UIImage(resource: R.image.ac_vip_recruit_banner, compatibleWith: traitCollection)
-    }
-    
     /// `UIImage(named: "backNor", bundle: ..., traitCollection: ...)`
     static func backNor(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.backNor, compatibleWith: traitCollection)
@@ -1316,6 +1467,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_freefire, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_room_bg_topicId_group", bundle: ..., traitCollection: ...)`
+    static func icon_room_bg_topicId_group(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_group, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_room_bg_topicId_justchatting", bundle: ..., traitCollection: ...)`
     static func icon_room_bg_topicId_justchatting(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_room_bg_topicId_justchatting, compatibleWith: traitCollection)
@@ -1396,6 +1552,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.icon_verified_23, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "icon_verified_30", bundle: ..., traitCollection: ...)`
+    static func icon_verified_30(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.icon_verified_30, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_vip", bundle: ..., traitCollection: ...)`
     static func icon_vip(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_vip, compatibleWith: traitCollection)
@@ -1454,12 +1615,20 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 22 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 28 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
     /// Nib `AmongChatRoomTopBar`.
     static let amongChatRoomTopBar = _R.nib._AmongChatRoomTopBar()
+    /// Nib `AmongGroupHostView`.
+    static let amongGroupHostView = _R.nib._AmongGroupHostView()
+    /// Nib `AmongGroupJoinRequestCell`.
+    static let amongGroupJoinRequestCell = _R.nib._AmongGroupJoinRequestCell()
+    /// Nib `AmongGroupTopView`.
+    static let amongGroupTopView = _R.nib._AmongGroupTopView()
+    /// Nib `AmongGroupTopicConfigView`.
+    static let amongGroupTopicConfigView = _R.nib._AmongGroupTopicConfigView()
     /// Nib `AmongInputCodeView`.
     static let amongInputCodeView = _R.nib._AmongInputCodeView()
     /// Nib `AmongInputNickNameView`.
@@ -1486,6 +1655,10 @@ struct R: Rswift.Validatable {
     static let avatarGuideViewController = _R.nib._AvatarGuideViewController()
     /// Nib `EndUserLicenseController`.
     static let endUserLicenseController = _R.nib._EndUserLicenseController()
+    /// Nib `FansGroupItemCell`.
+    static let fansGroupItemCell = _R.nib._FansGroupItemCell()
+    /// Nib `FansGroupSelfItemCell`.
+    static let fansGroupSelfItemCell = _R.nib._FansGroupSelfItemCell()
     /// Nib `InfoWithNicknameView`.
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
@@ -1511,6 +1684,30 @@ struct R: Rswift.Validatable {
     @available(*, deprecated, message: "Use UINib(resource: R.nib.amongChatRoomTopBar) instead")
     static func amongChatRoomTopBar(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.amongChatRoomTopBar)
+    }
+    
+    /// `UINib(name: "AmongGroupHostView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupHostView) instead")
+    static func amongGroupHostView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupHostView)
+    }
+    
+    /// `UINib(name: "AmongGroupJoinRequestCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupJoinRequestCell) instead")
+    static func amongGroupJoinRequestCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupJoinRequestCell)
+    }
+    
+    /// `UINib(name: "AmongGroupTopView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupTopView) instead")
+    static func amongGroupTopView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupTopView)
+    }
+    
+    /// `UINib(name: "AmongGroupTopicConfigView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.amongGroupTopicConfigView) instead")
+    static func amongGroupTopicConfigView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.amongGroupTopicConfigView)
     }
     
     /// `UINib(name: "AmongInputCodeView", in: bundle)`
@@ -1591,6 +1788,18 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.endUserLicenseController)
     }
     
+    /// `UINib(name: "FansGroupItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupItemCell) instead")
+    static func fansGroupItemCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.fansGroupItemCell)
+    }
+    
+    /// `UINib(name: "FansGroupSelfItemCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.fansGroupSelfItemCell) instead")
+    static func fansGroupSelfItemCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.fansGroupSelfItemCell)
+    }
+    
     /// `UINib(name: "InfoWithNicknameView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.infoWithNicknameView) instead")
     static func infoWithNicknameView(_: Void = ()) -> UIKit.UINib {
@@ -1639,6 +1848,22 @@ struct R: Rswift.Validatable {
     
     static func amongChatRoomTopBar(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.amongChatRoomTopBar.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupHostView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupHostView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupJoinRequestCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
+      return R.nib.amongGroupJoinRequestCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+    }
+    
+    static func amongGroupTopView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupTopView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func amongGroupTopicConfigView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.amongGroupTopicConfigView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
     static func amongInputCodeView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
@@ -1693,6 +1918,14 @@ struct R: Rswift.Validatable {
       return R.nib.endUserLicenseController.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func fansGroupItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
+      return R.nib.fansGroupItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
+    }
+    
+    static func fansGroupSelfItemCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
+      return R.nib.fansGroupSelfItemCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
+    }
+    
     static func infoWithNicknameView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.infoWithNicknameView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1724,12 +1957,14 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
     /// Reuse identifier `AmongSheetUserCell`.
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
+    /// Reuse identifier `FansGroupSelfItemCell`.
+    static let fansGroupSelfItemCell: Rswift.ReuseIdentifier<FansGroupSelfItemCell> = Rswift.ReuseIdentifier(identifier: "FansGroupSelfItemCell")
     
     fileprivate init() {}
   }
@@ -1828,7 +2063,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 316 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 407 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -1842,6 +2077,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatHomeNowplaying = Rswift.StringResource(key: "among.chat.home.nowplaying", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %@ Join Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomJoinRequestTitle = Rswift.StringResource(key: "group.room.join.request.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: %@ Raised Hands
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomRaisedHandsTitle = Rswift.StringResource(key: "group.room.raised.hands.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: %@ friend on AmongChat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1870,6 +2113,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomAnimalCrossingIdPlaceholder = Rswift.StringResource(key: "room.animal.crossing.id.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Accept
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAccept = Rswift.StringResource(key: "group.room.accept", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Add
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAdd = Rswift.StringResource(key: "among.chat.add", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1878,6 +2129,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialAddNew = Rswift.StringResource(key: "social.add.new", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Add Topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddTopic = Rswift.StringResource(key: "among.chat.add.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Add Your Stats
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1886,10 +2141,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileAddAGame = Rswift.StringResource(key: "among.chat.profile.add.a.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Add a topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatAddATopic = Rswift.StringResource(key: "among.chat.add.a.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Add members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupAddMembers = Rswift.StringResource(key: "among.chat.group.add.members", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Added
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatAdded = Rswift.StringResource(key: "among.chat.added", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Admin
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupAdmin = Rswift.StringResource(key: "among.chat.group.admin", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1906,6 +2173,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomAnimalCrossingId = Rswift.StringResource(key: "among.chat.room.animal.crossing.id", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Applied
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupApplied = Rswift.StringResource(key: "among.chat.group.applied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Apply to join
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupApplyToJoin = Rswift.StringResource(key: "among.chat.group.apply.to.join", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Apr
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1922,10 +2197,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatGameStatsDeleteTip = Rswift.StringResource(key: "among.chat.game.stats.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure to delete the group?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupDeleteTip = Rswift.StringResource(key: "among.chat.group.delete.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLeaveRoomTipTitle = Rswift.StringResource(key: "among.chat.leave.room.tip.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Are you sure to leave the group?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupLeaveTip = Rswift.StringResource(key: "among.chat.group.leave.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Asia
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -1942,6 +2225,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomBrawlIdPlaceholder = Rswift.StringResource(key: "room.brawl.id.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Become verified and create new group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupGetVerfied = Rswift.StringResource(key: "among.chat.group.get.verfied", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Birthday
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2002,6 +2289,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let settingChatLanguage = Rswift.StringResource(key: "setting.chat.language", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Choose Image
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupCoverSelectImage = Rswift.StringResource(key: "among.chat.group.cover.select.image", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Choose a Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2038,6 +2329,42 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomRebloxTitle = Rswift.StringResource(key: "among.chat.room.reblox.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Animal Crossing ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAnimalCrossingGameNameTips = Rswift.StringResource(key: "group.room.animal.crossing.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Brawl Stars Team code/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let roomBrawlGameNameTips = Rswift.StringResource(key: "room.brawl.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up COD Username/UID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomCallOfDutyGameNameTips = Rswift.StringResource(key: "group.room.call.of.duty.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Fortnite Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomFortniteGameNameTips = Rswift.StringResource(key: "group.room.fortnite.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Free Fire Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomFreefireGameNameTips = Rswift.StringResource(key: "group.room.freefire.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up MLBB Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomMobileLegendsGameNameTips = Rswift.StringResource(key: "group.room.mobile.legends.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Minecraft Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomMinecraftGameNameTips = Rswift.StringResource(key: "group.room.minecraft.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up PUBG Player Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomPubgMobileGameNameTips = Rswift.StringResource(key: "group.room.pubg.mobile.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Click to set up Roblox Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomRobloxGameNameTips = Rswift.StringResource(key: "group.room.roblox.game.name.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Close
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2082,6 +2409,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomTitle = Rswift.StringResource(key: "among.chat.create.room.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Create a Group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCreateAGroup = Rswift.StringResource(key: "among.chat.create.a.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Create new group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCreateNewGroup = Rswift.StringResource(key: "among.chat.create.new.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Customize
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2094,10 +2429,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatDelete = Rswift.StringResource(key: "among.chat.delete", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Delete group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupDeleteGroup = Rswift.StringResource(key: "among.chat.group.delete.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginCodeNotRecieve = Rswift.StringResource(key: "among.chat.login.code.not.recieve", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomFortniteGameNamePlceholder = Rswift.StringResource(key: "group.room.fortnite.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Display Name: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2106,6 +2449,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileDone = Rswift.StringResource(key: "profile.done", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Drop
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let alertDrop = Rswift.StringResource(key: "alert.drop", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: ENTER YOUR PRIVATE CODE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2114,6 +2461,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomInputPlaceholder = Rswift.StringResource(key: "among.chat.create.room.input.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Edit
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupItemEdit = Rswift.StringResource(key: "group.item.edit", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Enable
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2126,6 +2477,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let guideFourthTitle = Rswift.StringResource(key: "guide.fourth.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Enter group name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupNamePlaceholder = Rswift.StringResource(key: "among.chat.group.name.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Enter your code
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2150,6 +2505,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialExitChannel = Rswift.StringResource(key: "social.exit.channel", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Explore
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatExplore = Rswift.StringResource(key: "among.chat.explore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: FORTNITE USERNAME
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2234,6 +2593,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let followInvitedSuccess = Rswift.StringResource(key: "follow.invited.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomMinecraftGameNamePlceholder = Rswift.StringResource(key: "group.room.minecraft.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Gamertag: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2250,6 +2613,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatVipRecruitTitle2 = Rswift.StringResource(key: "among.chat.vip.recruit.title2", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Get verified
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatSettingGetVerified = Rswift.StringResource(key: "among.chat.setting.get.verified", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Give a description about your group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupDescriptionPlaceholder = Rswift.StringResource(key: "among.chat.group.description.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2258,6 +2629,42 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowSetting = Rswift.StringResource(key: "microphone.not.allow.setting", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Going back to the audience?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomDropSelfTips = Rswift.StringResource(key: "group.room.drop.self.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroup = Rswift.StringResource(key: "among.chat.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group Description
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupDescription = Rswift.StringResource(key: "among.chat.group.description", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group Info
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupInfo = Rswift.StringResource(key: "among.chat.group.info", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupName = Rswift.StringResource(key: "among.chat.group.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group Topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupTopic = Rswift.StringResource(key: "among.chat.group.topic", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Group session just ended
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomEndTips = Rswift.StringResource(key: "group.room.end.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Groups Created
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupGroupsCreated = Rswift.StringResource(key: "among.chat.group.groups.created", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Groups Joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupGroupsJoined = Rswift.StringResource(key: "among.chat.group.groups.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2278,6 +2685,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialShareUrl = Rswift.StringResource(key: "social.share.url", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Host
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupHost = Rswift.StringResource(key: "among.chat.group.host", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2286,6 +2697,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomSetupHostNotes = Rswift.StringResource(key: "room.setup.host.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomHostNotes = Rswift.StringResource(key: "group.room.host.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Host's notes:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2298,10 +2713,30 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatSetBirthDayTitle = Rswift.StringResource(key: "among.chat.set.birth.day.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: I'm %1$@ on AmongChat, hang with us and let's have some fun in our %2$@ group. Click the link to join: %3$@
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupShareContent = Rswift.StringResource(key: "among.chat.group.share.content", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAnimalCrossingGameNamePlaceholder = Rswift.StringResource(key: "group.room.animal.crossing.game.name.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: ID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomAnimalCrossingIdPrefix = Rswift.StringResource(key: "among.chat.room.animal.crossing.id.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Ignore
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomIgnore = Rswift.StringResource(key: "group.room.ignore", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: In Channel Members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomMembersTitle = Rswift.StringResource(key: "group.room.members.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: In group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupAddMemberInGroup = Rswift.StringResource(key: "among.chat.group.add.member.in.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Incorrect information
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2330,6 +2765,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialJoinAction = Rswift.StringResource(key: "social.join.action", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Join Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomJoinRequest = Rswift.StringResource(key: "group.room.join.request", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupJoined = Rswift.StringResource(key: "among.chat.group.joined", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Jul
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2342,6 +2785,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomKick = Rswift.StringResource(key: "among.chat.room.kick", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Kick Selected (%1$@)
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupKickMemberButtonTitle = Rswift.StringResource(key: "among.chat.group.kick.member.button.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Kick Selected (%@)
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2354,6 +2801,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomLeave = Rswift.StringResource(key: "room.leave", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Leave group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupLeaveGroup = Rswift.StringResource(key: "among.chat.group.leave.group", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Log in
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2398,6 +2849,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthMay = Rswift.StringResource(key: "month.may", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupMembers = Rswift.StringResource(key: "among.chat.group.members", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: More options
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2414,10 +2869,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatProfileMyGameStats = Rswift.StringResource(key: "among.chat.profile.my.game.stats", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: My Groups
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatMyGroups = Rswift.StringResource(key: "among.chat.my.groups", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: NICKNAME
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileBagNickname = Rswift.StringResource(key: "profile.bag.nickname", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomMobileLegendsGameNamePlceholder = Rswift.StringResource(key: "group.room.mobile.legends.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomPubgMobileGameNamePlceholder = Rswift.StringResource(key: "group.room.pubg.mobile.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Name/ID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2437,6 +2904,10 @@ struct R: Rswift.Validatable {
       /// en translation: Nickname
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomFreefireGameNamePlceholder = Rswift.StringResource(key: "group.room.freefire.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileNickname = Rswift.StringResource(key: "profile.nickname", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Nickname or ID
       /// 
@@ -2446,6 +2917,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomFreefireNamePrefix = Rswift.StringResource(key: "among.chat.room.freefire.name.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: No
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomNo = Rswift.StringResource(key: "group.room.no", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: No ads
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2474,6 +2949,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let monthOct = Rswift.StringResource(key: "month.oct", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oh no, you were kicked from the stage.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAudienceDropedTips = Rswift.StringResource(key: "group.room.audience.droped.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Ok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2481,7 +2960,15 @@ struct R: Rswift.Validatable {
       /// en translation: Online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupOnline = Rswift.StringResource(key: "group.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Online
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialStatusOnline = Rswift.StringResource(key: "social.status.online", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Only the admin can change the topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAudienceChangeTopicTips = Rswift.StringResource(key: "group.room.audience.change.topic.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Only the channel owner can change this
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2510,6 +2997,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoFollowers = Rswift.StringResource(key: "error.no.followers", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no groups yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupListEmpty = Rswift.StringResource(key: "among.chat.group.list.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, no matching results!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2518,14 +3009,38 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoSearch = Rswift.StringResource(key: "error.no.search", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no members yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupMembersEmptyTip = Rswift.StringResource(key: "among.chat.group.members.empty.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no raised hands yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomApplySeatListEmpty = Rswift.StringResource(key: "group.room.apply.seat.list.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, no requests yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomApplyGroupListEmpty = Rswift.StringResource(key: "group.room.apply.group.list.empty", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Oops, no teammates yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let errorNoTeammates = Rswift.StringResource(key: "error.no.teammates", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Oops, server connection was lost, please try again later.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let serverLostTips = Rswift.StringResource(key: "server.lost.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Open Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomTagOpenGame = Rswift.StringResource(key: "room.tag.open.game", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Owner
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupOwner = Rswift.StringResource(key: "group.owner", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Owner Groups
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupGroupsOwnedByMe = Rswift.StringResource(key: "among.chat.group.groups.owned.by.me", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: PRO
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2614,6 +3129,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomPublic = Rswift.StringResource(key: "room.public", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Public groups are discoverable. People will apply to join.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatCreateGroupTip = Rswift.StringResource(key: "among.chat.create.group.tip", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Purchase not found
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2630,10 +3149,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomRobloxInputCodePlceholder = Rswift.StringResource(key: "room.roblox.input.code.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Raised Hands
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomHostRequest = Rswift.StringResource(key: "group.room.host.request", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Rate us
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let rateUs = Rswift.StringResource(key: "rate.us", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Reject
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomReject = Rswift.StringResource(key: "group.room.reject", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Remaining SPACE cards:
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2650,6 +3177,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupRequests = Rswift.StringResource(key: "among.chat.group.requests", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Resend
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2666,6 +3197,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumRestoreSucceeded = Rswift.StringResource(key: "premium.restore.succeeded", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Resume
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomResumeOk = Rswift.StringResource(key: "group.room.resume.ok", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Resume broadcasting
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomResumeTitle = Rswift.StringResource(key: "group.room.resume.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Roblox Username
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2746,10 +3285,22 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatAgePromptTitle = Rswift.StringResource(key: "among.chat.age.prompt.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set up Link
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomSetUpLink = Rswift.StringResource(key: "group.room.set.up.link", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set up code
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomSetUpCode = Rswift.StringResource(key: "group.room.set.up.code", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set up in-game code here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let roomSetupInGameCodeTitle = Rswift.StringResource(key: "room.setup.in.game.code.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Set up notes
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomSetUpNotes = Rswift.StringResource(key: "group.room.set.up.notes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Set up notes here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2814,6 +3365,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCommonError = Rswift.StringResource(key: "among.chat.common.error", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Sorry, your application was rejected.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupApplyRejectTips = Rswift.StringResource(key: "group.apply.reject.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Sorry, your device does not support this feature.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2830,6 +3385,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginStart = Rswift.StringResource(key: "among.chat.login.start", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Start
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupItemStartLive = Rswift.StringResource(key: "group.item.start.live", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Subscribe
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2846,6 +3405,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let premiumFreeTrial = Rswift.StringResource(key: "premium.free.trial", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Take Selfie
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupCoverTakePhoto = Rswift.StringResource(key: "among.chat.group.cover.take.photo", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Take a photo
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2854,6 +3417,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatRoomBrawlIdPrefix = Rswift.StringResource(key: "among.chat.room.brawl.id.prefix", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Team code/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomBrawlGameNamePlaceholder = Rswift.StringResource(key: "group.room.brawl.game.name.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Terms
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2862,6 +3429,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatTermsService = Rswift.StringResource(key: "among.chat.terms.service", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: The admin rejected your request to speak
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomApplySeatRejectedTips = Rswift.StringResource(key: "group.room.apply.seat.rejected.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Then %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2946,6 +3517,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarUseDefault = Rswift.StringResource(key: "among.chat.custom.avatar.use.default", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomRobloxGameNamePlceholder = Rswift.StringResource(key: "group.room.roblox.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Username/UID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomCallOfDutyGameNamePlceholder = Rswift.StringResource(key: "group.room.call.of.duty.game.name.plceholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Username/UID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2978,10 +3557,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatWelcomeMessage = Rswift.StringResource(key: "among.chat.welcome.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupWelcomeMessage = Rswift.StringResource(key: "group.welcome.message", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: What’s your phone number?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatLoginMobileTitle = Rswift.StringResource(key: "among.chat.login.mobile.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Yes
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomYes = Rswift.StringResource(key: "group.room.yes", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You already have an account linked to this method. To continue, your current data would be overwritten and lost.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -2994,6 +3581,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCreateRoomCardUnlockPro = Rswift.StringResource(key: "among.chat.create.room.card.unlock.pro", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You can only raise your hand if you join the group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let groupRoomAnoymonusUserApplySeatTips = Rswift.StringResource(key: "group.room.anoymonus.user.apply.seat.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3066,6 +3657,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatChannelInvitationMsg = Rswift.StringResource(key: "among.chat.channel.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: is inviting you to their %1$@ group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupInvitationMsg = Rswift.StringResource(key: "among.chat.group.invitation.msg", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: joined
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3094,6 +3689,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let microphoneNotAllowTitle = Rswift.StringResource(key: "microphone.not.allow.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: …More
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatGroupInfoExpand = Rswift.StringResource(key: "among.chat.group.info.expand", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       
       /// en translation:  Congratulations!
       /// 
@@ -3114,6 +3713,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatHomeNowplaying(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.home.nowplaying", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %@ Join Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomJoinRequestTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("group.room.join.request.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: %@ Raised Hands
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomRaisedHandsTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("group.room.raised.hands.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: %@ friend on AmongChat
@@ -3165,6 +3778,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.animal.crossing.id.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Accept
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAccept(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.accept", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Add
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatAdd(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.add", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Add Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3177,6 +3804,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialAddNew(_: Void = ()) -> String {
         return NSLocalizedString("social.add.new", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Add Topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatAddTopic(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.add.topic", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Add Your Stats
@@ -3193,11 +3827,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.profile.add.a.game", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Add a topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatAddATopic(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.add.a.topic", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Add members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupAddMembers(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.add.members", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Added
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatAdded(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.added", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Admin
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupAdmin(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.admin", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: After the free trial, %@ subscription is %@, it automatically renews unless turned off in Accounting Settings at least 24h before current period ends. Payment is charged to your iTunes Account, cancel any time.
@@ -3228,6 +3883,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.animal.crossing.id", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Applied
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupApplied(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.applied", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Apply to join
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupApplyToJoin(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.apply.to.join", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Apr
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3256,11 +3925,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.game.stats.delete.tip", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Are you sure to delete the group?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupDeleteTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.delete.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Are you sure to exit the channel?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLeaveRoomTipTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.leave.room.tip.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Are you sure to leave the group?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupLeaveTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.leave.tip", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Asia
@@ -3289,6 +3972,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomBrawlIdPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("room.brawl.id.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Become verified and create new group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupGetVerfied(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.get.verfied", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Birthday
@@ -3396,6 +4086,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("setting.chat.language", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Choose Image
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupCoverSelectImage(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.cover.select.image", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Choose a Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3457,6 +4154,69 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomRebloxTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.reblox.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Animal Crossing ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAnimalCrossingGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.animal.crossing.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Brawl Stars Team code/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func roomBrawlGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("room.brawl.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up COD Username/UID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomCallOfDutyGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.call.of.duty.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Fortnite Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomFortniteGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.fortnite.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Free Fire Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomFreefireGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.freefire.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up MLBB Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomMobileLegendsGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.mobile.legends.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Minecraft Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomMinecraftGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.minecraft.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up PUBG Player Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomPubgMobileGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.pubg.mobile.game.name.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Click to set up Roblox Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomRobloxGameNameTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.roblox.game.name.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Close
@@ -3536,6 +4296,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.create.room.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Create a Group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCreateAGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.a.group", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Create new group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCreateNewGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.new.group", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Customize
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3557,11 +4331,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.delete", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Delete group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupDeleteGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.delete.group", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Didn't receive the code? %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginCodeNotRecieve(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.login.code.not.recieve", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Display Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomFortniteGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.fortnite.game.name.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Display Name: %1$@
@@ -3578,6 +4366,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("profile.done", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Drop
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func alertDrop(_: Void = ()) -> String {
+        return NSLocalizedString("alert.drop", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: ENTER YOUR PRIVATE CODE
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3590,6 +4385,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomInputPlaceholder(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.input.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Edit
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupItemEdit(_: Void = ()) -> String {
+        return NSLocalizedString("group.item.edit", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Enable
@@ -3611,6 +4413,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func guideFourthTitle(_: Void = ()) -> String {
         return NSLocalizedString("guide.fourth.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Enter group name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupNamePlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.name.placeholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Enter your code
@@ -3653,6 +4462,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialExitChannel(_: Void = ()) -> String {
         return NSLocalizedString("social.exit.channel", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Explore
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatExplore(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.explore", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: FORTNITE USERNAME
@@ -3802,6 +4618,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("follow.invited.success", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Gamertag
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomMinecraftGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.minecraft.game.name.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Gamertag: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3830,6 +4653,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.vip.recruit.title2", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Get verified
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatSettingGetVerified(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.setting.get.verified", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Give a description about your group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupDescriptionPlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.description.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Go
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3842,6 +4679,69 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func microphoneNotAllowSetting(_: Void = ()) -> String {
         return NSLocalizedString("microphone.not.allow.setting", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Going back to the audience?
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomDropSelfTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.drop.self.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group Description
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupDescription(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.description", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group Info
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupInfo(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.info", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group Name
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupName(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.name", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group Topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupTopic(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.topic", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Group session just ended
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomEndTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.end.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Groups Created
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupGroupsCreated(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.created", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Groups Joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupGroupsJoined(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.joined", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Guys we need more people on AmongChat! It's super fun and matches you with like minded gamers. Tap the link to download now: https://amongchat.page.link/chat
@@ -3879,6 +4779,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("social.share.url", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: Host
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupHost(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.host", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Host could set up note so everyone could see it when they join
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3891,6 +4798,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomSetupHostNotes(_: Void = ()) -> String {
         return NSLocalizedString("room.setup.host.notes", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Host's notes:
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomHostNotes(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.host.notes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Host's notes:
@@ -3914,11 +4828,46 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.set.birth.day.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: I'm %1$@ on AmongChat, hang with us and let's have some fun in our %2$@ group. Click the link to join: %3$@
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupShareContent(_ value1: String, _ value2: String, _ value3: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.share.content", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1, value2, value3)
+      }
+      
+      /// en translation: ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAnimalCrossingGameNamePlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.animal.crossing.game.name.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: ID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomAnimalCrossingIdPrefix(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.room.animal.crossing.id.prefix", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: Ignore
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomIgnore(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.ignore", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: In Channel Members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomMembersTitle(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.members.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: In group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupAddMemberInGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.add.member.in.group", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Incorrect information
@@ -3970,6 +4919,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("social.join.action", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Join Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomJoinRequest(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.join.request", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Joined
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupJoined(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.joined", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Jul
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3991,6 +4954,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.room.kick", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Kick Selected (%1$@)
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupKickMemberButtonTitle(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.kick.member.button.title", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: Kick Selected (%@)
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4010,6 +4980,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomLeave(_: Void = ()) -> String {
         return NSLocalizedString("room.leave", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Leave group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupLeaveGroup(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.leave.group", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Log in
@@ -4089,6 +5066,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.may", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Members
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupMembers(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.members", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: More options
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4117,11 +5101,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.profile.my.game.stats", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: My Groups
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatMyGroups(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.my.groups", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: NICKNAME
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileBagNickname(_: Void = ()) -> String {
         return NSLocalizedString("profile.bag.nickname", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomMobileLegendsGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.mobile.legends.game.name.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Name/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomPubgMobileGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.pubg.mobile.game.name.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Name/ID: %1$@
@@ -4155,6 +5160,13 @@ struct R: Rswift.Validatable {
       /// en translation: Nickname
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomFreefireGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.freefire.game.name.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Nickname
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileNickname(_: Void = ()) -> String {
         return NSLocalizedString("profile.nickname", bundle: R.hostingBundle, comment: "")
       }
@@ -4171,6 +5183,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomFreefireNamePrefix(_ value1: String) -> String {
         return String(format: NSLocalizedString("among.chat.room.freefire.name.prefix", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
+      /// en translation: No
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomNo(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.no", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: No ads
@@ -4222,6 +5241,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("month.oct", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oh no, you were kicked from the stage.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAudienceDropedTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.audience.droped.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Ok
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4232,8 +5258,22 @@ struct R: Rswift.Validatable {
       /// en translation: Online
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupOnline(_: Void = ()) -> String {
+        return NSLocalizedString("group.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Online
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialStatusOnline(_: Void = ()) -> String {
         return NSLocalizedString("social.status.online", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Only the admin can change the topic
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAudienceChangeTopicTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.audience.change.topic.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Only the channel owner can change this
@@ -4285,6 +5325,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("error.no.followers", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no groups yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupListEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.list.empty", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, no matching results!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4299,6 +5346,27 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("error.no.search", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, no members yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupMembersEmptyTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.members.empty.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no raised hands yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomApplySeatListEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.apply.seat.list.empty", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Oops, no requests yet!
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomApplyGroupListEmpty(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.apply.group.list.empty", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Oops, no teammates yet!
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4306,11 +5374,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("error.no.teammates", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Oops, server connection was lost, please try again later.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func serverLostTips(_: Void = ()) -> String {
+        return NSLocalizedString("server.lost.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Open Game
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomTagOpenGame(_: Void = ()) -> String {
         return NSLocalizedString("room.tag.open.game", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Owner
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupOwner(_: Void = ()) -> String {
+        return NSLocalizedString("group.owner", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Owner Groups
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupGroupsOwnedByMe(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.groups.owned.by.me", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: PRO
@@ -4467,6 +5556,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.public", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Public groups are discoverable. People will apply to join.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatCreateGroupTip(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.create.group.tip", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Purchase not found
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4495,11 +5591,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("room.roblox.input.code.plceholder", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Raised Hands
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomHostRequest(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.host.request", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Rate us
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func rateUs(_: Void = ()) -> String {
         return NSLocalizedString("rate.us", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Reject
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomReject(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.reject", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Remaining SPACE cards:
@@ -4530,6 +5640,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Requests
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupRequests(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.requests", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Resend
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4556,6 +5673,20 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func premiumRestoreSucceeded(_: Void = ()) -> String {
         return NSLocalizedString("premium.restore.succeeded", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Resume
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomResumeOk(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.resume.ok", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Resume broadcasting
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomResumeTitle(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.resume.title", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Roblox Username
@@ -4698,11 +5829,32 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.age.prompt.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Set up Link
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomSetUpLink(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.set.up.link", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set up code
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomSetUpCode(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.set.up.code", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Set up in-game code here
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func roomSetupInGameCodeTitle(_: Void = ()) -> String {
         return NSLocalizedString("room.setup.in.game.code.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Set up notes
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomSetUpNotes(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.set.up.notes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Set up notes here
@@ -4817,6 +5969,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.common.error", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Sorry, your application was rejected.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupApplyRejectTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.apply.reject.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Sorry, your device does not support this feature.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4843,6 +6002,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginStart(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.start", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Start
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupItemStartLive(_: Void = ()) -> String {
+        return NSLocalizedString("group.item.start.live", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Subscribe
@@ -4873,6 +6039,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("premium.free.trial", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Take Selfie
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupCoverTakePhoto(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.cover.take.photo", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Take a photo
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4887,6 +6060,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.room.brawl.id.prefix", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: Team code/ID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomBrawlGameNamePlaceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.brawl.game.name.placeholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Terms
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4899,6 +6079,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatTermsService(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.terms.service", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: The admin rejected your request to speak
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomApplySeatRejectedTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.apply.seat.rejected.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Then %1$@
@@ -5048,6 +6235,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.use.default", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Username
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomRobloxGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.roblox.game.name.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Username/UID
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomCallOfDutyGameNamePlceholder(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.call.of.duty.game.name.plceholder", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Username/UID: %1$@
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5104,11 +6305,25 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.welcome.message", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupWelcomeMessage(_ value1: String) -> String {
+        return String(format: NSLocalizedString("group.welcome.message", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: What’s your phone number?
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatLoginMobileTitle(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.login.mobile.title", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Yes
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomYes(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.yes", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You already have an account linked to this method. To continue, your current data would be overwritten and lost.
@@ -5130,6 +6345,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatCreateRoomCardUnlockPro(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.create.room.card.unlock.pro", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You can only raise your hand if you join the group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func groupRoomAnoymonusUserApplySeatTips(_: Void = ()) -> String {
+        return NSLocalizedString("group.room.anoymonus.user.apply.seat.tips", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You have successfully  blocked this person
@@ -5258,6 +6480,13 @@ struct R: Rswift.Validatable {
         return String(format: NSLocalizedString("among.chat.channel.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
+      /// en translation: is inviting you to their %1$@ group
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupInvitationMsg(_ value1: String) -> String {
+        return String(format: NSLocalizedString("among.chat.group.invitation.msg", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
+      }
+      
       /// en translation: joined
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5307,6 +6536,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("microphone.not.allow.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: …More
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func amongChatGroupInfoExpand(_: Void = ()) -> String {
+        return NSLocalizedString("among.chat.group.info.expand", bundle: R.hostingBundle, comment: "")
+      }
+      
       fileprivate init() {}
     }
     
@@ -5335,9 +6571,13 @@ struct _R: Rswift.Validatable {
   struct nib: Rswift.Validatable {
     static func validate() throws {
       try _AmongChatRoomTopBar.validate()
+      try _AmongGroupHostView.validate()
+      try _AmongGroupTopView.validate()
+      try _AmongGroupTopicConfigView.validate()
       try _AmongRoomBottomBar.validate()
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
+      try _FansGroupItemCell.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
@@ -5368,6 +6608,99 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_room_next", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_next' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupHostView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupHostView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func fourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[3] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      func thirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[2] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_host_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_host_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_group_join_request", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_join_request' is used in nib 'AmongGroupHostView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupJoinRequestCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupJoinRequestCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AmongGroupJoinRequestCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AmongGroupJoinRequestCell
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupTopView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupTopView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func fourthView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[3] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      func thirdView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[2] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_count", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_count' is used in nib 'AmongGroupTopView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongGroupTopView', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _AmongGroupTopicConfigView: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "AmongGroupTopicConfigView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_copy", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_copy' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
+        if UIKit.UIImage(named: "ac_group_room_note", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_note' is used in nib 'AmongGroupTopicConfigView', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }
@@ -5544,6 +6877,37 @@ struct _R: Rswift.Validatable {
       
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FansGroupItemCell: Rswift.NibResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let name = "FansGroupItemCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupItemCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupItemCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "ac_group_room_count", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_group_room_count' is used in nib 'FansGroupItemCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _FansGroupSelfItemCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = FansGroupSelfItemCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "FansGroupSelfItemCell"
+      let name = "FansGroupSelfItemCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> FansGroupSelfItemCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? FansGroupSelfItemCell
       }
       
       fileprivate init() {}

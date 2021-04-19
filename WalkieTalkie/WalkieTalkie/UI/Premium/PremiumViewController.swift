@@ -227,8 +227,15 @@ class PremiumViewController: ViewController {
     private var yearProduct: IAP.ProductInfo? = nil {
         didSet {
             guard let p = yearProduct else { return }
-            yearlyProductView.titleLabel.text = R.string.localizable.premiumPeriodFreeTrial(p.priceInfo.freePeriod)
-            yearlyProductView.subtitleLabel.text = R.string.localizable.permiumYearlyProductPrice("\(p.priceInfo.price) / \(p.priceInfo.renewalPeriod)")
+            
+            if Settings.shared.isInReview.value {
+                yearlyProductView.titleLabel.text = "\(p.priceInfo.adj_renewalPeriod.firstCharacterUpperCase() ?? p.priceInfo.adj_renewalPeriod)\n\(p.priceInfo.price)"
+                yearlyProductView.subtitleLabel.text = R.string.localizable.premiumPeriodFreeTrial(p.priceInfo.freePeriod)
+            } else {
+                yearlyProductView.titleLabel.text = R.string.localizable.premiumPeriodFreeTrial(p.priceInfo.freePeriod)
+                yearlyProductView.subtitleLabel.text = R.string.localizable.permiumYearlyProductPrice("\(p.priceInfo.price) / \(p.priceInfo.renewalPeriod)")
+            }
+            
         }
     }
     

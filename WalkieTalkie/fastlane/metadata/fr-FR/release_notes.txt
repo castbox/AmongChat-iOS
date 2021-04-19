@@ -1,6 +1,3 @@
 Bienvenue sur l'application de chat vocal AmongChat!
-Dans cette mise à jour, vous pouvez
-1. invitez des amis dans vos contacts à jouer ensemble;
-2. soyez le premier à obtenir de nouveaux avatars;
-3. choisissez de profiter des fonctionnalités VIP - badges et avatars exclusifs, pas de publicité, cartes illimitées, correspondance plus rapide, etc.
-Trouvez et discutez avec vos amis, profitez-en!
+Cette mise à jour inclut des corrections de bogues et des améliorations de performances.
+Trouvez et discutez avec vos amis, jouez ensemble et amusez-vous!

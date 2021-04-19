@@ -28,6 +28,7 @@ extension APIService {
         case kickUsers([String : Any])
         case summary([String : Any])
         case roomNickName([String: Any])
+        case groupNickName([String: Any])
         case profile([String : Any])
         case updateProfile([String : Any])
         case defaultAvatars([String : Any])
@@ -47,6 +48,7 @@ extension APIService {
         case recommendedUsers
         case exitRoomRecommend([String: Any])
         case inviteFriends([String: Any])
+        case groupRoomInviteFriends([String: Any])
         case inviteUser([String: Any])
         case onlineStrangers
         case userSearch([String: Any])
@@ -66,8 +68,34 @@ extension APIService {
         case setGameSkill([String : Any])
         case removeGameSkill([String : Any])
         case userGameSkills([String : Any])
+        case startGroupChannel([String : Any])
+        case stopGroupChannel([String: Any])
+        case enterGroupChannel([String : Any])
+        case leaveGroupChannel([String : Any])
+        case createGroup([String : Any])
+        case groupCheckHaveLive
+        case followersToAddToGroup([String : Any])
+        case addMemberToGroup([String : Any])
+        case groupLiveUserList([String: Any])
+        case groupRoomSeatAdd([String: Any])
+        case groupRoomSeatRemove([String: Any])
+        case groupRoomInviteUser([String: Any])
+        case updateGroup([String: Any])
+        case groupList([String : Any])
+        case myGroupList([String : Any])
+        case groupListOfHost([String : Any])
+        case groupListOfJoined([String : Any])
+        case groupAppliedUserList([String : Any])
+        case groupMemberList([String : Any])
+        case groupInfo([String : Any])
+        case leaveGroup([String : Any])
+        case applyToJoinGroup([String : Any])
+        case deleteGroup([String : Any])
+        case handleGroupApply([String: Any])
+        case kickMemberFromGroup([String : Any])
     }
 }
+
 extension APIService.AmongChatBackend: TargetType {
     var baseURL: URL {
         let url: String
@@ -150,6 +178,8 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/end/user/list"
         case .inviteFriends:
             return "/social/relation/friends"
+        case .groupRoomInviteFriends:
+            return "/social/relation/group/live/followers"
         case .inviteUser:
             return "/api/v1/rooms/invite"
         case .onlineStrangers:
@@ -188,6 +218,58 @@ extension APIService.AmongChatBackend: TargetType {
             return "/api/v1/game/skill"
         case .userGameSkills:
             return "/api/v1/game/skill/list"
+        case .startGroupChannel:
+            return "/api/v1/group/live/start"
+        case .stopGroupChannel:
+            return "/api/v1/group/live/stop"
+        case .enterGroupChannel:
+            return "/api/v1/group/live/enter"
+        case .leaveGroupChannel:
+            return "/api/v1/group/live/leave"
+        case .groupLiveUserList:
+            return "/api/v1/group/live/user/list"
+        case .createGroup:
+            return "/api/v1/group/create"
+        case .groupCheckHaveLive:
+            return "/api/v1/group/live/check"
+        case .followersToAddToGroup:
+            return "/social/relation/group/followers"
+        case .addMemberToGroup:
+            return "/api/v1/group/member"
+        case .updateGroup:
+            return "/api/v1/group/update"
+        case .groupNickName:
+            return "/api/v1/group/live/nickname"
+        case .groupList:
+            return "/api/v1/group/list"
+        case .myGroupList:
+            return "/api/v1/my/group/list"
+        case .groupListOfHost:
+            return "/api/v1/user/host/group/list"
+        case .groupListOfJoined:
+            return "/api/v1/user/join/group/list"
+        case .groupRoomSeatAdd:
+            return "/api/v1/group/seats/add"
+        case .groupRoomSeatRemove:
+            return "/api/v1/group/seats/remove"
+        case .groupAppliedUserList:
+            return "/api/v1/group/apply/list"
+        case .groupMemberList:
+            return "/api/v1/group/member/list"
+        case .groupRoomInviteUser:
+            return "/api/v1/group/invite"
+        case .groupInfo:
+            return "/api/v1/group/page"
+        case .leaveGroup:
+            return "/api/v1/group/leave"
+        case .applyToJoinGroup:
+            return "/api/v1/group/apply"
+        case .deleteGroup:
+            return "/api/v1/group"
+        case .handleGroupApply:
+            return "/api/v1/group/apply/handle"
+        case .kickMemberFromGroup:
+            return "/api/v1/group/member"
         }
     }
     
@@ -208,6 +290,14 @@ extension APIService.AmongChatBackend: TargetType {
              .unlockDecoration,
              .updateDecoration,
              .setGameSkill,
+             .createGroup,
+             .addMemberToGroup,
+             .groupLiveUserList,
+             .groupRoomInviteUser,
+             .groupNickName,
+             .updateGroup,
+             .applyToJoinGroup,
+             .handleGroupApply,
              .logout:
             return .post
             
@@ -232,6 +322,7 @@ extension APIService.AmongChatBackend: TargetType {
              .recommendedUsers,
              .playingList,
              .inviteFriends,
+             .groupRoomInviteFriends,
              .exitRoomRecommend,
              .onlineStrangers,
              .topics,
@@ -242,13 +333,31 @@ extension APIService.AmongChatBackend: TargetType {
              .defaultDecorations,
              .userSearch,
              .gameSkills,
+             .startGroupChannel,
+             .stopGroupChannel,
+             .enterGroupChannel,
+             .leaveGroupChannel,
+             .groupCheckHaveLive,
              .userGameSkills,
+             .followersToAddToGroup,
+             .groupList,
+             .myGroupList,
+             .groupListOfHost,
+             .groupListOfJoined,
+             .groupRoomSeatAdd,
+             .groupRoomSeatRemove,
+             .groupAppliedUserList,
+             .groupMemberList,
+             .groupInfo,
+             .leaveGroup,
              .shareUserSign:
             return .get
         case .follow:
             return .put
         case .removeGameSkill,
-            .unFollow:
+             .deleteGroup,
+             .kickMemberFromGroup,
+             .unFollow:
             return .delete
             
         case .uploadFile:
@@ -273,6 +382,7 @@ extension APIService.AmongChatBackend: TargetType {
              .topics,
              .accountMetaData,
              .contactList,
+             .groupCheckHaveLive,
              .defaultDecorations,
              .globalSetting,
              .gameSkills,
@@ -282,8 +392,11 @@ extension APIService.AmongChatBackend: TargetType {
         case .createRoom(let params),
              .updateProfile(let params),
              .updateRoomInfo(let params),
+             .updateGroup(let params),
              .receipt(let params),
              .contactUpload(let params),
+             .createGroup(let params),
+             .kickMemberFromGroup(let params),
              .updateDevice(let params):
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
             
@@ -319,6 +432,29 @@ extension APIService.AmongChatBackend: TargetType {
              .setGameSkill(let params),
              .removeGameSkill(let params),
              .userGameSkills(let params),
+             .startGroupChannel(let params),
+             .stopGroupChannel(let params),
+             .enterGroupChannel(let params),
+             .leaveGroupChannel(let params),
+             .groupLiveUserList(let params),
+             .followersToAddToGroup(let params),
+             .addMemberToGroup(let params),
+             .groupList(let params),
+             .myGroupList(let params),
+             .groupNickName(let params),
+             .groupListOfHost(let params),
+             .groupListOfJoined(let params),
+             .groupAppliedUserList(let params),
+             .groupMemberList(let params),
+             .groupRoomSeatRemove(let params),
+             .groupRoomSeatAdd(let params),
+             .groupRoomInviteUser(let params),
+             .groupInfo(let params),
+             .groupRoomInviteFriends(let params),
+             .leaveGroup(let params),
+             .applyToJoinGroup(let params),
+             .handleGroupApply(let params),
+             .deleteGroup(let params),
              .unFollow(let params):
             return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
             

@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import Kingfisher
 import SVGAPlayer
+import EasyTipView
+import SwiftyUserDefaults
 
 class SVGAGlobalParser: SVGAParser {
     static let defaut = SVGAGlobalParser()
@@ -19,6 +21,8 @@ class SVGAGlobalParser: SVGAParser {
         self.enabledMemoryCache = true
     }
 }
+
+typealias AmongRoomUserCell = AmongChat.Room.UserCell
 
 extension AmongChat.Room {
     
@@ -48,28 +52,11 @@ extension AmongChat.Room {
             let btn = UIButton(type: .custom)
             btn.layer.cornerRadius = 20
             btn.layer.masksToBounds = true
-            btn.layer.borderWidth = 0.5
             btn.imageView?.contentMode = .scaleAspectFill
-            btn.layer.borderColor = UIColor.white.alpha(0.8).cgColor
             btn.backgroundColor = UIColor.white.alpha(0.2)
             btn.addTarget(self, action: #selector(userIconButtonAction), for: .touchUpInside)
             return btn
         }()
-        
-//        private lazy var avatarIV: UIImageView = {
-//            let iv = UIImageView()
-//            iv.layer.cornerRadius = 20
-//            iv.layer.masksToBounds = true
-//            iv.layer.borderWidth = 0.5
-//            iv.contentMode = .scaleAspectFill
-//            iv.layer.borderColor = UIColor.white.alpha(0.8).cgColor
-//            iv.backgroundColor = UIColor.white.alpha(0.2)
-//            iv.isUserInteractionEnabled = true
-////            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureAction))
-////            longPressGesture.minimumPressDuration = 0.5
-////            iv.addGestureRecognizer(longPressGesture)
-//            return iv
-//        }()
         
         private lazy var kickSelectedView: UIImageView = {
             let iv = UIImageView()
@@ -134,31 +121,51 @@ extension AmongChat.Room {
             return player
         }()
         
-        var emojisNames: [String] = []
+        lazy var loadingView: SeatLoadingView = {
+            let view = SeatLoadingView(frame: .zero)
+            return view
+        }()
+
         
-        var user: Entity.RoomUser?
         private var svgaUrl: URL?
-//        private var isPlaySvgaEmoji: Bool = false
+        //        private var isPlaySvgaEmoji: Bool = false
         private var svagPlayerStatus: SvagPlayerStatus = .free
         //
         private var emojiContent: ChatRoom.EmojiMessage?
         private var emojiPlayEndHandler: (ChatRoom.EmojiMessage?) -> Void = { _ in }
-
+        //
+        private weak var tipView: EasyTipView?
+        private weak var tipBgView: UIView?
+        private let bag = DisposeBag()
+        
+        var emojisNames: [String] = []
+        var topic: AmongChat.Topic?
+        var user: Entity.RoomUser?
+        
+        enum Action {
+            case editGameName
+        }
+        
         var clickAvatarHandler: ((Entity.RoomUser?) -> Void)?
+        var actionHandler: ((Action) -> Void)?
         
         var isKickSelected: Bool = false {
             didSet {
                 kickSelectedView.isHidden = !isKickSelected
             }
         }
+        let itemStyle: AmongChat.Room.SeatView.ItemStyle
         
-        override init(frame: CGRect) {
+        init(itemStyle: AmongChat.Room.SeatView.ItemStyle) {
+            self.itemStyle = itemStyle
             super.init(frame: .zero)
             setupLayout()
         }
         
         required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
+            self.itemStyle = .normal
+            super.init(coder: coder)
+            setupLayout()
         }
         
 //        @objc
@@ -274,6 +281,63 @@ extension AmongChat.Room {
                          })
         }
         
+        /// loading动画
+        func startLoading() {
+            avatarIV.setImage(nil, for: .normal)
+            loadingView.startLoading()
+        }
+        
+        func stopLoading() {
+            loadingView.stopLoading()
+        }
+        
+        func showGameNameTipsIfNeed() {
+            guard let topic = topic,
+                  user?.uid == Settings.loginUserId,
+                  Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)],
+                  let tips = topic.groupGameNamePlaceholderTips, self.tipView == nil else {
+                return
+            }
+            Defaults[key: DefaultsKeys.groupRoomCanShowGameNameTips(for: topic)] = false
+            var preferences = EasyTipView.Preferences()
+            preferences.drawing.font = R.font.nunitoExtraBold(size: 16) ?? UIFont.boldSystemFont(ofSize: 16)
+            preferences.drawing.foregroundColor = .black
+            preferences.drawing.backgroundColor = .white
+            preferences.drawing.arrowPosition = .top
+            
+            let tipView = EasyTipView(text: tips,
+                                  preferences: preferences,
+                                  delegate: self)
+            
+            let bgView = UIView(frame: Frame.Screen.bounds)
+            bgView.rx.tapGesture()
+                .subscribe(onNext: { [weak self] gesture in
+                    self?.dismissTipsView()
+                })
+                .disposed(by: bag)
+            self.tipBgView = bgView
+            containingController?.view.addSubview(bgView)
+            
+            tipView.tag = 0
+            tipView.show(animated: true, forView: gameNameButton, withinSuperview: containingController?.view)
+            self.tipView = tipView
+            Observable<Int>
+                .interval(.seconds(5), scheduler: MainScheduler.instance)
+                .single()
+                .subscribe(onNext: { [weak welf = self] _ in
+                    guard let `self` = welf else { return }
+                    self.dismissTipsView()
+                })
+                .disposed(by: self.bag)
+        }
+        
+        func dismissTipsView() {
+            tipBgView?.removeFromSuperview()
+            tipView?.dismiss()
+            tipView = nil
+            tipBgView = nil
+        }
+        
         @objc
         func userIconButtonAction() {
             clickAvatarHandler?(user)
@@ -281,30 +345,69 @@ extension AmongChat.Room {
         
         @objc
         func gameNameButtonAction() {
-            user?.nickname?.copyToPasteboardWithHaptic()
-            containingController?.view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false)
+            //
+            if itemStyle == .group, user?.uid == Settings.loginUserId {
+                //edit
+                actionHandler?(.editGameName)
+                return
+            }
+            user?.nickname?.copyToPasteboardWithHaptic()                
+        }
+        
+        private func bindSubviewEvent() {
+            Settings.shared.amongChatUserProfile.replay()
+                .observeOn(MainScheduler.asyncInstance)
+                .subscribe(onNext: { [weak self] profile in
+                    self?.updateGameNameTitle()
+                })
+                .disposed(by: bag)
+            
+        }
+        
+        private func updateGameNameTitle() {
+            guard let user = user,
+                  user.uid == Settings.loginUserId,
+                  let topic = topic,
+                  let profile = Settings.shared.amongChatUserProfile.value else {
+                return
+            }
+            //
+            guard let name = profile.hostNickname(for: topic),
+                  !name.isEmpty else {
+                gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                return
+            }
+            gameNameButton.setTitle(name, for: .normal)
+
         }
         
         private func setupLayout() {
             contentView.backgroundColor = .clear
-            contentView.addSubviews(views: indexLabel, gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView)
+            contentView.addSubviews(views: gameNameButton, haloView, avatarIV, nameLabel, disableMicView, svgaView, mutedLabel, kickSelectedView, loadingView)
             
-            indexLabel.snp.makeConstraints { (maker) in
-                maker.left.right.top.equalToSuperview()
-                maker.height.equalTo(21.5)
+            if itemStyle == .normal {
+                contentView.addSubviews(views: indexLabel)
+                indexLabel.snp.makeConstraints { (maker) in
+                    maker.left.right.top.equalToSuperview()
+                    maker.height.equalTo(21.5)
+                }
+                avatarIV.snp.makeConstraints { (maker) in
+                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.centerX.equalToSuperview()
+                    maker.top.equalTo(indexLabel.snp.bottom).offset(4)
+                }
+            } else {
+                avatarIV.snp.makeConstraints { (maker) in
+                    maker.size.equalTo(CGSize(width: 40, height: 40))
+                    maker.centerX.top.equalToSuperview()
+                }
             }
             
-            //            haloView.soundWidth = 60
             haloView.snp.makeConstraints { (maker) in
                 maker.center.equalTo(avatarIV)
                 maker.width.height.equalTo(60)
             }
             
-            avatarIV.snp.makeConstraints { (maker) in
-                maker.size.equalTo(CGSize(width: 40, height: 40))
-                maker.centerX.equalToSuperview()
-                maker.top.equalTo(indexLabel.snp.bottom).offset(4)
-            }
             
             svgaView.snp.makeConstraints { make in
                 make.center.equalTo(avatarIV)
@@ -327,9 +430,7 @@ extension AmongChat.Room {
             
             nameLabel.snp.makeConstraints { (maker) in
                 maker.top.equalTo(avatarIV.snp.bottom).offset(4)
-//                maker.left.right.equalToSuperview()
                 maker.trailing.leading.equalToSuperview().inset(2)
-                //                maker.bottom.equalTo(gameNameButton.snp.top)
             }
             
             gameNameButton.snp.makeConstraints { maker in
@@ -337,6 +438,12 @@ extension AmongChat.Room {
                 maker.left.equalTo(3)
                 maker.right.equalTo(-3)
                 maker.height.equalTo(20)
+            }
+            
+            loadingView.snp.makeConstraints { make in
+                make.center.equalTo(avatarIV)
+                make.width.equalTo(32)
+                make.height.equalTo(16)
             }
         }
     }
@@ -371,6 +478,8 @@ extension AmongChat.Room.UserCell: SVGAPlayerDelegate {
 extension AmongChat.Room.UserCell {
     
     func bind(_ user: Entity.RoomUser?, topic: AmongChat.Topic, index: Int) {
+        self.topic = topic
+        
         if index == 1 {
             indexLabel.text = "\(index)-Host"
         } else {
@@ -382,8 +491,9 @@ extension AmongChat.Room.UserCell {
             indexLabel.textColor = .white
         }        
         nameLabel.textColor = indexLabel.textColor
+        
         guard let user = user else {
-            clearStyle()
+            clearStyle(index)
             return
         }
         
@@ -403,11 +513,30 @@ extension AmongChat.Room.UserCell {
         if self.user?.uid != user.uid {
             avatarIV.imageView?.contentMode = .scaleAspectFill
             avatarIV.setImage(with: user.pictureUrl, for: .normal, placeholder: R.image.ac_profile_avatar())
-            avatarIV.layer.borderWidth = 0.5
             nameLabel.attributedText = user.nameWithVerified(fontSize: 12)
         }
-        gameNameButton.setTitle(user.nickname, for: .normal)
-        gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+        
+        self.user = user
+        //
+        if itemStyle == .normal {
+            gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+            gameNameButton.setTitle(user.nickname, for: .normal)
+        } else {
+            if user.uid == Settings.loginUserId {
+                gameNameButton.isHidden = !topic.enableNickName
+                if user.nickname.isValid {
+                    gameNameButton.setTitle(user.nickname, for: .normal)
+                } else {
+                    gameNameButton.setTitle(topic.groupGameNamePlaceholder, for: .normal)
+                    mainQueueDispatchAsync(after: 0.2) { [weak self] in
+                        self?.showGameNameTipsIfNeed()
+                    }
+                }
+            } else {
+                gameNameButton.isHidden = !(topic.enableNickName && user.nickname.isValid)
+                gameNameButton.setTitle(user.nickname, for: .normal)
+            }
+        }
         if isKickSelected {
             mutedLabel.isHidden = true
             disableMicView.isHidden = true
@@ -420,23 +549,38 @@ extension AmongChat.Room.UserCell {
                 disableMicView.isHidden = !user.isMuted
             }
         }
-        self.user = user
     }
     
-    func clearStyle() {
+    func clearStyle(_ index: Int = 0) {
         user = nil
         svgaUrl = nil
         stopSoundAnimation()
         avatarIV.kf.cancelImageDownloadTask()
-        avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
+        if loadingView.isHidden {
+            avatarIV.setImage(R.image.ac_icon_seat_add(), for: .normal)
+        }
+        if itemStyle == .group {
+            nameLabel.text = index.string
+        } else {
+            nameLabel.text = ""
+        }
         avatarIV.imageView?.contentMode = .center
-        avatarIV.layer.borderWidth = 0
         haloView.isHidden = true
-        nameLabel.text = ""
         gameNameButton.setTitle(nil, for: .normal)
         gameNameButton.isHidden = true
         mutedLabel.isHidden = true
         disableMicView.isHidden = true
     }
+}
+
+
+extension AmongChat.Room.UserCell: EasyTipViewDelegate {
+    func easyTipViewDidTap(_ tipView: EasyTipView) {
+//        dismissTipView()
+        self.dismissTipsView()
+    }
     
+    func easyTipViewDidDismiss(_ tipView : EasyTipView) {
+        self.dismissTipsView()
+    }
 }

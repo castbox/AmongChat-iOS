@@ -21,6 +21,7 @@ class AmongSheetController: ViewController {
         case report
         case kick
         case cancel
+        case drop
     }
     
     enum UIStyleType {
@@ -157,5 +158,56 @@ extension AmongSheetController: Modalable {
     
     func coverAlpha() -> CGFloat {
         return 0.5
+    }
+}
+
+extension AmongSheetController.ItemType {
+    var titleColor: UIColor {
+        switch self {
+        case .profile, .follow, .drop:
+            return .white
+        case .block, .unblock, .mute, .unmute, .report, .kick:
+            return "FB5858".color()
+        case .cancel:
+            return "898989".color()
+        case .userInfo:
+            return .white
+        }
+    }
+    
+    var backgroundImage: UIImage? {
+        switch self {
+        case .cancel:
+            return nil
+        default:
+            return "3D3D3D".color().image
+        }
+    }
+    
+    var title: String? {
+        switch self {
+        case .profile:
+            return R.string.localizable.profileProfile()
+        case .follow:
+            return R.string.localizable.profileFollow()
+        case .block:
+            return R.string.localizable.alertBlock()
+        case .unblock:
+            return R.string.localizable.alertUnblock()
+        case .mute:
+            return R.string.localizable.channelUserListMute()
+        case .unmute:
+            return R.string.localizable.channelUserListUnmute()
+        case .report:
+            return R.string.localizable.reportTitle()
+        case .kick:
+            return R.string.localizable.amongChatRoomKick()
+        case .cancel:
+            return R.string.localizable.toastCancel()
+        case .drop:
+            return R.string.localizable.alertDrop()
+        default:
+            return ""
+        }
     }
 }

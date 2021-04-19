@@ -1,142 +1,12 @@
 //
-//  AmongChat.Room.IMViewModel.swift
+//  IMManager.ChatRoomMessage.swift
 //  WalkieTalkie
 //
-//  Created by mayue_work on 2020/12/8.
-//  Copyright © 2020 Guru Rain. All rights reserved.
+//  Created by 袁仕崇 on 07/04/21.
+//  Copyright © 2021 Guru Rain. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import RxCocoa
-import AgoraRtmKit
-import CastboxDebuger
-
-fileprivate func cdPrint(_ message: Any) {
-    Debug.info("[IMViewModel]-\(message)")
-}
-
-
-extension AmongChat.Room {
-    
-    class IMViewModel {
-        
-        private let channelId: String
-        private let imManager: IMManager
-        private let messageRelay = BehaviorRelay<ChatRoomMessage?>(value: nil)
-        
-        private let bag = DisposeBag()
-        
-        var messagesObservable: Observable<ChatRoomMessage> {
-            return messageRelay.asObservable()
-                .filterNilAndEmpty()
-        }
-        
-        var imReadySignal: Observable<Bool> {
-            return imManager.joinedChannelSignal
-        }
-        
-        var imIsReady: Bool {
-            return imManager.imIsReady
-        }
-        
-        init(with channelId: String) {
-            self.channelId = channelId
-            self.imManager = AmongChat.Room.IMManager.shared
-            imManager.joinChannel(channelId)
-            bindEvents()
-        }
-        
-        deinit {
-//            imManager.leaveChannel(channelId)
-        }
-        
-        func leaveChannel() {
-            imManager.leaveChannel(channelId)
-        }
-                
-    }
-    
-}
-
-extension AmongChat.Room.IMViewModel {
-    
-    private func bindEvents() {
-        
-        imManager.newChannelMessageObservable
-            .observeOn(SerialDispatchQueueScheduler(qos: .default))
-            .map { (message, member) -> ChatRoomMessage? in
-                cdPrint("member: \(member.channelId) \(member.userId) \ntext: \(message.text)")
-                guard message.type == .text,
-                      let json = message.text.jsonObject(),
-                      let messageType = json["message_type"] as? String,
-                      let type = ChatRoom.MessageType(rawValue: messageType) else {
-//                    let structType = ChatRoom.MessageType.structMap[type]
-                    return nil
-                }
-//                let item = try JSONDecoder().decodeAnyData(structType, from: json)
-                var item: ChatRoomMessage?
-                decoderCatcher {
-                    switch type {
-                    case .text:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.TextMessage.self, from: json) as ChatRoomMessage
-//                    case .baseInfo:
-//                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomBaseMessage.self, from: json) as ChatRoomMessage
-                    case .joinRoom:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.JoinRoomMessage.self, from: json) as ChatRoomMessage
-                    case .leaveRoom:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
-                    case .systemLeave:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.LeaveRoomMessage.self, from: json) as ChatRoomMessage
-                    case .kickoutRoom:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.KickOutMessage.self, from: json) as ChatRoomMessage
-                    case .roomInfo:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.RoomInfoMessage.self, from: json) as ChatRoomMessage
-                    case .system:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.SystemMessage.self, from: json) as ChatRoomMessage
-                    case .emoji:
-                        item = try JSONDecoder().decodeAnyData(ChatRoom.EmojiMessage.self, from: json) as ChatRoomMessage
-                        
-                    }
-                }
-                return item
-            }
-            .filterNil()
-            .debug("[newMessageObservable]", trimOutput: false)
-            .observeOn(MainScheduler.asyncInstance)
-//            .subscribe(onNext: { [weak self] message in
-//                self?.appendNewMessage(message)
-//            })
-            .bind(to: messageRelay)
-            .disposed(by: bag)
-    }
-    
-    func sendText(message: ChatRoomMessage, completionHandler: CallBack? = nil) {
-        guard let string = message.asString else {
-            return
-        }
-        imManager.sendChannelMessage(string)
-            .catchErrorJustReturn(false)
-//            .filter { _ -> Bool in
-//                return message.msgType == .text
-//            }
-            .subscribe(onSuccess: { [weak self] (success) in
-                guard let `self` = self,
-                    success else { return }
-                
-                completionHandler?()
-//                let msg = AgoraRtmMessage(text: text)
-//                let user = AgoraRtmMember()
-//                user.userId = "\(Constants.sUserId)"
-//                user.channelId = self.channelId
-//
-//                self.appendNewMessage(message)
-            })
-            .disposed(by: bag)
-        
-    }
-        
-}
+import UIKit
 
 struct ChatRoom {
     
@@ -149,6 +19,7 @@ protocol ChatRoomMessageable {
 protocol MessageListable {
     var attrString: NSAttributedString { get }
     var rawContent: String? { get }
+    var isGroupRoomHostMsg: Bool { get set }
 }
 
 typealias ChatRoomMessage = ChatRoomMessageable & Codable
@@ -164,12 +35,21 @@ extension ChatRoom {
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
         case emoji = "AC:Chatroom:Emoji"
+        
+        //group
+        case groupJoinRoom = "AC:Chatroom:GroupLiveJoin"
+        case groupLeaveRoom = "AC:Chatroom:GroupLiveLeave"
+        case groupLiveEnd = "AC:Chatroom:GroupLiveEnd"
+        case groupInfo = "AC:Chatroom:GroupInfo"
     }
     
-    struct TextMessage: ChatRoomMessage {
+    struct TextMessage: ChatRoomMessage, MessageListable {
+        
         let content: String
         let user: Entity.RoomUser
         let msgType: MessageType
+        
+        var isGroupRoomHostMsg: Bool = false
         
         private enum CodingKeys: String, CodingKey {
             case content
@@ -190,10 +70,12 @@ extension ChatRoom {
         }
     }
 
-    struct JoinRoomMessage: ChatRoomMessage {
+    struct JoinRoomMessage: ChatRoomMessage, MessageListable {
         let user: Entity.RoomUser
         let msgType: MessageType
         
+        var isGroupRoomHostMsg: Bool = false
+
         private enum CodingKeys: String, CodingKey {
             case user
             case msgType = "message_type"
@@ -235,7 +117,7 @@ extension ChatRoom {
     }
     
     //red color
-    struct SystemMessage: ChatRoomMessage {
+    struct SystemMessage: ChatRoomMessage, MessageListable {
         
         enum ContentType: String, Codable {
             case `public`
@@ -246,7 +128,9 @@ extension ChatRoom {
         let textColor: String?
         let contentType: ContentType?
         let msgType: MessageType
-        
+
+        var isGroupRoomHostMsg: Bool = false
+
         var text: String {
             contentType?.text ?? content
         }
@@ -277,6 +161,86 @@ extension ChatRoom {
             case user
         }
     }
+    
+    //MARK: // - Group Room Message
+    struct GroupInfoMessage: ChatRoomMessage {
+        let group: Entity.Group
+        let msgType: MessageType
+        let ms: TimeInterval//: 1611648904017
+        
+        private enum CodingKeys: String, CodingKey {
+            case group
+            case msgType = "message_type"
+            case ms
+        }
+    }
+    
+    struct GroupJoinRoomMessage: ChatRoomMessage, MessageListable {
+        let gid: String
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        var isGroupRoomHostMsg: Bool = false
+        
+        private enum CodingKeys: String, CodingKey {
+            case gid
+            case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct GroupLeaveRoomMessage: ChatRoomMessage {
+        //{"gid": "hduj2zFF", "live_id": null, "message_type": "AC:Chatroom:GroupLiveEnd"}
+        let groupId: String
+        let user: Entity.RoomUser
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case groupId = "gid"
+            case user
+            case msgType = "message_type"
+        }
+    }
+    
+    struct GroupRoomEndMessage: ChatRoomMessage {
+        
+        let gid: String
+        let liveId: String?
+        let msgType: MessageType
+        private enum CodingKeys: String, CodingKey {
+            case gid
+            case liveId = "live_id"
+            case msgType = "message_type"
+        }
+    }
+
+//    struct GroupRoomCallMessage: ChatRoomMessage {
+//        
+//        enum Action: Int32, Codable {
+//            case none = 0
+//            case request = 1
+//            case accept = 2
+//            case reject = 3
+//            case hangup = 4
+//            case invite = 5
+//            case invite_reject = 6
+//        }
+//        
+//        var action: Action = .none// call-in状态 1request 2accept 3reject 4handup 5invite 6invite_reject
+//        var gid: String = ""
+//        var expireTime: Int64 = 0
+//        var extra: String = ""
+//        var position: Int = 0
+//        let msgType: MessageType
+//
+//        
+//        private enum CodingKeys: String, CodingKey {
+//            case action
+//            case gid
+//            case expireTime = "expire_time"
+//            case extra
+//            case position
+//            case msgType = "message_type"
+//        }
+//    }
 }
 
 extension ChatRoom.MessageType {
@@ -291,7 +255,7 @@ extension ChatRoom.MessageType {
     }
 }
 
-extension ChatRoom.SystemMessage: MessageListable {
+extension ChatRoom.SystemMessage {
     var rawContent: String? {
         text
     }
@@ -313,7 +277,7 @@ extension ChatRoom.SystemMessage: MessageListable {
     }
 }
 
-extension ChatRoom.TextMessage: MessageListable {
+extension ChatRoom.TextMessage {
     var rawContent: String? {
         content
     }
@@ -337,7 +301,13 @@ extension ChatRoom.TextMessage: MessageListable {
 //            .kern: 0.5
         ]
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
         if user.isVerified == true {
             let font = R.font.nunitoExtraBold(size: 12)!
             let image = R.image.icon_verified_13()!
@@ -364,7 +334,7 @@ extension ChatRoom.TextMessage: MessageListable {
     }
 }
 
-extension ChatRoom.JoinRoomMessage: MessageListable {
+extension ChatRoom.JoinRoomMessage {
     var rawContent: String? {
         nil
     }
@@ -389,7 +359,14 @@ extension ChatRoom.JoinRoomMessage: MessageListable {
         ]
         
         let mutableNormalString = NSMutableAttributedString()
-        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
         //
         if user.isVerified == true {
             let font = R.font.nunitoExtraBold(size: 12)!
@@ -440,4 +417,66 @@ extension ChatRoom.SystemMessage.ContentType {
         }
     }
     
+}
+
+extension ChatRoom.GroupJoinRoomMessage {
+    var rawContent: String? {
+        nil
+    }
+    
+    var attrString: NSAttributedString {
+        let pargraph = NSMutableParagraphStyle()
+        pargraph.lineBreakMode = .byTruncatingTail
+        pargraph.lineHeightMultiple = 0
+        
+        let nameAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: "ABABAB".color(),
+            .font: R.font.nunitoExtraBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let contentAttr: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.white,
+            .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
+            .paragraphStyle: pargraph
+            //            .kern: 0.5
+        ]
+        
+        let mutableNormalString = NSMutableAttributedString()
+//        mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        if isGroupRoomHostMsg {
+            mutableNormalString.append(NSAttributedString(string: "\(R.string.localizable.amongChatGroupHost()) \(user.name ?? "")", attributes: nameAttr))
+        } else if user.seatNo >= 0 {
+            mutableNormalString.append(NSAttributedString(string: "#\(user.seatNo) \(user.name ?? "")", attributes: nameAttr))
+        } else {
+            mutableNormalString.append(NSAttributedString(string: "\(user.name ?? "")", attributes: nameAttr))
+        }
+        //
+        if user.isVerified == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_verified_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+            mutableNormalString.yy_appendString(" ")
+            mutableNormalString.append(imageString)
+        }
+        
+        if user.isVip == true {
+            let font = R.font.nunitoExtraBold(size: 12)!
+            let image = R.image.icon_vip_13()!
+            let imageAttachment = NSTextAttachment()
+            imageAttachment.image = image
+            imageAttachment.bounds = CGRect(x: 0, y: (font.capHeight - image.size.height)/2, width: image.size.width, height: image.size.height)
+            let imageString = NSAttributedString(attachment: imageAttachment)
+//            if user.isVerified == false {
+            mutableNormalString.yy_appendString(" ")
+//            }
+            mutableNormalString.append(imageString)
+        }
+        mutableNormalString.append(NSAttributedString(string: "  \(R.string.localizable.chatroomMessageUserJoined())", attributes: contentAttr))
+        return mutableNormalString
+    }
 }

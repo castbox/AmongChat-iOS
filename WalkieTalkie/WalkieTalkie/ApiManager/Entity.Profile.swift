@@ -98,7 +98,36 @@ extension Entity {
         var decoSkinId: Int?
         var decoHatId: Int?
         var decoPetId: Int?
+        var inGroup: Bool?
         
+        //
+        var followersCount: Int?
+        
+        func hostNickname(for topicType: AmongChat.Topic) -> String? {
+            switch topicType {
+            case .fortnite:
+                return nameFortnite
+            case .freefire:
+                return nameFreefire
+            case .roblox:
+                return nameRoblox
+            case .minecraft:
+                return nameMineCraft
+            case .callofduty:
+                return nameCallofduty
+            case .pubgmobile:
+                return namePubgmobile
+            case .mobilelegends:
+                return nameMobilelegends
+            case .animalCrossing:
+                return nameAnimalCrossing
+            case .brawlStars:
+                return nameBrawlStars
+            default:
+                return nil
+            }
+        }
+
         private enum CodingKeys: String, CodingKey {
             case googleAuthData = "google_auth_data"
             case appleAuthData = "apple_auth_data"
@@ -128,6 +157,8 @@ extension Entity {
             case decoSkinId = "deco_skin_id"
             case decoHatId = "deco_hat_id"
             case decoPetId = "deco_pet_id"
+            case inGroup = "in_group"
+            case followersCount = "followers_count"
         }
     }
     
@@ -206,5 +237,17 @@ extension Entity.UserProfile {
 extension Entity.UserProfile {
     func toRoomUser(with seatNo: Int) -> Entity.RoomUser {
         return Entity.RoomUser(uid: uid, name: name, pic: pictureUrl, seatNo: seatNo, status: .connected, isMuted: false, isMutedByLoginUser: false, isVerified: isVerified, isVip: isVip, decoPetId: decoPetId)
+    }
+}
+
+
+extension Entity {
+    struct CallInUser {
+        var uid: Int { user.uid }
+        var user: UserProfile { message.user }
+        var message: Peer.CallMessage
+        //开始通话时间戳
+        var startTimeStamp: Double?
+        
     }
 }

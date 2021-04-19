@@ -311,6 +311,7 @@ extension Social {
         private var roomId = ""
         private var isInvite = false
         private var isStranger = false
+        private var isGroup: Bool = false
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -400,18 +401,20 @@ extension Social {
             }
         }
         
-        func setCellDataForShare(with model: Entity.UserProfile, roomId: String, isStranger: Bool) {
+        func setCellDataForShare(with model: Entity.UserProfile, roomId: String, isStranger: Bool, isGroup: Bool = false) {
             
             self.userInfo = model
             self.roomId = roomId
             self.isStranger = isStranger
+            self.isGroup = isGroup
             
             setUIForShare()
             avatarIV.setAvatarImage(with: model.pictureUrl)
             usernameLabel.attributedText = model.nameWithVerified()
             
-            let invited = userInfo.invited ?? false
-            if invited {
+            if userInfo.inGroup ?? false {
+                grayInGroupStyle()
+            } else if userInfo.invited ?? false {
                 grayInviteStyle()
             }
         }
@@ -442,6 +445,13 @@ extension Social {
         
         private func grayInviteStyle() {
             followBtn.setTitle(R.string.localizable.socialInvited(), for: .normal)
+            followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
+            followBtn.backgroundColor = UIColor(hex6: 0x222222)
+            followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
+        }
+        
+        private func grayInGroupStyle() {
+            followBtn.setTitle(R.string.localizable.amongChatGroupAddMemberInGroup(), for: .normal)
             followBtn.setTitleColor(UIColor(hex6: 0x898989), for: .normal)
             followBtn.backgroundColor = UIColor(hex6: 0x222222)
             followBtn.layer.borderColor = UIColor(hex6: 0x898989).cgColor
@@ -481,19 +491,26 @@ extension Social {
         }
         
         private func inviteUserAction(_ user: Entity.UserProfile, isStranger: Bool) {
-            let invited = userInfo.invited ?? false
-            if !invited {
-                let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
-                let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
-                Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
-                    .subscribe(onSuccess: { [weak self](data) in
-                        removeBlock?()
-                        self?.updateInviteData?(true)
-                    }, onError: { (error) in
-                        removeBlock?()
-                        cdPrint("invite user error:\(error.localizedDescription)")
-                    }).disposed(by: bag)
+            let invited = userInfo.invited ?? false || userInfo.inGroup ?? false
+            guard !invited else {
+                return
             }
+            let offset = (Frame.Screen.height - (superview?.height ?? 0)) / 2
+            let removeBlock = self.containingController?.view.raft.show(.loading, offset: CGPoint(x: 0, y: -offset))
+            let requestObservable: Single<Entity.FollowData?>
+            if isGroup {
+                requestObservable = Request.groupRoomInviteUser(gid: roomId, uid: user.uid, isStranger: isStranger)
+            } else {
+                requestObservable = Request.inviteUser(roomId: roomId, uid: user.uid, isStranger: isStranger)
+            }
+            requestObservable
+                .subscribe(onSuccess: { [weak self] (data) in
+                    removeBlock?()
+                    self?.updateInviteData?(true)
+                }, onError: { (error) in
+                    removeBlock?()
+                    cdPrint("invite user error:\(error.localizedDescription)")
+                }).disposed(by: bag)
         }
     }
 }

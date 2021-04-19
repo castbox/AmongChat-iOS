@@ -1,6 +1,3 @@
 Bem-vindo ao aplicativo de bate-papo por voz AmongChat!
-Nesta atualização, você pode
-1. convide amigos de seus contatos para jogarem juntos;
-2. seja o primeiro a obter novos avatares;
-3. escolha aproveitar os recursos VIP - emblemas e avatares exclusivos, sem anúncios, cartões ilimitados, correspondência mais rápida, etc.
-Encontre e converse por voz com seus amigos, divirta-se!
+Esta atualização inclui correções de bugs e melhorias de desempenho.
+Encontre e converse por voz com seus amigos, joguem juntos e divirta-se!

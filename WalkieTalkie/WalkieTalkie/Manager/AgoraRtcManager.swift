@@ -119,7 +119,7 @@ protocol RtcManageable {
     
     func joinChannel(_ joinable: RTCJoinable, _ token: String, _ userId: UInt, completionHandler: (() -> Void)?)
     
-    func setClientRole(_ role: RtcUserRole)
+    var clientRole: RtcUserRole { get set }
     
     func update(joinable: RTCJoinable)
     
@@ -171,7 +171,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
 
     ///current channel IDz
     var channelId: String?
-    private(set) var role: RtcUserRole?
+    private(set) var role: RtcUserRole = .audience
     private var mRtcEngine: AgoraRtcEngineKit!
     private var mUserId: UInt = 0
     private var timeoutTimer: SwiftTimer?
@@ -225,7 +225,7 @@ class AgoraRtcManager: NSObject, RtcManageable {
             guard let `self` = self else {
                 return
             }
-            self.setClientRole(.broadcaster)
+            self.clientRole = joinable.defaultRole
             self.mUserId = uid
             completionHandler?()
             self.delegate?.onJoinChannelSuccess(channelId: joinable.roomId)
@@ -259,14 +259,17 @@ class AgoraRtcManager: NSObject, RtcManageable {
         timeoutTimer = nil
     }
     
-    func setClientRole(_ role: RtcUserRole) {
-        let result = mRtcEngine?.setClientRole(AgoraClientRole(rawValue: role.rawValue)!)
-        if result == 0 {
-            cdPrint("setClientRole: \(role.rawValue) success")
-        } else {
-            cdPrint("setClientRole: \(role.rawValue) failed")
+    var clientRole: RtcUserRole {
+        set {
+            let result = mRtcEngine?.setClientRole(AgoraClientRole(rawValue: newValue.rawValue)!)
+            if result == 0 {
+                cdPrint("setClientRole: \(newValue.rawValue) success")
+            } else {
+                cdPrint("setClientRole: \(newValue.rawValue) failed")
+            }
+            self.role = newValue
         }
-        self.role = role
+        get { role }
     }
     
     func adjustUserPlaybackSignalVolume(_ uid: UInt, volume: Int32 = 0) -> Bool {
@@ -306,8 +309,9 @@ class AgoraRtcManager: NSObject, RtcManageable {
 //        unMuteUsers.removeAll()
 //        talkedUsers.removeAll()
         mRtcEngine?.leaveChannel(nil)
-        setClientRole(.audience)
-        self.role = nil
+        clientRole = .audience
+//        setClientRole(.audience)
+//        self.role = nil
         self.channelId = nil
     }
     

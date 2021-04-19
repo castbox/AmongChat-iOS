@@ -69,6 +69,17 @@ extension Social {
 //            ShareRoomViewModel.roomShareItems = items
         }
         
+        override func addNoDataView(_ message: String, image: UIImage? = nil) {
+            removeNoDataView()
+            let v = NoDataView(with: message, image: image, topEdge: 100.scalValue)
+            view.addSubview(v)
+            v.snp.makeConstraints { (maker) in
+                maker.top.equalTo(159)
+                maker.left.right.equalToSuperview()
+                maker.height.equalTo(500 - 159)
+            }
+        }
+        
         private func setupLayout() {
             
             view.backgroundColor = UIColor(hex6: 0x222222)
@@ -191,7 +202,6 @@ private extension Social.InviteFirendsViewController {
     func copyLink() {
 //        Logger.Action.log(.room_share_item_clk, category: Logger.Action.Category(rawValue: topicId), "copy")
         linkUrl.copyToPasteboardWithHaptic()
-        view.raft.autoShow(.text(R.string.localizable.copied()), userInteractionEnabled: false, backColor: UIColor(hex6: 0x181818))
     }
     
     func shareApp() {
@@ -307,7 +317,7 @@ extension Social.InviteFirendsViewController: UITableViewDataSource, UITableView
 
 extension Social.InviteFirendsViewController {
     
-    private class ShareHeaderView: UIView {
+    class ShareHeaderView: UIView {
         
         enum ItemType {
             case sms, snapchat, copylink, sharelink

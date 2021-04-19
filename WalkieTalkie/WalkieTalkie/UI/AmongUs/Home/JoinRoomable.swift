@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol JoinRoomable {
     var contentScrollView: UIScrollView? { get }
@@ -30,6 +32,11 @@ struct ParentPageSource {
         
         case join_friend_room
         case room //
+        
+        case my_group
+        case explore
+        case invite
+        case profile
     }
     
     var page: Page {
@@ -150,6 +157,82 @@ extension JoinRoomable where Self: ViewController {
             })
             .disposed(by: bag)
 
+    }
+    
+    func enter(group: Entity.Group, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
+        enter(group: group.gid, adminUid: group.uid, logSource: logSource, apiSource: apiSource, completionHandler: completionHandler)
+    }
+    
+    func enter(group gid: String, adminUid: Int? = 0, logSource: ParentPageSource? = nil, apiSource: ParentApiSource? = nil, completionHandler: (() -> Void)? = nil) {
+//        Logger.Action.log(.enter_home_topic, categoryValue: topicId)
+        //
+        UIApplication.tabBarController?.dismissNotificationBanner()
+        //
+//        var topic = topicId
+//        if roomId == nil {
+//            topic = topicId ?? AmongChat.Topic.amongus.rawValue
+//        }
+        let hudRemoval = view.raft.show(.loading, userInteractionEnabled: false)
+        
+        let completion = { [weak self] in
+            self?.contentScrollView?.isUserInteractionEnabled = true
+            self?.isRequestingRoom = false
+            hudRemoval()
+            completionHandler?()
+        }
+        
+        contentScrollView?.isUserInteractionEnabled = false
+        isRequestingRoom = true
+        //start or enter
+        var requestObservable: Single<Entity.GroupInfo?> {
+            if adminUid == Settings.loginUserId {
+                //request
+                return Request.startChannel(groupId: gid)
+                    .map { item -> Entity.GroupInfo? in
+                        guard let item = item else {
+                            return nil
+                        }
+                        return Entity.GroupInfo(group: item, members: nil, userStatusInt: 1)
+                    }
+            } else {
+                //request
+                return Request.enterChannel(groupId: gid)
+            }
+        }
+        requestObservable
+            .subscribe { [weak self] groupInfo in
+                // TODO: - 进入房间
+                guard let `self` = self else {
+                    return
+                }
+                guard let groupInfo = groupInfo else {
+                    completion()
+                    self.view.raft.autoShow(.text(R.string.localizable.amongChatHomeEnterRoomFailed()))
+                    return
+                }
+            
+                AmongChat.GroupRoom.ContainerController.join(with: groupInfo, from: self, logSource: logSource) { error in
+                    completion()
+                    //dismiss
+                    UIApplication.tabBarController?.dismissNotificationBanner()
+                }
+
+            } onError: { [weak self] (error) in
+                completion()
+                cdPrint("error: \(error.localizedDescription)")
+                var msg: String {
+                    if let error = error as? MsgError {
+                        if let codeType = error.codeType, codeType == .needUpgrade {
+                            return R.string.localizable.forceUpgradeTip()
+                        }
+                        return error.localizedDescription
+                    } else {
+                        return R.string.localizable.amongChatHomeEnterRoomFailed()
+                    }
+                }
+                self?.view.raft.autoShow(.text(msg), userInteractionEnabled: false)
+            }
+            .disposed(by: bag)
     }
     
 }

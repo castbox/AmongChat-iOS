@@ -19,6 +19,7 @@ class ShareManager: NSObject {
         case roomId
         case app
         case profile
+        case group(String?)
     }
     
     enum ShareType: String, CaseIterable {
@@ -59,11 +60,10 @@ class ShareManager: NSObject {
 //            successHandler?()
 //            return
 //        }
-        createDynamicLink(item.content, url: item.url, type, successHandler, viewController)
+        createDynamicLink(item, url: item.url, type, successHandler, viewController)
     }
     
-    func showActivity(viewController: UIViewController, successHandler: (() -> Void)? = nil) {
-        let items = [R.string.localizable.shareAppContent()] as [Any]
+    func showActivity(items: [Any] = [R.string.localizable.shareAppContent()], viewController: UIViewController, successHandler: (() -> Void)? = nil) {
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: [])
         activityVC.excludedActivityTypes = [.addToiCloudDrive, .airDrop, .assignToContact, .openInIBooks, .postToLinkedIn, .postToFlickr, .postToTencentWeibo, .postToWeibo, .postToXing, .saveToCameraRoll]
         activityVC.completionWithItemsHandler = { activity, success, items, error in
@@ -157,7 +157,9 @@ class ShareManager: NSObject {
         return shareString
     }
     
-    fileprivate func createDynamicLink(_ textContent: String, url: String, _ type: ShareManager.ShareType, _ successHandler: (() -> Void)?, _ viewController: UIViewController) {
+    fileprivate func createDynamicLink(_ item: Content, url: String, _ type: ShareManager.ShareType, _ successHandler: (() -> Void)?, _ viewController: UIViewController) {
+        
+        let textContent = item.content
         
         ShareManager.makeDynamicLinks(with: url, for: type) { url in
             guard let url = url else {
@@ -191,6 +193,31 @@ class ShareManager: NSObject {
                     }
                 }
             case .snapchat:
+                
+                switch item.type {
+                case .group(let coverUrl):
+                    
+                    if let coverURL = coverUrl?.url {
+                        KingfisherManager.shared.retrieveImage(with: coverURL) { [weak self] result in
+                            guard let `self` = self else { return }
+                            switch result {
+                            case .success(let value):
+                                self.shareGroupToSnapchat(value.image, url: url, successHandler, viewController)
+                            case .failure(let error):
+                                cdPrint("error: \(error)")
+                                successHandler?()
+                            }
+                        }
+                    } else {
+                        self.shareGroupToSnapchat(R.image.ac_profile_avatar(), url: url, successHandler, viewController)
+                    }
+                    
+                    return
+                    
+                default:
+                    ()
+                }
+                
                 if let urlString = Settings.shared.amongChatUserProfile.value?.pictureUrl, let picUrl = URL(string: urlString) {
                     KingfisherManager.shared.retrieveImage(with: picUrl) { [weak self] result in
                         guard let `self` = self else { return }
@@ -277,6 +304,66 @@ class ShareManager: NSObject {
             //                self?.view.isUserInteractionEnabled = true
             //                self?.isSharing = false
             print("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
+        }
+    }
+    
+    func shareGroupToSnapchat(_ avatarImage: UIImage?, url: String, _ successHandler: (() -> Void)?, _ viewController: UIViewController) {
+        
+        let shareView = SnapChatSharePhotoView(image: avatarImage)
+        viewController.view.addSubview(shareView)
+        shareView.avatarView.layer.cornerRadius = 12
+        shareView.titleLabel.isHidden = true
+        shareView.clickTipsLabel.isHidden = true
+        
+        let titleIV = UIImageView(image: R.image.ac_group_snapchat_share_title())
+        let clickTipsIV = UIImageView(image: R.image.ac_group_snapchat_share_click_tips())
+        shareView.addSubviews(views: titleIV, clickTipsIV)
+        
+        titleIV.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.top.equalTo(shareView.avatarView.snp.bottom).offset(26)
+        }
+        
+        clickTipsIV.snp.makeConstraints { (maker) in
+            maker.centerX.equalToSuperview()
+            maker.bottom.equalTo(shareView.clickImageView.snp.top).offset(-12)
+        }
+        
+        guard let imageToShare = shareView.screenshot else {
+            successHandler?()
+            return
+        }
+        shareView.removeFromSuperview()
+        let snapPhoto = SCSDKSnapPhoto(image: imageToShare)
+        let snapContent = SCSDKPhotoSnapContent(snapPhoto: snapPhoto)
+        snapContent.attachmentUrl = url
+        
+        /* Sticker to be used in the Snap */
+        //            let stickerImage = imageToShare!/* Prepare a sticker image */
+        
+        //stiker
+        //                let sticker = SCSDKSnapSticker(stickerImage: imageToShare)
+        //                sticker.width = shareView.width
+        //                sticker.height = shareView.height
+        //                /* Alternatively, use a URL instead */
+        //                // let sticker = SCSDKSnapSticker(stickerUrl: stickerImageUrl, isAnimated: false)
+        //
+        //                /* Modeling a Snap using SCSDKPhotoSnapContent */
+        //                let snapContent = SCSDKNoSnapContent()
+        //                snapContent.sticker = sticker /* Optional */
+        //                //            snapContent.caption = textToShare /* Optional */
+        //                snapContent.attachmentUrl = url /* Optional */
+        self.snapAPI.startSending(snapContent) { (error: Error?) in
+            //                        removeHandler()
+            mainQueueDispatchAsync {
+                successHandler?()
+                if let errorMsg = error?.localizedDescription {
+                    viewController.view.raft.autoShow(.text(errorMsg))
+                }
+            }
+            //                self?.view.isUserInteractionEnabled = true
+            //                self?.isSharing = false
+            cdPrint("Shared \(String(describing: "url.absoluteString")) on SnapChat.")
         }
     }
     

@@ -21,6 +21,7 @@
             <connections>
                 <outlet property="avatarView" destination="PUV-to-wFf" id="bto-Yy-NWp"/>
                 <outlet property="avatarWidthConstraint" destination="3Ru-tb-O4i" id="efm-hy-FvM"/>
+                <outlet property="clickImageView" destination="05h-ay-T15" id="Ajw-qw-f6e"/>
                 <outlet property="clickTipsLabel" destination="tij-N4-18I" id="HxG-0Y-3d0"/>
                 <outlet property="linkViewbottomConstraint" destination="8av-di-xax" id="vMG-7s-Prh"/>
                 <outlet property="titleLabel" destination="FCE-VC-rts" id="h48-rF-Gsf"/>

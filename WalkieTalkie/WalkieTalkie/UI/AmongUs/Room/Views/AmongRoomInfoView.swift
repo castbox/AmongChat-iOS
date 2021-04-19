@@ -21,7 +21,7 @@ class AmongRoomInfoView: XibLoadableView {
             codeLabel.text = room?.amongUsCode?.uppercased()
             aeraLabel.setTitle(room?.amongUsZone?.title, for: .normal)
 
-            if room?.roomUserList.first?.uid == Settings.loginUserId {
+            if room?.userList.first?.uid == Settings.loginUserId {
                 actionIcon.image = R.image.ac_room_code_edit()
             } else {
                 actionIcon.image = R.image.ac_room_code_copy()
