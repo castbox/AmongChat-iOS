@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 199 images.
+  /// This `R.image` struct is generated, and contains static references to 202 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -534,6 +534,12 @@ struct R: Rswift.Validatable {
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
+    /// Image `iconReportDelete`.
+    static let iconReportDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportDelete")
+    /// Image `iconReportNormal`.
+    static let iconReportNormal = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportNormal")
+    /// Image `iconReportSelected`.
+    static let iconReportSelected = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportSelected")
     /// Image `iconReport`.
     static let iconReport = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReport")
     /// Image `icon_close_gray`.
@@ -1412,6 +1418,21 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.iconReport, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconReportDelete", bundle: ..., traitCollection: ...)`
+    static func iconReportDelete(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReportDelete, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconReportNormal", bundle: ..., traitCollection: ...)`
+    static func iconReportNormal(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReportNormal, compatibleWith: traitCollection)
+    }
+    
+    /// `UIImage(named: "iconReportSelected", bundle: ..., traitCollection: ...)`
+    static func iconReportSelected(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconReportSelected, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "icon_close", bundle: ..., traitCollection: ...)`
     static func icon_close(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.icon_close, compatibleWith: traitCollection)
@@ -1615,7 +1636,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.nib` struct is generated, and contains static references to 28 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 32 nibs.
   struct nib {
     /// Nib `AmongChatRoomConfigView`.
     static let amongChatRoomConfigView = _R.nib._AmongChatRoomConfigView()
@@ -1663,6 +1684,14 @@ struct R: Rswift.Validatable {
     static let infoWithNicknameView = _R.nib._InfoWithNicknameView()
     /// Nib `JustChillingInfoView`.
     static let justChillingInfoView = _R.nib._JustChillingInfoView()
+    /// Nib `ReportCell`.
+    static let reportCell = _R.nib._ReportCell()
+    /// Nib `ReportFooterView`.
+    static let reportFooterView = _R.nib._ReportFooterView()
+    /// Nib `ReportImageCell`.
+    static let reportImageCell = _R.nib._ReportImageCell()
+    /// Nib `ReportTableHeader`.
+    static let reportTableHeader = _R.nib._ReportTableHeader()
     /// Nib `RoomTopEntranceContentView`.
     static let roomTopEntranceContentView = _R.nib._RoomTopEntranceContentView()
     /// Nib `ShareContainerView`.
@@ -1812,6 +1841,30 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.justChillingInfoView)
     }
     
+    /// `UINib(name: "ReportCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.reportCell) instead")
+    static func reportCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.reportCell)
+    }
+    
+    /// `UINib(name: "ReportFooterView", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.reportFooterView) instead")
+    static func reportFooterView(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.reportFooterView)
+    }
+    
+    /// `UINib(name: "ReportImageCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.reportImageCell) instead")
+    static func reportImageCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.reportImageCell)
+    }
+    
+    /// `UINib(name: "ReportTableHeader", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.reportTableHeader) instead")
+    static func reportTableHeader(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.reportTableHeader)
+    }
+    
     /// `UINib(name: "RoomTopEntranceContentView", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.roomTopEntranceContentView) instead")
     static func roomTopEntranceContentView(_: Void = ()) -> UIKit.UINib {
@@ -1934,6 +1987,22 @@ struct R: Rswift.Validatable {
       return R.nib.justChillingInfoView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
     
+    static func reportCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ReportCell? {
+      return R.nib.reportCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ReportCell
+    }
+    
+    static func reportFooterView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.reportFooterView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
+    static func reportImageCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ReportImageCell? {
+      return R.nib.reportImageCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ReportImageCell
+    }
+    
+    static func reportTableHeader(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+      return R.nib.reportTableHeader.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+    }
+    
     static func roomTopEntranceContentView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
       return R.nib.roomTopEntranceContentView.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
     }
@@ -1957,7 +2026,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 5 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `AmongSheetIconItemCell`.
     static let amongSheetIconItemCell: Rswift.ReuseIdentifier<AmongSheetIconItemCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetIconItemCell")
@@ -1965,6 +2034,10 @@ struct R: Rswift.Validatable {
     static let amongSheetUserCell: Rswift.ReuseIdentifier<AmongSheetUserCell> = Rswift.ReuseIdentifier(identifier: "AmongSheetUserCell")
     /// Reuse identifier `FansGroupSelfItemCell`.
     static let fansGroupSelfItemCell: Rswift.ReuseIdentifier<FansGroupSelfItemCell> = Rswift.ReuseIdentifier(identifier: "FansGroupSelfItemCell")
+    /// Reuse identifier `ReportCell`.
+    static let reportCell: Rswift.ReuseIdentifier<ReportCell> = Rswift.ReuseIdentifier(identifier: "ReportCell")
+    /// Reuse identifier `ReportImageCell`.
+    static let reportImageCell: Rswift.ReuseIdentifier<ReportImageCell> = Rswift.ReuseIdentifier(identifier: "ReportImageCell")
     
     fileprivate init() {}
   }
@@ -2063,7 +2136,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 407 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 412 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -2369,10 +2442,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatCustomAvatarClose = Rswift.StringResource(key: "among.chat.custom.avatar.close", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Comments
+      /// 
+      /// Locales: en
+      static let reportComments = Rswift.StringResource(key: "report.comments", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let profileCommunity = Rswift.StringResource(key: "profile.community", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Confirm report
+      /// 
+      /// Locales: en
+      static let reportConfirm = Rswift.StringResource(key: "report.confirm", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Contacts
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3177,6 +3258,18 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let reportTitle = Rswift.StringResource(key: "report.title", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Report failed. Please try again
+      /// 
+      /// Locales: en
+      static let reportFailed = Rswift.StringResource(key: "report.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Report succeeded
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Report user
+      /// 
+      /// Locales: en
+      static let reportUser = Rswift.StringResource(key: "report.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3501,6 +3594,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let amongChatAddStatsUploadScreenshot = Rswift.StringResource(key: "among.chat.add.stats.upload.screenshot", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: Upload screenshots
+      /// 
+      /// Locales: en
+      static let reportUploadScreenshots = Rswift.StringResource(key: "report.upload.screenshots", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3593,10 +3690,6 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let socialFollowedSucess = Rswift.StringResource(key: "social.followed.sucess", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
-      /// en translation: You have successfully reported  this person
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: You haven't blocked others yet.
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -4226,11 +4319,25 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.custom.avatar.close", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Comments
+      /// 
+      /// Locales: en
+      static func reportComments(_: Void = ()) -> String {
+        return NSLocalizedString("report.comments", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Community guidelines
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func profileCommunity(_: Void = ()) -> String {
         return NSLocalizedString("profile.community", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Confirm report
+      /// 
+      /// Locales: en
+      static func reportConfirm(_: Void = ()) -> String {
+        return NSLocalizedString("report.confirm", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Contacts
@@ -5640,6 +5747,27 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.title", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Report failed. Please try again
+      /// 
+      /// Locales: en
+      static func reportFailed(_: Void = ()) -> String {
+        return NSLocalizedString("report.failed", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Report succeeded
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Report user
+      /// 
+      /// Locales: en
+      static func reportUser(_: Void = ()) -> String {
+        return NSLocalizedString("report.user", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6207,6 +6335,13 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("among.chat.add.stats.upload.screenshot", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: Upload screenshots
+      /// 
+      /// Locales: en
+      static func reportUploadScreenshots(_: Void = ()) -> String {
+        return NSLocalizedString("report.upload.screenshots", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: Upload your own avatar
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6366,13 +6501,6 @@ struct R: Rswift.Validatable {
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func socialFollowedSucess(_: Void = ()) -> String {
         return NSLocalizedString("social.followed.sucess", bundle: R.hostingBundle, comment: "")
-      }
-      
-      /// en translation: You have successfully reported  this person
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: You haven't blocked others yet.
@@ -6578,6 +6706,8 @@ struct _R: Rswift.Validatable {
       try _AppTrackingGuideView.validate()
       try _AvatarGuideViewController.validate()
       try _FansGroupItemCell.validate()
+      try _ReportCell.validate()
+      try _ReportImageCell.validate()
       try _ShareContainerView.validate()
       try _SnapChatCreativeShareView.validate()
       try _SnapChatSharePhotoView.validate()
@@ -6938,6 +7068,68 @@ struct _R: Rswift.Validatable {
       
       func secondView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[1] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ReportCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+      typealias ReusableType = ReportCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "ReportCell"
+      let name = "ReportCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ReportCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ReportCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconReportNormal", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconReportNormal' is used in nib 'ReportCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ReportFooterView: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ReportFooterView"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ReportImageCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType, Rswift.Validatable {
+      typealias ReusableType = ReportImageCell
+      
+      let bundle = R.hostingBundle
+      let identifier = "ReportImageCell"
+      let name = "ReportImageCell"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> ReportImageCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? ReportImageCell
+      }
+      
+      static func validate() throws {
+        if UIKit.UIImage(named: "iconReportDelete", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'iconReportDelete' is used in nib 'ReportImageCell', but couldn't be loaded.") }
+        if #available(iOS 11.0, *) {
+        }
+      }
+      
+      fileprivate init() {}
+    }
+    
+    struct _ReportTableHeader: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "ReportTableHeader"
+      
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> UIKit.UIView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? UIKit.UIView
       }
       
       fileprivate init() {}

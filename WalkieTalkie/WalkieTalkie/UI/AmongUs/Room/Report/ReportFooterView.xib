@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ReportFooterView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="9cQ-wC-E22" id="2kD-WZ-J7B"/>
+                <outlet property="commentLabel" destination="LP1-Wc-t5X" id="812-oI-lVa"/>
+                <outlet property="placeholderLabel" destination="Un8-8M-jC1" id="8cE-fK-Udc"/>
+                <outlet property="reportButton" destination="0Yj-v1-MQg" id="zbW-kq-kLh"/>
+                <outlet property="reportHeight" destination="aSa-fz-rKx" id="EGz-fC-g2s"/>
+                <outlet property="textView" destination="VPM-T6-iNt" id="PjI-sr-csf"/>
+                <outlet property="uploadTitleLabel" destination="DPa-fO-NOL" id="ecW-rd-KfN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="410"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LP1-Wc-t5X">
+                    <rect key="frame" x="16" y="22" width="81" height="22"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                    <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.comments"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload screenshot" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPa-fO-NOL">
+                    <rect key="frame" x="16" y="182" width="142" height="22"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                    <color key="textColor" red="0.53725490196078429" green="0.53725490196078429" blue="0.53725490196078429" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.upload.screenshots"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VPM-T6-iNt">
+                    <rect key="frame" x="20" y="60" width="374" height="100"/>
+                    <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="1" green="0.20784313730000001" blue="0.33725490200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="gWO-QT-YHM"/>
+                    </constraints>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="WMS-fv-Eky"/>
+                    </connections>
+                </textView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9cQ-wC-E22">
+                    <rect key="frame" x="0.0" y="220" width="414" height="101"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="101" id="ppK-Mg-p9k"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="0tq-0B-W45">
+                        <size key="itemSize" width="101" height="101"/>
+                        <size key="headerReferenceSize" width="20" height="101"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Sy4-5x-MXW"/>
+                        <outlet property="delegate" destination="-1" id="yQ0-mD-j6c"/>
+                    </connections>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Yj-v1-MQg">
+                    <rect key="frame" x="20" y="354" width="374" height="48"/>
+                    <color key="backgroundColor" red="1" green="0.94117647058823528" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="aSa-fz-rKx"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="20"/>
+                    <state key="normal" title="REPORT">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.confirm"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="repotAction:" destination="-1" eventType="touchUpInside" id="0i5-io-z0B"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Un8-8M-jC1">
+                    <rect key="frame" x="36" y="72" width="82.5" height="25"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.comments"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lof-oa-Lxp">
+                    <rect key="frame" x="369" y="182" width="25" height="22"/>
+                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                    <color key="textColor" red="0.53725490200000003" green="0.53725490200000003" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.upload.screenshots"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="DPa-fO-NOL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="0VT-3f-9en"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="VPM-T6-iNt" secondAttribute="trailing" constant="20" id="0kJ-hX-i6R"/>
+                <constraint firstItem="LP1-Wc-t5X" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="22" id="6qA-Pw-OqC"/>
+                <constraint firstItem="Un8-8M-jC1" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="28" id="9PU-wx-h5l"/>
+                <constraint firstItem="0Yj-v1-MQg" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="IJM-Hv-68x"/>
+                <constraint firstItem="Lof-oa-Lxp" firstAttribute="centerY" secondItem="DPa-fO-NOL" secondAttribute="centerY" id="JU7-zy-tKS"/>
+                <constraint firstItem="Un8-8M-jC1" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="36" id="OOv-FL-wdl"/>
+                <constraint firstItem="DPa-fO-NOL" firstAttribute="top" secondItem="VPM-T6-iNt" secondAttribute="bottom" constant="22" id="QYQ-wB-9PP"/>
+                <constraint firstItem="VPM-T6-iNt" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="cdL-sU-AY4"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="9cQ-wC-E22" secondAttribute="trailing" id="fc2-Uk-ykW"/>
+                <constraint firstItem="VPM-T6-iNt" firstAttribute="top" secondItem="LP1-Wc-t5X" secondAttribute="bottom" constant="16" id="hiG-jC-Yn2"/>
+                <constraint firstItem="9cQ-wC-E22" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="iKh-FW-soB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="Lof-oa-Lxp" secondAttribute="trailing" constant="20" id="kzx-RY-dgN"/>
+                <constraint firstItem="9cQ-wC-E22" firstAttribute="top" secondItem="DPa-fO-NOL" secondAttribute="bottom" constant="16" id="lyL-Lt-nga"/>
+                <constraint firstItem="LP1-Wc-t5X" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="nJX-It-3gM"/>
+                <constraint firstItem="0Yj-v1-MQg" firstAttribute="top" secondItem="9cQ-wC-E22" secondAttribute="bottom" constant="33" id="qG7-Tv-Ghl"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="0Yj-v1-MQg" secondAttribute="trailing" constant="20" id="wRf-pJ-yaJ"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="153.34821428571428"/>
+        </view>
+    </objects>
+</document>

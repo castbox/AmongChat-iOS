@@ -464,3 +464,9 @@
 "group.apply.reject.tips" = "Sorry, your application was rejected.";
 
 "group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"report.user" = "Report user";
+"report.success" = "Report succeeded";
+"report.failed" = "Report failed. Please try again";
+"report.comments" = "Comments";
+"report.upload.screenshots" = "Upload screenshots";
+"report.confirm" = "Confirm report";
