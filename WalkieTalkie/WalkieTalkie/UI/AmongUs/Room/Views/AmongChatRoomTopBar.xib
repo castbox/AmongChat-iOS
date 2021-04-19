@@ -49,24 +49,8 @@
                         <action selector="publicButtonAction:" destination="-1" eventType="touchUpInside" id="dAn-TU-yS0"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGA-VZ-FHM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                    <rect key="frame" x="85" y="13" width="44" height="24"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="44" id="Ake-cj-s3g"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
-                    <state key="normal" title="Report" image="ac_icon_room_report">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="report.title"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="reportButtonAction:" destination="-1" eventType="touchUpInside" id="x63-Ut-ubL"/>
-                    </connections>
-                </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NIv-N4-bFM" customClass="BottomTitleButton" customModule="WalkieTalkie" customModuleProvider="target">
-                    <rect key="frame" x="133" y="13" width="44" height="24"/>
+                    <rect key="frame" x="85" y="13" width="44" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="44" id="W8l-0G-L5k"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="WlO-S3-hoM"/>
@@ -128,12 +112,10 @@
             <constraints>
                 <constraint firstItem="nnL-fi-G2g" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="6dW-0H-78X"/>
                 <constraint firstItem="nnL-fi-G2g" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="13" id="8xl-nf-yx6"/>
-                <constraint firstItem="gGA-VZ-FHM" firstAttribute="leading" secondItem="nnL-fi-G2g" secondAttribute="trailing" constant="10" id="DP8-1M-iH4"/>
-                <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="gGA-VZ-FHM" secondAttribute="centerY" id="KTm-Yf-80V"/>
-                <constraint firstItem="gGA-VZ-FHM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="NWV-LH-l6W"/>
-                <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="gGA-VZ-FHM" secondAttribute="trailing" constant="4" id="aI6-5a-Mv3"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="984-MS-e14"/>
                 <constraint firstAttribute="trailing" secondItem="ibe-fD-Q1S" secondAttribute="trailing" constant="10" id="fMj-Y3-oJ1"/>
                 <constraint firstItem="ibe-fD-Q1S" firstAttribute="centerY" secondItem="nnL-fi-G2g" secondAttribute="centerY" id="mCx-GY-3cZ"/>
+                <constraint firstItem="NIv-N4-bFM" firstAttribute="leading" secondItem="nnL-fi-G2g" secondAttribute="trailing" constant="10" id="sbK-EW-cwW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="-246.37681159420291" y="141.29464285714286"/>
@@ -143,6 +125,5 @@
         <image name="ac_icon_kick_user" width="24" height="24"/>
         <image name="ac_icon_leave" width="24" height="24"/>
         <image name="ac_icon_room_next" width="24" height="24"/>
-        <image name="ac_icon_room_report" width="24.5" height="24"/>
     </resources>
 </document>

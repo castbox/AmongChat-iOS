@@ -48,13 +48,27 @@ extension ChatRoom {
         let content: String
         let user: Entity.RoomUser
         let msgType: MessageType
+        let contentColor: String?
         
         var isGroupRoomHostMsg: Bool = false
         
         private enum CodingKeys: String, CodingKey {
             case content
             case user
+            case contentColor = "content_color"
             case msgType = "message_type"
+        }
+        
+        init(content: String,
+             user: Entity.RoomUser,
+             msgType: MessageType,
+             contentColor: String? = nil,
+             isGroupRoomHostMsg: Bool = false) {
+            self.content = content
+            self.user = user
+            self.msgType = msgType
+            self.contentColor = contentColor
+            self.isGroupRoomHostMsg = isGroupRoomHostMsg
         }
     }
 
@@ -295,7 +309,7 @@ extension ChatRoom.TextMessage {
         ]
         
         let contentAttr: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.white,
+            .foregroundColor: contentColor?.color() ?? UIColor.white,
             .font: R.font.nunitoSemiBold(size: 12) ?? Font.caption1.value,
             .paragraphStyle: pargraph
 //            .kern: 0.5

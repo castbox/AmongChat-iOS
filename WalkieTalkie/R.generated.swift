@@ -216,7 +216,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
   
-  /// This `R.image` struct is generated, and contains static references to 202 images.
+  /// This `R.image` struct is generated, and contains static references to 203 images.
   struct image {
     /// Image `ac_add_stats_add`.
     static let ac_add_stats_add = Rswift.ImageResource(bundle: R.hostingBundle, name: "ac_add_stats_add")
@@ -534,6 +534,8 @@ struct R: Rswift.Validatable {
     static let btn_up = Rswift.ImageResource(bundle: R.hostingBundle, name: "btn_up")
     /// Image `home_name_edit`.
     static let home_name_edit = Rswift.ImageResource(bundle: R.hostingBundle, name: "home_name_edit")
+    /// Image `iconMutedTips`.
+    static let iconMutedTips = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconMutedTips")
     /// Image `iconReportDelete`.
     static let iconReportDelete = Rswift.ImageResource(bundle: R.hostingBundle, name: "iconReportDelete")
     /// Image `iconReportNormal`.
@@ -1413,6 +1415,11 @@ struct R: Rswift.Validatable {
       return UIKit.UIImage(resource: R.image.home_name_edit, compatibleWith: traitCollection)
     }
     
+    /// `UIImage(named: "iconMutedTips", bundle: ..., traitCollection: ...)`
+    static func iconMutedTips(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.iconMutedTips, compatibleWith: traitCollection)
+    }
+    
     /// `UIImage(named: "iconReport", bundle: ..., traitCollection: ...)`
     static func iconReport(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
       return UIKit.UIImage(resource: R.image.iconReport, compatibleWith: traitCollection)
@@ -2136,7 +2143,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 412 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 414 localization keys.
     struct localizable {
       /// en translation:  Congratulations!
       /// 
@@ -3262,14 +3269,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en
       static let reportFailed = Rswift.StringResource(key: "report.failed", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
-      /// en translation: Report succeeded
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Report user
       /// 
       /// Locales: en
       static let reportUser = Rswift.StringResource(key: "report.user", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: Reported successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let reportSuccess = Rswift.StringResource(key: "report.success", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Requests
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -3682,6 +3689,14 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static let groupRoomAnoymonusUserApplySeatTips = Rswift.StringResource(key: "group.room.anoymonus.user.apply.seat.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
+      /// en translation: You have been muted because of a violation of Community Guidelines.
+      /// 
+      /// Locales: en
+      static let messageDisableTips = Rswift.StringResource(key: "message.disable.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// en translation: You have been muted because of a violation of Community Guidelines.
+      /// 
+      /// Locales: en
+      static let micMutedTips = Rswift.StringResource(key: "mic.muted.tips", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5754,18 +5769,18 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("report.failed", bundle: R.hostingBundle, comment: "")
       }
       
-      /// en translation: Report succeeded
-      /// 
-      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
-      static func reportSuccess(_: Void = ()) -> String {
-        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
-      }
-      
       /// en translation: Report user
       /// 
       /// Locales: en
       static func reportUser(_: Void = ()) -> String {
         return NSLocalizedString("report.user", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Reported successfully
+      /// 
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static func reportSuccess(_: Void = ()) -> String {
+        return NSLocalizedString("report.success", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Requests
@@ -6489,6 +6504,20 @@ struct R: Rswift.Validatable {
         return NSLocalizedString("group.room.anoymonus.user.apply.seat.tips", bundle: R.hostingBundle, comment: "")
       }
       
+      /// en translation: You have been muted because of a violation of Community Guidelines.
+      /// 
+      /// Locales: en
+      static func messageDisableTips(_: Void = ()) -> String {
+        return NSLocalizedString("message.disable.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: You have been muted because of a violation of Community Guidelines.
+      /// 
+      /// Locales: en
+      static func micMutedTips(_: Void = ()) -> String {
+        return NSLocalizedString("mic.muted.tips", bundle: R.hostingBundle, comment: "")
+      }
+      
       /// en translation: You have successfully  blocked this person
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -6737,7 +6766,6 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "ac_icon_kick_user", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_kick_user' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_leave", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_leave' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if UIKit.UIImage(named: "ac_icon_room_next", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_next' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
-        if UIKit.UIImage(named: "ac_icon_room_report", in: R.hostingBundle, compatibleWith: nil) == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'ac_icon_room_report' is used in nib 'AmongChatRoomTopBar', but couldn't be loaded.") }
         if #available(iOS 11.0, *) {
         }
       }

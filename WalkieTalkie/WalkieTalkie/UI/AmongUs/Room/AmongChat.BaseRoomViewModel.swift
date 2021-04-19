@@ -259,7 +259,7 @@ extension AmongChat {
                     if let text = message as? ChatRoom.TextMessage {
                         //过滤
                         let (_, result) = SensitiveWordChecker.default.filter(text: text.content)
-                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType, isGroupRoomHostMsg: text.isGroupRoomHostMsg)
+                        return ChatRoom.TextMessage(content: result, user: text.user, msgType: text.msgType, contentColor: text.contentColor, isGroupRoomHostMsg:  text.isGroupRoomHostMsg)
                     } else {
                         return message
                     }
@@ -313,12 +313,21 @@ extension AmongChat {
                   let user = roomInfo.userList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
-
+            //检查是否 Im 被 mute
+//            guard <#condition#> else {
+//                <#statements#>
+//            }
+            addImMutedMessage(user: user)
             let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
             imViewModel.sendText(message: textMessage) { [weak self] in
                 Logger.Action.log(.group_send_message_success, categoryValue: self?.roomInfo.topicId)
             }
             //append
+            addUIMessage(message: textMessage)
+        }
+        
+        func addImMutedMessage(user: Entity.RoomUser) {
+            let textMessage = ChatRoom.TextMessage(content: R.string.localizable.messageDisableTips(), user: user, msgType: .text, contentColor: "FB5858")
             addUIMessage(message: textMessage)
         }
         
@@ -357,47 +366,6 @@ extension AmongChat {
             }
             seatDataSource = dataSource
         }
-        
-//        func update(_ userList: [Entity.RoomUser]) {
-//            let blockedUsers = self.blockedUsers
-//            var copyOfUserList = userList
-//            if let selfUser = copyOfUserList.removeFirst(where: { $0.uid.int! == Constants.sUserId }) {
-//                copyOfUserList.insert(selfUser, at: 0)
-//            }
-//            let users = copyOfUserList.map { item -> ChannelUser in
-//                var user = item
-//                if blockedUsers.contains(where: { $0.uid == item.uid }) {
-//                    user.isMuted = true
-//                    user.status = .blocked
-//                } else if mutedUser.contains(item.uid.int!.uInt) {
-//                    user.isMuted = true
-//                    user.status = .muted
-//                } else {
-//                    user.isMuted = false
-//                    user.status = .connected
-//                }
-//                return user
-//            }
-//            dataSource.accept(users)
-//        }
-        
-//        func updateVolumeIndication(userId: UInt, volume: UInt) {
-//            //            cdPrint("userid: \(userId) volume: \(volume)")
-//            let users = dataSource.value.map { item -> ChannelUser in
-//                guard item.status != .blocked,
-//                      item.status != .muted,
-//                      item.status != .droped,
-//                      item.uid.int!.uInt == userId,
-//                      volume > 0 else {
-//                    return item
-//                }
-//                var user = item
-//                user.status = .talking
-//                cdPrint("user: \(user)")
-//                return user
-//            }
-//            dataSource.accept(users)
-//        }
         
         func followUser(_ user: Entity.RoomUser) {
             followUserSuccess?(.begin, false)

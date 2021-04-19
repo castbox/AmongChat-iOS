@@ -51,12 +51,14 @@ extension Report {
         private let type: ReportType
         private let viewModel: ViewModel
         private var footerView: ReportFooterView!
+        private var completionHandler: CallBack?
         
         static func showReport(on targetVC: UIViewController,
                                id: String,
                                image: UIImage?,
-                               type: ReportType) {
+                               type: ReportType, completionHandler: CallBack?) {
             let controller = Report.ViewController(id: id, image: image, type: type)
+            controller.completionHandler = completionHandler
             targetVC.navigationController?.pushViewController(controller, animated: true)
         }
         
@@ -180,12 +182,15 @@ extension Report.ViewController {
             .observeOn(MainScheduler.asyncInstance)
             .subscribe(
                 onNext: { [weak self] result in
+                    guard let `self` = self else { return }
                     remove()
                     if result {
-                        self?.show(toast: R.string.localizable.reportSuccess())
-                        self?.navigationController?.popViewController(animated: true)
+                        self.show(toast: R.string.localizable.reportSuccess())
+                        self.navigationController?.popViewController(animated: true) { [weak self] in
+                            self?.completionHandler?()
+                        }
                     } else {
-                        self?.show(toast: R.string.localizable.reportFailed())
+                        self.show(toast: R.string.localizable.reportFailed())
                     }
                 }, onError: { [weak self] error in
                     remove()
