@@ -39,7 +39,11 @@ extension AmongChat.CreateRoom {
             let vInset: CGFloat = 24
             let hwRatio: CGFloat = 128.0 / 128.0
             let interSpace: CGFloat = 20
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace ) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                columns = 4
+            }
+            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1) ) / CGFloat(columns)
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 20
@@ -530,7 +534,11 @@ extension AmongChat.CreateRoom.ViewController {
     }
     
     private func decorateAlert(_ alert: AlertController) {
-        alert.visualStyle.width = Frame.Screen.width - 28 * 2
+        var hPadding: CGFloat = 28
+        adaptToIPad {
+            hPadding = 190
+        }
+        alert.visualStyle.width = Frame.Screen.width - hPadding * 2
         alert.visualStyle.verticalElementSpacing = 0
         alert.visualStyle.contentPadding = UIEdgeInsets(top: 33.5, left: 0, bottom: 0, right: 0)
         alert.visualStyle.actionViewSize = CGSize(width: 0, height: 49)
