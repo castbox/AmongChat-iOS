@@ -43,8 +43,8 @@ extension AmongChat.CreateRoom {
             adaptToIPad {
                 columns = 4
             }
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1) ) / CGFloat(columns)
-            let cellHeight = cellWidth * hwRatio
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1) ) / CGFloat(columns)).rounded(.towardZero)
+            let cellHeight = ceil(cellWidth * hwRatio)
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 20
             layout.minimumInteritemSpacing = interSpace
