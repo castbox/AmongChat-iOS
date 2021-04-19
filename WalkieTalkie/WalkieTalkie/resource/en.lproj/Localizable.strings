@@ -338,7 +338,6 @@
 "among.chat.room.freefire.name.prefix" = "Nickname: %1$@";
 "among.chat.room.mobile.legends.name" = "MLBB Name/ID";
 "among.chat.room.mobile.legends.name.prefix" = "Name/ID: %1$@";
-"among.chat.room.minecraft.name" = "Set Minecraft Gamertag";
 "among.chat.room.minecraft.name.prefix" = "Gamertag: %1$@";
 "among.chat.room.pubg.name.id" = "PUBG Player Name/ID";
 "among.chat.room.pubg.name.id.prefix" = "Name/ID: %1$@";
@@ -464,3 +463,6 @@
 "group.apply.reject.tips" = "Sorry, your application was rejected.";
 
 "group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+
+//19
+"among.chat.room.minecraft.name" = "Minecraft Gamertag";

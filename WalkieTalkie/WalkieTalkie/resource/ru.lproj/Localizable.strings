@@ -338,7 +338,7 @@
 "among.chat.room.freefire.name.prefix" = "Ник: %1$@";
 "among.chat.room.mobile.legends.name" = "MLBB Имя/ID ";
 "among.chat.room.mobile.legends.name.prefix" = "Имя/ID: %1$@";
-"among.chat.room.minecraft.name" = "Установить Тег игрока Minecraft ";
+//"among.chat.room.minecraft.name" = "Установить Тег игрока Minecraft ";
 "among.chat.room.minecraft.name.prefix" = "Тег игрока: %1$@ ";
 "among.chat.room.pubg.name.id" = "PUBG Имя/ID игрока ";
 "among.chat.room.pubg.name.id.prefix" = "Имя/ID: %1$@";
