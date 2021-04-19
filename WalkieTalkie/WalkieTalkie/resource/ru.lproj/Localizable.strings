@@ -338,7 +338,6 @@
 "among.chat.room.freefire.name.prefix" = "Ник: %1$@";
 "among.chat.room.mobile.legends.name" = "MLBB Имя/ID ";
 "among.chat.room.mobile.legends.name.prefix" = "Имя/ID: %1$@";
-//"among.chat.room.minecraft.name" = "Установить Тег игрока Minecraft ";
 "among.chat.room.minecraft.name.prefix" = "Тег игрока: %1$@ ";
 "among.chat.room.pubg.name.id" = "PUBG Имя/ID игрока ";
 "among.chat.room.pubg.name.id.prefix" = "Имя/ID: %1$@";
@@ -463,4 +462,7 @@
 "group.room.audience.droped.tips" = "О нет, тебя выгнали со сцены.";
 "group.apply.reject.tips" = "Извините, ваша заявка была отклонена.";
 
-"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"group.welcome.message" = "Добро пожаловать в группу %@. Любая порнография или непристойное содержание строго запрещено. Группы контролируются 24/7, и пользователи, обнаружившие такой контент, могут быть забанены.";
+
+//1.17.1
+"among.chat.room.minecraft.name" = "Тег игрока Minecraft ";

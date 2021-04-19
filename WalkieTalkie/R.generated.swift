@@ -2855,8 +2855,8 @@ struct R: Rswift.Validatable {
       static let amongChatGroupMembers = Rswift.StringResource(key: "among.chat.group.members", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: Minecraft Gamertag
       /// 
-      /// Locales: en
-      static let amongChatRoomMinecraftName = Rswift.StringResource(key: "among.chat.room.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en"], comment: nil)
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
+      static let amongChatRoomMinecraftName = Rswift.StringResource(key: "among.chat.room.minecraft.name", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ar", "de", "es", "fr", "it", "ko", "pt-BR", "ru"], comment: nil)
       /// en translation: More options
       /// 
       /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
@@ -5075,7 +5075,7 @@ struct R: Rswift.Validatable {
       
       /// en translation: Minecraft Gamertag
       /// 
-      /// Locales: en
+      /// Locales: en, ar, de, es, fr, it, ko, pt-BR, ru
       static func amongChatRoomMinecraftName(_: Void = ()) -> String {
         return NSLocalizedString("among.chat.room.minecraft.name", bundle: R.hostingBundle, comment: "")
       }

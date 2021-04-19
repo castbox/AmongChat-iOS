@@ -462,4 +462,7 @@
 "group.room.audience.droped.tips" = "أوه لا ، لقد تم طردك من المسرح.";
 "group.apply.reject.tips" = "عذرا ، تم رفض طلبك.";
 
-"group.welcome.message" = "Welcome to %@ group. Any pornography or other inappropriate content is strictly prohibited. Groups are monitored 24/7 and users found with such content may be banned.";
+"group.welcome.message" = "مرحبًا بكم في مجموعة %@. يمنع منعا باتا أي مواد إباحية أو غيرها من المحتويات غير اللائقة. تتم مراقبة المجموعات 24/7 وقد يتم حظر المستخدمين الذين يتم العثور عليهم بمثل هذا المحتوى.";
+
+//1.17.1
+"among.chat.room.minecraft.name" = "علامة اللاعب Minecraft";
