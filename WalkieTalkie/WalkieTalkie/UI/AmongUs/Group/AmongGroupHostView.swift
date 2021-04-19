@@ -72,6 +72,7 @@ class AmongGroupHostView: XibLoadableView {
     private var onSeatBadge: BadgeHub?
     private var applyGroupBadge: BadgeHub?
     private var tipView: EasyTipView?
+    private weak var tipBgView: UIView?
 //    private let bag = DisposeBag()
 //    private var isShowTips: Bool
     
@@ -171,8 +172,6 @@ class AmongGroupHostView: XibLoadableView {
         guard let viewController = containingController else {
             return
         }
-//        Logger.Action.log(.room_user_profile_imp, categoryValue: room.topicId)
-        
         var items: [AmongSheetController.ItemType] = [.userInfo, .profile]
 
         let isFollowed = relation.isFollowed ?? false
@@ -212,11 +211,23 @@ class AmongGroupHostView: XibLoadableView {
         preferences.drawing.backgroundColor = .white
         preferences.drawing.arrowPosition = .top
         
-        tipView = EasyTipView(text: tips,
+        
+        let tipView = EasyTipView(text: tips,
                               preferences: preferences,
                               delegate: self)
-        tipView?.tag = 0
-        tipView?.show(animated: true, forView: gameNameButton, withinSuperview: superview)
+        
+        let bgView = UIView(frame: Frame.Screen.bounds)
+        bgView.rx.tapGesture()
+            .subscribe(onNext: { [weak self] gesture in
+                self?.dismissTipView()
+            })
+            .disposed(by: bag)
+        self.tipBgView = bgView
+        containingController?.view.addSubview(bgView)
+        
+        self.tipView = tipView
+        tipView.tag = 0
+        tipView.show(animated: true, forView: gameNameButton, withinSuperview: containingController?.view)
         Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)
             .single()
@@ -319,7 +330,9 @@ class AmongGroupHostView: XibLoadableView {
     }
     
     @objc func dismissTipView() {
+        tipBgView?.removeFromSuperview()
         tipView?.dismiss()
+        tipView = nil
     }
     
     @IBAction func raisedHandsAction(_ sender: Any) {

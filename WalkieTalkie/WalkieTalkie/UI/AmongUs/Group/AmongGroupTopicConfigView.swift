@@ -30,7 +30,8 @@ class AmongGroupTopicConfigView: XibLoadableView {
     @IBOutlet weak var robloxContainer: UIView!
     @IBOutlet weak var robloxLinkButton: UIButton!
     @IBOutlet weak var robloxLinkEditButton: UIButton!
-    private var tipView: EasyTipView?
+    private weak var tipView: EasyTipView?
+    private weak var tipBgView: UIView?
     private let bag = DisposeBag()
     private var scheduleDispose: Disposable?
     
@@ -121,6 +122,8 @@ class AmongGroupTopicConfigView: XibLoadableView {
         scheduleDispose?.dispose()
         tipView?.dismiss()
         tipView = nil
+        tipBgView?.removeFromSuperview()
+        tipBgView = nil
     }
     
     @IBAction func robloxLinkTapAction(_ sender: Any) {
@@ -166,6 +169,7 @@ class AmongGroupTopicConfigView: XibLoadableView {
                 self?.dismissTipsView()
             })
             .disposed(by: bag)
+        self.tipBgView = bgView
         containingController?.view.addSubview(bgView)
         
         let view = AmongGroupRoomTipsView()
@@ -174,11 +178,12 @@ class AmongGroupTopicConfigView: XibLoadableView {
         }
         let viewSize = view.update(group)
         view.size = viewSize
-        tipView = EasyTipView(contentView: view,
+        let tipView = EasyTipView(contentView: view,
                               preferences: preferences,
                               delegate: self)
-        tipView?.tag = 0
-        tipView?.show(animated: true, forView: notesButton, withinSuperview: containingController?.view)
+        tipView.tag = 0
+        tipView.show(animated: true, forView: notesButton, withinSuperview: containingController?.view)
+        self.tipView = tipView
         scheduleDispose = Observable<Int>
             .interval(.seconds(5), scheduler: MainScheduler.instance)
             .single()

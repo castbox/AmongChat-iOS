@@ -64,7 +64,7 @@ extension AmongChat.Room {
                 } else {// 超过一屏
                     if floor(bottomOffset) - floor(height) < 40 {// 已经在底部
                         let rows = self.messageView.numberOfRows(inSection: 0)
-                        let newRow = dataSource.messages.count
+                        let newRow = self.dataSource?.messages.count ?? 0
                         guard newRow > rows else { return }
                         let indexPaths = Array(rows..<newRow).map({ IndexPath(row: $0, section: 0) })
                         self.messageView.beginUpdates()

@@ -78,7 +78,7 @@ extension FansGroup {
         }()
         
         private var shareUrl: String {
-            return "https://among.chat/group?gid=\(groupId)"
+            return "https://among.chat/group/\(groupId)"
         }
         
         private var shareText: String {
