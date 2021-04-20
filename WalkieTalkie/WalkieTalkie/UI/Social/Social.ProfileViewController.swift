@@ -140,8 +140,8 @@ extension Social {
             layout.minimumLineSpacing = 20
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
             v.contentInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
-            v.register(cellWithClass: FansGroupSelfItemCell.self)
-            v.register(cellWithClass: FansGroupItemCell.self)
+            v.register(FansGroupItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupItemCell.self))
+            v.register(FansGroupSelfItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self))
             v.register(cellWithClass: ProfileTableCell.self)
             v.register(cellWithClass: GameCell.self)
             v.register(cellWithClass: JoinedGroupCell.self)
@@ -739,23 +739,27 @@ extension Social.ProfileViewController: UICollectionViewDataSource, UICollection
             let group = createdGroupsRelay.value[indexPath.row]
             
             if isSelfProfile.value {
-                let cell = collectionView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
-                cell.tagView.isHidden = true
-                cell.bindData(group)  { [weak self] action in
-                    guard let `self` = self else { return }
-                    switch action {
-                    case .edit:
-                        self.gotoEditGroup(group.gid)
-                        Logger.Action.log(.profile_group_clk, categoryValue: "edit")
-                    case .start:
-                        self.enter(group: group, logSource: .init(.profile), apiSource: nil)
-                        Logger.Action.log(.profile_group_clk, categoryValue: "start")
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FansGroupSelfItemCell.self), for: indexPath)
+                if let cell = cell as? FansGroupSelfItemCell {
+                    cell.tagView.isHidden = true
+                    cell.bindData(group)  { [weak self] action in
+                        guard let `self` = self else { return }
+                        switch action {
+                        case .edit:
+                            self.gotoEditGroup(group.gid)
+                            Logger.Action.log(.profile_group_clk, categoryValue: "edit")
+                        case .start:
+                            self.enter(group: group, logSource: .init(.profile), apiSource: nil)
+                            Logger.Action.log(.profile_group_clk, categoryValue: "start")
+                        }
                     }
                 }
                 return cell
             } else {
-                let cell = collectionView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
-                cell.bindData(group)
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FansGroupItemCell.self), for: indexPath)
+                if let cell = cell as? FansGroupItemCell {
+                    cell.bindData(group)
+                }
                 return cell
             }
             
