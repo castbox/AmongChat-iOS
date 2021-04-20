@@ -35,12 +35,13 @@ extension AmongChat.CreateRoom {
         private lazy var topicCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let vInset: CGFloat = 24
             let hwRatio: CGFloat = 128.0 / 128.0
             let interSpace: CGFloat = 20
             var columns: Int = 2
             adaptToIPad {
+                hInset = 40
                 columns = 4
             }
             let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1) ) / CGFloat(columns)).rounded(.towardZero)
@@ -95,8 +96,13 @@ extension AmongChat.CreateRoom {
             v.backgroundColor = Theme.mainBgColor
             v.addSubviews(views: privateStateLabel, privateStateSwitch, cardButton, confirmButton)
             
+            var hInset: CGFloat = 20
+            adaptToIPad {
+                hInset = 40
+            }
+            
             privateStateLabel.snp.makeConstraints { (maker) in
-                maker.leading.equalToSuperview().inset(20)
+                maker.leading.equalToSuperview().inset(hInset)
                 maker.top.equalToSuperview().offset(12.5)
             }
             
@@ -106,12 +112,12 @@ extension AmongChat.CreateRoom {
             }
             
             cardButton.snp.makeConstraints { (maker) in
-                maker.trailing.equalToSuperview().offset(-20)
+                maker.trailing.equalToSuperview().inset(hInset)
                 maker.centerY.equalTo(privateStateLabel)
             }
             
             confirmButton.snp.makeConstraints { (maker) in
-                maker.leading.trailing.equalToSuperview().inset(20)
+                maker.leading.trailing.equalToSuperview().inset(hInset)
                 maker.height.equalTo(48)
                 maker.top.equalTo(62)
             }
