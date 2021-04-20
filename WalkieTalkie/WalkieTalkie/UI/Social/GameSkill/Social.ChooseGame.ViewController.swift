@@ -40,11 +40,16 @@ extension Social.ChooseGame {
         private lazy var gameCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let vInset: CGFloat = 24
             let hwRatio: CGFloat = 128.0 / 128.0
             let interSpace: CGFloat = 20
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace ) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumLineSpacing = 20
