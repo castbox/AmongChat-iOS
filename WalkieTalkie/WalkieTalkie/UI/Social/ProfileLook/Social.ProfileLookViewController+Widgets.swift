@@ -296,10 +296,15 @@ extension Social.ProfileLookViewController {
         private lazy var decorationCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let interSpace: CGFloat = 20
             let hwRatio: CGFloat = viewModel.decorationType == .pet ? (196.0 / 157.5) : 1
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
             let cellHeight = (cellWidth * hwRatio).rounded()
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interSpace
@@ -531,6 +536,13 @@ extension Social.ProfileLookViewController {
                     maker.leading.equalToSuperview().inset(19.scalValue.rounded())
                 }
                 
+                adaptToIPad {
+                    decorationIV.snp.remakeConstraints { (maker) in
+                        maker.center.equalToSuperview()
+                        maker.width.height.equalTo(95)
+                    }
+                }
+                
             case .bg:
                 decorationIV.snp.remakeConstraints { (maker) in
                     maker.edges.equalToSuperview()
@@ -549,6 +561,20 @@ extension Social.ProfileLookViewController {
                     maker.leading.trailing.equalToSuperview().inset(20.scalValue.rounded())
                     maker.height.equalTo(40)
                     maker.bottom.equalToSuperview().inset(20.scalValue.rounded())
+                }
+                
+                adaptToIPad {
+                    svgaView.snp.remakeConstraints { (maker) in
+                        maker.centerX.equalToSuperview()
+                        maker.width.height.equalTo(95)
+                        maker.centerY.equalToSuperview().multipliedBy(0.8)
+                    }
+                    
+                    statusLabel.snp.remakeConstraints { (maker) in
+                        maker.leading.trailing.equalToSuperview().inset(20)
+                        maker.height.equalTo(40)
+                        maker.bottom.equalToSuperview().inset(20)
+                    }
                 }
                 
                 statusLabel.layer.cornerRadius = 20

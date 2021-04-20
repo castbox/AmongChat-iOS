@@ -107,6 +107,13 @@ private extension Social.ProfileLookViewController {
             maker.height.equalTo(profileLookView.snp.width).multipliedBy(1)
         }
         
+        adaptToIPad {
+            profileLookView.snp.makeConstraints { (maker) in
+                maker.top.leading.trailing.equalToSuperview()
+                maker.height.equalTo(375)
+            }
+        }
+        
         let navLayoutGuide = UILayoutGuide()
         view.addLayoutGuide(navLayoutGuide)
         navLayoutGuide.snp.makeConstraints { (maker) in

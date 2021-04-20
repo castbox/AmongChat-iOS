@@ -41,10 +41,15 @@ extension Social {
         private lazy var avatarCollectionView: UICollectionView = {
             let layout = UICollectionViewFlowLayout()
             layout.scrollDirection = .vertical
-            let hInset: CGFloat = 20
+            var hInset: CGFloat = 20
             let interSpace: CGFloat = 20
             let hwRatio: CGFloat = 1
-            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interSpace) / 2
+            var columns: Int = 2
+            adaptToIPad {
+                hInset = 40
+                columns = 4
+            }
+            let cellWidth = ((UIScreen.main.bounds.width - hInset * 2 - interSpace * CGFloat(columns - 1)) / CGFloat(columns)).rounded(.towardZero)
             let cellHeight = cellWidth * hwRatio
             layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
             layout.minimumInteritemSpacing = interSpace
