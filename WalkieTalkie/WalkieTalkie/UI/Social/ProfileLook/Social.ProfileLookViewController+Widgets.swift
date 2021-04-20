@@ -17,6 +17,8 @@ extension Social.ProfileLookViewController {
         
         private lazy var profileBgIV: UIImageView = {
             let i = UIImageView(image: R.image.ac_profile_look_bg_defalut())
+            i.contentMode = .scaleAspectFill
+            i.clipsToBounds = true
             return i
         }()
         
@@ -72,6 +74,14 @@ extension Social.ProfileLookViewController {
                 maker.centerX.equalToSuperview()
                 maker.width.height.equalTo(210.scalValue)
                 maker.centerY.equalToSuperview().multipliedBy(1.2)
+            }
+            
+            adaptToIPad {
+                skinIV.snp.remakeConstraints { (maker) in
+                    maker.centerX.equalToSuperview()
+                    maker.width.height.equalTo(210)
+                    maker.centerY.equalToSuperview().multipliedBy(1.2)
+                }
             }
             
             hatIV.snp.makeConstraints { (maker) in
