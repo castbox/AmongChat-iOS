@@ -48,23 +48,32 @@ extension FansGroup {
             return n
         }()
         
-        private lazy var tableView: UITableView = {
-            let tb = UITableView(frame: .zero, style: .plain)
-            tb.register(nibWithCellClass: FansGroupSelfItemCell.self)
-            tb.register(nibWithCellClass: FansGroupItemCell.self)
-            tb.dataSource = self
-            tb.delegate = self
-            tb.rowHeight = 149
-            tb.separatorStyle = .none
-            tb.backgroundColor = .clear
-            if #available(iOS 11.0, *) {
-                tb.contentInsetAdjustmentBehavior = .never
-            } else {
-                // Fallback on earlier versions
-                automaticallyAdjustsScrollViewInsets = false
-            }
-            tb.contentInset = UIEdgeInsets(top: 2, left: 0, bottom: 100, right: 0)
-            return tb
+        private typealias FansGroupSelfItemCell = FansGroup.Views.OwnedGroupCell
+        private typealias FansGroupItemCell = FansGroup.Views.JoinedGroupCell
+        
+        private lazy var groupListView: UICollectionView = {
+            let layout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .vertical
+            var hInset: CGFloat = 20
+            var columns: Int = 1
+            let interitemSpacing: CGFloat = 20
+            let hwRatio: CGFloat = 129.0 / 335.0
+            let cellWidth = (UIScreen.main.bounds.width - hInset * 2 - interitemSpacing * CGFloat(columns - 1)) / CGFloat(columns)
+            let cellHeight = ceil(cellWidth * hwRatio)
+            layout.itemSize = CGSize(width: cellWidth, height: cellHeight)
+            layout.minimumInteritemSpacing = interitemSpacing
+            layout.minimumLineSpacing = 20
+            layout.sectionInset = UIEdgeInsets(top: 2, left: hInset, bottom: 100, right: hInset)
+            let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            v.register(cellWithClass: FansGroupSelfItemCell.self)
+            v.register(cellWithClass: FansGroupItemCell.self)
+            v.showsVerticalScrollIndicator = false
+            v.showsHorizontalScrollIndicator = false
+            v.dataSource = self
+            v.delegate = self
+            v.backgroundColor = .clear
+            v.alwaysBounceVertical = true
+            return v
         }()
         
         private lazy var emptyView: FansGroup.Views.EmptyDataView = {
@@ -103,7 +112,7 @@ extension FansGroup {
 extension FansGroup.GroupListViewController {
     
     private func setUpLayout() {
-        view.addSubviews(views: emptyView, tableView)
+        view.addSubviews(views: emptyView, groupListView)
         
         emptyView.snp.makeConstraints { (maker) in
             maker.centerX.equalToSuperview()
@@ -113,7 +122,7 @@ extension FansGroup.GroupListViewController {
         
         switch source {
         case .myGroups, .allGroups:
-            tableView.snp.makeConstraints { (maker) in
+            groupListView.snp.makeConstraints { (maker) in
                 maker.edges.equalToSuperview()
             }
             
@@ -126,17 +135,17 @@ extension FansGroup.GroupListViewController {
                 maker.height.equalTo(49)
             }
             
-            tableView.snp.makeConstraints { (maker) in
+            groupListView.snp.makeConstraints { (maker) in
                 maker.leading.bottom.trailing.equalToSuperview()
                 maker.top.equalTo(navView.snp.bottom)
             }
         }
         
-        tableView.pullToRefresh { [weak self] in
+        groupListView.pullToRefresh { [weak self] in
             self?.loadData(refresh: true)
         }
         
-        tableView.pullToLoadMore { [weak self] in
+        groupListView.pullToLoadMore { [weak self] in
             self?.loadData()
         }
     }
@@ -146,8 +155,8 @@ extension FansGroup.GroupListViewController {
             .skip(1)
             .subscribe(onNext: { [weak self] (groups) in
                 self?.emptyView.isHidden = groups.count > 0
-                self?.tableView.isHidden = !(groups.count > 0)
-                self?.tableView.reloadData()
+                self?.groupListView.isHidden = !(groups.count > 0)
+                self?.groupListView.reloadData()
             })
             .disposed(by: bag)
         
@@ -230,7 +239,7 @@ extension FansGroup.GroupListViewController {
                 groups.append(contentsOf: groupList.map({ GroupViewModel(group: $0) }))
                 self.groupsRelay.accept(groups)
                 self.hasMoreData = groupList.count > 0
-                self.tableView.endLoadMore(self.hasMoreData)
+                self.groupListView.endLoadMore(self.hasMoreData)
             })
             .disposed(by: bag)
     }
@@ -253,21 +262,21 @@ extension FansGroup.GroupListViewController {
     }
 }
 
-extension FansGroup.GroupListViewController: UITableViewDataSource {
+extension FansGroup.GroupListViewController: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return groupsRelay.value.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let group = groupsRelay.value.safe(indexPath.row) else {
-            let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
             return cell
         }
         
         if group.isOwnedByMe {
-            let cell = tableView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: FansGroupSelfItemCell.self, for: indexPath)
             cell.bindData(group.group) { [weak self] action in
                 guard let `self` = self else { return }
                 switch action {
@@ -279,7 +288,7 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withClass: FansGroupItemCell.self, for: indexPath)
             cell.bindData(group.group)
             return cell
         }
@@ -287,9 +296,9 @@ extension FansGroup.GroupListViewController: UITableViewDataSource {
     }
 }
 
-extension FansGroup.GroupListViewController: UITableViewDelegate {
+extension FansGroup.GroupListViewController: UICollectionViewDelegate {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let group = groupsRelay.value.safe(indexPath.row) else {
             return
