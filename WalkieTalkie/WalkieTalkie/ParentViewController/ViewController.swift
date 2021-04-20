@@ -307,14 +307,11 @@ class ActivityViewCustomActivity: UIActivity {
         activityDidFinish(true)
     }
 }
-
-extension ViewController {
     
-    func adaptToIPad(_ adaption:(() -> Void)) {
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            adaption()
-        }
-        
+func adaptToIPad(_ adaption:(() -> Void)) {
+    
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        adaption()
     }
+    
 }
