@@ -156,7 +156,7 @@ extension AmongChat.GroupRoom {
             addUIMessage(message: textMessage)
         }
         
-        override func update(_ room: RoomInfoable) {
+        override func update(_ room: RoomDetailable) {
             super.update(room)
             //同步
             let user = updateSeatUserStatus(broadcaster)

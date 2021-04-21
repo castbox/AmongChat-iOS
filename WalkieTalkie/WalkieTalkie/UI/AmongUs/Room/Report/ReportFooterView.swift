@@ -22,13 +22,15 @@ class ReportFooterView: XibLoadableView {
     
     @IBOutlet weak var uploadTitleLabel: UILabel!
     @IBOutlet weak var uploadSubtitleLabel: UILabel!
+    @IBOutlet weak var countLabel: UILabel!
+    
     var images: [Report.ImageItem] = []
     
     var selectImageHandler: () -> Void = { }
     var reportHandler: (String, [UIImage]) -> Void = { _, _ in }
     
     private let placeholderItem = Report.ImageItem(image: nil)
-    
+    private let maxInputLength = Int(280)
     private let bag = DisposeBag()
     
     override func awakeFromNib() {
@@ -41,6 +43,7 @@ class ReportFooterView: XibLoadableView {
         collectionView.register(nibWithCellClass: ReportImageCell.self)
         
         images.append(placeholderItem)
+        textView.textContainerInset = UIEdgeInsets(top: 16, left: 12, bottom: 39, right: 12)
                 
 //        if Theme.currentMode == .dark {
 //            backgroundColor = UIColor.theme(.backgroundWhite)
@@ -102,6 +105,18 @@ class ReportFooterView: XibLoadableView {
 extension ReportFooterView: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
+//        countLabel.text =
+        countLabel.text = "\(textView.text.count ?? 0)/\(self.maxInputLength)"
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        guard let textFieldText = textView.text,
+              let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+            return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + text.count
+        return count <= maxInputLength
     }
 }
 

@@ -247,7 +247,6 @@ extension ViewController {
 
 extension ViewController {
     func showReportSheet() {
-        
         let vc = Social.ReportViewController()
         vc.showModal(in: self)
         vc.selectedReason = {[weak self] (reason) in

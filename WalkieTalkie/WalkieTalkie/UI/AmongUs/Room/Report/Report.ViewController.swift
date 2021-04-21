@@ -22,7 +22,7 @@ extension Report {
                     self?.navigationController?.popViewController()
                 })
                 .disposed(by: bag)
-            n.titleLabel.text = R.string.localizable.amongChatGroup()
+            n.titleLabel.text = viewModel.type.title
             return n
         }()
         
@@ -46,27 +46,27 @@ extension Report {
             }
         }
         
-        private let id: String
-        private let image: UIImage?
-        private let type: ReportType
+//        private let id: String
+//        private let image: UIImage?
+//        private let type: ReportType
         private let viewModel: ViewModel
         private var footerView: ReportFooterView!
         private var completionHandler: CallBack?
         
         static func showReport(on targetVC: UIViewController,
-                               id: String,
-                               image: UIImage?,
-                               type: ReportType, completionHandler: CallBack?) {
-            let controller = Report.ViewController(id: id, image: image, type: type)
+                               uid: String,
+                               type: ReportType,
+                               roomId: String,
+                               operate: Report.ReportOperate? = nil,
+                               completionHandler: CallBack?) {
+            let viewModel = ViewModel(uid, type: type, roomId: roomId, operate: operate)
+            let controller = Report.ViewController(viewModel: viewModel)
             controller.completionHandler = completionHandler
             targetVC.navigationController?.pushViewController(controller, animated: true)
         }
         
-        init(id: String, image: UIImage?, type: ReportType) {
-            self.id = id
-            self.image = image
-            self.type = type
-            self.viewModel = ViewModel(id, type: type)
+        init(viewModel: ViewModel) {
+            self.viewModel = viewModel
             super.init(nibName: nil, bundle: nil)
         }
         
@@ -77,7 +77,7 @@ extension Report {
         override func viewDidLoad() {
             super.viewDidLoad()
                         
-            title = type.title
+            title = viewModel.type.title
 //            navigationBackItemConfig(Theme.currentMode == .light)
             
             configureSubview()
@@ -226,14 +226,17 @@ extension Report.ViewController {
         }
         
         footerView = ReportFooterView(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 455))
-        footerView.append(image: image)
+//        footerView.append(image: image)
         
         tableView.tableHeaderView = ReportTableHeader(frame: CGRect(x: 0, y: 0, width: Frame.Screen.width, height: 56))
-        tableView.rx.backgroundColor.setTheme(by: .backgroundWhite).disposed(by: bag)
+//        tableView.rx.backgroundColor.setTheme(by: .mainBgColor).disposed(by: bag)
+        tableView.backgroundColor = .clear
         tableView.tableFooterView = footerView
+        tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(topLayoutGuide.snp.bottom)
+            make.top.equalTo(navView.snp.bottom)
             make.left.bottom.right.equalToSuperview()
         }
     }

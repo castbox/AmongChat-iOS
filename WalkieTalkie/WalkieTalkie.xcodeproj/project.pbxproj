@@ -247,6 +247,7 @@
 		FE7ED90625F20292009C608A /* room-emoji-bluegreen.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */; };
 		FE7ED90725F20292009C608A /* room-emoji-purple.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */; };
 		FE7ED90825F20292009C608A /* room-emoji-yellow.svga in Resources */ = {isa = PBXBuildFile; fileRef = FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */; };
+		FE7F2006262FD09E00852A91 /* Entity.Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE7F2005262FD09E00852A91 /* Entity.Report.swift */; };
 		FE80677D261C90C900207992 /* AmongGroupRoomTipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */; };
 		FE80678E261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE80678D261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift */; };
 		FE806792261DBBE800207992 /* SeatLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE806791261DBBE800207992 /* SeatLoadingView.swift */; };
@@ -670,6 +671,7 @@
 		FE7ED8FC25F20291009C608A /* room-emoji-bluegreen.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-bluegreen.svga"; sourceTree = "<group>"; };
 		FE7ED8FD25F20291009C608A /* room-emoji-purple.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-purple.svga"; sourceTree = "<group>"; };
 		FE7ED8FE25F20292009C608A /* room-emoji-yellow.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "room-emoji-yellow.svga"; sourceTree = "<group>"; };
+		FE7F2005262FD09E00852A91 /* Entity.Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.Report.swift; sourceTree = "<group>"; };
 		FE80677C261C90C900207992 /* AmongGroupRoomTipsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongGroupRoomTipsView.swift; sourceTree = "<group>"; };
 		FE80678D261DB1C900207992 /* AmongChat.GroupRoom.SeatRequestListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmongChat.GroupRoom.SeatRequestListController.swift; sourceTree = "<group>"; };
 		FE806791261DBBE800207992 /* SeatLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatLoadingView.swift; sourceTree = "<group>"; };
@@ -1373,6 +1375,7 @@
 				263F8ADE26156D7F00282F8F /* Entity.Group.swift */,
 				2BAB4F862596031600A1C8DC /* Entity.Profile.swift */,
 				FE9EF523258B0C07008C0BAD /* Entity.Room.swift */,
+				FE7F2005262FD09E00852A91 /* Entity.Report.swift */,
 			);
 			path = ApiManager;
 			sourceTree = "<group>";
@@ -1904,6 +1907,7 @@
 				BD754CB3258B955C00ECC177 /* AmongChat.CreateRoom.ViewModel.swift in Sources */,
 				FEAD54DE2449C74F006454F6 /* Modal.Cover.swift in Sources */,
 				FED7B607244EDEA500D94F97 /* Reachability.swift in Sources */,
+				FE7F2006262FD09E00852A91 /* Entity.Report.swift in Sources */,
 				BD67FF0E2571276400144477 /* AmongChat.Room.UserCell.swift in Sources */,
 				265FB7CB25B69C3A004987AB /* AmongChat.Login.MobileViewController.swift in Sources */,
 				FE2AF9F4244DCC0400763747 /* URI.Parse.swift in Sources */,

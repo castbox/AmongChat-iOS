@@ -20,14 +20,15 @@ class ReportCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        contentView.rx.backgroundColor
-            .setTheme(by: .backgroundWhite)
-            .disposed(by: bag)
+//        contentView.rx.backgroundColor
+//            .setTheme(by: .backgroundWhite)
+//            .disposed(by: bag)
+        contentView.backgroundColor = Theme.mainBgColor
         
     }
     
     func set(_ item: Entity.Report.Reason?, isSelected: Bool) {
-        nameLabel.text = item?.reason_text
+        nameLabel.text = item?.reasonText
         iconView.image = isSelected ? R.image.iconReportSelected() : R.image.iconReportNormal()
     }
     

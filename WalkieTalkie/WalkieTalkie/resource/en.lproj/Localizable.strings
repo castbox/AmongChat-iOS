@@ -468,7 +468,20 @@
 "report.success" = "Reported successfully";
 "report.failed" = "Report failed. Please try again";
 "report.comments" = "Comments";
+"report.comments.placeholder" = "Please describe the report";
 "report.upload.screenshots" = "Upload screenshots";
+"report.select.reason.title" = "Please select the reason for the report";
 "report.confirm" = "Confirm report";
 "mic.muted.tips" = "You have been muted because of a violation of Community Guidelines.";
+
+"admin.mute.mic.tips" = "Muted successfully";
+"admin.mute.im.tips" = "Banned the user from live chatting";
+"admin.unmute.mic.tips" = "Unmuted successfully";
+"admin.unmute.im.tips" = "Unbanned successfully";
+"admin.kick.tips" = "Kicked successfully";
 "message.disable.tips" = "You have been muted because of a violation of Community Guidelines.";
+
+"alert.admin.mute.im" = "Ban live chat";
+"alert.admin.mute.mic" = "Mute for everyone";
+"alert.admin.unmute.im" = "Unban live chat";
+"alert.admin.unmute.mic" = "Unmute for everyone";

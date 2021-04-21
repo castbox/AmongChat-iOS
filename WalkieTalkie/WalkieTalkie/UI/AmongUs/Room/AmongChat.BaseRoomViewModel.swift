@@ -50,6 +50,19 @@ extension AmongChat {
         //麦位声音动画
         let soundAnimationIndex = BehaviorRelay<Int?>(value: nil)
         
+        var isSuperAdmin: Bool = true
+        
+        var isAdmin: Bool = true
+        
+        var isSilentUser: Bool {
+            didSet {
+                bottomBarHideReplay.accept(isSilentUser)
+            }
+        }
+        
+        //hide if user is admin
+        let bottomBarHideReplay = BehaviorRelay<Bool>(value: false)
+        
         private var messageEventEmitter = PublishSubject<ChatRoomMessage>()
         private var messageListReloadTrigger = PublishSubject<()>()
         
@@ -77,7 +90,6 @@ extension AmongChat {
         //当前房间状态， 只有在 connected 时，才需要根据 rtc 状态来刷新直播间
         var state: ConnectState = .disconnected
         
-//        private var roomInfo: RTCJoinable
         //存储
         var seatDataSource: [AmongChat.Room.SeatItem] = [] {
             didSet {
@@ -87,9 +99,9 @@ extension AmongChat {
         
         let seatDataSourceReplay = BehaviorRelay<[AmongChat.Room.SeatItem]>(value: [])
         
-        let roomReplay: BehaviorRelay<RoomInfoable>
+        let roomReplay: BehaviorRelay<RoomDetailable>
         
-        private var roomInfo: RoomInfoable {
+        private var roomDetail: RoomDetailable {
             roomReplay.value
         }
         
@@ -101,20 +113,20 @@ extension AmongChat {
         
         var blockedUsers = [Entity.RoomUser]() {
             didSet {
-                update(roomInfo)
+                update(roomDetail)
             }
         }
         
         //登录用户主动 muted
         var mutedUser = Set<UInt>() {
             didSet {
-                update(roomInfo)
+                update(roomDetail)
             }
         }
         //其他用户自己 muted
         var otherMutedUser = Set<UInt>() {
             didSet {
-                update(roomInfo)
+                update(roomDetail)
             }
         }
         
@@ -167,15 +179,18 @@ extension AmongChat {
             debugPrint("[DEINIT-\(NSStringFromClass(type(of: self)))]")
         }
         
-        init(room: RoomInfoable, source: ParentPageSource?) {
+        init(room: RoomDetailable, source: ParentPageSource?) {
 //            if room.loginUserIsAdmin {
 //                Logger.Action.log(.admin_imp, categoryValue: room.topicId)
 //            }
             self.source = source
             roomReplay = BehaviorRelay(value: room)
-
-            
             blockedUsers = Defaults[\.blockedUsersV2Key]
+            
+            isAdmin = Settings.isMonitor
+            isSuperAdmin = Settings.isSuperAdmin
+            isSilentUser = Settings.isSilentUser
+            bottomBarHideReplay.accept(isSilentUser)
             
             setObservableSubject()
             addSystemMessage()
@@ -188,7 +203,7 @@ extension AmongChat {
         }
         
         func startImService() {
-            imViewModel = AmongChat.Room.IMViewModel(with: roomInfo.roomId)
+            imViewModel = AmongChat.Room.IMViewModel(with: roomDetail.roomId)
             
             imViewModel.roomMessagesObservable
                 .observeOn(MainScheduler.asyncInstance)
@@ -216,7 +231,7 @@ extension AmongChat {
         @discardableResult
         func join(completionBlock: ((Error?) -> Void)? = nil) -> Bool {
             state = .connecting
-            self.mManager.joinChannel(roomInfo) { [weak self] error in
+            self.mManager.joinChannel(roomDetail) { [weak self] error in
                 self?.state = .connected
                 mainQueueDispatchAsync {
                     HapticFeedback.Impact.success()
@@ -284,12 +299,13 @@ extension AmongChat {
         }
         
         func addSystemMessage() {
-            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(roomInfo.topicName), textColor: "FFFFFF", contentType: nil, msgType: .system)
+            let system = ChatRoom.SystemMessage(content: R.string.localizable.amongChatWelcomeMessage(roomDetail.topicName), textColor: "FFFFFF", contentType: nil, msgType: .system)
             addUIMessage(message: system)
         }
         
         func addJoinMessage() {
-            guard let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: roomInfo.loginUserSeatNo + 1) else {
+            guard !isSuperAdmin,
+                  let user = Settings.shared.amongChatUserProfile.value?.toRoomUser(with: roomDetail.loginUserSeatNo + 1) else {
                 return
             }
             let joinRoomMsg = ChatRoom.JoinRoomMessage(user: user, msgType: .joinRoom)
@@ -310,17 +326,16 @@ extension AmongChat {
             guard
                 let message = message?.trimmed,
                   !message.isEmpty,
-                  let user = roomInfo.userList.first(where: { $0.uid == Settings.loginUserId }) else {
+                  let user = roomDetail.userList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
             //检查是否 Im 被 mute
 //            guard <#condition#> else {
 //                <#statements#>
 //            }
-            addImMutedMessage(user: user)
             let textMessage = ChatRoom.TextMessage(content: message, user: user, msgType: .text)
             imViewModel.sendText(message: textMessage) { [weak self] in
-                Logger.Action.log(.group_send_message_success, categoryValue: self?.roomInfo.topicId)
+                Logger.Action.log(.group_send_message_success, categoryValue: self?.roomDetail.topicId)
             }
             //append
             addUIMessage(message: textMessage)
@@ -334,7 +349,7 @@ extension AmongChat {
         //send emoji message
         func sendEmoji(_ emoji: Entity.EmojiItem) {
             guard let resource = emoji.resource.randomElement(),
-                  let user = roomInfo.userList.first(where: { $0.uid == Settings.loginUserId }) else {
+                  let user = roomDetail.userList.first(where: { $0.uid == Settings.loginUserId }) else {
                 return
             }
             let emojiMessage = ChatRoom.EmojiMessage(
@@ -358,9 +373,9 @@ extension AmongChat {
                 if let prevItem = seatDataSource.safe(index) {
                     item = prevItem
                 } else {
-                    item = AmongChat.Room.SeatItem(roomInfo.roomId)
+                    item = AmongChat.Room.SeatItem(roomDetail.roomId)
                 }
-                item.user = roomInfo.userListMap[index]
+                item.user = roomDetail.userListMap[index]
                 dataSource.append(item)
 //                seatDataSource[index] = item
             }
@@ -458,14 +473,14 @@ extension AmongChat {
         }
         
         func roomBgImage() -> UIImage? {
-            return UIImage(named: "icon_room_bg_topicId_\(roomInfo.topicId)")
+            return UIImage(named: "icon_room_bg_topicId_\(roomDetail.topicId)")
         }
         
         func roomBgUrl() -> URL? {
             guard let setting = Settings.shared.globalSetting.value else {
                 return nil
             }
-            let topicId = roomInfo.topicId
+            let topicId = roomDetail.topicId
             return setting.roomBg.first(where: { $0.topicId == topicId })
                 .map { $0.bgUrl }
         }
@@ -531,7 +546,7 @@ extension AmongChat {
             return newUser
         }
         
-        func update(_ room: RoomInfoable) {
+        func update(_ room: RoomDetailable) {
             var newRoom = room
             let userList = newRoom.userList
 //            let blockedUsers = self.blockedUsers
@@ -573,7 +588,7 @@ extension AmongChat {
                 }
             } else if let message = crMessage as? ChatRoom.KickOutMessage,
                       message.user.uid == Settings.loginUserId,
-                      roomInfo.rtcType == .agora {
+                      roomDetail.rtcType == .agora {
                 //自己
                 endRoomHandler?(.kickout(message.opRole))
             } else if let message = crMessage as? ChatRoom.LeaveRoomMessage {
@@ -598,12 +613,12 @@ extension AmongChat {
         
         func delayToShowShareViewIfNeed() {
             //人数为1时的分享控制
-            if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), roomInfo.userList.count == 1,
+            if (canShowSinglePersonShareEvent || source?.isFromCreatePage == false), roomDetail.userList.count == 1,
                delayToShowShareView(event: .singlePerson, delay: 5) {
                 canShowSinglePersonShareEvent = false
             }
     //
-            if !didShowShareEvents.contains(.singlePerson), roomInfo.userList.count > 1 {
+            if !didShowShareEvents.contains(.singlePerson), roomDetail.userList.count > 1 {
                 canShowSinglePersonShareEvent = true
             }
         }
@@ -633,7 +648,10 @@ extension AmongChat {
 private extension AmongChat.BaseRoomViewModel {
     
     func shouldRefreshRoom(uid: UInt, isOnline: Bool) -> Bool {
-        let userList = roomInfo.userList
+        guard !isAdmin else {
+            return false
+        }
+        let userList = roomDetail.userList
         if isOnline, (!imViewModel.imIsReady || !userList.contains(where: { $0.uid.uInt == uid })) {
             return true
         }
@@ -711,7 +729,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
     }
     
     func onConnectionChangedTo(state: ConnectState, reason: RtcConnectionChangedReason) {
-        guard roomInfo.rtcType == .zego, state == .disconnected else {
+        guard roomDetail.rtcType == .zego, state == .disconnected else {
             return
         }
         switch reason {
@@ -741,7 +759,7 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
     }
     
     @objc func onUserStatusChanged(userId: UInt, muted: Bool) {
-        let userList = roomInfo.userList
+        let userList = roomDetail.userList
         if userList.contains(where: { $0.uid.uInt == userId }), muted {
             otherMutedUser.insert(userId)
         } else {
@@ -773,9 +791,9 @@ extension AmongChat.BaseRoomViewModel: ChatRoomDelegate {
     
     @objc func onAudioVolumeIndication(userId: UInt, volume: UInt) {
 //        cdPrint("userId: \(userId) volume: \(volume)")
-        if let user = roomInfo.userList.first(where: { $0.uid.uInt == userId }) {
+        if let user = roomDetail.userList.first(where: { $0.uid.uInt == userId }) {
             soundAnimationIndex.accept(user.seatNo - 1)
-        } else if let group = roomInfo as? Entity.Group,
+        } else if let group = roomDetail as? Entity.Group,
                   userId.int == group.uid {
             //-1 is host
             soundAnimationIndex.accept(-1)

@@ -18,22 +18,22 @@ extension AmongChat.Room {
     class ContainerController: WalkieTalkie.ViewController, GestureBackable {
         var isEnableScreenEdgeGesture: Bool = false
         
-        var room: Entity.Room!
+        var room: Entity.RoomInfo!
         var roomViewController: AmongChat.Room.ViewController?
         var broadcasterPictureURL: String?
         var broadcasterName: String?
         var enterRoomErrorHandler: (() -> Void)?
-        var previousRoomInfo: Entity.Room?
+        var previousRoomInfo: Entity.RoomInfo?
         
         var logSource: ParentPageSource?
         var removeLoadingHandler: CallBack? = nil
         
-        static func join(room: Entity.Room, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
+        static func join(room: Entity.RoomInfo, from controller: UIViewController, logSource: ParentPageSource? = nil, completionHandler: ((Error?) -> Void)? = nil) {
             controller.checkMicroPermission { [weak controller] in
                 guard let controller = controller else {
                     return
                 }
-                Logger.Action.log(.room_enter, categoryValue: room.topicId, logSource?.key)
+                Logger.Action.log(.room_enter, categoryValue: room.room.topicId, logSource?.key)
                 //show loading
 //                let viewModel = ViewModel.make(room, logSource)
 //                self.show(from: controller, with: viewModel)
@@ -48,7 +48,7 @@ extension AmongChat.Room {
         }
         
         // MARK: - init
-        init(with room: Entity.Room, logSource: ParentPageSource? = nil) {
+        init(with room: Entity.RoomInfo, logSource: ParentPageSource? = nil) {
             self.room = room
             self.logSource = logSource
 //            self.broadcasterPictureURL = roomInfo.broadcaster?.picture_url
@@ -87,7 +87,7 @@ extension AmongChat.Room {
                 roomViewController?.endAppearanceTransition()
                 roomViewController = nil
             }
-            let viewModel = ViewModel(room: room, source: logSource)
+            let viewModel = ViewModel(roomInfo: room, source: logSource)
             roomViewController = AmongChat.Room.ViewController(viewModel: viewModel)
             roomViewController?.showInnerJoinLoading = removeLoadingHandler == nil
 //            listenerViewController?.fromSource = fromSource

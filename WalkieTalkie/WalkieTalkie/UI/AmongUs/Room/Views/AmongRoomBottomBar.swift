@@ -54,7 +54,16 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var cancelKickHandler: CallBack?
     var kickSelectedHandler: (([Int]) -> Void)?
-    var room: RoomInfoable?
+    var room: RoomDetailable?
+    
+    var muteInfo: Entity.UserMuteInfo? {
+        didSet {
+            guard let info = muteInfo, info.isMute, isMicOn else {
+                return
+            }
+            switchMicState()
+        }
+    }
     private let bag = DisposeBag()
     
     var isMicOn: Bool = true {
@@ -104,7 +113,7 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
-    func update(_ room: RoomInfoable) {
+    func update(_ room: RoomDetailable) {
         self.room = room
         if room.isGroup {
             emojiButton.isHidden = true
@@ -140,7 +149,14 @@ class AmongRoomBottomBar: XibLoadableView {
     
     @IBAction func changeMicStateAction(_ sender: UIButton) {
         //检查是否为被管理员 mute
-        showMicDisabledTips()
+        if let info = muteInfo, info.isMute {
+            showMicDisabledTips()
+            return
+        }
+        switchMicState()
+    }
+    
+    func switchMicState() {
         self.isMicOn = !isMicOn
         changeMicStateHandler?(isMicOn)
     }

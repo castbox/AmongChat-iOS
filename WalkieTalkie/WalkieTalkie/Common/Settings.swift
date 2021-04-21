@@ -497,6 +497,20 @@ extension Settings {
         return shared.profilePage.value?.followData
     }
     
+    //巡警
+    static var isMonitor: Bool {
+        shared.profilePage.value?.profile?.isMonitor ?? false
+    }
+    
+    //超管
+    static var isSuperAdmin: Bool {
+        shared.profilePage.value?.profile?.isSuperAdmin ?? false
+    }
+    
+    static var isSilentUser: Bool {
+        isMonitor || isSuperAdmin
+    }
+    
     func fetchGlobalConfig() {
         _ = Request.amongchatProvider.rx.request(.globalSetting)
             .retry(2)

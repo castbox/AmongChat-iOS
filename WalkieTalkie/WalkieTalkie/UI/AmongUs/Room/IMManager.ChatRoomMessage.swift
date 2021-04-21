@@ -35,6 +35,8 @@ extension ChatRoom {
         case kickoutRoom = "AC:Chatroom:Kick"
         case system = "AC:Chatroom:SystemText"
         case emoji = "AC:Chatroom:Emoji"
+        case muteMic = "AC:Chatroom:Mute"
+        case muteIm = "AC:Chatroom:MuteIm"//  （文字）
         
         //group
         case groupJoinRoom = "AC:Chatroom:GroupLiveJoin"
@@ -172,6 +174,35 @@ extension ChatRoom {
             case hideDelaySec = "hide_delay_sec"
             case msgType = "message_type"
             case emojiType = "emoji_type"
+            case user
+        }
+    }
+    
+    struct MuteMicMessage: ChatRoomMessage {
+        
+        let roomId: String
+        let mute: Bool
+        let msgType: MessageType
+        let user: Entity.RoomUser
+        
+        private enum CodingKeys: String, CodingKey {
+            case roomId = "room_id"
+            case msgType = "message_type"
+            case mute
+            case user
+        }
+    }
+    
+    struct MuteImMessage: ChatRoomMessage {
+        let roomId: String
+        let mute: Bool
+        let msgType: MessageType
+        let user: Entity.RoomUser
+        
+        private enum CodingKeys: String, CodingKey {
+            case roomId = "room_id"
+            case msgType = "message_type"
+            case mute
             case user
         }
     }

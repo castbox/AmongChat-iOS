@@ -32,7 +32,7 @@
                         <rect key="frame" x="276" y="10" width="24" height="24"/>
                     </imageView>
                 </subviews>
-                <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="deviceRGB"/>
                 <constraints>
                     <constraint firstItem="08h-9I-jti" firstAttribute="leading" secondItem="qSr-qN-p5f" secondAttribute="trailing" constant="15" id="KIS-8m-IfL"/>
                     <constraint firstAttribute="trailing" secondItem="08h-9I-jti" secondAttribute="trailing" constant="20" id="WTm-fI-74f"/>
@@ -42,6 +42,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" red="0.070588235294117646" green="0.070588235294117646" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="iconView" destination="08h-9I-jti" id="Snd-aY-USw"/>
                 <outlet property="nameLabel" destination="qSr-qN-p5f" id="gwx-1o-WbB"/>

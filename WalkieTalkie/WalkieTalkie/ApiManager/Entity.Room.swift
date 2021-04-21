@@ -17,7 +17,7 @@ protocol RTCJoinable {
     var defaultRole: RtcUserRole { get }
 }
 
-protocol RoomInfoable: RTCJoinable {
+protocol RoomDetailable: RTCJoinable {
     var topicId: String { get set }
     var topicName: String { get }
     var topicType: AmongChat.Topic { get }
@@ -28,7 +28,7 @@ protocol RoomInfoable: RTCJoinable {
     var note: String? { get set }
 }
 
-extension RoomInfoable {
+extension RoomDetailable {
     var isGroup: Bool {
         return self is Entity.Group
     }
@@ -59,9 +59,25 @@ extension Entity {
         case asia = 2
         case europe = 3
     }
+    
+    struct RoomInfo: Codable {
+        let room: Room
+        let isSilent: Bool?
+        let muteInfo: UserMuteInfo?
+        
+        var isSilentValue: Bool {
+            isSilent ?? false
+        }
+        
+        enum CodingKeys: String, CodingKey {
+            case room
+            case isSilent = "is_silent"
+            case muteInfo = "mute_info"
+        }
+    }
 
     //房间类型
-    struct Room: Codable, RoomInfoable {
+    struct Room: Codable, RoomDetailable {
         
         enum RtcType: String, Codable {
             case agora
@@ -80,7 +96,9 @@ extension Entity {
         let rtcBitRate: Int?
         var coverUrl: String?
         //
-        var defaultRole: RtcUserRole = .broadcaster
+        var defaultRole: RtcUserRole {
+            Settings.isSilentUser ? .audience : .broadcaster
+        }
         
         var isValidAmongConfig: Bool {
             guard topicType == .amongus,

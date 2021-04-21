@@ -51,7 +51,7 @@ extension AmongChat.Room {
         private var isKeyboardVisible = false
         private var keyboardHiddenBlock: CallBack?
         
-        var switchLiveRoomHandler: ((Entity.Room) -> Void)?
+        var switchLiveRoomHandler: ((Entity.RoomInfo) -> Void)?
         //显示父视图 loading
         var showContainerLoading: ((Bool) -> Void)?
         var showInnerJoinLoading: Bool = false
@@ -174,12 +174,12 @@ extension AmongChat.Room.ViewController {
     
     @objc
     private func onCloseBtn() {
-        showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel()) { [weak self] in
+        showAmongAlert(title: R.string.localizable.amongChatLeaveRoomTipTitle(), message: nil, cancelTitle: R.string.localizable.toastCancel(), confirmAction:  { [weak self] in
             guard let `self` = self else { return }
             self.requestLeaveRoom { [weak self] in
                 self?.showRecommendUser()
             }
-        }
+        })
     }
     
     @objc
@@ -260,6 +260,7 @@ extension AmongChat.Room.ViewController {
         bottomBar = AmongRoomBottomBar()
         bottomBar.isMicOn = true
         bottomBar.update(room)
+        bottomBar.isHidden = viewModel.isAdmin
         
         nickNameInputView = AmongInputNickNameView()
         nickNameInputView.alpha = 0
@@ -480,12 +481,23 @@ extension AmongChat.Room.ViewController {
                 ()
             }
         }
+        
+        viewModel.bottomBarHideReplay
+            .bind(to: bottomBar.rx.isHidden)
+            .disposed(by: bag)
         //
         viewModel.addJoinMessage()
         
         viewModel.shareEventHandler = { [weak self] in
             self?.onShareBtn()
         }
+        
+        viewModel.muteInfoReplay
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] muteInfo in
+                self?.bottomBar.muteInfo = muteInfo
+            })
+            .disposed(by: bag)
         
         configView.updateEditTypeHandler = { [weak self] editType in
             self?.editType = editType
@@ -624,7 +636,7 @@ extension AmongChat.Room.ViewController {
         showContainerLoading?(true)
         viewModel.nextRoom { [weak self] room, errorMsg in
             if let room = room {
-                Logger.Action.log(.room_next_room_success, categoryValue: room.topicName)
+                Logger.Action.log(.room_next_room_success, categoryValue: room.room.topicName)
                 self?.switchLiveRoomHandler?(room)
             } else {
                 self?.showContainerLoading?(false)
@@ -649,11 +661,43 @@ extension AmongChat.Room.ViewController {
         case .unmute:
             viewModel.unmuteUser(user)
         case .report:
-            self.showReportSheet()
+            showReport(for: user, operate: nil)
         case .kick:
             requestKick([user.uid])
+        case .adminKick:
+            showReport(for: user, operate: .kick)
+        case .adminMuteIm:
+            showReport(for: user, operate: .muteIm)
+        case .adminUnmuteIm:
+            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+            viewModel.adminUnmuteIm(user: user.uid.string)
+                .subscribe { [weak self] result in
+                    removeBlock()
+                    self?.view.raft.autoShow(.text(Report.ReportOperate.unmuteIm.title))
+                } onError: { error in
+                    removeBlock()
+                }
+                .disposed(by: bag)
+        case .adminMuteMic:
+            showReport(for: user, operate: .mute)
+        case .adminUnmuteMic:
+            let removeBlock = self.view.raft.show(.loading, userInteractionEnabled: false)
+            viewModel.adminUnmuteMic(user: user.uid.string)
+                .subscribe { [weak self] result in
+                    removeBlock()
+                    self?.view.raft.autoShow(.text(Report.ReportOperate.unmute.title))
+                } onError: { error in
+                    removeBlock()
+                }
+                .disposed(by: bag)
         default:
             ()
+        }
+    }
+    
+    func showReport(for user: Entity.RoomUser, operate: Report.ReportOperate?) {
+        Report.ViewController.showReport(on: self, uid: user.uid.string, type: .user, roomId: room.roomId, operate: operate) { [weak self] in
+            self?.view.raft.autoShow(.text(operate?.title ?? R.string.localizable.reportSuccess()))
         }
     }
     

@@ -70,6 +70,12 @@ extension Verifiedable {
 
 extension Entity {
     struct UserProfile: Codable {
+        enum Role: Int {
+            case none = 0
+            case admin
+            case monitor
+        }
+        
         var uid: Int
         var googleAuthData: ThirdPartyAuthData?
         var appleAuthData: ThirdPartyAuthData?
@@ -99,9 +105,21 @@ extension Entity {
         var decoHatId: Int?
         var decoPetId: Int?
         var inGroup: Bool?
-        
-        //
         var followersCount: Int?
+
+        var role: Int?
+        
+        var roleType: Role {
+            Role(rawValue: role ?? 0) ?? .none
+        }
+        
+        var isSuperAdmin: Bool {
+            roleType == .admin
+        }
+        
+        var isMonitor: Bool {
+            roleType == .monitor
+        }
         
         func hostNickname(for topicType: AmongChat.Topic) -> String? {
             switch topicType {
@@ -159,6 +177,7 @@ extension Entity {
             case decoPetId = "deco_pet_id"
             case inGroup = "in_group"
             case followersCount = "followers_count"
+            case role
         }
     }
     

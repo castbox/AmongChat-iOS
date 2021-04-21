@@ -45,7 +45,7 @@ extension AmongChat.GroupRoom {
             cdPrint("AmongChat.GroupRoom.AudienceViewModel-Deinit")
         }
         
-        override func update(_ room: RoomInfoable) {
+        override func update(_ room: RoomDetailable) {
             super.update(room)
             //
             syncPhoneCallStateIfNeed()

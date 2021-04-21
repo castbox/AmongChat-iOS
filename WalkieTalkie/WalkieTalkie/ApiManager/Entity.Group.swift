@@ -126,7 +126,7 @@ extension Entity {
 //        let processed: Bool
 //    }
     
-    struct Group: Codable, RoomInfoable {
+    struct Group: Codable, RoomDetailable {
         var roomId: String {
             gid
         }
