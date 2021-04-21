@@ -15,7 +15,8 @@ class SnapChatSharePhotoView: XibLoadableView {
     @IBOutlet weak var avatarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var linkViewbottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelWidthConstraint: NSLayoutConstraint!
-
+    @IBOutlet weak var clickImageView: UIImageView!
+    
     init(image: UIImage?) {
         super.init(frame: Frame.Screen.bounds)
         avatarView.image = image ?? R.image.ac_profile_avatar()

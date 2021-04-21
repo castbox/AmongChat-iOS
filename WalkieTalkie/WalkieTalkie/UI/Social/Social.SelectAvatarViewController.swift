@@ -312,7 +312,15 @@ extension Social.SelectAvatarViewController {
                     completion()
                     if let _ = error as? RxError {
                         self?.view.raft.autoShow(.text(R.string.localizable.amongChatRewardVideoLoadFailed()), backColor: UIColor(hex6: 0x2E2E2E))
+                        Logger.Action.log(.profile_avatar_get_failed, category: .rewarded, "\(avatar.avatarId)", 1)
                     } else {
+                        if let msgErroor = error as? MsgError,
+                           msgErroor.code == 400 {
+                            //广告加载超时
+                            Logger.Action.log(.profile_avatar_get_failed, category: .rewarded, "\(avatar.avatarId)", 1)
+                        } else {
+                            Logger.Action.log(.profile_avatar_get_failed, category: .rewarded, "\(avatar.avatarId)", 2)
+                        }
                         self?.view.raft.autoShow(.text(error.localizedDescription), backColor: UIColor(hex6: 0x2E2E2E))
                     }
                 })

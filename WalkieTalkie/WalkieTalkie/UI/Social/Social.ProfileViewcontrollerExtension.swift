@@ -50,7 +50,6 @@ extension Social.ProfileViewController {
         
         private lazy var proBtn: UIButton = {
             let btn = UIButton(type: .custom)
-            btn.setImage(R.image.ac_pro_icon_22(), for: .normal)
             btn.setTitleColor(UIColor(hex6: 0xFFEC96), for: .normal)
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 14)
             btn.rx.tap.observeOn(MainScheduler.instance)
@@ -64,18 +63,24 @@ extension Social.ProfileViewController {
                 .subscribe(onNext: { (isPro) in
                     
                     if isPro {
+                        btn.setImage(R.image.ac_pro_icon_bg_40(), for: .normal)
                         btn.setTitle(nil, for: .normal)
+                        btn.backgroundColor = .clear
+                        btn.contentEdgeInsets = .zero
+                        btn.titleEdgeInsets = .zero
+                        btn.imageEdgeInsets = .zero
                     } else {
+                        btn.setImage(R.image.ac_pro_icon_22(), for: .normal)
                         btn.setTitle(R.string.localizable.profileUnlockPro(), for: .normal)
+                        btn.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.2)
+                        btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+                        btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
+                        btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
                     }
                     
                 })
                 .disposed(by: bag)
             btn.layer.cornerRadius = 20
-            btn.backgroundColor = UIColor(hex6: 0x000000, alpha: 0.2)
-            btn.contentEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-            btn.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: -2)
-            btn.imageEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 2)
             return btn
         }()
         
@@ -126,7 +131,7 @@ extension Social.ProfileViewController {
             btn.setTitle(R.string.localizable.amongChatProfileCustomize(), for: .normal)
             btn.setTitleColor(.black, for: .normal)
             btn.setBackgroundImage("#FFF000".color().image, for: .normal)
-            btn.cornerRadius = 18
+            btn.cornerRadius = 19
             btn.titleLabel?.font = R.font.nunitoExtraBold(size: 16)
             btn.rx.tap.observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self]() in
@@ -399,7 +404,7 @@ extension Social.ProfileViewController {
             customizeBtn.snp.makeConstraints { maker in
                 maker.trailing.equalTo(-20)
                 maker.bottom.equalTo(-20)
-                maker.height.equalTo(36)
+                maker.height.equalTo(38)
             }
             
             infoContainer.snp.makeConstraints { maker in
@@ -722,6 +727,192 @@ extension Social.ProfileViewController {
         func bind(_ game: Entity.UserGameSkill) {
             nameLabel.text = game.topicName.uppercased()
             statsIV.setImage(with: game.img)
+        }
+    }
+    
+}
+
+extension Social.ProfileViewController {
+    
+    class GroupAvatarView: UIView {
+        
+        private let bag = DisposeBag()
+        
+        private lazy var nameLabel: UILabel = {
+            let lb = UILabel()
+            lb.textColor = UIColor(hexString: "#FFFFFF")
+            lb.font = R.font.nunitoExtraBold(size: 14)
+            return lb
+        }()
+        
+        private lazy var coverIV: UIImageView = {
+            let i = UIImageView()
+            i.layer.cornerRadius = 12
+            i.clipsToBounds = true
+            i.contentMode = .scaleAspectFill
+            return i
+        }()
+        
+        lazy var gradientMusk: CAGradientLayer = {
+            let l = CAGradientLayer()
+            l.colors = [UIColor(hex6: 0x000000, alpha: 0).cgColor, UIColor(hex6: 0x000000, alpha: 0.16).cgColor, UIColor(hex6: 0x000000, alpha: 1).cgColor]
+            l.startPoint = CGPoint(x: 0.5, y: 0.5)
+            l.endPoint = CGPoint(x: 0.5, y: 1.22)
+            l.locations = [0, 0.2, 1]
+            l.cornerRadius = 12
+            l.opacity = 0.6
+            return l
+        }()
+        
+        private lazy var onlineStatusView: UIView = {
+            let v = UIView()
+            v.backgroundColor = UIColor(hex6: 0xFFFFFF)
+            v.layer.borderColor = UIColor(hex6: 0x121212).cgColor
+            v.layer.borderWidth = 2.5
+            v.layer.cornerRadius = 12
+            
+            let lb = UILabel()
+            lb.adjustsFontSizeToFitWidth = true
+            lb.font = R.font.nunitoExtraBold(size: 12)
+            lb.textColor = .black
+            lb.text = R.string.localizable.socialStatusOnline()
+            
+            let dot = UIView()
+            dot.backgroundColor = UIColor(hex6: 0x1FD300)
+            dot.layer.cornerRadius = 3.5
+            
+            v.addSubviews(views: dot, lb)
+            
+            dot.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.leading.equalTo(8)
+                maker.width.height.equalTo(7)
+            }
+            
+            lb.snp.makeConstraints { (maker) in
+                maker.centerY.equalToSuperview()
+                maker.edges.equalToSuperview().inset(UIEdgeInsets(top: 4, left: 17, bottom: 4, right: 8))
+                maker.height.equalTo(16)
+            }
+            
+            v.clipsToBounds = true
+            
+            return v
+        }()
+        
+        var tapHandler: (() -> Void)? = nil
+        
+        override init(frame: CGRect) {
+            super.init(frame: frame)
+            setUpLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            gradientMusk.frame = bounds
+        }
+        
+        private func setUpLayout() {
+            
+            addSubviews(views: coverIV, nameLabel, onlineStatusView)
+            
+            layer.insertSublayer(gradientMusk, above: coverIV.layer)
+            
+            coverIV.snp.makeConstraints { (maker) in
+                maker.edges.equalToSuperview()
+            }
+            
+            nameLabel.snp.makeConstraints { (maker) in
+                maker.leading.trailing.equalToSuperview().inset(7)
+                maker.bottom.equalTo(-4)
+            }
+            
+            onlineStatusView.snp.makeConstraints { (maker) in
+                maker.trailing.equalToSuperview().offset(2.5)
+                maker.top.equalTo(-10)
+                maker.width.equalTo(64)
+            }
+            
+            let tap = UITapGestureRecognizer()
+            addGestureRecognizer(tap)
+            tap.rx.event
+                .subscribe(onNext: { [weak self] (_) in
+                    self?.tapHandler?()
+                })
+                .disposed(by: bag)
+        }
+        
+        func bindData(_ group: Entity.Group, tapHandler: (() -> Void)? = nil) {
+            coverIV.setImage(with: group.cover.url)
+            nameLabel.text = group.name
+            self.tapHandler = tapHandler
+            #if DEBUG
+            onlineStatusView.isHidden = false
+            #else
+            onlineStatusView.isHidden = group.status == 0
+            #endif
+        }
+        
+    }
+        
+    class JoinedGroupsCell: UITableViewCell {
+        
+        class var groupViewWidth: CGFloat {
+            let width = ((Frame.Screen.width - 20 * 2 - 16 * 2) / 3).rounded(.towardZero)
+            return width
+        }
+        
+        private var groupViews = [GroupAvatarView]()
+        
+        override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            setupLayout()
+        }
+        
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        private func setupLayout() {
+            backgroundColor = .clear
+            selectionStyle = .none
+            contentView.backgroundColor = .clear
+            
+            contentView.snp.makeConstraints { (maker) in
+                maker.top.bottom.equalToSuperview().inset(12)
+                maker.leading.trailing.equalToSuperview().inset(20)
+            }
+        }
+        
+        func bind(_ groups: [Entity.Group], onGroupTapped: ((Entity.Group) -> Void)? = nil) {
+            
+            let groupAvatarViews = groups.map { (group) -> GroupAvatarView in
+                let g = GroupAvatarView()
+                g.bindData(group) {
+                    onGroupTapped?(group)
+                }
+                return g
+            }
+            
+            groupViews.forEach { (v) in
+                v.removeFromSuperview()
+            }
+            
+            groupViews = groupAvatarViews
+            
+            contentView.addSubviews(groupViews)
+            
+            for (idx, v) in groupViews.enumerated() {
+                v.snp.makeConstraints { (maker) in
+                    maker.width.height.equalTo(Self.groupViewWidth)
+                    maker.top.equalToSuperview()
+                    maker.leading.equalToSuperview().offset(idx.cgFloat * (Self.groupViewWidth + 16))
+                }
+            }
         }
     }
     

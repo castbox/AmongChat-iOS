@@ -25,14 +25,14 @@ class NoDataView: UIView {
         return lb
     }()
     
-    init(with message: String, image: UIImage? = nil) {
+    init(with message: String, image: UIImage? = nil, topEdge: CGFloat? = nil) {
         super.init(frame: CGRect.zero)
         icon.image = image ?? R.image.ac_among_no_data()
         addSubviews(views: icon, messageLabel)
         
         icon.snp.makeConstraints { (maker) in
-            maker.width.height.equalTo(120)
-            maker.top.equalTo(165.scalValue)
+            maker.width.height.greaterThanOrEqualTo(120)
+            maker.top.equalTo(topEdge ?? 165.scalValue)
             maker.centerX.equalToSuperview()
         }
         

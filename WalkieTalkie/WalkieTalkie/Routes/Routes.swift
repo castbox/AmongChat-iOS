@@ -32,6 +32,7 @@ final class Routes {
             URI.Search.self,
             URI.Avatars.self,
             URI.InviteUser.self,
+            URI.FansGroup.self,
             ]
         
         types.forEach { (type) in

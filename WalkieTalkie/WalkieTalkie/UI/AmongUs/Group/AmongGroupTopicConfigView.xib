@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Nunito-Black.ttf">
+            <string>Nunito-Black</string>
+        </array>
+        <array key="Nunito-ExtraBold.ttf">
+            <string>Nunito-ExtraBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AmongGroupTopicConfigView" customModule="WalkieTalkie" customModuleProvider="target">
+            <connections>
+                <outlet property="actionIcon" destination="gs6-XQ-5R8" id="46S-5f-xq9"/>
+                <outlet property="amongUsContainer" destination="rxn-lv-7ck" id="JI3-i7-a8w"/>
+                <outlet property="codeLabel" destination="Llb-Ev-uJf" id="chD-hw-7JM"/>
+                <outlet property="notesButton" destination="jIy-8v-dhh" id="iff-Up-SoN"/>
+                <outlet property="robloxContainer" destination="14b-Uq-Mqg" id="H3e-JU-JA8"/>
+                <outlet property="robloxLinkButton" destination="ReU-bS-7Fz" id="RaP-MY-e9x"/>
+                <outlet property="robloxLinkEditButton" destination="ZRh-fx-Jod" id="EgW-SR-iWv"/>
+                <outlet property="serviceLocationButton" destination="bDc-E0-7Ma" id="Nmu-p0-T6s"/>
+                <outlet property="setupButton" destination="ZkS-bx-s7a" id="gYw-sQ-Rqw"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jIy-8v-dhh" userLabel="notesButton">
+                    <rect key="frame" x="0.0" y="0.0" width="44" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="Hpy-B7-Uwz"/>
+                    </constraints>
+                    <state key="normal" image="ac_group_room_note"/>
+                    <connections>
+                        <action selector="notesButtonAction:" destination="-1" eventType="touchUpInside" id="1Vg-NK-MKs"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkS-bx-s7a">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                    <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="14"/>
+                    <state key="normal" title="Set up in-game code here">
+                        <color key="titleColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="xibLocKey" value="room.setup.in.game.code.title"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="setupButtonAction:" destination="-1" eventType="touchUpInside" id="osB-ya-Z2R"/>
+                    </connections>
+                </button>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14b-Uq-Mqg" userLabel="roblox">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReU-bS-7Fz">
+                            <rect key="frame" x="0.0" y="0.0" width="382" height="32"/>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="16"/>
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="robloxLinkTapAction:" destination="-1" eventType="touchUpInside" id="thK-yd-IhI"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRh-fx-Jod">
+                            <rect key="frame" x="382" y="0.0" width="32" height="32"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" image="ac_group_room_copy">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="0.0"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="robloxCopyAction:" destination="-1" eventType="touchUpInside" id="1UG-iv-bpR"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="ReU-bS-7Fz" firstAttribute="leading" secondItem="14b-Uq-Mqg" secondAttribute="leading" id="Af5-zE-Bb5"/>
+                        <constraint firstAttribute="bottom" secondItem="ZRh-fx-Jod" secondAttribute="bottom" id="DdU-7O-sM4"/>
+                        <constraint firstAttribute="bottom" secondItem="ReU-bS-7Fz" secondAttribute="bottom" id="Zfa-o7-0LY"/>
+                        <constraint firstAttribute="trailing" secondItem="ZRh-fx-Jod" secondAttribute="trailing" id="cEf-kQ-gS9"/>
+                        <constraint firstItem="ZRh-fx-Jod" firstAttribute="top" secondItem="14b-Uq-Mqg" secondAttribute="top" id="s87-gx-ihy"/>
+                        <constraint firstItem="ZRh-fx-Jod" firstAttribute="leading" secondItem="ReU-bS-7Fz" secondAttribute="trailing" id="vao-r9-4AH"/>
+                        <constraint firstItem="ReU-bS-7Fz" firstAttribute="top" secondItem="14b-Uq-Mqg" secondAttribute="top" id="xJd-1A-ef8"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxn-lv-7ck" userLabel="amongus">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="EAVTZF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Llb-Ev-uJf">
+                            <rect key="frame" x="0.0" y="1" width="85" height="30.5"/>
+                            <fontDescription key="fontDescription" name="Nunito-Black" family="Nunito" pointSize="22"/>
+                            <color key="textColor" red="1" green="0.94117647059999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gs6-XQ-5R8" userLabel="Action Icon">
+                            <rect key="frame" x="89" y="6" width="20" height="20"/>
+                            <gestureRecognizers/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="c9p-PA-4jl"/>
+                                <constraint firstAttribute="width" secondItem="gs6-XQ-5R8" secondAttribute="height" multiplier="1:1" id="f4s-La-tUw"/>
+                            </constraints>
+                        </imageView>
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bDc-E0-7Ma">
+                            <rect key="frame" x="121" y="4" width="45" height="24"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="24" id="YZG-hS-909"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Nunito-ExtraBold" family="Nunito" pointSize="10"/>
+                            <inset key="contentEdgeInsets" minX="6" minY="4" maxX="6" maxY="4"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <integer key="value" value="12"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstItem="bDc-E0-7Ma" firstAttribute="centerY" secondItem="rxn-lv-7ck" secondAttribute="centerY" id="FgM-yv-71g"/>
+                        <constraint firstItem="Llb-Ev-uJf" firstAttribute="leading" secondItem="rxn-lv-7ck" secondAttribute="leading" id="KK4-HG-mN7"/>
+                        <constraint firstItem="gs6-XQ-5R8" firstAttribute="leading" secondItem="Llb-Ev-uJf" secondAttribute="trailing" constant="4" id="Mf0-7z-SqD"/>
+                        <constraint firstItem="bDc-E0-7Ma" firstAttribute="centerY" secondItem="Llb-Ev-uJf" secondAttribute="centerY" id="Q2x-dr-9ZC"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="bDc-E0-7Ma" secondAttribute="trailing" id="S7f-NM-AkB"/>
+                        <constraint firstItem="bDc-E0-7Ma" firstAttribute="leading" secondItem="gs6-XQ-5R8" secondAttribute="trailing" constant="12" id="XDb-cy-Yxn"/>
+                        <constraint firstItem="gs6-XQ-5R8" firstAttribute="centerY" secondItem="Llb-Ev-uJf" secondAttribute="centerY" id="jxG-6o-jrq"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="BvH-ix-Rvj" appends="YES" id="pgC-Gy-yAk"/>
+                    </connections>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ZkS-bx-s7a" secondAttribute="trailing" id="5Z1-0W-Gog"/>
+                <constraint firstItem="rxn-lv-7ck" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DPZ-gu-ahK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="14b-Uq-Mqg" secondAttribute="bottom" id="EZc-sv-WYZ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rxn-lv-7ck" secondAttribute="trailing" id="Fqe-bf-1qu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jIy-8v-dhh" secondAttribute="bottom" id="MdN-KC-cRy"/>
+                <constraint firstItem="ZkS-bx-s7a" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Vfk-No-7Ta"/>
+                <constraint firstItem="rxn-lv-7ck" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="aim-Kb-yI9"/>
+                <constraint firstItem="jIy-8v-dhh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bCw-8v-dia"/>
+                <constraint firstItem="jIy-8v-dhh" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cwD-3a-C36"/>
+                <constraint firstAttribute="bottom" secondItem="rxn-lv-7ck" secondAttribute="bottom" id="dQn-Ip-94b"/>
+                <constraint firstItem="ZkS-bx-s7a" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="gyt-GM-ict"/>
+                <constraint firstItem="14b-Uq-Mqg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="jvU-Xw-zdZ"/>
+                <constraint firstItem="14b-Uq-Mqg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="kQ9-4L-f2W"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ZkS-bx-s7a" secondAttribute="bottom" id="qz1-hL-TXU"/>
+                <constraint firstAttribute="trailing" secondItem="14b-Uq-Mqg" secondAttribute="trailing" id="v4H-Y8-cdW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="139" y="-8"/>
+        </view>
+        <tapGestureRecognizer id="BvH-ix-Rvj">
+            <connections>
+                <action selector="amongUsContainerAction:" destination="-1" id="Uqn-fr-4eG"/>
+            </connections>
+        </tapGestureRecognizer>
+    </objects>
+    <resources>
+        <image name="ac_group_room_copy" width="20" height="20"/>
+        <image name="ac_group_room_note" width="24" height="24"/>
+    </resources>
+</document>

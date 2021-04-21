@@ -18,7 +18,7 @@ extension AmongChat.Home {
     class RelationViewModel {
         struct Item {
             enum Group: Int {
-                case vipRecruit
+                case fansGroup
                 case playing
                 case suggestContacts
                 case suggestStrangers
@@ -29,8 +29,6 @@ extension AmongChat.Home {
             
         }
         
-        private typealias IMManager = AmongChat.Room.IMManager
-        
         private let bag = DisposeBag()
         
         private let playingsRelay = BehaviorRelay<[PlayingViewModel]>(value: [])
@@ -40,8 +38,6 @@ extension AmongChat.Home {
         private let suggestContactRawRelay = BehaviorRelay<[Entity.ContactFriend]>(value: [])
         
         private let suggestContactViewModelsRelay = BehaviorRelay<[ContactViewModel]>(value: [])
-        
-        private let vipRecruitShouldShowRelay = BehaviorRelay<Bool>(value: vipRecruitShouldShow())
         
         private let imManager = IMManager.shared
         
@@ -54,18 +50,17 @@ extension AmongChat.Home {
         }
                 
         var dataSource: Observable<[Item]> {
-            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay, vipRecruitShouldShowRelay)
-                .map { playings, contacts, strangers, vipShouldShow in
-                    var array: [Item] = [Item(userLsit: playings, group: .playing)]
+            return Observable.combineLatest(playingsRelay, suggestContactViewModelsRelay, suggestStrangerRelay)
+                .map { playings, contacts, strangers in
+                    var array: [Item] = [
+                        Item(userLsit: [], group: .fansGroup),
+                        Item(userLsit: playings, group: .playing)
+                    ]
                     if !contacts.isEmpty {
                         array.append(Item(userLsit: contacts, group: .suggestContacts))
                     }
                     if !strangers.isEmpty {
                         array.append(Item(userLsit: strangers, group: .suggestStrangers))
-                    }
-                    
-                    if vipShouldShow {
-                        array.append(Item(userLsit: [], group: .vipRecruit))
                     }
                     
                     array.sort { $0.group.rawValue < $1.group.rawValue }
@@ -76,8 +71,8 @@ extension AmongChat.Home {
         
         init() {
             imManager.newPeerMessageObservable
-                .subscribe(onNext: { [weak self] message, sender in
-                    self?.handleIMMessage(message: message, sender: sender)
+                .subscribe(onNext: { [weak self] message in
+                    self?.handleIMMessage(message: message)
                 })
                 .disposed(by: bag)
             
@@ -119,19 +114,14 @@ extension AmongChat.Home {
 //            ]
         }
         
-        private let systemAgoraUid = Int(99999)
-        private let friendsInfoMessageType = "AC:PEER:FriendsInfo"
-        
-        private func handleIMMessage(message: AgoraRtmMessage, sender: String) {
+        private func handleIMMessage(message: PeerMessage) {
             
-            guard sender == "\(systemAgoraUid)" else {
-                return
-            }
+//            guard sender == "\(systemAgoraUid)" else {
+//                return
+//            }
             
-            guard message.type == .text,
-                  let json = message.text.jsonObject(),
-                  let friendInfo = JSONDecoder().mapTo(Entity.FriendUpdatingInfo.self, from: json),
-                  friendInfo.messageType == friendsInfoMessageType else {
+            guard message.msgType == .friendsInfo,
+                  let friendInfo = message as? Peer.FriendUpdatingInfo else {
                 return
             }
             
@@ -213,15 +203,6 @@ extension AmongChat.Home {
             refreshSuggestContactsList()
         }
         
-        private class func vipRecruitShouldShow() -> Bool {
-            return !Defaults[\.vipRecruitmentChecked]
-        }
-        
-        func checkVipRecruit() {
-            Defaults[\.vipRecruitmentChecked] = true
-            vipRecruitShouldShowRelay.accept(Self.vipRecruitShouldShow())
-        }
-        
     }
     
     class ContactViewModel: PlayingViewModel, Equatable {
@@ -245,7 +226,7 @@ extension AmongChat.Home {
     
     class PlayingViewModel {
         
-        private let playingModel: Entity.PlayingUser
+        let playingModel: Entity.PlayingUser
         
         init(with model: Entity.PlayingUser) {
             playingModel = model
@@ -269,10 +250,17 @@ extension AmongChat.Home {
                 return R.string.localizable.socialStatusOnline().lowercased()
             }
             
-            return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
+            if room.isGroup {
+                return R.string.localizable.amongChatGroupAddMemberInGroup()
+            } else {
+                return R.string.localizable.amongChatHomeFriendsInChannel(room.topicName)
+            }
         }
         
         var roomState: Entity.RoomPublicType? {
+            if playingModel.room?.isGroup ?? false {
+                return .public
+            }
             return playingModel.room?.state
         }
         
@@ -282,6 +270,10 @@ extension AmongChat.Home {
         
         var roomTopicId: String? {
             return playingModel.room?.topicId
+        }
+        
+        var groupId: String? {
+            return playingModel.room?.gid
         }
         
     }

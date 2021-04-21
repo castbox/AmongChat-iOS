@@ -87,6 +87,7 @@ extension Logger {
             case profile_avatar_clk
             case profile_avatar_get
             case profile_avatar_get_success
+            case profile_avatar_get_failed
             case profile_nikename_clk
             case profile_birthday_clk
             case profile_birthday_update_success
@@ -223,6 +224,47 @@ extension Logger {
             case gameskill_add_state_done
             case profile_other_game_state_item_clk
             case profile_game_state_detail_edit_clk
+            case attracking_request_imp
+            
+            //group
+            case profile_group_clk
+            case profile_other_group_clk
+            case group_list_imp
+            case group_list_clk
+            case group_list_tab_clk
+            case group_create_info_next
+            case group_create_add_topic_imp
+            case group_create_add_topic_clk
+            case group_add_members_imp
+            case group_add_members_clk
+            case group_enter
+            case group_apply_join_clk
+            case group_share_clk
+            case group_send_message_clk
+            case group_send_message_success
+            case group_mic_state
+            case group_user_profile_imp
+            case group_user_profile_clk
+            case group_amongus_code_set_done
+            case group_amongus_code_copy
+            case group_roblox_link_set_done
+            case group_roblox_link_copy
+            case group_notes_set_done
+            case group_leave_clk
+            case group_edit_nickname
+            case group_edit_nickname_success
+            case group_edit_clk
+            case group_audience_raise_hands_clk
+            case group_broadcaster_raise_hands_imp
+            case group_raise_hands_accept
+            case group_raise_hands_reject
+            case group_broadcaster_join_request_imp
+            case group_broadcaster_join_request_accept
+            case group_broadcaster_join_request_ignore
+            case group_member_list_imp
+            case group_cover_clk
+            case group_audience_drop_confirm
+            case group_info_clk
         }
         
         enum Category: String {

@@ -79,6 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = AdjustAnalytics.sharedInstance
         
         Settings.shared.startObserver()
+        Settings.shared.updateDefaultConfig()
         setupInitialView()
         
         IAP.prefetchProducts()
@@ -128,13 +129,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else if ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation]) {
             return true
         }
-        return FireLink.handle(dynamicLink: url) { [weak self] url in
+        let result = FireLink.handle(dynamicLink: url) { [weak self] url in
             cdPrint("handle dynamicLink url: \(String(describing: url))")
             guard let url = url else {
                 return
             }
             Routes.handle(url)
         }
+        guard !result else {
+            return true
+        }
+        return Routes.handle(url)
     }
 
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
@@ -145,14 +150,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             guard let url = userActivity.webpageURL else { return false }
             if url.scheme == Config.scheme  {
                 return Routes.handle(url)
-            } 
-            return FireLink.handle(dynamicLink: url) { [weak self] url in
+            }
+            
+            let result = FireLink.handle(dynamicLink: url) { [weak self] url in
                 cdPrint("url: \(String(describing: url))")
                 guard let url = url else {
                     return
                 }
                 Routes.handle(url)
             }
+            guard !result else {
+                return true
+            }
+            return Routes.handle(url)
         default:
             // not supported yet
             return false

@@ -49,7 +49,7 @@ class AmongRoomBottomBar: XibLoadableView {
     
     var cancelKickHandler: CallBack?
     var kickSelectedHandler: (([Int]) -> Void)?
-    var room: Entity.Room?
+    var room: RoomInfoable?
     
     var isMicOn: Bool = true {
         didSet {
@@ -61,6 +61,17 @@ class AmongRoomBottomBar: XibLoadableView {
                 micButton.setBackgroundImage("FB5858".color().image, for: .normal)
                 micButton.setTitle(R.string.localizable.roomUserListMuted(), for: .normal)
                 micButton.setImage(R.image.ac_icon_mic_off(), for: .normal)
+            }
+        }
+    }
+    
+    var isMicButtonHidden: Bool {
+        get { micButton.isHidden }
+        set {
+            micButton.isHidden = newValue
+            //hidden 同时 mic 为关闭状态
+            if !newValue, !isMicOn {
+                changeMicStateAction(self.micButton)
             }
         }
     }
@@ -87,9 +98,13 @@ class AmongRoomBottomBar: XibLoadableView {
         }
     }
     
-    func update(_ room: Entity.Room) {
+    func update(_ room: RoomInfoable) {
         self.room = room
-        emojiButton.isHidden = room.topicType != .chilling
+        if room.isGroup {
+            emojiButton.isHidden = true
+        } else {
+            emojiButton.isHidden = room.topicType != .chilling
+        }
         
     }
     

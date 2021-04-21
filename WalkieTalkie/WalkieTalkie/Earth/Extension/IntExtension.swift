@@ -168,3 +168,15 @@ extension Int {
     }
     
 }
+
+extension Int {
+    
+    var isSelfUid: Bool {
+        guard let loggedInProfile = Settings.shared.amongChatUserProfile.value else {
+            return false
+        }
+        
+        return self == loggedInProfile.uid
+    }
+    
+}

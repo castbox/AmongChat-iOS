@@ -19,6 +19,7 @@ extension UIScrollView {
         header.isAutomaticallyChangeAlpha = true
         header.lastUpdatedTimeLabel?.isHidden = true
         header.stateLabel?.textColor = .white
+        header.stateLabel?.font = R.font.nunitoExtraBold(size: 14)
         header.setTitle("loading...", for: MJRefreshState.refreshing)
         self.mj_header = header
     }

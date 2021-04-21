@@ -18,7 +18,7 @@ class AmongInputNickNameView: XibLoadableView {
     var inputResultHandler: ((String) -> Void)?
     var usedInRoom = true
     
-    func becomeFirstResponder(with room: Entity.Room? = nil) -> Bool {
+    func becomeFirstResponder(with room: RoomInfoable? = nil) -> Bool {
 
         if usedInRoom {
             switch room?.topicType {

@@ -154,9 +154,11 @@ extension UIViewController {
         
         let alertVC = AlertController(attributedTitle: titleAttr, attributedMessage: messageAttr, preferredStyle: .alert)
         let visualStyle = AlertVisualStyle(alertStyle: .alert)
+//        visualStyle.contentPadding = 
+//        visualStyle.verticalElementSpacing = 40
         visualStyle.backgroundColor = "#222222".color()
         visualStyle.actionViewSeparatorColor = UIColor.white.alpha(0.08)
-        //        visualStyle.but
+//        visualStyle.dimmingColor = UIColor.black.alpha(0.7)
         alertVC.visualStyle = visualStyle
         //        alertVC.contentView.backgroundColor = "222222".color()
         
@@ -169,6 +171,7 @@ extension UIViewController {
         alertVC.addAction(AlertAction(attributedTitle: confirmAttr, style: .normal) { _ in
             confirmAction?()
         })
+        alertVC.view.backgroundColor = UIColor.black.alpha(0.7)
         return alertVC
     }
 }

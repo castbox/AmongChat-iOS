@@ -97,7 +97,7 @@ extension AmongChat.Home {
         private var joinBtnDisposable: Disposable? = nil
         private var ignoreBtnDisposable: Disposable? = nil
         
-        private var room: Entity.FriendUpdatingInfo.Room? = nil
+        private var room: Peer.FriendUpdatingInfo.Room? = nil
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -191,11 +191,15 @@ extension AmongChat.Home {
             circleView.updateProgress(fromValue: 1, toValue: 0, animationDuration: 15)
         }
         
-        func updateContent(user: Entity.UserProfile, room: Entity.FriendUpdatingInfo.Room) {
+        func updateContent(user: Entity.UserProfile, room: Peer.FriendUpdatingInfo.Room) {
             self.room = room
             avatarIV.setImage(with: URL(string: user.pictureUrl), placeholder: R.image.ac_profile_avatar())
             nameLabel.attributedText = user.nameWithVerified(fontSize: 20)
-            msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
+            if room.isGroup {
+                msgLabel.text = R.string.localizable.amongChatGroupInvitationMsg(room.name)
+            } else {
+                msgLabel.text = R.string.localizable.amongChatChannelInvitationMsg(room.topicName.uppercased())
+            }
             startCountDown()
             Logger.Action.log(.invite_dialog_imp, categoryValue: room.topicId)
         }

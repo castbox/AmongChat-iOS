@@ -12,7 +12,7 @@ extension AmongChat.Home {
     
     class RelationsViewController: WalkieTalkie.ViewController {
         
-        private typealias VIPRecruitCell = AmongChat.Home.VIPRecruitCell
+        private typealias FansGroupBannerCell = AmongChat.Home.FansGroupBannerCell
         private typealias FriendCell = AmongChat.Home.FriendCell
         private typealias SuggestContactCell = AmongChat.Home.SuggestedContactCell
         private typealias SuggestionCell = AmongChat.Home.SuggestionCell
@@ -33,7 +33,7 @@ extension AmongChat.Home {
             layout.minimumLineSpacing = 0
             layout.sectionInset = UIEdgeInsets(top: 0, left: hInset, bottom: 0, right: hInset)
             let v = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            v.register(VIPRecruitCell.self, forCellWithReuseIdentifier: NSStringFromClass(VIPRecruitCell.self))
+            v.register(FansGroupBannerCell.self, forCellWithReuseIdentifier: NSStringFromClass(FansGroupBannerCell.self))
             v.register(FriendCell.self, forCellWithReuseIdentifier: NSStringFromClass(FriendCell.self))
             v.register(SuggestionCell.self, forCellWithReuseIdentifier: NSStringFromClass(SuggestionCell.self))
             v.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(SectionHeader.self))
@@ -186,7 +186,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
         let item = dataSource.safe(section)
         if item?.group == .suggestContacts {
             return item?.userLsit.isEmpty == false ? 1 : 0
-        } else if item?.group == .vipRecruit {
+        } else if item?.group == .fansGroup {
             return 1
         }
         return item?.userLsit.count ?? 0
@@ -201,7 +201,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FriendCell.self), for: indexPath)
             if let cell = cell as? FriendCell,
                let playing = dataSource.safe(indexPath.section)?.userLsit.safe(indexPath.item) {
-                cell.bind(viewModel: playing, onJoin: { [weak self] (roomId, topicId) in
+                cell.bind(viewModel: playing, onJoin: { [weak self] in
                     
                     guard let roomState = playing.roomState,
                           roomState == .public else {
@@ -209,7 +209,13 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
                         return
                     }
                     
-                    self?.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))
+                    if let gid = playing.groupId {
+                        self?.enter(group: gid, logSource: .init(.friends))
+                    } else if let roomId = playing.roomId,
+                              let topicId = playing.roomTopicId {
+                        self?.enterRoom(roomId: roomId, topicId: topicId, logSource: ParentPageSource(.friends), apiSource: ParentApiSource(.join_friend_room))
+                    }
+                    
                     Logger.Action.log(.home_friends_following_join, categoryValue: playing.roomTopicId)
                 }, onAvatarTap: { [weak self] in
                     let vc = Social.ProfileViewController(with: playing.uid)
@@ -252,22 +258,14 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDataSource {
             }
             return cell
             
-        case .vipRecruit:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(VIPRecruitCell.self), for: indexPath)
-            
-            if let cell = cell as? VIPRecruitCell {
-                cell.bind(goHandler: { [weak self] in
-                    guard AmongChat.Login.canDoLoginEvent(style: .applyVerify) else {
-                        return
-                    }
-                    self?.open(urlSting: "https://docs.google.com/forms/d/e/1FAIpQLSeTzpMgWikmqajPHbEBAstCdFVB4Xo1CjYDc29wj4zSJq99Kg/viewform")
-                    Logger.Action.log(.home_friends_apply_verified)
-                    self?.viewModel.checkVipRecruit()
-                }, ignoreHandler: { [weak self] in
-                    self?.viewModel.checkVipRecruit()
-                })
+        case .fansGroup:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(FansGroupBannerCell.self), for: indexPath)
+            if let cell = cell as? FansGroupBannerCell {
+                cell.tapHandler = { [weak self] in
+                    let vc = FansGroup.GroupsViewController()
+                    self?.navigationController?.pushViewController(vc)
+                }                
             }
-            
             return cell
         }
         
@@ -363,8 +361,8 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if dataSource.safe(indexPath.section)?.group == .suggestContacts {
             return CGSize(width: Frame.Screen.width, height: 104)
-        } else if dataSource.safe(indexPath.section)?.group == .vipRecruit {            
-            return VIPRecruitCell.size
+        } else if dataSource.safe(indexPath.section)?.group == .fansGroup {
+            return FansGroupBannerCell.size
         }
         return CGSize(width: Frame.Screen.width, height: 69)
 
@@ -394,7 +392,7 @@ extension AmongChat.Home.RelationsViewController: UICollectionViewDelegateFlowLa
         }
         
         switch item.group {
-        case .vipRecruit:
+        case .fansGroup:
             return CGSize(width: Frame.Screen.width, height: 0)
         case .playing:
             if item.userLsit.count > 0 {
